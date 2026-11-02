@@ -1,0 +1,26 @@
+{
+  "sourceVideo": "riverside-water-registered-v1.mp4",
+  "sourceMapRect": [
+    1056,
+    288,
+    480,
+    672
+  ],
+  "mask": "riverside-section-mask-v1.png",
+  "maskNonzeroPixels": 52409,
+  "outsideMaskMaxChannelDifference": 0,
+  "pierAndPostsMaskMax": 0,
+  "flashingLowerCornerMaskMax": 0,
+  "reedMotionCoverage": {
+    "mainReeds": {
+      "movingPixels": 4914,
+      "minimumMotionOpacity": 255
+    },
+    "bankReeds": {
+      "movingPixels": 1182,
+      "minimumMotionOpacity": 255
+    }
+  },
+  "scope": "Existing wide take, coherent below-pier reeds and river section. Water in this take remains mostly static.",
+  "creditsSpentThisPass": 0
+}

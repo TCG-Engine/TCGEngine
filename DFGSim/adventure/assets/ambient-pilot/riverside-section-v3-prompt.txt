@@ -1,0 +1,7 @@
+Create a seamless five-second ambient animation of this complete illustrated riverside section for a cartoon adventure game.
+
+Animate BOTH the turquoise river water AND ALL complete reed clusters together throughout the entire image, from the upper bank to the lower bank. Water ripples and the existing drawn highlights visibly flow along the river and around the pier posts and rocks. The reeds gently sway from their rooted bases in the same soft breeze, with natural overlapping motion. Keep the movement clearly noticeable at normal game-map size. Animate the whole riverside section, not only its bottom half. Maintain the existing simple flat cartoon palette, dark outlines and illustrated water style.
+
+The camera is absolutely locked. Every pier board, rope, wooden post, stone, shoreline edge, wall, path and palm trunk stays precisely in place. Reed roots remain anchored. Keep the existing layout and silhouettes consistent. Steady daylight and exposure: no flashing, pulsing brightness, sparkling particles, new objects, splashes, mist or photorealistic textures. No audio or text. Do not move scenery across the image boundary.
+
+The supplied first and last keyframes are identical. Return precisely to that scene at the end for a seamless loop, while keeping the water and reeds moving naturally throughout, with no frozen interval or abrupt reset.

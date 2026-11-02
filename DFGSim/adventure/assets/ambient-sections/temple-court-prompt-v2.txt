@@ -1,0 +1,7 @@
+Create a seamless five-second ambient animation of this complete illustrated temple court section for a warm cartoon adventure game.
+
+Animate all complete blue temple banners with a restrained shared breeze, with natural cloth folds rather than elastic stretching from fixed top attachments. Complete palm crowns and leafy shrubs gently sway from fixed trunks and roots. Keep the temple, sunlit walls, bull statues, steps, columns, pots, empty brazier bowls and paving precisely fixed. The empty bowls remain empty: no new fire, smoke, particles, characters or objects. Partial terrace scenery along the left edge and partial objects at the bottom remain stationary.
+
+Keep the established flat cartoon colors, dark drawn outlines, exact scene layout and steady daylight. Motion should be clearly noticeable at normal map scale across the coherent section. Camera absolutely locked: no zoom, pan, shake, reframing or parallax. No flashing or global brightness pulsing. No text, audio or photorealistic textures.
+
+The supplied first and last keyframes are identical. Return precisely to the supplied scene for a seamless loop, with continuous natural movement and no frozen interval or abrupt reset.

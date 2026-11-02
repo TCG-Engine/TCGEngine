@@ -1,0 +1,66 @@
+{
+  "model": "eleven_text_to_sound_v3",
+  "distinctFiles": 12,
+  "files": [
+    {
+      "file": "commit-r3-take-1.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "32f22dc4de5f16f66239ef6f2949083cdba9d191bb6bb98fec0431781b559b64"
+    },
+    {
+      "file": "commit-r3-take-2.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "ecce9baa1a9f8eefccf91a16c6a2e55630978741accf3922f708eab33eb0b743"
+    },
+    {
+      "file": "commit-r3-take-3.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "351bd78eebe08d13a1597e9f50f7a6919c298b9c1996fd977db979ca118a7c25"
+    },
+    {
+      "file": "commit-r3-take-4.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "7b20e71d080a84e7f5fa45e8701f089533b3c2c15f7362041f97d974e01a6321"
+    },
+    {
+      "file": "burn-bonus-r3-take-1.mp3",
+      "durationSeconds": 0.680249,
+      "sha256": "65b2a7f04a124f3b101a01c89705ce82da9a9567c298baa167bdfd523ee6e924"
+    },
+    {
+      "file": "burn-bonus-r3-take-2.mp3",
+      "durationSeconds": 0.680249,
+      "sha256": "bf1eb77b39c3bd5ad5b950f35c4a15a5970c6fef68ea583221f3a2c0addcaa8d"
+    },
+    {
+      "file": "burn-bonus-r3-take-3.mp3",
+      "durationSeconds": 0.680249,
+      "sha256": "69a4f5881f2c4195116652e9225f3ac06d0f034f2d039320b1547bec5e2579bd"
+    },
+    {
+      "file": "burn-bonus-r3-take-4.mp3",
+      "durationSeconds": 0.680249,
+      "sha256": "b7f300e34f98318745e9caf1fdf28e8acd4d841ce732434873ce06c1b09aaf52"
+    },
+    {
+      "file": "confirm-mark-r3-take-1.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "56c91126d6ea081391147ed728dc0f3f4b3d7a79ee2fbd92fc5e16adba3aac80"
+    },
+    {
+      "file": "confirm-mark-r3-take-2.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "3e6b92d31a7982ae1bfe8810cf61301168cbf773ddd7f8766bbe3ae8c9116520"
+    },
+    {
+      "file": "confirm-mark-r3-take-3.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "8c4edb3ccf9659953cec356dd98b6accd16989de19b674a813d8b96e9cdb931d"
+    },
+    {
+      "file": "confirm-mark-r3-take-4.mp3",
+      "durationSeconds": 1.0,
+      "sha256": "9af89c5af27538aef89b4940f91874fb6afc43ce849c5d0d6c194c1bfebc02d5"
+    }
+  ]
+}

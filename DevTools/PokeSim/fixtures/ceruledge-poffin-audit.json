@@ -1,0 +1,925 @@
+{
+    "policy": "26fc8cf067c4398e",
+    "seedRange": [
+        160001,
+        160050
+    ],
+    "summary": {
+        "games": 200,
+        "uses": 66,
+        "zero": 1,
+        "one": 17,
+        "two": 48,
+        "char": 100,
+        "rotom": 13,
+        "rotomWithRotomAlreadyHeldOrInPlay": 0,
+        "thirdCharLine": 21,
+        "rotomInsteadOfAvailableSecondChar": 9
+    },
+    "searches": [
+        {
+            "seed": 160002,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160004,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 3,
+            "lines": 1,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160006,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 2,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160006,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 2,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160007,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160007,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160008,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 3,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 1,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160010,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160010,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160011,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "sv07-118",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160011,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "sv07-118",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160012,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160018,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160021,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 2,
+            "lines": 1,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160021,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160026,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 2,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160027,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "sv07-118"
+            ]
+        },
+        {
+            "seed": 160027,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "sv07-118"
+            ]
+        },
+        {
+            "seed": 160031,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "sv07-118",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160031,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "sv07-118",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160037,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 3,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 2,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160038,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 2,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160041,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160041,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160042,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160043,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 2,
+            "lines": 1,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160045,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 2,
+            "lines": 1,
+            "fieldRotom": 1,
+            "handRotom": 1,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160048,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "sv07-118"
+            ]
+        },
+        {
+            "seed": 160048,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "sv07-118"
+            ]
+        },
+        {
+            "seed": 160049,
+            "first": 1,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160049,
+            "first": 2,
+            "opponent": "brisbane-lopunny",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160001,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 3,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160002,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 2,
+            "lines": 1,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160004,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160004,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160005,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "sv07-118",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160005,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "sv07-118",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160006,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 2,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160006,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 2,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160007,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160007,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160010,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160010,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160011,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 2,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160011,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160021,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "sv07-118"
+            ]
+        },
+        {
+            "seed": 160021,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "sv07-118"
+            ]
+        },
+        {
+            "seed": 160024,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 3,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160026,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 2,
+            "selected": [
+                "sv07-118",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160026,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 5,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160027,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160028,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160032,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160034,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160034,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 2,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 2,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160038,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 3,
+            "lines": 1,
+            "fieldRotom": 2,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160039,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 3,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160040,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 3,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160043,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 2,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 3,
+            "availableChar": 3,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160044,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 5,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 1,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160046,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 5,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 0,
+            "selected": []
+        },
+        {
+            "seed": 160046,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160047,
+            "first": 1,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 2,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160048,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 0,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160049,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 1,
+            "lines": 0,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 4,
+            "selected": [
+                "me02-019",
+                "me02-019"
+            ]
+        },
+        {
+            "seed": 160050,
+            "first": 2,
+            "opponent": "dhelmise-v2",
+            "turn": 4,
+            "lines": 1,
+            "fieldRotom": 1,
+            "handRotom": 0,
+            "availableChar": 1,
+            "selected": [
+                "me02-019"
+            ]
+        }
+    ]
+}

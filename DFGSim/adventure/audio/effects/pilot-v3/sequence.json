@@ -1,0 +1,90 @@
+{
+  "duration": 7.7,
+  "events": [
+    {
+      "id": "card-motion",
+      "at": 0.35,
+      "gain": 0.7
+    },
+    {
+      "id": "card-land",
+      "at": 0.64,
+      "gain": 0.7
+    },
+    {
+      "id": "card-motion",
+      "at": 0.85,
+      "gain": 0.7
+    },
+    {
+      "id": "card-land",
+      "at": 1.14,
+      "gain": 0.7
+    },
+    {
+      "id": "reveal",
+      "at": 1.4,
+      "gain": 0.8
+    },
+    {
+      "id": "burn",
+      "at": 1.95,
+      "gain": 0.55
+    },
+    {
+      "id": "hit-contact",
+      "at": 2.5,
+      "gain": 0.85
+    },
+    {
+      "id": "hit-body",
+      "at": 2.512,
+      "gain": 1.1
+    },
+    {
+      "id": "card-motion",
+      "at": 4.05,
+      "gain": 0.7
+    },
+    {
+      "id": "card-land",
+      "at": 4.34,
+      "gain": 0.7
+    },
+    {
+      "id": "card-motion",
+      "at": 4.55,
+      "gain": 0.7
+    },
+    {
+      "id": "card-land",
+      "at": 4.84,
+      "gain": 0.7
+    },
+    {
+      "id": "reveal",
+      "at": 5.1,
+      "gain": 0.8
+    },
+    {
+      "id": "block",
+      "at": 6.0,
+      "gain": 1.0
+    }
+  ],
+  "visual": {
+    "firstCards": [
+      0.35,
+      0.85
+    ],
+    "firstReveal": 1.4,
+    "burn": 1.95,
+    "hit": 2.5,
+    "secondCards": [
+      4.05,
+      4.55
+    ],
+    "secondReveal": 5.1,
+    "block": 6
+  }
+}

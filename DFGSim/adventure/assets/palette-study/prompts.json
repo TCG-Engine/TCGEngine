@@ -1,0 +1,43 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "Study only; live signature art unchanged",
+  "layout": "2 columns, 2 rows; top A, bottom B; left/right colors as described",
+  "studies": [
+    {
+      "key": "warm",
+      "refs": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/cards/individual/001-v4.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/cards/individual/010-v5.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/techniques/1000-canal-jab-v1.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/techniques/1011-storm-talon-v1.webp"
+      ],
+      "subjects": "LEFT COLUMN: Iddin's Canal Jab from input3, CRIMSON RED palette. RIGHT COLUMN: Imdugud's Storm Talon from input4, BURNT ORANGE palette.",
+      "accents": "Left: two slender pale cyan streaks following the jab. Right: two slender icy-blue talon motion streaks.",
+      "prompt": "Use case: style-transfer. Create a FOUR-PANEL art direction comparison sheet, exact 2 equal columns and 2 equal rows, edge-to-edge tile artwork with NO gutters, NO borders, NO text. Overall aspect ratio 3:2, each tile landscape3:2. Inputs1/2: STYLE references for left/right column respectively, angular textured painterly martial arts card art, strong tonal light/shadow structure. Inputs3/4: EDIT TARGETS for left/right column respectively. Preserve targets' champion identity, recognizable animal anatomy/facial features, costume shape, action pose, silhouette and framing. Repaint surfaces and outlines to match angular brushwork and tonal texture of style references. Keep recognizable faces, unlike reference's faceless humans. Scenery simplifies into subdued textured tonal suggestions of original location. No photorealism or thick black cartoon outlines. LEFT COLUMN: Iddin's Canal Jab from input3, CRIMSON RED palette. RIGHT COLUMN: Imdugud's Storm Talon from input4, BURNT ORANGE palette. TOP ROW = A, STRICT CARD PALETTE: ALL character, costume, scene and effects use only assigned hue's dark/mid/light tones; no natural skin/fur/clothing colors. BOTTOM ROW = B, RESTRAINED SIGNATURE ACCENT: repeat the SAME scene, pose, framing and brushwork as top row, keep at least95% of area in SAME card-color family, add ONLY a few contrasting streaks at action focal point. Left: two slender pale cyan streaks following the jab. Right: two slender icy-blue talon motion streaks. Accent is localized thin brushstroke, not full aura, not character recoloring, not different background. Ensure top and bottom are near-identical compositions so ONLY accent difference is tested. No labels, logos, frames, text or additional characters."
+    },
+    {
+      "key": "earth",
+      "refs": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/cards/individual/014-v4.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/cards/individual/020-v5.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/techniques/1002-reed-step-v1.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/techniques/1023-sevenfold-guard-v1.webp"
+      ],
+      "subjects": "LEFT COLUMN: Iddin's Reed Step from input3, GOLDEN YELLOW palette, not orange. RIGHT COLUMN: Huwawa's Sevenfold Guard from input4, LEAF AND FOREST GREEN palette.",
+      "accents": "Left: two small teal streaks by the stepping foot. Right: two thin amber-gold arcs in the guard rings.",
+      "prompt": "Use case: style-transfer. Create a FOUR-PANEL art direction comparison sheet, exact 2 equal columns and 2 equal rows, edge-to-edge tile artwork with NO gutters, NO borders, NO text. Overall aspect ratio 3:2, each tile landscape3:2. Inputs1/2: STYLE references for left/right column respectively, angular textured painterly martial arts card art, strong tonal light/shadow structure. Inputs3/4: EDIT TARGETS for left/right column respectively. Preserve targets' champion identity, recognizable animal anatomy/facial features, costume shape, action pose, silhouette and framing. Repaint surfaces and outlines to match angular brushwork and tonal texture of style references. Keep recognizable faces, unlike reference's faceless humans. Scenery simplifies into subdued textured tonal suggestions of original location. No photorealism or thick black cartoon outlines. LEFT COLUMN: Iddin's Reed Step from input3, GOLDEN YELLOW palette, not orange. RIGHT COLUMN: Huwawa's Sevenfold Guard from input4, LEAF AND FOREST GREEN palette. TOP ROW = A, STRICT CARD PALETTE: ALL character, costume, scene and effects use only assigned hue's dark/mid/light tones; no natural skin/fur/clothing colors. BOTTOM ROW = B, RESTRAINED SIGNATURE ACCENT: repeat the SAME scene, pose, framing and brushwork as top row, keep at least95% of area in SAME card-color family, add ONLY a few contrasting streaks at action focal point. Left: two small teal streaks by the stepping foot. Right: two thin amber-gold arcs in the guard rings. Accent is localized thin brushstroke, not full aura, not character recoloring, not different background. Ensure top and bottom are near-identical compositions so ONLY accent difference is tested. No labels, logos, frames, text or additional characters."
+    },
+    {
+      "key": "celestial",
+      "refs": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/cards/individual/028-v4.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/cards/individual/031-v4.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/techniques/1034-skyward-guard-v1.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/techniques/1035-horizon-charge-v1.webp"
+      ],
+      "subjects": "LEFT COLUMN: Bull of Heaven's Skyward Guard from input3, COBALT BLUE palette. RIGHT COLUMN: Bull of Heaven's Horizon Charge from input4, VIOLET PURPLE palette.",
+      "accents": "Left: two thin warm gold glints at the raised blocking hand. Right: two slender gold motion streaks following the charging fist.",
+      "prompt": "Use case: style-transfer. Create a FOUR-PANEL art direction comparison sheet, exact 2 equal columns and 2 equal rows, edge-to-edge tile artwork with NO gutters, NO borders, NO text. Overall aspect ratio 3:2, each tile landscape3:2. Inputs1/2: STYLE references for left/right column respectively, angular textured painterly martial arts card art, strong tonal light/shadow structure. Inputs3/4: EDIT TARGETS for left/right column respectively. Preserve targets' champion identity, recognizable animal anatomy/facial features, costume shape, action pose, silhouette and framing. Repaint surfaces and outlines to match angular brushwork and tonal texture of style references. Keep recognizable faces, unlike reference's faceless humans. Scenery simplifies into subdued textured tonal suggestions of original location. No photorealism or thick black cartoon outlines. LEFT COLUMN: Bull of Heaven's Skyward Guard from input3, COBALT BLUE palette. RIGHT COLUMN: Bull of Heaven's Horizon Charge from input4, VIOLET PURPLE palette. TOP ROW = A, STRICT CARD PALETTE: ALL character, costume, scene and effects use only assigned hue's dark/mid/light tones; no natural skin/fur/clothing colors. BOTTOM ROW = B, RESTRAINED SIGNATURE ACCENT: repeat the SAME scene, pose, framing and brushwork as top row, keep at least95% of area in SAME card-color family, add ONLY a few contrasting streaks at action focal point. Left: two thin warm gold glints at the raised blocking hand. Right: two slender gold motion streaks following the charging fist. Accent is localized thin brushstroke, not full aura, not character recoloring, not different background. Ensure top and bottom are near-identical compositions so ONLY accent difference is tested. No labels, logos, frames, text or additional characters."
+    }
+  ]
+}

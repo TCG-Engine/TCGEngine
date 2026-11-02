@@ -1,0 +1,385 @@
+{
+    "baseline": "22 Fire \/ four Lillie \/ one Boss \/ two Firebreather \/ four Fan Rotom \/ Brilliant Blender",
+    "seeds": [
+        100001,
+        100100
+    ],
+    "gamesPerList": 400,
+    "totalGames": 1200,
+    "policy": "a1290580183e9bea",
+    "notes": [
+        "Both starting orders against Lopunny and Dhelmise, 200 games per matchup per list.",
+        "Readiness and Blender-access rates count all games, including early losses.",
+        "Petrel-specific policy only; original baseline search ranks preserved.",
+        "Petrel-found-Blender counts cover the first five player turns.",
+        "Paired 95% intervals are approximate and unadjusted for multiple comparisons."
+    ],
+    "variants": {
+        "baseline": {
+            "changes": [],
+            "games": 400,
+            "completed": 400,
+            "wins": 223,
+            "by2ExAttack": 220,
+            "by4Ready330": 115,
+            "by5Ready330": 187,
+            "blenderBy2": 102,
+            "blenderBy4": 179,
+            "petrelFoundBlender": 0,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "completed": 200,
+                    "wins": 139,
+                    "by2ExAttack": 116,
+                    "by4Ready330": 57,
+                    "by5Ready330": 86,
+                    "blenderBy2": 46,
+                    "blenderBy4": 83,
+                    "petrelFoundBlender": 0,
+                    "turns": {
+                        "1": {
+                            "reached": 200,
+                            "avgDiscard": 3.11,
+                            "avgDamage": 7.9
+                        },
+                        "2": {
+                            "reached": 184,
+                            "avgDiscard": 6.1,
+                            "avgDamage": 107.8
+                        },
+                        "3": {
+                            "reached": 172,
+                            "avgDiscard": 9.12,
+                            "avgDamage": 178.6
+                        },
+                        "4": {
+                            "reached": 163,
+                            "avgDiscard": 12.65,
+                            "avgDamage": 247.9
+                        },
+                        "5": {
+                            "reached": 142,
+                            "avgDiscard": 14.61,
+                            "avgDamage": 293.2
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "completed": 200,
+                    "wins": 84,
+                    "by2ExAttack": 104,
+                    "by4Ready330": 58,
+                    "by5Ready330": 101,
+                    "blenderBy2": 56,
+                    "blenderBy4": 96,
+                    "petrelFoundBlender": 0,
+                    "turns": {
+                        "1": {
+                            "reached": 200,
+                            "avgDiscard": 3.68,
+                            "avgDamage": 7.2
+                        },
+                        "2": {
+                            "reached": 170,
+                            "avgDiscard": 7.19,
+                            "avgDamage": 119.1
+                        },
+                        "3": {
+                            "reached": 154,
+                            "avgDiscard": 10.29,
+                            "avgDamage": 210.5
+                        },
+                        "4": {
+                            "reached": 138,
+                            "avgDiscard": 13.86,
+                            "avgDamage": 280.4
+                        },
+                        "5": {
+                            "reached": 127,
+                            "avgDiscard": 16.39,
+                            "avgDamage": 361
+                        }
+                    }
+                }
+            },
+            "pairedDeltasVsBaseline": {
+                "won": {
+                    "percentagePoints": 0,
+                    "approximate95Interval": [
+                        0,
+                        0
+                    ]
+                },
+                "blenderBy4": {
+                    "percentagePoints": 0,
+                    "approximate95Interval": [
+                        0,
+                        0
+                    ]
+                },
+                "by4Ready330": {
+                    "percentagePoints": 0,
+                    "approximate95Interval": [
+                        0,
+                        0
+                    ]
+                },
+                "by5Ready330": {
+                    "percentagePoints": 0,
+                    "approximate95Interval": [
+                        0,
+                        0
+                    ]
+                }
+            }
+        },
+        "fire-to-petrel": {
+            "changes": {
+                "mee-002": -1,
+                "me02.5-207": 1
+            },
+            "games": 400,
+            "completed": 400,
+            "wins": 242,
+            "by2ExAttack": 211,
+            "by4Ready330": 109,
+            "by5Ready330": 185,
+            "blenderBy2": 145,
+            "blenderBy4": 237,
+            "petrelFoundBlender": 92,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "completed": 200,
+                    "wins": 148,
+                    "by2ExAttack": 104,
+                    "by4Ready330": 47,
+                    "by5Ready330": 94,
+                    "blenderBy2": 66,
+                    "blenderBy4": 114,
+                    "petrelFoundBlender": 46,
+                    "turns": {
+                        "1": {
+                            "reached": 200,
+                            "avgDiscard": 3.29,
+                            "avgDamage": 7
+                        },
+                        "2": {
+                            "reached": 181,
+                            "avgDiscard": 6.22,
+                            "avgDamage": 96.4
+                        },
+                        "3": {
+                            "reached": 168,
+                            "avgDiscard": 9.89,
+                            "avgDamage": 192.4
+                        },
+                        "4": {
+                            "reached": 158,
+                            "avgDiscard": 12.63,
+                            "avgDamage": 255.4
+                        },
+                        "5": {
+                            "reached": 143,
+                            "avgDiscard": 14.79,
+                            "avgDamage": 306.4
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "completed": 200,
+                    "wins": 94,
+                    "by2ExAttack": 107,
+                    "by4Ready330": 62,
+                    "by5Ready330": 91,
+                    "blenderBy2": 79,
+                    "blenderBy4": 123,
+                    "petrelFoundBlender": 46,
+                    "turns": {
+                        "1": {
+                            "reached": 200,
+                            "avgDiscard": 3.78,
+                            "avgDamage": 6.7
+                        },
+                        "2": {
+                            "reached": 176,
+                            "avgDiscard": 7.16,
+                            "avgDamage": 121.3
+                        },
+                        "3": {
+                            "reached": 150,
+                            "avgDiscard": 10.23,
+                            "avgDamage": 205.8
+                        },
+                        "4": {
+                            "reached": 133,
+                            "avgDiscard": 13.64,
+                            "avgDamage": 276.8
+                        },
+                        "5": {
+                            "reached": 121,
+                            "avgDiscard": 15.83,
+                            "avgDamage": 344.4
+                        }
+                    }
+                }
+            },
+            "pairedDeltasVsBaseline": {
+                "won": {
+                    "percentagePoints": 4.75,
+                    "approximate95Interval": [
+                        -0.85,
+                        10.35
+                    ]
+                },
+                "blenderBy4": {
+                    "percentagePoints": 14.5,
+                    "approximate95Interval": [
+                        8.22,
+                        20.78
+                    ]
+                },
+                "by4Ready330": {
+                    "percentagePoints": -1.5,
+                    "approximate95Interval": [
+                        -7.3,
+                        4.3
+                    ]
+                },
+                "by5Ready330": {
+                    "percentagePoints": -0.5,
+                    "approximate95Interval": [
+                        -6.74,
+                        5.74
+                    ]
+                }
+            }
+        },
+        "lillie-to-petrel": {
+            "changes": {
+                "me02.5-192": -1,
+                "me02.5-207": 1
+            },
+            "games": 400,
+            "completed": 400,
+            "wins": 225,
+            "by2ExAttack": 203,
+            "by4Ready330": 118,
+            "by5Ready330": 186,
+            "blenderBy2": 136,
+            "blenderBy4": 226,
+            "petrelFoundBlender": 86,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "completed": 200,
+                    "wins": 139,
+                    "by2ExAttack": 102,
+                    "by4Ready330": 52,
+                    "by5Ready330": 90,
+                    "blenderBy2": 59,
+                    "blenderBy4": 111,
+                    "petrelFoundBlender": 51,
+                    "turns": {
+                        "1": {
+                            "reached": 200,
+                            "avgDiscard": 3.42,
+                            "avgDamage": 5.7
+                        },
+                        "2": {
+                            "reached": 180,
+                            "avgDiscard": 6.18,
+                            "avgDamage": 94.2
+                        },
+                        "3": {
+                            "reached": 164,
+                            "avgDiscard": 9.95,
+                            "avgDamage": 188.7
+                        },
+                        "4": {
+                            "reached": 151,
+                            "avgDiscard": 12.83,
+                            "avgDamage": 261.9
+                        },
+                        "5": {
+                            "reached": 140,
+                            "avgDiscard": 15,
+                            "avgDamage": 299.9
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "completed": 200,
+                    "wins": 86,
+                    "by2ExAttack": 101,
+                    "by4Ready330": 66,
+                    "by5Ready330": 96,
+                    "blenderBy2": 77,
+                    "blenderBy4": 115,
+                    "petrelFoundBlender": 35,
+                    "turns": {
+                        "1": {
+                            "reached": 200,
+                            "avgDiscard": 3.87,
+                            "avgDamage": 6.7
+                        },
+                        "2": {
+                            "reached": 172,
+                            "avgDiscard": 7.19,
+                            "avgDamage": 116
+                        },
+                        "3": {
+                            "reached": 140,
+                            "avgDiscard": 10.54,
+                            "avgDamage": 207.1
+                        },
+                        "4": {
+                            "reached": 126,
+                            "avgDiscard": 14.2,
+                            "avgDamage": 290.5
+                        },
+                        "5": {
+                            "reached": 116,
+                            "avgDiscard": 16.72,
+                            "avgDamage": 371.7
+                        }
+                    }
+                }
+            },
+            "pairedDeltasVsBaseline": {
+                "won": {
+                    "percentagePoints": 0.5,
+                    "approximate95Interval": [
+                        -5.39,
+                        6.39
+                    ]
+                },
+                "blenderBy4": {
+                    "percentagePoints": 11.75,
+                    "approximate95Interval": [
+                        5.44,
+                        18.06
+                    ]
+                },
+                "by4Ready330": {
+                    "percentagePoints": 0.75,
+                    "approximate95Interval": [
+                        -5.03,
+                        6.53
+                    ]
+                },
+                "by5Ready330": {
+                    "percentagePoints": -0.25,
+                    "approximate95Interval": [
+                        -6.7,
+                        6.2
+                    ]
+                }
+            }
+        }
+    }
+}

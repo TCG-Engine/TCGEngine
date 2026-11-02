@@ -2,6 +2,9 @@
 (()=>{
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const canvas=$('worldCanvas'),ctx=canvas.getContext('2d'),panel=$('panel'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const ambient=window.DFGAdventureAmbient.create();
+const enemyIdles=window.DFGOverworldIdles.create();
+reduced.addEventListener('change',()=>{if(reduced.matches)ambient.pause();});
 const colors={Red:'#c4503e',Orange:'#c98739',Yellow:'#b4a13d',Green:'#5b8657',Blue:'#4787a0',Purple:'#9363a2'};
 let data=null,j=null,images=new Map(),visual={x:352,y:928},view={x:0,y:0,scale:1,w:800,h:600},fit=false,hover=null,near=null;
 let movement=null,walking=false,cancelWalk=false,pendingGoal=null,keys=new Set(),network=Promise.resolve(),pending=0,toastTimer=null,lastTime=0;
@@ -25,6 +28,7 @@ function send(action){
 }
 function image(src){return images.get(src);}
 async function loadImage(src){if(images.has(src))return image(src);const im=new Image();images.set(src,im);im.src=src;try{await im.decode();}catch{}return im;}
+async function loadMapAssets(){await Promise.all([data.map.art,...Object.values(j.entities).map(e=>e.portrait).filter(Boolean)].map(loadImage));}
 function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);view.w=r.width;view.h=r.height;ctx.setTransform(dpr,0,0,dpr,0,0);}
 new ResizeObserver(resize).observe(canvas);
 function walkable(x,y){
@@ -103,12 +107,13 @@ function draw(time){
   const elapsed=Math.min(40,time-lastTime);lastTime=time;
   if(movement){const t=Math.min(1,(time-movement.start)/movement.duration);visual={x:movement.from.x+(movement.to.x-movement.from.x)*t,y:movement.from.y+(movement.to.y-movement.from.y)*t};if(t>=1){const done=movement.resolve;movement=null;done();}}
   if(!walking&&keys.size&&!panel.open&&j.phase==='world'){const key=[...keys].at(-1),[dx,dy]=dirs[key];if(walkable(j.position.x+dx,j.position.y+dy))go(j.position.x+dx,j.position.y+dy);}
-  view.scale=fit?Math.min(view.w/1536,view.h/1024):(view.w<700?.78:1);
+  const mapWidth=data.map.width*data.map.tile,mapHeight=data.map.height*data.map.tile;
+  view.scale=fit?Math.min(view.w/mapWidth,view.h/mapHeight):(view.w<700?.78:1);
   const vw=view.w/view.scale,vh=view.h/view.scale;
-  view.x=fit?(1536-vw)/2:Math.max(0,Math.min(1536-vw,visual.x-vw/2));view.y=fit?(1024-vh)/2:Math.max(0,Math.min(1024-vh,visual.y-vh/2));
+  view.x=fit?(mapWidth-vw)/2:Math.max(0,Math.min(mapWidth-vw,visual.x-vw/2));view.y=fit?(mapHeight-vh)/2:Math.max(0,Math.min(mapHeight-vh,visual.y-vh/2));
   ctx.clearRect(0,0,view.w,view.h);ctx.fillStyle='#97ab7b';ctx.fillRect(0,0,view.w,view.h);ctx.save();ctx.scale(view.scale,view.scale);ctx.translate(-view.x,-view.y);
-  const bg=image(data.map.art);if(bg?.naturalWidth)ctx.drawImage(bg,0,0,1536,1024);
-  if(j.zone!=='sanctuary'&&j.flags.canalRestored){ctx.strokeStyle='#90ece2';ctx.lineWidth=3;for(let n=0;n<3;n++){const y=715+n*11+(reduced.matches?0:(time/85)%11);ctx.beginPath();ctx.moveTo(685,y);ctx.quadraticCurveTo(716,y+6,748,y);ctx.stroke();}}
+  const bg=image(data.map.art);if(bg?.naturalWidth)ctx.drawImage(bg,0,0,mapWidth,mapHeight);
+  ambient.draw(ctx,{zone:j.zone,enabled:!reduced.matches,active:!panel.open&&$('adventureBattle').hidden&&$('loading').hidden,view,time});
   if(focusedQuest&&j.entities[focusedQuest]){const p=center(j.entities[focusedQuest]);ctx.strokeStyle='#fff6b0';ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(p.x,p.y-4,34,17,0,0,Math.PI*2);ctx.stroke();}
   const actors=Object.entries(j.entities).map(([id,e])=>({id,e,y:center(e).y}));actors.push({id:'player',y:visual.y});actors.sort((a,b)=>a.y-b.y);
   for(const actor of actors){
@@ -120,11 +125,14 @@ function draw(time){
     const {id,e}=actor,p=center(e),defeated=j.defeated.includes(id),selected=hover===id||near===id||focusedQuest===id;
     if(e.kind==='champion'){
       const kneel=id==='huwawa'?'huwawa-kneeling-v2.png':id+'-kneeling.png',src=defeated?'adventure/assets/'+kneel:e.portrait;
-      sprite(src,p.x,p.y,defeated?82:(id==='bull-of-heaven'?125:109));
+      const fighterHeight=defeated?82:(id==='bull-of-heaven'?125:109);
+      const visible=p.x+100>view.x&&p.x-100<view.x+vw&&p.y>view.y&&p.y-fighterHeight<view.y+vh;
+      const animated=!defeated&&enemyIdles.draw(ctx,id,p.x,p.y,fighterHeight,{time,enabled:!reduced.matches,active:!panel.open&&$('adventureBattle').hidden&&$('loading').hidden,visible});
+      if(!animated)sprite(src,p.x,p.y,fighterHeight);
       label(defeated?'✓ '+e.name:e.name,p.x,p.y-(defeated?84:113),selected);
       if(!defeated){ctx.fillStyle=j.canChallenge.includes(id)?'#ffe7a0':'#d1c2a4';ctx.beginPath();ctx.arc(p.x+28,p.y-83,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#654427';ctx.textAlign='center';ctx.font='bold 12px system-ui';ctx.fillText(j.canChallenge.includes(id)?'◇':'…',p.x+28,p.y-79);}
     }else if(e.kind==='npc'){
-      sprite('adventure/assets/elder-overworld-v1.png',p.x,p.y,83,false);if(selected)label(e.name,p.x,p.y-89,true);
+      sprite(e.portrait||'adventure/assets/elder-overworld-v1.png',p.x,p.y,83,false);if(selected)label(e.name,p.x,p.y-89,true);
       else{ctx.fillStyle='#fff1b0';ctx.font='bold 22px Georgia';ctx.textAlign='center';ctx.fillText('!',p.x,p.y-82);}
     }else{
       const needed=(id==='stopper'||id==='reed')&&j.flags.gardener;
@@ -136,7 +144,7 @@ function draw(time){
   }
   ctx.restore();
   const nextNear=nearest();if(nextNear!==near){near=nextNear;renderNearby();}
-  const area=j.zone==='sanctuary'?'Inside the Sanctuary':visual.x>1000?'Court of Heaven':visual.y>770&&visual.x<430?'Sanctuary of First Light':visual.x<500&&visual.y<350?'Cedar Grove':visual.y<430&&visual.x>540?'Training Terrace':visual.y>640?'Canal Gardens':'The Clay Market';
+  const area=j.zone==='riverside'?(visual.y<480?(visual.x<550?'The Pottery Yard':visual.x<900?'Belit’s Outfitter':'The Teaching Garden'):visual.x>900?'The Working Docks':'Riverside Walk'):j.zone==='sanctuary'?'Inside the Sanctuary':visual.x>1000?'Court of Heaven':visual.y>770&&visual.x<430?'Sanctuary of First Light':visual.x<500&&visual.y<350?'Cedar Grove':visual.y<430&&visual.x>540?'Training Terrace':visual.y>640?'Canal Gardens':'The Clay Market';
   if($('areaName').textContent!==area)$('areaName').textContent=area;
 }
 function renderNearby(){
@@ -145,10 +153,12 @@ function renderNearby(){
   $('nearbyText').textContent=e?.name??'';
   $('interact').closest('.interaction-bar').hidden=!e||j.phase!=='world'||walking;
 }
+function nextQuest(){return j.quests.find(q=>q.optional&&!q.done&&q.detail.startsWith('Next:'))??j.quests.find(q=>!q.done);}
 function renderHUD(){
   window.DFGSoundtrack?.select(!$('adventureBattle').hidden&&j.enemy?j.enemy:DFGSoundtrack.area(j),{immediate:!$('adventureBattle').hidden});
-  const next=j.quests.find(q=>!q.done);$('objectiveTitle').textContent=j.zone==='sanctuary'?'A moment to catch your breath':next?.title??'The courtyard knows your name';$('objectiveDetail').textContent=j.zone==='sanctuary'?'Aya can offer a little advice. The door leads back to your next task.':next?.detail??'Visit the road beyond the temple to see the wider world.';
+  const next=nextQuest();$('objectiveTitle').textContent=j.zone==='sanctuary'?'A moment to catch your breath':next?.title??'The courtyard knows your name';$('objectiveDetail').textContent=j.zone==='sanctuary'?'Aya can offer a little advice. The door leads back to your next task.':next?.detail??'Visit the road beyond the temple to see the wider world.';
   $('journalCount').textContent=j.quests.filter(q=>q.done).length+'/'+j.quests.length;
+  $('copperCount').textContent=(j.copper??0)+' copper';
   $('resumeFight').hidden=j.phase!=='fight';renderNearby();
 }
 function showPanel(mode,title,body,kicker='THE FIRST COURTYARD'){
@@ -160,9 +170,16 @@ panel.addEventListener('cancel',e=>{e.preventDefault();if(j?.phase==='result')co
 function openDialogue(dialog){
   if(!dialog)return;const options=dialog.options.map(o=>`<button ${o.action==='challenge'?'class="primary"':''} data-dialog-action="${esc(o.action)}" data-person="${esc(dialog.id)}">${esc(o.label)}</button>`).join('');
   const opening=dialog.options.some(o=>o.action==='challenge')?`<label>Opening hand <select id="openingColor">${Object.keys(colors).map(c=>`<option>${c}</option>`).join('')}</select></label>`:'';
-  showPanel('dialog',dialog.title,`<div class="dialogue-body">${dialog.portrait?`<img class="dialogue-portrait" src="${esc(dialog.portrait)}" alt="${esc(dialog.title)}">`:''}<p class="dialogue-text${dialog.id==='mailbox'?' tablet':''}">${esc(dialog.text)}</p></div><div class="dialogue-actions">${options}${opening}<button data-dismiss>Back to the courtyard</button></div>`,dialog.id==='mailbox'?'A RATHER HEAVY INVITATION':'A MOMENT BETWEEN CHALLENGERS');
+  showPanel('dialog',dialog.title,`<div class="dialogue-body">${dialog.portrait?`<img class="dialogue-portrait" src="${esc(dialog.portrait)}" alt="${esc(dialog.title)}">`:''}<p class="dialogue-text${dialog.id==='mailbox'?' tablet':''}">${esc(dialog.text)}</p></div><div class="dialogue-actions">${options}${opening}<button data-dismiss>Keep exploring</button></div>`,dialog.id==='mailbox'?'A RATHER HEAVY INVITATION':'A MOMENT BETWEEN CHALLENGERS');
 }
-function openJournal(){showPanel('journal','A tablet full of possibilities',`<p class="panel-note">Your tasks, techniques, and seals are saved automatically. Defeat never takes them away.</p><ol class="quest-list">${j.quests.map(q=>`<li class="${q.done?'done':''}"><span class="check">${q.done?'✓':'◇'}</span><div><h3>${esc(q.title)}</h3><p>${esc(q.detail)}</p>${q.done?'':`<button data-target="${esc(q.target)}">Find on the map →</button>`}</div></li>`).join('')}</ol><section class="journal-log"><h3>Notes along the way</h3>${j.journal.slice().reverse().map(t=>`<p>${esc(t)}</p>`).join('')}</section>`,'YOUR JOURNEY');}
+function openJournal(){
+  const list=optional=>`<ol class="quest-list">${j.quests.filter(q=>!!q.optional===optional).map(q=>`<li class="${q.done?'done':''}"><span class="check">${q.done?'✓':'◇'}</span><div><h3>${esc(q.title)}</h3><p>${esc(q.detail)}</p>${q.done?'':`<button data-target="${esc(q.target)}" data-target-zone="${esc(q.zone??'courtyard')}">Find on the map →</button>`}</div></li>`).join('')}</ol>`;
+  showPanel('journal','A tablet full of possibilities',`<p class="panel-note">${j.copper??0} copper in your pouch. Tasks, learned techniques, purchases, and seals are saved automatically. Defeat never takes them away.</p><h3>The champion’s journey</h3>${list(false)}<h3>Riverside errands & lessons · optional</h3>${list(true)}<section class="journal-log"><h3>Notes along the way</h3>${j.journal.slice().reverse().map(t=>`<p>${esc(t)}</p>`).join('')}</section>`,'YOUR JOURNEY');
+}
+function openShop(){
+  if(j.phase!=='world'||j.zone!=='riverside'){toast('Visit Belit in the Riverside Quarter to buy equipment.');return;}
+  showPanel('shop','Belit’s Practical Miracles',`<p class="panel-note"><strong>${j.copper} copper available.</strong> Buy each piece once, then equip it from Equipment. Slots and combat abilities stay the same; nothing is consumed between bouts.</p><div class="shop-grid">${Object.entries(j.shopStock).map(([id,price])=>{const item=data.items[id],owned=j.inventory.includes(id);return `<article class="shop-item"><span class="eyebrow">${esc(item.slot)}</span><h3>${esc(item.name)}</h3><p>${esc(item.text)}</p><button data-buy="${esc(id)}" ${owned||j.copper<price?'disabled':''}>${owned?'Owned':`Buy · ${price} copper`}</button>${!owned&&j.copper<price?`<small>Need ${price-j.copper} more copper</small>`:''}</article>`;}).join('')}</div><p class="panel-note">Earn more copper by helping Taram, Lugal or Sila. No selling or duplicate purchases.</p><button data-shop-equipment>Open equipment</button>`,'RIVERSIDE OUTFITTER');
+}
 function openDeck(fresh=true){
   if(j.phase!=='world'){showPanel('locked','A bout is still in progress','<p class="resume-note">Your deck and equipment can be changed freely outside fights. Finish your current bout first.<br><button class="primary" data-resume>Return to your challenge →</button></p>');return;}
   if(fresh)draft=new Set(j.deck);
@@ -175,7 +192,7 @@ function openEquipment(){
   showPanel('equipment','A little help from the world',`<p class="panel-note">Equipment grants abilities, not levels. One piece per slot. Change it freely outside fights; each ability resets for a fresh bout.</p><div class="equipment-grid">${Object.entries(j.equipment).map(([slot,id])=>`<section class="equipment-slot"><h3>${esc(slot)}</h3><select data-slot="${slot}" aria-label="${slot} equipment"><option value="">None</option>${j.inventory.filter(key=>data.items[key].slot===slot).map(key=>`<option value="${key}" ${id===key?'selected':''}>${esc(data.items[key].name)}</option>`).join('')}</select><p>${esc(id?data.items[id].text:'No piece equipped in this slot yet.')}</p></section>`).join('')}</div>`,'EQUIPMENT');
 }
 function openWorld(){
-  showPanel('world','A world worth wandering',`<p class="panel-note">After the First Courtyard, regions can be explored in any order. Complete every region to qualify for El’s divine tournament. This playable chapter contains Sumer; the other regions are future chapters.</p><div class="world-routes"><article><span class="eyebrow">${j.flags.regionComplete?'REGIONAL SEAL EARNED':'YOUR FIRST REGION'}</span><h3>The First Courtyard</h3><p>Sumer · canals, cedar guardians, and a sky with opinions.</p><button data-dismiss>Return to Sumer</button></article>${[['Jade Terraces','Beyond the eastern mountains'],['Gardens of the Nile','Beyond the southern river'],['The Cedar Coast','Beyond the western sea']].map(([title,where])=>`<article class="future"><span class="eyebrow">FUTURE CHAPTER</span><h3>${title}</h3><p>${where}. ${j.flags.regionComplete?'Your first seal has opened this road.':'Earn the First Courtyard’s seal to open the wider world.'}</p><small>Not yet explorable</small></article>`).join('')}</div><p class="panel-note" style="margin:22px 0 0">“Take your time on the way here. That is rather the point.” — a note attributed to El</p>`,'THE ROAD TO THE DIVINE TOURNAMENT');
+  showPanel('world','A world worth wandering',`<p class="panel-note">After the First Courtyard, regions can be explored in any order. Complete every region to qualify for El’s divine tournament. This playable chapter contains Sumer; the other regions are future chapters.</p><div class="world-routes"><article><span class="eyebrow">${j.flags.regionComplete?'REGIONAL SEAL EARNED':'YOUR FIRST REGION'}</span><h3>The First Courtyard</h3><p>Sumer · canals, cedar guardians, and a sky with opinions.</p><button data-dismiss>Return to Sumer</button></article><article><span class="eyebrow">${j.flags.riversideVisited?'DISCOVERED · SUMER':'NEW PATH · SUMER'}</span><h3>The Riverside Quarter</h3><p>Pottery yards, working docks, an equipment shop, paid errands, and three patient teachers.</p><button data-target="outfitter" data-target-zone="riverside">${j.zone==='riverside'?'Find the outfitter':'Find the riverside path'} →</button></article>${[['Jade Terraces','Beyond the eastern mountains'],['Gardens of the Nile','Beyond the southern river'],['The Cedar Coast','Beyond the western sea']].map(([title,where])=>`<article class="future"><span class="eyebrow">FUTURE CHAPTER</span><h3>${title}</h3><p>${where}. ${j.flags.regionComplete?'Your first seal has opened this road.':'Earn the First Courtyard’s seal to open the wider world.'}</p><small>Not yet explorable</small></article>`).join('')}</div><p class="panel-note" style="margin:22px 0 0">“Take your time on the way here. That is rather the point.” — a note attributed to El</p>`,'THE ROAD TO THE DIVINE TOURNAMENT');
 }
 function openMoves(id){const npc=data.enemies[id],cards=npc.moves.map(key=>data.cards.find(c=>c.id===key)),signature=data.cards.find(c=>c.id===npc.signature);cards.sort((a,b)=>Number(b.id===npc.signature)-Number(a.id===npc.signature));showPanel('moves',npc.name,`<p class="panel-note">${npc.life} life · Opening hand: ${esc(npc.color)} · 36 cards. Their complete moveset is public; their choice in each exchange stays hidden. They share your 12 baseline techniques and replace six PvP moves with their own variants.</p><div class="unlock-list"><strong>Signature: ${esc(signature.name)}</strong><br>${esc(signature.tradeoff)}</div><p class="panel-note">Defeat them once to unlock their six signature techniques, including this signature.</p>${npc.armor.map(key=>`<p class="panel-note"><b>${esc(data.items[key].name)}</b>: ${esc(data.items[key].text)}</p>`).join('')}<div class="card-library">${cards.map(c=>`<article class="library-entry${c.artPath?' champion-technique':''}${c.headline?' headline-technique':''}">${cardOrigin(c)}${DFGCardRenderer.details(c,data.colors)}</article>`).join('')}</div>`,'STUDY THE CHALLENGER');}
 function openResult(){
@@ -183,8 +200,8 @@ function openResult(){
 }
 async function continueJourney(){try{await send({type:'continue'});visual=center(j.position);closePanel(false);}catch{}}
 document.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>{if(!j)return;({journal:openJournal,deck:openDeck,equipment:openEquipment,world:openWorld})[b.dataset.panel]();}));
-$('followQuest').addEventListener('click',()=>{const q=j.quests.find(q=>!q.done);markTarget(q?.target??'gate');});
-function markTarget(id){if(!j.entities[id]&&j.zone==='sanctuary')id='exit';focusedQuest=id;closePanel(false);fit=true;$('overview').setAttribute('aria-pressed','true');toast(j.entities[id]?.name+' is highlighted. Click it to walk there.');}
+$('followQuest').addEventListener('click',()=>{const q=nextQuest();markTarget(q?.target??'gate',q?.zone??'courtyard');});
+function markTarget(id,zone='courtyard'){if(!j.entities[id])id=j.zone==='sanctuary'?'exit':j.zone==='riverside'?'river-exit':zone==='riverside'?'quay-path':id;focusedQuest=id;closePanel(false);fit=true;$('overview').setAttribute('aria-pressed','true');toast((j.entities[id]?.name??'The path')+' is highlighted. Click it to walk there.');}
 function enterFight(){
   stopWalking();closePanel(false);const frame=$('adventureBattle');frame.hidden=false;document.body.classList.add('is-fighting');
   document.querySelector('main').inert=true;DFGSoundtrack.select(j.enemy,{immediate:true});
@@ -192,22 +209,28 @@ function enterFight(){
 }
 async function leaveFight(){
   const frame=$('adventureBattle');frame.hidden=true;frame.removeAttribute('src');document.body.classList.remove('is-fighting');document.querySelector('main').inert=false;
-  try{await refresh();await loadImage(data.map.art);visual=center(j.position);if(j.phase==='result')openResult();else if(j.dialog)openDialogue(j.dialog);canvas.focus({preventScroll:true});}catch(e){fail(e);}
+  try{await refresh();await loadMapAssets();visual=center(j.position);if(j.phase==='result')openResult();else if(j.dialog)openDialogue(j.dialog);canvas.focus({preventScroll:true});}catch(e){fail(e);}
 }
 window.DFGAdventureShell={sync(next){accept(next);},leaveFight};
 $('resumeFight').addEventListener('click',()=>enterFight());
 $('panelContent').addEventListener('click',async e=>{
   const b=e.target.closest('button');if(!b||b.disabled)return;
   if(b.dataset.dismiss!==undefined){closePanel();return;}
-  if(b.dataset.target){markTarget(b.dataset.target);return;}
+  if(b.dataset.target){markTarget(b.dataset.target,b.dataset.targetZone??'courtyard');return;}
+  if(b.dataset.buy){b.disabled=true;try{await send({type:'buy',item:b.dataset.buy});openShop();toast('Purchase saved. Equip your new piece from Equipment.');}catch{openShop();}return;}
+  if(b.dataset.shopEquipment!==undefined){openEquipment();return;}
   if(b.dataset.color){deckColor=b.dataset.color;openDeck(false);return;}
   if(b.dataset.resume!==undefined){enterFight();return;}
   if(b.dataset.continue!==undefined){await continueJourney();return;}
   if(b.id==='saveDeck'){b.disabled=true;try{await send({type:'deck',cards:[...draft]});closePanel(false);toast('Your six hands are saved.');}catch{b.disabled=false;}return;}
   if(b.dataset.dialogAction==='world'){openWorld();return;}
+  if(b.dataset.dialogAction==='shop'){openShop();return;}
+  if(['job','learn'].includes(b.dataset.dialogAction)){
+    b.disabled=true;try{await send({type:b.dataset.dialogAction,id:b.dataset.person});openDialogue(j.dialog);}catch{b.disabled=false;}return;
+  }
   if(b.dataset.dialogAction==='door'){
     b.disabled=true;$('loading').querySelector('h2').textContent='Stepping through…';$('loading').querySelector('p').textContent='A quiet moment, then back to the journey.';$('loading').hidden=false;
-    try{await send({type:'door',id:b.dataset.person});await loadImage(data.map.art);visual=center(j.position);focusedQuest=null;closePanel(false);}catch{b.disabled=false;}
+    try{await send({type:'door',id:b.dataset.person});await loadMapAssets();visual=center(j.position);focusedQuest=null;near=null;renderNearby();closePanel(false);}catch{b.disabled=false;}
     finally{$('loading').hidden=true;}return;
   }
   if(b.dataset.dialogAction==='moves'){openMoves(b.dataset.person);return;}
@@ -229,7 +252,7 @@ async function boot(){
   try{
     await refresh();visual=center(j.position);
     const sources=[data.map.art,'adventure/assets/challenger-overworld-v1.png','adventure/assets/elder-overworld-v1.png',...Object.values(data.enemies).map(e=>e.art),...Object.keys(data.enemies).map(id=>'adventure/assets/'+(id==='huwawa'?'huwawa-kneeling-v2.png':id+'-kneeling.png'))];
-    await Promise.all(sources.map(loadImage));resize();ready=true;$('loading').hidden=true;canvas.focus({preventScroll:true});
+    await Promise.all([...sources,...Object.values(j.entities).map(e=>e.portrait).filter(Boolean)].map(loadImage));resize();ready=true;$('loading').hidden=true;canvas.focus({preventScroll:true});
     if(j.phase==='result')openResult();else if(j.phase==='fight')toast('Your challenge is saved. Use “Resume your challenge” to return.');else if(j.dialog)openDialogue(j.dialog);
   }catch(e){fail(e);$('loading').innerHTML='<h2>Your courtyard is still here.</h2><p>Reload to try arriving again.</p>';}
 }

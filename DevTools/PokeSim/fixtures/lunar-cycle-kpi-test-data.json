@@ -1,0 +1,457 @@
+[
+    {
+        "status": "complete",
+        "winner": 1,
+        "openingStats": [
+            {
+                "version": 1,
+                "player": 1,
+                "deck": "ceruledge-fighting",
+                "order": "first",
+                "eligibleTurn": 2,
+                "goal": "Any attack",
+                "deckHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+                "status": "game_ended_before_opportunity",
+                "reached": true,
+                "attackDeclared": false,
+                "attackResolved": false,
+                "goalAttack": false,
+                "fullyEnabledAttack": false,
+                "anyLegalSeen": false,
+                "goalLegalSeen": false,
+                "milestones": {
+                    "attackerOnField": {
+                        "turn": 1,
+                        "step": 0
+                    },
+                    "attackerActive": {
+                        "turn": 1,
+                        "step": 0
+                    }
+                },
+                "blockers": [],
+                "trace": [],
+                "traceTruncated": false,
+                "steps": 0,
+                "damage": 0,
+                "prizesTaken": 0,
+                "lunarCycleTurnOne": {
+                    "reached": true,
+                    "complete": true,
+                    "available": true,
+                    "activated": true,
+                    "blockers": []
+                },
+                "snapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                },
+                "prizesAtStart": 0,
+                "startSnapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                }
+            }
+        ]
+    },
+    {
+        "status": "complete",
+        "winner": 2,
+        "openingStats": [
+            {
+                "version": 1,
+                "player": 1,
+                "deck": "ceruledge-fighting",
+                "order": "first",
+                "eligibleTurn": 2,
+                "goal": "Any attack",
+                "deckHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+                "status": "game_ended_before_opportunity",
+                "reached": true,
+                "attackDeclared": false,
+                "attackResolved": false,
+                "goalAttack": false,
+                "fullyEnabledAttack": false,
+                "anyLegalSeen": false,
+                "goalLegalSeen": false,
+                "milestones": {
+                    "attackerOnField": {
+                        "turn": 1,
+                        "step": 0
+                    },
+                    "attackerActive": {
+                        "turn": 1,
+                        "step": 0
+                    }
+                },
+                "blockers": [],
+                "trace": [],
+                "traceTruncated": false,
+                "steps": 0,
+                "damage": 0,
+                "prizesTaken": 0,
+                "lunarCycleTurnOne": {
+                    "reached": true,
+                    "complete": true,
+                    "available": false,
+                    "activated": false,
+                    "blockers": [
+                        "solrock_missing"
+                    ]
+                },
+                "snapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                },
+                "prizesAtStart": 0,
+                "startSnapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                }
+            }
+        ]
+    },
+    {
+        "status": "complete",
+        "winner": 1,
+        "openingStats": [
+            {
+                "version": 1,
+                "player": 1,
+                "deck": "ceruledge-fighting",
+                "order": "first",
+                "eligibleTurn": 2,
+                "goal": "Any attack",
+                "deckHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+                "status": "game_ended_before_opportunity",
+                "reached": true,
+                "attackDeclared": false,
+                "attackResolved": false,
+                "goalAttack": false,
+                "fullyEnabledAttack": false,
+                "anyLegalSeen": false,
+                "goalLegalSeen": false,
+                "milestones": {
+                    "attackerOnField": {
+                        "turn": 1,
+                        "step": 0
+                    },
+                    "attackerActive": {
+                        "turn": 1,
+                        "step": 0
+                    }
+                },
+                "blockers": [],
+                "trace": [],
+                "traceTruncated": false,
+                "steps": 0,
+                "damage": 0,
+                "prizesTaken": 0,
+                "snapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                },
+                "prizesAtStart": 0,
+                "startSnapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                }
+            }
+        ]
+    },
+    {
+        "status": "capped",
+        "winner": 0,
+        "openingStats": [
+            {
+                "version": 1,
+                "player": 1,
+                "deck": "ceruledge-fighting",
+                "order": "first",
+                "eligibleTurn": 2,
+                "goal": "Any attack",
+                "deckHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+                "status": "game_ended_before_opportunity",
+                "reached": true,
+                "attackDeclared": false,
+                "attackResolved": false,
+                "goalAttack": false,
+                "fullyEnabledAttack": false,
+                "anyLegalSeen": false,
+                "goalLegalSeen": false,
+                "milestones": {
+                    "attackerOnField": {
+                        "turn": 1,
+                        "step": 0
+                    },
+                    "attackerActive": {
+                        "turn": 1,
+                        "step": 0
+                    }
+                },
+                "blockers": [],
+                "trace": [],
+                "traceTruncated": false,
+                "steps": 0,
+                "damage": 0,
+                "prizesTaken": 0,
+                "lunarCycleTurnOne": {
+                    "reached": true,
+                    "complete": true,
+                    "available": true,
+                    "activated": true,
+                    "blockers": []
+                },
+                "snapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                },
+                "prizesAtStart": 0,
+                "startSnapshot": {
+                    "candidates": [
+                        {
+                            "card": "me01-074",
+                            "attackCard": "me01-074",
+                            "index": 0,
+                            "zone": "Active",
+                            "energyGap": 2,
+                            "cost": [
+                                "Fighting",
+                                "Fighting"
+                            ],
+                            "energy": [
+                                "mee-005"
+                            ],
+                            "ready": true,
+                            "conditionBlocked": false
+                        }
+                    ],
+                    "attackerInHand": [],
+                    "attackerInDiscard": [],
+                    "energyInHand": [
+                        "base1-97"
+                    ],
+                    "energyInDiscard": [],
+                    "energyUsed": false,
+                    "supporterUsed": false,
+                    "anyLegal": false,
+                    "goalLegal": false,
+                    "blockers": [
+                        "energy_shortfall"
+                    ],
+                    "milestones": []
+                }
+            }
+        ]
+    }
+]

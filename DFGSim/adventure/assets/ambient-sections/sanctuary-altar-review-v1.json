@@ -1,0 +1,14 @@
+{
+  "frames": 121,
+  "fps": 24.0,
+  "durationSeconds": 5.041666666666667,
+  "effectiveLoopSeconds": 6.9063926940639275,
+  "registrationMedianErrorPixels": 0.016504593193531036,
+  "registrationWorstMedianErrorPixels": 0.08446004986763,
+  "firstLastMeanChannelDifference": 1.6698908805847168,
+  "meanAdjacentFrameDifference": 0.45275601744651794,
+  "meanTemporalPixelDeviation": 2.7683093547821045,
+  "maxMeanBrightnessJump": 0.3574066162109375,
+  "outsideMaskMaxChannelDifference": 0,
+  "endBlendApplied": false
+}

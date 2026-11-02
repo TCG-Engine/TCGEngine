@@ -1,0 +1,42 @@
+{
+    "seedRange": [
+        160001,
+        160100
+    ],
+    "note": "Same 400 games per variant. Pad policy and selected baseline unchanged. Poffin limits Charcadet picks to two total evolution lines, retaining optional early Rotom search.",
+    "variants": {
+        "poffinBefore": {
+            "games": 400,
+            "won": 269,
+            "wonPct": 67.25,
+            "by2ExAttack": 240,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 134,
+            "by4Ready330Pct": 33.5,
+            "by5Ready330": 223,
+            "by5Ready330Pct": 55.75
+        },
+        "pad": {
+            "games": 400,
+            "won": 272,
+            "wonPct": 68,
+            "by2ExAttack": 240,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 141,
+            "by4Ready330Pct": 35.25,
+            "by5Ready330": 226,
+            "by5Ready330Pct": 56.5
+        },
+        "poffinTwoLine": {
+            "games": 400,
+            "won": 274,
+            "wonPct": 68.5,
+            "by2ExAttack": 240,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 138,
+            "by4Ready330Pct": 34.5,
+            "by5Ready330": 225,
+            "by5Ready330Pct": 56.25
+        }
+    }
+}

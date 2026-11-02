@@ -1,0 +1,78 @@
+{
+    "policy": "9dda1334d8cb1a17",
+    "seed": 180001,
+    "pairs": 100,
+    "baselineSHA256": "679c616c1bef00738521fb7a6a667745dec5583a4e2b0645b4aee0e8447cfcf0",
+    "note": "Matched seeds and starting orders. Percentages count all games. Win intervals cluster the four games sharing each seed; approximate 95%, no adjustment for comparing multiple candidates.",
+    "variants": {
+        "baseline": {
+            "changes": [],
+            "games": 400,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 166
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 90
+                }
+            },
+            "complete": 400,
+            "completePct": 100,
+            "won": 256,
+            "wonPct": 64,
+            "by2ExAttack": 224,
+            "by2ExAttackPct": 56,
+            "by4Ready330": 120,
+            "by4Ready330Pct": 30,
+            "by5Ready330": 212,
+            "by5Ready330Pct": 53,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": 0,
+            "seedCluster95ApproxPP": [
+                0,
+                0
+            ]
+        },
+        "blender-to-legacy": {
+            "changes": {
+                "sv08-164": -1,
+                "sv06-167": 1
+            },
+            "games": 400,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 162
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 105
+                }
+            },
+            "complete": 400,
+            "completePct": 100,
+            "won": 267,
+            "wonPct": 66.75,
+            "by2ExAttack": 225,
+            "by2ExAttackPct": 56.25,
+            "by4Ready330": 50,
+            "by4Ready330Pct": 12.5,
+            "by5Ready330": 148,
+            "by5Ready330Pct": 37,
+            "legacyAttached": 245,
+            "legacyAttachedPct": 61.25,
+            "legacyTriggered": 179,
+            "legacyTriggeredPct": 44.75,
+            "winDeltaPP": 2.75,
+            "seedCluster95ApproxPP": [
+                -2.12,
+                7.62
+            ]
+        }
+    }
+}

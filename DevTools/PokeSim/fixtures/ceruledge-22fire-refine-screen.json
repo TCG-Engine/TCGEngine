@@ -1,0 +1,461 @@
+{
+    "baseline": "22 Fire \/ one Boss \/ two Firebreather \/ four Fan Rotom",
+    "seedRange": [
+        80001,
+        80020
+    ],
+    "gamesPerList": 40,
+    "opponent": "brisbane-lopunny",
+    "baselineSHA256": "15f429f9e0613fef6101093ffd208215cf0d3020884476159f3eca8dcf34d3a4",
+    "note": "Pok\u00e9gear variants rerun after accounting for looked-at cards returning to deck. Other variants have no Pok\u00e9gear and unchanged policy behavior.",
+    "variants": {
+        "baseline": {
+            "changes": [],
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 30,
+                "by2ExAttack": 26,
+                "by4Ready330": 12,
+                "by5Ready330": 23,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.75,
+                        "avgDamage": 4.8
+                    },
+                    "2": {
+                        "reached": 36,
+                        "avgDiscard": 6.14,
+                        "avgDamage": 123.6
+                    },
+                    "3": {
+                        "reached": 31,
+                        "avgDiscard": 8.65,
+                        "avgDamage": 202.3
+                    },
+                    "4": {
+                        "reached": 30,
+                        "avgDiscard": 12.83,
+                        "avgDamage": 263.3
+                    },
+                    "5": {
+                        "reached": 30,
+                        "avgDiscard": 15.53,
+                        "avgDamage": 327
+                    }
+                }
+            }
+        },
+        "lillie-to-fire": {
+            "changes": {
+                "me02.5-192": -1,
+                "mee-002": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 30,
+                "by2ExAttack": 26,
+                "by4Ready330": 11,
+                "by5Ready330": 23,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.78,
+                        "avgDamage": 4.5
+                    },
+                    "2": {
+                        "reached": 36,
+                        "avgDiscard": 6.42,
+                        "avgDamage": 126.4
+                    },
+                    "3": {
+                        "reached": 31,
+                        "avgDiscard": 8.81,
+                        "avgDamage": 167.1
+                    },
+                    "4": {
+                        "reached": 30,
+                        "avgDiscard": 13.23,
+                        "avgDamage": 271.3
+                    },
+                    "5": {
+                        "reached": 30,
+                        "avgDiscard": 15.7,
+                        "avgDamage": 335.3
+                    }
+                }
+            }
+        },
+        "boss-to-fire": {
+            "changes": {
+                "me02.5-183": -1,
+                "mee-002": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 30,
+                "by2ExAttack": 26,
+                "by4Ready330": 13,
+                "by5Ready330": 24,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.83,
+                        "avgDamage": 4.5
+                    },
+                    "2": {
+                        "reached": 36,
+                        "avgDiscard": 6.53,
+                        "avgDamage": 128.6
+                    },
+                    "3": {
+                        "reached": 31,
+                        "avgDiscard": 9.26,
+                        "avgDamage": 176.1
+                    },
+                    "4": {
+                        "reached": 30,
+                        "avgDiscard": 13.73,
+                        "avgDamage": 281.3
+                    },
+                    "5": {
+                        "reached": 30,
+                        "avgDiscard": 16.43,
+                        "avgDamage": 333.7
+                    }
+                }
+            }
+        },
+        "stretcher-to-fire": {
+            "changes": {
+                "me02.5-196": -1,
+                "mee-002": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 28,
+                "by2ExAttack": 26,
+                "by4Ready330": 12,
+                "by5Ready330": 25,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.85,
+                        "avgDamage": 3
+                    },
+                    "2": {
+                        "reached": 36,
+                        "avgDiscard": 6.44,
+                        "avgDamage": 121.7
+                    },
+                    "3": {
+                        "reached": 31,
+                        "avgDiscard": 9.23,
+                        "avgDamage": 182.3
+                    },
+                    "4": {
+                        "reached": 30,
+                        "avgDiscard": 13.43,
+                        "avgDamage": 253.7
+                    },
+                    "5": {
+                        "reached": 29,
+                        "avgDiscard": 16.41,
+                        "avgDamage": 358.3
+                    }
+                }
+            }
+        },
+        "prism-to-fire": {
+            "changes": {
+                "me04-080": -1,
+                "mee-002": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 31,
+                "by2ExAttack": 27,
+                "by4Ready330": 13,
+                "by5Ready330": 23,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.78,
+                        "avgDamage": 4.8
+                    },
+                    "2": {
+                        "reached": 36,
+                        "avgDiscard": 6.17,
+                        "avgDamage": 128.6
+                    },
+                    "3": {
+                        "reached": 31,
+                        "avgDiscard": 8.68,
+                        "avgDamage": 202.3
+                    },
+                    "4": {
+                        "reached": 30,
+                        "avgDiscard": 12.97,
+                        "avgDamage": 267.3
+                    },
+                    "5": {
+                        "reached": 30,
+                        "avgDiscard": 15.87,
+                        "avgDamage": 347.3
+                    }
+                }
+            }
+        },
+        "explorer-to-fire": {
+            "changes": {
+                "sv08.5-107": -1,
+                "mee-002": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 32,
+                "by2ExAttack": 27,
+                "by4Ready330": 8,
+                "by5Ready330": 21,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.98,
+                        "avgDamage": 5
+                    },
+                    "2": {
+                        "reached": 39,
+                        "avgDiscard": 6.1,
+                        "avgDamage": 108.5
+                    },
+                    "3": {
+                        "reached": 34,
+                        "avgDiscard": 8.76,
+                        "avgDamage": 182.1
+                    },
+                    "4": {
+                        "reached": 33,
+                        "avgDiscard": 12.27,
+                        "avgDamage": 263.6
+                    },
+                    "5": {
+                        "reached": 32,
+                        "avgDiscard": 15,
+                        "avgDamage": 305
+                    }
+                }
+            }
+        },
+        "ultra-to-fire": {
+            "changes": {
+                "me01-131": -1,
+                "mee-002": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 29,
+                "by2ExAttack": 24,
+                "by4Ready330": 11,
+                "by5Ready330": 22,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.75,
+                        "avgDamage": 4.8
+                    },
+                    "2": {
+                        "reached": 36,
+                        "avgDiscard": 6.36,
+                        "avgDamage": 114.7
+                    },
+                    "3": {
+                        "reached": 30,
+                        "avgDiscard": 9.13,
+                        "avgDamage": 181.3
+                    },
+                    "4": {
+                        "reached": 29,
+                        "avgDiscard": 12.83,
+                        "avgDamage": 261
+                    },
+                    "5": {
+                        "reached": 29,
+                        "avgDiscard": 15.97,
+                        "avgDamage": 349.3
+                    }
+                }
+            }
+        },
+        "firebreather-to-fire": {
+            "changes": {
+                "me02-089": -1,
+                "mee-002": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 33,
+                "by2ExAttack": 27,
+                "by4Ready330": 10,
+                "by5Ready330": 26,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.88,
+                        "avgDamage": 4.5
+                    },
+                    "2": {
+                        "reached": 38,
+                        "avgDiscard": 6.29,
+                        "avgDamage": 109.7
+                    },
+                    "3": {
+                        "reached": 34,
+                        "avgDiscard": 9.15,
+                        "avgDamage": 183.5
+                    },
+                    "4": {
+                        "reached": 33,
+                        "avgDiscard": 12.42,
+                        "avgDamage": 266.7
+                    },
+                    "5": {
+                        "reached": 32,
+                        "avgDiscard": 15.84,
+                        "avgDamage": 323.1
+                    }
+                }
+            }
+        },
+        "lillie-to-firebreather": {
+            "changes": {
+                "me02.5-192": -1,
+                "me02-089": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 26,
+                "by2ExAttack": 25,
+                "by4Ready330": 8,
+                "by5Ready330": 21,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 3.38,
+                        "avgDamage": 6.5
+                    },
+                    "2": {
+                        "reached": 34,
+                        "avgDiscard": 6.79,
+                        "avgDamage": 143.2
+                    },
+                    "3": {
+                        "reached": 29,
+                        "avgDiscard": 9.9,
+                        "avgDamage": 214.5
+                    },
+                    "4": {
+                        "reached": 28,
+                        "avgDiscard": 13.25,
+                        "avgDamage": 265.7
+                    },
+                    "5": {
+                        "reached": 25,
+                        "avgDiscard": 15.72,
+                        "avgDamage": 327.2
+                    }
+                }
+            }
+        },
+        "lillie-to-gear": {
+            "changes": {
+                "me02.5-192": -1,
+                "sv10.5b-084": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 24,
+                "by2ExAttack": 23,
+                "by4Ready330": 7,
+                "by5Ready330": 17,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 2.93,
+                        "avgDamage": 4.5
+                    },
+                    "2": {
+                        "reached": 36,
+                        "avgDiscard": 6.08,
+                        "avgDamage": 112.8
+                    },
+                    "3": {
+                        "reached": 31,
+                        "avgDiscard": 9.52,
+                        "avgDamage": 183.2
+                    },
+                    "4": {
+                        "reached": 31,
+                        "avgDiscard": 12.19,
+                        "avgDamage": 262.6
+                    },
+                    "5": {
+                        "reached": 28,
+                        "avgDiscard": 14.71,
+                        "avgDamage": 309.6
+                    }
+                }
+            }
+        },
+        "firebreather-to-gear": {
+            "changes": {
+                "me02-089": -1,
+                "sv10.5b-084": 1
+            },
+            "summary": {
+                "games": 40,
+                "completed": 40,
+                "wins": 29,
+                "by2ExAttack": 28,
+                "by4Ready330": 8,
+                "by5Ready330": 18,
+                "turns": {
+                    "1": {
+                        "reached": 40,
+                        "avgDiscard": 3.25,
+                        "avgDamage": 4.3
+                    },
+                    "2": {
+                        "reached": 38,
+                        "avgDiscard": 6.68,
+                        "avgDamage": 135
+                    },
+                    "3": {
+                        "reached": 32,
+                        "avgDiscard": 9.75,
+                        "avgDamage": 217.5
+                    },
+                    "4": {
+                        "reached": 31,
+                        "avgDiscard": 12.74,
+                        "avgDamage": 271.6
+                    },
+                    "5": {
+                        "reached": 30,
+                        "avgDiscard": 14.3,
+                        "avgDamage": 316
+                    }
+                }
+            }
+        }
+    }
+}

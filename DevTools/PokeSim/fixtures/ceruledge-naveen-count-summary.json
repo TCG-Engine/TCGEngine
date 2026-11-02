@@ -1,0 +1,183 @@
+{
+    "seed": 130001,
+    "pairs": 100,
+    "policy": "5b54d8c10457ed84",
+    "note": "Rates count every game. Intervals are approximate paired 95% intervals for win-rate differences; no multiple-comparison adjustment.",
+    "variants": {
+        "baseline": {
+            "lillie": 4,
+            "naveen": 0,
+            "games": 400,
+            "complete": 400,
+            "completePct": 100,
+            "won": 228,
+            "wonPct": 57,
+            "by2ExAttack": 222,
+            "by2ExAttackPct": 55.5,
+            "by4Ready330": 121,
+            "by4Ready330Pct": 30.25,
+            "by5Ready330": 197,
+            "by5Ready330Pct": 49.25,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 141
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 87
+                }
+            },
+            "naveenEarly": {
+                "seen": 0,
+                "uses": 0,
+                "discardedEnergy": 0
+            },
+            "pairedWinDeltaPP": 0,
+            "pairedWinDelta95ApproxPP": [
+                0,
+                0
+            ]
+        },
+        "lillie-to-naveen": {
+            "lillie": 3,
+            "naveen": 1,
+            "games": 400,
+            "complete": 400,
+            "completePct": 100,
+            "won": 232,
+            "wonPct": 58,
+            "by2ExAttack": 219,
+            "by2ExAttackPct": 54.75,
+            "by4Ready330": 124,
+            "by4Ready330Pct": 31,
+            "by5Ready330": 221,
+            "by5Ready330Pct": 55.25,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 152
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 80
+                }
+            },
+            "naveenEarly": {
+                "seen": 205,
+                "uses": 115,
+                "discardedEnergy": 220
+            },
+            "pairedWinDeltaPP": 1,
+            "pairedWinDelta95ApproxPP": [
+                -4.72,
+                6.72
+            ]
+        },
+        "two-lillie-to-naveen": {
+            "lillie": 2,
+            "naveen": 2,
+            "games": 400,
+            "complete": 400,
+            "completePct": 100,
+            "won": 231,
+            "wonPct": 57.75,
+            "by2ExAttack": 198,
+            "by2ExAttackPct": 49.5,
+            "by4Ready330": 114,
+            "by4Ready330Pct": 28.5,
+            "by5Ready330": 190,
+            "by5Ready330Pct": 47.5,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 148
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 83
+                }
+            },
+            "naveenEarly": {
+                "seen": 285,
+                "uses": 220,
+                "discardedEnergy": 482
+            },
+            "pairedWinDeltaPP": 0.75,
+            "pairedWinDelta95ApproxPP": [
+                -4.95,
+                6.45
+            ]
+        },
+        "three-lillie-to-naveen": {
+            "lillie": 1,
+            "naveen": 3,
+            "games": 400,
+            "complete": 400,
+            "completePct": 100,
+            "won": 209,
+            "wonPct": 52.25,
+            "by2ExAttack": 198,
+            "by2ExAttackPct": 49.5,
+            "by4Ready330": 98,
+            "by4Ready330Pct": 24.5,
+            "by5Ready330": 184,
+            "by5Ready330Pct": 46,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 136
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 73
+                }
+            },
+            "naveenEarly": {
+                "seen": 335,
+                "uses": 296,
+                "discardedEnergy": 641
+            },
+            "pairedWinDeltaPP": -4.75,
+            "pairedWinDelta95ApproxPP": [
+                -10.43,
+                0.93
+            ]
+        },
+        "four-lillie-to-naveen": {
+            "lillie": 0,
+            "naveen": 4,
+            "games": 400,
+            "complete": 400,
+            "completePct": 100,
+            "won": 216,
+            "wonPct": 54,
+            "by2ExAttack": 183,
+            "by2ExAttackPct": 45.75,
+            "by4Ready330": 90,
+            "by4Ready330Pct": 22.5,
+            "by5Ready330": 172,
+            "by5Ready330Pct": 43,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 133
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 83
+                }
+            },
+            "naveenEarly": {
+                "seen": 337,
+                "uses": 355,
+                "discardedEnergy": 730
+            },
+            "pairedWinDeltaPP": -3,
+            "pairedWinDelta95ApproxPP": [
+                -8.8,
+                2.8
+            ]
+        }
+    }
+}

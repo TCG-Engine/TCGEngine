@@ -1,5 +1,5 @@
 <?php
-function PokeDeckRegistry(): array { return ['fan-rotom-lopunny'=>'Fan Rotom / Mega Lopunny','galarian-meowth'=>'Galarian Meowth','sinistcha'=>'Dhelmise / Sinistcha','dhelmise-v2'=>'dhelmise v2','brisbane-lopunny'=>'Brisbane Lopunny','relicanth-fossils'=>'Relicanth / Fossils','relicanth-v2-draw'=>'relicanth v2 - draw','relicanth-v3-meta-tune'=>'Relicanth-v3-meta-tune','relicanth-v4-colress'=>'Relicanth v4 - Colress','relicanth-v5-bastiodon'=>'Relicanth v5 - Bastiodon','relicanth-v6-explorers-guidance'=>"Relicanth v6 - Explorer's Guidance",'relicanth-v7-lanas-aid'=>"Relicanth v7 - Lana's Aid"]; }
+function PokeDeckRegistry(): array { return ['umbreon-darkrai'=>'Umbreon ex / Mega Darkrai ex','ceruledge-ex'=>'Ceruledge ex','ceruledge-fighting'=>'Ceruledge ex fighting','ceruledge-budew'=>'Ceruledge ex / Budew (experimental)','fan-rotom-lopunny'=>'Fan Rotom / Mega Lopunny','galarian-meowth'=>'Galarian Meowth','sinistcha'=>'Dhelmise / Sinistcha','dhelmise-v2'=>'dhelmise v2','brisbane-lopunny'=>'Brisbane Lopunny','relicanth-fossils'=>'Relicanth / Fossils','relicanth-v2-draw'=>'relicanth v2 - draw','relicanth-v3-meta-tune'=>'Relicanth-v3-meta-tune','relicanth-v4-colress'=>'Relicanth v4 - Colress','relicanth-v5-bastiodon'=>'Relicanth v5 - Bastiodon','relicanth-v6-explorers-guidance'=>"Relicanth v6 - Explorer's Guidance",'relicanth-v7-lanas-aid'=>"Relicanth v7 - Lana's Aid"]; }
 function PokeDeckName(string $key): string { return PokeDeckRegistry()[$key]??'Custom deck'; }
 function PokeNamedDeck(string $key): array {
     if (!isset(PokeDeckRegistry()[$key])) throw new InvalidArgumentException('Unknown deck');
@@ -7,7 +7,13 @@ function PokeNamedDeck(string $key): array {
 }
 function PokeDetectDeck(array $deck): string {
     $counts=static function(array $cards): array { $out=[];foreach($cards as $card)$out[$card['id']]=($out[$card['id']]??0)+$card['count'];ksort($out);return $out; };
+    if($counts($deck)===$counts(PokeNamedDeck('umbreon-darkrai')))return 'umbreon-darkrai';
     if (in_array('30th-101', array_column($deck, 'id'), true)) return 'galarian-meowth';
+    if($counts($deck)===$counts(PokeNamedDeck('ceruledge-ex')))return 'ceruledge-ex';
+    if($counts($deck)===$counts(PokeNamedDeck('ceruledge-budew')))return 'ceruledge-budew';
+    if($counts($deck)===$counts(PokeNamedDeck('ceruledge-fighting')))return 'ceruledge-fighting';
+    if(in_array('sv08-036',array_column($deck,'id'),true)&&in_array('me01-074',array_column($deck,'id'),true)&&in_array('me01-075',array_column($deck,'id'),true))return 'ceruledge-fighting';
+    if(in_array('sv08-036',array_column($deck,'id'),true)&&in_array('me02-019',array_column($deck,'id'),true))return 'ceruledge-ex';
     if($counts($deck)===$counts(PokeNamedDeck('relicanth-v7-lanas-aid')))return 'relicanth-v7-lanas-aid';
     if($counts($deck)===$counts(PokeNamedDeck('relicanth-v6-explorers-guidance')))return 'relicanth-v6-explorers-guidance';
     if($counts($deck)===$counts(PokeNamedDeck('relicanth-v5-bastiodon')))return 'relicanth-v5-bastiodon';

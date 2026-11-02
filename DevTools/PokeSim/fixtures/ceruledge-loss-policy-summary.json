@@ -1,0 +1,81 @@
+{
+    "deck": "3 Lillie \/ 1 Naveen, 22 Fire, 4 Fan Rotom",
+    "seedRange": [
+        140001,
+        140100
+    ],
+    "notes": [
+        "Matched seeds, both starting orders, 200 games per opponent per policy.",
+        "Rates count all games, including losses before the target turn.",
+        "Approximate paired win interval; individual games sharing a seed may be correlated."
+    ],
+    "policies": {
+        "before": {
+            "policy": "ba4a2d4a6e9d7a9b",
+            "games": 400,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 141
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 88
+                }
+            },
+            "complete": 400,
+            "won": 229,
+            "by2ExAttack": 205,
+            "by4Ready330": 113,
+            "by5Ready330": 189
+        },
+        "after": {
+            "policy": "14dce23f2345428c",
+            "games": 400,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 160
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 101
+                }
+            },
+            "complete": 400,
+            "won": 261,
+            "by2ExAttack": 211,
+            "by4Ready330": 120,
+            "by5Ready330": 215
+        }
+    },
+    "pairedWinDeltaPP": 8,
+    "seedCluster95ApproxPP": [
+        5.138592562172852,
+        10.861407437827147
+    ],
+    "flips": {
+        "lossToWin": 35,
+        "winToLoss": 3
+    },
+    "traceReview": {
+        "lossesReviewed": 16,
+        "recovered": [
+            {
+                "opponent": "brisbane-lopunny",
+                "seed": 130003,
+                "firstPlayer": 1
+            },
+            {
+                "opponent": "brisbane-lopunny",
+                "seed": 130010,
+                "firstPlayer": 1
+            },
+            {
+                "opponent": "brisbane-lopunny",
+                "seed": 130010,
+                "firstPlayer": 2
+            }
+        ]
+    }
+}

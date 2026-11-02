@@ -1,0 +1,36 @@
+{
+  "frames": 121,
+  "fps": 24.0,
+  "durationSeconds": 5.041666666666667,
+  "registrationMedianErrorPixels": 0.00940660573542118,
+  "firstLastMeanChannelDifference": 2.782416820526123,
+  "meanAdjacentFrameDifference": 0.8921139240264893,
+  "regions": {
+    "upperWater": {
+      "meanTemporalPixelDeviation": 1.456865906715393,
+      "maximumMeanBrightnessJump": 0.8559646606445312
+    },
+    "belowPierWater": {
+      "meanTemporalPixelDeviation": 5.587108135223389,
+      "maximumMeanBrightnessJump": 0.9705276489257812
+    },
+    "upperReeds": {
+      "meanTemporalPixelDeviation": 18.567955017089844,
+      "maximumMeanBrightnessJump": 0.7089691162109375
+    },
+    "middleReeds": {
+      "meanTemporalPixelDeviation": 20.705463409423828,
+      "maximumMeanBrightnessJump": 0.748809814453125
+    },
+    "lowerReeds": {
+      "meanTemporalPixelDeviation": 17.457372665405273,
+      "maximumMeanBrightnessJump": 0.5377731323242188
+    },
+    "lowerRight": {
+      "meanTemporalPixelDeviation": 10.394291877746582,
+      "maximumMeanBrightnessJump": 0.7182464599609375
+    }
+  },
+  "endBlendApplied": false,
+  "rawRetained": true
+}

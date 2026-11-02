@@ -1,0 +1,38 @@
+{
+  "status": "ready_for_visual_review",
+  "model": "Kling 4.0",
+  "durationSeconds": 5,
+  "resolution": "720p",
+  "outputs": 1,
+  "sourceMap": "../riverside-quarter-v1.webp",
+  "sourceRect": [
+    1474,
+    680,
+    62,
+    70
+  ],
+  "input": "riverside-water-v2-input.png",
+  "inputSize": [
+    496,
+    560
+  ],
+  "scaling": "8x nearest-neighbor, no redraw",
+  "firstAndLastFrame": "riverside-water-v2-input.png",
+  "prompt": "water-v2-prompt.txt",
+  "previousQuotedCredits": 50,
+  "creditsSpent": 50,
+  "approvedCreditCap": 50,
+  "uploadApproved": true,
+  "displayedPriceCredits": 50,
+  "creditBalanceBefore": 281,
+  "submissionRequestedAt": "2026-10-31T18:03:44.329789+00:00",
+  "slotId": "945569325992259591",
+  "sourceVideo": "riverside-water-source-v2.mp4",
+  "workId": "325441295528054",
+  "resultPage": "https://kling.ai/app/creations/grid?project=929951353903251461&slotId=945569325992259591",
+  "sourceUrl": "https://v15-kling.klingai.com/bs2/upload-ylab-stunt-sgp/3711a23b-5608-423d-bc44-21130f47c9d6-IKmHIFF4C97dASTfVAvCoA-output.mp4?x-kcdn-pid=112372",
+  "review": "review-v2.json",
+  "creditBalanceAfter": 231,
+  "sha256": "45cab0184b7fb4af6dcbc613fa797655838ae49e3945a42ca84f139f9a3d7e27",
+  "assessment": "Visible ripple movement; first/last mean channel difference 0.80 of 255. Raw loop and exact-scale feathered map patch available in study. Not enabled in live adventure."
+}

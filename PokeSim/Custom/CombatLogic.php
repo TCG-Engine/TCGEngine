@@ -18,27 +18,29 @@ function PokePlaceDamageCounters(string $sourceRef, string $targetRef, int $coun
     $target->Damage += max(0, $count) * 10;
     PokeRecordDamage($source->Controller, $target->Controller, max(0, $count) * 10);
 }
-function PokeDealAttackDamage(int $player, string $sourceRef, int $damage, bool $ignoreEffects=false, ?string $targetRef=null): void {
+function PokeDealAttackDamage(int $player, string $sourceRef, int $damage, bool $ignoreEffects=false, ?string $targetRef=null, bool $ignoreWeaknessResistance=false): void {
     $source = GetZoneObject($sourceRef); $targetRef ??= PokeFirstRef(3 - $player, 'Active');
     if (!$source || $targetRef === '') return; $target = GetZoneObject($targetRef);
     if (!$ignoreEffects && $target->Controller !== $source->Controller && ($target->TurnEffects['digThrough'] ?? -1) >= GetTurnNumber()) return;
     if ($damage <= 0) return; // Damage boosts do not turn a non-damaging attack into damage.
+    if (!$ignoreEffects && $target->Location === 'Bench' && PokeCardIsTera($target->CardID)) return;
     if (!$ignoreEffects && PokeFieldModifier('BenchDamageProtection',3-$player,$target,$source)>0) return;
     $damage += EvaluateAttackDamageModifier($source->CardID, $player, $source, $damage, $source);
+    if ($target->Controller !== $source->Controller && $target->Location === 'Active' && in_array('Fighting', explode(',', EffectiveCardElement($source)), true)) $damage += PokeVar('premiumPowerPro:' . $player . ':' . GetTurnNumber(), 0);
     if($source->Tool!=='-' && PokeToolsEnabled())$damage+=EvaluateAttackDamageModifier($source->Tool,$player,$target,$damage,$source);
     if (PokeVar('blackBelt:' . $player) === GetTurnNumber() && in_array(CardSuffix($target->CardID), ['ex'], true)) $damage += 40;
     if (!$ignoreEffects && !HasNoAbilities($target)) $damage += EvaluateIncomingAttackDamageModifier($target->CardID, $target->Controller, $target, $source);
     $damage = max(0, $damage);
     $types = explode(',', EffectiveCardElement($source));
-    $weaknesses=$target->Location==='Active'?(CardWeaknesses($target->CardID)??[]):[];
-    if ($target->Location==='Active' && PokeFieldModifier('DragonPsychicWeakness',$player,$target,$source)>0) $weaknesses=[['type'=>'Psychic','value'=>'×2']];
+    $weaknesses=$target->Location==='Active'&&!$ignoreWeaknessResistance?(CardWeaknesses($target->CardID)??[]):[];
+    if (!$ignoreWeaknessResistance && $target->Location==='Active' && PokeFieldModifier('DragonPsychicWeakness',$player,$target,$source)>0) $weaknesses=[['type'=>'Psychic','value'=>'×2']];
     if (($target->TurnEffects['noWeaknessThrough'] ?? -1) >= GetTurnNumber()) $weaknesses=[];
     foreach ($weaknesses as $weakness) {
         if (!in_array($weakness['type'], $types, true)) continue;
         $value = $weakness['value'] ?? '×2';
         $damage = str_contains($value, '×') || str_contains($value, 'x') ? $damage * (int)preg_replace('/\D/', '', $value) : $damage + (int)$value;
     }
-    if ($target->Location==='Active') foreach (CardResistances($target->CardID) ?? [] as $resistance) if (in_array($resistance['type'], $types, true)) $damage += (int)($resistance['value'] ?? 0);
+    if (!$ignoreWeaknessResistance && $target->Location==='Active') foreach (CardResistances($target->CardID) ?? [] as $resistance) if (in_array($resistance['type'], $types, true)) $damage += (int)($resistance['value'] ?? 0);
     $armor=PokeFirstRef(3-$player,'Active');
     if(!$ignoreEffects&&$armor!==''&&GetZoneObject($armor)->CardID==='me05-072'&&!HasNoAbilities(GetZoneObject($armor)))$damage-=10;
     $target->Damage += max(0, $damage);

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "card-motion",
+    "source": "card-motion-v3-master.mp3",
+    "file": "card-motion-v3.wav",
+    "trimStart": 0,
+    "duration": 0.3,
+    "gain": 0.3769
+  },
+  {
+    "id": "card-land",
+    "source": "card-land-v3-master.mp3",
+    "file": "card-land-v3.wav",
+    "trimStart": 0,
+    "duration": 0.16,
+    "gain": 0.2068
+  },
+  {
+    "id": "reveal",
+    "source": "reveal-v3-master.mp3",
+    "file": "reveal-v3.wav",
+    "trimStart": 0.0065,
+    "duration": 0.3,
+    "gain": 0.2646
+  },
+  {
+    "id": "hit-contact",
+    "source": "hit-contact-v3-master.mp3",
+    "file": "hit-contact-v3.wav",
+    "trimStart": 0.019,
+    "duration": 0.16,
+    "gain": 0.2098
+  },
+  {
+    "id": "hit-body",
+    "source": "hit-body-v3-master.mp3",
+    "file": "hit-body-v3.wav",
+    "trimStart": 0,
+    "duration": 0.26,
+    "gain": 0.9839
+  },
+  {
+    "id": "block",
+    "source": "block-v3-master.mp3",
+    "file": "block-v3.wav",
+    "trimStart": 0,
+    "duration": 0.28,
+    "gain": 0.2321
+  },
+  {
+    "id": "burn",
+    "source": "burn-v3-master.mp3",
+    "file": "burn-v3.wav",
+    "trimStart": 0.004,
+    "duration": 0.55,
+    "gain": 0.2009
+  }
+]

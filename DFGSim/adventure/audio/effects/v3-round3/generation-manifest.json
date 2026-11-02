@@ -1,0 +1,159 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v3",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.87,
+  "normalize": false,
+  "style": "",
+  "groups": [
+    {
+      "id": "commit",
+      "title": "Commit move",
+      "prompt": "Fighting game move locked in confirmation sound",
+      "duration": 1,
+      "round": 3,
+      "takes": [
+        {
+          "take": 1,
+          "file": "commit-r3-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "commit-r3-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "commit-r3-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "commit-r3-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "burn-bonus",
+      "title": "Bonus burn",
+      "prompt": "Roaring fire quickly consumes paper",
+      "duration": 0.7,
+      "round": 3,
+      "takes": [
+        {
+          "take": 1,
+          "file": "burn-bonus-r3-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "burn-bonus-r3-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "burn-bonus-r3-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "burn-bonus-r3-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "confirm-mark",
+      "title": "Mark damage",
+      "prompt": "Fighting game pending damage warning sound",
+      "duration": 1,
+      "round": 3,
+      "takes": [
+        {
+          "take": 1,
+          "file": "confirm-mark-r3-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "confirm-mark-r3-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "confirm-mark-r3-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "confirm-mark-r3-take-4.mp3"
+        }
+      ]
+    }
+  ],
+  "sounds": [
+    {
+      "id": "commit-r3-1",
+      "file": "commit-r3-take-1.mp3",
+      "duration": 1,
+      "prompt": "Fighting game move locked in confirmation sound"
+    },
+    {
+      "id": "commit-r3-2",
+      "file": "commit-r3-take-2.mp3",
+      "duration": 1,
+      "prompt": "Fighting game move locked in confirmation sound"
+    },
+    {
+      "id": "commit-r3-3",
+      "file": "commit-r3-take-3.mp3",
+      "duration": 1,
+      "prompt": "Fighting game move locked in confirmation sound"
+    },
+    {
+      "id": "commit-r3-4",
+      "file": "commit-r3-take-4.mp3",
+      "duration": 1,
+      "prompt": "Fighting game move locked in confirmation sound"
+    },
+    {
+      "id": "burn-bonus-r3-1",
+      "file": "burn-bonus-r3-take-1.mp3",
+      "duration": 0.7,
+      "prompt": "Roaring fire quickly consumes paper"
+    },
+    {
+      "id": "burn-bonus-r3-2",
+      "file": "burn-bonus-r3-take-2.mp3",
+      "duration": 0.7,
+      "prompt": "Roaring fire quickly consumes paper"
+    },
+    {
+      "id": "burn-bonus-r3-3",
+      "file": "burn-bonus-r3-take-3.mp3",
+      "duration": 0.7,
+      "prompt": "Roaring fire quickly consumes paper"
+    },
+    {
+      "id": "burn-bonus-r3-4",
+      "file": "burn-bonus-r3-take-4.mp3",
+      "duration": 0.7,
+      "prompt": "Roaring fire quickly consumes paper"
+    },
+    {
+      "id": "confirm-mark-r3-1",
+      "file": "confirm-mark-r3-take-1.mp3",
+      "duration": 1,
+      "prompt": "Fighting game pending damage warning sound"
+    },
+    {
+      "id": "confirm-mark-r3-2",
+      "file": "confirm-mark-r3-take-2.mp3",
+      "duration": 1,
+      "prompt": "Fighting game pending damage warning sound"
+    },
+    {
+      "id": "confirm-mark-r3-3",
+      "file": "confirm-mark-r3-take-3.mp3",
+      "duration": 1,
+      "prompt": "Fighting game pending damage warning sound"
+    },
+    {
+      "id": "confirm-mark-r3-4",
+      "file": "confirm-mark-r3-take-4.mp3",
+      "duration": 1,
+      "prompt": "Fighting game pending damage warning sound"
+    }
+  ]
+}

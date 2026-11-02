@@ -1,0 +1,43 @@
+{
+    "adoptedPolicy": "92464900f73feb55",
+    "baseline": {
+        "games": 600,
+        "wins": 551,
+        "activated": 380,
+        "firstActivated": 178,
+        "secondActivated": 202,
+        "attackBy2": 368,
+        "ready330By5": 268
+    },
+    "updated": {
+        "games": 600,
+        "wins": 561,
+        "activated": 432,
+        "firstActivated": 203,
+        "secondActivated": 229,
+        "attackBy2": 382,
+        "ready330By5": 272
+    },
+    "verifiedOpenings": 600,
+    "verifiedFullGames": 12,
+    "sources": [
+        "ceruledge-fighting-energy-splits-501",
+        "lunar-opening-prefix-501",
+        "lunar-opening-full-501",
+        "lunar-opening-full-701"
+    ],
+    "winDelta": {
+        "estimate": 0.016666666666666666,
+        "approx95CI": [
+            -0.0011556530447499706,
+            0.0344889863780833
+        ]
+    },
+    "lunarDelta": {
+        "estimate": 0.08666666666666667,
+        "approx95CI": [
+            0.0568585858885793,
+            0.11647474744475404
+        ]
+    }
+}

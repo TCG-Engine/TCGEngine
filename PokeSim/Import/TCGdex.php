@@ -31,6 +31,21 @@ function PokeTCGdexRequest(string $url, ?array $body = null, bool $allowPartial 
     throw new RuntimeException("TCGdex request failed ($status): $error; $url");
 }
 
+/** Narrow corrections to upstream metadata, retained across cached and refreshed imports. */
+function PokeTCGdexApplyCorrections(array $card): array {
+    // Printed J-mark Stage 1: https://www.pokemon.com/uk/pokemon-tcg/pokemon-cards/series/30th/92
+    // Upstream incorrectly reports Basic, no evolution/mark, uppercase EX and non-Standard.
+    if (($card['id'] ?? '') === '30th-092') {
+        $card['stage'] = 'Stage1';
+        $card['evolveFrom'] = 'Eevee';
+        $card['regulationMark'] = 'J';
+        $card['suffix'] = 'ex';
+        $card['legal']['standard'] = true;
+        $card['legal']['expanded'] = true;
+    }
+    return $card;
+}
+
 function PokeTCGdexNormalize(array $card): array {
     foreach (['id', 'name', 'category', 'set', 'localId'] as $field) {
         if (empty($card[$field])) throw new RuntimeException('Incomplete TCGdex card: ' . ($card['id'] ?? '?') . " ($field)");
@@ -40,12 +55,12 @@ function PokeTCGdexNormalize(array $card): array {
     $card['releaseDate'] = $card['set']['releaseDate'] ?? '';
     $card['set'] = $card['set']['id'];
     $card['types'] = implode(',', $card['types'] ?? []);
-    // Reviewed against the TCGdex card face: POR 088 is Special Energy, despite
-    // the current upstream energyType=Normal. Preserve the raw source separately.
-    if ($card['id'] === 'me03-088') $card['energyType'] = 'Special';
+    // POR 088 and CHA 086 are Special Energy despite upstream energyType=Normal.
+    // Preserve the raw source separately.
+    if (in_array($card['id'], ['me03-088', 'me04-086'], true)) $card['energyType'] = 'Special';
     if (str_ends_with($card['name'], ' ex') && empty($card['suffix'])) $card['suffix'] = 'ex';
     if ($card['category'] === 'Energy' && $card['types'] === '' && str_contains($card['name'], 'Psychic')) $card['types'] = 'Psychic';
-    return $card;
+    return PokeTCGdexApplyCorrections($card);
 }
 
 function PokeTCGdexImport(bool $refresh = false, ?array $ids = null, bool $images = true): int {
@@ -55,7 +70,7 @@ function PokeTCGdexImport(bool $refresh = false, ?array $ids = null, bool $image
     $cards = [];
     foreach ($old['cardArray'] ?? [] as $card) {
         if (str_ends_with($card['name'], ' ex') && empty($card['suffix'])) $card['suffix']='ex';
-        $cards[$card['id']] = $card;
+        $cards[$card['id']] = PokeTCGdexApplyCorrections($card);
     }
     if ($ids !== null) {
         foreach (array_unique($ids) as $id) {
@@ -125,8 +140,8 @@ function PokeTCGdexImport(bool $refresh = false, ?array $ids = null, bool $image
             $sourceId = $id; $image = $card['image'] ?? '';
             // These MEE printings have no published art. Keep their data identity and
             // explicitly record the equivalent basic Energy art used for display.
-            if ($image === '' && in_array($id, ['mee-005','mee-003','mee-008'], true)) {
-                $sourceId = ['mee-005'=>'swsh12.5-156','mee-003'=>'base1-102','mee-008'=>'swsh12.5-159'][$id];
+            if ($image === '' && in_array($id, ['mee-002','mee-005','mee-003','mee-008'], true)) {
+                $sourceId = ['mee-002'=>'swsh12.5-153','mee-005'=>'swsh12.5-156','mee-003'=>'base1-102','mee-008'=>'swsh12.5-159'][$id];
                 $fallback = $cards[$sourceId] ?? PokeTCGdexRequest('https://api.tcgdex.net/v2/en/cards/' . $sourceId);
                 if (($fallback['name'] ?? '') !== $card['name']) throw new RuntimeException('Energy image fallback name mismatch');
                 $image = $fallback['image'] ?? '';

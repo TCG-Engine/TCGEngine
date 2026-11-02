@@ -3,6 +3,7 @@
 window.DFGSoundtrack=(()=>{
   if(window.parent!==window&&window.parent.location.origin===location.origin&&window.parent.DFGSoundtrack)return window.parent.DFGSoundtrack;
   const supported=!!(window.AudioContext||window.webkitAudioContext);
+  const approvedEffects=JSON.parse(document.getElementById('dfgEffectSelections')?.textContent??'{}');
   const tracks={courtyard:['A Tablet at Your Door','courtyard-v1.mp3'],sanctuary:['A Cushion for Tomorrow','sanctuary-v1.mp3'],market:['Clay, Coins and Conversation','market-v1.mp3'],canal:['Where the Reeds Bend','canal-v1.mp3'],grove:['The Cedar Remembers','grove-v1.mp3'],terrace:['Lessons Above the City','terrace-v1.mp3'],temple:['The Court Beneath Heaven','temple-v1.mp3'],iddin:['The Reed-Court Lesson','iddin-v1.mp3'],imdugud:['Wings Above the Terrace','imdugud-v1.mp3'],huwawa:['Seven Rings of Cedar','huwawa-v1.mp3'],'bull-of-heaven':['The Horizon Takes a Step','bull-of-heaven-v1.mp3']};
   let prefs={enabled:false,volume:.45,effectsEnabled:true,effectsVolume:.65};try{prefs={...prefs,...JSON.parse(localStorage.getItem('dfg-adventure-audio')??'{}')};}catch{}
   prefs.effectsVolume=Math.max(0,Math.min(1,Number(prefs.effectsVolume)||0));
@@ -50,7 +51,7 @@ window.DFGSoundtrack=(()=>{
   }
   const effectPriority=id=>['victory','defeat'].includes(id)?5:id==='knockout'?4:['barrier-break','burst-break','break-stop','confirm-cash'].includes(id)?3:id.startsWith('hit-')||id==='block'?2:id.startsWith('burn-')?1:0;
   const effectNames=['card-swipe','card-return','commit','reveal','burn-bonus','burn-reaction','hit-light','hit-medium','hit-heavy','block','advantage-gain','advantage-spend','barrier-absorb','barrier-break','break-stop','burst-break','confirm-mark','confirm-cash','reaction-ready','round-ready','knockout','victory','defeat'];
-  async function effectBuffer(id){if(!effectBuffers.has(id))effectBuffers.set(id,(async()=>{const r=await fetch(new URL('adventure/audio/effects/'+id+'-v1.mp3',document.baseURI));if(!r.ok)throw Error('Effect unavailable');return context.decodeAudioData(await r.arrayBuffer());})().catch(e=>{effectBuffers.delete(id);throw e;}));return effectBuffers.get(id);}
+  async function effectBuffer(id){if(!effectBuffers.has(id))effectBuffers.set(id,(async()=>{const r=await fetch(new URL('adventure/audio/effects/'+(approvedEffects[id]?.file??(id==='card-swipe'?'sfx-model-v3/playmat-1-v3-short.wav':id+'-v1.mp3')),document.baseURI));if(!r.ok)throw Error('Effect unavailable');return context.decodeAudioData(await r.arrayBuffer());})().catch(e=>{effectBuffers.delete(id);throw e;}));return effectBuffers.get(id);}
   function warmEffects(){if(!prefs.effectsEnabled)return;for(const id of effectNames)effectBuffer(id).catch(()=>{});}
   function stopEffects(){for(const v of effectVoices){try{v.source.stop();}catch{}v.gain.disconnect();}effectVoices.clear();}
   async function effect(id,{seat=null,delay=0}={}){
@@ -61,12 +62,12 @@ window.DFGSoundtrack=(()=>{
       const priority=effectPriority(id);
       if(priority>=4){for(const v of [...effectVoices])if(v.priority<2){try{v.source.stop();}catch{}effectVoices.delete(v);}}
       if(effectVoices.size>=6){const lowest=[...effectVoices].sort((a,b)=>a.priority-b.priority)[0];if(lowest.priority>=priority)return;try{lowest.source.stop();}catch{}effectVoices.delete(lowest);}
-      const source=context.createBufferSource(),gain=context.createGain();source.buffer=b;source.playbackRate.value=priority<4?.97+Math.random()*.06:1;gain.gain.value=priority===0?.65:priority===5?.8:1;
+      const source=context.createBufferSource(),gain=context.createGain();source.buffer=b;source.playbackRate.value=approvedEffects[id]||id==='card-swipe'||priority>=4?1:.97+Math.random()*.06;gain.gain.value=priority===0?.65:priority===5?.8:1;
       source.connect(gain);let pan;if(context.createStereoPanner){pan=context.createStereoPanner();pan.pan.value=seat===0?-.22:seat===1?.22:0;gain.connect(pan);pan.connect(effectsMaster);}else gain.connect(effectsMaster);
       const voice={source,gain,priority};effectVoices.add(voice);source.onended=()=>{gain.disconnect();pan?.disconnect();effectVoices.delete(voice);};source.start(Math.max(context.currentTime+.005,now+delay));effectsPlayed++;
     }catch{/* Optional asset failures never interfere with a card action. */}
   }
-  function area(j){if(j.zone==='sanctuary')return 'sanctuary';const x=j.position.x*64+32,y=j.position.y*64+32;return x>1000?'temple':y>770&&x<430?'courtyard':x<500&&y<350?'grove':y<430&&x>540?'terrace':y>640?'canal':'market';}
+  function area(j){if(j.zone==='sanctuary')return 'sanctuary';if(j.zone==='riverside')return j.position.y<7?(j.position.x<14?'market':'grove'):'canal';const x=j.position.x*64+32,y=j.position.y*64+32;return x>1000?'temple':y>770&&x<430?'courtyard':x<500&&y<350?'grove':y<430&&x>540?'terrace':y>640?'canal':'market';}
   function toggle(){if(!supported)return;prefs.enabled=!prefs.enabled;notice='';save();if(prefs.enabled)unlock();else{++token;for(const v of voices){ramp(v.gain.gain,0,.25);stopVoice(v,.3);}active=null;}paint();}
   function paint(){for(const doc of documents)for(const root of doc.querySelectorAll('.dfg-audio-controls')){root.querySelector('[data-music-toggle]').disabled=!supported;root.querySelector('[data-music-toggle]').textContent=!supported?'♫ Music unavailable':prefs.enabled?'♫ Music on':'♫ Music off';root.querySelector('[data-music-toggle]').setAttribute('aria-pressed',String(prefs.enabled));root.querySelector('[data-effects-toggle]').disabled=!supported;root.querySelector('[data-effects-toggle]').textContent=prefs.effectsEnabled?'Effects on':'Effects off';root.querySelector('[data-effects-toggle]').setAttribute('aria-pressed',String(prefs.effectsEnabled));root.querySelector('output').textContent=!supported?'Audio playback is unavailable in this browser.':notice||(prefs.enabled?tracks[wanted][0]:'Enable the adventure soundtrack');}}
   function mount(doc=document){

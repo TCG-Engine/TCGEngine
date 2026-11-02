@@ -1,0 +1,201 @@
+{
+    "policy": "33db85c46c87a438",
+    "seed": 190001,
+    "pairs": 20,
+    "baselineSHA256": "679c616c1bef00738521fb7a6a667745dec5583a4e2b0645b4aee0e8447cfcf0",
+    "note": "Matched seeds and starting orders. Percentages count all games. Win intervals cluster the four games sharing each seed; approximate 95%, no adjustment for comparing multiple candidates.",
+    "variants": {
+        "baseline": {
+            "changes": [],
+            "games": 80,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 40,
+                    "wins": 34
+                },
+                "dhelmise-v2": {
+                    "games": 40,
+                    "wins": 22
+                }
+            },
+            "complete": 80,
+            "completePct": 100,
+            "won": 56,
+            "wonPct": 70,
+            "by2ExAttack": 45,
+            "by2ExAttackPct": 56.25,
+            "by4Ready330": 22,
+            "by4Ready330Pct": 27.5,
+            "by5Ready330": 37,
+            "by5Ready330Pct": 46.25,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": 0,
+            "seedCluster95ApproxPP": [
+                0,
+                0
+            ]
+        },
+        "budew-fez-shovels": {
+            "changes": {
+                "sv07-118": -4,
+                "me04-080": -4,
+                "sv08.5-004": 2,
+                "me02.5-142": 1,
+                "sv05-144": 2,
+                "me03-074": 3
+            },
+            "games": 80,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 40,
+                    "wins": 30
+                },
+                "dhelmise-v2": {
+                    "games": 40,
+                    "wins": 19
+                }
+            },
+            "complete": 80,
+            "completePct": 100,
+            "won": 49,
+            "wonPct": 61.25,
+            "by2ExAttack": 48,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 18,
+            "by4Ready330Pct": 22.5,
+            "by5Ready330": 31,
+            "by5Ready330Pct": 38.75,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": -8.75,
+            "seedCluster95ApproxPP": [
+                -20.69,
+                3.19
+            ]
+        },
+        "budew3-shovels": {
+            "changes": {
+                "sv07-118": -4,
+                "me04-080": -4,
+                "sv08.5-004": 3,
+                "sv05-144": 2,
+                "me03-074": 3
+            },
+            "games": 80,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 40,
+                    "wins": 28
+                },
+                "dhelmise-v2": {
+                    "games": 40,
+                    "wins": 20
+                }
+            },
+            "complete": 80,
+            "completePct": 100,
+            "won": 48,
+            "wonPct": 60,
+            "by2ExAttack": 47,
+            "by2ExAttackPct": 58.75,
+            "by4Ready330": 13,
+            "by4Ready330Pct": 16.25,
+            "by5Ready330": 29,
+            "by5Ready330Pct": 36.25,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": -10,
+            "seedCluster95ApproxPP": [
+                -25.66,
+                5.66
+            ]
+        },
+        "budew3-fire": {
+            "changes": {
+                "sv07-118": -4,
+                "me04-080": -4,
+                "sv08.5-004": 3,
+                "sv05-144": 2,
+                "mee-002": 3
+            },
+            "games": 80,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 40,
+                    "wins": 30
+                },
+                "dhelmise-v2": {
+                    "games": 40,
+                    "wins": 21
+                }
+            },
+            "complete": 80,
+            "completePct": 100,
+            "won": 51,
+            "wonPct": 63.75,
+            "by2ExAttack": 48,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 18,
+            "by4Ready330Pct": 22.5,
+            "by5Ready330": 32,
+            "by5Ready330Pct": 40,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": -6.25,
+            "seedCluster95ApproxPP": [
+                -23.62,
+                11.12
+            ]
+        },
+        "budew-fez-tutors": {
+            "changes": {
+                "sv07-118": -4,
+                "me04-080": -4,
+                "sv08.5-004": 2,
+                "me02.5-142": 1,
+                "sv05-144": 2,
+                "me02.5-207": 2,
+                "me03-079": 1
+            },
+            "games": 80,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 40,
+                    "wins": 33
+                },
+                "dhelmise-v2": {
+                    "games": 40,
+                    "wins": 18
+                }
+            },
+            "complete": 80,
+            "completePct": 100,
+            "won": 51,
+            "wonPct": 63.75,
+            "by2ExAttack": 55,
+            "by2ExAttackPct": 68.75,
+            "by4Ready330": 10,
+            "by4Ready330Pct": 12.5,
+            "by5Ready330": 30,
+            "by5Ready330Pct": 37.5,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": -6.25,
+            "seedCluster95ApproxPP": [
+                -20.85,
+                8.35
+            ]
+        }
+    }
+}

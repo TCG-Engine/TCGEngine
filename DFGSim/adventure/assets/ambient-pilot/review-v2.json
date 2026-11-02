@@ -1,0 +1,13 @@
+{
+  "frames": 121,
+  "fps": 24.0,
+  "durationSeconds": 5.041666666666667,
+  "meanAdjacentFrameDifference": 0.7630082425275216,
+  "meanTemporalPixelDeviation": 4.896437935224968,
+  "firstLastMeanDifference": 0.800937259984639,
+  "maximumFrameBrightnessJump": 0.8207697292626648,
+  "brightnessRange": [
+    125.56321404569893,
+    128.80403705837173
+  ]
+}

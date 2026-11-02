@@ -1,0 +1,7 @@
+Create a seamless five-second ambient animation of this complete illustrated courtyard canal gardens section for a warm cartoon adventure game.
+
+Water flows with visible illustrated ripples through the whole canal around the bridge and rocks. All complete reed clusters along both banks sway gently together, and the complete palm above the west bank softly sways its leaves from its fixed trunk. Crop-edge objects remain stationary. The bridge, posts, banks, garden walls, crops and rocks remain precisely fixed.
+
+Keep the established flat cartoon colors and dark drawn outlines. Motion is gentle but clearly visible at normal game-map scale across the section. The camera is absolutely locked: no zoom, pan, shake, reframing or parallax. Keep scenery aligned with the supplied image. No new objects, particles, text, audio or photorealistic textures. No flashing or sudden exposure changes.
+
+The supplied first and last keyframes are identical. Return precisely to the supplied scene for a seamless loop, with natural continuous movement and no frozen interval or abrupt reset.

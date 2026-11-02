@@ -1,0 +1,330 @@
+{
+    "matchup": {
+        "seat1": "brisbane-lopunny",
+        "seat2": "ceruledge-ex"
+    },
+    "seeds": [
+        1,
+        100
+    ],
+    "gamesPerPolicy": 200,
+    "megaLopunnyHP": 330,
+    "abyssalFlamesRequiredDiscard": 15,
+    "metricsNote": "Turn metrics condition on games reaching that Ceruledge player turn. ready330 means a legal Ceruledge ex attack with 15+ Energy in discard during that turn. Average damage includes zero-damage turns.",
+    "baseline": {
+        "policy": "69e2e895cd7cd72a",
+        "summary": {
+            "first": {
+                "games": 100,
+                "completed": 100,
+                "wins": 41,
+                "turns": {
+                    "1": {
+                        "reached": 100,
+                        "avgDiscard": 1.64,
+                        "avgDamage": 0,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 94,
+                        "avgDiscard": 3.07,
+                        "avgDamage": 56.3,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 65
+                    },
+                    "3": {
+                        "reached": 88,
+                        "avgDiscard": 4.68,
+                        "avgDamage": 94.7,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 71
+                    },
+                    "4": {
+                        "reached": 81,
+                        "avgDiscard": 6.56,
+                        "avgDamage": 133.7,
+                        "discard15": 2,
+                        "ready330": 1,
+                        "ex": 66
+                    },
+                    "5": {
+                        "reached": 75,
+                        "avgDiscard": 8.52,
+                        "avgDamage": 166.3,
+                        "discard15": 7,
+                        "ready330": 5,
+                        "ex": 64
+                    },
+                    "6": {
+                        "reached": 61,
+                        "avgDiscard": 10.23,
+                        "avgDamage": 218.2,
+                        "discard15": 8,
+                        "ready330": 8,
+                        "ex": 55
+                    },
+                    "7": {
+                        "reached": 47,
+                        "avgDiscard": 11.77,
+                        "avgDamage": 257.2,
+                        "discard15": 11,
+                        "ready330": 11,
+                        "ex": 45
+                    },
+                    "8": {
+                        "reached": 32,
+                        "avgDiscard": 12.91,
+                        "avgDamage": 270.6,
+                        "discard15": 11,
+                        "ready330": 10,
+                        "ex": 30
+                    }
+                }
+            },
+            "second": {
+                "games": 100,
+                "completed": 100,
+                "wins": 47,
+                "turns": {
+                    "1": {
+                        "reached": 100,
+                        "avgDiscard": 2.72,
+                        "avgDamage": 2.6,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 95,
+                        "avgDiscard": 4.65,
+                        "avgDamage": 77.2,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 72
+                    },
+                    "3": {
+                        "reached": 93,
+                        "avgDiscard": 6.18,
+                        "avgDamage": 129.1,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 84
+                    },
+                    "4": {
+                        "reached": 86,
+                        "avgDiscard": 8.1,
+                        "avgDamage": 160.7,
+                        "discard15": 4,
+                        "ready330": 2,
+                        "ex": 72
+                    },
+                    "5": {
+                        "reached": 84,
+                        "avgDiscard": 9.73,
+                        "avgDamage": 184.8,
+                        "discard15": 8,
+                        "ready330": 6,
+                        "ex": 70
+                    },
+                    "6": {
+                        "reached": 73,
+                        "avgDiscard": 11.52,
+                        "avgDamage": 216.2,
+                        "discard15": 17,
+                        "ready330": 15,
+                        "ex": 63
+                    },
+                    "7": {
+                        "reached": 46,
+                        "avgDiscard": 11.8,
+                        "avgDamage": 235.9,
+                        "discard15": 9,
+                        "ready330": 8,
+                        "ex": 41
+                    },
+                    "8": {
+                        "reached": 15,
+                        "avgDiscard": 12.47,
+                        "avgDamage": 244.7,
+                        "discard15": 4,
+                        "ready330": 4,
+                        "ex": 13
+                    }
+                }
+            }
+        },
+        "trainerUsesFirst5": {
+            "me02.5-192": 87,
+            "me01-131": 287,
+            "me02.5-183": 99,
+            "sv08.5-107": 191,
+            "me02.5-196": 95,
+            "me04-080": 166,
+            "sv06-145": 177,
+            "me02-089": 29
+        },
+        "explorerKeptBasicFireFirst5": 93
+    },
+    "tuned": {
+        "policy": "59dbc4b113c34868",
+        "summary": {
+            "first": {
+                "games": 100,
+                "completed": 100,
+                "wins": 48,
+                "turns": {
+                    "1": {
+                        "reached": 100,
+                        "avgDiscard": 1.69,
+                        "avgDamage": 0,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 93,
+                        "avgDiscard": 3.12,
+                        "avgDamage": 51.9,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 57
+                    },
+                    "3": {
+                        "reached": 87,
+                        "avgDiscard": 4.92,
+                        "avgDamage": 90.1,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 64
+                    },
+                    "4": {
+                        "reached": 83,
+                        "avgDiscard": 7,
+                        "avgDamage": 141.9,
+                        "discard15": 2,
+                        "ready330": 0,
+                        "ex": 70
+                    },
+                    "5": {
+                        "reached": 78,
+                        "avgDiscard": 9.14,
+                        "avgDamage": 181.4,
+                        "discard15": 10,
+                        "ready330": 8,
+                        "ex": 69
+                    },
+                    "6": {
+                        "reached": 64,
+                        "avgDiscard": 11.13,
+                        "avgDamage": 220.6,
+                        "discard15": 12,
+                        "ready330": 12,
+                        "ex": 57
+                    },
+                    "7": {
+                        "reached": 46,
+                        "avgDiscard": 12.89,
+                        "avgDamage": 248.7,
+                        "discard15": 15,
+                        "ready330": 11,
+                        "ex": 40
+                    },
+                    "8": {
+                        "reached": 28,
+                        "avgDiscard": 14.11,
+                        "avgDamage": 276.4,
+                        "discard15": 14,
+                        "ready330": 12,
+                        "ex": 25
+                    }
+                }
+            },
+            "second": {
+                "games": 100,
+                "completed": 100,
+                "wins": 48,
+                "turns": {
+                    "1": {
+                        "reached": 100,
+                        "avgDiscard": 2.57,
+                        "avgDamage": 3.9,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 94,
+                        "avgDiscard": 5.05,
+                        "avgDamage": 71.7,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 67
+                    },
+                    "3": {
+                        "reached": 91,
+                        "avgDiscard": 6.93,
+                        "avgDamage": 137.7,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 80
+                    },
+                    "4": {
+                        "reached": 80,
+                        "avgDiscard": 9.51,
+                        "avgDamage": 187.5,
+                        "discard15": 8,
+                        "ready330": 7,
+                        "ex": 67
+                    },
+                    "5": {
+                        "reached": 76,
+                        "avgDiscard": 11.39,
+                        "avgDamage": 213.4,
+                        "discard15": 20,
+                        "ready330": 16,
+                        "ex": 66
+                    },
+                    "6": {
+                        "reached": 60,
+                        "avgDiscard": 12.82,
+                        "avgDamage": 249.3,
+                        "discard15": 24,
+                        "ready330": 20,
+                        "ex": 52
+                    },
+                    "7": {
+                        "reached": 29,
+                        "avgDiscard": 12.79,
+                        "avgDamage": 273.1,
+                        "discard15": 11,
+                        "ready330": 10,
+                        "ex": 27
+                    },
+                    "8": {
+                        "reached": 9,
+                        "avgDiscard": 13,
+                        "avgDamage": 290,
+                        "discard15": 3,
+                        "ready330": 3,
+                        "ex": 9
+                    }
+                }
+            }
+        },
+        "trainerUsesFirst5": {
+            "me02.5-192": 90,
+            "me01-131": 280,
+            "me02.5-183": 94,
+            "sv08.5-107": 178,
+            "me04-080": 167,
+            "me02-089": 75,
+            "me02.5-196": 80,
+            "sv06-145": 165
+        },
+        "explorerKeptBasicFireFirst5": 21
+    }
+}

@@ -1,0 +1,112 @@
+{
+  "status": "cedar_integrated_temple_deferred",
+  "sections": [
+    {
+      "id": "cedar-grove",
+      "name": "Cedar grove",
+      "zone": "courtyard",
+      "source": "sumerian-overworld-v1.png",
+      "rect": [
+        0,
+        0,
+        576,
+        384
+      ],
+      "playbackRate": 0.91,
+      "phase": 0.47,
+      "motion": "Animate the whole cedar grove with coordinated gentle wind through cedar boughs, needles and leafy undergrowth. Keep each trunk and the roots fixed, with clear but relaxed branch movement, preserving each tree silhouette. Stones, the path, walls and the partial market awnings at the bottom stay precisely stationary. Keep branches aligned at the world edges; do not invent scenery beyond the image.",
+      "status": "integrated_in_adventure",
+      "input": "cedar-grove-input-v1.png",
+      "prompt": "cedar-grove-prompt-v1.txt",
+      "firstAndLastFrame": "cedar-grove-input-v1.png",
+      "model": "Kling 4.0",
+      "durationSeconds": 5,
+      "resolution": "720p",
+      "outputs": 1,
+      "creditsSpent": 35,
+      "excludeMapRects": [
+        [
+          0,
+          280,
+          150,
+          104
+        ],
+        [
+          0,
+          350,
+          576,
+          34
+        ],
+        [
+          530,
+          0,
+          46,
+          130
+        ],
+        [
+          515,
+          288,
+          61,
+          96
+        ]
+      ],
+      "uploadApproved": true,
+      "approvedCreditCap": 50,
+      "displayedPriceCredits": 50,
+      "submissionRecordedAt": "2026-11-01T00:35:15.445405+00:00",
+      "slotId": "945667735969738761",
+      "sourceVideo": "cedar-grove-source-v1.mp4",
+      "registeredVideo": "cedar-grove-registered-v1.mp4",
+      "mask": "cedar-grove-mask-v1.png",
+      "review": "cedar-grove-review-v1.json",
+      "sha256": "2cb3f7144bd5317f45a438d9d1022efb01b5385f9f291e8a812b68739a5a4356",
+      "workId": "325464757522833",
+      "creditBalanceBefore": 81,
+      "creditBalanceAfter": 46,
+      "chargeEvidence": "Account balance fell from 81 to 46 after the one job; the displayed submission quote was 50. No explanation for the lower debit was supplied.",
+      "downloadMethod": "Official Kling Download control",
+      "resultPage": "https://kling.ai/app/creations/grid?project=929951353903251461&slotId=945667735969738761",
+      "assessment": "Wind through cedar boughs and shrubs. Cropped palms, lower market context and edge shrubs remain original. Effective loop 5.54 seconds; no end blend applied."
+    },
+    {
+      "id": "temple-court",
+      "name": "Temple court",
+      "zone": "courtyard",
+      "source": "sumerian-overworld-v1.png",
+      "rect": [
+        848,
+        0,
+        688,
+        704
+      ],
+      "playbackRate": 0.79,
+      "phase": 0.71,
+      "motion": "Animate all complete blue temple banners with a gentle shared breeze from fixed top attachments. Complete palm crowns and leafy shrubs gently sway from fixed trunks and roots. Keep the temple, sunlit walls, bull statues, steps, columns, pots, empty brazier bowls and paving precisely fixed. The empty bowls remain empty: no new fire, smoke, particles, characters or objects. Partial terrace scenery along the left edge and partial objects at the bottom remain stationary.",
+      "excludeMapRects": [
+        [
+          848,
+          590,
+          352,
+          114
+        ]
+      ],
+      "status": "deferred_by_user",
+      "input": "temple-court-input-v1.png",
+      "prompt": "temple-court-prompt-v1.txt",
+      "firstAndLastFrame": "temple-court-input-v1.png",
+      "model": "Kling 4.0",
+      "durationSeconds": 5,
+      "resolution": "720p",
+      "outputs": 1,
+      "creditsSpent": 0,
+      "uploadApproved": false
+    }
+  ],
+  "verifiedBalanceBefore": 81,
+  "previousQuoteCreditsPerJob": 50,
+  "approvedCreditCap": 50,
+  "creditBalanceBefore": 81,
+  "creditBalanceAfter": 46,
+  "observedBalanceDebit": 35,
+  "creditsSpent": 35
+}

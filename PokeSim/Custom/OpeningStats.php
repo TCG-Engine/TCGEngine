@@ -18,6 +18,8 @@ function PokeOpeningInit(): void {
             'fullyEnabledAttack'=>false, 'anyLegalSeen'=>false, 'goalLegalSeen'=>false,
             'milestones'=>[], 'blockers'=>[], 'trace'=>[], 'traceTruncated'=>false,
             'steps'=>0, 'damage'=>0, 'prizesTaken'=>0];
+        if($deck==='ceruledge-fighting')$rows[$player]['lunarCycleTurnOne']=[
+            'reached'=>false,'complete'=>false,'available'=>false,'activated'=>false,'blockers'=>[]];
     }
     PokeSetVar('openingStats', $rows);
 }
@@ -79,7 +81,32 @@ function PokeOpeningSnapshot(int $player): array {
         'anyLegal'=>(bool)$legal, 'goalLegal'=>(bool)$goalLegal, 'blockers'=>$blockers,
         'milestones'=>($profile['milestones'])($player)];
 }
+/** Own first turn for either order, independent of the first eligible attack. */
+function PokeOpeningObserveLunarCycle(): void {
+    $player=GetTurnPlayer();$rows=PokeVar('openingStats',[]);
+    if(GetCurrentPhase()!=='MAIN'||GetPlayerTurns($player)!==1||GetWinner()
+        ||!isset($rows[$player]['lunarCycleTurnOne'])||$rows[$player]['lunarCycleTurnOne']['complete']
+        ||$rows[$player]['attackDeclared']
+        ||(new DecisionQueueController())->AnyQueuePending())return;
+    $metric=&$rows[$player]['lunarCycleTurnOne'];$metric['reached']=true;
+    foreach(PokeLegalActions($player) as $action)if($action['type']==='ability'
+        &&GetZoneObject($action['source'])->CardID==='me01-074'&&$action['index']===0)$metric['available']=true;
+    // The ability sets its turn flag before the mandatory payment prompt.
+    // Only observe it after that queue resolves, so declarations do not count.
+    $metric['activated']=$metric['activated']||PokeVar('lunarCycle:'.$player,-1)===GetTurnNumber();
+    $field=array_map(fn($ref)=>CardName(GetZoneObject($ref)->CardID),PokeFieldRefs($player));
+    $blockers=[];
+    if(!in_array('Lunatone',$field,true))$blockers[]='lunatone_missing';
+    if(!in_array('Solrock',$field,true))$blockers[]='solrock_missing';
+    if(PokeCandidates($player,'Hand','basicFighting')==='')$blockers[]='fighting_energy_missing';
+    if(PokeCount($player,'Deck')===0)$blockers[]='deck_empty';
+    if(!$metric['available']&&!$metric['activated']&&!$blockers)$blockers[]='ability_blocked';
+    $metric['blockers']=$metric['activated']?[]:$blockers;
+    if($metric['available']&&!$metric['activated'])$metric['blockers'][]='available_but_unused';
+    PokeSetVar('openingStats',$rows);
+}
 function PokeOpeningObserve(): void {
+    PokeOpeningObserveLunarCycle();
     $rows = PokeVar('openingStats', []); $player = GetTurnPlayer();
     if (!isset($rows[$player]) || GetCurrentPhase() !== 'MAIN' || GetWinner()) return;
     $row = &$rows[$player];
@@ -146,6 +173,11 @@ function PokeOpeningResolved(int $player): void {
     }
 }
 function PokeOpeningFinishTurn(): void {
+    PokeOpeningObserveLunarCycle();
+    $lunarRows=PokeVar('openingStats',[]);$seat=GetTurnPlayer();
+    if(GetPlayerTurns($seat)===1&&isset($lunarRows[$seat]['lunarCycleTurnOne'])){
+        $lunarRows[$seat]['lunarCycleTurnOne']['complete']=true;PokeSetVar('openingStats',$lunarRows);
+    }
     $before = PokeVar('openingStats', []);
     if (empty($before[GetTurnPlayer()]['attackDeclared'])) PokeOpeningObserve();
     $rows = PokeVar('openingStats', []); $player = GetTurnPlayer();
@@ -183,10 +215,19 @@ function PokeOpeningSummary(array $games): array {
         if (!isset($groups[$key])) $groups[$key] = ['deck'=>$row['deck'], 'order'=>$row['order'],
             'goal'=>$row['goal'], 'games'=>0, 'reached'=>0, 'earlyEnded'=>0, 'incomplete'=>0,
             'declared'=>0, 'resolved'=>0, 'goalAttacks'=>0, 'enabled'=>0, 'blockers'=>[],
-            'conversion'=>['enabled'=>['games'=>0,'wins'=>0], 'missed'=>['games'=>0,'wins'=>0]]];
+            'conversion'=>['enabled'=>['games'=>0,'wins'=>0], 'missed'=>['games'=>0,'wins'=>0]],
+            'lunarCycleTurnOne'=>['tracked'=>0,'reached'=>0,'available'=>0,'activated'=>0,'blockers'=>[],
+                'conversion'=>['activated'=>['games'=>0,'wins'=>0],'missed'=>['games'=>0,'wins'=>0]]]];
         $group = &$groups[$key];
         if ($game['status'] !== 'complete' || $row['status']==='incomplete') { ++$group['incomplete']; unset($group); continue; }
         ++$group['games'];
+        if(isset($row['lunarCycleTurnOne'])){
+            $metric=$row['lunarCycleTurnOne'];$sum=&$group['lunarCycleTurnOne'];++$sum['tracked'];
+            foreach(['reached','available','activated'] as $flag)$sum[$flag]+=(int)$metric[$flag];
+            if(!$metric['activated'])foreach($metric['blockers'] as $blocker)$sum['blockers'][$blocker]=($sum['blockers'][$blocker]??0)+1;
+            $bucket=$metric['activated']?'activated':'missed';++$sum['conversion'][$bucket]['games'];
+            $sum['conversion'][$bucket]['wins']+=(int)($game['winner']===$row['player']);unset($sum);
+        }
         if ($row['status']==='game_ended_before_opportunity') { ++$group['earlyEnded']; unset($group); continue; }
         if ($row['status'] !== 'complete') { unset($group); continue; }
         ++$group['reached'];

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__.'/../roguelike/Run.php';
+require_once __DIR__.'/Exploration.php';
 const AD_VERSION=1;
 const AD_STARTER_REVISION=2;
 function ADStarterDeck(): array { return range(1,36); }
@@ -30,7 +31,7 @@ function ADTechniqueArtPaths(): array {
         1020=>'cedar-hand',1021=>'rooted-grip',1022=>'forest-turn',1023=>'sevenfold-guard',1024=>'breath-of-cedar',1025=>'guardians-rebuke',
         1030=>'heavens-horn',1031=>'gatebreaker',1032=>'starbound-step',1033=>'sacred-mantle',1034=>'skyward-guard',1035=>'horizon-charge'
     ];
-    $paths=[];foreach($slugs as $id=>$slug)$paths[$id]='adventure/assets/techniques/'.$id.'-'.$slug.'-v1.webp';return $paths;
+    $paths=[];foreach($slugs as $id=>$slug)$paths[$id]='adventure/assets/techniques/'.$id.'-'.$slug.'-v2.webp';return $paths;
 }
 function ADAnimations(): array {
     $all=RGAnimations();$human=json_decode(file_get_contents(__DIR__.'/../assets/fighter-reactions.json'),true,32,JSON_THROW_ON_ERROR);
@@ -72,7 +73,7 @@ function ADExtraCards(array $base): array {
                 $out[$move['id']]=$move;
             }
         }
-    }return $out;
+    }return $out+ADLessonCards($base);
 }
 function ADRewards(string $enemy): array { $e=ADChampions()[$enemy]['rewardOffset'];return range(1000+$e*10,1005+$e*10); }
 function ADEnemyDeck(string $enemy): array {
@@ -85,7 +86,7 @@ function ADPublicEnemies(): array {
 }
 function ADPublicCard(array $c): array {
     $c=DFGCardPublic($c);$c['baseline']=in_array($c['id'],ADBaselineCards(),true);
-    $c['roleTitle']=$c['baseline']?'Baseline · shared foundation':($c['id']<=36?'PvP repertoire':(!empty($c['champion'])?ADChampions()[$c['champion']]['name'].(!empty($c['headline'])?' · signature':' · variation'):''));return $c;
+    $c['roleTitle']=$c['baseline']?'Baseline · shared foundation':($c['id']<=36?'PvP repertoire':(!empty($c['champion'])?ADChampions()[$c['champion']]['name'].(!empty($c['headline'])?' · signature':' · variation'):($c['teacher']??'')));return $c;
 }
 function ADUpgradeStarter(array $j): array {
     if(($j['starterRevision']??0)>=AD_STARTER_REVISION||$j['phase']==='fight')return $j;
@@ -114,12 +115,14 @@ function ADItems(): array {
     return $items;
 }
 function ADMap(string $zone='courtyard'): array {
+    if($zone==='riverside')return ADRiversideMap();
     if($zone==='sanctuary')return ['width'=>24,'height'=>16,'tile'=>64,'name'=>'Sanctuary of First Light','region'=>'A quiet place to begin again','art'=>'adventure/assets/sanctuary-interior-v1.png','blocked'=>[[0,0,24,2],[0,2,1,14],[23,2,1,14],[0,13,11,3],[13,13,11,3],[1,2,5,3],[18,2,5,4],[9,2,6,2],[1,6,2,3],[21,6,2,3]]];
     return ['width'=>24,'height'=>16,'tile'=>64,'name'=>'The First Courtyard','region'=>'Sumer · Where the rivers begin',
         'art'=>'adventure/assets/sumerian-overworld-v1.png',
         'blocked'=>[[0,0,9,3],[0,3,2,2],[7,3,2,2],[9,0,6,4],[16,0,8,7],[14,4,2,5],[14,10,4,1],[20,10,4,1],[0,6,7,3],[0,10,4,4],[7,11,3,3],[12,11,5,3],[16,14,1,2],[7,14,3,2],[12,14,3,2],[20,12,4,4]]];
 }
 function ADEntities(string $zone='courtyard'): array {
+    if($zone==='riverside')return ADRiversideEntities();
     if($zone==='sanctuary')return [
         'keeper'=>['name'=>'Aya, Sanctuary Keeper','x'=>11,'y'=>6,'kind'=>'npc','portrait'=>'adventure/assets/elder-overworld-v1.png'],
         'cushion'=>['name'=>'A very forgiving cushion','x'=>3,'y'=>5,'kind'=>'object','icon'=>'☀'],
@@ -138,11 +141,18 @@ function ADEntities(string $zone='courtyard'): array {
         'imdugud'=>['name'=>'Imdugud','x'=>11,'y'=>5,'kind'=>'champion','portrait'=>'roguelike/assets/sumerian/imdugud-v1.png'],
         'attendant'=>['name'=>'Puzur, Temple Attendant','x'=>17,'y'=>8,'kind'=>'npc','portrait'=>'adventure/assets/elder-overworld-v1.png'],
         'bull-of-heaven'=>['name'=>'Bull of Heaven','x'=>20,'y'=>8,'kind'=>'champion','portrait'=>'roguelike/assets/sumerian/bull-of-heaven-v1.png'],
-        'gate'=>['name'=>'Road to the wider world','x'=>19,'y'=>11,'kind'=>'gate','icon'=>'➜']
+        'gate'=>['name'=>'Road to the wider world','x'=>19,'y'=>11,'kind'=>'gate','icon'=>'➜'],
+        'quay-path'=>['name'=>'Path to the Riverside Quarter','x'=>13,'y'=>9,'kind'=>'door','icon'=>'↗']
     ];
 }
 function ADVisible(array $j,string $id): bool {
-    return !($id==='stopper'&&isset($j['flags']['stopperFound']))&&!($id==='reed'&&isset($j['flags']['reedFound']));
+    // Keep ordinary scenery out of hover/click/keyboard interaction until it is useful.
+    if(in_array($id,['stopper','reed','sluice'],true)&&empty($j['flags']['gardener']))return false;
+    foreach(ADJobs() as $owner=>$job)if(in_array($id,$job['steps'],true)){
+        $work=$j['jobs'][$owner]??[];
+        return !empty($work['active'])&&($job['steps'][$work['step']??0]??null)===$id;
+    }
+    return !($id==='stopper'&&isset($j['flags']['stopperFound']))&&!($id==='reed'&&isset($j['flags']['reedFound']))&&!($id==='river-cache'&&!empty($j['flags']['riverCache']));
 }
 function ADWalkable(int $x,int $y,string $zone='courtyard'): bool {
     $m=ADMap($zone);if($x<0||$y<0||$x>=$m['width']||$y>=$m['height'])return false;
@@ -152,7 +162,7 @@ function ADWalkable(int $x,int $y,string $zone='courtyard'): bool {
 }
 function ADNear(array $j,string $id): bool { $e=ADEntities($j['zone']??'courtyard')[$id]??null;return $e&&abs($j['position']['x']-$e['x'])+abs($j['position']['y']-$e['y'])<=1; }
 function ADNewJourney(): array {
-    return ['version'=>AD_VERSION,'starterRevision'=>AD_STARTER_REVISION,'id'=>bin2hex(random_bytes(12)),'revision'=>0,'phase'=>'world','zone'=>'courtyard','position'=>['x'=>5,'y'=>14],
+    return ['version'=>AD_VERSION,'starterRevision'=>AD_STARTER_REVISION,'explorationRevision'=>1,'copper'=>12,'jobs'=>[],'id'=>bin2hex(random_bytes(12)),'revision'=>0,'phase'=>'world','zone'=>'courtyard','position'=>['x'=>5,'y'=>14],
         'deck'=>ADStarterDeck(),'collection'=>ADStarterDeck(),'inventory'=>['moth-cloak'],'equipment'=>['Head'=>null,'Chest'=>'moth-cloak','Arms'=>null,'Legs'=>null],
         'flags'=>[],'defeated'=>[],'visited'=>[],'battle'=>null,'enemy'=>null,'lastResult'=>null,'dialog'=>null,
         'journal'=>['A rather heavy envelope has arrived in your stone mailbox.']];
@@ -168,6 +178,7 @@ function ADDialog(array $j,string $id,string $text,array $options=[]): array {
 function ADInteract(array &$j,string $id): void {
     if(!isset(ADEntities($j['zone']??'courtyard')[$id])||!ADNear($j,$id)||!ADVisible($j,$id))throw new LogicException('Walk beside that person or object first.');
     $j['visited']=array_values(array_unique([...$j['visited'],$id]));$f=&$j['flags'];$options=[];
+    if(ADExplorationInteract($j,$id))return;
     if($id==='mailbox'){
         if(empty($f['invited'])){$f['invited']=true;ADLog($j,'Read El’s invitation. Find Nidaba at the market.');}
         $text="EL SEEKS A HEAVENLY CHAMPION.\nCourage welcome. Experience negotiable. Please bring your own sandals.\n\nOn the reverse: ‘Begin at the First Courtyard. Ask questions. Help somebody. — Tournament Administration’\n\nSomeone has added, in a much softer hand: ‘And eat a good breakfast. — El’";
@@ -182,7 +193,7 @@ function ADInteract(array &$j,string $id): void {
     }elseif($id==='gardener'){
         $f['gardener']=true;
         if(!empty($f['canalRestored'])){
-            if(empty($f['gardenWitness'])){$f['gardenWitness']=true;$j['inventory'][]='reed-boots';ADLog($j,'Amat gave you the Garden Witness and Reed-Woven Sandals.');}
+            if(empty($f['gardenWitness'])){$f['gardenWitness']=true;$j['inventory']=array_values(array_unique([...$j['inventory'],'reed-boots']));ADLog($j,'Amat gave you the Garden Witness and Reed-Woven Sandals.');}
             $text='“Listen. The garden is drinking again.” Amat gives you the Garden Witness and a pair of Reed-Woven Sandals.\n\n“Let the temple attendant know someone remembered the vegetables. I suspect the gods forget them rather often.”';
         }else $text='“Everyone wants to move mountains. I would settle for moving this water.”\n\n“The sluice needs a clay stopper and a reed binding. A spare stopper is beside the market; reeds have washed up on the canal’s north bank. Bring both to the sluice by the bridge, then come back to me.”';
     }elseif(in_array($id,['stopper','reed'],true)){
@@ -241,6 +252,7 @@ function ADValidateDeck(array $j,array $deck): array {
     foreach($counts as $n)if($n<1||$n>6)throw new InvalidArgumentException('Keep one to six techniques in every color.');return array_values($deck);
 }
 function ADApply(array $j,array $a): array {
+    $j=ADUpgradeExploration($j);
     $j['zone']??='courtyard';
     $type=$a['type']??'';
     if($type==='battle'){
@@ -258,6 +270,8 @@ function ADApply(array $j,array $a): array {
             $id=$a['id']??'';if(!is_string($id)||!ADNear($j,$id))throw new LogicException('Walk beside the doorway first.');
             if($id==='sanctuary'&&$j['zone']==='courtyard'){$j['zone']='sanctuary';$j['position']=['x'=>11,'y'=>12];}
             elseif($id==='exit'&&$j['zone']==='sanctuary'){$j['zone']='courtyard';$j['position']=['x'=>2,'y'=>14];}
+            elseif($id==='quay-path'&&$j['zone']==='courtyard'){$j['zone']='riverside';$j['position']=['x'=>2,'y'=>7];if(empty($j['flags']['riversideVisited']))ADLog($j,'Discovered the Riverside Quarter: paid work, equipment and patient teachers.');$j['flags']['riversideVisited']=true;}
+            elseif($id==='river-exit'&&$j['zone']==='riverside'){$j['zone']='courtyard';$j['position']=['x'=>13,'y'=>9];}
             else throw new InvalidArgumentException('That is not a usable doorway.');$j['dialog']=null;
         }elseif($type==='interact')ADInteract($j,(string)($a['id']??''));
         elseif($type==='challenge')ADStartFight($j,(string)($a['id']??''),(string)($a['color']??'Red'));
@@ -265,7 +279,8 @@ function ADApply(array $j,array $a): array {
         elseif($type==='equip'){
             $slot=$a['slot']??'';$id=$a['item']??null;
             if(!array_key_exists($slot,$j['equipment'])||($id!==null&&(!is_string($id)||!in_array($id,$j['inventory'],true)||ADItems()[$id]['slot']!==$slot)))throw new InvalidArgumentException('Choose owned equipment for that slot.');$j['equipment'][$slot]=$id;
-        }elseif($type==='close')$j['dialog']=null;
+        }elseif(ADExplorationAction($j,$a)){}
+        elseif($type==='close')$j['dialog']=null;
         else throw new InvalidArgumentException('Unknown adventure action.');
     }++$j['revision'];return $j;
 }
@@ -278,11 +293,13 @@ function ADQuests(array $j): array {
         ['title'=>'Respect the cedar','detail'=>'Restore the garden, then defeat Huwawa in the cedar grove.','done'=>in_array('huwawa',$won,true),'target'=>'huwawa'],
         ['title'=>'A bird’s-eye assessment','detail'=>'Challenge Imdugud below the training terrace.','done'=>in_array('imdugud',$won,true),'target'=>'imdugud'],
         ['title'=>'The proper challenge','detail'=>'Bring the Garden Witness and both guardian seals to Puzur.','done'=>!empty($f['witnessed']),'target'=>'attendant'],
-        ['title'=>'Greater champion','detail'=>'Defeat the Bull of Heaven, then visit the road beyond the court.','done'=>in_array('bull-of-heaven',$won,true),'target'=>'bull-of-heaven']
+        ['title'=>'Greater champion','detail'=>'Defeat the Bull of Heaven, then visit the road beyond the court.','done'=>in_array('bull-of-heaven',$won,true),'target'=>'bull-of-heaven'],
+        ...ADExplorationQuests($j)
     ];
 }
 function ADObserve(array $j): array {
     $view=$j;$view['zone']=$j['zone']??'courtyard';$view['battle']=$j['battle']?DFGObserve($j['battle'],0):null;if($view['battle'])unset($view['battle']['initialSeed']);
     $view['quests']=ADQuests($j);$view['canChallenge']=array_values(array_filter(array_keys(ADChampions()),fn($id)=>ADCanChallenge($j,$id)));
-    $view['entities']=array_filter(ADEntities($view['zone']),fn($e,$id)=>ADVisible($j,$id),ARRAY_FILTER_USE_BOTH);return $view;
+    $view['entities']=array_filter(ADEntities($view['zone']),fn($e,$id)=>ADVisible($j,$id),ARRAY_FILTER_USE_BOTH);
+    $view['shopStock']=ADShopStock();return $view;
 }

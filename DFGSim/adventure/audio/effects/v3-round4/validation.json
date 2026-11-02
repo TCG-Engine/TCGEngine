@@ -1,0 +1,22 @@
+[
+  {
+    "file": "commit-r4-take-1.mp3",
+    "durationSeconds": 0.48,
+    "sha256": "b480d2341945bc5a6a9fe8aea1d6815cca38158d86072aff17eba74c1d473d8c"
+  },
+  {
+    "file": "commit-r4-take-2.mp3",
+    "durationSeconds": 0.48,
+    "sha256": "7d9fe30cdcd02cd4a15aed25b049dbd5c4e0233e5ec16b7f6cbe6fe2c3909688"
+  },
+  {
+    "file": "commit-r4-take-3.mp3",
+    "durationSeconds": 0.48,
+    "sha256": "dbe91f4c025a79af5df8aa9bb80222d48002be1e66e0dbf6fe9355647ddcf6cb"
+  },
+  {
+    "file": "commit-r4-take-4.mp3",
+    "durationSeconds": 0.48,
+    "sha256": "8678c4eda8f93fd25b2c2b35338ecdaec6b759f4f371322684ed47c5cce8ee51"
+  }
+]

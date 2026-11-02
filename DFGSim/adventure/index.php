@@ -5,7 +5,7 @@
 <h1 class="visually-hidden">El’s Invitation · The First Courtyard</h1>
 <section class="world-stage" aria-label="Explorable First Courtyard"><canvas id="worldCanvas" tabindex="0" aria-label="World map. Move with arrow keys or W A S D. Press E or Space to interact. You can also click a person or destination."></canvas>
 <div id="loading" class="loading"><span class="brand-sun">☀</span><h2>Following the rivers…</h2><p>Preparing your courtyard.</p></div>
-<div class="map-top"><span class="location-plaque" id="areaName">Sanctuary of First Light</span></div>
+<div class="map-top"><span class="location-plaque" id="areaName">Sanctuary of First Light</span><span id="copperCount" class="copper-pouch" aria-label="Copper available">12 copper</span></div>
 <header class="world-header adventure-menu"><nav aria-label="Adventure menus"><button data-panel="journal">Journal <span id="journalCount"></span></button><button data-panel="deck">Techniques</button><button data-panel="equipment">Equipment</button><button data-panel="world">World</button></nav><button id="overview" title="Toggle whole-region overview" aria-pressed="false">Overview <span aria-hidden="true">↗</span></button></header>
 <div class="objective-note" id="objectiveNote" aria-live="polite"><span class="eyebrow">YOUR NEXT STEP</span><strong id="objectiveTitle"></strong><span id="objectiveDetail"></span><button id="followQuest">Show me the way →</button></div>
 <div class="interaction-bar" hidden><span id="nearbyText"></span><button id="interact" disabled><kbd>E</kbd> Interact</button></div>
@@ -18,5 +18,5 @@
 <iframe id="adventureBattle" class="adventure-battle" title="Champion challenge" allow="autoplay" hidden></iframe>
 <dialog id="panel" aria-labelledby="panelTitle"><header class="panel-heading"><div><span class="eyebrow" id="panelKicker">THE FIRST COURTYARD</span><h2 id="panelTitle"></h2></div><button id="closePanel" aria-label="Close panel">✕</button></header><div id="panelContent"></div></dialog>
 <div id="toast" class="toast" role="status" hidden></div>
-<script src="adventure/soundtrack.js?v=<?=filemtime(__DIR__.'/soundtrack.js')?>" defer></script><script src="card-renderer.js?v=<?=filemtime(__DIR__.'/../card-renderer.js')?>" defer></script><script src="adventure/world.js?v=<?=filemtime(__DIR__.'/world.js')?>" defer></script>
+<script id="dfgEffectSelections" type="application/json"><?=json_encode(json_decode(file_get_contents(__DIR__.'/audio/effects/approved.json'),true),JSON_HEX_TAG|JSON_THROW_ON_ERROR)?></script><script src="adventure/soundtrack.js?v=<?=filemtime(__DIR__.'/soundtrack.js')?>" defer></script><script src="card-renderer.js?v=<?=filemtime(__DIR__.'/../card-renderer.js')?>" defer></script><script src="adventure/ambient-player.js?v=<?=filemtime(__DIR__.'/ambient-player.js')?>" defer></script><script src="adventure/overworld-idles.js?v=<?=filemtime(__DIR__.'/overworld-idles.js')?>" defer></script><script src="adventure/world.js?v=<?=filemtime(__DIR__.'/world.js')?>" defer></script>
 </body></html>

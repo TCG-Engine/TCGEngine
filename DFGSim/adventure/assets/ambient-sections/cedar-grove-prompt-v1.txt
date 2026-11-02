@@ -1,0 +1,7 @@
+Create a seamless five-second ambient animation of this complete illustrated cedar grove section for a warm cartoon adventure game.
+
+Animate the whole cedar grove with coordinated gentle wind through cedar boughs, needles and leafy undergrowth. Keep each trunk and the roots fixed, with clear but relaxed branch movement, preserving each tree silhouette. Stones, the path, walls and the partial market awnings and partial palm at the bottom stay precisely stationary. Keep branches aligned at the world edges; do not invent scenery beyond the image.
+
+Keep the established flat cartoon colors, dark drawn outlines, exact scene layout and steady daylight. Motion should be clearly noticeable at normal map scale across the coherent section. Camera absolutely locked: no zoom, pan, shake, reframing or parallax. No flashing or global brightness pulsing. No text, audio or photorealistic textures.
+
+The supplied first and last keyframes are identical. Return precisely to the supplied scene for a seamless loop, with continuous natural movement and no frozen interval or abrupt reset.

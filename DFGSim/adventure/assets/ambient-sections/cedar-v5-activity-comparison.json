@@ -1,0 +1,192 @@
+[
+  {
+    "version": 2,
+    "halfSecondActivity": [
+      {
+        "startSeconds": 0.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.21470238095238098,
+          0.2309283000949668,
+          0.2418931623931624,
+          0.2538062442607897
+        ]
+      },
+      {
+        "startSeconds": 0.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.5371789321789321,
+          0.5808143399810066,
+          0.6038824786324786,
+          0.45565044383226205
+        ]
+      },
+      {
+        "startSeconds": 1.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          1.3617622655122656,
+          1.4560280151946818,
+          1.4276068376068378,
+          1.563093051729415
+        ]
+      },
+      {
+        "startSeconds": 1.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          2.9447853535353534,
+          3.0918850902184234,
+          2.9589764957264957,
+          3.1062457912457915
+        ]
+      },
+      {
+        "startSeconds": 2.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          2.7284794372294368,
+          3.272951092117759,
+          3.0321816239316237,
+          3.418412917049281
+        ]
+      },
+      {
+        "startSeconds": 2.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          2.502108585858586,
+          3.0417426400759737,
+          2.8283995726495728,
+          2.9562809917355373
+        ]
+      },
+      {
+        "startSeconds": 3.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          1.8045021645021644,
+          2.1251163342830006,
+          1.9822948717948716,
+          1.982108968472605
+        ]
+      },
+      {
+        "startSeconds": 3.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          1.0162012987012987,
+          1.0023409306742639,
+          0.9885619658119658,
+          1.105754514845424
+        ]
+      },
+      {
+        "startSeconds": 4.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.0790007215007215,
+          0.12557454890788225,
+          0.0784465811965812,
+          0.08183960820324457
+        ]
+      },
+      {
+        "startSeconds": 4.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.04745670995670996,
+          0.018012820512820514,
+          0.01906837606837607,
+          0.03146311600857055
+        ]
+      }
+    ]
+  },
+  {
+    "version": 5,
+    "halfSecondActivity": [
+      {
+        "startSeconds": 0.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.23484126984126985,
+          0.2410588793922127,
+          0.22860683760683762,
+          0.24533823079277622
+        ]
+      },
+      {
+        "startSeconds": 0.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.2103932178932179,
+          0.17802469135802468,
+          0.15682692307692309,
+          0.12188858279767371
+        ]
+      },
+      {
+        "startSeconds": 1.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          2.8320093795093793,
+          2.8032407407407405,
+          2.800521367521368,
+          3.2123921028466484
+        ]
+      },
+      {
+        "startSeconds": 1.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          4.348556998556999,
+          4.386728395061729,
+          4.685288461538462,
+          4.8894781144781145
+        ]
+      },
+      {
+        "startSeconds": 2.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          4.6684650072150085,
+          4.7979059829059825,
+          4.846363247863248,
+          5.321072849709213
+        ]
+      },
+      {
+        "startSeconds": 2.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          5.333686868686869,
+          5.5174501424501425,
+          5.615403846153846,
+          5.33061371288644
+        ]
+      },
+      {
+        "startSeconds": 3.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          4.847959956709957,
+          4.845681386514721,
+          4.74116452991453,
+          5.203924089378635
+        ]
+      },
+      {
+        "startSeconds": 3.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          3.781056998556999,
+          3.9256813865147198,
+          4.115213675213676,
+          3.9938689929599027
+        ]
+      },
+      {
+        "startSeconds": 4.0,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.7873809523809523,
+          0.8664672364672366,
+          0.8594914529914531,
+          0.8689654116926844
+        ]
+      },
+      {
+        "startSeconds": 4.5,
+        "meanAdjacentChannelChangeByCanopy": [
+          0.037314213564213564,
+          0.0329392212725546,
+          0.0465,
+          0.026965105601469235
+        ]
+      }
+    ]
+  }
+]

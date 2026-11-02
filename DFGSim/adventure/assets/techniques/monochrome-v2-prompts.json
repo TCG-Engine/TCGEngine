@@ -1,0 +1,213 @@
+{
+  "tool": "built-in image_gen",
+  "direction": "A — strict card-color monochrome",
+  "revision": 2,
+  "cards": [
+    {
+      "id": 1000,
+      "name": "Canal Jab",
+      "color": "Red",
+      "path": "adventure/assets/techniques/1000-canal-jab-v1.webp"
+    },
+    {
+      "id": 1001,
+      "name": "Ferryman’s Feint",
+      "color": "Orange",
+      "path": "adventure/assets/techniques/1001-ferrymans-feint-v1.webp"
+    },
+    {
+      "id": 1002,
+      "name": "Reed Step",
+      "color": "Yellow",
+      "path": "adventure/assets/techniques/1002-reed-step-v1.webp"
+    },
+    {
+      "id": 1003,
+      "name": "Bank Guard",
+      "color": "Green",
+      "path": "adventure/assets/techniques/1003-bank-guard-v1.webp"
+    },
+    {
+      "id": 1004,
+      "name": "Still-Water Palm",
+      "color": "Blue",
+      "path": "adventure/assets/techniques/1004-still-water-palm-v1.webp"
+    },
+    {
+      "id": 1005,
+      "name": "Sluice Reversal",
+      "color": "Purple",
+      "path": "adventure/assets/techniques/1005-sluice-reversal-v1.webp"
+    },
+    {
+      "id": 1010,
+      "name": "Lion’s Cry",
+      "color": "Red",
+      "path": "adventure/assets/techniques/1010-lions-cry-v1.webp"
+    },
+    {
+      "id": 1011,
+      "name": "Storm Talon",
+      "color": "Orange",
+      "path": "adventure/assets/techniques/1011-storm-talon-v1.webp"
+    },
+    {
+      "id": 1012,
+      "name": "Sky Step",
+      "color": "Yellow",
+      "path": "adventure/assets/techniques/1012-sky-step-v1.webp"
+    },
+    {
+      "id": 1013,
+      "name": "Wing Shelter",
+      "color": "Green",
+      "path": "adventure/assets/techniques/1013-wing-shelter-v1.webp"
+    },
+    {
+      "id": 1014,
+      "name": "Rainward Guard",
+      "color": "Blue",
+      "path": "adventure/assets/techniques/1014-rainward-guard-v1.webp"
+    },
+    {
+      "id": 1015,
+      "name": "Thunder Descent",
+      "color": "Purple",
+      "path": "adventure/assets/techniques/1015-thunder-descent-v1.webp"
+    },
+    {
+      "id": 1020,
+      "name": "Cedar Hand",
+      "color": "Red",
+      "path": "adventure/assets/techniques/1020-cedar-hand-v1.webp"
+    },
+    {
+      "id": 1021,
+      "name": "Rooted Grip",
+      "color": "Orange",
+      "path": "adventure/assets/techniques/1021-rooted-grip-v1.webp"
+    },
+    {
+      "id": 1022,
+      "name": "Forest Turn",
+      "color": "Yellow",
+      "path": "adventure/assets/techniques/1022-forest-turn-v1.webp"
+    },
+    {
+      "id": 1023,
+      "name": "Sevenfold Guard",
+      "color": "Green",
+      "path": "adventure/assets/techniques/1023-sevenfold-guard-v1.webp"
+    },
+    {
+      "id": 1024,
+      "name": "Breath of Cedar",
+      "color": "Blue",
+      "path": "adventure/assets/techniques/1024-breath-of-cedar-v1.webp"
+    },
+    {
+      "id": 1025,
+      "name": "Guardian’s Rebuke",
+      "color": "Purple",
+      "path": "adventure/assets/techniques/1025-guardians-rebuke-v1.webp"
+    },
+    {
+      "id": 1030,
+      "name": "Heaven’s Horn",
+      "color": "Red",
+      "path": "adventure/assets/techniques/1030-heavens-horn-v1.webp"
+    },
+    {
+      "id": 1031,
+      "name": "Gatebreaker",
+      "color": "Orange",
+      "path": "adventure/assets/techniques/1031-gatebreaker-v1.webp"
+    },
+    {
+      "id": 1032,
+      "name": "Starbound Step",
+      "color": "Yellow",
+      "path": "adventure/assets/techniques/1032-starbound-step-v1.webp"
+    },
+    {
+      "id": 1033,
+      "name": "Sacred Mantle",
+      "color": "Green",
+      "path": "adventure/assets/techniques/1033-sacred-mantle-v1.webp"
+    },
+    {
+      "id": 1034,
+      "name": "Skyward Guard",
+      "color": "Blue",
+      "path": "adventure/assets/techniques/1034-skyward-guard-v1.webp"
+    },
+    {
+      "id": 1035,
+      "name": "Horizon Charge",
+      "color": "Purple",
+      "path": "adventure/assets/techniques/1035-horizon-charge-v1.webp"
+    }
+  ],
+  "batches": [
+    {
+      "cards": [
+        1000,
+        1001,
+        1002,
+        1003
+      ],
+      "prompt": "Use case: style-transfer. Make a production FOUR-PANEL illustration atlas, exact 2 equal columns by 2 equal rows. Overall aspect ratio 3:2, each tile landscape3:2. Panels touch edge to edge: no gutters, borders, labels, text or UI. Input1 is STYLE reference only: angular textured painterly martial-arts card art with monochromatic tonal shading. Inputs2,3,4,5 are EDIT TARGETS, respectively top-left, top-right, bottom-left, bottom-right. Preserve each target's exact champion identity, anatomy, costume silhouette, action pose, number of characters and composition. Repaint surfaces, lighting, bold outlines and scenery in angular painterly brushwork, tonal texture, and limited values of input1. Keep recognizable animal features. Human already has blank face; keep it. No added faces/characters. Every object, figure, clothing and background must belong to panel's SINGLE card hue family, including its deep darks, midtones and pale highlights. No natural fur/skin color or multicolor scenery, no gold accents unless assigned yellow/orange, no cyan streak accents, no off-hue ornamental details. This is approved STRICT MONOCHROME style A, not accent style B. Retain clear action and readable strong silhouette at small card size; scenery subordinate and tonal. No photorealism, no heavy black cartoon outline. TOP LEFT: input2, Canal Jab, STRICT RED monochrome. TOP RIGHT: input3, Ferryman’s Feint, STRICT ORANGE monochrome. BOTTOM LEFT: input4, Reed Step, STRICT YELLOW monochrome. BOTTOM RIGHT: input5, Bank Guard, STRICT GREEN monochrome.",
+      "correction": "Use case: style-transfer. Input1 is edit target, a four-panel atlas with touching equal quadrants. Inputs2 and3 are painterly style/palette references only for orange and yellow. Keep EXACT 2x2 atlas boundaries, existing panel poses, compositions and identities. Correct the TOP RIGHT and BOTTOM LEFT figures: TOP RIGHT entire figure and garments including red tunic must become orange tonal paint, matching its orange scenery and input2. BOTTOM LEFT entire figure and garments including orange/red tunic must become GOLDEN YELLOW tonal paint, matching its yellow scenery and input3. Neither may contain red or orange clothing on the yellow panel. Repaint these two figures with the angular painterly textured shading of inputs2/3, remove heavy cartoon outlines. TOP LEFT stays all red and BOTTOM RIGHT stays all green. ALL FOUR panels should look like paintings printed in only their one assigned ink color, with lighter/darker tones of that same hue. No contrasting accent colors. Do not change action poses, composition, panel layout or add any borders, text or objects. Overall3:2."
+    },
+    {
+      "cards": [
+        1004,
+        1005,
+        1010,
+        1011
+      ],
+      "prompt": "Use case: style-transfer. Make a production FOUR-PANEL illustration atlas, exact 2 equal columns by 2 equal rows. Overall aspect ratio 3:2, each tile landscape3:2. Panels touch edge to edge: no gutters, borders, labels, text or UI. Input1 is STYLE reference only: angular textured painterly martial-arts card art with monochromatic tonal shading. Inputs2,3,4,5 are EDIT TARGETS, respectively top-left, top-right, bottom-left, bottom-right. Preserve each target's exact champion identity, anatomy, costume silhouette, action pose, number of characters and composition. Repaint surfaces, lighting, bold outlines and scenery in angular painterly brushwork, tonal texture, and limited values of input1. Keep recognizable animal features. Human already has blank face; keep it. No added faces/characters. Every object, figure, clothing and background must belong to panel's SINGLE card hue family, including its deep darks, midtones and pale highlights. No natural fur/skin color or multicolor scenery, no gold accents unless assigned yellow/orange, no cyan streak accents, no off-hue ornamental details. This is approved STRICT MONOCHROME style A, not accent style B. Retain clear action and readable strong silhouette at small card size; scenery subordinate and tonal. No photorealism, no heavy black cartoon outline.  CRITICAL: preserve costume SHAPES ONLY, never their original colors. For blue all garments/skin/fur/scenery are blue, purple all purple, red all red, orange all orange, yellow all yellow, green all green. ZERO RED TUNICS ON YELLOW OR ORANGE OR BLUE CARDS. Each entire panel must look like a one-ink print, not merely a tinted background. Apply the painterly STYLE reference equally to all four subjects, without leaving unpainted thick cartoon outlines.TOP LEFT: input2, Still-Water Palm, STRICT BLUE monochrome. TOP RIGHT: input3, Sluice Reversal, STRICT PURPLE monochrome. BOTTOM LEFT: input4, Lion’s Cry, STRICT RED monochrome. BOTTOM RIGHT: input5, Storm Talon, STRICT ORANGE monochrome.",
+      "correction": null
+    },
+    {
+      "cards": [
+        1012,
+        1013,
+        1014,
+        1015
+      ],
+      "prompt": "Use case: style-transfer. Make a production FOUR-PANEL illustration atlas, exact 2 equal columns by 2 equal rows. Overall aspect ratio 3:2, each tile landscape3:2. Panels touch edge to edge: no gutters, borders, labels, text or UI. Input1 is STYLE reference only: angular textured painterly martial-arts card art with monochromatic tonal shading. Inputs2,3,4,5 are EDIT TARGETS, respectively top-left, top-right, bottom-left, bottom-right. Preserve each target's exact champion identity, anatomy, costume silhouette, action pose, number of characters and composition. Repaint surfaces, lighting, bold outlines and scenery in angular painterly brushwork, tonal texture, and limited values of input1. Keep recognizable animal features. Human already has blank face; keep it. No added faces/characters. Every object, figure, clothing and background must belong to panel's SINGLE card hue family, including its deep darks, midtones and pale highlights. No natural fur/skin color or multicolor scenery, no gold accents unless assigned yellow/orange, no cyan streak accents, no off-hue ornamental details. This is approved STRICT MONOCHROME style A, not accent style B. Retain clear action and readable strong silhouette at small card size; scenery subordinate and tonal. No photorealism, no heavy black cartoon outline.  CRITICAL: preserve costume SHAPES ONLY, never their original colors. For blue all garments/skin/fur/scenery are blue, purple all purple, red all red, orange all orange, yellow all yellow, green all green. ZERO RED TUNICS ON YELLOW OR ORANGE OR BLUE CARDS. Each entire panel must look like a one-ink print, not merely a tinted background. Apply the painterly STYLE reference equally to all four subjects, without leaving unpainted thick cartoon outlines.TOP LEFT: input2, Sky Step, STRICT YELLOW monochrome. TOP RIGHT: input3, Wing Shelter, STRICT GREEN monochrome. BOTTOM LEFT: input4, Rainward Guard, STRICT BLUE monochrome. BOTTOM RIGHT: input5, Thunder Descent, STRICT PURPLE monochrome.",
+      "correction": "Use case: style-transfer. Input1 EDIT TARGET is a 2x2 four-panel atlas, touching equal quadrants, overall3:2. Only correct TOP RIGHT panel, Wing Shelter: redraw the lion-headed eagle Imdugud with BOTH WINGS CROSSED firmly in front of chest in protective X guard, planted feet, same defensive pose and composition as input2. Do NOT copy the flying footwork pose from top-left. Use STRICT GREEN ONLY tonal palette for ALL feathers, lion head, clothing, scenery, effects, darks and highlights. Brushwork textured angular painterly, no heavy black outlines. Input3 is green painterly STYLE reference only. Preserve top-left yellow Sky Step, bottom-left blue Rainward Guard and bottom-right purple Thunder Descent unchanged. No borders, gutters, labels, text or new objects."
+    },
+    {
+      "cards": [
+        1020,
+        1021,
+        1022,
+        1023
+      ],
+      "prompt": "Use case: style-transfer. Make a production FOUR-PANEL illustration atlas, exact 2 equal columns by 2 equal rows. Overall aspect ratio 3:2, each tile landscape3:2. Panels touch edge to edge: no gutters, borders, labels, text or UI. Input1 is STYLE reference only: angular textured painterly martial-arts card art with monochromatic tonal shading. Inputs2,3,4,5 are EDIT TARGETS, respectively top-left, top-right, bottom-left, bottom-right. Preserve each target's exact champion identity, anatomy, costume silhouette, action pose, number of characters and composition. Repaint surfaces, lighting, bold outlines and scenery in angular painterly brushwork, tonal texture, and limited values of input1. Keep recognizable animal features. Human already has blank face; keep it. No added faces/characters. Every object, figure, clothing and background must belong to panel's SINGLE card hue family, including its deep darks, midtones and pale highlights. No natural fur/skin color or multicolor scenery, no gold accents unless assigned yellow/orange, no cyan streak accents, no off-hue ornamental details. This is approved STRICT MONOCHROME style A, not accent style B. Retain clear action and readable strong silhouette at small card size; scenery subordinate and tonal. No photorealism, no heavy black cartoon outline.  CRITICAL: preserve costume SHAPES ONLY, never their original colors. For blue all garments/skin/fur/scenery are blue, purple all purple, red all red, orange all orange, yellow all yellow, green all green. ZERO RED TUNICS ON YELLOW OR ORANGE OR BLUE CARDS. Each entire panel must look like a one-ink print, not merely a tinted background. Apply the painterly STYLE reference equally to all four subjects, without leaving unpainted thick cartoon outlines.TOP LEFT: input2, Cedar Hand, STRICT RED monochrome. TOP RIGHT: input3, Rooted Grip, STRICT ORANGE monochrome. BOTTOM LEFT: input4, Forest Turn, STRICT YELLOW monochrome. BOTTOM RIGHT: input5, Sevenfold Guard, STRICT GREEN monochrome.",
+      "correction": null
+    },
+    {
+      "cards": [
+        1024,
+        1025,
+        1030,
+        1031
+      ],
+      "prompt": "Use case: style-transfer. Make a production FOUR-PANEL illustration atlas, exact 2 equal columns by 2 equal rows. Overall aspect ratio 3:2, each tile landscape3:2. Panels touch edge to edge: no gutters, borders, labels, text or UI. Input1 is STYLE reference only: angular textured painterly martial-arts card art with monochromatic tonal shading. Inputs2,3,4,5 are EDIT TARGETS, respectively top-left, top-right, bottom-left, bottom-right. Preserve each target's exact champion identity, anatomy, costume silhouette, action pose, number of characters and composition. Repaint surfaces, lighting, bold outlines and scenery in angular painterly brushwork, tonal texture, and limited values of input1. Keep recognizable animal features. Human already has blank face; keep it. No added faces/characters. Every object, figure, clothing and background must belong to panel's SINGLE card hue family, including its deep darks, midtones and pale highlights. No natural fur/skin color or multicolor scenery, no gold accents unless assigned yellow/orange, no cyan streak accents, no off-hue ornamental details. This is approved STRICT MONOCHROME style A, not accent style B. Retain clear action and readable strong silhouette at small card size; scenery subordinate and tonal. No photorealism, no heavy black cartoon outline.  CRITICAL: preserve costume SHAPES ONLY, never their original colors. For blue all garments/skin/fur/scenery are blue, purple all purple, red all red, orange all orange, yellow all yellow, green all green. ZERO RED TUNICS ON YELLOW OR ORANGE OR BLUE CARDS. Each entire panel must look like a one-ink print, not merely a tinted background. Apply the painterly STYLE reference equally to all four subjects, without leaving unpainted thick cartoon outlines.TOP LEFT: input2, Breath of Cedar, STRICT BLUE monochrome. TOP RIGHT: input3, Guardian’s Rebuke, STRICT PURPLE monochrome. BOTTOM LEFT: input4, Heaven’s Horn, STRICT RED monochrome. BOTTOM RIGHT: input5, Gatebreaker, STRICT ORANGE monochrome.",
+      "correction": null
+    },
+    {
+      "cards": [
+        1032,
+        1033,
+        1034,
+        1035
+      ],
+      "prompt": "Use case: style-transfer. Make a production FOUR-PANEL illustration atlas, exact 2 equal columns by 2 equal rows. Overall aspect ratio 3:2, each tile landscape3:2. Panels touch edge to edge: no gutters, borders, labels, text or UI. Input1 is STYLE reference only: angular textured painterly martial-arts card art with monochromatic tonal shading. Inputs2,3,4,5 are EDIT TARGETS, respectively top-left, top-right, bottom-left, bottom-right. Preserve each target's exact champion identity, anatomy, costume silhouette, action pose, number of characters and composition. Repaint surfaces, lighting, bold outlines and scenery in angular painterly brushwork, tonal texture, and limited values of input1. Keep recognizable animal features. Human already has blank face; keep it. No added faces/characters. Every object, figure, clothing and background must belong to panel's SINGLE card hue family, including its deep darks, midtones and pale highlights. No natural fur/skin color or multicolor scenery, no gold accents unless assigned yellow/orange, no cyan streak accents, no off-hue ornamental details. This is approved STRICT MONOCHROME style A, not accent style B. Retain clear action and readable strong silhouette at small card size; scenery subordinate and tonal. No photorealism, no heavy black cartoon outline.  CRITICAL: preserve costume SHAPES ONLY, never their original colors. For blue all garments/skin/fur/scenery are blue, purple all purple, red all red, orange all orange, yellow all yellow, green all green. ZERO RED TUNICS ON YELLOW OR ORANGE OR BLUE CARDS. Each entire panel must look like a one-ink print, not merely a tinted background. Apply the painterly STYLE reference equally to all four subjects, without leaving unpainted thick cartoon outlines.TOP LEFT: input2, Starbound Step, STRICT YELLOW monochrome. TOP RIGHT: input3, Sacred Mantle, STRICT GREEN monochrome. BOTTOM LEFT: input4, Skyward Guard, STRICT BLUE monochrome. BOTTOM RIGHT: input5, Horizon Charge, STRICT PURPLE monochrome.",
+      "correction": null
+    }
+  ]
+}
