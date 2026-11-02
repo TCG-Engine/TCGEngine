@@ -79,3 +79,13 @@ Tested 2026-10-24 against throwaway containers (MariaDB 10.4 as the XAMPP box, 1
 password both worked; staging matched every row count, refused a dump carrying a trigger before loading anything, refused to
 reload without `--replace`; `--compare` reported ID collisions, the shared email, the shared username, a moderator name held by a
 different email on each box, a planted `<script>` username, and the overlapping deck folders. Not yet run on the real boxes.
+
+## Also here: SWU Forge delivery cron — `swusim-swuforge.sh`
+
+Not part of the merge. Finished Petranaki games only queue their SWU Forge delivery; this installs the cron job
+(`/etc/cron.d/petranaki-swuforge`, every 20 s, as `www-data`) that sends them, then calls the worker once to prove it answers.
+Safe to re-run; `--check` prints the cron file without changing anything, `--remove` takes it out.
+
+```bash
+sudo bash newhost/migrate/swusim-swuforge.sh
+```

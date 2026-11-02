@@ -7,7 +7,7 @@
 //   node DevTools/ui-harness/swusim-swuforge-link-xbrowser.mjs          ENGINES=chromium,firefox,webkit (default: all three)
 //
 // ⚠ If ninin is already linked for real, the linked-state stand-in is skipped so the real link is never touched.
-// ⚠ Needs the panel on: 'swuforgeLink' => true in SharedUI/Sites/SWUSim/SiteDef.php (off until Forge production) — else SKIP.
+// Needs the panel on ('swuforgeLink' in SharedUI/Sites/SWUSim/SiteDef.php) — else SKIP.
 import { chromium, firefox, webkit } from 'playwright';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';

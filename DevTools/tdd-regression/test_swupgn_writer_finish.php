@@ -148,6 +148,25 @@ SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"x\"]\n%%% CARDS\n{\"id\":\"SOR#95\",\"n
     'a player named like a card is no PII hit');
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbaxian\"]\n%%% EVENTS\n", ['zorbaxian']) === true, 'the scan is case-insensitive');
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg ab\"]\n", ['ab']) === false, 'names under 3 characters are not scanned');
+// A username is a hit only as a whole word, and never when it is a word of the game's own card text: those would block
+// every game a player named "Ash" or "Deal" plays. A real name in free text still is.
+$pgnText = "[GameId \"4439b6eb-45c7-5c53-aab6-6929ad301885\"]\n[P1Id \"sha256:0516fbed9dc44ec20953977eb418e0ea\"]\n%%% EVENTS\n"
+    . "{\"seq\":\"R1.A.1\",\"t\":\"CHOICE\",\"prompt\":\"Deal 1 damage to a unit in space rather than start the attack\"}\n"
+    . "{\"seq\":\"R1.A.2\",\"t\":\"ABILITY_ACTIVATE\",\"title\":\"Action [Exhaust]: Play a unit from your hand. Return it to its owner's base.\"}\n";
+foreach (['ash', 'han', 'ace', 'art', 'the', 'unit', 'deal', 'play', 'base', 'Space', 'fed'] as $u)
+    SwuPgnTestCheck(SwuPgnPiiScan($pgnText, [$u]) === false, "no PII hit for a player named \"$u\" (inside another word, or a word of the card text)");
+foreach (['ash', 'sec', 'Sor', 'ts26'] as $u)
+    SwuPgnTestCheck(SwuPgnPiiScan("[CardPool \"SOR,SHD,SEC,TS26,ASH\"]\n[P1Leader \"ASH#097\"]\n", [$u]) === false, "no PII hit for a player named \"$u\" (a set code)");
+// The writer's own fixed fields (a hex GameId, the engine hash, the format, an event's type and seq) never hold a
+// player's text; the P1/P2 name headers and Reason still are scanned.
+$fixed = "[GameId \"4439b6eb-fede-5c53-cafe-6929ad301885\"]\n[Engine \"petranaki@06aab77\"]\n[Format \"premier\"]\n[P1 \"Player 1\"]\n%%% EVENTS\n"
+    . "{\"seq\":\"R10.A.11a\",\"t\":\"GAME_END\",\"for\":\"R10.A.11\"}\n";
+foreach (['fede', 'cafe', '06aab77', 'premier', 'r10', 'game_end'] as $u)
+    SwuPgnTestCheck(SwuPgnPiiScan($fixed, [$u]) === false, "no PII hit for a player named \"$u\" (a fixed field)");
+SwuPgnTestCheck(SwuPgnPiiScan(str_replace('Player 1', 'zorbaxian', $fixed), ['zorbaxian']) === true, 'a username in the P1 header is still a hit');
+SwuPgnTestCheck(SwuPgnPiiScan(str_replace('rather than', 'for zorbaxian', $pgnText), ['Zorbaxian']) === true, 'a username as a word in a prompt is still a hit');
+SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbax_99!\"]\n", ['zorbax_99']) === true, 'a username with digits and an underscore is matched whole');
+SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbax_990\"]\n", ['zorbax_99']) === false, 'but not as the start of a longer name');
 
 // SWU Forge delivery: a seat whose account is linked to SWU Forge gets its all-seeing file queued when the game ends
 // (SWUSim/SWUForgeDelivery.php); the other seat's unlinked account gets nothing, and a refused file queues nothing.

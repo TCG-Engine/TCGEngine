@@ -111,7 +111,7 @@
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordOAuth'     => true,
     'swustatsLink'     => true,   // Petranaki ↔ SWUStats link (spec 2026-10-10 §1) — Welcome panel
-    'swuforgeLink'     => getenv('DEVENV') === 'true',   // Petranaki ↔ SWU Forge link (finished games delivered there) — Welcome panel; dev boxes only until Forge production
+    'swuforgeLink'     => true,   // Petranaki ↔ SWU Forge link (finished games delivered there) — Welcome panel; inert until the box has $swuforgeBaseURL + $swuforgeOAuthKey (SWUForgeConfigured)
     'deckImport'       => true,   // Saved Decks panel: "Import decks" rows — up to 10 links saved in one go (SharedUI/Render/DeckLibrary.php RenderDeckImport)
   ],
 ];
