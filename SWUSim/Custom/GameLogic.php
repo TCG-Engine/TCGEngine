@@ -3920,16 +3920,19 @@ function _SWUObjIsEvent($o): bool { return stripos(CardType($o->CardID ?? '') ??
 //             on the next unit REGARDLESS of whether the conditional keyword-share discount applied.
 //   'amount'  fn($player,$obj):int — resources to subtract (count-based rows return the live count).
 //   'consume' 'remove' = spend one charge; 'clearPrefix' = spend all (count-based).
+//   'card'    true when the text says "the next <...> CARD" (any card type), so a Piloting unit played AS A
+//             PILOT gets it too (SWUComputePilotCost / _SWUConsumeUpgradePlayCharges). Rows keyed on "unit" or
+//             "event" leave it out: a pilot play is neither. (SWU_PILOT_DISCOUNT's pilot half is separate.)
 $oneShotPlayCharges = [
-    ['flag'=>'SWU_NEUTRAL_DISCOUNT',        'applies'=>fn($p,$o,$h)=>_SWUIsNeutralCard($o->CardID ?? ''),                                   'amount'=>fn($p,$o)=>2, 'consume'=>'remove'],       // SOR_056 Bendu
-    ['flag'=>'SWU_SNAP_DISCOUNT',           'applies'=>fn($p,$o,$h)=>HasTrait($o->CardID ?? '', 'Resistance'),                             'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // JTL_098 Snap
+    ['flag'=>'SWU_NEUTRAL_DISCOUNT',        'card'=>true, 'applies'=>fn($p,$o,$h)=>_SWUIsNeutralCard($o->CardID ?? ''),                                   'amount'=>fn($p,$o)=>2, 'consume'=>'remove'],       // SOR_056 Bendu
+    ['flag'=>'SWU_SNAP_DISCOUNT',           'card'=>true, 'applies'=>fn($p,$o,$h)=>HasTrait($o->CardID ?? '', 'Resistance'),                             'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // JTL_098 Snap
     ['flag'=>'SWU_PILOT_DISCOUNT',          'applies'=>fn($p,$o,$h)=>HasTrait($o->CardID ?? '', 'Pilot'),                                  'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // JTL_008 Wedge (as-unit half)
     ['flag'=>'SWU_LOF005_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && _SWULof005SharesKeywordWithFriendly(intval($p), $o->CardID ?? ''), 'consumeApplies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o), 'amount'=>fn($p,$o)=>1, 'consume'=>'remove'], // LOF_005 Morgan (charge spent on the next unit even if it doesn't share a keyword)
     ['flag'=>'SWU_SEC110_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // SEC_110 GNK
     ['flag'=>'SWU_TWI121_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>2, 'consume'=>'remove'],       // TWI_121 General's Blade
     ['flag'=>'SWU_TS26035_DISCOUNT_NEXT',   'applies'=>fn($p,$o,$h)=>_SWUObjIsEvent($o),                                                   'amount'=>fn($p,$o)=>2 * GlobalEffectCount(intval($p), 'SWU_TS26035_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // TS26_35 Ahsoka's Lightsabers — two copies triggering before you play anything stack to -4 on that one event, and both are spent (cf. Rex/ASH_027)
     ['flag'=>'SWU_REX_DISCOUNT_NEXT',       'applies'=>fn($p,$o,$h)=>_SWUObjIsEvent($o),                                                   'amount'=>fn($p,$o)=>GlobalEffectCount(intval($p), 'SWU_REX_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // TS26_06 Rex
-    ['flag'=>'SWU_TWI246_DISCOUNT',         'applies'=>fn($p,$o,$h)=>HasTrait($o->CardID ?? '', 'Republic'),                               'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // TWI_246 Tranquility
+    ['flag'=>'SWU_TWI246_DISCOUNT',         'card'=>true, 'applies'=>fn($p,$o,$h)=>HasTrait($o->CardID ?? '', 'Republic'),                               'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // TWI_246 Tranquility
     ['flag'=>'SWU_SEC261_OFFICIAL_DISCOUNT','applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Official'),          'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // SEC_261 Inspiring Senator
     ['flag'=>'SWU_HMW130_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // HMW_130 Emerie Karr
     ['flag'=>'SWU_LAW058_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // LAW_058 Honor-Bound Partisan
@@ -3937,7 +3940,7 @@ $oneShotPlayCharges = [
     ['flag'=>'SWU_SHD006_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>GlobalEffectCount(intval($p), 'SWU_SHD006_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // SHD_006 Jabba's bounty
     ['flag'=>'SWU_LAW158_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Underworld'),        'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // LAW_158 Khetanna
     ['flag'=>'SWU_ASH237_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Imperial'),          'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // ASH_237 Mouse Droid
-    ['flag'=>'SWU_IC27145_DISCOUNT_NEXT',   'applies'=>fn($p,$o,$h)=>true,                                                                 'amount'=>fn($p,$o)=>3 * GlobalEffectCount(intval($p), 'SWU_IC27145_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // IC27_145 Poggle — "the next CARD" (any type); two charges armed before a play stack on that one card and are both spent (cf. TS26_35)
+    ['flag'=>'SWU_IC27145_DISCOUNT_NEXT',   'card'=>true, 'applies'=>fn($p,$o,$h)=>true,                                                                 'amount'=>fn($p,$o)=>3 * GlobalEffectCount(intval($p), 'SWU_IC27145_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // IC27_145 Poggle — "the next CARD" (any type); two charges armed before a play stack on that one card and are both spent (cf. TS26_35)
 ];
 
 // Spend every one-shot play charge (from $oneShotPlayCharges) that applies to $obj. Called by the
@@ -3950,6 +3953,34 @@ function _SWUConsumeOneShotCharges($player, $obj, $host = null): void {
         if (GlobalEffectCount(intval($player), $chg['flag']) > 0 && $gate($player, $obj, $host)) {
             if ($chg['consume'] === 'clearPrefix') SWUClearGlobalEffectsByPrefix(intval($player), $chg['flag']);
             else                                   RemoveGlobalEffect(intval($player), $chg['flag']);
+        }
+    }
+}
+
+// Spend the cost-modifier charges a DEFERRED-payment upgrade or pilot play received, once it has paid —
+// called by _SWUFinalizeUpgradeAttach on a paid attach. Every upgrade/pilot play computes its cost there
+// (after the host pick), AFTER the play committed, so the commit must not spend these (ActivateCard passes
+// no $chargeObj for a paid upgrade) — spending them first made the upgrade pay full price (P-17 sibling).
+// Card-effect plays (Kylo LOF_001, Reforge, Salvaged Materials, …) never commit, so this is also the only
+// place their applied charges are spent.
+//   upgrade: every one-shot row, plus SEC_001's "next card played using Plot" −3 (a Plot upgrade).
+//   pilot:   only the "next ... CARD" rows (the ones SWUComputePilotCost applies).
+function _SWUConsumeUpgradePlayCharges(int $player, $obj, $host, bool $isPilot): void {
+    global $oneShotPlayCharges, $Plot_Cards;
+    if (!$isPilot) {
+        _SWUConsumeOneShotCharges($player, $obj, $host);
+        if (isset($Plot_Cards[$obj->CardID ?? '']) && ($obj instanceof Resources)
+                && GlobalEffectCount($player, 'SWU_SEC001_PLOT_DISCOUNT') > 0) {
+            RemoveGlobalEffect($player, 'SWU_SEC001_PLOT_DISCOUNT');
+        }
+        return;
+    }
+    foreach ($oneShotPlayCharges as $chg) {
+        if (empty($chg['card'])) continue;
+        $gate = $chg['consumeApplies'] ?? $chg['applies'];
+        if (GlobalEffectCount($player, $chg['flag']) > 0 && $gate($player, $obj, $host)) {
+            if ($chg['consume'] === 'clearPrefix') SWUClearGlobalEffectsByPrefix($player, $chg['flag']);
+            else                                   RemoveGlobalEffect($player, $chg['flag']);
         }
     }
 }
@@ -4047,8 +4078,11 @@ function SWUCommitPlay(int $player, string $cardID, ?string $logSuffix, string $
         if (HasTrait($cardID, 'Force')) AddGlobalEffects($player, 'SWU_PLAYED_NONUNIT_FORCE');
     }
     // LAW_229 The Master Codebreaker: "the first Gambit card you play each round" — any card type. Set on
-    // ANY Gambit play, not only while a Codebreaker is in play (CR 8.8.1, as SHD_198 above).
-    if (HasTrait($cardID, 'Gambit') && GlobalEffectCount($player, 'SWU_LAW229_USED') <= 0) {
+    // ANY Gambit play, not only while a Codebreaker is in play (CR 8.8.1, as SHD_198 above). Upgrades (and
+    // pilots) set it in _SWUFinalizeUpgradeAttach instead: they commit here BEFORE their host is chosen and
+    // their cost charged, so setting it now made ASH_230 Improvised Identity pay full price (bug report P-17).
+    if ($as !== 'upgrade' && $as !== 'pilot'
+            && HasTrait($cardID, 'Gambit') && GlobalEffectCount($player, 'SWU_LAW229_USED') <= 0) {
         AddGlobalEffects($player, 'SWU_LAW229_USED');
     }
 }
@@ -4293,6 +4327,15 @@ function SWUComputePilotCost($player, $obj, $host = null): int {
     // (SWUGetPilotValidTargets) AND the charge (_SWUFinalizeUpgradeAttach) — so the two stay
     // consistent. Consumed once in _SWUFinalizeUpgradeAttach after a successful pilot pay.
     $discount = GlobalEffectCount(intval($player), 'SWU_PILOT_DISCOUNT');
+    // A pilot play is playing a CARD, so the one-shot "next <...> card costs N less" rows apply (IC27_145
+    // Poggle, SOR_056 Bendu, JTL_098 Snap, TWI_246 Tranquility); spent by _SWUConsumeUpgradePlayCharges.
+    global $oneShotPlayCharges;
+    foreach ($oneShotPlayCharges as $chg) {
+        if (!empty($chg['card']) && GlobalEffectCount(intval($player), $chg['flag']) > 0
+                && $chg['applies']($player, $obj, $host)) {
+            $discount += intval($chg['amount']($player, $obj));
+        }
+    }
     return max(0, intval($base) + SWUAspectPenalty($player, $cardID, true) - $discount);
 }
 
@@ -18371,10 +18414,15 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
     // Everything downstream (e.g. the Coordinate "exactly the 2nd card" check) sees a count that includes it.
     // A caller that delegates here (Smuggle's event branch, a play from an opponent's discard, Plot) must NOT
     // commit on its own as well — that double-counted.
+    // A PAID upgrade's cost is computed later, in _SWUFinalizeUpgradeAttach (after the host pick), so it
+    // must not spend its cost-modifier charges here: the one-shot "next card costs N less" charges and
+    // SEC_001's Plot −3 are spent there, once paid. Spending them now made the upgrade pay full price and
+    // still lose the charge (sibling of bug report P-17). A free upgrade play keeps spending them here.
+    $deferredUpgradePay = !$ignoreCost && strpos($cardTypeLower, 'upgrade') !== false;
     SWUCommitPlay(intval($player), $cardID,
         SWULogPlayZone((string)$mzID, intval($player), $owner !== null ? intval($owner) : null),
         strpos($cardTypeLower, 'unit') !== false ? 'unit' : (strpos($cardTypeLower, 'upgrade') !== false ? 'upgrade' : 'event'),
-        $obj, preg_match('/^(my|their)Discard-/', (string)$mzID) ? 'discard' : null);
+        $deferredUpgradePay ? null : $obj, preg_match('/^(my|their)Discard-/', (string)$mzID) ? 'discard' : null);
     // JTL_232 Jump to Lightspeed: consume the one-shot "next copy of that unit is free" charge (keyed on
     // the exact CardID — a per-CardID free-override, not part of the shared one-shot table).
     if (GlobalEffectCount(intval($player), 'SWU_JTL232_FREE|' . $cardID) > 0) {
@@ -18383,7 +18431,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
     // SEC_001 Chancellor Palpatine: consume the "next Plot play −3" charge when a Plot card is actually
     // played from resources (a Resources object). Mirrors the SWUComputePlayCost gate above.
     global $Plot_Cards;
-    if (isset($Plot_Cards[$cardID]) && is_object($obj) && ($obj instanceof Resources)
+    if (!$deferredUpgradePay && isset($Plot_Cards[$cardID]) && is_object($obj) && ($obj instanceof Resources)
             && GlobalEffectCount(intval($player), 'SWU_SEC001_PLOT_DISCOUNT') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_SEC001_PLOT_DISCOUNT');
     }

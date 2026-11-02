@@ -302,3 +302,53 @@ P2GLOBALEFFECT:SWU_IC27145_DISCOUNT_NEXT
 P1HANDCOUNT:1
 P1DISCARDCOUNT:0
 P1NOGLOBALEFFECT:SWU_IC27145_DISCOUNT_NEXT
+
+---
+
+# NextUpgradeAlsoDiscounted_ChargeSpentAtAttach
+#// IC27_145 Poggle "the next card you play this phase costs 3 less" — the next card is ASH_230 Improvised
+#// Identity (Upgrade, Cunning, cost 2): it costs 0 and spends the charge. 6 ready -1 (Poggle's pay) = 5, and
+#// stays 5. Full price would leave 3.
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: IC27_145:1:0
+WithP1Hand: [ASH_230 SOR_225]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:myHand-1
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:5
+P1NOGLOBALEFFECT:SWU_IC27145_DISCOUNT_NEXT
+
+---
+
+# NextPilotPlayAlsoDiscounted
+#// Poggle's "the next CARD you play this phase costs 3 less" is armed. JTL_034 Interceptor Ace played as a
+#// pilot (Piloting [3 Vigilance Villainy]) onto SOR_225 TIE/ln is that card: 3 - 3 -> 0. 3 ready stays 3
+#// and the charge is spent.
+
+## GIVEN
+CommonSetup: bbk/brk/{myResources:3}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_225:1:0
+WithP1Hand: JTL_034
+WithP1GlobalEffect: SWU_IC27145_DISCOUNT_NEXT
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1HANDCOUNT:0
+P1RESAVAILABLE:3
+P1NOGLOBALEFFECT:SWU_IC27145_DISCOUNT_NEXT

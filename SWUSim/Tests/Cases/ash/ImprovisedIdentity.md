@@ -1124,3 +1124,90 @@ WithP4GroundArena: SOR_095:1:0
 ## EXPECT
 SEATCOUNT:4
 P1SELECTABLEEXACT:myGroundArena-0&p2GroundArena-0&p3GroundArena-0&p4GroundArena-0
+
+---
+
+# GrantConditionalRaid_ResourcefulWookieeHMW117_CountsExhaustedResources
+#// ASH_230 — HMW_117 Chewbacca's Raid is a CONDITIONAL keyword ("Raid 1 for each exhausted resource you
+#// control"), so it is not in the printed-keyword table the transplant reads. The host must still gain it:
+#// 3 of 5 resources exhausted -> Raid 3, so SOR_046 (3 power) deals 3 + 3 = 6. Reported live: no Raid at all.
+#// "You" is the HOST's controller, read off the host (the card body stays host-scoped).
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 2:SOR_095:1,3:SOR_095:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:6
+
+---
+
+# GrantConditionalOverwhelm_ResourcefulWookieeHMW117_AllResourcesExhausted
+#// ASH_230 — the second HMW_117 clause, "while each resource you control is exhausted, this unit gains
+#// Overwhelm". All 5 exhausted: the host swings for 3 + Raid 5 = 8 into a 3/3 Battlefield Marine and the
+#// excess 5 spills to the base. Without the lent Overwhelm the Marine dies and the base takes nothing.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 5:SOR_095:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:5
+
+---
+
+# CONTROL_GrantConditionalOverwhelm_OneResourceReady_NoSpill
+#// ASH_230 — the near-miss for the section above. One READY resource switches HMW_117's Overwhelm off, so the
+#// same attack (3 + Raid 4 = 7 into the 3/3 Marine) kills it with no spill. A lent Overwhelm that ignored the
+#// "each" condition would put 4 on the base here.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 1:SOR_095:1,4:SOR_095:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:0
+
+---
+
+# GrantConditionalRaid_ResourcefulWookieeOnHimself_Stacks
+#// ASH_230 on HMW_117 itself, discarding a second HMW_117: he now has the Raid clause twice, and Raid values
+#// add (CR 7.5.8.b), so 2 exhausted resources -> Raid 2 + Raid 2 = 4 on a 0-power attacker. Same
+#// "a lent copy of an ability you already have applies twice" reading as GainedStaticAbilityStacks_*.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 3:SOR_095:1,2:SOR_095:0
+WithP1GroundArena: HMW_117:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:4

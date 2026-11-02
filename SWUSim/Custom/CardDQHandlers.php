@@ -635,6 +635,15 @@ function _SWUFinalizeUpgradeAttach(
     if ($isPilot && GlobalEffectCount($player, 'SWU_PILOT_DISCOUNT') > 0) {
       SWUClearGlobalEffectsByPrefix($player, 'SWU_PILOT_DISCOUNT');
     }
+    // Spend the one-shot "next card costs N less" charges (and SEC_001's Plot −3) the cost above applied.
+    // The play's commit deliberately left them for here: it runs before this cost is computed.
+    _SWUConsumeUpgradePlayCharges(intval($player), $upgradeForCost, $hostObj, $isPilot);
+  }
+  // LAW_229 The Master Codebreaker — "the first Gambit card you play each round": an upgrade spends that slot
+  // here, once its cost (with the discount) is locked in, not at SWUCommitPlay, which runs before the host
+  // pick (bug report P-17). A free play counts too: it is still the first Gambit card played.
+  if (HasTrait($upgradeForCost->CardID ?? '', 'Gambit') && GlobalEffectCount($player, 'SWU_LAW229_USED') <= 0) {
+    AddGlobalEffects($player, 'SWU_LAW229_USED');
   }
 
   // Remove the upgrade from hand on successful payment.

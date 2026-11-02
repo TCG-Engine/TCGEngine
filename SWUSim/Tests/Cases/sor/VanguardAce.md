@@ -191,3 +191,31 @@ P1SPACEARENAUNIT:0:CARDID:SOR_191
 P1SPACEARENAUNIT:0:UPGRADECOUNT:2
 P1SPACEARENAUNIT:0:POWER:3
 P1SPACEARENAUNIT:0:HP:3
+
+---
+
+# CardEffectUpgradePlayCounts_KyloFromDiscard
+#// SOR_191 Vanguard Ace — "When Played: For each other card you played this phase, give an Experience token
+#// to this unit." Kylo's When Deployed plays SOR_120 from the discard (a card played; deploying a leader is
+#// not), so Vanguard Ace gets 1 Experience token.
+
+## GIVEN
+CommonSetup: gbk/brk/{
+  myLeader:LOF_001
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Discard: SOR_120
+WithP1Hand: SOR_191
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myDiscard-0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_191
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:POWER:2

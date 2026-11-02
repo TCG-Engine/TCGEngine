@@ -226,3 +226,35 @@ P1RESCOUNT:10
 P1DECKCOUNT:1
 P1GROUNDARENACOUNT:3
 P1NODECISION
+
+---
+
+# Deploy_PlotUpgradeCosts3Less
+#// SEC_001 Chancellor Palpatine (deployed) — "the next card you play using Plot this phase costs 3 less".
+#// The Plot card is SEC_070 Armor of Fortune (Upgrade, Vigilance, cost 2): 2 - 3 -> 0, so nothing is paid.
+#// 7 ready -> 6: the (ready) Plot card leaves the row and its replacement enters exhausted (CR 19.c).
+#// Full price would also exhaust the card itself plus one more -> 5. (Deploy_NextPlotCosts3Less is the
+#// unit version: 7 -> 5.)
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:SEC_070:1,6:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:myResources-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1RESCOUNT:7
+P1RESAVAILABLE:6
+P1NOGLOBALEFFECT:SWU_SEC001_PLOT_DISCOUNT

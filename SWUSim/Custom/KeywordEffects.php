@@ -826,7 +826,8 @@ function HasConditionalKeyword_Overwhelm($obj) {
     // ⚠ Vacuously TRUE while you control no resources at all (zero resources are all exhausted). That
     // is the plain reading of "each", and harmless — with no resources the Raid clause is also 0, so he
     // is a 0-power attacker either way — but it is a deliberate call, not an accident.
-    if (($obj->CardID ?? '') === 'HMW_117') {
+    // Identity, not CardID: ASH_230 Improvised Identity lends this clause to its host (see _SWUStatIdentities).
+    if (in_array('HMW_117', _SWUStatIdentities($obj), true)) {
         $ctrl117 = intval($obj->Controller ?? 0);
         if ($ctrl117 > 0 && SWUResourceCount($ctrl117, true) === 0) return true;
     }
@@ -1373,9 +1374,12 @@ function GetConditionalKeyword_Raid_Value($obj) {
     // zone would inflate the Raid value for every Credit the player is holding.
     // "You control" is the CONTROLLER — a Chewbacca under a take-control effect reads the new
     // controller's resources, not his owner's.
-    if (($obj->CardID ?? '') === 'HMW_117') {
+    // Counted per IDENTITY: ASH_230 Improvised Identity lends this clause to its host, and a lent copy on a
+    // Chewbacca stacks with his own (Raid values add) — see _SWUStatIdentityCount.
+    $n117 = _SWUStatIdentityCount($obj, 'HMW_117');
+    if ($n117 > 0) {
         $ctrl117 = intval($obj->Controller ?? 0);
-        if ($ctrl117 > 0) $amount += SWUResourceCount($ctrl117) - SWUResourceCount($ctrl117, true);
+        if ($ctrl117 > 0) $amount += $n117 * (SWUResourceCount($ctrl117) - SWUResourceCount($ctrl117, true));
     }
     // HMW_212 The Chieftain — "This unit gains Raid 1 for each other friendly Tusken unit."
     // _SWUCountFriendlyTraitUnits excludes the source by UniqueID (she is herself a Tusken, so a count
