@@ -2,7 +2,8 @@
 """Paired comparison of two meta run dirs of ONE set (skill `swusim-meta-bot-run`; same matches, seed, seats): games whose winner changed,
    per deck style and archetype — how one lever is isolated from every other code change.
    python3 paired.py <run A> <run B> <meta dir> [min games per archetype]   — A is the arm under test, B the reference (a plain '' arm on
-   today's code). Min games defaults to the set's meta.json 'pairedMin', else 60 (small sets such as HMW want ~8)."""
+   today's code). Min games defaults to the set's meta.json 'pairedMin', else 60 (small sets such as HMW want ~8).
+   B = --baseline pairs A with the frozen baseline — for a SPEED run on unchanged code only (same_code.py exits 0)."""
 import collections, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common
@@ -16,7 +17,8 @@ except (OSError, ValueError):
     _meta = {}
 MIN_GAMES = int(sys.argv[4]) if len(sys.argv) > 4 else int(_meta.get('pairedMin', 60))
 A, _ = common.load_run(os.path.join(a_dir, 'sweep'))
-B, _ = common.load_run(os.path.join(b_dir, 'sweep'))
+B = common.load_baseline(META) if b_dir == '--baseline' else common.load_run(os.path.join(b_dir, 'sweep'))[0]
+if B is None: sys.exit(f'{META} holds no frozen baseline')
 matches = common.load_matches(META)
 style, arch = {}, {}
 for m in matches:
@@ -41,5 +43,5 @@ for s in ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol']:
     print(f'   {s:12s} {won[s]:5d} : {lost[s]:<5d} net {won[s] - lost[s]:+5d}   p {common.sign_p(won[s], lost[s]):.4f}')
 moves = sorted(((awon[k] - alost[k]) / agames[k], k) for k in agames if agames[k] >= MIN_GAMES)
 print(f'largest archetype moves (net games / games played, {MIN_GAMES}+ games):')
-for v, k in moves[:5] + moves[-5:]:
+for v, k in (moves if len(moves) <= 10 else moves[:5] + moves[-5:]):   # a speed run qualifies few archetypes
     print(f'   {k:48s} {100 * v:+5.1f}pp  ({awon[k]}:{alost[k]} of {agames[k]})')

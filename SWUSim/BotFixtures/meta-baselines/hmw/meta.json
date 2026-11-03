@@ -12,5 +12,6 @@
  "decks": 766,
  "analyzeArgs": "--min 30 --cell-min 10",
  "matrixArgs": "--min 30",
- "pairedMin": 60
+ "pairedMin": 60,
+ "speedPct": 5
 }

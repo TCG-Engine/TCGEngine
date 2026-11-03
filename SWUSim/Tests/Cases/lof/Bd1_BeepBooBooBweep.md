@@ -105,3 +105,47 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:CARDID:LOF_191
 P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# 191_Control_OpponentTakesBd1_TheBuffStays
+#// Same shape as TWI_110 Huyang, whose official ruling says a control change of the SOURCE does not change the effect.
+#// P2's SOR_224 Change of Heart takes BD-1; Plo Koon keeps +1/+0 and Saboteur.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:1;handCardIds:LOF_191;theirResources:6;theirhandCardIds:SOR_224}
+WithActivePlayer: 1
+WithP1GroundArena: LOF_050:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:LOF_191
+P1GROUNDARENAUNIT:0:POWER:7
+P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# 191_Control_TheChosenUnitChangesSides_TheBuffStays
+#// The buff follows the CHOSEN unit: P2's Change of Heart takes Plo Koon, who keeps +1/+0 and Saboteur while BD-1 is in
+#// play.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:1;handCardIds:LOF_191;theirResources:6;theirhandCardIds:SOR_224}
+WithActivePlayer: 1
+WithP1GroundArena: LOF_050:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:LOF_050
+P2GROUNDARENAUNIT:0:POWER:7
+P2GROUNDARENAUNIT:0:HASKEYWORD:Saboteur

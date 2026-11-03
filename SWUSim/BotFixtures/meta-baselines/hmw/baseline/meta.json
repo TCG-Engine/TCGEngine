@@ -1,0 +1,18 @@
+{
+ "frozen": "2026-11-03T06:28:03Z",
+ "gitHead": "7e2dd3685",
+ "treeDirty": true,
+ "arm": "superset+seeds:tb+pairs:pairs.txt",
+ "games": 6088,
+ "failed": 0,
+ "matches": 3046,
+ "run": ".claude/tmp/hmw-meta-runs/utrecht-20261102-control",
+ "note": "HMW v4: first baseline on the Utrecht RC set (melee 492213, 3,044 pairs, 6,088 games, 0 failed). Ran 2026-11-03 01:17-06:18 UTC on 7e2dd3685. The tree is marked dirty at freeze only by another agent's uncommitted IC27_148/138 work (GameLogic.php saved 06:27 UTC, after the run ended; the one _index line added mid-run is an IC27 card in no Utrecht list), so the games reflect 7e2dd3685. Fidelity: archetype Pearson -0.03, MAE .093 (constant .040); cells Pearson -0.21; style bias hyper +6.5 / hard control -16.0.",
+ "speed": {
+  "pct": 5.0,
+  "games": 304,
+  "minRounds": 13,
+  "stepsShare": 0.099
+ },
+ "codeRef": "7e2dd3685"
+}

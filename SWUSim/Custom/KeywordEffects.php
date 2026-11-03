@@ -1643,7 +1643,10 @@ function GetConditionalKeyword_Restore_Value($obj) {
     // as a case in the friendly-unit loop below because that loop is SELF-ONLY
     // (GetUnitsInPlay($obj->Controller)) and "friendly" spans the TEAM. See the card file's family
     // note: the textually identical SEC_047 / SOR_102 / TS26_40 are still self-only.
-    if (function_exists('_SWUHmw039GrantsRestore') && _SWUHmw039GrantsRestore($obj)) $amount += 1;
+    if (function_exists('_SWUHmw039RestoreGrants')) $amount += _SWUHmw039RestoreGrants($obj);
+    // IC27_013 Nute Gunray — "Each other friendly Separatist unit gains Restore 1." Same team-wide shape as
+    // HMW_039, but a COUNT: each friendly Nute is a separate source, and Restore stacks (CR 7.9.b).
+    if (function_exists('_SWUIc27013RestoreGrants')) $amount += _SWUIc27013RestoreGrants($obj);
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'RESTORE')) $amount += 2;
     switch ($obj->CardID) {

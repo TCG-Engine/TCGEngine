@@ -239,7 +239,7 @@ On Attack: You may ready a resource.',
   'IC27_013' => 
   array (
     'title' => 'Nute Gunray',
-    'subtitle' => 'RIng Ring, Space Calling',
+    'subtitle' => 'Ring Ring, Space Calling',
     'type' => 'Unit',
     'arena' => 'Ground',
     'rarity' => 'Rare',
@@ -247,16 +247,17 @@ On Attack: You may ready a resource.',
     'cost' => 1,
     'power' => 1,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
+      1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Separatist',
       1 => 'Official',
     ),
-    'text' => 'Each other friendly Separatist unit gains Restore 1. (When this unit attacks, heal 1 damage from your base.)',
+    'text' => 'Each other friendly Separatist unit gains Restore 1. (When it attacks, heal 1 damage from your base.)',
     'epicAction' => '',
     'deployText' => '',
     'unique' => true,

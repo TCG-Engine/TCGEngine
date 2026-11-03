@@ -102,3 +102,28 @@ WithP1GroundArena: [SOR_095:1:0 SOR_095:1:0 SOR_095:1:0]
 ## WHEN
 ## EXPECT
 P1ACTIONENTRIES:myLeader-0:EXACT:TWI_008.0
+
+---
+
+# LeaderAction_LabelFallsBackToLeaderAbility
+#// A leader-slot Action is labelled "Leader Ability" (owner, 2026-11-03), not the card title; a hand-written name in
+#// $actionAbilityLabelOverrides replaces it (action_ability_labels_test.php).
+## GIVEN
+CommonSetup: ggw/ggw/{myLeader:JTL_014;myResources:3}
+SkipPreGame: true
+## WHEN
+## EXPECT
+P1ACTIONLABEL:myLeader-0:JTL_014.0:Leader_Ability
+
+---
+
+# FlippedFlipatine_LabelIsLeaderAbility
+#// TWI_017's flipped face is still a LEADER (not a unit), so its `.u0` Action is a leader-slot entry and takes the
+#// same fallback.
+## GIVEN
+CommonSetup: brk/bbw/{myLeader:TWI_017;myLeaderDeployed:1;myResources:3}
+SkipPreGame: true
+## WHEN
+## EXPECT
+P1ACTIONENTRIES:myLeader-0:EXACT:TWI_017.u0
+P1ACTIONLABEL:myLeader-0:TWI_017.u0:Leader_Ability

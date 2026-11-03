@@ -192,3 +192,16 @@ WithP1SpaceArena: SHD_256:1:0
 ## WHEN
 ## EXPECT
 P2ACTIONENTRIES:theirSpaceArena-0:EXACT:SHD_256.0
+
+---
+
+# UnitActionLabels_KeepTheCardTitle
+#// The "Leader Ability" fallback is for the leader slot only: a unit's Actions keep the card title, plus the cost when
+#// the card prints two.
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:2}
+WithP1GroundArena: SHD_087:1:0
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+## EXPECT
+P1ACTIONLABEL:myGroundArena-0:SHD_087.1:Crosshair_[Exhaust]

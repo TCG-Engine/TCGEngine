@@ -982,6 +982,7 @@ function ObjectCurrentPowerRaw($obj): int {
         }
     }
     $base += _SWULof191BuffCount($obj);                          // LOF_191 BD-1: chosen unit +1/+0 per instance while the source is in play
+    if (function_exists('_SWUIc27019DebuffCount')) $base -= 3 * _SWUIc27019DebuffCount($obj);   // IC27_019 Soulless One: chosen enemy -3/-0 while the source is in play
     // JTL_093 Nien Nunb attached as a pilot: the host gets +1/+0 per OTHER friendly Pilot unit/upgrade.
     if ($controller > 0 && _SWUUnitHasUpgrade($obj, 'JTL_093')) {
         $base += _SWUCountFriendlyPilots($controller, intval($obj->UniqueID ?? 0), true);
@@ -1497,6 +1498,8 @@ $turnEffectRegistry = [
     'LAW_205' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Self-defeat if it damages a base'],   // Flash the Vents
     'LAW_062' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Self-defeat after this attack'],   // Defiant Hammerhead
     'ASH_184' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Give 3 Advantage tokens after this attack'],   // Follow Me
+    'IC27_007' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'If it survives this attack: may ready a resource'],   // Asajj Ventress (leader front)
+    'IC27_019' => ['kind' => 'MARKER', 'duration' => SWU_DUR_PERM, 'label' => '-3/-0 while Soulless One is in play'],   // Soulless One — "IC27_019-{sourceUID}", read by _SWUIc27019DebuffCount
     'ASH_046' => ['kind' => 'STAT_DEBUFF', 'duration' => SWU_DUR_ATTACK, 'label' => 'Scion Shuttle (-1/-1 while defending)'],   // Scion Shuttle
     'HMW_233' => ['kind' => 'STAT_DEBUFF', 'duration' => SWU_DUR_ATTACK, 'label' => 'Awakened Exogorth (-3/-0 while defending)'],   // Awakened Exogorth
     'ASH_050' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'],   // Morgan Elsbeth (-2/-2 for this phase)
@@ -2853,16 +2856,45 @@ function _SWUTheSonBonus($obj): int {
 // only this reader diverged, so blanking a BD-1 cancelled a buff it had already granted. Fixed 2026-08-27,
 // pinned by 191_BuffSurvivesBd1LosingItsAbilities.
 function _SWULof191BuffCount($obj): int {
+    return _SWUChosenUnitLinkCount($obj, 'SWU_LOF191_');
+}
+
+// The "choose a unit; while THIS unit is in play, the chosen unit gets …" link family (TWI_110 Huyang, LOF_191 BD-1):
+// how many SWU_{prefix}{sourceUID}_{targetUID} links name $obj as the target while their source is still in play.
+// ⚠ EVERY SEAT, on both ends. The link is written into the effects of whoever resolved the When Played, and either
+// unit may later change sides — Huyang's OFFICIAL RULING: "This effect is not changed if an opponent takes control of
+// Huyang." Reading only the target's controller's effects and board dropped the buff when the source was taken (it
+// leaves that board) and when the target was taken (its new controller holds no link). Fixed 2026-11-03, pinned by
+// the Control_* sections in Huyang_EnduringInstructor.md / Bd1_BeepBooBooBweep.md. Keyed by source UID, so a copied
+// When Played (TS26_34 Fives) counts and ends with the copy, and a repeated one (LOF_197) stacks.
+function _SWUChosenUnitLinkCount($obj, string $prefix): int {
     if ($obj === null) return 0;
-    $player = intval($obj->Controller ?? $obj->Owner ?? 0);
-    if ($player <= 0) return 0;
     $tgtUID = intval($obj->UniqueID ?? -1);
-    $count = 0;
-    foreach (array_merge(GetGroundArena($player) ?? [], GetSpaceArena($player) ?? []) as $u) {
-        if (!empty($u->removed)) continue;
-        $count += GlobalEffectCount($player, 'SWU_LOF191_' . intval($u->UniqueID ?? -1) . '_' . $tgtUID);
+    if ($tgtUID <= 0) return 0;
+    return _SWUEngineMemo('cul|' . $prefix . $tgtUID, function() use ($prefix, $tgtUID) {
+        $count = 0;
+        for ($s = 1; $s <= SeatCountForGame(); $s++) {
+            foreach (GetGlobalEffects($s) as $ge) {
+                $id = (string)($ge->CardID ?? '');
+                if (strncmp($id, $prefix, strlen($prefix)) !== 0) continue;
+                $ends = explode('_', substr($id, strlen($prefix)));
+                if (count($ends) !== 2 || intval($ends[1]) !== $tgtUID) continue;
+                if (_SWUUnitUIDInPlay(intval($ends[0]))) $count++;
+            }
+        }
+        return $count;
+    });
+}
+
+// True when a unit with this UniqueID is in play on any seat.
+function _SWUUnitUIDInPlay(int $uid): bool {
+    if ($uid <= 0) return false;
+    for ($s = 1; $s <= SeatCountForGame(); $s++) {
+        foreach (GetUnitsInPlay($s) as $u) {
+            if (intval($u->UniqueID ?? 0) === $uid) return true;
+        }
     }
-    return $count;
+    return false;
 }
 
 // TWI_110 Huyang — "When Played: Choose another friendly unit. While this unit is in play, the chosen
@@ -2873,23 +2905,11 @@ function _SWULof191BuffCount($obj): int {
 // LOF_197 repeating Huyang's When-Played) leaves the SWU_TWI110_{src}_{tgt} key at count 2 → +4/+4; two
 // different Huyang sources each add their own key. The power/HP getters add 2× this count.
 function _SWUTwi110BuffCount($obj): int {
-    if ($obj === null) return 0;
-    $player = intval($obj->Controller ?? $obj->Owner ?? 0);
-    if ($player <= 0) return 0;
-    $tgtUID = intval($obj->UniqueID ?? -1);
-    $count = 0;
-    // ⚠ Do NOT filter the source scan to CardID === 'TWI_110'. The grant is keyed by the SOURCE UID, and
-    // the source is not always a Huyang: TS26_34 Fives enters play "with the When Played abilities of
-    // another unit", so a copied Huyang writes SWU_TWI110_{FIVES_uid}_{tgt}. A CardID-filtered reader
-    // never scanned Fives' UID, so the copied buff was recorded but permanently invisible — the target
-    // never got +2/+2. The flag is self-authenticating (only TWI_110#0, or a copy of it, ever writes this
-    // key), so scanning every friendly in-play unit by UID is both correct and sufficient — and it gives
-    // "while THIS unit is in play" the right semantics for the copy: the buff ends when FIVES leaves.
-    foreach (array_merge(GetGroundArena($player) ?? [], GetSpaceArena($player) ?? []) as $u) {
-        if (!empty($u->removed)) continue;
-        $count += GlobalEffectCount($player, 'SWU_TWI110_' . intval($u->UniqueID ?? -1) . '_' . $tgtUID);
-    }
-    return $count;
+    // ⚠ Do NOT filter the source to CardID === 'TWI_110'. The grant is keyed by the SOURCE UID, and the source is not
+    // always a Huyang: TS26_34 Fives enters play "with the When Played abilities of another unit", so a copied Huyang
+    // writes SWU_TWI110_{FIVES_uid}_{tgt}. The key is self-authenticating (only TWI_110#0, or a copy of it, writes it).
+    // Source and target are looked up on EVERY seat — see _SWUChosenUnitLinkCount.
+    return _SWUChosenUnitLinkCount($obj, 'SWU_TWI110_');
 }
 
 // True if $player controls a Force unit OR a Force upgrade (on any of their units). (LOF_060.)
@@ -7108,6 +7128,7 @@ function OnReadyCard($player, $mzID) {
         $lsWasExhausted = intval($obj->Status ?? 1) !== 1;
         $obj->Status = 1;
         if ($lsWasExhausted && function_exists('SWULogExhaustReady')) SWULogExhaustReady($obj, (string)$mzID, true); // game log
+        if ($lsWasExhausted && function_exists('_SWUIc27148NoteReady')) _SWUIc27148NoteReady($obj, (string)$mzID); // IC27_148 Dooku's regroup count
         _SWUTs26063OnEnemyReady($obj);   // Rex's DC-17s — ready its host when an enemy unit readies (action phase)
         _SWUQueueReadyTaxes($obj);
     }
@@ -7133,6 +7154,7 @@ function _SWUReadyInline(int $controller, string $cardID, $obj): void {
     $obj->Status = 1;
     if ($wasExhausted && function_exists('SWULogWithSource'))
         SWULogWithSource($controller, $cardID, fn() => SWULogExhaustReady($obj, 'Arena', true));
+    if ($wasExhausted && function_exists('_SWUIc27148NoteReady')) _SWUIc27148NoteReady($obj, 'Arena'); // IC27_148 Dooku's regroup count
     _SWUQueueReadyTaxes($obj);
 }
 
@@ -7156,6 +7178,11 @@ function _SWUReadyBlocked($obj, string $mzHint): bool {
     // SEC_037 locked-while-source-in-play / LAW_077 / SHD_193 — see _SWUUnitCantReadyNow.
     if (_SWUUnitCantReadyNow($obj)) {
         if (intval($obj->Status ?? 1) !== 1) SWULogRefusal($obj, 'ready');   // game log (Frozen in Carbonite, SEC_037, …)
+        return true;
+    }
+    // IC27_148 Count Dooku — an opponent that has already readied its 1 unit of this arena this regroup phase.
+    if (function_exists('_SWUIc27148BlocksReady') && _SWUIc27148BlocksReady($obj, $mzHint)) {
+        SWULogRefusal($obj, 'ready');   // game log
         return true;
     }
     return false;
@@ -7574,23 +7601,40 @@ function ReadyPhase() {
             if (_SWUUnitHasUpgrade($u, 'SHD_193')) return true;
             return false;
         };
+        // One arena's ready. Candidates are the EXHAUSTED units free to ready — $cantReadyRegroup still runs once for
+        // every live unit, ready or not, because it CONSUMES the SOR_186 / skip-next-regroup flags. IC27_148 Count
+        // Dooku caps an opponent at 1 ground + 1 space ready per regroup phase (_SWUIc27148Slots; unlimited without
+        // one): with more candidates than slots the seat chooses (IC27_148#0), with no slot left nothing readies.
+        $readyArena = function(array &$arena, string $zone) use ($p, $cantReadyRegroup, &$readiedAtRegroup) {
+            $cands = [];
+            for ($i = 0; $i < count($arena); $i++) {
+                if (!empty($arena[$i]->removed)) continue;
+                // LOF_098 — "while in the space arena, she can't ready." Blocks the regroup ready here (and
+                // any "Ready a unit" effect via OnReadyCard); "enters play ready" is a separate path, unaffected.
+                if ($zone === 'SpaceArena' && ($arena[$i]->CardID ?? '') === 'LOF_098') continue;
+                if ($cantReadyRegroup($arena[$i])) continue;
+                if (intval($arena[$i]->Status ?? 1) === 0) $cands[] = $i;   // it READIES (was exhausted)
+            }
+            $arenaKey = $zone === 'SpaceArena' ? 'S' : 'G';
+            $slots = function_exists('_SWUIc27148Slots') ? _SWUIc27148Slots($p, $arenaKey) : PHP_INT_MAX;
+            if (count($cands) > $slots) {
+                if ($slots > 0) SWUQueueChooseTarget($p, array_map(fn($i) => "my{$zone}-{$i}", $cands),
+                    'Choose_a_' . ($arenaKey === 'S' ? 'space' : 'ground') . '_unit_to_ready', 'IC27_148#0');
+                return;
+            }
+            // These readies are not counted against Dooku's limit: the ready step is the regroup's LAST ready, and
+            // the count starts over at the next RegroupPhaseStart, so nothing could ever read it.
+            foreach ($cands as $i) {
+                $readiedAtRegroup[] = $arena[$i];
+                $arena[$i]->Status = 1;
+            }
+        };
         $ground = &GetGroundArena($p);
-        for ($i = 0; $i < count($ground); $i++) {
-            if ((!isset($ground[$i]->removed) || !$ground[$i]->removed) && !$cantReadyRegroup($ground[$i])) {
-                if (intval($ground[$i]->Status ?? 1) === 0) $readiedAtRegroup[] = $ground[$i];   // it READIES (was exhausted)
-                $ground[$i]->Status = 1;
-            }
-        }
+        $readyArena($ground, 'GroundArena');
+        unset($ground);
         $space = &GetSpaceArena($p);
-        for ($i = 0; $i < count($space); $i++) {
-            // LOF_098 — "while in the space arena, she can't ready." Blocks the regroup ready here (and
-            // any "Ready a unit" effect via OnReadyCard); "enters play ready" is a separate path, unaffected.
-            if (($space[$i]->CardID ?? '') === 'LOF_098') continue;
-            if ((!isset($space[$i]->removed) || !$space[$i]->removed) && !$cantReadyRegroup($space[$i])) {
-                if (intval($space[$i]->Status ?? 1) === 0) $readiedAtRegroup[] = $space[$i];
-                $space[$i]->Status = 1;
-            }
-        }
+        $readyArena($space, 'SpaceArena');
+        unset($space);
         $leader = &GetLeader($p);
         for ($i = 0; $i < count($leader); $i++) {
             if (!isset($leader[$i]->removed) || !$leader[$i]->removed) $leader[$i]->Ready = true;
@@ -8402,6 +8446,7 @@ function _SWURegroupStartRest(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_REX_DISCOUNT_NEXT');     // TS26_06 Rex: "next event -1/-2 this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27145_DISCOUNT_NEXT'); // IC27_145 Poggle: "next card this phase -3"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27149_DISCOUNT_NEXT'); // IC27_149 The Invisible Hand: "next card this phase -9"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27148_READIED_');      // IC27_148 Dooku: readies "during the regroup phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27021_');              // IC27_021 Grievous: modes "chosen this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26063_USED_');         // TS26_63 Rex's DC-17s: "once each round"
         // TS26_12 Sundari Palace — defeat one friendly resource per card resourced this way (at regroup start).
@@ -12159,6 +12204,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SOR_150': HeroicSacrificeDefeatTrigger($player, $mzID); break;
         case 'LAW_205': HeroicSacrificeDefeatTrigger($player, $mzID); break;   // Flash the Vents self-defeat
         case 'ASH_184': Ash184GiveAdvTrigger($player); break;   // Follow Me — give 3 Advantage tokens to a unit
+        case 'IC27_007': Ic27007OfferReadyResource($player); break;   // Asajj Ventress — the surviving attacker's "may ready a resource"
         case 'LAW_033': Law033Trigger($player, $mzID); break;   // Hound's Tooth — may defeat a lower-power unit
         case 'LAW_034': Law034Trigger($player, $mzID); break;   // Chewbacca — Exp + heal 3 self
         case 'LAW_054': Law054Trigger($player, $mzID); break;   // Maul — may take control of a non-leader unit

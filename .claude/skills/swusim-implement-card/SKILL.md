@@ -1351,6 +1351,36 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 tenth wave 2026-11-03 — the damage-commit seam, cross-seat drains, attacker swaps, enemy-targeted links
+- **★★ A replacement "if X would deal combat damage" commits at the START of the `SWUCombatDamage` handler — NOT at
+  `_SWUOfferCombatPreventions`.** The prevention seam can run while ANOTHER seat's On Attack decision is still open
+  (Condemn's disclose), so a commit there resolves before that decision lands and its effect hits the wrong unit
+  (IC27_147: Condemn's -6/-0 landed on Asajj). Re-check legality at the handler start; if the commit queues a decision
+  (uniqueness), re-queue the damage step behind it and return.
+- **★★ A continuation answered by ANOTHER seat must drain the ACTING seat's queue.** If a teammate (Team Suns) answers a
+  choice whose handler queues steps onto the attacker's queue, nothing processes them — the game stalls. End such a
+  handler with `(new DecisionQueueController())->ExecuteStaticMethods($actingSeat, "-")` when `$player !== $actingSeat`,
+  as `BeginSWUAttack` does. Only a section where the OTHER seat answers can see it.
+- **★ "Put into play AS THE ATTACKER" (owner + judge ruling, IC27_147).** What the MODIFIED "attack with a unit" put on
+  the attacker moves to the new attacker ("+2/+0 for this attack", a granted ability, "after completing this attack,
+  defeat it"); a LASTING EFFECT another ability applies during the attack stays (Condemn's -6/-0, Dryden's own double).
+  The line is TIME: the attack-starting effect stamps its riders before the target is declared, so SNAPSHOT the
+  attacker's attack-duration effects at declaration (saved in the gamestate) and move only those. A one-rule "carry
+  every attack-duration effect" passes every attack-action section and fails only the On Attack ones; write both kinds
+  on ONE attack (Commence on Dryden: 5 + 2 = 7, not 14 or 5).
+- **★ "While this unit is in play, the chosen ENEMY unit …": store the link ON THE TARGET, keyed by the source UID.**
+  Huyang/BD-1 key a global effect to one seat and scan only the target's controller's board for the source; for an
+  ENEMY target, and under any control change, that misses — Huyang's own ruling says a control change does NOT end it.
+  (Fixed 2026-11-03: both now read `_SWUChosenUnitLinkCount`, every seat on both ends.) For a new card, a PERM turn
+  effect `CARD-{srcUID}` rides `SWUTakeControlOfUnit` (UID + TurnEffects kept); count it while `_SWUUnitUIDInPlay`.
+- **★ The STACKING board for a unique source is two copies on ONE Team Suns TEAM.** Uniqueness is per player, so P1 and
+  P3 can each control one. A "count → flag" mutation stayed green on two cards until that section existed (IC27_013
+  Restore grant, CR 7.9.b; IC27_019 debuff). HMW_039 Talzin had the same flag bug (fixed 2026-11-03).
+- **Fixture traps:** `LOF_202` Mind Trick only exhausts READY units, so it cannot blank a just-played (exhausted) unit —
+  use `JTL_244` There Is No Escape. There is no "lost abilities" assertion: prove a blank landed with an aura keyword
+  the unit can no longer gain (`SEC_140` Hondo → `NOTKEYWORD:Raid`). Paying with a Credit token in play first raises
+  "defeat Credit tokens to pay less" — answer `-` to keep it.
+
 ### ★ IC27 ninth wave 2026-10-30 — one observer at five sites, seeded state that cannot discriminate, pregame through production
 - **"When a (friendly) unit deals DAMAGE to a base" has FIVE producers**, each calling `SWUDealDamageToBase` and then
   stamping `SWU_DMGDBASE_`: the direct combat hit, the shared Overwhelm spill (`_SWUOverwhelmSpillToBase`), TWI_135 Maul's

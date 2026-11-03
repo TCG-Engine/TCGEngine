@@ -19,14 +19,16 @@ The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SW
 
 | tag | status | size | one arm |
 |---|---|---|---|
-| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | **1 event since 2026-11-02**: melee 492213 Regional Championship Utrecht (766 lists, 3,046 real matches). It superseded the 5-event set (342 matches, 664 games; owner: the small events were fine for early trends, a real event is the base now). Arms from before 2026-11-02 do not pair with newer ones; no frozen baseline yet | ~6,000 games — expect **several hours** (the 664-game set took ~25–30 min) |
+| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | **1 event since 2026-11-02**: melee 492213 Regional Championship Utrecht (766 lists, 3,046 real matches). It superseded the 5-event set (342 matches, 664 games; owner: the small events were fine for early trends, a real event is the base now). Arms from before 2026-11-02 do not pair with newer ones. Baseline **v4** frozen 2026-11-03 (`7e2dd3685`, 6,088 games) | full: 6,088 games, **~5 h** · **speed run (Mode S): 304 games, ~15 min** (measured 14.5 min, 2026-11-03) |
 | ASH | **RETIRED 2026-10-26** — owner: "we dont have to run ASH metas anymore … we are 2 weeks into the HMW meta now". Run only if the owner explicitly asks for ASH. | 53 events, 9,933 matches → ~19,650 games | ~2.5 h |
 
 ## Owner policy — read first
 
 - **Measure a feature as a PAIR on today's code:** a plain `''` control arm and the variant arm(s), queued together. The frozen baseline
-  is context, not the comparison: it predates later code. HMW's current baseline is v3 (all 5 events, 664 games, `ca527053d`,
-  frozen 2026-10-28).
+  is context, not the comparison: it predates later code. HMW's current baseline is v4 (Utrecht RC, 6,088 games, `7e2dd3685`,
+  frozen 2026-11-03). Exception: a SPEED run (Mode S) on code `same_code.py` finds unchanged pairs with the baseline itself.
+- **New bot features start with a speed run (Mode S)** (owner 2026-11-03: features shouldn't need 5 hours to verify). Run the full set
+  (Mode A) before a ship decision when the speed run shows harm or the lever acts early in the game.
 - **Never re-freeze unasked** (Mode B).
 - **Reports are local `.md` files**, never an Artifact per run (owner 2026-10-13). Publish the matrix only when asked.
 - New bot features are default-OFF proposals measured this way; a measured null ships ON unless harmful (memory
@@ -63,7 +65,7 @@ HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUS
    ```
    docker exec -d -w /var/www/html/TCGEngine -e PHP_INI_SCAN_DIR=":/tmp/swusim-ini" otmtcge-swusim-web-server-1 bash .claude/tmp/<set>-meta-runs/queue-<label>.sh
    ```
-   A full HMW arm takes ~25–30 min (2026-10-29). To screen many levers, run each on the match SUBSET where it can fire: `sweep_fixtures.sh` with
+   A full HMW arm takes ~5 h on the Utrecht set (the old 5-event set took ~25–30 min); a speed run (Mode S) ~15 min. To screen many levers, run each on the match SUBSET where it can fire: `sweep_fixtures.sh` with
    `PAIRS_FILE=<lever>.pairs SUPERSET=1 SEED_PREFIX=tb VARIANT=try-<lever>`. Pairs are deterministic, so a subset arm pairs exactly with the full control.
    Smoke test only (tools changed): `-e LIMIT=30` plays the first 30 matches; on unchanged code those games must be IDENTICAL to the
    control's.
@@ -94,6 +96,24 @@ HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUS
   `common.load_matches` drops matches with either deck on one (games are still played). Guard: `SWUSim/DevTools/rl/meta_baseline_ibh_test.py`.
 - **Real numbers carry noise too:** a cell's real WR comes from its Bo3 game scores; the matrix shows a 95% Wilson range under it.
 
+## Mode S — speed run (the default first check for a new bot feature)
+
+The set's **speed set** is `<meta>/baseline/speed.games`: the longest `speedPct`% (meta.json; HMW = 5) of the baseline's games, one seat
+order each, written by `speed_set.py` at freeze. Why long games: on the 15 lever arms of 2026-10-24…28, the longest 5% of games held
+31% of every changed winner, the longest 10% held 54%, and the shorter half held 2%. Late-game levers (removal, Dedra, attrition)
+lose almost nothing.
+- ⚠ **Blind spot: EARLY-game levers** (mulligan, curve, turn-1–3 plays). The curvekeep switch flipped 27 games, and only 5 of them were in the
+  longest 10%. For those, screen on the lever's own subset (`PAIRS_FILE`) or run the full set.
+- ⚠ **It gives no fidelity numbers.** `analyze.py` needs both seats of a match. Read it with `paired.py` only.
+1. **Control?** `python3 SWUSim/DevTools/rl/meta_baseline/same_code.py SWUSim/BotFixtures/meta-baselines/<set>`, run on the host. It compares every
+   engine/bot file on disk with the baseline's `codeRef`.
+   - Exit 0: the baseline IS the control (deterministic: two same-code controls flipped 0 of 538 and 0 of 664). Queue only the variant.
+   - Exit 1: queue a speed control and the variant in ONE script. One speed control serves every variant on that same code.
+2. **Queue** like Mode A, but prefix each call with `SPEED=1` (`SPEED=1 run $M $O/<label>-speed-on "try-<lever>"`; bash exports a
+   prefix assignment to everything the function runs). Name the dirs `<label>-speed-control` and `<label>-speed-on`.
+3. **Read:** `paired.py <speed arm> <speed control | --baseline> <meta>` → changed winners per style with the sign-test p, plus lever
+   coverage (as Mode A). With ~10 changed games a single style row is a lead, not a verdict. Report as `<arm>/REPORT.md`.
+
 ## Mode B — freeze a NEW baseline for `<set>` (only when the owner asks)
 
 Run Mode A with variant `''` to completion, then:
@@ -101,7 +121,9 @@ Run Mode A with variant `''` to completion, then:
 python3 SWUSim/DevTools/rl/meta_baseline/freeze.py SWUSim/BotFixtures/meta-baselines/<set> .claude/tmp/<set>-meta-runs/<label> --force --note "<why / what changed>"
 ```
 `freeze.py` refuses to overwrite without `--force`. Check `baseline/meta.json`: `gitHead` must be the code the run started on (if the
-owner committed mid-run, compare the commit date with the run's start and say so in `--note`). Republish the matrix to the URL in the set's
+owner committed mid-run, compare the commit date with the run's start and say so in `--note`). It also writes the speed set and
+`codeRef`: HEAD when the engine files on disk match it, else null. When it is null (someone else's edits landed after the run), confirm
+from the file times which commit the games ran on and set `codeRef` by hand. Without one, every speed run needs its own control. Republish the matrix to the URL in the set's
 `meta.json` only if the owner asks; update memory `swusim-tournament-baseline`.
 
 ## Mode C — build or extend a set (a new meta, a new event, or lost data)

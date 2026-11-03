@@ -23,7 +23,9 @@ $actionAbilityLimits = [
     'HMW_172.0'  => ['max' => 1, 'per' => 'phase'],   // Heavy Ion Cannon (granted to the base)
 ];
 
-// Hand-written labels for the awkward cases; everything else is derived (SWUActionAbilityLabel).
+// Hand-written labels; everything else is derived (SWUActionAbilityLabel). A leader-slot Action (`<CardID>.0`, or a flipped
+// TWI_017's `.u0`) otherwise reads "Leader Ability": name it here to give it flavour. A deployed leader's Actions are the
+// unit's (`<CardID>.u<n>`, card title by default). Keys must be ids the card text has (action_abilities_inventory_test.php).
 $actionAbilityLabelOverrides = [
     // Admiral Trench / Bail Organa: their second front Action IS their deploy, and keeps the deploy button's name.
     'JTL_014.1' => 'Deploy Leader',
@@ -75,22 +77,23 @@ function SWUActionReg(array $registry, string $id) {
     return null;
 }
 
-// The button label: the override, else the source card's title — plus the printed cost when that source has two or
-// more entries on the same surface ("Crosshair [Exhaust]"), "[Action]" when the clause has no cost bracket.
-function SWUActionAbilityLabel(string $id, string $cost, int $sameSourceCount): string {
+// The button label: the override, else $fallback (the leader slot's "Leader Ability"), else the source card's title —
+// plus the printed cost when that source has two or more entries on the same surface ("Crosshair [Exhaust]"),
+// "[Action]" when the clause has no cost bracket.
+function SWUActionAbilityLabel(string $id, string $cost, int $sameSourceCount, ?string $fallback = null): string {
     global $actionAbilityLabelOverrides;
     if (isset($actionAbilityLabelOverrides[$id])) return $actionAbilityLabelOverrides[$id];
-    $label = (string)(CardTitle(SWUActionIdParts($id)['cardID']) ?? SWUActionIdParts($id)['cardID']);
+    $label = $fallback ?? (string)(CardTitle(SWUActionIdParts($id)['cardID']) ?? SWUActionIdParts($id)['cardID']);
     if ($sameSourceCount >= 2) $label .= ' [' . ($cost !== '' ? $cost : 'Action') . ']';
     return $label;
 }
 
 // Gives every entry its label once the whole surface is known (the cost suffix depends on how many entries share
 // a source).
-function _SWUActionLabelEntries(array $entries): array {
+function _SWUActionLabelEntries(array $entries, ?string $fallback = null): array {
     $perSource = [];
     foreach ($entries as $e) $perSource[$e['source']] = ($perSource[$e['source']] ?? 0) + 1;
-    foreach ($entries as &$e) { $e['label'] = SWUActionAbilityLabel($e['id'], $e['cost'], $perSource[$e['source']]); }
+    foreach ($entries as &$e) { $e['label'] = SWUActionAbilityLabel($e['id'], $e['cost'], $perSource[$e['source']], $fallback); }
     unset($e);
     return $entries;
 }
@@ -203,7 +206,7 @@ function SWULeaderActionEntries(int $player, int $leaderIndex): array {
             'subIndex' => -1, 'kind' => 'own', 'cost' => $cl['cost'], 'title' => $cl['text']];
     }
     $playerID = $saved;
-    return _SWUActionLabelEntries($entries);
+    return _SWUActionLabelEntries($entries, 'Leader Ability');
 }
 
 // ── Units ────────────────────────────────────────────────────────────────────────────────────────────────────

@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019
 
 ## Foundations already built — do not re-do
 
@@ -505,6 +505,11 @@ in the engine dictionary. Spelling pass against the five preview images (both fa
 IC27_007's subtitle "Bald and Beautiful". IC27_148 matched its image exactly. Baseline 13986 passed / 3 failed (the three
 known P-17 reds: Congress of Malastare, Peli Motto, Vanguard Ace). Order, simplest first: IC27_149, IC27_138, IC27_148,
 IC27_007, IC27_147.
+⚠ **The opening diff MISSED two cards** (found by the end-of-run re-diff, 2026-11-03): IC27_013 Nute Gunray and IC27_019
+Soulless One were already in the committed `CardMocks.php` (since `08d114153`) — 72 IC27 mocks, not 70. Their spelling
+pass, done late: IC27_013 had THREE errors vs the image, fixed + regenerated — subtitle "RIng Ring" → "Ring Ring, Space
+Calling"; aspects [Vigilance] → [Vigilance, Villainy] (a rules bug: the aspect penalty); reminder "(When this unit
+attacks…" → "(When it attacks…" as printed. IC27_019 matched its image exactly. Both still to implement.
 
 - [x] **IC27_149 The Invisible Hand (Confederate Might)** — done 2026-11-02, 13 sections, suite 13986 → 13999 (3 known
   reds unchanged), 8 mutations each red on its own sections. One closure on `$whenPlayedAbilities` +
@@ -518,11 +523,106 @@ IC27_007, IC27_147.
   Poggle's convention); a charge armed in the regroup phase expires unused; under JTL_043 the new controller gets it.
   ⚠ Side-find, not changed: any OTHER "this phase" effect a When Defeated creates during the regroup (via Sneak Attack)
   has the same leak shape — not audited.
+- [x] **IC27_138 Banshee (Scream Machine)** — done 2026-11-03, 13 sections, 6 mutations each red on its own sections.
+  Gates ran after the HMW Utrecht control arm finished (06:18 UTC), so nothing touched the live tree mid-run; suite
+  13999 → 14032 together with IC27_148 (3 known reds unchanged). The On Attack asks a YESNO, then `_topDeckSearchBegin(5, non-unit, count:1)` finished by the shared `LOF_103#0`
+  (chosen card on top, revealed and logged; the rest to the bottom in random order). Nothing in GameLogic changed.
+  **Judgement call (preview):** "You **may** search" makes the whole SEARCH optional: declining leaves the top five
+  in place, while searching and choosing nothing bottoms all five (separate sections). ⚠ JTL_089 The Invisible Hand
+  (Crawling With Vultures), the only other "You may search the top N", has no up-front decline (an empty pick
+  bottoms the eight). Same reading would apply there; not changed.
+- [x] **IC27_148 Count Dooku (Silver-Tongued)** — done 2026-11-03, 20 sections, 18 mutations each red on its own
+  sections; suite 13999 → 14032 with IC27_138. When Played = `SWUOfferUnitTarget` may/any side (Dooku included). The
+  regroup limit is SHARED code: `ReadyPhase`'s two arena loops became one `$readyArena` closure (candidates = live,
+  not LOF_098-in-space, `$cantReadyRegroup` false — still called for every live unit since it CONSUMES flags — and
+  exhausted); `_SWUIc27148Slots` caps an opponent of Dooku's controller at 1 per arena, with more candidates than slots
+  the seat CHOOSES (`IC27_148#0`). Effect readies in the regroup phase are counted in `OnReadyCard`/`_SWUReadyInline`
+  and refused in `_SWUReadyBlocked` once the slot is spent; the count (`SWU_IC27148_READIED_G/S`) clears at
+  RegroupPhaseStart. The step's own readies are deliberately NOT counted (the step is the regroup's last ready — a
+  mutation showed the count unobservable, so the line was removed). Helpers live in the card file.
+  **Judgement calls (preview):** the LIMITED player chooses which unit readies, and must ready one; a regroup-start
+  effect ready (SOR_226 Motti via Sneak Attack) spends the slot — including an OPPONENT's effect readying your unit
+  (the count follows the readied unit's controller); a deployed leader unit competes for the ground slot, while the
+  leader card and resources ready freely; a unit that can't ready (Frozen in Carbonite) is no candidate and spends
+  nothing; Team Suns teammates are never limited; a stolen Dooku limits its new controller's opponents.
+  ⚠ Side-find, not changed: Motti's "ready a Villainy unit" pool still OFFERS a unit whose ready will be refused (any
+  blocked ready — SOR_186, Frozen in Carbonite — behaves the same; the pick is spent and the refusal logged).
+- [x] **IC27_007 Asajj Ventress (Bald and Beautiful)** — done 2026-11-03, BOTH sides, 17 sections (front 11, deployed
+  6), 11 mutations each red on its own sections; suite 14032 → 14052 (+17 mine; the other +3 are concurrent work in
+  the tree, 3 known reds unchanged). The named-actions inventory test (red since the wave began) is green again.
+  FRONT: `$leaderAbilities` picks a ready friendly unit (no ready unit → the [Exhaust] still pays, the action closes)
+  and arms an attack-duration `IC27_007` MARKER (Follow Me's ASH_184 seam): captured into `$combatCtx` at combat
+  start, raised as the IC27_007 trigger in `CollectAfterAttackTriggers` only if the attacker is still in play BY UID.
+  DEPLOYED: Saboteur is keyword data; On Attack reuses the same "may ready a resource" offer.
+  **Judgement calls (preview):** "ready a resource" = one of YOUR resources (the engine family's reading — the owner
+  ruling on unqualified "ready a resource" is still OPEN, see the Oct bugs pass); no prompt when nothing is exhausted;
+  the rider belongs to the Action's attack only (a later attack by the same unit offers nothing); a unit you control
+  but don't own can be the attacker, and the resource readied is still yours.
+  ⚠ Probe note: `SWUMakeTurnEffect($id, [])` takes the REGISTRY's duration, so dropping the duration argument is a
+  no-op mutation; the phase-length probe has to pass `SWU_DUR_PHASE` explicitly.
+- [x] **IC27_147 Asajj Ventress (Death From Above)** — done 2026-11-03, 41 sections, 26 mutations each red on its own
+  sections; suite 14052 → 14093 (+41, 3 known reds unchanged). A replacement effect at the combat-damage step, built to
+  the OWNER'S DESIGN ("set up at declaration, re-check at damage"):
+  · DECLARATION — `_SWUIc27147OfferAtDeclaration` at all three places a BASE becomes the attack target in CombatLogic
+    (`BeginSWUAttack`'s single-target path, `SWUResolveAttack`, TWI_135 Maul's Base pick): for a friendly non-leader
+    ground attacker, a seat holding Asajj that can pay (5 + aspect penalty, `SWUTotalPaymentCapacity`) chooses
+    `Attack` / `Asajj_Ventress`. Choosing her only ARMS it (`SWU_IC27147_ARMED`) — nothing paid or revealed. (A prompt
+    at damage would add a pause to every base attack only while she is held — leaking her.)
+  · DAMAGE — `_SWUIc27147CommitAtDamage` at the START of `SWUCombatDamage`, after every On Attack and every other
+    seat's decision (the earlier prevention seam ran while Condemn's disclose was still pending, and the -6/-0 then
+    landed on Asajj). Re-checks: same attacker, in play, would deal > 0 to the base (current power + Raid unless
+    blanked + "+N this attack" + HP-as-damage), Asajj still in hand, still affordable — else it lapses silently. On
+    commit: reveal (logged), `SWUPayCost`, `SWUBounceUnit` the attacker (owner's hand; upgrades discarded, tokens set
+    aside), Asajj into play EXHAUSTED under the holder, `SWU_IC27147_SWAP` hands her to the damage step; a uniqueness
+    choice re-queues the damage step behind it.
+  · She enters "AS THE ATTACKER", so what the MODIFIED "ATTACK WITH A UNIT" put on the attacker moves to her —
+    "+N/+0 for this attack" (LAW_202, LAW_001, LAW_205, SOR_150), Babu Frik's HP-as-damage, a granted ability (SOR_150's
+    self-defeat), and the post-attack riders (IC27_007, ASH_184, LAW_001's and LAW_205's "defeat it/that unit"). A
+    LASTING EFFECT another ability applies to the unit during the attack STAYS (Condemn's disclosed -6/-0, Dryden's own
+    double, Condemn's blanking), as do its printed abilities (Raid) and "for this phase" buffs. Drawn by TIME: the
+    attack-starting effect stamps its riders before the base is declared, so the declaration snapshots the attacker's
+    attack-duration effects (`SWU_IC27147_CARRY`, saved in the gamestate) and only those move.
+    CR 7.5.d: the original's "deals combat damage to a base" never fires. One replacement per attack (CR 7.5.e/f).
+    **Revised twice 2026-11-03 on owner review** (→ 50 sections; suite 14110 → 14119): (1) the first build kept the
+    +2/+0 and "defeat it" with the bounced unit — the owner ruled both follow her; (2) the follow-up carried EVERY
+    attack-duration effect — an unofficial judge ruling (Mac; open to change if the CR clarifies Icons), adopted by the
+    owner: Condemn's -6/-0 is a lasting effect on that unit, not part of the modified attack, so Asajj still deals 5.
+    Dryden's double follows the same line (applied by analogy). Snapshot mutation pass: 6 mutations, 5 red; the 6th
+    exposed redundant clears, now deleted.
+  · Team Suns: a teammate is asked on your attack; the continuation drains the ATTACKER's queue (it is not the one
+    being processed). · Bot (owner rule, no unit tests): choose her when her 5 beats the attacker's base damage.
+  **Owner rulings (2026-11-03):** timing B (declaration + damage re-check); the leader rider follows the new attacker;
+  "friendly" spans the team; the bot rule above; the modified attack's riders (incl. the post-attack "defeat it")
+  follow her, a lasting effect applied to the unit (Condemn's -6/-0) does not.
+  ⚠ Not built: the bot preferring its WEAKEST eligible attacker to carry her (attack-order policy — a lever for later).
+  ⚠ `_SWUIc27147AttackerBaseDamage` mirrors only the base-relevant terms of `SWUCombatDamage`'s power build; a future
+  base-specific power modifier there would need adding here too.
+- [x] **IC27_013 Nute Gunray (Ring Ring, Space Calling)** — done 2026-11-03, 17 sections, 9 mutations (8 red on their
+  own sections; the 9th exposed a redundant `removed` guard — `GetUnitsInPlay` already skips removed units — now
+  deleted); suite 14093 → 14110 (+17, 3 known reds unchanged). A constant aura modelled on HMW_039 Mother Talzin:
+  `_SWUIc27013RestoreGrants` summed into `GetConditionalKeyword_Restore_Value`, recomputed every read. Team-wide
+  "friendly" relative to Nute's CONTROLLER; "other" by UniqueID (a teammate's Nute grants to yours); Separatist via
+  `TraitContains` (tokens, deployed leaders). Returns a COUNT — Restore from different sources stacks (CR 7.9.b), so two
+  friendly Nutes give Restore 2.
+  Side-find FIXED 2026-11-03 (owner go): HMW_039's helper returned a flag, so two Talzins on one Team Suns team
+  under-healed by 1 — now `_SWUHmw039RestoreGrants` (a count), pinned by `TeamSuns_TwoTalzinsStack`.
+- [x] **IC27_019 Soulless One (Soulless Fun)** — done 2026-11-03, 14 sections, 7 mutations (6 red at once; the 7th —
+  count → flag — was green until `TeamSuns_TwoSoullessOnes_Stack` was added, now red); suite 14119 → 14133 (+14, 3 known
+  reds unchanged). Modelled on TWI_110 Huyang, whose official rulings apply by analogy (lasts until the source leaves
+  play; unchanged by a control change). The link is a PERM turn effect on the CHOSEN unit, `IC27_019-{sourceUID}`
+  (registry entry + `-3 ×` `_SWUIc27019DebuffCount` in the power getter), counted while that source UID is in play on
+  ANY seat — so it survives either unit changing sides (Huyang's per-seat global key would not). Pool
+  `SWUAllUnits('their', GroundArena)` (team-relative "enemy"). Blanking the source does not end it (CR 14.3).
+  Side-find FIXED 2026-11-03 (owner go): Huyang's and BD-1's readers looked only at the TARGET's controller's effects
+  and board, so a control change of either unit dropped the buff — against Huyang's official ruling. Both now read
+  `_SWUChosenUnitLinkCount` (every seat's effects, source in play on any seat); 4 `Control_*` sections pin it. Suite
+  14133 → 14138.
 
 ## Status
 
-**IC27: 66 / 70 mocked CardIDs implemented** (2026-11-02, tenth wave in progress — `--iterative`; remaining IC27_138,
-IC27_148, IC27_007, IC27_147). Before this wave:
+**IC27: 72 / 72 mocked CardIDs implemented** (2026-11-03, tenth wave — `--iterative`; suite 13986 → 14133, 3 known reds
+unchanged. The wave's opening diff missed IC27_013 and IC27_019 — see the Phase 16 note; both now done).
+Before this wave:
 
 **✅ IC27 IS CARD-COMPLETE AT 65 / 65 mocked CardIDs** (2026-10-30, ninth wave — suite 13770 → 13856/0; re-derived at
 the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty). True only until the next

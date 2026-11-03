@@ -236,8 +236,8 @@ for (const [engineName, engine] of ENGINES) {
           ok(`${tag} leader/${kind}: clicking opens the leader menu`, m !== null);
           if (m) {
             const got = m.buttons.map((b) => [b.label, b.disabled]);
-            const want = kind === 'ready' ? [['Admiral Trench', false], ['Deploy Leader', false], ['Cancel', false]]
-                                          : [['Admiral Trench', true], ['Cancel', false]];
+            const want = kind === 'ready' ? [['Leader Ability', false], ['Deploy Leader', false], ['Cancel', false]]
+                                          : [['Leader Ability', true], ['Cancel', false]];
             ok(`${tag} leader/${kind}: buttons`, JSON.stringify(got) === JSON.stringify(want), JSON.stringify(got));
             ok(`${tag} leader/${kind}: menu inside the viewport`, m.inView);
             await lpage.screenshot({ path: `${SHOTS}/swusim-named-actions-${engineName}-${layout}-leader-${kind}.png` });
@@ -251,7 +251,7 @@ for (const [engineName, engine] of ENGINES) {
                 ok(`${tag} leader/greyed: a greyed button sends no request`, lsent.length === before, lsent.slice(before).join(' | '));
               }
             } else {
-              const ab = m.buttons.find((b) => b.label === 'Admiral Trench');
+              const ab = m.buttons.find((b) => b.label === 'Leader Ability');
               if (ab) {
                 const before = lsent.length;
                 await lpage.mouse.click(ab.rect[0] + ab.rect[2] / 2, ab.rect[1] + ab.rect[3] / 2);

@@ -169,3 +169,20 @@ WithP1GroundArena: SOR_095:1:0
 - P1>AttackGroundArena:0:BASE
 ## EXPECT
 P1BASEDMG:4
+
+---
+
+# TeamSuns_TwoTalzinsStack
+#// Uniqueness is per player, so P1 and teammate P3 may each control a Talzin. Each is a DIFFERENT source of Restore 1 and
+#// CR 7.9.b adds them: P1's Marine has Restore 2 and heals 2. A yes/no grant heals only 1.
+## GIVEN
+CommonSetup: brk/ggw/{myResources:6; myBaseDamage:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithTeams: true
+WithP3GroundArena: HMW_039:1:0
+WithP1GroundArena: [HMW_039:1:0 SOR_095:1:0]
+## WHEN
+- P1>AttackGroundArena:1:BASE
+## EXPECT
+P1BASEDMG:3

@@ -4,11 +4,13 @@ until the owner asks for a new baseline — never re-freeze unasked.
 
 usage: freeze.py <meta dir> <run dir> [--note "…"]
 Writes <meta>/baseline/: bot_games.tsv.gz (deck1 deck2 winner rounds), analysis.txt (analyze.py --no-baseline), matrix.json, meta.json
-(when, git HEAD + whether the tree was dirty, the sweep arm, games). Refuses to overwrite an existing baseline unless --force."""
+(when, git HEAD + whether the tree was dirty, the sweep arm, games), and speed.games (speed_set.py). meta.json's codeRef is HEAD when the
+engine files on disk match it (same_code.py), else null — then confirm by hand which commit the games ran on and set it.
+Refuses to overwrite an existing baseline unless --force."""
 import sys, os, json, gzip, subprocess, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import load_run
-import matrix
+import matrix, same_code, speed_set
 
 meta, run = sys.argv[1], sys.argv[2]
 B = os.path.join(meta, 'baseline')
@@ -27,7 +29,9 @@ git = lambda *a: subprocess.run(['git', *a], capture_output=True, text=True).std
 armf = next((p for p in (os.path.join(run, 'arm'), os.path.join(run, 'sweep', 'arm')) if os.path.exists(p)), None)
 arm = open(armf).read().strip() if armf else ''
 note = sys.argv[sys.argv.index('--note') + 1] if '--note' in sys.argv else ''
-json.dump({'frozen': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'gitHead': git('rev-parse', '--short', 'HEAD'),
-           'treeDirty': bool(git('status', '--porcelain', '--', 'SWUSim', 'Core')), 'arm': arm, 'games': len(bot), 'failed': fails,
-           'matches': nm, 'run': run, 'note': note}, open(os.path.join(B, 'meta.json'), 'w'), indent=1)
-print(f'froze {len(bot)} games ({fails} failed) from {run} into {B}')
+head = git('rev-parse', '--short', 'HEAD')
+json.dump({'frozen': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'gitHead': head,
+           'treeDirty': bool(git('status', '--porcelain', '--', 'SWUSim', 'Core')), 'codeRef': None if same_code.changed(head) else head,
+           'arm': arm, 'games': len(bot), 'failed': fails, 'matches': nm, 'run': run, 'note': note}, open(os.path.join(B, 'meta.json'), 'w'), indent=1)
+sp = speed_set.build(meta, run)
+print(f'froze {len(bot)} games ({fails} failed) from {run} into {B}; speed set {sp["games"]} games')

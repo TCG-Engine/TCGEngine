@@ -74,7 +74,9 @@ doc is written, so batches only ever covered what existed then (HMW's plan read 
 implemented" with 30 cards mocked and HMW_003 unimplemented). **Derive the remaining cards from the
 diff:** the tracker's `### Already Done` line vs the set's CardIDs in `AppCore/SWU/CardMocks.php`
 (`grep -oE "'HMW_[0-9T]+'"`), then confirm anything that surfaces with the quoted-CardID-under-`Custom/`
-check.
+check. ⚠ **Run that diff MECHANICALLY (`sort -u` both lists, `comm -23`) at the START, and again at the end** — never by
+eyeballing the Done line against a mock listing. IC27's tenth wave opened with 5 cards and the end-of-run `comm` found 2
+more (IC27_013, IC27_019) that the opening read had skipped.
 
 ⚠ **After a set FLIPS to official FFG data (HMW, 2026-09-16) its mocks are DELETED, so the CardMocks diff
 returns nothing.** The oracle is then **`php SWUSim/DevTools/scaffold-cards.php <SET> --dry`** (as

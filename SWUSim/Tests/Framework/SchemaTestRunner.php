@@ -2128,6 +2128,15 @@ class SchemaTestRunner {
                     if ($e['id'] === $m[3]) $got = $e['reason'];
                 if ($got !== $want) $failures[] = "{$line}: reason " . ($got === null ? "(no entry {$m[3]})" : "'{$got}'") . ", expected '{$want}'";
 
+            } elseif (preg_match('/^P(\d+)ACTIONLABEL:([^:]+):([^:]+):(.*)$/', $line, $m)) {
+                // The button label of one entry, underscores for spaces ("Leader_Ability", "Crosshair_[Exhaust]").
+                $p    = intval($m[1]);
+                $want = str_replace('_', ' ', $m[4]);
+                $got  = null;
+                foreach ((function_exists('SWUActionEntriesFor') ? SWUActionEntriesFor($p, $m[2]) : []) as $e)
+                    if ($e['id'] === $m[3]) $got = $e['label'];
+                if ($got !== $want) $failures[] = "{$line}: label " . ($got === null ? "(no entry {$m[3]})" : "'{$got}'") . ", expected '{$want}'";
+
             } elseif (preg_match('/^P(\d+)SELECTABLEEXACT:(.*)$/', $line, $m)) {
                 // The FULL exact legal-target set of a pending target-choice, order-insensitive ('&'-joined
                 // mzIDs, deciding player's frame). Asserts the exact legal-target set of a choice.

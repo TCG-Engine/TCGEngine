@@ -2225,6 +2225,13 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     if (!empty($combatCtx['ash184GiveAdv'])) {
         AddTrigger($activePlayer, 'ASH_184', 'ASH_184', '');
     }
+    // IC27_007 Asajj Ventress (leader front) — "After completing this attack, if the attacker survived, you may ready
+    // a resource." Unlike Follow Me this one needs the attacker alive: looked up by its captured UID, since a dead
+    // attacker's arena slot is reused by whichever unit reindexes into it.
+    if (!empty($combatCtx['ic27007ReadyRes']) && intval($combatCtx['attackerUID'] ?? 0) > 0
+        && SWUFindMzByUID(intval($combatCtx['attackerUID'])) !== null) {
+        AddTrigger($activePlayer, 'IC27_007', 'IC27_007', $attackerMzID);
+    }
     // ASH_183 Whistling Birds — deal 2 to each enemy in the captured arena if the host dealt combat damage to a
     // base this attack. Fires from combatCtx (captured at combat start) so it still resolves when the host died.
     if (!empty($combatCtx['ash183Arena']) && intval($combatCtx['baseCombatDmg'] ?? 0) > 0) {
@@ -2939,6 +2946,29 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     $attackerMzID = $parts[0] ?? '';
     $targetMzID   = $parts[1] ?? '';
     $attackerUID  = intval($parts[2] ?? 0);
+    // IC27_147 Asajj Ventress — an armed replacement commits HERE, where combat damage is actually committed: every
+    // On Attack / On Defense and every other seat's decision has resolved (the earlier prevention seam can run while
+    // another seat — Condemn's disclose — is still deciding). Re-checked, may lapse; see the card file. If it raises
+    // the uniqueness choice, this step re-queues behind it.
+    if (GetSWUVar('SWU_IC27147_ARMED', '') !== '' && function_exists('_SWUIc27147CommitAtDamage')
+        && _SWUIc27147CommitAtDamage(intval($player))) {
+        DecisionQueueController::AddDecision(intval($player), 'CUSTOM',
+            "SWUCombatDamage|{$attackerMzID}|{$targetMzID}|{$attackerUID}|" . intval($player), 1);
+        $playerID = $savedPID;
+        return;
+    }
+    // …and once committed it swapped the attacker after this entry was queued with the ORIGINAL's mzID + UID: follow
+    // the swap to her. Not found (the uniqueness rule took the new copy) → the UID re-scan below finds nothing and the
+    // damage fizzles, as for any attacker gone before damage.
+    $ic27147Swap = GetSWUVar('SWU_IC27147_SWAP', '');
+    if ($ic27147Swap !== '') {
+        [$swOld, $swNew] = array_map('intval', explode('|', $ic27147Swap) + [0, 0]);
+        if ($swOld === $attackerUID) {
+            SetSWUVar('SWU_IC27147_SWAP', '');
+            $attackerUID  = $swNew;
+            $attackerMzID = SWUFindMzByUID($swNew) ?? $attackerMzID;
+        }
+    }
 
     $attacker = GetZoneObject($attackerMzID);
     // Attacker re-validation by UID (mirror of the defender re-validation below). The mzID is stale
@@ -3345,6 +3375,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if ($teBase === 'LAW_205') $combatCtx['law205SelfDefeat']   = true;
         if ($teBase === 'LAW_062') $combatCtx['law062SelfDefeat']   = true;
         if ($teBase === 'ASH_184') $combatCtx['ash184GiveAdv']      = true;   // Follow Me — post-attack grant
+        if ($teBase === 'IC27_007') $combatCtx['ic27007ReadyRes']   = true;   // Asajj Ventress — post-attack, if it survived
         if ($teBase === 'ASH_137') $combatCtx['ash137Excess']       = true;   // Wipe Them Out — excess to another unit
         if ($teBase === 'ASH_162') $combatCtx['ash162Discard']      = true;   // Rash Action — opp discards on base hit
         if ($teBase === 'JTL_177') $combatCtx['jtl177BaseDraw']    = true;
@@ -4345,7 +4376,11 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     }
 
     if (count($validTargets) === 1) {
-        ExecuteSWUAttack($player, $attackerMzID, $validTargets[0]);
+        // IC27_147 Asajj Ventress: a base target may first ask whether to set her up (see the card file).
+        if (!(function_exists('_SWUIc27147OfferAtDeclaration')
+              && _SWUIc27147OfferAtDeclaration(intval($player), $attackerMzID, $validTargets[0]))) {
+            ExecuteSWUAttack($player, $attackerMzID, $validTargets[0]);
+        }
     } else {
         // Queue target selection
         $targetStr = implode("&", $validTargets);
@@ -4376,6 +4411,9 @@ $customDQHandlers["SWUResolveAttack"] = function($player, $parts, $lastDecision)
         return;
     }
     $attackerMzID = $parts[0] ?? '';
+    // IC27_147 Asajj Ventress: a base target may first ask whether to set her up (see the card file).
+    if (function_exists('_SWUIc27147OfferAtDeclaration')
+        && _SWUIc27147OfferAtDeclaration(intval($player), $attackerMzID, (string)$lastDecision)) return;
     ExecuteSWUAttack($player, $attackerMzID, $lastDecision);
 };
 
@@ -4393,6 +4431,9 @@ $customDQHandlers["TWI135_MODE"] = function($player, $parts, $lastDecision) {
     $baseMz       = $parts[1] ?? '';
     if ($lastDecision === 'Base') {
         $playerID = $savedPID;
+        // IC27_147 Asajj Ventress: a base target may first ask whether to set her up (see the card file).
+        if (function_exists('_SWUIc27147OfferAtDeclaration')
+            && _SWUIc27147OfferAtDeclaration(intval($player), $attackerMzID, $baseMz)) return;
         ExecuteSWUAttack($player, $attackerMzID, $baseMz);
         return;
     }

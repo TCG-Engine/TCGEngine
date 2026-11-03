@@ -1590,6 +1590,19 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         $cid = preg_match('/^myDiscard-(\d+)$/', $mz, $dm) ? strval((GetDiscard($seat)[intval($dm[1])] ?? null)->CardID ?? '') : '';
         if (_SWUBotIsAnswer($cid)) return $c === 'Return' ? 1.0 : 0.0;
     }
+    // IC27_147 Asajj Ventress — Death From Above (owner rule, 2026-11-03): set her up when her 5 beats what the attacker
+    // would deal to the base, so a weak attacker carries her (a 1-power unit is +4). Not a lookahead — the attack has not
+    // resolved yet; the engine re-checks it at damage. Ahead of 'modes', whose generic delta would price the arm as nothing.
+    if ($type === 'OPTIONCHOOSE' && $head === 'IC27_147#0' && function_exists('_SWUIc27147AttackerBaseDamage')) {
+        $uid = intval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[4] ?? 0);
+        $dmg = PHP_INT_MAX;
+        foreach (GetLiveSeatsArray() as $s) {
+            foreach (GetUnitsInPlay(intval($s)) as $u) {
+                if (empty($u->removed) && intval($u->UniqueID ?? 0) === $uid) $dmg = _SWUIc27147AttackerBaseDamage($u);
+            }
+        }
+        return $c === ($dmg < 5 ? 'Asajj_Ventress' : 'Attack') ? 1.0 : 0.0;
+    }
     // A card's own modal choice (its continuation "CARD#n"): judged by what each option does (feature 'modes').
     if ($type === 'OPTIONCHOOSE' && SWUBotFeatureOn('modes') && strval($ctx['param'] ?? '') !== 'Unit&Pilot'
         && $tip !== 'Choose_a_player_to_deal_indirect_damage' && preg_match('/^[A-Z0-9]+_[A-Z0-9]+#/', $head)) {

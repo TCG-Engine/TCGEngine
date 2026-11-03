@@ -1,0 +1,21 @@
+RUN .claude/tmp/hmw-meta-runs/utrecht-20261102-control: 3046/3046 real matches replayed, 6088 games (0 failed), median 6.0 rounds, seat-1 win 49.4%
+0 matches on an Intro Battle: Hoth base ignored (20 HP in the sims, 30 HP in real play)
+
+######## THIS RUN vs REAL
+ARCHETYPES (30+ matches): 41   Pearson -0.03   Spearman -0.06   MAE 0.093 (constant 50%: 0.040)   spread SD real 4.9pp / bot 9.8pp
+STYLE BIAS (bot − real game WR, match-weighted): hyperaggro +6.5pp   softaggro +5.3pp   midrange -5.6pp   softcontrol -4.7pp   hardcontrol -16.0pp
+most under-performing:
+   Director Krennic (LAW) Blue (Kashyyyk)         midrange    real 58%  bot 40%  gap -18.1  (n=79)
+   Mother Talzin (LOF) Mystic Monastery           hyperaggro  real 60%  bot 43%  gap -16.3  (n=52)
+   Dedra Meero (SEC) Colossus                     hardcontrol real 55%  bot 39%  gap -16.0  (n=152)
+   Han Solo (JTL) Green                           softaggro   real 57%  bot 42%  gap -15.4  (n=37)
+   Maul (HMW) Blue                                softcontrol real 49%  bot 34%  gap -14.9  (n=68)
+   Lando Calrissian (LAW) Blue (Naboo)            softcontrol real 49%  bot 34%  gap -14.6  (n=170)
+most over-performing:
+   Ahsoka Tano (ASH) Yellow (Tatooine)            softaggro   real 48%  bot 70%  gap +22.0  (n=120)
+   Darth Vader (JTL) Yellow                       hyperaggro  real 47%  bot 67%  gap +19.8  (n=169)
+   Ahsoka Tano (ASH) Yellow                       hyperaggro  real 50%  bot 68%  gap +18.7  (n=393)
+   Luke Skywalker (JTL) Data Vault                softaggro   real 42%  bot 60%  gap +17.4  (n=116)
+   Obi-Wan Kenobi (LOF) Yellow Force              softaggro   real 42%  bot 59%  gap +16.9  (n=64)
+   Doctor Hemlock (HMW) Data Vault                softcontrol real 56%  bot 70%  gap +13.7  (n=35)
+MATCHUP CELLS (ordered, 10+ matches): 84   Pearson -0.21   MAE 0.179 (constant 50%: 0.111)   favourite right 46%
