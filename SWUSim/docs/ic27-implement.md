@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076
 
 ## Foundations already built — do not re-do
 
@@ -688,7 +688,32 @@ The other two match their images exactly.
 
 Suite 14272 → **14298/0** (+26 for the batch; +12 earlier for IC27_004). Zero deferrals.
 
+## Phase 19 — Thirteenth preview wave, 2026-11-04 (83 → 86 CardIDs; ONE batch of three)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff (mechanical `comm -23`): IC27_123 + IC27_124 at the start (already
+in the dictionary); IC27_076 landed MID-RUN (the end-of-batch re-diff found it) — ran the three preview regens for it.
+**Spelling pass:** all three match their images word for word, aspect icons included (two each). Order: IC27_124 → IC27_123 →
+IC27_076. Baseline 14298/0.
+
+- [x] **IC27_124 K-2SO – Evacuate The Vault Door** — When Defeated: `SWUDealSplitDamage` over every `their*` unit (the ASH_112
+  Luke funnel) + `OpponentsOf()` bases, inside `SWUSimultaneousBaseDamage`. HMW_185 Ty Yorrick gets ONE "+1?" for the whole
+  blast (the JTL_131 ruling), the base funnel's own question suppressed. 12 sections incl. Twin Suns / Team Suns, stolen,
+  enemy-turn defeat, Shield.
+- [x] **IC27_123 Jyn Erso – Her Father's Revenge** — `SWUQueueBudgetMultiChoose` (budget 7, printed cost) + a new optional
+  COUNT cap on it and on `SWUFilterBudgetAnswer` (`$maxPicks`, default 0 = unchanged for every existing caller). Whole-table
+  pool, ready units included (CR 1.e); `OnReadyCard` then `SABOTEUR@phase`, the rider ungated (no "If you do"). 14 sections.
+- [x] **IC27_076 Clone Commander Cody – Loyal to the Republic** — `_SWUIc27076OnUnitEntered`, hooked at all three entry points:
+  `CollectEntryTriggers`, `_SWUCreateOneToken`, and `DoRescueUnit` (CR 8.34.3 — a rescued unit enters play). Team-wide
+  "friendly", blank-aware, "another" by UID. 13 sections. Open sibling: ASH_041 Outcast / HMW_171 Trap Field still skip rescue.
+
+Suite 14298 → **14337/0** (+39). Double-close notices identical to baseline (145). 30 mutations, each red on its own section.
+Zero deferrals.
+
 ## Status
+
+**IC27: 86 / 86 mocked CardIDs implemented** (2026-11-04, thirteenth wave; suite → 14337/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **83 / 83** (twelfth wave).
 
 **IC27: 83 / 83 mocked CardIDs implemented** (2026-11-04, twelfth wave; suite → 14298/0; the end-of-run `comm -23` of
 `### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.

@@ -2380,8 +2380,10 @@ function SWUQueueMayChooseTarget(int $player, array $targets, string $yesTooltip
 // ⚠ The client cap is UX, NOT enforcement — the schema harness hands an answer straight to the handler
 // without consulting the offer or the cap, so a resolver that trusts its input can pass green while the
 // real offer was wrong. Every caller MUST run the answer through SWUFilterBudgetAnswer.
+// $maxPicks > 0 adds a COUNT cap on top of the budget ("up to 3 units with combined cost 7 or less" — IC27_123
+// Jyn Erso); 0 = any number. Pass the same cap to SWUFilterBudgetAnswer.
 function SWUQueueBudgetMultiChoose(int $player, array $weights, int $budget, string $label,
-                                   string $chooseTooltip, string $handler, int $block = 1): void {
+                                   string $chooseTooltip, string $handler, int $block = 1, int $maxPicks = 0): void {
     $offer = [];
     foreach ($weights as $mz => $w) {
         if (intval($w) <= $budget) $offer[strval($mz)] = intval($w);
@@ -2389,8 +2391,9 @@ function SWUQueueBudgetMultiChoose(int $player, array $weights, int $budget, str
     if (empty($offer)) return;
     $side = '~BUDGET~' . $budget . '~' . $label;
     foreach ($offer as $mz => $w) $side .= '~' . $mz . '=' . $w;
+    $max = $maxPicks > 0 ? min($maxPicks, count($offer)) : count($offer);
     DecisionQueueController::AddDecision($player, 'MZMULTICHOOSE',
-        '0|' . count($offer) . '|' . implode('&', array_keys($offer)), $block, $chooseTooltip . $side);
+        '0|' . $max . '|' . implode('&', array_keys($offer)), $block, $chooseTooltip . $side);
     // dontSkipOnPass=1: this resolver IS the effect, not merely its decline branch. A "PASS" answer is
     // sticky and otherwise makes ExecuteStaticMethods skip the next CUSTOM outright (bug #972).
     DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block, '', 1);
@@ -2400,11 +2403,13 @@ function SWUQueueBudgetMultiChoose(int $player, array $weights, int $budget, str
 // order they were submitted. A pick survives only if it is still in the freshly-measured pool and still
 // fits what is left of the budget; duplicates are collapsed so one unit can't be paid for twice.
 // Returns the accepted mzIDs. Callers measure $weights against the CURRENT board, not the offered one.
-function SWUFilterBudgetAnswer($lastDecision, array $weights, int $budget): array {
+// $maxPicks > 0 also caps how many picks survive (the first $maxPicks legal ones, in submission order).
+function SWUFilterBudgetAnswer($lastDecision, array $weights, int $budget, int $maxPicks = 0): array {
     if (SWUDecisionDeclined($lastDecision)) return [];
     $out = [];
     $seen = [];
     foreach (explode('&', strval($lastDecision)) as $raw) {
+        if ($maxPicks > 0 && count($out) >= $maxPicks) break;
         $mz = trim($raw);
         if ($mz === '' || $mz === '-' || $mz === 'DONE') continue;   // DONE is the multi-select terminator
         if (isset($seen[$mz]) || !array_key_exists($mz, $weights)) continue;
@@ -4448,6 +4453,8 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
         }
         for ($i = 0; $i < $a041c; $i++) SWUApplyPhaseBuff($newCard->GetMzID(), 1, 0, 'ASH_041');
     }
+    // IC27_076 Clone Commander Cody — a created Republic token unit enters play (the play path never reaches it).
+    if ($newCard !== null && function_exists('_SWUIc27076OnUnitEntered')) _SWUIc27076OnUnitEntered($newCard);
     // HMW_225 Boba Fett (Family Found) — "When a friendly unit with Ambush enters play (including this one): Give it Raid 1 and Saboteur for this phase." Boba is UNIQUE, so at most one per player:
     // grant once rather than once per copy (and two identical grant tokens would de-dupe anyway).
     // Placed AFTER the Ambush trigger is bagged but BEFORE the bag is flushed, so the entering unit
@@ -6340,7 +6347,7 @@ function DoRescueUnit($captiveSubcard, $hostObj, bool $enforceUnique = true): vo
     // Add the rescued unit directly to the arena as the owner/controller, exhausted (Status:0).
     // Status:0 is the exhausted value used in ActivateCard's $entryStatus default path (CR 8.22.f).
     // We use AddGroundArena/AddSpaceArena directly (not SWUBeginPlayCard/ActivateCard) so that
-    // no WhenPlayed or "enters play" triggers fire.
+    // no WhenPlayed triggers fire (a rescue is not a play). "Enters play" observers run at the end.
     $playerID = $owner;
     $uid = NextUniqueID();
     $targetArena = CardTargetArena($cardID);
@@ -6357,6 +6364,15 @@ function DoRescueUnit($captiveSubcard, $hostObj, bool $enforceUnique = true): vo
 
     $playerID = $savedPID;
     if ($enforceUnique && CardUnique($cardID)) SWUEnforceUniqueness($owner, intval(GetTurnPlayer()) ?: $owner, false, '', $cardID);
+    // CR 8.34.3: a rescued unit is not played, but it IS "considered to enter play" — so the "enters play" observers
+    // fire. IC27_076 Clone Commander Cody is wired here; ASH_041 Outcast and HMW_171 Trap Field are not (yet).
+    if (function_exists('_SWUIc27076OnUnitEntered')) {
+        $playerID = $owner;
+        $rescuedMz = SWUFindMzByUID($uid);
+        $rescued = ($rescuedMz !== null && $rescuedMz !== '') ? GetZoneObject($rescuedMz) : null;
+        $playerID = $savedPID;
+        _SWUIc27076OnUnitEntered($rescued);
+    }
 }
 
 // SWURescueCaptivesOf — CR 8.34.4: if $hostObj guards any captured units, rescue all of them
@@ -12540,6 +12556,8 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
         }
         for ($i = 0; $i < $a041; $i++) SWUApplyPhaseBuff($mzID, 1, 0, 'ASH_041');
     }
+    // IC27_076 Clone Commander Cody — "When another friendly Republic unit enters play: give it an Experience token."
+    if ($obj !== null && function_exists('_SWUIc27076OnUnitEntered')) _SWUIc27076OnUnitEntered($obj);
 
     // HMW_225 Boba Fett (Family Found) — "When a friendly unit with Ambush enters play (including this
     // one): Give it Raid 1 and Saboteur for this phase." Boba is UNIQUE, so at most one per player:

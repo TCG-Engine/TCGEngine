@@ -1351,6 +1351,26 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 thirteenth wave 2026-11-04 — "enters play" has THREE doors, one Ty question per blast, count-capped budgets
+- **★★ "When a unit enters play" = THREE entry points, not the play path.** `CollectEntryTriggers` (played from anywhere,
+  deployed leaders, Smuggle, discard plays, freed captives), `_SWUCreateOneToken` (created token units) and `DoRescueUnit`
+  — CR 8.34.3: a rescued unit is "considered to enter play" though it is not played. `DoRescueUnit` used to skip ALL
+  entry observers on purpose; IC27_076 Cody is now hooked there, while ASH_041 Outcast and HMW_171 Trap Field still miss
+  rescue (open siblings). One section per door — captives seed with `WithP2GroundArenaCaptive: 0:<CardID>` and are freed
+  by defeating the guard.
+- **"Deal N to each enemy unit AND each enemy base" with HMW_185 Ty Yorrick in play = ONE "+1?" question** (owner ruling
+  2026-10-07, JTL_131). `SWUDealSplitDamage` never asks Ty, but `SWUDealDamageToBase` asks once PER BASE — defer the whole
+  blast behind `_SWUHmw185Defer` and pass `$skipTyOffer = true` to the base calls. The guard is `P1NODECISION` after the
+  YES: a second, per-base question reds it. (IC27_124 K-2SO.)
+- **"Up to N units with combined X or less"** = `SWUQueueBudgetMultiChoose(..., $block, $maxPicks)` +
+  `SWUFilterBudgetAnswer(..., $budget, $maxPicks)` — the COUNT cap is a separate argument from the budget, and
+  `P1DECISIONPARAM:0|N|…` pins the offered cap. Test the count cap with cost-0 TOKENS (four fit any budget). (IC27_123 Jyn.)
+- **A "for this phase" expiry test must be mutated to `SWU_DUR_PERM`, not `SWU_DUR_ROUND`.** RegroupPhaseStart clears
+  round effects straight after its regroup-start triggers, so at the first observable point (phase `RES`) a phase grant and
+  a round grant read the same — the ROUND mutation stays green by design, the PERM one reds.
+- **A When Defeated on P1's queue that fires during P2's turn** (P2 attacks it) needs `- P1>Drain` after P2's action, or
+  the section asserts the board before the trigger resolved.
+
 ### ★ IC27 twelfth wave 2026-11-04 — "even if exhausted" attacker pools, a sibling's ruling, two-window cards
 - **An "attack with a unit, even if it's exhausted" pool has NO shared predicate — compose it, and test each piece.**
   `_SWUUnitCanAttackNow` requires READY; LAW_065 4-LOM checks only that a target exists, so it still offers a Loth-Wolf.

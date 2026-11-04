@@ -1246,6 +1246,35 @@ Restore 2 (When this unit attacks, heal 2 damage from your base.)',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/075.png',
     'imageUrlBack' => '',
   ),
+  'IC27_076' => 
+  array (
+    'title' => 'Clone Commander Cody',
+    'subtitle' => 'Loyal to the Republic',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 4,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Republic',
+      1 => 'Clone',
+      2 => 'Trooper',
+    ),
+    'text' => 'When another friendly Republic unit enters play: Give an Experience token to it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/076.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_077' => 
   array (
     'title' => 'Mon Mothma',
@@ -1882,6 +1911,62 @@ When a friendly unit deals damage to an enemy base: If you have 7 or fewer cards
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/122.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_123' => 
+  array (
+    'title' => 'Jyn Erso',
+    'subtitle' => 'Her Father\'s Revenge',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 8,
+    'power' => 8,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+    ),
+    'text' => 'Saboteur
+When Played: Ready up to 3 units with combined cost 7 or less. They each gain Saboteur for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/123.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_124' => 
+  array (
+    'title' => 'K-2SO',
+    'subtitle' => 'Evacuate The Vault Door',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 9,
+    'power' => 10,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Droid',
+    ),
+    'text' => 'When Defeated: Deal 5 damage to each enemy unit and each enemy base.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/124.png',
     'imageUrlBack' => '',
   ),
   'IC27_126' => 
