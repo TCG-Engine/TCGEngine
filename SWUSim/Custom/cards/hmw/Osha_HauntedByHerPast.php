@@ -131,6 +131,7 @@ $customDQHandlers["HMW_017#1"] = function($player, $parts, $lastDecision) {
         // resourcing (contrast TS26_12 Sundari Palace, which says "and ready it" explicitly).
         if ($r !== null) { $r->Status = 0; SWUKeepCreditTokensLast(intval($player)); }
         if ($r !== null) SWULogResourced(intval($player), 'a card from their hand');   // game log: hidden, never named
+        if ($r !== null && function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($player));   // IC27_089 Maz Kanata
     }
     _SWUOsha017CloseAction(intval($player));
 };

@@ -1351,6 +1351,30 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 eleventh wave 2026-11-03 — "resource a card" has 13 producers, aura recursion, batched mutations
+- **★★ "When you resource a card" = EVERY route into a resource zone.** Rulings errata 07/20/2026 renamed "put into play
+  as a resource" to "resource", so a ramp IS resourcing. There is no funnel — `SWULogResourced` writes ONE line per
+  effect (Stockpile's two cards), not per card. The observer `_SWUIc27089OnResourced($seat, $count)` (IC27_089 Maz) is
+  called from: `DoResourceCard`, `SWUApplyRegroupResource`, `_SWURampResource` (all ramp helpers + Smuggle/Plot refills),
+  Arquitens (`SHD_122`), and the card files Stockpile, Overgrowth, Issue a Command, Display Piece, Expendable Mercenary,
+  Broken Horn, King Grakchawwaa, Osha. **A new card that moves a card into `myResources` must call it**; a new "when you
+  resource" card should reuse it. "You" = the seat whose zone RECEIVES the card (Display Piece: the defeated unit's
+  controller). NOT resourcing: a resource changing control (SHD_213 DJ), a Credit token, pregame starting resources.
+- **★ An aura gated on a KEYWORD that can read POWER recurses — latch PER UNIT, not globally.** IC27_023 Tarkin ("each
+  friendly unit with Sentinel gets +1/+1") reads `HasKeyword_Sentinel`; LOF_085 Praetorian Guard's Sentinel reads "a unit
+  with 4+ power", which includes Tarkin's bonus. A per-UniqueID `static $inProgress` returning 0 for the unit already
+  being evaluated terminates; a GLOBAL latch also zeroes the unit Praetorian is reading, so a Sentinel 3-power unit that
+  Tarkin makes 4 no longer gives the Guard Sentinel. Grep the conditional-keyword switch for `ObjectCurrentPower` before
+  writing any keyword-gated stat aura.
+- **Mutations batch ONE PER CARD PER ROUND.** Different cards' sections are disjoint, so 46 mutations ran in 6 full suites
+  instead of 46 (apply → `php -l` → suite → restore by WRITING the saved content back, all in one script, asserting each
+  replacement count is 1). Read each round's reds per card.
+- **The owner commits mid-pass (twice this run).** After the last restore, an EMPTY `git status` proves no mutant was
+  committed — a captured mutant would show the restored file as modified. Check it before reporting.
+- ⚠ The CR 6.4.587.c "an `Action [Exhaust]` is never target-gated" rule is applied to new cards (Krennic, Jabba, C-3PO),
+  but the SOR_093 / TWI_120 / SOR_177 / LOF_094 discount-play family is still gated in `SWUUnitActionAffordable` — known
+  inconsistency, owner's call; don't copy those gates.
+
 ### ★ IC27 tenth wave 2026-11-03 — the damage-commit seam, cross-seat drains, attacker swaps, enemy-targeted links
 - **★★ A replacement "if X would deal combat damage" commits at the START of the `SWUCombatDamage` handler — NOT at
   `_SWUOfferCombatPreventions`.** The prevention seam can run while ANOTHER seat's On Attack decision is still open

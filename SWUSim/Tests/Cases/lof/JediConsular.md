@@ -70,6 +70,25 @@ P1RESAVAILABLE:2
 
 ---
 
+# NothingPlayable_WithTheForce_StillUsable
+#// The Force IS a cost (kept as a gate above); a playable unit is NOT (CR 6.4.587.c, owner go 2026-11-03). With the
+#// Force and only an unaffordable unit in hand (Plo Koon: 8 − 2 = 6 with 0 resources), the Action is usable: the
+#// Consular exhausts, the Force is spent, nothing is played, no decision is left pending.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:0;handCardIds:LOF_050}
+P1OnlyActions: true
+WithP1Force: true
+WithP1GroundArena: LOF_094:1:0
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1NODECISION
+P1NOFORCE
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1HANDCOUNT:1
+
+---
+
 # UnaffordableAfterDiscount_NotSelectable
 #// LOF_094 Jedi Consular — the −2 is applied at the affordability gate, so a unit that is still too
 #// expensive after the discount must not be offered. With ZERO resources only Battlefield Marine

@@ -60,5 +60,6 @@ $whenPlayedAbilities["LAW_171:0"] = function($player, $mzID = '') {
             ]));
             if (!empty($what)) SWULogResourced(intval($player), implode(' and ', $what));
             SWUKeepCreditTokensLast(intval($player));
+            if (!empty($what) && function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($player), count($what));   // IC27_089 Maz Kanata — one per card
             return;
 };

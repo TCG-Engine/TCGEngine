@@ -43,10 +43,12 @@ function HGAddMember(array $hg, string $key, ?string $username, int $userId = 0)
 }
 
 // Leaves the room. A live match is untouched: its result is applied when it ends (the leaver simply isn't re-queued).
+// The name is kept in formerNames: a leaver's game can still be recorded after they've gone, and its row needs the name.
 function HGRemoveMember(array $hg, string $key): array {
     $hg['hill'] = _HGWithout($hg['hill'], $key);
     $hg['line'] = _HGWithout($hg['line'], $key);
     $hg['bleachers'] = _HGWithout($hg['bleachers'], $key);
+    if (isset($hg['names'][$key])) $hg['formerNames'][$key] = $hg['names'][$key];
     unset($hg['names'][$key], $hg['userIds'][$key]);
     return $hg;
 }
@@ -165,7 +167,7 @@ function HGRecordGame(array $hg, string $gameName, array $seats, int $winnerSeat
         if (!isset($hg['tonight'][$rowKey])) {
             $hg['tonight'][$rowKey] = [
                 'seq' => ++$hg['rowSeq'], 'owner' => $owner,
-                'name' => $hg['names'][strval($p['key'])] ?? 'Player',
+                'name' => $hg['names'][strval($p['key'])] ?? $hg['formerNames'][strval($p['key'])] ?? 'Player',
                 'leader' => strval($p['leader'] ?? ''), 'base' => strval($p['base'] ?? ''),
                 'deckName' => strval($p['deckName'] ?? ''), 'w' => 0, 'l' => 0, 'd' => 0,
             ];

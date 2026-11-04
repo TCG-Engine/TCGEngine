@@ -469,7 +469,11 @@
         continue;
       }
       // Bots in a Twin Suns room are placeholders (LobbyHasRoomForHuman): a room full only because of them is not full.
-      if (!LobbyHasRoomForHuman($lobby)) { $inviteRefusal = $roomFullMessage($lobby); continue; }
+      // Someone already seated here (the link opened again, in this browser or another) is not a new occupant: the mutation
+      // below gives them their seat back before it checks capacity, so a full room must not turn them away first.
+      if (!LobbyHasRoomForHuman($lobby) && LobbyFindExistingSeat($lobby, $joiningUserId, $presentedAuthKey) === null) {
+        $inviteRefusal = $roomFullMessage($lobby); continue;
+      }
 
       // The scan above is a LOOKUP, not a claim: it tells us which key to mutate. Every eligibility
       // condition is re-checked inside the mutation, because the room can fill or start while the
@@ -544,7 +548,7 @@
       }
       $lobby = $stored;
       if (!empty($lobby->roomMatchId) && function_exists('SWURoomSave')) SWURoomSave($lobby);   // a new seat in a 1v1 room
-      elseif (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSave($lobby);   // …or a High Ground room
+      elseif (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSaveLatest(strval($lobby->id));   // …or a High Ground room
 
       // Game creation stays OUTSIDE the mutation: it writes files and rows, which is exactly the
       // I/O the lock must not span. Only a non-room private lobby reaches it here (a room waits

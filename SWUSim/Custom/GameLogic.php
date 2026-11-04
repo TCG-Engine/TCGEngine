@@ -983,6 +983,7 @@ function ObjectCurrentPowerRaw($obj): int {
     }
     $base += _SWULof191BuffCount($obj);                          // LOF_191 BD-1: chosen unit +1/+0 per instance while the source is in play
     if (function_exists('_SWUIc27019DebuffCount')) $base -= 3 * _SWUIc27019DebuffCount($obj);   // IC27_019 Soulless One: chosen enemy -3/-0 while the source is in play
+    if (function_exists('_SWUIc27023Bonus')) $base += _SWUIc27023Bonus($obj);   // IC27_023 Grand Moff Tarkin: friendly (team) Sentinel units +1/+1
     // JTL_093 Nien Nunb attached as a pilot: the host gets +1/+0 per OTHER friendly Pilot unit/upgrade.
     if ($controller > 0 && _SWUUnitHasUpgrade($obj, 'JTL_093')) {
         $base += _SWUCountFriendlyPilots($controller, intval($obj->UniqueID ?? 0), true);
@@ -1116,6 +1117,7 @@ function ObjectCurrentHP($obj) {
     $base += SWUTraitCommanderBonus($obj, 'SOR_242', 'Rebel');    // General Dodonna
     $base += SWUTraitCommanderBonus($obj, 'SEC_009', 'Official'); // Mon Mothma (deployed): each OTHER friendly Official unit +0/+1
     if (function_exists('_SWUIc27034Bonus')) $base += _SWUIc27034Bonus($obj); // IC27_034 Obi-Wan's Interceptor: other friendly (team) Republic +0/+1
+    if (function_exists('_SWUIc27023Bonus')) $base += _SWUIc27023Bonus($obj); // IC27_023 Grand Moff Tarkin: friendly (team) Sentinel units +1/+1
     $base += _SWULaw150Bonus($obj);                               // LAW_150 Fulcrum (+2 HP per other friendly Fulcrum-wearer)
     $base += _SWUAsh100Bonus($obj);                               // ASH_100 Gallius Rax (+2 HP if ≥2 keywords)
     $base += 6 * SWUTraitCommanderBonus($obj, 'LOF_089', 'Vehicle'); // Supremacy (other friendly Vehicles +6/+6, HP half)
@@ -1500,6 +1502,7 @@ $turnEffectRegistry = [
     'ASH_184' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Give 3 Advantage tokens after this attack'],   // Follow Me
     'IC27_007' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'If it survives this attack: may ready a resource'],   // Asajj Ventress (leader front)
     'IC27_019' => ['kind' => 'MARKER', 'duration' => SWU_DUR_PERM, 'label' => '-3/-0 while Soulless One is in play'],   // Soulless One — "IC27_019-{sourceUID}", read by _SWUIc27019DebuffCount
+    'IC27_060' => ['kind' => 'MARKER', 'label' => 'Attackers get +4/+0 against it'],   // Jabba the Hutt (phase marker on the chosen unit, "IC27_060-<n>", read in SWUCombatDamage)
     'ASH_046' => ['kind' => 'STAT_DEBUFF', 'duration' => SWU_DUR_ATTACK, 'label' => 'Scion Shuttle (-1/-1 while defending)'],   // Scion Shuttle
     'HMW_233' => ['kind' => 'STAT_DEBUFF', 'duration' => SWU_DUR_ATTACK, 'label' => 'Awakened Exogorth (-3/-0 while defending)'],   // Awakened Exogorth
     'ASH_050' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'],   // Morgan Elsbeth (-2/-2 for this phase)
@@ -5025,6 +5028,7 @@ function DoResourceCard($player, $mzID) {
     if ($newObj !== null && function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newObj->CardID ?? '', 'resourced');
     if ($newObj !== null) SWUKeepCreditTokensLast(intval($player)); // Credit tokens stay at the end
     $playerID = $savedPID;
+    if ($newObj !== null && function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($player));   // IC27_089 Maz Kanata
     return $newObj !== null ? $mzID : "-";
 }
 
@@ -5577,10 +5581,14 @@ function DoGiveShieldToken($player, $targetMZ, string $grantTag = '') {
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('SOR_T02') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('SOR_T02')); // game log
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, 'SOR_T02', 1);
+    // CR 2.g: "A player owns and controls any token upgrades attached to units they control" — the token belongs to
+    // the HOST's controller, not to whoever's effect created it (an enemy's Shield on your unit is a friendly upgrade
+    // to you). Same rule as DoGiveTokenUpgrade; take-control re-stamps tokens in SWUTakeControlOfUnit.
+    $hostCtrl = intval($obj->Controller ?? $player);
     $obj->Subcards[] = (object)[
         'CardID'      => 'SOR_T02',
-        'Owner'       => $player,
-        'Controller'  => $player,
+        'Owner'       => $hostCtrl,
+        'Controller'  => $hostCtrl,
         'TurnEffects' => [],
         'IsPilot'     => false,
         'GrantTag'    => $grantTag,
@@ -5633,10 +5641,11 @@ function DoGiveExperienceToken($player, $targetMZ, bool $fireAsh208 = true) {
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('SOR_T01') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('SOR_T01')); // game log
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, 'SOR_T01', 1);
+    $hostCtrl = intval($obj->Controller ?? $player);   // CR 2.g — a token upgrade belongs to the HOST's controller
     $obj->Subcards[] = (object)[
         'CardID'      => 'SOR_T01',
-        'Owner'       => $player,
-        'Controller'  => $player,
+        'Owner'       => $hostCtrl,
+        'Controller'  => $hostCtrl,
         'TurnEffects' => [],
         'IsPilot'     => false,
     ];
@@ -5659,10 +5668,11 @@ function DoGiveAdvantageToken($player, $targetMZ) {
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('ASH_T02') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('ASH_T02')); // game log
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, 'ASH_T02', 1);
+    $hostCtrl = intval($obj->Controller ?? $player);   // CR 2.g — a token upgrade belongs to the HOST's controller
     $obj->Subcards[] = (object)[
         'CardID'      => 'ASH_T02',
-        'Owner'       => $player,
-        'Controller'  => $player,
+        'Owner'       => $hostCtrl,
+        'Controller'  => $hostCtrl,
         'TurnEffects' => [],
         'IsPilot'     => false,
     ];
@@ -7481,6 +7491,7 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
         if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'RESOURCE', 'p' => intval($player), 'cardID' => strval($newResource->CardID ?? '')]);
     }
     $playerID = $savedPID;
+    if ($newResource !== null && function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($player));   // IC27_089 Maz Kanata
 };
 
 // ── Phase handlers ──────────────────────────────────────────────────────────
@@ -9233,6 +9244,7 @@ function _SWURampResource(int $player, string $mzID, int $status, callable $log)
         SWUQueueZoneMoveAnim($mzID, 'myResources-0', intval($player), 420, null, intval($player));
     }
     $playerID = $savedPID;
+    if ($newResource !== null && function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($player));   // IC27_089 Maz Kanata
     return $newResource;
 }
 
@@ -11743,6 +11755,7 @@ function Shd122ResourceStealTrigger(int $attacker, string $payload): void {
     // The one resource wording (SSOT #8): "P1 resourced [[X]] from P2's discard pile (Arquitens Assault Cruiser)".
     SWULogResourced($attacker, GameLogCardRef($cardID) . ($owner > 0 && $owner !== $attacker ? " from P{$owner}'s discard pile" : ' from their discard pile'));
     $playerID = $savedPID;
+    if (function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($attacker));   // IC27_089 Maz Kanata
 }
 
 // Fires after the first attack of a "then (may) attack with another unit" card completes.
@@ -20875,21 +20888,19 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             $others = SWUOtherFriendlyUnits($player, $mzID);
             if (empty($others)) $ok = false;
             break;
-        case 'SOR_093': // Alliance Dispatcher / Strategic Acumen: play a UNIT from hand at −1.
-        case 'TWI_120': // Needs ≥1 hand unit affordable after the discount.
-            if (empty(SWUHandPlayablesAtDiscount($player, ['Unit'], 1))) $ok = false;
-            break;
-        case 'LOF_094': // Jedi Consular — Action [Exhaust, use the Force]: play a unit at −2.
-            if (!PlayerHasTheForce($player) || empty(SWUHandPlayablesAtDiscount($player, ['Unit'], 2))) $ok = false;
+        // SOR_093 Alliance Dispatcher / TWI_120 Strategic Acumen / SOR_177 Bib Fortuna / IC27_057 Krennic — the playable
+        // hand card is the EFFECT target, so they are NOT gated (CR 6.4.587.c, owner go 2026-11-03): the [Exhaust] cost
+        // changes game state, so with nothing playable the Action is still usable, exhausts, and plays nothing
+        // (SWUOfferDiscountPlay closes the action on an empty pool).
+        case 'LOF_094': // Jedi Consular — Action [Exhaust, use the Force]: the Force is a COST → keep that gate only.
+            // The handler spends the Force (UseTheForce) before the offer, so it is paid even when nothing is played.
+            if (!PlayerHasTheForce($player)) $ok = false;
             break;
         case 'LOF_178': // Adept of Anger — Action [Exhaust, use the Force]: exhaust a unit.
             if (!PlayerHasTheForce($player)) $ok = false;
             break;
         case 'LOF_098': // Action [use the Force]: only while in the SPACE arena + you hold the Force.
             if (!PlayerHasTheForce($player) || strpos((string)$mzID, 'SpaceArena') === false) $ok = false;
-            break;
-        case 'SOR_177': // Bib Fortuna: play an EVENT from hand at −1.
-            if (empty(SWUHandPlayablesAtDiscount($player, ['Event'], 1))) $ok = false;
             break;
         case 'JTL_050': { // Phantom II: "attach it as an upgrade to The Ghost" — needs ANY unit titled
             // "The Ghost" in play, on EITHER player's side (JTL_053 Heart of the Family, SOR_050 Spectre

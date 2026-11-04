@@ -27,11 +27,24 @@ if (($m['state'] ?? '') === 'abandoned' && strval($m['roomId'] ?? '') !== '') {
   header('Location: ../SharedUI/WaitingRoom.php?lobby=' . rawurlencode(strval($m['roomId'])));
   exit;
 }
+// A match that ended between games (a forfeit) has no next game to sideboard for: back to the last game's board, whose end
+// screen shows the result and the way out (the room, a rematch, the menu).
+if (($m['state'] ?? '') === 'complete' && !empty($m['games'])) {
+  header('Location: ../NextTurn.php?' . http_build_query(['gameName' => strval($m['games'][count($m['games']) - 1]['gameName'] ?? ''),
+    'playerID' => $seat, 'authKey' => strval($_GET['authKey'] ?? ''), 'folderPath' => 'SWUSim', 'viewerPerspective' => $seat]));
+  exit;
+}
 // Seed from the deck this seat MOST RECENTLY PLAYED, falling back to the match-start list for the
 // first sideboard of the match. Reading 'originalDeck' unconditionally meant the game-3 menu showed
 // the game-1 configuration and discarded everything the player did before game 2.
 $__p  = $m['players'][strval($seat)] ?? [];
-$deck = $__p['currentDeck'] ?? $__p['originalDeck'] ?? ['leader'=>'','base'=>'','mainDeck'=>[],'sideboard'=>[]];
+$lastDeck = $__p['currentDeck'] ?? $__p['originalDeck'] ?? ['leader'=>'','base'=>'','mainDeck'=>[],'sideboard'=>[]];
+// The two-step sideboard (owner, 2026-11-03): a list this seat already SUBMITTED this round (a reload, a second tab) is what
+// the editor shows, and the page opens in its submitted / ready state.
+$__sb = is_array($m['sideboard'][strval($seat)] ?? null) ? $m['sideboard'][strval($seat)] : [];
+$deck = $__sb['deck'] ?? $lastDeck;
+$sbState = ['submitted' => ($__sb['deck'] ?? null) !== null, 'ready' => !empty($__sb['ready']),
+            'oppReady' => !empty($m['sideboard'][strval(3 - $seat)]['ready'])];
 
 // Chat + the previous game's log, pinned left (owner, 2026-09-22). The panel is shared with the
 // Waiting Room; only the mode and the scope differ.
@@ -80,7 +93,7 @@ echo RenderHead($sbDef);
 <?= RenderChatPanel(['mode' => 'chat+log', 'title' => 'GAME LOG & CHAT', 'folderPath' => 'SWUSim']) ?>
 <div class="sb-main">
 <h2>Sideboard — game <?= count($m['games'])+1 ?> of best-of-<?= intval($m['bestOf']) ?></h2>
-<p class="hint">Click a Deck card to move one copy to your Sideboard. Click a Sideboard card to move it back. Then submit — the next game starts when both players are ready.</p>
+<p class="hint">Click a Deck card to move one copy to your Sideboard. Click a Sideboard card to move it back. Submit your sideboard, then Ready — or Ready straight away to play the deck from last game. The next game starts when both players are ready; until then you can Cancel and keep editing.</p>
 
 <div class="fixed">
   <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['leader']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['leader'], 'card')) ?>" alt="Leader: <?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>" title="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>"></div>
@@ -97,7 +110,10 @@ echo RenderHead($sbDef);
 </div>
 
 <div class="sb-actions">
-  <button id="submit" class="swu2-btn swu2-btn--primary ch" type="button">Submit &amp; Ready</button> <span id="status"></span>
+  <button id="submit" class="swu2-btn ch" type="button">Submit Sideboard</button>
+  <button id="ready" class="swu2-btn swu2-btn--primary ch" type="button">Ready for Game <?= count($m['games'])+1 ?></button>
+  <button id="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" hidden>Cancel</button>
+  <span class="sb-status"><span id="status"></span><span id="oppStatus"></span></span>
 </div>
 
 <script>
@@ -107,6 +123,8 @@ var matchId=<?= json_encode($matchId) ?>, seat=<?= json_encode($seat) ?>, authKe
 var alreadyAdvanced=<?= json_encode(($m['state'] ?? '') === 'in_progress' && !empty($m['games'])) ?>;
 var advancedGameName=<?= json_encode(!empty($m['games']) ? strval($m['games'][count($m['games'])-1]['gameName']) : '') ?>;
 var leader=<?= json_encode($deck['leader']) ?>, base=<?= json_encode($deck['base']) ?>;
+var sbState=<?= json_encode($sbState) ?>;
+var nextGameNo=<?= count($m['games'])+1 ?>;
 var titles=<?= json_encode($titles, JSON_UNESCAPED_UNICODE) ?>;
 </script>
 <?= SWUCardArtScript(false) /* lite: SWUSim ids are already SET_NNN, so the UUID map is dead weight */ ?>
@@ -118,9 +136,13 @@ var titles=<?= json_encode($titles, JSON_UNESCAPED_UNICODE) ?>;
   var SB_CANNOT_CHAT_REASON = <?= json_encode($sbChatRefusal ?? '') ?>;
 </script>
 <script src="../Core/SWUCardI18n.js?v=<?= filemtime(__DIR__ . '/../Core/SWUCardI18n.js') ?>"></script>
+<script src="../Core/StyledDialog.js?v=<?= filemtime(__DIR__ . '/../Core/StyledDialog.js') ?>"></script>
 <script>
 var deck=<?= json_encode((object)array_map('intval',$mainCounts), JSON_FORCE_OBJECT) ?>;
 var side=<?= json_encode((object)array_map('intval',$sideCounts), JSON_FORCE_OBJECT) ?>;
+// The deck from the last game: what Ready plays when nothing is submitted (and what a Cancel falls back to).
+var lastList={deck:<?= json_encode((object)array_map('intval',array_count_values($lastDeck['mainDeck'] ?? [])), JSON_FORCE_OBJECT) ?>,
+              side:<?= json_encode((object)array_map('intval',array_count_values($lastDeck['sideboard'] ?? [])), JSON_FORCE_OBJECT) ?>};
 
 function totalOf(m){ var n=0; for(var k in m) n+=m[k]; return n; }
 
@@ -162,6 +184,7 @@ function move(id, from, to){
   if(!from[id]) return;
   from[id]--; if(from[id]<=0) delete from[id];
   to[id]=(to[id]||0)+1;
+  lastError='';
   render();
 }
 
@@ -174,7 +197,7 @@ function renderGrid(el, map, from, to){
     var img=document.createElement('img'); img.src=window.swuCardArtUrl(id, 'tile'); img.alt=titles[id]||id;
     c.appendChild(img);
     if(map[id]>1){ var q=document.createElement('div'); q.className='qty'; q.textContent=map[id]; c.appendChild(q); }
-    c.onclick=function(){ if(submitting) return; move(id, from, to); };
+    c.onclick=function(){ if(sbState.ready) return; move(id, from, to); };   // a ready seat's list is locked: Cancel first
     // Zoomed hover preview — this standalone page doesn't load the Core ShowCardDetail system, so cards
     // were only readable via the tiny thumbnail + native title tooltip ("hover does not work in sideboard").
     c.onmouseenter=function(ev){ showSbPreview(id, ev); };
@@ -189,6 +212,7 @@ function render(){
   renderGrid(document.getElementById('sideGrid'), side, side, deck);
   document.getElementById('deckCount').textContent=totalOf(deck)+' cards';
   document.getElementById('sideCount').textContent=totalOf(side)+' cards';
+  paint();
 }
 
 function buildText(){
@@ -199,35 +223,82 @@ function buildText(){
   return s;
 }
 
-var submitting=false;
 function go(next){ var u=new URL(window.location.origin+window.location.pathname.replace(/SWUSim\/Sideboard\.php$/,'NextTurn.php'));
   u.searchParams.set('gameName',next); u.searchParams.set('playerID',seat); u.searchParams.set('authKey',authKey);
   u.searchParams.set('folderPath','SWUSim'); u.searchParams.set('viewerPerspective',seat); window.location.replace(u.toString()); }
-function send(){ var fd=new URLSearchParams(); fd.set('matchId',matchId); fd.set('playerID',seat); fd.set('authKey',authKey); fd.set('deck',buildText());
-  return fetch('./SubmitSideboard.php',{method:'POST',body:fd}).then(r=>r.json()); }
-document.getElementById('submit').onclick=function(){
-  send().then(j=>{
-    if(!j.success){ document.getElementById('status').textContent='Error: '+j.message; return; }
-    submitting=true; document.getElementById('submit').disabled=true;
-    document.getElementById('status').textContent='Submitted — waiting for opponent…';
-    if(j.nextGameName){ go(j.nextGameName); } else { poll(); }
-  }).catch(function(){ // transient error/500 on submit — fall into polling (poll re-submits the deck), don't strand
-    submitting=true; document.getElementById('submit').disabled=true;
-    document.getElementById('status').textContent='Submitted — waiting for opponent…';
-    poll();
-  });
-};
-function poll(){ // re-submit is a no-op (first-submit-wins) but returns nextGameName once both are in / timeout fires.
-  // A rejected request (transient 500 / non-JSON under load) MUST reschedule — otherwise the waiting player hangs forever.
-  send().then(j=>{ if(j&&j.nextGameName){go(j.nextGameName);} else { setTimeout(poll,2000);} })
-        .catch(function(){ setTimeout(poll,2000); });
+
+// ── Submit, Ready, Cancel (owner, 2026-11-03): three separate steps against SubmitSideboard.php's `action` ──
+// `baseline` is the list Ready would play right now: the submitted one, else the deck from last game. The editor is
+// "changed" when it differs from that.
+function copyList(l){ return {deck:Object.assign({}, l.deck), side:Object.assign({}, l.side)}; }
+function listKey(l){ var n=function(m){ var o={}; Object.keys(m).sort().forEach(function(k){ o[k]=m[k]; }); return o; };
+  return JSON.stringify([n(l.deck), n(l.side)]); }
+var baseline=copyList({deck:deck, side:side});   // the page opens on the submitted list, else last game's
+function changed(){ return listKey({deck:deck, side:side})!==listKey(baseline); }
+var busy=false, leaving=false, lastError='';   // an error stays up until the next action or edit — the poll repaints every 2s
+function paint(){
+  var ch=changed(), el=function(id){ return document.getElementById(id); };
+  el('submit').disabled = busy || sbState.ready || (sbState.submitted && !ch);
+  el('ready').hidden = sbState.ready;
+  el('ready').disabled = busy;
+  el('cancel').hidden = !(sbState.submitted || sbState.ready);
+  el('cancel').disabled = busy;
+  document.body.classList.toggle('sb-is-ready', !!sbState.ready);
+  el('status').textContent = lastError ? lastError : sbState.ready
+      ? (sbState.oppReady ? 'Ready — starting game ' + nextGameNo + '…' : 'Ready — waiting for your opponent…')
+    : ch ? (sbState.submitted ? 'Changes not submitted — your submitted sideboard still stands.' : 'Changes not submitted.')
+    : sbState.submitted ? 'Sideboard submitted — Ready when you are.' : '';
+  el('oppStatus').textContent = sbState.ready && sbState.oppReady ? '' : (sbState.oppReady ? 'Your opponent is ready.' : 'Your opponent is still sideboarding.');
 }
+function req(action, extra){
+  var fd=new URLSearchParams(); fd.set('matchId',matchId); fd.set('playerID',seat); fd.set('authKey',authKey); fd.set('action',action);
+  if(extra) Object.keys(extra).forEach(function(k){ fd.set(k, extra[k]); });
+  return fetch('./SubmitSideboard.php',{method:'POST',body:fd}).then(function(r){ return r.json(); });
+}
+// Every answer carries this seat's state; a match that moved on (next game, a forfeit) takes the page with it.
+function follow(j){
+  if(!j || leaving) return leaving;
+  if(j.matchOver && j.gameName){ leaving=true; go(j.gameName); return true; }
+  if(j.nextGameName){ leaving=true; go(j.nextGameName); return true; }
+  if(j.mine){ sbState.submitted=!!j.mine.submitted; sbState.ready=!!j.mine.ready; sbState.oppReady=!!j.opponentReady; }
+  return false;
+}
+function act(action, extra, onOk){
+  if(busy || leaving) return;
+  busy=true; lastError=''; paint();
+  req(action, extra).then(function(j){
+    busy=false;
+    if(follow(j)) return;
+    lastError=(j && j.success) ? '' : 'Error: ' + ((j && j.message) || 'try again.');
+    if(!lastError && onOk) onOk();
+    paint();
+  }).catch(function(){ busy=false; lastError='Could not reach the server — try again.'; paint(); });
+}
+document.getElementById('submit').onclick=function(){ act('save', {deck:buildText()}, function(){ baseline=copyList({deck:deck, side:side}); }); };
+document.getElementById('ready').onclick=function(){
+  // Ready plays the baseline, so unsubmitted edits would be lost: say so, and show what is actually played.
+  var readyNow=function(){ act('ready', null, function(){ deck=copyList(baseline).deck; side=copyList(baseline).side; render(); }); };
+  if(!changed()){ readyNow(); return; }
+  StyledConfirm('Your changes are not submitted. Ready anyway with ' + (sbState.submitted ? 'your submitted sideboard' : 'the deck from last game') + '?',
+                {title:'Changes not submitted', confirmLabel:'Ready anyway'}).then(function(ok){ if(ok) readyNow(); });
+};
+// Cancel: back to editing, nothing submitted — the edits stay on screen, now as changes against last game's deck.
+document.getElementById('cancel').onclick=function(){ act('cancel', null, function(){ baseline=copyList(lastList); }); };
+// The waiting poll: the opponent's state, the countdown (the server readies an un-ready seat at the deadline), the next game.
+(function poll(){
+  if(leaving) return;
+  if(busy){ setTimeout(poll, 2000); return; }
+  req('status').then(function(j){ if(!busy){ follow(j); paint(); } setTimeout(poll, 2000); })
+               .catch(function(){ setTimeout(poll, 2000); });   // a transient 500 under load must not strand the page
+})();
 if(alreadyAdvanced && advancedGameName){ go(advancedGameName); } else { render(); }
 // High Ground: the host may end the match while someone is still choosing cards — follow them back to the room.
+// Any match: the opponent may forfeit it between games — back to the last game's board, whose end screen has the result.
 (function watchEnded(){
   var fd=new URLSearchParams(); fd.set('matchId',matchId); fd.set('playerID',seat); fd.set('authKey',authKey); fd.set('statusOnly','1');
   fetch('./SubmitSideboard.php',{method:'POST',body:fd}).then(function(r){ return r.json(); }).then(function(j){
     if (j && j.roomLobbyID) { window.location.replace('../SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(j.roomLobbyID)); return; }
+    if (j && j.matchOver && j.gameName) { go(j.gameName); return; }
     setTimeout(watchEnded, 4000);
   }).catch(function(){ setTimeout(watchEnded, 4000); });
 })();

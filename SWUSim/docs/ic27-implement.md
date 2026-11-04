@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089
 
 ## Foundations already built — do not re-do
 
@@ -618,11 +618,64 @@ attacks…" → "(When it attacks…" as printed. IC27_019 matched its image exa
   `_SWUChosenUnitLinkCount` (every seat's effects, source in play on any seat); 4 `Control_*` sections pin it. Suite
   14133 → 14138.
 
+## Phase 17 — Eleventh preview wave, 2026-11-03 (72 → 79 CardIDs; ONE batch, autonomous)
+
+Derived mechanically (`comm -23` of the `CardMocks.php` IC27 IDs vs the `### Already Done` line): IC27_023, IC27_029,
+IC27_057, IC27_060, IC27_086, IC27_087, IC27_089. IC27_048 Desperate Commando is a reprint (`Overrides.php` → JTL_060), no
+code. None was in the engine dictionary on arrival — ran the three preview regens. Baseline 14138 passed / 3 failed (the
+three known P-17 reds).
+**Spelling pass** against the seven images — two fixes in `CardMocks.php`: IC27_057 Krennic "a unit that costs 7 or
+**less**" → "7 or **more**" (a rules bug — it inverted the card); IC27_086 Enfys's Ambush reminder "it may attack" →
+"she may attack", as printed. The other five matched their images.
+
+- [x] **IC27_023 Grand Moff Tarkin (Cracking Down on Lothal)** — 17 sections. Team-wide constant aura
+  `_SWUIc27023Bonus` added in BOTH stat getters (the IC27_034 Interceptor shape): counted (two Tarkins on a team →
+  +2/+2), self included, Sentinel read live (granted counts, SOR_140-lost does not), blanked Tarkin grants nothing.
+  **Recursion found by design:** LOF_085 Praetorian Guard's Sentinel reads power, which includes this bonus — a
+  PER-UNIT re-entry latch breaks the loop; a global latch would also drop the bonus of the unit Praetorian is reading
+  (`PraetorianGuard_BuffedSentinelEnablesIt` reds under it).
+- [x] **IC27_029 Chimaera (Grand Admiral's Might)** — 9 sections. When Played: per-unit counts of EVERY upgrade (any
+  controller) snapshotted before any token; heal counts upgrades a FRIENDLY (team) player controls on ANY unit, after the
+  tokens. Shielded vs When Played order is the player's and changes both numbers.
+- [x] **IC27_057 Director Krennic (Architect of Annihilation)** — 12 sections. SOR_093 Alliance Dispatcher's
+  `SWUOfferDiscountPlay` with `discount 2` + a PRINTED-cost ≥ 7 filter. Not gated in `SWUUnitActionAffordable`
+  (CR 6.4.587.c) — see judgement calls.
+- [x] **IC27_060 Jabba the Hutt (Bounties Left and Right)** — 13 sections. Phase marker `IC27_060-<n>` on the chosen
+  enemy (registry row), read in `SWUCombatDamage` beside TWI_072: +4/+0 per marker for ANY attacker of it. Unique tokens
+  so two Jabbas on a team stack; follows the unit through a control change.
+- [x] **IC27_086 Enfys Nest (No More!)** — 10 sections. `$ic27086VsCheap` in `SWUCombatDamage` (+2 and added to the
+  Overwhelm gate): a UNIT target with printed cost ≤ 3 (tokens 0, leader units their leader cost), not while blanked.
+- [x] **IC27_087 Issue a Command** — 8 sections. HMW_148's reveal-and-draw + a mandatory team-friendly Experience pick +
+  HMW_151's "Resource this card".
+- [x] **IC27_089 Maz Kanata (It Calls to You)** — 16 sections. `_SWUIc27089OnResourced($seat, $count)` called from
+  EVERY route into a resource zone (rulings errata 07/20/2026: "put into play as a resource" IS "resource"): regroup,
+  `_SWURampResource` (ramp helpers, Smuggle/Plot refills), `DoResourceCard`, Arquitens, Stockpile (×2), Overgrowth, Issue
+  a Command, Display Piece (the defeated unit's CONTROLLER), Expendable Mercenary, Broken Horn, King Grakchawwaa (×N),
+  Osha. One section per producer; `DoResourceCard` (the ResourceCard macro) has no DSL route and is hooked untested.
+
+Suite 14138 → **14223 passed / 3 failed** (+85 sections, the 3 known reds unchanged). **46 mutations**, every one red on
+its own sections (one per gate / pool / duration / stacking rule / producer hook).
+**Judgement calls (preview, flagged):** (1) Krennic and Jabba are NOT availability-gated — usable with nothing to play /
+no enemy unit, exhausting to nothing (CR 6.4.587.c; IC27_070 C-3PO precedent). **Owner go 2026-11-03:** the gate is gone
+from SOR_093 / TWI_120 / SOR_177 too, and LOF_094 keeps only its Force gate (two no-op sections rewritten, two
+`NothingPlayable_*` sections added). (2) Jabba's +4 is a lasting effect on the chosen unit: survives Jabba leaving play,
+applies to any attacker (incl. its original controller after a steal) — owner-approved. (3) Chimaera's "friendly
+upgrade" = upgrade CONTROLLED by a friendly player, on any unit: a non-token upgrade by whoever played it (CR 2.f, e.g. a
+Bounty upgrade on an enemy), a TOKEN upgrade by the HOST's controller (CR 2.g). **Engine fix:** `DoGiveShieldToken` /
+`DoGiveExperienceToken` / `DoGiveAdvantageToken` stamped the CREATOR as the token's owner/controller; they now stamp the
+host's controller, like `DoGiveTokenUpgrade` (3 `EnemyGiven*OnMyUnit_IsFriendly` sections, each red under its revert).
+(4) Maz's token is given as the card lands; a control change of a resource / a Credit token / pregame resources are not
+resourcing — owner-approved ("it is mandatory").
+TWI_135 Maul's two-defender path applies neither Jabba's +4 nor Enfys's rider — parked by the owner until reported.
+
 ## Status
 
-**IC27: 72 / 72 mocked CardIDs implemented** (2026-11-03, tenth wave — `--iterative`; suite 13986 → 14133, 3 known reds
+**IC27: 79 / 79 mocked CardIDs implemented** (2026-11-03, eleventh wave — one batch; suite 14138 → 14223, 3 known reds
+unchanged; re-derived at the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty).
+True only until the next preview import.
+Before this wave: **72 / 72** (tenth wave, `--iterative`; suite 13986 → 14133, 3 known reds
 unchanged. The wave's opening diff missed IC27_013 and IC27_019 — see the Phase 16 note; both now done).
-Before this wave:
+Before that:
 
 **✅ IC27 IS CARD-COMPLETE AT 65 / 65 mocked CardIDs** (2026-10-30, ninth wave — suite 13770 → 13856/0; re-derived at
 the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty). True only until the next

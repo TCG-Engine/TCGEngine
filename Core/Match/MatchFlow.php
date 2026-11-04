@@ -369,7 +369,9 @@ function MatchSideboardTimeoutCheck($rootName, $matchId) {
     if (time() < intval($m['sideboardDeadline'] ?? PHP_INT_MAX)) return;
     foreach ([1,2] as $seat) {
         if (MatchSideboardSeatReady($m, $seat)) continue;
-        $prior = $m['players'][strval($seat)]['originalDeck'] ?? []; // safe known-legal fallback
+        // A list the seat saved but never readied (the two-step sideboard) is what it meant to play; else the safe
+        // known-legal fallback.
+        $prior = $m['sideboard'][strval($seat)]['deck'] ?? $m['players'][strval($seat)]['originalDeck'] ?? [];
         MatchSubmitSideboardDeck($rootName, $matchId, $seat, $prior);
     }
     MatchMaybeSpawnAfterSideboard($rootName, $matchId);

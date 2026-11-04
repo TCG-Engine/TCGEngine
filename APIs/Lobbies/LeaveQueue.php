@@ -68,7 +68,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left, $waiting
 });
 
 if ($left && function_exists('SWURoomForget') && !is_object(apcu_fetch($lobbyID))) SWURoomForget(strval($lobbyID));
-elseif ($left && function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSave($lobby);   // the line changed
+elseif ($left && function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSaveLatest(strval($lobbyID));   // the line changed
 if ($left) {
   $response->success = true;
   $response->message = ($lobby !== null && intval($lobby->numPlayers) <= 0)

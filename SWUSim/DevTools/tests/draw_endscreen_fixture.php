@@ -8,6 +8,8 @@
 //   &scenario=lastwon   a Bo3 that went Draw, P1, then THIS game won by P2: a drawn MATCH whose last game was decided
 //   &scenario=unrecorded   the game is drawn but the match layer has not recorded it yet (the gap between the
 //                          gamestate write and the after-action hook) — the board alone knows it is a draw
+//   &scenario=p2won   game 1 simply won by P2 (with queue=bo3: the series goes on to sideboarding) — the Bo3 forfeit
+//                     harness, DevTools/ui-harness/swusim-bo3-forfeit-xbrowser.mjs
 // Moderators only. Prints {gameName, matchId, keys:{1,2}}.
 header('Content-Type: application/json');
 chdir(__DIR__ . '/../../..');
@@ -62,7 +64,7 @@ if ($scenario === 'lastwon') {
 global $gameName, $playerID;
 $gameName = $game; $playerID = 1;
 ParseGamestate('./SWUSim/');
-if ($scenario === 'lastwon') SWUDeclareGameWinner(2, "GAMEOVER:Player 1's base has been defeated! Player 2 wins!", "P1's base was defeated");
+if ($scenario === 'lastwon' || $scenario === 'p2won') SWUDeclareGameWinner(2, "GAMEOVER:Player 1's base has been defeated! Player 2 wins!", "P1's base was defeated");
 else SWUDeclareGameDraw("GAMEOVER:Both bases have been defeated! The game is a draw!", 'each base was defeated');
 WriteGamestate('./SWUSim/');
 if ($scenario !== 'unrecorded') MatchAfterActionHook('SWUSim', $game);

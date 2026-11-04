@@ -5892,6 +5892,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak) + '&poll=1')
                 .then(function(r){ return r.json(); }).then(function(info){
                     if (!info || !info.isMatch) return;
+                    // Between games of a live Bo3: wait for the series to end, then redraw as the finished match. Checked
+                    // first — mid-series, the 1v1 branch below would read "not over" as an accepted Convert and rebuild forever.
+                    if (window._swuEndMenuLiveSeries) {
+                        if (info.seriesOver) SWURebuildEndMenuForFinishedSeries();
+                        return;
+                    }
                     if (info.tableRematch) { if (!info.isSpectator) SWUUpdateTableRematch(info); return; }   // Twin Suns: the table vote
                     if (info.endScreen) {
                         // 1v1: requests, pop-ups, where the opponent went. An accepted Convert turns the match back into a
@@ -5915,6 +5921,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     SWUUpdateConvertButton(info);
                 }).catch(function(){});
         }, 2500);
+    }
+    // The between-games menu of a live Bo3 when the series ends under it (a forfeit, by either seat): its buttons were
+    // "Go to Next Game" / "Forfeit", which no longer apply. Redraw it from the finished match.
+    function SWURebuildEndMenuForFinishedSeries() {
+        window._swuEndMenuLiveSeries = false;
+        if (window._swuEndGamePollTimer) { clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null; }
+        var ov = document.getElementById('game-over-overlay'); if (ov) ov.remove();
+        if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
     }
     function SWUGoHighGroundRoom(info) {
         window.location.replace('SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(info.roomId));
@@ -6128,8 +6142,23 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 var subtitle = (info.matchDraw && !isDraw && info.wins)
                     ? 'The match is a draw (' + (info.wins['1'] || 0) + '–' + (info.wins['2'] || 0) + ')'
                     : SWUWinnersLine(winners, info.winnerNames, info.seatCount);
-                ShowGameOver(isDraw ? 'draw' : !!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
+                var didWin = !!info.didWin;
+                // A FORFEITED match reads as the match's result: after a forfeit between games, the last game's winner
+                // can be the very seat that forfeited.
+                if (info.seriesOver && info.concededBy) {
+                    isDraw = false;
+                    didWin = !info.isSpectator && info.matchWinner === parseInt(pid, 10);
+                    subtitle = ((info.winnerNames || {})[info.concededBy] || ('Player ' + info.concededBy)) + ' forfeited the match';
+                }
+                // Responses overlap — the board asks again on every poll while the first is in flight, so the menu may
+                // already be up. A live-series menu is redrawn if the series has ended since; otherwise it stands, flag and all.
+                var drawn = !!document.getElementById('game-over-overlay');
+                if (drawn && window._swuEndMenuLiveSeries && info.seriesOver) { SWURebuildEndMenuForFinishedSeries(); return; }
+                ShowGameOver(isDraw ? 'draw' : didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
                              SWUBuildEndGameButtons(info), subtitle);
+                // Between games of a live 2-seat Bo3, only the end of the series changes this menu (a forfeit, by either
+                // seat): SWUEnterSideboardOrMenu and the poll below watch for it.
+                if (!drawn) window._swuEndMenuLiveSeries = !!(info.bestOf === 3 && !info.seriesOver && !info.isSpectator && info.seatCount <= 2);
                 var goOv = document.getElementById('game-over-overlay');
                 if (goOv && info.seatCount > 2) goOv.classList.add('swu-table');   // 3-4 seat layout fixes (CSS above)
                 // Collapsible Block Player, placed below the stats panel.
@@ -6188,7 +6217,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     }
                 }
                 // 1v1: the poll is the end-screen heartbeat and carries the opponent's requests (EndGameInfo.endScreen).
-                if (info.convertible || (info.endScreen && info.seriesOver)) SWUStartEndGamePoll(gn, pid, ak);
+                if (info.convertible || (info.endScreen && info.seriesOver) || window._swuEndMenuLiveSeries) SWUStartEndGamePoll(gn, pid, ak);
                 // Twin Suns: keep the table vote live (tally, Quick blocked, the result) — and the poll IS this seat's
                 // end-screen heartbeat, so a seat that closes the tab goes quiet.
                 // Spectators have no vote and no seat to move: they follow a Quick rematch through MATCHADVANCE like
@@ -6216,6 +6245,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             .then(function(r){ return r.json(); })
             .then(function(info){
                 if (info && info.sideboardPending && info.matchId) { SWUGoSideboard(info); return; }
+                // The series ended under the between-games menu (a forfeit, by either seat): redraw it as the finished match.
+                if (info && info.seriesOver && window._swuEndMenuLiveSeries && document.getElementById('game-over-overlay')) { SWURebuildEndMenuForFinishedSeries(); return; }
                 SWUShowEndGameMenu();
             })
             .catch(function(){ SWUShowEndGameMenu(); });

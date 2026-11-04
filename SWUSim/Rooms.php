@@ -52,6 +52,20 @@ function SWURoomSave(object $lobby): bool {
     if ($ok) SWURoomReapIfDue(time());
     return $ok;
 }
+// Save a room as it is NOW in APCu, not the copy a request got back from its mutation. Saves run after the lock is released,
+// so when the last two people left at once the second-to-last could write the room back after the last one had ended it —
+// a ghost room that came back from disk holding people who had left (high_ground_stress_test.php). SWURoomForget marks an
+// ended room; the mark is checked before and after the write, so whichever of the two finishes last removes the file.
+// A room merely missing from APCu (evicted, expired) is not ended: its snapshot is left alone, since that is what brings it back.
+function _SWURoomEndedKey(string $roomId): string { return 'swu_room_ended_' . $roomId; }
+function SWURoomSaveLatest(string $roomId): bool {
+    if ($roomId === '' || !function_exists('apcu_fetch') || apcu_fetch(_SWURoomEndedKey($roomId)) !== false) return false;
+    $lobby = apcu_fetch($roomId);
+    if (!is_object($lobby)) return false;
+    $ok = SWURoomSave($lobby);
+    if ($ok && apcu_fetch(_SWURoomEndedKey($roomId)) !== false) { SWURoomForget($roomId); return false; }
+    return $ok;
+}
 // ['lobby' => object, 'matchId' => string, 'savedAt' => int], or null when missing or unreadable.
 function SWURoomLoad(string $roomId): ?array {
     $path = SWURoomPath($roomId);
@@ -102,7 +116,7 @@ function SWURoomSaveIfChanged(object $lobby): void {
     $sig = SWURoomMaterialSig($lobby);
     $key = 'swu_room_sig_' . strval($lobby->id ?? '');
     if (function_exists('apcu_fetch') && apcu_fetch($key) === $sig) return;
-    if (SWURoomSave($lobby) && function_exists('apcu_store')) apcu_store($key, $sig, LOBBY_TTL_SECONDS);
+    if (SWURoomSaveLatest(strval($lobby->id ?? '')) && function_exists('apcu_store')) apcu_store($key, $sig, LOBBY_TTL_SECONDS);
 }
 // Clear out rooms that ended long ago: a day after a room ended its snapshot and invite index are removed (the day keeps
 // "This room has ended." for a late invite click). A room whose match is still running is kept — unless nothing has
@@ -140,6 +154,7 @@ function SWURoomReapIfDue(int $now): void {
 }
 // Everyone left (LeaveQueue deleted the lobby): the room is over, so its disk copy must not bring it back.
 function SWURoomForget(string $roomId): void {
+    if ($roomId !== '' && function_exists('apcu_store')) apcu_store(_SWURoomEndedKey($roomId), 1, 86400);   // see SWURoomSaveLatest
     $rec = SWURoomLoad($roomId);
     $code = $rec !== null ? strval($rec['lobby']->inviteCode ?? '') : '';
     $path = SWURoomPath($roomId);

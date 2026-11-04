@@ -442,6 +442,36 @@ check(wld(rowOf($r, $next[0])) === ($bw + 1) . '-' . $bl . '-' . $bd, 'the conce
 check(hg($r)['live'] === null && lineNames($r, 'hill') === $next[0] && str_ends_with(lineNames($r), $next[1]), 'seat 1 holds, seat 2 to the back');
 act($r, 'A', 'setBestOf', ['queueType' => 'bo1']);
 cleanupMatch($mid);
+
+// ── 23e. Forfeit BETWEEN games: the sideboard screen is shown the way out, the room moves on ─────────────────────────
+// Live test 2026-11-03: seat 2 won game 1, then pressed "Forfeit Best of 3" on the end screen. The match ended, but both
+// sideboard screens kept offering game 2 and answered "Not in sideboarding." with no way back.
+echo "HG_ForfeitWhileSideboarding:\n";
+act($r, 'A', 'setBestOf', ['queueType' => 'bo3']);
+$next = array_map(fn($k) => $byKey[$k], HGNextPair(hg($r)));
+[$mid, $g] = startHill($r, $next);
+finishGame($mid, $g, 2);
+MatchBeginSideboarding('SWUSim', $mid, 1);
+$m = SWUReadMatch($mid);
+$k1 = $m['players']['1']['authKey']; $k2 = $m['players']['2']['authKey'];
+SWUConcedeMatch($mid, 2);   // the end screen's "Forfeit Best of 3" (10007) after game 1: no game is open
+$st = hit($B . 'SWUSim/SubmitSideboard.php', ['matchId' => $mid, 'playerID' => 1, 'authKey' => $k1, 'statusOnly' => '1']);
+check(!empty($st['matchOver']) && ($st['gameName'] ?? '') === $g, 'the waiting seat is told the match is over, and which board to go back to: ' . json_encode($st));
+$sub = hit($B . 'SWUSim/SubmitSideboard.php', ['matchId' => $mid, 'playerID' => 2, 'authKey' => $k2, 'deck' => $DECK]);
+check(!empty($sub['matchOver']) && ($sub['gameName'] ?? '') === $g, 'a submit after the forfeit says the same, not "Not in sideboarding.": ' . json_encode($sub));
+$bad = hit($B . 'SWUSim/SubmitSideboard.php', ['matchId' => $mid, 'playerID' => 1, 'authKey' => 'nope', 'statusOnly' => '1']);
+check(!array_key_exists('gameName', $bad), 'a wrong key learns nothing');
+$ch = curl_init($B . 'SWUSim/Sideboard.php?matchId=' . urlencode($mid) . '&playerID=2&authKey=' . urlencode($k2));
+curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => 1, CURLOPT_HEADER => 1, CURLOPT_FOLLOWLOCATION => 0, CURLOPT_TIMEOUT => 60]);
+$hdr = (string)curl_exec($ch); curl_close($ch);
+check((bool)preg_match('#Location: \.\./NextTurn\.php\?gameName=' . preg_quote($g, '#') . '&playerID=2&#i', $hdr), 'opening the sideboard screen goes back to the last game\'s board');
+$egi = getj($B . 'SWUSim/EndGameInfo.php?gameName=' . urlencode($g) . '&playerID=1&authKey=' . urlencode($k1));
+check(!empty($egi['seriesOver']) && intval($egi['concededBy'] ?? 0) === 2 && intval($egi['matchWinner'] ?? 0) === 1,
+    'that board\'s end screen knows seat 2 forfeited and seat 1 won the match, though seat 1 lost the game: ' . json_encode(['c' => $egi['concededBy'] ?? null, 'w' => $egi['matchWinner'] ?? null]));
+poll($r, 'D');
+check(hg($r)['live'] === null && lineNames($r, 'hill') === $next[0] && str_ends_with(lineNames($r), $next[1]), 'the room: seat 1 holds the hill, seat 2 to the back');
+act($r, 'A', 'setBestOf', ['queueType' => 'bo1']);
+cleanupMatch($mid);
 foreach (array_keys($r['keys']) as $n) leave($r, $n);
 
 // ══ Task 4: the room poll and watching ════════════════════════════════════════════════════════════════════════════

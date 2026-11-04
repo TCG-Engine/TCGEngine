@@ -173,5 +173,8 @@ $out = $oneVsOne + [
 // A DRAWN game / match (CR 6.3; additive — the keys exist only when true, so a decided game's response is unchanged).
 if (!empty($gameRec['draw'])) $out['isDraw'] = true;
 if (!empty($m['matchDraw'])) $out['matchDraw'] = true;
+// A FORFEITED match (additive): the seat that conceded. After a forfeit between games the last game's winner is not the
+// match winner, so the end screen reads the match result instead.
+if (!empty($m['concededBy'])) $out['concededBy'] = intval($m['concededBy']);
 if (strval($_GET['poll'] ?? '') !== '1') $out['statsHtml'] = SWUBuildStatsHtml($m, $gameRec, $isSpectator ? null : $seat);
 echo json_encode($out);

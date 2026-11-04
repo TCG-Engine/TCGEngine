@@ -43,5 +43,6 @@ $whenDefeatedAbilities["LAW_159:0"] = function($player, $mzID) {
     if ($r !== null) {   // game log: the resource is face down, so "this unit", not its name
         $pile = preg_match('/^p(\d+)Discard-/', $dmz, $m) ? ("P{$m[1]}'s discard pile") : 'their discard pile';
         SWULogResourced(intval($player), "this unit from {$pile}");
+        if (function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($player));   // IC27_089 Maz Kanata
     }
 };

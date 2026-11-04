@@ -247,12 +247,12 @@ On Attack: You may ready a resource.',
     'cost' => 1,
     'power' => 1,
     'hp' => 4,
-    'aspect' =>
+    'aspect' => 
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' =>
+    'trait' => 
     array (
       0 => 'Separatist',
       1 => 'Official',
@@ -379,6 +379,34 @@ On Attack: You may ready a resource.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/022.png',
     'imageUrlBack' => '',
   ),
+  'IC27_023' => 
+  array (
+    'title' => 'Grand Moff Tarkin',
+    'subtitle' => 'Cracking Down on Lothal',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Official',
+    ),
+    'text' => 'Each friendly unit with Sentinel gets +1/+1.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/023.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_024' => 
   array (
     'title' => 'Grand Admiral Thrawn',
@@ -435,6 +463,36 @@ When you heal damage from your base: Deal that much damage to an enemy unit.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/026.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_029' => 
+  array (
+    'title' => 'Chimaera',
+    'subtitle' => 'Grand Admiral\'s Might',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 10,
+    'power' => 8,
+    'hp' => 8,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Shielded
+When Played: Give an Experience token to each friendly unit for each upgrade on it. Then, heal 1 damage from your base for each friendly upgrade.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/029.png',
     'imageUrlBack' => '',
   ),
   'IC27_031' => 
@@ -802,6 +860,34 @@ Defeat an enemy unit with 3 or less remaining HP.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/056.png',
     'imageUrlBack' => '',
   ),
+  'IC27_057' => 
+  array (
+    'title' => 'Director Krennic',
+    'subtitle' => 'Architect of Annihilation',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 0,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Official',
+    ),
+    'text' => 'Action [Exhaust]: Play a unit that costs 7 or more from your hand. It costs [2 resources] less.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/057.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_058' => 
   array (
     'title' => 'General Veers',
@@ -828,6 +914,34 @@ Defeat an enemy unit with 3 or less remaining HP.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/058.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_060' => 
+  array (
+    'title' => 'Jabba the Hutt',
+    'subtitle' => 'Bounties Left and Right',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 0,
+    'hp' => 8,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+      1 => 'Hutt',
+    ),
+    'text' => 'Action [Exhaust]: Choose an enemy unit. For this phase, while that unit is defending, the attacker gets +4/+0.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/060.png',
     'imageUrlBack' => '',
   ),
   'IC27_062' => 
@@ -1153,6 +1267,88 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/079.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_086' => 
+  array (
+    'title' => 'Enfys Nest',
+    'subtitle' => 'No More!',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 4,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'Ambush (When you play this unit, she may attack an enemy unit.)
+While attacking a unit that costs 3 or less, this unit gets +2/+0 and gains Overwhelm.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/086.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_087' => 
+  array (
+    'title' => 'Issue a Command',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Plan',
+    ),
+    'text' => 'Reveal the top card of your deck. If it\'s a unit, draw it.
+Give an Experience token to a friendly unit.
+Resource this event.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/087.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_089' => 
+  array (
+    'title' => 'Maz Kanata',
+    'subtitle' => 'It Calls to You',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 1,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'Hidden (This unit can\'t be attacked if she was played this phase.)
+When you resource a card (including during the regroup phase): Give an Experience token to this unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/089.png',
     'imageUrlBack' => '',
   ),
   'IC27_098' => 

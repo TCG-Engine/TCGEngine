@@ -21,6 +21,12 @@ if ($expected === '' || !hash_equals($expected, $authKey)) { echo json_encode(['
 SWUSideboardTimeoutCheck($matchId);
 $m = SWUReadMatch($matchId);
 if (!is_array($m)) { echo json_encode(['success'=>false,'message'=>'Unknown match.']); exit; }
+// The match ended between games (the end screen's "Forfeit Best of 3", a block): there is no next game. Both the waiting
+// poll and a late submit are sent back to the last game's board, whose end screen shows the result and the way out.
+if (($m['state'] ?? '') === 'complete' && !empty($m['games'])) {
+  $last = strval($m['games'][count($m['games']) - 1]['gameName'] ?? '');
+  echo json_encode(['success'=>false,'message'=>'The match is over.','matchOver'=>true,'gameName'=>$last]); exit;
+}
 // statusOnly (additive, High Ground): the page asks whether the host ended the match; nothing is submitted.
 if (strval($_POST['statusOnly'] ?? '') === '1') {
   $ended = ($m['state'] ?? '') === 'abandoned' && strval($m['roomId'] ?? '') !== '';
@@ -35,6 +41,46 @@ if (($m['state'] ?? '') !== 'sideboarding') {
     if ($latest !== '') { echo json_encode(['success'=>true,'message'=>'','bothReady'=>true,'nextGameName'=>strval($latest)]); exit; }
   }
   echo json_encode(['success'=>false,'message'=>'Not in sideboarding.']); exit;
+}
+
+// The two-step sideboard (owner, 2026-11-03; additive — no `action` is the one-click submit-and-ready below):
+//   save    validate and save (or replace) this seat's list; not ready
+//   ready   ready for the next game with the saved list, or the deck from the last game if none was saved
+//   cancel  back to editing: not ready, nothing saved — until both seats are ready and the next game starts
+//   status  the waiting poll: both seats' state, and the next game once it has started
+// Every answer carries mine {submitted, ready} and opponentReady; nextGameName once the next game exists.
+$action = strval($_POST['action'] ?? '');
+if ($action !== '') {
+  $answer = function (bool $ok, string $message = '', ?string $next = null) use ($matchId, $seat) {
+    $mm = SWUReadMatch($matchId);
+    if (!$next && is_array($mm) && ($mm['state'] ?? '') === 'in_progress' && !empty($mm['games'])) $next = strval($mm['games'][count($mm['games']) - 1]['gameName'] ?? '');
+    $sb = is_array($mm) && is_array($mm['sideboard'] ?? null) ? $mm['sideboard'] : [];
+    $mine = $sb[strval($seat)] ?? [];
+    echo json_encode(['success' => $ok, 'message' => $message,
+      'mine' => ['submitted' => ($mine['deck'] ?? null) !== null, 'ready' => !empty($mine['ready'])],
+      'opponentReady' => !empty($sb[strval(3 - $seat)]['ready']),
+      'nextGameName' => $next ?: null]);
+    exit;
+  };
+  if ($action === 'save') {
+    $resolved = SWUResolveDeckInput($deckText);
+    if (empty($resolved['success'])) $answer(false, $resolved['message'] ?? 'Bad deck.');
+    $errs = SWUCheckFormat($m['format'], $resolved['leader'], $resolved['base'], $resolved['mainDeck'], $resolved['sideboard']);
+    if (!empty($errs)) $answer(false, implode('; ', array_slice($errs, 0, 3)));
+    if (!SWUSaveSideboardDeck($matchId, $seat, $resolved)) $answer(false, 'You are ready — cancel to change your sideboard.');
+    $answer(true);
+  }
+  if ($action === 'ready') {
+    $p = $m['players'][strval($seat)] ?? [];
+    SWUReadySideboardSeat($matchId, $seat, $p['currentDeck'] ?? $p['originalDeck'] ?? null);
+    $answer(true, '', SWUMaybeSpawnAfterSideboard($matchId) ?: null);
+  }
+  if ($action === 'cancel') {
+    if (!SWUCancelSideboardSeat($matchId, $seat)) $answer(false, 'The next game is already starting.');
+    $answer(true);
+  }
+  if ($action === 'status') $answer(true, '', SWUMaybeSpawnAfterSideboard($matchId) ?: null);
+  $answer(false, 'Unknown action.');
 }
 
 $resolved = SWUResolveDeckInput($deckText);

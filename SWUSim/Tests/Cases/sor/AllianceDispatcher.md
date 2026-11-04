@@ -10,8 +10,8 @@
 #//           decline=Decline_DispatcherExhausted_NextPlayFullPrice (also pins that the −1 does NOT
 #//           linger onto a later normal play) · reqboundary=Decline_* (the hand pick and the
 #//           follow-up play are separate requests) · boundary pair=Action_PlaysUnitDiscounted
-#//           (affordable only via the −1, cost 2 with 1 resource) + Action_Unaffordable_NoOp
-#//           (unaffordable even with the −1 → refuses to activate) · control=
+#//           (affordable only via the −1, cost 2 with 1 resource) + Action_Unaffordable_StillExhausts
+#//           (unaffordable even with the −1 → nothing to play; CR 6.4.587.c, the exhaust is still paid) · control=
 #//           Control_StolenDispatcher_PlaysTheCONTROLLERSHand (a Dispatcher P1 controls but P2 owns
 #//           plays out of the CONTROLLER's hand into the CONTROLLER's arena; P2's hand untouched)
 
@@ -33,12 +33,11 @@ P1HANDCOUNT:0
 
 ---
 
-# Action_Unaffordable_NoOp
-#// SOR_093 Alliance Dispatcher — the Action can only be taken if there is a unit in hand
-#// the player can actually play at the −1 discount. Here the hand unit (SOR_095, cost 2 →
-#// discounted 1) is unaffordable with 0 ready resources, so the action has no legal play
-#// and is a full no-op: the Dispatcher stays READY (action not spent), the Marine stays in
-#// hand, no resources change, and no decision is pending.
+# Action_Unaffordable_StillExhausts
+#// SOR_093 Alliance Dispatcher — the hand unit (SOR_095, cost 2 → discounted 1) is unaffordable
+#// with 0 ready resources, so there is nothing to play. CR 6.4.587.c (owner go 2026-11-03): the
+#// [Exhaust] cost changes game state, so the Action is still usable — the Dispatcher is EXHAUSTED,
+#// the Marine stays in hand, no resources change, and no decision is pending.
 
 ## GIVEN
 CommonSetup: ggw/ggw/{myResources:0;handCardIds:SOR_095}
@@ -50,7 +49,7 @@ WithP1GroundArena: SOR_093:1:0    # Alliance Dispatcher (ready) — index 0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
-P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:0:EXHAUSTED
 P1HANDCOUNT:1
 P1RESAVAILABLE:0
 P1NODECISION

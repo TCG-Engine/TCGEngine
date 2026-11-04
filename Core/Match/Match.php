@@ -378,3 +378,45 @@ function MatchSubmitSideboardDeck($rootName, $matchId, $seat, $resolvedDeck) {
         $m['sideboard'][$s] = ['ready' => true, 'deck' => $resolvedDeck];
     });
 }
+
+// ── The two-step sideboard (SWUSim, owner 2026-11-03): SUBMIT a list, READY separately, CANCEL back to editing ──────────
+// MatchSubmitSideboardDeck above stays the one-click submit-and-ready for any caller that wants it. A saved-but-not-ready
+// seat keeps 'ready' false and its list in 'deck'; the countdown (MatchSideboardTimeoutCheck) readies it with that list.
+// Each returns true when it changed the seat, false when refused (not sideboarding, bad seat, or the state below).
+
+// Save (or replace) a seat's list without readying it. Refused once the seat is ready: cancel first.
+function MatchSaveSideboardDeck($rootName, $matchId, $seat, $resolvedDeck) {
+    $done = false;
+    MatchWithLock($rootName, $matchId, function (&$m) use ($seat, $resolvedDeck, &$done) {
+        $s = strval(intval($seat));
+        if (($m['state'] ?? '') !== 'sideboarding' || !isset($m['sideboard'][$s]) || !empty($m['sideboard'][$s]['ready'])) return;
+        $m['sideboard'][$s]['deck'] = $resolvedDeck;
+        $done = true;
+    });
+    return $done;
+}
+
+// Ready a seat with its saved list, or $fallbackDeck when it saved none (the caller's "last game's deck").
+function MatchReadySideboardSeat($rootName, $matchId, $seat, $fallbackDeck) {
+    $done = false;
+    MatchWithLock($rootName, $matchId, function (&$m) use ($seat, $fallbackDeck, &$done) {
+        $s = strval(intval($seat));
+        if (($m['state'] ?? '') !== 'sideboarding' || !isset($m['sideboard'][$s]) || !empty($m['sideboard'][$s]['ready'])) return;
+        $m['sideboard'][$s] = ['ready' => true, 'deck' => $m['sideboard'][$s]['deck'] ?? $fallbackDeck];
+        $done = true;
+    });
+    return $done;
+}
+
+// Back to editing: not ready, nothing saved. Refused once the next game is being spawned — the spawn claim is taken under
+// this same lock with both seats ready, and from then on the decks it read are the ones that get played.
+function MatchCancelSideboardSeat($rootName, $matchId, $seat) {
+    $done = false;
+    MatchWithLock($rootName, $matchId, function (&$m) use ($seat, &$done) {
+        $s = strval(intval($seat));
+        if (($m['state'] ?? '') !== 'sideboarding' || !isset($m['sideboard'][$s]) || !empty($m['spawnClaimedAt'])) return;
+        $m['sideboard'][$s] = ['ready' => false, 'deck' => null];
+        $done = true;
+    });
+    return $done;
+}

@@ -5423,6 +5423,13 @@ body:has(.sb-row) .sb-actions {
   margin-block-start: auto;
   padding-block-start: var(--s-4);
 }
+/* The two-step sideboard (2026-11-03): Submit Sideboard · Ready for Game N · Cancel, then where this seat and the
+   opponent stand. Wraps on a phone. A ready seat's list is locked until it cancels. */
+body:has(.sb-row) .sb-actions { flex-wrap: wrap; gap: var(--s-3); }
+body:has(.sb-row) .sb-actions [hidden] { display: none; }
+body:has(.sb-row) .sb-status { display: flex; flex-direction: column; gap: 2px; min-inline-size: 0; font-size: var(--t-13); }
+body:has(.sb-row) #oppStatus { color: var(--ink-3); }
+body.sb-is-ready:has(.sb-row) .section .card { cursor: not-allowed; opacity: 0.55; }
 
 body:has(.sb-row) .sb-main h2 {
   margin: 0 0 var(--s-2);
@@ -5504,7 +5511,7 @@ body:has(.sb-row) .fixed .slot img {
   object-fit: contain;
 }
 
-body:has(.sb-row) #status { margin-inline-start: var(--s-3); font-size: var(--t-13); color: var(--ink-2); }
+body:has(.sb-row) #status { font-size: var(--t-13); color: var(--ink-2); }
 
 /* the floating card preview, matching the deck grid's */
 body:has(.sb-row) #sbPreview {

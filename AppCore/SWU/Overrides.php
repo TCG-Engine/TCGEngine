@@ -246,6 +246,7 @@ function CardIDOverride($cardID) {
     case "IC27_150": return "SHD_193"; //Frozen in Carbonite
     case "IC27_033": return "SHD_040"; //Clan Wren Rescuer
     case "IC27_047": return "SHD_055"; //Moisture Farmer
+    case "IC27_048": return "JTL_060"; //Desperate Commando
     default: return $cardID;
   }
 }

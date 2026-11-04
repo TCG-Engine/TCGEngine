@@ -23,3 +23,6 @@ function SWUBeginSideboarding($matchId, $loserSeat) { return MatchBeginSideboard
 function SWUSideboardSeatReady(array $m, $seat)     { return MatchSideboardSeatReady($m, $seat); }
 function SWUSideboardBothReady(array $m)            { return MatchSideboardBothReady($m); }
 function SWUSubmitSideboardDeck($matchId, $seat, $resolvedDeck) { return MatchSubmitSideboardDeck('SWUSim', $matchId, $seat, $resolvedDeck); }
+function SWUSaveSideboardDeck($matchId, $seat, $resolvedDeck)   { return MatchSaveSideboardDeck('SWUSim', $matchId, $seat, $resolvedDeck); }
+function SWUReadySideboardSeat($matchId, $seat, $fallbackDeck)  { return MatchReadySideboardSeat('SWUSim', $matchId, $seat, $fallbackDeck); }
+function SWUCancelSideboardSeat($matchId, $seat)                { return MatchCancelSideboardSeat('SWUSim', $matchId, $seat); }

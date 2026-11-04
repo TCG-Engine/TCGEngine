@@ -3170,6 +3170,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         && intval(CardCost($attacker->CardID ?? '')) <= 3
         && _SWULeaderDeployed(intval($attacker->Controller ?? $player), 'SHD_007');
     if ($shd007Front || $shd007Deployed) $attackPower += 1;
+    // IC27_086 Enfys Nest: "While attacking a unit that costs 3 or less, this unit gets +2/+0 and gains Overwhelm." The
+    // defender's PRINTED cost (a token unit costs 0, a leader unit its leader cost); a unit, never a base.
+    $ic27086VsCheap = $shd007VsUnitTarget && _SWUAttackerGrants($attacker, 'IC27_086') && !LostAbilities($attacker)
+        && intval(CardCost($target->CardID ?? '')) <= 3;
+    if ($ic27086VsCheap) $attackPower += 2;
     // ASH_207 Heroic Purrgil — "While attacking using Ambush, this unit gets +2/+0." Marker set when the
     // Ambush entry-trigger attack proceeds; attack-duration.
     if (($attacker->CardID ?? '') === 'ASH_207' && is_array($attacker->TurnEffects ?? null)
@@ -3213,6 +3218,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     if ($target !== null && empty($target->removed)
         && is_array($target->TurnEffects ?? null) && in_array('TWI_072', $target->TurnEffects, true)) {
         $attackPower -= 4;   // floored once, below (CR 8.15.4)
+    }
+    // IC27_060 Jabba the Hutt: "For this phase, while that unit is defending, the attacker gets +4/+0." One phase marker
+    // per use on the chosen (defending) unit, each +4, and ANY attacker gets it.
+    if ($target !== null && empty($target->removed) && function_exists('_SWUIc27060MarkerCount')) {
+        $attackPower += 4 * _SWUIc27060MarkerCount($target);
     }
     // LAW_108 Lando Calrissian: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'LAW_108') {
@@ -3738,7 +3748,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             }
             // Overwhelm: excess damage (negative $defenderHP) spills to the opponent's base (CR 7.6.4).
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
-            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed)
+            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed || $ic27086VsCheap)
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
                 // ASH_137 Wipe Them Out + Overwhelm (user ruling 2026-10-03): the same excess can go to
                 // another unit in the arena OR to the base, so HOLD it here and let the ASH_137 trigger ask.

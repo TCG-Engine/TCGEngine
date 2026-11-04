@@ -84,5 +84,5 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($action, $authKey, $selfAc
 });
 if ($err !== null)   HighGroundActionFail($err, $code);
 if ($lobby === null) HighGroundActionFail('Room not found.', 404);
-SWURoomSave($lobby);
+SWURoomSaveLatest($lobbyID);
 echo json_encode(['success' => true]);

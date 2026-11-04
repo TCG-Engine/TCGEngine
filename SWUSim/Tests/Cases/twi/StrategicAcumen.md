@@ -51,6 +51,24 @@ P1NODECISION
 
 ---
 
+# NothingPlayable_StillExhausts
+#// CR 6.4.587.c (owner go 2026-11-03): the granted Action's [Exhaust] cost changes game state, so with no affordable
+#// hand unit (a Marine at 2 − 1 = 1 with 0 resources) it is still usable — the host exhausts and nothing is played.
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:0;handCardIds:SOR_095}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0           # host unit (ready) — index 0
+WithP1GroundArenaUpgrade: 0:TWI_120      # Strategic Acumen attached to the host
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1HANDCOUNT:1
+P1RESAVAILABLE:0
+
+---
+
 # GrantedAction_PlaysAUnit_TurnPassesOnce
 #// Bug #1109 family. TWI_120 Strategic Acumen's granted Action plays a unit from hand; it is the ACTION, so
 #// it must end there — the turn passes to P2 once. It stranded the turn (the nested play's own close is

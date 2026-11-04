@@ -151,10 +151,10 @@ function SWUHighGroundStartMatch(string $lobbyID, string $hostAuthKey): array {
         // that is no longer next. End it with no result rather than seat one pair and record another.
         MatchAbortNoResult('SWUSim', strval($matchId));
         if (function_exists('RemoveActiveGame')) RemoveActiveGame('SWUSim', $gameName);
-        if ($lobby !== null) SWURoomSave($lobby);
+        if ($lobby !== null) SWURoomSaveLatest($lobbyID);
         return ['success' => false, 'message' => 'The line changed while the match was starting — press Start again.', 'status' => 409];
     }
-    if ($lobby !== null) SWURoomSave($lobby);
+    if ($lobby !== null) SWURoomSaveLatest($lobbyID);
     return ['success' => true, 'matchId' => strval($matchId), 'gameName' => $gameName];
 }
 
@@ -221,7 +221,7 @@ function SWUHighGroundOnGameResult(array $m, string $gameName): void {
     if (empty($m['highGround']) || $roomId === '') return;
     SWURoomRehydrate($roomId);
     $lobby = LobbyMutate($roomId, fn($l) => SWUHighGroundApplyMatch($l, $m));
-    if ($lobby !== null && SWUIsHighGround($lobby)) SWURoomSave($lobby);
+    if ($lobby !== null && SWUIsHighGround($lobby)) SWURoomSaveLatest($roomId);
 }
 
 // Read BEFORE the room lock (it does I/O): the live hill match and whether its game saw an action recently.
@@ -282,7 +282,7 @@ function SWUHighGroundEndMatch(string $lobbyID, string $hostAuthKey, int $gonePl
         $l->highGround = HGAbortMatch($l->highGround, $goneKey);
         return true;
     });
-    if ($lobby !== null) SWURoomSave($lobby);
+    if ($lobby !== null) SWURoomSaveLatest($lobbyID);
     return ['success' => true];
 }
 

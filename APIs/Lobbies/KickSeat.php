@@ -67,7 +67,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err
 
 if ($err !== null)   _kickFail($response, $err);
 if ($lobby === null) _kickFail($response, 'Room is busy — try again.');
-if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSave($lobby);
+if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSaveLatest(strval($lobbyID));
 
 $response->success    = true;
 $response->message    = $removedName . ' was removed from the room.';
