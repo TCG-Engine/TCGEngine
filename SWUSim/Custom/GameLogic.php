@@ -10444,7 +10444,10 @@ function SWUTakeCounter(int $player, string $which): void {
         for ($i = 0; $i < count($hand); $i++) { if (empty($hand[$i]->removed)) $handMz[] = "myHand-{$i}"; }
         if (!empty($handMz)) {
             SetSWUVar('SWU_COUNTER_TAKEN', GetSWUVar('SWU_COUNTER_TAKEN', '') . strval($player));
-            SWUQueueMayChooseTarget($player, $handMz, "-", "Put_a_card_on_the_bottom_of_your_deck", "SWU_PLAN_BOTTOM");
+            // MANDATORY (owner 2026-11-04, CR: "draw 1 card from their deck, then place 1 card from their hand on the bottom
+            // of their deck"). It was a "may", so a player could keep every card. Every card in hand is a legal pick, so
+            // there is no hidden-zone reason to allow a decline; one card left (the one just drawn) resolves at once.
+            SWUQueueChooseTarget($player, $handMz, "Put_a_card_on_the_bottom_of_your_deck", "SWU_PLAN_BOTTOM");
             // The pass waits until Plan has resolved. Passing here handed the turn to the next seat while this
             // one was still choosing, so the next seat's clicks bounced off "decisions are pending" (owner UX
             // report 2026-09-22). dontSkipOnPass: declining the choice (a sticky PASS) must still pass the turn.

@@ -2738,12 +2738,15 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     }
     // IBH_010 / IBH_042 Han Solo — Raid 2 (keyword, auto) + On Attack: the defender gets -2/-0 for this
     // attack. Synchronous marker (the deferred OnAttack trigger is too late). Stub handler is a no-op.
-    if (in_array($attacker->CardID ?? '', ['IBH_010', 'IBH_042'], true)) {
+    // ⚠ _SWUAttackerGrants, not the attacker's own CardID — this and the three -4/-0 checks below: a GRANTED copy
+    // (ASH_230 Improvised Identity's discarded unit, a Support unit's lent abilities) rides the SUPPORT_GRANT marker,
+    // which an own-CardID test never sees (Discord 2026-11-04: Improvised Identity → Hunter SEC_208, no -4/-0).
+    if (_SWUAttackerGrants($attacker, 'IBH_010') || _SWUAttackerGrants($attacker, 'IBH_042')) {
         AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
     }
     // SEC_208 Hunter — On Attack: if the defender is exhausted, it gets -4/-0 for this attack. Applied
     // synchronously (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
-    if (($attacker->CardID ?? '') === 'SEC_208') {
+    if (_SWUAttackerGrants($attacker, 'SEC_208')) {
         $defObj = GetZoneObject($targetMzID);
         if ($defObj !== null && empty($defObj->removed) && intval($defObj->Status ?? 0) === 0) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
@@ -2751,7 +2754,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     }
     // IC27_157 The Mandalorian — SEC_208's text word for word. Gated on the defender being a UNIT (a base
     // has no Status, which would read as exhausted) and on Mando keeping his abilities.
-    if (($attacker->CardID ?? '') === 'IC27_157' && !LostAbilities($attacker) && strpos($targetMzID, 'Arena') !== false) {
+    if (_SWUAttackerGrants($attacker, 'IC27_157') && !LostAbilities($attacker) && strpos($targetMzID, 'Arena') !== false) {
         $d157 = GetZoneObject($targetMzID);
         if ($d157 !== null && empty($d157->removed) && intval($d157->Status ?? 1) === 0) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
@@ -2759,7 +2762,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     }
     // SHD_216 Chain Code Collector — On Attack: if the defender has a Bounty, it gets -4/-0 for this attack.
     // Synchronous (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
-    if (($attacker->CardID ?? '') === 'SHD_216') {
+    if (_SWUAttackerGrants($attacker, 'SHD_216')) {
         $d216 = GetZoneObject($targetMzID);
         if ($d216 !== null && empty($d216->removed) && ObjectHasBounty($d216) > 0) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');

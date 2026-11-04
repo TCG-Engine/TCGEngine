@@ -34,9 +34,13 @@ if ($checks['SWUFormatIsPreview() exists']) {
     foreach (['preview', 'twinsuns-preview', 'teamsuns-preview', 'padawan-preview'] as $f) {
         $checks["$f is preview"] = SWUFormatIsPreview($f) === true;
     }
-    // The released formats each preview format is derived from are NOT preview.
-    foreach (['premier', 'eternal', 'twinsuns', 'padawan'] as $f) {
+    // The released formats each preview format is derived from are NOT preview — except Twin Suns / Team Suns, which carry
+    // the preview set in their own pool since 2026-11-04 (owner), so they are preview by pool.
+    foreach (['premier', 'eternal', 'padawan'] as $f) {
         $checks["$f is not preview"] = SWUFormatIsPreview($f) === false;
+    }
+    foreach (['twinsuns', 'teamsuns'] as $f) {
+        $checks["$f is preview by its own pool"] = SWUFormatIsPreview($f) === true;
     }
     // The wildcard pool ('*') resolves to every registered set INCLUDING preview sets, but an
     // anything-goes pool is not a preview window. Open/Goldfish/Hotseat keep the stats behavior
@@ -125,7 +129,9 @@ $createdGids = [];
 // write at all. The old synthetic-format control existed only to provide that proof and is gone:
 // unregistered formats are now rejected outright, and 'padawan' + disableMetaStats could not serve
 // either — disableMetaStats sets $explicitOptOut, which suppresses the completedgame row too.
-foreach (['preview', 'twinsuns-preview', 'teamsuns-preview', 'padawan-preview', 'eternal-preview'] as $fmt) {
+// twinsuns-preview / teamsuns-preview are OFF since 2026-11-04 (owner: the base formats carry IC27 themselves), so they
+// are in the records-nothing tier below — a closed preview window writes nothing; its history stays readable.
+foreach (['preview', 'padawan-preview', 'eternal-preview'] as $fmt) {
     wipeDeck($conn, $deckID);
     $since = maxGid($conn);
     $resp  = postJson($endpoint, payload($apiKey, $deckID, $fmt, $sentinel));
@@ -153,7 +159,8 @@ $checks['preview game does not touch premier rows'] = $premierLeak === 0;
 // ── Formats that record NOTHING ─────────────────────────────────────────────
 // Open is an anything-goes pool; Goldfish is solo and Hotseat is one person on both seats — practice,
 // not results. All three were recording until 2026-08-06 because only 'open' was excluded.
-foreach (['open', 'goldfish', 'hotseat'] as $skipFmt) {
+// A DISABLED format (a closed preview window — SWUStatsFormats() writes enabled formats only) records nothing the same way.
+foreach (['open', 'goldfish', 'hotseat', 'twinsuns-preview', 'teamsuns-preview'] as $skipFmt) {
     wipeDeck($conn, $deckID);
     $sinceSkip = maxGid($conn);
     $skipResp  = postJson($endpoint, payload($apiKey, $deckID, $skipFmt, $sentinel));

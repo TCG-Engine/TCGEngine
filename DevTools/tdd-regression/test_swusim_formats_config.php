@@ -119,6 +119,11 @@ $previewBases = [
     'twinsuns-preview' => 'twinsuns',
     'teamsuns-preview' => 'teamsuns',   // owner, 2026-09-16: Team Suns offers Standard and Preview
 ];
+// Base formats that DELIBERATELY carry the preview set in their own pool (owner, 2026-11-04: "add IC27 to the Twin Suns
+// standard pool … turn off the Twin Suns preview pool"; Team Suns the same). They are preview by pool, so the "base is
+// NOT preview" check and the coverage check below exempt them BY NAME — anything else that starts carrying a preview set
+// still fails. Their preview formats stay defined (in-flight rooms resolve) but are disabled.
+$previewCarryingBases = ['twinsuns', 'teamsuns'];
 // Keys that define HOW the format plays. legalSets is deliberately excluded — it is the entire
 // difference. displayName/enabled are presentation. Everything else must match the base exactly,
 // INCLUDING when both are absent, which is why ?? null is compared rather than isset() tested.
@@ -143,12 +148,21 @@ foreach ($previewBases as $pf => $bf) {
     $checks["$pf pool is a superset of $bf"] =
         empty(array_diff(SWUFormatLegalSets($bf), SWUFormatLegalSets($pf)));
     $checks["$pf is flagged preview"] = SWUFormatIsPreview($pf) === true;
-    $checks["$bf is NOT flagged preview"] = SWUFormatIsPreview($bf) === false;
+    if (in_array($bf, $previewCarryingBases, true)) {
+        $checks["$bf carries the preview pool itself"] = SWUFormatIsPreview($bf) === true
+            && SWUFormatLegalSets($bf) === SWUFormatLegalSets($pf);
+        $checks["$pf is disabled (its base carries the pool)"] = empty($P['enabled'])
+            && !array_key_exists($pf, SWUListFormats());
+    } else {
+        $checks["$bf is NOT flagged preview"] = SWUFormatIsPreview($bf) === false;
+    }
 }
+// Premier and Eternal stay preview-free (owner, 2026-11-04: "Premier and Eternal remain the same for now").
+foreach (['premier', 'eternal'] as $f) $checks["$f keeps IC27 out"] = !in_array('IC27', SWUFormatLegalSets($f), true);
 // A map that outlives its entries rots into a check nobody is running. Every enabled preview format
 // must appear above — otherwise a newly added one is silently unguarded, which is the whole bug.
 foreach (array_keys(SWUListFormats()) as $f) {
-    if (!SWUFormatIsPreview($f)) continue;
+    if (!SWUFormatIsPreview($f) || in_array($f, $previewCarryingBases, true)) continue;
     $checks["preview format '$f' is covered by \$previewBases"] = isset($previewBases[$f]);
 }
 // Reversed 2026-09-16 (owner: "add both options to Team Suns as well"). The family check above now requires it to

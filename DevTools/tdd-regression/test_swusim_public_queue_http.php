@@ -116,13 +116,20 @@ echo "── Part A: refusals and legality ──\n";
 // so it routes to the waiting-room page instead of sitting on a quick-match spinner.
 //
 // ⚠ teamsuns-preview was MISSING from the old loop — a pre-existing gap, closed here. All four now.
-foreach (['twinsuns', 'twinsuns-preview', 'teamsuns', 'teamsuns-preview'] as $f) {
+foreach (['twinsuns', 'teamsuns'] as $f) {
     $r = join_($bot1, $f, 'bo1', $TWINSUNS);
     check(!empty($r['success']) && !empty($r['lobbyID']), "$f public join is ACCEPTED", $r);
     check(($r['isRoom'] ?? null) === true, "$f public join reports isRoom", $r);
     check(intval($r['maxPlayers'] ?? 0) === 4, "$f public lobby seats 4, not 2", $r);
     check(empty($r['ready']), "$f public lobby does not auto-start on create", $r);
     leave($bot1, $r);
+}
+// Twin Suns / Team Suns Preview are OFF since 2026-11-04 (owner: the base formats carry IC27 themselves) — a disabled
+// format's public queue is closed (SWUFormatAllowsPublicQueue), so the join is refused with nothing created.
+foreach (['twinsuns-preview', 'teamsuns-preview'] as $f) {
+    $r = join_($bot1, $f, 'bo1', $TWINSUNS);
+    check(empty($r['success']) && empty($r['lobbyID']), "$f (disabled) public join is refused", $r);
+    if (!empty($r['lobbyID'])) leave($bot1, $r);
 }
 // The refusal that REMAINS is deck legality, and it must not be the old "private rooms" message —
 // a Premier list has one leader and is nowhere near 80 highlander cards.

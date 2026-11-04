@@ -1211,3 +1211,104 @@ P1OnlyActions: true
 - P1>AnswerDecision:YES
 ## EXPECT
 P2BASEDMG:4
+
+---
+
+# GrantFromHunterSEC208_ExhaustedDefenderGetsMinusFour
+#// Discord report 2026-11-04: "Improvised Identity doesn't seem to be picking up Hunter SEC's -4/-0 on attack ability".
+#// SEC_208 Hunter (Extraordinary Tracker) — "Saboteur. On Attack: If the defender is exhausted, it gets -4/-0 for this
+#// attack." SOR_046 (wearing the upgrade) discards Hunter and attacks P2's EXHAUSTED SOR_095 (3/3): with the granted
+#// On Attack the defender deals 3 - 4 → 0 combat damage back, so the host takes none.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SEC_208 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:0:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SEC_208
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# CONTROL_GrantFromHunterSEC208_ReadyDefenderKeepsItsPower
+#// The other half of Hunter's condition: a READY defender is not affected, so it deals its full 3 back.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SEC_208 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SEC_208
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# GrantFromMandalorianIC27157_ExhaustedDefenderGetsMinusFour
+#// The same check as Hunter's, same gap: IC27_157 The Mandalorian (From the Shadows) prints SEC_208's On Attack word for
+#// word, and its synchronous -4/-0 read only the attacker's OWN CardID. Granted, it must apply the same way.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [IC27_157 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:0:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:IC27_157
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# GrantFromChainCodeCollectorSHD216_BountyDefenderGetsMinusFour
+#// Same gap: SHD_216 Chain Code Collector — "On Attack: If the defender has a Bounty, it gets -4/-0 for this attack."
+#// The Bounty unit SHD_095 (2/3) deals 2 - 4 → 0 back, so the host takes none.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SHD_216 SOR_063 SOR_063]
+WithP2GroundArena: SHD_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SHD_216
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# GrantFromHanSoloIBH010_DefenderGetsMinusTwo
+#// Same gap: IBH_010 Han Solo — "Raid 2. On Attack: The defender gets -2/-0 for this attack." The ready SOR_095 (3/3)
+#// deals 3 - 2 = 1 back.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [IBH_010 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:IBH_010
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:1

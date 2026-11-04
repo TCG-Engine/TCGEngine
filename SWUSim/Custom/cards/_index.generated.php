@@ -401,6 +401,7 @@ return [
     'IC27_001' => 'ic27/DarthVader_NoOneToStopUs.php',
     'IC27_002' => 'ic27/Rey_InBalance.php',
     'IC27_003' => 'ic27/KyloRen_SupremeLeader.php',
+    'IC27_004' => 'ic27/MaceWindu_HereWithBackup.php',
     'IC27_006' => 'ic27/LukeSkywalker_IHaveToFaceHim.php',
     'IC27_007' => 'ic27/AsajjVentress_BaldAndBeautiful.php',
     'IC27_008' => 'ic27/PrincessLeia_OnADiplomaticMission.php',

@@ -18,9 +18,12 @@ $counts = [];
 foreach ($leaves as $l) {
     if ($l['option'] !== 'arenabot') $counts[$l['format']] = ($counts[$l['format']] ?? 0) + 1;
 }
+// A DISABLED format has NO path (owner, 2026-11-04: Twin Suns / Team Suns Preview went off and the Twin Suns dialog, which
+// renders the unfiltered tree, still offered them). SWUMenuTree drops a disabled pool, as it always did for Meta Premier.
 foreach (array_keys(SWUFormatDefinitions()) as $id) {
     if ($id === 'botpractice') continue;
-    $check(($counts[$id] ?? 0) === 1, "format '$id' is reachable by exactly one PvP / Twin Suns / 1P path (found " . ($counts[$id] ?? 0) . ')');
+    $want = empty(SWUGetFormat($id)['enabled']) ? 0 : 1;
+    $check(($counts[$id] ?? 0) === $want, "format '$id' is reachable by exactly $want PvP / Twin Suns / 1P path(s) (found " . ($counts[$id] ?? 0) . ')');
 }
 $check(!isset($counts['botpractice']), 'botpractice is reachable only through Arenabot');
 $arena = array_values(array_filter($leaves, fn($l) => $l['option'] === 'arenabot'));
@@ -35,7 +38,12 @@ $leaf = function ($gt, $opt, $pool) use ($leaves) {
 };
 $check(($leaf('constructed', 'pvp', 'premier')['format'] ?? null) === 'premier' && ($leaf('constructed', 'pvp', 'premier')['cardPool'] ?? null) === 'premier', 'Constructed → PvP → Premier stores premier with card pool premier');
 $check(($leaf('constructed', 'arenabot', 'eternal')['format'] ?? null) === 'botpractice' && ($leaf('constructed', 'arenabot', 'eternal')['cardPool'] ?? null) === 'eternal', 'Constructed → Arenabot → Eternal stores botpractice with card pool eternal');
-$check(($leaf('twinsuns', 'teams', 'teamsuns-preview')['cardPool'] ?? null) === 'teamsuns-preview', 'Twin Suns → Teams → Preview stores teamsuns-preview as its own card pool');
+$check(($leaf('twinsuns', 'teams', 'teamsuns')['cardPool'] ?? null) === 'teamsuns', 'Twin Suns → Teams → Standard stores teamsuns as its own card pool');
+// Each arrangement's Preview pool is its OWN format, offered only while that format is on (off since 2026-11-04).
+foreach (['ffa' => 'twinsuns-preview', 'teams' => 'teamsuns-preview'] as $opt => $pf) {
+    $on = !empty(SWUGetFormat($pf)['enabled']);
+    $check(($leaf('twinsuns', $opt, $pf) !== null) === $on, "Twin Suns → $opt → Preview is offered iff $pf is enabled (" . ($on ? 'on' : 'off') . ')');
+}
 $check(($leaf('solo', 'goldfish', null)['cardPool'] ?? null) === 'open' && ($leaf('solo', 'hotseat', null)['format'] ?? null) === 'hotseat', '1P Mode stores its mode with card pool open');
 
 // ── Labels ──────────────────────────────────────────────────────────────────────────────────────────
@@ -45,8 +53,9 @@ $labels = fn($pools) => array_map(fn($p) => $p['label'], $pools);
 // asserts the DERIVATION, not the literal "IC27", and keeps passing when the set rolls over or the window
 // closes. SWUPreviewSetSuffix() returns '' between windows, and the label is then plainly "Preview".
 $pv = SWUPreviewSetSuffix();
-$check($labels($tree[1]['options'][0]['pools']) === ['Standard', 'Preview' . $pv], 'Twin Suns Free-for-all offers Standard and Preview' . $pv);
-$check($labels($tree[1]['options'][1]['pools']) === ['Standard', 'Preview' . $pv], 'Twin Suns Teams offers Standard and Preview' . $pv);
+$tsLabels = fn($pf) => !empty(SWUGetFormat($pf)['enabled']) ? ['Standard', 'Preview' . $pv] : ['Standard'];
+$check($labels($tree[1]['options'][0]['pools']) === $tsLabels('twinsuns-preview'), 'Twin Suns Free-for-all offers ' . implode(' and ', $tsLabels('twinsuns-preview')));
+$check($labels($tree[1]['options'][1]['pools']) === $tsLabels('teamsuns-preview'), 'Twin Suns Teams offers ' . implode(' and ', $tsLabels('teamsuns-preview')));
 // ⚠ Pin the suffix itself against the source of truth, or the two checks above pass for an
 // implementation that never appends anything at all.
 $pvSets = require './AppCore/SWU/PreviewSets.php';

@@ -8,15 +8,21 @@ require_once './SWUSim/Custom/DeckImport.php';   // Formats + DeckValidation + d
 $checks = [];
 foreach (['premier', 'eternal', 'padawan', 'twinsuns', 'teamsuns'] as $f) {
     $checks["$f includes HMW"] = in_array('HMW', SWUFormatLegalSets($f), true);
-    $checks["$f excludes IC27"] = !in_array('IC27', SWUFormatLegalSets($f), true);
-    $checks["$f is not a preview format"] = SWUFormatIsPreview($f) === false;
+    // Twin Suns / Team Suns carry IC27 in their own pool since 2026-11-04 (owner); the rest keep it out.
+    $carries = in_array($f, ['twinsuns', 'teamsuns'], true);
+    $checks[$carries ? "$f includes IC27" : "$f excludes IC27"] = in_array('IC27', SWUFormatLegalSets($f), true) === $carries;
+    $checks[$carries ? "$f is a preview format by pool" : "$f is not a preview format"] = SWUFormatIsPreview($f) === $carries;
 }
 $preview = require './AppCore/SWU/PreviewSets.php';
 $checks['the preview set list is exactly IC27'] = $preview === ['IC27'];
-foreach (['preview' => 'premier', 'eternal-preview' => 'eternal', 'padawan-preview' => 'padawan',
-          'twinsuns-preview' => 'twinsuns', 'teamsuns-preview' => 'teamsuns'] as $pf => $bf) {
+foreach (['preview' => 'premier', 'eternal-preview' => 'eternal', 'padawan-preview' => 'padawan'] as $pf => $bf) {
     $checks["$pf = $bf + IC27"] = array_values(array_diff(SWUFormatLegalSets($pf), SWUFormatLegalSets($bf))) === ['IC27'];
     $checks["$pf is still a preview format"] = SWUFormatIsPreview($pf) === true;
+}
+// The Twin Suns / Team Suns preview formats: off, and their pool is now the base's own (owner, 2026-11-04).
+foreach (['twinsuns-preview' => 'twinsuns', 'teamsuns-preview' => 'teamsuns'] as $pf => $bf) {
+    $checks["$pf has the same pool as $bf"] = SWUFormatLegalSets($pf) === SWUFormatLegalSets($bf);
+    $checks["$pf is disabled"] = empty(SWUGetFormat($pf)['enabled']) && !array_key_exists($pf, SWUListFormats());
 }
 
 // A real Premier list with one HMW card swapped in: Premier-legal now. An IC27 card: preview formats and Open only.

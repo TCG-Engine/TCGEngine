@@ -127,6 +127,43 @@ return array (
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'IC27_004' => 
+  array (
+    'title' => 'Mace Windu',
+    'subtitle' => 'Here With Backup',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Attack with a unit. It gains Restore 2 for this attack. (When it attacks, heal 2 damage from your base.)',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Restore 2
+When Deployed: Resource the top card of your deck.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/004.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/004-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'IC27_006' => 
   array (
     'title' => 'Luke Skywalker',

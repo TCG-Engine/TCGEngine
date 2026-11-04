@@ -116,7 +116,10 @@ function SWUFormatDefinitions() {
         // SWUCheckFormat (see _SWULeaderStartAlignment in DeckValidation.php).
         'twinsuns' => [
             'displayName' => 'Twin Suns',
-            'legalSets'   => $eternalSets,                        // every printed set
+            // Every printed set PLUS the preview set (owner, 2026-11-04: "add IC27 to the Twin Suns standard pool"; the
+            // Twin Suns Preview format is off). Premier/Eternal keep previews out. This makes SWUFormatIsPreview true for
+            // it — harmless for stats, since a multiplayer game is never submitted (statsStatus skipped_multiplayer).
+            'legalSets'   => array_merge($eternalSets, $previewSets),
             'banned'      => [],                                  // no bans yet
             'minDeck'     => 80,                                  // CR §12.2.1.a
             'maxCopies'   => 1,                                   // CR §12.2.2 (highlander)
@@ -134,7 +137,7 @@ function SWUFormatDefinitions() {
         // appear twice on a team (uniqueTeamLeaders). Strictly 4P; there is no 3P Team Suns.
         'teamsuns' => [
             'displayName'       => 'Team Suns',
-            'legalSets'         => $eternalSets,
+            'legalSets'         => array_merge($eternalSets, $previewSets),   // + IC27, as twinsuns (owner, 2026-11-04)
             'banned'            => [],
             'minDeck'           => 80,
             'maxCopies'         => 1,
@@ -207,7 +210,9 @@ function SWUFormatDefinitions() {
             'minPlayers'  => 3,
             'maxPlayers'  => 4,
             'publicQueue' => true,   // public ROOM queue — see the note on twinsuns
-            'enabled'     => true,
+            // OFF since 2026-11-04 (owner): 'twinsuns' itself now carries the preview set. Still resolvable, so a room or
+            // match already in flight keeps working.
+            'enabled'     => false,
         ],
         // Team Suns pool + the upcoming set's previews (owner, 2026-09-16: "add both options to Team Suns as well").
         // This REVERSES the 2026-08-29 decision recorded in DevTools/tdd-regression/test_swusim_formats_config.php
@@ -226,7 +231,7 @@ function SWUFormatDefinitions() {
             'teams'             => 2,
             'uniqueTeamLeaders' => true,
             'publicQueue'       => true,   // public ROOM queue — see the note on twinsuns
-            'enabled'           => true,
+            'enabled'           => false,  // OFF since 2026-11-04 (owner), as twinsuns-preview: 'teamsuns' carries the preview set
         ],
         // Eternal pool + the upcoming set's previews — the Eternal counterpart of 'preview'. Same
         // shape as 'eternal' (no rarity restriction, standard deck rules); only the pool differs.
@@ -432,6 +437,19 @@ function SWUMenuTree(): array {
             ['id' => 'hotseat',  'label' => 'Hotseat',  'format' => 'hotseat',  'pools' => []],
         ]],
     ];
+    // A pool exists only while its format is ENABLED — the rule Meta Premier's splice above already follows, for the same
+    // reason: the setup dialogs render from this UNFILTERED tree (MainMenu's $swuMenuTreeFull, kept for invites), so a
+    // disabled pool stayed listed there and led to a format that refuses you. Seen when Twin Suns / Team Suns Preview went
+    // off (owner, 2026-11-04): the Twin Suns dialog still offered "Preview (IC27)". An option left with no pools keeps its
+    // place only if it never had any (1P modes); otherwise it would be an empty choice.
+    foreach ($tree as &$gt) {
+        foreach ($gt['options'] as &$opt) {
+            if (empty($opt['pools'])) continue;
+            $opt['pools'] = array_values(array_filter($opt['pools'], fn($p) => !empty(SWUGetFormat($p['format'])['enabled'])));
+        }
+        unset($opt);
+    }
+    unset($gt);
     // Join Queue is offered per POOL: only a pool whose option has no format of its own (PvP) stores the pool's format,
     // so only those can queue. Arenabot and 1P options store their own local-mode format and never queue.
     foreach ($tree as &$gt) {
