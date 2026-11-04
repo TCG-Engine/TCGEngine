@@ -6131,6 +6131,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         });
         return 'Winner(s): ' + names.join(', ');
     }
+    // A spectator won nothing and lost nothing (owner, 2026-11-04: spectators read "You Lost"): the title names who won —
+    // "Drixx Won", "Drixx & Player 3 Won" for a shared victory. Plain text, like the winners line.
+    function SWUSpectatorWinTitle(seats, nameMap) {
+        if (!seats || !seats.length) return '';
+        return seats.map(function (s) {
+            var n = nameMap && nameMap[String(s)];
+            return (typeof n === 'string' && n !== '') ? n : ('Player ' + s);
+        }).join(' & ') + ' Won';
+    }
+    // ShowGameOver (Core, shared by every sim) only knows "You Won!" / "You Lost" / "Draw": a spectator's title is set on
+    // the overlay it drew, in the win colours. No-op without a title (a draw keeps "Draw").
+    function SWUApplySpectatorTitle(text) {
+        var ov = document.getElementById('game-over-overlay'), t = document.getElementById('game-over-title');
+        if (!ov || !t || !text || ov.classList.contains('draw')) return;
+        t.textContent = text;
+        ov.classList.remove('lost'); ov.classList.add('won');
+    }
+    function SWUIsSpectatorSeat(pid) { var n = parseInt(pid, 10); return !(n >= 1 && n <= 4); }
     // A match menu that must be redrawn and whose data did not come back: retry shortly rather than draw the no-match
     // overlay — for up to 30s from the first failure, ONE retry pending at a time (the board's own poll asks too, about
     // every second, so a count of attempts ran out in a few seconds). Returns whether the caller should stand down.
@@ -6170,6 +6188,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line. -1 = a drawn game.
                     ShowGameOver(SWULocalGameWinner() === -1 ? 'draw' : ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
                                  localBtns, SWUWinnersLine(ws, null, 2));
+                    if (SWUIsSpectatorSeat(pid)) SWUApplySpectatorTitle(SWUSpectatorWinTitle(ws, null));
                     return;
                 }
                 // Prefer the match record's winner set; fall back to the gamestate's if this record
@@ -6193,12 +6212,20 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     didWin = !info.isSpectator && info.matchWinner === parseInt(pid, 10);
                     subtitle = ((info.winnerNames || {})[info.concededBy] || ('Player ' + info.concededBy)) + ' forfeited the match';
                 }
+                // A spectator: "<winner> Won" — the match's winner after a forfeit, else this game's — and no winners line under
+                // a title that already names them.
+                var specTitle = '';
+                if (info.isSpectator && !isDraw) {
+                    specTitle = SWUSpectatorWinTitle((info.seriesOver && info.concededBy && info.matchWinner) ? [info.matchWinner] : winners, info.winnerNames);
+                    if (subtitle === SWUWinnersLine(winners, info.winnerNames, info.seatCount)) subtitle = '';
+                }
                 // Responses overlap — the board asks again on every poll while the first is in flight, so the menu may
                 // already be up. A live-series menu is redrawn if the series has ended since; otherwise it stands, flag and all.
                 var drawn = !!document.getElementById('game-over-overlay');
                 if (drawn && window._swuEndMenuLiveSeries && info.seriesOver) { SWURebuildEndMenuForFinishedSeries(); return; }
                 ShowGameOver(isDraw ? 'draw' : didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
                              SWUBuildEndGameButtons(info), subtitle);
+                SWUApplySpectatorTitle(specTitle);
                 // Between games of a live 2-seat Bo3, only the end of the series changes this menu (a forfeit, by either
                 // seat): SWUEnterSideboardOrMenu and the poll below watch for it.
                 if (!drawn) window._swuEndMenuLiveSeries = !!(info.bestOf === 3 && !info.seriesOver && !info.isSpectator && info.seatCount <= 2);
@@ -6271,6 +6298,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 var ws = SWULocalGameWinners();
                 ShowGameOver(SWULocalGameWinner() === -1 ? 'draw' : ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
                              null, SWUWinnersLine(ws, null, 2));
+                if (SWUIsSpectatorSeat(pid)) SWUApplySpectatorTitle(SWUSpectatorWinTitle(ws, null));
             });
     }
     window.SWUShowEndGameMenu = SWUShowEndGameMenu;

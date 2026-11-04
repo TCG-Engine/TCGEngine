@@ -362,10 +362,32 @@ if (!function_exists('SWUOfferDiscountPlay')) {
     }
 }
 
+// The most a play's Exploit can take off $o's cost: 2 per unit defeated, capped by the units $player CONTROLS (never a
+// teammate's). Counts the sources SWUBeginPlayCard offers: the PRINTED Exploit (straight from the keyword table —
+// GetKeyword_Exploit_Value reads ->Controller and fatals on a hand object) and TWI_005 Dooku's "next Separatist card
+// gains Exploit 3" charge, which SWUBeginPlayCard spends on any Separatist play.
+if (!function_exists('SWUPlayExploitDiscountBound')) {
+    function SWUPlayExploitDiscountBound(int $player, $o): int {
+        global $Exploit_Cards, $playerID;
+        $cid = $o->CardID ?? '';
+        $n = intval($Exploit_Cards[$cid] ?? 0);
+        if (HasTrait($cid, 'Separatist') && GlobalEffectCount($player, 'SWU_DOOKU_NEXT_SEPARATIST_EXPLOIT') > 0) $n += 3;
+        if ($n <= 0) return 0;
+        $saved = $playerID; $playerID = $player;
+        $fodder = count(SWUControlledUnits());
+        $playerID = $saved;
+        return 2 * min($n, $fodder);
+    }
+}
+
 // Candidate mzIDs in $zone playable after $discount, filtered by $types and an
 // optional $filter(cardID). Generalizes SWUHandPlayablesAtDiscount to any zone.
+// $withExploit: the caller plays through SWUBeginPlayCard, which OFFERS Exploit — so a card affordable only by exploiting
+// belongs in the pool (bug report P-18: HMW_008 Grievous never offered a 9-cost Battle Droid Legion to a player with 8
+// and units to exploit). Leave it off for a play that goes through bare ActivateCard: that path offers no Exploit, and the
+// pool must not promise a discount the play will not give.
 if (!function_exists('SWUPlayablesAtDiscount')) {
-    function SWUPlayablesAtDiscount(int $player, string $zone, ?array $types, int $discount, ?callable $filter = null): array {
+    function SWUPlayablesAtDiscount(int $player, string $zone, ?array $types, int $discount, ?callable $filter = null, bool $withExploit = false): array {
         $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
         $out = [];
         foreach (ZoneSearch($zone, $types) as $mz) {
@@ -373,6 +395,7 @@ if (!function_exists('SWUPlayablesAtDiscount')) {
             if (SWUObjGone($o)) continue;
             if ($filter !== null && !$filter($o->CardID ?? '')) continue;
             $cost = max(0, SWUComputePlayCost($player, $o) - $discount);
+            if ($withExploit && $cost > $ready) $cost -= SWUPlayExploitDiscountBound($player, $o);
             if ($cost <= $ready) $out[] = $mz;
         }
         return $out;

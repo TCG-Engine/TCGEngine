@@ -323,3 +323,75 @@ P1GROUNDARENACOUNT:0
 P1HANDCOUNT:2
 P1RESAVAILABLE:8
 P1LEADER:EXHAUSTED
+
+---
+
+# Front_AffordableOnlyViaItsOwnExploit_IsOffered
+#// ⚠ BUG REPORT P-18 (game 2990, Twin Suns seat 3): "Can't play exploit on Battle Droid Legion with Grievous leader
+#// ability". Seat 3 had 8 to pay with, 8 units of its own and TWI_235 Battle Droid Legion (cost 9, Exploit 2) in hand.
+#// The play goes through SWUBeginPlayCard, which OFFERS Exploit — but the pool was SWUPlayablesAtDiscount, which
+#// compares the PLAIN cost to the resources, so a card affordable only by exploiting was never offered at all.
+#// The pool must predict the discount the play will offer (the TWI_005 Dooku rule, _SWUSeparatistHandPlayables).
+#// 6 resources: 9 is out of reach, 9 - 2×2 = 5 is not. Exploiting both SEC_080s leaves 1 resource and only the Legion.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:6;myLeader:HMW_008:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: TWI_235
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArena: SEC_080:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_235
+P1HANDCOUNT:0
+P1RESAVAILABLE:1
+P1LEADER:EXHAUSTED
+NOEXTRAACTION
+
+---
+
+# Front_ExploitCappedByFodder_TheLegionIsNotInTheOFFER
+#// The negative control, and it reads the POOL: the Exploit discount is worth 2 per unit ACTUALLY defeated, so it is
+#// capped by the units you control. One SEC_080 is Exploit 1 at most: 9 - 2 = 7 > 6, so the Legion is NOT offered —
+#// only the 2-cost SEC_080 in hand is. A pool that granted the full Exploit 2 regardless of fodder would offer both.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:6;myLeader:HMW_008:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: TWI_235
+WithP1Hand: SEC_080
+WithP1GroundArena: SEC_080:1:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myHand-1
+
+---
+
+# Front_ExploitPlay_AcrossARequestBoundary_ClosesOnce
+#// The Exploit pick DEFERS the play: it resumes in a later request, outside the nested frame this ability opened. Begun
+#// as a bare nested SWUBeginPlayCard, the resumed play closed the leader Action itself and the empty second offer
+#// closed it again (BLOCKED-DOUBLE-CLOSE). ⚠ No P1OnlyActions — it makes TURNPLAYER blind; the turn must pass exactly
+#// once, to P2, once the second offer finds nothing to play.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:6;myLeader:HMW_008:1}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: TWI_235
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArena: SEC_080:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENAUNIT:0:CARDID:TWI_235
+P1RESAVAILABLE:1
+NOEXTRAACTION

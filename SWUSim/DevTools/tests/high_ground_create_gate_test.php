@@ -1,7 +1,7 @@
 <?php
-// Creating a High Ground room is MODERATORS ONLY for now (owner, 2026-11-02); joining one stays open to anyone.
+// Creating a High Ground room is OPEN TO EVERYONE, guests included (owner, 2026-11-04; moderators only from 2026-11-02).
 // Tested OUTSIDE local dev — a production Host with DEVENV off — because local dev counts as a moderator, so a check made
-// there cannot tell an open gate from a closed one. The menu (SharedUI/Sites/SWUSim/MainMenu.php) and the endpoint
+// there cannot tell an open gate from a mods-only one. The menu (SharedUI/Sites/SWUSim/MainMenu.php) and the endpoint
 // (APIs/Lobbies/JoinQueue.php) use the same helper (SWUSim/Mod/DevGate.php).
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off SWUSim/DevTools/tests/high_ground_create_gate_test.php
 @session_start();   // before $_SESSION is set: the gate's CheckSession() must find this session, not start a fresh one
@@ -19,17 +19,17 @@ $as = function (?string $user) {
     return SWUHighGroundCreateAllowed();
 };
 $mod = ApprovedModeratorUserNames()[0];
-$check($as(null) === false, 'production, logged out: refused');
-$check($as('someplayer') === false, 'production, an ordinary account: refused');
+$check($as(null) === true, 'production, logged out (a guest): allowed');
+$check($as('someplayer') === true, 'production, an ordinary account: allowed');
 $check($as($mod) === true, "production, a moderator ($mod): allowed");
 
 $as('someplayer');
-$check(is_string(SWUHighGroundCreateRefusal()) && SWUHighGroundCreateRefusal() !== '', 'the endpoint refusal has a message for a non-moderator');
-$as($mod);
-$check(SWUHighGroundCreateRefusal() === null, 'the endpoint refusal is null for a moderator');
+$check(SWUHighGroundCreateRefusal() === null, 'the endpoint refusal is null for an ordinary account');
+$as(null);
+$check(SWUHighGroundCreateRefusal() === null, 'the endpoint refusal is null for a guest');
 
-// The endpoint itself, in a separate CLI process as a production request from an ordinary account. Runs only up to the
-// gate: a refused creation exits before any lobby is written.
+// The endpoint itself, in a separate CLI process as a production request from an ordinary account. No deck is sent, so
+// a creation the gate lets through stops at the deck check and writes no lobby.
 $endpoint = function (array $post, string $user): array {
     $code = '$_SERVER["HTTP_HOST"]="petranaki.net"; unset($_SERVER["REMOTE_ADDR"]); putenv("DEVENV=false");'
           . '@session_start(); $_SESSION["useruid"]=' . var_export($user, true) . ';'
@@ -40,8 +40,8 @@ $endpoint = function (array $post, string $user): array {
 };
 $base = ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'premier', 'queueType' => 'bo1', 'deckLink' => ''];
 $r = $endpoint($base + ['highGround' => '1'], 'someplayer');
-$check(($r['success'] ?? null) === false && ($r['message'] ?? '') === 'Creating a High Ground room is limited to moderators for now.',
-    'JoinQueue refuses a High Ground creation from an ordinary account: ' . json_encode($r));
+$check(!array_key_exists('RAW', $r) && ($r['message'] ?? '') !== 'Creating a High Ground room is limited to moderators for now.',
+    'JoinQueue lets a High Ground creation from an ordinary account past the gate: ' . json_encode($r));
 $r = $endpoint($base, 'someplayer');
 $check(($r['message'] ?? '') !== 'Creating a High Ground room is limited to moderators for now.',
     'JoinQueue does not apply the gate to a plain private room: ' . json_encode($r));

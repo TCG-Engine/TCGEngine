@@ -35,7 +35,7 @@ $customDQHandlers["LOF_150#0"] = function($player, $parts, $lastDecision) {
     if ($hostMz === null || $hostMz === '') return;
     $up = GetZoneObject($lastDecision);
     if (SWUObjGone($up)) return;
-    _SWUFinalizeUpgradeAttach(intval($player), $up->CardID ?? '', $lastDecision, $hostMz, 0, true, false); // free
+    SWUPlayUpgradeByEffect(intval($player), $up->CardID ?? '', $lastDecision, $hostMz, 0, true, false); // free
     // "If you do, ready him."
     $hostMz = SWUFindMzByUID($cinUID);
     if ($hostMz !== null && $hostMz !== '') OnReadyCard(intval($player), $hostMz);

@@ -3,12 +3,24 @@
 // Cost 14 - Endless Legions - [Command,Command]
 // Text: Reveal any number of resources you control. Play each unit revealed this way for free (one at a time).
 
+// The "then" step of each free play: marks it as this event's, so a deferred play resumes nested (see SHD_109#0).
+if (!function_exists('_SWUShd109PlayDone')) {
+    function _SWUShd109PlayDone(int $player, string $placedMz): void {}
+}
+
 $customDQHandlers["SHD_109#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;   // passed → end loop
     global $playerID, $gTurnPlayer; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) { _SWUShd109OfferNext(intval($player)); return; }
-    SWUNestedPlay(intval($player), $lastDecision, true, 0);   // reveal + play for free; its When Played fires
+    // Reveal + play for free, IN FULL (bug report P-19). SWUNestedPlay entered at ActivateCard, the second half of a
+    // play, so everything SWUBeginPlayCard owns before payment was skipped — TWI_116 Clone's copy choice (it entered as
+    // a 0/0 and died), Exploit, every additional cost. "Play for free ignores all resource costs, including the aspect
+    // penalty, but not other additional costs" (official ruling): free = a discount of the whole play cost, aspect
+    // penalty included, through the full ceremony. The no-op "then" step makes a play that stops for a choice (the
+    // copy pick) resume nested at the PLAY_CARD dispatch, so its own close is refused there too — this event's play
+    // ceremony is what ends the action.
+    SWUNestedPlayUnit(intval($player), $lastDecision, SWUComputePlayCost(intval($player), $o), ['then' => '_SWUShd109PlayDone']);
     $playerID = intval($player);
     // Loop: offer the next unit-resource — but only AFTER this unit's triggered abilities have fully
     // resolved. Official ruling (07/16/2024): "If playing multiple units, resolve all abilities triggered

@@ -505,8 +505,8 @@ global $cardDiscardedHandlers;// ── JTL_100 Poe Dameron (unit) — "When pla
 
 // Consume the once-per-round/phase UPGRADE cost-discount "used" flags for an upgrade just attached to
 // $hostObj: SOR_061 Guardian of the Whills, SEC_064 Congress of Malastare, ASH_075 Pit Droid Team. Shared
-// by the normal attach path (_SWUFinalizeUpgradeAttach — called only when the discount was actually
-// charged, i.e. !$ignoreCost) AND the smuggled-upgrade path (SMUGGLE_ATTACH — the discount was paid at the
+// by the normal attach path (_SWUFinalizeUpgradeAttach — paid AND free plays, owner ruling 2026-11-04)
+// AND the smuggled-upgrade path (SMUGGLE_ATTACH — the discount was paid at the
 // up-front Smuggle peek). Host-conditional flags (Guardian, and ASH_075's "another friendly") are
 // evaluated against the REAL chosen host, so a Smuggle peek's best-case Guardian discount is only spent
 // when the upgrade actually lands on the Guardian.
@@ -568,6 +568,24 @@ function _SWUFireHostPilotAttachReactions(?object $hostObj, bool $isPilot, strin
   return $fired;
 }
 
+// A CARD EFFECT that PLAYS an upgrade (Jabba's free replay, Kylo from the discard, Reforge, Lama Su, …): commit the
+// play, then attach it. These callers used to go straight to _SWUFinalizeUpgradeAttach, which only ATTACHES — so the
+// play was never committed: no "played" log line, no cards-played-this-phase count (SOR_191 Vanguard Ace gave nothing
+// for Kylo's upgrade), no "played a <trait> card" flags, and a FREE play spent none of the one-shot "next card costs
+// less" charges. OWNER RULING 2026-11-04: a card-effect play IS a play and uses those up like any other.
+// Mirrors ActivateCard's upgrade commit: before the attach, and the charges spent at commit only for a FREE play — a
+// paid one computes and spends them in the attach, once its host is known (_SWUConsumeUpgradePlayCharges).
+// ⚠ Only for a PLAY. An attach that is not a play — a pilot leader deploying (JTL_013 Poe, LEADER_DEPLOY_PILOT), a
+// unit moving onto a Vehicle (JTL_100 Poe) — keeps calling _SWUFinalizeUpgradeAttach directly.
+function SWUPlayUpgradeByEffect(int $player, string $cardID, string $upgradeMz, string $hostMz, int $prepaid,
+                                bool $ignoreCost, bool $isPilot = false, bool $suppressAfterAction = false): int {
+  $obj = ($upgradeMz !== '') ? GetZoneObject($upgradeMz) : null;
+  SWUCommitPlay($player, $cardID, SWULogPlayZone($upgradeMz, $player), $isPilot ? 'pilot' : 'upgrade',
+    $ignoreCost ? ($obj ?? (object) ['CardID' => $cardID]) : null,
+    preg_match('/^(my|their)Discard-/', $upgradeMz) ? 'discard' : null);
+  return _SWUFinalizeUpgradeAttach($player, $cardID, $upgradeMz, $hostMz, $prepaid, $ignoreCost, $isPilot, $suppressAfterAction);
+}
+
 function _SWUFinalizeUpgradeAttach(
   int $player,
   string $cardID,
@@ -598,6 +616,16 @@ function _SWUFinalizeUpgradeAttach(
     // Free play (e.g. SOR_246 top-deck branch): skip payment entirely.
     // Record 0 paid so TWI_210/LAW_231-style consumers see the correct value.
     $GLOBALS['gLastPlayResourcesPaid'] = 0;
+    // ⚠ A FREE PLAY STILL USES UP "THE FIRST <type> YOU PLAY" (OWNER RULING 2026-11-04: "free plays do use up the
+    // discount if it satisfies the card type"). ASH_212 Peli Motto's "first non-unit card you play each phase" is
+    // spent by a free upgrade exactly as by a paid one — the slot counts plays, not payments. (The upgrade used-flags
+    // below — SEC_064 Congress, SOR_061 Guardian, ASH_075 — are spent on both paths for the same reason.)
+    if (
+      GlobalEffectCount($player, 'SWU_ASH212_USED') <= 0
+      && ($isPilot || stripos(CardType($upgradeForCost->CardID ?? '') ?? '', 'Upgrade') !== false)
+    ) {
+      AddGlobalEffects($player, 'SWU_ASH212_USED');
+    }
   } else {
     // Pilots pay the Piloting cost (CardPilotingCost + aspect penalty).
     // Normal upgrades pay the host-specific play cost (with host discounts).
@@ -693,10 +721,10 @@ function _SWUFinalizeUpgradeAttach(
   SWUEnforceUpgradeUniqueness(intval($player), $cardID, $pilotSub);
 
   // Spend the upgrade cost-discount "used" flags (SOR_061 Guardian / SEC_064 / ASH_075). The discounts
-  // were applied at cost time in SWUComputePlayCost with the $host param; spend the charge only on a real
-  // (non-free) play. Host-conditional — evaluated against the chosen host. Shared with SMUGGLE_ATTACH.
-  if (!$ignoreCost)
-    _SWUConsumeUpgradeUsedFlags($player, $hostObj, $cardID);
+  // were applied at cost time in SWUComputePlayCost with the $host param. Spent on a FREE play too (owner
+  // ruling 2026-11-04): "the first upgrade you play" is the first PLAYED, paid or not. Host-conditional —
+  // evaluated against the chosen host. Shared with SMUGGLE_ATTACH.
+  _SWUConsumeUpgradeUsedFlags($player, $hostObj, $cardID);
 
   // JTL_202 Black Squadron Scout Wing — host reaction: "When you play an upgrade on this unit, you may
   // attack with it (+1/+0 this attack)." Queued onto the same trigger bag so it rides the flush.

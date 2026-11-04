@@ -112,7 +112,7 @@ $customDQHandlers["ASH_001#1"] = function($player, $parts, $lastDecision) {
         if ($h !== null && empty($h->removed) && ($h->CardID ?? '') === $cardID) $handMz = $mz;
     }
     if ($handMz === '') { SWUAfterAction($player); return; }
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, $selfPay, false, $isPilot, true);
+    SWUPlayUpgradeByEffect(intval($player), $cardID, $handMz, $hostMz, $selfPay, false, $isPilot, true);
     // "If you do, resource the top card of your deck." Verify the upgrade actually landed on the host by
     // scanning its upgrades — the attach return is the TRIGGER count (0 for a vanilla upgrade), NOT a success
     // flag, so gating the ramp on it wrongly skipped the deck-resource (the deployed side already does this).
@@ -196,7 +196,7 @@ $customDQHandlers["ASH_001#3"] = function($player, $parts, $lastDecision) {
         if ($h !== null && empty($h->removed) && ($h->CardID ?? '') === $cardID) $handMz = $mz;
     }
     if ($handMz === '') return;
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, $selfPay, false, $isPilot, true);
+    SWUPlayUpgradeByEffect(intval($player), $cardID, $handMz, $hostMz, $selfPay, false, $isPilot, true);
     // "If you do, resource the top card of your deck." Gate on the upgrade actually landing on the
     // host (the attach return is the trigger count, which is 0 for a vanilla upgrade — not a success flag).
     $host2 = GetZoneObject($hostMz);

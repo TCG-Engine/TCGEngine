@@ -5,7 +5,8 @@
 
 // ASH_042 Jabba the Hutt — Restore 2 (keyword) + When Played: you may return an upgrade to its owner's
 // hand. If it's returned to YOUR hand, you may play it for free. Bounce mirrors SEC_200; the free replay
-// reuses the LAW_245 attach machinery (_SWUFinalizeUpgradeAttach with ignoreCost).
+// is a PLAY (SWUPlayUpgradeByEffect with ignoreCost): it commits, and uses up "the first upgrade / non-unit card
+// you play" exactly as a paid play does (owner ruling 2026-11-04).
 $whenPlayedAbilities["ASH_042:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $hosts = [];
@@ -61,5 +62,5 @@ $customDQHandlers["ASH_042#1"] = function($player, $parts, $lastDecision) {
     if ($cardID === '' || !$hostMz || $hostMz === '-' || $hostMz === 'PASS' || !str_contains($hostMz, '-')) return;  // declined
     $host = GetZoneObject($hostMz);
     if (SWUObjGone($host)) return;
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upMz, $hostMz, 0, true, false, true);   // ignoreCost = free
+    SWUPlayUpgradeByEffect(intval($player), $cardID, $upMz, $hostMz, 0, true, false, true);   // ignoreCost = free
 };

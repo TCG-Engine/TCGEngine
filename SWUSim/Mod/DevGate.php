@@ -37,16 +37,18 @@ function SWUBotPracticeRefusal(string $format): ?string {
     return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Arenabot is not available right now.' : null;
 }
 
-// Who may CREATE a High Ground room: moderators only, for now (owner, 2026-11-02). Anyone can still JOIN one through its
-// invite link — joining never sends the highGround flag, so this gate never sees a join. The menu (only mods see the
-// button) and the endpoint (APIs/Lobbies/JoinQueue.php) both consult it, so a hand-built request cannot bypass the menu.
-// Opening it to everyone again is `return true;` here. Test: SWUSim/DevTools/tests/high_ground_create_gate_test.php.
+// Who may CREATE a High Ground room. OPEN TO EVERYONE, GUESTS INCLUDED (owner, 2026-11-04: "open up High Ground to the
+// public"); moderators only from 2026-11-02. Joining one through its invite link never sends the highGround flag, so this
+// gate never sees a join. Kept as a function, not deleted, because it is the one switch that closes creation again: the
+// menu (SharedUI/Sites/SWUSim/MainMenu.php) AND the endpoint (APIs/Lobbies/JoinQueue.php) both consult it, so a
+// hand-built request cannot bypass the menu. Mods only again is `CheckLoggedInUserMod() === ''` (require_once
+// AccountFiles/AccountSessionAPI.php). Test: SWUSim/DevTools/tests/high_ground_create_gate_test.php.
 function SWUHighGroundCreateAllowed(): bool {
-    require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
-    return CheckLoggedInUserMod() === '';
+    return true;
 }
 
 // JoinQueue's refusal for a High Ground creation that SWUHighGroundCreateAllowed() rejects: the message, or null to proceed.
+// Unreachable while the gate is open to everyone (2026-11-04).
 function SWUHighGroundCreateRefusal(): ?string {
     return SWUHighGroundCreateAllowed() ? null : 'Creating a High Ground room is limited to moderators for now.';
 }

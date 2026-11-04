@@ -168,7 +168,7 @@
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
     // High Ground: any 1v1 format that isn't rated. Checked before the deck, so the reason is the format, not the list.
-    if ($createHighGround && ($hgRefusal = SWUHighGroundCreateRefusal()) !== null) {   // mods only, for now (DevGate.php)
+    if ($createHighGround && ($hgRefusal = SWUHighGroundCreateRefusal()) !== null) {   // open to everyone since 2026-11-04 (DevGate.php)
       http_response_code(403);
       $response->success = false;
       $response->message = $hgRefusal;

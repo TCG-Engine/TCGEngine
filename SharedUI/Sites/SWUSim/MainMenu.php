@@ -347,7 +347,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             <div class="arow">
               <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
               <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
-<?php if (SWUHighGroundCreateAllowed()): /* mods only, for now — JoinQueue.php enforces the same gate */ ?>
+<?php if (SWUHighGroundCreateAllowed()): /* open to everyone since 2026-11-04 — JoinQueue.php enforces the same gate */ ?>
               <button data-act="highground" class="swu2-btn ch" type="button">Create a High Ground Lobby</button>
 <?php endif; ?>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>

@@ -53,5 +53,5 @@ $customDQHandlers["SHD_067#attach"] = function($player, $parts, $lastDecision) {
     $isPilot = ($parts[2] ?? '0') === '1';
     $hostMz  = $lastDecision ?? '';
     if ($cardID === '' || $upMz === '' || $hostMz === '' || !str_contains((string)$hostMz, '-')) return;
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upMz, $hostMz, 2 /*prepaid: -2 cost*/, false, $isPilot, true);
+    SWUPlayUpgradeByEffect(intval($player), $cardID, $upMz, $hostMz, 2 /*prepaid: -2 cost*/, false, $isPilot, true);
 };
