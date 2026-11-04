@@ -45,6 +45,9 @@ $__sb = is_array($m['sideboard'][strval($seat)] ?? null) ? $m['sideboard'][strva
 $deck = $__sb['deck'] ?? $lastDeck;
 $sbState = ['submitted' => ($__sb['deck'] ?? null) !== null, 'ready' => !empty($__sb['ready']),
             'oppReady' => !empty($m['sideboard'][strval(3 - $seat)]['ready'])];
+// A match from a room (a lobby room or High Ground) offers Return to Lobby; only the fact, never the room id — this page
+// is not authenticated, and the id leads to the room's invite code. The forfeit's authenticated answer carries it.
+$sbHasRoom = strval($m['roomId'] ?? '') !== '';
 
 // Chat + the previous game's log, pinned left (owner, 2026-09-22). The panel is shared with the
 // Waiting Room; only the mode and the scope differ.
@@ -114,6 +117,10 @@ echo RenderHead($sbDef);
   <button id="ready" class="swu2-btn swu2-btn--primary ch" type="button">Ready for Game <?= count($m['games'])+1 ?></button>
   <button id="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" hidden>Cancel</button>
   <span class="sb-status"><span id="status"></span><span id="oppStatus"></span></span>
+  <span class="sb-leave">
+<?php if ($sbHasRoom): ?>    <button id="leaveLobby" class="swu2-btn swu2-btn--quiet ch" type="button">Return to Lobby</button>
+<?php endif; ?>    <button id="leaveMenu" class="swu2-btn swu2-btn--quiet ch" type="button">Return to Main Menu</button>
+  </span>
 </div>
 
 <script>
@@ -161,11 +168,30 @@ function positionSbPreview(ev){
   var pad=18, w=sbPreview.offsetWidth||300, h=sbPreview.offsetHeight||420;
   var x=ev.clientX+pad, y=ev.clientY+pad;
   if(x+w>window.innerWidth)  x=ev.clientX-w-pad;   // flip left near the right edge
+  if(x<8) x=8;   // a phone is narrower than card + finger: keep it on screen
   if(y+h>window.innerHeight) y=window.innerHeight-h-8;
   if(y<8) y=8;
   sbPreview.style.left=x+'px'; sbPreview.style.top=y+'px';
 }
-function hideSbPreview(){ if(sbPreview) sbPreview.style.display='none'; }
+function hideSbPreview(){ clearTimeout(sbPreviewTimer); sbPreviewTimer=0; if(sbPreview) sbPreview.style.display='none'; }
+// The preview waits (owner, 2026-11-04: a click — above all a tap on a phone — left it open over the other cards). A mouse
+// shows it after SB_PREVIEW_DELAY of hovering and a click hides it; a finger never gets it on a tap, only by holding the
+// card for SB_PREVIEW_DELAY, and lifting the finger hides it without moving the card.
+var SB_PREVIEW_DELAY=500, sbPreviewTimer=0, sbLongPressed=false;
+function wireSbPreview(node, id){
+  var last=null;
+  var later=function(ev){ last={clientX:ev.clientX, clientY:ev.clientY}; clearTimeout(sbPreviewTimer);
+    sbPreviewTimer=setTimeout(function(){ sbPreviewTimer=0; showSbPreview(id, last); if(ev.pointerType==='touch') sbLongPressed=true; }, SB_PREVIEW_DELAY); };
+  node.addEventListener('pointerenter', function(ev){ if(ev.pointerType!=='touch') later(ev); });
+  node.addEventListener('pointermove', function(ev){ if(ev.pointerType==='touch') return; last={clientX:ev.clientX, clientY:ev.clientY}; positionSbPreview(ev); });
+  node.addEventListener('pointerleave', function(ev){ if(ev.pointerType!=='touch') hideSbPreview(); });
+  node.addEventListener('pointerdown', function(ev){ if(ev.pointerType==='touch'){ sbLongPressed=false; later(ev); } });
+  ['pointerup','pointercancel'].forEach(function(t){ node.addEventListener(t, function(ev){ if(ev.pointerType==='touch') hideSbPreview(); }); });
+  node.addEventListener('click', hideSbPreview);
+  node.addEventListener('contextmenu', function(ev){ if(ev.pointerType==='touch' || sbLongPressed) ev.preventDefault(); });   // Android's long-press menu
+}
+// A held finger is a look, not a move: the click that follows it must not move the card. True once per long press.
+function sbTookLongPress(){ var was=sbLongPressed; sbLongPressed=false; return was; }
 
 // Wire the fixed Leader / Base slots too (rendered as static <img> above).
 (function(){
@@ -174,9 +200,7 @@ function hideSbPreview(){ if(sbPreview) sbPreview.style.display='none'; }
     // preview card's file is mock_-prefixed, so string-stripping the path cannot recover it.
     var id=img.getAttribute('data-card-id')||'';
     if(!id) return;
-    img.parentNode.onmouseenter=function(ev){ showSbPreview(id, ev); };
-    img.parentNode.onmousemove=function(ev){ positionSbPreview(ev); };
-    img.parentNode.onmouseleave=hideSbPreview;
+    wireSbPreview(img.parentNode, id);
   });
 })();
 
@@ -197,12 +221,10 @@ function renderGrid(el, map, from, to){
     var img=document.createElement('img'); img.src=window.swuCardArtUrl(id, 'tile'); img.alt=titles[id]||id;
     c.appendChild(img);
     if(map[id]>1){ var q=document.createElement('div'); q.className='qty'; q.textContent=map[id]; c.appendChild(q); }
-    c.onclick=function(){ if(sbState.ready) return; move(id, from, to); };   // a ready seat's list is locked: Cancel first
+    c.onclick=function(){ if(sbTookLongPress() || sbState.ready) return; move(id, from, to); };   // a ready seat's list is locked: Cancel first
     // Zoomed hover preview — this standalone page doesn't load the Core ShowCardDetail system, so cards
     // were only readable via the tiny thumbnail + native title tooltip ("hover does not work in sideboard").
-    c.onmouseenter=function(ev){ showSbPreview(id, ev); };
-    c.onmousemove=function(ev){ positionSbPreview(ev); };
-    c.onmouseleave=hideSbPreview;
+    wireSbPreview(c, id);
     el.appendChild(c);
   });
 }
@@ -235,7 +257,7 @@ function listKey(l){ var n=function(m){ var o={}; Object.keys(m).sort().forEach(
   return JSON.stringify([n(l.deck), n(l.side)]); }
 var baseline=copyList({deck:deck, side:side});   // the page opens on the submitted list, else last game's
 function changed(){ return listKey({deck:deck, side:side})!==listKey(baseline); }
-var busy=false, leaving=false, lastError='';   // an error stays up until the next action or edit — the poll repaints every 2s
+var busy=false, leaving=false, asking=false, lastError='';   // asking: a confirm is open — one dialog per click, not one per click   // an error stays up until the next action or edit — the poll repaints every 2s
 function paint(){
   var ch=changed(), el=function(id){ return document.getElementById(id); };
   el('submit').disabled = busy || sbState.ready || (sbState.submitted && !ch);
@@ -243,6 +265,7 @@ function paint(){
   el('ready').disabled = busy;
   el('cancel').hidden = !(sbState.submitted || sbState.ready);
   el('cancel').disabled = busy;
+  ['leaveLobby', 'leaveMenu'].forEach(function(id){ if(el(id)) el(id).disabled = busy || leaving; });
   document.body.classList.toggle('sb-is-ready', !!sbState.ready);
   el('status').textContent = lastError ? lastError : sbState.ready
       ? (sbState.oppReady ? 'Ready — starting game ' + nextGameNo + '…' : 'Ready — waiting for your opponent…')
@@ -279,26 +302,61 @@ document.getElementById('ready').onclick=function(){
   // Ready plays the baseline, so unsubmitted edits would be lost: say so, and show what is actually played.
   var readyNow=function(){ act('ready', null, function(){ deck=copyList(baseline).deck; side=copyList(baseline).side; render(); }); };
   if(!changed()){ readyNow(); return; }
+  if(asking) return;
+  asking=true;
   StyledConfirm('Your changes are not submitted. Ready anyway with ' + (sbState.submitted ? 'your submitted sideboard' : 'the deck from last game') + '?',
-                {title:'Changes not submitted', confirmLabel:'Ready anyway'}).then(function(ok){ if(ok) readyNow(); });
+                {title:'Changes not submitted', confirmLabel:'Ready anyway'}).then(function(ok){ asking=false; if(ok) readyNow(); });
 };
 // Cancel: back to editing, nothing submitted — the edits stay on screen, now as changes against last game's deck.
 document.getElementById('cancel').onclick=function(){ act('cancel', null, function(){ baseline=copyList(lastList); }); };
 // The waiting poll: the opponent's state, the countdown (the server readies an un-ready seat at the deadline), the next game.
 (function poll(){
-  if(leaving) return;
-  if(busy){ setTimeout(poll, 2000); return; }
+  if(busy || leaving){ setTimeout(poll, 2000); return; }   // a failed leave resumes it
   req('status').then(function(j){ if(!busy){ follow(j); paint(); } setTimeout(poll, 2000); })
                .catch(function(){ setTimeout(poll, 2000); });   // a transient 500 under load must not strand the page
 })();
+// Return to Lobby / Return to Main Menu: leaving mid-series forfeits the Bo3, as on the end screen — ask first, forfeit,
+// then go where the end screen's buttons go.
+function leaveMatch(to){
+  if(busy || leaving || asking) return;
+  asking=true;
+  StyledConfirm('Leave now? This forfeits the best-of-3.', {title:'Forfeit the match', danger:true, confirmLabel:'Forfeit & leave'}).then(function(ok){
+    asking=false;
+    if(!ok || busy || leaving) return;
+    leaving=true; lastError=''; paint();
+    var failed=function(msg){ leaving=false; lastError=msg; paint(); };
+    req('forfeit').then(function(j){
+      if(!j || !j.success){ failed('Error: ' + ((j && j.message) || 'try again.')); return; }
+      if(to==='menu'){ window.location.href='../SharedUI/MainMenu.php'; return; }
+      if(j.highGround && j.roomId){   // High Ground: back to the hill's room, as its end screen does
+        try { localStorage.setItem('tcg:hg:lastRoom', j.roomId); } catch(e) {}
+        window.location.replace('../SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(j.roomId)); return;
+      }
+      // A lobby room: the end screen's own Return to Lobby re-seats this player, with its key handed over in localStorage
+      // (never the URL). If the room is gone, the end screen says so and offers the menu.
+      var f=new FormData(); f.append('gameName', j.gameName); f.append('playerID', seat); f.append('authKey', authKey); f.append('action', 'lobby');
+      fetch('./EndScreenAction.php', {method:'POST', body:f}).then(function(r){ return r.json(); }).then(function(k){
+        var g=k && k.go;
+        if(g && g.kind==='room' && g.lobbyID && g.authKey){
+          try { localStorage.setItem('tcg:lobbyAuth:' + g.lobbyID, JSON.stringify({authKey:g.authKey, ts:Date.now()})); } catch(e) {}
+          window.location.replace('../SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(g.lobbyID)); return;
+        }
+        go(j.gameName);
+      }).catch(function(){ go(j.gameName); });
+    }).catch(function(){ failed('Could not reach the server — try again.'); });
+  });
+}
+if(document.getElementById('leaveLobby')) document.getElementById('leaveLobby').onclick=function(){ leaveMatch('lobby'); };
+document.getElementById('leaveMenu').onclick=function(){ leaveMatch('menu'); };
 if(alreadyAdvanced && advancedGameName){ go(advancedGameName); } else { render(); }
 // High Ground: the host may end the match while someone is still choosing cards — follow them back to the room.
 // Any match: the opponent may forfeit it between games — back to the last game's board, whose end screen has the result.
 (function watchEnded(){
   var fd=new URLSearchParams(); fd.set('matchId',matchId); fd.set('playerID',seat); fd.set('authKey',authKey); fd.set('statusOnly','1');
   fetch('./SubmitSideboard.php',{method:'POST',body:fd}).then(function(r){ return r.json(); }).then(function(j){
-    if (j && j.roomLobbyID) { window.location.replace('../SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(j.roomLobbyID)); return; }
-    if (j && j.matchOver && j.gameName) { go(j.gameName); return; }
+    if (leaving) return;   // the poll (or a leave) is already taking the page somewhere: one navigation, not two
+    if (j && j.roomLobbyID) { leaving=true; window.location.replace('../SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(j.roomLobbyID)); return; }
+    if (j && j.matchOver && j.gameName) { leaving=true; go(j.gameName); return; }
     setTimeout(watchEnded, 4000);
   }).catch(function(){ setTimeout(watchEnded, 4000); });
 })();

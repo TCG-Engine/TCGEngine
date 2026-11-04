@@ -41,9 +41,18 @@ function MatchNextId($rootName) {
 
 function MatchRead($rootName, $matchId) {
     $path = MatchPath($rootName, $matchId);
-    if ($path === '' || !is_file($path)) return null;
-    $decoded = json_decode(file_get_contents($path), true);
-    return is_array($decoded) ? $decoded : null;
+    if ($path === '' || !is_dir(dirname($path))) return null;
+    // A match whose directory exists is being written, not missing: MatchWrite renames a fresh file over this one, and a
+    // filesystem that shows that rename as a moment with no file (Docker Desktop's macOS share does, ~6% of reads against
+    // a busy writer — test_match_write_atomic.php) must not answer "Unknown match.". Try again briefly. No lock here on
+    // purpose: MatchWithLock reads inside its own lock, and a shared lock would deadlock it.
+    for ($try = 0; $try < 5; $try++) {
+        $raw = is_file($path) ? @file_get_contents($path) : false;
+        $decoded = (is_string($raw) && $raw !== '') ? json_decode($raw, true) : null;
+        if (is_array($decoded)) return $decoded;
+        if ($try < 4) usleep(20000);
+    }
+    return null;
 }
 
 // The match carries its own rootName, so writes derive the path from the array.
@@ -51,7 +60,13 @@ function MatchWrite(array $match) {
     $path = MatchPath($match['rootName'] ?? '', $match['matchId'] ?? '');
     if ($path === '') return false;
     $match['updatedAt'] = time();
-    return file_put_contents($path, json_encode($match), LOCK_EX) !== false;
+    // ATOMIC: a temp file beside it, renamed over. file_put_contents(LOCK_EX) truncated the file BEFORE taking its lock, and
+    // MatchRead takes none, so a read during a write saw an empty record ("Unknown match."; up to a fifth of reads against
+    // a busy writer — test_match_write_atomic.php). Writers still serialize on Match.lock (MatchWithLock), not this file.
+    $tmp = $path . '.' . getmypid() . '.' . bin2hex(random_bytes(4)) . '.tmp';
+    if (file_put_contents($tmp, json_encode($match)) === false) return false;
+    if (!rename($tmp, $path)) { @unlink($tmp); return false; }
+    return true;
 }
 
 // Read-modify-write under an exclusive lock. $fn receives the match array by

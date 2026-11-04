@@ -80,6 +80,19 @@ if ($action !== '') {
     $answer(true);
   }
   if ($action === 'status') $answer(true, '', SWUMaybeSpawnAfterSideboard($matchId) ?: null);
+  // forfeit: "Return to Lobby" / "Return to Main Menu" on the sideboard screen — leaving mid-series forfeits the Bo3, as on
+  // the end screen. Answers the last game (whose end screen has the room's Return to Lobby) and, for a High Ground hill
+  // match, the room to go back to: this seat is authenticated, so its own room id may go to it.
+  if ($action === 'forfeit') {
+    SWUConcedeMatch($matchId, $seat);
+    $mm = SWUReadMatch($matchId);
+    $roomId = strval($mm['roomId'] ?? '');
+    $hg = !empty($mm['highGround']) && $roomId !== '';
+    echo json_encode(['success' => ($mm['state'] ?? '') === 'complete',
+      'gameName' => strval($mm['games'][count($mm['games']) - 1]['gameName'] ?? ''),
+      'highGround' => $hg, 'roomId' => $roomId !== '' ? $roomId : null]);
+    exit;
+  }
   $answer(false, 'Unknown action.');
 }
 

@@ -67,3 +67,21 @@ P1OnlyActions: true
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:POWER:5
 P1GROUNDARENAUNIT:0:HP:5
+
+---
+
+# NoOtherUnit_StillUsable_Exhausts
+#// CR 6.4.587.c (owner go 2026-11-04 — "do as much as you can"; an Action like this is a legitimate soft pass): the
+#// cost changes game state, so the Action is usable with nothing to target — the cost is paid and the effect does nothing.
+#// The T-6 is the only unit in play, so "another unit" has no referent. RED before 2026-11-04 (gate required one).
+## GIVEN
+CommonSetup: ggk/ggk
+P1OnlyActions: true
+WithP1SpaceArena: ASH_109:1:0
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+## EXPECT
+P1SPACEARENAUNIT:0:EXHAUSTED
+P1SPACEARENAUNIT:0:POWER:2
+P2BASEDMG:0
+P1NODECISION

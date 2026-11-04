@@ -5436,7 +5436,23 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ── Match-aware end-game menu ─────────────────────────────────────────────
     // The root SharedUI/MainMenu.php pointer renders whatever Sites/<ActiveSite>/ is set (SWUSim here);
     // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
-    function SWUGoMainMenu() { SWUAnnounceLeave(); window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
+    // ── One click, one action (owner, 2026-11-04) ──
+    // A button that LEAVES the page fires once: a second click while the page is going does nothing (it used to post a
+    // second leave / a second "returned to the lobby" line, or start a second navigation that aborts the first). A button
+    // behind a confirm opens ONE dialog; Cancel re-arms it. Request buttons (Rematch, Quick Rematch, Request again) and
+    // toggles (Bo1/Bo3) are deliberately not guarded — pressing them again is meaningful.
+    function SWULeavePage() { if (window._swuLeavingPage) return false; window._swuLeavingPage = true; return true; }
+    var _swuConfirmOnce = {};
+    function SWUConfirmOnce(key, message, onConfirm, opts) {
+        if (_swuConfirmOnce[key] || window._swuLeavingPage) return;
+        _swuConfirmOnce[key] = 'asking';
+        StyledConfirm(message, opts || {}).then(function (ok) {
+            if (!ok) { delete _swuConfirmOnce[key]; return; }
+            _swuConfirmOnce[key] = 'done';
+            onConfirm();
+        });
+    }
+    function SWUGoMainMenu() { if (!SWULeavePage()) return; SWUAnnounceLeave(); window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
     // Tell the table this seat left, so whoever is still on the end-game screen knows whether chatting is
     // still worth it (owner request 2026-10-10). A BEACON, because the page is navigating away in the same
     // tick and an ordinary request would be cancelled. The server composes the text and dedupes per seat.
@@ -5583,6 +5599,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     window.SWUBuildBlockPlayerWidget = SWUBuildBlockPlayerWidget;
     function SWUGoSideboard(info) {
+        if (!SWULeavePage()) return;
         var pid = document.getElementById('playerID').value;
         var ak = document.getElementById('authKey').value;
         if (!info || !info.matchId) { window.location.reload(); return; }
@@ -5752,7 +5769,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (info.origin === 'room') {
             b.push({ id: 'swu-end-lobby', label: 'Return to Lobby', onClick: function (ev) {
                 var btn = ev && ev.currentTarget; if (btn) btn.disabled = true;
-                SWUEndScreenPost('lobby').then(function (j) { if (btn) btn.disabled = false; SWUEndHandle(j, info); })
+                // Stays disabled when it leads into the room: re-enabled only if the return did not happen.
+                SWUEndScreenPost('lobby').then(function (j) { if (btn && !(j && j.go)) btn.disabled = false; SWUEndHandle(j, info); })
                     .catch(function () { if (btn) btn.disabled = false; SWUEndStatus('Could not reach the server — try again.'); });
             } });
         } else if (info.origin === 'public' && info.requeue) {
@@ -5931,6 +5949,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
     }
     function SWUGoHighGroundRoom(info) {
+        if (!SWULeavePage()) return;   // the button and the auto-return timer both lead here
         window.location.replace('SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(info.roomId));
     }
     function SWUHighGroundAutoReturn(info) {
@@ -6034,9 +6053,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return b;
         }
         if (bestOf === 3 && !seriesOver) {
-            b.push({label:'Return to Main Menu', onClick:function(){ SWUConfirm('Leave now? This forfeits the best-of-3.', function(){ SubmitInput('10007',''); SWUGoMainMenu(); }, { confirmLabel: 'Leave', danger: true }); }});
+            b.push({label:'Return to Main Menu', onClick:function(){ SWUConfirmOnce('leave', 'Leave now? This forfeits the best-of-3.', function(){ SubmitInput('10007',''); SWUGoMainMenu(); }, { confirmLabel: 'Leave', danger: true }); }});
             b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
-            b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
+            // The same dialog as Core's confirmConcedeMatch, opened once (that one opens a new dialog per click).
+            b.push({label:'Forfeit Best of 3', onClick:function(){
+                var pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
+                if (pid !== 1 && pid !== 2) return;
+                SWUConfirmOnce('forfeit', 'Concede the whole match? This forfeits the entire series.', function(){ SubmitInput('10007', ''); },
+                               { title: 'Concede match', danger: true, confirmLabel: 'Concede' });
+            }});
         } else if (seriesOver && info.origin) {
             // A finished 1v1 match (persistent lobby, docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md):
             // Return to Lobby (a room's match) or Requeue (a public match); Rematch / Quick Rematch / Convert are requests
@@ -6106,6 +6131,20 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         });
         return 'Winner(s): ' + names.join(', ');
     }
+    // A match menu that must be redrawn and whose data did not come back: retry shortly rather than draw the no-match
+    // overlay — for up to 30s from the first failure, ONE retry pending at a time (the board's own poll asks too, about
+    // every second, so a count of attempts ran out in a few seconds). Returns whether the caller should stand down.
+    function SWURetryMatchMenu() {
+        if (!window._swuEndMenuWasMatch) return false;
+        var now = Date.now();
+        if (!window._swuEndMenuFailedAt) window._swuEndMenuFailedAt = now;
+        if (now - window._swuEndMenuFailedAt > 30000) return false;   // give up: show what the board knows
+        if (!window._swuEndMenuRetryPending) {
+            window._swuEndMenuRetryPending = true;
+            setTimeout(function () { window._swuEndMenuRetryPending = false; SWUShowEndGameMenu(); }, 1500);
+        }
+        return true;
+    }
     function SWUShowEndGameMenu() {
         if (document.getElementById('game-over-overlay')) return;
         var gn = document.getElementById('gameName').value;
@@ -6113,6 +6152,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var ak = document.getElementById('authKey').value;
         fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
             .then(function(r){ return r.json(); }).then(function(info){
+                // This board already drew a MATCH menu, so "no match" now is a read that failed, not a fact: a redraw (a
+                // forfeit between games) must not fall back to the plain overlay and its lone Return to Menu. Ask again.
+                if ((!info || !info.isMatch) && SWURetryMatchMenu()) return;
                 // Non-match game (schema-test harness / goldfish): no match layer behind it, so
                 // EndGameInfo returns {isMatch:false} with no didWin. Show the plain overlay using the
                 // locally-known winner — not a match menu whose buttons (Rematch / Next Game) don't apply.
@@ -6133,6 +6175,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // Prefer the match record's winner set; fall back to the gamestate's if this record
                 // predates it. Naming the winners matters most in Twin Suns, where three of the four
                 // seats see "You Lost" and nothing else would say who took it.
+                window._swuEndMenuWasMatch = true; window._swuEndMenuFailedAt = 0;
                 var winners = (info.winners && info.winners.length) ? info.winners : SWULocalGameWinners();
                 // A draw is knowable from the board alone (GAMEOVER_WINNER -1): the match record can lag the gamestate by
                 // one request, and without this both players would read "You Lost" in that gap.
@@ -6224,6 +6267,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // any game advance, and are never shown a Rematch room.
                 if (info.tableRematch && info.seriesOver && !info.isSpectator) { SWUUpdateTableRematch(info); SWUStartEndGamePoll(gn, pid, ak); }
             }).catch(function(){
+                if (SWURetryMatchMenu()) return;   // a match menu being redrawn: ask again, don't downgrade it
                 var ws = SWULocalGameWinners();
                 ShowGameOver(SWULocalGameWinner() === -1 ? 'draw' : ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
                              null, SWUWinnersLine(ws, null, 2));

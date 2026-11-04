@@ -5,8 +5,11 @@
 //   · Cancel goes back to editing: not ready, nothing submitted, the swap still on screen — and seat 2 sees it;
 //   · Ready with the swap unsubmitted asks first, then shows the deck that is actually played (last game's);
 //   · seat 2's Ready starts game 2 and both screens go to its board;
-//   · the action row fits: no horizontal overflow, every button inside the viewport.
-// The match comes from SWUSim/DevTools/tests/draw_endscreen_fixture.php?queue=bo3&scenario=p2won.
+//   · the action row fits: no horizontal overflow, every button inside the viewport;
+//   · Return to Main Menu / Return to Lobby ask first (it forfeits the Bo3): Cancel stays, confirm forfeits and leaves —
+//     to the main menu, or (a match from a lobby room) back into that room — and the opponent lands on "won by forfeit".
+// The match comes from SWUSim/DevTools/tests/draw_endscreen_fixture.php?queue=bo3&scenario=p2won (public), and the room one
+// from persistent_lobby_fixture.php?origin=room&queue=bo3&finish=1&sideboard=1.
 //
 // Usage: node swusim-sideboard-two-step-xbrowser.mjs [BASE] [SHOTS_DIR] [engines]
 import { chromium, firefox, webkit } from 'playwright';
@@ -25,6 +28,11 @@ const expect = (where, cond, msg, detail) => cond ? ok(where, msg) : bad(where, 
 async function fixture(request) {
   const j = await (await request.get(`${BASE}SWUSim/DevTools/tests/draw_endscreen_fixture.php?queue=bo3&scenario=p2won`)).json();
   if (!j.matchId || j.match !== 'sideboarding') throw new Error('fixture failed: ' + JSON.stringify(j));
+  return j;
+}
+async function roomFixture(request) {
+  const j = await (await request.get(`${BASE}SWUSim/DevTools/tests/persistent_lobby_fixture.php?origin=room&queue=bo3&finish=1&sideboard=1`)).json();
+  if (!j.matchId || !j.lobbyID) throw new Error('room fixture failed: ' + JSON.stringify(j));
   return j;
 }
 async function screen(browser, size, fx, seat) {
@@ -95,8 +103,9 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       r = await until(p2, (v) => /still sideboarding/.test(v.opp));
       expect(where, r.ok, 'and seat 2 sees the opponent sideboarding again', r.v);
 
-      await p1.locator('#ready').click();
-      await p1.waitForSelector('.sd-modal .sd-ok', { timeout: 10000 });
+      await p1.evaluate(() => { const b = document.getElementById('ready'); b.click(); b.click(); });   // a double click
+      await p1.waitForSelector('.sd-modal .sd-ok', { timeout: 10000 }); await p1.waitForTimeout(400);
+      expect(where, (await p1.locator('.sd-modal').count()) === 1, 'a double click on Ready (changes not submitted) opens one dialog', await p1.locator('.sd-modal').count());
       const asked = await p1.locator('.sd-modal .sd-message').textContent();
       expect(where, /the deck from last game/.test(asked || ''), 'Ready with unsubmitted changes asks first', asked);
       await p1.locator('.sd-modal .sd-ok').click();
@@ -110,6 +119,53 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       expect(where, g1 && g1 === g2 && g1 !== fx.gameName, `seat 2's Ready starts game 2 and both screens go to its board (${g1})`, { g1, g2 });
       await s1.ctx.close(); await s2.ctx.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
+
+    // ── Leaving mid-series: Return to Main Menu (a public match) ──
+    const lw = `${ename} ${size.name} leave`;
+    try {
+      const fx = await fixture(api.request);
+      const s1 = await screen(browser, size, fx, '1'), s2 = await screen(browser, size, fx, '2');
+      const p1 = s1.page, p2 = s2.page;
+      const btns = await p1.evaluate(() => ({ lobby: !!document.getElementById('leaveLobby'), menu: !!document.getElementById('leaveMenu'),
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+        outside: [...document.querySelectorAll('.sb-actions button')].filter((b) => b.offsetParent !== null).map((b) => b.getBoundingClientRect()).filter((r) => r.left < 0 || r.right > window.innerWidth).length }));
+      expect(lw, btns.menu && !btns.lobby, 'a public match offers Return to Main Menu, and no Return to Lobby', btns);
+      expect(lw, btns.overflow <= 0 && btns.outside === 0, 'the row still fits', btns);
+      await p1.evaluate(() => { const b = document.getElementById('leaveMenu'); b.click(); b.click(); });   // a double click
+      await p1.waitForSelector('.sd-modal .sd-ok', { timeout: 10000 }); await p1.waitForTimeout(400);
+      const dialogs = await p1.locator('.sd-modal').count();
+      expect(lw, dialogs === 1, 'a double click on Return to Main Menu opens one dialog', dialogs);
+      const msg = await p1.locator('.sd-modal .sd-message').textContent();
+      expect(lw, /forfeits the best-of-3/.test(msg || ''), 'it asks first: leaving forfeits the Bo3', msg);
+      await p1.locator('.sd-modal .sd-cancel').click();
+      await p1.waitForTimeout(3000);
+      const still = await until(p2, (v) => /still sideboarding/.test(v.opp), 5000);
+      expect(lw, /Sideboard\.php/.test(p1.url()) && /Sideboard\.php/.test(p2.url()) && still.ok, 'Cancel in the dialog keeps the match going', { p1: p1.url(), p2: p2.url() });
+      await p1.locator('#leaveMenu').click();
+      await p1.locator('.sd-modal .sd-ok').click();
+      await p1.waitForURL(/SharedUI\/MainMenu\.php/, { timeout: 30000, waitUntil: 'commit' }).catch(async () => { throw new Error('seat 1 never reached the main menu: ' + p1.url() + ' status=' + (await p1.locator('#status').textContent().catch(() => '?'))); });
+      ok(lw, 'confirming forfeits and goes to the main menu');
+      await p2.waitForURL(/NextTurn\.php\?gameName=/, { timeout: 30000, waitUntil: 'commit' }).catch(() => { throw new Error('seat 2 never left the sideboard screen: ' + p2.url()); });
+      await p2.waitForSelector('#game-over-overlay #game-over-title', { timeout: 90000 });
+      const won = await p2.waitForFunction(() => { const o = document.getElementById('game-over-overlay');
+        return o && o.classList.contains('won') && /forfeited the match/.test((document.getElementById('game-over-subtitle') || {}).textContent || ''); }, null, { timeout: 20000 }).then(() => true, () => false);
+      expect(lw, won, 'the opponent is taken to the end screen: won, by forfeit', p2.url());
+      await s1.ctx.close(); await s2.ctx.close();
+    } catch (e) { bad(lw, e.message.split('\n')[0]); }
+
+    // ── Leaving mid-series: Return to Lobby (a match from a lobby room) ──
+    const rw = `${ename} ${size.name} lobby`;
+    try {
+      const fx = await roomFixture(api.request);
+      const s1 = await screen(browser, size, fx, '1');
+      const p1 = s1.page;
+      await p1.locator('#leaveLobby').click();
+      await p1.locator('.sd-modal .sd-ok').click();
+      await p1.waitForURL(new RegExp('SharedUI/WaitingRoom\\.php\\?lobby=' + fx.lobbyID), { timeout: 30000, waitUntil: 'commit' });
+      const key = await p1.evaluate((id) => { try { return JSON.parse(localStorage.getItem('tcg:lobbyAuth:' + id) || '{}').authKey || ''; } catch (e) { return ''; } }, fx.lobbyID);
+      expect(rw, key === fx.keys['1'], 'Return to Lobby forfeits and goes back into the room, seat key handed over (not in the URL)', { key: !!key, url: p1.url() });
+      await s1.ctx.close();
+    } catch (e) { bad(rw, e.message.split('\n')[0]); }
     await api.close();
   }
   await browser.close();

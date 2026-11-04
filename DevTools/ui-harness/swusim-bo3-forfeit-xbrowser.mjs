@@ -64,6 +64,8 @@ async function waitFinished(page, won, timeout) {
 // The redrawn overlay fades in (headless Firefox runs that at a few frames a second): it must end fully visible.
 const shown = (page) => page.waitForFunction(() => { const o = document.getElementById('game-over-overlay');
   return !!o && getComputedStyle(o).opacity === '1' && getComputedStyle(o).visibility !== 'hidden'; }, null, { timeout: 15000 }).then(() => true, () => false);
+// Two clicks in the same instant — a fast double-tap on a slow page — on the button labelled `label`.
+const doubleClick = (page, label) => page.evaluate((l) => { const b = [...document.querySelectorAll('#game-over-overlay button')].find((x) => x.textContent.trim() === l); b.click(); b.click(); }, label);
 async function forfeit(page) {
   await page.locator('#game-over-overlay button', { hasText: 'Forfeit Best of 3' }).click();
   await page.locator('.sd-modal .sd-ok').click();
@@ -82,7 +84,14 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await p2.waitForSelector('#game-over-overlay button:has-text("Forfeit Best of 3")', { timeout: 30000 });
       const before = await menu(p1);
       before && before.buttons.includes('Go to Next Game') ? ok(where, 'between games, seat 1 is offered the next game') : bad(where, 'seat 1 before: ' + JSON.stringify(before));
+      // One click, one dialog: a double click opens ONE confirm, and Cancel re-arms the button.
+      await doubleClick(p2, 'Forfeit Best of 3');
+      await p2.waitForSelector('.sd-modal', { timeout: 10000 }); await p2.waitForTimeout(400);
+      const dialogs = await p2.locator('.sd-modal').count();
+      dialogs === 1 ? ok(where, 'a double click on Forfeit Best of 3 opens one dialog') : bad(where, `${dialogs} dialogs`);
+      for (let i = 0; i < dialogs; i++) await p2.locator('.sd-modal .sd-cancel').first().click();
       await forfeit(p2);
+      ok(where, 'after Cancel, Forfeit Best of 3 asks again');
       const r2 = await waitFinished(p2, false, 15000);
       r2.ms >= 0 ? ok(where, `seat 2's menu redraws as the forfeited match (${r2.ms}ms): ${r2.m.buttons.join(' | ')}`) : bad(where, 'seat 2 after forfeit: ' + JSON.stringify(r2.m));
       const r1 = await waitFinished(p1, true, 30000);
@@ -93,6 +102,37 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       }
       if (SHOTS) { await p1.screenshot({ path: `${SHOTS}/forfeit-${ename}-${size.name}-1.png` }); await p2.screenshot({ path: `${SHOTS}/forfeit-${ename}-${size.name}-2.png` }); }
       await c1.close(); await c2.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+    // ── The redraw's data request fails: the menu retries, never drops to the plain "Return to Menu" overlay ──
+    where = `${ename} ${size.name} retry`;
+    try {
+      const fx = await fixture(api.request);
+      const c2 = await context(browser, size, fx, '2');
+      const p2 = await board(c2, size, fx, '2');
+      await p2.waitForSelector('#game-over-overlay button:has-text("Forfeit Best of 3")', { timeout: 30000 });
+      let failUntil = 0;
+      await p2.route('**/SWUSim/EndGameInfo.php*', (route) => (!/poll=1/.test(route.request().url()) && Date.now() < failUntil)
+        ? route.fulfill({ status: 200, contentType: 'application/json', body: '{"isMatch":false}' }) : route.continue());
+      failUntil = Date.now() + 6000;   // the redraw lands in here: its first answers say "no match"
+      await forfeit(p2);
+      const r = await waitFinished(p2, false, 30000);
+      r.ms >= 0 ? ok(where, `a failed redraw is retried into the forfeited match (${r.ms}ms)`) : bad(where, 'seat 2: ' + JSON.stringify(r.m));
+      await c2.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+    // ── A double click on Go to Next Game starts ONE navigation ──
+    where = `${ename} ${size.name} nextgame`;
+    try {
+      const fx = await fixture(api.request);
+      const c1 = await context(browser, size, fx, '1');
+      const p1 = await board(c1, size, fx, '1');
+      await p1.waitForSelector('#game-over-overlay button:has-text("Go to Next Game")', { timeout: 30000 });
+      let navs = 0;
+      p1.on('request', (r) => { if (r.isNavigationRequest() && /Sideboard\.php/.test(r.url())) navs++; });
+      await doubleClick(p1, 'Go to Next Game');
+      await p1.waitForURL(/Sideboard\.php/, { timeout: 30000, waitUntil: 'commit' });
+      await p1.waitForTimeout(1500);
+      navs === 1 ? ok(where, 'a double click on Go to Next Game navigates once') : bad(where, `${navs} navigations`);
+      await c1.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
     // ── Seat 1 already waiting on the sideboard screen ──
     where = `${ename} ${size.name} sideboard`;

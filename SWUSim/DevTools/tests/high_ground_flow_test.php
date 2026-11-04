@@ -470,6 +470,19 @@ check(!empty($egi['seriesOver']) && intval($egi['concededBy'] ?? 0) === 2 && int
     'that board\'s end screen knows seat 2 forfeited and seat 1 won the match, though seat 1 lost the game: ' . json_encode(['c' => $egi['concededBy'] ?? null, 'w' => $egi['matchWinner'] ?? null]));
 poll($r, 'D');
 check(hg($r)['live'] === null && lineNames($r, 'hill') === $next[0] && str_ends_with(lineNames($r), $next[1]), 'the room: seat 1 holds the hill, seat 2 to the back');
+cleanupMatch($mid);
+
+// ── 23f. "Return to Lobby" from the sideboard screen: forfeits the Bo3, and the seat is told its room ────────────────
+echo "HG_SideboardLeaveForfeitsToRoom:\n";
+$next = array_map(fn($k) => $byKey[$k], HGNextPair(hg($r)));
+[$mid, $g] = startHill($r, $next);
+finishGame($mid, $g, 1);
+MatchBeginSideboarding('SWUSim', $mid, 2);
+$m = SWUReadMatch($mid);
+$lv = hit($B . 'SWUSim/SubmitSideboard.php', ['matchId' => $mid, 'playerID' => 1, 'authKey' => $m['players']['1']['authKey'], 'action' => 'forfeit']);
+check(!empty($lv['success']) && !empty($lv['highGround']) && ($lv['roomId'] ?? '') === $r['lobbyID'] && ($lv['gameName'] ?? '') === $g, 'the leaving seat is told its room: ' . json_encode($lv));
+poll($r, 'D');
+check(hg($r)['live'] === null && lineNames($r, 'hill') === $next[1] && str_ends_with(lineNames($r), $next[0]), 'the room: the one who stayed holds the hill, the leaver to the back');
 act($r, 'A', 'setBestOf', ['queueType' => 'bo1']);
 cleanupMatch($mid);
 foreach (array_keys($r['keys']) as $n) leave($r, $n);

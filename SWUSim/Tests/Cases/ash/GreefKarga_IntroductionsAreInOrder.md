@@ -33,3 +33,22 @@ WithInitiativeClaimed: true
 ## EXPECT
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:ASH_T01
+
+---
+
+# BaseNotAttacked_StillUsable_PaysAndCreatesNothing
+#// CR 6.4.587.c (owner go 2026-11-04 — "do as much as you can"; an Action like this is a legitimate soft pass): the
+#// cost changes game state, so the Action is usable with nothing to target — the cost is paid and the effect does nothing.
+#// "If your base was attacked this phase" is part of the RESOLUTION, not the cost. RED before 2026-11-04: the Action
+#// was gated on it, so Greef stayed READY and the resource unspent.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: ASH_119:1:0
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1RESAVAILABLE:1
+P1GROUNDARENACOUNT:1
+P1NODECISION

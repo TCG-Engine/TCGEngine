@@ -81,6 +81,17 @@ $st=sb($m,1,$k1,['action'=>'status']);
 $mm=SWUReadMatch($m);
 check('at the deadline a submitted-but-not-ready seat plays its submitted list', ($st['nextGameName'] ?? '')!=='' && has($mm['players']['1']['currentDeck'] ?? null,'sideboard','JTL_103'), json_encode(['st'=>$st,'sb'=>$mm['players']['1']['currentDeck']['sideboard'] ?? null]));
 
+// ── Leaving from the sideboard screen (Return to Lobby / Return to Main Menu) forfeits the Bo3 ──
+[$m,$k1,$k2]=newMatch();
+$g1=SWUReadMatch($m)['games'][0]['gameName'];
+check('a wrong key cannot forfeit someone else\'s match', empty(sb($m,1,'nope',['action'=>'forfeit'])['success']) && (SWUReadMatch($m)['state'] ?? '')==='sideboarding');
+$r=sb($m,1,$k1,['action'=>'forfeit']);
+$mm=SWUReadMatch($m);
+check('forfeit ends the match for the opponent', !empty($r['success']) && ($mm['state'] ?? '')==='complete' && intval($mm['winner'] ?? 0)===2 && intval($mm['concededBy'] ?? 0)===1, json_encode(['r'=>$r,'state'=>$mm['state'] ?? null,'w'=>$mm['winner'] ?? null]));
+check('and names the last game, with no room for a public match', ($r['gameName'] ?? '')===$g1 && array_key_exists('roomId',$r) && $r['roomId']===null && ($r['highGround'] ?? null)===false, json_encode($r));
+$st=sb($m,2,$k2,['action'=>'status']);
+check('the opponent\'s sideboard screen is sent to the end screen', !empty($st['matchOver']) && ($st['gameName'] ?? '')===$g1, json_encode($st));
+
 // Clean up: the matches and their games' folders (a reused game number would follow their pointers).
 foreach($MATCHES as $id){
   $x=SWUReadMatch($id);

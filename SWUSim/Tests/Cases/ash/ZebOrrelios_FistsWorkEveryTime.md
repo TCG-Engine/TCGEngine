@@ -408,15 +408,62 @@ P2BASEDMG:1
 
 ---
 
-# NGORTakeControlThenDefeat_RealUpgrade_ZebFires
-#// A unit P1 takes control of (JTL_043 No Glory, Only Results) carries its own upgrade into P1's control —
-#// taking control of a unit transfers control of its upgrades (CR). When P1 then defeats it, the now-friendly
-#// upgrade (SOR_120) is defeated → Zeb (ASH_161) deals 1 to a base. P1 NGORs the enemy SOR_046 (upgraded).
+# NGORTakeControlThenDefeat_RealUpgrade_StaysEnemy_ZebDoesNotFire
+#// CR 27.1.a: when a player takes control of a unit, "All upgrades attached to it remain attached and keep their
+#// original controllers." P1 takes control of P2's upgraded SOR_046 with JTL_043 No Glory, Only Results and defeats
+#// it; the printed upgrade SOR_120 is still P2's, so P1's Zeb (ASH_161, "a FRIENDLY upgrade") does NOT fire.
+#// (Was NGORTakeControlThenDefeat_RealUpgrade_ZebFires, which encoded the old transfer-every-non-pilot-upgrade
+#// reading — rewritten on the owner's go 2026-11-04, "follow the CR as closely as possible".)
 ## GIVEN
 CommonSetup: bbk/ryk/{myResources:12;handCardIds:JTL_043}
 WithP1GroundArena: ASH_161:1:0
 WithP2GroundArena: SOR_046:1:0
 WithP2GroundArenaUpgrade: 0:SOR_120
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P2BASEDMG:0
+P1BASEDMG:0
+P1NODECISION
+
+---
+
+# NGORTakeControlThenDefeat_RealUpgrade_OriginalControllersZebFires
+#// The positive half of CR 27.1.a: the SOR_120 on the stolen unit is still P2's upgrade, so when it is defeated it is
+#// P2's FRIENDLY upgrade — P2's own Zeb fires, and P2 chooses the base (P1's).
+## GIVEN
+CommonSetup: bbk/ryk/{myResources:12;handCardIds:JTL_043}
+WithP2GroundArena: ASH_161:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 1:SOR_120
+WithP1Deck: [SOR_063 SOR_063]
+WithP2Deck: [SOR_063 SOR_063]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-1
+- P2>Drain
+- P2>AnswerDecision:theirBase-0
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1BASEDMG:1
+P2BASEDMG:0
+
+---
+
+# NGORTakeControlThenDefeat_TokenUpgrade_BecomesMine_MyZebFires
+#// The TOKEN exception, CR 2.g: "A player owns and controls any token upgrades attached to units they control." So
+#// the Experience token on the stolen SOR_046 becomes P1's the moment P1 takes control, and its defeat fires P1's Zeb.
+#// Pair with ..._RealUpgrade_StaysEnemy_ZebDoesNotFire: same board, a printed upgrade instead of a token.
+## GIVEN
+CommonSetup: bbk/ryk/{myResources:12;handCardIds:JTL_043}
+WithP1GroundArena: ASH_161:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0

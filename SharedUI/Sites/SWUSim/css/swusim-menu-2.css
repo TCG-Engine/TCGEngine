@@ -5430,6 +5430,8 @@ body:has(.sb-row) .sb-actions [hidden] { display: none; }
 body:has(.sb-row) .sb-status { display: flex; flex-direction: column; gap: 2px; min-inline-size: 0; font-size: var(--t-13); }
 body:has(.sb-row) #oppStatus { color: var(--ink-3); }
 body.sb-is-ready:has(.sb-row) .section .card { cursor: not-allowed; opacity: 0.55; }
+/* Return to Lobby / Return to Main Menu (they forfeit the Bo3, behind a confirm): the far end of the row, away from Submit. */
+body:has(.sb-row) .sb-leave { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-inline-start: auto; }
 
 body:has(.sb-row) .sb-main h2 {
   margin: 0 0 var(--s-2);
@@ -5513,6 +5515,8 @@ body:has(.sb-row) .fixed .slot img {
 
 body:has(.sb-row) #status { font-size: var(--t-13); color: var(--ink-2); }
 
+/* Holding a finger on a card shows its preview (Sideboard.php): no iOS "Save image" callout or text selection over it. */
+body:has(.sb-row) :is(.grid .card, .fixed .slot) { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 /* the floating card preview, matching the deck grid's */
 body:has(.sb-row) #sbPreview {
   position: fixed;

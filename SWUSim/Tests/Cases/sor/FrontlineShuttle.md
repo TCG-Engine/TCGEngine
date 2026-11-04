@@ -35,11 +35,11 @@ P2BASEDMG:0
 
 ---
 
-# Action_NoEnemyUnit_NoOp
-#// SOR_110 Frontline Shuttle — because the granted attack "can't attack bases," the action
-#// has no legal effect when the enemy has no units to attack (only a base). It is then a full
-#// no-op: the Shuttle is NOT defeated (cost unpaid), the friendly unit is unchanged, and no
-#// decision is pending. Guards the availability gate (a base is never a valid target here).
+# Action_NoEnemyUnit_StillUsable_ShuttleDefeated
+#// SOR_110 Frontline Shuttle — the granted attack "can't attack bases," so with no enemy UNIT the effect does
+#// nothing. The [defeat this unit] cost still changes game state, so per CR 6.4.587.c (owner go 2026-11-04: "do as
+#// much as you can" — a legitimate soft pass) the Action stays usable: the Shuttle is defeated, nobody attacks, the
+#// base is untouched and no decision is pending. (Was Action_NoEnemyUnit_NoOp, which encoded the old target gate.)
 
 ## GIVEN
 CommonSetup: ggw/ggw
@@ -52,7 +52,8 @@ WithP1GroundArena: SOR_095:0:0    # Battlefield Marine (exhausted) — a would-b
 - P1>UseUnitAbility:mySpaceArena-0
 
 ## EXPECT
-P1SPACEARENACOUNT:1
+P1SPACEARENACOUNT:0
+P1DISCARDCOUNT:1
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2BASEDMG:0
@@ -172,7 +173,7 @@ P2BASEDMG:0
 ---
 
 # ThreeSeat_OnlyAFarSeatHasAUnit_ActionStillAvailable
-#// The Shuttle's attacker pool needs an enemy NON-BASE target — "it can't attack bases" — so the gate
+#// The Shuttle's attacker pool needs an enemy NON-BASE target — "it can't attack bases" — so the handler
 #// asks specifically whether an enemy UNIT exists. Seat 2's ground arena is empty and only SEAT 3 has a
 #// unit, but the action must still be available and the Marine must still attack.
 #//

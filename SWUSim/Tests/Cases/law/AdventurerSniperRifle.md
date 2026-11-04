@@ -279,3 +279,24 @@ PHASE:MAIN
 P1GROUNDARENAUNIT:0:READY
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:HP:7
+
+---
+
+# NoUndamagedTarget_StillUsable_HostExhausts
+#// CR 6.4.587.c (owner go 2026-11-04 — "do as much as you can"; an Action like this is a legitimate soft pass): the
+#// cost changes game state, so the Action is usable with nothing to target — the cost is paid and the effect does nothing.
+#// RED before 2026-11-04: an availability gate required an undamaged non-leader ground unit, so the host stayed READY.
+#// Every ground unit here is damaged (the host included — it is a legal target of its own Action when undamaged).
+## GIVEN
+CommonSetup: bbw/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:1
+WithP1GroundArenaUpgrade: 0:LAW_126
+WithP2GroundArena: SOR_046:1:2
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:HP:7
+P1GROUNDARENAUNIT:0:HP:3
+P1NODECISION

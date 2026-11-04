@@ -8839,28 +8839,23 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
     $newMzID = '';
     if ($newCard !== null) {
         $newCard->Subcards    = $subcards;
-        // Taking control of a unit transfers control of its (non-pilot) upgrades too, so "friendly upgrade
-        // defeated" (ASH_161 Zeb) fires for the NEW controller when the stolen unit is later defeated (e.g.
-        // JTL_043 take-control-then-defeat). EXCLUDE pilot subcards: a Pilot (often a leader) keeps its own
-        // controller — its defeat-replacement / return follows the player who played it, not the host's new
-        // controller (see the stolen-host pilot case). Captives keep their own owner/controller too.
+        // CR 27.1.a — "All upgrades attached to it remain attached and keep their ORIGINAL controllers." A real
+        // (printed) upgrade, Pilot or not, stays with the player who played it, so "friendly upgrade" logic
+        // (ASH_161 Zeb, ASH_012 Vane, IC27_029 Chimaera) keeps reading it as THEIRS on the stolen unit (owner go
+        // 2026-11-04: "follow the CR as closely as possible" — replaces the old transfer-all-but-pilots reading).
+        // ⚠ TOKEN upgrades are the exception, by CR 2.g: "A player owns and controls any token upgrades attached to
+        // units they control." That is a standing rule, not a one-off, so a Shield / Experience / Advantage riding a
+        // stolen unit changes controller AND owner (a token has no printed owner). Observable via SEC_046 Galen Erso
+        // naming "Shield": a shield stolen from Galen's own side becomes a card Galen's opponent owns and is blanked.
+        // Captives keep their own owner/controller.
         if (is_array($newCard->Subcards)) {
             foreach ($newCard->Subcards as $k => $sub) {
                 $isCap   = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
-                $isPilot = is_array($sub) ? !empty($sub['IsPilot'])   : !empty($sub->IsPilot);
-                if ($isCap || $isPilot) continue;
+                if ($isCap) continue;
                 $subCID = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
-                if (is_array($sub)) $newCard->Subcards[$k]['Controller'] = $newController;
-                else                $sub->Controller = $newController;
-                // CR 6 token ownership: a TOKEN has no printed owner — whoever controls it owns it. So a
-                // token upgrade riding a stolen unit changes OWNER too, not just controller. Real (printed)
-                // upgrades keep their owner, which is why only tokens are re-owned here. Observable via
-                // SEC_046 Galen Erso naming "Shield": a shield stolen from Galen's own side becomes a card
-                // Galen's opponent owns and is blanked from that moment on.
-                if (strpos(CardType($subCID) ?? '', 'Token') !== false) {
-                    if (is_array($sub)) $newCard->Subcards[$k]['Owner'] = $newController;
-                    else                $sub->Owner = $newController;
-                }
+                if (strpos(CardType($subCID) ?? '', 'Token') === false) continue;   // real upgrade: CR 27.1.a
+                if (is_array($sub)) { $newCard->Subcards[$k]['Controller'] = $newController; $newCard->Subcards[$k]['Owner'] = $newController; }
+                else                { $sub->Controller = $newController; $sub->Owner = $newController; }
             }
         }
         $newCard->TurnEffects = $turnEffects;
@@ -20772,25 +20767,17 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if (empty(_SWUHmw001EligibleAttackers($player))) $ok = false;
             break;
         }
-        case 'ASH_119': // Greef Karga: only useful if your base was attacked this phase.
-            if (GlobalEffectCount($player, 'SWU_BASE_ATTACKED') <= 0) $ok = false;
-            break;
+        // NOT gated on their EFFECT (CR 6.4.587.c, owner go 2026-11-04 — "do as much as you can"; an Action like these
+        // is a legitimate soft pass): every cost below changes game state — [Exhaust], [N resources], [defeat this unit]
+        // — so the Action stays usable with no target / unmet condition, pays, and does nothing. Each handler already
+        // closes the action on an empty pool. SOR_094 Bail Organa · LAW_126 Adventurer Sniper Rifle · ASH_119 Greef Karga
+        // (the base-attacked clause is resolution, not cost) · TWI_206 Independent Senator · ASH_109 T-6 Shuttle ·
+        // ASH_118 8D8 · SOR_184 Fett's Firespray · JTL_050 Phantom II · SOR_110 Frontline Shuttle.
         case 'TWI_082': { // MagnaGuard Wing Leader: once each round — PER COPY (not unique; NumUses on the unit).
             // Deliberately NOT gated on a ready Droid. Official ruling (03/27/2026): the Action "can be used
             // as an action even if you can't attack with a Droid unit, since making the ability no longer
             // usable changes the game state."
             if (!SWUHasUseAvailable($actor)) $ok = false;
-            break;
-        }
-        case 'TWI_206': { // Independent Senator: needs a ready unit with 4 or less power to exhaust.
-            $found = false;
-            foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                    $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1 && intval(ObjectCurrentPower($o)) <= 4) { $found = true; break 2; }
-                }
-            }
-            if (!$found) $ok = false;
             break;
         }
         // SHD_155 Heroic Resolve — NO readiness gate (USER RULING 2026-08-15). The costs (2 resources +
@@ -20807,18 +20794,6 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if (GlobalEffectCount($player, 'SWU_SHD017_USED') > 0) $ok = false;
             elseif (!_SWUShd017HasTarget($player)) $ok = false;
             break;
-        case 'ASH_109': // T-6 Shuttle: needs ANOTHER unit to buff.
-        case 'ASH_118': { // 8D8: needs ANOTHER friendly unit to damage.
-            $selfUid = SWUObjUID($actor, 0);
-            $zones = $providerCardID === 'ASH_109'
-                ? ['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena']
-                : ['teamGroundArena', 'teamSpaceArena'];   // ASH_118: "another FRIENDLY unit" spans the team,
-                                                            // matching the card's own SWUFriendlyUnits() pool
-            $found = false;
-            foreach ($zones as $z) { foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUid) { $found = true; break 2; } } }
-            if (!$found) $ok = false;
-            break;
-        }
         case 'LAW_084': // Krrsantan: needs 2+ cards in hand to pay the discard cost.
             if (count(array_filter(GetHand($player), fn($c) => empty($c->removed))) < 2) $ok = false;
             break;
@@ -20835,9 +20810,9 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         // LAW_003 Agent Kallus (deployed): "play a card ignoring aspect penalties" is the EFFECT target. The
         // cost is [1 resource, Exhaust] — both paid by SWUUnitAction before the handler runs (a game-state
         // change), so per CR 6.4.587.c the Action is usable even with no playable hand card. NOT gated here.
-        case 'ASH_002': { // Fennec Shand (deployed): needs 1 ready resource, a hand unit, and a ready friendly unit (the cost).
-            if (SWUTotalPaymentCapacity($player) < 1) { $ok = false; break; }
-            if (empty(ZoneSearch('myHand', ['Unit', 'Token Unit']))) { $ok = false; break; }
+        case 'ASH_002': { // Fennec Shand (deployed): the cost is [1 resource, exhaust a friendly unit] — the resource is
+            // checked above ($unitActionResourceCosts); only a READY unit can pay the exhaust. The hand unit is the EFFECT
+            // target → NOT gated (CR 6.4.587.c): usable with an empty hand, pays, plays nothing.
             $hasReady = false;
             foreach (['myGroundArena', 'mySpaceArena'] as $z) {
                 foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
@@ -20864,17 +20839,6 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             // a playable unit, so the cost is paid even when nothing is played.
             if (empty(ZoneSearch('myHand'))) $ok = false;
             break;
-        case 'LAW_126': { // Adventurer Sniper Rifle: needs an undamaged non-leader ground unit to target.
-            $has = false;
-            foreach (["teamGroundArena", "theirGroundArena"] as $z) {
-                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
-                    $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) === 0) { $has = true; break 2; }
-                }
-            }
-            if (!$has) $ok = false;
-            break;
-        }
         case 'LAW_094': // Hondo Ohnaka: deck non-empty, not used this round, top card actually playable.
             $topIdx094 = _SWUTopDeckFrontIdx($player);
             if ($topIdx094 === -1 || !SWUHasUseAvailable($actor)) { $ok = false; break; }   // once each round — per copy
@@ -20883,10 +20847,6 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             $deck094 = GetDeck($player);
             $topCid094 = $deck094[$topIdx094]->CardID ?? '';
             if ($topCid094 !== '' && SWUCardPlayBlocked($player, $topCid094)) $ok = false;
-            break;
-        case 'SOR_094': // Bail Organa: "Give Experience to ANOTHER friendly unit" — needs one.
-            $others = SWUOtherFriendlyUnits($player, $mzID);
-            if (empty($others)) $ok = false;
             break;
         // SOR_093 Alliance Dispatcher / TWI_120 Strategic Acumen / SOR_177 Bib Fortuna / IC27_057 Krennic — the playable
         // hand card is the EFFECT target, so they are NOT gated (CR 6.4.587.c, owner go 2026-11-03): the [Exhaust] cost
@@ -20901,28 +20861,6 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             break;
         case 'LOF_098': // Action [use the Force]: only while in the SPACE arena + you hold the Force.
             if (!PlayerHasTheForce($player) || strpos((string)$mzID, 'SpaceArena') === false) $ok = false;
-            break;
-        case 'JTL_050': { // Phantom II: "attach it as an upgrade to The Ghost" — needs ANY unit titled
-            // "The Ghost" in play, on EITHER player's side (JTL_053 Heart of the Family, SOR_050 Spectre
-            // Home Base, …). The card targets by title, not a specific CardID, and an opponent's Ghost is
-            // a legal host too (CR — an ability that says "The Ghost" refers to any card with that title).
-            $hasGhost = false;
-            foreach (GetLiveSeatsArray() as $pl) {
-                foreach (array_merge(GetGroundArena($pl) ?? [], GetSpaceArena($pl) ?? []) as $u) {
-                    if (empty($u->removed) && SWUObjectTitle($u) === 'The Ghost') { $hasGhost = true; break 2; }
-                }
-            }
-            if (!$hasGhost) $ok = false;
-            break;
-        }
-        case 'SOR_110': // Frontline Shuttle: defeat self, then ANOTHER friendly unit attacks
-            // a non-base target — needs ≥1 such attacker (excluding the Shuttle itself).
-            $self = GetZoneObject($mzID);
-            $selfUID = SWUObjUID($self);
-            if (empty(SWUUnitsWithNonBaseAttackTarget($player, $selfUID))) $ok = false;
-            break;
-        case 'SOR_184': // Fett's Firespray: "Exhaust a non-unique unit" — needs ≥1 in play.
-            if (empty(_SWUNonUniqueUnitTargets($player))) $ok = false;
             break;
         case 'JTL_013': // Poe Dameron hop: once-per-round (activation condition → keep). The empty-Vehicle to
             // hop to is the effect target → NOT gated (CR 6.4.587.c): the [1 resource] cost is a game-state

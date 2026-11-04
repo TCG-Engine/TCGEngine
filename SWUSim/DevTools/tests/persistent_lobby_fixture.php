@@ -7,6 +7,8 @@
 //   &queue=bo3      a Best of 3 (default Best of 1)
 //   &finish=1       also record game 1 as won by seat 1 on the MATCH (no gamestate game-over — for room-page checks);
 //                   leave it off and concede in the browser (input 10006) for a real end screen.
+//   &sideboard=1    with queue=bo3 and finish=1: the series goes on to sideboarding (seat 2 lost game 1) — the
+//                   sideboard-screen browser checks (swusim-sideboard-two-step-xbrowser.mjs)
 // Moderators only, like SWUSim/TestSchemaSetup.php. Prints {lobbyID, inviteCode, gameName, matchId, keys:{1,2}}.
 header('Content-Type: application/json');
 chdir(__DIR__ . '/../../..');
@@ -39,6 +41,7 @@ if (function_exists('RegisterActiveGame')) RegisterActiveGame('SWUSim', $game, $
 LobbyCommitGameCreation($lobby->id, $lobby, 'started');
 if ($origin === 'room') SWURoomOnMatchStarted($lobby->id, strval($matchId));
 if (!empty($_GET['finish'])) MatchRecordGameResult('SWUSim', $matchId, $game, 1, 5, [1]);
+if (!empty($_GET['finish']) && !empty($_GET['sideboard'])) MatchBeginSideboarding('SWUSim', strval($matchId), 2);
 
 echo json_encode(['lobbyID' => $lobby->id, 'inviteCode' => $lobby->inviteCode, 'gameName' => $game, 'matchId' => strval($matchId),
                   'keys' => ['1' => $a->getAuthKey(), '2' => $b->getAuthKey()]]);
