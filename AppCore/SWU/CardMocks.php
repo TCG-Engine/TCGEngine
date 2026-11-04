@@ -1246,6 +1246,34 @@ Restore 2 (When this unit attacks, heal 2 damage from your base.)',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/075.png',
     'imageUrlBack' => '',
   ),
+  'IC27_077' => 
+  array (
+    'title' => 'Mon Mothma',
+    'subtitle' => 'Truth Is An Abyss',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 4,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Official',
+    ),
+    'text' => 'When Played: You may attack with another unit, even if it\'s exhausted. For this attack, it gains Overwhelm and can\'t attack bases.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/077.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_078' => 
   array (
     'title' => 'Anakin Skywalker',
@@ -1304,6 +1332,66 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/079.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_081' => 
+  array (
+    'title' => 'Mace Windu',
+    'subtitle' => 'Dropping By',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'Ambush
+On Attack: Give an Experience token to this unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/081.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_084' => 
+  array (
+    'title' => 'Negotiator',
+    'subtitle' => 'Prepare the Troops',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 9,
+    'power' => 9,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Republic',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+On Attack/When Defeated: Resource the top card of your deck. Then, you may return a friendly resource to its owner\'s hand.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/084.png',
     'imageUrlBack' => '',
   ),
   'IC27_086' => 

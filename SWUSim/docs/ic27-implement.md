@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084
 
 ## Foundations already built — do not re-do
 
@@ -668,7 +668,31 @@ host's controller, like `DoGiveTokenUpgrade` (3 `EnemyGiven*OnMyUnit_IsFriendly`
 resourcing — owner-approved ("it is mandatory").
 TWI_135 Maul's two-defender path applies neither Jabba's +4 nor Enfys's rider — parked by the owner until reported.
 
+## Phase 18 — Twelfth preview wave, 2026-11-04 (79 → 83 CardIDs; IC27_004 alone, then ONE batch of three)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff (mechanical `comm -23`). IC27_004 Mace Windu (leader) was done
+first on its own; the batch was IC27_081 → IC27_077 → IC27_084, simplest first.
+**Spelling pass:** one fix — IC27_077 Mon Mothma's mock listed `Command` only; the card shows Command + Heroism (added).
+The other two match their images exactly.
+
+- [x] **IC27_004 Mace Windu – Here With Backup** (leader) — front: `$leaderActionResourceCosts` 1, pool `_SWUUnitCanAttackNow`,
+  attack-duration `RESTORE 2` grant; deployed: printed Restore 2 + When Deployed `SWUResourceTopOfDeck`. 12 sections.
+  Not covered: a unit with its own Restore gaining 2 more (Restore stacking is unruled).
+- [x] **IC27_081 Mace Windu – Dropping By** — LAW_037's On Attack verbatim (`DoGiveExperienceToken`); Ambush printed.
+  6 sections (the token counts for the attack that gives it: 5 → 6).
+- [x] **IC27_077 Mon Mothma – Truth Is An Abyss** — the LAW_065 shape + attack-duration `OVERWHELM`; pool composed from
+  `_SWUUnitHardCantAttack` + Oggdo + no-base targets, "another" by UniqueID; empty pool = no prompt. 9 sections.
+  Preview assumption, from a RELEASED sibling: SEC_103's ruling — Overwhelm still spills to the base.
+- [x] **IC27_084 Negotiator – Prepare the Troops** — one resolver on On Attack + When Defeated; "Then" unconditional;
+  `SWUFriendlyResourceMzIDs` (team-wide, Credits excluded) → owner's hand. 11 sections incl. Team Suns + Twin Suns control.
+
+Suite 14272 → **14298/0** (+26 for the batch; +12 earlier for IC27_004). Zero deferrals.
+
 ## Status
+
+**IC27: 83 / 83 mocked CardIDs implemented** (2026-11-04, twelfth wave; suite → 14298/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **79 / 79** (eleventh wave).
 
 **IC27: 79 / 79 mocked CardIDs implemented** (2026-11-03, eleventh wave — one batch; suite 14138 → 14223, 3 known reds
 unchanged; re-derived at the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty).

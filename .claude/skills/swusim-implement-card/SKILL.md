@@ -1351,6 +1351,23 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 twelfth wave 2026-11-04 — "even if exhausted" attacker pools, a sibling's ruling, two-window cards
+- **An "attack with a unit, even if it's exhausted" pool has NO shared predicate — compose it, and test each piece.**
+  `_SWUUnitCanAttackNow` requires READY; LAW_065 4-LOM checks only that a target exists, so it still offers a Loth-Wolf.
+  The full pool (IC27_077 Mon Mothma): `!_SWUUnitHardCantAttack($o)` + the LOF_063 Oggdo Bogdo "only while damaged"
+  line (copied from `_SWUUnitCanAttackNow`) + `SWUGetAllValidAttackTargets($p, $o, $arena, $noBases)` non-empty, and
+  "another" excluded by UniqueID — the source usually entered EXHAUSTED, so "even if it's exhausted" makes it eligible
+  otherwise. Each exclusion gets its own offer section (one per mutation), and the empty pool raises NO prompt (the
+  4-LOM "BeginSWUAttack readies before looking for a target" trap).
+- **A preview card's open question is often answered by a RELEASED sibling's ruling** — search the rulings file for
+  cards sharing the mechanic SENTENCE, not just the name: SEC_103 Mon Mothma's "units that can't attack bases can still
+  damage bases through … Overwhelm" settled IC27_077's Overwhelm + can't-attack-bases.
+- **"On Attack/When Defeated: X. Then, you may Y"** (IC27_084 Negotiator) = ONE resolver called from both registries
+  (`$onAttackAbilities` + `$whenDefeatedAbilities`, CardID:0). Prove both windows on one board: a pre-damaged attacker
+  trades, so the On Attack offer resolves first, then the When Defeated one — answer them in that order. "Then" is NOT
+  "If you do": the second clause runs on an empty deck too (mutating it into an `=== null` gate reds the empty-deck
+  section, and also every section whose deck is unseeded — seed decks deliberately).
+
 ### ★ IC27 eleventh wave 2026-11-03 — "resource a card" has 13 producers, aura recursion, batched mutations
 - **★★ "When you resource a card" = EVERY route into a resource zone.** Rulings errata 07/20/2026 renamed "put into play
   as a resource" to "resource", so a ramp IS resourcing. There is no funnel — `SWULogResourced` writes ONE line per

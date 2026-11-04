@@ -96,7 +96,11 @@ the start of the run.
    `AppCore/SWU/CardMocks.php` are hand-typed, and a typo there is a RULES bug, not cosmetics: a trailing space in a
    title breaks name matching (`'Red Leader '`), a stray article changes a clause (IC27_035 "dealt to **an** dealt by").
    For every NEW mock: download its `imageUrl` (and `imageUrlBack` for a leader) to the scratchpad, Read the image, and
-   compare title, subtitle, stats, aspects, traits, `text`, `epicAction` and `deployText` word for word. Fix confirmed
+   compare title, subtitle, stats, aspects, traits, `text`, `epicAction` and `deployText` word for word. ⚠ **Count the
+   aspect ICONS on the image** (the pips under the cost) — a missing aspect is invisible to a text compare: IC27_077 Mon
+   Mothma's mock said Command only while the card shows Command + Heroism, which costs +2 under a Heroism leader/base.
+   Also check `git diff --stat AppCore/SWU/CardMocks.php` before AND after your fix — the owner adds mocks without
+   committing, so a big diff is usually their new wave, not your edit. Fix confirmed
    typos in `CardMocks.php`, then re-run the three preview regens (SWUSim + SWUDeck dictionaries from cache,
    `Data/ProcessKeywordsSWU.php`) so the engine reads the corrected text. Odd-but-printed wording (a joke subtitle,
    "Obi-Wannnn!!!") stays as printed. Note each fix — and each "looks wrong but matches the image" — in the plan's
