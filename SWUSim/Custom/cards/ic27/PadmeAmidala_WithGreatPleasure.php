@@ -28,5 +28,5 @@ function _SWUIc27083Bonus($obj): int {
             $n++;
         }
     }
-    return 2 * $n;
+    return 3 * $n;
 }

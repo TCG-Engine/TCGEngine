@@ -35,21 +35,23 @@ P1NODECISION
 ---
 
 # Offer_OnlyTheTopTen
-#// Eleven cards: the top ten are SOR_046, the eleventh is SOR_095. Only the top ten are searched.
+#// Eleven cards: nine SOR_046, then SOR_095 TENTH and SOR_128 ELEVENTH. Exactly the top ten are searched: the tenth
+#// card is offered (a narrower search would miss it) and the eleventh is not (a wider one would reach it).
 
 ## GIVEN
 CommonSetup: yyw/rrk/{myResources:3}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: IC27_155
-WithP1Deck: [SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_095]
+WithP1Deck: [SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046 SOR_095 SOR_128]
 
 ## WHEN
 - P1>PlayHand:0
 
 ## EXPECT
 P1SEARCHPLAYABLEHAS:SOR_046
-P1SEARCHPLAYABLENOT:SOR_095
+P1SEARCHPLAYABLEHAS:SOR_095
+P1SEARCHPLAYABLENOT:SOR_128
 
 ---
 

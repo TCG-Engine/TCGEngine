@@ -1351,6 +1351,29 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 fifteenth wave 2026-11-05 — enemy triggers that never resolve, the Piloting cost path, slash abilities
+- **★★ An ENEMY unit's When Defeated does not resolve inside the acting player's section.** It is bagged on its CONTROLLER's
+  queue as a pending CUSTOM and waits there, so P1 defeating P2's TWI_032 shows NO Battle Droid even with no suppressor in
+  play. A "this When Defeated must NOT fire" section written that way passes VACUOUSLY (5 Razor Crest sections did, pre-impl).
+  Write it with the dying unit's controller ACTING (`P2OnlyActions`, P2 attacks with it), assert `P2NODECISION`, and keep a
+  paired positive control that proves the fixture fires without the suppressor. (IC27_172 Razor Crest.)
+- **★ The PILOTING path prices itself.** `SWUComputePilotCost` never runs `$playCostFieldModifiers`, so every "cards cost N
+  more/less" aura silently skips a Pilot played as an upgrade (a card being played). Add the aura there explicitly and test the
+  Pilot play with a resource count an UNTAXED Piloting play could afford. Open sibling: SHD_202 Qi'ra. (IC27_043 Raddus.)
+- **A "cannot afford" negative whose play raises a prompt passes vacuously.** `PlayHand` on a Pilot leaves the Unit/Pilot
+  OPTIONCHOOSE pending, so "card still in hand" holds whether or not the play was affordable. Add `P{n}NODECISION`.
+- **A search-window section needs a card AT the edge.** "Top 10" with the only distinct card at position 11 passes a top-3
+  search too. Put one distinct card at position N (HAS) and one at N+1 (NOT). (IC27_155 Han, mutation H3.)
+- **CR: a "When Played/When Defeated" ability is BOTH abilities.** Anything that removes "When Defeated" abilities removes the
+  When Played half too — gate `CollectEntryTriggers`, not just the defeat collector. All 27 slash cards are units.
+- **Seeded discard entries are `From='PLAY'`, `Turn=0`.** A seeded copy cannot stand in for "arrived another way"; for
+  "defeated this phase" provenance compare `Turn` with the round (`SWUAddToDiscard` stamps it) and test a real HAND discard
+  (SOR_091 Legion → SOR_167 Force Throw). A Pilot defeated AS AN UPGRADE stamps no `SWU_DEFEATED_CARD_`. (IC27_042 Obi-Wan.)
+- **`WithP{n}GroundArenaControlled` units are placed AFTER the seat's own units** — index them last.
+- **"Entered play this phase" over the whole table needs `SWUUnitEnteredPlayThisPhaseAnySeat`.** The flag sits on the seat
+  that controlled the unit AS IT ENTERED; the controller-scoped helper loses a unit that changed sides. Sibling left alone:
+  TWI_052 Hello There.
+
 ### ★ IC27 fourteenth wave 2026-11-05 — "put X in its owner's deck. Its owner draws N"
 - **The ORDER boundary is an owner deck of ONE card.** Put-then-draw draws the moved unit back with no deck-out; draw-then-put
   deals 3 and leaves the unit in the deck. A 2+ card deck ends identically under both orders. Pair it with the EMPTY-deck
