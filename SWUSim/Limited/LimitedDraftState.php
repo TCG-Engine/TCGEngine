@@ -15,20 +15,23 @@
 //   leaders / picks   [pid => card ids]      autoPicks   [pid => timeout auto-picks]
 //   timeoutRun   [pid => timeout auto-picks since that seat last picked for itself] — the kick rule reads this
 //   pickCounter  every pick so far (seeds the auto-pick RNG)        aspects   [cardId => aspect[]]
+//   splash       true when a splash base (a LAW common base) is in play — a bot then drafts one-aspect-off splashes
+//   facts        [cardId => [t: type, c: cost, v: value in resources, r: rarity]] — what a BOT seat drafts by (Plan 5),
+//                stored at open so its pick stays pure (SWULimitedOpenDraft prices each card once)
 require_once __DIR__ . '/LimitedRoomState.php';
 
 const LT_PICK_SECONDS    = 300;   // owner: at most 5 minutes a pick
 const LT_ASPECT_ORDER    = ['Vigilance', 'Command', 'Aggression', 'Cunning', 'Heroism', 'Villainy'];
 
 // $leaderPacks[pid] = the N leaders of that seat's own packs; $cardPacks[pid] = its N card packs (no leader/base slot).
-function LTDraftBegin(array $lt, array $order, array $leaderPacks, array $cardPacks, array $aspects, int $seed, int $pickSeconds, int $now): ?array {
+function LTDraftBegin(array $lt, array $order, array $leaderPacks, array $cardPacks, array $aspects, int $seed, int $pickSeconds, int $now, array $facts = []): ?array {
     $live = LTLiveSeats($lt);
     $sorted = $order; sort($sorted);
     if ($lt['phase'] !== 'setup' || $lt['mode'] !== 'draft' || $lt['settingsErrors'] !== [] || $sorted !== $live
         || count($order) < LT_DRAFT_MIN_SEATS || count($order) > LT_DRAFT_MAX_SEATS) return null;
     $d = ['stage' => 'leaders', 'round' => 0, 'rounds' => count($cardPacks[$order[0]] ?? []), 'order' => array_values($order),
           'unopened' => [], 'queues' => [], 'frontSince' => [], 'leaders' => [], 'picks' => [], 'autoPicks' => [], 'timeoutRun' => [],
-          'pickCounter' => 0, 'nextPackId' => 0, 'aspects' => $aspects, 'pickSeconds' => $pickSeconds];
+          'pickCounter' => 0, 'nextPackId' => 0, 'aspects' => $aspects, 'pickSeconds' => $pickSeconds, 'facts' => $facts];
     foreach ($order as $p) {
         $d['unopened'][$p] = array_values(array_map('array_values', $cardPacks[$p] ?? []));
         // A seat whose packs opened no leader (an Icons pack is a leader only 1 time in 4) has no leader pack at all.
@@ -155,9 +158,12 @@ function LTDraftTick(array $lt, array $lastSeen, int $now): array {
             $front = LTDraftFront($d, $p);
             if ($front === null) continue;
             $dropped = !empty($lt['seats'][$p]['dropped']);
+            $bot = !$dropped && LTIsBot($lt, $p);   // a live bot picks the moment a pack reaches its front (Plan 5)
             $due = $d['frontSince'][$p] !== null && $d['frontSince'][$p] + intval($d['pickSeconds']) <= $now;
-            if (!$dropped && !$due) continue;
-            $next = LTDraftPick($lt, $p, $front['id'], LTDraftAutoPickCard($lt, $p), $now, !$dropped);
+            if (!$dropped && !$due && !$bot) continue;
+            $card = $bot ? LTDraftBotPickCard($lt, $p) : LTDraftAutoPickCard($lt, $p);
+            if ($card === null) continue;
+            $next = LTDraftPick($lt, $p, $front['id'], $card, $now, !$dropped && !$bot);
             if ($next !== null) { $lt = $next; $moved = true; }
         }
         if (!$moved) break;
@@ -170,10 +176,110 @@ function LTDraftTick(array $lt, array $lastSeen, int $now): array {
 function LTDraftKickable(array $lt, array $lastSeen, int $now): array {
     if ($lt['phase'] !== 'drafting') return [];
     $out = [];
-    foreach (LTLiveSeats($lt) as $p) {
+    foreach (LTHumanSeats($lt) as $p) {   // bots pick at once and never poll: never kickable
         if (intval($lt['kick'][$p]['waitUntil'] ?? 0) > $now) continue;
         $gone = $now - intval($lastSeen[$p] ?? 0) > LT_DISCONNECT_SECONDS;
         if ($gone || intval($lt['draft']['timeoutRun'][$p] ?? 0) >= 1) $out[] = $p;
     }
     return $out;
+}
+
+// ── The bot drafter (spec §3.7) ───────────────────────────────────────────────────────────────────────────────────────
+// A heuristic, so it has NO unit tests (owner rule 2026-10-12): the bot runs (DevTools/SWUSimLimitedBotPods.php) are its
+// proof, and the weights below are the only knobs they tune. Values are in RESOURCES (SWUBotCurveValue surplus, or the
+// rarity fallback — LimitedSettings.php SWULimitedCardValue).
+const LT_BOT_COMMIT_PICK    = 4;
+const LT_BOT_COMMIT_ASPECTS = 2;     // how many aspects it commits to: a deck fields leader (2) + base (1) icons (tuned, Task 6)     // the pick number of pack 1 from which it commits to an aspect pair ("mid pack 1")
+const LT_BOT_FIT_BONUS      = 2.0;   // committed: the card's aspects fit the pair (an aspect-less card fits)
+const LT_BOT_OFF_PENALTY    = 1.5;   // committed: per aspect outside the pair
+const LT_BOT_BOMB_VALUE     = 2.0;   // a Rare/Legendary worth this much is a bomb…
+const LT_BOT_BOMB_BONUS     = 1.5;   // …worth this extra, and off-aspect in pack 1 without the penalty
+const LT_BOT_TWO_DROP_BONUS = 2.5;   // once committed: a 2-cost unit while it has fewer than LT_BOT_TWO_DROPS (tuned, Task 6)
+const LT_BOT_TWO_DROPS      = 12;
+const LT_BOT_TWO_DROP_EARLY = 2.5;   // …and before it commits (tuned, Task 6)
+const LT_BOT_EARLY_IN_PAIR  = false; // once committed, only a cheap unit in the pair counts and pulls (tuned, Task 6)
+const LT_BOT_ONE_DROP_SHARE = 0.4;   // a 1-drop gets this share of the turn-1 pull — a 2-drop is the better play (owner) — unless
+                                     // it kept a leader that plays two units at once (LT_BOT_ONE_DROP_LEADERS): then the full pull
+const LT_BOT_SPLASH_PENALTY = 0.5;   // a splash base in play (draft.splash): a card ONE V/C/A/Cunning aspect off the pair…
+const LT_BOT_SPLASH_PICKS   = 5;     // …until it holds this many such splashes (a deck keeps at most 3 — consistency)
+const LT_BOT_UNIT_BONUS     = 0.8;   // from pack 2: any unit while its units trail LT_BOT_UNITS × (picks / all picks)
+const LT_BOT_UNITS          = 20;
+const LT_BOT_NONUNIT_MALUS  = 0.5;   // …and an event or upgrade then costs this much
+const LT_BOT_LEADER_SHARE   = 1.0;   // leader draft: per aspect shared with the leaders it already kept
+const LT_BOT_LEADER_RARE    = 0.5;
+
+function _LTBotFact(array $d, string $c): array {
+    return $d['facts'][$c] ?? ['t' => '', 'c' => 0, 'v' => 0.0, 'r' => ''];
+}
+
+// The two aspects a seat leans on, weighting each icon by its card's value (a strong card pulls harder than a filler).
+function _LTBotPair(array $d, int $pid): array {
+    $w = array_fill_keys(LT_ASPECT_ORDER, 0.0);
+    foreach (array_merge($d['leaders'][$pid] ?? [], $d['picks'][$pid] ?? []) as $c) {
+        $v = 1.0 + max(0.0, floatval(_LTBotFact($d, $c)['v']));
+        foreach ($d['aspects'][$c] ?? [] as $a) if (isset($w[$a])) $w[$a] += $v;
+    }
+    $ranked = array_values(array_filter(LT_ASPECT_ORDER, fn($a) => $w[$a] > 0));
+    usort($ranked, fn($x, $y) => $w[$y] <=> $w[$x] ?: array_search($x, LT_ASPECT_ORDER) <=> array_search($y, LT_ASPECT_ORDER));
+    return array_slice($ranked, 0, LT_BOT_COMMIT_ASPECTS);
+}
+
+// The expert pick for a bot seat's front pack, or null with nothing in front. Ties go to the first card of the pack.
+function LTDraftBotPickCard(array $lt, int $pid): ?string {
+    $d = $lt['draft'];
+    $front = LTDraftFront($d, $pid);
+    if ($front === null || !$front['cards']) return null;
+    $leaderStage = $d['stage'] === 'leaders';
+    $kept = $d['leaders'][$pid] ?? [];
+    $keptAspects = array_unique(array_merge(...array_map(fn($c) => $d['aspects'][$c] ?? [], $kept ?: [''])));
+    $picks = $d['picks'][$pid] ?? [];
+    $pickNo = intval($front['size'] ?? count($front['cards'])) - count($front['cards']) + 1;
+    $committed = !$leaderStage && ($d['round'] > 1 || $pickNo >= LT_BOT_COMMIT_PICK);
+    $pair = $committed ? _LTBotPair($d, $pid) : [];
+    $units = 0; $twoDrops = 0;
+    foreach ($picks as $c) {
+        $f = _LTBotFact($d, $c);
+        if ($f['t'] !== 'Unit') continue;
+        $units++;
+        if (intval($f['c']) <= 2 && (!LT_BOT_EARLY_IN_PAIR || !$pair || !array_diff($d['aspects'][$c] ?? [], $pair))) $twoDrops++;
+    }
+    $allPicks = max(1, intval($d['rounds']) * 14);
+    $oneDropLeader = (bool)array_intersect($kept, LT_BOT_ONE_DROP_LEADERS);
+    $splashPicks = 0;   // picks one V/C/A/Cunning aspect off the pair it leans on now
+    if (!empty($d['splash']) && $pair) foreach ($picks as $c) {
+        $offP = array_values(array_diff($d['aspects'][$c] ?? [], $pair));
+        if (count($offP) === 1 && !in_array($offP[0], ['Heroism', 'Villainy'], true)) $splashPicks++;
+    }
+    $unitLine = LT_BOT_UNITS * count($picks) / $allPicks;
+    $best = null; $bestScore = -INF;
+    foreach ($front['cards'] as $c) {
+        $f = _LTBotFact($d, $c);
+        $score = floatval($f['v']);
+        $aspects = $d['aspects'][$c] ?? [];
+        if ($leaderStage) {
+            $score += LT_BOT_LEADER_SHARE * count(array_intersect($aspects, $keptAspects)) + ($f['r'] === 'Rare' ? LT_BOT_LEADER_RARE : 0.0);
+        } else {
+            $bomb = in_array($f['r'], ['Rare', 'Legendary'], true) && floatval($f['v']) >= LT_BOT_BOMB_VALUE;
+            if ($bomb) $score += LT_BOT_BOMB_BONUS;
+            if ($committed && !($bomb && $d['round'] === 1)) {
+                $offAspects = array_values(array_diff($aspects, $pair));
+                $off = count($offAspects);
+                // With a splash base in play (owner 2026-11-05), one V/C/A/Cunning aspect off is a cheap splash — never a
+                // missing Heroism or Villainy, and never two aspects off.
+                $splash = !empty($d['splash']) && $off === 1 && !in_array($offAspects[0], ['Heroism', 'Villainy'], true) && $splashPicks < LT_BOT_SPLASH_PICKS;
+                $score += $off === 0 ? LT_BOT_FIT_BONUS : ($splash ? -LT_BOT_SPLASH_PENALTY : -LT_BOT_OFF_PENALTY * $off);
+            }
+            // A turn-1 play — a unit costing 1 or 2 (owner 2026-11-05) — pulls: fully once committed (in the pair only, when
+            // LT_BOT_EARLY_IN_PAIR — an off-aspect one is no turn-1 play), and before it commits too.
+            $cheap = $f['t'] === 'Unit' && intval($f['c']) <= 2 && (!LT_BOT_EARLY_IN_PAIR || !$committed || !array_diff($aspects, $pair));
+            if ($cheap && $twoDrops < LT_BOT_TWO_DROPS) {
+                $pull = $committed ? LT_BOT_TWO_DROP_BONUS : LT_BOT_TWO_DROP_EARLY;
+                if (intval($f['c']) <= 1 && !$oneDropLeader) $pull *= LT_BOT_ONE_DROP_SHARE;
+                $score += $pull;
+            }
+            if ($d['round'] >= 2 && $units < $unitLine) $score += $f['t'] === 'Unit' ? LT_BOT_UNIT_BONUS : -LT_BOT_NONUNIT_MALUS;
+        }
+        if ($score > $bestScore) { $bestScore = $score; $best = $c; }
+    }
+    return $best;
 }

@@ -10,7 +10,8 @@
 //   mode           'sealed'
 //   phase          'setup' → 'building' → 'playing' → 'done'
 //   settings / settingsErrors   the host's choices and what is wrong with them ([] = startable)
-//   seats          [pid => [name, deck: null|{leader, base, main[]}, submitted, ready, dropped]]
+//   seats          [pid => [name, deck: null|{leader, base, main[]}, submitted, ready, dropped, bot?, botStyle?]] — a bot
+//                  seat (Plan 5) never polls, votes or gets kicked; it drafts, builds and Readies by itself
 //   lineups / pools / setsInPlay / seed   what the room OPENED at start — persisted, never rebuilt from the seed
 //   buildDeadline  unix time the 30-minute build ends
 //   starting       false, or the unix time a start claim was taken (the match is being created outside the lobby lock);
@@ -26,7 +27,11 @@ const LT_KICK_WAIT_SECONDS  = 20;     // "Wait another 20 seconds", as in every 
 const LT_DISCONNECT_SECONDS = 30;     // a seat silent this long is disconnected (the in-game rule)
 const LT_DRAFT_MIN_SEATS     = 3;    // a Draft pod is 3–8 players; Sealed is exactly 2
 const LT_DRAFT_MAX_SEATS     = 8;
-const LT_START_CLAIM_SECONDS = 60;   // a start that crashed mid-way frees its claim after this (High Ground: HG_START_CLAIM_SECONDS)
+const LT_START_CLAIM_SECONDS = 60;
+// Leaders that make 1-drops as good as 2-drops (owner 2026-11-05): General Grievous (HMW_008, "play 2 units one at a time")
+// and Doctor Hemlock (HMW_003 — a 1-resource Action, so turn 1 is his ability plus a 1-drop). The bot drafter and builder
+// read it; otherwise a 2-drop is the better turn-1 play.
+const LT_BOT_ONE_DROP_LEADERS = ['HMW_008', 'HMW_003'];   // a start that crashed mid-way frees its claim after this (High Ground: HG_START_CLAIM_SECONDS)
 
 function LTNew(string $mode): array {
     return ['mode' => $mode, 'phase' => 'setup', 'settings' => SWULimitedDefaultSettings($mode), 'settingsErrors' => [],
@@ -56,6 +61,35 @@ function LTAddSeat(array $lt, int $pid, string $name): ?array {
     if ($lt['phase'] !== 'setup' || isset($lt['seats'][$pid]) || count($lt['seats']) >= LTSeatCap($lt)) return null;
     $lt['seats'][$pid] = ['name' => $name, 'deck' => null, 'submitted' => false, 'ready' => false, 'dropped' => false];
     return $lt;
+}
+
+// A bot fills a seat (spec §3.7): setup only, under the same cap. The host is always human, so this is never the first seat.
+function LTAddBotSeat(array $lt, int $pid, string $name): ?array {
+    $next = LTAddSeat($lt, $pid, $name);
+    if ($next === null) return null;
+    $next['seats'][$pid]['bot'] = true;
+    return $next;
+}
+
+function LTIsBot(array $lt, int $pid): bool {
+    return !empty($lt['seats'][$pid]['bot']);
+}
+
+// A bot's build is in (Plan 5): with a deck it is submitted and Ready at once (it never edits), keeping the style it will
+// play in; with none — its pool holds no legal deck — the bot leaves the event rather than stall it.
+function LTBotSubmit(array $lt, int $pid, ?array $deck): array {
+    if (!LTIsBot($lt, $pid)) return $lt;
+    if ($deck === null) return LTDropSeat($lt, $pid, 'left');
+    $next = LTSubmitDeck($lt, $pid, ['leader' => $deck['leader'], 'base' => $deck['base'], 'main' => $deck['main']]);
+    $next = $next !== null ? LTReady($next, $pid) : null;
+    if ($next === null) return $lt;
+    $next['seats'][$pid]['botStyle'] = strval($deck['style'] ?? 'midrange');
+    return $next;
+}
+
+// The live seats a person sits in, in seat order — the only ones that vote, poll or can be kicked.
+function LTHumanSeats(array $lt): array {
+    return array_values(array_filter(LTLiveSeats($lt), fn($p) => !LTIsBot($lt, $p)));
 }
 
 // Settings change only during setup. Both values are stored, valid or not, so the host sees what is wrong.
@@ -194,9 +228,10 @@ function LTKickVotesNeeded(int $voters): int {
     return $voters <= 0 ? 0 : intdiv($voters, 2) + 1;
 }
 
-// Who votes on $target: every other live seat.
+// Who votes on $target: every other live HUMAN seat — bots never vote and are never counted (spec §3.6: 2 humans + 6 bots
+// is 1 of 1).
 function LTKickVoters(array $lt, int $target): array {
-    return array_values(array_filter(LTLiveSeats($lt), fn($p) => $p !== $target));
+    return array_values(array_filter(LTHumanSeats($lt), fn($p) => $p !== $target));
 }
 
 // Who may be voted out now (spec §3.6 [my call]). Only during the build — setup has the host's own seat removal and a
@@ -209,7 +244,7 @@ function LTKickableSeats(array $lt, array $lastSeen, int $now): array {
     if ($lt['phase'] === 'between') return function_exists('LTSwissKickable') ? LTSwissKickable($lt, $lastSeen, $now) : [];
     if ($lt['phase'] !== 'building') return [];
     $out = [];
-    foreach (LTLiveSeats($lt) as $pid) {
+    foreach (LTHumanSeats($lt) as $pid) {   // a bot never polls, so it is never "silent", and it is never late
         if (intval($lt['kick'][$pid]['waitUntil'] ?? 0) > $now) continue;
         $gone = $now - intval($lastSeen[$pid] ?? 0) > LT_DISCONNECT_SECONDS;
         $late = $lt['buildDeadline'] !== null && $now >= $lt['buildDeadline'] && empty($lt['seats'][$pid]['submitted']);

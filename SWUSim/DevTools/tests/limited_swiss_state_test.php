@@ -271,5 +271,39 @@ $se = LTNew('sealed'); $se['seats'] = [1 => ['name' => 'a', 'ready' => true, 'su
 $se['phase'] = 'building';
 $check(!LTSwissCanStartRound($se, $now, 1, true) && LTSwissClaimRound($se, $now, 1, true) === null && LTReadyToStart($se, $now), 'a Sealed room never starts a Swiss round, and its own start is as before');
 
+echo "BotsNeverKickableDraftingOrBetween:\n";   // Plan 5
+require_once './SWUSim/Limited/LimitedDraftState.php';
+$bb = $bt; $bb['seats'][C]['bot'] = true; $bb['seats'][D]['bot'] = true;
+$late = $now + 100 + LT_BETWEEN_KICK_GRACE + 5;
+$check(LTKickableSeats($bb, [A => $late, B => $late], $late) === [], 'between rounds, silent bots are never kickable');
+$dr = $bb; $dr['phase'] = 'drafting'; $dr['draft']['autoPicks'] = [A => 0, B => 0, C => 3, D => 3]; $dr['draft']['timeoutRun'] = [A => 0, B => 0, C => 3, D => 3];
+$check(LTKickableSeats($dr, [A => $late, B => $late], $late) === [], 'while drafting, silent (even auto-picked) bots are never kickable');
+
+echo "BotVsBotIsACoinToss:\n";   // Plan 5 (spec §3.7): bot-vs-bot is never played — each game is a coin toss
+foreach ([1, 3] as $bo) {
+    $bb4 = builtLt([A, B, C, D], $bo);
+    $bb4['seats'][C]['bot'] = true; $bb4['seats'][D]['bot'] = true;
+    $cl = LTSwissClaimRound($bb4, $now, A, false);
+    $bi = null; $hi = null;
+    foreach ($cl['swiss']['pending'] as $i => $x) { if (LTIsBot($cl, $x['a']) && $x['b'] !== null && LTIsBot($cl, $x['b'])) $bi = $i; else $hi = $i; }
+    if ($bi === null) { $check(false, "Bo$bo: the fixture should pair the two bots (got " . json_encode($cl['swiss']['pending']) . ')'); continue; }
+    $made = [$hi => ['matchId' => 'MH', 'gameName' => 'gH', 'seats' => [1 => $cl['swiss']['pending'][$hi]['a'], 2 => $cl['swiss']['pending'][$hi]['b']]]];
+    $c1 = LTSwissCommitRound($cl, $made, $now);
+    $c2 = LTSwissCommitRound($cl, $made, $now);
+    $bt1 = $c1['swiss']['pairings'][1][$bi] ?? [];
+    $g = array_values($bt1['games'] ?? []); rsort($g);
+    $okGames = $bo === 1 ? $g === [1, 0] : ($g === [2, 0] || $g === [2, 1]);
+    $check($c1 !== null && !empty($bt1['done']) && $bt1['matchId'] === '' && $okGames && $bt1['winner'] !== null,
+           "Bo$bo: the bot table needs no match and is decided at commit: " . json_encode(['games' => $bt1['games'] ?? null, 'winner' => $bt1['winner'] ?? null]));
+    $check($c1 === $c2, "Bo$bo: the toss is seeded — the same blob commits the same way");
+    $check(empty($c1['swiss']['pairings'][1][$hi]['done']) && $c1['phase'] === 'playing', "Bo$bo: the human table still waits for its match");
+}
+
+echo "BotsReadyAtTheBreak:\n";
+$br = startRound((function () use ($now) { $x = builtLt([A, B, C, D]); $x['seats'][C]['bot'] = true; return $x; })(), $now);
+$br = finishRound($br, $now);
+$check($br['phase'] === 'between' && !empty($br['seats'][C]['ready']) && empty($br['seats'][A]['ready']) && empty($br['seats'][B]['ready']),
+       'when the break starts the bot is Ready at once; the humans are not');
+
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

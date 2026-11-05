@@ -318,9 +318,12 @@ function MatchCreateFromLobby($rootName, $lobby) {
 function MatchSpawnNextGameWithDecks($rootName, $matchId, $firstPlayer, $priorGame, $resolvedDecks) {
     $m = MatchRead($rootName, $matchId);
     if (!is_array($m)) return '';
+    // A seat's botProfile rides along (a 2-seat match against a BOT — SWUSim Limited), so the next game keeps its bot seat;
+    // every other match has none and spawns exactly as before.
+    $table = fn($s) => array_intersect_key($m['players'][$s] ?? [], ['botProfile' => 1]);
     $players = [
-        new MatchSyntheticPlayer(1, $m['players']['1']['authKey'] ?? ''),
-        new MatchSyntheticPlayer(2, $m['players']['2']['authKey'] ?? ''),
+        new MatchSyntheticPlayer(1, $m['players']['1']['authKey'] ?? '', $table('1')),
+        new MatchSyntheticPlayer(2, $m['players']['2']['authKey'] ?? '', $table('2')),
     ];
     $lobby = new stdClass();
     $lobby->isPrivate = !empty($m['isPrivate']);

@@ -63,7 +63,7 @@
   function renderPod(st) {
     setHTML(el('ldPod'), (st.pod || []).map(function (p) {
       var cls = 'ld-seat' + (p.me ? ' ld-seat--me' : '') + (p.queued >= 2 ? ' ld-seat--slow' : '') + (p.dropped ? ' ld-seat--gone' : '');
-      return '<li class="' + cls + '">' + esc(p.me ? 'You' : p.name) + '\u00a0<span class="ld-q">(' + p.queued + ')</span>' + (p.queued >= 2 ? ' ⏳' : '') + '</li>';
+      return '<li class="' + cls + '">' + esc(p.me ? 'You' : p.name) + (p.bot ? ' <span class="ld-bot">Bot</span>' : '') + '\u00a0<span class="ld-q">(' + p.queued + ')</span>' + (p.queued >= 2 ? ' ⏳' : '') + '</li>';
     }).join(''));
   }
   // Every seat's drafted leaders, in seating order (public — they change how the rest of the pod drafts).

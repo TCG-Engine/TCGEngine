@@ -5802,6 +5802,10 @@ body:has(#wr-root) .wr-panel .lt-podseat--slow { color: #ff9a8a; border-color: #
 body:has(#wr-root) .wr-panel .lt-podseat--gone { text-decoration: line-through; opacity: 0.55; }
 body:has(#wr-root) .wr-panel .lt-q { color: var(--ink-3); font-variant-numeric: tabular-nums; }
 body:has(#wr-root) .wr-panel .lt-need { color: var(--gold-hi); }
+/* Bots (Plan 5): the seat chip, the small tag on tables / standings, the host's ✕ */
+body:has(#wr-root) .wr-panel .lt-chip--bot { color: var(--gold-hi); border-color: currentColor; }
+body:has(#wr-root) .wr-panel .lt-bot { font-size: var(--t-11); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .lt-remove-bot { margin-inline-start: auto; min-inline-size: 44px; }
 /* Swiss rounds: this round's tables and the standings (Plan 4) */
 body:has(#wr-root) .wr-panel .lt-sub { margin: 0; font-size: var(--t-13, 13px); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
 body:has(#wr-root) .wr-panel .lt-tables { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
@@ -6054,6 +6058,7 @@ body:has(.ld-root) .ld-seat--me { color: var(--ink); border-color: var(--gold); 
 body:has(.ld-root) .ld-seat--slow { color: #ff9a8a; border-color: #ff6b6b; }
 body:has(.ld-root) .ld-seat--gone { text-decoration: line-through; opacity: 0.55; }
 body:has(.ld-root) .ld-q { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(.ld-root) .ld-bot { font-size: var(--t-11); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-hi); }
 /* Every seat's drafted leaders (public; owner 2026-11-05). Folds into a toggle at phone width, like "Your picks". */
 body:has(.ld-root) .ld-podleads { display: grid; gap: var(--s-2); }
 body:has(.ld-root) .ld-podleads-toggle { display: none; }

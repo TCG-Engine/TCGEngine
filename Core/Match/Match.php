@@ -119,6 +119,9 @@ function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = fals
             $v = $p[$fact] ?? null;
             if ($v !== null && $v !== '') $matchPlayers[$seatKey][$fact] = strval($v);
         }
+        // A 2-seat match against a BOT (SWUSim Limited, 2026-11-05) keeps the bot's profile too, so game 2 of a Bo3 still
+        // has its bot seat (MatchSyntheticPlayer reads it). Absent when there is no bot: a 2-seat record keeps its shape.
+        elseif (strval($p['botProfile'] ?? '') !== '') $matchPlayers[$seatKey]['botProfile'] = strval($p['botProfile']);
         $wins[$seatKey] = 0;
     }
     $match = [

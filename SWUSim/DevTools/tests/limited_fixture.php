@@ -13,6 +13,8 @@
 //   ?phase=setup      the host and N-1 guests      ?phase=drafting   started: the leader draft is on (3 packs, Single Set)
 //   ?phase=building   the draft is over (every seat picked the first card each time), nobody has submitted
 //   ?phase=built      every seat built and Readied
+//   BOTS (Plan 5): &bots=N — the LAST N seats are bots (no account, botProfile 'limited', named like LimitedAction addBot);
+//   &botBuild=1 (Sealed building) — the bot builds at once, as LimitedAction's start does
 //   SWISS (Plan 4), Draft only: ?phase=round1   built → round 1's matches made (seat 1 of each table is its higher seat)
 //   ?phase=between    round 1 played (seat 1 of every table won)      ?phase=done   all three rounds played the same way
 //   &bestOf=3 for Bo3 tables (each win is recorded 2–0)      &dropSeat=N   that seat is then marked dropped (kicked)
@@ -28,6 +30,8 @@ require_once './AccountFiles/AccountDatabaseAPI.php';
 require_once './SWUSim/Limited/LimitedRoom.php';
 require_once './SWUSim/Limited/LimitedSettings.php';
 require_once './SWUSim/Limited/LimitedDeck.php';
+require_once './SWUSim/Limited/LimitedBot.php';
+require_once './SWUSim/LobbyAdapter.php';
 
 $phase = strval($_GET['phase'] ?? 'setup');
 $mode = strval($_GET['mode'] ?? 'sealed') === 'draft' ? 'draft' : 'sealed';
@@ -44,7 +48,17 @@ $lobby->rootName = 'SWUSim'; $lobby->format = 'limited'; $lobby->queueType = 'bo
 $lobby->isPrivate = true; $lobby->hostPlayerID = 1; $lobby->casterMode = false; $lobby->ready = false; $lobby->hostUserId = null;
 $lobby->inviteCode = bin2hex(random_bytes(12));
 $lobby->players = [];
-foreach (array_slice($accounts, 0, $players) as $i => $u) {
+$bots = max(0, min($players - 1, intval($_GET['bots'] ?? 0)));
+for ($i = 0; $i < $players; $i++) {
+    if ($i >= $players - $bots) {   // a bot seat
+        $name = 'Arenabot ' . SWULobbyAdapter::BOT_NAME_LETTERS[$i - ($players - $bots)];
+        $p = new Player($i + 1, '');
+        $p->setBotProfile('limited'); $p->setUsername($name); $p->touch();
+        $lobby->players[] = $p;
+        $lobby->limited = LTAddBotSeat($lobby->limited, $i + 1, $name);
+        continue;
+    }
+    $u = $accounts[$i] ?? "claudebot" . ($i + 1);
     $row = LoadUserData($u);
     $p = new Player($i + 1, '', '', $row ? intval($row['usersId']) : null);
     if ($row) $p->setUsername(strval($row['usersUid']));
@@ -52,6 +66,7 @@ foreach (array_slice($accounts, 0, $players) as $i => $u) {
     $lobby->players[] = $p;
     if ($i === 0) SWULimitedCreate($lobby, $p, $mode); else SWULimitedOnJoin($lobby, $p);
 }
+$lobby->limitedBotNameIndex = $bots;
 $lobby->numPlayers = count($lobby->players);
 
 if ($mode === 'draft' && $phase !== 'setup') {
@@ -59,8 +74,8 @@ if ($mode === 'draft' && $phase !== 'setup') {
     $lt = LTSetSettings($lobby->limited, $s, SWULimitedValidateSettings($s));
     $seed = random_int(1, PHP_INT_MAX);
     $o = SWULimitedOpenDraft($s, LTLiveSeats($lt), SWULimitedRng($seed));
-    $lt = LTDraftBegin($lt, $o['order'], $o['leaderPacks'], $o['cardPacks'], $o['aspects'], $seed, max(5, intval($_GET['pickSeconds'] ?? LT_PICK_SECONDS)), time());
-    $lt['lineups'] = $o['lineups']; $lt['setsInPlay'] = SWULimitedSetsInPlay($s);
+    $lt = LTDraftBegin($lt, $o['order'], $o['leaderPacks'], $o['cardPacks'], $o['aspects'], $seed, max(5, intval($_GET['pickSeconds'] ?? LT_PICK_SECONDS)), time(), $o['facts']);
+    $lt['lineups'] = $o['lineups']; $lt['setsInPlay'] = SWULimitedSetsInPlay($s); $lt['draft']['splash'] = SWULimitedSplashInPlay($lt['setsInPlay']);
     if ($phase !== 'drafting') {   // everyone picks the first card each time until the draft is over
         for ($guard = 0; $guard < 2000 && $lt['phase'] === 'drafting'; $guard++) {
             foreach ($lt['draft']['order'] as $pid) { $f = LTDraftFront($lt['draft'], $pid); if ($f) $lt = LTDraftPick($lt, $pid, $f['id'], $f['cards'][0], time()); }
@@ -88,6 +103,9 @@ if ($mode === 'draft' && $phase !== 'setup') {
     foreach ($live as $i => $pid) { $lineups[$pid] = $rolled[$i + 1]; $pools[$pid] = SWULimitedOpenSealedPool($lineups[$pid], $rng); }
     $lobby->limited = LTStart($lt, $lineups, $pools, SWULimitedSetsInPlay($s), 1, time());
     $lobby->state = 'started';
+    if (!empty($_GET['botBuild'])) foreach (LTLiveSeats($lobby->limited) as $pid) {
+        if (LTIsBot($lobby->limited, $pid)) SWULimitedApplyBotBuild($lobby, $pid, SWULimitedBotBuildDeck($pools[$pid], SWULimitedSetsInPlay($s)));
+    }
 }
 if ($mode === 'sealed' && in_array($phase, ['playing', 'sideboard', 'done'], true)) {
     // Each seat builds the simplest legal deck: its first leader, the first base in play, its first 30 other cards.

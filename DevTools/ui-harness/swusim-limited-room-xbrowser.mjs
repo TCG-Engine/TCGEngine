@@ -275,6 +275,50 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await ctx.close(); await api.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
 
+    where = `${tag} bots`;   // Plan 5 (spec §3.7): the host fills seats with bots in setup
+    try {
+      const api = await browser.newContext();
+      // Sealed: host + a bot is full; ✕ frees the seat, "Add a bot" fills it again.
+      const fs = await fixture(api.request, 'setup&mode=sealed&bots=1');
+      const ctx = await personContext(browser, size, fs, 1);
+      const page = await openRoom(ctx, fs);
+      const botRow = page.locator('#lt-root .lt-seat', { hasText: 'Arenabot' });
+      check(where, (await botRow.count()) === 1 && /Bot/.test(await botRow.first().textContent()), 'the bot seat shows a "Bot" chip');
+      check(where, (await page.locator('#lt-root .lt-add-bot').count()) === 1 && await page.locator('#lt-root .lt-add-bot').isDisabled(), 'Sealed with a bot is full: "Add a bot" is disabled');
+      await page.locator('#lt-root .lt-remove-bot').first().click();
+      await page.waitForFunction(() => document.querySelectorAll('#lt-root .lt-seat').length === 1, null, { timeout: T }).catch(() => {});
+      check(where, (await page.locator('#lt-root .lt-seat').count()) === 1, '✕ removes the bot');
+      await page.waitForFunction(() => { const b = document.querySelector('#lt-root .lt-add-bot'); return b && !b.disabled; }, null, { timeout: T }).catch(() => {});
+      await page.locator('#lt-root .lt-add-bot').click();
+      await page.waitForFunction(() => [...document.querySelectorAll('#lt-root .lt-seat')].some((x) => /Arenabot/.test(x.textContent)), null, { timeout: T }).catch(() => {});
+      check(where, (await page.locator('#lt-root .lt-seat', { hasText: 'Arenabot' }).count()) === 1, '"Add a bot" fills the seat again');
+      await invariants(page, where);
+      await shot(page, `limited-room-${ename}-${size.name}-bots-sealed`);
+      await ctx.close();
+      // Draft: host + 2 bots can start.
+      const fd = await fixture(api.request, 'setup&mode=draft&players=3&bots=2');
+      const ctxD = await personContext(browser, size, fd, 1);
+      const pd = await openRoom(ctxD, fd);
+      check(where, (await pd.locator('#lt-root .lt-remove-bot').count()) === 2 && !(await pd.locator('#lt-root .lt-start').isDisabled()), 'Draft: host + 2 bots — two ✕, Start Draft enabled');
+      await shot(pd, `limited-room-${ename}-${size.name}-bots-draft`);
+      await ctxD.close();
+      // A guest sees the bots but no bot controls.
+      const fg = await fixture(api.request, 'setup&mode=draft&players=3&bots=1');
+      const ctxG = await personContext(browser, size, fg, 2);
+      const pg = await openRoom(ctxG, fg);
+      check(where, (await pg.locator('#lt-root .lt-seat', { hasText: 'Arenabot' }).count()) === 1 && (await pg.locator('#lt-root .lt-add-bot, #lt-root .lt-remove-bot').count()) === 0,
+        'a guest sees the bot, but no "Add a bot" or ✕');
+      await ctxG.close();
+      // The pick screen marks bot seats in the pod row.
+      const fp = await fixture(api.request, 'drafting&mode=draft&players=3&bots=2');
+      const ctxP = await personContext(browser, size, fp, 1);
+      const pp = await ctxP.newPage();
+      await pp.goto(`${BASE}${fp.urls.draft}`, { waitUntil: 'domcontentloaded', timeout: T });
+      await pp.waitForSelector('#ldPod .ld-seat', { timeout: T });
+      check(where, (await pp.locator('#ldPod .ld-seat .ld-bot').count()) === 2, 'the pick screen tags the 2 bot seats in the pod row');
+      await ctxP.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
     where = `${tag} swiss done`;
     try {
       const api = await browser.newContext();

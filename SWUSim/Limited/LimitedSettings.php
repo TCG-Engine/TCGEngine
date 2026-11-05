@@ -11,6 +11,7 @@
 //   singleSet, lineup[], chaosSets[]   booster-set codes; only the active mode's field is read
 require_once __DIR__ . '/LimitedDefaults.php';   // SWULimitedPackRange, SWULimitedDefaultSettings
 require_once __DIR__ . '/LimitedPacks.php';
+require_once __DIR__ . '/../Custom/BotCurveValue.php';   // SWUBotCurveValue — what a bot drafts and builds by (Plan 5)
 
 // The settings a host's form POSTed, ready to validate: merged over the defaults (a client sends only what it shows),
 // whole-number strings cast to int (a form sends "3"), list fields re-indexed, and the room's OWN mode kept — never the
@@ -132,6 +133,36 @@ function SWULimitedOpenSealedPool(array $lineup, \Random\Randomizer $rng): array
     return $pool;
 }
 
+// SPLASH bases (owner 2026-11-05): the LAW common bases' Epic Action plays a card "ignoring 1 of its Vigilance, Command,
+// Aggression, or Cunning aspect penalties" — so with one in play a card ONE such aspect off is a playable splash.
+function SWULimitedIsSplashBase(string $base): bool {
+    return CardType($base) === 'Base' && stripos(strval(CardText($base) ?? ''), 'ignoring 1 of its Vigilance, Command, Aggression, or Cunning aspect penalties') !== false;
+}
+function SWULimitedSplashInPlay(array $setsInPlay): bool {
+    foreach (SWULimitedCommonBasesInPlay($setsInPlay) as $b) if (SWULimitedIsSplashBase($b)) return true;
+    return false;
+}
+
+// A card's worth to a bot, in RESOURCES: the bot's static curve value (SWUBotCurveValue surplus, the price it uses for a
+// card in hand), or — for a card whose text it cannot price, and for leaders — its rarity (spec §3.7 [my call]).
+const LT_BOT_RARITY_VALUE = ['Common' => 0.0, 'Uncommon' => 0.5, 'Rare' => 1.5, 'Legendary' => 2.5];
+function SWULimitedCardValue(string $id): float {
+    if (CardType($id) !== 'Leader') {
+        $r = SWUBotCurveValue(0, $id, false);
+        if ($r !== null) return round(floatval($r['surplus']), 2);
+    }
+    return LT_BOT_RARITY_VALUE[(string)CardRarity($id)] ?? 0.0;
+}
+
+// The facts a bot drafts by, for every card a Draft opened (stored in the blob so its pick stays pure).
+function SWULimitedDraftFacts(array $ids): array {
+    $out = [];
+    foreach (array_unique($ids) as $id) {
+        $out[$id] = ['t' => (string)CardType($id), 'c' => intval(CardCost($id)), 'v' => SWULimitedCardValue($id), 'r' => (string)CardRarity($id)];
+    }
+    return $out;
+}
+
 // Everything a Draft opens at start, for the live seats (in seat order): each seat's rolled lineup; its LEADER PACK (the
 // leader of each of its packs); its CARD PACKS — every pack without its leader and its common base (spec §2.4: common
 // bases go to the centre; a rare base in the rare slot is drafted like any card); every opened card's aspects (so the
@@ -153,5 +184,6 @@ function SWULimitedOpenDraft(array $settings, array $live, \Random\Randomizer $r
     }
     $live = array_values($live);
     foreach ($rng->shuffleArray(array_keys($live)) as $k) $out['order'][] = $live[$k];
+    $out['facts'] = SWULimitedDraftFacts(array_keys($out['aspects']));   // for the bot seats (Plan 5)
     return $out;
 }

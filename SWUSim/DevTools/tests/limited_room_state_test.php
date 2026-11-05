@@ -164,5 +164,27 @@ echo "KickTargetsMustBeLiveSeats:\n";
 $check(LTKickWait($late, 1, 999, $now) === null, 'Wait on a seat that does not exist is refused');
 $check(LTKickVote($late, 1, 999, $fresh, $now + 1800) === null, 'a vote on a seat that does not exist is refused');
 
+echo "BotSeatsJoinInSetup:\n";   // Plan 5 (spec §3.7): bots fill any Draft seat or Sealed's second
+$bd = LTAddBotSeat(LTAddBotSeat(LTAddSeat(LTNew('draft'), 1, 'host'), 2, 'Arenabot Alpha'), 3, 'Arenabot Beta');
+$check($bd !== null && LTIsBot($bd, 2) && LTIsBot($bd, 3) && !LTIsBot($bd, 1) && LTCanStart($bd), 'host + 2 bots: 3 seats, the bots marked, Draft may start');
+$check(LTHumanSeats($bd) === [1], 'the human seats are the host only');
+$full = $bd; for ($p = 4; $p <= 8; $p++) $full = LTAddBotSeat($full, $p, "bot$p");
+$check($full !== null && LTAddBotSeat($full, 9, 'bot9') === null, 'an 8-seat pod takes no ninth bot');
+$bs = LTAddBotSeat(LTAddSeat(LTNew('sealed'), 1, 'host'), 2, 'Arenabot Alpha');
+$check($bs !== null && LTCanStart($bs) && LTAddBotSeat($bs, 3, 'x') === null, 'Sealed: host + a bot is a full, startable room');
+$startedBots = LTStart($bs, [1 => ['SOR'], 2 => ['SOR']], [1 => ['SOR_001'], 2 => ['SOR_002']], ['SOR'], 5, $now);
+$check($startedBots !== null && LTAddBotSeat($startedBots, 3, 'late') === null, 'no bot is added once the event has started');
+
+echo "BotsNeverVoteOrGetKicked:\n";
+$k = LTAddSeat(LTAddSeat(LTNew('draft'), 1, 'a'), 2, 'b');
+for ($p = 3; $p <= 8; $p++) $k = LTAddBotSeat($k, $p, "bot$p");
+$k['phase'] = 'building'; $k['buildDeadline'] = $now - 1;
+foreach ([1, 2] as $p) { $k['seats'][$p]['submitted'] = true; }
+$seen = [1 => $now, 2 => $now];   // the bots never poll
+$check(LTKickableSeats($k, $seen, $now) === [], 'six silent bots are never kickable (2 humans + 6 bots)');
+$k2 = $k; $k2['seats'][2]['submitted'] = false;
+$check(LTKickableSeats($k2, [1 => $now, 2 => $now - 31], $now) === [2], 'a silent human past the deadline is');
+$check(LTKickVoters($k2, 2) === [1] && LTKickVotesNeeded(count(LTKickVoters($k2, 2))) === 1, 'the bots do not vote: 1 of 1');
+
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

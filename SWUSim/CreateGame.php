@@ -82,7 +82,9 @@ function SWUSetupGame($lobby, $opts = []) {
         $seat = 1;
         foreach (($lobby->players ?? []) as $p) {
             if (is_object($p) && method_exists($p, 'getBotProfile') && $p->getBotProfile() !== '') {
-                $botSeats[$seat] = 'heuristic-normal';
+                // A Limited bot plays the style the deck-style classifier gave its deck ('limited-<style>', Plan 5).
+                $lim = preg_match('/^limited-(hyperaggro|softaggro|midrange|softcontrol|hardcontrol)$/', $p->getBotProfile(), $mm) ? $mm[1] : '';
+                $botSeats[$seat] = $lim !== '' ? 'heuristic-' . $lim : 'heuristic-normal';
                 $botNames[$seat] = method_exists($p, 'getUsername') ? strval($p->getUsername()) : '';   // "Arenabot Gamma"
             }
             ++$seat;

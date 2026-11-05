@@ -96,5 +96,36 @@ $side31 = SWULimitedSideboard($pool, $leader, $sorBase, array_slice($cards, 0, 3
 $check(count($side) - count($side31) === 1, 'adding one card to the deck removes exactly one copy from the sideboard');
 $check(array_filter($side, fn($c) => in_array(CardType($c), ['Leader', 'Base'], true)) === [], 'the sideboard holds no leaders or bases');
 
+// ── Bot deck building (Plan 5) — infrastructure: every built deck is LEGAL; its quality is the bot runs' job ───────
+require_once './SWUSim/Limited/LimitedBot.php';
+require_once './SWUSim/Limited/LimitedRoomState.php';
+
+echo "BotDecksAreLegal:\n";
+$bad = []; $styles = [];
+for ($i = 0; $i < 20; $i++) {   // Sealed pools, 6 HMW packs
+    $p = SWULimitedOpenSealedPool(array_fill(0, 6, 'HMW'), SWULimitedRng(1000 + $i));
+    $d = SWULimitedBotBuildDeck($p, ['HMW']);
+    $err = $d === null ? ['no deck'] : SWUCheckLimitedDeck($p, ['HMW'], $d['leader'], $d['base'], $d['main']);
+    if ($err !== []) $bad[] = "sealed#$i " . implode(' ', $err); else $styles[] = $d['style'];
+}
+for ($i = 0; $i < 20; $i++) {   // draft-sized pools: one seat's 3 leaders + its 42 card-pack cards
+    $o = SWULimitedOpenDraft(SWULimitedSettingsFromRequest(['packMode' => 'single', 'singleSet' => 'HMW', 'packCount' => 3], 'draft'), [1, 2, 3], SWULimitedRng(2000 + $i));
+    $p = array_merge($o['leaderPacks'][1], ...$o['cardPacks'][1]);
+    $d = SWULimitedBotBuildDeck($p, ['HMW']);
+    $err = $d === null ? ['no deck'] : SWUCheckLimitedDeck($p, ['HMW'], $d['leader'], $d['base'], $d['main']);
+    if ($err !== []) $bad[] = "draft#$i " . implode(' ', $err); else $styles[] = $d['style'];
+}
+$check($bad === [], '40 bot-built decks (20 Sealed, 20 draft-sized pools) all pass SWUCheckLimitedDeck' . ($bad ? ': ' . implode('; ', array_slice($bad, 0, 3)) : ''));
+$check(count($styles) === 40 && !array_filter($styles, fn($x) => !is_string($x) || $x === ''), 'each has a play style: ' . json_encode(array_count_values($styles)));
+
+echo "BotWithNoLegalDeckLeaves:\n";
+$tiny = array_merge(array_slice(array_values(array_filter($pool, $isLeader)), 0, 2), array_slice($drawable($pool), 0, 20));
+$check(SWULimitedBotBuildDeck($tiny, ['SOR']) === null, 'a pool of 2 leaders + 20 cards has no legal deck: null');
+$room = LTStart(LTAddBotSeat(LTAddSeat(LTNew('sealed'), 1, 'host'), 2, 'Arenabot Alpha'), [1 => ['SOR'], 2 => ['SOR']], [1 => $pool, 2 => $tiny], ['SOR'], 1, 1_800_000_000);
+$gone = LTBotSubmit($room, 2, null);
+$check(!empty($gone['seats'][2]['dropped']) && $gone['phase'] === 'done' && $gone['result']['winner'] === 1, 'the bot leaves rather than stall: the Sealed event ends, the human wins');
+$built = LTBotSubmit($room, 2, ['leader' => 'L', 'base' => 'B', 'main' => ['x'], 'style' => 'midrange']);
+$check(!empty($built['seats'][2]['ready']) && $built['seats'][2]['botStyle'] === 'midrange' && $built['seats'][2]['deck']['leader'] === 'L', 'with a deck it is submitted, Ready, and keeps its style');
+
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

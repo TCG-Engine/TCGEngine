@@ -13,6 +13,7 @@ require_once __DIR__ . '/MatchFlow.php';                 // the engine, as the o
 require_once __DIR__ . '/Limited/LimitedRoom.php';
 require_once __DIR__ . '/Limited/LimitedSettings.php';   // card data — FILE scope, after the engine
 require_once __DIR__ . '/Limited/LimitedDeck.php';       // SWULimitedCardFacts
+require_once __DIR__ . '/Limited/LimitedBot.php';         // the tick builds bot seats' decks (Plan 5)
 
 header('Content-Type: application/json');
 
@@ -69,7 +70,8 @@ if (is_array($d)) {
                   'dropped' => !empty($lt['seats'][$p]['dropped']), 'autoPicked' => intval($d['autoPicks'][$p] ?? 0) > 0,
                   // Drafted leaders are public (spec §4.1 [my call]; owner 2026-11-05): they shape how the others draft.
                   // Card picks stay private — only their count is shown.
-                  'leaders' => array_values($d['leaders'][$p] ?? [])];
+                  'leaders' => array_values($d['leaders'][$p] ?? []),
+                  'bot' => LTIsBot($lt, $p)];   // Plan 5: a bot seat (it picks at once)
     }
     $out += [
         'stage' => $d['stage'], 'round' => intval($d['round']), 'rounds' => intval($d['rounds']), 'direction' => LTDraftDirection($d),

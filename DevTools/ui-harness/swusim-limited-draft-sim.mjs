@@ -21,13 +21,15 @@
 //
 // --swiss also asserts: 3 rounds, no rematch, ⌊N/2⌋ matches a round (+ a bye when N is odd), every live seat played or
 // had a bye each round, one standings row per seat, rank 1 = the event's winner.
-// Usage: node swusim-limited-draft-sim.mjs [BASE] --players 3|8 [--packs N] [--idle <seat>] [--pick-seconds S] [--swiss] [--engine chromium]
+// --bots N (Plan 5): the host adds N bots on the room page; a human facing a bot always concedes.
+// Usage: node swusim-limited-draft-sim.mjs [BASE] --players 1-8 [--bots N] [--packs N] [--idle <seat>] [--pick-seconds S] [--swiss] [--engine chromium]
 import { chromium, firefox, webkit } from 'playwright';
 
 const argv = process.argv.slice(2);
 const opt = (name, def) => { const i = argv.indexOf('--' + name); return i >= 0 ? argv[i + 1] : def; };
 const BASE = argv[0] && !argv[0].startsWith('--') ? argv[0] : 'http://localhost:3400/TCGEngine/';
 const N = parseInt(opt('players', '3'), 10);
+const BOTS = parseInt(opt('bots', '0'), 10);   // Plan 5: the host adds this many bots on the room page ("Add a bot")
 const PACKS = parseInt(opt('packs', '3'), 10);
 const IDLE = parseInt(opt('idle', '0'), 10);
 const PICK_SECONDS = parseInt(opt('pick-seconds', '20'), 10);
@@ -90,7 +92,12 @@ for (const s of seats.slice(1)) {
   await s.page.waitForSelector('#lt-root .lt-seat--me', { timeout: T });
 }
 await host.page.waitForFunction((n) => document.querySelectorAll('#lt-root .lt-seat').length === n, N, { timeout: T });
-ok(`${N} seats in the room (${secs()})`);
+for (let b = 0; b < BOTS; b++) {   // Plan 5: fill the rest with bots, through the page
+  await host.page.waitForFunction(() => { const x = document.querySelector('#lt-root .lt-add-bot'); return x && !x.disabled; }, null, { timeout: T });
+  await host.page.locator('#lt-root .lt-add-bot').click();
+  await host.page.waitForFunction((n) => document.querySelectorAll('#lt-root .lt-seat').length === n, N + b + 1, { timeout: T });
+}
+ok(`${N + BOTS} seats in the room${BOTS ? ` (${BOTS} bots)` : ''} (${secs()})`);
 
 // ── 3. packs, then start ──────────────────────────────────────────────────────────────────────────────────────────
 if (PACKS === 3) {
@@ -215,7 +222,11 @@ async function playSwiss(s) {
       const atBoard = () => p.url().includes('NextTurn.php') && p.url().includes('gameName=' + v.live.gameName);
       if (!atBoard()) await p.waitForURL((u) => u.href.includes('NextTurn.php'), { timeout: 20000 }).catch(() => {});
       if (!atBoard()) { await p.waitForLoadState('domcontentloaded').catch(() => {}); await goBoard(v.live); }
-      const concede = v.swiss.round % 2 === 1 ? v.live.seat === 2 : v.live.seat === 1;
+      // Against a bot the human always concedes: the sim's humans never play, and a bot only moves while a human acts.
+      const myTable = (v.swiss.tables || []).find((t) => t.me) || {};
+      const oppID = myTable.a === (v.me || {}).playerID ? myTable.b : myTable.a;
+      const vsBot = !!(v.seats || []).find((x) => x.playerID === oppID && x.bot);
+      const concede = vsBot || (v.swiss.round % 2 === 1 ? v.live.seat === 2 : v.live.seat === 1);
       if (concede) {
         await p.waitForFunction(() => typeof window.SubmitInput === 'function', null, { timeout: T });
         await p.waitForTimeout(1500);
@@ -279,7 +290,7 @@ if (SWISS) {
   check(shapeOk, `each round had ⌊${liveN}/2⌋ matches${liveN % 2 ? ' and one bye' : ''}`);
   check(coverOk, 'every live seat played or had a bye in every round');
   const st = sw.standings || [];
-  check(st.length === N, `the final standings list every seat (${st.length} of ${N})`);
+  check(st.length === N + BOTS, `the final standings list every seat (${st.length} of ${N + BOTS})`);
   check(st.length && fin.result && st[0].playerID === fin.result.winner, `rank 1 (${st[0] && st[0].name}) is the event's winner`);
   console.log('  · final standings: ' + st.slice(0, 3).map((r) => `${r.rank}. ${r.name} ${r.points} pts`).join(' · '));
   for (const s of seats.filter((x) => !x.dropped)) check(s.finished, `claudebot${s.i} played ${s.games} game(s) (conceded ${s.conceded}) and saw the end`);

@@ -43,6 +43,7 @@
   function seatChips(s, isHost) {
     var c = [];
     if (isHost) c.push('<span class="lt-chip">Host</span>');
+    if (s.bot) c.push('<span class="lt-chip lt-chip--bot">Bot</span>');
     if (s.dropped) c.push('<span class="lt-chip lt-chip--off">Left</span>');
     else {
       if (s.ready) c.push('<span class="lt-chip lt-chip--on">Ready</span>');
@@ -125,11 +126,15 @@
   }
 
   function seatList(d) {
+    var canRemove = d.phase === 'setup' && d.isHost;   // the host takes a bot out during setup (Plan 5)
     return '<ul class="lt-seats">' + d.seats.map(function (s) {
       var isHost = s.playerID === d.hostPlayerID;
-      return '<li class="lt-seat' + (d.me && s.playerID === d.me.playerID ? ' lt-seat--me' : '') + '"><span class="lt-name">' + esc(s.name) + '</span>' + seatChips(s, isHost) + '</li>';
+      return '<li class="lt-seat' + (d.me && s.playerID === d.me.playerID ? ' lt-seat--me' : '') + '"><span class="lt-name">' + esc(s.name) + '</span>' + seatChips(s, isHost) +
+        (canRemove && s.bot ? button('lt-remove-bot', '✕', ' data-pid="' + s.playerID + '" aria-label="Remove ' + esc(s.name) + '"') : '') + '</li>';
     }).join('') + '</ul>';
   }
+  function isBot(d, pid) { return d.seats.some(function (s) { return s.playerID === pid && s.bot; }); }
+  function botTag(d, pid) { return isBot(d, pid) ? ' <span class="lt-bot">Bot</span>' : ''; }
 
   function kickPrompts(d) {
     return (d.kick || []).filter(function (k) { return k.canVote; }).map(function (k) {
@@ -152,25 +157,25 @@
 
   // ── Swiss rounds (Draft) ──────────────────────────────────────────────────────────────────────────────────────────
   function pct(x) { return (Math.round(x * 1000) / 10).toFixed(1); }
-  function standingsTable(rows) {
+  function standingsTable(rows, d) {
     return '<table class="lt-standings"><thead><tr><th>#</th><th>Player</th><th class="lt-pts">Pts</th><th>W-L-D</th>' +
       '<th class="lt-omw">OMW</th><th class="lt-gw">GW</th><th class="lt-ogw">OGW</th></tr></thead><tbody>' + rows.map(function (r) {
         var tb = 'OMW ' + pct(r.omw) + ' · GW ' + pct(r.gw) + ' · OGW ' + pct(r.ogw);
         return '<tr' + (r.dropped ? ' class="lt-row--gone"' : '') + '><td class="lt-rank">' + r.rank + '</td><td><span class="lt-name">' + esc(r.name) +
-          '</span><span class="lt-tb">' + tb + '</span></td><td class="lt-pts">' + r.points + '</td><td class="lt-rec">' + r.wins + '-' + r.losses + '-' + r.draws +
+          '</span>' + (d ? botTag(d, r.playerID) : '') + '<span class="lt-tb">' + tb + '</span></td><td class="lt-pts">' + r.points + '</td><td class="lt-rec">' + r.wins + '-' + r.losses + '-' + r.draws +
           '</td><td class="lt-omw">' + pct(r.omw) + '</td><td class="lt-gw">' + pct(r.gw) + '</td><td class="lt-ogw">' + pct(r.ogw) + '</td></tr>';
       }).join('') + '</tbody></table>';
   }
-  function tablesList(sw) {
+  function tablesList(sw, d) {
     return '<ol class="lt-tables">' + sw.tables.map(function (t) {
       var cls = 'lt-table' + (t.me ? ' lt-table--me' : '');
-      if (t.bye) return '<li class="' + cls + '"><span class="lt-vs">' + esc(t.aName) + ' — bye</span></li>';
-      return '<li class="' + cls + '"><span class="lt-vs">' + esc(t.aName) + ' vs ' + esc(t.bName) + '</span><span class="lt-score">' + t.games[0] + '–' + t.games[1] + '</span>' +
+      if (t.bye) return '<li class="' + cls + '"><span class="lt-vs">' + esc(t.aName) + botTag(d, t.a) + ' — bye</span></li>';
+      return '<li class="' + cls + '"><span class="lt-vs">' + esc(t.aName) + botTag(d, t.a) + ' vs ' + esc(t.bName) + botTag(d, t.b) + '</span><span class="lt-score">' + t.games[0] + '–' + t.games[1] + '</span>' +
         '<span class="lt-chip' + (t.done ? '' : ' lt-chip--on') + '">' + (t.done ? 'Done' : 'Playing') + '</span></li>';
     }).join('') + '</ol>';
   }
-  function standingsBlock(sw, title) {
-    return sw && sw.standings ? '<h4 class="lt-sub">' + esc(title) + '</h4>' + standingsTable(sw.standings) : '';
+  function standingsBlock(sw, title, d) {
+    return sw && sw.standings ? '<h4 class="lt-sub">' + esc(title) + '</h4>' + standingsTable(sw.standings, d) : '';
   }
 
   function startClock(root, d, ctx) {
@@ -222,6 +227,7 @@
       h += renderSettings(d, d.isHost);
       h += seatList(d);
       var live = d.seats.filter(function (s) { return !s.dropped; }).length;
+      if (d.isHost) h += '<div class="lt-actions">' + button('lt-add-bot', 'Add a bot', live >= (isDraft ? 8 : 2) ? ' disabled' : '') + '</div>';
       if (isDraft && live < 3) h += '<p class="lt-note lt-need">Draft needs at least 3 players.</p>';
       if (d.isHost) h += '<div class="lt-actions">' + button('swu2-btn--primary lt-start', isDraft ? 'Start Draft' : 'Start Sealed', d.canStart ? '' : ' disabled') + '</div>';
       else h += '<p class="lt-note">The host chooses the settings and starts the event.</p>';
@@ -239,11 +245,11 @@
       h += '<div class="lt-result">Everyone has built — round 1 is starting.</div>' + seatList(d);
     } else if (d.phase === 'playing' && d.swiss) {
       var sw = d.swiss;
-      h += '<div class="lt-build"><span class="lt-label">Round ' + sw.round + ' of ' + sw.rounds + '</span></div>' + tablesList(sw);
+      h += '<div class="lt-build"><span class="lt-label">Round ' + sw.round + ' of ' + sw.rounds + '</span></div>' + tablesList(sw, d);
       if (d.live) h += '<div class="lt-actions">' + button('swu2-btn--primary lt-back', 'Back to your game') + '</div>';
       else if (sw.myBye) h += '<p class="lt-note">You have a bye this round.</p>';
       else h += '<p class="lt-note">Your match is over — the next round starts when every table has finished.</p>';
-      h += standingsBlock(sw, 'Standings');
+      h += standingsBlock(sw, 'Standings', d);
     } else if (d.phase === 'between' && d.swiss) {
       var sb = d.swiss;
       h += '<div class="lt-build"><span class="lt-label">Round ' + (sb.round + 1) + ' starts in</span><span class="lt-clock">' + mmss(sb.betweenEndsIn || 0) + '</span></div>';
@@ -257,7 +263,7 @@
           button('swu2-btn--primary lt-ready', d.me.ready ? 'Ready ✓' : 'Ready', d.me.ready ? ' disabled' : '') +
           (d.isHost ? button('swu2-btn--primary lt-start-round', 'Start round ' + (sb.round + 1), sb.canStartRound ? '' : ' disabled') : '') + '</div>';
       }
-      h += seatList(d) + standingsBlock(sb, 'Standings after round ' + sb.round);
+      h += seatList(d) + standingsBlock(sb, 'Standings after round ' + sb.round, d);
     } else if (d.phase === 'building') {
       h += '<div class="lt-build"><span class="lt-label">Deckbuilding ends in</span><span class="lt-clock">' + mmss(d.buildEndsIn || 0) + '</span></div>';
       if (d.me.lineup && d.me.lineup.length) h += '<p class="lt-note">Your packs: ' + d.me.lineup.map(esc).join(' · ') + '</p>';
@@ -270,7 +276,7 @@
     } else if (d.phase === 'done' && d.swiss && d.swiss.standings) {
       var winner = d.result && d.result.winner ? d.seats.filter(function (x) { return x.playerID === d.result.winner; })[0] : null;
       h += '<div class="lt-result">' + (winner ? esc(winner.name) + ' wins the event.' : 'The event is over.') + '</div>';
-      h += standingsBlock(d.swiss, 'Final standings');
+      h += standingsBlock(d.swiss, 'Final standings', d);
       h += '<div class="lt-actions"><a class="btn swu2-btn ch lt-menu" href="' + esc(ctx.appBase + 'SharedUI/MainMenu.php') + '">Main Menu</a></div>';
     } else {
       h += '<div class="lt-result">' + resultLine(d) + '</div>' + seatList(d);
@@ -281,6 +287,11 @@
     if (d.phase === 'setup' && d.isHost) wireSettings(root, d, ctx);
     var st = root.querySelector('.lt-start');
     if (st) st.onclick = function () { st.disabled = true; ctx.post('start', '', function (r) { lastSig = ''; if (!r.success) st.disabled = false; }); };
+    var addBot = root.querySelector('.lt-add-bot');
+    if (addBot && !addBot.disabled) addBot.onclick = function () { addBot.disabled = true; ctx.post('addBot', '', function (r) { lastSig = ''; if (!r.success) addBot.disabled = false; }); };
+    root.querySelectorAll('.lt-remove-bot').forEach(function (b) {
+      b.onclick = function () { b.disabled = true; ctx.post('removeBot', 'targetPlayerID=' + encodeURIComponent(b.getAttribute('data-pid')), function () { lastSig = ''; }); };
+    });
     var rdy = root.querySelector('.lt-ready');
     if (rdy && !rdy.disabled) rdy.onclick = function () { rdy.disabled = true; ctx.post('ready', '', function (r) { lastSig = ''; if (!r.success) rdy.disabled = false; }); };
     var sr = root.querySelector('.lt-start-round');

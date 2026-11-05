@@ -14,6 +14,7 @@ require_once __DIR__ . '/MatchFlow.php';                 // SWUCreateMatchFromLo
 require_once __DIR__ . '/Limited/LimitedRoom.php';
 require_once __DIR__ . '/Limited/LimitedSettings.php';   // card data — FILE scope, after the engine
 require_once __DIR__ . '/Limited/LimitedDeck.php';
+require_once __DIR__ . '/Limited/LimitedBot.php';         // the tick builds bot seats' decks (Plan 5)
 
 header('Content-Type: application/json');
 
@@ -61,6 +62,7 @@ if ($matchId !== '') {
     $expected = strval($m['players'][strval($seat)]['authKey'] ?? '');
     if ($expected === '' || !hash_equals($expected, $key)) LimitedBuilderFail('Auth failed.', 403);
     SWUSideboardTimeoutCheck($matchId);   // this page's poll is a heartbeat of the 5-minute clock
+    SWULimitedReadyBotSeats($matchId);    // a bot opponent keeps its deck and is Ready at once (Plan 5)
     $m = SWUReadMatch($matchId);
     $pool = $m['limited']['pools'][$seat] ?? [];
     $sets = $m['limited']['setsInPlay'] ?? [];

@@ -80,7 +80,9 @@ function SWULimitedPollView(object $lobby, string $viewerKey, int $now): array {
     foreach ($lt['seats'] as $pid => $s) {
         $seats[] = ['playerID' => intval($pid), 'name' => strval($s['name']), 'submitted' => !empty($s['submitted']),
                     'ready' => !empty($s['ready']), 'dropped' => !empty($s['dropped']),
-                    'connected' => ($now - intval($seen[$pid] ?? 0)) <= LT_DISCONNECT_SECONDS];
+                    // A bot never polls: it is always "connected" (never shown Disconnected, never kickable).
+                    'connected' => !empty($s['bot']) || ($now - intval($seen[$pid] ?? 0)) <= LT_DISCONNECT_SECONDS,
+                    'bot' => !empty($s['bot'])];
     }
     $isHost = $mePid > 0 && SWULimitedIsHost($lobby, $mePid);
     $view = [
@@ -162,6 +164,20 @@ function SWULimitedKickView(array $lt, int $mePid, array $seen, int $now): array
     return $out;
 }
 
+// A bot seat's build, applied under the lobby lock (Plan 5): the blob (LTBotSubmit) and its lobby Player, whose profile
+// now names the style it plays ('limited-<style>' — SWUSim/CreateGame.php reads it). The deck the match plays comes from
+// the blob (_SWULimitedCreateChildMatch), so the Player needs no deckLink.
+function SWULimitedApplyBotBuild(object $l, int $pid, ?array $deck): void {
+    if (!LTIsBot($l->limited, $pid) || !empty($l->limited['seats'][$pid]['submitted']) || $l->limited['phase'] !== 'building') return;
+    $l->limited = LTBotSubmit($l->limited, $pid, $deck);
+    foreach (($l->players ?? []) as $p) {
+        if (!($p instanceof Player) || intval($p->getPlayerID()) !== $pid || $deck === null) continue;
+        $p->setBotProfile('limited-' . strval($deck['style'] ?? 'midrange'));
+        $p->setDeckOk(true);
+        $p->setReady(true);
+    }
+}
+
 // One step of the room's own clock, pure (the lobby poll runs it in its lock): overdue draft picks, the build deadline, and
 // a Draft pod whose every live seat is Ready becoming 'built'.
 function SWULimitedClockStep(array $lt, array $lastSeen, int $now): array {
@@ -180,10 +196,15 @@ function SWULimitedTick(string $lobbyID, int $now): void {
     if (!SWUIsLimitedRoom($snap)) return;
     $canStart = function_exists('SWUCreateMatchFromLobby');   // the engine is loaded (a Limited endpoint)
     $live = SWULimitedLiveMatches($snap);                     // read BEFORE the lock (I/O)
+    // Bot seats build the moment the pod reaches 'building' — card data, so only where LimitedBot.php is loaded (the
+    // Limited endpoints), and outside the lock (it is real work).
+    $builds = function_exists('SWULimitedBotBuilds') ? SWULimitedBotBuilds($snap->limited) : [];
     $claimed = false; $changed = false; $round = false;
-    $lobby = LobbyMutate($lobbyID, function ($l) use ($now, $canStart, $live, &$claimed, &$changed, &$round) {
+    $lobby = LobbyMutate($lobbyID, function ($l) use ($now, $canStart, $live, $builds, &$claimed, &$changed, &$round) {
         if (!SWUIsLimitedRoom($l)) return false;
         $before = $l->limited;
+        $beforePlayers = serialize($l->players);
+        foreach ($builds as $pid => $deck) SWULimitedApplyBotBuild($l, intval($pid), $deck);
         $lt = SWULimitedClockStep($l->limited, SWULimitedLastSeen($l), $now);
         $lt = SWULimitedApplyMatches($lt, $live, $now);   // a result the gameResultRecorded hook missed
         if ($canStart && $lt['mode'] === 'draft') {
@@ -191,7 +212,7 @@ function SWULimitedTick(string $lobbyID, int $now): void {
             if (($c = LTSwissClaimRound($lt, $now, intval($l->hostPlayerID ?? 0), false)) !== null) { $lt = $c; $claimed = true; $round = true; }
         } elseif ($canStart && ($c = LTClaimStart($lt, $now)) !== null) { $lt = $c; $claimed = true; }
         $l->limited = $lt;
-        $changed = $lt !== $before;
+        $changed = $lt !== $before || serialize($l->players) !== $beforePlayers;
         return $changed;
     });
     // The builder ticks every 2 s: only a real change goes to disk (LobbyMutate returns the lobby even when nothing changed).
@@ -339,13 +360,14 @@ function SWULimitedStartRound(string $lobbyID): array {
     }
     $lt = $snap->limited;
     $made = []; $why = null;
+    $played = fn($x) => $x['b'] !== null && !(LTIsBot($lt, intval($x['a'])) && LTIsBot($lt, intval($x['b'])));   // bot vs bot: a coin toss
     foreach ($lt['swiss']['pending'] as $i => $x) {
-        if ($x['b'] === null) continue;
+        if (!$played($x)) continue;
         $m = _SWULimitedCreateChildMatch($snap, $lt, intval($x['a']), intval($x['b']), $why);
         if ($m === null) break;
         $made[$i] = $m;
     }
-    $tables = count(array_filter($lt['swiss']['pending'], fn($x) => $x['b'] !== null));
+    $tables = count(array_filter($lt['swiss']['pending'], $played));
     $committed = false;
     if (count($made) === $tables) {
         LobbyMutate($lobbyID, function ($l) use ($made, &$committed) {
@@ -365,6 +387,20 @@ function SWULimitedStartRound(string $lobbyID): array {
     }
     SWURoomSaveLatest($lobbyID);
     return ['success' => true, 'matches' => array_values($made)];
+}
+
+// Between the games of a Limited Bo3, every bot seat keeps its deck and is Ready at once (spec §3.7 [my call]) — the
+// human's between-games builder polls this. Needs the engine (Core/Match sideboard calls).
+function SWULimitedReadyBotSeats(string $matchId): void {
+    $m = MatchRead('SWUSim', $matchId);
+    if (!is_array($m) || empty($m['limited']) || ($m['state'] ?? '') !== 'sideboarding') return;
+    $readied = false;
+    foreach (($m['players'] ?? []) as $seat => $p) {
+        if (strval($p['botProfile'] ?? '') === '' || !empty($m['sideboard'][strval($seat)]['ready'])) continue;
+        MatchReadySideboardSeat('SWUSim', $matchId, intval($seat), $p['currentDeck'] ?? $p['originalDeck'] ?? []);
+        $readied = true;
+    }
+    if ($readied) MatchMaybeSpawnAfterSideboard('SWUSim', $matchId);
 }
 
 // The gameResultRecorded hook (Core/Match/MatchFlow.php): a game of one of the event's matches was just recorded.

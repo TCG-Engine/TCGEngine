@@ -69,9 +69,9 @@ function pollRoom(array $r, string $who): array {
     return hit($L . 'PollLobbyUpdates.php', ['lobbyID' => $r['lobbyID'], 'rootName' => 'SWUSim', 'playerID' => $r['ids'][$who],
         'authKey' => $r['keys'][$who]], $r['jars'][$who]);
 }
-function act(array $r, string $who, string $action, array $params = []): array {
+function act(array $r, string $who, string $action, array $params = [], &$status = null): array {
     global $B;
-    return hit($B . 'SWUSim/LimitedAction.php', ['lobbyID' => $r['lobbyID'], 'authKey' => $r['keys'][$who], 'action' => $action] + $params, $r['jars'][$who]);
+    return hit($B . 'SWUSim/LimitedAction.php', ['lobbyID' => $r['lobbyID'], 'authKey' => $r['keys'][$who], 'action' => $action] + $params, $r['jars'][$who], $status);
 }
 function settingsPost(array $r, string $who, array $s): array { return act($r, $who, 'settings', ['settings' => json_encode($s)]); }
 // A started two-seat room on $settings.
@@ -194,5 +194,35 @@ joinLimited($lv, 'b', $JB);
 hit($L . 'LeaveQueue.php', ['rootName' => 'SWUSim', 'playerID' => $lv['ids']['b'], 'lobbyID' => $lv['lobbyID'], 'authKey' => $lv['keys']['b']], $JB);
 $after = pollRoom($lv, 'a')['limited'] ?? [];
 $check(count($after['seats'] ?? []) === 1 && ($after['phase'] ?? '') === 'setup', 'the guest left during setup → one seat, still setup');
+
+echo "AddAndRemoveBot:\n";   // Plan 5 (spec §3.7)
+$bt = createLimited($JA, 'draft');
+joinLimited($bt, 'b', $JB);
+$a1 = act($bt, 'a', 'addBot'); $a2 = act($bt, 'a', 'addBot');
+$seats = pollRoom($bt, 'a')['limited']['seats'] ?? [];
+$bots = array_values(array_filter($seats, fn($x) => !empty($x['bot'])));
+$check(!empty($a1['success']) && !empty($a2['success']) && count($seats) === 4 && array_column($bots, 'name') === ['Arenabot Alpha', 'Arenabot Beta'],
+       'the host adds two bots: "Arenabot Alpha", "Arenabot Beta": ' . json_encode(array_column($seats, 'name')));
+act($bt, 'b', 'addBot', [], $st);
+$check(($st ?? 0) === 403, 'a guest cannot add a bot (' . json_encode($st ?? null) . ')');
+$beta = intval($bots[1]['playerID'] ?? 0);
+$rm = act($bt, 'a', 'removeBot', ['targetPlayerID' => $beta]);
+$after = pollRoom($bt, 'a')['limited']['seats'] ?? [];
+$check(!empty($rm['success']) && count($after) === 3 && !in_array($beta, array_column($after, 'playerID'), true), 'the host removes Beta: 3 seats');
+act($bt, 'a', 'addBot');
+$names = array_column(array_filter(pollRoom($bt, 'a')['limited']['seats'] ?? [], fn($x) => !empty($x['bot'])), 'name');
+$check(array_values($names) === ['Arenabot Alpha', 'Arenabot Gamma'], 'the next bot is "Arenabot Gamma" — a letter is never reused: ' . json_encode(array_values($names)));
+$self = act($bt, 'a', 'removeBot', ['targetPlayerID' => $bt['ids']['a']]);
+$check(empty($self['success']) && ($self['message'] ?? '') === 'That is not a bot.', 'the host\'s own seat is not a bot: ' . strval($self['message'] ?? ''));
+
+echo "NoTwinSunsBotsInLimited:\n";
+$sb = createLimited($JA, 'sealed');
+$tw = hit($L . 'AddBot.php', ['lobbyID' => $sb['lobbyID'], 'authKey' => $sb['keys']['a'], 'botProfile' => 'custom', 'botDeck' => ''], $JA);
+$check(empty($tw['success']), 'AddBot.php (Twin Suns profiles) refuses a Limited room: ' . strval($tw['message'] ?? ''));
+act($sb, 'a', 'addBot');
+$jc = joinLimited($sb, 'c', $JC);
+$left = pollRoom($sb, 'a')['limited']['seats'] ?? [];
+$check(empty($jc['success']) && count($left) === 2 && count(array_filter($left, fn($x) => !empty($x['bot']))) === 1,
+       'host + bot is a full Sealed room: a human joining is refused and the bot stays: ' . strval($jc['message'] ?? ''));
 
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";

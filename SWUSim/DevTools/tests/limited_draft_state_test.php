@@ -203,5 +203,43 @@ $none = LTDraftBegin(room([1, 2, 3]), [1, 2, 3], [1 => [], 2 => [], 3 => []], $c
 $check($none['draft']['stage'] === 'cards' && $none['draft']['round'] === 1 && count($none['draft']['queues'][1]) === 1 && intval($none['draft']['queues'][1][0]['size']) === 14,
        'no leader opened anywhere: the leader draft is skipped and pack 1 opens at once');
 
+// ── Bots (Plan 5) — infrastructure only: legality and liveness, never a pick's quality (owner rule 2026-10-12) ─────
+function factsFor(array $aspects): array {
+    $f = []; $i = 0;
+    foreach ($aspects as $id => $_) $f[$id] = ['t' => $id[0] === 'L' ? 'Leader' : (($i++ % 3) ? 'Unit' : 'Event'), 'c' => $i % 6, 'v' => ($i % 5) / 2, 'r' => 'Common'];
+    return $f;
+}
+function botRoom(array $pids, array $bots): array {
+    $lt = room($pids);
+    foreach ($bots as $b) $lt['seats'][$b]['bot'] = true;
+    return $lt;
+}
+
+echo "FactsInTheBlob:\n";
+[$l, $c, $a] = packsFor([1, 2, 3], 3, $shapes);
+$fx = factsFor($a);
+$fb = LTDraftBegin(botRoom([1, 2, 3], [2, 3]), [1, 2, 3], $l, $c, $a, 4242, 300, $now, $fx);
+$check(($fb['draft']['facts'] ?? null) === $fx, 'the opened cards\' facts are stored in the draft');
+
+echo "BotsPickAtOnceAndLegally:\n";
+$t = LTDraftTick($fb, [1 => $now], $now);   // no clock has run
+$ok = true;
+// A bot picks again the moment another pack reaches it (seat 3 passes right, to seat 2), all within the one tick.
+foreach ([2, 3] as $b) $ok = $ok && $t['draft']['leaders'][$b] && in_array($t['draft']['leaders'][$b][0], $l[$b], true)
+    && !array_diff($t['draft']['leaders'][$b], $l[2], $l[3]) && intval($t['draft']['autoPicks'][$b]) === 0;
+$check($ok, 'each bot picks at once — first from its own pack, then from every pack passed to it — and is never counted as auto-picked: ' . json_encode([$t['draft']['leaders'][2], $t['draft']['leaders'][3]]));
+$check($t['draft']['leaders'][1] === [] && ($t['draft']['queues'][1][0]['cards'] ?? null) === $l[1], 'the human\'s own pack is untouched: nobody picks for a human before the clock');
+
+echo "AllBotPodFinishes:\n";
+[$l8, $c8, $a8] = packsFor([1, 2, 3, 4, 5, 6, 7, 8], 3, $shapes);
+$p8 = LTDraftBegin(botRoom([1, 2, 3, 4, 5, 6, 7, 8], [2, 3, 4, 5, 6, 7, 8]), [1, 2, 3, 4, 5, 6, 7, 8], $l8, $c8, $a8, 99, 300, $now, factsFor($a8));
+$p8 = LTDropSeat($p8, 1, 'left');   // the human host leaves: an all-bot pod
+for ($g = 0; $g < 50 && $p8['phase'] === 'drafting'; $g++) $p8 = LTDraftTick($p8, [], $now);
+$sizes = array_map(fn($p) => count($p8['pools'][$p] ?? []), range(1, 8));
+$all = array_merge(...array_map(fn($p) => $p8['pools'][$p] ?? [], range(1, 8)));
+$opened = array_merge(array_merge(...array_values($l8)), ...array_map(fn($ps) => array_merge(...$ps), array_values($c8)));
+sort($all); sort($opened);
+$check($p8['phase'] === 'building' && $sizes === array_fill(0, 8, 45) && $all === $opened, 'an all-bot pod drafts to the end at once: every pool 45, every opened card in exactly one pool: ' . json_encode($sizes));
+
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

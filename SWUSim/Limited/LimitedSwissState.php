@@ -171,6 +171,10 @@ function LTSwissCommitRound(array $lt, array $matches, int $now): ?array {
                         'done' => true, 'games' => [$x['a'] => $bye], 'winner' => $x['a'], 'draw' => false];
             continue;
         }
+        if (LTIsBot($lt, $x['a']) && LTIsBot($lt, $x['b'])) {   // bot vs bot is never played (Plan 5): coin tosses
+            $round[] = _LTSwissCoinTossTable($lt, $x, intval($lt['swiss']['round']) + 1, $i);
+            continue;
+        }
         $m = $matches[$i] ?? null;
         if (!is_array($m) || strval($m['matchId'] ?? '') === '') return null;
         $round[] = ['a' => $x['a'], 'b' => $x['b'], 'bye' => false, 'matchId' => strval($m['matchId']), 'gameName' => strval($m['gameName']),
@@ -184,6 +188,18 @@ function LTSwissCommitRound(array $lt, array $matches, int $now): ?array {
     $lt['starting'] = false;
     $lt['phase'] = 'playing';
     return _LTSwissMaybeEndRound($lt, $now);   // a round of nothing but a bye (two seats left, one of them dropped) ends at once
+}
+
+// A bot-vs-bot table (spec §3.7 [owner]: bots only move while a human's tab polls them, so it could never be played):
+// each game is a coin toss — a Bo3 is tosses until one side has 2 — seeded by the room, the round and the table, so the
+// same blob always resolves the same way. It is done at once and counts like any match.
+function _LTSwissCoinTossTable(array $lt, array $x, int $round, int $index): array {
+    $rng = new \Random\Randomizer(new \Random\Engine\Mt19937(intval($lt['seed'] ?? 0) + 7919 * $round + 31 * $index));
+    $need = intval($lt['settings']['bestOf'] ?? 1) === 3 ? 2 : 1;
+    $g = [$x['a'] => 0, $x['b'] => 0];
+    while ($g[$x['a']] < $need && $g[$x['b']] < $need) $g[$rng->getInt(0, 1) === 0 ? $x['a'] : $x['b']]++;
+    return ['a' => $x['a'], 'b' => $x['b'], 'bye' => false, 'matchId' => '', 'gameName' => '', 'seats' => [1 => $x['a'], 2 => $x['b']],
+            'done' => true, 'games' => $g, 'winner' => $g[$x['a']] >= $need ? $x['a'] : $x['b'], 'draw' => false, 'coinToss' => true];
 }
 
 // Follow a table's match ($m = its Match.json). Only the current round's tables; a finished table never changes again.
@@ -219,7 +235,7 @@ function _LTSwissMaybeEndRound(array $lt, int $now): array {
     if ($n < intval($lt['swiss']['rounds']) && count($live) >= 2) {
         $lt['phase'] = 'between';
         $lt['swiss']['betweenDeadline'] = $now + LT_BETWEEN_SECONDS;
-        foreach ($live as $p) $lt['seats'][$p]['ready'] = false;
+        foreach ($live as $p) $lt['seats'][$p]['ready'] = LTIsBot($lt, $p);   // a bot keeps its deck and is Ready at once (Plan 5)
         return $lt;
     }
     $winner = null;
@@ -253,7 +269,7 @@ function LTSwissKickable(array $lt, array $lastSeen, int $now): array {
     $start = intval($deadline) - LT_BETWEEN_SECONDS;
     if ($now < $start + LT_BETWEEN_KICK_GRACE) return [];
     $out = [];
-    foreach (LTLiveSeats($lt) as $p) {
+    foreach (LTHumanSeats($lt) as $p) {   // a bot never polls and is never kickable
         if (intval($lt['kick'][$p]['waitUntil'] ?? 0) > $now) continue;
         if ($now - max(intval($lastSeen[$p] ?? 0), $start) > LT_DISCONNECT_SECONDS) $out[] = $p;
     }

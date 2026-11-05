@@ -7,6 +7,7 @@
 //   tick                              — any seat: apply the build clock and start the match once it is due
 //   startRound                        — host, between Swiss rounds: start the next round once every seat is Ready
 //   ready                             — a seat, between Swiss rounds: Ready with the deck it played last
+//   addBot | removeBot (targetPlayerID) — host, during setup: fill a seat with a bot, or take one out (Plan 5)
 // Other people are always named by lobby playerID — never by their room key, which only its owner holds.
 // Reply: {success, message?, errors?}.
 require_once __DIR__ . '/../Core/NetworkingLibraries.php';
@@ -16,7 +17,9 @@ require_once __DIR__ . '/MatchFlow.php';                 // SWUCreateMatchFromLo
 require_once __DIR__ . '/Limited/LimitedRoom.php';
 require_once __DIR__ . '/Limited/LimitedSettings.php';   // packs + settings (card data) — FILE scope, after the engine
 require_once __DIR__ . '/Limited/LimitedDeck.php';
+require_once __DIR__ . '/Limited/LimitedBot.php';         // bot seats build their decks (Plan 5)
 require_once __DIR__ . '/Mod/DevGate.php';               // SWUIsLocalDevRequest — the test-only short pick clock
+require_once __DIR__ . '/LobbyAdapter.php';              // SWULobbyAdapter::BOT_NAME_LETTERS (room-bot names)
 
 header('Content-Type: application/json');
 
@@ -30,7 +33,7 @@ $lobbyID = strval($_POST['lobbyID'] ?? '');
 $authKey = strval($_POST['authKey'] ?? '');
 $action  = strval($_POST['action'] ?? '');
 if ($lobbyID === '' || $authKey === '' || $action === '') LimitedActionFail('Invalid request.');
-if (!in_array($action, ['settings', 'start', 'kickVote', 'kickWait', 'tick', 'startRound', 'ready'], true)) LimitedActionFail('Unknown action.');
+if (!in_array($action, ['settings', 'start', 'kickVote', 'kickWait', 'tick', 'startRound', 'ready', 'addBot', 'removeBot'], true)) LimitedActionFail('Unknown action.');
 
 SWURoomRehydrate($lobbyID);
 $now = time();
@@ -75,19 +78,22 @@ if ($action === 'start') {
     $rng = SWULimitedRng($seed);
     $lineups = []; $pools = [];
     if ($draft) {
-        ['lineups' => $lineups, 'leaderPacks' => $leaderPacks, 'cardPacks' => $cardPacks, 'aspects' => $aspects, 'order' => $order]
+        ['lineups' => $lineups, 'leaderPacks' => $leaderPacks, 'cardPacks' => $cardPacks, 'aspects' => $aspects, 'order' => $order, 'facts' => $facts]
             = SWULimitedOpenDraft($lt['settings'], $live, $rng);
     } else {
         $rolled = SWULimitedRollLineups($lt['settings'], count($live), $rng);   // seats 1..N, in seat order
         foreach ($live as $i => $pid) { $lineups[$pid] = $rolled[$i + 1]; $pools[$pid] = SWULimitedOpenSealedPool($lineups[$pid], $rng); }
-        $leaderPacks = []; $cardPacks = []; $aspects = []; $order = $live;
+        $leaderPacks = []; $cardPacks = []; $aspects = []; $order = $live; $facts = [];
     }
     // The pick clock is 5 minutes. Only a LOCAL dev request may shorten it — for the simulations and harnesses.
     $pickSeconds = LT_PICK_SECONDS;
     if ($draft && SWUIsLocalDevRequest() && isset($_POST['testPickSeconds'])) $pickSeconds = max(5, min(LT_PICK_SECONDS, intval($_POST['testPickSeconds'])));
-    $opened = ['lineups' => $lineups, 'pools' => $pools, 'sets' => SWULimitedSetsInPlay($lt['settings']), 'seed' => $seed,
+    // Sealed: a bot seat builds from its pool at once (a Draft bot builds once the draft ends — SWULimitedTick).
+    $botDecks = [];
+    if (!$draft) foreach ($live as $pid) if (LTIsBot($lt, $pid)) $botDecks[$pid] = SWULimitedBotBuildDeck($pools[$pid], SWULimitedSetsInPlay($lt['settings']));
+    $opened = ['lineups' => $lineups, 'pools' => $pools, 'sets' => SWULimitedSetsInPlay($lt['settings']), 'seed' => $seed, 'botDecks' => $botDecks,
                'seats' => $live, 'settings' => $lt['settings'], 'draft' => $draft, 'order' => $order,
-               'leaderPacks' => $leaderPacks, 'cardPacks' => $cardPacks, 'aspects' => $aspects, 'pickSeconds' => $pickSeconds];
+               'leaderPacks' => $leaderPacks, 'cardPacks' => $cardPacks, 'aspects' => $aspects, 'pickSeconds' => $pickSeconds, 'facts' => $facts];
 }
 
 $err = null; $code = 400; $errors = null;
@@ -111,13 +117,14 @@ $lobby = LobbyMutate($lobbyID, function ($l) use ($action, $authKey, $now, $open
             if (LTLiveSeats($lt) !== $opened['seats'] || $lt['settings'] !== $opened['settings']) { $err = 'The room changed — press Start again.'; $code = 409; return false; }
             if ($opened['draft']) {
                 $next = LTDraftBegin($lt, $opened['order'], $opened['leaderPacks'], $opened['cardPacks'], $opened['aspects'],
-                                     $opened['seed'], $opened['pickSeconds'], $now);
-                if ($next !== null) { $next['lineups'] = $opened['lineups']; $next['setsInPlay'] = $opened['sets']; }
+                                     $opened['seed'], $opened['pickSeconds'], $now, $opened['facts']);
+                if ($next !== null) { $next['lineups'] = $opened['lineups']; $next['setsInPlay'] = $opened['sets']; $next['draft']['splash'] = SWULimitedSplashInPlay($opened['sets']); }
             } else {
                 $next = LTStart($lt, $opened['lineups'], $opened['pools'], $opened['sets'], $opened['seed'], $now);
             }
             if ($next === null) { $err = 'The event cannot start yet.'; $code = 409; return false; }
             $l->limited = $next;
+            foreach ($opened['botDecks'] as $pid => $deck) SWULimitedApplyBotBuild($l, intval($pid), $deck);
             // A started room: no deck swaps, no host removal, and joining another room no longer releases this seat
             // (LobbyHasStarted). The kick vote replaces the host's Remove from here on.
             $l->state = 'started';
@@ -128,6 +135,36 @@ $lobby = LobbyMutate($lobbyID, function ($l) use ($action, $authKey, $now, $open
             $next = ($action === 'kickVote') ? LTKickVote($lt, $mePid, $target, SWULimitedLastSeen($l), $now)
                                              : LTKickWait($lt, $mePid, $target, $now);
             if ($next === null) { $err = 'You can\'t do that right now.'; $code = 409; return false; }
+            $l->limited = $next;
+            return true;
+        case 'addBot':
+        case 'removeBot':
+            // Bots fill any Draft seat or Sealed's second (spec §3.7). Each is a lobby Player with no account, named by the
+            // next Greek letter in the order bots are added (never reused, as in Twin Suns rooms).
+            if (!SWULimitedIsHost($l, $mePid)) { $err = $action === 'addBot' ? 'Only the host can add a bot.' : 'Only the host can remove a bot.'; $code = 403; return false; }
+            if ($lt['phase'] !== 'setup') { $err = 'Bots are added before the event starts.'; $code = 409; return false; }
+            if ($action === 'removeBot') {
+                $target = intval($_POST['targetPlayerID'] ?? 0);
+                if (!LTIsBot($lt, $target)) { $err = 'That is not a bot.'; $code = 409; return false; }
+                $l->players = array_values(array_filter($l->players, fn($p) => !($p instanceof Player) || intval($p->getPlayerID()) !== $target));
+                $l->numPlayers = count($l->players);
+                $l->limited = LTDropSeat($lt, $target, 'left');   // in setup this frees the seat
+                return true;
+            }
+            $nextID = 1;
+            foreach ($l->players as $p) if ($p instanceof Player) $nextID = max($nextID, intval($p->getPlayerID()) + 1);
+            $letters = SWULobbyAdapter::BOT_NAME_LETTERS;
+            $n = intval($l->limitedBotNameIndex ?? 0);
+            $name = 'Arenabot ' . $letters[$n % count($letters)];
+            $next = LTAddBotSeat($lt, $nextID, $name);
+            if ($next === null) { $err = 'That room is full.'; $code = 409; return false; }
+            $bot = new Player($nextID, '');
+            $bot->setBotProfile('limited');   // the style is set once it has built ('limited-<style>', LimitedBot.php)
+            $bot->setUsername($name);
+            $bot->touch($now);
+            $l->players[] = $bot;
+            $l->numPlayers = count($l->players);
+            $l->limitedBotNameIndex = $n + 1;
             $l->limited = $next;
             return true;
         case 'ready':
