@@ -106,6 +106,16 @@ $check(SWULimitedValidateSettings(SWULimitedSettingsFromRequest(['packMode' => '
 $check(SWULimitedSetsInPlay($icons) === ['HMW', 'IC27'], 'sets in play: HMW, then IC27');
 $hmwBases = SWULimitedCommonBasesInPlay(['HMW']);
 $check(SWULimitedCommonBasesInPlay(['HMW', 'IC27']) === $hmwBases && $hmwBases !== [], 'IC27 adds no common base (its bases are Starter Box Specials)');
+// Owner 2026-11-05: an all-IC27 lineup brings no common base of its own — the latest main set's standard 30 HP common
+// bases (HMW) are in play instead. A lineup that has a main set keeps exactly that set's bases.
+$check(SWULimitedCommonBasesInPlay(['IC27']) === $hmwBases, 'all IC27: the HMW common bases are in play');
+$check(SWULimitedCommonBasesInPlay(['SOR', 'IC27']) === SWULimitedCommonBasesInPlay(['SOR']), 'SOR + IC27: SOR\'s bases only (no HMW added)');
+require_once './SWUSim/Limited/LimitedDeck.php';
+$icPool = SWULimitedOpenSealedPool(array_fill(0, 10, 'IC27'), SWULimitedRng(11));
+$icLeader = array_values(array_filter($icPool, fn($c) => CardType($c) === 'Leader'))[0] ?? '';
+$icMain = array_slice(array_values(array_filter($icPool, fn($c) => !in_array(CardType($c), ['Leader', 'Base'], true))), 0, 30);
+$check($icLeader !== '' && SWUCheckLimitedDeck($icPool, ['IC27'], $icLeader, $hmwBases[0], $icMain) === [],
+       'a deck from 10 IC27 packs is legal with an HMW common base: ' . json_encode($icLeader === '' ? 'no leader opened' : SWUCheckLimitedDeck($icPool, ['IC27'], $icLeader, $hmwBases[0], $icMain)));
 $pool = SWULimitedOpenSealedPool($icons['lineup'], SWULimitedRng(7));
 $check(count($pool) === 3 * 16 + 5 * 9, 'the Sealed pool is 3×16 + 5×9 = 93 cards: ' . count($pool));
 

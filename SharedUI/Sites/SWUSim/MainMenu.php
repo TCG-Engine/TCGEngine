@@ -702,7 +702,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
 
       <?php /* Limited (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md): a private room created with
                NO deck — the host picks the packs in the room, everyone builds from what they open. Its own menu item (owner,
-               2026-11-05). Creation is behind SWULimitedCreateAllowed() (moderators only on prod); JoinQueue enforces it too. */ ?>
+               2026-11-05). Creation is behind SWULimitedCreateAllowed() (open to everyone since 2026-11-05); JoinQueue enforces it too. */ ?>
       <dialog class="setup lift" id="setup-limited" aria-labelledby="setup-limited-t" style="--tint: var(--tint-lim);">
         <div class="setup__pane ch gl">
           <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>

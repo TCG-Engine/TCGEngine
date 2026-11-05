@@ -100,7 +100,8 @@ function SWULimitedRollLineups(array $s, int $seatCount, \Random\Randomizer $rng
     return $out;
 }
 
-// Every Common base of the sets in play — any of these is legal in a Limited deck without opening it.
+// Every Common base of the sets in play — any of these is legal in a Limited deck without opening it. A lineup of only
+// supplemental packs gets the latest main set's common bases (see the end).
 function SWULimitedCommonBasesInPlay(array $setsInPlay): array {
     static $bySet = null;
     if ($bySet === null) {
@@ -117,6 +118,9 @@ function SWULimitedCommonBasesInPlay(array $setsInPlay): array {
             foreach (SWUReprintRaritiesIn($set) as $c => $r) if ($r === 'Common' && CardType($c) === 'Base' && !in_array($c, $out, true)) $out[] = $c;
         }
     }
+    // Owner 2026-11-05: a lineup of supplemental packs alone (all IC27 — its bases are Starter Box Specials) would have no
+    // base to build with: the latest main set's standard 30 HP common bases are in play instead.
+    if ($out === [] && $setsInPlay !== [] && !array_filter($setsInPlay, 'SWUIsBoosterSet')) return SWULimitedCommonBasesInPlay([SWULatestBoosterSet()]);
     return $out;
 }
 

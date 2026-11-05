@@ -842,6 +842,9 @@ function ObjectCurrentPowerRaw($obj): int {
         case 'LOF_233': // Scimitar: while this unit is damaged, +3/+0.
             if (intval($obj->Damage ?? 0) > 0) $base += 3;
             break;
+        case 'IC27_162': // Chewbacca – Cool Backpack: while this unit is damaged, +4/+0 (card file).
+            $base += _SWUIc27162Bonus($obj);
+            break;
         case 'LOF_244': // Jedi Vector: +1/+0 if you control another Jedi unit, +1/+0 if a Lightsaber upgrade.
             if ($controller > 0) {
                 $selfUid = intval($obj->UniqueID ?? 0);
@@ -984,6 +987,7 @@ function ObjectCurrentPowerRaw($obj): int {
     $base += _SWULof191BuffCount($obj);                          // LOF_191 BD-1: chosen unit +1/+0 per instance while the source is in play
     if (function_exists('_SWUIc27019DebuffCount')) $base -= 3 * _SWUIc27019DebuffCount($obj);   // IC27_019 Soulless One: chosen enemy -3/-0 while the source is in play
     if (function_exists('_SWUIc27023Bonus')) $base += _SWUIc27023Bonus($obj);   // IC27_023 Grand Moff Tarkin: friendly (team) Sentinel units +1/+1
+    if (function_exists('_SWUIc27083Bonus')) $base += _SWUIc27083Bonus($obj);   // IC27_083 Padmé Amidala: other friendly (team) Heroism units +3/+3
     // JTL_093 Nien Nunb attached as a pilot: the host gets +1/+0 per OTHER friendly Pilot unit/upgrade.
     if ($controller > 0 && _SWUUnitHasUpgrade($obj, 'JTL_093')) {
         $base += _SWUCountFriendlyPilots($controller, intval($obj->UniqueID ?? 0), true);
@@ -1118,6 +1122,7 @@ function ObjectCurrentHP($obj) {
     $base += SWUTraitCommanderBonus($obj, 'SEC_009', 'Official'); // Mon Mothma (deployed): each OTHER friendly Official unit +0/+1
     if (function_exists('_SWUIc27034Bonus')) $base += _SWUIc27034Bonus($obj); // IC27_034 Obi-Wan's Interceptor: other friendly (team) Republic +0/+1
     if (function_exists('_SWUIc27023Bonus')) $base += _SWUIc27023Bonus($obj); // IC27_023 Grand Moff Tarkin: friendly (team) Sentinel units +1/+1
+    if (function_exists('_SWUIc27083Bonus')) $base += _SWUIc27083Bonus($obj); // IC27_083 Padmé Amidala: other friendly (team) Heroism units +3/+3
     $base += _SWULaw150Bonus($obj);                               // LAW_150 Fulcrum (+2 HP per other friendly Fulcrum-wearer)
     $base += _SWUAsh100Bonus($obj);                               // ASH_100 Gallius Rax (+2 HP if ≥2 keywords)
     $base += 6 * SWUTraitCommanderBonus($obj, 'LOF_089', 'Vehicle'); // Supremacy (other friendly Vehicles +6/+6, HP half)
@@ -3810,6 +3815,12 @@ $playCostFieldModifiers["SOR_034"] = function($subjectObj, $subjectPlayer, $sour
     return 1;
 };
 
+// IC27_043 Raddus: while exhausted, cards his controller's opponents play cost 3 more (card file; the Piloting path
+// adds the same tax in SWUComputePilotCost).
+$playCostFieldModifiers["IC27_043"] = function($subjectObj, $subjectPlayer, $sourceObj) {
+    return _SWUIc27043TaxFrom($sourceObj, intval($subjectPlayer));
+};
+
 // JTL_032 Director Krennic: the FIRST unit you play each round that has a "When Defeated" ability costs
 // 1 resource less. Eligibility = source JTL_032 in play, subject is YOUR unit with a WhenDefeated
 // ability, and the once-per-round SWU_KRENNIC_USED flag isn't set yet (set in ActivateCard after the
@@ -4366,7 +4377,10 @@ function SWUComputePilotCost($player, $obj, $host = null): int {
             $discount += intval($chg['amount']($player, $obj));
         }
     }
-    return max(0, intval($base) + SWUAspectPenalty($player, $cardID, true) - $discount);
+    // IC27_043 Raddus — a Pilot played as an upgrade is a card being played, and this path never runs the
+    // field-modifier loop, so his "cards your opponents play cost 3 more" is added here.
+    $tax = function_exists('_SWUIc27043Tax') ? _SWUIc27043Tax(intval($player)) : 0;
+    return max(0, intval($base) + SWUAspectPenalty($player, $cardID, true) - $discount) + $tax;
 }
 
 // Create a unit token ($tokenID) for $player in the token's printed arena (Ground/Space).
@@ -12472,7 +12486,9 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
     if ($entO !== null) AddGlobalEffects(intval($entO->Controller ?? $activePlayer), 'SWU_ENTERED_PHASE_' . intval($entO->UniqueID ?? 0));
     // SEC_046 Galen Erso — a named card the enemy Galen targets has lost its abilities, so its When
     // Played does not fire (the $cardID/hand-source path can't rely on the object's Owner being set).
+    // IC27_172 Razor Crest — a "When Played/When Defeated" ability is a When Defeated ability, so it is lost whole.
     if (HasWhenPlayedAbility($cardID) && !_SWUGalenSuppressesCard($activePlayer, $cardID)
+        && !(function_exists('_SWUIc27172StripsWhenPlayed') && _SWUIc27172StripsWhenPlayed((string)$cardID))
         && _SWUWhenPlayedAbilityActive((string)$cardID, intval($activePlayer))) {   // "Coordinate - When Played"
         // Carry the UID: the mzID is an INDEX and the arena can compact (and refill the slot) before this
         // resolves — bug report #1110. The dispatch re-resolves from it; see _SWUEntryTriggerMz.
@@ -14057,12 +14073,15 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
     global $gPendingTriggers, $gExploitDeferTriggers, $gExploitDeferredBag;
 
     global $playerID;
+    // IC27_172 Razor Crest — "Each unit loses all When Defeated abilities", read once for the whole batch (a Razor Crest
+    // leaving play in this same defeat still applies — see the card file). Every When Defeated route below honors it.
+    $rcStrip = function_exists('_SWUIc27172Active') && _SWUIc27172Active($defeatedCards);
     foreach ($defeatedCards as $d) {
         // ASH_063 Bo-Katan's Gauntlet — "Each OTHER friendly non-token unit gains: When Defeated:
         // create a Mandalorian token." Field-presence grant: a friendly non-token unit's defeat creates
         // a Mandalorian for its controller while they control an ASH_063 unit.
         $dctrl63 = intval($d['player'] ?? 0);
-        if ($dctrl63 > 0 && in_array('ASH_063', _SWUFieldPresenceGrantedWDTypes($dctrl63, $d['cardID'] ?? ''), true)) {
+        if (!$rcStrip && $dctrl63 > 0 && in_array('ASH_063', _SWUFieldPresenceGrantedWDTypes($dctrl63, $d['cardID'] ?? ''), true)) {
             AddTrigger($dctrl63, 'ASH_063', 'ASH_063', '');
             _SWUAddShadowCasterGrantedReuse($dctrl63, 'ASH_063', ''); // JTL_169 Shadow Caster reuse of this granted WD
         }
@@ -14070,7 +14089,7 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         // your base." A real When Defeated trigger, so JTL_002 Thrawn / JTL_169 Shadow Caster can use it
         // again (bug report P-6). It used to heal inline from SWUCollectLeavePlayReactions, which no
         // "use a When Defeated ability" card could see.
-        if ($dctrl63 > 0 && in_array('TWI_001', _SWUFieldPresenceGrantedWDTypes($dctrl63, $d['cardID'] ?? ''), true)) {
+        if (!$rcStrip && $dctrl63 > 0 && in_array('TWI_001', _SWUFieldPresenceGrantedWDTypes($dctrl63, $d['cardID'] ?? ''), true)) {
             AddTrigger($dctrl63, 'TWI_001', 'TWI_001', '');
             _SWUAddShadowCasterGrantedReuse($dctrl63, 'TWI_001', '');
         }
@@ -14091,7 +14110,7 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         // CleanupRemovedCards (see the JTL_104 power-snapshot note below, which relies on the same
         // window), so TurnEffects — where the blanking token lives — are still on the object.
         $wdObj = !empty($d['mzID']) ? GetZoneObject($d['mzID']) : null;
-        if (HasWhenDefeatedAbility($d['cardID'])
+        if (!$rcStrip && HasWhenDefeatedAbility($d['cardID'])
             && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])
             && !($wdObj !== null && LostAbilities($wdObj))) {
             AddTrigger($d['player'], 'WhenDefeated', $d['cardID'], $d['mzID']);
@@ -14151,7 +14170,7 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             // When Defeated (SEC_039 Creditor's Claim). Same for SEC_046 Galen / LOF_202 Mind Trick /
             // SEC_054 Exiled from the Force. The unit's OWN When Defeated is already gated elsewhere; these
             // two GRANTED blocks were not.
-            $defBlanked = ($defObj !== null && LostAbilities($defObj));
+            $defBlanked = $rcStrip || ($defObj !== null && LostAbilities($defObj));
             // Phase-granted When Defeated abilities (event-stamped TurnEffects markers) — see
             // _SWUGrantedWDTurnEffectRegistry(). Detected on the (removed, still-intact) defeated object.
             if (!$defBlanked && $defObj !== null && is_array($defObj->TurnEffects ?? null)) {
@@ -14205,7 +14224,7 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             // Support (ASH) — A was defeated during a supported attack while bearing the grant. Fire the
             // supporting unit's "When Defeated" ability against A's mzID (so "this unit" = A). The marker
             // is still on the (removed) object at this collection point.
-            if ($defObj !== null) {
+            if (!$rcStrip && $defObj !== null) {
                 $sgDef = _SWUSupportGrant($defObj);
                 if ($sgDef !== null && $sgDef['cardID'] !== '' && HasWhenDefeatedAbility($sgDef['cardID'])) {
                     AddTrigger($d['player'], 'SupportWhenDefeated', $sgDef['cardID'], $d['mzID']);
