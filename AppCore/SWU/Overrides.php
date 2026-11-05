@@ -247,6 +247,8 @@ function CardIDOverride($cardID) {
     case "IC27_033": return "SHD_040"; //Clan Wren Rescuer
     case "IC27_047": return "SHD_055"; //Moisture Farmer
     case "IC27_048": return "JTL_060"; //Desperate Commando
+    case "IC27_118": return "LOF_145"; //Jedi Knight
+    case "IC27_176": return "TWI_224"; //Breaking In
     default: return $cardID;
   }
 }
