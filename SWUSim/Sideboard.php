@@ -22,6 +22,12 @@ $matchId = preg_replace('/[^A-Za-z0-9_]/','', $_GET['matchId'] ?? '');
 $seat    = intval($_GET['playerID'] ?? 0);
 $m = SWUReadMatch($matchId);
 if (!is_array($m) || ($seat!==1 && $seat!==2)) { http_response_code(404); echo 'No such match/seat.'; exit; }
+// SWUSim Limited: between games the Limited deckbuilder IS the sideboard step — the pool on the left, leader and base free
+// to change (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.4).
+if (!empty($m['limited'])) {
+  header('Location: ./LimitedBuilder.php?' . http_build_query(['matchId' => $matchId, 'playerID' => $seat, 'authKey' => strval($_GET['authKey'] ?? '')]));
+  exit;
+}
 // A High Ground hill match the host ended (no result) — back to the room rather than sideboarding for a game that won't come.
 if (($m['state'] ?? '') === 'abandoned' && strval($m['roomId'] ?? '') !== '') {
   header('Location: ../SharedUI/WaitingRoom.php?lobby=' . rawurlencode(strval($m['roomId'])));

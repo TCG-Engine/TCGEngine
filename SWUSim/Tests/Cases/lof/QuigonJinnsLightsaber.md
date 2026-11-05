@@ -13,7 +13,6 @@ WithP2GroundArena: SOR_063:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly Qui-Gon host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
 
 ## EXPECT
@@ -36,7 +35,6 @@ WithP2GroundArena: SOR_063:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly Qui-Gon host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
 
 ## EXPECT
@@ -61,7 +59,6 @@ WithP2GroundArena: SOR_063:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the deployed Qui-Gon leader (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:myGroundArena-0    # exhaust the leader (cost 6 = full budget)
 
 ## EXPECT
@@ -84,7 +81,6 @@ WithP2GroundArena: SOR_063:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly Qui-Gon host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:-
 
 ## EXPECT
@@ -107,7 +103,6 @@ WithP2GroundArena: SOR_059:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly (non-Qui-Gon) host (enemy is now a legal host too, CR 2.e)
 
 ## EXPECT
 P1NODECISION
@@ -134,7 +129,6 @@ WithP2GroundArena: SOR_232:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly Qui-Gon host
 
 ## EXPECT
 P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
@@ -159,9 +153,28 @@ WithP2GroundArena: SOR_232:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly Qui-Gon host
 - P1>AnswerDecision:theirGroundArena-1&theirGroundArena-0
 
 ## EXPECT
 P2GROUNDARENAUNIT:1:EXHAUSTED
 P2GROUNDARENAUNIT:0:READY
+
+---
+
+# EnemyUnitIsNotALegalHost_Fizzles
+#// LOF_201 Qui-Gon Jinn's Lightsaber — "Attach to a FRIENDLY non-Vehicle unit." It sat in the plain "any
+#//   non-Vehicle unit" group (CR 2.e, either side), so an ENEMY unit was offered as a host. With no friendly
+#//   unit and an enemy SOR_059 in play there is no legal host: the play fizzles, the card stays in hand and
+#//   nothing attaches to the enemy.
+
+## GIVEN
+CommonSetup: yyw/ggk/{myResources:8;handCardIds:LOF_201}
+P1OnlyActions: true
+WithP2GroundArena: SOR_059:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0

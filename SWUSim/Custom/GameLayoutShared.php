@@ -5974,6 +5974,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             b.push({label:'Report Bug', onClick: SWUReportBug});
             return b;
         }
+        // SWUSim Limited: the event's match also ends back in its room, where the result is shown. Mid-Bo3, players go on
+        // to the between-games builder below (Sideboard.php sends a Limited match there).
+        if (info && info.origin === 'limited' && info.roomId && seriesOver && !spectator) {
+            SWUHighGroundAutoReturn(info);
+            b.push({label:'Back to the room', onClick:function(){ SWUGoHighGroundRoom(info); }});
+            b.push({label:'Report Bug', onClick: SWUReportBug});
+            return b;
+        }
         if (spectator || !mid) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
             // Arenabot (spec 2026-09-23 §3): one click into a fresh game with the same two decks, the
@@ -6275,6 +6283,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                         skipped_early: ['Game not sent to SWUStats due to ending before Round 2', '#F0B429'],
                         skipped_multiplayer: ['Multiplayer games are not sent to SWUStats', '#F0B429'],
                         skipped_draw:  ['Drawn games are not sent to SWUStats', '#F0B429'],
+                        skipped_limited: ['Limited games are not recorded.', '#F0B429'],
                         failed:        ['Game failed to send to SWUStats', '#E06666']
                     };
                     var st = stMap[info.statsStatus];

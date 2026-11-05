@@ -21,7 +21,9 @@ foreach ($leaves as $l) {
 // A DISABLED format has NO path (owner, 2026-11-04: Twin Suns / Team Suns Preview went off and the Twin Suns dialog, which
 // renders the unfiltered tree, still offered them). SWUMenuTree drops a disabled pool, as it always did for Meta Premier.
 foreach (array_keys(SWUFormatDefinitions()) as $id) {
-    if ($id === 'botpractice') continue;
+    // botpractice is reachable only through Arenabot (checked below). limited has its own "Create a Limited Room" button
+    // and is never a pool of this tree (owner, 2026-11-04).
+    if ($id === 'botpractice' || $id === 'limited') continue;
     $want = empty(SWUGetFormat($id)['enabled']) ? 0 : 1;
     $check(($counts[$id] ?? 0) === $want, "format '$id' is reachable by exactly $want PvP / Twin Suns / 1P path(s) (found " . ($counts[$id] ?? 0) . ')');
 }

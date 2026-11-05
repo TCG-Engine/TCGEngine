@@ -22,8 +22,8 @@
 #//   cost boundary=this (5 of 5) + Cost_OneShort_NotOffered + Cost_OffAspect_NinePaid + Cost_OffAspect_EightIsShort ·
 #//   alt payment=Cost_CreditsHelpPay · result=Result_* (owner's hand, token set aside, upgrades) · damage=Damage_* ·
 #//   observers=Observers_* · edges=TwoInHand_* + Uniqueness_* + HerDamageCanWinTheGame ·
-#//   lapse (re-checked at damage)=Lapse_CondemnDropsTheAttackerToZero (no damage) + Lapse_PaidAwayBeforeDamage (can't
-#//   pay) + Lapse_DiscardedFromHandBeforeDamage (not in hand) · action close=ActionClosesOnce_* ·
+#//   lapse (re-checked at damage)=Lapse_CondemnDropsTheAttackerToZero (no damage; 6-power boundary=
+#//   Lapse_CondemnDropsASixPowerAttackerToExactlyZero) + Lapse_PaidAwayBeforeDamage (can't pay) + Lapse_DiscardedFromHandBeforeDamage (not in hand) · action close=ActionClosesOnce_* ·
 #//   reqboundary=Lapse_CondemnNotDisclosed_SwapAcrossARequestBoundary · control=Result_StolenAttacker_* ·
 #//   modes=TwinSuns_TheAttackedBaseTakesIt + TeamSuns_ATeammatesAttack_YouAreOffered ("friendly" spans the team)
 
@@ -920,6 +920,31 @@ WithP2Hand: SOR_033
 ## EXPECT
 P2BASEDMG:0
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1HANDCARD:0:IC27_147
+P1RESAVAILABLE:5
+
+---
+
+# Lapse_CondemnDropsASixPowerAttackerToExactlyZero
+#// The boundary: SOR_232 AT-ST (6/7) wears Condemn and P2 discloses — 6 - 6 = exactly 0, so it would deal no combat
+#// damage and the setup lapses as above. (Condemn blanks its Overwhelm, which a base attack never uses anyway.)
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:5}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_232:1:0
+WithP1GroundArenaUpgrade: 0:SEC_038
+WithP1Hand: IC27_147
+WithP2Hand: SOR_033
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:Asajj_Ventress
+- P2>AnswerDecision:myHand-0
+
+## EXPECT
+P2BASEDMG:0
+P1GROUNDARENAUNIT:0:CARDID:SOR_232
 P1HANDCARD:0:IC27_147
 P1RESAVAILABLE:5
 

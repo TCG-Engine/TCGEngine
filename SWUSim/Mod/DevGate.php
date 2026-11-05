@@ -47,6 +47,23 @@ function SWUHighGroundCreateAllowed(): bool {
     return true;
 }
 
+// Who may CREATE a Limited (Sealed / Draft) room. MODERATORS ONLY on production while Limited is being built (spec
+// docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md); anyone on a local dev box, so the harness
+// and the HTTP tests run without a moderator login. Joining one through its invite link never asks this gate. Kept as a
+// function because it is the one switch that opens creation: the menu (SharedUI/Sites/SWUSim/MainMenu.php) AND the
+// endpoint (APIs/Lobbies/JoinQueue.php) both consult it, so a hand-built request cannot bypass the menu. Open to all =
+// `return true;`, as High Ground did.
+function SWULimitedCreateAllowed(): bool {
+    if (SWUIsLocalDevRequest()) return true;
+    require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
+    return CheckLoggedInUserMod() === '';
+}
+
+// JoinQueue's refusal for a Limited room creation that SWULimitedCreateAllowed() rejects: the message, or null to proceed.
+function SWULimitedCreateRefusal(): ?string {
+    return SWULimitedCreateAllowed() ? null : 'Creating a Limited room is limited to moderators for now.';
+}
+
 // JoinQueue's refusal for a High Ground creation that SWUHighGroundCreateAllowed() rejects: the message, or null to proceed.
 // Unreachable while the gate is open to everyone (2026-11-04).
 function SWUHighGroundCreateRefusal(): ?string {

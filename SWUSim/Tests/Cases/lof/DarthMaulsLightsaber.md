@@ -12,7 +12,6 @@ WithP2GroundArena: SOR_059:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:YES
 
 ## EXPECT
@@ -34,7 +33,6 @@ WithP2GroundArena: SOR_059:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:PASS
 
 ## EXPECT
@@ -57,7 +55,6 @@ WithP2GroundArena: SOR_059:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:PASS
 - P1>AttackGroundArena:0:0
 
@@ -80,7 +77,6 @@ WithP2GroundArena: SOR_059:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:7
@@ -101,7 +97,6 @@ WithP2GroundArena: SOR_059:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:11
@@ -123,8 +118,27 @@ WithP2GroundArena: SOR_059:1:0
 WithP2GroundArena: SOR_046:1:0
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:YES
 ## EXPECT
 P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
 P1SELECTABLENOT:theirBase-0
+
+---
+
+# EnemyUnitIsNotALegalHost_Fizzles
+#// LOF_140 Maul's Lightsaber — "Attach to a FRIENDLY non-Vehicle unit." It sat in the plain "any non-Vehicle
+#//   unit" group (CR 2.e, either side), so an ENEMY unit was offered as a host. Here P1 controls no unit and
+#//   P2 a non-Vehicle SOR_059: there is no legal host, so the play fizzles — the card stays in hand and
+#//   nothing attaches to the enemy.
+
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:3;handCardIds:LOF_140}
+P1OnlyActions: true
+WithP2GroundArena: SOR_059:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0

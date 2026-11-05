@@ -29,6 +29,7 @@ if ($lobbyID === '' || $authKey === '' || $targetID <= 0) _kickFail($response, '
 // SWUSim High Ground rooms keep a line/bleachers/table beside the seats (SWUSim/HighGround.php). Loaded only for SWUSim.
 $kickSnapshot = apcu_fetch($lobbyID);
 if (is_object($kickSnapshot) && strval($kickSnapshot->rootName ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/HighGround.php';
+if (is_object($kickSnapshot) && strval($kickSnapshot->rootName ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Limited/LimitedRoom.php';
 
 $err = null; $removedName = '';
 $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err, &$removedName) {
@@ -53,6 +54,9 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err
         && in_array(strval($p->getAuthKey()), $lobby->highGround['live']['keys'], true)) { $err = 'End the match first.'; return false; }
     $removedName = 'P' . $targetID;
     if ($hgKick) SWUHighGroundOnLeave($lobby, strval($p->getAuthKey()));
+    // A Limited room is removable this way during setup only: once it starts its state is 'started' (refused above) and
+    // the true-majority kick vote takes over (SWUSim/LimitedAction.php).
+    if (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($lobby)) SWULimitedOnLeave($lobby, $targetID);
     array_splice($lobby->players, $i, 1);
     $lobby->numPlayers = count($lobby->players);
     if ($lobby->numPlayers <= 0) return 'delete';   // cannot happen (the host is still seated), but cheap
@@ -68,6 +72,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err
 if ($err !== null)   _kickFail($response, $err);
 if ($lobby === null) _kickFail($response, 'Room is busy — try again.');
 if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSaveLatest(strval($lobbyID));
+elseif (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($lobby)) SWURoomSaveLatest(strval($lobbyID));
 
 $response->success    = true;
 $response->message    = $removedName . ' was removed from the room.';

@@ -65,16 +65,23 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       const ctx = await browser.newContext({ viewport: { width: size.w, height: size.h } });
       const page = await ctx.newPage();
       await page.goto(`${BASE}SharedUI/Sites/SWUSim/MainMenu.php`, { waitUntil: 'domcontentloaded', timeout: T });
+      // High Ground is its own menu tile (owner, 2026-11-05): the PvP setup in its 'highground' mode. Plain PvP no longer
+      // offers the button; the High Ground mode offers it — for Premier, not for Meta Premier (rated).
+      check(where, (await page.locator('a.mode[href="#setup-highground"]').count()) === 1, 'the menu has a High Ground tile');
       const vis = await page.evaluate(() => {
         const dlg = document.getElementById('setup-pvp'); const sel = document.getElementById('pvp-pool');
         const btn = dlg && dlg.querySelector('button[data-act="highground"]');
-        if (!dlg || !sel || !btn) return { missing: true };
+        if (!dlg || !sel || !btn || !window.SWU_SET_PVP_MODE) return { missing: true };
         const show = (v) => { sel.value = v; window.SWU_POOL_RULES_SYNC(dlg); return btn.style.display !== 'none'; };
-        return { text: btn.textContent.trim(), premier: show('premier'),
+        window.SWU_SET_PVP_MODE(dlg, 'pvp');
+        const inPvp = show('premier');
+        window.SWU_SET_PVP_MODE(dlg, 'highground');
+        return { text: btn.textContent.trim(), inPvp, premier: show('premier'), title: dlg.querySelector('.setup__title').textContent,
                  metapremier: [...sel.options].some((o) => o.value === 'metapremier') ? show('metapremier') : null };
       });
-      check(where, vis.text === 'Create a High Ground Lobby' && vis.premier === true, 'the button shows for Premier', JSON.stringify(vis));
-      check(where, vis.metapremier === false, 'and hides for Meta Premier', JSON.stringify(vis));
+      check(where, vis.inPvp === false, 'plain PvP no longer offers it', JSON.stringify(vis));
+      check(where, vis.text === 'Create a High Ground Lobby' && vis.premier === true && vis.title === 'High Ground', 'the High Ground setup shows it for Premier', JSON.stringify(vis));
+      check(where, vis.metapremier === false, 'and hides it for Meta Premier', JSON.stringify(vis));
       await ctx.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
 

@@ -17563,12 +17563,14 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         // arenas. These four relied on the OLD friendly-only default and so had no case of their own;
         // with the default inverted they need one.
         case 'SHD_251': // The Mandalorian's Rifle — "attach to a friendly non-Vehicle unit" (Vehicle filter below)
+        case 'LOF_140': // Maul's Lightsaber — "attach to a friendly non-Vehicle unit" (Vehicle filter below)
+        case 'LOF_201': // Qui-Gon Jinn's Lightsaber — "attach to a friendly non-Vehicle unit" (Vehicle filter below)
         case 'SHD_124': // Legal Authority
         case 'LOF_091': // Craving Power
         case 'SEC_069': // Nimble Prowess
             $playerID = $player;
             $all = SWUFriendlyUnits();   // SEC_069 &c - "Attach to a FRIENDLY unit."
-            if ($cardID === 'SHD_251') {
+            if (in_array($cardID, ['SHD_251', 'LOF_140', 'LOF_201'], true)) {
                 $all = array_values(array_filter($all, function($mz) {
                     $o = GetZoneObject($mz);
                     return !SWUObjGone($o) && !TraitContains($o, 'Vehicle');
@@ -17617,8 +17619,6 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'LOF_122': // Pillio Star Compass
         case 'LOF_171': // Heavy Blaster Cannon
         case 'LOF_187': // Corrupted Saber
-        case 'LOF_140': // Maul's Lightsaber
-        case 'LOF_201': // Qui-Gon Jinn's Lightsaber
         case 'LOF_238': // Darth Revan's Lightsabers
         case 'SEC_156': // Nemik's Manifesto
         case 'LAW_200': // Salvaged Blaster
@@ -17668,10 +17668,14 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'ASH_181':
             $all = array_values(array_filter($all, fn($mz) => intval(GetZoneObject($mz)->Damage ?? 0) > 0));
             break;
-        // "Attach to a friendly unique unit."
+        // "Attach to a friendly unique unit." The FRIENDLY half must narrow the all-units default too — with
+        // only the unique filter an enemy unique unit was a legal host, and its When Played then made that
+        // unit capture one of its OWN controller's units.
         case 'SEC_256': // Moral Authority
-            $all = array_values(array_filter($all, fn($mz) =>
+            $playerID = $player;
+            $all = array_values(array_filter(SWUFriendlyUnits(), fn($mz) =>
                 CardUnique(GetZoneObject($mz)->CardID ?? '')));
+            $playerID = $savedPID;
             break;
         // "Attach to a <uq> non-Vehicle unit."
         case 'ASH_135': // The Darksaber

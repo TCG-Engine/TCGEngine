@@ -131,6 +131,29 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </a>
         </li>
 
+        <?php /* High Ground opens the PvP setup in its High Ground mode (same pool + deck pickers; only "Create a High
+                 Ground Lobby" is offered) — see the tile wiring below (owner, 2026-11-05: its own menu item). */ ?>
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-highground" style="--tint: var(--tint-hg);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-highground.webp" alt="" width="1200" height="1600" decoding="async">
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Private room</span>
+              <h3 class="mode__title">High Ground</h3>
+              <span class="mode__desc">King of the hill: winner stays on, everyone else waits in line.</span>
+              <span class="mode__foot">
+                <span class="mode__stat">Up to 16 players</span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-arenabot" style="--tint: var(--tint-bot);">
             <span class="mode__art" aria-hidden="true">
@@ -142,6 +165,27 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               <span class="mode__desc">Practice against five bot archetypes, from Hyper Aggro to Hard Control.</span>
               <span class="mode__foot">
                 <span class="mode__stat">Beta · always available</span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-limited" style="--tint: var(--tint-lim);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-limited.webp" alt="" width="1200" height="1600" decoding="async">
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Private room</span>
+              <h3 class="mode__title">Limited</h3>
+              <span class="mode__desc">Open packs, build a deck from your pool, and play it out.</span>
+              <span class="mode__foot">
+                <span class="mode__stat">Sealed · no deck needed</span>
                 <span class="mode__go">Enter
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M4 12h15M13 6l6 6-6 6"/>
@@ -349,8 +393,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
 <?php if (SWUHighGroundCreateAllowed()): /* open to everyone since 2026-11-04 — JoinQueue.php enforces the same gate */ ?>
               <button data-act="highground" class="swu2-btn ch" type="button">Create a High Ground Lobby</button>
-<?php endif; ?>
-              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+<?php endif; ?>              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
           </div>
@@ -648,6 +691,46 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             </div>
             <div class="arow">
               <button data-act="solo" class="swu2-btn swu2-btn--primary ch" type="button">Start 1P Game</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </dialog>
+
+      <?php /* Limited (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md): a private room created with
+               NO deck — the host picks the packs in the room, everyone builds from what they open. Its own menu item (owner,
+               2026-11-05). Creation is behind SWULimitedCreateAllowed() (moderators only on prod); JoinQueue enforces it too. */ ?>
+      <dialog class="setup lift" id="setup-limited" aria-labelledby="setup-limited-t" style="--tint: var(--tint-lim);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-limited.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Private room</p>
+          <h3 class="setup__title" id="setup-limited-t">Limited</h3>
+          <p class="setup__desc">Open packs, build a deck from your pool, and play it out.</p>
+        </div>
+      </div>
+          <div class="setup__body">
+        <fieldset class="fs">
+          <legend class="lg">Mode</legend>
+          <div class="seg">
+              <input class="seg__in u-vh" type="radio" name="lt-mode" id="lt-mode-1" value="sealed" checked>
+              <label class="seg__opt ch" for="lt-mode-1">Sealed (2 players)</label>
+          </div>
+        </fieldset>
+        <p class="note">No deck needed. Create the room, send your opponent the invite link, then choose the packs: one set, a
+          lineup of your choice, or Chaos. Each of you opens your packs, builds a 30-card deck from them, and plays a Best of 1
+          or Best of 3. Limited games are not recorded anywhere.</p>
+<?php if (!SWULimitedCreateAllowed()): ?>
+        <p class="note">Limited is being tested — creating a room is open to moderators for now. You can still join one from an invite link.</p>
+<?php endif; ?>
+            <div class="arow">
+              <button data-act="limited" class="swu2-btn swu2-btn--primary ch" type="button"<?= SWULimitedCreateAllowed() ? '' : ' disabled' ?>>Create a Limited Room</button>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
@@ -1112,6 +1195,27 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       // A High Ground (king of the hill) room: a private room with the line, the hill and the Tonight table.
       function createHighGroundRoom() {
         submitQueueJoin({ createPrivate: true, highGround: true });
+      }
+
+      // A Limited (Sealed) room: created with NO deck — whatever pool and deck the PvP dialog shows are ignored, because
+      // each player builds a deck from the packs the room opens (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-
+      // draft-design.md). Same hand-off to the waiting room as every private lobby: the seat key goes in localStorage.
+      function createLimitedRoom() {
+        clearQueueInlineError();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', swusimAppBase() + 'APIs/Lobbies/JoinQueue.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+          var response = null;
+          try { response = JSON.parse(xhr.responseText); } catch (e) {}
+          if (!response || !response.success) { showQueueInlineError((response && response.message) || 'Unable to create the Limited room.'); return; }
+          try {
+            localStorage.setItem('tcg:lobbyAuth:' + response.lobbyID, JSON.stringify({ authKey: response.authKey, ts: Date.now() }));
+          } catch (e) {}
+          window.location.href = swusimAppBase() + 'SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(response.lobbyID);
+        };
+        xhr.onerror = function () { showQueueInlineError('Could not reach the server. Check your connection.'); };
+        xhr.send('rootName=SWUSim&createPrivate=1&format=limited&limitedMode=sealed&queueType=bo1&deckLink=&preconstructedDeck=&game_type=');
       }
 
       function joinPrivateInvite() {
@@ -2008,12 +2112,42 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
     });
   });
 
+  /* High Ground has no dialog of its own (owner, 2026-11-05: its own menu item): it is the PvP
+     setup in its 'highground' mode — the same pool and deck pickers, only its own button and
+     head. The tile, a deep link (#setup-highground) and the PvP tile (back to 'pvp') all go
+     through here. */
+  var SETUP_ALIAS = { 'setup-highground': ['setup-pvp', 'highground'] };
+  var PVP_HEADS = {
+    pvp:        { kind: 'Live play', title: 'PvP', desc: 'Queue against a live opponent, or open a private room.', art: 'hmw-pvp.webp', tint: 'var(--tint-pvp)' },
+    highground: { kind: 'Private room', title: 'High Ground', desc: 'King of the hill: winner stays on, everyone else waits in line. Pick the card pool and your deck.', art: 'hmw-highground.webp', tint: 'var(--tint-hg)' }
+  };
+  window.SWU_SET_PVP_MODE = function (dlg, mode) {
+    var h = PVP_HEADS[mode] || PVP_HEADS.pvp;
+    dlg.setAttribute('data-mode', PVP_HEADS[mode] ? mode : 'pvp');
+    dlg.style.setProperty('--tint', h.tint);
+    var q = function (s) { return dlg.querySelector(s); };
+    if (q('.setup__kind'))  q('.setup__kind').textContent = h.kind;
+    if (q('.setup__title')) q('.setup__title').textContent = h.title;
+    if (q('.setup__desc'))  q('.setup__desc').textContent = h.desc;
+    if (q('.setup__tile img')) q('.setup__tile img').src = '/TCGEngine/SharedUI/Sites/SWUSim/assets/' + h.art;
+    if (typeof window.SWU_POOL_RULES_SYNC === 'function') window.SWU_POOL_RULES_SYNC(dlg);
+  };
+  function resolveSetup(id) {
+    var alias = SETUP_ALIAS[id];
+    var dlg = document.getElementById(alias ? alias[0] : id);
+    return { dlg: dlg, mode: alias ? alias[1] : (id === 'setup-pvp' ? 'pvp' : '') };
+  }
+  function openResolved(r, from) {
+    if (r.dlg.id === 'setup-pvp') window.SWU_SET_PVP_MODE(r.dlg, r.mode);
+    openSetup(r.dlg, from);
+  }
+
   document.querySelectorAll('a.mode[href^="#setup-"]').forEach(function (a) {
-    var dlg = document.getElementById(a.getAttribute('href').slice(1));
-    if (!dlg || dlg.tagName !== 'DIALOG') return;
+    var r = resolveSetup(a.getAttribute('href').slice(1));
+    if (!r.dlg || r.dlg.tagName !== 'DIALOG') return;
     a.addEventListener('click', function (e) {
       e.preventDefault();
-      openSetup(dlg, a);
+      openResolved(r, a);
     });
   });
 
@@ -2021,10 +2155,10 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
      without leaving a fragment behind that the CSS would act on. */
   var hash = location.hash;
   if (/^#setup-[\w-]+$/.test(hash)) {
-    var deep = document.getElementById(hash.slice(1));
-    if (deep && deep.tagName === 'DIALOG') {
+    var deep = resolveSetup(hash.slice(1));
+    if (deep.dlg && deep.dlg.tagName === 'DIALOG') {
       history.replaceState(null, '', location.pathname + location.search);
-      openSetup(deep, null);
+      openResolved(deep, null);
     }
   }
 
@@ -2035,7 +2169,12 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
      the feature test: if this block bailed out above, SETUP_OPEN is
      undefined and detection stands down with it, because with no
      <dialog> there is nothing to switch. */
-  window.SETUP_OPEN = openSetup;
+  /* A format-detection switch INTO PvP is always plain PvP, even if the High Ground tile used the
+     same dialog earlier (it would otherwise keep the High Ground head and offer only its button). */
+  window.SETUP_OPEN = function (dlg, from) {
+    if (dlg && dlg.id === 'setup-pvp' && window.SWU_SET_PVP_MODE) window.SWU_SET_PVP_MODE(dlg, 'pvp');
+    openSetup(dlg, from);
+  };
 })();
 
 /* ==================================================================
@@ -3390,25 +3529,34 @@ window.SWU_POOL_RULES_SYNC = function (dlg) {
     }
   }
 
+  // The PvP setup has two modes (owner, 2026-11-05: High Ground is its own menu item): 'pvp' offers Join Queue + Private
+  // Room; 'highground' (the High Ground tile, SWU_SET_PVP_MODE) offers only Create a High Ground Lobby — same pool and
+  // deck pickers, so nothing is duplicated.
+  var hgMode = dlg.getAttribute('data-mode') === 'highground';
   var priv = dlg.querySelector('button[data-act="private"]');
-  if (priv) priv.style.display = (opt && opt.hasAttribute('data-queue-only')) ? 'none' : '';
+  if (priv) priv.style.display = (hgMode || (opt && opt.hasAttribute('data-queue-only'))) ? 'none' : '';
   // High Ground: any 1v1 format that isn't rated (the option carries data-highground="0" otherwise).
   var hg = dlg.querySelector('button[data-act="highground"]');
-  if (hg) hg.style.display = (opt && (opt.getAttribute('data-highground') === '0' || opt.hasAttribute('data-queue-only'))) ? 'none' : '';
+  if (hg) hg.style.display = (!hgMode || (opt && (opt.getAttribute('data-highground') === '0' || opt.hasAttribute('data-queue-only')))) ? 'none' : '';
+  var joinBtn = dlg.querySelector('button[data-act="join"]');
+  if (joinBtn) joinBtn.style.display = hgMode ? 'none' : '';
 
-  var needsLogin = !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
+  var needsLogin = !hgMode && !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
+  // High Ground mode on a pool that can't host it (rated / queue-only): say so, or the dialog has no action at all.
+  var hgBlocked = hgMode && !!hg && hg.style.display === 'none';
   var join = dlg.querySelector('button[data-act="join"]');
   if (join) join.disabled = needsLogin;
   var hint = dlg.querySelector('.mp-loginhint');
-  if (needsLogin && !hint) {
+  if ((needsLogin || hgBlocked) && !hint) {
     var row = join && join.closest('.arow');
     hint = document.createElement('p');
     hint.className = 'note mp-loginhint';
     if (row && row.parentNode) row.parentNode.insertBefore(hint, row);
   }
   if (hint) {
-    hint.textContent = needsLogin ? 'Log in to play ' + opt.text + '.' : '';
-    hint.style.display = needsLogin ? '' : 'none';
+    hint.textContent = needsLogin ? 'Log in to play ' + opt.text + '.'
+                     : (hgBlocked ? 'High Ground needs a 1v1 format that isn’t rated — pick another card pool.' : '');
+    hint.style.display = (needsLogin || hgBlocked) ? '' : 'none';
   }
 };
 [].slice.call(document.querySelectorAll('dialog.setup')).forEach(function (dlg) {
@@ -3515,6 +3663,7 @@ document.addEventListener('click', function (ev) {
   if (act === 'join'    && typeof joinQueue === 'function')         joinQueue();
   if (act === 'private' && typeof createPrivateGame === 'function') createPrivateGame();
   if (act === 'highground' && typeof createHighGroundRoom === 'function') createHighGroundRoom();
+  if (act === 'limited' && typeof createLimitedRoom === 'function') createLimitedRoom();
   if (act === 'solo'    && typeof startSoloGame === 'function')     startSoloGame();
 });
 </script>

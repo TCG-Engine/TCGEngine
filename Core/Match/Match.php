@@ -357,6 +357,11 @@ if (!defined('MATCH_SIDEBOARD_WARN_MARKS')) define('MATCH_SIDEBOARD_WARN_MARKS',
 // so a mid-spawn failure can never strand both players in sideboarding forever.
 if (!defined('MATCH_SPAWN_CLAIM_TTL')) define('MATCH_SPAWN_CLAIM_TTL', 15);
 
+// Two optional PER-MATCH fields, absent on every match that does not set them (so every existing match behaves as before):
+//   sideboardSeconds   int — this match's sideboard clock, which runs EVEN ON A PRIVATE match (the carve-out below is for
+//                      matches that never asked for a clock). SWUSim Limited sets 300: one player must not stall the event.
+//   sideboardFallback  'original' (default) | 'current' — what a seat that never readied plays when the clock runs out
+//                      (MatchSideboardTimeoutCheck): its match-start list, or the list it played last game.
 function MatchBeginSideboarding($rootName, $matchId, $loserSeat) {
     $seconds = intval(MatchConfig($rootName, 'sideboardSeconds', MATCH_SIDEBOARD_SECONDS));
     MatchWithLock($rootName, $matchId, function (&$m) use ($loserSeat, $seconds) {
@@ -372,7 +377,9 @@ function MatchBeginSideboarding($rootName, $matchId, $loserSeat) {
         // MatchSideboardTimeoutCheck (which treats an absent deadline as PHP_INT_MAX) never fire, so
         // players take as long as they want. Public/queued matches keep the shared countdown.
         unset($m['sideboardDeadline']);
-        if (empty($m['isPrivate'])) {
+        if (isset($m['sideboardSeconds'])) {
+            $m['sideboardDeadline'] = time() + intval($m['sideboardSeconds']);   // the match asked for its own clock
+        } elseif (empty($m['isPrivate'])) {
             $m['sideboardDeadline'] = time() + $seconds;
         }
     });

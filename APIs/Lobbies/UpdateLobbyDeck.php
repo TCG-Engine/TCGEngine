@@ -30,6 +30,8 @@ $deckLink = $_POST['deckLink'] ?? '';
 // from even though the authoritative re-check happens inside the mutation below.
 $snapshot = $lobbyID ? apcu_fetch($lobbyID) : null;
 if (!$snapshot) _updateDeckFail($response, 'Room not found.');
+// A SWUSim Limited seat's deck comes only from its own pool, through the Limited builder (SWUSim/LimitedBuilderAction.php).
+if (!empty($snapshot->limited)) _updateDeckFail($response, 'Limited decks are built from your pool.');
 if (!empty($snapshot->gameName) || ($snapshot->state ?? '') === 'started') _updateDeckFail($response, 'Game already started.');
 if (SWURoomFindPlayerByAuthKey($snapshot, $authKey) === null) _updateDeckFail($response, 'Authentication failed.');  // authKey is the identity; playerID is a SEAT, renumbered at start
 

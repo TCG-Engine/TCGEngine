@@ -167,11 +167,21 @@ function SWUStatsSubmitStatus(int $attempted, int $failed, int $withoutOwner): s
     return $withoutOwner > 0 ? 'submitted_without_owner' : 'success';
 }
 
+// A match whose format records nothing at all: its statsStatus, or null to submit as usual. Limited (Sealed / Draft)
+// sends nothing to SWUStats (spec docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.9).
+function SWUMatchStatsSkip(array $m): ?string {
+    return SWUFormatIsLimited($m['format'] ?? '') ? 'skipped_limited' : null;
+}
+
 // Submit one result per decided game, ONCE, on final match completion (convert-to-Bo3 re-opens a
 // "complete" Bo1, so submission must only fire when the match truly ends — guarded by statsSubmitted).
 function SWUSubmitMatchResults($matchId) {
     $m = SWUReadMatch($matchId);
     if (!is_array($m) || ($m['state'] ?? '')!=='complete' || !empty($m['statsSubmitted'])) return;
+    if (($skip = SWUMatchStatsSkip($m)) !== null) {
+        SWUWithMatchLock($matchId, function(&$mm) use ($skip) { $mm['statsSubmitted']=true; $mm['statsStatus']=$skip; });
+        return;
+    }
     // SWUStats' SubmitGameResult is a strictly 2-player contract (one winner, one opponent deck,
     // pairwise matchup rows) and is consumed externally, so a 4-seat Twin Suns result has nowhere
     // to go — it would land as a bogus 1v1. Skip submission entirely, matching the same guard in

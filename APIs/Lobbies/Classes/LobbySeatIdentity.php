@@ -125,6 +125,8 @@ function LobbyReleaseSeat(string $lobbyID, string $authKey): bool
             // A SWUSim High Ground room keeps its own member list (the line, the hill): leave it the way LeaveQueue does, or
             // the seat goes but the member stays in the line, and Start waits for them forever.
             if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWUHighGroundOnLeave($lobby, $authKey);
+            // A Limited room releases a seat only during setup (once started, LobbyHasStarted above keeps it).
+            if (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($lobby)) SWULimitedOnLeave($lobby, intval($p->getPlayerID()));
             if (!array_filter($lobby->players, fn($q) => $q instanceof Player && $q->getBotProfile() === '')) return 'delete';
             if ($lobby->numPlayers <= 0) return 'delete';
             if (function_exists('SWUMigrateHostIfNeeded')) SWUMigrateHostIfNeeded($lobby);
@@ -146,6 +148,7 @@ function LobbyReleaseOtherSeats(string $rootName, $userId, string $presentedAuth
     $n = 0;
     foreach (LobbyFindMySeats($rootName, $userId, $presentedAuthKey, $keepLobbyID) as $s) {
         $hg = function_exists('SWUIsHighGround') && function_exists('SWURoomSaveLatest') && SWUIsHighGround(apcu_fetch($s['lobbyID']));
+        $hg = $hg || (function_exists('SWUIsLimitedRoom') && function_exists('SWURoomSaveLatest') && SWUIsLimitedRoom(apcu_fetch($s['lobbyID'])));
         if (!LobbyReleaseSeat($s['lobbyID'], $s['authKey'])) continue;
         $n++;
         // A High Ground room's disk snapshot follows, as after a Leave: saved, or removed if that was its last member.

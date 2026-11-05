@@ -370,8 +370,11 @@ function MatchSideboardTimeoutCheck($rootName, $matchId) {
     foreach ([1,2] as $seat) {
         if (MatchSideboardSeatReady($m, $seat)) continue;
         // A list the seat saved but never readied (the two-step sideboard) is what it meant to play; else the safe
-        // known-legal fallback.
-        $prior = $m['sideboard'][strval($seat)]['deck'] ?? $m['players'][strval($seat)]['originalDeck'] ?? [];
+        // known-legal fallback — the match-start list, or (sideboardFallback 'current', see MatchBeginSideboarding) the
+        // list the seat played last game.
+        $p = $m['players'][strval($seat)] ?? [];
+        $fallback = (($m['sideboardFallback'] ?? 'original') === 'current') ? ($p['currentDeck'] ?? $p['originalDeck'] ?? []) : ($p['originalDeck'] ?? []);
+        $prior = $m['sideboard'][strval($seat)]['deck'] ?? $fallback;
         MatchSubmitSideboardDeck($rootName, $matchId, $seat, $prior);
     }
     MatchMaybeSpawnAfterSideboard($rootName, $matchId);

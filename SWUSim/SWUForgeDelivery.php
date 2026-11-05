@@ -9,6 +9,7 @@
 // the player must act: the profile says so and the game waits, hourly, for up to a week · 502/503/no answer → retried
 // with exponential backoff from 30 s. Re-delivery is idempotent on Forge's side (game, profile), so a retry is safe.
 require_once __DIR__ . '/SWUForgeLink.php';
+require_once __DIR__ . '/../AppCore/SWU/Formats.php';   // SWUFormatIsLimited
 
 const SWUFORGE_MAX_BYTES = 4 * 1024 * 1024;   // Forge refuses bigger bodies with 413
 const SWUFORGE_MAX_ATTEMPTS = 12;             // 502/503/no-answer attempts before a row fails (~1.5 days of backoff)
@@ -23,9 +24,16 @@ function SWUForgeDeckIdFromLink(string $deckLink): string {
     return preg_match('#swuforge\.com/decks/([A-Za-z0-9_-]{1,64})#i', $deckLink, $m) ? $m[1] : '';
 }
 
+// May this game go to SWU Forge at all? Never a Limited game (spec 2026-11-04-swusim-limited §3.9) — the recorder already
+// skips them (SwuPgnRecShouldRecord); this is the second guard at the queue itself.
+function SWUForgeShouldEnqueue(array $meta): bool {
+    return !SWUFormatIsLimited($meta['format'] ?? '');
+}
+
 // Queue a finished game for each linked seat. $meta is the writer's game meta (accounts, matchId); $match the game's
 // Match record (deck names and links), read here when not given. Returns how many rows were queued. Never throws.
 function SWUForgeEnqueueGame(string $gameName, array $meta, string $allText, int $now = 0, ?array $match = null): int {
+    if (!SWUForgeShouldEnqueue($meta)) return 0;
     $now = $now ?: time();
     if (!SWUForgeConfigured()) return 0;   // no client secret on this box: SWU Forge is off — nothing is queued
     $accounts = array_filter(array_map(fn($id) => $id === null ? 0 : intval($id), (array)($meta['accounts'] ?? [])), fn($id) => $id > 0);

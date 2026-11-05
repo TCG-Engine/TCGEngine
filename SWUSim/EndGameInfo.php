@@ -116,10 +116,15 @@ $oneVsOne = [];
 // SWUSim High Ground (docs/superpowers/specs/2026-10-30-swusim-high-ground-design.md): a hill match ends back in its room —
 // no rematch, convert or requeue, for players and watchers alike. ADDITIVE: only a High Ground match carries these keys.
 $highGround = !empty($m['highGround']) && strval($m['roomId'] ?? '') !== '';
+// SWUSim Limited (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md): the event's match ends back in
+// its room the same way — no rematch, convert or requeue. ADDITIVE: only a Limited match carries 'limited'.
+$limitedRoom = !empty($m['limited']) && strval($m['roomId'] ?? '') !== '';
 if ($highGround) {
     // The room id only to a SEAT (authenticated above): a watcher's read is unauthenticated, and the id leads to the room's
     // invite code. Watchers came from the room, so their page already remembers it (tcg:hg:lastRoom).
     $oneVsOne = ['origin' => 'highground'] + ($isSpectator ? [] : ['roomId' => strval($m['roomId'])]);
+} elseif ($limitedRoom) {
+    $oneVsOne = ['origin' => 'limited'] + ($isSpectator ? [] : ['roomId' => strval($m['roomId'])]);
 } elseif ($seatCount === 2) {
     require_once __DIR__ . '/Rooms.php';
     require_once __DIR__ . '/TableRematch.php';
@@ -162,13 +167,13 @@ $out = $oneVsOne + [
     'matchWinner' => intval($m['winner'] ?? 0),
     // Rematch / Quick Rematch / convert-to-Bo3 are all 2-seat flows (they sideboard a pair and
     // respawn one opponent). Twin Suns is Bo1-only with four seats, so the menu offers neither.
-    'convertible' => ($bestOf === 1 && $seriesOver && $seatCount <= 2 && !$rated && !$highGround),
+    'convertible' => ($bestOf === 1 && $seriesOver && $seatCount <= 2 && !$rated && !$highGround && empty($m['limited'])),
     'rated'       => $rated,                              // additive: a rated (Meta Premier) match — no rematch buttons
     'convertRequestedByMe'  => $isSpectator ? false : !empty($convReq[strval($seat)]),
     'convertRequestedByOpp' => $isSpectator ? false : !empty($convReq[strval($oppSeat)]),
     'seriesOver'  => $seriesOver,
     'isSpectator' => $isSpectator,
-    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'submitted_without_owner', 'skipped_early', 'skipped_multiplayer', 'skipped_draw', or 'failed'
+    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'submitted_without_owner', 'skipped_early', 'skipped_multiplayer', 'skipped_draw', 'skipped_limited', or 'failed'
 ];
 // A DRAWN game / match (CR 6.3; additive — the keys exist only when true, so a decided game's response is unchanged).
 if (!empty($gameRec['draw'])) $out['isDraw'] = true;

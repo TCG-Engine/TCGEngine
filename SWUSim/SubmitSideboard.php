@@ -50,6 +50,11 @@ if (($m['state'] ?? '') !== 'sideboarding') {
 //   status  the waiting poll: both seats' state, and the next game once it has started
 // Every answer carries mine {submitted, ready} and opponentReady; nextGameName once the next game exists.
 $action = strval($_POST['action'] ?? '');
+// SWUSim Limited: a deck must come from the seat's own pool, which only the Limited builder checks (SWUCheckFormat here
+// knows no pool). The waiting poll and the forfeit keep working; every way to set a list does not.
+if (!empty($m['limited']) && !in_array($action, ['status', 'forfeit'], true)) {
+  echo json_encode(['success'=>false,'message'=>'Use the Limited deckbuilder.']); exit;
+}
 if ($action !== '') {
   $answer = function (bool $ok, string $message = '', ?string $next = null) use ($matchId, $seat) {
     $mm = SWUReadMatch($matchId);

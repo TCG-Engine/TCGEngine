@@ -37,6 +37,7 @@ $rootName = $_POST['rootName'];
 if ($rootName === 'SWUSim') {
   require_once __DIR__ . '/../../SWUSim/Rooms.php';
   require_once __DIR__ . '/../../SWUSim/HighGround.php';   // High Ground rooms (additive: a no-op without $lobby->highGround)
+  require_once __DIR__ . '/../../SWUSim/Limited/LimitedRoom.php';   // Limited rooms (additive: a no-op without $lobby->limited)
   if ($lobbyID !== '' && $lobbyID !== 'invite') {
     SWURoomRehydrate(strval($lobbyID));
   } elseif (strval($_POST['inviteCode'] ?? '') !== '') {
@@ -187,12 +188,21 @@ while (true) {
     $roomMatch = function_exists('SWURoomMatchFor') ? SWURoomMatchFor($lobby) : null;
     // SWUSim High Ground: the live hill match (and whether its game is being played), also read before the lock.
     $hgLive = function_exists('SWUHighGroundLiveState') ? SWUHighGroundLiveState($lobby, $now) : null;
+    // SWUSim Limited: the event's running match, read before the lock too.
+    $ltLive = function_exists('SWULimitedLiveMatch') ? SWULimitedLiveMatch($lobby) : null;
     $roomChanged = false;
-    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs, $roomMatch, $hgLive, &$roomChanged) {
+    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs, $roomMatch, $hgLive, $ltLive, &$roomChanged) {
       // The room follows its match: started while it runs, reopened (every seat on the end screen) once it ends.
       if ($roomMatch !== null) $roomChanged = SWURoomSyncWithMatch($l, $roomMatch, $now);
       // A High Ground room folds in any game result the hook missed, and keeps its two busy players present.
       if ($hgLive !== null && SWUHighGroundSync($l, $hgLive, $now)) $roomChanged = true;
+      // A Limited room's build clock: at the deadline, submitted seats are readied (the START itself needs the engine, so
+      // the room page asks SWUSim/LimitedAction.php to tick once it is due).
+      if (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($l)) {
+        $ltNext = LTExpireBuild($l->limited, $now);
+        if ($ltLive !== null) $ltNext = LTApplyMatch($ltNext, $ltLive);   // a game result the hook missed
+        if ($ltNext !== $l->limited) { $l->limited = $ltNext; $roomChanged = true; }
+      }
       $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);
       if ($meSeat !== null) $meSeat->touch();
       // A High Ground host may sit in the bleachers or watch a whole evening — host passes only when they leave (spec call).
@@ -322,6 +332,11 @@ while (true) {
     // each of them to their game once, then offers "Back to your game", so the room stays readable during their own match.
     if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) {
       $response->highGround = SWUHighGroundPollView($lobby, strval($authKey), $hgLive['match'] ?? null);   // the view checks membership
+    }
+    // ADDITIVE: a SWUSim Limited room's settings, seats, build clock, kick votes and result (SWUSim/Limited/LimitedRoom.php).
+    // Absent for every other room. Never a pool or a deck — the builder fetches the viewer's own.
+    if (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($lobby)) {
+      $response->limited = SWULimitedPollView($lobby, strval($authKey), $now);
     }
     if (!empty($lobby->gameName)) {
       $response->started  = true;

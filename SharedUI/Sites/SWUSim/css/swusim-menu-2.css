@@ -122,6 +122,10 @@
        than its neighbours so the fourth card joins the set rather than shouting,
        and kept off the Command-green hue so it never reads as an aspect colour. */
     --tint-solo: oklch(0.795 0.092 148);
+    /* High Ground (warm gold, between PvP's amber and the hill's gold rim) and Limited (a cool violet, off the
+       Vigilance-blue and Cunning-yellow hues) — the same lightness and chroma band as the four above. */
+    --tint-hg:   oklch(0.800 0.095 88);
+    --tint-lim:  oklch(0.760 0.090 285);
 
     /* --- rim stops: a lit steel edge, translucent over glass - */
     --rim-hi: rgba(196, 214, 238, 0.60);
@@ -542,16 +546,15 @@
     grid-template-columns: minmax(0, 1fr);
     grid-auto-rows: 1fr;
 
-    /* FOUR modes now, so the tracks must divide 4 exactly — 1, 2 or 4 across,
-       never 3, which would strand a single card on its own row. Two-up starts
-       as soon as a card clears ~300px; four-up waits until each still clears
-       ~210px, below which these tall cards read as splinters. */
+    /* SIX modes now (owner, 2026-11-05: PvP · Twin Suns · High Ground over Arenabot · Limited · 1P Mode), so the
+       tracks must divide 6 exactly — 1, 2 or 3 across, never 4, which would strand two cards on a row of their
+       own. Two-up starts as soon as a card clears ~300px; three-up waits until each still clears ~300px. */
     @media (min-width: 620px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-auto-rows: auto;
     }
     @media (min-width: 1100px) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -590,8 +593,12 @@
     @media (min-width: 620px) {
       min-block-size: 520px;
     }
+    /* Three-up shows all SIX cards on one screen (owner, 2026-11-05): two rows share the viewport below the header,
+       so a card is half of what is left — smaller and squarer on a short screen, capped at the old 600px on a tall
+       one. The 180px is the header, the page gutters and the row gap. */
     @media (min-width: 1100px) {
-      min-block-size: 600px;
+      min-block-size: clamp(330px, calc((100vh - 180px) / 2), 600px);
+      min-block-size: clamp(330px, calc((100dvh - 180px) / 2), 600px);
     }
 
     /* --plane-art is declared HERE, so var(--sweep) resolves against
@@ -653,7 +660,11 @@
        neighbours (measured: 22-47px of spread at 900-1280). Fixing the art and
        flexing the BODY instead makes the row align by construction. */
     @media (min-width: 620px)  { flex: 0 0 auto; block-size: 320px; min-block-size: 0; }
-    @media (min-width: 1100px) { block-size: 336px; }
+    /* the art takes what the card has left after its text block (~205px), within 120–336px */
+    @media (min-width: 1100px) {
+      block-size: clamp(120px, calc((100vh - 180px) / 2 - 205px), 336px);
+      block-size: clamp(120px, calc((100dvh - 180px) / 2 - 205px), 336px);
+    }
 
     /* The card art plate. Crops are 350x270 landscape and the art well is tall,
        so `cover` takes a centre-right slice — deliberately off 50% because the
@@ -5682,4 +5693,262 @@ body:has(#wr-root) .wr-panel .hg-mine { display: flex; flex-wrap: wrap; gap: var
   body:has(#wr-root) .wr-panel .hg-cols { grid-template-columns: minmax(0, 1fr); }
   body:has(#wr-root) .wr-panel .hg-banner { padding: var(--s-3) var(--s-4); }
   body:has(#wr-root) .wr-panel .hg-who { font-size: var(--t-17); }
+}
+
+/* ===========================================================================
+   Limited room panel (SWUSim Sealed)
+   SharedUI/Render/WaitingRoom.php draws #lt-root in place of the seat tiles and the deck bar when the poll carries
+   `limited`; SWUSim/Limited/ui/limited-room.js fills it (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-
+   design.md §3.1). Same scope and recipes as the High Ground panel above. Every class is lt- prefixed.
+   =========================================================================== */
+body:has(#wr-root) .wr-panel #lt-root:empty { display: none; }
+body:has(#wr-root) .wr-panel .lt-panel { display: grid; gap: var(--s-4); margin-block-end: var(--s-4); }
+body:has(#wr-root) .wr-panel .lt-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-title {
+  margin: 0;
+  font-size: var(--t-20);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+body:has(#wr-root) .wr-panel .lt-phase,
+body:has(#wr-root) .wr-panel .lt-label {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#wr-root) .wr-panel .lt-phase { color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .lt-form { display: grid; gap: var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+}
+body:has(#wr-root) .wr-panel .lt-row--top { align-items: start; }
+body:has(#wr-root) .wr-panel .lt-row--tools { grid-template-columns: none; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-value { font-weight: 600; color: var(--ink); }
+body:has(#wr-root) .wr-panel .lt-seg { max-inline-size: 520px; }
+body:has(#wr-root) .wr-panel .lt-sel { display: block; max-inline-size: 320px; }
+body:has(#wr-root) .wr-panel .lt-sel .select { inline-size: 100%; }
+body:has(#wr-root) .wr-panel .lt-lineup { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-pack {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 320px) auto;
+  justify-content: start;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+}
+body:has(#wr-root) .wr-panel .lt-shuffle { min-inline-size: 44px; padding-inline: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-chaos { display: grid; grid-template-columns: repeat(3, minmax(0, 6rem)); gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-check { display: inline-flex; align-items: center; gap: var(--s-2); min-block-size: 44px; color: var(--ink-2); cursor: pointer; }
+body:has(#wr-root) .wr-panel .lt-check input { inline-size: 20px; block-size: 20px; accent-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-note { font-size: var(--t-13); color: var(--ink-2); margin: 0; }
+body:has(#wr-root) .wr-panel .lt-err { font-size: var(--t-13); font-weight: 600; color: #ff6b6b; }
+body:has(#wr-root) .wr-panel .lt-seats { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+body:has(#wr-root) .wr-panel .lt-seat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s-2);
+  min-block-size: 44px;
+  padding: 4px var(--s-3);
+  background-color: var(--e-sunk);
+  border-inline-start: 2px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-seat--me { border-inline-start-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-name { font-weight: 700; color: var(--ink); overflow-wrap: anywhere; min-width: 0; margin-inline-end: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-chip {
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  color: var(--ink-2);
+  border: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-chip--on { color: var(--success, #59c27a); border-color: currentColor; }
+body:has(#wr-root) .wr-panel .lt-chip--off { color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .lt-build { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-clock { font-size: var(--t-28, 28px); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink); }
+body:has(#wr-root) .wr-panel .lt-clock--warn { color: #ff6b6b; }
+body:has(#wr-root) .wr-panel .lt-result { font-size: var(--t-17); font-weight: 700; color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .lt-actions { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-actions a.btn { display: inline-flex; align-items: center; justify-content: center; min-block-size: 44px; text-decoration: none; }
+body:has(#wr-root) .wr-panel .lt-kick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  padding: var(--s-3);
+  background-color: color-mix(in oklch, #ff6b6b 14%, transparent);
+  color: var(--ink);
+}
+@media (max-width: 760px) {
+  body:has(#wr-root) .wr-panel .lt-row,
+  body:has(#wr-root) .wr-panel .lt-pack { grid-template-columns: minmax(0, 1fr); }
+  body:has(#wr-root) .wr-panel .lt-pack { grid-template-columns: minmax(0, 1fr) auto; }
+  body:has(#wr-root) .wr-panel .lt-pack .lt-label { grid-column: 1 / -1; }
+  body:has(#wr-root) .wr-panel .lt-actions .btn { flex: 1 1 100%; }
+}
+
+/* ===========================================================================
+   Limited deckbuilder (SWUSim/LimitedBuilder.php + SWUSim/Limited/ui/limited-builder.js)
+   docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.4. A standalone page like the sideboard
+   (RenderHead + RenderHeader, so the .home-header scope and the canonical controls apply), every class lb- prefixed.
+   Desktop: pool left, deck right. ≤900px: one column at a time (the Pool | Deck switch) and a sticky footer.
+   =========================================================================== */
+body:has(.lb-root) { margin: 0; min-block-size: 100vh; color: var(--ink); font-size: var(--t-14); }
+body:has(.lb-root) .lb-row { display: flex; align-items: stretch; gap: 0; }
+body:has(.lb-root) .lb-root {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  box-sizing: border-box;
+  padding: var(--s-4) clamp(var(--s-3), 4vw, var(--s-6));
+}
+body:has(.lb-root) .lb-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); }
+body:has(.lb-root) .lb-title { margin: 0; font-size: var(--t-20); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+body:has(.lb-root) .lb-timer { font-size: var(--t-20); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--gold-hi); }
+body:has(.lb-root) .lb-timer--warn { color: #ff6b6b; }
+body:has(.lb-root) .lb-opp { font-size: var(--t-13); color: var(--success, #59c27a); }
+body:has(.lb-root) .lb-switch { display: none; }
+body:has(.lb-root) .lb-cols { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--s-5); align-items: start; }
+body:has(.lb-root) .lb-pool,
+body:has(.lb-root) .lb-deck { display: grid; gap: var(--s-3); min-inline-size: 0; align-content: start; }
+body:has(.lb-root) .lb-tabs { max-inline-size: none; }
+body:has(.lb-root) .lb-search { display: block; }
+body:has(.lb-root) .lb-search .input { inline-size: 100%; }
+body:has(.lb-root) .lb-filters { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(.lb-root) .lb-tog {
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  padding-inline: var(--s-3);
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(.lb-root) .lb-tog--icon { padding-inline: var(--s-2); }
+body:has(.lb-root) .lb-tog--icon img { display: block; inline-size: 24px; block-size: 24px; opacity: 0.55; }
+body:has(.lb-root) .lb-tog[aria-pressed="true"] { color: var(--ink); outline: 2px solid var(--gold); outline-offset: -2px; }
+body:has(.lb-root) .lb-tog[aria-pressed="true"] img { opacity: 1; }
+body:has(.lb-root) .lb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--s-2); }
+body:has(.lb-root) .lb-card {
+  position: relative;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: translate 120ms var(--ease), opacity 120ms var(--ease);
+}
+body:has(.lb-root) .lb-card img { display: block; inline-size: 100%; aspect-ratio: 1; object-fit: cover; }
+body:has(.lb-root) .lb-card:hover { translate: 0 -2px; }
+body:has(.lb-root) .lb-card:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 2px; }
+body:has(.lb-root) .lb-card--used { opacity: 0.3; }
+body:has(.lb-root) .lb-card--on { outline: 3px solid var(--gold); outline-offset: -3px; }
+body:has(.lb-root) .lb-qty {
+  position: absolute;
+  inset-block-end: 4px;
+  inset-inline-end: 4px;
+  min-inline-size: 22px;
+  padding: 1px 5px;
+  font-size: var(--t-12);
+  font-weight: 700;
+  text-align: center;
+  color: var(--on-gold, #241a09);
+  background-color: var(--gold);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+/* an aspect group's label: a full-width row of the grid it heads */
+body:has(.lb-root) .lb-group {
+  grid-column: 1 / -1;
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-block-end: 1px solid var(--edge);
+  padding-block-end: 2px;
+}
+body:has(.lb-root) .lb-group:first-child { margin-block-start: 0; }
+body:has(.lb-root) .lb-empty { grid-column: 1 / -1; margin: 0; padding: var(--s-4); font-size: var(--t-13); color: var(--ink-3); }
+body:has(.lb-root) .lb-hint { margin: 0; font-size: var(--t-12); color: var(--ink-3); }
+body:has(.lb-root) .lb-slots { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--s-3); }
+body:has(.lb-root) .lb-slot {
+  display: grid;
+  place-items: center;
+  inline-size: clamp(140px, 14vw, 200px);
+  aspect-ratio: 628 / 450;
+  box-sizing: border-box;
+  border: 1px dashed var(--edge-strong, rgba(196, 214, 238, 0.35));
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+}
+body:has(.lb-root) .lb-slot--full { border-style: solid; border-color: var(--gold); }
+body:has(.lb-root) .lb-slot img { display: block; inline-size: 100%; block-size: 100%; object-fit: contain; }
+body:has(.lb-root) .lb-curve { display: flex; align-items: flex-end; gap: 6px; min-block-size: 86px; margin-inline-start: auto; }
+body:has(.lb-root) .lb-bar-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+body:has(.lb-root) .lb-bar-fill { display: block; inline-size: 14px; min-block-size: 2px; background-color: var(--gold); }
+body:has(.lb-root) .lb-bar-n,
+body:has(.lb-root) .lb-bar-c { font-size: var(--t-11); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(.lb-root) .lb-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2); font-size: var(--t-14); }
+body:has(.lb-root) .lb-legal { color: var(--success, #59c27a); font-weight: 700; margin-inline-start: var(--s-2); }
+body:has(.lb-root) .lb-errors { margin: 0; padding-inline-start: var(--s-5); color: #ff6b6b; font-size: var(--t-13); }
+body:has(.lb-root) .lb-errors:empty { display: none; }
+body:has(.lb-root) .lb-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+body:has(.lb-root) .lb-foot-count,
+body:has(.lb-root) .lb-foot-timer { display: none; font-variant-numeric: tabular-nums; }
+body:has(.lb-root) .lb-status { font-size: var(--t-13); color: var(--ink-2); }
+body:has(.lb-root) .lb-back { margin-inline-start: auto; text-decoration: none; }
+body:has(.lb-root).lb-is-ready .lb-card,
+body:has(.lb-root).lb-is-ready .lb-slot { cursor: default; }
+body:has(.lb-root) #lbPreview {
+  position: fixed;
+  z-index: 60;
+  display: none;
+  inline-size: 300px;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
+}
+@media (max-width: 900px) {
+  /* The chat is a block at the foot of the page, as on the sideboard (not the phone drawer + launcher). Same 1-2-1
+     specificity as the sideboard rule, so it beats ChatPanel's drawer on purpose. */
+  body:has(.lb-root) .lb-row { flex-direction: column; }
+  body:has(.lb-root) .lb-row .lb-root { order: 1; }
+  body:has(.lb-root) .lb-row #tcg-chat-panel {
+    order: 2; align-self: stretch; position: static; transform: none; flex: 0 0 auto; inline-size: auto; max-inline-size: none;
+    margin: 0 clamp(var(--s-3), 4vw, var(--s-6)) var(--s-5); block-size: auto; min-block-size: 0; max-block-size: 70vh; z-index: auto;
+  }
+  body:has(.lb-root) #tcg-chat-toggle { display: none; }
+  body:has(.lb-root) .lb-switch { display: grid; max-inline-size: none; }
+  body:has(.lb-root) .lb-cols { grid-template-columns: minmax(0, 1fr); }
+  body:has(.lb-root) .lb-cols[data-view="pool"] .lb-deck,
+  body:has(.lb-root) .lb-cols[data-view="deck"] .lb-pool { display: none; }
+  body:has(.lb-root) .lb-grid { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
+  body:has(.lb-root) .lb-curve { margin-inline-start: 0; }
+  body:has(.lb-root) .lb-foot {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 20;
+    margin-inline: calc(-1 * clamp(var(--s-3), 4vw, var(--s-6)));
+    padding: var(--s-2) clamp(var(--s-3), 4vw, var(--s-6));
+    background-color: var(--e-sunk);
+    border-block-start: 1px solid var(--edge);
+  }
+  body:has(.lb-root) .lb-foot-count,
+  body:has(.lb-root) .lb-foot-timer { display: inline; }
+  body:has(.lb-root) .lb-status,
+  body:has(.lb-root) .lb-back { flex: 1 1 100%; margin-inline-start: 0; }
 }

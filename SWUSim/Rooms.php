@@ -109,7 +109,8 @@ function SWURoomMaterialSig(object $lobby): string {
     }
     return md5(serialize([$seats, $lobby->hostPlayerID ?? null, $lobby->queueType ?? null, $lobby->state ?? null,
                           $lobby->gameName ?? null, $lobby->roomSeatState ?? null, $lobby->roomMatchId ?? null,
-                          $lobby->highGround ?? null]));   // a High Ground room's line, bleachers and Tonight table
+                          $lobby->highGround ?? null,      // a High Ground room's line, bleachers and Tonight table
+                          $lobby->limited ?? null]));      // a Limited room's settings, pools, decks and result
 }
 // Save the room if anything material changed since it was last saved (the room poll calls this every time).
 function SWURoomSaveIfChanged(object $lobby): void {
@@ -266,6 +267,19 @@ function SWURoomRehydrate(string $roomId): bool {
     if (is_object(apcu_fetch($roomId))) return true;
     $rec = SWURoomLoad($roomId);
     if ($rec === null) return false;
+    // A Limited room (SWUSim/Limited/LimitedRoom.php) is alive for its whole event — a 30-minute build can pass with nothing
+    // to save — and for the usual window after it ends. It has no roomMatchId either, so it is never synced the 1v1 way.
+    if (is_array($rec['lobby']->limited ?? null)) {
+        $path = SWURoomPath($roomId);
+        clearstatcache(true, $path);
+        $done = strval($rec['lobby']->limited['phase'] ?? '') === 'done';
+        if ($done && !SWURoomIsAlive(null, intval(@filemtime($path)), time())) return false;
+        $lobby = $rec['lobby'];
+        apcu_add($roomId, $lobby, LOBBY_TTL_SECONDS);
+        $code = strval($lobby->inviteCode ?? '');
+        if ($code !== '') apcu_store('invite:' . $code, $roomId, LOBBY_TTL_SECONDS);
+        return is_object(apcu_fetch($roomId));
+    }
     // A High Ground room has no roomMatchId: it is alive while its LIVE hill match runs (nobody need be on the room page
     // while everyone watches), and it is never synced the 1v1 way (that would mark it started and redirect everyone).
     $hgLiveId = strval($rec['lobby']->highGround['live']['matchId'] ?? '');

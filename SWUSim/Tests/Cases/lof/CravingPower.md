@@ -36,3 +36,43 @@ WithP2GroundArenaUpgrade: 0:SOR_T02
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# HostPool_FriendlyUnitsOnly
+#// LOF_091 Craving Power — "Attach to a FRIENDLY unit." The upgrade default host pool spans both sides
+#//   (CR 2.e), so the printed "friendly" must narrow it. Two friendly units (ground + space) and two enemy
+#//   units are in play: the host pick offers exactly the two friendly ones, never an enemy unit.
+
+## GIVEN
+CommonSetup: ggk/rrw/{myResources:5;handCardIds:LOF_091}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP2SpaceArena: SEC_213:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# NoFriendlyUnit_Fizzles
+#// LOF_091 Craving Power — with no friendly unit and an enemy unit in play there is no legal host: the play
+#//   fizzles, the card stays in hand and nothing attaches to the enemy.
+
+## GIVEN
+CommonSetup: ggk/rrw/{myResources:5;handCardIds:LOF_091}
+P1OnlyActions: true
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0

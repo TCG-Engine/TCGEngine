@@ -47,6 +47,8 @@ if ($startAdapter === null || !$startAdapter->wantsWaitingRoom($snapshot)) {
 if (!empty($snapshot->gameName)) _startRoomFail($response, 'Already started.');
 // SWUSim High Ground rooms start one hill match at a time from the two on the hill (SWUSim/HighGroundAction.php).
 if (!empty($snapshot->highGround)) _startRoomFail($response, 'Use Start next match.');
+// SWUSim Limited rooms start their own match once every seat has built a deck (SWUSim/LimitedAction.php).
+if (!empty($snapshot->limited)) _startRoomFail($response, 'A Limited event starts from its own room controls.');
 
 $startErr = null;
 $prepared = LobbyMutate($lobbyID, function ($lobby) use (&$startErr) {

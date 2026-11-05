@@ -306,6 +306,12 @@ function _WaitingRoomMarkup(array $cfg): string {
     // Pinned LEFT, with the room itself in the remaining space. align-items:flex-start so the panel's
     // sticky positioning has something to stick within rather than being stretched to row height.
     $chat = RenderChatPanel(['mode' => 'chat', 'title' => 'CHAT', 'folderPath' => $cfg['rootName']]);
+    // SWUSim Limited rooms draw their own panel into #lt-root (SWUSim/Limited/ui/limited-room.js). Other sims load nothing.
+    $limitedJs = '';
+    if ((string)$cfg['rootName'] === 'SWUSim') {
+        require_once __DIR__ . '/AssetVersion.php';
+        $limitedJs = '<script src="' . htmlspecialchars(_VersionAsset('/TCGEngine/SWUSim/Limited/ui/limited-room.js'), ENT_QUOTES) . '"></script>';
+    }
     return <<<HTML
 {$css}
 <div class="wr-with-chat" style="display:flex; align-items:flex-start; gap:0;">
@@ -321,6 +327,7 @@ function _WaitingRoomMarkup(array $cfg): string {
       <div id="wr-state" style="margin-bottom:12px;"></div>
       <div id="wr-invite" style="margin-bottom:16px;"></div>
       <div id="hg-root"></div>
+      <div id="lt-root"></div>
       <div id="wr-roster" style="margin-bottom:16px;"></div>
       <details id="wr-hr" class="wr-hr" style="display:none;">
         <summary class="wr-hr-sum"><span class="wr-hr-title">House Rules</span><span id="wr-hr-count" class="wr-hr-count"></span></summary>
@@ -359,6 +366,7 @@ function _WaitingRoomMarkup(array $cfg): string {
 </div>
 </div>
 </div>
+{$limitedJs}
 HTML;
 }
 
@@ -1038,6 +1046,58 @@ function _WaitingRoomScript(array $cfg): string {
     var k = loadKey(lobbyID);
     if (k) document.cookie = 'tcg_hg_' + lobbyID.replace(/[^A-Za-z0-9_.]/g, '') + '=' + encodeURIComponent(k) + '; max-age=86400; path=/; SameSite=Strict';
   }
+  // ── Limited (SWUSim Sealed rooms) ─────────────────────────────────────────────────────────────────────────────────
+  // docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md. Drawn ONLY when the poll carries `limited`:
+  // SWUSim/Limited/ui/limited-room.js renders #lt-root in place of the seat tiles and the deck bar (nobody brings a deck).
+  // Actions go to SWUSim/LimitedAction.php; a seat is sent to its own board once per game, as in High Ground.
+  var limitedRoom = false;
+  function ltCtx() {
+    return {
+      appBase: appBase(), lobbyID: lobbyID,
+      post: function (action, params, cb) {
+        post('SWUSim/LimitedAction.php', 'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+          '&action=' + encodeURIComponent(action) + (params ? '&' + params : ''), function (r) {
+            if (!r.success && r.message) el('wr-hint').textContent = r.message;
+            if (cb) cb(r);
+          });
+      },
+      join: doJoin,
+      backToGame: function (live) { ltGoToGame(live); }
+    };
+  }
+  function ltGoToGame(live) {
+    hgSeatCookies();   // the board reads the seat from lastAuthKey; a seat's room key IS its seat key
+    navigating = true;
+    location.href = appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(live.gameName) + '&playerID=' + encodeURIComponent(live.seat) +
+      '&folderPath=' + encodeURIComponent(ROOT);
+  }
+  function ltSendToGame(live) {
+    var flag = 'tcg:lt:went:' + live.gameName;
+    try { if (sessionStorage.getItem(flag)) return false; sessionStorage.setItem(flag, '1'); } catch (e) { return false; }
+    ltGoToGame(live);
+    return true;
+  }
+  function renderLimited(d) {
+    var lt = d.limited, seated = !!lt.me;
+    setState(seated ? 'seated' : 'notseated');
+    el('wr-title').textContent = 'Limited';
+    ['wr-roster', 'wr-hr', 'wr-deck', 'wr-removed'].forEach(function (id) { if (el(id)) el(id).style.display = 'none'; });
+    el('wr-actions-left').innerHTML = '';
+    el('wr-actions-right').innerHTML = '';
+    el('wr-head-actions').innerHTML = seated ? '<button id="wr-leave" type="button" class="btn">Leave</button>' : '';
+    // Once the event has started, leaving forfeits it (Sealed has two seats) and drops the seat for good: ask first.
+    if (el('wr-leave')) el('wr-leave').onclick = function () {
+      if (lt.phase !== 'building' && lt.phase !== 'playing') { doLeave(); return; }
+      var ask = 'Leave the event? You give up your seat and your opponent wins.';
+      if (window.StyledConfirm) window.StyledConfirm(ask, { title: 'Leave the event', danger: true, confirmLabel: 'Leave' }).then(function (ok) { if (ok) doLeave(); });
+      else if (window.confirm(ask)) doLeave();
+    };
+    el('wr-status').style.display = '';
+    el('wr-count-n').textContent = lt.seats.filter(function (s) { return !s.dropped; }).length + '/2';
+    renderInvite(d);
+    if (window.SWULimitedRenderRoom) window.SWULimitedRenderRoom(el('lt-root'), lt, ltCtx());
+  }
+
   function hgName(hg, pid) {
     var m = (hg.members || []).filter(function (x) { return x.playerID === pid; })[0];
     return m ? m.name : '—';
@@ -1251,6 +1311,13 @@ function _WaitingRoomScript(array $cfg): string {
       renderHighGround(d);
       return;
     }
+    // SWUSim Limited: its own panel (settings, seats, the build clock, the result) — no deck bar, no seat tiles.
+    if (d.limited) {
+      limitedRoom = true;
+      document.body.classList.add('wr-limited');
+      renderLimited(d);
+      return;
+    }
     var seated = !!(myPlayerID && (d.roster || []).some(function (r) { return r.playerID === myPlayerID; }));
     iAmHost = (d.roster || []).some(function (r) { return r.isHost && r.playerID === myPlayerID; });
     setState(seated ? 'seated' : 'notseated');
@@ -1355,8 +1422,8 @@ function _WaitingRoomScript(array $cfg): string {
   }
 
   function doJoin() {
-    var deck = chosenDeck();
-    if (!deck) { el('wr-deck-msg').style.color = '#ff6b6b'; el('wr-deck-msg').textContent = 'Choose or paste a deck first.'; return; }
+    var deck = limitedRoom ? '' : chosenDeck();   // a Limited seat brings no deck: it builds one from its packs
+    if (!deck && !limitedRoom) { el('wr-deck-msg').style.color = '#ff6b6b'; el('wr-deck-msg').textContent = 'Choose or paste a deck first.'; return; }
     // The deck bar's own button IS the join control — there is no separate #wr-join. Look it up
     // rather than assuming: this function also runs from the button's click handler.
     var btn = el('wr-deck-btn');
@@ -1377,6 +1444,7 @@ function _WaitingRoomScript(array $cfg): string {
           if (btn) btn.disabled = false;
           el('wr-deck-msg').style.color = '#ff6b6b';
           el('wr-deck-msg').textContent = r.message || 'Unable to join.';
+          if (limitedRoom) el('wr-hint').textContent = r.message || 'Unable to join.';   // the deck bar is hidden there
           return;
         }
         if (r.lobbyID) lobbyID = r.lobbyID;
@@ -1653,6 +1721,8 @@ function _WaitingRoomScript(array $cfg): string {
         var hgMe = r.highGround.me, hgLive = r.highGround.live;
         if (hgMe && hgMe.onLiveMatch && hgLive && hgLive.state === 'in_progress' && hgSendToGame(r.highGround)) return;
       }
+      // SWUSim Limited: the event's match started — each seat goes to its own board once per game.
+      if (r.limited && r.limited.live && ltSendToGame(r.limited.live)) return;
 
       if (r.started && r.gameName) {
         // No match-found countdown: that popup celebrates an UNEXPECTED queue pairing. Here the host
@@ -1710,7 +1780,8 @@ function _WaitingRoomScript(array $cfg): string {
         noteKickDeadlines(r.roster);
         var bw = Number(r.botAddableIn) || 0;
         botAddDeadline = bw > 0 ? Date.now() + bw * 1000 : 0;
-        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.houseRules, r.state, r.blockers, r.numPlayers, r.inviteCode, r.highGround, myPlayerID, !!r.removed, r.hostVote]);
+        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.houseRules, r.state, r.blockers, r.numPlayers, r.inviteCode, r.highGround, myPlayerID, !!r.removed, r.hostVote,
+                                   r.limited ? Object.assign({}, r.limited, { buildEndsIn: null }) : null]);   // the panel ticks its own clock
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);

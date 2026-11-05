@@ -5,6 +5,7 @@
 // 'enabled' => false (preferred — keeps in-flight matches resolvable) or comment
 // out the whole block. SWUListFormats() hides disabled formats from selectors,
 // but SWUGetFormat()/SWUCheckFormat() still resolve them for anything mid-flight.
+require_once __DIR__ . '/BoosterSets.php';
 
 function SWUFormatDefinitions() {
     $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW',];   // HMW released 2026-09-16 (owner)
@@ -243,6 +244,20 @@ function SWUFormatDefinitions() {
             'enabled'     => true,
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
+        // Limited — Sealed (and later Draft) in a private room only, decks built from packs opened in the room
+        // (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md). The pool, not this entry, decides
+        // what a deck may hold: SWUCheckLimitedDeck (SWUSim/Limited/LimitedDeck.php) replaces SWUCheckFormat for it.
+        // No public queue, never rated, and never a stats format (SWUStatsFormats). maxPlayers stays 2: the room sets
+        // its own seat count from the Limited mode.
+        'limited' => [
+            'displayName' => 'Limited',
+            'legalSets'   => array_keys(SWUBoosterSets()),
+            'banned'      => [],
+            'enabled'     => true,
+            'publicQueue' => false,
+            'minDeck'     => 30,
+            'maxCopies'   => PHP_INT_MAX,   // no copy limit — only what the pool holds
+        ],
     ];
 }
 
@@ -350,6 +365,8 @@ function SWUStatsFormats(bool $enabledOnly = true): array {
         // Meta Premier games are reported to the stats site as premier (SWUStatsFormatFor), so the stats
         // whitelist — which the public SubmitGameResult / meta-stats APIs read — stays exactly as it was.
         if ($id === 'metapremier') continue;
+        // Limited records nothing anywhere (spec §3.9): its decks are one-off pools, not lists anyone plays again.
+        if (SWUFormatIsLimited($id)) continue;
         $f = SWUGetFormat($id);
         if ($f === null || !empty($f['localMode'])) continue;
         if ($enabledOnly && empty($f['enabled'])) continue;
@@ -535,6 +552,11 @@ function SWUFormatSeatRange($formatId) {
 function SWUFormatIsRoomFormat($formatId) {
     [, $max] = SWUFormatSeatRange($formatId);
     return $max > 2;
+}
+
+// The Limited format (Sealed / Draft rooms). Every "Limited records nothing" guard asks this, never the literal id.
+function SWUFormatIsLimited($formatId): bool {
+    return strval($formatId) === 'limited';
 }
 
 // A "team" format splits its seats into fixed teams (Team Suns: Red/Blue, 2 each).

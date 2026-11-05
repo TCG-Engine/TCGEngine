@@ -37,6 +37,8 @@ $expectPrivate = [
     // Owner, 2026-10-04: the adapter's routing answer only — a PRIVATE metapremier lobby is refused before it
     // exists (JoinQueue's Meta Premier gate, queue-only).
     'metapremier' => true,
+    // Limited (Sealed / Draft): a private room only, and its room is where the event lives (owner, 2026-11-05).
+    'limited' => true,
     'goldfish' => false,   // solo
     'hotseat'  => false,   // one human driving both seats
     // Bot Practice: one human at seat 1, Core/BotController.php at seat 2. No remote opponent ever
