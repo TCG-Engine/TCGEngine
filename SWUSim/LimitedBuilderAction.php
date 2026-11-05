@@ -3,7 +3,8 @@
 //   build context  — lobbyID + authKey (the caller's room key): the room's 30-minute build
 // Spec: docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.4.
 //   state   {success, context, pool[], basesInPlay[], cards{id: facts}, deck: null|{leader, base, main[]}, submitted, ready,
-//            endsIn, opponentReady, gameName}  — the caller's OWN seat only; also the builder page's heartbeat
+//            endsIn, opponentReady, gameName, bye}  — the caller's OWN seat only; also the builder page's heartbeat. In a Draft
+//            pod, endsIn is the build clock or the between-rounds break, and gameName the caller's table in the round
 //   submit  deck = JSON {leader, base, main[]} → {success, errors[]} (errors name cards by title)
 //   ready   lock in the submitted deck → {success}
 require_once __DIR__ . '/../Core/NetworkingLibraries.php';
@@ -164,12 +165,22 @@ $lt = apcu_fetch($lobbyID)->limited ?? $snap->limited;
 $seat = $lt['seats'][$pid];
 $others = array_filter(LTLiveSeats($lt), fn($p) => $p !== $pid);
 $bases = LimitedBuilderBases($pool, $sets);
+$table = $lt['mode'] === 'draft' ? LTSwissMyPairing($lt, $pid) : null;
+$endsIn = null;
+if ($lt['phase'] === 'building' && $lt['buildDeadline'] !== null) $endsIn = max(0, $lt['buildDeadline'] - $now);
+if ($lt['phase'] === 'between' && ($lt['swiss']['betweenDeadline'] ?? null) !== null) $endsIn = max(0, $lt['swiss']['betweenDeadline'] - $now);
+$gameName = null;
+if ($lt['phase'] === 'playing') {
+    if ($lt['mode'] === 'draft') $gameName = ($table !== null && empty($table['bye'])) ? strval($table['gameName']) : null;
+    elseif (is_array($lt['match'])) $gameName = strval($lt['match']['gameName']);
+}
 echo json_encode([
-    'success' => true, 'context' => 'build', 'phase' => $lt['phase'],
+    'success' => true, 'context' => 'build', 'phase' => $lt['phase'], 'mode' => $lt['mode'],
     'playerID' => $pid,   // the caller's own lobby seat: the page's chat sends as it (the lobby scope trusts the posted id)
     'pool' => $pool, 'basesInPlay' => $bases, 'cards' => SWULimitedCardFacts(array_merge($pool, $bases)),
     'deck' => $seat['deck'], 'submitted' => !empty($seat['submitted']), 'ready' => !empty($seat['ready']),
-    'endsIn' => ($lt['phase'] === 'building' && $lt['buildDeadline'] !== null) ? max(0, $lt['buildDeadline'] - $now) : null,
+    'endsIn' => $endsIn,
     'opponentReady' => $others !== [] && array_filter($others, fn($p) => empty($lt['seats'][$p]['ready'])) === [],
-    'gameName' => ($lt['phase'] === 'playing' && is_array($lt['match'])) ? strval($lt['match']['gameName']) : null,
+    'gameName' => $gameName,
+    'bye' => $table !== null && !empty($table['bye']),
 ]);

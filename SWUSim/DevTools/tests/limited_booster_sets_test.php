@@ -22,6 +22,14 @@ $check(SWUBoosterSetEra('IBH') === null, 'a non-booster set has no era');
 foreach (['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'LAW'] as $s) $check(SWUBoosterSetRareSlotBases($s) === true, "$s puts rare bases in the rare slot");
 foreach (['ASH', 'HMW'] as $s) $check(SWUBoosterSetRareSlotBases($s) === false, "$s puts every base in the base slot");
 
+// Supplemental packs (owner 2026-11-05): IC27 Icons packs may be picked in Host's Choice only — never Single Set or Chaos,
+// and never the "latest" default (that stays the last MAIN set).
+$check(array_keys(SWUSupplementalBoosterSets()) === ['IC27'], 'supplemental booster sets: IC27');
+$check(SWUSupplementalBoosterSets()['IC27']['collation'] === 'icons', 'IC27 packs use the Icons collation');
+$check(SWUIsHostChoiceSet('IC27') && SWUIsHostChoiceSet('HMW') && SWUIsHostChoiceSet('SOR') && !SWUIsHostChoiceSet('IBH') && !SWUIsHostChoiceSet('TS26'),
+       'Host\'s Choice offers every main booster set plus IC27, and nothing else');
+$check(SWUHostChoiceSets() === array_merge(array_keys($sets), ['IC27']), 'Host\'s Choice lists the main sets, then the supplemental ones');
+
 $all = require './AppCore/SWU/AllSets.php';
 foreach (array_keys($sets) as $s) $check(isset($all[$s]), "$s is a registered set code in AllSets.php");
 

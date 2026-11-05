@@ -1628,8 +1628,8 @@ function SWUHasTurnEffectKeyword($obj, string $keyword): bool {
 }
 
 // Highest granted value for a value-keyword ($keyword = "RAID"|"RESTORE"|"EXPLOIT"). 0 if none.
-// (CR: Raid/Restore use the highest instance; Exploit is summed — callers that need the sum use
-// SWUTurnEffectKeywordValueSum.)
+// (CR: Raid, Restore and Exploit all STACK — GetKeyword_*_Value uses SWUTurnEffectKeywordValueSum. This
+// highest-instance helper has no keyword-value caller left.)
 function SWUTurnEffectKeywordValue($obj, string $keyword): int {
     $val = 0;
     foreach (SWUParsedTurnEffects($obj) as $e) {

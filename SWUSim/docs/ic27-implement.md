@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042
 
 ## Foundations already built — do not re-do
 
@@ -709,7 +709,46 @@ IC27_076. Baseline 14298/0.
 Suite 14298 → **14337/0** (+39). Double-close notices identical to baseline (145). 30 mutations, each red on its own section.
 Zero deferrals.
 
+## Phase 20 — Fourteenth preview wave, 2026-11-05 (86 → 87 CardIDs; one card)
+
+Derived by `comm -23` of `### Already Done` vs `CardMocks.php`: IC27_165 only. It was mocked (committed in `eb185158f`) but
+absent from the dictionary — ran the three preview regens. **Spelling pass:** matches the image word for word, two aspect
+icons (Cunning + Heroism). Baseline 14345/0.
+
+- [x] **IC27_165 Luke Skywalker – Overplaying His Hand** — When Played: `SWUOfferUnitTarget` (`side 'their'`, `nonLeader`,
+  `may`) → `IC27_165#0`: `SWUUnitToBottomOfDeck`, THEN `DoDrawCard(owner, 2)`. Preview judgement calls (no released analogue
+  prints "its owner draws" after a removal): declining = nobody draws (no "its"); a token that ceases still gives its owner the
+  2 (not "If you do"); put-then-draw order, so an owner with a 1-card deck draws the unit back. 14 sections incl. Twin Suns
+  far-seat owner, Team Suns teammate excluded, stolen unit (owner ≠ controller), empty/1-card owner deck, upgrades, token.
+
+Suite 14345 → **14359/0** (+14). 8 mutations, each red on its own section(s), no collateral.
+
+## Phase 21 — Fifteenth preview wave, 2026-11-05 (87 → 93 CardIDs; `--iterative`, Obi-Wan first by request)
+
+`comm -23` of `### Already Done` vs `CardMocks.php`: IC27_042, 043, 083, 155, 162, 172. Order: **042 Obi-Wan** (owner's
+priority), then simplest first — 162 Chewbacca, 083 Padmé, 155 Han, 043 Raddus, 172 Razor Crest. Baseline 14359/0.
+**Spelling pass** (all six images read): IC27_042 "from your discard **pilot**" → **pile**; IC27_043 Raddus was missing its
+**Heroism** aspect (two icons on the card: Vigilance + Heroism). The other four match word for word, aspect icons included.
+Three preview regens re-run after the fixes.
+
+- [x] **IC27_042 Obi-Wan Kenobi – I sense a Trap** — "You may choose one" = OPTIONCHOOSE of the viable modes + `Pass`
+  (LAW_178's decline); a fizzle-only mode is left off. Mode 1: pool = `SWUPlayablesAtDiscount(myDiscard, -5, withExploit)`
+  ∩ discard entries that left play THIS round (`From='PLAY'`, `Turn` = current round) ∩ the owner's `SWU_DEFEATED_CARD_`
+  multiset; played via `SWUNestedPlayUnit` (full ceremony), discount on the continuation Param. Mode 2: `APPLY_PHASE_DEBUFF|5|5`
+  over a whole-table pool read with the NEW `SWUUnitEnteredPlayThisPhaseAnySeat` (CardHelpers) — the controller-scoped helper
+  loses a unit that entered and then changed control. Judgement calls: Obi-Wan may target himself; a Pilot defeated as an
+  UPGRADE is not "a unit that was defeated"; no "enters ready". 21 sections. ⚠ Open sibling: TWI_052 Hello There has the
+  same control-change gap (uses the controller-scoped helper) — not changed. Suite 14359 → **14380/0** (+21); 11 mutations,
+  each red on its own section(s). ⚠ Commit 318173617 captured mutant M10 (mode 2's entered-this-phase filter dropped).
+
 ## Status
+
+**IC27: 88 / 93 mocked CardIDs implemented** (2026-11-05, fifteenth wave in progress — IC27_042 done; 043, 083, 155, 162,
+172 remain).
+
+**IC27: 87 / 87 mocked CardIDs implemented** (2026-11-05, fourteenth wave; suite → 14359/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **86 / 86** (thirteenth wave).
 
 **IC27: 86 / 86 mocked CardIDs implemented** (2026-11-04, thirteenth wave; suite → 14337/0; the end-of-run `comm -23` of
 `### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.

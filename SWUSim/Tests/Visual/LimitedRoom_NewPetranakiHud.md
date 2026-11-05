@@ -44,6 +44,18 @@ Then by eye: Main Menu → PvP → Create a Limited Room as claudebot1; open the
 11. **Done.** "<winner> won 2–1." (or "<name> was removed — <winner> wins.") in gold, and a Main Menu button.
 12. **Everywhere.** No deck bar, no seat tiles; every button ≥44px; no horizontal scroll at 390px.
 
+## DRAFT (Plan 3) — the same panel for a Draft room
+
+Fixture: limited_fixture.php?mode=draft&players=3&phase=setup|drafting|building|built (claudebot1..N, 3 packs).
+13. **Menu.** The Limited dialog's Mode control offers "Sealed (2 players)" and "Draft (3–8 players)". Draft creates a
+    room titled "DRAFT" whose seat count reads "1/8".
+14. **Setup.** Mode row reads "Draft (3–8 players)". With fewer than 3 seats a gold line "Draft needs at least 3 players."
+    sits above a greyed "START DRAFT"; at 3+ it lights.
+15. **Drafting.** "Leader draft · passing right" (then "Pack 2 of 3 · passing right"), the pod as pills in seating order
+    with each seat's queued packs "(n)" — yours gold-rimmed, a seat with 2+ waiting red with ⏳, a dropped seat struck
+    through — and a gold "OPEN THE DRAFT" → SWUSim/LimitedDraft.php?lobbyID=…; the kick prompt as in the build.
+16. **Built.** "Everyone has built — rounds start with the next update." in gold over the seat list with Ready chips.
+
 ## NEIGHBOURING INVARIANTS (must not change)
 
 - A normal private room and a High Ground room render exactly as before (swusim-high-ground-xbrowser.mjs,

@@ -167,7 +167,7 @@
     if (!S.endsAt) { t.textContent = ''; ft.textContent = ''; return; }
     var left = Math.max(0, Math.round((S.endsAt - Date.now()) / 1000));
     var txt = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2);
-    t.textContent = txt + ' left'; ft.textContent = txt;
+    t.textContent = S.phase === 'between' ? 'Next round in ' + txt : txt + ' left'; ft.textContent = txt;   // between Swiss rounds
     t.classList.toggle('lb-timer--warn', left < 60); ft.classList.toggle('lb-timer--warn', left < 60);
   }
 
@@ -224,9 +224,12 @@
   function applyState(r) {
     if (!r.success) { el('lbStatus').textContent = r.message || 'This deckbuilder is not available.'; return; }
     S.endsAt = r.endsIn == null ? 0 : Date.now() + r.endsIn * 1000;
+    S.phase = r.phase || ''; S.draftPod = r.mode === 'draft';
     tickClock();
-    el('lbOpp').textContent = r.opponentReady ? 'Your opponent is Ready' : '';
+    el('lbOpp').textContent = r.opponentReady ? (S.draftPod ? 'Everyone else is Ready' : 'Your opponent is Ready') : '';
     if (r.gameName && !S.leaving) { leave(r.gameName); return; }
+    // A Draft pod's round began and this seat has a bye (or the event ended): the room is where it waits.
+    if (!MATCH && S.draftPod && !S.leaving && (r.bye || r.phase === 'playing' || r.phase === 'done')) { leave(''); return; }
     if (!MATCH && r.playerID && S.attachChat) S.attachChat(r.playerID);
     if (!S.loaded) {
       S.loaded = true;
@@ -260,7 +263,10 @@
       S.busy = true; renderButtons();
       post('ready', '', function (r) {
         S.busy = false;
-        if (r.success) { S.ready = true; try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+        if (r.success) {
+          S.ready = true; try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+          if (!MATCH && S.phase === 'between') { leave(''); return; }   // between Swiss rounds the room holds Ready and Start round
+        }
         else el('lbErrors').innerHTML = '<li>' + esc(r.message || 'That did not work — try again.') + '</li>';
         render();
       });

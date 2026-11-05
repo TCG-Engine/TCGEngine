@@ -186,6 +186,27 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await shot(page, `limited-builder-${ename}-${size.name}-match`);
       await ctx.close(); await api.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
+
+    // ── between Swiss rounds (Plan 4) ───────────────────────────────────────────────────────────────────────────────
+    where = `${tag} between rounds`;
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'between&mode=draft&players=4');
+      const ctx = await seatContext(browser, size, fx, 1);
+      const page = await ctx.newPage();
+      await page.goto(`${BASE}${fx.urls.builder}`, { waitUntil: 'domcontentloaded', timeout: T });
+      await page.waitForSelector('#lbPoolGrid .lb-card', { timeout: T });
+      await page.waitForFunction(() => /\d:\d\d/.test(document.getElementById('lbTimer').textContent), null, { timeout: T });
+      const st = await page.evaluate(() => ({ deck: parseInt(document.getElementById('lbDeckCount').textContent, 10), ready: !document.getElementById('lbReady').disabled,
+                                              timer: document.getElementById('lbTimer').textContent }));
+      check(where, st.deck === 30 && st.ready && /^Next round in \d+:\d\d$/.test(st.timer), 'opens on the last deck, Ready available, "Next round in m:ss"', JSON.stringify(st));
+      await shot(page, `limited-builder-${ename}-${size.name}-between`);
+      await page.locator('#lbReady').click();
+      await page.locator('.sd-ok').click({ timeout: T });
+      await page.waitForURL(/WaitingRoom\.php/, { timeout: T }).catch(() => {});
+      check(where, page.url().includes('SharedUI/WaitingRoom.php?lobby=' + fx.lobbyID), 'Ready between rounds goes back to the room', page.url());
+      await ctx.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
   }
   await browser.close();
 }

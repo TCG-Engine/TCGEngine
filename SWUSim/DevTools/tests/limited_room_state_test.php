@@ -126,5 +126,43 @@ $check($lb['phase'] === 'done' && $lb['result']['winner'] === 2 && $lb['result']
 $lp = LTDropSeat($playing, 2, 'left');
 $check($lp['phase'] === 'playing' && $lp['seats'][2]['dropped'] === true, 'during the match, a drop only marks the seat (the match decides)');
 
+// ── Draft (Plan 3) ─────────────────────────────────────────────────────────────────────────────────────────────────
+$draftRoom = function (int $n) { $lt = LTNew('draft'); for ($p = 1; $p <= $n; $p++) $lt = LTAddSeat($lt, $p, "p$p"); return $lt; };
+
+echo "DraftSeatsCapAtEight:\n";
+$d8 = $draftRoom(8);
+$check(LTSeatCap($d8) === 8 && $d8 !== null && count($d8['seats']) === 8 && LTAddSeat($d8, 9, 'p9') === null, 'a Draft room seats 8, not 9');
+
+echo "DraftCanStartFromThree:\n";
+$check(!LTCanStart($draftRoom(2)) && LTCanStart($draftRoom(3)) && LTCanStart($draftRoom(8)), 'Draft can start with 3–8 seats, not 2');
+$check(LTCanStart($two()) && !LTCanStart(LTAddSeat(LTNew('sealed'), 1, 'a')), 'Sealed still needs exactly 2');
+$badD = LTSetSettings($draftRoom(3), SWULimitedDefaultSettings('draft'), ['x']);
+$check(!LTCanStart($badD), 'settings errors block the start');
+
+echo "DraftDropKeepsTheEventGoing:\n";
+$b3 = $draftRoom(3); $b3['phase'] = 'building'; $b3['buildDeadline'] = $now + 1800;
+$g1 = LTDropSeat($b3, 3, 'kicked');
+$check($g1['phase'] === 'building' && !empty($g1['seats'][3]['dropped']), 'one drop of three: the event goes on');
+$g2 = LTDropSeat($g1, 2, 'left');
+$check($g2['phase'] === 'done' && $g2['result']['winner'] === 1 && $g2['result']['reason'] === 'left', 'down to one live seat: done, that seat wins');
+$dr3 = $draftRoom(3); $dr3['phase'] = 'drafting';
+$check(LTDropSeat($dr3, 2, 'kicked')['phase'] === 'drafting', 'a drop while drafting keeps the draft running');
+
+echo "DraftBuiltWhenAllReady:\n";
+$bb = $b3;
+$bb = LTReady(LTSubmitDeck($bb, 1, $deck('a')), 1);
+$bb = LTReady(LTSubmitDeck($bb, 2, $deck('b')), 2);
+$check(LTMarkBuilt($bb) === null, 'one live seat unready: not built');
+$bb = LTReady(LTSubmitDeck($bb, 3, $deck('c')), 3);
+$check((LTMarkBuilt($bb)['phase'] ?? '') === 'built', 'every live seat Ready: built');
+$bd = LTDropSeat(LTReady(LTSubmitDeck(LTReady(LTSubmitDeck($b3, 1, $deck('a')), 1), 2, $deck('b')), 2), 3, 'kicked');
+$check((LTMarkBuilt($bd)['phase'] ?? '') === 'built', 'a dropped seat is not waited for');
+$check(!LTReadyToStart($bb), 'a Draft room never starts a match in this plan');
+$check(LTMarkBuilt($both) === null, 'Sealed never becomes built');
+
+echo "KickTargetsMustBeLiveSeats:\n";
+$check(LTKickWait($late, 1, 999, $now) === null, 'Wait on a seat that does not exist is refused');
+$check(LTKickVote($late, 1, 999, $fresh, $now + 1800) === null, 'a vote on a seat that does not exist is refused');
+
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

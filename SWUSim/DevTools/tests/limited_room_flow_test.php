@@ -90,9 +90,10 @@ $check(!empty($r['raw']['success']) && !empty($r['raw']['limited']) && $r['lobby
 $check(is_file(SWURoomPath($r['lobbyID'])), 'it is saved to disk from the start');
 $lob = apcu_fetch($r['lobbyID']);
 $check(is_object($lob) && ($lob->limited['phase'] ?? '') === 'setup' && intval($lob->maxPlayers) === 2, 'the room is in setup with 2 places');
-$bad = hit($L . 'JoinQueue.php', ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'limited', 'limitedMode' => 'draft',
+// Draft exists since Plan 3 (limited_draft_flow_test.php); any other mode is refused — and creates nothing, so this seat stays.
+$bad = hit($L . 'JoinQueue.php', ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'limited', 'limitedMode' => 'cube',
     'deckLink' => '', 'preconstructedDeck' => ''], $JA);
-$check(empty($bad['success']) && ($bad['message'] ?? '') === 'Choose Sealed.', 'Draft is refused until it exists');
+$check(empty($bad['success']) && ($bad['message'] ?? '') === 'Choose Sealed or Draft.', 'an unknown Limited mode is refused');
 
 echo "JoinWithoutDeckAndCap:\n";
 $jb = joinLimited($r, 'b', $JB);

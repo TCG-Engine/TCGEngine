@@ -188,19 +188,19 @@ while (true) {
     $roomMatch = function_exists('SWURoomMatchFor') ? SWURoomMatchFor($lobby) : null;
     // SWUSim High Ground: the live hill match (and whether its game is being played), also read before the lock.
     $hgLive = function_exists('SWUHighGroundLiveState') ? SWUHighGroundLiveState($lobby, $now) : null;
-    // SWUSim Limited: the event's running match, read before the lock too.
-    $ltLive = function_exists('SWULimitedLiveMatch') ? SWULimitedLiveMatch($lobby) : null;
+    // SWUSim Limited: the event's running matches (Sealed's one, or a Draft round's tables), read before the lock too.
+    $ltLive = function_exists('SWULimitedLiveMatches') ? SWULimitedLiveMatches($lobby) : [];
     $roomChanged = false;
     $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs, $roomMatch, $hgLive, $ltLive, &$roomChanged) {
       // The room follows its match: started while it runs, reopened (every seat on the end screen) once it ends.
       if ($roomMatch !== null) $roomChanged = SWURoomSyncWithMatch($l, $roomMatch, $now);
       // A High Ground room folds in any game result the hook missed, and keeps its two busy players present.
       if ($hgLive !== null && SWUHighGroundSync($l, $hgLive, $now)) $roomChanged = true;
-      // A Limited room's build clock: at the deadline, submitted seats are readied (the START itself needs the engine, so
+      // A Limited room's clock: overdue draft picks, and at the build deadline submitted seats are readied (the START needs the engine, so
       // the room page asks SWUSim/LimitedAction.php to tick once it is due).
       if (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($l)) {
-        $ltNext = LTExpireBuild($l->limited, $now);
-        if ($ltLive !== null) $ltNext = LTApplyMatch($ltNext, $ltLive);   // a game result the hook missed
+        $ltNext = SWULimitedClockStep($l->limited, SWULimitedLastSeen($l), $now);   // draft picks, build clock, built
+        $ltNext = SWULimitedApplyMatches($ltNext, $ltLive, $now);   // a game result the hook missed
         if ($ltNext !== $l->limited) { $l->limited = $ltNext; $roomChanged = true; }
       }
       $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);

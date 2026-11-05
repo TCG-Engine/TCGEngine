@@ -24,6 +24,8 @@ const LT_BUILD_SECONDS      = 1800;   // owner: 30 minutes to build
 const LT_SIDEBOARD_SECONDS  = 300;    // the between-games builder cap in a Bo3 (spec §3.4)
 const LT_KICK_WAIT_SECONDS  = 20;     // "Wait another 20 seconds", as in every other format
 const LT_DISCONNECT_SECONDS = 30;     // a seat silent this long is disconnected (the in-game rule)
+const LT_DRAFT_MIN_SEATS     = 3;    // a Draft pod is 3–8 players; Sealed is exactly 2
+const LT_DRAFT_MAX_SEATS     = 8;
 const LT_START_CLAIM_SECONDS = 60;   // a start that crashed mid-way frees its claim after this (High Ground: HG_START_CLAIM_SECONDS)
 
 function LTNew(string $mode): array {
@@ -33,7 +35,14 @@ function LTNew(string $mode): array {
 }
 
 function LTSeatCap(array $lt): int {
-    return 2;   // Sealed is exactly two players (Draft's 3–8 arrives with Draft)
+    return $lt['mode'] === 'draft' ? LT_DRAFT_MAX_SEATS : 2;   // Sealed is exactly two players
+}
+
+// The host may start: setup, no settings errors, and the seats the mode needs — Sealed exactly 2, Draft 3–8.
+function LTCanStart(array $lt): bool {
+    if ($lt['phase'] !== 'setup' || $lt['settingsErrors'] !== []) return false;
+    $n = count(LTLiveSeats($lt));
+    return $lt['mode'] === 'draft' ? ($n >= LT_DRAFT_MIN_SEATS && $n <= LT_DRAFT_MAX_SEATS) : $n === 2;
 }
 
 // The seats still in the event, in seat order.
@@ -68,11 +77,12 @@ function LTStart(array $lt, array $lineups, array $pools, array $setsInPlay, int
     return $lt;
 }
 
-// Submit saves an already-validated deck and un-Readies nothing (there is no editing after Ready). The Bo3 between-games
-// builder writes to the match instead, never through here.
+// Submit saves an already-validated deck and un-Readies nothing (there is no editing after Ready). The same two steps run
+// again between Swiss rounds ('between', LimitedSwissState.php). The Bo3 between-games builder writes to the match
+// instead, never through here.
 function LTSubmitDeck(array $lt, int $pid, array $deck): ?array {
     $s = $lt['seats'][$pid] ?? null;
-    if ($lt['phase'] !== 'building' || $s === null || !empty($s['ready']) || !empty($s['dropped'])) return null;
+    if (!in_array($lt['phase'], ['building', 'between'], true) || $s === null || !empty($s['ready']) || !empty($s['dropped'])) return null;
     $lt['seats'][$pid]['deck'] = $deck;
     $lt['seats'][$pid]['submitted'] = true;
     $lt['seats'][$pid]['ready'] = false;
@@ -81,7 +91,7 @@ function LTSubmitDeck(array $lt, int $pid, array $deck): ?array {
 
 function LTReady(array $lt, int $pid): ?array {
     $s = $lt['seats'][$pid] ?? null;
-    if ($lt['phase'] !== 'building' || $s === null || empty($s['submitted']) || !empty($s['ready']) || !empty($s['dropped'])) return null;
+    if (!in_array($lt['phase'], ['building', 'between'], true) || $s === null || empty($s['submitted']) || !empty($s['ready']) || !empty($s['dropped'])) return null;
     $lt['seats'][$pid]['ready'] = true;
     return $lt;
 }
@@ -101,8 +111,9 @@ function _LTClaimIsFresh(array $lt, int $now): bool {
     return !empty($lt['starting']) && ($now - intval($lt['starting'])) < LT_START_CLAIM_SECONDS;
 }
 
+// Sealed only: a Draft room's decks wait for the Swiss rounds (Plan 4), see LTMarkBuilt.
 function LTReadyToStart(array $lt, ?int $now = null): bool {
-    if ($lt['phase'] !== 'building' || _LTClaimIsFresh($lt, $now ?? time()) || $lt['match'] !== null) return false;
+    if ($lt['mode'] !== 'sealed' || $lt['phase'] !== 'building' || _LTClaimIsFresh($lt, $now ?? time()) || $lt['match'] !== null) return false;
     $live = LTLiveSeats($lt);
     if ($live === []) return false;
     foreach ($live as $pid) if (empty($lt['seats'][$pid]['ready'])) return false;
@@ -145,8 +156,21 @@ function LTApplyMatch(array $lt, array $m): array {
     return $lt;
 }
 
+// Draft: every live seat has built (Ready, or readied by the build clock) — the decks are locked and the event waits for
+// its rounds (Plan 4 turns this into Swiss round 1). A dropped seat is not waited for.
+function LTMarkBuilt(array $lt): ?array {
+    if ($lt['mode'] !== 'draft' || $lt['phase'] !== 'building') return null;
+    $live = LTLiveSeats($lt);
+    if ($live === []) return null;
+    foreach ($live as $pid) if (empty($lt['seats'][$pid]['ready'])) return null;
+    $lt['phase'] = 'built';
+    return $lt;
+}
+
 // A seat leaves or is kicked. During setup that just frees the seat. During the build a Sealed event cannot go on with
-// one player, so it ends and the other seat wins. Once the match runs, the match itself decides (the in-game kick).
+// one player, so it ends and the other seat wins. A Draft pod goes on while two live seats remain (a dropped drafter
+// keeps auto-picking, LimitedDraftState.php); at one, it ends with that seat the winner. Once a match runs, the match
+// itself decides (the in-game kick).
 function LTDropSeat(array $lt, int $pid, string $reason): array {
     if (!isset($lt['seats'][$pid])) return $lt;
     if ($lt['phase'] === 'setup') {
@@ -155,8 +179,9 @@ function LTDropSeat(array $lt, int $pid, string $reason): array {
     }
     $lt['seats'][$pid]['dropped'] = true;
     unset($lt['kick'][$pid]);
-    if ($lt['phase'] === 'building') {
-        $left = LTLiveSeats($lt);
+    $left = LTLiveSeats($lt);
+    $ends = $lt['mode'] === 'draft' ? (count($left) <= 1 && $lt['phase'] !== 'done') : $lt['phase'] === 'building';
+    if ($ends) {
         $lt['phase'] = 'done';
         $lt['starting'] = false;
         $lt['result'] = ['winner' => count($left) === 1 ? $left[0] : null, 'score' => [], 'reason' => $reason];
@@ -178,6 +203,10 @@ function LTKickVoters(array $lt, int $target): array {
 // running match has the in-game kick. A seat is kickable when it has been silent for over 30 s, or once the build clock
 // has run out without a submitted deck; a "Wait" holds the vote off for 20 s.
 function LTKickableSeats(array $lt, array $lastSeen, int $now): array {
+    // While drafting the draft's own rule applies (LimitedDraftState.php — it requires this file, so it is asked, not loaded).
+    if ($lt['phase'] === 'drafting') return function_exists('LTDraftKickable') ? LTDraftKickable($lt, $lastSeen, $now) : [];
+    // Between Swiss rounds, the break's own rule (LimitedSwissState.php — likewise asked, not loaded).
+    if ($lt['phase'] === 'between') return function_exists('LTSwissKickable') ? LTSwissKickable($lt, $lastSeen, $now) : [];
     if ($lt['phase'] !== 'building') return [];
     $out = [];
     foreach (LTLiveSeats($lt) as $pid) {
@@ -200,7 +229,7 @@ function LTKickVote(array $lt, int $voter, int $target, array $lastSeen, int $no
 
 // "Wait another 20 seconds": the vote on $target closes for 20 s and its votes so far are cleared.
 function LTKickWait(array $lt, int $voter, int $target, int $now): ?array {
-    if (!in_array($voter, LTKickVoters($lt, $target), true)) return null;
+    if (!in_array($target, LTLiveSeats($lt), true) || !in_array($voter, LTKickVoters($lt, $target), true)) return null;
     $lt['kick'][$target] = ['votes' => [], 'waitUntil' => $now + LT_KICK_WAIT_SECONDS];
     return $lt;
 }

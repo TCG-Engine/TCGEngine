@@ -87,6 +87,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       </p>
 <?php endif; ?>
 
+      <!-- Each tile's stat line (.mode__stat) is at most 24 characters: it shares one line with "Enter →".
+           Enforced by SWUSim/DevTools/tests/menu_stat_lines_test.php (also checks SWUMenuStatLabel's live lines). -->
       <ul class="modes__grid">
 
         <li class="slot lift-3">
@@ -185,7 +187,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               <h3 class="mode__title">Limited</h3>
               <span class="mode__desc">Open packs, build a deck from your pool, and play it out.</span>
               <span class="mode__foot">
-                <span class="mode__stat">Sealed · no deck needed</span>
+                <span class="mode__stat">No deck needed</span>
                 <span class="mode__go">Enter
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M4 12h15M13 6l6 6-6 6"/>
@@ -721,11 +723,14 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <div class="seg">
               <input class="seg__in u-vh" type="radio" name="lt-mode" id="lt-mode-1" value="sealed" checked>
               <label class="seg__opt ch" for="lt-mode-1">Sealed (2 players)</label>
+              <input class="seg__in u-vh" type="radio" name="lt-mode" id="lt-mode-2" value="draft">
+              <label class="seg__opt ch" for="lt-mode-2">Draft (3–8 players)</label>
           </div>
         </fieldset>
-        <p class="note">No deck needed. Create the room, send your opponent the invite link, then choose the packs: one set, a
-          lineup of your choice, or Chaos. Each of you opens your packs, builds a 30-card deck from them, and plays a Best of 1
-          or Best of 3. Limited games are not recorded anywhere.</p>
+        <p class="note">No deck needed. Create the room, send the invite link, then choose the packs: one set, a lineup of your
+          choice, or Chaos. <b>Sealed:</b> you and your opponent open your packs, build a 30-card deck from them, and play a Best
+          of 1 or Best of 3. <b>Draft:</b> 3 to 8 players draft leaders, then cards, passing packs around the table, and build
+          from their picks. Limited games are not recorded anywhere.</p>
 <?php if (!SWULimitedCreateAllowed()): ?>
         <p class="note">Limited is being tested — creating a room is open to moderators for now. You can still join one from an invite link.</p>
 <?php endif; ?>
@@ -1215,7 +1220,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           window.location.href = swusimAppBase() + 'SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(response.lobbyID);
         };
         xhr.onerror = function () { showQueueInlineError('Could not reach the server. Check your connection.'); };
-        xhr.send('rootName=SWUSim&createPrivate=1&format=limited&limitedMode=sealed&queueType=bo1&deckLink=&preconstructedDeck=&game_type=');
+        var picked = document.querySelector('#setup-limited input[name="lt-mode"]:checked');
+        var mode = picked && picked.value === 'draft' ? 'draft' : 'sealed';
+        xhr.send('rootName=SWUSim&createPrivate=1&format=limited&limitedMode=' + mode + '&queueType=bo1&deckLink=&preconstructedDeck=&game_type=');
       }
 
       function joinPrivateInvite() {

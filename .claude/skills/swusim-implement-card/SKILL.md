@@ -1351,6 +1351,14 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 fourteenth wave 2026-11-05 — "put X in its owner's deck. Its owner draws N"
+- **The ORDER boundary is an owner deck of ONE card.** Put-then-draw draws the moved unit back with no deck-out; draw-then-put
+  deals 3 and leaves the unit in the deck. A 2+ card deck ends identically under both orders. Pair it with the EMPTY-deck
+  section (draws the unit, takes 3 for the second). (IC27_165 Luke.)
+- **"Its owner" after a removal is DETERMINED by the chosen unit.** Read `SWUObjSeat($o, true)` BEFORE the move (the object is
+  gone after). Two discriminating sections: a stolen unit (`WithP2GroundArenaControlled: <yours>:1`, so owner = you) reds the
+  controller reading, and a far-seat owner reds `OtherPlayer`. Declining = no referent = no draw; a ceasing token still draws.
+
 ### ★ IC27 thirteenth wave 2026-11-04 — "enters play" has THREE doors, one Ty question per blast, count-capped budgets
 - **★★ "When a unit enters play" = THREE entry points, not the play path.** `CollectEntryTriggers` (played from anywhere,
   deployed leaders, Smuggle, discard plays, freed captives), `_SWUCreateOneToken` (created token units) and `DoRescueUnit`

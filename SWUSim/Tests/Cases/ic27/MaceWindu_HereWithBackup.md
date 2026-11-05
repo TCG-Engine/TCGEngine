@@ -43,6 +43,23 @@ P1GROUNDARENAUNIT:0:KEYWORDVALUE:Restore:0
 
 ---
 
+# Front_StacksWithPrintedRestore_HealsFour
+#// "It gains Restore 2" on a unit that already has Restore 2 stacks (CR 7.9.b — the numerals are added together): Chandrilan
+#// Sponsor (SEC_043, 2/3, printed Restore 2) attacks with Restore 4, so P1's base heals 5 → 1 — not 5 → 3 (the
+#// highest-instance reading). P2's empty board auto-resolves the base target; the Sponsor deals 2.
+## GIVEN
+CommonSetup: ggw/rrk/{myLeader:IC27_004;myResources:1;myBaseDamage:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_043:1:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1BASEDMG:1
+P2BASEDMG:2
+P1LEADER:EXHAUSTED
+
+---
+
 # Front_Offer_UnitsThatCanAttackNow
 #// The attacker pick is left PENDING. Offered: the ready Battlefield Marine and the ready X-Wing (space). Excluded: the
 #// exhausted Imperial Dark Trooper, the ready Loth-Wolf (LOF_044 can never attack), and P2's unit (not yours).

@@ -76,6 +76,17 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
         await pickMode(page, m);
         const on = await page.evaluate(() => { const i = [...document.querySelectorAll('#lt-root input[data-lt="packMode"]')].find((x) => x.checked); return i ? i.value : ''; });
         check(where, on !== '', `pack mode "${m}" can be picked`, on);
+        // Owner 2026-11-05: IC27 Icons packs are a supplemental set — offered in Host's Choice only.
+        const sel = { "Host’s Choice": 'select[data-lt="lineup"]', Chaos: 'input[data-lt="chaos"]', 'Single Set': 'select[data-lt="singleSet"]' }[m];
+        await page.waitForSelector('#lt-root ' + sel, { timeout: T }).catch(() => {});
+        const offers = await page.evaluate(() => ({
+          lineup: [...document.querySelectorAll('#lt-root select[data-lt="lineup"] option')].map((o) => o.value),
+          single: [...document.querySelectorAll('#lt-root select[data-lt="singleSet"] option')].map((o) => o.value),
+          chaos: [...document.querySelectorAll('#lt-root input[data-lt="chaos"]')].map((i) => i.value),
+        }));
+        if (m === "Host’s Choice") check(where, offers.lineup.includes('IC27') && offers.lineup.includes('HMW'), "Host's Choice offers IC27 (and the main sets)", JSON.stringify(offers.lineup));
+        if (m === 'Chaos') check(where, offers.chaos.length > 0 && !offers.chaos.includes('IC27'), 'Chaos never offers IC27', JSON.stringify(offers.chaos));
+        if (m === 'Single Set') check(where, offers.single.length > 0 && !offers.single.includes('IC27'), 'Single Set never offers IC27', JSON.stringify(offers.single));
       }
       await pickMode(page, 'Chaos');
       await page.locator('#lt-root input[data-lt="chaos"][value="SOR"]').check();
@@ -99,6 +110,18 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await page.waitForTimeout(3500);   // the debounced save, then at least one poll
       const kept = await page.$eval('#lt-root select[data-lt="lineup"]', (s) => s.value);
       check(where, kept === after[0], 'the shuffled pack survives the next poll', JSON.stringify([after[0], kept]));
+      // Final review #1: once the host's edit is saved, the form follows the SERVER again — a change made elsewhere (a
+      // second tab here) shows up within a couple of polls instead of the host's stale local copy.
+      await page.evaluate(async ([lobbyID]) => {
+        const k = JSON.parse(localStorage.getItem('tcg:lobbyAuth:' + lobbyID)).authKey;
+        await fetch('/TCGEngine/SWUSim/LimitedAction.php', { method: 'POST', body: new URLSearchParams({ lobbyID, authKey: k, action: 'settings',
+          settings: JSON.stringify({ packMode: 'single', singleSet: 'TWI', packCount: 7 }) }) });
+      }, [fx.lobbyID]);
+      const followed = await page.waitForFunction(() => {
+        const sel = document.querySelector('#lt-root select[data-lt="singleSet"]'), cnt = document.querySelector('#lt-root select[data-lt="packCount"]');
+        return !!sel && sel.value === 'TWI' && cnt && cnt.value === '7';
+      }, null, { timeout: 8000 }).then(() => true).catch(() => false);
+      check(where, followed, 'after the host\'s own edit is saved, the form follows a change made from another tab');
       await invariants(page, where);
       await shot(page, `limited-room-${ename}-${size.name}-host-setup`);
       await ctx.close(); await api.close();
@@ -143,6 +166,130 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await ctx.close(); await api.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
 
+    // ── Draft: drafting and built (Plan 3) ──────────────────────────────────────────────────────────────────────
+    where = `${tag} draft`;
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'drafting&mode=draft&players=3');
+      const ctx = await personContext(browser, size, fx, 1);
+      const page = await openRoom(ctx, fx);
+      check(where, (await page.textContent('#lt-root .lt-title')).trim() === 'Draft', 'the panel is titled Draft');
+      check(where, (await page.locator('#lt-root .lt-podseat').count()) === 3, 'the pod shows 3 seats in seating order');
+      const href = await page.$eval('#lt-root .lt-open-draft', (a) => a.getAttribute('href'));
+      check(where, href.includes('SWUSim/LimitedDraft.php?lobbyID=' + fx.lobbyID), '"Open the draft" leads to the pick screen', href);
+      check(where, /\/8$/.test((await page.textContent('#wr-count-n')).trim()), 'the seat count is out of 8');
+      await invariants(page, where);
+      await shot(page, `limited-room-${ename}-${size.name}-drafting`);
+      // Final review #4: leaving mid-draft drops the seat for good — it asks first; Cancel keeps it.
+      await page.locator('#wr-leave').click();
+      const askedD = await page.locator('.sd-cancel').waitFor({ state: 'visible', timeout: 5000 }).then(() => true).catch(() => false);
+      if (askedD) await page.locator('.sd-cancel').click();
+      await page.waitForTimeout(1500);
+      check(where, askedD && (await page.locator('#lt-root .lt-podseat').count()) === 3, 'Leave asks before dropping a drafter, and Cancel keeps the seat');
+      // Plan 4: a built pod's room starts Swiss round 1 by itself (the page ticks the room); a seat with a table is sent on.
+      const fb = await fixture(api.request, 'built&mode=draft&players=3');
+      const ctx2 = await personContext(browser, size, fb, 1);
+      const p2 = await openRoom(ctx2, fb);
+      const sent = await Promise.race([
+        p2.waitForURL(/NextTurn\.php/, { timeout: T }).then(() => true),
+        p2.waitForSelector('#lt-root .lt-tables', { timeout: T }).then(() => true),
+      ]).catch(() => false);
+      check(where, sent, 'built: round 1 starts by itself (to the board, or the bye shown)');
+      await ctx.close(); await ctx2.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
+    // ── Swiss rounds (Plan 4) ───────────────────────────────────────────────────────────────────────────────────
+    where = `${tag} swiss round`;
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'round1&mode=draft&players=5');
+      const bye = fx.tables.find((t) => t.bye).a;
+      const table = fx.tables.find((t) => !t.bye);
+      // A seat with a table is sent to its own board.
+      const ctxA = await personContext(browser, size, fx, table.a);
+      const pA = await ctxA.newPage();
+      await pA.goto(`${BASE}${fx.urls.room}`, { waitUntil: 'domcontentloaded', timeout: T });
+      await pA.waitForURL(/NextTurn\.php/, { timeout: T }).catch(() => {});
+      check(where, pA.url().includes('NextTurn.php') && pA.url().includes('gameName=' + table.gameName), 'a seat with a table is sent to its own game', pA.url());
+      await ctxA.close();
+      // The bye seat stays and sees the round.
+      const ctx = await personContext(browser, size, fx, bye);
+      const page = await openRoom(ctx, fx);
+      await page.waitForSelector('#lt-root .lt-tables', { timeout: T });
+      check(where, /Round 1 of 3/.test(await page.textContent('#lt-root')), 'the panel says "Round 1 of 3"');
+      check(where, (await page.locator('#lt-root .lt-table').count()) === 3, 'three rows: two tables and the bye');
+      check(where, (await page.locator('#lt-root .lt-table--me').count()) === 1 && /bye/i.test(await page.textContent('#lt-root .lt-table--me')), 'my own row (the bye) is highlighted');
+      check(where, /You have a bye this round\./.test(await page.textContent('#lt-root')) && (await page.locator('#lt-root .lt-back').count()) === 0, '"You have a bye this round." and no game button');
+      await invariants(page, where);
+      await shot(page, `limited-room-${ename}-${size.name}-swiss-round`);
+      await ctx.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
+    where = `${tag} swiss between`;
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'between&mode=draft&players=4');
+      const ctx = await personContext(browser, size, fx, 1);
+      const page = await openRoom(ctx, fx);
+      await page.waitForSelector('#lt-root .lt-standings', { timeout: T });
+      check(where, /Round 2 starts in/.test(await page.textContent('#lt-root')) && /^\d+:\d\d$/.test((await page.textContent('#lt-root .lt-clock')).trim()), 'the break: "Round 2 starts in" and a m:ss clock');
+      const edit = await page.$eval('#lt-root .lt-edit', (a) => a.getAttribute('href'));
+      check(where, edit.includes('SWUSim/LimitedBuilder.php?lobbyID=' + fx.lobbyID), 'Edit deck opens the builder', edit);
+      const ranks = await page.$$eval('#lt-root .lt-standings tbody tr', (rs) => rs.map((r) => r.cells[0].textContent.trim()));
+      check(where, JSON.stringify(ranks) === '["1","2","3","4"]', 'standings: four rows ranked 1–4', JSON.stringify(ranks));
+      const pts = await page.$$eval('#lt-root .lt-standings tbody tr', (rs) => rs.map((r) => r.querySelector('.lt-pts').textContent.trim()));
+      check(where, pts.every((x) => /^\d+$/.test(x)), 'the Pts column holds numbers', JSON.stringify(pts));
+      check(where, await page.locator('#lt-root .lt-start-round').isDisabled(), 'Start round is disabled until everyone is Ready');
+      await page.locator('#lt-root .lt-ready').click();
+      await page.waitForFunction(() => { const b = document.querySelector('#lt-root .lt-ready'); return b && b.disabled && !!document.querySelector('#lt-root .lt-seat--me .lt-chip--on'); }, null, { timeout: T }).catch(() => {});
+      check(where, await page.locator('#lt-root .lt-ready').isDisabled() && (await page.locator('#lt-root .lt-seat--me .lt-chip--on').count()) === 1, 'Ready from the room: my chip turns Ready and the button disables');
+      for (const s of [2, 3, 4]) await api.request.post(`${BASE}SWUSim/LimitedAction.php`, { form: { lobbyID: fx.lobbyID, authKey: fx.keys[s], action: 'ready' } });
+      await page.waitForFunction(() => { const b = document.querySelector('#lt-root .lt-start-round'); return b && !b.disabled; }, null, { timeout: T }).catch(() => {});
+      check(where, !(await page.locator('#lt-root .lt-start-round').isDisabled()), 'once everyone is Ready the host may start the round');
+      if (size.name === 'phone') {
+        const fold = await page.evaluate(() => {
+          const tb = document.querySelector('#lt-root .lt-standings .lt-tb'), omw = document.querySelector('#lt-root .lt-standings th.lt-omw');
+          return { tb: !!tb && tb.offsetParent !== null, omw: !!omw && omw.offsetParent !== null };
+        });
+        check(where, fold.tb && !fold.omw, '390px: the tiebreaks fold into a line under the name, the OMW column is hidden', JSON.stringify(fold));
+      }
+      await invariants(page, where);
+      await shot(page, `limited-room-${ename}-${size.name}-swiss-between`);
+      await page.locator('#lt-root .lt-start-round').click();
+      await page.waitForURL(/NextTurn\.php/, { timeout: T }).catch(() => {});
+      check(where, page.url().includes('NextTurn.php'), 'Start round: round 2 begins and the host is sent to their game', page.url());
+      await ctx.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
+    where = `${tag} swiss removed`;   // owner fix (2026-11-05): a kicked player sees why, not the break's controls
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'between&mode=draft&players=4&dropSeat=4');
+      const ctx = await personContext(browser, size, fx, 4);
+      const page = await openRoom(ctx, fx);
+      await page.waitForSelector('#lt-root .lt-standings', { timeout: T });
+      check(where, /You were removed from this event\./.test(await page.textContent('#lt-root')), '"You were removed from this event." is shown');
+      check(where, (await page.locator('#lt-root .lt-ready, #lt-root .lt-edit, #lt-root .lt-start-round').count()) === 0, 'no Edit deck, Ready or Start round');
+      await invariants(page, where);
+      await shot(page, `limited-room-${ename}-${size.name}-swiss-removed`);
+      await ctx.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
+    where = `${tag} swiss done`;
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'done&mode=draft&players=4');
+      const ctx = await personContext(browser, size, fx, 2);
+      const page = await openRoom(ctx, fx);
+      await page.waitForSelector('#lt-root .lt-standings', { timeout: T });
+      const top = (await page.textContent('#lt-root .lt-standings tbody tr:first-child .lt-name')).trim();
+      check(where, /Final standings/.test(await page.textContent('#lt-root')) && (await page.textContent('#lt-root .lt-result')).includes(top + ' wins the event.'),
+        'final standings, and the winner line names rank 1', top);
+      await invariants(page, where);
+      await shot(page, `limited-room-${ename}-${size.name}-swiss-done`);
+      await ctx.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
     // ── menu ────────────────────────────────────────────────────────────────────────────────────────────────────
     where = `${tag} menu`;
     try {
@@ -170,6 +317,17 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await page.waitForURL(/WaitingRoom\.php/, { timeout: T });
       await page.waitForSelector('#lt-root .lt-panel', { timeout: T });
       check(where, await page.locator('#lt-root .lt-panel').isVisible(), 'it lands in a Limited room');
+      // Draft from the same dialog: a room of 8 whose Start waits for 3 players.
+      await page.goto(`${BASE}SharedUI/Sites/SWUSim/MainMenu.php`, { waitUntil: 'domcontentloaded', timeout: T });
+      await page.locator('a.mode[href="#setup-limited"]').click();
+      await page.locator('#setup-limited label[for="lt-mode-2"]').click();
+      await page.locator('#setup-limited button[data-act="limited"]').click();
+      await page.waitForURL(/WaitingRoom\.php/, { timeout: T });
+      await page.waitForSelector('#lt-root .lt-panel', { timeout: T });
+      check(where, (await page.textContent('#lt-root .lt-title')).trim() === 'Draft' && (await page.textContent('#wr-count-n')).trim() === '1/8',
+        'choosing Draft makes a Draft room of 8');
+      check(where, await page.locator('#lt-root .lt-start').isDisabled() && /at least 3 players/.test(await page.textContent('#lt-root')),
+        'with one player, Start Draft is disabled and says why');
       await ctx.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
   }

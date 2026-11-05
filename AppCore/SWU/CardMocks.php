@@ -788,6 +788,67 @@ Restore 3',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/041.png',
     'imageUrlBack' => '',
   ),
+  'IC27_042' => 
+  array (
+    'title' => 'Obi-Wan Kenobi',
+    'subtitle' => 'I sense a Trap',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 8,
+    'power' => 5,
+    'hp' => 9,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'When Played: You may choose one:
+• Play a unit that was defeated this phase from your discard pile. It costs [5 resources] less.<br/>
+• Choose a unit that entered play this phase. It gets -5/-5 for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/042.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_043' => 
+  array (
+    'title' => 'Raddus',
+    'subtitle' => 'Hope of the Resistance',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 9,
+    'power' => 8,
+    'hp' => 9,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' =>
+    array (
+      0 => 'Resistance',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Restore 3 (When this unit attacks, heal 3 damage from your base.)
+While this unit is exhausted, cards your opponents play cost [3 resources] more.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/043.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_045' => 
   array (
     'title' => 'Qi\'ra',
@@ -1391,6 +1452,36 @@ On Attack: Give an Experience token to this unit.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/081.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_083' => 
+  array (
+    'title' => 'Padmé Amidala',
+    'subtitle' => 'With Great Pleasure',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 8,
+    'power' => 5,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Naboo',
+      1 => 'Republic',
+      2 => 'Official',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+Other friendly Heroism units get +3/+3.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/083.png',
     'imageUrlBack' => '',
   ),
   'IC27_084' => 
@@ -2311,6 +2402,34 @@ When Played: You may exhaust a unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/153.png',
     'imageUrlBack' => '',
   ),
+  'IC27_155' => 
+  array (
+    'title' => 'Han Solo',
+    'subtitle' => 'Gamblin\' Man',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 5,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+    ),
+    'text' => 'Saboteur
+When Played: Search the top 10 cards of your deck for a card and draw it, then discard a random card from your hand.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/155.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_157' => 
   array (
     'title' => 'The Mandalorian',
@@ -2397,6 +2516,35 @@ On Attack: If the defending unit is exhausted, it gets -4/-0 for this attack.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/159.png',
     'imageUrlBack' => '',
   ),
+  'IC27_162' => 
+  array (
+    'title' => 'Chewbacca',
+    'subtitle' => 'Cool Backpack',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Wookiee',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+While this unit is damaged, he gets +4/+0.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/162.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_163' => 
   array (
     'title' => 'Bo-Katan Kryze',
@@ -2423,6 +2571,34 @@ When Played: Give each enemy unit -7/-0 for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/163.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_165' => 
+  array (
+    'title' => 'Luke Skywalker',
+    'subtitle' => 'Overplaying His Hand',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 8,
+    'power' => 9,
+    'hp' => 9,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Rebel',
+    ),
+    'text' => 'When Played: You may put an enemy non-leader unit on the bottom of its owner\'s deck. Its owner draws 2 cards.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/165.png',
     'imageUrlBack' => '',
   ),
   'IC27_166' => 
@@ -2503,6 +2679,34 @@ You may attack with a unit. It gets +3/+0 for this attack.',
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/168.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_172' => 
+  array (
+    'title' => 'Razor Crest',
+    'subtitle' => 'Stay Off the Ice',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 2,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Mandalorian',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'Each unit (including friendly units) loses all "When Defeated" abilities.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/172.png',
     'imageUrlBack' => '',
   ),
   'IC27_187' => 

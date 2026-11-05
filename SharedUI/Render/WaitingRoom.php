@@ -1085,15 +1085,17 @@ function _WaitingRoomScript(array $cfg): string {
     el('wr-actions-left').innerHTML = '';
     el('wr-actions-right').innerHTML = '';
     el('wr-head-actions').innerHTML = seated ? '<button id="wr-leave" type="button" class="btn">Leave</button>' : '';
-    // Once the event has started, leaving forfeits it (Sealed has two seats) and drops the seat for good: ask first.
+    // Once the event has started, leaving drops the seat for good (in Sealed, with two seats, it forfeits): ask first.
     if (el('wr-leave')) el('wr-leave').onclick = function () {
-      if (lt.phase !== 'building' && lt.phase !== 'playing') { doLeave(); return; }
-      var ask = 'Leave the event? You give up your seat and your opponent wins.';
+      if (lt.phase === 'setup' || lt.phase === 'done') { doLeave(); return; }
+      var ask = lt.mode !== 'draft' ? 'Leave the event? You give up your seat and your opponent wins.'
+        : lt.phase === 'drafting' ? 'Leave the draft? You give up your seat for good, and the rest of your picks are made for you.'
+        : 'Leave the event? You give up your seat for good.';
       if (window.StyledConfirm) window.StyledConfirm(ask, { title: 'Leave the event', danger: true, confirmLabel: 'Leave' }).then(function (ok) { if (ok) doLeave(); });
       else if (window.confirm(ask)) doLeave();
     };
     el('wr-status').style.display = '';
-    el('wr-count-n').textContent = lt.seats.filter(function (s) { return !s.dropped; }).length + '/2';
+    el('wr-count-n').textContent = lt.seats.filter(function (s) { return !s.dropped; }).length + (lt.mode === 'draft' ? '/8' : '/2');
     renderInvite(d);
     if (window.SWULimitedRenderRoom) window.SWULimitedRenderRoom(el('lt-root'), lt, ltCtx());
   }

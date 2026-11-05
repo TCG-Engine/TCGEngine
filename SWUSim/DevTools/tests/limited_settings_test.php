@@ -39,7 +39,9 @@ $crafted = [
     'bestOf 2'               => $with('draft', ['bestOf' => 2]),
     'unknown packMode'       => $with('draft', ['packMode' => 'mystery']),
     'TS26 in a lineup'       => $with('draft', ['packMode' => 'hostchoice', 'lineup' => ['SOR', 'TS26', 'HMW']]),
-    'IC27 in a lineup'       => $with('draft', ['packMode' => 'hostchoice', 'lineup' => ['SOR', 'IC27', 'HMW']]),
+    // (Owner 2026-11-05: IC27 became a supplemental Host's Choice set — "IC27 in a lineup" is now ALLOWED, see
+    // SupplementalOnlyInHostChoice; IC27 stays refused everywhere else.)
+    'IC27 as the single set' => $with('draft', ['singleSet' => 'IC27']),
     'lineup length ≠ packs'  => $with('draft', ['packMode' => 'hostchoice', 'lineup' => ['SOR', 'HMW']]),
     'duplicate chaos sets'   => $with('draft', ['packMode' => 'chaos', 'chaosSets' => ['SOR', 'SOR', 'TWI']]),
     'IBH as the single set'  => $with('draft', ['singleSet' => 'IBH']),
@@ -93,6 +95,19 @@ echo "SealedPoolIs16PerPack:\n";
 $pool = SWULimitedOpenSealedPool(array_fill(0, 6, 'SOR'), SWULimitedRng(5));
 $check(count($pool) === 96, '6 packs open into 96 cards');
 $check(count(array_filter($pool, fn($c) => CardType($c) === 'Leader')) === 6, 'the pool holds exactly 6 leaders');
+
+echo "SupplementalOnlyInHostChoice:\n";   // owner 2026-11-05
+$icons = SWULimitedSettingsFromRequest(['packMode' => 'hostchoice', 'packCount' => 8, 'lineup' => ['HMW', 'HMW', 'HMW', 'IC27', 'IC27', 'IC27', 'IC27', 'IC27']], 'sealed');
+$check(SWULimitedValidateSettings($icons) === [], 'Sealed Host\'s Choice 3 HMW + 5 IC27 is valid: ' . json_encode(SWULimitedValidateSettings($icons)));
+$dIcons = SWULimitedSettingsFromRequest(['packMode' => 'hostchoice', 'packCount' => 3, 'lineup' => ['HMW', 'IC27', 'IC27']], 'draft');
+$check(SWULimitedValidateSettings($dIcons) === [], 'Draft Host\'s Choice may use IC27 too');
+$check(SWULimitedValidateSettings(SWULimitedSettingsFromRequest(['packMode' => 'single', 'singleSet' => 'IC27'], 'sealed')) !== [], 'Single Set refuses IC27');
+$check(SWULimitedValidateSettings(SWULimitedSettingsFromRequest(['packMode' => 'chaos', 'chaosSets' => ['HMW', 'IC27']], 'sealed')) !== [], 'Chaos refuses IC27');
+$check(SWULimitedSetsInPlay($icons) === ['HMW', 'IC27'], 'sets in play: HMW, then IC27');
+$hmwBases = SWULimitedCommonBasesInPlay(['HMW']);
+$check(SWULimitedCommonBasesInPlay(['HMW', 'IC27']) === $hmwBases && $hmwBases !== [], 'IC27 adds no common base (its bases are Starter Box Specials)');
+$pool = SWULimitedOpenSealedPool($icons['lineup'], SWULimitedRng(7));
+$check(count($pool) === 3 * 16 + 5 * 9, 'the Sealed pool is 3×16 + 5×9 = 93 cards: ' . count($pool));
 
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

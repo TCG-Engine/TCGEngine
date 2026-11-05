@@ -57,7 +57,8 @@ function SWULimitedValidateSettings(array $s): array {
         case 'hostchoice':
             $lineup = is_array($s['lineup'] ?? null) ? array_values($s['lineup']) : [];
             if ($count !== null && count($lineup) !== $count) $errors[] = "Pick a set for each of the $count packs.";
-            if ($notBooster($lineup)) $errors[] = 'Every pack must be a set that has booster packs.';
+            // Host's Choice alone may also name a supplemental set (IC27 Icons packs).
+            if (array_filter($lineup, fn($x) => !is_string($x) || !SWUIsHostChoiceSet($x))) $errors[] = 'Every pack must be a set that has booster packs.';
             break;
         case 'chaos':
             $sets = is_array($s['chaosSets'] ?? null) ? array_values($s['chaosSets']) : [];
@@ -78,7 +79,7 @@ function SWULimitedSetsInPlay(array $s): array {
         case 'hostchoice': $sets = $s['lineup'];      break;
         default:           $sets = $s['chaosSets'];
     }
-    return array_values(array_intersect(array_keys(SWUBoosterSets()), $sets));
+    return array_values(array_intersect(SWUHostChoiceSets(), $sets));   // release order, supplemental sets last
 }
 
 // [seat (1..N) => [set per pack]]. Chaos rolls each seat × pack once, independently, repeats allowed; the room
@@ -109,13 +110,44 @@ function SWULimitedCommonBasesInPlay(array $setsInPlay): array {
         }
     }
     $out = [];
-    foreach ($setsInPlay as $set) foreach ($bySet[$set] ?? [] as $c) $out[] = $c;
+    foreach ($setsInPlay as $set) {
+        foreach ($bySet[$set] ?? [] as $c) $out[] = $c;
+        // A supplemental set's REPRINTED bases print under its own number: in play when printed Common there.
+        if (SWUIsSupplementalBoosterSet($set)) {
+            foreach (SWUReprintRaritiesIn($set) as $c => $r) if ($r === 'Common' && CardType($c) === 'Base' && !in_array($c, $out, true)) $out[] = $c;
+        }
+    }
     return $out;
 }
 
-// A Sealed pool: every card of every pack in $lineup (all 16 each, leader and base included), in pack order.
+// A Sealed pool: every card of every pack in $lineup (all 16 each, leader and base included — an Icons pack's 9), in
+// pack order.
 function SWULimitedOpenSealedPool(array $lineup, \Random\Randomizer $rng): array {
     $pool = [];
     foreach ($lineup as $set) foreach (SWULimitedOpenPack($set, $rng) as $e) $pool[] = $e['id'];
     return $pool;
+}
+
+// Everything a Draft opens at start, for the live seats (in seat order): each seat's rolled lineup; its LEADER PACK (the
+// leader of each of its packs); its CARD PACKS — every pack without its leader and its common base (spec §2.4: common
+// bases go to the centre; a rare base in the rare slot is drafted like any card); every opened card's aspects (so the
+// timeout auto-pick needs no card data later); and the seating, shuffled once.
+function SWULimitedOpenDraft(array $settings, array $live, \Random\Randomizer $rng): array {
+    $rolled = SWULimitedRollLineups($settings, count($live), $rng);
+    $out = ['lineups' => [], 'leaderPacks' => [], 'cardPacks' => [], 'aspects' => [], 'order' => []];
+    foreach (array_values($live) as $i => $pid) {
+        $out['lineups'][$pid] = $rolled[$i + 1];
+        foreach ($rolled[$i + 1] as $set) {
+            $cards = [];
+            foreach (SWULimitedOpenPack($set, $rng) as $e) {
+                $out['aspects'][$e['id']] = array_values(array_filter(array_map('trim', explode(',', strval(CardAspect($e['id']) ?? ''))), 'strlen'));
+                if ($e['slot'] === 'leader') $out['leaderPacks'][$pid][] = $e['id'];
+                elseif ($e['slot'] !== 'base') $cards[] = $e['id'];
+            }
+            $out['cardPacks'][$pid][] = $cards;
+        }
+    }
+    $live = array_values($live);
+    foreach ($rng->shuffleArray(array_keys($live)) as $k) $out['order'][] = $live[$k];
+    return $out;
 }

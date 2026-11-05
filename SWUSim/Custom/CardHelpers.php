@@ -151,6 +151,21 @@ if (!function_exists('SWUUnitAttackedThisPhaseAnySeat')) {
         return false;
     }
 }
+// The same any-seat read for "entered play this phase". SWU_ENTERED_PHASE_ is stamped on the seat that
+// controlled the unit AS IT ENTERED, so a unit that changed control afterwards reads false through the
+// controller-scoped SWUUnitEnteredPlayThisPhase (IC27_042 Obi-Wan: P2 plays a unit, P1 takes it with SOR_224,
+// and it still "entered play this phase"). Use this for whole-table text ("choose a unit that entered play").
+if (!function_exists('SWUUnitEnteredPlayThisPhaseAnySeat')) {
+    function SWUUnitEnteredPlayThisPhaseAnySeat($obj): bool {
+        if ($obj === null) return false;
+        $uid = intval($obj->UniqueID ?? 0);
+        if ($uid <= 0) return false;
+        for ($p = 1; $p <= SeatCountForGame(); $p++) {
+            if (GlobalEffectCount($p, 'SWU_ENTERED_PHASE_' . $uid) > 0) return true;
+        }
+        return false;
+    }
+}
 
 // ─── "an enemy unit was defeated this phase" — EXISTENTIAL, across every opponent ─────────────
 // Counts enemy units defeated this phase from $player's seat, by summing each OPPONENT's own

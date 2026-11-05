@@ -6,6 +6,7 @@
 // follow from its card data plus one AppCore/SWU/BoosterSets.php entry. Special-rarity cards (starter decks,
 // spotlight) never enter a normal slot; that alone keeps LAW_023 Great Pit of Carkoon out of packs.
 require_once __DIR__ . '/../../AppCore/SWU/BoosterSets.php';
+require_once __DIR__ . '/../../AppCore/SWU/Overrides.php';   // CardIDOverride — a reprint printing → its card
 if (!function_exists('GetAllCardIds')) require_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 
 // The card pools each booster slot draws from, for one booster set. Lists of card IDs:
@@ -78,11 +79,86 @@ function SWULimitedRng(int $seed): \Random\Randomizer {
     return new \Random\Randomizer(new \Random\Engine\Mt19937($seed));
 }
 
+// ── Supplemental (Icons) packs ────────────────────────────────────────────────────────────────────────────────────
+
+// [printing ID => its card] for every reprint printed in $set (AppCore/SWU/Overrides.php CardIDOverride's table).
+function SWUReprintsPrintedIn(string $set): array {
+    static $all = null;
+    if ($all === null) {
+        preg_match_all('/case "([A-Z0-9]+_\d+)": return "([A-Z0-9]+_\d+)"/', strval(@file_get_contents(__DIR__ . '/../../AppCore/SWU/Overrides.php')), $m, PREG_SET_ORDER);
+        $all = [];
+        foreach ($m as [, $printing, $card]) $all[explode('_', $printing)[0]][$printing] = $card;
+    }
+    return $all[$set] ?? [];
+}
+
+// [card => the rarity printed in $set] for the set's reprints whose printed rarity is known (AppCore/SWU/
+// PrintingRarities.php, from the swu-db.com API — DevTools/swu-printing-rarities.php). A reprint not listed there yet
+// has no entry, so it is never opened.
+function SWUReprintRaritiesIn(string $set): array {
+    static $printed = null;
+    if ($printed === null) { $f = __DIR__ . '/../../AppCore/SWU/PrintingRarities.php'; $printed = is_file($f) ? (require $f) : []; }
+    $out = [];
+    foreach (SWUReprintsPrintedIn($set) as $printing => $card) if (isset($printed[$set][$printing])) $out[$card] = $printed[$set][$printing];
+    return $out;
+}
+
+// The slot pools of an Icons pack: the set's own new cards (the dictionary, by their own rarity) plus its reprints, as
+// their CARD IDs (so the engine plays them as usual), by the rarity printed in this set. Specials (the Starter Box cards,
+// IC27's bases among them), bases and tokens never enter a pack.
+//   leader    non-Special leaders        common / uncommon / rare / legendary   non-leader, non-base
+function SWULimitedIconsSlotPools(string $set): array {
+    static $cache = [];
+    if (isset($cache[$set])) return $cache[$set];
+    if (!SWUIsSupplementalBoosterSet($set)) throw new InvalidArgumentException("$set has no Icons packs");
+    $byRarity = [];
+    foreach (GetAllCardIds() as $c) if (CardSet($c) === $set) $byRarity[$c] = (string)CardRarity($c);
+    $byRarity += SWUReprintRaritiesIn($set);
+    $p = array_fill_keys(['leader', 'common', 'uncommon', 'rare', 'legendary'], []);
+    foreach ($byRarity as $c => $rarity) {
+        $type = (string)CardType($c);
+        if ($rarity === 'Special' || $type === 'Base' || strpos($type, 'Token') !== false || !empty(DecomposeCardID($c)['isToken'])) continue;
+        if ($type === 'Leader') { $p['leader'][] = $c; continue; }
+        $k = strtolower($rarity);
+        if (isset($p[$k])) $p[$k][] = $c;
+    }
+    return $cache[$set] = $p;
+}
+
+// One 9-card Icons pack, in slot order: 3 commons, the leader-or-common slot (a Leader 25% of the time), the hyperspace
+// common (art is cosmetic here: just a common), 2 uncommons, the rare/legendary, the foil. Published: the slot list and
+// the 25% leader. Not published, so the current main-set era's ('law') odds are used: 1 in 5 Legendary in the rare slot,
+// and the foil's Rare / Legendary chance (the rest Common or Uncommon by count). The uncommon slots' unpublished chance to
+// be a Rare or Legendary is not modelled. No repeats outside the foil.
+function SWULimitedOpenIconsPack(string $set, \Random\Randomizer $rng): array {
+    $pools = SWULimitedIconsSlotPools($set);
+    $odds  = SWULimitedEraOdds('law');
+    $one   = fn(array $pool) => $pool[$rng->pickArrayKeys($pool, 1)[0]];
+    $many  = fn(array $pool, int $n) => array_map(fn($k) => $pool[$k], $rng->pickArrayKeys($pool, $n));
+    $roll  = fn() => $rng->getInt(0, 999999999) / 1e9;
+    $leader = $pools['leader'] && $roll() < 0.25;
+    $commons = $many($pools['common'], $leader ? 4 : 5);
+    $hyper = array_pop($commons);
+    $pack = [];
+    foreach ($commons as $c) $pack[] = ['id' => $c, 'slot' => 'common'];
+    if ($leader) $pack[] = ['id' => $one($pools['leader']), 'slot' => 'leader'];
+    $pack[] = ['id' => $hyper, 'slot' => 'hyperspace'];
+    foreach ($many($pools['uncommon'], 2) as $c) $pack[] = ['id' => $c, 'slot' => 'uncommon'];
+    $pack[] = ['id' => $one($roll() < $odds['legendary'] && $pools['legendary'] ? $pools['legendary'] : $pools['rare']), 'slot' => 'rare'];
+    $r = $roll();
+    if ($r < $odds['foilLegendary'] && $pools['legendary'])                  $foilPool = $pools['legendary'];
+    elseif ($r < $odds['foilLegendary'] + $odds['foilRare'] && $pools['rare']) $foilPool = $pools['rare'];
+    else $foilPool = $rng->getInt(1, count($pools['common']) + count($pools['uncommon'])) <= count($pools['common']) ? $pools['common'] : $pools['uncommon'];
+    $pack[] = ['id' => $one($foilPool), 'slot' => 'foil'];
+    return $pack;
+}
+
 // Opens one 16-card booster of $set, in slot order: leader, base, 9 commons (in JTL+ the last may be an S card,
 // slot 'hyperspace'), 3 uncommons, the rare/legendary, the foil. Each entry is ['id' => cardID, 'slot' => slot].
 // Odds are independent per pack (no box guarantees). No card repeats within the commons, uncommons and rare; the
 // foil may repeat one of them.
 function SWULimitedOpenPack(string $set, \Random\Randomizer $rng): array {
+    if (SWUIsSupplementalBoosterSet($set)) return SWULimitedOpenIconsPack($set, $rng);   // a 9-card Icons pack
     $pools = SWULimitedSlotPools($set);
     $odds  = SWULimitedEraOdds(SWUBoosterSetEra($set));
     $one   = fn(array $pool) => $pool[$rng->pickArrayKeys($pool, 1)[0]];

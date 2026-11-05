@@ -5787,6 +5787,60 @@ body:has(#wr-root) .wr-panel .lt-kick {
   background-color: color-mix(in oklch, #ff6b6b 14%, transparent);
   color: var(--ink);
 }
+/* Draft: the pod in seating order, with each seat's queued packs (Plan 3) */
+body:has(#wr-root) .wr-panel .lt-pod { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-podseat {
+  padding: 4px var(--s-3);
+  font-size: var(--t-12);
+  font-weight: 600;
+  color: var(--ink-2);
+  background-color: var(--e-sunk);
+  border: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-podseat--me { color: var(--ink); border-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-podseat--slow { color: #ff9a8a; border-color: #ff6b6b; }
+body:has(#wr-root) .wr-panel .lt-podseat--gone { text-decoration: line-through; opacity: 0.55; }
+body:has(#wr-root) .wr-panel .lt-q { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .lt-need { color: var(--gold-hi); }
+/* Swiss rounds: this round's tables and the standings (Plan 4) */
+body:has(#wr-root) .wr-panel .lt-sub { margin: 0; font-size: var(--t-13, 13px); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+body:has(#wr-root) .wr-panel .lt-tables { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-table {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s-3);
+  min-block-size: 44px;
+  padding: 4px var(--s-3);
+  background-color: var(--e-sunk);
+  border-inline-start: 2px solid var(--edge);
+  color: var(--ink);
+}
+body:has(#wr-root) .wr-panel .lt-table--me { border-inline-start-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-vs { font-weight: 700; overflow-wrap: anywhere; min-width: 0; flex: 1 1 12rem; }
+body:has(#wr-root) .wr-panel .lt-score { font-weight: 700; font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .lt-standings { inline-size: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; color: var(--ink); }
+body:has(#wr-root) .wr-panel .lt-standings th {
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: start;
+  padding: 4px var(--s-2);
+  border-block-end: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-standings td { padding: 6px var(--s-2); border-block-end: 1px solid var(--e-sunk); vertical-align: top; }
+body:has(#wr-root) .wr-panel .lt-standings .lt-name { margin: 0; }
+body:has(#wr-root) .wr-panel .lt-standings .lt-tb { display: none; font-size: var(--t-11); color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .lt-standings .lt-row--gone { opacity: 0.55; }
+body:has(#wr-root) .wr-panel .lt-standings .lt-row--gone .lt-name { text-decoration: line-through; }
+@media (max-width: 600px) {
+  body:has(#wr-root) .wr-panel .lt-standings .lt-omw,
+  body:has(#wr-root) .wr-panel .lt-standings .lt-gw,
+  body:has(#wr-root) .wr-panel .lt-standings .lt-ogw { display: none; }
+  body:has(#wr-root) .wr-panel .lt-standings .lt-tb { display: block; }
+}
 @media (max-width: 760px) {
   body:has(#wr-root) .wr-panel .lt-row,
   body:has(#wr-root) .wr-panel .lt-pack { grid-template-columns: minmax(0, 1fr); }
@@ -5951,4 +6005,150 @@ body:has(.lb-root) #lbPreview {
   body:has(.lb-root) .lb-foot-timer { display: inline; }
   body:has(.lb-root) .lb-status,
   body:has(.lb-root) .lb-back { flex: 1 1 100%; margin-inline-start: 0; }
+}
+
+/* ===========================================================================
+   Limited draft — the pick screen (SWUSim/LimitedDraft.php + SWUSim/Limited/ui/limited-draft.js)
+   docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.2; mockup draft-pick.html. A standalone page
+   like the builder (the .home-header scope and the canonical controls apply), every class ld- prefixed.
+   Desktop: the pack left, your picks right. ≤900px: the picks panel folds into a bar under the pack.
+   =========================================================================== */
+body:has(.ld-root) { margin: 0; min-block-size: 100vh; color: var(--ink); font-size: var(--t-14); }
+body:has(.ld-root) .ld-row { display: flex; align-items: stretch; gap: 0; }
+body:has(.ld-root) .ld-root {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  box-sizing: border-box;
+  padding: var(--s-4) clamp(var(--s-3), 4vw, var(--s-6));
+}
+body:has(.ld-root) .ld-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); }
+body:has(.ld-root) .ld-title { margin: 0; font-size: var(--t-20); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+body:has(.ld-root) .ld-dir { font-size: var(--t-12); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+body:has(.ld-root) .ld-clock { margin-inline-start: auto; font-size: var(--t-20); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--gold-hi); }
+body:has(.ld-root) .ld-clock--warn { color: #ff6b6b; }
+body:has(.ld-root) .ld-status { margin: 0; font-size: var(--t-14); color: var(--ink-2); }
+body:has(.ld-root) .ld-kicks:empty { display: none; }
+body:has(.ld-root) .ld-kicks { display: grid; gap: var(--s-2); }
+body:has(.ld-root) .ld-kick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  padding: var(--s-3);
+  background-color: color-mix(in oklch, #ff6b6b 14%, transparent);
+  color: var(--ink);
+}
+body:has(.ld-root) .ld-pod { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(.ld-root) .ld-seat {
+  padding: 4px var(--s-3);
+  font-size: var(--t-12);
+  font-weight: 600;
+  color: var(--ink-2);
+  background-color: var(--e-sunk);
+  border: 1px solid var(--edge);
+}
+body:has(.ld-root) .ld-seat--me { color: var(--ink); border-color: var(--gold); }
+body:has(.ld-root) .ld-seat--slow { color: #ff9a8a; border-color: #ff6b6b; }
+body:has(.ld-root) .ld-seat--gone { text-decoration: line-through; opacity: 0.55; }
+body:has(.ld-root) .ld-q { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+/* Every seat's drafted leaders (public; owner 2026-11-05). Folds into a toggle at phone width, like "Your picks". */
+body:has(.ld-root) .ld-podleads { display: grid; gap: var(--s-2); }
+body:has(.ld-root) .ld-podleads-toggle { display: none; }
+body:has(.ld-root) .ld-podleads-body { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); }
+body:has(.ld-root) .ld-pl-row { display: flex; align-items: center; gap: var(--s-2); min-inline-size: 0; }
+body:has(.ld-root) .ld-pl-row--me .ld-pl-name { color: var(--gold-hi); }
+body:has(.ld-root) .ld-pl-row--gone { opacity: 0.55; }
+body:has(.ld-root) .ld-pl-row--gone .ld-pl-name { text-decoration: line-through; }
+body:has(.ld-root) .ld-pl-name { font-size: var(--t-12); font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+body:has(.ld-root) .ld-pl-list { display: flex; gap: 4px; }
+body:has(.ld-root) .ld-plead { inline-size: 62px; block-size: 44px;   /* leaders are landscape */ object-fit: cover; border: 1px solid var(--edge); background-color: var(--e-sunk); cursor: zoom-in; }
+body:has(.ld-root) .ld-pl-none { color: var(--ink-3); }
+body:has(.ld-root) .ld-cols { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: var(--s-5); align-items: start; }
+body:has(.ld-root) .ld-packwrap { display: grid; gap: var(--s-3); min-inline-size: 0; }
+body:has(.ld-root) .ld-pack { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: var(--s-2); }
+body:has(.ld-root) .ld-card {
+  position: relative;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: translate 120ms var(--ease);
+}
+body:has(.ld-root) .ld-card img { display: block; inline-size: 100%; aspect-ratio: 1; object-fit: cover; }
+body:has(.ld-root) .ld-card:hover { translate: 0 -2px; }
+body:has(.ld-root) .ld-card:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 2px; }
+body:has(.ld-root) .ld-card--sel { outline: 3px solid var(--gold); outline-offset: -3px; }
+body:has(.ld-root) .ld-rar {
+  position: absolute;
+  inset-block-end: 4px;
+  inset-inline-start: 4px;
+  min-inline-size: 18px;
+  padding: 1px 4px;
+  font-size: var(--t-11);
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink);
+  background-color: rgba(0, 0, 0, 0.68);
+}
+body:has(.ld-root) .ld-empty { grid-column: 1 / -1; margin: 0; padding: var(--s-4); font-size: var(--t-13); color: var(--ink-3); }
+body:has(.ld-root) .ld-confirm { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+body:has(.ld-root) .ld-hint { margin: 0; font-size: var(--t-12); color: var(--ink-3); }
+body:has(.ld-root) .ld-side {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  background-color: var(--e-sunk);
+  border: 1px solid var(--edge);
+}
+body:has(.ld-root) .ld-side-toggle { display: none; }
+body:has(.ld-root) .ld-side-body { display: grid; gap: var(--s-2); }
+body:has(.ld-root) .ld-h { margin: 0; font-size: var(--t-13); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+body:has(.ld-root) .ld-leaders,
+body:has(.ld-root) .ld-leaning { margin: 0; font-size: var(--t-13); color: var(--ink-2); }
+body:has(.ld-root) .ld-lean { display: flex; align-items: flex-end; gap: 8px; min-block-size: 70px; }
+body:has(.ld-root) .ld-bar { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+body:has(.ld-root) .ld-bar-fill { display: block; inline-size: 20px; min-block-size: 2px; background-color: var(--gold); }
+body:has(.ld-root) .ld-bar--vigilance  { background-color: #4f8fd6; }
+body:has(.ld-root) .ld-bar--command    { background-color: #4caf6a; }
+body:has(.ld-root) .ld-bar--aggression { background-color: #d9534f; }
+body:has(.ld-root) .ld-bar--cunning    { background-color: #e0b84a; }
+body:has(.ld-root) .ld-bar--heroism    { background-color: #e8e2d0; }
+body:has(.ld-root) .ld-bar--villainy   { background-color: #2b2b33; outline: 1px solid var(--edge-strong, rgba(196, 214, 238, 0.35)); }
+body:has(.ld-root) .ld-bar-c { font-size: var(--t-11); color: var(--ink-3); }
+body:has(.ld-root) .ld-side-toggle,
+body:has(.ld-root) .ld-podleads-toggle,
+body:has(.ld-root) .ld-all-toggle { min-block-size: 44px; }
+body:has(.ld-root) .ld-all { display: grid; gap: 2px; max-block-size: 40vh; overflow: auto; font-size: var(--t-12); color: var(--ink-2); }
+body:has(.ld-root) .ld-all[hidden] { display: none; }
+body:has(.ld-root) .ld-error { margin: 0; color: #ff6b6b; font-size: var(--t-13); }
+body:has(.ld-root) .ld-error:empty { display: none; }
+body:has(.ld-root) #ldPreview {
+  position: fixed;
+  z-index: 60;
+  display: none;
+  inline-size: 300px;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
+}
+@media (max-width: 900px) {
+  /* the chat is a block at the foot of the page, as on the sideboard and the builder (1-2-1, beats ChatPanel's drawer) */
+  body:has(.ld-root) .ld-row { flex-direction: column; }
+  body:has(.ld-root) .ld-row .ld-root { order: 1; }
+  body:has(.ld-root) .ld-row #tcg-chat-panel {
+    order: 2; align-self: stretch; position: static; transform: none; flex: 0 0 auto; inline-size: auto; max-inline-size: none;
+    margin: 0 clamp(var(--s-3), 4vw, var(--s-6)) var(--s-5); block-size: auto; min-block-size: 0; max-block-size: 70vh; z-index: auto;
+  }
+  body:has(.ld-root) #tcg-chat-toggle { display: none; }
+  body:has(.ld-root) .ld-cols { grid-template-columns: minmax(0, 1fr); }
+  body:has(.ld-root) .ld-pack { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  body:has(.ld-root) .ld-side-toggle { display: block; inline-size: 100%; text-align: start; }
+  body:has(.ld-root) .ld-side-body { display: none; }
+  body:has(.ld-root) .ld-side--open .ld-side-body { display: grid; }
+  body:has(.ld-root) .ld-side .ld-h { display: none; }
+  body:has(.ld-root) .ld-podleads-toggle { display: block; inline-size: 100%; text-align: start; }
+  body:has(.ld-root) .ld-podleads-h, body:has(.ld-root) .ld-podleads-body { display: none; }
+  body:has(.ld-root) .ld-podleads--open .ld-podleads-body { display: grid; gap: var(--s-2); }
 }

@@ -4,7 +4,7 @@
 //
 // Release order; the LAST entry is the "latest main set" a new Limited room defaults to.
 // Not here on purpose: IBH and TS26 (pre-built decks, no boosters) and IC27 (Icons packs, officially not for
-// Limited) — and no preview set until it releases.
+// Limited — it is a SUPPLEMENTAL set below) — and no preview set until it releases.
 //
 // Per set:
 //   era            the collation era its pull rates come from (SWULimitedEraOdds):
@@ -44,4 +44,28 @@ function SWUBoosterSetRareSlotBases(string $set): bool {
 function SWULatestBoosterSet(): string {
     $keys = array_keys(SWUBoosterSets());
     return end($keys);
+}
+
+// SUPPLEMENTAL packs (owner 2026-11-05): smaller packs that are not a main set's booster — offered in Host's Choice only
+// (never Single Set, Chaos or the "latest" default), so a host can mix them in with rules of their own (e.g. 3 HMW +
+// 5 Icons for Sealed). Each names its collation (SWUSim/Limited/LimitedPacks.php). IC27 is listed while it previews.
+//   icons  Icons (IC27): 9 cards — 3 C, a slot that is a Leader 25% of the time (else a C), a hyperspace C, 2 U, 1 R/L,
+//          a foil of any rarity; no base slot. Reprints collate by the rarity printed in the set (PrintingRarities.php).
+function SWUSupplementalBoosterSets(): array {
+    return [
+        'IC27' => ['collation' => 'icons'],
+    ];
+}
+
+function SWUIsSupplementalBoosterSet(string $set): bool {
+    return isset(SWUSupplementalBoosterSets()[$set]);
+}
+
+// Every set a Host's Choice lineup may name: the main booster sets in release order, then the supplemental ones.
+function SWUHostChoiceSets(): array {
+    return array_merge(array_keys(SWUBoosterSets()), array_keys(SWUSupplementalBoosterSets()));
+}
+
+function SWUIsHostChoiceSet(string $set): bool {
+    return SWUIsBoosterSet($set) || SWUIsSupplementalBoosterSet($set);
 }

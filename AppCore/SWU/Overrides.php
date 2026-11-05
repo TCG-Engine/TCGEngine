@@ -249,6 +249,7 @@ function CardIDOverride($cardID) {
     case "IC27_048": return "JTL_060"; //Desperate Commando
     case "IC27_118": return "LOF_145"; //Jedi Knight
     case "IC27_176": return "TWI_224"; //Breaking In
+    case "IC27_044": return "TWI_052"; //Hello There
     default: return $cardID;
   }
 }

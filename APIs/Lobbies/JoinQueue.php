@@ -192,7 +192,7 @@
     if (SWUFormatIsLimited($format)) {
       if (!$createPrivate && $privateInviteCode === '')                                   $limitedRefusal = 'Limited is played in a private room.';
       elseif ($createPrivate && ($limitedRefusal = SWULimitedCreateRefusal()) !== null)   http_response_code(403);
-      elseif ($createPrivate && strval($_POST['limitedMode'] ?? '') !== 'sealed')         $limitedRefusal = 'Choose Sealed.';
+      elseif ($createPrivate && !in_array(strval($_POST['limitedMode'] ?? ''), ['sealed', 'draft'], true)) $limitedRefusal = 'Choose Sealed or Draft.';
     }
     if ($limitedRefusal !== null) {
       $response->success = false;
@@ -660,7 +660,7 @@
     if ($createIsRoom && !$isLimitedRequest) _SWURoomApplyResolvedDeck($newPlayer, _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck));
     $lobby->players = array($newPlayer);
     if ($createHighGround) SWUHighGroundCreate($lobby, $newPlayer);   // 16 places, the line, Tonight
-    if ($isLimitedRequest) { SWULimitedCreate($lobby, $newPlayer, 'sealed'); $newPlayer->touch(); }   // the room's settings + seats
+    if ($isLimitedRequest) { SWULimitedCreate($lobby, $newPlayer, strval($_POST['limitedMode'])); $newPlayer->touch(); }   // the room's mode, settings + seats
 
     apcu_store($lobbyId, $lobby, $ttl);
     // O(1) invite lookup. Three call sites used to walk the WHOLE apcu cache — which also holds

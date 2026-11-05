@@ -58,7 +58,7 @@
     for (var n = d.packRange[0]; n <= d.packRange[1]; n++) range.push(n);
     var dis = !editable;
     var h = '<div class="lt-form">';
-    h += '<div class="lt-row"><span class="lt-label">Mode</span><span class="lt-value">Sealed</span></div>';
+    h += '<div class="lt-row"><span class="lt-label">Mode</span><span class="lt-value">' + (d.mode === 'draft' ? 'Draft (3–8 players)' : 'Sealed (2 players)') + '</span></div>';
     h += '<div class="lt-row"><span class="lt-label">Match length</span>' + seg('bestOf', [[1, 'Best of 1'], [3, 'Best of 3']], s.bestOf, dis) + '</div>';
     h += '<div class="lt-row"><span class="lt-label">Packs per player</span>' + select('packCount', range, s.packCount, dis) + '</div>';
     h += '<div class="lt-row"><span class="lt-label">Packs</span>' + seg('packMode', PACK_MODES, s.packMode, dis) + '</div>';
@@ -67,7 +67,7 @@
     } else if (s.packMode === 'hostchoice') {
       h += '<ol class="lt-lineup">';
       for (var i = 0; i < s.packCount; i++) {
-        h += '<li class="lt-pack"><span class="lt-label">Pack ' + (i + 1) + '</span>' + select('lineup', d.boosterSets, (s.lineup || [])[i], dis, ' data-i="' + i + '"') +
+        h += '<li class="lt-pack"><span class="lt-label">Pack ' + (i + 1) + '</span>' + select('lineup', d.hostChoiceSets || d.boosterSets, (s.lineup || [])[i], dis, ' data-i="' + i + '"') +
           (editable ? button('lt-shuffle', '🔀', ' data-i="' + i + '" title="Pick a set at random" aria-label="Pick a set at random for pack ' + (i + 1) + '"') : '') + '</li>';
       }
       h += '</ol>';
@@ -150,33 +150,67 @@
     return (gone ? esc(gone.name) + why + ' — ' : '') + (r.winner ? esc(name(r.winner)) + ' wins.' : 'The event is over.');
   }
 
+  // ── Swiss rounds (Draft) ──────────────────────────────────────────────────────────────────────────────────────────
+  function pct(x) { return (Math.round(x * 1000) / 10).toFixed(1); }
+  function standingsTable(rows) {
+    return '<table class="lt-standings"><thead><tr><th>#</th><th>Player</th><th class="lt-pts">Pts</th><th>W-L-D</th>' +
+      '<th class="lt-omw">OMW</th><th class="lt-gw">GW</th><th class="lt-ogw">OGW</th></tr></thead><tbody>' + rows.map(function (r) {
+        var tb = 'OMW ' + pct(r.omw) + ' · GW ' + pct(r.gw) + ' · OGW ' + pct(r.ogw);
+        return '<tr' + (r.dropped ? ' class="lt-row--gone"' : '') + '><td class="lt-rank">' + r.rank + '</td><td><span class="lt-name">' + esc(r.name) +
+          '</span><span class="lt-tb">' + tb + '</span></td><td class="lt-pts">' + r.points + '</td><td class="lt-rec">' + r.wins + '-' + r.losses + '-' + r.draws +
+          '</td><td class="lt-omw">' + pct(r.omw) + '</td><td class="lt-gw">' + pct(r.gw) + '</td><td class="lt-ogw">' + pct(r.ogw) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+  function tablesList(sw) {
+    return '<ol class="lt-tables">' + sw.tables.map(function (t) {
+      var cls = 'lt-table' + (t.me ? ' lt-table--me' : '');
+      if (t.bye) return '<li class="' + cls + '"><span class="lt-vs">' + esc(t.aName) + ' — bye</span></li>';
+      return '<li class="' + cls + '"><span class="lt-vs">' + esc(t.aName) + ' vs ' + esc(t.bName) + '</span><span class="lt-score">' + t.games[0] + '–' + t.games[1] + '</span>' +
+        '<span class="lt-chip' + (t.done ? '' : ' lt-chip--on') + '">' + (t.done ? 'Done' : 'Playing') + '</span></li>';
+    }).join('') + '</ol>';
+  }
+  function standingsBlock(sw, title) {
+    return sw && sw.standings ? '<h4 class="lt-sub">' + esc(title) + '</h4>' + standingsTable(sw.standings) : '';
+  }
+
   function startClock(root, d, ctx) {
     if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
-    if (d.phase !== 'building' || d.buildEndsIn == null) return;
-    deadline = Date.now() + d.buildEndsIn * 1000;
+    var between = d.phase === 'between' && d.swiss && d.swiss.betweenEndsIn != null;
+    if (d.phase === 'built') {
+      // A built Draft pod starts round 1 at once — the start needs the engine, so the room asks the Limited endpoint.
+      var kick = function () { if (Date.now() - lastTick > 3000) { lastTick = Date.now(); ctx.post('tick', '', function () { lastSig = ''; }); } };
+      kick();
+      clockTimer = setInterval(kick, 1000);
+      return;
+    }
+    if ((d.phase !== 'building' || d.buildEndsIn == null) && !between) return;
+    deadline = Date.now() + (between ? d.swiss.betweenEndsIn : d.buildEndsIn) * 1000;
     var tick = function () {
       var left = (deadline - Date.now()) / 1000, n = root.querySelector('.lt-clock');
       if (n) { n.textContent = mmss(left); n.classList.toggle('lt-clock--warn', left < 60); }
       var allReady = d.seats.filter(function (s) { return !s.dropped; }).every(function (s) { return s.ready; });
-      // The start needs the engine, so the room asks the Limited endpoint to tick once it is due.
-      if ((left <= 0 || allReady) && Date.now() - lastTick > 3000) { lastTick = Date.now(); ctx.post('tick', '', function () { lastSig = ''; }); }
+      // The start needs the engine, so the room asks the Limited endpoint to tick once it is due. Between rounds only the
+      // deadline is (everyone Ready waits for the host's Start round).
+      var due = between ? left <= 0 : (left <= 0 || allReady);
+      if (due && Date.now() - lastTick > 3000) { lastTick = Date.now(); ctx.post('tick', '', function () { lastSig = ''; }); }
     };
     tick();
     clockTimer = setInterval(tick, 1000);
   }
 
   window.SWULimitedRenderRoom = function (root, d, ctx) {
-    var sig = JSON.stringify([d, draft]).replace(/"buildEndsIn":\d+/, '');
+    var sig = JSON.stringify([d, draft]).replace(/"buildEndsIn":\d+/, '').replace(/"betweenEndsIn":\d+/, '');
     if (sig === lastSig) return;
     // A confirmed poll replaces the host's draft once it carries the same settings.
     if (draft && JSON.stringify(draft) === JSON.stringify(d.settings) && !sendTimer) draft = null;
     lastSig = sig;
     var h = '<div class="lt-panel" data-phase="' + esc(d.phase) + '">';
-    h += '<div class="lt-head"><h3 class="lt-title">Sealed</h3><span class="lt-phase">' +
-      ({ setup: 'Setting up', building: 'Deckbuilding', playing: 'Playing', done: 'Finished' }[d.phase] || '') + '</span></div>';
+    var isDraft = d.mode === 'draft';
+    h += '<div class="lt-head"><h3 class="lt-title">' + (isDraft ? 'Draft' : 'Sealed') + '</h3><span class="lt-phase">' +
+      ({ setup: 'Setting up', drafting: 'Drafting', building: 'Deckbuilding', built: 'Decks locked', playing: 'Playing', between: 'Between rounds', done: 'Finished' }[d.phase] || '') + '</span></div>';
     if (!d.me) {
       h += d.phase === 'setup'
-        ? '<p class="lt-note">Join to take the second seat. No deck needed — you build one from the packs you open.</p>' + button('swu2-btn--primary lt-join', 'Join this event')
+        ? '<p class="lt-note">Join to take a seat. No deck needed — you build one from the packs you ' + (isDraft ? 'draft' : 'open') + '.</p>' + button('swu2-btn--primary lt-join', 'Join this event')
         : '<p class="lt-note">This event has already started.</p>';
       h += '</div>';
       root.innerHTML = h;
@@ -187,8 +221,43 @@
     if (d.phase === 'setup') {
       h += renderSettings(d, d.isHost);
       h += seatList(d);
-      if (d.isHost) h += '<div class="lt-actions">' + button('swu2-btn--primary lt-start', 'Start Sealed', d.canStart ? '' : ' disabled') + '</div>';
+      var live = d.seats.filter(function (s) { return !s.dropped; }).length;
+      if (isDraft && live < 3) h += '<p class="lt-note lt-need">Draft needs at least 3 players.</p>';
+      if (d.isHost) h += '<div class="lt-actions">' + button('swu2-btn--primary lt-start', isDraft ? 'Start Draft' : 'Start Sealed', d.canStart ? '' : ' disabled') + '</div>';
       else h += '<p class="lt-note">The host chooses the settings and starts the event.</p>';
+    } else if (d.phase === 'drafting') {
+      var dr = d.draft || { pod: [] };
+      h += '<div class="lt-build"><span class="lt-label">' + (dr.stage === 'leaders' ? 'Leader draft' : 'Pack ' + dr.round + ' of ' + dr.rounds) +
+        ' · passing ' + esc(dr.direction) + '</span></div>';
+      h += '<ol class="lt-pod">' + dr.pod.map(function (p) {
+        return '<li class="lt-podseat' + (d.me && p.playerID === d.me.playerID ? ' lt-podseat--me' : '') + (p.queued >= 2 ? ' lt-podseat--slow' : '') +
+          (p.dropped ? ' lt-podseat--gone' : '') + '">' + esc(p.name) + '\u00a0<span class="lt-q">(' + p.queued + ')</span>' + (p.queued >= 2 ? ' ⏳' : '') + '</li>';
+      }).join('') + '</ol>';
+      h += '<p class="lt-note">The pod in seating order, with how many packs each player has waiting.</p>';
+      h += '<div class="lt-actions"><a class="btn swu2-btn swu2-btn--primary ch lt-open-draft" href="' + esc(ctx.appBase + 'SWUSim/LimitedDraft.php?lobbyID=' + encodeURIComponent(ctx.lobbyID)) + '">Open the draft</a></div>';
+    } else if (d.phase === 'built') {
+      h += '<div class="lt-result">Everyone has built — round 1 is starting.</div>' + seatList(d);
+    } else if (d.phase === 'playing' && d.swiss) {
+      var sw = d.swiss;
+      h += '<div class="lt-build"><span class="lt-label">Round ' + sw.round + ' of ' + sw.rounds + '</span></div>' + tablesList(sw);
+      if (d.live) h += '<div class="lt-actions">' + button('swu2-btn--primary lt-back', 'Back to your game') + '</div>';
+      else if (sw.myBye) h += '<p class="lt-note">You have a bye this round.</p>';
+      else h += '<p class="lt-note">Your match is over — the next round starts when every table has finished.</p>';
+      h += standingsBlock(sw, 'Standings');
+    } else if (d.phase === 'between' && d.swiss) {
+      var sb = d.swiss;
+      h += '<div class="lt-build"><span class="lt-label">Round ' + (sb.round + 1) + ' starts in</span><span class="lt-clock">' + mmss(sb.betweenEndsIn || 0) + '</span></div>';
+      if (d.me.dropped) {
+        // Kicked or left: the pod plays on without this seat — no deck to edit, nothing to Ready, no round to start.
+        h += '<p class="lt-note">You were removed from this event. The standings below still count your results.</p>';
+      } else {
+        h += '<p class="lt-note">Take a break. Edit your deck if you like, then press Ready' + (d.isHost ? ' — you start the round once everyone is Ready.' : '.') +
+          ' When the clock runs out, everyone keeps their last deck and the round starts.</p>';
+        h += '<div class="lt-actions"><a class="btn swu2-btn ch lt-edit" href="' + esc(ctx.appBase + 'SWUSim/LimitedBuilder.php?lobbyID=' + encodeURIComponent(ctx.lobbyID)) + '">Edit deck</a>' +
+          button('swu2-btn--primary lt-ready', d.me.ready ? 'Ready ✓' : 'Ready', d.me.ready ? ' disabled' : '') +
+          (d.isHost ? button('swu2-btn--primary lt-start-round', 'Start round ' + (sb.round + 1), sb.canStartRound ? '' : ' disabled') : '') + '</div>';
+      }
+      h += seatList(d) + standingsBlock(sb, 'Standings after round ' + sb.round);
     } else if (d.phase === 'building') {
       h += '<div class="lt-build"><span class="lt-label">Deckbuilding ends in</span><span class="lt-clock">' + mmss(d.buildEndsIn || 0) + '</span></div>';
       if (d.me.lineup && d.me.lineup.length) h += '<p class="lt-note">Your packs: ' + d.me.lineup.map(esc).join(' · ') + '</p>';
@@ -198,6 +267,11 @@
     } else if (d.phase === 'playing') {
       h += seatList(d);
       if (d.live) h += '<div class="lt-actions">' + button('swu2-btn--primary lt-back', 'Back to your game') + '</div>';
+    } else if (d.phase === 'done' && d.swiss && d.swiss.standings) {
+      var winner = d.result && d.result.winner ? d.seats.filter(function (x) { return x.playerID === d.result.winner; })[0] : null;
+      h += '<div class="lt-result">' + (winner ? esc(winner.name) + ' wins the event.' : 'The event is over.') + '</div>';
+      h += standingsBlock(d.swiss, 'Final standings');
+      h += '<div class="lt-actions"><a class="btn swu2-btn ch lt-menu" href="' + esc(ctx.appBase + 'SharedUI/MainMenu.php') + '">Main Menu</a></div>';
     } else {
       h += '<div class="lt-result">' + resultLine(d) + '</div>' + seatList(d);
       h += '<div class="lt-actions"><a class="btn swu2-btn ch lt-menu" href="' + esc(ctx.appBase + 'SharedUI/MainMenu.php') + '">Main Menu</a></div>';
@@ -207,6 +281,10 @@
     if (d.phase === 'setup' && d.isHost) wireSettings(root, d, ctx);
     var st = root.querySelector('.lt-start');
     if (st) st.onclick = function () { st.disabled = true; ctx.post('start', '', function (r) { lastSig = ''; if (!r.success) st.disabled = false; }); };
+    var rdy = root.querySelector('.lt-ready');
+    if (rdy && !rdy.disabled) rdy.onclick = function () { rdy.disabled = true; ctx.post('ready', '', function (r) { lastSig = ''; if (!r.success) rdy.disabled = false; }); };
+    var sr = root.querySelector('.lt-start-round');
+    if (sr) sr.onclick = function () { sr.disabled = true; ctx.post('startRound', '', function (r) { lastSig = ''; if (!r.success) sr.disabled = false; }); };
     var back = root.querySelector('.lt-back');
     if (back) back.onclick = function () { ctx.backToGame(d.live); };
     root.querySelectorAll('.lt-kick-yes, .lt-kick-wait').forEach(function (b) {
