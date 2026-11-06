@@ -1186,6 +1186,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     #selection-message:has(#inline-multi-confirm) {
         bottom: auto !important;
     }
+    /* …and once the prompt has been POSITIONED (Core's drag helper sets an inline top and bottom:auto, on
+       every show — from the saved drag position when there is one), the lift must let go too. Left in force,
+       the prompt was pinned at both edges: dragging it up stretched it into a tall see-through slab instead of
+       moving it, and that top was saved, so every later prompt on that device covered the middle of the board
+       (iPad report 2026-11-06: neither base clickable for General Grievous). The first show still measures
+       its rect with the lift applied, before the inline bottom:auto lands, so the default spot is unchanged. */
+    #selection-message[style*="bottom: auto"] {
+        bottom: auto !important;
+    }
 
     /* ── YES/NO prompts sit at the BOTTOM CENTRE OF THE BOARD ──────────────────────
        Owner 2026-09-28. Dead-centre put the panel on top of the very cards the question is about —

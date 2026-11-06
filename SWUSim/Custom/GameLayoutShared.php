@@ -3327,6 +3327,73 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return (seat && seat !== serverSeat) ? ('p' + seat + m[2]) : zoneName;
     };
 
+    // ── The target prompt must never sit on one of its own targets ─────────────────────────────────
+    // Core places #selection-message ("Choose a unit… / PASS") bottom-centre, or wherever the player last
+    // dragged it — blind to the board. On an iPad Pro 11" in landscape (Safari's ~1194x760) a go-wide board
+    // wraps the ground arena to a second row and the prompt covered it: ASH_052 Chimaera could not take the
+    // Mandalorian token it was offering (report 2026-11-06). After Core places it, slide it to the NEAREST
+    // spot that covers no .selectable-card. Wrapped here rather than in Core so it is SWUSim-only and needs
+    // no UILibraries cache bump; UILibraries loads in <head>, before this layout, and its own calls resolve
+    // ShowSelectionMessage through the global binding, so they reach the wrapper.
+    // ⚠ The saved drag position is NOT rewritten — this is a per-prompt displacement, and the next prompt
+    //   starts again from where the player put it.
+    // ⚠ If no spot is clear, the spot covering the LEAST target area wins; ties keep the nearest.
+    function swuPromptOverlapArea(r, rects) {
+        var a = 0;
+        for (var i = 0; i < rects.length; i++) {
+            var t = rects[i];
+            var w = Math.min(r.right, t.right) - Math.max(r.left, t.left);
+            var h = Math.min(r.bottom, t.bottom) - Math.max(r.top, t.top);
+            if (w > 0 && h > 0) a += w * h;
+        }
+        return a;
+    }
+    function swuKeepPromptOffTargets() {
+        var el = document.getElementById('selection-message');
+        if (!el || el.style.display === 'none' || el.parentElement !== document.body) return;   // hidden, or embedded in a panel
+        var targets = [];
+        document.querySelectorAll('.selectable-card').forEach(function (c) {
+            var r = c.getBoundingClientRect();
+            if (r.width > 0 && r.height > 0) targets.push(r);
+        });
+        if (!targets.length) return;
+        var cur = el.getBoundingClientRect();
+        if (swuPromptOverlapArea(cur, targets) === 0) return;
+        var vw = window.innerWidth, vh = window.innerHeight, w = cur.width, h = cur.height;
+        var sidebar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--swu-sidebar-w')) || 0;
+        var maxLeft = Math.max(8, vw - sidebar - w - 8), maxTop = Math.max(8, vh - h - 8);
+        // A full-width prompt (the phone layout pins left AND right) can only slide vertically.
+        var lefts = el.style.right && el.style.right !== 'auto'
+            ? [cur.left]
+            : [cur.left, (vw - sidebar - w) / 2, 8, maxLeft];
+        var best = null;
+        for (var li = 0; li < lefts.length; li++) {
+            var left = Math.min(maxLeft, Math.max(8, lefts[li]));
+            for (var top = 8; top <= maxTop; top += 4) {
+                var r = { left: left, top: top, right: left + w, bottom: top + h };
+                var cost = swuPromptOverlapArea(r, targets);
+                var dist = Math.abs(left - cur.left) + Math.abs(top - cur.top);
+                if (!best || cost < best.cost || (cost === best.cost && dist < best.dist)) best = { left: left, top: top, cost: cost, dist: dist };
+            }
+        }
+        if (!best || best.cost >= swuPromptOverlapArea(cur, targets)) return;
+        el.style.transform = 'none';
+        el.style.bottom = 'auto';
+        el.style.left = Math.round(best.left) + 'px';
+        el.style.top = Math.round(best.top) + 'px';
+    }
+    if (typeof window.ShowSelectionMessage === 'function') {
+        var swuCoreShowSelectionMessage = window.ShowSelectionMessage;
+        window.ShowSelectionMessage = function () {
+            var result = swuCoreShowSelectionMessage.apply(this, arguments);
+            swuKeepPromptOffTargets();
+            // Legacy render paths rebuild the rows AFTER the prompt, and pulse/selectable classes land a tick later.
+            setTimeout(swuKeepPromptOffTargets, 0);
+            return result;
+        };
+        window.addEventListener('resize', function () { setTimeout(swuKeepPromptOffTargets, 0); });
+    }
+
     function swuSeatOfMzid(mzid) {
         var s = String(mzid || '');
         var pm = s.match(/^p(\d+)/);
