@@ -250,6 +250,7 @@ function CardIDOverride($cardID) {
     case "IC27_118": return "LOF_145"; //Jedi Knight
     case "IC27_176": return "TWI_224"; //Breaking In
     case "IC27_044": return "TWI_052"; //Hello There
+    case "IC27_156": return "LOF_194"; //J-Type Nubian Starship
     default: return $cardID;
   }
 }

@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042, IC27_162, IC27_083, IC27_155, IC27_043, IC27_172, IC27_005
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042, IC27_162, IC27_083, IC27_155, IC27_043, IC27_172, IC27_005, IC27_160, IC27_179, IC27_106, IC27_102, IC27_151, IC27_109
 
 ## Foundations already built — do not re-do
 
@@ -784,7 +784,51 @@ three preview regens. Baseline 14435/0. **Spelling pass** (both faces read): the
   (probe: in the pool of 6, 157 / 4000 packs); `DevTools/swu-printing-rarities.php` re-run → still 40 reprints listed (no
   change); `limited_packs_test.php` ALL PASS.
 
+## Phase 23 — Seventeenth preview wave, 2026-11-06 (94 → 100 CardIDs; ONE batch of six, autonomous)
+
+`comm -23` of `### Already Done` vs `CardMocks.php`: IC27_102, 106, 109, 151, 160, 179 — all already in the dictionary.
+Baseline 14453/0. **Spelling pass:** all six match their images word for word, aspect icons counted (102/106/109
+Aggression + Villainy, 151/160 Cunning + Heroism, 179 Villainy only). R2-D2's mock carries `<br/>` between its bullets —
+formatting, not a rules typo; left as entered. Order: simplest first. End-of-run `comm -23` empty (100 mocked).
+
+- [x] **IC27_160 Tantive IV – For Alderaan** — "each other friendly Rebel unit gains Raid 2 and Saboteur". IC27_101 Hux's
+  aura shape: `_SWUIc27160Count` (card file) read live, team-wide, "other" by UID, blanked source grants nothing; hooked
+  into `GetConditionalKeyword_Raid_Value` (+2 per copy — two Tantives on one team give Raid 4, CR 7.5.8.b / the LAW_233
+  ruling) and `HasConditionalKeyword_Saboteur` (> 0). 13 sections; 6 mutations red. Suite → 14466/0.
+- [x] **IC27_179 Morgan Elsbeth – Tales Based On Truths** — On Attack reveal top: printed cost ≥ 6 → `DoDrawCard` (draw
+  observers fire — ASH_169 guard), otherwise `SWUMillTopCard` (From=DECK). Empty deck: nothing revealed, no deck-out
+  damage. SHD_041 Kuiil's shape. 8 sections incl. the 5/6 boundary pair; 3 mutations red. Suite → 14474/0.
+- [x] **IC27_106 Kylo Ren – Relentless** — Hidden (generated) + On Attack ready if the count of `SWU_UNIT_ATTACKED_<uid>`
+  (one entry per attack, added in `ExecuteSWUAttack`; cleared every phase start) is exactly 1, summed over every seat so a
+  mid-phase control change cannot fake a first attack; readies through `OnReadyCard`. 8 sections incl. next-round reset
+  and a Change of Heart steal-after-attacking board (built because the controller-only mutation was green without it).
+  Fixture note: round 2 opens with P2 to act. Suite → 14482/0.
+- [x] **IC27_102 Third Sister – Reckless** — SOR_033 Death Trooper's shape (same sentence, 2 → 1, as an On Attack): two
+  mandatory picks, friendly ground (team, herself included — Death Trooper's "must be chosen" ruling carried over) then
+  enemy ground (`'their'` = every opponent) from a CUSTOM continuation. Source-less like Death Trooper. 11 sections incl.
+  Team/Twin Suns pools and ping-kills-the-defender; 5 of 6 mutations red — the 6th (skip the enemy half on an empty
+  friendly pool) is green structurally: she is always in her own friendly pool. Recorded in the ledger. Suite → 14493/0.
+- [x] **IC27_151 R2-D2 – The First Protagonist** — On Attack modal (OPTIONCHOOSE, house rule: fizzle-only modes dropped,
+  one mode → no menu). Ready a resource = YOURS (engine-wide reading; the owner ruling on "any player's resource" is still
+  OPEN — follows IC27_007 Asajj); deal 1 to ANY ground unit (whole table, himself included); look at top card →
+  SOR_192 Ezra's `@CardID&Discard&Leave`. 15 sections; 7 mutations red. Suite → 14508/0.
+- [x] **IC27_109 Supreme Leader Snoke – Darkness Rising** — Overwhelm (generated) + When Played: UID snapshot of every
+  other unit (LOF_170 Bendu's pool, Snoke as source), 4 each inside `SWUSimulDefeatBegin/End` (Rancor Keeper ruling, the
+  HMW_263 Wrecker shape), then ONE `DoDrawCard` for the friendly (team-wide) victims that are gone. 9 sections incl. a
+  victim-observer batch section in the discriminating order (LOF_130 HK-47 dies first) and Team/Twin Suns; 5 mutations
+  red (deleting the window reds exactly the HK-47 section). Suite → **14517/0**.
+
+Judgement calls (preview cards, no official rulings): Tantive's Raid stacks per copy; Morgan's empty deck reveals nothing
+and takes no deck-out damage; Third Sister may target herself; R2-D2's "ready a resource" is self-only (OPEN ruling);
+Snoke's "defeated this way" is measured (Shield/HP survivors don't count) and teammates' units are friendly.
+**Limited:** Icons packs build their pools live from the dictionary (Phase 22 note), so all six reach the packs with no
+table change.
+
 ## Status
+
+**IC27: 100 / 100 mocked CardIDs implemented** (2026-11-06, seventeenth wave; suite 14453 → 14517/0; the end-of-run
+`comm -23` of `### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **94 / 94** (sixteenth wave).
 
 **IC27: 94 / 94 mocked CardIDs implemented** (2026-11-06, sixteenth wave; suite → 14453/0; the end-of-run `comm -23` of
 `### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.

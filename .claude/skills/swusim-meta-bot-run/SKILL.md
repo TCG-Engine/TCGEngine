@@ -19,14 +19,14 @@ The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SW
 
 | tag | status | size | one arm |
 |---|---|---|---|
-| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | **1 event since 2026-11-02**: melee 492213 Regional Championship Utrecht (766 lists, 3,046 real matches). It superseded the 5-event set (342 matches, 664 games; owner: the small events were fine for early trends, a real event is the base now). Arms from before 2026-11-02 do not pair with newer ones. Baseline **v4** frozen 2026-11-03 (`7e2dd3685`, 6,088 games) | full: 6,088 games, **~5 h** · **speed run (Mode S): 304 games, ~15 min** (measured 14.5 min, 2026-11-03) |
+| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | **1 event since 2026-11-02**: melee 492213 Regional Championship Utrecht (766 lists, 3,046 real matches). It superseded the 5-event set (342 matches, 664 games; owner: the small events were fine for early trends, a real event is the base now). Arms from before 2026-11-02 do not pair with newer ones. Baseline **v5** frozen 2026-11-06 (`eaf623d31`, codeRef `ac96c14ea`, 6,088 games) | full: 6,088 games, **~5 h** · **speed run (Mode S): 304 games, ~15 min** (measured 14.5 min, 2026-11-03) |
 | ASH | **RETIRED 2026-10-26** — owner: "we dont have to run ASH metas anymore … we are 2 weeks into the HMW meta now". Run only if the owner explicitly asks for ASH. | 53 events, 9,933 matches → ~19,650 games | ~2.5 h |
 
 ## Owner policy — read first
 
 - **Measure a feature as a PAIR on today's code:** a plain `''` control arm and the variant arm(s), queued together. The frozen baseline
-  is context, not the comparison: it predates later code. HMW's current baseline is v4 (Utrecht RC, 6,088 games, `7e2dd3685`,
-  frozen 2026-11-03). Exception: a SPEED run (Mode S) on code `same_code.py` finds unchanged pairs with the baseline itself.
+  is context, not the comparison: it predates later code. HMW's current baseline is v5 (Utrecht RC, 6,088 games, `eaf623d31`,
+  frozen 2026-11-06). Exception: a SPEED run (Mode S) on code `same_code.py` finds unchanged pairs with the baseline itself.
 - **New bot features start with a speed run (Mode S)** (owner 2026-11-03: features shouldn't need 5 hours to verify). Run the full set
   (Mode A) before a ship decision when the speed run shows harm or the lever acts early in the game.
 - **Never re-freeze unasked** (Mode B).

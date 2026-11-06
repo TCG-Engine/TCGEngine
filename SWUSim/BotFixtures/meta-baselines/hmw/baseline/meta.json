@@ -1,18 +1,18 @@
 {
- "frozen": "2026-11-03T06:28:03Z",
- "gitHead": "7e2dd3685",
+ "frozen": "2026-11-06T20:29:17Z",
+ "gitHead": "eaf623d31",
  "treeDirty": true,
+ "codeRef": "ac96c14ea",
  "arm": "superset+seeds:tb+pairs:pairs.txt",
  "games": 6088,
  "failed": 0,
  "matches": 3046,
- "run": ".claude/tmp/hmw-meta-runs/utrecht-20261102-control",
- "note": "HMW v4: first baseline on the Utrecht RC set (melee 492213, 3,044 pairs, 6,088 games, 0 failed). Ran 2026-11-03 01:17-06:18 UTC on 7e2dd3685. The tree is marked dirty at freeze only by another agent's uncommitted IC27_148/138 work (GameLogic.php saved 06:27 UTC, after the run ended; the one _index line added mid-run is an IC27 card in no Utrecht list), so the games reflect 7e2dd3685. Fidelity: archetype Pearson -0.03, MAE .093 (constant .040); cells Pearson -0.21; style bias hyper +6.5 / hard control -16.0.",
+ "run": ".claude/tmp/hmw-meta-runs/v5-20261106-control",
+ "note": "HMW v5 (owner 2026-11-06: full meta run to freeze a matrix). Utrecht RC set, 3,044 pairs, 6,088 games, 0 failed. Ran 2026-11-06 14:00-20:19 UTC on eaf623d31 (clean tree). Mid-run commits 59bda09fe (IC27 Darth Maul leader + mock; in no Utrecht list) and ac96c14ea (iPad layout, GameLayout*.php only) don't touch these games. 99 games hit the 90 s cap in the first hour under host load ~230 (87 of them in the first ~1,000 games); all 99 were replayed 20:22-20:28 UTC at GAME_TIMEOUT=300 and finished (deterministic, so the cap only let them finish). vs v4: 5 of 6,088 winners changed (0.1%). Fidelity = v4: archetype Pearson -0.02, MAE .092 (constant .040); cells Pearson -0.21; style bias hyper +6.6 / soft aggro +5.2 / mid -5.6 / soft control -4.7 / hard control -16.0. gitHead = the commit the run started on; codeRef set by hand to ac96c14ea (eaf623d31..ac96c14ea = the Maul card + iPad layout only; the 99 replayed games ran on it). treeDirty = only baseline/ being written.",
  "speed": {
   "pct": 5.0,
   "games": 304,
   "minRounds": 13,
   "stepsShare": 0.099
- },
- "codeRef": "7e2dd3685"
+ }
 }

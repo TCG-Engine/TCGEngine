@@ -175,12 +175,12 @@ When Deployed: Resource the top card of your deck.',
     'cost' => 5,
     'power' => 4,
     'hp' => 5,
-    'aspect' =>
+    'aspect' => 
     array (
       0 => 'Aggression',
       1 => 'Villainy',
     ),
-    'trait' =>
+    'trait' => 
     array (
       0 => 'Force',
       1 => 'Sith',
@@ -1717,6 +1717,35 @@ Each other friendly First Order unit gets +1/+0 and gains Overwhelm.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/101.png',
     'imageUrlBack' => '',
   ),
+  'IC27_102' => 
+  array (
+    'title' => 'Third Sister',
+    'subtitle' => 'Reckless',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Inquisitor',
+    ),
+    'text' => 'On Attack: Deal 1 damage to a friendly ground unit and 1 damage to an enemy ground unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/102.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_103' => 
   array (
     'title' => 'Grand Inquisitor',
@@ -1776,6 +1805,35 @@ Each other friendly First Order unit gets +1/+0 and gains Overwhelm.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/104.png',
     'imageUrlBack' => '',
   ),
+  'IC27_106' => 
+  array (
+    'title' => 'Kylo Ren',
+    'subtitle' => 'Relentless',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'First Order',
+    ),
+    'text' => 'Hidden
+On Attack: If this is the first time this unit has attacked this phase, ready him.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/106.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_107' => 
   array (
     'title' => 'Aurra Sing',
@@ -1803,6 +1861,36 @@ Action [Exhaust]: Deal 4 damage to a unit.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/107.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_109' => 
+  array (
+    'title' => 'Supreme Leader Snoke',
+    'subtitle' => 'Darkness Rising',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 8,
+    'power' => 8,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'First Order',
+      2 => 'Official',
+    ),
+    'text' => 'Overwhelm
+When Played: Deal 4 damage to each other unit. Draw a card for each friendly unit defeated this way.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/109.png',
     'imageUrlBack' => '',
   ),
   'IC27_110' => 
@@ -2410,6 +2498,37 @@ When Played: You may exhaust a unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/149.png',
     'imageUrlBack' => '',
   ),
+  'IC27_151' => 
+  array (
+    'title' => 'R2-D2',
+    'subtitle' => 'The First Protagonist',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 1,
+    'power' => 1,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Droid',
+    ),
+    'text' => 'On Attack: Choose one:
+• Ready a resource.<br/>
+• Deal 1 damage to a ground unit.<br/>
+• Look at the top card of your deck. You may discard it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/151.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_153' => 
   array (
     'title' => 'Greef Karga',
@@ -2549,6 +2668,35 @@ On Attack: If the defending unit is exhausted, it gets -4/-0 for this attack.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/159.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_160' => 
+  array (
+    'title' => 'Tantive IV',
+    'subtitle' => 'For Alderaan',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Each other friendly Rebel unit gains Raid 2 and Saboteur.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/160.png',
     'imageUrlBack' => '',
   ),
   'IC27_162' => 
@@ -2742,6 +2890,34 @@ You may attack with a unit. It gets +3/+0 for this attack.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/172.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_179' => 
+  array (
+    'title' => 'Morgan Elsbeth',
+    'subtitle' => 'Tales Based On Truths',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 1,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Night',
+    ),
+    'text' => 'On Attack: Reveal the top card of your deck. If it costs 6 or more, draw it. Otherwise, discard it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/179.png',
     'imageUrlBack' => '',
   ),
   'IC27_187' => 

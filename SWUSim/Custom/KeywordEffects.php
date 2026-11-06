@@ -913,6 +913,8 @@ function HasConditionalKeyword_Saboteur($obj) {
     // so > 0 is the whole test — but it must go through the COUNT reader, because that is what scans the
     // link by source UID and therefore sees a BD-1 ability COPIED onto another unit (TS26_34 Fives).
     if (_SWULof191BuffCount($obj) > 0) return true;
+    // IC27_160 Tantive IV — "Each other friendly Rebel unit gains Raid 2 and Saboteur." Team-wide (card file).
+    if (function_exists('_SWUIc27160Count') && _SWUIc27160Count($obj) > 0) return true;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_143'
         && SWUEnemyUnitsDefeatedThisPhase(intval($obj->Controller ?? 0)) > 0) return true;
@@ -1400,6 +1402,9 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     if (_SWUSEC104AuraActive($obj)) $amount += 1;   // SEC_104 aura — Raid 1
+    // IC27_160 Tantive IV — "Each other friendly Rebel unit gains Raid 2 …" Each Tantive on the team is its own
+    // source, so the values add (CR 7.5.8.b). See the card file.
+    if (function_exists('_SWUIc27160Count')) $amount += 2 * _SWUIc27160Count($obj);
     // HMW_126 Verdant Fortress (Fortify) — "Attached base gains: 'Friendly units gain Raid 1.'"
     // Base-hosted and continuous, read live. Numeric, so EACH copy on each friendly base (own + team)
     // adds its own Raid 1 (CR 7.5.8.b) — the difference from HMW_112's boolean Overwhelm. See the card file.
