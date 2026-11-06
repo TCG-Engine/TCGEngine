@@ -164,6 +164,41 @@ When Deployed: Resource the top card of your deck.',
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'IC27_005' => 
+  array (
+    'title' => 'Darth Maul',
+    'subtitle' => 'Mechanism of Menace',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 4,
+    'hp' => 5,
+    'aspect' =>
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' =>
+    array (
+      0 => 'Force',
+      1 => 'Sith',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Deal 1 damage to a unit.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources, deploy this leader.',
+    'deployText' => 'On Attack: You may deal 1 damage to a unit.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/005.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/005-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'IC27_006' => 
   array (
     'title' => 'Luke Skywalker',
@@ -835,7 +870,7 @@ Restore 3',
       0 => 'Vigilance',
       1 => 'Heroism',
     ),
-    'trait' =>
+    'trait' => 
     array (
       0 => 'Resistance',
       1 => 'Vehicle',

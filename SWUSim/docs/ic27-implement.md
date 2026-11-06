@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042, IC27_162, IC27_083, IC27_155, IC27_043, IC27_172
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042, IC27_162, IC27_083, IC27_155, IC27_043, IC27_172, IC27_005
 
 ## Foundations already built — do not re-do
 
@@ -766,7 +766,29 @@ Suite 14380 → **14430/0** (+50).
   the engine already treats it so for Thrawn/Krennic); a Razor Crest leaving play in the same defeat still applies. 13 sections.
   ⚠ Commit edf106914 captured mutant Z3 (the same-batch LKI loop emptied).
 
+## Phase 22 — Sixteenth preview wave, 2026-11-06 (93 → 94 CardIDs; one leader, owner's priority)
+
+`comm -23` of `### Already Done` vs `CardMocks.php`: IC27_005 only — mocked uncommitted, absent from the dictionary; ran the
+three preview regens. Baseline 14435/0. **Spelling pass** (both faces read): the mock had **Villainy only**; the card carries
+**Aggression + Villainy** (two icons). Fixed, regens re-run. Text, stats, traits, subtitle match word for word.
+
+- [x] **IC27_005 Darth Maul – Mechanism of Menace** — IC27_002 Rey's two-sided shape. Front: `$leaderActionResourceCosts` = 1 +
+  `$leaderAbilities` → mandatory `SWUQueueChooseTarget(SWUAllUnits(), DEAL_UNIT_DAMAGE|1)` + `SWUQueueAfterAction` (no unit in
+  play: still usable, CR 637.3). Deployed: `$onAttackAbilities["IC27_005:0"]` → `SWUOfferUnitTarget` may, no excludeSelf.
+  Judgement calls: "a unit" includes Maul himself (TWI_135 Maul's released ruling, by analogy); the ping is left source-less
+  like SHD_012 / IC27_002 (no source reader in the pool can see it). 21 sections incl. Twin Suns (both sides), Team Suns
+  teammate pool, Credit payment, Shield, ping-kills-the-defender-before-combat, and an aspect-icon section pinning the mock
+  fix (TWI_133 at printed cost under a Vigilance base). Suite 14435 → **14453/0** (+18; 3 green pre-impl by design).
+  9 mutations: 8 red on their own sections; the 9th (the empty-pool guard) was green → redundant, deleted.
+  **Limited:** Icons packs build their pools live from the dictionary, so Maul opens in the leader slot with no table change
+  (probe: in the pool of 6, 157 / 4000 packs); `DevTools/swu-printing-rarities.php` re-run → still 40 reprints listed (no
+  change); `limited_packs_test.php` ALL PASS.
+
 ## Status
+
+**IC27: 94 / 94 mocked CardIDs implemented** (2026-11-06, sixteenth wave; suite → 14453/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **93 / 93** (fifteenth wave).
 
 **IC27: 93 / 93 mocked CardIDs implemented** (2026-11-05, fifteenth wave; suite → 14430/0; the end-of-run `comm -23` of
 `### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
