@@ -155,6 +155,48 @@
     return (gone ? esc(gone.name) + why + ' — ' : '') + (r.winner ? esc(name(r.winner)) + ' wins.' : 'The event is over.');
   }
 
+  // ── After a played Sealed match: Rematch (the other player confirms) and New Pool (owner 2026-11-05) ──────────────
+  // The host picks the format on the spot; the choice lives here (not in the settings) until Rematch sends it, and it
+  // locks while the ask is open.
+  var rematchBestOf = null;
+  function rematchBlock(d) {
+    if (!d.canRematch || !d.me) return '';
+    var r = d.rematch, open = r && !r.declined, fmt = function (n) { return n === 3 ? 'Best of 3' : 'Best of 1'; };
+    var h = '';
+    if (d.isHost) {
+      var bo = open ? r.bestOf : (rematchBestOf || d.settings.bestOf || 1);
+      h += '<div class="lt-row"><span class="lt-label">Match length</span>' + seg('rematchBestOf', [[1, 'Best of 1'], [3, 'Best of 3']], bo, open) + '</div>';
+      if (r && r.declined) h += '<p class="lt-note lt-rematch-note">' + esc(r.toName) + ' declined the rematch.</p>';
+      h += '<div class="lt-actions">' + (open
+        ? button('lt-rematch-wait', 'Waiting for ' + r.toName + '…', ' disabled') + button('swu2-btn--quiet lt-rematch-cancel', 'Cancel')
+        : button('swu2-btn--primary lt-rematch', 'Rematch')) + button('lt-new-pool', 'New Pool') + '</div>';
+      h += '<p class="lt-note">Rematch replays the same decks. New Pool goes back to setup for fresh packs.</p>';
+    } else if (open && r.toMe) {
+      h += '<p class="lt-note lt-rematch-ask">' + esc(r.fromName) + ' wants a rematch (' + fmt(r.bestOf) + ') with the same decks.</p>';
+      h += '<div class="lt-actions">' + button('swu2-btn--primary lt-rematch-accept', 'Accept') + button('lt-rematch-decline', 'Decline') + '</div>';
+    } else {
+      h += '<p class="lt-note lt-rematch-note">' + (r && r.declined ? 'You declined the rematch. ' : '') + 'Waiting for the host to start a rematch or a new pool…</p>';
+    }
+    return h;
+  }
+  function wireRematch(root, ctx) {
+    root.querySelectorAll('input[data-lt="rematchBestOf"]').forEach(function (n) {
+      n.onchange = function () { rematchBestOf = parseInt(n.value, 10); };
+    });
+    var post = function (sel, action, params) {
+      var b = root.querySelector(sel);
+      if (b) b.onclick = function () { b.disabled = true; ctx.post(action, params ? params() : '', function (r) { lastSig = ''; if (!r.success) b.disabled = false; }); };
+    };
+    post('.lt-rematch', 'rematch', function () {
+      var c = root.querySelector('input[data-lt="rematchBestOf"]:checked');
+      return 'bestOf=' + encodeURIComponent(c ? c.value : '1');
+    });
+    post('.lt-rematch-cancel', 'rematchCancel');
+    post('.lt-rematch-accept', 'rematchAccept');
+    post('.lt-rematch-decline', 'rematchDecline');
+    post('.lt-new-pool', 'newPool');
+  }
+
   // ── Swiss rounds (Draft) ──────────────────────────────────────────────────────────────────────────────────────────
   function pct(x) { return (Math.round(x * 1000) / 10).toFixed(1); }
   function standingsTable(rows, d) {
@@ -280,11 +322,13 @@
       h += '<div class="lt-actions"><a class="btn swu2-btn ch lt-menu" href="' + esc(ctx.appBase + 'SharedUI/MainMenu.php') + '">Main Menu</a></div>';
     } else {
       h += '<div class="lt-result">' + resultLine(d) + '</div>' + seatList(d);
+      h += rematchBlock(d);
       h += '<div class="lt-actions"><a class="btn swu2-btn ch lt-menu" href="' + esc(ctx.appBase + 'SharedUI/MainMenu.php') + '">Main Menu</a></div>';
     }
     h += '</div>';
     root.innerHTML = h;
     if (d.phase === 'setup' && d.isHost) wireSettings(root, d, ctx);
+    if (d.phase === 'done') wireRematch(root, ctx);
     var st = root.querySelector('.lt-start');
     if (st) st.onclick = function () { st.disabled = true; ctx.post('start', '', function (r) { lastSig = ''; if (!r.success) st.disabled = false; }); };
     var addBot = root.querySelector('.lt-add-bot');

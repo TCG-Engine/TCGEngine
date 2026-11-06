@@ -334,6 +334,57 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await ctx.close(); await api.close();
     } catch (e) { bad(where, e.message.split('\n')[0]); }
 
+    // ── Sealed done: Rematch (the other player confirms) and New Pool (owner 2026-11-05) ─────────────────────────
+    where = `${tag} sealed rematch`;
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'done');   // a Bo1, seat 1 (the host) won
+      const hctx = await personContext(browser, size, fx, 1), gctx = await personContext(browser, size, fx, 2);
+      const host = await openRoom(hctx, fx), guest = await openRoom(gctx, fx);
+      await host.waitForSelector('#lt-root .lt-rematch', { timeout: T });
+      check(where, (await host.locator('#lt-root .lt-new-pool').count()) === 1 && (await host.locator('#lt-root input[data-lt="rematchBestOf"]').count()) === 2,
+        'the host gets Rematch, New Pool and a Best of 1 / Best of 3 switch');
+      check(where, /Waiting for the host/.test(await guest.textContent('#lt-root')) && (await guest.locator('#lt-root .lt-rematch, #lt-root .lt-new-pool').count()) === 0,
+        'the other player waits for the host');
+      await invariants(host, where);
+      await shot(host, `limited-room-${ename}-${size.name}-sealed-done-host`);
+      await pickMode(host, 'Best of 3');
+      await host.locator('#lt-root .lt-rematch').click();
+      await guest.waitForSelector('#lt-root .lt-rematch-accept', { timeout: T });
+      check(where, /wants a rematch \(Best of 3\)/.test(await guest.textContent('#lt-root .lt-rematch-ask')), 'the ask reaches the other player as a Best of 3');
+      await host.waitForSelector('#lt-root .lt-rematch-cancel', { timeout: T });
+      check(where, await host.locator('#lt-root input[data-lt="rematchBestOf"]').first().isDisabled(), 'the format locks while the ask is open');
+      await invariants(guest, where);
+      await shot(guest, `limited-room-${ename}-${size.name}-sealed-rematch-ask`);
+      await guest.locator('#lt-root .lt-rematch-decline').click();
+      await host.waitForSelector('#lt-root .lt-rematch', { timeout: T });
+      check(where, /declined the rematch/.test(await host.textContent('#lt-root')), 'a Decline is shown to the host, who may ask again');
+      await host.locator('#lt-root .lt-rematch').click();
+      await guest.waitForSelector('#lt-root .lt-rematch-accept', { timeout: T });
+      await guest.locator('#lt-root .lt-rematch-accept').click();
+      await Promise.all([host, guest].map((p) => p.waitForURL(/NextTurn\.php\?gameName=/, { timeout: T })));
+      check(where, host.url() !== guest.url() && new URL(host.url()).searchParams.get('gameName') === new URL(guest.url()).searchParams.get('gameName')
+        && new URL(host.url()).searchParams.get('gameName') !== fx.gameName, 'Accept sends both players into the SAME new game');
+      await hctx.close(); await gctx.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
+    where = `${tag} sealed new pool`;
+    try {
+      const api = await browser.newContext();
+      const fx = await fixture(api.request, 'done');
+      const hctx = await personContext(browser, size, fx, 1), gctx = await personContext(browser, size, fx, 2);
+      const host = await openRoom(hctx, fx), guest = await openRoom(gctx, fx);
+      await host.waitForSelector('#lt-root .lt-new-pool', { timeout: T });
+      await host.locator('#lt-root .lt-new-pool').click();
+      await host.waitForSelector('#lt-root .lt-start', { timeout: T });
+      await guest.waitForFunction(() => /Setting up/.test(document.getElementById('lt-root').textContent), null, { timeout: T });
+      check(where, !(await host.locator('#lt-root .lt-start').isDisabled()) && (await host.locator('#lt-root .lt-seat').count()) === 2,
+        'New Pool: both players are back in setup and the host can Start');
+      await invariants(host, where);
+      await shot(host, `limited-room-${ename}-${size.name}-sealed-new-pool`);
+      await hctx.close(); await gctx.close(); await api.close();
+    } catch (e) { bad(where, e.message.split('\n')[0]); }
+
     // ── menu ────────────────────────────────────────────────────────────────────────────────────────────────────
     where = `${tag} menu`;
     try {

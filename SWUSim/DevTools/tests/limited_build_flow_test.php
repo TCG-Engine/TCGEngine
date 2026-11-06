@@ -13,6 +13,7 @@ chdir(__DIR__ . '/../../..');
 include_once './SWUSim/MatchFlow.php';
 require_once './SWUSim/Limited/LimitedRoom.php';
 require_once './SWUSim/Limited/LimitedDeck.php';
+require_once './APIs/Lobbies/Classes/LobbySeatIdentity.php';   // LobbyHasStarted
 
 $fails = 0;
 $check = function ($ok, $msg) use (&$fails) { echo ($ok ? 'PASS' : 'FAIL') . ": $msg\n"; if (!$ok) $fails++; };
@@ -201,6 +202,86 @@ $egi = getj($B . 'SWUSim/EndGameInfo.php?gameName=' . urlencode($g1) . '&playerI
 $check(($egi['origin'] ?? '') === 'limited' && ($egi['roomId'] ?? '') === $r['lobbyID'], 'a seat\'s end screen leads back to the room: ' . json_encode(['o' => $egi['origin'] ?? null, 'r' => $egi['roomId'] ?? null]));
 $egs = getj($B . 'SWUSim/EndGameInfo.php?gameName=' . urlencode($g1) . '&playerID=S');
 $check(!array_key_exists('roomId', $egs), 'a watcher is never handed the room id');
+
+// ── After the match: Rematch (the other player confirms) and New Pool (owner 2026-11-05) ─────────────────────────────
+echo "RematchNeedsTheHost:\n";
+$rb = act($r, 'b', 'rematch', ['bestOf' => 1]);
+$check(empty($rb['success']) && array_key_exists('rematch', $pr = pollRoom($r, 'a')) && $pr['rematch'] === null, 'only the host asks: ' . ($rb['message'] ?? ''));
+$check(!empty(pollRoom($r, 'a')['canRematch']), 'the finished room offers it');
+
+echo "RematchAcceptReplaysTheLastDecks:\n";
+// A Bo3-style swap: A's seat finished the match on a deck one card different from the one it submitted (currentDeck).
+$swapIn = '';
+$used = array_count_values($deckA['main']);
+foreach (array_count_values($lt['pools'][$ia]) as $c => $n) {
+    if (!in_array(CardType($c), ['Leader', 'Base'], true) && $n > ($used[$c] ?? 0) && $c !== $deckA['main'][0]) { $swapIn = strval($c); break; }
+}
+$swapped = $deckA; $swapped['main'][0] = $swapIn;
+$resolvedSwap = SWUResolveDeckInput(SWULimitedDeckJson($swapped, $lt['pools'][$ia]));
+MatchWithLock('SWUSim', $mid, function (&$mm) use ($seatOf, $ia, $resolvedSwap) { $mm['players'][strval($seatOf[$ia])]['currentDeck'] = $resolvedSwap; });
+$ask = act($r, 'a', 'rematch', ['bestOf' => 3]);
+$pb = pollRoom($r, 'b'); $pa = pollRoom($r, 'a');
+$check(!empty($ask['success']) && !empty($pb['rematch']['toMe']) && intval($pb['rematch']['bestOf'] ?? 0) === 3 && ($pb['rematch']['fromName'] ?? '') !== ''
+    && !empty($pa['rematch']['fromMe']) && ($pa['phase'] ?? '') === 'done', 'the ask reaches B as a Best of 3, and the room is still finished: ' . json_encode($pb['rematch'] ?? null));
+$check(empty(act($r, 'a', 'rematch', ['bestOf' => 1])['success']) && intval(pollRoom($r, 'b')['rematch']['bestOf'] ?? 0) === 3, 'the format is locked while the ask is open');
+$check(empty(act($r, 'a', 'rematchAccept')['success']), 'the host cannot accept their own ask');
+$acc = act($r, 'b', 'rematchAccept');
+$pv = pollRoom($r, 'a');
+$lt2 = lt($r);
+$mid2 = strval($lt2['match']['matchId'] ?? '');
+$g2 = strval($pv['live']['gameName'] ?? '');
+if ($g2 !== '') $GAMES[] = $g2;
+$check(!empty($acc['success']) && ($pv['phase'] ?? '') === 'playing' && $mid2 !== '' && $mid2 !== $mid && $g2 !== '' && $g2 !== $g1,
+    'Accept starts a NEW match at once: ' . json_encode(['phase' => $pv['phase'] ?? null, 'm' => $mid2, 'g' => $g2, 'msg' => $acc['message'] ?? null]));
+$m2 = SWUReadMatch($mid2);
+$seat2 = array_flip($lt2['match']['seats'] ?? []);
+$mainA = $m2['players'][strval($seat2[$ia] ?? 0)]['originalDeck']['mainDeck'] ?? [];
+$mainB = $m2['players'][strval($seat2[$ib] ?? 0)]['originalDeck']['mainDeck'] ?? [];
+$check($swapIn !== '' && $sorted($mainA) === $sorted($swapped['main']) && $sorted($mainB) === $sorted($deckB['main']),
+    'A replays the deck it played LAST (the swap), B its event deck');
+$check(intval($lt2['settings']['bestOf'] ?? 0) === 3 && ($m2['queueType'] ?? $m2['bestOf'] ?? '') !== '' && (($m2['queueType'] ?? '') === 'bo3' || intval($m2['bestOf'] ?? 0) === 3),
+    'the rematch is the asked Best of 3: ' . json_encode(['q' => $m2['queueType'] ?? null, 'b' => $m2['bestOf'] ?? null]));
+
+// A second finished room: both build, the Bo1 is played, A wins.
+$playedRoom = function () use ($single, $sorted) {
+    $x = room($single);
+    foreach (['a', 'b'] as $who) { $s = build($x, $who, 'state'); submit($x, $who, pickLegalDeck($s['pool'] ?? [], $s['basesInPlay'] ?? [])); build($x, $who, 'ready'); }
+    $xl = lt($x);
+    $g = strval($xl['match']['gameName'] ?? '');
+    $GLOBALS['GAMES'][] = $g;
+    $GLOBALS['SWUSTATS_HTTP_FAKE'] = fn($method, $url, $body) => ['status' => 200, 'body' => ['success' => true], 'raw' => '{}'];
+    $seat = intval(array_flip($xl['match']['seats'])[$x['ids']['a']]);
+    $GLOBALS['gDecisionQueueVariables'] = json_encode(['GAMEOVER_WINNER' => strval($seat), 'GAMEOVER_WINNERS' => strval($seat)]);
+    MatchAfterActionHook('SWUSim', $g);
+    unset($GLOBALS['SWUSTATS_HTTP_FAKE']);
+    pollRoom($x, 'a');
+    return $x;
+};
+
+echo "RematchDeclineAndCancel:\n";
+$y = $playedRoom();
+$check((pollRoom($y, 'a')['phase'] ?? '') === 'done', 'the second room finished');
+act($y, 'a', 'rematch', ['bestOf' => 1]);
+$check(empty(act($y, 'a', 'rematchDecline')['success']), 'the host cannot decline their own ask');
+$dc = act($y, 'b', 'rematchDecline');
+$ya = pollRoom($y, 'a');
+$check(!empty($dc['success']) && !empty($ya['rematch']['declined']) && ($ya['phase'] ?? '') === 'done', 'B declines: A sees it and the room stays finished');
+$check(!empty(act($y, 'a', 'rematch', ['bestOf' => 1])['success']) && empty(pollRoom($y, 'b')['rematch']['declined']), 'A may ask again');
+$cc = act($y, 'a', 'rematchCancel');
+$check(!empty($cc['success']) && array_key_exists('rematch', $pr = pollRoom($y, 'b')) && $pr['rematch'] === null, 'A cancels: the ask is gone for B');
+
+echo "NewPoolBackToSetup:\n";
+$check(empty(act($y, 'b', 'newPool')['success']), 'only the host starts a new pool');
+$poolBefore = lt($y)['pools'][$y['ids']['a']] ?? [];
+$np = act($y, 'a', 'newPool');
+$yv = pollRoom($y, 'b');
+$check(!empty($np['success']) && ($yv['phase'] ?? '') === 'setup' && intval($yv['settings']['packCount'] ?? 0) === 6 && ($yv['settings']['singleSet'] ?? '') === 'SOR'
+    && count($yv['seats'] ?? []) === 2, 'New Pool: setup again, the same settings, both players seated: ' . ($np['message'] ?? ''));
+$check(LobbyHasStarted(apcu_fetch($y['lobbyID'])) === false, 'the room is open for settings again (not "started")');
+$st = act($y, 'a', 'start');
+$yl = lt($y);
+$check(!empty($st['success']) && $yl['phase'] === 'building' && ($yl['pools'][$y['ids']['a']] ?? []) !== [] && ($yl['pools'][$y['ids']['a']] ?? []) !== $poolBefore,
+    'Start opens FRESH pools for a new build: ' . ($st['message'] ?? ''));
 
 echo "BuildExpiryStartsTheMatch:\n";
 // Final review #1: both seats SUBMIT, nobody presses Ready, the clock runs out — the spec readies them with the submitted

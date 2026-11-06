@@ -36,7 +36,19 @@ $icon = fn($a) => '/TCGEngine/Assets/Images/icons/SWU/' . $a . '.webp';
 <body>
 <?= RenderHeader($lbDef) /* no menu bar: a nav link out of the build is a walk-out (Sideboard.php does the same) */ ?>
 <div class="lb-row">
+<?php /* The action bar sits ABOVE the chat in one sticky column, so Submit / Ready never scroll away (owner 2026-11-05).
+         On a phone the column dissolves (display: contents) and the bar is the sticky strip at the bottom again. */ ?>
+<div class="lb-side">
+  <div class="lb-foot">
+    <span class="lb-foot-count"><b id="lbFootCount">0</b>/30</span>
+    <span class="lb-foot-timer" id="lbFootTimer"></span>
+    <button id="lbSubmit" class="swu2-btn ch" type="button" disabled>Submit</button>
+    <button id="lbReady" class="swu2-btn swu2-btn--primary ch" type="button" disabled>Ready</button>
+    <span class="lb-status" id="lbStatus"></span>
+    <?php if ($lobbyID !== ''): ?><a class="swu2-btn swu2-btn--quiet ch lb-back" href="../SharedUI/WaitingRoom.php?lobby=<?= rawurlencode($lobbyID) ?>">Back to the room</a><?php endif; ?>
+  </div>
 <?= RenderChatPanel(['mode' => 'chat', 'title' => 'CHAT', 'folderPath' => 'SWUSim']) ?>
+</div>
 <main class="lb-root" data-lobby-id="<?= htmlspecialchars($lobbyID) ?>" data-match-id="<?= htmlspecialchars($matchId) ?>" data-player-id="<?= $seat ?>">
   <div class="lb-top">
     <h2 class="lb-title"><?= $matchId !== '' ? 'Between games — your deck' : 'Build your deck' ?></h2>
@@ -84,14 +96,6 @@ $icon = fn($a) => '/TCGEngine/Assets/Images/icons/SWU/' . $a . '.webp';
     </section>
   </div>
   <ul class="lb-errors" id="lbErrors" role="alert"></ul>
-  <div class="lb-foot">
-    <span class="lb-foot-count"><b id="lbFootCount">0</b>/30</span>
-    <span class="lb-foot-timer" id="lbFootTimer"></span>
-    <button id="lbSubmit" class="swu2-btn ch" type="button" disabled>Submit</button>
-    <button id="lbReady" class="swu2-btn swu2-btn--primary ch" type="button" disabled>Ready</button>
-    <span class="lb-status" id="lbStatus"></span>
-    <?php if ($lobbyID !== ''): ?><a class="swu2-btn swu2-btn--quiet ch lb-back" href="../SharedUI/WaitingRoom.php?lobby=<?= rawurlencode($lobbyID) ?>">Back to the room</a><?php endif; ?>
-  </div>
 </main>
 </div>
 <?= SWUCardArtScript(false) ?>

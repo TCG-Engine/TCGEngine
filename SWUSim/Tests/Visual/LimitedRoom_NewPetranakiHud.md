@@ -42,6 +42,13 @@ Then by eye: Main Menu → PvP → Create a Limited Room as claudebot1; open the
 10. **Kick prompt** (a seat silent 30 s, or no deck at the deadline): a red-tinted strip "Kick <name>?" with Kick and
     "Wait another 20 seconds".
 11. **Done.** "<winner> won 2–1." (or "<name> was removed — <winner> wins.") in gold, and a Main Menu button.
+    **Rematch / New Pool** (owner 2026-11-05; a PLAYED Sealed match, both players still in the room — never after a
+    leave or kick, never in Draft). Host: a Match length Bo1 / Bo3 switch (set to what was just played), a gold Rematch,
+    a steel New Pool, and the line "Rematch replays the same decks. New Pool goes back to setup for fresh packs." Rematch
+    → "Waiting for <name>…" (disabled) + Cancel, the switch greyed. The other player: "<host> wants a rematch (Best of 3)
+    with the same decks." + Accept / Decline; with no ask, "Waiting for the host to start a rematch or a new pool…".
+    Decline → the host reads "<name> declined the rematch." and may ask again. Accept → both boards open on the SAME new
+    game, each with the deck it played last. New Pool → both back on "SETTING UP" with the previous settings; Start live.
 12. **Everywhere.** No deck bar, no seat tiles; every button ≥44px; no horizontal scroll at 390px.
 
 ## DRAFT (Plan 3) — the same panel for a Draft room

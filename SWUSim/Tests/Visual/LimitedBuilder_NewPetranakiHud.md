@@ -9,7 +9,7 @@
 #     ?lobbyID=<id>                              the room's 30-minute build (seat key from localStorage)
 #     ?matchId=<id>&playerID=<n>&authKey=<k>     between Bo3 games (SWUSim/Sideboard.php redirects a Limited match here)
 #   Markup: SWUSim/LimitedBuilder.php; client: SWUSim/Limited/ui/limited-builder.js; data: SWUSim/LimitedBuilderAction.php.
-#   Styles: SharedUI/Sites/SWUSim/css/swusim-menu-2.css "Limited deckbuilder", scoped `body:has(.lb-root)`, lb- prefixed.
+#   Styles: SharedUI/Sites/SWUSim/css/swusim-menu-2.css "Limited deckbuilder", scoped `body:has(.lb-row)` (NOT .lb-root: Firefox never re-matches a :has() for elements parsed before the target), lb- prefixed.
 #
 #   The bugs it guards: a pool that is not also the sideboard (cards vanishing instead of greying at ×0); Ready offered on
 #   a deck that changed since Submit; the seg labels running their count into the text ("CARDS (54LEFT)" — a flex label
@@ -35,6 +35,9 @@ Fixture: SWUSim/DevTools/tests/limited_fixture.php?phase=building (6 SOR packs e
    cost-curve bars 0…6, 7+ with counts, "Main deck n / 30 min ✓ ready to submit", "Sideboard: n", the deck grid by cost.
 6. **Buttons.** Submit (steel) is live only for a changed, complete deck; Ready (gold) only once submitted and unchanged.
    Ready asks "Lock in this deck?"; after it, the status reads "Ready — waiting for your opponent" and clicks do nothing.
+   **Desktop:** the bar (n/30 + gold clock, Submit | Ready side by side, status, Back to the room) is a sunken card ABOVE
+   the chat in the left column, and the column stays pinned 24px from the top while the pool scrolls (owner 2026-11-05).
+   In Firefox too — a desktop page with the chat stacked full-width ABOVE the pool means the :has() scope broke again.
 7. **Errors.** A refused submit lists its reasons in red, naming cards by TITLE (never SOR_010).
 8. **Between games.** Opens on the last game's 30 cards with Ready already live (keeping the deck is one click), a
    ≤5:00 clock, and every leader of the pool on the Leaders tab.
@@ -45,7 +48,7 @@ Fixture: SWUSim/DevTools/tests/limited_fixture.php?phase=building (6 SOR packs e
 ## NEIGHBOURING INVARIANTS (must not change)
 
 - The plain sideboard screen (Sideboard.php) for every non-Limited match: swusim-sideboard-preview-xbrowser.mjs stays green.
-- The lb- rules are scoped `body:has(.lb-root)`; no other page has that root.
+- The lb- rules are scoped `body:has(.lb-row)`; no other page has that row.
 
 ## CROSS-BROWSER / MOBILE
 

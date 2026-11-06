@@ -8,6 +8,9 @@
 //   startRound                        — host, between Swiss rounds: start the next round once every seat is Ready
 //   ready                             — a seat, between Swiss rounds: Ready with the deck it played last
 //   addBot | removeBot (targetPlayerID) — host, during setup: fill a seat with a bot, or take one out (Plan 5)
+//   rematch (bestOf) | rematchCancel   — host, after a played Sealed match: ask the other player to replay the same decks
+//   rematchAccept | rematchDecline     — the asked player answers (a bot accepts at once); Accept starts the match
+//   newPool                            — host, after a played Sealed match: back to setup, same settings, fresh pools
 // Other people are always named by lobby playerID — never by their room key, which only its owner holds.
 // Reply: {success, message?, errors?}.
 require_once __DIR__ . '/../Core/NetworkingLibraries.php';
@@ -33,7 +36,8 @@ $lobbyID = strval($_POST['lobbyID'] ?? '');
 $authKey = strval($_POST['authKey'] ?? '');
 $action  = strval($_POST['action'] ?? '');
 if ($lobbyID === '' || $authKey === '' || $action === '') LimitedActionFail('Invalid request.');
-if (!in_array($action, ['settings', 'start', 'kickVote', 'kickWait', 'tick', 'startRound', 'ready', 'addBot', 'removeBot'], true)) LimitedActionFail('Unknown action.');
+if (!in_array($action, ['settings', 'start', 'kickVote', 'kickWait', 'tick', 'startRound', 'ready', 'addBot', 'removeBot',
+                         'rematch', 'rematchCancel', 'rematchAccept', 'rematchDecline', 'newPool'], true)) LimitedActionFail('Unknown action.');
 
 SWURoomRehydrate($lobbyID);
 $now = time();
@@ -96,8 +100,15 @@ if ($action === 'start') {
                'leaderPacks' => $leaderPacks, 'cardPacks' => $cardPacks, 'aspects' => $aspects, 'pickSeconds' => $pickSeconds, 'facts' => $facts];
 }
 
-$err = null; $code = 400; $errors = null;
-$lobby = LobbyMutate($lobbyID, function ($l) use ($action, $authKey, $now, $opened, &$err, &$code, &$errors) {
+// A Rematch replays each seat's LAST deck, read from the finished match before the lock (I/O).
+$lastDecks = [];
+if ($action === 'rematch' || $action === 'rematchAccept') {
+    $snap = apcu_fetch($lobbyID);
+    if (SWUIsLimitedRoom($snap)) $lastDecks = SWULimitedLastDecks($snap);
+}
+
+$err = null; $code = 400; $errors = null; $startDue = false;
+$lobby = LobbyMutate($lobbyID, function ($l) use ($action, $authKey, $now, $opened, $lastDecks, &$err, &$code, &$errors, &$startDue) {
     if (!SWUIsLimitedRoom($l)) { $err = 'Room not found.'; $code = 404; return false; }
     $me = SWULimitedSeatForKey($l, $authKey);
     if ($me === null) { $err = 'You are not in this room.'; $code = 403; return false; }
@@ -177,6 +188,44 @@ $lobby = LobbyMutate($lobbyID, function ($l) use ($action, $authKey, $now, $open
             $me->setDeckOk(true);
             $me->setReady(true);
             return true;
+        case 'rematch':
+            if (!SWULimitedIsHost($l, $mePid)) { $err = 'Only the host can ask for a rematch.'; $code = 403; return false; }
+            $next = LTRematchAsk($lt, $mePid, intval($_POST['bestOf'] ?? 0), $now);
+            if ($next === null) { $err = 'A rematch can\'t be asked for right now.'; $code = 409; return false; }
+            $to = intval($next['rematch']['to']);
+            if (LTIsBot($next, $to)) {   // a bot always says yes
+                $next = LTRematchAccept($next, $to, $lastDecks, $now);
+                if ($next === null) { $err = 'The rematch could not start.'; $code = 409; return false; }
+                $startDue = true;
+            }
+            $l->limited = $next;
+            return true;
+        case 'rematchCancel':
+        case 'rematchDecline':
+            $next = $action === 'rematchCancel' ? LTRematchCancel($lt, $mePid) : LTRematchDecline($lt, $mePid);
+            if ($next === null) { $err = 'There is no rematch to answer.'; $code = 409; return false; }
+            $l->limited = $next;
+            return true;
+        case 'rematchAccept':
+            $next = LTRematchAccept($lt, $mePid, $lastDecks, $now);
+            if ($next === null) { $err = 'There is no rematch to accept.'; $code = 409; return false; }
+            $l->limited = $next;
+            $startDue = true;
+            return true;
+        case 'newPool':
+            if (!SWULimitedIsHost($l, $mePid)) { $err = 'Only the host can start a new pool.'; $code = 403; return false; }
+            $next = LTNewPool($lt);
+            if ($next === null) { $err = 'A new pool can\'t be started right now.'; $code = 409; return false; }
+            $l->limited = $next;
+            // Setup again: the room takes settings and Start as it did before the first event (LobbyHasStarted is false).
+            $l->state = 'open';
+            foreach ($l->players as $p) {
+                if (!($p instanceof Player)) continue;
+                $p->setReady(false);
+                $p->setDeckOk(false);
+                if (LTIsBot($next, intval($p->getPlayerID()))) $p->setBotProfile('limited');   // the style is set again once it has built
+            }
+            return true;
     }
     return false;
 });
@@ -185,7 +234,7 @@ if ($lobby === null) LimitedActionFail('The room is busy — try again.', 409);
 SWURoomSaveLatest($lobbyID);
 // The last Ready, or a kick that removed the host while everyone else was Ready, may make the next round due now — the
 // start needs the engine, which only these endpoints load.
-if ($action === 'ready' || $action === 'kickVote') SWULimitedTick($lobbyID, $now);
+if ($action === 'ready' || $action === 'kickVote' || $startDue) SWULimitedTick($lobbyID, $now);
 $out = ['success' => true];
 if ($errors !== null) $out['errors'] = array_values($errors);
 echo json_encode($out);

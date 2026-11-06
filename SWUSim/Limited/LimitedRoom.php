@@ -121,6 +121,12 @@ function SWULimitedPollView(object $lobby, string $viewerKey, int $now): array {
         $view['swiss'] = SWULimitedSwissView($lobby, $mePid, $now);
     }
     $view['kick'] = SWULimitedKickView($lt, $mePid, $seen, $now);
+    // After a played Sealed match: may the host offer Rematch / New Pool, and the open (or declined) ask, if any.
+    $view['canRematch'] = LTCanRematch($lt);
+    $r = $lt['rematch'] ?? null;
+    $view['rematch'] = is_array($r) ? ['fromMe' => intval($r['from']) === $mePid, 'toMe' => intval($r['to']) === $mePid,
+        'fromName' => strval($lt['seats'][intval($r['from'])]['name'] ?? ''), 'toName' => strval($lt['seats'][intval($r['to'])]['name'] ?? ''),
+        'bestOf' => intval($r['bestOf']), 'declined' => !empty($r['declined'])] : null;
     return $view;
 }
 
@@ -255,6 +261,24 @@ function SWULimitedLiveMatches(object $lobby): array {
     }
     $out = [];
     foreach ($ids as $id) { $m = MatchRead('SWUSim', $id); if (is_array($m)) $out[$id] = $m; }
+    return $out;
+}
+
+// The deck each seat of a finished Sealed match played LAST ([pid => {leader, base, main}]) — a Bo3 swap (currentDeck)
+// over the deck the match opened with — for a Rematch (LTRematchAccept). Read BEFORE any lobby lock (I/O); empty when
+// the match is gone. Needs LimitedDeck.php (the Limited endpoints load it).
+function SWULimitedLastDecks(object $lobby): array {
+    $lt = $lobby->limited;
+    $m = is_array($lt['match'] ?? null) ? MatchRead('SWUSim', strval($lt['match']['matchId'])) : null;
+    if (!is_array($m)) return [];
+    $out = [];
+    foreach ($lt['match']['seats'] as $seat => $pid) {
+        $p = $m['players'][strval($seat)] ?? [];
+        $resolved = $p['currentDeck'] ?? $p['originalDeck'] ?? null;
+        if (!is_array($resolved)) continue;
+        $deck = SWULimitedDeckFromResolved($resolved);
+        if ($deck['leader'] !== '' && $deck['base'] !== '' && $deck['main'] !== []) $out[intval($pid)] = $deck;
+    }
     return $out;
 }
 

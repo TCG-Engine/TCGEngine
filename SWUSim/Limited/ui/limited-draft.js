@@ -7,7 +7,7 @@
 (function () {
   'use strict';
   var CTX = window.LD_CONTEXT || {};
-  var POLL_MS = 1500, PREVIEW_DELAY = 500;
+  var POLL_MS = 1500, PREVIEW_DELAY = 500, NAME_PREVIEW_DELAY = 350;
   var ASPECT_ORDER = ['Vigilance', 'Command', 'Aggression', 'Cunning', 'Heroism', 'Villainy'];
   var RARITY = { Common: 'C', Uncommon: 'U', Rare: 'R', Legendary: 'L', Special: 'S' };
   var S = { st: null, selected: '', busy: false, endsAt: 0, leaving: false, chat: false };
@@ -93,7 +93,9 @@
   function renderSide(st) {
     var mine = st.mine || { leaders: [], picks: [] }, n = mine.leaders.length + mine.picks.length;
     el('ldPickCount').textContent = n; el('ldPickCount2').textContent = n;
-    el('ldLeaders').textContent = mine.leaders.length ? 'Leaders: ' + mine.leaders.map(function (id) { return fact(id).title; }).join(' · ') : 'No leaders yet.';
+    setHTML(el('ldLeaders'), mine.leaders.length ? 'Leaders: ' + mine.leaders.map(function (id) {
+      return '<span class="ld-pick-name" data-id="' + esc(id) + '">' + esc(fact(id).title) + '</span>';
+    }).join(' · ') : 'No leaders yet.');
     var counts = (st.lean && st.lean.counts) || {}, max = 1;
     ASPECT_ORDER.forEach(function (a) { max = Math.max(max, counts[a] || 0); });
     setHTML(el('ldLean'), ASPECT_ORDER.map(function (a) {
@@ -102,7 +104,7 @@
     }).join(''));
     var pair = (st.lean && st.lean.pair) || [];
     el('ldLeaning').textContent = pair.length ? 'Leaning: ' + pair.join(' / ') + ' — a timeout auto-pick follows this lean.' : '';
-    setHTML(el('ldAll'), mine.picks.slice().sort(byAspect).map(function (id) { return '<div class="ld-all-row">' + esc(name(id)) + '</div>'; }).join('') || '<p class="ld-empty">No picks yet.</p>');
+    setHTML(el('ldAll'), mine.picks.slice().sort(byAspect).map(function (id) { return '<div class="ld-all-row ld-pick-name" data-id="' + esc(id) + '">' + esc(name(id)) + '</div>'; }).join('') || '<p class="ld-empty">No picks yet.</p>');
   }
   // The kick vote (spec §3.6): a seat silent 30 s, or auto-picked once, can be voted out — a true majority of the others.
   function renderKicks(st) {
@@ -173,6 +175,8 @@
     preview.style.left = x + 'px'; preview.style.top = y + 'px';
   }
   function hidePreview() { clearTimeout(previewTimer); previewTimer = 0; if (preview) preview.style.display = 'none'; }
+  // A NAME in your picks (the leader line, "Show all picks") previews sooner than a tile: owner 2026-11-05, 350 ms.
+  var PREVIEWABLE = '.ld-card, .ld-plead, .ld-pick-name';
   function wirePreview(root) {
     var last = null;
     var later = function (node, ev) {
@@ -181,14 +185,14 @@
         previewTimer = 0;
         var p = ensurePreview(); p.src = window.swuCardArtUrl ? window.swuCardArtUrl(node.getAttribute('data-id'), 'card') : ''; p.style.display = 'block'; placePreview(last);
         if (ev.pointerType === 'touch') longPressed = true;
-      }, PREVIEW_DELAY);
+      }, node.classList.contains('ld-pick-name') ? NAME_PREVIEW_DELAY : PREVIEW_DELAY);
     };
-    root.addEventListener('pointerover', function (ev) { var n = ev.target.closest('.ld-card, .ld-plead'); if (n && ev.pointerType !== 'touch' && !n.contains(ev.relatedTarget)) later(n, ev); });
+    root.addEventListener('pointerover', function (ev) { var n = ev.target.closest(PREVIEWABLE); if (n && ev.pointerType !== 'touch' && !n.contains(ev.relatedTarget)) later(n, ev); });
     root.addEventListener('pointermove', function (ev) { if (ev.pointerType !== 'touch') { last = { clientX: ev.clientX, clientY: ev.clientY }; placePreview(ev); } });
-    root.addEventListener('pointerout', function (ev) { var n = ev.target.closest('.ld-card, .ld-plead'); if (n && ev.pointerType !== 'touch' && !n.contains(ev.relatedTarget)) hidePreview(); });
-    root.addEventListener('pointerdown', function (ev) { var n = ev.target.closest('.ld-card, .ld-plead'); if (n && ev.pointerType === 'touch') { longPressed = false; later(n, ev); } });
+    root.addEventListener('pointerout', function (ev) { var n = ev.target.closest(PREVIEWABLE); if (n && ev.pointerType !== 'touch' && !n.contains(ev.relatedTarget)) hidePreview(); });
+    root.addEventListener('pointerdown', function (ev) { var n = ev.target.closest(PREVIEWABLE); if (n && ev.pointerType === 'touch') { longPressed = false; later(n, ev); } });
     ['pointerup', 'pointercancel'].forEach(function (t) { root.addEventListener(t, function (ev) { if (ev.pointerType === 'touch') hidePreview(); }); });
-    root.addEventListener('contextmenu', function (ev) { if (ev.target.closest('.ld-card, .ld-plead') && (ev.pointerType === 'touch' || longPressed)) ev.preventDefault(); });
+    root.addEventListener('contextmenu', function (ev) { if (ev.target.closest(PREVIEWABLE) && (ev.pointerType === 'touch' || longPressed)) ev.preventDefault(); });
   }
 
   // ── Wiring ────────────────────────────────────────────────────────────────────────────────────────────────────────

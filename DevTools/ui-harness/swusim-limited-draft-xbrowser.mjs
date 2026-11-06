@@ -84,6 +84,16 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
         await lead.hover(); await page.waitForTimeout(700);
         check(where, await page.evaluate(() => { const p = document.getElementById('ldPreview'); return !!p && p.style.display === 'block'; }), 'hovering a drafted leader previews it full size');
         await page.mouse.move(5, 5); await page.waitForTimeout(100);
+        // Owner (2026-11-05): a NAME in your picks previews after 350 ms (a tile waits 500 ms).
+        const shown = () => page.evaluate(() => { const p = document.getElementById('ldPreview'); return !!p && p.style.display === 'block'; });
+        const myName = page.locator('#ldLeaders .ld-pick-name').first();
+        check(where, (await myName.count()) === 1 && !!(await myName.getAttribute('data-id')), 'my drafted leader is named in my picks, as a card');
+        await myName.hover(); await page.waitForTimeout(150);
+        const early = await shown();
+        await page.waitForTimeout(400);
+        check(where, !early && (await shown()), 'hovering a name in my picks previews the card after 350 ms (not at 150 ms)', `at 150 ms: ${early}`);
+        await page.mouse.move(5, 5); await page.waitForTimeout(100);
+        check(where, !(await shown()), 'moving off the name hides it');
       }
 
       const over = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

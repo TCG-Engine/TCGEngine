@@ -36,7 +36,7 @@ const LT_BOT_ONE_DROP_LEADERS = ['HMW_008', 'HMW_003'];   // a start that crashe
 function LTNew(string $mode): array {
     return ['mode' => $mode, 'phase' => 'setup', 'settings' => SWULimitedDefaultSettings($mode), 'settingsErrors' => [],
             'seats' => [], 'lineups' => [], 'pools' => [], 'setsInPlay' => [], 'seed' => 0, 'buildDeadline' => null,
-            'starting' => false, 'match' => null, 'result' => null, 'kick' => []];
+            'starting' => false, 'match' => null, 'result' => null, 'kick' => [], 'rematch' => null];
 }
 
 function LTSeatCap(array $lt): int {
@@ -213,6 +213,7 @@ function LTDropSeat(array $lt, int $pid, string $reason): array {
     }
     $lt['seats'][$pid]['dropped'] = true;
     unset($lt['kick'][$pid]);
+    $lt['rematch'] = null;   // nobody is left to answer (or to have asked)
     $left = LTLiveSeats($lt);
     $ends = $lt['mode'] === 'draft' ? (count($left) <= 1 && $lt['phase'] !== 'done') : $lt['phase'] === 'building';
     if ($ends) {
@@ -220,6 +221,82 @@ function LTDropSeat(array $lt, int $pid, string $reason): array {
         $lt['starting'] = false;
         $lt['result'] = ['winner' => count($left) === 1 ? $left[0] : null, 'score' => [], 'reason' => $reason];
     }
+    return $lt;
+}
+
+// ── After a Sealed match: Rematch and New Pool (owner 2026-11-05) ─────────────────────────────────────────────────────
+// Only a Sealed 1v1 whose match was PLAYED out, with both players still in the room. Rematch replays the same two decks
+// once the other player accepts; New Pool takes the room back to setup with the same settings.
+
+function LTCanRematch(array $lt): bool {
+    return $lt['mode'] === 'sealed' && $lt['phase'] === 'done' && ($lt['result']['reason'] ?? '') === 'played'
+        && count($lt['seats']) === 2 && count(LTLiveSeats($lt)) === 2;
+}
+
+function _LTRematchOpen(array $lt): bool {
+    return is_array($lt['rematch'] ?? null) && empty($lt['rematch']['declined']);
+}
+
+// $from asks the other seat for a rematch as Best of $bestOf. One ask at a time; a declined one may be asked again.
+function LTRematchAsk(array $lt, int $from, int $bestOf, int $now): ?array {
+    if (!LTCanRematch($lt) || !in_array($bestOf, [1, 3], true) || !isset($lt['seats'][$from]) || _LTRematchOpen($lt)) return null;
+    $to = intval(array_values(array_diff(LTLiveSeats($lt), [$from]))[0]);
+    $lt['rematch'] = ['from' => $from, 'to' => $to, 'bestOf' => $bestOf, 'at' => $now, 'declined' => false];
+    return $lt;
+}
+
+function LTRematchCancel(array $lt, int $pid): ?array {
+    if (!_LTRematchOpen($lt) || intval($lt['rematch']['from']) !== $pid) return null;
+    $lt['rematch'] = null;
+    return $lt;
+}
+
+function LTRematchDecline(array $lt, int $pid): ?array {
+    if (!_LTRematchOpen($lt) || intval($lt['rematch']['to']) !== $pid) return null;
+    $lt['rematch']['declined'] = true;
+    return $lt;
+}
+
+// The asked seat accepts: the room goes back to a build that is already over — both seats submitted and Ready, the clock
+// at $now — so the tick claims the start and creates the match exactly as after a real build (LTClaimStart). $lastDecks
+// ([pid => {leader, base, main}], read from the finished match) is each seat's LAST-played deck, so a Bo3 swap carries
+// over; a seat missing from it keeps its event deck.
+function LTRematchAccept(array $lt, int $pid, array $lastDecks, int $now): ?array {
+    if (!LTCanRematch($lt) || !_LTRematchOpen($lt) || intval($lt['rematch']['to']) !== $pid) return null;
+    foreach (LTLiveSeats($lt) as $p) {
+        if (isset($lastDecks[$p])) $lt['seats'][$p]['deck'] = $lastDecks[$p];
+        if (!is_array($lt['seats'][$p]['deck'] ?? null)) return null;
+        $lt['seats'][$p]['submitted'] = true;
+        $lt['seats'][$p]['ready'] = true;
+    }
+    $lt['settings']['bestOf'] = intval($lt['rematch']['bestOf']);
+    $lt['phase'] = 'building';
+    $lt['buildDeadline'] = $now;
+    $lt['starting'] = false;
+    $lt['match'] = null;
+    $lt['result'] = null;
+    $lt['kick'] = [];
+    $lt['rematch'] = null;
+    return $lt;
+}
+
+// Back to setup with the same seats and settings: fresh pools once the host presses Start again.
+function LTNewPool(array $lt): ?array {
+    if (!LTCanRematch($lt)) return null;
+    foreach ($lt['seats'] as $p => $s) {
+        $lt['seats'][$p]['deck'] = null;
+        $lt['seats'][$p]['submitted'] = false;
+        $lt['seats'][$p]['ready'] = false;
+        unset($lt['seats'][$p]['botStyle']);
+    }
+    $lt['phase'] = 'setup';
+    foreach (['lineups', 'pools', 'setsInPlay', 'kick'] as $k) $lt[$k] = [];
+    $lt['seed'] = 0;
+    $lt['buildDeadline'] = null;
+    $lt['starting'] = false;
+    $lt['match'] = null;
+    $lt['result'] = null;
+    $lt['rematch'] = null;
     return $lt;
 }
 

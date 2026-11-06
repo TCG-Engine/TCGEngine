@@ -7,7 +7,7 @@
 #   (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.2; mockup
 #   docs/superpowers/specs/2026-11-04-limited-mockups/draft-pick.html — owner: "lgtm. actually perfect").
 #   Markup: SWUSim/LimitedDraft.php; client: SWUSim/Limited/ui/limited-draft.js; data: SWUSim/LimitedDraftAction.php.
-#   Styles: SharedUI/Sites/SWUSim/css/swusim-menu-2.css "Limited draft — the pick screen", scoped `body:has(.ld-root)`.
+#   Styles: SharedUI/Sites/SWUSim/css/swusim-menu-2.css "Limited draft — the pick screen", scoped `body:has(.ld-row)`.
 #
 #   The bugs it guards: a misclick costing a pick (a click only SELECTS; "Pick <title>" confirms); a double click picking
 #   twice (each pick names its pack); a hidden "all picks" list showing anyway (`.ld-all[hidden]` — `display:grid` beats
@@ -33,7 +33,9 @@ Whole drafts end to end, 3 and 8 claudebots: node swusim-limited-draft-sim.mjs (
    a "LEADERS DRAFTED" bar that unfolds on tap. Card picks are never shown for anyone but you.
 4. **Pack.** Square card art in the builder's aspect order, a rarity badge (C/U/R/L/S) bottom-left. A click gives a gold
    outline and the gold "PICK <title>" button lights; nothing is picked until it is pressed.
-5. **Preview.** Hover 500 ms → a 300px full card beside the cursor; leaving or clicking hides it.
+5. **Preview.** Hover 500 ms → a 300px full card beside the cursor; leaving or clicking hides it. A NAME in your picks
+   (each leader on the "Leaders:" line, each row of "Show all picks") turns gold under the pointer and previews after
+   350 ms (owner 2026-11-05).
 6. **Picks panel** (right on desktop): "YOUR PICKS (n)", the leaders by title, six aspect bars in the aspect colours
    (Vig blue, Com green, Agg red, Cun yellow, Her ivory, Vil dark) labelled under, "Leaning: X / Y — a timeout auto-pick
    follows this lean.", "SHOW ALL PICKS" which opens the list by aspect, "Only you can see your picks."
@@ -43,7 +45,7 @@ Whole drafts end to end, 3 and 8 claudebots: node swusim-limited-draft-sim.mjs (
 
 ## NEIGHBOURING INVARIANTS (must not change)
 
-- The builder (LimitedBuilder.php) and the room panel are untouched by the ld- rules (scoped `body:has(.ld-root)`).
+- The builder (LimitedBuilder.php) and the room panel are untouched by the ld- rules (scoped `body:has(.ld-row)`).
 
 ## CROSS-BROWSER / MOBILE
 

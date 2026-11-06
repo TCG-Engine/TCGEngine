@@ -94,6 +94,62 @@ $d = LTApplyMatch($swapped, $done);
 $check($d['phase'] === 'done' && $d['result']['winner'] === 2 && $d['result']['score'] === [2 => 2, 1 => 1] && $d['result']['reason'] === 'played',
     'a complete match ends the event: the winner is the room seat behind match seat 1, score 2–1');
 
+// ── After the match: Rematch (the other player confirms) and New Pool (owner 2026-11-05) ─────────────────────────────
+$fin = $d;
+$fin['seats'][1]['deck'] = $deck('a'); $fin['seats'][2]['deck'] = $deck('b');
+$fin['seats'][1]['submitted'] = $fin['seats'][2]['submitted'] = true;
+
+echo "RematchOnlyAfterAPlayedSealedMatch:\n";
+$check(LTCanRematch($fin), 'a played Sealed match with both seats still here can be rematched');
+$check(!LTCanRematch($playing), 'not while the match runs');
+$check(!LTCanRematch(LTDropSeat($fin, 2, 'left')), 'not once a player has left');
+$check(!LTCanRematch(LTDropSeat($s, 1, 'left')), 'not when the event ended because someone left during the build');
+$fd = $fin; $fd['mode'] = 'draft';
+$check(!LTCanRematch($fd) && LTRematchAsk($fd, 1, 1, $now) === null && LTNewPool($fd) === null, 'never in Draft');
+
+echo "RematchAskThenAccept:\n";
+$ask = LTRematchAsk($fin, 1, 3, $now);
+$check($ask !== null && $ask['rematch'] === ['from' => 1, 'to' => 2, 'bestOf' => 3, 'at' => $now, 'declined' => false], 'the ask names both seats and the format');
+$check(LTRematchAsk($fin, 1, 2, $now) === null, 'only Best of 1 or Best of 3');
+$check(LTRematchAsk($fin, 9, 1, $now) === null, 'only a seat of the room asks');
+$check(LTRematchAsk($ask, 1, 1, $now) === null, 'no second ask while one is open (the format is locked)');
+$check(LTRematchAccept($ask, 1, [], $now) === null, 'the asker cannot accept their own ask');
+$check(LTRematchAccept($fin, 2, [], $now) === null, 'nothing to accept without an ask');
+$last = [1 => ['leader' => 'L_a', 'base' => 'B_a', 'main' => array_fill(0, 30, 'C_swap')]];
+$acc = LTRematchAccept($ask, 2, $last, $now + 5);
+$check($acc !== null && $acc['phase'] === 'building' && $acc['settings']['bestOf'] === 3 && $acc['rematch'] === null
+    && $acc['match'] === null && $acc['result'] === null, 'Accept: back to a build that is already over, in the asked format');
+$check($acc['seats'][1]['deck'] === $last[1] && $acc['seats'][2]['deck'] === $deck('b'), 'each seat plays its LAST deck (a Bo3 swap carries over); none given = its event deck');
+$check(LTReadyToStart($acc, $now + 5) && LTClaimStart($acc, $now + 5) !== null, '…both Ready, so the tick starts the match at once');
+$check($acc['pools'] === $fin['pools'] && $acc['setsInPlay'] === $fin['setsInPlay'], 'the pools and sets stay');
+$check(LTKickableSeats($acc, [1 => $now + 600, 2 => $now + 600], $now + 600) === [], 'nobody becomes kickable while the rematch starts');
+
+echo "RematchDeclineAndCancel:\n";
+$dec = LTRematchDecline($ask, 2);
+$check($dec !== null && $dec['rematch']['declined'] === true && $dec['phase'] === 'done', 'Decline: the host sees it, the room stays finished');
+$check(LTRematchDecline($ask, 1) === null, 'the asker cannot decline');
+$check(LTRematchAccept($dec, 2, [], $now) === null, 'a declined ask cannot be accepted');
+$again = LTRematchAsk($dec, 1, 1, $now + 9);
+$check($again !== null && $again['rematch']['declined'] === false && $again['rematch']['bestOf'] === 1, 'the host may ask again after a decline');
+$can = LTRematchCancel($ask, 1);
+$check($can !== null && $can['rematch'] === null, 'the asker cancels');
+$check(LTRematchCancel($ask, 2) === null, 'the other player cannot cancel someone else’s ask');
+$check(LTDropSeat($ask, 2, 'left')['rematch'] === null, 'a seat leaving drops the open ask');
+
+echo "NewPoolGoesBackToSetup:\n";
+$np = LTNewPool($ask);
+$check($np !== null && $np['phase'] === 'setup' && $np['settings'] === $fin['settings'], 'New Pool: back to setup with the same settings');
+$check($np['pools'] === [] && $np['lineups'] === [] && $np['setsInPlay'] === [] && $np['match'] === null && $np['result'] === null && $np['rematch'] === null,
+    'the old pools, match, result and ask are gone');
+$check($np['seats'][1]['deck'] === null && !$np['seats'][1]['submitted'] && !$np['seats'][2]['ready'] && count(LTLiveSeats($np)) === 2,
+    'both players stay seated, with no deck yet');
+$check(LTCanStart($np), 'the host can press Start straight away');
+$check(LTNewPool($playing) === null && LTNewPool(LTDropSeat($fin, 2, 'left')) === null, 'not mid-match, and not once a player has left');
+$bfin = LTAddBotSeat(LTAddSeat(LTNew('sealed'), 1, 'alice'), 2, 'Arenabot Alpha');
+$bfin['phase'] = 'done'; $bfin['result'] = ['winner' => 1, 'score' => [], 'reason' => 'played'];
+$bfin['seats'][1]['deck'] = $deck('a'); $bfin['seats'][2]['deck'] = $deck('b');
+$check(LTIsBot(LTNewPool($bfin), 2), 'a bot seat stays a bot');
+
 echo "KickThreshold:\n";
 $check(array_map('LTKickVotesNeeded', [0, 1, 2, 3, 6, 7]) === [0, 1, 2, 2, 4, 4], 'true majority: 0,1,2,3,6,7 voters → 0,1,2,2,4,4');
 
