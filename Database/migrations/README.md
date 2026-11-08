@@ -107,4 +107,5 @@ Record where each has been applied (date / environment) as they roll out:
 - `swusim` local docker: 18 applied 2026-10-10.
 - petranaki.net (SWUSim): 18 _pending_ — linking stays off there until it runs.
 - `swusim` + `swudeck` local docker: 23, 24 applied 2026-11-08.
-- petranaki.net (SWUSim) + swustats.net (SWUStats): 23, 24 _pending_.
+- petranaki.net (`swusim`) + swustats.net (`swudeck`): 23, 24 applied 2026-11-08 (users tables backed up first to
+  `/root/users-before-dateCreated-20261108.sql` on each box).
