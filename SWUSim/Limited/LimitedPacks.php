@@ -93,8 +93,8 @@ function SWUReprintsPrintedIn(string $set): array {
 }
 
 // [card => the rarity printed in $set] for the set's reprints whose printed rarity is known (AppCore/SWU/
-// PrintingRarities.php, from the swu-db.com API — DevTools/swu-printing-rarities.php). A reprint not listed there yet
-// has no entry, so it is never opened.
+// PrintingRarities.php, from the official FFG card data — DevTools/swu-printing-rarities.php). A reprint not listed
+// there yet has no entry, so it is never opened.
 function SWUReprintRaritiesIn(string $set): array {
     static $printed = null;
     if ($printed === null) { $f = __DIR__ . '/../../AppCore/SWU/PrintingRarities.php'; $printed = is_file($f) ? (require $f) : []; }

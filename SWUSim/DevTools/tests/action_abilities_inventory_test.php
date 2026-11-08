@@ -6,6 +6,7 @@
 // Tests/Cases/core/NamedActions_LimitsMatchEnforcement.md checks the two agree.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off SWUSim/DevTools/tests/action_abilities_inventory_test.php
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
+require_once __DIR__ . '/../../Custom/DeckImport.php';   // SWUResolveToImplementedPrint — the printing a deck loads as
 global $unitAbilities, $leaderAbilities, $baseAbilities, $baseUpgradeAbilities, $actionAbilityLimits, $actionAbilityLabelOverrides;
 
 $check(function_exists('SWUActionClauses') && function_exists('SWUActionAbilityId') && function_exists('SWUActionReg'),
@@ -31,7 +32,13 @@ $limitFromText = function (string $t): ?array {
 
 $seenIds = [];
 $cards = 0;
+// A printing a deck never loads as itself never reaches a registry: a reprint from a set outside SWUImplementedSets
+// loads AS its original (SWUResolveToImplementedPrint), whose text is inventoried here already. Skip exactly those —
+// IC27_139 / IC27_154 since IC27 went official (2026-11-07). A reprint that DOES load as itself (IBH_027, IBH_036,
+// IBH_100: IBH is implemented) is still checked, since its own id is what the registries are asked for in play.
+$isReprint = fn(string $cid) => SWUResolveToImplementedPrint(SWUCanonicalCardID($cid)) !== $cid;
 foreach (GetAllCardIds() as $cid) {
+    if ($isReprint($cid)) continue;
     $type = (string)(CardType($cid) ?? '');
     foreach ([false, true] as $deploy) {
         $text = (string)($deploy ? (CardDeployText($cid) ?? '') : (CardText($cid) ?? ''));
@@ -76,7 +83,7 @@ foreach (GetAllCardIds() as $cid) {
 // A base's Epic Action is not an "Action" clause but is a named entry on the base surface (`<BaseID>.0`), so it
 // must be registered too. (A leader's Epic Action is its deploy — a different path, not inventoried here.)
 foreach (GetAllCardIds() as $cid) {
-    if ((string)(CardType($cid) ?? '') !== 'Base') continue;
+    if ($isReprint($cid) || (string)(CardType($cid) ?? '') !== 'Base') continue;
     if (!preg_match('/(^|\R)\s*Epic Action/', (string)(CardText($cid) ?? ''))) continue;
     $cards++;
     if (!is_callable($baseAbilities[$cid] ?? null)) $miss("$cid.0", 'base Epic Action: no $baseAbilities entry');

@@ -857,6 +857,15 @@ pruned (official WebpImages/concat/crops present for each).
 - `test_swu_display_card_id`: reprint universe 88 → 171 groups, 36 → 111 display changes (all IC27; the corpus without
   IC27 is still 88), and its Special-printing example moved from Open Fire (now reprinted non-Special as IC27_136) to
   Waylay SOR_222.
+- **Limited (2026-11-08):** `DevTools/swu-printing-rarities.php` now reads the OFFICIAL FFG data (SWUSim's generated
+  dictionary) instead of the swu-db.com API, which still listed only 40 of the 92 reprints (agreeing on all 40). Re-run →
+  **92** reprints in `PrintingRarities.php` (+34 C, +18 U; the 40 unchanged, the 16 Starter Box Specials still never in
+  packs); `limited_packs_test` "waiting" 52 → **0**.
+- Flip-stale tests (2026-11-08, owner-approved): `test_swudeck_card_browser` (its 2 mock checks run only while a set is
+  mocked), `test_swudeck_preview_cards` (passes "no preview set mocked" on an empty mock FILE, fails on a missing one),
+  `test_loaddeck_holds_preview_reprints` (examples IC27_010/017 became Special → Onyx Squadron Brute IC27_015 + Homestead
+  Militia IC27_090; ⚠ **delete it on 2026-11-20** when IC27 leaves `PreviewSets.php`), `action_abilities_inventory_test`
+  (skips printings a deck loads as a different printing: IC27_139/154; IBH reprints still checked).
 
 Suite 14517 → **14530/0**.
 

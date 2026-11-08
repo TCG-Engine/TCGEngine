@@ -13,7 +13,21 @@ require_once __DIR__ . '/../../AppCore/SWU/MockCardMerge.php';
 
 $checks = [];
 $mocks = SWULoadMockCards();
-$checks['mock source is non-empty'] = is_array($mocks) && count($mocks) > 0;
+// SWULoadMockCards() also returns [] for a MISSING or unparseable file -- that must fail, not read as "between sets".
+$checks['mock source file exists and returns an array'] = file_exists(SWUMockCardsPath()) && is_array(require SWUMockCardsPath());
+
+// Between preview sets the mock source is EMPTY on purpose: a set's mocks are deleted when it flips to official FFG
+// data (HMW 2026-09-16, IC27 2026-11-07). Then there is no preview card to resolve, and the per-card checks below
+// have nothing to look at -- only the client wiring is still checkable. They come back on their own with the next
+// preview set's first mock; a non-empty source whose cards do not resolve still fails.
+if (is_array($mocks) && count($mocks) === 0) {
+    $js = glob(__DIR__ . '/../../SWUDeck/GeneratedCode/GeneratedCardDictionaries_*.js');
+    $checks['client JS still emits MockCardImageIDs'] = $js && strpos(file_get_contents($js[0]), 'var MockCardImageIDs') !== false;
+    $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
+    echo empty($fails) ? "PASS (" . count($checks) . " checks; no preview set is mocked, so the per-card checks wait for the next one)\n"
+                       : "FAIL: " . implode(', ', $fails) . "\n";
+    exit(empty($fails) ? 0 : 1);
+}
 
 // Pick a Leader mock and a Unit mock from the tracked source rather than hardcoding ids, so this
 // test survives the preview set changing.
