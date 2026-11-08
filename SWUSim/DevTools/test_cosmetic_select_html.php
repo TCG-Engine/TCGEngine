@@ -15,4 +15,20 @@ ok(strpos($mat, '<option value="none" data-asset="" selected>None</option>') !==
 
 ok(SWUCosmeticSelectHtml('bogus','x') === '<select class="cos-select" data-slot="bogus"></select>', "unknown slot -> empty option list");
 
+// Option order. Card backs: the default first, then the rest A→Z by label, case-insensitively (owner 2026-11-08).
+// Backgrounds and playmats: catalog order, untouched.
+$optionIds = function (string $html) { preg_match_all('/<option value="([^"]*)"/', $html, $m); return $m[1]; };
+$cat = SWUCosmeticCatalog();
+$backIds = $optionIds(SWUCosmeticSelectHtml('cardback', 'classic'));
+$def = SWUCosmeticDefault('cardback');
+$rest = array_keys(array_filter($cat['cardback'], fn($o) => empty($o['isDefault'])));
+usort($rest, fn($a, $b) => strcasecmp($cat['cardback'][$a]['label'], $cat['cardback'][$b]['label']));
+ok($backIds === array_merge([$def], $rest), "card backs: default first, then A-Z by label");
+ok(count($backIds) === count($cat['cardback']) && count(array_unique($backIds)) === count($backIds), "card backs: every option once");
+// The catalog itself is NOT alphabetical (Force Fam is appended last), so the check above can fail.
+$catRest = array_keys(array_filter($cat['cardback'], fn($o) => empty($o['isDefault'])));
+ok($catRest !== $rest, "card back catalog order differs from A-Z (keeps the sort check discriminating)");
+ok($optionIds(SWUCosmeticSelectHtml('background', 'default')) === array_keys($cat['background']), "backgrounds: catalog order");
+ok($optionIds(SWUCosmeticSelectHtml('playmat', 'none')) === array_keys($cat['playmat']), "playmats: catalog order");
+
 echo "PASS=$pass FAIL=$fail\n";
