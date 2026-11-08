@@ -303,6 +303,8 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     'ASH_063': 'When Defeated', 'SOR_105': 'When Defeated',
     // Aggression Played
     'SOR_143': 'Aggression Played',
+    // Rebel Played
+    'IC27_117': 'Rebel Played',
     // Attacks Costlier Unit
     'HMW_014': 'Attacks Costlier Unit',
     // Bounty Attack Ends

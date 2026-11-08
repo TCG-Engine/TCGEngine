@@ -112,7 +112,9 @@ function SWULimitedIconsSlotPools(string $set): array {
     if (isset($cache[$set])) return $cache[$set];
     if (!SWUIsSupplementalBoosterSet($set)) throw new InvalidArgumentException("$set has no Icons packs");
     $byRarity = [];
-    foreach (GetAllCardIds() as $c) if (CardSet($c) === $set) $byRarity[$c] = (string)CardRarity($c);
+    // Once a set's official data lands (IC27, 2026-11-07) its reprint PRINTINGS are in the dictionary too. Skip them
+    // here: a pack holds the CARD, and reprints come in below, by card id, at the rarity printed in this set.
+    foreach (GetAllCardIds() as $c) if (CardSet($c) === $set && CardIDOverride($c) === $c) $byRarity[$c] = (string)CardRarity($c);
     $byRarity += SWUReprintRaritiesIn($set);
     $p = array_fill_keys(['leader', 'common', 'uncommon', 'rare', 'legendary'], []);
     foreach ($byRarity as $c => $rarity) {

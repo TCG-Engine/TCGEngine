@@ -19,7 +19,10 @@ const SWUImplementedSets = ['SOR', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
 
 // Pick a printing of $cardID that the sim implements. Keeps the given printing
 // when its set is implemented; otherwise prefers the canonical, then any reprint
-// in an implemented set; falls back to the original if none exists.
+// in an implemented set; falls back to the CANONICAL if none exists.
+// ⚠ The fallback must be the canonical, not $cardID: card handlers are keyed by the earliest printing, so a reprint
+// of an SHD/TWI card (sets this list does not name) kept its own id and loaded with no abilities — IC27_176 Breaking
+// In did nothing. For a card that is not a reprint the two are the same id.
 function SWUResolveToImplementedPrint($cardID) {
     if ($cardID === '' || $cardID === null) return $cardID;
     if (in_array(SWUCardSet($cardID), SWUImplementedSets, true)) return $cardID;
@@ -28,7 +31,7 @@ function SWUResolveToImplementedPrint($cardID) {
     foreach (SWUReprintGroup($cardID) as $print) {
         if (in_array(SWUCardSet($print), SWUImplementedSets, true)) return $print;
     }
-    return $cardID;
+    return $canon;
 }
 
 

@@ -15,8 +15,9 @@ $checks['Wampa maps SOR_164 -> LOF_164'] = SWUDisplayCardID('SOR_164') === 'LOF_
 // Idempotent: feeding the display id back gives the same answer.
 $checks['idempotent on the display id']   = SWUDisplayCardID('LOF_164') === 'LOF_164';
 
-// Open Fire: only newer printing (TWI_174) is Special, so it must NOT move.
-$checks['Special printing is never selected'] = SWUDisplayCardID('SOR_172') === 'SOR_172';
+// Waylay: only newer printing (TWI_226) is Special, so it must NOT move. (This was Open Fire SOR_172
+// until IC27 went official on 2026-11-07 and gave it a non-Special newer printing, IC27_136.)
+$checks['Special printing is never selected'] = SWUDisplayCardID('SOR_222') === 'SOR_222';
 // Cell Block Guard: same shape (SHD_238 is Special).
 $checks['Cell Block Guard stays canonical']   = SWUDisplayCardID('SOR_229') === 'SOR_229';
 
@@ -44,7 +45,7 @@ foreach ($GLOBALS['SWUReprintUniverse'] as $id) {
 $checks['display never changes canonical identity'] = empty($bad);
 if ($bad) fwrite(STDERR, "  identity drift on: " . implode(', ', array_slice($bad, 0, 10)) . "\n");
 
-// Exactly 36 of 88 groups change. A different number means the rule or the corpus moved; both are
+// Exactly 111 of 171 groups change. A different number means the rule or the corpus moved; both are
 // worth failing on, because these numbers are what the design was signed off against.
 //
 // The arithmetic, so a future reader can tell a legitimate set release from a regression:
@@ -59,13 +60,16 @@ if ($bad) fwrite(STDERR, "  identity drift on: " . implode(', ', array_slice($ba
 //   reached the reprint universe). +5 groups / +5 changes, each an HMW reprint that now displays its
 //   HMW printing: HMW_096 Devotion (SOR_070), HMW_022 Shield Generator Complex (JTL_020), HMW_025
 //   Theed Palace (JTL_023), HMW_032 Mos Eisley (JTL_030), HMW_239 Pounce (LOF_224).
+//   88 / 36 held until 2026-11-07, when IC27 flipped to official data. All 92 IC27 reprints entered the
+//   universe: +83 groups that exist only because of an IC27 printing (9 more joined existing groups),
+//   and +75 changes, each a group now displaying its IC27 printing. Without IC27 the corpus is still 88.
 $groups = [];
 foreach ($GLOBALS['SWUReprintUniverse'] as $id) $groups[CardIDOverride($id)][] = $id;
 $multi   = array_filter($groups, fn($g) => count($g) > 1);
 $changed = 0;
 foreach (array_keys($multi) as $canon) if (SWUDisplayCardID($canon) !== $canon) $changed++;
-$checks['88 reprint groups']  = count($multi) === 88;
-$checks['36 display changes'] = $changed === 36;
+$checks['171 reprint groups']  = count($multi) === 171;
+$checks['111 display changes'] = $changed === 111;
 
 // The IBH links must never move a display id — they are all Special printings. This is the check that
 // keeps the count above meaningful: without it, a future rule change that started selecting Special

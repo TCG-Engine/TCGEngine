@@ -12351,6 +12351,8 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SOR_182':        BosskPlayEventReaction($player);        break;
         case 'HMW_215':        Hmw215ReplayEventReaction($player, $mzID);  break;
         case 'SOR_143':     FFFPlayAggressionReaction($player);     break;
+        // IC27_117 Hera Syndulla — mandatory "deal 1 damage to a base": any base at the table, own included.
+        case 'IC27_117':    SWUOfferBaseTarget(intval($player), ['continuation' => 'DEAL_BASE_DAMAGE', 'amount' => 1, 'prompt' => 'Deal_1_damage_to_a_base']); break;
         case 'SOR_109':           YularenHealReaction($player);           break;
         case 'Shielded': {
             // ⚠ RE-RESOLVE BY UID, AND CHECK IDENTITY — NOT JUST "is the slot empty?".
@@ -13739,6 +13741,12 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         // SOR_143 Fighters for Freedom: "When you play another [Aggression] card: you may deal 1 to a base."
         if ($cid === 'SOR_143' && $isAggression && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'SOR_143', 'SOR_143', '');
+        }
+        // IC27_117 Hera Syndulla, Against the Odds: "When you play another Rebel card: Deal 1 damage to a
+        // base." The SOR_143 shape with a TRAIT gate (read off the played card, any type — a Rebel pilot
+        // played as an upgrade is a card too) and no "may": the base pick is mandatory.
+        if ($cid === 'IC27_117' && $uid !== $playedUID && HasTrait($playedCardID, 'Rebel')) {
+            AddTrigger($playingPlayer, 'IC27_117', 'IC27_117', '');
         }
         // IC27_115 Poe Dameron: "When you play another Resistance card: This unit gets +1/+0 for this phase."
         // Any card type (the trait is read off the played card); mandatory, so applied inline to his live object.

@@ -251,6 +251,34 @@ function CardIDOverride($cardID) {
     case "IC27_176": return "TWI_224"; //Breaking In
     case "IC27_044": return "TWI_052"; //Hello There
     case "IC27_156": return "LOF_194"; //J-Type Nubian Starship
+    case "IC27_050": return "SEC_063"; //Rotunda Senate Guards
+    case "IC27_051": return "JTL_069"; //Munificent Frigate
+    case "IC27_054": return "SOR_073"; //Moment of Peace
+    case "IC27_072": return "LOF_095"; //Lor San Tekka
+    case "IC27_074": return "TWI_093"; //Advanced Recon Commando
+    case "IC27_088": return "SEC_108"; //Senator's Aide
+    case "IC27_091": return "ASH_129"; //Defenders of the Forest
+    case "IC27_092": return "JTL_119"; //Resupply Carrier
+    case "IC27_095": return "JTL_124"; //Tandem Assault
+    case "IC27_096": return "SHD_130"; //Moment of Glory
+    case "IC27_112": return "SEC_146"; //Rebellious Functionary
+    case "IC27_125": return "TWI_153"; //Bold Resistance
+    case "IC27_128": return "SEC_160"; //Reckless Rebel
+    case "IC27_130": return "LOF_157"; //Cartel Interceptor
+    case "IC27_132": return "JTL_168"; //Insurgent Saboteurs
+    case "IC27_134": return "SHD_179"; //Desperate Attack
+    case "IC27_135": return "SOR_170"; //Power Failure
+    case "IC27_137": return "SHD_183"; //Kintan Intimidator
+    case "IC27_139": return "SOR_177"; //Bib Fortuna
+    case "IC27_140": return "TWI_180"; //Separatist Commando
+    case "IC27_141": return "LOF_181"; //Banking Clan Shuttle
+    case "IC27_152": return "SEC_199"; //Bravo Squadron Fighter
+    case "IC27_170": return "TWI_207"; //B1 Security Team
+    case "IC27_171": return "SOR_210"; //Swoop Racer
+    case "IC27_174": return "ASH_228"; //Preparation
+    case "IC27_177": return "LOF_223"; //Force Illusion
+    case "IC27_183": return "SOR_232"; //AT-ST
+    case "IC27_193": return "JTL_253"; //Coordinated Front
     default: return $cardID;
   }
 }

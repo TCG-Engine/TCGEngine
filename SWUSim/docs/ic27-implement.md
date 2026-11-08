@@ -1,6 +1,11 @@
 # IC27 — Card Implementation Plan
 
-**⚠ PREVIEW SET.** All 21 cards (as of 2026-10-07; the first 15 below, 4 more in Phase 8, 2 more in Phase 9) are mock entries in `AppCore/SWU/CardMocks.php` (imported via
+**✅ OFFICIAL DATA since 2026-11-07 (Phase 24).** The IC27 mocks are retired: the oracle is now the IC27 CardIDs in
+`SWUSim/GeneratedCode/GeneratedCardDictionaries.php` (`$setData` value `IC27`, 194 numbered + 2 tokens), and
+`php SWUSim/DevTools/scaffold-cards.php IC27 --dry` lists anything with text and no handler. The CardMocks wording
+below is historical.
+
+**⚠ (historical) PREVIEW SET.** All 21 cards (as of 2026-10-07; the first 15 below, 4 more in Phase 8, 2 more in Phase 9) are mock entries in `AppCore/SWU/CardMocks.php` (imported via
 `zzPreviewTool.php`), not official-API data. Icons 2027 Edition releases **2026-11-20**. The card
 list GROWS as previews land — re-run `swusim-generate-set-implement-doc IC27` after each import;
 the `### Already Done` line survives regeneration.
@@ -10,7 +15,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042, IC27_162, IC27_083, IC27_155, IC27_043, IC27_172, IC27_005, IC27_160, IC27_179, IC27_106, IC27_102, IC27_151, IC27_109
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042, IC27_162, IC27_083, IC27_155, IC27_043, IC27_172, IC27_005, IC27_160, IC27_179, IC27_106, IC27_102, IC27_151, IC27_109, IC27_117, IC27_114
 
 ## Foundations already built — do not re-do
 
@@ -824,7 +829,42 @@ Snoke's "defeated this way" is measured (Shield/HP survivors don't count) and te
 **Limited:** Icons packs build their pools live from the dictionary (Phase 22 note), so all six reach the packs with no
 table change.
 
+## Phase 24 — Official flip, 2026-11-07 (100 mocks → 196 official CardIDs)
+
+FFG's API published all of IC27. Ran the HMW flip runbook (`docs/superpowers/plans/2026-09-16-swu-official-data-flip.md`
+Task 6): `withPreview=1` regens for SWUSim + SWUDeck (IC27 100 → 196; no other set's values changed) → SWUDB backfill of
+the four reprint-base traits (IC27_009–012, matching JTL_019/SOR_024/TWI_026/JTL_030) → `flip-audit.php --set=IC27`:
+**0 blocks**, 30 REVIEW, 96 NEW → all 100 mocks deleted (`SWUDeleteMockCard`) → regens → 324 `mock_IC27_*` art files
+pruned (official WebpImages/concat/crops present for each).
+
+- **Reprints:** 92 of the 96 never-mocked cards are reprints. 64 were already aliased; the other **28** (the 30 SWUDB
+  never listed, minus two new cards) were added to `Overrides.php` after a field-by-field check against the original
+  printing — only IC27_092 Resupply Carrier ("resource the top card") and IC27_137 Kintan Intimidator ("the defending
+  unit") reword, both equivalent. The other two NEW are tokens T01/T02.
+- **REVIEW that changed rules:** IC27_024 Thrawn — official "**another** friendly unit" (mock: "a friendly unit"). Owner
+  confirmed; he is now excluded in all three windows (one closure). `OnAttack_MayTargetHimself` became
+  `OnAttack_CannotTargetHimself` (owner-approved), `EnemyUnitIsNotAFriendlyTarget` no longer answers a prompt that only
+  existed because he could pick himself, + `WhenPlayed_OffersOnlyOtherFriendlyUnits` (offer asserted) and
+  `WhenPlayed_AloneNoPrompt`. Mutation (exclude nothing) reds 4 sections.
+- **REVIEW, no code impact:** IC27_040 title "Rose" → "Rose Tico" (nothing matches on it); ~12 subtitle capitalisations;
+  text formatting (bullets dropped, `[N resources]` → `N resources`, a missing closing parenthesis, he/it).
+- [x] **IC27_114 Cassian Andor – Blending In** — keyword-only (Hidden, generated into `$Hidden_Cards`). No code.
+- [x] **IC27_117 Hera Syndulla – Against the Odds** — "When you play another Rebel card: Deal 1 damage to a base." SOR_143
+  Fighters for Freedom's shape in `SWUCollectOwnPlayReactions` (trait gate, any card type, "another" by UID) + a
+  `DispatchTrigger` case: mandatory `SWUOfferBaseTarget` over every base. 11 sections incl. offer (2P + 4-seat), own base,
+  Rebel event + Rebel pilot-as-upgrade, two plays across a request boundary, opponent's play, blanked. Mutations: trait
+  gate → `NonRebelCard_NoTrigger` red; "another" → `HerasOwnPlay_DoesNotCount` red.
+- `test_swu_display_card_id`: reprint universe 88 → 171 groups, 36 → 111 display changes (all IC27; the corpus without
+  IC27 is still 88), and its Special-printing example moved from Open Fire (now reprinted non-Special as IC27_136) to
+  Waylay SOR_222.
+
+Suite 14517 → **14530/0**.
+
 ## Status
+
+**IC27: OFFICIAL — every one of the 194 numbered CardIDs plays** (2026-11-07). 102 have their own handlers or keywords
+(the 100 former mocks + IC27_114/117); 92 are reprints aliased in `Overrides.php`. Suite → 14530/0.
+Before the flip: **100 / 100** mocked CardIDs (seventeenth wave).
 
 **IC27: 100 / 100 mocked CardIDs implemented** (2026-11-06, seventeenth wave; suite 14453 → 14517/0; the end-of-run
 `comm -23` of `### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.

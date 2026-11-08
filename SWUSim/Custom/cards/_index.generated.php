@@ -458,6 +458,7 @@ return [
     'IC27_113' => 'ic27/EzraBridger_DownWithTheFreedom.php',
     'IC27_115' => 'ic27/PoeDameron_HeroOfTheResistance.php',
     'IC27_116' => 'ic27/BlackOne_DrawFireTwice.php',
+    'IC27_117' => 'ic27/HeraSyndulla_AgainstTheOdds.php',
     'IC27_119' => 'ic27/SabineWren_LiberatorOfKrownest.php',
     'IC27_120' => 'ic27/Rey_EmbracingDestiny.php',
     'IC27_122' => 'ic27/TheGhost_WhaleWatching.php',
