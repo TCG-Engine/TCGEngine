@@ -752,6 +752,17 @@ function SWUBotOpponentIsAggroLeader(int $seat): bool {
     return false;
 }
 
+// The hand list OR the meta style map — 'stylemap''s read without switching that proposal on for every rule. For the newer levers only
+// ('cleanupmid', theme 'beastpitch'): HMW_014 Wicket is hyper aggro in every real list (map rank 0.00) but is not in SWU_BOT_AGGRO_LEADERS.
+function SWUBotOpponentReadsAggro(int $seat): bool {
+    if (SWUBotOpponentIsAggroLeader($seat)) return true;
+    foreach (SWUBotOpponents($seat) as $o) {
+        $rank = SWUBotLeaderBaseStyleRank(strval((GetLeader($o)[0] ?? null)->CardID ?? ''), strval((GetBase($o)[0] ?? null)->CardID ?? ''));
+        if ($rank !== null && $rank < SWU_BOT_STYLEMAP_AGGRO_BELOW) return true;
+    }
+    return false;
+}
+
 // ── PROPOSAL 'rampres' (default OFF) — a credit-ramp control seat's resourcing, from the owner's own games ──────────────────
 // Ninin's 22 human games on Krennic Blue Splash v2 (12-10) against 600 bot games with the same list and opponents: the bot's
 // OPENING pick banks the cards she wins with. Vs a non-aggro leader it resourced Craving Power 21/21, No Glory 29/30, Resupply

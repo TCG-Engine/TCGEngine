@@ -241,13 +241,18 @@ function _SWUBotBaseHitHeal(array $att, array $W): float {
 // (a clean kill, or a trade scored ≥ 0). NULL — no cap — when there is nothing to defeat. (A lethal base hit needs no exemption: the
 // rule layer takes it first — bot_cleanup_test C.)
 const SWU_BOT_CLEANUPSOFT_LAST_ROUND = 5;
+const SWU_BOT_CLEANUPMID_LAST_ROUND = 4;
 function _SWUBotCleanupCap(array $ctx, array $att, array $W): ?float {
     $seat = intval($att['controller']);
     // FEATURE 'cleanupsoft' (p44) (owner 2026-10-12): SOFT control too, in rounds 1-5 (Krennic Splash vs aggro: R1-R4 unit attacks 21 in wins, 3 in losses).
     $rank = SWUBotStyleRank(strval($ctx['style'] ?? ''));
     $soft = $rank === 3 && SWUBotFeatureOn('cleanupsoft') && intval(GetTurnNumber()) <= SWU_BOT_CLEANUPSOFT_LAST_ROUND;
-    if ($rank < 4 && !$soft) return null;
-    if (!SWUBotProposalOn('cleanupall') && !SWUBotOpponentIsAggroLeader($seat)) return null;
+    // FEATURE 'cleanupmid' (p70) (owner 2026-11-08): "every midrange deck tries to stabilize against aggro but puts early pressure into control" —
+    // MIDRANGE in rounds 1-4, against an aggro read that includes the meta style map (SWUBotOpponentReadsAggro: Wicket). The control half
+    // needs nothing: the cap never applies against a non-aggro opponent. Tarfful Blue R1-R4 unit attacks: humans 45/96, the bot 58/355.
+    $mid = $rank === 2 && SWUBotFeatureOn('cleanupmid') && intval(GetTurnNumber()) <= SWU_BOT_CLEANUPMID_LAST_ROUND;
+    if ($rank < 4 && !$soft && !$mid) return null;
+    if (!SWUBotProposalOn('cleanupall') && !($mid ? SWUBotOpponentReadsAggro($seat) : SWUBotOpponentIsAggroLeader($seat))) return null;
     $threat = false;
     foreach (SWUBotOpponents($seat) as $o) if (SWUBotProposalOn('cleanupclock') ? SWUBotClock($o, $seat) < 4 : SWUBotBasePotential($o, $seat, false) > 0) $threat = true;
     if (!$threat) return null;
@@ -258,6 +263,7 @@ function _SWUBotCleanupCap(array $ctx, array $att, array $W): ?float {
         if ($tv >= 0.0) $best = $best === null ? $tv : max($best, $tv);
     }
     if ($best !== null && $soft) _SWUBotFired('cleanupsoft', $seat);
+    if ($best !== null && $mid) _SWUBotFired('cleanupmid', $seat);
     return $best === null ? null : $best - 0.01;
 }
 
