@@ -1525,6 +1525,111 @@
     margin-block-start: var(--s-3);
   }
 
+  /* ---------- News & tips carousel (Welcome tab) ------------ */
+  /* the divider only separates it from content ABOVE it in the panel — first in the panel, the tab strip's own
+     bottom border already does that, and a second rule would stack under it */
+  .news:not(:first-child) {
+    margin-block-start: var(--s-4);
+    padding-block-start: var(--s-3);
+    border-block-start: 1px solid var(--edge);
+  }
+
+  .news__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-2);
+  }
+
+  .news__heading {
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--t-12);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .news__count {
+    font-size: var(--t-12);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
+  }
+
+  /* every slide in ONE cell: the viewport is as tall as the tallest slide, so paging never moves the panels below */
+  .news__viewport {
+    display: grid;
+    margin-block-start: var(--s-2);
+    touch-action: pan-y;
+  }
+
+  .news__slide {
+    grid-area: 1 / 1;
+    min-inline-size: 0;
+    transition: opacity 220ms var(--ease), translate 220ms var(--ease), visibility 0s;
+
+    /* inactive = inert (set server-side for the first paint, then by initNewsCarousel) */
+    &[inert] {
+      visibility: hidden;
+      opacity: 0;
+      translate: 8px 0;
+      transition: opacity 220ms var(--ease), translate 220ms var(--ease), visibility 0s 220ms;
+    }
+  }
+
+  .news__kind {
+    margin: 0;
+    font-size: var(--t-11);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .news__title {
+    margin: 3px 0 0;
+    font-family: inherit;
+    font-size: var(--t-15);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  /* always a horizontal 2:1 rectangle, whatever the source's shape */
+  .news__img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    margin-block-start: var(--s-2);
+  }
+
+  .news__body {
+    margin: 6px 0 0;
+    font-size: var(--t-13);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .news__slide .keys { margin-block-start: var(--s-2); }
+
+  .news__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-2);
+    margin-block-start: var(--s-2);
+  }
+
+  .news__dots { display: flex; }
+
+  .news__nav { display: flex; gap: var(--s-1); }
+
+  /* square 44px arrows; padding and the dots live at the end of the file, past the legacy button alias */
+  .news__arrow { inline-size: var(--tap); }
+
   kbd {
     --cut: 6px;
     --rim: 1px;
@@ -3663,6 +3768,47 @@ body:has(.home-header) {
 .swu2-btn:not(.btn):not(.switch) {
   padding-inline: var(--s-4);
   font-weight: 700;
+}
+
+/* News & tips carousel controls (Welcome tab). The rule above (0-3-0) would pad the square arrows, and components.css's
+   `button:not(.btn):not(.switch)` alias (0-2-1, its ::before/::after 0-2-2, :hover 0-3-1) would give each dot a fill,
+   a chamfer and a 1.1x hover scale. Every dot is a 28x44 target; its pip is the ::before. */
+.news .news__arrow.swu2-btn:not(.btn):not(.switch) { padding-inline: 0; }
+
+.news .news__dot:not(.btn):not(.switch) {
+  inline-size: 28px;
+  block-size: var(--tap, 44px);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: none;
+  animation: none;
+  transform: none;
+  filter: none;
+}
+.news .news__dot:not(.btn):not(.switch)::before {
+  content: "";
+  position: absolute;
+  inset: auto;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  z-index: 0;
+  inline-size: 10px;
+  block-size: 4px;
+  translate: -50% -50%;
+  background: var(--ink-3);
+  opacity: 0.5;
+  clip-path: none;
+  transition: inline-size 220ms var(--ease), background-color 220ms var(--ease), opacity 150ms var(--ease);
+}
+.news .news__dot:not(.btn):not(.switch)::after { content: none; }
+.news .news__dot:not(.btn):not(.switch):hover::before { opacity: 0.9; }
+.news .news__dot:not(.btn):not(.switch)[aria-current="true"]::before {
+  inline-size: 20px;
+  background: var(--gold);
+  opacity: 1;
 }
 
 /* Fields: `button, input, select, textarea { padding: 5px 7px }` (menuStyles.css:94) added

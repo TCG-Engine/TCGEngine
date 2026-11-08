@@ -36,6 +36,9 @@ $swuSetupBotPre  = SWUSetupBotPreCons();
 // for guests. Verified before it is used to prefill anything (see LAST_DECK below).
 $swuLastDeck = $swuLoggedIn ? LoadLastDeck((int)$_SESSION['userid']) : null;
 
+// The Welcome panel's "News & tips" carousel: these items first, then the keyboard-shortcuts tip.
+$swuNews = require __DIR__ . '/News.php';
+
 // The PvP and Twin Suns cards' stat lines. Rendered server-side as well as refreshed on the 20s
 // poll, so the first paint is the truth rather than a fixture that the poll corrects a beat later.
 $swuLobbyStats = SWUMenuLobbyStats(SWUMenuLobbyRows());
@@ -238,14 +241,56 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
                     aria-selected="false" aria-controls="ga-info-panel-replays" tabindex="-1">Replays</button>
           </div>
 
-          <div class="tabpanel" id="ga-info-panel-welcome" role="tabpanel" aria-labelledby="ga-info-tab-welcome" tabindex="0">
-            <h3 class="welcome__title">Welcome to Petranaki Arena</h3>
-            <p class="welcome__note">Everything plays in the browser. No install, no account needed.</p>
-            <ul class="keys" id="hotkey-list">
-              <li class="keys__row"><kbd class="ch">u</kbd> Undo most recent action</li>
-              <li class="keys__row"><kbd class="ch">Space</kbd> Pass optional decision</li>
-              <li class="keys__row"><kbd class="ch">Esc</kbd> Cancel matchmaking</li>
-            </ul>
+          <div class="tabpanel" id="ga-info-panel-welcome" role="tabpanel" aria-labelledby="ga-info-tab-welcome" tabindex="0">            
+            <!-- News & tips: News.php's items, then the keyboard shortcuts. Moved by hand only — no auto-rotation, which
+                 is what got the old did-you-know rotator removed (WCAG 2.2.2). Every slide shares one grid cell, so the
+                 panel is as tall as the tallest slide and does not jump between them. -->
+            <?php $swuSlideCount = count($swuNews) + 1; ?>
+            <section class="news" id="swu-news" aria-roledescription="carousel" aria-labelledby="swu-news-h">
+              <div class="news__head">
+                <h4 class="news__heading" id="swu-news-h">News &amp; tips</h4>
+                <span class="news__count" id="swu-news-count" aria-hidden="true">1 / <?php echo $swuSlideCount; ?></span>
+              </div>
+              <div class="news__viewport" id="swu-news-viewport" aria-live="polite">
+                <?php foreach ($swuNews as $i => $item):
+                  $ts = strtotime($item['date']); ?>
+                <article class="news__slide" role="group" aria-roledescription="slide" aria-label="<?php echo ($i + 1) . ' of ' . $swuSlideCount; ?>"<?php if ($i > 0) echo ' aria-hidden="true" inert'; ?>>
+                  <p class="news__kind">News · <time datetime="<?php echo htmlspecialchars($item['date']); ?>"><?php echo date('M j, Y', $ts); ?></time></p>
+                  <h5 class="news__title"><?php echo htmlspecialchars($item['title']); ?></h5>
+                  <?php if (!empty($item['image'])): ?>
+                  <img class="news__img" src="<?php echo htmlspecialchars(_VersionAsset($item['image'])); ?>" alt="" width="1280" height="640" decoding="async">
+                  <?php endif; ?>
+                  <p class="news__body"><?php echo htmlspecialchars($item['body']); ?></p>
+                </article>
+                <?php endforeach; ?>
+                <article class="news__slide" role="group" aria-roledescription="slide" aria-label="<?php echo $swuSlideCount . ' of ' . $swuSlideCount; ?>"<?php if ($swuSlideCount > 1) echo ' aria-hidden="true" inert'; ?>>
+                  <p class="news__kind">Tip</p>
+                  <h5 class="news__title">Keyboard shortcuts</h5>
+                  <ul class="keys" id="hotkey-list">
+                    <li class="keys__row"><kbd class="ch">u</kbd> Undo most recent action</li>
+                    <li class="keys__row"><kbd class="ch">Space</kbd> Pass optional decision</li>
+                    <li class="keys__row"><kbd class="ch">Esc</kbd> Cancel matchmaking</li>
+                  </ul>
+                </article>
+              </div>
+              <?php if ($swuSlideCount > 1): ?>
+              <div class="news__foot">
+                <div class="news__dots">
+                  <?php for ($i = 0; $i < $swuSlideCount; $i++): ?>
+                  <button class="news__dot" type="button" data-slide="<?php echo $i; ?>" aria-label="Show slide <?php echo ($i + 1) . ' of ' . $swuSlideCount; ?>"<?php if ($i === 0) echo ' aria-current="true"'; ?>></button>
+                  <?php endfor; ?>
+                </div>
+                <div class="news__nav">
+                  <button class="swu2-btn swu2-btn--chip news__arrow ch" type="button" data-step="-1" aria-label="Previous">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+                  </button>
+                  <button class="swu2-btn swu2-btn--chip news__arrow ch" type="button" data-step="1" aria-label="Next">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+              <?php endif; ?>
+            </section>
           </div>
 
           <div class="tabpanel" id="ga-info-panel-replays" role="tabpanel" aria-labelledby="ga-info-tab-replays" tabindex="0" hidden>
@@ -785,11 +830,67 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
     container.innerHTML = html;
   }
 
+  // The Welcome panel's News & tips carousel. Arrows, dots, ←/→ while focus is inside it, and a horizontal swipe.
+  // Inactive slides stay in the layout (visibility, not display) so the panel keeps the tallest slide's height; they
+  // are inert so Tab and screen readers skip them.
+  function initNewsCarousel() {
+    var root = document.getElementById('swu-news');
+    if (!root) return;
+    var slides = root.querySelectorAll('.news__slide');
+    var dots = root.querySelectorAll('.news__dot');
+    var count = document.getElementById('swu-news-count');
+    if (slides.length < 2) { if (count) count.hidden = true; return; }
+    var current = 0;
+
+    function show(n) {
+      current = (n + slides.length) % slides.length;
+      slides.forEach(function (s, i) {
+        var on = i === current;
+        s.classList.toggle('is-active', on);
+        s.toggleAttribute('inert', !on);
+        if (on) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
+      });
+      dots.forEach(function (d, i) {
+        if (i === current) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+      });
+      if (count) count.textContent = (current + 1) + ' / ' + slides.length;
+    }
+
+    root.querySelectorAll('[data-step]').forEach(function (b) {
+      b.addEventListener('click', function () { show(current + parseInt(b.dataset.step, 10)); });
+    });
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () { show(parseInt(d.dataset.slide, 10)); });
+    });
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft')  { show(current - 1); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { show(current + 1); e.preventDefault(); }
+    });
+
+    // Swipe: horizontal travel of 40px+ that beats the vertical travel. touch-action: pan-y (CSS) leaves vertical
+    // scrolling to the page.
+    var viewport = document.getElementById('swu-news-viewport');
+    var startX = null, startY = 0;
+    viewport.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      startX = e.clientX; startY = e.clientY;
+    });
+    viewport.addEventListener('pointerup', function (e) {
+      if (startX === null) return;
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      startX = null;
+      if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1));
+    });
+    viewport.addEventListener('pointercancel', function () { startX = null; });
+
+    show(0);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     renderHotkeyList();
-    // Rotate tips every 8 seconds
+    initNewsCarousel();
     // Did-you-know rotator removed with the menu redesign (also a WCAG 2.2.2 failure:
-    // auto-rotating content with no pause control).
+    // auto-rotating content with no pause control). The News & tips carousel moves by hand only.
   });
 </script>
 
