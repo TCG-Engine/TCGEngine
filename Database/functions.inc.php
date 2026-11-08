@@ -70,6 +70,19 @@ function uidExists($conn, $username)
 	mysqli_close($conn);
 }
 
+// Record when an account was created (users.dateCreated, UTC, migration 23). A separate UPDATE rather than a column
+// in the INSERTs, which every sim shares: a DB without the column skips this and signs people up as before.
+// Never overwrites an existing value. Returns whether it wrote.
+function StampUserDateCreated(mysqli $conn, int $userId): bool
+{
+	if ($userId <= 0 || !DBColumnExists($conn, 'users', 'dateCreated')) return false;
+	$stmt = $conn->prepare("UPDATE users SET dateCreated = UTC_TIMESTAMP(3) WHERE usersId = ? AND dateCreated IS NULL");
+	$stmt->bind_param("i", $userId);
+	$stmt->execute();
+	$stmt->close();
+	return true;
+}
+
 // Insert new user into database
 function createUser($conn, $username, $email, $pwd)
 {
@@ -86,6 +99,7 @@ function createUser($conn, $username, $email, $pwd)
 	mysqli_stmt_bind_param($stmt, "sss", $username, $email, $hashedPwd);
 	mysqli_stmt_execute($stmt);
 	mysqli_stmt_close($stmt);
+	StampUserDateCreated($conn, (int)mysqli_insert_id($conn));
 	mysqli_close($conn);
 	return true;
 }
@@ -105,6 +119,7 @@ function CreateUserAPI($conn, $username, $email, $pwd)
 	mysqli_stmt_bind_param($stmt, "sss", $username, $email, $hashedPwd);
 	mysqli_stmt_execute($stmt);
 	mysqli_stmt_close($stmt);
+	StampUserDateCreated($conn, (int)mysqli_insert_id($conn));
 	mysqli_close($conn);
 }
 
