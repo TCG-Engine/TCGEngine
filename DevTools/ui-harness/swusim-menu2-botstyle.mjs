@@ -1,5 +1,8 @@
 // Arenabot's bot-style auto-picker, in the REDESIGNED modal.
 //
+// ⚠ PARTLY PARKED (owner 2026-11-09): every pre-con group is hidden after the Premier banlist, so the modal has no
+// ab-precon rows and sections 1 and 5 (a pre-con sets / submits the style) fail until a group returns.
+//
 // The legacy swuAutoPickBotStyle() keyed on hidden legacy fields (swu-deck2-input, deck-link,
 // deck-text) that the modals only write at SUBMIT time, and wrote the hidden #swu-botstyle-select
 // — so in the redesign it never fired and never touched the visible control. This gate pins the

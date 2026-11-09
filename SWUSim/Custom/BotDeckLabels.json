@@ -4,12 +4,14 @@
         {
             "id": "hmw-meta-2026-11",
             "label": "November 2026 Meta (Pre-Meta Update)",
-            "classify": false
+            "classify": false,
+            "menu": false
         },
         {
             "id": "force-fam-HMW-predictions",
             "label": "Force Fam HMW Predictions",
-            "classify": false
+            "classify": false,
+            "menu": false
         },
         {
             "id": "hmw-meta-utrecht",

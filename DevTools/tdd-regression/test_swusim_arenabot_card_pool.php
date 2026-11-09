@@ -43,7 +43,7 @@ Deck
 3 SOR_120
 2 SOR_121
 DECK;
-// Ahsoka Tano (ASH) Blue, Premier ✓
+// Ahsoka Tano (ASH) Blue, Premier ✓ (re-legalised for the 2026-11-09 Premier bans)
 $ahsoka = <<<'DECK'
 Leader
 1 ASH_009
@@ -54,23 +54,21 @@ Deck
 3 LOF_093
 3 LAW_037
 3 SEC_111
-3 ASH_079
 3 LAW_039
 3 LAW_038
-3 ASH_248
 3 SEC_101
 3 ASH_062
-2 ASH_056
-2 LOF_096
-2 ASH_077
+3 ASH_056
+3 LOF_096
+3 ASH_077
 3 SEC_099
 3 JTL_095
 3 JTL_250
-2 LAW_041
-1 SEC_179
-2 LAW_127
+3 LAW_041
+3 LAW_127
+2 JTL_096
 DECK;
-// Director Krennic (LAW) Blue Splash, Premier ✓
+// Director Krennic (LAW) Blue Splash, Premier ✓ (re-legalised for the 2026-11-09 Premier bans)
 $krennic = <<<'DECK'
 Leader
 1 LAW_008
@@ -82,24 +80,22 @@ Deck
 3 JTL_032
 3 LAW_159
 3 LAW_097
-3 ASH_079
 3 ASH_097
 3 LOF_059
 3 ASH_053
-2 SEC_087
-2 ASH_048
-2 LAW_039
-2 ASH_133
+3 SEC_087
+3 ASH_048
+3 LAW_039
+3 ASH_133
 1 SEC_068
 1 LAW_149
-3 ASH_052
-2 LAW_101
+3 LAW_101
 1 JTL_041
 3 JTL_043
 3 LAW_044
 1 SEC_078
 1 JTL_121
-2 LOF_091
+3 LOF_091
 DECK;
 
 $post = function (array $fields) use ($URL): ?object {

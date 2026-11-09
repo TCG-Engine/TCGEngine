@@ -18,10 +18,12 @@ const SWU_LABEL_STYLES = ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 
 // 'menu' => false — the group stays in BotDeckLabels.json (so the classifier, BotNameCard's meta knowledge and the bot tooling still
 // read it) but the Arenabot picker does not offer it (SWUSetupBotPreConGroups). Omitted = shown.
 const SWU_PRECON_GROUPS = [
-    // Owner 2026-11-08: Utrecht (melee 492213) + Baltimore (melee 498211) lead the menu — the best-placed list per archetype in the top
-    // 8.1% of each event. It supersedes the Utrecht-only group, hidden below.
-    ['id' => 'hmw-meta-2026-11',          'label' => 'November 2026 Meta (Pre-Meta Update)', 'classify' => false],
-    ['id' => 'force-fam-HMW-predictions', 'label' => 'Force Fam HMW Predictions',         'classify' => false],
+    // Owner 2026-11-08: Utrecht (melee 492213) + Baltimore (melee 498211) — the best-placed list per archetype in the top 8.1% of each
+    // event. It supersedes the Utrecht-only group, hidden below.
+    // Owner 2026-11-09: BOTH groups HIDDEN after that day's Premier banlist (Neel, Chimaera ASH, Koska ASH, Aggressive Negotiations) —
+    // most of their lists run a banned card. Force Fam will add new lists; until then the picker offers no pre-con group.
+    ['id' => 'hmw-meta-2026-11',          'label' => 'November 2026 Meta (Pre-Meta Update)', 'classify' => false, 'menu' => false],
+    ['id' => 'force-fam-HMW-predictions', 'label' => 'Force Fam HMW Predictions',         'classify' => false, 'menu' => false],
     // Owner 2026-11-08: HIDDEN from the menu (the November group replaced it), KEPT for the bot tools and reports that read its lists.
     ['id' => 'hmw-meta-utrecht',          'label' => 'HMW Meta Utrecht',                  'classify' => false, 'menu' => false],
     // Owner 2026-11-02: HIDDEN from the menu (Utrecht replaced it), KEPT — the bot tests and tools read its owner-labelled styles.

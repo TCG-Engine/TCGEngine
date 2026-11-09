@@ -30,7 +30,7 @@ $check(SWUCardPoolFor('botpractice', 'bogus') === 'open', 'Arenabot with an inva
 $check(SWUCardPoolFor('goldfish', null) === 'open' && SWUCardPoolFor('HOTSEAT', null) === 'open', 'Goldfish and Hotseat record open');
 $check(SWUCardPoolFor('teamsuns-preview', null) === 'teamsuns-preview', 'Team Suns Preview records its own format');
 
-// ── The deck refusal (inline decks; legality verified 2026-11-02) ──────────────────────────────────
+// ── The deck refusal (inline decks; legality verified 2026-11-02, re-legalised for the 2026-11-09 Premier bans) ──
 // all-SOR, so Premier ✗ / Eternal ✓ / Open ✓
 $sor = <<<'DECK'
 Leader
@@ -75,21 +75,19 @@ Deck
 3 LOF_093
 3 LAW_037
 3 SEC_111
-3 ASH_079
 3 LAW_039
 3 LAW_038
-3 ASH_248
 3 SEC_101
 3 ASH_062
-2 ASH_056
-2 LOF_096
-2 ASH_077
+3 ASH_056
+3 LOF_096
+3 ASH_077
 3 SEC_099
 3 JTL_095
 3 JTL_250
-2 LAW_041
-1 SEC_179
-2 LAW_127
+3 LAW_041
+3 LAW_127
+2 JTL_096
 DECK;
 // Director Krennic (LAW) Blue Splash, Premier ✓
 $krennic = <<<'DECK'
@@ -103,24 +101,22 @@ Deck
 3 JTL_032
 3 LAW_159
 3 LAW_097
-3 ASH_079
 3 ASH_097
 3 LOF_059
 3 ASH_053
-2 SEC_087
-2 ASH_048
-2 LAW_039
-2 ASH_133
+3 SEC_087
+3 ASH_048
+3 LAW_039
+3 ASH_133
 1 SEC_068
 1 LAW_149
-3 ASH_052
-2 LAW_101
+3 LAW_101
 1 JTL_041
 3 JTL_043
 3 LAW_044
 1 SEC_078
 1 JTL_121
-2 LOF_091
+3 LOF_091
 DECK;
 
 $check(SWUArenabotDeckRefusal('premier', $ahsoka, '') === null, 'Premier: a legal deck and no bot deck (the bot mirrors it) → allowed');

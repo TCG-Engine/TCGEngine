@@ -3,6 +3,10 @@
 #
 # VISUAL CHECK — Arenabot's GROUPED bot pre-cons (owner, 2026-10-01)
 #
+#   ⚠ PARKED (owner 2026-11-09): every group is hidden after the Premier banlist (Neel, Chimaera ASH, Koska ASH, Aggressive
+#   Negotiations), so Arenabot shows NO "Bot Pre-Cons" block and the bot-deck note reads "One list — the link above or a saved
+#   deck here, never both." The checks below apply again once a group returns (Force Fam's new lists).
+#
 #   The flat "Bot Pre-Cons" well became one BLOCK per group — since 2026-11-08 "November 2026 Meta (Pre-Meta Update)" and
 #   "Force Fam HMW Predictions" — and each block opens a PICKER dialog on top of the Arenabot modal with that group's decks.
 #   Groups marked 'menu' => false (HMW Meta Utrecht, HMW Meta September 2026, ASH Meta September 2026) are not offered or counted.

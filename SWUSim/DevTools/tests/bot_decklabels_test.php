@@ -31,11 +31,13 @@ $check(($byId['ash-meta-2026-09']['menu'] ?? true) === false && !empty($byId['as
     'ash-meta-2026-09 is hidden from the menu but still the classifier set');
 $check(($byId['hmw-meta-2026-09']['menu'] ?? true) === false, 'hmw-meta-2026-09 is hidden from the menu');
 $check(($byId['hmw-meta-utrecht']['menu'] ?? true) === false, 'hmw-meta-utrecht is hidden from the menu');
-$check(($byId['hmw-meta-2026-11']['menu'] ?? true) !== false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) !== false,
-    'the November 2026 and Force Fam groups are shown');
+// Owner 2026-11-09: after that day's Premier banlist EVERY group is hidden until Force Fam's new lists land — the picker
+// offers none (MainMenu.php then drops the Bot Pre-Cons block). When a group returns, pin it here again.
+$check(($byId['hmw-meta-2026-11']['menu'] ?? true) === false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) === false,
+    'the November 2026 and Force Fam groups are hidden (2026-11-09 banlist)');
 if (!function_exists('SWUSetupBotPreConGroups')) include_once './SWUSim/Custom/SetupPanels.php';
-$check(array_column(SWUSetupBotPreConGroups(), 'id') === ['hmw-meta-2026-11', 'force-fam-HMW-predictions'],
-    'the Arenabot picker offers November 2026, then Force Fam — not the hidden Utrecht, September HMW or ASH groups',
+$check(array_column(SWUSetupBotPreConGroups(), 'id') === [],
+    'the Arenabot picker offers no pre-con group',
     json_encode(array_column(SWUSetupBotPreConGroups(), 'id')));
 $classifyIds = array_column(array_filter($groups, fn($g) => !empty($g['classify'])), 'id');
 $check($classifyIds === ['ash-meta-2026-09'], 'only the reviewed tournament set feeds the classifier', json_encode($classifyIds));

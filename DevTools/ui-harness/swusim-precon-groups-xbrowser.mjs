@@ -1,3 +1,6 @@
+// ⚠ PARKED (owner 2026-11-09): every pre-con group is hidden after the Premier banlist, so the Arenabot modal has no
+// Bot Pre-Cons block and this harness fails until a group returns (Force Fam's new lists). Re-point it at that group then.
+//
 // Arenabot's GROUPED bot pre-cons (owner 2026-10-01): one block per group ("November 2026 Meta (Pre-Meta Update)" since 2026-11-08,
 // "Force Fam HMW Predictions"), each opening a picker <dialog> ON TOP of the Arenabot modal.
 // Chromium, Firefox and WebKit, at a desktop and a phone width. Pinned:

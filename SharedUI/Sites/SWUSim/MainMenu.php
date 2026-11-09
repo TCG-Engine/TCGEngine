@@ -600,21 +600,31 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </div>
           <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
         </div>
+        <?php /* No group shown (owner 2026-11-09: every group hidden after the Premier banlist) → no Bot Pre-Cons
+                 block below, so nothing here may point at "a pre-con below". */
+              $_groups = SWUSetupBotPreConGroups($swuSetupBotPre); ?>
         <div>
           <?php echo SWUSetupDeckLabel('ab-bot-saved', $swuSSLinked, " for the bot's deck") . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+<?php if ($_groups): ?>
           <?php echo SWUSetupDeckSourcePicker('ab-bot-saved', $swuSetupSaved, $swuSSLinked,
                     'No saved decks yet — use a pre-con below',
                     '— Use one of your saved decks or use a pre-con below —'); ?>
           <p class="note note--under">One list, the same one as above &mdash; a saved deck here, or a pre-con below, never both.</p>
+<?php else: ?>
+          <?php echo SWUSetupDeckSourcePicker('ab-bot-saved', $swuSetupSaved, $swuSSLinked,
+                    'No saved decks yet',
+                    '— Use one of your saved decks —'); ?>
+          <p class="note note--under">One list &mdash; the link above or a saved deck here, never both.</p>
+<?php endif; ?>
         </div>
+<?php if ($_groups): ?>
             <?php /* GROUPED pre-cons (owner 2026-10-01): one block per group (regen-deck-labels.php,
                      SWU_PRECON_GROUPS); each opens its own picker dialog ON TOP of this one. The pickers are
                      NESTED inside #setup-arenabot on purpose: the radios stay where SETUP_DECK_FOR, the
                      one-deck-per-slot binder, the bot-style auto-pick and the harnesses already look for them
                      (`#setup-arenabot input[name="ab-precon"]`), and showModal() still lifts each picker into
                      the top layer above this modal. They carry NO [data-close] / [data-act]: this modal binds
-                     both on every descendant, and a picker's own Done must not close it. */
-                  $_groups = SWUSetupBotPreConGroups($swuSetupBotPre); ?>
+                     both on every descendant, and a picker's own Done must not close it. */ ?>
             <fieldset class="fs">
               <legend class="lg">Bot Pre-Cons</legend>
               <p class="note note--over"><?php echo array_sum(array_map(fn($g) => count($g['decks']), $_groups)); ?> tuned decks in <?php echo count($_groups); ?> groups. Pick a group to choose one.</p>
@@ -653,6 +663,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               </dialog>
 <?php endforeach; ?>
             </fieldset>
+<?php endif; ?>
             <div class="prow">
           <div>
             <label class="flabel" for="ab-style">Bot Style</label>

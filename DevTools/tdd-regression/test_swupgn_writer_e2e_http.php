@@ -25,7 +25,7 @@ function e2e_req(string $url, string $jar, ?array $post = null, ?int &$status = 
     if ($post !== null) { curl_setopt($ch, CURLOPT_POST, 1); curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post)); }
     $r = curl_exec($ch); $status = intval(curl_getinfo($ch, CURLINFO_HTTP_CODE)); curl_close($ch); return (string)$r;
 }
-// Darth Vader (JTL) Yellow vs Director Krennic (LAW) Blue, both Premier-legal.
+// Darth Vader (JTL) Yellow vs Director Krennic (LAW) Blue, both Premier-legal (Krennic re-legalised for the 2026-11-09 bans).
 $vader = <<<'DECK'
 Leader
 1 JTL_006
@@ -61,19 +61,17 @@ Deck
 3 ASH_116
 3 JTL_032
 3 LAW_159
-3 ASH_079
 3 LAW_039
 3 ASH_097
 3 LOF_059
 3 ASH_053
-2 SEC_087
-2 ASH_048
-2 LAW_097
-2 ASH_133
+3 SEC_087
+3 ASH_048
+3 LAW_097
+3 ASH_133
 1 SEC_111
-3 ASH_052
-2 LAW_101
-2 JTL_033
+3 LAW_101
+3 JTL_033
 1 SEC_088
 1 ASH_102
 3 JTL_043

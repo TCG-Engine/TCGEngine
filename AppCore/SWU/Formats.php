@@ -11,7 +11,7 @@ function SWUFormatDefinitions() {
     $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW',];   // HMW released 2026-09-16 (owner)
     $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH', 'HMW',];
     $previewSets = ['IC27',];  // the next set to release (or a future set's preview window)
-    $premierBans = ['ASH_011'];
+    $premierBans = ['ASH_011', 'ASH_248', 'ASH_052', 'ASH_079', 'SEC_179'];   // 2026-11-09: Neel, Chimaera (ASH), Koska Reeves (ASH), Aggressive Negotiations
     $eternalBans = ['JTL_140', 'JTL_170'];
     return [
         // NOTE: JTL_256 (Vulture Droid) copy-exception and JTL_024/025 deck-size modifiers are
