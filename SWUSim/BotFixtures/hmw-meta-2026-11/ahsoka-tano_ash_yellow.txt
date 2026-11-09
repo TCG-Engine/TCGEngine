@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Freetown
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #13 of 485 (9-3-0), player mykeNcheese
+#   https://melee.gg/Decklist/View/f7968792-1ee6-4a4d-8f21-b4fb0013db20 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Ahsoka Tano (ASH) Yellow list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: hyperaggro — the owner's label from hmw-meta-2026-09/ahsoka-tano_ash_yellow.txt
+# Style: hyperaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 ASH_026
+
+Deck
+3 ASH_110
+3 LOF_191
+3 HMW_254
+3 JTL_203
+3 SEC_111
+3 HMW_208
+3 ASH_248
+2 JTL_103
+2 HMW_115
+2 HMW_211
+3 SEC_213
+3 JTL_096
+3 JTL_217
+3 JTL_249
+3 SEC_099
+3 ASH_201
+2 ASH_253
+1 SEC_204
+2 HMW_236
+
+Sideboard
+3 HMW_213
+2 ASH_236
+2 LAW_067
+1 SEC_204
+1 HMW_211
+1 ASH_253

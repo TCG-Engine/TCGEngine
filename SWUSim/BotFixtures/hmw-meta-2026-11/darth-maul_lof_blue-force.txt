@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Darth Maul, Sith Revealed - Nightsister Lair
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #17 of 485 (9-3-0), player NTXOT_Presidnet
+#   https://melee.gg/Decklist/View/a0976d11-e1a6-4ec0-9dcd-b4fa016d7106 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Darth Maul (LOF) Blue Force list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: midrange — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: midrange
+
+Leader
+1 LOF_009
+
+Base
+1 LOF_020
+
+Deck
+3 LOF_129
+3 LOF_070
+3 LOF_031
+3 ASH_079
+3 ASH_030
+3 HMW_039
+3 ASH_148
+3 ASH_053
+3 LOF_061
+3 LOF_035
+3 SEC_028
+3 HMW_185
+2 LOF_231
+3 ASH_052
+3 JTL_043
+2 JTL_144
+2 LAW_044
+2 SEC_038
+
+Sideboard
+3 ASH_183
+2 SEC_170
+2 JTL_078
+1 SEC_038
+1 JTL_144
+1 LAW_044

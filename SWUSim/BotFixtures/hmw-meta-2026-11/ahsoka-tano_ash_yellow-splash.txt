@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Canto Bight
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #6 of 485 (10-3-0), player STAR_Jangobet
+#   https://melee.gg/Decklist/View/18d60ba8-d8ba-46f8-9784-b4fa0189136e — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Ahsoka Tano (ASH) Yellow Splash list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softaggro — the owner's label from hmw-meta-2026-09/ahsoka-tano_ash_yellow-splash.txt
+# Style: softaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 LAW_028
+
+Deck
+3 ASH_110
+3 HMW_254
+3 JTL_203
+3 LAW_037
+3 SEC_111
+3 HMW_208
+3 ASH_248
+2 LOF_191
+2 JTL_103
+2 LAW_078
+3 SEC_213
+3 SEC_099
+3 ASH_201
+3 JTL_221
+3 ASH_222
+2 JTL_217
+2 ASH_203
+2 JTL_249
+2 LAW_246
+
+Sideboard
+3 IBH_052
+2 HMW_136
+2 ASH_220
+2 HMW_221
+1 LAW_078

@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Maul, Old Master - City in the Clouds
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #14 of 789 (10-3-0), player Hiere
+#   https://melee.gg/Decklist/View/48d933ac-c01e-43b4-ac33-b4f3015a209d — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Maul (HMW) Blue list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softcontrol — the owner's label from hmw-meta-2026-09/maul_hmw_blue.txt
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_016
+
+Base
+1 JTL_019
+
+Deck
+3 LOF_070
+3 ASH_048
+3 LOF_059
+3 LOF_057
+3 ASH_053
+3 LOF_242
+2 ASH_192
+2 SEC_186
+2 HMW_202
+2 ASH_079
+2 HMW_055
+3 ASH_052
+3 LOF_213
+2 HMW_204
+2 JTL_033
+2 ASH_194
+3 LAW_217
+3 JTL_043
+2 LAW_133
+2 HMW_205
+
+Sideboard
+3 HMW_198
+2 ASH_042
+1 JTL_041
+1 ASH_192
+1 SEC_186
+1 HMW_204
+1 ASH_194

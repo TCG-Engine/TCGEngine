@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Kazuda Xiono, Best Pilot in the Galaxy - Nevarro City, Restored
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #33 of 789 (9-3-1), player Mikes2187
+#   https://melee.gg/Decklist/View/33298a15-b722-476d-a893-b4f30076b6c2 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Kazuda Xiono (JTL) Blue list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softaggro — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: softaggro
+
+Leader
+1 JTL_018
+
+Base
+1 ASH_020
+
+Deck
+3 JTL_216
+3 JTL_203
+2 SEC_046
+2 JTL_245
+2 LAW_223
+3 ASH_043
+3 JTL_059
+3 SEC_215
+3 JTL_198
+3 JTL_249
+3 JTL_223
+3 JTL_221
+2 SEC_207
+2 ASH_253
+1 HMW_232
+2 JTL_231
+2 ASH_090
+3 HMW_216
+3 LAW_129
+2 SEC_256
+
+Sideboard
+2 HMW_081
+2 SEC_204
+2 JTL_235
+2 LAW_221
+2 LOF_226

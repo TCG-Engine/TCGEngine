@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Doctor Hemlock, Emotion Has No Place Here - Data Vault
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #48 of 789 (9-4-0), player O37_Kyzzy
+#   https://melee.gg/Decklist/View/be40f0ed-9666-415f-ab68-b4f3016b14c3 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Doctor Hemlock (HMW) Data Vault list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 60 (base minimum 60), sideboard 10.
+# Archetype: softcontrol — the owner's label from hmw-meta-2026-09/doctor-hemlock_hmw_data-vault.txt
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_003
+
+Base
+1 JTL_024
+
+Deck
+3 LOF_070
+3 LAW_037
+3 ASH_048
+3 ASH_079
+3 ASH_097
+3 LOF_059
+3 HMW_062
+3 LOF_057
+3 ASH_053
+3 HMW_064
+3 ASH_133
+1 LAW_149
+3 ASH_052
+3 LAW_135
+2 LAW_101
+1 JTL_041
+3 LAW_039
+3 LAW_133
+3 JTL_043
+2 LAW_132
+3 SEC_038
+3 LOF_091
+
+Sideboard
+2 LAW_118
+2 JTL_112
+2 SEC_078
+2 JTL_121
+1 JTL_041
+1 LAW_217

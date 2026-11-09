@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Dedra Meero, Not Wasting Time - Colossus
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #15 of 789 (10-3-0), player BN_TeeMouse
+#   https://melee.gg/Decklist/View/4c7c13d8-9c2f-4b0d-9d38-b4f30133d9ee — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Dedra Meero (SEC) Colossus list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 54 (base minimum 50), sideboard 10.
+# Archetype: hardcontrol — the owner's label from hmw-meta-2026-09/dedra-meero_sec_colossus.txt
+# Style: hardcontrol
+# Flavours: hard
+
+Leader
+1 SEC_010
+
+Base
+1 JTL_021
+
+Deck
+3 ASH_048
+3 ASH_030
+3 ASH_053
+3 HMW_180
+3 SEC_133
+2 LAW_049
+2 ASH_148
+1 HMW_042
+3 ASH_052
+2 JTL_143
+2 ASH_146
+3 SEC_182
+3 LAW_208
+3 SEC_180
+3 LAW_133
+3 JTL_043
+3 LAW_044
+2 SEC_246
+2 LAW_131
+2 LOF_177
+3 SEC_038
+
+Sideboard
+3 LAW_191
+2 JTL_181
+2 JTL_175
+1 JTL_143
+1 ASH_148
+1 JTL_180

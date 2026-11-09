@@ -1,0 +1,44 @@
+# Real-deck self-play fixture — Wicket, Few Greater Battles to Fight - Imperial Command Complex
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #2 of 789 (12-2-1), player BEO_Zahaphael
+#   https://melee.gg/Decklist/View/72cc27a5-4d21-4cd9-a4f9-b4f3017b96b3 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Wicket (HMW) Green Splash list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: hyperaggro — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: hyperaggro
+
+Leader
+1 HMW_014
+
+Base
+1 LAW_024
+
+Deck
+3 HMW_254
+3 LAW_037
+3 SEC_148
+3 HMW_115
+3 HMW_045
+3 ASH_248
+3 ASH_034
+2 HMW_175
+2 ASH_168
+2 SEC_101
+1 LAW_191
+3 JTL_151
+3 JTL_250
+2 JTL_096
+2 JTL_153
+3 LAW_078
+2 SEC_179
+3 HMW_126
+2 ASH_183
+1 SEC_104
+1 SEC_256
+
+Sideboard
+3 ASH_171
+2 LAW_191
+2 ASH_163
+1 SEC_104
+1 SEC_256
+1 SEC_163

@@ -3,9 +3,9 @@
 #
 # VISUAL CHECK — Arenabot's GROUPED bot pre-cons (owner, 2026-10-01)
 #
-#   The flat "Bot Pre-Cons" well became one BLOCK per group — since 2026-11-02 "HMW Meta Utrecht" and "Force Fam HMW
-#   Predictions" — and each block opens a PICKER dialog on top of the Arenabot modal with that group's decks.
-#   Groups marked 'menu' => false (HMW Meta September 2026, ASH Meta September 2026) are not offered or counted.
+#   The flat "Bot Pre-Cons" well became one BLOCK per group — since 2026-11-08 "November 2026 Meta (Pre-Meta Update)" and
+#   "Force Fam HMW Predictions" — and each block opens a PICKER dialog on top of the Arenabot modal with that group's decks.
+#   Groups marked 'menu' => false (HMW Meta Utrecht, HMW Meta September 2026, ASH Meta September 2026) are not offered or counted.
 #   Groups are fixture directories, defined once in SWUSim/DevTools/regen-deck-labels.php (SWU_PRECON_GROUPS) and
 #   carried to the menu by SWUSim/Custom/BotDeckLabels.json. Markup: MainMenu.php (Arenabot fieldset, the nested
 #   dialog.pcpick per group); JS: PRECON_GROUPS in MainMenu.php; styles: the "GROUPED pre-cons" section of
@@ -23,21 +23,21 @@ Then look, by eye (Safari is the owner's check), at:
 ## WHAT TO LOOK AT
 
 1. **On open.** The text cursor is in the empty **Deck Link** box. Under "Bot Pre-Cons" the note reads
-   "40 tuned decks in 2 groups. Pick a group to choose one." and two blocks sit side by side (stacked at phone
-   width): **HMW Meta Utrecht · 24 decks** and **Force Fam HMW Predictions · 16 decks**, each with a `›`.
+   "45 tuned decks in 2 groups. Pick a group to choose one." and two blocks sit side by side (stacked at phone
+   width): **November 2026 Meta (Pre-Meta Update) · 29 decks** and **Force Fam HMW Predictions · 16 decks**, each with a `›`.
    Neither is gold and neither says "Selected" — nothing is picked yet.
 2. **The blocks are the pre-con row's material.** Chamfered corners (top-left, bottom-right), no rounded corners,
    no 1px border, left-aligned mixed-case text. ⚠ A centred or UPPERCASE label, or square corners, means the legacy
    `button` rules won the cascade (see legacy-css notes in MainMenu_SetupModals_RealData.md §17).
 3. **A block opens its picker ON TOP.** The Arenabot modal stays visible, dimmed, behind it. The picker shows
    "BOT PRE-CONS" over the group name, "N decks. Pick one for the bot to play.", the deck rows (name, leader /
-   base · cards, archetype tag) and a Done button. Desktop: the well shows ~10 Utrecht rows and scrolls the rest
-   (24). Phone width: a bottom sheet.
+   base · cards, archetype tag) and a Done button. Desktop: the well shows ~10 November rows and scrolls the rest
+   (29). Phone width: a bottom sheet.
 4. **Authors.** The Force Fam rows read "Ahsoka Tano (ASH) Yellow Space By Ninin" and "… By Star Wars Dad" (the
-   fixture's `# Author:` line). Utrecht rows have no "By".
+   fixture's `# Author:` line). November rows have no "By".
 5. **Picking.** Click a row: the picker closes, the block that holds it turns gold and reads
    "Selected: <deck>", the other block clears, the status line says "Playing the <deck> pre-con as the bot's
-   deck." and Bot Style switches to the deck's archetype (Ninin's Ahsoka → Hyper Aggro; Utrecht's Dedra → Hard Control).
+   deck." and Bot Style switches to the deck's archetype (Ninin's Ahsoka → Hyper Aggro; November's Dedra → Hard Control).
 6. **Keyboard.** Arrow keys move the choice inside the picker WITHOUT closing it; Done, the X or Escape close
    it. Escape closes only the picker — Arenabot stays open.
 7. **Backdrop.** Clicking the dim area outside the picker closes only the picker.

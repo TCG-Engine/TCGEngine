@@ -19,21 +19,23 @@ $reg = json_decode((string)@file_get_contents($path), true);
 $check(is_array($reg) && isset($reg['decks']), 'the registry parses');
 $decks = $reg['decks'] ?? [];
 $groups = $reg['groups'] ?? [];
-// Owner 2026-11-02: the Utrecht set leads the Arenabot menu, before Force Fam; the September HMW set is hidden from the menu but kept
-// in the registry, like the ASH meta set before it ('menu' => false) — ASH is still the classifier's reviewed label set.
-$check(array_column($groups, 'id') === ['hmw-meta-utrecht', 'force-fam-HMW-predictions', 'hmw-meta-2026-09', 'ash-meta-2026-09'],
+// Owner 2026-11-08: the November 2026 set (Utrecht + Baltimore) leads the Arenabot menu, before Force Fam; the Utrecht-only and September
+// HMW sets are hidden from the menu but kept in the registry, like the ASH meta set before them ('menu' => false) — ASH is still the
+// classifier's reviewed label set.
+$check(array_column($groups, 'id') === ['hmw-meta-2026-11', 'force-fam-HMW-predictions', 'hmw-meta-utrecht', 'hmw-meta-2026-09', 'ash-meta-2026-09'],
     'the registry groups, in order', json_encode(array_column($groups, 'id')));
-$check(array_column($groups, 'label') === ['HMW Meta Utrecht', 'Force Fam HMW Predictions', 'HMW Meta September 2026', 'ASH Meta September 2026'],
-    'the group labels (owner 2026-10-01 / 2026-10-11 / 2026-11-02)', json_encode(array_column($groups, 'label')));
+$check(array_column($groups, 'label') === ['November 2026 Meta (Pre-Meta Update)', 'Force Fam HMW Predictions', 'HMW Meta Utrecht', 'HMW Meta September 2026', 'ASH Meta September 2026'],
+    'the group labels (owner 2026-10-01 / 2026-10-11 / 2026-11-02 / 2026-11-08)', json_encode(array_column($groups, 'label')));
 $byId = array_column($groups, null, 'id');
 $check(($byId['ash-meta-2026-09']['menu'] ?? true) === false && !empty($byId['ash-meta-2026-09']['classify']),
     'ash-meta-2026-09 is hidden from the menu but still the classifier set');
 $check(($byId['hmw-meta-2026-09']['menu'] ?? true) === false, 'hmw-meta-2026-09 is hidden from the menu');
-$check(($byId['hmw-meta-utrecht']['menu'] ?? true) !== false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) !== false,
-    'the HMW Utrecht and Force Fam groups are shown');
+$check(($byId['hmw-meta-utrecht']['menu'] ?? true) === false, 'hmw-meta-utrecht is hidden from the menu');
+$check(($byId['hmw-meta-2026-11']['menu'] ?? true) !== false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) !== false,
+    'the November 2026 and Force Fam groups are shown');
 if (!function_exists('SWUSetupBotPreConGroups')) include_once './SWUSim/Custom/SetupPanels.php';
-$check(array_column(SWUSetupBotPreConGroups(), 'id') === ['hmw-meta-utrecht', 'force-fam-HMW-predictions'],
-    'the Arenabot picker offers HMW Utrecht, then Force Fam — not the hidden September HMW or ASH groups',
+$check(array_column(SWUSetupBotPreConGroups(), 'id') === ['hmw-meta-2026-11', 'force-fam-HMW-predictions'],
+    'the Arenabot picker offers November 2026, then Force Fam — not the hidden Utrecht, September HMW or ASH groups',
     json_encode(array_column(SWUSetupBotPreConGroups(), 'id')));
 $classifyIds = array_column(array_filter($groups, fn($g) => !empty($g['classify'])), 'id');
 $check($classifyIds === ['ash-meta-2026-09'], 'only the reviewed tournament set feeds the classifier', json_encode($classifyIds));

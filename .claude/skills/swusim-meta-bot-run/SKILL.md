@@ -19,7 +19,7 @@ The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SW
 
 | tag | status | size | one arm |
 |---|---|---|---|
-| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | **1 event since 2026-11-02**: melee 492213 Regional Championship Utrecht (766 lists, 3,046 real matches). It superseded the 5-event set (342 matches, 664 games; owner: the small events were fine for early trends, a real event is the base now). Arms from before 2026-11-02 do not pair with newer ones. Baseline **v5** frozen 2026-11-06 (`eaf623d31`, codeRef `ac96c14ea`, 6,088 games) | full: 6,088 games, **~5 h** · **speed run (Mode S): 304 games, ~15 min** (measured 14.5 min, 2026-11-03) |
+| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | **2 events since 2026-11-08 — "November 2026 Meta (Pre-Meta Update)"**: melee 492213 RC Utrecht (766 lists, 3,046 matches) + melee 498211 SQ Baltimore (467 lists, 1,672 matches) = 1,233 lists, 4,718 real matches, 4,713 pairs. The Utrecht part is byte-identical to the 2026-11-02 Utrecht-only set, so Utrecht games of older arms still pair; it superseded the 5-event set (342 matches) on 2026-11-02. Baseline **v5** frozen 2026-11-06 (`eaf623d31`, codeRef `ac96c14ea`, 6,088 games) covers the **Utrecht matches only** (analyze.py prints "3046/4718 replayed"); its speed set is Utrecht-only too | full: **9,426 games, ~7.5 h** (est.) · **speed run (Mode S): 304 games, ~15 min** (measured 14.5 min, 2026-11-03) |
 | ASH | **RETIRED 2026-10-26** — owner: "we dont have to run ASH metas anymore … we are 2 weeks into the HMW meta now". Run only if the owner explicitly asks for ASH. | 53 events, 9,933 matches → ~19,650 games | ~2.5 h |
 
 ## Owner policy — read first

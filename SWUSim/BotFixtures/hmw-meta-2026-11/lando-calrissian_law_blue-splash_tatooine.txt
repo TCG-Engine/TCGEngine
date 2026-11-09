@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Lando Calrissian, Full Sabacc - Daimyo's Palace
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #21 of 485 (9-3-0), player SupplyandDemAndrew
+#   https://melee.gg/Decklist/View/3471fabf-79a7-4744-9922-b4fb00e22819 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Lando Calrissian (LAW) Blue Splash (Tatooine) list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 51 (base minimum 50), sideboard 10.
+# Archetype: midrange — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: midrange
+
+Leader
+1 LAW_018
+
+Base
+1 LAW_020
+
+Deck
+3 SEC_051
+3 JTL_203
+3 HMW_234
+3 LAW_078
+3 HMW_211
+3 LAW_229
+2 ASH_206
+2 LOF_200
+1 LOF_199
+1 LAW_223
+1 SEC_209
+3 ASH_043
+3 ASH_201
+3 JTL_221
+2 LAW_224
+2 SEC_207
+3 SEC_211
+3 LAW_246
+2 SEC_179
+2 ASH_236
+2 IBH_052
+1 HMW_218
+
+Sideboard
+2 SEC_204
+2 JTL_078
+2 ASH_220
+2 ASH_222
+1 HMW_218
+1 IBH_052

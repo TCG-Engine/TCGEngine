@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Tarfful, Fighting from the Shadowlands - Colossus
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #8 of 485 (9-3-1), player HolmesDM
+#   https://melee.gg/Decklist/View/8ea2b466-99b7-4810-92d7-b4fb00ea3237 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Tarfful (HMW) Colossus list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: midrange — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: midrange
+
+Leader
+1 HMW_010
+
+Base
+1 JTL_021
+
+Deck
+3 LOF_070
+3 SEC_051
+3 HMW_035
+3 LOF_100
+3 ASH_079
+3 LAW_039
+2 SEC_046
+2 HMW_036
+2 ASH_077
+2 ASH_062
+1 HMW_124
+1 ASH_053
+1 LAW_149
+1 ASH_133
+3 JTL_096
+3 ASH_052
+2 ASH_109
+1 ASH_102
+3 LAW_133
+3 LAW_041
+2 SEC_078
+3 HMW_038
+
+Sideboard
+2 HMW_081
+2 JTL_078
+2 LAW_127
+1 SEC_046
+1 SEC_078
+1 LAW_149
+1 ASH_133
