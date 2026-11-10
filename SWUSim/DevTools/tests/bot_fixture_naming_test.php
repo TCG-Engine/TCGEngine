@@ -161,7 +161,7 @@ $check(SWUBotFixtureDisplayNameFromFile('a_b_c_by-') === '' && SWUBotFixtureDisp
 // outside the convention by design (attribution, and defect-encoding names, respectively).
 // force-fam-HMW-predictions/ follows the convention (owner, 2026-10-01) — it is where the base-trait 4th field was
 // introduced.
-foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] as $dir) {
+foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'force-fam-IC27-predictions', 'hmw-meta-2026-09'] as $dir) {
     $byName = []; $misnamed = [];
     // ⚠ An EMPTY or renamed directory would make every check below pass vacuously — the owner renamed
     // star-wars-dad-HMW-predictions/ to force-fam-HMW-predictions/ mid-session, and this test kept passing on nothing.
@@ -230,6 +230,11 @@ $known = ['ahsoka-tano_ash_yellow_v-with-neel' => 'Ninin', 'ahsoka-tano_ash_yell
           'maul_hmw_blue_tatooine_v-discard' => 'Ninin'];
 $wrong = array_filter($known, fn($a, $f) => ($authors[$f] ?? null) !== $a, ARRAY_FILTER_USE_BOTH);
 $check(empty($wrong), 'each known creator deck credits the right author', json_encode(array_map(fn($f) => $authors[$f] ?? '(missing)', array_keys($wrong))));
+// Force Fam IC27 predictions (owner 2026-11-09): the same rule for the post-ban group (its file names repeat HMW-group ones, so it is
+// checked on its own).
+$authors27 = [];
+foreach (glob('./SWUSim/BotFixtures/force-fam-IC27-predictions/*.txt') ?: [] as $p) $authors27[basename($p, '.txt')] = SWUBotDeckFromFixtureText((string)file_get_contents($p))['author'];
+$check(count($authors27) >= 2 && !in_array('', $authors27, true), 'every force-fam-IC27-predictions deck names its author: ' . json_encode($authors27));
 
 // (weak-2026-09 — defect-named fixtures exempt from the convention — was removed 2026-10-11; its assertion went with it, owner.)
 

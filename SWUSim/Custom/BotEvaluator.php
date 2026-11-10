@@ -832,6 +832,20 @@ function SWUBotPowerStrikePower(int $seat, string $cid): int {
     }
     $best = 0;
     foreach (SWUBotUnits($seat) as $u) $best = max($best, intval($u['power']));
+    // Feature 'cravingstrike' (p71): an UPGRADE striker ("deal damage … equal to attached unit's power", LOF_091 Craving Power +2/+2) is
+    // attached first, so its own +power is in the strike. Without it every Craving strike read 2 short.
+    if ($best > 0 && SWUBotFeatureOn('cravingstrike') && str_contains(strval(CardType($cid)), 'Upgrade')) $best += max(0, intval(CardUpgradePower($cid)));
+    return $best;
+}
+
+// Feature 'cravingstrike' (p71): the unit value of the best enemy unit a power strike of $power defeats (0 = none). A flat kill bonus
+// priced a 1-HP token like a 7/7, and Craving Power sat in hand through 16 of 26 kill windows the bot itself could see (2026-11-09 run).
+function SWUBotPowerStrikeBestKill(int $seat, int $power): float {
+    $best = 0.0;
+    if ($power <= 0) return $best;
+    foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $u) {
+        if (intval($u['shields'] ?? 0) === 0 && SWUBotDamageKills($u, $power)) $best = max($best, SWUBotUnitValue($u));   // a Shield eats the strike
+    }
     return $best;
 }
 

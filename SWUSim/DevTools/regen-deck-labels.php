@@ -18,6 +18,8 @@ const SWU_LABEL_STYLES = ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 
 // 'menu' => false — the group stays in BotDeckLabels.json (so the classifier, BotNameCard's meta knowledge and the bot tooling still
 // read it) but the Arenabot picker does not offer it (SWUSetupBotPreConGroups). Omitted = shown.
 const SWU_PRECON_GROUPS = [
+    // Owner 2026-11-09: Force Fam's post-ban predictions (IC27 meta) — the first group back in the menu after that day's banlist.
+    ['id' => 'force-fam-IC27-predictions', 'label' => 'Force Fam IC27 Predictions',       'classify' => false, 'menu' => true],
     // Owner 2026-11-08: Utrecht (melee 492213) + Baltimore (melee 498211) — the best-placed list per archetype in the top 8.1% of each
     // event. It supersedes the Utrecht-only group, hidden below.
     // Owner 2026-11-09: BOTH groups HIDDEN after that day's Premier banlist (Neel, Chimaera ASH, Koska ASH, Aggressive Negotiations) —

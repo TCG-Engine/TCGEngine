@@ -23,6 +23,7 @@ $check(SWUBotIsKeyCard(1, 'JTL_240'), 'burn cards are key in every deck (tags v2
 // hmw-meta-2026-09/ and ideas/ too (2026-10-21): 'tempo' is DETECTED from the deck (BotTempo.php), so every labelled list is checked.
 $fixtureFiles = array_merge(glob('SWUSim/BotFixtures/ash-meta-2026-09/*.txt') ?: [],
                             glob('SWUSim/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [],
+                            glob('SWUSim/BotFixtures/force-fam-IC27-predictions/*.txt') ?: [],
                             glob('SWUSim/BotFixtures/hmw-meta-2026-09/*.txt') ?: [],
                             glob('SWUSim/BotFixtures/ideas/*.txt') ?: []);
 $check(count(glob('SWUSim/BotFixtures/ideas/*.txt') ?: []) > 0, 'the ideas dir is present');

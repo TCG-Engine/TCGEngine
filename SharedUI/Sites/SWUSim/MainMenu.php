@@ -627,7 +627,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
                      both on every descendant, and a picker's own Done must not close it. */ ?>
             <fieldset class="fs">
               <legend class="lg">Bot Pre-Cons</legend>
-              <p class="note note--over"><?php echo array_sum(array_map(fn($g) => count($g['decks']), $_groups)); ?> tuned decks in <?php echo count($_groups); ?> groups. Pick a group to choose one.</p>
+              <p class="note note--over"><?php echo array_sum(array_map(fn($g) => count($g['decks']), $_groups)); ?> tuned decks in <?php echo count($_groups) . (count($_groups) === 1 ? ' group' : ' groups'); ?>. Pick a group to choose one.</p>
               <div class="pcgroups">
 <?php foreach ($_groups as $_g):
       $_gid = 'pcpick-' . preg_replace('/[^A-Za-z0-9_-]+/', '-', $_g['id'] !== '' ? $_g['id'] : 'all'); ?>

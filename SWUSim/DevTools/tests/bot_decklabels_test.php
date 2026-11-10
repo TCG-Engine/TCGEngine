@@ -19,25 +19,27 @@ $reg = json_decode((string)@file_get_contents($path), true);
 $check(is_array($reg) && isset($reg['decks']), 'the registry parses');
 $decks = $reg['decks'] ?? [];
 $groups = $reg['groups'] ?? [];
+// Owner 2026-11-09: Force Fam's IC27 predictions lead the registry (the only group in the menu after the banlist).
 // Owner 2026-11-08: the November 2026 set (Utrecht + Baltimore) leads the Arenabot menu, before Force Fam; the Utrecht-only and September
 // HMW sets are hidden from the menu but kept in the registry, like the ASH meta set before them ('menu' => false) — ASH is still the
 // classifier's reviewed label set.
-$check(array_column($groups, 'id') === ['hmw-meta-2026-11', 'force-fam-HMW-predictions', 'hmw-meta-utrecht', 'hmw-meta-2026-09', 'ash-meta-2026-09'],
+$check(array_column($groups, 'id') === ['force-fam-IC27-predictions', 'hmw-meta-2026-11', 'force-fam-HMW-predictions', 'hmw-meta-utrecht', 'hmw-meta-2026-09', 'ash-meta-2026-09'],
     'the registry groups, in order', json_encode(array_column($groups, 'id')));
-$check(array_column($groups, 'label') === ['November 2026 Meta (Pre-Meta Update)', 'Force Fam HMW Predictions', 'HMW Meta Utrecht', 'HMW Meta September 2026', 'ASH Meta September 2026'],
-    'the group labels (owner 2026-10-01 / 2026-10-11 / 2026-11-02 / 2026-11-08)', json_encode(array_column($groups, 'label')));
+$check(array_column($groups, 'label') === ['Force Fam IC27 Predictions', 'November 2026 Meta (Pre-Meta Update)', 'Force Fam HMW Predictions', 'HMW Meta Utrecht', 'HMW Meta September 2026', 'ASH Meta September 2026'],
+    'the group labels (owner 2026-10-01 / 2026-10-11 / 2026-11-02 / 2026-11-08 / 2026-11-09)', json_encode(array_column($groups, 'label')));
 $byId = array_column($groups, null, 'id');
 $check(($byId['ash-meta-2026-09']['menu'] ?? true) === false && !empty($byId['ash-meta-2026-09']['classify']),
     'ash-meta-2026-09 is hidden from the menu but still the classifier set');
 $check(($byId['hmw-meta-2026-09']['menu'] ?? true) === false, 'hmw-meta-2026-09 is hidden from the menu');
 $check(($byId['hmw-meta-utrecht']['menu'] ?? true) === false, 'hmw-meta-utrecht is hidden from the menu');
-// Owner 2026-11-09: after that day's Premier banlist EVERY group is hidden until Force Fam's new lists land — the picker
-// offers none (MainMenu.php then drops the Bot Pre-Cons block). When a group returns, pin it here again.
+// Owner 2026-11-09: after that day's Premier banlist the pre-ban groups are hidden; Force Fam's IC27 predictions (post-ban lists, added
+// the same day) are the one group the picker offers.
 $check(($byId['hmw-meta-2026-11']['menu'] ?? true) === false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) === false,
     'the November 2026 and Force Fam groups are hidden (2026-11-09 banlist)');
 if (!function_exists('SWUSetupBotPreConGroups')) include_once './SWUSim/Custom/SetupPanels.php';
-$check(array_column(SWUSetupBotPreConGroups(), 'id') === [],
-    'the Arenabot picker offers no pre-con group',
+$check(($byId['force-fam-IC27-predictions']['menu'] ?? false) === true, 'the Force Fam IC27 group is in the menu');
+$check(array_column(SWUSetupBotPreConGroups(), 'id') === ['force-fam-IC27-predictions'],
+    'the Arenabot picker offers only the Force Fam IC27 group',
     json_encode(array_column(SWUSetupBotPreConGroups(), 'id')));
 $classifyIds = array_column(array_filter($groups, fn($g) => !empty($g['classify'])), 'id');
 $check($classifyIds === ['ash-meta-2026-09'], 'only the reviewed tournament set feeds the classifier', json_encode($classifyIds));

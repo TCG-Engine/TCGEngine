@@ -1,0 +1,48 @@
+# Self-play fixture — "Krennic Blue (Naboo)" (Director Krennic, Amidst My Achievement - Great Grass Plains)
+# Source: given by the owner as JSON 2026-11-09, a Force Fam PREDICTION for the post-ban IC27 meta (Premier banlist of 2026-11-09:
+#   Neel, Chimaera, Koska, Aggressive Negotiations — none of them in this list). 52 main-deck cards, 10 sideboard.
+#   Same list as the SWU Forge deck cmw9soszn0prg01pli60nc73m "Krennic Blue (Naboo)" main v1 (6 games 2026-11-09, 5-1) plus
+#   2 I Am Your Father (IC27_185, a reprint of the SOR event).
+#   Base trait: Great Grass Plains is Naboo, and the deck cares (Sando Aqua Monster HMW_094), so the trait is part of its name.
+# Author: Ninin
+#   ⚠ The JSON's author field was EMPTY. Credited to Ninin because the same-named list is Ninin TCG's SWU Forge deck — an inference.
+# Archetype: the deck-style classifier (SWUBotDeckStyle, 2026-11-09) — softcontrol, HIGH confidence, source shape: score 2.95, 0% aggro
+#   side (18 units <= 3 cost, 0 burn, 0 attack/buff cards; 10 units >= 6 cost, 8 removal events, 8 wipes). Same as the Force Fam HMW
+#   Krennic Blue Naboo label. (The 2026-11-09 p71 research runs piloted this list as midrange, the hmw-meta tournament label.)
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 HMW_020
+
+Deck
+3 ASH_116
+2 ASH_133
+3 ASH_048
+3 ASH_053
+3 ASH_097
+3 HMW_107
+3 HMW_110
+3 HMW_094
+2 IC27_185
+3 JTL_032
+3 JTL_033
+3 JTL_043
+2 LAW_101
+2 LAW_132
+3 LAW_133
+3 LAW_159
+3 LAW_097
+3 LOF_091
+2 SEC_078
+
+Sideboard
+2 ASH_102
+1 ASH_133
+2 JTL_112
+1 JTL_041
+3 LAW_135
+1 SEC_078

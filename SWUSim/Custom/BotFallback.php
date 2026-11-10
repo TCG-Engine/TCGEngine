@@ -1496,6 +1496,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         $ts = _SWUBotTSUnitPick($seat, $c, $tip, $head, strval(($ctx['following'] ?? [])[0] ?? ''), $W);
         if ($ts !== null) return $ts;
     }
+    // Feature 'takecontrolpick' (p71): a 1v1 "take control of … unit" pick. Its tooltip reads neither hostile nor beneficial, so it fell to
+    // the flat first-listed value below — 18 of 18 HMW_110 Palpatine steals took the first enemy listed (2026-11-09 Krennic post-ban run).
+    if ($onBoard && SWUBotFeatureOn('takecontrolpick') && in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE'], true)
+        && ($tc = _SWUBotTakeControlScore($seat, $c, $tip, $head, $W)) !== null) return $tc;
 
     // A known continuation, or an unknown one whose prompt reads hostile / beneficial. Hurting only your own
     // units scores below PASS, so an optional "deal damage to a unit" with no enemy target is declined.
@@ -1810,6 +1814,24 @@ function _SWUBotTSUnitPick(int $seat, string $c, string $tip, string $head, stri
         return ($mine ? 1.0 : 0.5) + ($v['ready'] ? 0.5 : 0.0) + 0.01 * $v['attackPower'];
     }
     return null;
+}
+
+// Feature 'takecontrolpick' (p71): the score of $c for a 1v1 "Take_control_of_… unit" prompt (HMW_110 Emperor Palpatine, HMW Rish Loo,
+// SEC Grand Moff Tarkin, TWI Sly Moore, LOF Liberated By Darkness); null = not such a prompt. An enemy unit the steal's own Weakness
+// defeats (Palpatine gives 2) is a kill, its upgrades gone with it; any other is taken whole, off their board and onto mine. Either way the
+// most valuable enemy goes — Ninin's one loss in the read was Palpatine taking Vernestra over a 6/7 Luke the Weakness would have killed.
+// My own (or a teammate's) unit scores below PASS, so a "you may" with no enemy worth taking is declined.
+function _SWUBotTakeControlScore(int $seat, string $c, string $tip, string $head, array $W): ?float {
+    if (!preg_match('/^take_control_of_/i', $tip) || preg_match('/upgrade|resource/i', $tip) || !preg_match('/unit/i', $tip)) return null;
+    if (str_contains($c, 'Base-') || ($v = SWUBotViewForMz($seat, $c)) === null) return null;
+    if (!SWUBotIsEnemyMz($seat, $c)) return SWUBotIsTeammateMz($seat, $c) ? SWU_BOT_TEAMMATE_HARM : -1.0;
+    _SWUBotFired('takecontrolpick', $seat);
+    $weak = 0;
+    if (preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $m) && preg_match('/give (\d+|a) Weakness tokens? to it/i', strval(CardText($m[1])), $wm))
+        $weak = $wm[1] === 'a' ? 1 : intval($wm[1]);
+    $score = SWUBotUnitValue($v) * (1.0 + $W['kill']);
+    if ($weak > 0 && intval($v['remaining']) <= $weak) $score += 1.0 + _SWUBotKillExtras($v, $W, $seat);
+    return $score;
 }
 
 // What an unknown continuation's prompt does to its target, read from the raw tooltip: 'sacrifice'
@@ -2540,7 +2562,14 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     if (in_array('power-strike', SWUBotCardTags($cid), true)) {
         $p = SWUBotPowerStrikePower($seat, $cid);
         if ($p <= 0) $v -= ($W['damage-enemy-unit'] ?? 0.0) * (in_array('damage-enemy-unit', SWUBotCardTags($cid), true) ? 1.0 : 0.0);
-        elseif (SWUBotPowerStrikeCanKill($seat, $p)) $v += $W['kill'];
+        elseif (SWUBotPowerStrikeCanKill($seat, $p)) {
+            // Feature 'cravingstrike' (p71): the kill is worth what it kills — half the weight for a token, up to double for a bomb (unit
+            // value / 4, about an average unit).
+            if (SWUBotFeatureOn('cravingstrike')) {
+                $v += $W['kill'] * max(0.5, min(2.0, SWUBotPowerStrikeBestKill($seat, $p) / 4.0));
+                _SWUBotFired('cravingstrike', $seat);
+            } else $v += $W['kill'];
+        }
     }
     // 2026-10-10 human-game screen, proposal 'millcredit': milling the opponent's deck brings their deck-out (CR §6.1, 3
     // damage/undrawable card) forward. Worth ~3 base-damage equivalents per card milled once their deck is at/below the
