@@ -50,5 +50,6 @@ function FinnThisisaRescueUpgradedFriendlies(int $player): array {
     // The shared CR reading (SWUIsFriendlyUpgrade): a non-token upgrade I control, wherever it sits, or a token
     // upgrade on a unit I control. The old scan read every subcard's own Controller, which the Shield/Experience/
     // Advantage givers set to the GIVER — so a token I gave to an ENEMY unit was offered as mine.
-    return SWUFriendlyUpgradeHosts($player);
+    // "ON A UNIT": a friendly Fortify upgrade on my base is not offered.
+    return SWUFriendlyUpgradeHosts($player, true);
 }

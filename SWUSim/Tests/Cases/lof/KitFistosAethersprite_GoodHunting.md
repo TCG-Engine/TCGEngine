@@ -78,3 +78,23 @@ WithP2GroundArenaUpgrade: 0:SOR_069
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+
+---
+
+# FortifyUpgradeOnABase_IsNotAHost
+#// LOF_147 Kit Fisto's Aethersprite — "You may defeat any number of upgrades ON A UNIT." The base carrying
+#// a Fortify upgrade is not a unit, so it is never offered (sibling of the P-23 System Shock report). With
+#// the base upgrade as the only upgrade on the table there is no offer and the Fortify stays.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:5;handCardIds:LOF_147}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2BaseUpgrade: HMW_126
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P2BASE:UPGRADECOUNT:1

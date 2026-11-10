@@ -2737,8 +2737,12 @@ $customDQHandlers["LAW_COMMONBASE_PLAY"] = function ($player, $parts, $lastDecis
   // interactions/DeathStar_RegroupDefeat_vsSneakAttackRuthlessRaider.md).
   // Safety net: a play REFUSED before it starts (the card is still in hand, untouched) closes nothing on its
   // own, so the base closes the action itself.
+  // ⚠ Through SWUBeginPlayCard, the hand click's own entry — NOT ActivateCard, which is only the second half
+  // of a play: entering there skipped every pre-payment step (Exploit, HMW_048 Vernestra's additional cost,
+  // HMW_125/HMW_049, Clone's copy, Unit-or-Pilot, the Credit/Droid offer). Bug report P-24: Vernestra played
+  // through Daimyo's Palace was never offered her cost, so she gained no When Played.
   $uid = intval($o->UniqueID ?? 0);
-  ActivateCard(intval($player), $lastDecision, false, $discount);
+  SWUBeginPlayCard(intval($player), $lastDecision, $discount);
   $playerID = intval($player);
   $still = GetZoneObject($lastDecision);
   if (!SWUObjGone($still) && intval($still->UniqueID ?? 0) === $uid && $uid > 0

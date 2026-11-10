@@ -18004,7 +18004,9 @@ function SWUCheckAlternateCost(int $player, string $cardID): bool {
 // NOTE the name is historical: since Fortify (base-attached upgrades) this returns every upgrade
 // HOST — arena units AND bases — which is required so "defeat an upgrade" cards can reach a base
 // upgrade at all. Only 2 callers, both in the defeat-upgrade flow, both intending to include bases.
-function SWUGetUnitsWithUpgrades(string $filter = ''): array {
+// $unitHostsOnly leaves the bases out, for the cards whose text says "upgrades ON A UNIT" (SOR_170 Power
+// Failure, LOF_147 Kit Fisto's Aethersprite): a Fortify upgrade is attached to a base, not a unit.
+function SWUGetUnitsWithUpgrades(string $filter = '', bool $unitHostsOnly = false): array {
     $result = [];
     // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
     // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
@@ -18026,6 +18028,7 @@ function SWUGetUnitsWithUpgrades(string $filter = ''): array {
     // subcards directly (a base holds only Fortify upgrades — no pilots, no captives). Without this,
     // a base upgrade is invisible to EVERY "defeat an upgrade" card in the game (Confiscate SOR_251).
     // ⚠ Ambient frame: this scanner takes no $player and runs under whatever $playerID is current.
+    if ($unitHostsOnly) return $result;
     global $playerID;
     foreach (SWUAllBaseMzIDs(intval($playerID), 'any') as $baseMz) {
         $base = GetZoneObject($baseMz);
@@ -18050,7 +18053,9 @@ function SWUGetUnitsWithUpgrades(string $filter = ''): array {
 // The sub index is the RAW Subcards key. Eligibility mirrors GetUpgradesOnUnit exactly (skip captives
 // and removed entries); SWUDefeatUpgrade indexes by a *different* space — the live-upgrade ordinal —
 // so convert with SWUUpgradeOrdinalFromSubIndex, never pass a raw key straight through.
-function SWUGetUpgradeSubcardMzIDs(string $filter = '', int $onlyHostUID = 0): array {
+// $unitHostsOnly leaves base upgrades out — "an upgrade attached to a unit" (JTL_175 System Shock, bug
+// report P-23: it defeated a Verdant Fortress Fortify and dealt the 1 damage to the base).
+function SWUGetUpgradeSubcardMzIDs(string $filter = '', int $onlyHostUID = 0, bool $unitHostsOnly = false): array {
     $result = [];
     $scan = function(string $hostMz) use (&$result, $filter, $onlyHostUID) {
         $obj = GetZoneObject($hostMz);
@@ -18072,6 +18077,7 @@ function SWUGetUpgradeSubcardMzIDs(string $filter = '', int $onlyHostUID = 0): a
     }
     // Bases carry Fortify upgrades; without this they are invisible to every "defeat an upgrade" card.
     // ⚠ Ambient frame — see the sibling scanner above.
+    if ($unitHostsOnly) return $result;
     global $playerID;
     foreach (SWUAllBaseMzIDs(intval($playerID), 'any') as $baseMz) $scan($baseMz);
     return $result;
@@ -18098,13 +18104,14 @@ function SWUIsFriendlyUpgrade(int $player, $host, $sub): bool {
 
 // Every unit (and base) on the WHOLE table carrying at least one upgrade friendly to $player, in $player's frame.
 // The pool for the "defeat a friendly upgrade" cards' host-first pick; pair it with SWUFriendlyUpgradeOnlyOnHost
-// so the host step offers only the friendly ones on that host.
-function SWUFriendlyUpgradeHosts(int $player): array {
+// so the host step offers only the friendly ones on that host. $unitHostsOnly: "a friendly upgrade ON A UNIT"
+// (SHD_003 Finn) — a friendly Fortify on a base is not on a unit.
+function SWUFriendlyUpgradeHosts(int $player, bool $unitHostsOnly = false): array {
     global $playerID;
     $saved = $playerID; $playerID = $player;
     try {
         $hosts = [];
-        foreach (SWUGetUpgradeSubcardMzIDs() as $subMz) {
+        foreach (SWUGetUpgradeSubcardMzIDs('', 0, $unitHostsOnly) as $subMz) {
             $p = MZParseSubcardID($subMz);
             if ($p === null || isset($hosts[$p['host']])) continue;
             $host = GetZoneObject($p['host']);
@@ -18169,9 +18176,10 @@ function SWUUpgradeMatchesFilter(string $cardID, string $filter): bool {
 // $thenHandler — optional CUSTOM handler name fired AFTER this defeat fully resolves (a successful
 // pick, not a decline). Used to chain "defeat up to N upgrades, possibly on DIFFERENT units" as N
 // sequential "may defeat 1" flows (SOR_155): each flow re-reads the board, so the picks can span units.
+// $unitHostsOnly — the card says "on a unit" / "attached to a unit", so base (Fortify) upgrades are out.
 function SWUQueueDefeatUpgrade(int $player, string $tooltip, bool $may = false,
                               int $max = 1, string $filter = '', int $min = 1, string $thenHandler = '',
-                              int $onlyHostUID = 0): void {
+                              int $onlyHostUID = 0, bool $unitHostsOnly = false): void {
     global $playerID;
     $playerID = intval($player);
     // SINGLE-pick ($max <= 1) offers the UPGRADES themselves as subcard mzIDs — one decision, the
@@ -18181,10 +18189,10 @@ function SWUQueueDefeatUpgrade(int $player, string $tooltip, bool $may = false,
     // MULTI-pick ($max > 1) still uses the host-first flow: its MZMULTICHOOSE picks several upgrades on
     // ONE host, which the host step scopes. Converting that is separate work.
     if ($max <= 1) {
-        SWUQueueDefeatUpgradeDirect($player, $tooltip, $may, $filter, $min, $thenHandler, $onlyHostUID);
+        SWUQueueDefeatUpgradeDirect($player, $tooltip, $may, $filter, $min, $thenHandler, $onlyHostUID, $unitHostsOnly);
         return;
     }
-    $targets = SWUGetUnitsWithUpgrades($filter);
+    $targets = SWUGetUnitsWithUpgrades($filter, $unitHostsOnly);
     // Scope to a single host (e.g. "defeat an upgrade on IT" — JTL_133 Pryde on the indirect-damaged unit).
     if ($onlyHostUID > 0) {
         $targets = array_values(array_filter($targets, function($mz) use ($onlyHostUID) {
@@ -18220,10 +18228,10 @@ function SWUQueueDefeatUpgrade(int $player, string $tooltip, bool $may = false,
 // $min == 0 (or $may) makes it declinable; a mandatory offer with exactly one legal upgrade
 // auto-resolves as usual, which is itself the proof the filter narrowed correctly.
 function SWUQueueDefeatUpgradeDirect(int $player, string $tooltip, bool $may, string $filter,
-                                     int $min, string $thenHandler, int $onlyHostUID): void {
+                                     int $min, string $thenHandler, int $onlyHostUID, bool $unitHostsOnly = false): void {
     global $playerID;
     $playerID = intval($player);
-    $targets = SWUGetUpgradeSubcardMzIDs($filter, $onlyHostUID);
+    $targets = SWUGetUpgradeSubcardMzIDs($filter, $onlyHostUID, $unitHostsOnly);
     if (empty($targets)) {
         // No legal upgrade → fizzle. Still honour the continuation so a chain doesn't dead-end early
         // (e.g. every upgrade already defeated by an earlier link).
@@ -22771,9 +22779,13 @@ function SWUComputeActionsData(int $player): array {
             // OTPN (SEC_205 Obi-Wan, TS26 Mother Talzin) is "at cost, IGNORING aspect penalties". It was
             // missing from this list, so the card the ability milled was never offered as clickable in the
             // client even though the input handler accepted it — the whole permission was invisible in-game.
+            // Priced against the SAME capacity the play's payer checks (SWUPayInlineAbilityCost →
+            // SWUTotalPaymentCapacity: ready resources + Credits + SEC_122 Droids). Counting ready resources
+            // alone left a Credit-payable card dark, and the client offers "Play" only on a lit entry — bug
+            // report P-26: 4 ready + 2 Credits for a milled cost-6 card was payable but never offered.
             $dCost = intval(CardCost($oppDiscard[$i]->CardID))
                      + ($mod === 'OTPN' ? 0 : SWUAspectPenalty($player, $oppDiscard[$i]->CardID));
-            if ($readyCount >= $dCost) $opponentPlayableDiscards[] = ['idx' => $odi, 'free' => false, 'owner' => $oppPlayer];
+            if (SWUTotalPaymentCapacity(intval($player)) >= $dCost) $opponentPlayableDiscards[] = ['idx' => $odi, 'free' => false, 'owner' => $oppPlayer];
         }
         $odi++;
     }

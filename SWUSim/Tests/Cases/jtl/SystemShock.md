@@ -62,3 +62,62 @@ P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:JTL_001
 P2GROUNDARENAUNIT:2:UPGRADECOUNT:0
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0.u0&theirGroundArena-1.u0
+
+---
+
+# FortifyUpgradeOnABase_IsNotATarget
+#// JTL_175 System Shock — "Defeat a non-leader upgrade ATTACHED TO A UNIT." A Fortify upgrade is attached
+#// to a BASE ("Attach this to your base, not a unit."), so it is not in the pool. Bug report P-23 (game
+#// 4827): the bot's System Shock defeated P1's HMW_126 Verdant Fortress and dealt 1 damage to the base.
+#// With the base upgrade as the ONLY upgrade on the table the event fizzles: no picker, the Fortify stays,
+#// the base takes nothing.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_175
+WithP1Resources: 1
+WithP2GroundArena: SOR_046:1:0
+WithP2BaseUpgrade: HMW_126
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P2BASE:UPGRADECOUNT:1
+P2BASEDMG:0
+
+---
+
+# UnitAndBaseUpgrades_OfferIsTheUnitsOnly
+#// JTL_175 System Shock — the same rule with a real choice on the table: P2's unit wears two upgrades and
+#// P2's base wears a Fortify. Only the two unit upgrades are offered; theirBase-0.u0 is not. The decision
+#// is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_175
+WithP1Resources: 1
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArenaUpgrade: 0:SOR_069
+WithP2BaseUpgrade: HMW_126
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0.u0&theirGroundArena-0.u1

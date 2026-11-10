@@ -144,3 +144,22 @@ P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2DISCARDCOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# FortifyUpgradeOnABase_IsNotAHost
+#// SOR_170 Power Failure — "Defeat any number of upgrades ON A UNIT." A Fortify upgrade sits on a BASE, so
+#// the base is not a host to pick (sibling of the P-23 System Shock report, same shared pool). With the
+#// base upgrade as the only upgrade on the table nothing is offered and the Fortify stays.
+
+## GIVEN
+CommonSetup: grw/grw/{myResources:2;handCardIds:SOR_170}
+WithP2GroundArena: SOR_095:1:0
+WithP2BaseUpgrade: HMW_126
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P2BASE:UPGRADECOUNT:1

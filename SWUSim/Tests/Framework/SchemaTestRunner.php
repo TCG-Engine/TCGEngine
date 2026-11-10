@@ -1848,6 +1848,23 @@ class SchemaTestRunner {
                     $failures[] = "{$line}: expected discard entry {$idx} to be " . ($wantGlow ? '' : 'NOT ')
                         . "playable, got " . json_encode($entries);
 
+            } elseif (preg_match('/^P(\d+)OPPDISCARDPLAYABLE(NOT)?:(\d+):(\d+)$/', $line, $m)) {
+                // P#DISCARDPLAYABLE's twin for an OPPONENT's pile: is seat <owner>'s discard entry at VISIBLE
+                // index N offered to seat P# as a play (SWUComputeActionsData()['opponentPlayableDiscards'],
+                // what the client lights)? PlayFromOpponentDiscard never consults it, so a section that just
+                // plays the card cannot see an offer that disagrees with the charge (bug report P-26: 4 ready
+                // + 2 Credits for a cost-6 card was payable but never lit). Same "no decision pending" caveat.
+                $p = intval($m[1]); $wantGlow = ($m[2] !== 'NOT'); $owner = intval($m[3]); $idx = intval($m[4]);
+                $entries = function_exists('SWUComputeActionsData')
+                    ? (SWUComputeActionsData($p)['opponentPlayableDiscards'] ?? []) : [];
+                $glows = false;
+                foreach ($entries as $e) {
+                    if (intval($e['idx'] ?? -1) === $idx && intval($e['owner'] ?? -1) === $owner) { $glows = true; break; }
+                }
+                if ($glows !== $wantGlow)
+                    $failures[] = "{$line}: expected P{$owner}'s discard entry {$idx} to be " . ($wantGlow ? '' : 'NOT ')
+                        . "playable by P{$p}, got " . json_encode($entries);
+
             } elseif (preg_match('/^P(\d+)TEMPZONECOUNT:(\d+)$/', $line, $m)) {
                 // TempZone is the scratch staging zone (SWUQueueDefeatUpgrade, the Credit-payment
                 // picker, Law119Trigger …). It has no board slot, so nothing else can observe a leak:

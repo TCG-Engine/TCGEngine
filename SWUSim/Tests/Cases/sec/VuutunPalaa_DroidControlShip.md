@@ -555,3 +555,62 @@ P1GROUNDARENACOUNT:5
 #// The lone ready Droid is STILL READY — it counted toward the discount without being spent, which is
 #// the whole point: the discount reads the board, the payment clause was never even active.
 P1GROUNDARENAUNIT:4:READY
+
+---
+
+# ReadyDroidsCannotPayForVuutunItself_OneShort_NotPlayable
+#// RULING (10/31/2025): "Vuutun Palaa's second ability is only in effect once Vuutun Palaa is in play. Friendly
+#// Droid units can't be exhausted to pay for Vuutun Palaa." Bug report P-27 (game 5197, "vuutun pala not
+#// working") was this board: 3 friendly Droids — one exhausted, two READY — so 9 − 3 = 6, against 5 ready
+#// resources. The two ready Droids would close the gap only if they could pay for Vuutun itself, which the
+#// ruling forbids, so the card does not glow and a play attempt leaves it in hand with nothing spent.
+
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5:SOR_095
+WithP1Hand: SEC_122
+WithP1GroundArena: TWI_T01:0:0
+WithP1SpaceArena: TWI_T01
+WithP1SpaceArena: TWI_T01
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1HANDGLOWNOT:0
+P1HANDCOUNT:1
+P1SPACEARENACOUNT:2
+P1RESAVAILABLE:5
+P1SPACEARENAUNIT:0:READY
+P1SPACEARENAUNIT:1:READY
+
+---
+
+# ReadyDroidsCannotPayForVuutunItself_ExactResources_PlaysAndDroidsStayReady
+#// The same board with 6 ready resources: Vuutun plays at 6, paid entirely from resources — no Droid payment is
+#// offered for it, so both ready Droids are still ready afterwards.
+
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6:SOR_095
+WithP1Hand: SEC_122
+WithP1GroundArena: TWI_T01:0:0
+WithP1SpaceArena: TWI_T01
+WithP1SpaceArena: TWI_T01
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1HANDCOUNT:0
+P1SPACEARENACOUNT:3
+P1SPACEARENAUNIT:2:CARDID:SEC_122
+P1RESAVAILABLE:0
+P1SPACEARENAUNIT:0:READY
+P1SPACEARENAUNIT:1:READY
