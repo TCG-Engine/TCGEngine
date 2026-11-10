@@ -3210,6 +3210,39 @@ function _SWUBotSupportAttackerScore(int $seat, array $v, string $sourceMz = '')
     return ($blocked ? 0.1 : 1.0) * (1.0 + 0.1 * $v['attackPower'] + 0.001 * $v['remaining']);
 }
 
+// Feature 'buffsave' (p73, bug report P-20): the friendly unit a "+$pow/+$hp for this phase" saves from a one-hit kill this phase, or 0.
+// Saved = some READY enemy unit that can attack it (same arena; no other friendly Sentinel there unless it has Saboteur) kills it now, and
+// none does with the buff on (SWUBotCombatOutcome: Shields, Saboteur, hpImmune). Worth it only when the unit's loss outweighs the base
+// damage the buff would add (W['loss'] × value vs W['base'] × $pow), and never over a buffed Support attack that finishes the base
+// ('stacklethal''s arithmetic). The most valuable saved unit wins. P-20: Karis 7 vs Ahsoka 5/6 → 7/8 survives and kills Karis back.
+function _SWUBotBuffSaveUid(int $seat, int $pow, int $hp, array $W): int {
+    if ($hp <= 0) return 0;
+    $opp = SWUBotOpponent($seat);
+    $plan = _SWUBotSupportPlanUid($seat, $pow);
+    foreach (SWUBotUnits($seat) as $p) {
+        if ($p['uid'] !== $plan) continue;
+        $reach = $p['attackPower'] + $pow + _SWUBotPlotBuffsLeft($seat) + _SWUBotSelfAttackBoost($seat, $p) + _SWUBotSupportLentRaid($seat);
+        if (!_SWUBotBlockedArenas($seat)[$p['arena']] && $reach >= SWUBaseRemainingHp($opp)) return 0;   // the buff finishes them instead
+    }
+    $mine = SWUBotUnits($seat);
+    $best = 0; $bestValue = 0.0;
+    foreach ($mine as $v) {
+        $value = SWUBotUnitValue($v);
+        if (floatval($W['loss'] ?? 1.0) * $value <= floatval($W['base'] ?? 0.6) * $pow) continue;
+        $guarded = false;
+        foreach ($mine as $s) if ($s['uid'] !== $v['uid'] && $s['arena'] === $v['arena'] && $s['sentinel']) $guarded = true;
+        $buffed = array_merge($v, ['remaining' => $v['remaining'] + $hp, 'hp' => $v['hp'] + $hp, 'power' => $v['power'] + $pow]);
+        $killsNow = false; $killsAfter = false;
+        foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $e) {
+            if (!$e['ready'] || $e['arena'] !== $v['arena'] || ($guarded && !$e['saboteur'])) continue;
+            if (in_array(SWUBotCombatOutcome($e, $v), ['kill-survive', 'trade'], true)) $killsNow = true;
+            if (in_array(SWUBotCombatOutcome($e, $buffed), ['kill-survive', 'trade'], true)) $killsAfter = true;
+        }
+        if ($killsNow && !$killsAfter && $value > $bestValue) { $best = $v['uid']; $bestValue = $value; }
+    }
+    return $best;
+}
+
 // A friendly "+N for this phase" during the flip turn, or null when this is not one (the ordinary scoring decides).
 //  · the Support attack is still pending (Jar Jar's Plot): the planned Support attacker. The leader only when there is
 //    none — a +2/+2 on her still beats passing (an explicit "avoid the leader" was proved inert by mutation and removed);
@@ -3234,6 +3267,13 @@ function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
     $fromLeader = $src !== '' && stripos(strval(CardType($src)), 'Leader') !== false && $att !== null;
     if (!$pending && !$fromLeader) return null;
     $amount = intval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? 0);   // APPLY_PHASE_BUFF|<amount>|…
+    // Feature 'buffsave' (p73, bug report P-20): a "+N/+M" whose HP lifts a friendly unit out of a ready enemy's one-hit reach goes there —
+    // ahead of the planned Support attacker, and whether or not that unit is ready (HP defends an exhausted unit too). Checked first.
+    if ($pending && !$fromLeader && SWUBotFeatureOn('buffsave') && preg_match('/\+(\d+)\/\+(\d+)/', strval($ctx['tooltip'] ?? ''), $bm)
+        && $v['uid'] === _SWUBotBuffSaveUid($seat, intval($bm[1]), intval($bm[2]), SWUBotWeights(strval($ctx['style'] ?? 'midrange'), $seat))) {
+        _SWUBotFired('buffsave', $seat);
+        return 50.0 + 0.01 * SWUBotUnitValue($v);
+    }
     // While the Support attack is pending (Jar Jar's prompt), the unit that MAKES it — the plan, and only the plan — also
     // borrows the Support source's Raid. Any other candidate attacks without it.
     $lent = ($pending && !$fromLeader && !$v['isLeader'] && $v['uid'] === _SWUBotSupportPlanUid($seat, $amount)) ? _SWUBotSupportLentRaid($seat) : 0;
@@ -5468,6 +5508,15 @@ function _SWUBotEnemyEnteredThisPhase(int $seat): bool {
     return false;
 }
 
+// Feature 'plotdud' (p73): what a Plot card's EFFECT is worth on the board right now, in curve-value resources — the board-aware value
+// (SWUBotCurveValue) without the Plot keyword's own part, which prices the option to play it later, not what it does. Null = unpriced.
+function _SWUBotPlotEffectValue(int $seat, string $cid, array $W): ?float {
+    if (!function_exists('SWUBotCurveValue')) return null;
+    $r = SWUBotCurveValue($seat, $cid, true, intval(round($W['horizon'] ?? SWU_CURVE_STATIC_HORIZON)), 'paid');
+    if ($r === null) return null;
+    return floatval($r['value']) - floatval(($r['parts'] ?? [])['plot'] ?? 0.0);
+}
+
 // Prompt fixes, scored ahead of the generic decision branches. Null = not one of these prompts.
 //   'discloseanswer' (G1-01..04): every free disclose was answered '-' — the index tiebreak lists it first (Condemn's -6/-0 defence declined
 //      2,228/2,228, Typho 854, Karis 121, Mina 41; Clan Ordo took its 2). Disclosing costs nothing (the cards stay in hand), so the smallest
@@ -5496,6 +5545,10 @@ function _SWUBotPromptFixScore(array $ctx, int $seat, string $tip, string $type,
         if ($u === '') return -1.0;
         $v = _SWUBotPlayValue($seat, $u, $W, 'resources');
         _SWUBotFired('plotpick', $seat);
+        // Feature 'plotdud' (p73, bug report P-29): a non-unit Plot card leaves no body, so its develop × cost floor buys nothing — it is
+        // worth only what its effect does to THIS board. Topple the Summit with only my own unit damaged scored +0.15 and was played.
+        if (SWUBotFeatureOn('plotdud') && !str_contains(strval(CardType($u)), 'Unit') && ($eff = _SWUBotPlotEffectValue($seat, $u, $W)) !== null
+            && $eff <= 0.0) { _SWUBotFired('plotdud', $seat); return -0.1; }
         // PROPOSAL 'flippackage': the window plays the owner's package first (Naboo Royal Starship + Jar Jar on Ahsoka's 6), whatever the
         // single cards score — one at a time by value let two Jar Jars spend 4 and price Naboo Royal Starship out.
         if (SWUBotProposalOn('flippackage') && ($pk = SWUBotAffordableFlipPackage($seat, intval(SWUTotalPaymentCapacity($seat)))) !== null

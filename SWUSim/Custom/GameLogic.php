@@ -16445,13 +16445,14 @@ function SWUControllerAssignsIndirect(int $controller, int $damagedPlayer, int $
     global $playerID;
     $saved = $playerID; $playerID = $controller;
     $controls = false;
-    // (a) JTL_143 Devastator — controller assigns ALL indirect they deal, regardless of source unit.
+    // (a) JTL_143 Devastator — controller assigns ALL indirect they deal, regardless of source unit. A Devastator that has LOST its
+    // abilities (SEC_046 Galen Erso naming it, Tree Remembers, …) overrides nothing — bug report P-30, game 5370.
     foreach (SWUIndirectAssignToOpponentSources() as $srcCard) {
         foreach (["myGroundArena", "mySpaceArena"] as $z) {
             foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
-                if (($o->CardID ?? '') === $srcCard) { $controls = true; break 3; }
+                if (($o->CardID ?? '') === $srcCard && !LostAbilities($o)) { $controls = true; break 3; }
             }
         }
     }
