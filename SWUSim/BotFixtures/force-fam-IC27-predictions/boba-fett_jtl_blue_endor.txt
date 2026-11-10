@@ -1,0 +1,47 @@
+# Self-play fixture — "Boba Blue Burn" (Boba Fett, Any Methods Necessary - Shield Generator Complex)
+# Source: given by the owner as JSON 2026-11-09, a Force Fam PREDICTION for the post-ban IC27 meta (Premier banlist of 2026-11-09:
+#   Neel, Chimaera, Koska, Aggressive Negotiations — none of them in this list). 51 main-deck cards, 10 sideboard.
+#   Ray Tan's Baltimore 498211 list (#15 of 485, hmw-meta-2026-11/boba-fett_jtl_blue_endor.txt) made post-ban: its 2 Aggressive
+#   Negotiations SEC_179 become a 2nd System Shock JTL_175 and a main-deck Planetary Bombardment JTL_181; the sideboard's AggNeg
+#   becomes a 3rd Imperial Armored Commando ASH_048.
+# Author: Ninin
+#   Owner 2026-11-09: "author is Ninin but inspired by Ran Tan" (the Baltimore list's player, raytan).
+# Archetype (owner's label): midrange with the burn flavour
+# Style: midrange
+# Flavours: burn
+
+Leader
+1 JTL_009
+
+Base
+1 JTL_020
+
+Deck
+2 ASH_146
+3 ASH_030
+3 ASH_032
+3 HMW_159
+3 HMW_177
+3 JTL_140
+3 JTL_143
+3 JTL_162
+2 JTL_175
+1 JTL_181
+3 JTL_237
+3 JTL_240
+3 LAW_173
+3 LAW_174
+2 LAW_044
+3 LOF_130
+1 SEC_163
+2 SEC_171
+3 SEC_172
+2 SEC_183
+
+Sideboard
+1 ASH_148
+3 ASH_048
+1 JTL_181
+3 LAW_191
+1 LAW_044
+1 SEC_183

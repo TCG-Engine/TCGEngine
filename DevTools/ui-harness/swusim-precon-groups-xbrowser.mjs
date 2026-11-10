@@ -1,5 +1,5 @@
 // Arenabot's GROUPED bot pre-cons (owner 2026-10-01): one block per group, each opening a picker <dialog> ON TOP of the Arenabot modal.
-// Since the 2026-11-09 Premier banlist the menu offers ONE group, "Force Fam IC27 Predictions" (2 decks, both by Ninin); the pre-ban
+// Since the 2026-11-09 Premier banlist the menu offers ONE group, "Force Fam IC27 Predictions" (all by Ninin); the pre-ban
 // groups are hidden. Re-pointed at it 2026-11-09 (was November 2026 Meta + Force Fam HMW Predictions).
 // Chromium, Firefox and WebKit, at a desktop and a phone width. Pinned:
 //   · the blocks render with NO deck picked, and focus lands in the empty Deck Link box (owner 2026-10-01);
@@ -13,6 +13,9 @@ import { chromium, firefox, webkit } from 'playwright';
 import fs from 'node:fs';
 const URL   = process.env.MENU_URL || 'http://localhost:3400/TCGEngine/SharedUI/MainMenu.php';
 const SHOTS = process.env.SHOTS || '/tmp/precon-groups';
+// The group's deck count, from the registry the menu renders — the group grows as the owner adds lists.
+const IC27 = JSON.parse(fs.readFileSync(new globalThis.URL('../../SWUSim/Custom/BotDeckLabels.json', import.meta.url), 'utf8'))
+  .decks.filter(d => d.group === 'force-fam-IC27-predictions').length;
 fs.mkdirSync(SHOTS, { recursive: true });
 let fails = 0, checks = 0;
 const bad = (n, m) => { fails++; checks++; console.log(`FAIL ${n} :: ${m}`); };
@@ -53,7 +56,7 @@ for (const [bn, launcher] of [['chromium', chromium], ['firefox', firefox], ['we
     want(n, s.blocks[0]?.name === 'Force Fam IC27 Predictions', `block names ${JSON.stringify(s.blocks.map(x => x.name))}`);
     // The note counts only the decks the picker offers — not the groups hidden with 'menu' => false.
     const note = await p.textContent('#setup-arenabot .pcgroups ~ *, #setup-arenabot fieldset .note--over').catch(() => '');
-    want(n, /^\s*2 tuned decks in 1 group\./.test(note || ''), `the note counts the offered decks (2, one group, singular): "${(note || '').trim()}"`);
+    want(n, new RegExp(`^\\s*${IC27} tuned decks in 1 group\\.`).test(note || ''), `the note counts the offered decks (${IC27}, one group, singular): "${(note || '').trim()}"`);
     // Owner 2026-10-01: "we shouldn't auto-pick a deck. it should default to focus on the empty deck input".
     want(n, s.checked === null, `no pre-con is picked by default (got ${s.checked})`);
     want(n, s.blocks.every(x => !x.on && x.pick === ''), `no block says Selected by default: ${JSON.stringify(s.blocks.map(x => [x.on, x.pick]))}`);
@@ -82,7 +85,7 @@ for (const [bn, launcher] of [['chromium', chromium], ['firefox', firefox], ['we
     want(n, top.canScroll, 'the well scrolls any decks it cannot show');
     want(n, top.onTop, 'the picker is the topmost thing at its own centre');
     want(n, top.inView, 'the picker fits in the viewport');
-    want(n, top.rows === 2, `the IC27 picker lists 2 decks, got ${top.rows}`);
+    want(n, IC27 >= 3 && top.rows === IC27, `the IC27 picker lists ${IC27} decks, got ${top.rows}`);
     await p.screenshot({ path: `${SHOTS}/${n}-2-picker.png` });
 
     // 3. arrow keys move the choice without closing. Focus a deck first — with none of this group's

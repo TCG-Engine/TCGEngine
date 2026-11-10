@@ -1,0 +1,53 @@
+# Self-play fixture — "Hemlock DV" (Doctor Hemlock, Emotion Has No Place Here - Data Vault)
+# Source: given by the owner as JSON 2026-11-09, a Force Fam PREDICTION for the post-ban IC27 meta (Premier banlist of 2026-11-09:
+#   Neel, Chimaera, Koska, Aggressive Negotiations — none of them in this list). 60 main-deck cards (Data Vault: minimum deck size
+#   +10), 10 sideboard.
+#   Ninin's HMW Hemlock DV (force-fam-HMW-predictions/doctor-hemlock_hmw_data-vault.txt) made post-ban: its 3 Chimaera ASH_052,
+#   3 Koska Reeves ASH_079 and 2 Shuttle ST-149 JTL_242 become 2 Canto Bight Security LAW_121, 2 Lando Calrissian SEC_068,
+#   1 B-Wing Rearguard ASH_078 and a 3rd copy each of Ravager ASH_102, Trask Walker ASH_133 and No Glory, Only Results JTL_043.
+#   Base: Data Vault is not a common, so it keeps its printed title; no card cares about a base trait.
+# Author: Ninin
+# Archetype (owner, 2026-11-09): soft control
+# Style: softcontrol
+# Flavours:
+
+Leader
+1 HMW_003
+
+Base
+1 JTL_024
+
+Deck
+2 ASH_102
+3 ASH_133
+3 ASH_048
+3 ASH_053
+1 ASH_078
+3 ASH_097
+3 HMW_107
+3 HMW_062
+3 JTL_032
+3 JTL_033
+1 JTL_041
+3 JTL_043
+2 LAW_121
+2 LAW_132
+3 LAW_133
+3 LAW_037
+3 LAW_039
+3 LAW_044
+3 LAW_097
+3 LOF_091
+2 SEC_038
+1 SEC_040
+2 SEC_068
+2 SEC_078
+
+Sideboard
+1 ASH_102
+2 ASH_078
+1 JTL_041
+1 LAW_121
+2 LAW_149
+2 LAW_217
+1 SEC_040
