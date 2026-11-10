@@ -3,9 +3,11 @@
 // Cost 3 - I Am Your Father - [Villainy]
 // Text: Deal 7 damage to an enemy unit unless its controller says "no." If they do, draw 3 cards.
 
-// SOR_233 I Am Your Father — the caster picked the enemy unit ($lastDecision). Offer its controller a
-// YESNO to refuse the 7 damage; the branch resolves in SOR_233#1. Carry the target by UniqueID so a
-// later board change can't stale the mzID.
+// SOR_233 I Am Your Father — the caster picked the enemy unit ($lastDecision). Offer its controller the
+// two outcomes as buttons (owner 2026-11-09: prompt "Choose an option", buttons "<card> Takes 7 Damage" /
+// "Opponent Draws 3 Cards"); the branch resolves in SOR_233#1. The card is a BARE token "[[CardID]]" —
+// OptionChooseUI draws it as the card's name with a hover preview; a title would put spaces/"&" into the
+// delimited Param. Carry the target by UniqueID so a later board change can't stale the mzID.
 $customDQHandlers["SOR_233#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster = intval($player);
@@ -18,8 +20,8 @@ $customDQHandlers["SOR_233#0"] = function($player, $parts, $lastDecision) {
     // name the RIGHT seat above two seats — derive it from the mzID rather than OtherPlayer().
     $controller = intval($o->Controller ?? 0);
     if ($controller <= 0) $controller = SWUMzOwner((string)$lastDecision, $caster);
-    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
-        tooltip:"Say_no_to_the_7_damage?_(opponent_draws_3)");
+    DecisionQueueController::AddDecision($controller, "OPTIONCHOOSE",
+        "[[" . strval($o->CardID) . "]]_Takes_7_Damage&Opponent_Draws_3_Cards", 1, tooltip:"Choose_an_option");
     DecisionQueueController::AddDecision($controller, "CUSTOM", "SOR_233#1|{$caster}|{$uid}", 1);
 };
 
@@ -27,7 +29,7 @@ $customDQHandlers["SOR_233#1"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster = intval($parts[0] ?? 0);
     $uid    = intval($parts[1] ?? 0);
-    if ($lastDecision === "YES") {                 // controller refuses → no damage, caster draws 3
+    if ($lastDecision === "Opponent_Draws_3_Cards") {   // controller refuses → no damage, caster draws 3
         $playerID = $caster;
         DoDrawCard($caster, 3);
         return;

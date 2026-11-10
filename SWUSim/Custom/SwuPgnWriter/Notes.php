@@ -216,7 +216,10 @@ function SwuPgnNoteChoice(int $player, $head, string $answer): void {
             if (count($offered) < 2) return;
             $idx = array_search($answer, $offered, true);
             if ($idx === false) return;
-            $offered = array_map(fn($o) => str_replace('_', ' ', $o), $offered);
+            // A bare card token in a label ("[[LAW_124]]_Takes_7_Damage", SOR_233) becomes the card's title — PGN labels are
+            // plain text, and the blanket "_" replace would otherwise mangle the CardID inside it.
+            $offered = array_map(fn($o) => preg_replace_callback('/\[\[([A-Za-z0-9]+_[A-Za-z0-9]+)\]\]|_/',
+                fn($m) => ($m[1] ?? '') !== '' ? strval(CardTitle($m[1]) ?: $m[1]) : ' ', $o), $offered);
         } else {
             return;
         }

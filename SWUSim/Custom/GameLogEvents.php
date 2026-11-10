@@ -230,8 +230,11 @@ function GameOnDecisionAnswered(int $player, string $answer): void {
             break;
         case 'OPTIONCHOOSE':
             // Labels are single tokens on the wire ("Draw&Discard" separates options; "Your_deck" uses
-            // underscores for spaces) — show them as words.
-            AddGameLogEntry('CHOICE', $who . ' chose ' . str_replace('_', ' ', $answer) . SWULogSourceSuffix(), 'ALL');
+            // underscores for spaces) — show them as words. A bare card token in a label ("[[LAW_124]]_Takes_7_Damage",
+            // SOR_233 I Am Your Father) keeps its CardID's underscore and becomes the named "[[id|name]]" log link.
+            $shown = preg_replace_callback('/\[\[([A-Za-z0-9]+_[A-Za-z0-9]+)\]\]|_/',
+                fn($m) => ($m[1] ?? '') !== '' ? GameLogCardRef($m[1]) : ' ', $answer);
+            AddGameLogEntry('CHOICE', $who . ' chose ' . $shown . SWULogSourceSuffix(), 'ALL');
             break;
     }
 }
