@@ -1,5 +1,5 @@
 {
-    "generated": "2026-11-10",
+    "generated": "2026-11-11",
     "groups": [
         {
             "id": "force-fam-IC27-predictions",
@@ -49,26 +49,25 @@
             "base": "JTL_020",
             "style": "midrange",
             "cards": {
-                "ASH_146": 2,
                 "ASH_030": 3,
-                "ASH_032": 3,
+                "ASH_032": 2,
                 "HMW_159": 3,
                 "HMW_177": 3,
+                "HMW_039": 3,
                 "JTL_140": 3,
                 "JTL_143": 3,
                 "JTL_162": 3,
                 "JTL_175": 2,
                 "JTL_181": 1,
-                "JTL_237": 3,
+                "JTL_237": 2,
                 "JTL_240": 3,
                 "LAW_173": 3,
                 "LAW_174": 3,
-                "LAW_044": 2,
-                "LOF_130": 3,
-                "SEC_163": 1,
-                "SEC_171": 2,
+                "LAW_044": 3,
+                "LOF_130": 2,
+                "SEC_171": 3,
                 "SEC_172": 3,
-                "SEC_183": 2
+                "SEC_183": 3
             },
             "total": 51
         },
