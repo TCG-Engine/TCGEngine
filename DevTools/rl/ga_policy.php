@@ -46,6 +46,20 @@ function GaRlActionKey($action, $legal) {
     $action['buttonInput'] ?? '', $action['inputText'] ?? '', $action['chkInput'] ?? []]);
 }
 
+// Review-only metadata; deliberately separate from observation and checkpoint keys.
+// Only public graveyards are resolved, even if a malformed action names hidden zones.
+function GaRlPublicGraveyardChoices($actions) {
+  $cards = [];
+  foreach ($actions as $action) {
+    preg_match_all('/(?:my|their)Graveyard-\d+/', strval($action['cardID'] ?? ''), $matches);
+    foreach ($matches[0] as $ref) {
+      $obj = GetZoneObject($ref);
+      if ($obj !== null && empty($obj->removed)) $cards[$ref] = $obj->CardID;
+    }
+  }
+  return $cards;
+}
+
 function GaRlResumeStack() {
   if (GABotPendingDecisionPlayer() === 0 && !empty(GetLiveEffectStackEntries())) {
     $before = GABotIdleEffectStackSignature();
@@ -103,6 +117,7 @@ function GaRlCompactStateKey($seat, $legal) {
 // Large prompts retain a coverage flag instead of claiming exhaustive coverage.
 function GaRlExpandActions($legal) {
   if (($legal['decisionType'] ?? '') !== 'MZMULTICHOOSE') return $legal;
+  if (!empty($legal['constrainedMultiChoice'])) return $legal;
   $pool = array_values(array_unique($legal['candidates'] ?? []));
   $min = intval($legal['minimum'] ?? 0);
   $max = min(count($pool), intval($legal['maximum'] ?? 0));
@@ -125,6 +140,18 @@ function GaRlExpandActions($legal) {
   return $legal;
 }
 
+// Public field facts only. Payload identities never enter the observation; use the
+// engine's load predicate so unrelated attached cards do not count as ammunition.
+function GaRlFieldTactics($obj) {
+  $weapon = PropertyContains(EffectiveCardType($obj), 'WEAPON');
+  return [
+    'distant' => intval(IsDistant($obj)),
+    'weapon' => intval($weapon),
+    'loadedWeapon' => intval($weapon && FunctionalWeaponIsLoaded($obj)),
+    'weaponDurability' => $weapon ? min(1, max(0, GetCounterCount($obj, 'durability')) / 5) : 0,
+  ];
+}
+
 function GaRlFeatureState($seat, $legal) {
   $features = ['ownTurn' => intval($seat === intval(GetTurnPlayer())),
     'phase:' . GetCurrentPhase() => 1, 'decision:' . ($legal['decisionType'] ?? 'main') => 1,
@@ -133,12 +160,16 @@ function GaRlFeatureState($seat, $legal) {
     $prefix = $i === 0 ? 'own' : 'enemy';
     $champion = GABotOwnChampion($p);
     $features[$prefix . 'HP'] = $champion ? max(-1, min(1, GABotRemainingHP($champion) / 30)) : 0;
+    $features[$prefix . 'ChampionDistant'] = intval($champion !== null && IsDistant($champion));
+    $tactics = ['distant' => 0, 'weapon' => 0, 'loadedWeapon' => 0, 'weaponDurability' => 0];
     $readyPower = 0; $rested = 0;
     foreach (GetField($p) as $obj) {
       if ($obj === null || !empty($obj->removed)) continue;
+      foreach (GaRlFieldTactics($obj) as $name => $value) $tactics[$name] += $value;
       if (intval($obj->Status ?? 0) === 2) $readyPower += max(0, ObjectCurrentPower($obj));
       else ++$rested;
     }
+    foreach ($tactics as $name => $value) $features[$prefix . ':' . $name] = min(1, $value / 5);
     $features[$prefix . 'ReadyPower'] = min(1, $readyPower / 30);
     $features[$prefix . 'Rested'] = min(1, $rested / 10);
     $features[$prefix . 'Hand'] = min(1, GABotLiveCount(GetHand($p)) / 10);
@@ -171,6 +202,7 @@ function GaRlFeatureState($seat, $legal) {
         $obj = GetZoneObject($mz);
         if (!$obj || !empty($obj->removed)) continue;
         if (str_contains($mz, 'Field-')) {
+        $descriptor = array_merge($descriptor, GaRlFieldTactics($obj));
         $descriptor['power'] = min(1, max(0, ObjectCurrentPower($obj)) / 15);
         $descriptor['hp'] = max(-1, min(1, GABotRemainingHP($obj) / 30));
         $descriptor['ready'] = intval(intval($obj->Status ?? 0) === 2);
@@ -204,4 +236,19 @@ function GaRlFeatures($stateKey, $actionKey) {
     foreach ($state as $name => $value) if (is_numeric($value)) $features[$token . '/' . $name] = max(-1, min(1, floatval($value)));
   }
   return $features;
+}
+
+// Diagnostic only: absence of an optional scorer is not missing engine card code.
+function GaRlDecisionSupport($legal, $actions, $seat) {
+  $result = ['status' => 'unknown', 'kind' => 'unclassified', 'unsupportedActions' => []];
+  if (!empty($legal['catalogTruncated'])) return ['status' => 'missing', 'kind' => 'action_catalog_truncated', 'unsupportedActions' => []];
+  if (!in_array($legal['decisionType'] ?? '', ['MZMAYCHOOSE', 'YESNO'], true)) return $result;
+  foreach ($actions as $action) {
+    $choice = strval($action['cardID'] ?? '');
+    if (in_array($choice, ['PASS', 'NO'], true)) continue;
+    if (GABotOptionalScore($seat, $choice, $legal) === null) $result['unsupportedActions'][] = GaRlActionKey($action, $legal);
+  }
+  $result['status'] = $result['unsupportedActions'] ? 'missing' : 'supported';
+  $result['kind'] = 'heuristic_optional_scoring';
+  return $result;
 }

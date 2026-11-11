@@ -2,8 +2,11 @@
 // Local experiment runner: ten-game review batches, never publishes a live model.
 define('RL_TRAINER_LIBRARY_ONLY', true);
 require_once __DIR__ . '/train_selfplay_php.php';
-$options = getopt('', ['config:', 'baseline:', 'output:', 'checkpoint:', 'start:', 'games:', 'seed:', 'evaluate', 'max-steps:', 'representation:', 'imitate']);
+$options = getopt('', ['config:', 'baseline:', 'output:', 'checkpoint:', 'start:', 'games:', 'seed:', 'evaluate', 'max-steps:', 'representation:', 'imitate', 'archetype-adapters', 'learner-archetype:', 'learner-heuristic:']);
 foreach (['config', 'baseline', 'output'] as $required) if (empty($options[$required])) RlFail('Required: --config --baseline --output');
+$learnerHeuristic = $options['learner-heuristic'] ?? '';
+if (!in_array($learnerHeuristic, ['', 'current', 'frozen'], true)) RlFail('Unknown learner heuristic.');
+if ($learnerHeuristic !== '' && !isset($options['evaluate'])) RlFail('Learner heuristic is evaluation-only.');
 $start = intval($options['start'] ?? 0);
 $games = intval($options['games'] ?? 10);
 $seed = intval($options['seed'] ?? (isset($options['evaluate']) ? 1000001 : 10001));
@@ -43,6 +46,7 @@ for ($round = 0; $round < count($ring) - 1; ++$round) {
 }
 $args = RlParseArgs(['trainer']);
 $args['ga-training'] = true;
+$args['ga-evaluate-heuristic'] = $learnerHeuristic;
 $args['ga-imitation'] = isset($options['imitate']);
 $args['max-steps'] = intval($options['max-steps'] ?? 2000);
 $args['epsilon'] = 0.0; // On-policy softmax exploration; matches the policy-gradient objective.
@@ -55,11 +59,27 @@ $policy = empty($options['checkpoint'])
 if ($policy->strategyMode !== 'none' || $policy->policyRole !== 'full') RlFail('Requires a full GA policy without strategy shaping.');
 if (!in_array($policy->stateKeyVersion, ['GrandArchiveSim:linear-v1', 'GrandArchiveSim:public-v1', 'GrandArchiveSim:compact-v2'], true) || $policy->actionKeyVersion !== 'ga-semantic-v1') RlFail('Requires a supported GA state / ga-semantic-v1 checkpoint.');
 if (isset($options['representation']) && $policy->stateKeyVersion !== 'GrandArchiveSim:' . $representation) RlFail('Checkpoint representation differs; start fresh to change representation.');
+if (isset($options['archetype-adapters'])) {
+  if (empty($options['checkpoint'])) RlFail('Adapter training requires a pretrained shared checkpoint.');
+  $policy->enableArchetypeAdapters();
+}
+// Identity comes only from the learner's configured deck, never the opponent or draw order.
+$archetypes = [];
+foreach ($decks as $deck) {
+  $id = trim(strval($deck['archetypeId'] ?? $deck['name'] ?? ''));
+  if ($id === '') RlFail('Each deck requires archetypeId or a descriptive archetype name.');
+  $archetypes[] = $id;
+}
+if (isset($options['learner-archetype'])) {
+  $requested = strval($options['learner-archetype']);
+  $schedule = array_values(array_filter($schedule, fn($match) => $archetypes[$match[0]] === $requested));
+  if (!$schedule) RlFail('Unknown learner archetype: ' . $requested);
+}
 $opponent = new RlTabularPolicy(4096, 1.0, 0.0, 'GrandArchiveSim:public-v1', 'ga-semantic-v1');
 RlEnsureDir($out);
 $runId = 'ga_' . bin2hex(random_bytes(6));
 $report = ['mode' => isset($options['evaluate']) ? 'evaluation' : (isset($options['imitate']) ? 'imitation' : 'training'), 'start' => $start, 'seed' => $seed,
-  'maxSteps' => $args['max-steps'],
+  'maxSteps' => $args['max-steps'], 'learnerHeuristic' => $learnerHeuristic ?: null,
   'config' => $config, 'deckHashes' => $deckHashes, 'baseline' => $manifest,
   'checkpointSource' => $options['checkpoint'] ?? null, 'games' => []];
 // Detect edits during a batch; a checkpoint must correspond to one runtime.
@@ -75,6 +95,7 @@ for ($i = 0; $i < $games; ++$i) {
   $index = $start + $i;
   [$learner, $other, $seat] = $schedule[$index % count($schedule)];
   $args['learner-seat'] = $seat;
+  $policy->activeArchetype = $archetypes[$learner];
   $pairSeed = $seed + intdiv($index, 2);
   mt_srand($pairSeed);
   $result = RlRunEpisode($args, $deckTexts[$seat === 1 ? $learner : $other], $deckTexts[$seat === 1 ? $other : $learner],
@@ -82,8 +103,10 @@ for ($i = 0; $i < $games; ++$i) {
   $complete = !$result['failed'] && !$result['timedOut'] && $result['terminationReason'] === 'terminal';
   if (!isset($options['evaluate']) && $complete) $policy->applyDelta($result['p1Delta']);
   RlWriteJson($out . '/game-' . ($index + 1) . '.json', $result['replay']);
+  $result['initialGamestateHash'] = $result['replay']['initialGamestateHash'];
   unset($result['replay'], $result['p1Delta'], $result['p2Delta'], $result['p1StrategyDelta'], $result['p2StrategyDelta']);
   $result['learnerSeat'] = $seat;
+  $result['learnerArchetype'] = $archetypes[$learner];
   $result['learnerReward'] = $complete ? ($seat === 1 ? $result['reward'] : -$result['reward']) : null;
   $result['learnerDeck'] = $decks[$learner]['name'];
   $result['opponentDeck'] = $decks[$other]['name'];

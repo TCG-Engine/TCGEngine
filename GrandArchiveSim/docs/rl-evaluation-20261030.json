@@ -37,107 +37,107 @@
     "afterWins": 34
   },
   "byArchetype": {
-    "Alice \u2014 Ravishing Mill": {
+    "Alice — Ravishing Mill": {
       "pairedGames": 4,
       "beforeWins": 4,
       "afterWins": 4
     },
-    "Allen \u2014 Cats": {
+    "Allen — Cats": {
       "pairedGames": 4,
       "beforeWins": 3,
       "afterWins": 4
     },
-    "Astra Arisanna \u2014 Starcalling": {
+    "Astra Arisanna — Starcalling": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 0
     },
-    "Ciel \u2014 Umbra Guardian / Coup": {
+    "Ciel — Umbra Guardian / Coup": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 0
     },
-    "Dante \u2014 Water Unique Allies / Ravishing Mill / Suited": {
+    "Dante — Water Unique Allies / Ravishing Mill / Suited": {
       "pairedGames": 4,
       "beforeWins": 3,
       "afterWins": 3
     },
-    "Diana \u2014 Water Aetherwing (Non-Carpsong)": {
+    "Diana — Water Aetherwing (Non-Carpsong)": {
       "pairedGames": 4,
       "beforeWins": 2,
       "afterWins": 1
     },
-    "Exia Jin \u2014 Seething / Enrage Recovery": {
+    "Exia Jin — Seething / Enrage Recovery": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 0
     },
-    "Fire Lorraine \u2014 Red Hare": {
+    "Fire Lorraine — Red Hare": {
       "pairedGames": 4,
       "beforeWins": 1,
       "afterWins": 2
     },
-    "Kongming \u2014 Tera Mage": {
+    "Kongming — Tera Mage": {
       "pairedGames": 4,
       "beforeWins": 4,
       "afterWins": 4
     },
-    "Luxem Zander \u2014 Reveal": {
+    "Luxem Zander — Reveal": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 0
     },
-    "Merlin \u2014 Fire Aggro": {
+    "Merlin — Fire Aggro": {
       "pairedGames": 2,
       "beforeWins": 0,
       "afterWins": 0
     },
-    "Mordred \u2014 Razorgale": {
+    "Mordred — Razorgale": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 1
     },
-    "Nico \u2014 Ravishing Mill": {
+    "Nico — Ravishing Mill": {
       "pairedGames": 4,
       "beforeWins": 2,
       "afterWins": 3
     },
-    "Polkhawk \u2014 Suited": {
+    "Polkhawk — Suited": {
       "pairedGames": 4,
       "beforeWins": 3,
       "afterWins": 3
     },
-    "Rai \u2014 Ravishing Mill": {
+    "Rai — Ravishing Mill": {
       "pairedGames": 4,
       "beforeWins": 2,
       "afterWins": 2
     },
-    "Tera Silvie \u2014 Slimes": {
+    "Tera Silvie — Slimes": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 0
     },
-    "Tonoris \u2014 Neos Domains": {
+    "Tonoris — Neos Domains": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 0
     },
-    "Tristan \u2014 Shadowstrike": {
+    "Tristan — Shadowstrike": {
       "pairedGames": 3,
       "beforeWins": 3,
       "afterWins": 3
     },
-    "Vanitas \u2014 Mounted Allies": {
+    "Vanitas — Mounted Allies": {
       "pairedGames": 4,
       "beforeWins": 3,
       "afterWins": 3
     },
-    "Water Diao Chan \u2014 Fractal Burn": {
+    "Water Diao Chan — Fractal Burn": {
       "pairedGames": 4,
       "beforeWins": 0,
       "afterWins": 1
     },
-    "Water Guo Jia \u2014 Genbu": {
+    "Water Guo Jia — Genbu": {
       "pairedGames": 3,
       "beforeWins": 0,
       "afterWins": 0
@@ -147,48 +147,48 @@
     {
       "seed": 4000001,
       "episode": 2,
-      "deck": "Allen \u2014 Cats",
-      "opponent": "Luxem Zander \u2014 Reveal",
+      "deck": "Allen — Cats",
+      "opponent": "Luxem Zander — Reveal",
       "beforeReward": -1.0,
       "afterReward": 1.0
     },
     {
       "seed": 4000001,
       "episode": 18,
-      "deck": "Diana \u2014 Water Aetherwing (Non-Carpsong)",
-      "opponent": "Tera Silvie \u2014 Slimes",
+      "deck": "Diana — Water Aetherwing (Non-Carpsong)",
+      "opponent": "Tera Silvie — Slimes",
       "beforeReward": 1.0,
       "afterReward": -1.0
     },
     {
       "seed": 4000001,
       "episode": 32,
-      "deck": "Nico \u2014 Ravishing Mill",
-      "opponent": "Exia Jin \u2014 Seething / Enrage Recovery",
+      "deck": "Nico — Ravishing Mill",
+      "opponent": "Exia Jin — Seething / Enrage Recovery",
       "beforeReward": -1.0,
       "afterReward": 1.0
     },
     {
       "seed": 4000001,
       "episode": 35,
-      "deck": "Mordred \u2014 Razorgale",
-      "opponent": "Kongming \u2014 Tera Mage",
+      "deck": "Mordred — Razorgale",
+      "opponent": "Kongming — Tera Mage",
       "beforeReward": -1.0,
       "afterReward": 1.0
     },
     {
       "seed": 5000001,
       "episode": 22,
-      "deck": "Water Diao Chan \u2014 Fractal Burn",
-      "opponent": "Rai \u2014 Ravishing Mill",
+      "deck": "Water Diao Chan — Fractal Burn",
+      "opponent": "Rai — Ravishing Mill",
       "beforeReward": -1.0,
       "afterReward": 1.0
     },
     {
       "seed": 5000001,
       "episode": 38,
-      "deck": "Fire Lorraine \u2014 Red Hare",
-      "opponent": "Merlin \u2014 Fire Aggro",
+      "deck": "Fire Lorraine — Red Hare",
+      "opponent": "Merlin — Fire Aggro",
       "beforeReward": -1.0,
       "afterReward": 1.0
     }
@@ -213,8 +213,8 @@
     {
       "batch": "before-4000001",
       "episode": 11,
-      "learnerDeck": "Tristan \u2014 Shadowstrike",
-      "opponentDeck": "Ciel \u2014 Umbra Guardian / Coup",
+      "learnerDeck": "Tristan — Shadowstrike",
+      "opponentDeck": "Ciel — Umbra Guardian / Coup",
       "seed": 4000006,
       "classification": "changing_state_step_limit",
       "tailMessages": [
@@ -224,8 +224,8 @@
     {
       "batch": "before-4000001",
       "episode": 25,
-      "learnerDeck": "Water Guo Jia \u2014 Genbu",
-      "opponentDeck": "Polkhawk \u2014 Suited",
+      "learnerDeck": "Water Guo Jia — Genbu",
+      "opponentDeck": "Polkhawk — Suited",
       "seed": 4000013,
       "classification": "repeated_transition",
       "tailMessages": [
@@ -235,8 +235,8 @@
     {
       "batch": "after-5000001",
       "episode": 39,
-      "learnerDeck": "Merlin \u2014 Fire Aggro",
-      "opponentDeck": "Fire Lorraine \u2014 Red Hare",
+      "learnerDeck": "Merlin — Fire Aggro",
+      "opponentDeck": "Fire Lorraine — Red Hare",
       "seed": 5000020,
       "classification": "repeated_transition",
       "tailMessages": [
@@ -246,8 +246,8 @@
     {
       "batch": "after-5000001",
       "episode": 40,
-      "learnerDeck": "Merlin \u2014 Fire Aggro",
-      "opponentDeck": "Fire Lorraine \u2014 Red Hare",
+      "learnerDeck": "Merlin — Fire Aggro",
+      "opponentDeck": "Fire Lorraine — Red Hare",
       "seed": 5000020,
       "classification": "repeated_transition",
       "tailMessages": [
@@ -257,8 +257,8 @@
     {
       "batch": "rl",
       "episode": 38,
-      "learnerDeck": "Fire Lorraine \u2014 Red Hare",
-      "opponentDeck": "Merlin \u2014 Fire Aggro",
+      "learnerDeck": "Fire Lorraine — Red Hare",
+      "opponentDeck": "Merlin — Fire Aggro",
       "seed": 70019,
       "classification": "repeated_transition",
       "tailMessages": [
@@ -268,8 +268,8 @@
     {
       "batch": "teacher-heldout",
       "episode": 38,
-      "learnerDeck": "Fire Lorraine \u2014 Red Hare",
-      "opponentDeck": "Merlin \u2014 Fire Aggro",
+      "learnerDeck": "Fire Lorraine — Red Hare",
+      "opponentDeck": "Merlin — Fire Aggro",
       "seed": 60019,
       "classification": "repeated_transition",
       "tailMessages": [
@@ -289,5 +289,1143 @@
     "Inspect response policies for Backup Charger, Silvershine, Chalice of Blood, and ingredients.",
     "Improve action features and teacher fidelity before expanding training further."
   ],
-  "deployed": false
+  "deployed": false,
+  "followUp": {
+    "fix": "TweedledumTargetChosen now resolves attacker-relative references under the attacker perspective and restores the choosing player afterward.",
+    "tests": [
+      "test-ga-tweedledum-target.php: 12 checks (failed before fix)",
+      "test-ga-phase-d-combat-batch.php: 24 checks"
+    ],
+    "verification": {
+      "eval": {
+        "completed": 4,
+        "games": [
+          {
+            "episode": 37,
+            "seed": 5000019,
+            "steps": 105,
+            "completed": true
+          },
+          {
+            "episode": 38,
+            "seed": 5000019,
+            "steps": 196,
+            "completed": true
+          },
+          {
+            "episode": 39,
+            "seed": 5000020,
+            "steps": 220,
+            "completed": true
+          },
+          {
+            "episode": 40,
+            "seed": 5000020,
+            "steps": 180,
+            "completed": true
+          }
+        ]
+      },
+      "teacher": {
+        "completed": 2,
+        "games": [
+          {
+            "episode": 37,
+            "seed": 60019,
+            "steps": 208,
+            "completed": true
+          },
+          {
+            "episode": 38,
+            "seed": 60019,
+            "steps": 242,
+            "completed": true
+          }
+        ]
+      }
+    },
+    "artifacts": "DevTools/rl/artifacts/ga-tweedledum-fix-20261030",
+    "note": "Saved checkpoints and original seeds; targeted verification after an engine fix, not a new strength comparison. Diana regression and Guo Jia repeated transition remain to investigate."
+  },
+  "trefleFollowUp": {
+    "cause": "Polkhawk chose a count-valid but cost-invalid subset for Trefle alternative payment; selection must total exactly ten reserve cost.",
+    "fix": "Bot enumeration supplies one exact-cost payment found by bounded dynamic programming. RL expansion preserves this constrained catalog. Other valid payment subsets are not yet ranked.",
+    "verification": {
+      "tests": "544 bot decision checks pass; actual Trefle payment and RL catalog constraint checked",
+      "games": [
+        {
+          "episode": 25,
+          "seed": 4000013,
+          "completed": true,
+          "steps": 347
+        },
+        {
+          "episode": 26,
+          "seed": 4000013,
+          "completed": true,
+          "steps": 530
+        }
+      ]
+    },
+    "artifacts": "DevTools/rl/artifacts/ga-trefle-fix-20261030",
+    "note": "Uses a newly frozen opponent containing the fix. This is a completion check, not a controlled strength comparison against the earlier frozen opponent."
+  },
+  "dianaReview": {
+    "batch": "after-4000001",
+    "episode": 18,
+    "learnerSeat": 2,
+    "opponent": "Tera Silvie — Slimes",
+    "firstDivergenceStep": 6,
+    "before": "Pass optional response",
+    "after": "Play Weaving Manastream, paying with Tactical Retreat and Charge the Soul",
+    "conclusion": "No rules defect established. One outcome cannot attribute the loss to this choice. Current linear observation lacks explicit distant status and weapon/load context; investigate those features and evaluate multiple independent seeds before tuning this response."
+  },
+  "tacticalFeatureFollowUp": {
+    "features": [
+      "champion distant status",
+      "public weapon and loaded weapon counts",
+      "weapon durability",
+      "field action tactical descriptors"
+    ],
+    "validation": {
+      "policyChecks": 32,
+      "tournamentIntegration": "passed",
+      "freshDianaTeacherGames": 2,
+      "completed": 2,
+      "steps": [
+        171,
+        158
+      ],
+      "teacherMissing": 0,
+      "seed": 6100009
+    },
+    "artifacts": "DevTools/rl/artifacts/ga-tactical-diana-20261030/",
+    "limitation": "Teacher-rollout smoke test, not evidence of improved learned play. Retraining and matched evaluation remain; no deployment."
+  },
+  "tacticalFullCycle": {
+    "artifacts": "DevTools/rl/artifacts/ga-tactical-full-cycle-20261030",
+    "scheduled": 294,
+    "completed": 291,
+    "batches": {
+      "after-4000001": {
+        "scheduled": 42,
+        "completed": 42,
+        "wins": 12,
+        "teacherMissing": 0
+      },
+      "after-5000001": {
+        "scheduled": 42,
+        "completed": 41,
+        "wins": 19,
+        "teacherMissing": 0
+      },
+      "before-4000001": {
+        "scheduled": 42,
+        "completed": 41,
+        "wins": 13,
+        "teacherMissing": 0
+      },
+      "before-5000001": {
+        "scheduled": 42,
+        "completed": 42,
+        "wins": 17,
+        "teacherMissing": 0
+      },
+      "imitation": {
+        "scheduled": 42,
+        "completed": 42,
+        "wins": 22,
+        "teacherMissing": 1
+      },
+      "rl": {
+        "scheduled": 42,
+        "completed": 41,
+        "wins": 15,
+        "teacherMissing": 0
+      },
+      "teacher-heldout": {
+        "scheduled": 42,
+        "completed": 42,
+        "wins": 23,
+        "teacherMissing": 0
+      }
+    },
+    "pairedGames": 82,
+    "pairedBeforeWins": 30,
+    "pairedAfterWins": 30,
+    "improved": 4,
+    "regressed": 4,
+    "unchanged": 74,
+    "excludedPairs": 2,
+    "changedOutcomes": [
+      {
+        "seed": 4000001,
+        "episode": 2,
+        "deck": "Allen — Cats",
+        "beforeReward": -1.0,
+        "afterReward": 1.0
+      },
+      {
+        "seed": 4000001,
+        "episode": 18,
+        "deck": "Diana — Water Aetherwing (Non-Carpsong)",
+        "beforeReward": 1.0,
+        "afterReward": -1.0
+      },
+      {
+        "seed": 4000001,
+        "episode": 31,
+        "deck": "Nico — Ravishing Mill",
+        "beforeReward": 1.0,
+        "afterReward": -1.0
+      },
+      {
+        "seed": 4000001,
+        "episode": 42,
+        "deck": "Alice — Ravishing Mill",
+        "beforeReward": 1.0,
+        "afterReward": -1.0
+      },
+      {
+        "seed": 5000001,
+        "episode": 22,
+        "deck": "Water Diao Chan — Fractal Burn",
+        "beforeReward": -1.0,
+        "afterReward": 1.0
+      },
+      {
+        "seed": 5000001,
+        "episode": 28,
+        "deck": "Polkhawk — Suited",
+        "beforeReward": -1.0,
+        "afterReward": 1.0
+      },
+      {
+        "seed": 5000001,
+        "episode": 36,
+        "deck": "Mordred — Razorgale",
+        "beforeReward": -1.0,
+        "afterReward": 1.0
+      },
+      {
+        "seed": 5000001,
+        "episode": 37,
+        "deck": "Fire Lorraine — Red Hare",
+        "beforeReward": 1.0,
+        "afterReward": -1.0
+      }
+    ],
+    "incompleteGames": [
+      {
+        "batch": "after-5000001",
+        "episode": 35,
+        "deck": "Mordred — Razorgale",
+        "reason": "max_steps"
+      },
+      {
+        "batch": "before-4000001",
+        "episode": 11,
+        "deck": "Tristan — Shadowstrike",
+        "reason": "max_steps"
+      },
+      {
+        "batch": "rl",
+        "episode": 28,
+        "deck": "Polkhawk — Suited",
+        "reason": "all_actions_filtered"
+      }
+    ],
+    "beforeFidelity": {
+      "choices": 6176,
+      "topAgreement": 0.7074562823834198,
+      "meanTeacherProbability": 0.5879101351561606,
+      "crossEntropy": 0.721640502948984,
+      "note": "Use independent teacher seeds for held-out fidelity. Synthetic teacher choices may be absent from inference; inspect teacherMissing in collection reports."
+    },
+    "afterFidelity": {
+      "choices": 6176,
+      "topAgreement": 0.721273208117444,
+      "meanTeacherProbability": 0.587379972697981,
+      "crossEntropy": 0.7219620515607461,
+      "note": "Use independent teacher seeds for held-out fidelity. Synthetic teacher choices may be absent from inference; inspect teacherMissing in collection reports."
+    },
+    "conclusion": "No net gain. Do not promote. This compares RL against imitation under the same new observation and fixed engine; it does not isolate the effect of the tactical features.",
+    "nextPriorities": [
+      "Reproduce and fix rejected Misty the Joker Unique-rule sacrifice choices (RL game 28).",
+      "Inspect first divergent decisions for Diana, Nico and Alice; tune learning only against independent evaluation seeds.",
+      "Review progressing Tristan and Mordred games before changing the step limit."
+    ]
+  },
+  "uniqueImmortalityFollowUp": {
+    "cause": "Verita grants immortality to both Mistys. Ordinary sacrifice protection was incorrectly applied to the mandatory Unique-rule sacrifice.",
+    "fix": "Only Unique-rule resolution bypasses immortality, retaining the normal death path.",
+    "rules": "https://rules.gatcg.com/glossary/keywords-and-abilities",
+    "validation": {
+      "newRegressionChecks": 14,
+      "botChecks": 544,
+      "tweedledumChecks": 12,
+      "combatChecks": 24,
+      "exactBlockedSnapshot": "Both myField-3 and myField-5 resolve through EngineExecuteLoadedAction on separate snapshot copies.",
+      "targetedTrainingGames": [
+        {
+          "episode": 27,
+          "completed": true,
+          "steps": 397
+        },
+        {
+          "episode": 28,
+          "completed": true,
+          "steps": 609
+        }
+      ]
+    },
+    "artifacts": "DevTools/rl/artifacts/ga-unique-fix-20261030",
+    "limitation": "Targeted training starts from imitation checkpoint, not the original intermediate RL weights. Exact-snapshot action tests establish the original prompt is fixed; no strength claim."
+  },
+  "startingStateAudit": {
+    "finding": "GA startup inherited the previous acting player; perspective-relative RNG hashing changed initial deck order despite matching seeds. Earlier aggregate paired outcomes are not valid controlled comparisons. Matching-start subsets are diagnostic only, not a replacement strength estimate.",
+    "tacticalCycleAudit": [
+      {
+        "seed": 4000001,
+        "mismatchedStartingEpisodes": [
+          3,
+          12,
+          30,
+          31
+        ],
+        "matchingCompletedPairs": 37,
+        "beforeWins": 11,
+        "afterWins": 10,
+        "improved": 1,
+        "regressed": 2
+      },
+      {
+        "seed": 5000001,
+        "mismatchedStartingEpisodes": [
+          11,
+          36,
+          37
+        ],
+        "matchingCompletedPairs": 38,
+        "beforeWins": 15,
+        "afterWins": 17,
+        "improved": 2,
+        "regressed": 0
+      }
+    ],
+    "fix": "Reset GA startup perspective to player 1 in the test bridge; include initialGamestateHash in tournament reports and reject missing or unequal hashes in comparisons.",
+    "validation": "Mixed-card deck startup reproduces identical states after previous seats 1, 2, 1; regression failed before fix.",
+    "next": "Fresh evaluation completed; see fixedStartEvaluation. Repeat on a second unused seed set before promotion or training-volume changes."
+  },
+  "fixedStartEvaluation": {
+    "artifacts": "DevTools/rl/artifacts/ga-start-fixed-evaluation-20261030",
+    "seed": 8000001,
+    "scheduledGames": 84,
+    "completedGames": 84,
+    "archetypes": 21,
+    "learnerSeatsPerArchetype": [
+      1,
+      2
+    ],
+    "maxSteps": 1000,
+    "matchingInitialStates": 42,
+    "policiesUnchanged": true,
+    "checkpointSources": {
+      "before": "/Users/avery/Documents/GitHub/TCGEngine/DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/imitation/latest.json",
+      "after": "/Users/avery/Documents/GitHub/TCGEngine/DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/rl/latest.json"
+    },
+    "policyHashes": {
+      "before": "1fdc03f80bdb21bf2643292a3315f099a19095ec58975d2e4ecf894fe157ea97",
+      "after": "ec7f12bbc593f4b8aca7be1b964e4ebfebbc9eb75f3e0f74ae9799a86c40431a"
+    },
+    "comparison": {
+      "scheduledGames": 42,
+      "pairedCompletedGames": 42,
+      "improvedOutcomes": 1,
+      "regressedOutcomes": 0,
+      "unchangedOutcomes": 41,
+      "excludedIncompletePairs": 0,
+      "beforeWins": 18,
+      "afterWins": 19,
+      "pairedBeforeWins": 18,
+      "pairedAfterWins": 19,
+      "note": "Descriptive paired results only; this is not a promotion or significance test."
+    },
+    "changedOutcomes": [
+      {
+        "episode": 23,
+        "learnerDeck": "Rai — Ravishing Mill",
+        "opponentDeck": "Water Diao Chan — Fractal Burn",
+        "learnerSeat": 1,
+        "beforeReward": -1.0,
+        "afterReward": 1.0
+      }
+    ],
+    "promoted": false,
+    "interpretation": "One additional win on one fresh seed set is descriptive evidence only, not an established strength gain. Both checkpoints were trained before the startup fix; this rerun evaluates them with fixed starts and the Unique-rule fix.",
+    "next": "Confirm on a second unused seed set; retain the frozen models and opponent, then inspect consistent decision differences before changing training."
+  },
+  "screenedConfirmation": {
+    "status": "screen_rejected",
+    "promoted": false,
+    "hypothesis": "The frozen tactical RL candidate retains its fixed-start win improvement on unused seeds without new outcome regressions.",
+    "stages": [
+      {
+        "name": "preflight",
+        "passed": true,
+        "elapsedSeconds": 8.782
+      },
+      {
+        "name": "screen-before",
+        "cacheHit": false,
+        "cacheKey": "57cc978ed538dd789ff84b47c04aef4d6ab5bc3d88dc7165c2f506021a743876",
+        "workers": 2,
+        "elapsedSeconds": 72.38
+      },
+      {
+        "name": "screen-after",
+        "cacheHit": false,
+        "cacheKey": "c344ed8ba8d27ba4624c6f07cb20b2d3a7154f70c4e5776d1c63379914c4e8d0",
+        "workers": 2,
+        "elapsedSeconds": 38.296
+      }
+    ],
+    "elapsedSeconds": 119.483,
+    "screen": {
+      "scheduledGames": 12,
+      "pairedCompletedGames": 11,
+      "improvedOutcomes": 0,
+      "regressedOutcomes": 0,
+      "unchangedOutcomes": 11,
+      "excludedIncompletePairs": 1,
+      "beforeWins": 5,
+      "afterWins": 5,
+      "pairedBeforeWins": 5,
+      "pairedAfterWins": 5,
+      "note": "Descriptive paired results only; this is not a promotion or significance test."
+    },
+    "screenPassed": false,
+    "next": "Inspect screening regressions or incomplete games; full validation was skipped.",
+    "artifacts": "DevTools/rl/artifacts/ga-screened-confirmation-20261030",
+    "screenSeed": 9100001,
+    "incompletePair": {
+      "episode": 9,
+      "seed": 9100005,
+      "learnerDeck": "Ciel — Umbra Guardian / Coup",
+      "opponentDeck": "Tristan — Shadowstrike",
+      "learnerSeat": 1,
+      "baselineTermination": "max_steps",
+      "baselineSteps": 1000,
+      "baselineLastActionChangedState": true,
+      "candidateTermination": "terminal",
+      "candidateSteps": 237,
+      "candidateWon": false
+    },
+    "interpretation": "Eleven completed pairs had identical outcomes. One baseline timeout prevents a complete screen; this is neither a demonstrated outcome regression nor evidence of improvement. Full validation skipped; no promotion.",
+    "nextExperiment": "Diagnose the Ciel/Tristan timeout with both frozen policies at the same higher step limit, preserving episode 9 scheduling and seed. Treat screening seeds as diagnostic, not final validation."
+  },
+  "cielTimeoutDiagnostic": {
+    "artifacts": "DevTools/rl/artifacts/ga-ciel-timeout-diagnostic-20261030",
+    "seed": 9100001,
+    "start": 8,
+    "maxSteps": 2000,
+    "comparison": {
+      "scheduledGames": 2,
+      "pairedCompletedGames": 2,
+      "improvedOutcomes": 0,
+      "regressedOutcomes": 1,
+      "unchangedOutcomes": 1,
+      "excludedIncompletePairs": 0,
+      "beforeWins": 1,
+      "afterWins": 0,
+      "pairedBeforeWins": 1,
+      "pairedAfterWins": 0,
+      "note": "Descriptive paired results only; this is not a promotion or significance test."
+    },
+    "reproducibilityChecks": [
+      {
+        "policy": "before",
+        "episode": 9,
+        "initialStateMatches": true,
+        "originalActionPrefixMatches": true,
+        "verifiedActions": 1000
+      },
+      {
+        "policy": "before",
+        "episode": 10,
+        "initialStateMatches": true,
+        "originalActionPrefixMatches": true,
+        "verifiedActions": 221
+      },
+      {
+        "policy": "after",
+        "episode": 9,
+        "initialStateMatches": true,
+        "originalActionPrefixMatches": true,
+        "verifiedActions": 237
+      },
+      {
+        "policy": "after",
+        "episode": 10,
+        "initialStateMatches": true,
+        "originalActionPrefixMatches": true,
+        "verifiedActions": 221
+      }
+    ],
+    "games": [
+      {
+        "episode": 9,
+        "seed": 9100005,
+        "learnerSeat": 1,
+        "learnerDeck": "Ciel — Umbra Guardian / Coup",
+        "opponentDeck": "Tristan — Shadowstrike",
+        "winner": 1,
+        "steps": 1302,
+        "completed": true,
+        "terminationReason": "terminal",
+        "policy": "before"
+      },
+      {
+        "episode": 10,
+        "seed": 9100005,
+        "learnerSeat": 2,
+        "learnerDeck": "Ciel — Umbra Guardian / Coup",
+        "opponentDeck": "Tristan — Shadowstrike",
+        "winner": 1,
+        "steps": 221,
+        "completed": true,
+        "terminationReason": "terminal",
+        "policy": "before"
+      },
+      {
+        "episode": 9,
+        "seed": 9100005,
+        "learnerSeat": 1,
+        "learnerDeck": "Ciel — Umbra Guardian / Coup",
+        "opponentDeck": "Tristan — Shadowstrike",
+        "winner": 2,
+        "steps": 237,
+        "completed": true,
+        "terminationReason": "terminal",
+        "policy": "after"
+      },
+      {
+        "episode": 10,
+        "seed": 9100005,
+        "learnerSeat": 2,
+        "learnerDeck": "Ciel — Umbra Guardian / Coup",
+        "opponentDeck": "Tristan — Shadowstrike",
+        "winner": 1,
+        "steps": 221,
+        "completed": true,
+        "terminationReason": "terminal",
+        "policy": "after"
+      }
+    ],
+    "promoted": false,
+    "conclusion": "The baseline timeout resolves to a win after 1302 steps; the RL candidate loses the identical start after 237. This is a confirmed screening regression. The other seat is unchanged. No full validation or promotion.",
+    "next": "Inspect the earliest differing Ciel decisions before proposing a constrained training update; keep final validation seeds unused."
+  },
+  "archetypeAdapterPilot": {
+    "status": "screen_rejected",
+    "promoted": false,
+    "hypothesis": "Frozen shared weights with independent archetype adjustments prevent cross-archetype interference while retaining baseline performance.",
+    "stages": [
+      {
+        "name": "preflight",
+        "passed": true,
+        "elapsedSeconds": 2.098
+      },
+      {
+        "name": "rl",
+        "games": 10,
+        "completed": 10,
+        "elapsedSeconds": 49.923
+      },
+      {
+        "name": "screen-before",
+        "cacheHit": false,
+        "cacheKey": "20b0a91ed48887e181052a530d84fb1c4f623923393d31666f8e506369781527",
+        "workers": 2,
+        "elapsedSeconds": 60.178
+      },
+      {
+        "name": "screen-after",
+        "cacheHit": false,
+        "cacheKey": "971598428a1d0c1899ccf4ec2e39aa2f0e791e9c3437a9fa0597221c4307c6be",
+        "workers": 2,
+        "elapsedSeconds": 43.088
+      }
+    ],
+    "elapsedSeconds": 155.302,
+    "screen": {
+      "scheduledGames": 12,
+      "pairedCompletedGames": 12,
+      "improvedOutcomes": 0,
+      "regressedOutcomes": 1,
+      "unchangedOutcomes": 11,
+      "excludedIncompletePairs": 0,
+      "beforeWins": 6,
+      "afterWins": 5,
+      "pairedBeforeWins": 6,
+      "pairedAfterWins": 5,
+      "note": "Descriptive paired results only; this is not a promotion or significance test.",
+      "byArchetype": {
+        "Allen — Cats": {
+          "scheduledGames": 2,
+          "pairedCompletedGames": 2,
+          "improvedOutcomes": 0,
+          "regressedOutcomes": 0,
+          "unchangedOutcomes": 2,
+          "excludedIncompletePairs": 0,
+          "beforeWins": 2,
+          "afterWins": 2,
+          "pairedBeforeWins": 2,
+          "pairedAfterWins": 2,
+          "note": "Descriptive paired results only; this is not a promotion or significance test."
+        },
+        "Astra Arisanna — Starcalling": {
+          "scheduledGames": 2,
+          "pairedCompletedGames": 2,
+          "improvedOutcomes": 0,
+          "regressedOutcomes": 0,
+          "unchangedOutcomes": 2,
+          "excludedIncompletePairs": 0,
+          "beforeWins": 0,
+          "afterWins": 0,
+          "pairedBeforeWins": 0,
+          "pairedAfterWins": 0,
+          "note": "Descriptive paired results only; this is not a promotion or significance test."
+        },
+        "Ciel — Umbra Guardian / Coup": {
+          "scheduledGames": 2,
+          "pairedCompletedGames": 2,
+          "improvedOutcomes": 0,
+          "regressedOutcomes": 1,
+          "unchangedOutcomes": 1,
+          "excludedIncompletePairs": 0,
+          "beforeWins": 1,
+          "afterWins": 0,
+          "pairedBeforeWins": 1,
+          "pairedAfterWins": 0,
+          "note": "Descriptive paired results only; this is not a promotion or significance test."
+        },
+        "Luxem Zander — Reveal": {
+          "scheduledGames": 2,
+          "pairedCompletedGames": 2,
+          "improvedOutcomes": 0,
+          "regressedOutcomes": 0,
+          "unchangedOutcomes": 2,
+          "excludedIncompletePairs": 0,
+          "beforeWins": 0,
+          "afterWins": 0,
+          "pairedBeforeWins": 0,
+          "pairedAfterWins": 0,
+          "note": "Descriptive paired results only; this is not a promotion or significance test."
+        },
+        "Tristan — Shadowstrike": {
+          "scheduledGames": 2,
+          "pairedCompletedGames": 2,
+          "improvedOutcomes": 0,
+          "regressedOutcomes": 0,
+          "unchangedOutcomes": 2,
+          "excludedIncompletePairs": 0,
+          "beforeWins": 1,
+          "afterWins": 1,
+          "pairedBeforeWins": 1,
+          "pairedAfterWins": 1,
+          "note": "Descriptive paired results only; this is not a promotion or significance test."
+        },
+        "Vanitas — Mounted Allies": {
+          "scheduledGames": 2,
+          "pairedCompletedGames": 2,
+          "improvedOutcomes": 0,
+          "regressedOutcomes": 0,
+          "unchangedOutcomes": 2,
+          "excludedIncompletePairs": 0,
+          "beforeWins": 2,
+          "afterWins": 2,
+          "pairedBeforeWins": 2,
+          "pairedAfterWins": 2,
+          "note": "Descriptive paired results only; this is not a promotion or significance test."
+        }
+      }
+    },
+    "screenPassed": false,
+    "next": "Inspect screening regressions or incomplete games; full validation was skipped.",
+    "artifacts": "DevTools/rl/artifacts/ga-archetype-adapter-pilot-20261030",
+    "trainingSeed": 70001,
+    "screenSeed": 9100001,
+    "maxSteps": 2000,
+    "sharedWeightsUnchanged": true,
+    "trainedArchetypes": 5,
+    "untrainedTristanReplayActionsUnchanged": true,
+    "interpretation": "Isolation is verified, but Ciel regresses from its own updates. This pilot does not demonstrate stronger play. Screening seed is diagnostic and reused; final validation remains unused.",
+    "nextExperiment": "Investigate Ciel decision divergence and constrain per-archetype updates before expanding training. Retain the frozen foundation as fallback."
+  },
+  "parallelArchetypeRound1": {
+    "status": "completed",
+    "promoted": false,
+    "artifacts": "DevTools/rl/artifacts/ga-archetype-round-1",
+    "workers": 2,
+    "trainingGames": 210,
+    "screeningGames": 504,
+    "trainingSeed": 11000001,
+    "screenSeed": 12000001,
+    "maxSteps": 2000,
+    "elapsedSeconds": 1173.274,
+    "candidateHash": "8ce3b1077bd4761c15bbef4565a555654cfbbc20d1ceaa84df23f8af25b2f624",
+    "archetypes": {
+      "Allen — Cats": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 5,
+        "pairedAfterWins": 5,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Alice — Ravishing Mill": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 4,
+        "pairedAfterWins": 3,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 1,
+        "excludedIncompletePairs": 0
+      },
+      "Astra Arisanna — Starcalling": {
+        "screenAccepted": true,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 0,
+        "pairedAfterWins": 1,
+        "improvedOutcomes": 1,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Ciel — Umbra Guardian / Coup": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 2,
+        "pairedAfterWins": 2,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Diana — Water Aetherwing (Non-Carpsong)": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 5,
+        "pairedAfterWins": 5,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Dante — Water Unique Allies / Ravishing Mill / Suited": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 7,
+        "pairedAfterWins": 5,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 2,
+        "excludedIncompletePairs": 0
+      },
+      "Fire Lorraine — Red Hare": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 9,
+        "pairedAfterWins": 9,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Exia Jin — Seething / Enrage Recovery": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 0,
+        "pairedAfterWins": 0,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Luxem Zander — Reveal": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 2,
+        "pairedAfterWins": 2,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Merlin — Fire Aggro": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 6,
+        "pairedAfterWins": 6,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Kongming — Tera Mage": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 5,
+        "pairedAfterWins": 5,
+        "improvedOutcomes": 2,
+        "regressedOutcomes": 2,
+        "excludedIncompletePairs": 0
+      },
+      "Nico — Ravishing Mill": {
+        "screenAccepted": true,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 2,
+        "pairedAfterWins": 5,
+        "improvedOutcomes": 3,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Mordred — Razorgale": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 1,
+        "pairedAfterWins": 1,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Rai — Ravishing Mill": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 6,
+        "pairedAfterWins": 6,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Polkhawk — Suited": {
+        "screenAccepted": true,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 8,
+        "pairedAfterWins": 9,
+        "improvedOutcomes": 1,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Tera Silvie — Slimes": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 6,
+        "pairedAfterWins": 6,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Tonoris — Neos Domains": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 4,
+        "pairedAfterWins": 3,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 1,
+        "excludedIncompletePairs": 0
+      },
+      "Tristan — Shadowstrike": {
+        "screenAccepted": true,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 4,
+        "pairedAfterWins": 5,
+        "improvedOutcomes": 1,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      },
+      "Vanitas — Mounted Allies": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 6,
+        "pairedAfterWins": 4,
+        "improvedOutcomes": 1,
+        "regressedOutcomes": 3,
+        "excludedIncompletePairs": 0
+      },
+      "Water Guo Jia — Genbu": {
+        "screenAccepted": false,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 5,
+        "pairedAfterWins": 4,
+        "improvedOutcomes": 0,
+        "regressedOutcomes": 1,
+        "excludedIncompletePairs": 0
+      },
+      "Water Diao Chan — Fractal Burn": {
+        "screenAccepted": true,
+        "pairedCompletedGames": 12,
+        "pairedBeforeWins": 0,
+        "pairedAfterWins": 1,
+        "improvedOutcomes": 1,
+        "regressedOutcomes": 0,
+        "excludedIncompletePairs": 0
+      }
+    },
+    "interpretation": "Five adjustments passed screening; screening is not independent evidence of improved strength. No deployment. Independent 40-pair validation per accepted archetype is recorded separately after completion."
+  },
+  "parallelArchetypeRound1Validation": {
+    "status": "completed",
+    "promoted": false,
+    "archetypes": {
+      "Nico — Ravishing Mill": {
+        "scheduledGames": 40,
+        "pairedCompletedGames": 40,
+        "improvedOutcomes": 2,
+        "regressedOutcomes": 2,
+        "unchangedOutcomes": 36,
+        "excludedIncompletePairs": 0,
+        "beforeWins": 15,
+        "afterWins": 15,
+        "pairedBeforeWins": 15,
+        "pairedAfterWins": 15,
+        "note": "Descriptive paired results only; this is not a promotion or significance test.",
+        "byArchetype": {
+          "Nico — Ravishing Mill": {
+            "scheduledGames": 40,
+            "pairedCompletedGames": 40,
+            "improvedOutcomes": 2,
+            "regressedOutcomes": 2,
+            "unchangedOutcomes": 36,
+            "excludedIncompletePairs": 0,
+            "beforeWins": 15,
+            "afterWins": 15,
+            "pairedBeforeWins": 15,
+            "pairedAfterWins": 15,
+            "note": "Descriptive paired results only; this is not a promotion or significance test."
+          }
+        }
+      },
+      "Astra Arisanna — Starcalling": {
+        "scheduledGames": 40,
+        "pairedCompletedGames": 40,
+        "improvedOutcomes": 2,
+        "regressedOutcomes": 1,
+        "unchangedOutcomes": 37,
+        "excludedIncompletePairs": 0,
+        "beforeWins": 4,
+        "afterWins": 5,
+        "pairedBeforeWins": 4,
+        "pairedAfterWins": 5,
+        "note": "Descriptive paired results only; this is not a promotion or significance test.",
+        "byArchetype": {
+          "Astra Arisanna — Starcalling": {
+            "scheduledGames": 40,
+            "pairedCompletedGames": 40,
+            "improvedOutcomes": 2,
+            "regressedOutcomes": 1,
+            "unchangedOutcomes": 37,
+            "excludedIncompletePairs": 0,
+            "beforeWins": 4,
+            "afterWins": 5,
+            "pairedBeforeWins": 4,
+            "pairedAfterWins": 5,
+            "note": "Descriptive paired results only; this is not a promotion or significance test."
+          }
+        }
+      },
+      "Polkhawk — Suited": {
+        "scheduledGames": 40,
+        "pairedCompletedGames": 40,
+        "improvedOutcomes": 2,
+        "regressedOutcomes": 1,
+        "unchangedOutcomes": 37,
+        "excludedIncompletePairs": 0,
+        "beforeWins": 24,
+        "afterWins": 25,
+        "pairedBeforeWins": 24,
+        "pairedAfterWins": 25,
+        "note": "Descriptive paired results only; this is not a promotion or significance test.",
+        "byArchetype": {
+          "Polkhawk — Suited": {
+            "scheduledGames": 40,
+            "pairedCompletedGames": 40,
+            "improvedOutcomes": 2,
+            "regressedOutcomes": 1,
+            "unchangedOutcomes": 37,
+            "excludedIncompletePairs": 0,
+            "beforeWins": 24,
+            "afterWins": 25,
+            "pairedBeforeWins": 24,
+            "pairedAfterWins": 25,
+            "note": "Descriptive paired results only; this is not a promotion or significance test."
+          }
+        }
+      },
+      "Tristan — Shadowstrike": {
+        "scheduledGames": 40,
+        "pairedCompletedGames": 40,
+        "improvedOutcomes": 1,
+        "regressedOutcomes": 0,
+        "unchangedOutcomes": 39,
+        "excludedIncompletePairs": 0,
+        "beforeWins": 16,
+        "afterWins": 17,
+        "pairedBeforeWins": 16,
+        "pairedAfterWins": 17,
+        "note": "Descriptive paired results only; this is not a promotion or significance test.",
+        "byArchetype": {
+          "Tristan — Shadowstrike": {
+            "scheduledGames": 40,
+            "pairedCompletedGames": 40,
+            "improvedOutcomes": 1,
+            "regressedOutcomes": 0,
+            "unchangedOutcomes": 39,
+            "excludedIncompletePairs": 0,
+            "beforeWins": 16,
+            "afterWins": 17,
+            "pairedBeforeWins": 16,
+            "pairedAfterWins": 17,
+            "note": "Descriptive paired results only; this is not a promotion or significance test."
+          }
+        }
+      },
+      "Water Diao Chan — Fractal Burn": {
+        "scheduledGames": 40,
+        "pairedCompletedGames": 40,
+        "improvedOutcomes": 2,
+        "regressedOutcomes": 2,
+        "unchangedOutcomes": 36,
+        "excludedIncompletePairs": 0,
+        "beforeWins": 8,
+        "afterWins": 8,
+        "pairedBeforeWins": 8,
+        "pairedAfterWins": 8,
+        "note": "Descriptive paired results only; this is not a promotion or significance test.",
+        "byArchetype": {
+          "Water Diao Chan — Fractal Burn": {
+            "scheduledGames": 40,
+            "pairedCompletedGames": 40,
+            "improvedOutcomes": 2,
+            "regressedOutcomes": 2,
+            "unchangedOutcomes": 36,
+            "excludedIncompletePairs": 0,
+            "beforeWins": 8,
+            "afterWins": 8,
+            "pairedBeforeWins": 8,
+            "pairedAfterWins": 8,
+            "note": "Descriptive paired results only; this is not a promotion or significance test."
+          }
+        }
+      }
+    }
+  },
+  "decisionBankPilot": {
+    "artifacts": "DevTools/rl/artifacts/ga-decision-bank-pilot",
+    "archetypes": [
+      "Tristan — Shadowstrike",
+      "Fire Lorraine — Red Hare",
+      "Water Guo Jia — Genbu"
+    ],
+    "seed": 14000001,
+    "games": 12,
+    "completedGames": 12,
+    "positions": 1233,
+    "missingSupportPositions": 605,
+    "supportedReviewPositions": 122,
+    "unknownSupportPositions": 506,
+    "promoted": false,
+    "interpretation": "Diagnostic capture verified. Optional-scoring gaps are not engine implementation gaps. Outcomes do not label actions as mistakes. Evaluation examples remain review-only."
+  },
+  "tristanHeuristicScreen": {
+    "artifact": "DevTools/rl/artifacts/ga-tristan-heuristic-screen-20261030",
+    "seed": 15000001,
+    "actualGames": 20,
+    "comparison": {
+      "beforeChooser": "frozen",
+      "afterChooser": "current",
+      "scheduledGames": 10,
+      "pairedCompletedGames": 10,
+      "improvedOutcomes": 0,
+      "regressedOutcomes": 0,
+      "unchangedOutcomes": 10,
+      "excludedIncompletePairs": 0,
+      "beforeWins": 7,
+      "afterWins": 7,
+      "pairedBeforeWins": 7,
+      "pairedAfterWins": 7,
+      "note": "Descriptive paired results only; this is not a promotion or significance test.",
+      "byArchetype": {
+        "Tristan — Shadowstrike": {
+          "beforeChooser": "frozen",
+          "afterChooser": "current",
+          "scheduledGames": 10,
+          "pairedCompletedGames": 10,
+          "improvedOutcomes": 0,
+          "regressedOutcomes": 0,
+          "unchangedOutcomes": 10,
+          "excludedIncompletePairs": 0,
+          "beforeWins": 7,
+          "afterWins": 7,
+          "pairedBeforeWins": 7,
+          "pairedAfterWins": 7,
+          "note": "Descriptive paired results only; this is not a promotion or significance test."
+        }
+      }
+    },
+    "bankPositions": 2322,
+    "firstDivergence": "Smoke Bombs activation in six pairs; four identical action sequences",
+    "observedActivations": {
+      "Smoke Bombs": 6,
+      "Assassin’s Ripper": 0,
+      "Sadi return": 0
+    },
+    "limitations": [
+      "Historical frozen baseline includes other differences; not a patch-isolation experiment.",
+      "No observed win-rate improvement.",
+      "Ripper and Sadi activation behavior covered by targeted tests only in this sample."
+    ],
+    "deployed": false
+  },
+  "guoJiaHeuristicScreen": {
+    "artifactDirectory": "DevTools/rl/artifacts/ga-guojia-heuristic-screen-20261030",
+    "seed": 16000001,
+    "gamesPerChooser": 10,
+    "completedGames": 20,
+    "frozenWins": 8,
+    "currentWins": 8,
+    "improvedPairs": 0,
+    "regressedPairs": 0,
+    "unchangedPairs": 10,
+    "currentFastActionSelections": {
+      "Cerulean Decree": 2,
+      "Refracting Missile": 2,
+      "Fracturize": 3
+    },
+    "reviewPositions": 2915,
+    "note": "Historical frozen comparison, not a patch-isolated experiment. No win-rate gain demonstrated; no model trained or promoted."
+  },
+  "lorraineHeuristicScreen": {
+    "artifactDirectory": "DevTools/rl/artifacts/ga-lorraine-heuristic-screen-20261030",
+    "seed": 17000001,
+    "completedGames": 20,
+    "frozenWins": 8,
+    "currentWins": 8,
+    "unchangedPairs": 10,
+    "currentKindleSelections": 47,
+    "currentMarchHareKindleSelections": 3,
+    "frozenKindleSelections": 0,
+    "reviewPositions": 3538,
+    "note": "Historical baseline; no demonstrated win-rate improvement; no model trained or promoted."
+  },
+  "lorraineRecoveryScreen": {
+    "artifactDirectory": "DevTools/rl/artifacts/ga-lorraine-recovery-screen-20261030",
+    "seed": 18000001,
+    "completedGames": 20,
+    "frozenWins": 7,
+    "currentWins": 7,
+    "improvedPairs": 0,
+    "regressedPairs": 0,
+    "unchangedPairs": 10,
+    "redHareAccepted": 2,
+    "redHareDeclined": 3,
+    "restorativeFlameFastActions": 1,
+    "restorativeFlamePayments": 1,
+    "reviewPositions": 2873,
+    "note": "Historical frozen comparison; sparse new-policy exposure. No model trained or promoted; no win-rate gain demonstrated."
+  }
 }

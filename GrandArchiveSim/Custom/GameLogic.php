@@ -10582,7 +10582,7 @@ function TriggerGameOver($loserPlayer) {
     DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($winner));
 }
 
-function DoAllyDestroyed($player, $mzCard) {
+function DoAllyDestroyed($player, $mzCard, $uniqueRule = false) {
     global $customDQHandlers;
     $obj = GetZoneObject($mzCard);
     if($obj === null) return;
@@ -10594,7 +10594,8 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     // Immortality: object survives destruction/sacrifice/death checks.
     // Damage is intentionally preserved; immortality prevents dying, not damage.
-    if(HasImmortality($obj)) {
+    // The Unique rule explicitly overrides immortality and still counts as dying.
+    if(!$uniqueRule && HasImmortality($obj)) {
         return;
     }
     if(TryLinkShieldReplacement($player, $mzCard, $obj)) {
@@ -15806,6 +15807,7 @@ function ObjectCurrentPower($obj) {
             case "7cx66hjlgx": // Verdigris Decree: target ally gets +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "ipl6gt7lh9": // Declared-target resolution uses the card ID.
             case "ipl6gt7lh9-debuff": // Cerulean Decree: target unit's attacks get -3 POWER until end of turn
                 $power -= 3;
                 break;
@@ -18928,13 +18930,13 @@ function DoRevealCard($player, $revealedMZ) {
 }
 $revealAbilities = [];
 
-function DoSacrificeFighter($player, $mzCard) {
+function DoSacrificeFighter($player, $mzCard, $uniqueRule = false) {
     $obj = GetZoneObject($mzCard);
     $isHerb = $obj !== null && PropertyContains(CardSubtypes($obj->CardID), "HERB");
     $controller = $obj !== null ? $obj->Controller : $player;
     $isAlly = $obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY");
     $isIschemicSoldier = $obj !== null && $obj->CardID === "Hb9JCa6lM5" && !HasNoAbilities($obj);
-    DoAllyDestroyed($player, $mzCard);
+    DoAllyDestroyed($player, $mzCard, $uniqueRule);
     if($isHerb) TriggerHerbSacrificeEffects($controller, 1);
     if($isIschemicSoldier) DrawIntoMemory($controller, 2);
     if($isAlly) {
@@ -27545,7 +27547,7 @@ $customDQHandlers["ResolveUniqueRule"] = function($player, $parts, $lastDecision
         if($chosenObj !== null && !$chosenObj->removed
             && $chosenObj->CardID === $cardID
             && PropertyContains(EffectiveCardType($chosenObj), "UNIQUE")) {
-            DoSacrificeFighter($player, $lastDecision);
+            DoSacrificeFighter($player, $lastDecision, uniqueRule: true);
             DecisionQueueController::CleanupRemovedCards();
         }
     }

@@ -108,3 +108,75 @@ $gradientPolicy->logits['__linear__'][$feature] = -$h;
 $minus = log($gradientPolicy->actionProbabilities($state, [0,1], $ak)[0][1]);
 check(abs(($plus-$minus)/(2*$h) - $gradient['__linear__'][$feature]) < 1e-6, 'Shared-weight gradient matches finite differences including temperature');
 echo "Gradient check passed\n";
+
+function EffectiveCardType($obj) { return $obj->Type ?? 'CHAMPION'; }
+function IsDistant($obj) { return !empty($obj->Distant); }
+function FunctionalWeaponIsLoaded($obj) { return !empty($obj->Loaded); }
+function GetCounterCount($obj, $name) { return $obj->Counters[$name] ?? 0; }
+$weapon = (object)['CardID'=>'public-weapon','Status'=>2,'Damage'=>0,'Type'=>'WEAPON',
+  'Loaded'=>true,'Counters'=>['durability'=>3]];
+$GLOBALS['fields'][1][] = $weapon;
+$GLOBALS['zones']['myField-1'] = $weapon;
+$legal = ['actions'=>[['mode'=>100,'cardID'=>'myField-1']]];
+$unloaded = GaRlFeatureState(1, $legal);
+$weapon->Loaded = false;
+check($unloaded !== GaRlFeatureState(1, $legal), 'Loaded and empty weapons distinguishable');
+$weapon->Loaded = true;
+$GLOBALS['fields'][1][0]->Distant = true;
+$tactical = json_decode(GaRlFeatureState(1, $legal), true);
+check($tactical['ownChampionDistant'] === 1 && $tactical['enemyChampionDistant'] === 0, 'Distant tracked independently by seat');
+check($tactical['own:loadedWeapon'] === .2 && $tactical['enemy:loadedWeapon'] === 0, 'Public weapon counts tracked by seat');
+$descriptor = $tactical['_actions'][GaRlActionKey($legal['actions'][0], $legal)];
+check($descriptor['loadedWeapon'] === 1 && $descriptor['weaponDurability'] === .6, 'Weapon choice retains load and durability');
+$swapped = json_decode(GaRlFeatureState(2, []), true);
+check($swapped['enemyChampionDistant'] === 1 && $swapped['enemy:loadedWeapon'] === .2, 'Tactical features follow learner seat');
+$weapon->removed = true;
+check(json_decode(GaRlFeatureState(1, []), true)['own:weapon'] === 0, 'Removed weapons excluded');
+echo "Tactical feature checks passed ($checks total checks)\n";
+
+// Opposite rewards on the same observation must not leak across archetypes.
+$adapter = $linear->copy();
+$base = $adapter->logits;
+$adapter->enableArchetypeAdapters();
+$adapter->activeArchetype = 'Ciel — Coup';
+$initial = $adapter->actionProbabilities($state, [0,1], $ak);
+check($initial === $linear->actionProbabilities($state, [0,1], $ak), 'Zero adapter exactly preserves base');
+$adapter->applyDelta($adapter->episodeDeltaForPlayer([$step], 1, 1));
+$ciel = $adapter->actionProbabilities($state, [0,1], $ak);
+check($ciel[0][1] > $initial[0][1], 'Own archetype learns');
+check($adapter->logits['__linear__'] === $base['__linear__'], 'Shared weights frozen');
+$adapter->activeArchetype = 'Ciel — Different strategy';
+check($adapter->actionProbabilities($state,[0,1],$ak) === $initial, 'Same champion different archetype isolated');
+$adapter->applyDelta($adapter->episodeDeltaForPlayer([$step], 1, -1));
+check($adapter->actionProbabilities($state,[0,1],$ak)[0][1] < $initial[0][1], 'Conflicting strategy learns independently');
+$adapter->activeArchetype = 'Ciel — Coup';
+check($adapter->actionProbabilities($state,[0,1],$ak) === $ciel, 'Other archetype training cannot alter Ciel');
+try { $adapter->applyDelta(['__linear__'=>['bias'=>1]]); check(false,'Must reject shared update'); } catch (LogicException $e) {}
+$loaded = RlTabularPolicy::fromPayload($adapter->payload(),20,1,.05);
+check($loaded->payload() === $adapter->payload(), 'Adapter checkpoint roundtrip');
+check($loaded->activeArchetype === '', 'Checkpoint contains no stale routing');
+$loaded->activeArchetype = 'Ciel — Coup';
+check($loaded->actionProbabilities($state,[0,1],$ak) === $ciel, 'Reload retains adapter scores');
+check($loaded->copy()->actionProbabilities($state,[0,1],$ak) === $ciel, 'Copy retains adapter routing');
+$loaded->activeArchetype = 'unseen archetype';
+$payload = $loaded->payload();
+check($loaded->actionProbabilities($state,[0,1],$ak) === $initial, 'Unseen archetype uses base');
+check($loaded->payload() === $payload, 'Unseen inference does not create weights');
+$loaded->activeArchetype = '';
+try { $loaded->episodeDeltaForPlayer([$step],1,1); check(false,'Missing routing must fail'); } catch (LogicException $e) {}
+echo "Archetype isolation checks passed ($checks total)\n";
+
+$GLOBALS['zones'] = [
+  'myGraveyard-0'=>(object)['CardID'=>'visible-own'],
+  'theirGraveyard-2'=>(object)['CardID'=>'visible-enemy'],
+  'myGraveyard-3'=>(object)['CardID'=>'removed','removed'=>true],
+  'theirHand-0'=>new HiddenCard(), 'theirDeck-0'=>new HiddenCard(),
+];
+$reviewActions = [['cardID'=>'myGraveyard-0&theirGraveyard-2'],
+  ['cardID'=>'theirHand-0'], ['cardID'=>'theirDeck-0'], ['cardID'=>'myGraveyard-3']];
+check(GaRlPublicGraveyardChoices($reviewActions) === [
+  'myGraveyard-0'=>'visible-own', 'theirGraveyard-2'=>'visible-enemy'],
+  'Review metadata resolves only live public graveyards, never hidden cards');
+check(GaRlActionKey(['cardID'=>'myGraveyard-0'], []) === '["main",0,"myGraveyard-0","","",[]]',
+  'Public review metadata does not change checkpoint action keys');
+echo "Review metadata checks passed ($checks total)\n";

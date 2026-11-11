@@ -521,8 +521,8 @@ are averaged per completed episode. GA exploration now samples the policy itself
 rather than mixing an epsilon policy with an uncorrected policy gradient.
 Incomplete games still never produce updates.
 
-Run the complete local workflow (42 imitation games, 10 RL games, and two
-independent 42-game evaluation ranges by default):
+Run the local workflow (42 imitation games, 10 sequential RL games, a 12-game
+paired screen, then two independent 42-game paired evaluations if screening passes):
 
 ```bash
 python3 DevTools/rl/run_ga_learning_cycle.py \
@@ -531,8 +531,35 @@ python3 DevTools/rl/run_ga_learning_cycle.py \
   --output /path/to/new-experiment
 ```
 
-This also records independent teacher games and measures frozen-model imitation
-fidelity. Their checkpoints are deliberately not used as the RL starting model.
+Each cycle first runs the startup, policy, Unique-rule, and Tweedledum regression
+checks; a failure stops it before training. Label the experiment with
+`--hypothesis "Improve weapon timing"` to record its intended change.
+
+Evaluation defaults to two isolated PHP workers (`--workers 2`). Training updates
+remain sequential. The screen rejects any incomplete pair or regressed outcome;
+ties advance. This is a cheap triage gate, not a strength or significance test.
+Screening uses seed range 9100001; final validation uses 9200001 and 9300001.
+Do not tune on final validation results; reserve new seed ranges for subsequent
+validation after tuning. Seed ranges must not overlap.
+
+Checksummed evaluation results are cached under
+`DevTools/rl/artifacts/evaluation-cache` (override with `--cache`). Keys cover the
+checkpoint, deck/config contents, frozen opponent, engine/generated code, runner,
+PHP version, seed range, and step limit. Worker count is deliberately excluded:
+serial and parallel evaluations must reproduce identical decisions. Damaged cache
+entries are rerun. Only finished batches are published, including any incomplete
+game diagnostics; the screen still rejects incomplete games.
+
+Reuse a teacher with `--teacher-checkpoint /path/to/imitation/latest.json` to avoid
+retraining it and reuse its baseline evaluation. Add
+`--candidate-checkpoint /path/to/rl/latest.json` to evaluate an existing candidate
+without training. For supplied checkpoints, ensure their training seeds are
+independent of the chosen screening/validation seeds. `summary.json` records stage
+timings, cache hits, screening decisions, comparisons, and failures.
+
+Teacher-fidelity rollout is now an optional diagnostic rather than an automatic
+full batch on every cycle; use the standalone tools below with held-out teacher
+replays.
 Reports compare the imitation model against its RL continuation, both playing
 against the frozen heuristic. They do not establish superiority to that opponent
 unless win results actually support it. Nothing deploys or promotes a model.
@@ -598,3 +625,417 @@ Deck-level results, exact replay identifiers, and follow-up priorities are in
 `GrandArchiveSim/docs/rl-evaluation-20261030.json`. Checkpoints, raw reports, logs,
 replays, frozen teacher, and deck inputs are preserved locally under the ignored
 `DevTools/rl/artifacts/ga-linear-full-cycle-20261030/` directory.
+
+### Tactical observation follow-up (2026-10-30)
+
+The linear observation now includes each champion's distant status and public
+field totals for distant cards, weapons, loaded weapons, and durability. Field
+action descriptors include the same facts for the selected object. Effective
+card types and the engine's functional-weapon load predicate are used; attached
+card identities are not serialized. These are descriptive features, not a claim
+that every loaded weapon is currently legal to attack with.
+
+Existing linear-v1 checkpoints remain loadable: new weights start implicitly at
+zero. Retrain and compare under the same engine and frozen opponent before
+claiming an improvement; scores from the earlier observation are not a controlled
+comparison. Unit coverage includes hidden-zone sentinels, both seat perspectives,
+loaded/empty weapons, durability, and removed objects.
+
+The subsequent full tactical-feature cycle scheduled 294 games and completed 291.
+Across 82 mutually completed evaluation pairs, imitation and RL each won 30:
+four improvements, four regressions, and 74 unchanged outcomes. No checkpoint
+was promoted. Teacher top-choice agreement rose from 70.7% to 72.1%, which did
+not translate into a net win gain. One unavailable imitation-teacher choice was
+excluded from learning. The evaluation used the same fixed engine, frozen
+opponents, and observation for both checkpoints; it does not isolate the causal
+benefit of the new tactical features.
+
+Two progressing evaluation games hit the step limit (Tristan and Mordred).
+One Polkhawk training game exhausted its actions at the Unique-rule sacrifice
+prompt for duplicate Misty the Joker cards; it was excluded from training.
+Inspect that prompt and the Diana/Nico/Alice/Fire Lorraine regressions before
+increasing training volume. Full artifacts are preserved under
+`DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/`; the tracked evaluation
+JSON contains the compact results. Comparison reports now include
+`pairedBeforeWins` and `pairedAfterWins`, excluding wins from incomplete pairs;
+the existing `beforeWins`/`afterWins` fields retain their all-completed totals.
+
+Evaluation reproducibility correction (2026-10-30): GA setup now resets the acting
+perspective before shuffling. Previously a long-running worker could inherit the
+last acting seat from its previous game, producing different starting deck orders
+for the same seed. Seven of the 84 tactical-cycle before/after pairs had different
+starting states; the earlier aggregate paired results must not be treated as a
+controlled strength comparison. The saved evaluation audit records those pairs.
+Tournament reports now include each game's `initialGamestateHash`; comparisons
+reject unequal or missing hashes. Old reports require their saved replay hashes
+before comparison, and mismatched starts require a fresh evaluation. Run
+`php DevTools/rl/test_ga_start_reproducibility.php` to check startup isolation.
+
+The fixed-start evaluation on fresh seed set `8000001` completed all 84 games
+(42 per frozen checkpoint), covering all 21 learner archetypes in both seats.
+All 42 paired initial-state hashes matched and neither policy changed. The
+imitation checkpoint won 18 games; the RL checkpoint won 19. Rai — Ravishing
+Mill in seat 1 improved from a loss to a win, with 41 unchanged outcomes and no
+regressions. This small descriptive gain does not establish stronger play or
+justify promotion. Artifacts are in
+`DevTools/rl/artifacts/ga-start-fixed-evaluation-20261030/`, with compact results
+under `fixedStartEvaluation` in the tracked evaluation JSON. Both checkpoints
+were trained before the startup fix; evaluation used the corrected startup and
+Unique-rule handling. Next, confirm on a second unused seed set with the same
+frozen models and opponent before adjusting training.
+
+Parallel evaluator regression checks:
+
+```bash
+python3 DevTools/rl/test_evaluate_ga_parallel.py
+python3 DevTools/rl/test_compare_ga_evaluations.py
+```
+
+These check serial/parallel action equality, matching starts, frozen policies,
+cache reuse/invalidation/corruption recovery, and both screening outcomes.
+
+A four-full-game smoke benchmark on 2026-10-30 completed all games with identical
+serial/parallel results: 16.05 s serial, 12.36 s with two workers, and 0.39 s
+from cache. This is a small local measurement, not a promised speedup for every
+matchup. Artifacts: `DevTools/rl/artifacts/ga-parallel-benchmark-20261030/`.
+
+The first screened confirmation run (`ga-screened-confirmation-20261030`) finished
+in 119.5 seconds using two workers. All preflight checks passed. On fresh screen
+seed `9100001`, 11 completed pairs had identical outcomes (5 wins each). The
+imitation baseline's Ciel versus Tristan game reached 1,000 steps while the
+candidate lost that same starting position in 237 steps. The incomplete pair
+was excluded, and the screen stopped the larger 168-game evaluation. This is
+not a demonstrated outcome regression or evidence of improvement; no model was
+promoted. Diagnose that matchup at an equal higher step limit for both policies
+before further validation. Compact results are under `screenedConfirmation` in
+the tracked evaluation JSON.
+
+Ciel timeout diagnosis (`ga-ciel-timeout-diagnostic-20261030`): reran episodes
+9–10 with both frozen policies at an equal 2,000-step limit. Both starting hashes
+and every original replay action prefix matched. The imitation baseline won
+episode 9 at step 1,302; the RL candidate lost at step 237. Episode 10 remained
+an unchanged loss for both. All four games completed and neither policy changed.
+This confirms a screening regression rather than an indefinitely stuck game.
+The candidate remains unpromoted; full validation seeds remain unused. Inspect
+the differing Ciel decisions before another training experiment. See
+`cielTimeoutDiagnostic` in the tracked evaluation JSON.
+
+### Frozen shared foundation with archetype adjustments
+
+Use `--archetype-adapters` with `train_ga_tournament.php --checkpoint <shared-model>`
+or `run_ga_learning_cycle.py --teacher-checkpoint <shared-model>` to train separate
+linear adjustments while freezing the shared `__linear__` weights. This mode
+requires GA `linear-v1`. Start from the imitation checkpoint rather than a rejected
+shared RL candidate. A saved adapter checkpoint automatically restores this mode
+for continued training and evaluation; existing shared checkpoints retain their
+original behavior.
+
+Routing uses the learner deck's explicit `archetypeId` in the tournament config,
+or its full descriptive `name` when absent. Keep this identifier stable across
+training and evaluation. Give different strategies separate IDs even when they
+share a champion; intentionally reuse an ID only for decks that should share
+adjustments. The routing never examines the opponent's deck or either draw order.
+Unseen archetypes use the unchanged shared foundation. Missing routing fails
+training rather than silently modifying shared weights.
+
+Checkpoints store `ga_archetype_adapters: frozen-base-v1` and sparse
+`__archetype__:<id>` adjustment buckets alongside the original shared weights.
+Inference sums the foundation and the selected adjustment. Only the active
+archetype's bucket accepts updates; incomplete games remain excluded. Comparisons
+now include `byArchetype`, including incomplete pairs, so aggregate wins cannot
+hide deck-specific regressions. A ten-game pilot touches only the archetypes in
+those scheduled games; use at least a 42-game cycle to reach all 21 archetypes.
+This is local experimentation and does not change the deployed heuristic bots.
+
+The first adapter pilot (`ga-archetype-adapter-pilot-20261030`) completed ten
+training games across five archetypes, preserving the shared weights exactly.
+The 12-game screen at 2,000 steps completed every pair: six baseline wins versus
+five candidate wins, with one Ciel regression and eleven unchanged outcomes.
+Untrained Tristan's replay actions were identical in both seats. Screening took
+the full cycle to 155 seconds and rejected the candidate before final validation.
+The reused screening seeds are diagnostic; this is not independent strength
+validation. Isolation works, but Ciel's own update can still degrade its play.
+No model was promoted. Detailed results: `archetypeAdapterPilot` in the tracked
+evaluation JSON.
+
+### Parallel training rounds for every archetype
+
+`train_ga_archetypes.py` schedules one isolated job per distinct archetype ID in
+the config, with two concurrent PHP workers by default. Within a job, learning
+remains sequential. Every job starts from the same frozen incumbent checkpoint
+and fixed heuristic opponent implementation. The filtered round-robin schedule
+rotates opponents and alternates learner seats. Each archetype gets ten training
+games followed by twelve matched before/after screening games by default.
+For 21 archetypes that is 210 training games plus 504 screening games.
+
+```bash
+python3 DevTools/rl/train_ga_archetypes.py \
+  --config DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/inputs/config.json \
+  --baseline DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/inputs/baseline \
+  --checkpoint DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/imitation/latest.json \
+  --output DevTools/rl/artifacts/ga-archetype-round-1 \
+  --workers 2 --training-games 10 --screen-games 12 --max-steps 2000 \
+  --training-seed 11000001 --screen-seed 12000001
+```
+
+Repeat the same command with `--resume` to reuse completed, checksummed stages.
+Worker count may change when resuming; config, decks, checkpoint, source code,
+PHP version, seeds, game counts, and limits must match. Interrupted stage folders
+are retained under `.interrupted-*` and that stage restarts from its original
+checkpoint. Corrupted completed artifacts fail closed. The round directory is
+locked against concurrent runners. `summary.json` updates as archetypes finish;
+individual folders retain training, both evaluations, replays, logs and decisions.
+
+A worker is eligible for merging only if all its training and evaluation games
+complete, screening shows more paired wins, and no paired outcome regresses.
+Ties keep the incumbent. Screening is deliberately conservative and is not a
+statistical strength claim. Failed workers prevent publication of a new merged
+candidate; successful stages remain resumable. Rejected archetypes retain their
+previous adjustment, and untrained archetypes retain the shared foundation.
+
+The merger verifies that each candidate changed only its assigned adjustment
+bucket. Shared weights, other archetypes, and policy settings must be identical
+to the incumbent. It produces `candidate.json` locally; it does not deploy or
+promote it. Validate accepted adjustments on separate, unused seeds before use.
+Later rounds can take that checkpoint, advance `--start` by the previous training
+game count to rotate through further opponents, and use fresh training/screening
+seed ranges. With 21 distinct decks, 40 games per archetype cover all 20 opponents
+in both seats; a ten-game batch covers five opponents, not the full field.
+
+Run scheduler, merge, resume, corruption, and serial/parallel equivalence checks:
+
+```bash
+python3 DevTools/rl/test_train_ga_archetypes.py
+```
+
+The first full round (`ga-archetype-round-1`) finished all 714 games in about
+20 minutes with two workers. Five adjustments passed the 12-pair screen:
+Astra Arisanna, Nico, Polkhawk, Tristan, and Water Diao Chan. The other sixteen
+retain the incumbent. These are screening results, not demonstrated strength
+gains; nothing was deployed. Independent validation uses 40 matched games per
+accepted archetype (every opponent in both seats), fresh seed 13000001, and the
+same 2,000-step limit: 400 actual games including before and after. Round results
+are preserved under `parallelArchetypeRound1` in the tracked evaluation JSON.
+
+### Replay review and decision-position bank
+
+New GA learner replays retain policy observations, available semantic action keys,
+filtered legal indices, and conservative `decisionSupport` diagnostics. This does
+not change training rewards or label losses as bad actions. Optional YESNO and
+MZMAYCHOOSE scoring gaps are identified through the existing scorer; truncated
+catalogs are separate gaps. Other decision types remain **unknown**, rather than
+being assumed supported. A heuristic gap does not prove missing engine ability
+code. Fixed opponents are not classified by the learner's current support code.
+
+```bash
+python3 DevTools/rl/ga_decision_bank.py path/to/before path/to/after \
+  --bank path/to/bank.json --output path/to/comparison.json
+python3 DevTools/rl/test_ga_decision_bank.py
+```
+
+The comparator requires matching frozen evaluation conditions and initial states,
+then identifies the first concrete action divergence. Later actions are not treated
+as equivalent positions after the games diverge. The first divergence is a review
+lead, not proof of causation. Legacy replays can be compared but cannot supply
+missing observations or support diagnostics.
+
+The reusable bank deduplicates archetype + observation + available action keys,
+retains chosen-action examples and checksummed replay provenance, and separates
+`missing_support`, `decision_review`, and `unknown_support`. Entries remain
+`unreviewed`; a supported decision is not automatically a poor decision. Its
+policy-input projection excludes full gamestates and opponent hidden cards.
+This is a feature-position bank for review and future decision tests, not a
+restorable engine snapshot or counterfactual rollout evaluator. Replay paths
+refer to local diagnostic files that contain full engine state and must not be
+fed to the policy. All imported evaluation examples are review-only; retire their
+seeds from holdout before deliberately using them for training.
+
+The initial focused diagnostic cohort is Tristan — Shadowstrike, Fire Lorraine —
+Red Hare, and Water Guo Jia — Genbu. Keep the full opponent roster; selecting these
+learners does not mean training only against each other.
+
+The 12-game focused capture pilot completed all games and collected 1,233 distinct
+positions: 605 with optional-scoring gaps, 122 supported optional decisions, and
+506 unclassified decisions. These count positions, not cards. Lorraine and Guo
+Jia had identical before/after action sequences; Tristan diverged in both games.
+The bank keys also include the evaluated source identity, preventing support
+labels from being silently reused across engine changes. See `decisionBankPilot`
+in the tracked evaluation JSON. No training update or deployment occurred.
+
+Rank repeated support gaps without counting both halves of paired evaluation as
+independent games:
+
+```bash
+python3 DevTools/rl/triage_ga_bank.py path/to/bank.json --output path/to/triage.json
+python3 DevTools/rl/test_triage_ga_bank.py
+```
+
+The first focused review is in
+`GrandArchiveSim/docs/rl-focused-triage-20261030.md`. It separates concrete support
+work from unproven action-quality hypotheses and records which seeds were reviewed.
+
+
+### Evaluate heuristic changes directly
+
+Use the tournament runner with `--evaluate --learner-heuristic current` to
+exercise the current heuristic rather than the checkpoint's learned choices.
+Use `--learner-heuristic frozen` for the baseline chooser. Both require a
+checkpoint for the existing replay representation, leave its weights unchanged,
+and keep the same frozen opponent. Match config, seed, start, and game count,
+then compare reports and import their replays with the decision-bank tool.
+Reports identify the chooser explicitly. Frozen learner support is left unknown
+rather than classified using current scoring code. A historical baseline can
+include multiple behavioral differences; its results cannot isolate one patch.
+
+### Compare alternatives at a saved decision
+
+`compare_ga_position.py` rebuilds a replay prefix and runs each enumerated action
+(and any additional heuristic answer) in a separate PHP process. New captures
+include `initialSnapshotHash` for the exact saved snapshot; older captures are
+rejected. Each recorded learner observation and acting seat is checked while
+replaying the prefix. Branches must reconstruct the same complete state hash,
+public observation, and action list or the comparison fails.
+
+```bash
+python3 DevTools/rl/compare_ga_position.py path/to/game-1.json \
+  --step 93 --horizon 300 --seed 19000001 --output /tmp/position-comparison.json
+```
+
+Steps are one-based. The selected step must have a recorded linear public
+observation. Continuations use current heuristics for both seats; this does not
+reproduce a historical learned or frozen continuation. The engine restores its
+private state, but the chooser receives only the existing legal-action/public
+policy interface. Reports omit the full private state. Each branch gets the
+same continuation RNG seed, but different random calls can still yield different
+later draws. Prefix random behavior that changes recorded public evidence or
+branch state hashes causes rejection rather than silent alignment.
+
+Treat this as a review tool for one saved hidden-state realization, not a causal
+quality label or training target. An unfinished branch is not a loss. It is not
+exhaustive for large synthesized multi-choice spaces. Scratch games are uniquely
+named and cleaned up, including on validation failure. Tests:
+`python3 -m unittest discover -s DevTools/rl -p test_compare_ga_position.py`.
+
+Use `--seeds 19000001 19000002 19000003` instead of `--seed` to repeat
+each alternative across distinct continuation seeds. The report retains every
+run and summarizes wins, losses, draws, unfinished branches, and action counts
+from the deciding player's perspective. It verifies the same reconstructed
+position across seeds. Repeated continuations share one saved position and must
+not be counted as independent full-game samples or automatic training labels.
+
+Shortlist useful decisions before running continuations:
+
+```bash
+python3 DevTools/rl/select_ga_positions.py path/to/replay-directory \
+  --handlers KindleProcess RedHareDiscard ek7r2d7uz4:0:CardActivated \
+  --limit 10 --output /tmp/pressure-shortlist.json
+```
+
+The shortlist ranks recorded low-life/lethal-pressure decisions, declined
+optional actions, and decisions with several distinct alternatives. It reads
+recorded player observations and public graveyard annotations only; private
+game state is not parsed. Identical replay files are deduplicated and older
+captures without snapshot checksums are excluded. Ranking is a review aid, not
+a preferred-action label. Adjacent choices can belong to the same sequence.
+
+Position-comparison reports include `position.choices` alongside learned
+`actionKeys`. Use the executable choice's zone reference to distinguish separate
+copies of the same card: semantic keys can coincide even when the targets and
+outcomes differ. Branch reconstruction checks both representations. Multi-seed
+summaries include the executable choice as `action`; these review fields do not
+change policy inputs or expose hidden zone contents.
+
+### Versioned heuristic opponents
+
+Keep the historical reference for long-term comparisons and add newer snapshots
+as candidate opponents. A snapshot freezes the four chooser files, not the shared
+engine or legal enumeration. Never overwrite a version; snapshots carry source
+hashes and candidate metadata, and evaluation verifies their content.
+
+```bash
+python3 DevTools/rl/ga_opponent_pool.py snapshot \
+  --output DevTools/rl/artifacts/ga-opponent-versions/current-20261030 \
+  --label current-20261030
+```
+
+A pool JSON uses paths relative to that JSON file:
+
+```json
+{"opponents":[
+  {"id":"historical","role":"reference","path":"../ga-tactical-full-cycle-20261030/inputs/baseline"},
+  {"id":"current-20261030","role":"candidate","path":"current-20261030"}
+]}
+```
+
+The local `artifacts/ga-opponent-versions/pool.json` now contains these two versions.
+To evaluate the current heuristic against both:
+
+```bash
+python3 DevTools/rl/ga_opponent_pool.py evaluate \
+  --pool DevTools/rl/artifacts/ga-opponent-versions/pool.json \
+  --config DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/inputs/config.json \
+  --checkpoint DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/imitation/latest.json \
+  --output DevTools/rl/artifacts/ga-opponent-pool-full-20261030 \
+  --archetype 'Tristan — Shadowstrike' \
+  --archetype 'Fire Lorraine — Red Hare' \
+  --archetype 'Water Guo Jia — Genbu' \
+  --games 40 --seed 25000001 --workers 2
+```
+
+Games are **per archetype per opponent version**: this command runs 240 games.
+Forty games covers each of the other twenty configured decks from both seats.
+Every version receives the same schedule/seeds. Reports separate wins and completed
+games by version and archetype; capped games are not counted as wins. Each result
+contains copies of all opponent snapshots, detailed replays and input hashes.
+Output directories cannot be reused. The checkpoint is required by the underlying
+runner but the learner uses the current heuristic, not learned actions.
+
+This is evaluation only. It does not update training opponents, a live bot, or the
+reference automatically. Promote a candidate only after decision checks, fresh
+balanced evaluation and review of regressions; retain the old snapshot and existing
+reports. Pool role labels are descriptive, not an automated quality gate.
+Local snapshots/results are ignored artifacts: archive them with experiment data
+if they must survive a clean checkout. Do not edit runtime sources during a run.
+
+### Rotating improvement batches
+
+`ga_archetype_rotation.py` pins a batch's deck files, checkpoint, opponent pool,
+and starting chooser. Keep a `reference` opponent in every pool. Select three
+archetypes to improve, then run **before** evaluation before changing policies.
+Both evaluation phases cover the entire configured roster against every version,
+with every opposing deck in both seats, on separate screen and validation seeds.
+For 21 decks and two versions this costs 3,360 games per phase; this is a broad
+acceptance check, not the fast loop for each individual decision fix.
+
+```bash
+python3 DevTools/rl/ga_archetype_rotation.py start \
+  --output DevTools/rl/artifacts/ga-rotation-alice-dante-polkhawk-20261030 \
+  --pool DevTools/rl/artifacts/ga-opponent-versions/pool.json \
+  --config DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/inputs/config.json \
+  --checkpoint DevTools/rl/artifacts/ga-tactical-full-cycle-20261030/imitation/latest.json \
+  --archetype 'Alice — Ravishing Mill' \
+  --archetype 'Dante — Water Unique Allies / Ravishing Mill / Suited' \
+  --archetype 'Polkhawk — Suited' --seed 26000001 --validation-seed 27000001
+
+python3 DevTools/rl/ga_archetype_rotation.py evaluate \
+  --batch DevTools/rl/artifacts/ga-rotation-alice-dante-polkhawk-20261030 \
+  --phase before --workers 2
+# Improve decisions, add decision-position checks, then run --phase after.
+python3 DevTools/rl/ga_archetype_rotation.py review \
+  --batch DevTools/rl/artifacts/ga-rotation-alice-dante-polkhawk-20261030
+```
+
+The review rejects mismatched schedules, starting states and mutated checkpoints.
+Incomplete or regressed paired games anywhere in the roster block eligibility;
+each target must gain wins in both seed sets. Eligibility is only a request for
+human decision review, not statistical proof or automatic promotion. Preserve
+missing-ability findings separately from poor-choice findings in the decision bank.
+
+After reviewing the evidence, create a **new** pool file retaining the historical
+reference and adding the batch's `after/chooser` snapshot, then start the next
+batch using that pool. Record accepted archetypes and review rationale alongside
+it. Do not edit an existing batch's pool. Snapshots represent the shared chooser,
+not independent per-champion policies; the full-roster screen guards that shared
+behavior. Rotation and promotion remain explicit commands. Interrupted evaluation
+outputs are retained for diagnosis; start a fresh batch rather than overwriting
+results. Batch artifacts are local and must be archived for long-term retention.

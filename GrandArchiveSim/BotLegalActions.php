@@ -142,6 +142,14 @@ function GABotLegalActions($gameName, $player) {
             $context['candidates'] = GABotChoiceCandidates($pending, $parts[2] ?? '');
             $minimum = $context['minimum'];
             $answer = $minimum > 0 ? implode('&', array_slice($context['candidates'], 0, $minimum)) : '-';
+            if (str_starts_with($context['handler'], 'OKkRsNIzM8:0:AlternativeCost-await|')) {
+                $payment = GABotTreflePayment($context['candidates'], $minimum, $context['maximum']);
+                if ($payment !== null) {
+                    $answer = $payment;
+                    // Count-valid subsets can still fail this card's exact-cost check.
+                    $context['constrainedMultiChoice'] = true;
+                }
+            }
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $answer ?: '-'];
         } elseif (in_array($type, ['MZMODAL', 'NUMBERCHOOSE', 'TWOSIDEDSLIDER', 'MZSPLITASSIGN', 'CHOOSEZONE', 'ICONCHOICE'], true)) {
             // Goldfish already has a deterministic, engine-compatible response encoder for these

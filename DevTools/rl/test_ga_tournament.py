@@ -25,6 +25,8 @@ class TournamentTest(unittest.TestCase):
             self.assertEqual([g['learnerSeat'] for g in report['games']], [1, 2])
             for i, seat in [(1, 1), (2, 2)]:
                 replay = json.loads((base/f'train/game-{i}.json').read_text())
+                self.assertTrue(report['games'][i-1]['initialGamestateHash'])
+                self.assertEqual(report['games'][i-1]['initialGamestateHash'], replay['initialGamestateHash'])
                 self.assertTrue(replay['result']['timedOut'])
                 for action in replay['actions']:
                     self.assertEqual(action['trainingPlayer'], action['turnPlayer'] == seat)
@@ -32,6 +34,17 @@ class TournamentTest(unittest.TestCase):
             evaluated = json.loads((base/'eval/report.json').read_text())
             self.assertEqual(evaluated['initialPolicyHash'], evaluated['finalPolicyHash'])
             self.assertNotEqual(report['seed'], evaluated['seed'])
+            for mode in ('current', 'frozen'):
+                subprocess.run(common + ['--output', str(base/mode), '--checkpoint', str(base/'train/latest.json'), '--evaluate', '--learner-heuristic', mode], check=True, capture_output=True)
+                h = json.loads((base/mode/'report.json').read_text())
+                self.assertEqual(h['learnerHeuristic'], mode)
+                self.assertEqual(h['initialPolicyHash'], h['finalPolicyHash'])
+                replay = json.loads((base/mode/'game-1.json').read_text())
+                learner = [a for a in replay['actions'] if a['trainingPlayer']]
+                self.assertTrue(learner)
+                self.assertTrue(all(a['heuristicPolicy'] == 'ga-evaluate-' + mode for a in learner))
+            invalid_heuristic = subprocess.run(common + ['--output', str(base/'invalid-heuristic'), '--learner-heuristic', 'current'], capture_output=True)
+            self.assertNotEqual(invalid_heuristic.returncode, 0)
             mismatch = subprocess.run(common + ['--output', str(base/'mismatch'), '--checkpoint', str(base/'train/latest.json'), '--representation', 'public-v1'], capture_output=True)
             self.assertNotEqual(mismatch.returncode, 0)
             subprocess.run(common + ['--output', str(base/'imitation'), '--imitate'], check=True, capture_output=True)
@@ -53,6 +66,17 @@ class TournamentTest(unittest.TestCase):
             subprocess.run(common + ['--output', str(base/'linear-eval'), '--checkpoint', str(base/'linear/latest.json'), '--evaluate'], check=True, capture_output=True)
             linear_eval = json.loads((base/'linear-eval/report.json').read_text())
             self.assertEqual(linear_eval['initialPolicyHash'], linear_eval['finalPolicyHash'])
+            subprocess.run(common + ['--output', str(base/'adapters'), '--checkpoint', str(base/'linear/latest.json'), '--archetype-adapters'], check=True, capture_output=True)
+            adapted = json.loads((base/'adapters/latest.json').read_text())
+            self.assertEqual(adapted['ga_archetype_adapters'], 'frozen-base-v1')
+            self.assertEqual(adapted['logits'], linear['logits'])  # Incomplete games never update adapters.
+            adapted_report = json.loads((base/'adapters/report.json').read_text())
+            self.assertEqual([g['learnerArchetype'] for g in adapted_report['games']], ['A', 'A'])
+            subprocess.run(common + ['--output', str(base/'adapter-eval'), '--checkpoint', str(base/'adapters/latest.json'), '--evaluate'], check=True, capture_output=True)
+            adapter_eval = json.loads((base/'adapter-eval/report.json').read_text())
+            self.assertEqual(adapter_eval['initialPolicyHash'], adapter_eval['finalPolicyHash'])
+            invalid_adapter = subprocess.run(common + ['--output', str(base/'invalid-adapter'), '--archetype-adapters'], capture_output=True)
+            self.assertNotEqual(invalid_adapter.returncode, 0)
             collision = subprocess.run(common + ['--output', str(base/'train')], capture_output=True)
             self.assertNotEqual(collision.returncode, 0)
 

@@ -625,6 +625,20 @@ class RlTabularPolicy {
   // Sparse map: stateKey => action key => logit. Legacy checkpoints use
   // numeric action-index strings; compact Azuki checkpoints use semantic keys.
   public array $logits = [];
+  public bool $archetypeAdapters = false;
+  // Runtime routing is deliberately excluded from checkpoints and policy hashes.
+  public string $activeArchetype = '';
+
+  public function enableArchetypeAdapters() {
+    if ($this->stateKeyVersion !== 'GrandArchiveSim:linear-v1') throw new InvalidArgumentException('Archetype adapters require GA linear-v1.');
+    $this->archetypeAdapters = true;
+  }
+
+  public function linearUpdateBucket() {
+    if (!$this->archetypeAdapters) return '__linear__';
+    if ($this->activeArchetype === '') throw new LogicException('Archetype training requires an explicit own-deck archetype.');
+    return '__archetype__:' . $this->activeArchetype;
+  }
 
   public function __construct($maxActions, $temperature, $learningRate, $stateKeyVersion = null, $actionKeyVersion = null) {
     $this->maxActions = intval($maxActions);
@@ -651,7 +665,11 @@ class RlTabularPolicy {
   public function actionValue($stateKey, $actionKey) {
     if ($this->stateKeyVersion !== 'GrandArchiveSim:linear-v1') return floatval($this->logits[$stateKey][$actionKey] ?? 0);
     $value = 0.0;
-    foreach (GaRlFeatures($stateKey, $actionKey) as $feature => $x) $value += ($this->logits['__linear__'][$feature] ?? 0) * $x;
+    foreach (GaRlFeatures($stateKey, $actionKey) as $feature => $x) {
+      $weight = $this->logits['__linear__'][$feature] ?? 0;
+      if ($this->archetypeAdapters && $this->activeArchetype !== '') $weight += $this->logits['__archetype__:' . $this->activeArchetype][$feature] ?? 0;
+      $value += $weight * $x;
+    }
     return $value;
   }
 
@@ -744,7 +762,7 @@ class RlTabularPolicy {
         if ($this->stateKeyVersion === 'GrandArchiveSim:linear-v1') {
           // Average gradients per episode to prevent long games dominating training.
           foreach (GaRlFeatures($stateKey, $key) as $feature => $x) {
-            $delta['__linear__'][$feature] = ($delta['__linear__'][$feature] ?? 0) + $this->learningRate * $stepReward * $grad * $x / ($this->temperature * max(1, count(RlFilterEpisodeStepsByPlayer($episodeSteps, $player))));
+            $delta[$this->linearUpdateBucket()][$feature] = ($delta[$this->linearUpdateBucket()][$feature] ?? 0) + $this->learningRate * $stepReward * $grad * $x / ($this->temperature * max(1, count(RlFilterEpisodeStepsByPlayer($episodeSteps, $player))));
           }
         } else {
         $delta[$stateKey][$key] = floatval($delta[$stateKey][$key] ?? 0.0) + $this->learningRate * $stepReward * $grad;
@@ -756,6 +774,10 @@ class RlTabularPolicy {
 
   public function applyDelta($delta) {
     if (!is_array($delta)) return;
+    if ($this->archetypeAdapters && $delta) {
+      $bucket = $this->linearUpdateBucket();
+      foreach (array_keys($delta) as $key) if ($key !== $bucket) throw new LogicException('Adapter updates must only change the active archetype; shared weights are frozen.');
+    }
     foreach ($delta as $stateKey => $values) {
       if (!is_array($values) && !is_object($values)) continue;
       $stateKey = strval($stateKey);
@@ -817,6 +839,7 @@ class RlTabularPolicy {
       'heuristic_policy' => $this->heuristicPolicy,
       'logits' => $logits,
     ];
+    if ($this->archetypeAdapters) $payload['ga_archetype_adapters'] = 'frozen-base-v1';
     if ($includeStrategy && $this->strategyPolicy !== null && RlStrategyEnabled($this->strategyMode)) {
       $payload['strategy_mode'] = $this->strategyMode;
       $payload['strategy_policy'] = $this->strategyPolicy->payloadWithStrategy(false);
@@ -846,6 +869,10 @@ class RlTabularPolicy {
       $stateKeyVersion,
       $actionKeyVersion
     );
+    if (isset($payload['ga_archetype_adapters'])) {
+      if ($payload['ga_archetype_adapters'] !== 'frozen-base-v1') throw new InvalidArgumentException('Unknown GA adapter format.');
+      $obj->enableArchetypeAdapters();
+    }
     $obj->policyRole = strval($payload['policy_role'] ?? 'full');
     $obj->heuristicPolicy = strval($payload['heuristic_policy'] ?? 'none');
     $format = strval($payload['logits_format'] ?? '');
@@ -891,6 +918,8 @@ class RlTabularPolicy {
   public function copy() {
     $obj = new RlTabularPolicy($this->maxActions, $this->temperature, $this->learningRate, $this->stateKeyVersion, $this->actionKeyVersion);
     $obj->logits = $this->logits;
+    $obj->archetypeAdapters = $this->archetypeAdapters;
+    $obj->activeArchetype = $this->activeArchetype;
     $obj->strategyMode = $this->strategyMode;
     $obj->policyRole = $this->policyRole;
     $obj->heuristicPolicy = $this->heuristicPolicy;
@@ -1074,6 +1103,18 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
       $heuristicCovered = true;
       $heuristicName = 'ga-frozen';
       $heuristicDecision = ['rule' => 'fixed-opponent'];
+    } elseif ($gaTraining && !empty($args['ga-evaluate-heuristic'])) {
+      $choice = $args['ga-evaluate-heuristic'] === 'current'
+        ? GABotChooseActionHeuristic($heuristicActions, $legal)
+        : GAFrozenBotChooseActionHeuristic($heuristicActions, $legal);
+      if (!is_array($choice)) throw new RuntimeException('GA evaluation heuristic returned no action.');
+      $actionIndex = count($lastLegalActions);
+      $lastLegalActions[] = $choice;
+      $actionKeys[$actionIndex] = GaRlActionKey($choice, $legal);
+      $legalIndices[] = $actionIndex;
+      $heuristicCovered = true;
+      $heuristicName = 'ga-evaluate-' . $args['ga-evaluate-heuristic'];
+      $heuristicDecision = ['rule' => 'heuristic-evaluation'];
     } elseif ($gaTraining && !empty($args['ga-imitation'])) {
       $choice = GAFrozenBotChooseActionHeuristic($heuristicActions, $legal);
       if (!is_array($choice)) throw new RuntimeException('GA teacher returned no action.');
@@ -1136,8 +1177,11 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
       'turnPlayer' => $turnPlayer,
       'actionIndex' => $actionIndex,
       'actionKey' => strval($actionKeys[$actionIndex] ?? ''),
-      'observation' => $gaTraining && !empty($args['ga-imitation']) ? $stateKey : null,
-      'actionKeys' => $gaTraining && !empty($args['ga-imitation']) ? $actionKeys : null,
+      'observation' => $gaTraining && $isTrainingPlayer ? $stateKey : null,
+      'actionKeys' => $gaTraining && $isTrainingPlayer ? $actionKeys : null,
+      'legalIndices' => $gaTraining && $isTrainingPlayer ? $legalIndices : null,
+      'publicGraveyardChoices' => $gaTraining && $isTrainingPlayer ? GaRlPublicGraveyardChoices($heuristicActions) : null,
+      'decisionSupport' => $gaTraining && $isTrainingPlayer && ($args['ga-evaluate-heuristic'] ?? '') !== 'frozen' ? GaRlDecisionSupport($legal, $heuristicActions, $turnPlayer) : null,
       'legalCount' => count($legalIndices),
       'strategyPosture' => $strategyPosture,
       'heuristicCovered' => $heuristicCovered,
@@ -1290,6 +1334,7 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
       'memoryOnlyResolved' => $startPayload['memoryOnlyResolved'] ?? null,
       'initialGamestateHash' => strval($startPayload['gamestateHash'] ?? ''),
       'initialGamestateText' => strval($initialFull['gamestateText'] ?? ''),
+      'initialSnapshotHash' => hash('sha256', RegressionNormalizeNewlines(strval($initialFull['gamestateText'] ?? ''))),
       'deckParseSummary' => $startPayload['deckParseSummary'] ?? [],
       'result' => $info,
       'heuristicSteps' => $heuristicSteps,
