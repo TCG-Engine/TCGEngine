@@ -112,10 +112,7 @@ CARD TEXT:
 
 OUTPUT:";
     
-    //$result = OpenAICall($prompt, $model="gpt-4o-mini");
-    //$result = OpenAICall($prompt, $model="gpt-5-nano");
-    //$result = OpenAICall($prompt, $model="gpt-5-mini");
-    $result = OpenAICall($prompt, $model="gpt-4.1");
+    $result = OpenAICall($prompt, LLMModelFor("keywords"));
     echo "Result: <BR>$result<BR>";
     
     // Parse the result

@@ -1,6 +1,23 @@
 <?php
 include_once(__DIR__ . "/../APIKeys/APIKeys.php");
 
+// Central model choices for OpenAI call sites. Callers name a purpose, not a
+// model id; override any of these per environment with the env var shown.
+// Changing a default here should be backed by an eval on real data.
+const LLM_MODEL_DEFAULTS = [
+    // Keyword extraction from card rules text (Data/ProcessKeywordsRB.php).
+    "keywords" => ["env" => "TCG_LLM_MODEL_KEYWORDS", "model" => "gpt-4.1"],
+];
+
+function LLMModelFor($purpose) {
+    if (!isset(LLM_MODEL_DEFAULTS[$purpose])) {
+        throw new InvalidArgumentException("Unknown LLM purpose: $purpose");
+    }
+    $entry = LLM_MODEL_DEFAULTS[$purpose];
+    $override = getenv($entry["env"]);
+    return ($override !== false && $override !== "") ? $override : $entry["model"];
+}
+
 function OpenAICall($prompt, $model="gpt-4o-mini") {
     $apiKey = OPENAI_API_KEY;
     $rv = "";
