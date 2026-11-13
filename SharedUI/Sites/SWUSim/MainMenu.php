@@ -136,19 +136,21 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </a>
         </li>
 
-        <?php /* High Ground opens the PvP setup in its High Ground mode (same pool + deck pickers; only "Create a High
-                 Ground Lobby" is offered) — see the tile wiring below (owner, 2026-11-05: its own menu item). */ ?>
+        <?php /* Alternate Formats (owner, 2026-11-12): the fun private formats behind one tile — High Ground (the PvP setup
+                 in its High Ground mode, as its own tile used to open) and Dualing Suns (the Twin Suns setup in its Dualing Suns
+                 mode). #setup-highground still deep-links straight to High Ground. The art is a placeholder until the owner
+                 supplies one. */ ?>
         <li class="slot lift-3">
-          <a class="mode ch gl" href="#setup-highground" style="--tint: var(--tint-hg);">
+          <a class="mode ch gl" href="#setup-alternate" style="--tint: var(--tint-hg);">
             <span class="mode__art" aria-hidden="true">
               <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-highground.webp" alt="" width="1200" height="1600" decoding="async">
             </span>
             <span class="mode__body">
-              <span class="mode__kind">Private room</span>
-              <h3 class="mode__title">High Ground</h3>
-              <span class="mode__desc">King of the hill: winner stays on, everyone else waits in line.</span>
+              <span class="mode__kind">Private rooms</span>
+              <h3 class="mode__title">Fun Formats</h3>
+              <span class="mode__desc">Fun ways to play: King of the Hill and 1v1 Twin Suns.</span>
               <span class="mode__foot">
-                <span class="mode__stat">Up to 16 players</span>
+                <span class="mode__stat">2 formats · no queue</span>
                 <span class="mode__go">Enter
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M4 12h15M13 6l6 6-6 6"/>
@@ -549,9 +551,12 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </div>
         </fieldset>
             </div>
+            <?php /* Dualing Suns mode only (SWU_SET_TS_MODE shows it): the rules in one breath. */ ?>
+            <p class="note ds-blurb" style="display: none;">Two counters each round: Initiative and Plan, and taking one ends your round. Stealing the initiative costs 1 damage to your own base; keeping it is free. Dualing Suns games are not recorded.</p>
             <div class="arow">
               <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
               <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
+              <button data-act="dualingsuns" class="swu2-btn swu2-btn--primary ch" type="button" style="display: none;">Create a Dualing Suns Room</button>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
@@ -749,6 +754,43 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             </div>
             <div class="arow">
               <button data-act="solo" class="swu2-btn swu2-btn--primary ch" type="button">Start 1P Game</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </dialog>
+
+      <?php /* Alternate Formats (owner, 2026-11-12): pick one, then Continue opens that format's own setup — High Ground the PvP
+               setup in its 'highground' mode, Dualing Suns the Twin Suns setup in its 'dualingsuns' mode (SETUP_OPEN_ID). */ ?>
+      <dialog class="setup lift" id="setup-alternate" aria-labelledby="setup-alternate-t" style="--tint: var(--tint-hg);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-highground.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Private rooms</p>
+          <h3 class="setup__title" id="setup-alternate-t">Fun Formats</h3>
+          <p class="setup__desc">Fun ways to play. Never rated, and Dualing Suns is not recorded.</p>
+        </div>
+      </div>
+          <div class="setup__body">
+        <fieldset class="fs">
+          <legend class="lg">Format</legend>
+          <div class="seg">
+              <input class="seg__in u-vh" type="radio" name="alt-fmt" id="alt-fmt-1" value="setup-highground" checked>
+              <label class="seg__opt ch" for="alt-fmt-1">High Ground</label>
+              <input class="seg__in u-vh" type="radio" name="alt-fmt" id="alt-fmt-2" value="setup-dualingsuns">
+              <label class="seg__opt ch" for="alt-fmt-2">Dualing Suns</label>
+          </div>
+        </fieldset>
+        <p class="note" data-alt-note="setup-highground">King of the hill: winner stays on, everyone else waits in line. Up to 16 players, any 1v1 card pool.</p>
+        <p class="note" data-alt-note="setup-dualingsuns" style="display: none;">1v1 Twin Suns against a friend or a bot. Two leaders and an 80-card singleton deck; each round you take Initiative or Plan, and stealing the initiative costs 1 damage to your own base.</p>
+            <div class="arow">
+              <button data-act="alternate" class="swu2-btn swu2-btn--primary ch" type="button">Continue</button>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
@@ -2235,7 +2277,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
      setup in its 'highground' mode — the same pool and deck pickers, only its own button and
      head. The tile, a deep link (#setup-highground) and the PvP tile (back to 'pvp') all go
      through here. */
-  var SETUP_ALIAS = { 'setup-highground': ['setup-pvp', 'highground'] };
+  /* Dualing Suns (owner, 2026-11-12) is the same idea on the Twin Suns setup: its 'dualingsuns' mode keeps the deck
+     pickers and pre-cons and offers only Create a Dualing Suns Room. Both are reached from the Alternate Formats dialog. */
+  var SETUP_ALIAS = { 'setup-highground': ['setup-pvp', 'highground'], 'setup-dualingsuns': ['setup-twin-suns', 'dualingsuns'] };
   var PVP_HEADS = {
     pvp:        { kind: 'Live play', title: 'PvP', desc: 'Queue against a live opponent, or open a private room.', art: 'hmw-pvp.webp', tint: 'var(--tint-pvp)' },
     highground: { kind: 'Private room', title: 'High Ground', desc: 'King of the hill: winner stays on, everyone else waits in line. Pick the card pool and your deck.', art: 'hmw-highground.webp', tint: 'var(--tint-hg)' }
@@ -2251,15 +2295,52 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
     if (q('.setup__tile img')) q('.setup__tile img').src = '/TCGEngine/SharedUI/Sites/SWUSim/assets/' + h.art;
     if (typeof window.SWU_POOL_RULES_SYNC === 'function') window.SWU_POOL_RULES_SYNC(dlg);
   };
+  var TS_HEADS = {
+    twinsuns:    { kind: 'Multiplayer', title: 'Twin Suns', desc: 'Two leaders each. Three or four players, free-for-all or in teams.' },
+    dualingsuns: { kind: 'Private room', title: 'Dualing Suns', desc: '1v1 Twin Suns against a friend or a bot. Pick your Twin Suns deck.' }
+  };
+  /* The Twin Suns setup's two modes. 'dualingsuns' hides the card pool (it is always the Twin Suns standard pool), the
+     arrangement, Join Queue and Create Private Room, and shows the rules blurb and Create a Dualing Suns Room. Buttons use
+     style.display, not [hidden]: .swu2-btn sets display and would win over the attribute. */
+  window.SWU_SET_TS_MODE = function (dlg, mode) {
+    var ds = mode === 'dualingsuns';
+    var h = TS_HEADS[ds ? 'dualingsuns' : 'twinsuns'];
+    dlg.setAttribute('data-mode', ds ? 'dualingsuns' : 'twinsuns');
+    var q = function (s) { return dlg.querySelector(s); };
+    if (q('.setup__kind'))  q('.setup__kind').textContent = h.kind;
+    if (q('.setup__title')) q('.setup__title').textContent = h.title;
+    if (q('.setup__desc'))  q('.setup__desc').textContent = h.desc;
+    ['.setup__tools', '.poolnote', '.prow', 'button[data-act="join"]', 'button[data-act="private"]'].forEach(function (s) {
+      var el = q(s); if (el) el.style.display = ds ? 'none' : '';
+    });
+    ['.ds-blurb', 'button[data-act="dualingsuns"]'].forEach(function (s) {
+      var el = q(s); if (el) el.style.display = ds ? '' : 'none';
+    });
+    if (typeof window.SWU_POOL_RULES_SYNC === 'function') window.SWU_POOL_RULES_SYNC(dlg);
+  };
   function resolveSetup(id) {
     var alias = SETUP_ALIAS[id];
     var dlg = document.getElementById(alias ? alias[0] : id);
-    return { dlg: dlg, mode: alias ? alias[1] : (id === 'setup-pvp' ? 'pvp' : '') };
+    return { dlg: dlg, mode: alias ? alias[1] : (id === 'setup-pvp' ? 'pvp' : (id === 'setup-twin-suns' ? 'twinsuns' : '')) };
   }
   function openResolved(r, from) {
     if (r.dlg.id === 'setup-pvp') window.SWU_SET_PVP_MODE(r.dlg, r.mode);
+    if (r.dlg.id === 'setup-twin-suns') window.SWU_SET_TS_MODE(r.dlg, r.mode);
     openSetup(r.dlg, from);
   }
+  /* Open a setup by its id or alias ('setup-highground', 'setup-dualingsuns') — the Alternate Formats dialog's Continue. */
+  window.SETUP_OPEN_ID = function (id, from) {
+    var r = resolveSetup(id);
+    if (r.dlg && r.dlg.tagName === 'DIALOG') openResolved(r, from);
+  };
+  /* The Alternate Formats dialog shows the note of the picked format only. */
+  var altDlg = document.getElementById('setup-alternate');
+  if (altDlg) altDlg.addEventListener('change', function (e) {
+    if (!e.target || e.target.name !== 'alt-fmt') return;
+    [].slice.call(altDlg.querySelectorAll('[data-alt-note]')).forEach(function (n) {
+      n.style.display = n.getAttribute('data-alt-note') === e.target.value ? '' : 'none';
+    });
+  });
 
   document.querySelectorAll('a.mode[href^="#setup-"]').forEach(function (a) {
     var r = resolveSetup(a.getAttribute('href').slice(1));
@@ -2292,6 +2373,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
      same dialog earlier (it would otherwise keep the High Ground head and offer only its button). */
   window.SETUP_OPEN = function (dlg, from) {
     if (dlg && dlg.id === 'setup-pvp' && window.SWU_SET_PVP_MODE) window.SWU_SET_PVP_MODE(dlg, 'pvp');
+    if (dlg && dlg.id === 'setup-twin-suns' && window.SWU_SET_TS_MODE) window.SWU_SET_TS_MODE(dlg, 'twinsuns');
     openSetup(dlg, from);
   };
 })();
@@ -3652,15 +3734,17 @@ window.SWU_POOL_RULES_SYNC = function (dlg) {
   // Room; 'highground' (the High Ground tile, SWU_SET_PVP_MODE) offers only Create a High Ground Lobby — same pool and
   // deck pickers, so nothing is duplicated.
   var hgMode = dlg.getAttribute('data-mode') === 'highground';
+  // The Twin Suns setup's 'dualingsuns' mode (SWU_SET_TS_MODE) offers only Create a Dualing Suns Room.
+  var dsMode = dlg.getAttribute('data-mode') === 'dualingsuns';
   var priv = dlg.querySelector('button[data-act="private"]');
-  if (priv) priv.style.display = (hgMode || (opt && opt.hasAttribute('data-queue-only'))) ? 'none' : '';
+  if (priv) priv.style.display = (hgMode || dsMode || (opt && opt.hasAttribute('data-queue-only'))) ? 'none' : '';
   // High Ground: any 1v1 format that isn't rated (the option carries data-highground="0" otherwise).
   var hg = dlg.querySelector('button[data-act="highground"]');
   if (hg) hg.style.display = (!hgMode || (opt && (opt.getAttribute('data-highground') === '0' || opt.hasAttribute('data-queue-only')))) ? 'none' : '';
   var joinBtn = dlg.querySelector('button[data-act="join"]');
-  if (joinBtn) joinBtn.style.display = hgMode ? 'none' : '';
+  if (joinBtn) joinBtn.style.display = (hgMode || dsMode) ? 'none' : '';
 
-  var needsLogin = !hgMode && !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
+  var needsLogin = !hgMode && !dsMode && !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
   // High Ground mode on a pool that can't host it (rated / queue-only): say so, or the dialog has no action at all.
   var hgBlocked = hgMode && !!hg && hg.style.display === 'none';
   var join = dlg.querySelector('button[data-act="join"]');
@@ -3725,6 +3809,9 @@ window.SYNC_ACTIVE_SETUP = function () {
   var poolSel = dlg.querySelector('select[id$="-pool"]');
   var poolFmt = poolSel ? String(poolSel.value || '').trim() : '';
   var fmt = (seg && seg.dataset.format) || poolFmt || modeFormat;
+  // Dualing Suns: the Twin Suns setup in its 'dualingsuns' mode. Its pool is the format itself (the pool picker is hidden).
+  var dualing = dlg.id === 'setup-twin-suns' && dlg.getAttribute('data-mode') === 'dualingsuns';
+  if (dualing) { fmt = 'dualingsuns'; poolFmt = 'dualingsuns'; }
   set('swu-format-select', fmt);
   // The card pool IS the format for the constructed modals. Arenabot's modal has no pool picker and
   // plays Open, so ANY list can be practised — Eternal, Twin Suns, a 1-leader deck vs a 2-leader bot
@@ -3754,6 +3841,14 @@ document.addEventListener('click', function (ev) {
   }
   // Save acts on the box BESIDE the button, so Arenabot's bot row saves the bot's deck. It is
   // not a submission, so it must not run SYNC first.
+  // Alternate Formats → Continue: open the picked format's own setup. Not a submission either.
+  if (act === 'alternate') {
+    var alt = btn.closest('dialog');
+    var pick = alt && alt.querySelector('input[name="alt-fmt"]:checked');
+    if (alt && alt.close) alt.close();
+    if (pick && window.SETUP_OPEN_ID) window.SETUP_OPEN_ID(pick.value, null);
+    return;
+  }
   if (act === 'save') {
     var dlg = btn.closest('dialog.setup, .setup');
     var links = dlg ? [].slice.call(dlg.querySelectorAll('input[data-detect]')) : [];
@@ -3781,6 +3876,8 @@ document.addEventListener('click', function (ev) {
 
   if (act === 'join'    && typeof joinQueue === 'function')         joinQueue();
   if (act === 'private' && typeof createPrivateGame === 'function') createPrivateGame();
+  // Dualing Suns: a private room through the same path; SYNC_ACTIVE_SETUP above set the format to dualingsuns.
+  if (act === 'dualingsuns' && typeof createPrivateGame === 'function') createPrivateGame();
   if (act === 'highground' && typeof createHighGroundRoom === 'function') createHighGroundRoom();
   if (act === 'limited' && typeof createLimitedRoom === 'function') createLimitedRoom();
   if (act === 'solo'    && typeof startSoloGame === 'function')     startSoloGame();

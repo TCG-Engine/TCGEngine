@@ -454,10 +454,10 @@ function SwuPgnLedgerAdopt(array &$ledger, array $snap): void {
 }
 
 // Record only human 2-seat PvP: no game mode (goldfish/hotseat/Arenabot), no bot seat, exactly two seats — and never a
-// Limited game, which records nothing anywhere (SWU Forge included; spec 2026-11-04-swusim-limited §3.9).
+// Limited or Dualing Suns game, which record nothing anywhere (SWU Forge included; spec 2026-11-04-swusim-limited §3.9).
 function SwuPgnRecShouldRecord(): bool {
     return SWUGameMode() === '' && !SWUHasBotSeats() && SeatCountForGame() === 2
-        && !SWUFormatIsLimited(strval(SWUGameCardPool()));
+        && !SWUFormatRecordsNothing(strval(SWUGameCardPool()));
 }
 
 // Called by SWUSetupGame after the decks are loaded (shuffled) and the seats, first player and phase are set, before

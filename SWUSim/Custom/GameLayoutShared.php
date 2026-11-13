@@ -1890,6 +1890,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // game (SeatCountForGame() <= 2 → SWUComputeActionsData leaves them false), so both buttons stay
         // hidden and Pass is never disabled — premier is unchanged.
         var _ad = window.myActionsData || {};
+        // Dualing Suns: stealing the initiative costs 1 damage to your own base — say so on the control. The default title
+        // is remembered on first sight and put back otherwise, so every other format's tooltip is unchanged.
+        document.querySelectorAll('.swu-take-init').forEach(function (el) {
+            if (el.dataset.defaultTitle === undefined) el.dataset.defaultTitle = el.getAttribute('title') || '';
+            var _t = (_ad.initiativeToll > 0 && !claimed)
+                ? 'Take the initiative — costs ' + _ad.initiativeToll + ' damage to your base (your opponent holds it)'
+                : el.dataset.defaultTitle;
+            if (_t) el.setAttribute('title', _t); else el.removeAttribute('title');
+        });
         var _blastBtn = document.getElementById('swuBlastBtn');
         var _planBtn  = document.getElementById('swuPlanBtn');
         if (_blastBtn) _blastBtn.hidden = !(canAct && _ad.blastAvailable);
@@ -6351,6 +6360,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                         skipped_multiplayer: ['Multiplayer games are not sent to SWUStats', '#F0B429'],
                         skipped_draw:  ['Drawn games are not sent to SWUStats', '#F0B429'],
                         skipped_limited: ['Limited games are not recorded.', '#F0B429'],
+                        skipped_alternate: ['Alternate formats are not recorded.', '#F0B429'],
                         failed:        ['Game failed to send to SWUStats', '#E06666']
                     };
                     var st = stMap[info.statsStatus];

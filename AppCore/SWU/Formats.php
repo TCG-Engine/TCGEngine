@@ -258,6 +258,21 @@ function SWUFormatDefinitions() {
             'minDeck'     => 30,
             'maxCopies'   => PHP_INT_MAX,   // no copy limit — only what the pool holds
         ],
+        // Dualing Suns — 1v1 Twin Suns with an initiative toll (docs/superpowers/specs/2026-11-12-swusim-dualing-suns-design.md).
+        // Twin Suns deckbuilding and pool at two seats; the engine keys its counter rules off this id (SWUIsDualingSuns).
+        // A private room only (against a friend or a room bot), never rated, and it records nothing (SWUFormatRecordsNothing).
+        'dualingsuns' => [
+            'displayName' => 'Dualing Suns',
+            'legalSets'   => array_merge($eternalSets, $previewSets),   // the Twin Suns standard pool, as twinsuns
+            'banned'      => [],
+            'minDeck'     => 80,
+            'maxCopies'   => 1,
+            'leaderCount' => 2,
+            'minPlayers'  => 2,
+            'maxPlayers'  => 2,
+            'publicQueue' => false,
+            'enabled'     => true,
+        ],
     ];
 }
 
@@ -365,8 +380,9 @@ function SWUStatsFormats(bool $enabledOnly = true): array {
         // Meta Premier games are reported to the stats site as premier (SWUStatsFormatFor), so the stats
         // whitelist — which the public SubmitGameResult / meta-stats APIs read — stays exactly as it was.
         if ($id === 'metapremier') continue;
-        // Limited records nothing anywhere (spec §3.9): its decks are one-off pools, not lists anyone plays again.
-        if (SWUFormatIsLimited($id)) continue;
+        // Limited and Dualing Suns record nothing anywhere (Limited spec §3.9): Limited decks are one-off pools, and
+        // Dualing Suns is a private fun format.
+        if (SWUFormatRecordsNothing($id)) continue;
         $f = SWUGetFormat($id);
         if ($f === null || !empty($f['localMode'])) continue;
         if ($enabledOnly && empty($f['enabled'])) continue;
@@ -557,6 +573,16 @@ function SWUFormatIsRoomFormat($formatId) {
 // The Limited format (Sealed / Draft rooms). Every "Limited records nothing" guard asks this, never the literal id.
 function SWUFormatIsLimited($formatId): bool {
     return strval($formatId) === 'limited';
+}
+
+// Dualing Suns (1v1 Twin Suns with the initiative toll). The engine's counter rules ask SWUIsDualingSuns, which reads this.
+function SWUFormatIsDualingSuns($formatId): bool {
+    return strval($formatId) === 'dualingsuns';
+}
+
+// A format that records nothing anywhere: no SWUStats, no deck stats, no SWU-PGN, no SWU Forge. Every such guard asks this.
+function SWUFormatRecordsNothing($formatId): bool {
+    return SWUFormatIsLimited($formatId) || SWUFormatIsDualingSuns($formatId);
 }
 
 // A "team" format splits its seats into fixed teams (Team Suns: Red/Blue, 2 each).

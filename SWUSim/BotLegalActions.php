@@ -736,8 +736,8 @@ function SWUBotFreePlayActions($gameName, $seat) {
     // entirely on Pass being unconditional. Taking a counter is always legal for a seat that has not
     // taken one, so listing all three counters is what restores "there is always a terminating action".
     // Remove these and a Twin Suns bot facing available counters would propose only refused actions.
-    if (SeatCountForGame() > 2 && !_SWUSeatTookCounterThisRound($seat)) {
-        if (GetBlastCounter() === 'AVAILABLE') {
+    if (SWUCounterRulesActive() && !_SWUSeatTookCounterThisRound($seat)) {
+        if (SWUBlastCounterAvailable()) {
             $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'BlastCounter-0!CustomInput!TakeCounter'];
         }
         if (GetPlanCounter() === 'AVAILABLE') {

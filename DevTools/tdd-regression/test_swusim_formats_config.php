@@ -123,7 +123,8 @@ $previewBases = [
 // standard pool … turn off the Twin Suns preview pool"; Team Suns the same). They are preview by pool, so the "base is
 // NOT preview" check and the coverage check below exempt them BY NAME — anything else that starts carrying a preview set
 // still fails. Their preview formats stay defined (in-flight rooms resolve) but are disabled.
-$previewCarryingBases = ['twinsuns', 'teamsuns'];
+// Dualing Suns (owner, 2026-11-12) plays the Twin Suns standard pool, so it carries the preview set too; it has no preview twin.
+$previewCarryingBases = ['twinsuns', 'teamsuns', 'dualingsuns'];
 // Keys that define HOW the format plays. legalSets is deliberately excluded — it is the entire
 // difference. displayName/enabled are presentation. Everything else must match the base exactly,
 // INCLUDING when both are absent, which is why ?? null is compared rather than isset() tested.

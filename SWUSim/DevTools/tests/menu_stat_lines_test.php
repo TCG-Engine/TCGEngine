@@ -25,5 +25,16 @@ foreach ([0, 1, 2, 99, 9999, 99999] as $n) {
     }
 }
 
+// Each tile's TITLE ("Twin Suns", "Fun Formats", …) is at most SWU_MENU_TITLE_MAX_CHARS characters (owner rule, 2026-11-13:
+// "Alternate Formats", 17, ran past the tile's right edge). Measured in Chromium, Firefox and WebKit from 390 to 1920 wide:
+// the tightest widths (768, 1600, 1920) fit 14 characters of ordinary words, 10 of the widest letters (W, M), so 14 holds
+// for real titles; DevTools/ui-harness/swusim-alternate-formats-xbrowser.mjs measures the rendered fit as well.
+const SWU_MENU_TITLE_MAX_CHARS = 14;
+echo "Titles:\n";
+preg_match_all('~<h3 class="mode__title"[^>]*>([^<]*)</h3>~u', $menu, $mt);
+$titles = array_values(array_filter(array_map(fn($s) => trim(html_entity_decode($s, ENT_QUOTES, 'UTF-8')), $mt[1]), fn($s) => $s !== ''));
+$check(count($titles) >= 6, 'found the tile titles: ' . json_encode($titles, JSON_UNESCAPED_UNICODE));
+foreach ($titles as $s) $check(mb_strlen($s) <= SWU_MENU_TITLE_MAX_CHARS, '"' . $s . '" is ' . mb_strlen($s) . ' characters (max ' . SWU_MENU_TITLE_MAX_CHARS . ')');
+
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

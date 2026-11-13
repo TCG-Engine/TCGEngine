@@ -159,7 +159,7 @@ $swuDir = __DIR__ . '/../SWUSim/';
 function SWUBotTestParseArgs($argv) {
   $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'maxRounds' => 0, 'verbose' => false, 'firstPlayer' => 1,
            'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null,
-           'memoryOnly' => false, 'workers' => 2, 'superset' => [], 'fork' => false, 'swupgn' => false];
+           'memoryOnly' => false, 'workers' => 2, 'superset' => [], 'fork' => false, 'swupgn' => false, 'cardPool' => null];
   foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
@@ -179,6 +179,10 @@ function SWUBotTestParseArgs($argv) {
     // Record the game as SWU-PGN although both seats are bots (the writer otherwise records two-seat PvP only):
     // Games/<id>/Pgn/out/ gets the three files when it ends. For the writer's own tests.
     elseif ($arg === '--swupgn') $args['swupgn'] = true;
+    // The game's card pool (its SWUCardPool variable), stored right after setup — e.g. --card-pool=dualingsuns plays the
+    // Dualing Suns counter rules and initiative toll. The harness's games are botpractice, whose own pool resolution
+    // accepts only Arenabot pools, so this writes the variable directly. Absent = the game is untouched.
+    elseif (str_starts_with($arg, '--card-pool=')) $args['cardPool'] = trim(substr($arg, 12));
     // FORK mode (2026-10-13, owner: "a one-time-paid setup and many games running there"): a sweep boots the engine ONCE and
     // pcntl_fork()s a child per game, instead of proc_open'ing a fresh PHP that re-loads ~1,600 card files (~0.3 s) per game.
     // Each child starts from the same untouched post-bootstrap image, so games stay as independent as separate processes.
@@ -412,6 +416,7 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
       if ($args['deck2'] !== null) $cmd[] = '--deck2=' . $args['deck2'];
       if ($args['chooser2'] !== null) $cmd[] = '--chooser2=' . $args['chooser2'];
       if ($args['memoryOnly']) $cmd[] = '--memory-only';
+      if ($args['cardPool'] !== null) $cmd[] = '--card-pool=' . $args['cardPool'];
       if ($args['superset']) $cmd[] = count($args['superset']) === 2 ? '--superset' : '--superset=' . $args['superset'][0];
       $stdoutPath = tempnam(sys_get_temp_dir(), 'swubot-out-');
       $stderrPath = tempnam(sys_get_temp_dir(), 'swubot-err-');
@@ -706,6 +711,12 @@ if ($args['verbose']) echo "[INFO] rngSeed: " . ($setupOpts['rngSeed'] ?? '(rand
 if ($args['verbose']) echo "[INFO] game created: {$gameName}\n";
 
 ParseGamestate($swuDir);
+if ($args['cardPool'] !== null && $args['cardPool'] !== '') {
+  DecisionQueueController::StoreVariable('SWUCardPool', $args['cardPool']);
+  WriteGamestate($swuDir);
+  ParseGamestate($swuDir);
+  SWUBotTestCheck($checks, 'card pool is ' . $args['cardPool'], SWUGameCardPool() === $args['cardPool'], SWUGameCardPool());
+}
 SWUBotTestCheck($checks, 'game mode is botpractice', SWUGameMode() === 'botpractice', SWUGameMode());
 $botSeats = GetSWUBotPlayers();
 SWUBotTestCheck($checks, 'both seats are bot-controlled', $botSeats === [1, 2], json_encode($botSeats));

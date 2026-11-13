@@ -18,8 +18,11 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
 
     // Twin Suns rooms, free-for-all AND Team Suns (owner 2026-10-12). In a team room the host fills a slot on a chosen
     // team (LobbyAddBot's $team), and the bot never harms its teammate (SWUBotIsTeammateMz, Custom/BotEvaluator.php).
+    // A private Dualing Suns room too (2 seats, Twin Suns decks): played against a friend or a room bot (spec 2026-11-12).
     private function _offersBots(object $lobby): bool {
-        return $this->wantsWaitingRoom($lobby) && SWUFormatIsRoomFormat(strval($lobby->format ?? ''));
+        $fmt = strval($lobby->format ?? '');
+        return $this->wantsWaitingRoom($lobby)
+            && (SWUFormatIsRoomFormat($fmt) || (!empty($lobby->isPrivate) && SWUFormatIsDualingSuns($fmt)));
     }
 
     // Profile = where the bot's deck comes from (Decision 3): one of the official Twin Suns pre-cons, or the

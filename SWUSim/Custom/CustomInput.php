@@ -64,7 +64,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
       case "PlanCounter":
         // Twin Suns (Phase 4): take the blast/plan counter (CR §12.5). Same active-player + empty-queue
         // guards as initiative. SWUTakeCounter enforces one-counter-per-round + AVAILABLE + "taking = pass".
-        if (SeatCountForGame() <= 2) break;   // premier: no counters
+        if (!SWUCounterRulesActive()) break;   // premier: no counters (Dualing Suns: SWUTakeCounter refuses its Blast)
         if (intval(GetTurnPlayer()) !== intval($playerID)) {
             SetFlashMessage("Only the active player can take a counter.");
             break;

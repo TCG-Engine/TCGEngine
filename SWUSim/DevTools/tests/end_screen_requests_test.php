@@ -147,4 +147,13 @@ echo "blocked:\n";
 $m = finished(); $m['blocked'] = true;
 check(EndReqKindsAllowed($m) === [], 'a blocked pair has nothing to ask each other');
 
+// A 1v1 room against a bot (Dualing Suns "Fill Seat with Bot"): a bot never answers a request, so none is offered — the
+// host goes back with Return to Lobby, where the room and its bot seat are (final review 2026-11-13, I2).
+echo "bot:\n";
+$m = finished(1, 'dualingsuns'); $m['players']['2']['botProfile'] = 'precon:ts1';
+check(EndReqKindsAllowed($m) === [], 'nothing to ask a bot opponent');
+$r = EndReqOpen($m, 1, 'rematch', 1, 'r1', $T);
+check(!$r['ok'], 'a forged request to a bot is refused');
+check(EndReqKindsAllowed(finished(1, 'dualingsuns')) === ['rematch', 'quick', 'convert'], 'two humans still have every request');
+
 echo $FAILS === 0 ? "PASS\n" : "$FAILS FAILED\n";

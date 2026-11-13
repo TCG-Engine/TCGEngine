@@ -168,9 +168,12 @@ function SWUStatsSubmitStatus(int $attempted, int $failed, int $withoutOwner): s
 }
 
 // A match whose format records nothing at all: its statsStatus, or null to submit as usual. Limited (Sealed / Draft)
-// sends nothing to SWUStats (spec docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.9).
+// sends nothing to SWUStats (spec docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.9), nor do
+// the alternate formats (Dualing Suns).
 function SWUMatchStatsSkip(array $m): ?string {
-    return SWUFormatIsLimited($m['format'] ?? '') ? 'skipped_limited' : null;
+    $format = $m['format'] ?? '';
+    if (SWUFormatIsLimited($format)) return 'skipped_limited';
+    return SWUFormatRecordsNothing($format) ? 'skipped_alternate' : null;
 }
 
 // Submit one result per decided game, ONCE, on final match completion (convert-to-Bo3 re-opens a

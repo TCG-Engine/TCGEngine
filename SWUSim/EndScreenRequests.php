@@ -37,6 +37,9 @@ function EndReqKindsAllowed(array $m): array {
     if (count($m['players'] ?? []) !== 2 || strval($m['state'] ?? '') !== 'complete') return [];
     if (function_exists('SWUFormatIsRated') && SWUFormatIsRated(strval($m['format'] ?? ''))) return [];
     if (!empty($m['blocked'])) return [];
+    // A bot seat (a 1v1 room's "Fill Seat with Bot", e.g. Dualing Suns) never answers a request: offer none. The host
+    // plays again through Return to Lobby, where the room still has its bot seat.
+    foreach (($m['players'] ?? []) as $p) if (strval($p['botProfile'] ?? '') !== '') return [];
     $kinds = ['rematch', 'quick'];
     if (intval($m['bestOf'] ?? 1) === 1) $kinds[] = 'convert';
     return $kinds;

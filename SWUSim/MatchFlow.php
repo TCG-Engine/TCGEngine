@@ -22,6 +22,17 @@ function SWUSpawnNextMatchGame($matchId, $loserSeat, $priorGame) { return MatchS
 function SWUSideboardTimeoutCheck($matchId)         { return MatchSideboardTimeoutCheck('SWUSim', $matchId); }
 function SWUSideboardWarningCheck($matchId)         { return MatchSideboardWarningCheck('SWUSim', $matchId); }
 function SWUMaybeSpawnAfterSideboard($matchId)      { return MatchMaybeSpawnAfterSideboard('SWUSim', $matchId); }
+// Between the games of a Bo3 against a bot (a 1v1 room's "Fill Seat with Bot", e.g. Dualing Suns), the bot never sideboards:
+// it keeps the list it played and is Ready at once, so the human's Ready starts the next game. Without this the human
+// waited forever — a private match has no sideboard clock. Limited readies its own bots (SWULimitedReadyBotSeats).
+function SWUReadyBotSideboardSeats($matchId): void {
+    $m = SWUReadMatch($matchId);
+    if (!is_array($m) || !empty($m['limited']) || ($m['state'] ?? '') !== 'sideboarding') return;
+    foreach (($m['players'] ?? []) as $seat => $p) {
+        if (strval($p['botProfile'] ?? '') === '' || !empty($m['sideboard'][strval($seat)]['ready'])) continue;
+        SWUReadySideboardSeat($matchId, intval($seat), $p['currentDeck'] ?? $p['originalDeck'] ?? []);
+    }
+}
 // The in-game concede input (10007) runs with the live gamestate loaded, so the open game's detail (pregameDone — is
 // this match rated at all?) is captured here; BlockedUsers.php's forfeit has no gamestate and passes none.
 function SWUConcedeMatch($matchId, $concedingSeat) {

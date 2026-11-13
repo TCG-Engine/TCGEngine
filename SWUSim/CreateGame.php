@@ -42,6 +42,15 @@ function SWUSetupGame($lobby, $opts = []) {
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");
 
+    // Game 2+ of a match (a Bo3's next game, a Rematch, Convert to Bo3) is set up from Core's stand-in lobby
+    // (MatchSpawnNextGameWithDecks), which carries no format: take it from the match, or the game records an empty
+    // SWUCardPool — and a Dualing Suns series played its later games as Premier (final review 2026-11-13).
+    if (!isset($lobby->format) && !empty($opts['matchId'])) {
+        require_once __DIR__ . '/Match.php';
+        $matchRec = SWUReadMatch(strval($opts['matchId']));
+        if (is_array($matchRec) && strval($matchRec['format'] ?? '') !== '') $lobby->format = strval($matchRec['format']);
+    }
+
     // Persist the game mode (goldfish/hotseat) as a never-cleared GlobalEffect on P1 so all
     // runtime branching (SWUGameMode()) can read it. Normal games leave $mode '' and write nothing.
     $mode = '';

@@ -24,10 +24,10 @@ function SWUForgeDeckIdFromLink(string $deckLink): string {
     return preg_match('#swuforge\.com/decks/([A-Za-z0-9_-]{1,64})#i', $deckLink, $m) ? $m[1] : '';
 }
 
-// May this game go to SWU Forge at all? Never a Limited game (spec 2026-11-04-swusim-limited §3.9) — the recorder already
-// skips them (SwuPgnRecShouldRecord); this is the second guard at the queue itself.
+// May this game go to SWU Forge at all? Never a Limited or Dualing Suns game (spec 2026-11-04-swusim-limited §3.9) — the
+// recorder already skips them (SwuPgnRecShouldRecord); this is the second guard at the queue itself.
 function SWUForgeShouldEnqueue(array $meta): bool {
-    return !SWUFormatIsLimited($meta['format'] ?? '');
+    return !SWUFormatRecordsNothing($meta['format'] ?? '');
 }
 
 // Queue a finished game for each linked seat. $meta is the writer's game meta (accounts, matchId); $match the game's

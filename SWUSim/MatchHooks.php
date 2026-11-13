@@ -97,8 +97,8 @@ function SWURecordDeckStatsForGame(array &$match, $winnerSeat) {
     // Twin Suns (v1): N-player deck W/L attribution isn't modeled yet (the pairwise
     // opponent-matchup logic below assumes exactly 2 seats) — skip stats for >2 seats.
     if (count($match['players'] ?? []) > 2) return;
-    // Limited records nothing (spec §3.9) — a pool deck has no saved list to credit anyway.
-    if (SWUFormatIsLimited($match['format'] ?? '')) return;
+    // Limited and Dualing Suns record nothing (Limited spec §3.9) — a pool deck has no saved list to credit anyway.
+    if (SWUFormatRecordsNothing($match['format'] ?? '')) return;
     $winnerSeat = intval($winnerSeat);
     $draw = ($winnerSeat === 0);   // MatchRecordGameDraw: a drawn game counts as a draw for BOTH seats
     if ($winnerSeat !== 1 && $winnerSeat !== 2 && !$draw) return;

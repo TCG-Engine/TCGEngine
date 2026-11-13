@@ -42,6 +42,8 @@ if (($m['state'] ?? '') !== 'sideboarding') {
   }
   echo json_encode(['success'=>false,'message'=>'Not in sideboarding.']); exit;
 }
+// A bot opponent is Ready on its own, before this seat's action (which may then start the next game).
+SWUReadyBotSideboardSeats($matchId);
 
 // The two-step sideboard (owner, 2026-11-03; additive — no `action` is the one-click submit-and-ready below):
 //   save    validate and save (or replace) this seat's list; not ready

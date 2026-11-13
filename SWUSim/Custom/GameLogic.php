@@ -10078,12 +10078,40 @@ function _SWUSeatTookCounterThisRound(int $seat): bool {
     return $taken !== '' && strpos($taken, strval($seat)) !== false;
 }
 
+// Dualing Suns (docs/superpowers/specs/2026-11-12-swusim-dualing-suns-design.md): a 1v1 Twin Suns game — the round's
+// counters are Initiative and Plan, there is no Pass while one is there, and stealing the initiative costs 1 base damage.
+// The game's format is its SWUCardPool variable, so this is false for every other two-seat game.
+function SWUIsDualingSuns(): bool {
+    return SWUFormatIsDualingSuns(SWUGameCardPool());
+}
+
+// Do the Twin Suns counter rules apply (Blast / Plan counters, CR §12.6.1.a's no-Pass rule)? Every Twin Suns game, and a
+// Dualing Suns game at two seats. Only the counter and Pass gates ask this; zone naming, elimination and base defeat stay
+// keyed on the seat count, since a Dualing Suns game is an ordinary two-player game everywhere else.
+function SWUCounterRulesActive(): bool {
+    return SeatCountForGame() > 2 || SWUIsDualingSuns();
+}
+
+// Is the Blast counter there to take? Dualing Suns has no Blast. The stored state still reads AVAILABLE (the round reset
+// and fixtures are untouched), so every read of availability goes through this rather than GetBlastCounter().
+function SWUBlastCounterAvailable(): bool {
+    return GetBlastCounter() === 'AVAILABLE' && !SWUIsDualingSuns();
+}
+
+// Dualing Suns: what taking the initiative costs $player — 1 damage to their own base when the OPPONENT holds it (a steal),
+// 0 when they hold it themselves (a keep) or in any other format. Round 1 counts: the first player holds it.
+function SWUInitiativeTollFor(int $player): int {
+    if (!SWUIsDualingSuns()) return 0;
+    if (!preg_match('/^P(\d+)_UNCLAIMED$/', (string)GetInitiativeCounter(), $m)) return 0;
+    return intval($m[1]) !== $player ? 1 : 0;
+}
+
 // Twin Suns: is ANY counter still there to be taken? (initiative unclaimed, or blast/plan available)
-// Always false below three seats — two-player games have no blast/plan and keep the ordinary Pass.
+// Always false in an ordinary two-player game — premier has no blast/plan and keeps the ordinary Pass.
 function _SWUAnyCounterAvailable(): bool {
-    if (SeatCountForGame() <= 2) return false;
+    if (!SWUCounterRulesActive()) return false;
     if (str_ends_with((string)GetInitiativeCounter(), '_UNCLAIMED')) return true;
-    return GetBlastCounter() === 'AVAILABLE' || GetPlanCounter() === 'AVAILABLE' || SWUFourthCounterState() === 'AVAILABLE';
+    return SWUBlastCounterAvailable() || GetPlanCounter() === 'AVAILABLE' || SWUFourthCounterState() === 'AVAILABLE';
 }
 
 // May $seat choose the PASS action right now? (CR §12.6.1.a)
@@ -10106,7 +10134,8 @@ function SWUPassActionAllowed(int $seat): bool {
     // mutation 2026-09-20: removing EITHER guard alone leaves two-player behaviour correct, so neither
     // is individually load-bearing — it takes removing BOTH to break premier. That is defence in depth
     // for the format that must never inherit this rule, not dead code. Do not "simplify" one away.
-    if (SeatCountForGame() <= 2) return true;              // premier / 1P: unchanged
+    // Both guards ask SWUCounterRulesActive(), so Dualing Suns (two seats) gets the rule and premier still never does.
+    if (!SWUCounterRulesActive()) return true;             // premier / 1P: unchanged
     if (_SWUSeatTookCounterThisRound($seat)) return true;  // must pass — never block the forced one
     return !_SWUAnyCounterAvailable();
 }
@@ -10364,9 +10393,21 @@ function SWUTakeInitiative($player) {
         SetFlashMessage("Initiative has already been taken this round.");
         return;
     }
+    $toll = SWUInitiativeTollFor(intval($player));   // read BEFORE the claim overwrites who held it
     SetInitiativeCounter("P{$player}_CLAIMED");
     AddGameLogEntry('INITIATIVE', 'P' . intval($player) . ' took the initiative');
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'CLAIM', 'p' => intval($player)]);
+    // Dualing Suns: stealing the initiative deals 1 damage to the stealer's own base — the Blast's path, so it can be
+    // prevented, sets off "when your base is dealt damage", and can be lethal. It resolves on the take, before the
+    // "when you take the initiative" triggers below, as the Blast does.
+    if ($toll > 0) {
+        AddGameLogEntry('INITIATIVE', 'P' . intval($player) . ' stole the initiative (' . $toll . ' damage to their own base)');
+        SWUSimultaneousBaseDamage(function () use ($toll, $player) { SWUDealDamageToBase($toll, intval($player)); });
+        // A lethal toll ends the game here. Nothing after it may run: no triggers, and above all no round-ending pass —
+        // when the opponent already took Plan, that pass ends the action phase and the phase loop then never returned on
+        // the decided game (DualingSuns_StealAtOneHp_AfterOpponentPlanned_StealerLoses).
+        if (SWUGetGameWinner() !== 0) return;
+    }
     // LOF_203 Premonition of Doom — "The next time you take the initiative this phase, exhaust all units."
     if (GlobalEffectCount(intval($player), 'SWU_LOF203') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_LOF203');
@@ -10444,7 +10485,7 @@ function SWUTakeCounter(int $player, string $which): void {
     }
     $which = strtolower($which);
     if ($which === 'blast') {
-        if (GetBlastCounter() !== 'AVAILABLE') { SetFlashMessage("The blast counter has already been taken."); return; }
+        if (!SWUBlastCounterAvailable()) { SetFlashMessage("The blast counter has already been taken."); return; }   // or the game has none (Dualing Suns)
         SetBlastCounter("P{$player}");
         AddGameLogEntry('COUNTER', 'P' . $player . ' took the blast counter (1 damage to each enemy base)');
         // Blast: deal 1 damage to each opponent's base.
@@ -22565,7 +22606,7 @@ function SWUComputeActionsData(int $player): array {
         'attackers'           => [],
         'smugglableResources' => [],
         'readyResources'      => 0,
-        // Twin Suns (Phase 4 counters). Inert in premier (SeatCountForGame() <= 2): all false/[].
+        // Twin Suns (Phase 4 counters). Inert in premier (!SWUCounterRulesActive()): all false/[].
         'blastAvailable'      => false,
         'planAvailable'       => false,
         'fourthKind'          => '',
@@ -22580,13 +22621,15 @@ function SWUComputeActionsData(int $player): array {
         // premier / 1P keep the button unconditionally.
         'passAvailable'       => true,
         'roundState'          => [],
+        // Dualing Suns: base damage this seat would pay to take the initiative now (1 = a steal). 0 in every other format.
+        'initiativeToll'      => SWUInitiativeTollFor($player),
     ];
 
     // Twin Suns counter availability — computed regardless of $active so both HUDs can render the state.
-    if (SeatCountForGame() > 2) {
+    if (SWUCounterRulesActive()) {
         $tookCounter = _SWUSeatTookCounterThisRound($player);
         $data['counterTaken']   = $tookCounter;
-        $data['blastAvailable'] = !$tookCounter && (GetBlastCounter() === 'AVAILABLE');
+        $data['blastAvailable'] = !$tookCounter && SWUBlastCounterAvailable();
         $data['planAvailable']  = !$tookCounter && (GetPlanCounter() === 'AVAILABLE');
         // Twin Suns house rules: the 4th counter ('credit' | 'restore' | '' = none) and the Restore amount for its label.
         $data['fourthKind']      = SWUFourthCounterKind();

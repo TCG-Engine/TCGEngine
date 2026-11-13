@@ -39,6 +39,8 @@ $expectPrivate = [
     'metapremier' => true,
     // Limited (Sealed / Draft): a private room only, and its room is where the event lives (owner, 2026-11-05).
     'limited' => true,
+    // Dualing Suns: a private 2-seat room, against a friend or a room bot (spec 2026-11-12-swusim-dualing-suns).
+    'dualingsuns' => true,
     'goldfish' => false,   // solo
     'hotseat'  => false,   // one human driving both seats
     // Bot Practice: one human at seat 1, Core/BotController.php at seat 2. No remote opponent ever

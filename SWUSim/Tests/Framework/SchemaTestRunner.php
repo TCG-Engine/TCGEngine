@@ -343,7 +343,7 @@ class SchemaTestRunner {
             'WithSeatOrder', 'WithLiveSeats', 'WithEliminatedSeats', 'WithDefeatedPlayer',
             'WithPrivateGame', 'WithRound',
             'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
-            'WithGameLog', 'WithChat', 'WithHouseRules',
+            'WithGameLog', 'WithChat', 'WithHouseRules', 'WithCardPool',
         ];
         static $perSeat = [
             'Deck', 'Hand', 'Discard', 'Resources', 'Credits', 'Force', 'Base', 'Leader', 'Leader2',
@@ -1500,6 +1500,11 @@ class SchemaTestRunner {
             }
             SWUApplyHouseRules($hrActive);
         }
+        // WithCardPool: dualingsuns — the game's SWUCardPool variable, as SWUSetupGame stores it from the lobby's format.
+        // Absent = nothing written, so every other section's gamestate is byte-identical (RNG-material slot, as above).
+        if (isset($given['WithCardPool']) && trim((string)$given['WithCardPool']) !== '') {
+            DecisionQueueController::StoreVariable('SWUCardPool', trim((string)$given['WithCardPool']));
+        }
         for ($oaSeat = 1; $oaSeat <= 4; ++$oaSeat) {
             if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
             $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical
@@ -1740,22 +1745,13 @@ class SchemaTestRunner {
 
             } elseif (preg_match('/^P(\d+)(BLAST|PLAN)AVAIL:(0|1)$/', $line, $m)) {
                 // Twin Suns UI: does seat N's actions data report the counter as available to take?
-                // Mirror SWUComputeActionsData: available iff THIS IS A 3+ SEAT GAME, the seat hasn't
-                // taken a counter this round, and the counter is still AVAILABLE globally.
-                // ⚠ THE SEAT-COUNT GATE IS PART OF THE MIRROR, and was missing. SWUComputeActionsData
-                // defaults blastAvailable/planAvailable to false and only computes them inside
-                // `if (SeatCountForGame() > 2)` — "Inert in premier: all false/[]" — and CustomInput
-                // refuses the action outright below three seats ("premier: no counters"). Without the
-                // gate this assertion reported AVAILABLE in a 2-player game, so it contradicted the
-                // engine it claims to mirror: a premier section asserting :0 failed, and one asserting
-                // :1 would have passed while describing a UI state that can never occur.
-                // Adding it cannot change any existing section — the only other consumer,
-                // twinsuns/PhaseC_CounterAvailability.md, runs at three seats where the gate is a no-op.
-                $seat = intval($m[1]);
-                $counter = ($m[2] === 'BLAST') ? GetBlastCounter() : GetPlanCounter();
-                $avail = (SeatCountForGame() > 2
-                          && !_SWUSeatTookCounterThisRound($seat)
-                          && $counter === 'AVAILABLE') ? '1' : '0';
+                // Read straight from SWUComputeActionsData ('blastAvailable' / 'planAvailable'), like FOURTH/PASSAVAIL.
+                // This used to MIRROR that function (seat count > 2, seat hasn't taken a counter, counter AVAILABLE),
+                // and a mirror drifts: Dualing Suns turned the counters on at two seats and took the Blast away, which
+                // a copied seat-count gate could not see. Reading the payload the buttons are drawn from cannot drift.
+                $key = ($m[2] === 'BLAST') ? 'blastAvailable' : 'planAvailable';
+                $ad = SWUComputeActionsData(intval($m[1]));
+                $avail = !empty($ad[$key]) ? '1' : '0';
                 if ($avail !== $m[3])
                     $failures[] = "{$line}: expected {$m[3]}, got {$avail}";
 
