@@ -13349,8 +13349,12 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
         if ($defeated) {
             // TS26_13 Darth Sidious — "When a non-token unit is defeated: create a Battle Droid token."
             // Fires for each in-play Sidious's controller, for ANY non-token unit defeat (friendly or enemy).
+            // A deployed LEADER unit counts too (CR 3.4.5 — it is a unit, and not a token): its CardType is 'Leader',
+            // not 'Unit', so it used to make no droid (bug report P-32: Asajj, Snoke, Count Dooku in game 6045). A
+            // leader PILOT (an upgrade) never reaches this collector — SWUDefeatLeaderUpgradeToZone reports it as an
+            // upgrade defeat — so a 'Leader' entry here is always a leader unit.
             $dTypeSid = CardType($d['cardID'] ?? '') ?? '';
-            if (strpos($dTypeSid, 'Unit') !== false && strpos(strtolower($dTypeSid), 'token') === false) {
+            if ((strpos($dTypeSid, 'Unit') !== false || strpos($dTypeSid, 'Leader') !== false) && strpos(strtolower($dTypeSid), 'token') === false) {
                 foreach (GetLiveSeatsArray() as $sp) {
                     $nSid = intval($sidiousPerSeat[$sp] ?? 0);   // batch-aware: see the snapshot above
                     // Inline observers name THEMSELVES in the log (SWULogInlineSource), not the defeating card.

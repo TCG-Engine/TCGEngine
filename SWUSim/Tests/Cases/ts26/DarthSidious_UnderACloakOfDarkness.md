@@ -413,3 +413,104 @@ P2GROUNDARENAUNIT:0:CARDID:TS26_T01
 P2GROUNDARENAUNIT:2:CARDID:TS26_T01
 P3GROUNDARENACOUNT:1
 P4GROUNDARENACOUNT:1
+
+---
+
+# TwinSuns3P_CombatTradeBetweenTwoOtherSeats_TwoDroids
+#// Bug report P-32 (game 6045, Twin Suns): "TS Sidious doesnt make tokens when any non token unit is defeated … It shouldnt
+#// matter if the nontoken unit is friendly or enemy." In the reported game P2's Benthic died attacking P3's Bendu and P1's
+#// Sidious made no droid. Every section above defeats by an EFFECT (mass defeat) or in a 2-seat combat; none had a COMBAT
+#// defeat at 3+ seats. P2's Battlefield Marine (3/3) attacks P3's (3/3): both are non-token units and both die, so the
+#// bystander P1's Sidious creates TWO Battle Droids.
+## GIVEN
+CommonSetup3P: bbk/ggk/rrk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: TS26_13:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+## WHEN
+- P2>AttackGroundArena:0:P3G0
+- P3>Pass
+- P1>Pass
+## EXPECT
+P2GROUNDARENACOUNT:0
+P3GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:1:CARDID:TS26_T01
+P1GROUNDARENAUNIT:2:CARDID:TS26_T01
+
+---
+
+# TwinSuns3P_OwnUnitTradesWithAThirdSeat_TwoDroids
+#// P-32, the other reported shape: P1's Asajj traded with P3's Count Dooku and P1 got ONE droid. P1's Battlefield Marine
+#// attacks P3's: both non-token units die → two Battle Droids (Sidious + 2 droids).
+## GIVEN
+CommonSetup3P: bbk/ggk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: [TS26_13:1:0 SOR_095:1:0]
+WithP3GroundArena: SOR_095:1:0
+## WHEN
+- P1>AttackGroundArena:1:P3G0
+- P3>Pass
+## EXPECT
+P3GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:1:CARDID:TS26_T01
+P1GROUNDARENAUNIT:2:CARDID:TS26_T01
+
+---
+
+# TwoPlayer_CombatTrade_TwoDroids
+#// The 2-seat control for the two sections above: the same trade between P1 and P2 → two Battle Droids.
+## GIVEN
+CommonSetup: ggk/rrk
+WithP1GroundArena: [TS26_13:1:0 SOR_095:1:0]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:1:0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:1:CARDID:TS26_T01
+P1GROUNDARENAUNIT:2:CARDID:TS26_T01
+
+---
+
+# EnemyLeaderUnitDefeated_MakesADroid
+#// Bug report P-32 (game 6045): no droid when a LEADER unit died — P1's Asajj Ventress (IC27_007) and Supreme Leader Snoke
+#// (LOF_006) and P3's Count Dooku (TS26_01), while every non-leader unit in the same game did make one. A deployed leader is a
+#// unit, and not a token (CR 3.4.5: "When a leader unit … is defeated, flip it …"), so "When a non-token unit is defeated"
+#// covers it. The observer gated on CardType containing 'Unit', and a leader's CardType is 'Leader'. P1's Ninth Sister (8/7)
+#// attacks P2's deployed Snoke (4/7): Snoke is defeated (back to P2's base zone) → one Battle Droid for P1.
+## GIVEN
+CommonSetup: bbk/rrk/{theirLeader:LOF_006;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: [TS26_13:1:0 ASH_148:1:0]
+## WHEN
+- P1>AttackGroundArena:1:0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:TS26_T01
+
+---
+
+# FriendlyLeaderUnitDefeated_MakesADroid
+#// P-32, the friendly half ("It shouldnt matter if the nontoken unit is friendly or enemy"): P1's own deployed Asajj Ventress
+#// (IC27_007, 5/6 — the reporter's leader) attacks P2's Ninth Sister (8/7) and is defeated → one Battle Droid for P1 (Sidious +
+#// droid; the leader is back in the base zone). Asajj, not Snoke: Snoke's On Attack Experience ties Sidious (4 power) and parks a choice.
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:IC27_007;myLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: TS26_13:1:0
+WithP2GroundArena: ASH_148:1:0
+## WHEN
+- P1>AttackGroundArena:1:0
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:TS26_13
+P1GROUNDARENAUNIT:1:CARDID:TS26_T01
