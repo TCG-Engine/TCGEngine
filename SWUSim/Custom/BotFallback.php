@@ -1350,6 +1350,13 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     $onBoard = (bool)preg_match('/^(my|their|p\d+)(GroundArena|SpaceArena|Base)-/', $c);
     // Part 21 'namecard': "Name a card" — the opponent's likeliest / most impactful card (BotNameCard.php).
     if ($type === 'NAMECARD' && SWUBotFeatureOn('namecard')) return SWUBotNameCardScore($seat, $c, (array)($ctx['following'] ?? []));
+    // Feature 'lastswing' (p75): the unit Saw sends on its "… then defeat it" swing — its swing less its loss; a leader unit only to win.
+    // The deployed side's prompt is a MAY: below PASS (0), it declines.
+    if (SWUBotFeatureOn('lastswing') && $onBoard && str_starts_with($c, 'my') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $lm)
+        && ($boost = _SWUBotLastSwingBoost(strval(CardText($lm[1])) . ' ' . strval(CardDeployText($lm[1])))) !== null
+        && ($lv = SWUBotViewForMz($seat, $c)) !== null) {
+        return (_SWUBotLastSwingValue($ctx, $lv, $boost, $W, true) ?? -SWU_BOT_NEVER_SAC_COST) - $index * 1e-6;
+    }
     // "Defeat a friendly unit" as a cost: declining is worth giving up 1 point of unit value, so a MAY
     // sacrifice takes only a token, a cheap unit, or one whose When Defeated pays it back.
     if ($c === 'PASS') {
@@ -5103,6 +5110,46 @@ function _SWUBotFreeKillValue(array $ctx, int $seat, string $text, array $W): ?f
     return $best;
 }
 
+// ── Feature 'lastswing' (p75) — LAW_001 Saw Gerrera ───────────────────────────────────────────────────────────────────────
+// "Attack with a unit. It gets +2/+0 and gains Overwhelm for this attack. After completing this attack, defeat it." (the front Action; the
+// deployed When Attack Ends offers the same swing to ANOTHER unit). Discord 2026-11-13, Twin Suns: the bot sent its PARTNER LEADER on it.
+// The lookahead stops at the attack-target prompt, so the Action was the flat W['ability'] with neither the swing nor the defeat counted.
+// A candidate is worth its best boosted swing (Overwhelm's excess included) less its sacrifice cost. It dies in the combat or after it, so
+// the swing is read on a copy that survives the combat and the loss is charged once, as the sacrifice — which prices a When Defeated
+// payback (a combat death charges the whole card). A friendly LEADER unit goes only on a swing that wins: its Epic Action is spent, so it
+// does not come back. Null = not a candidate. $marginal (the PICK): less the plain attack the unit gives up — the
+// deployed side's MAY sent a ready Battlefield Marine to die for +2 it could have swung for 3 and lived. The Action itself stays absolute:
+// the free-play choice already weighs it against that plain attack.
+function _SWUBotLastSwingBoost(string $text): ?int {
+    return preg_match('/attack with (?:a|another) unit\. It gets \+(\d+)\/\+0[^.]*for this attack\. After completing this attack, defeat it\./i', $text, $m)
+        ? intval($m[1]) : null;
+}
+function _SWUBotLastSwingValue(array $ctx, array $v, int $boost, array $W, bool $marginal = false): ?float {
+    if (empty($v['ready'])) return null;
+    $seat = intval($v['controller']);
+    $att = $v; $att['attackPower'] += $boost; $att['power'] += $boost; $att['overwhelm'] = true;
+    $survivor = $att; $survivor['shields'] = max(1, intval($att['shields']));
+    $kills = fn(int $owner, int $dmg) => $dmg > 0 && $dmg >= SWUBaseRemainingHp($owner) && SWUBotKillWins($seat, $owner);
+    $best = null;
+    foreach (SWUBotAllowedTargets($ctx, $att) as [$k, $u]) {
+        $swing = SWUBotTargetValue($survivor, $k === 'base' ? null : $u, $W);
+        $wins = $k === 'base'
+            ? count(array_filter(SWUBotAttackTargets($seat, $att)['bases'] ?? [], fn($o) => $kills(intval($o), intval($att['attackPower'])))) > 0
+            : SWUBotOverwhelmKills($att, $u) && $kills(intval($u['controller']), intval($att['attackPower']) - intval($u['remaining']));
+        if (!empty($v['isLeader']) && !$wins) continue;
+        $s = $wins ? $swing : $swing - SWUBotSacrificeCost($v);
+        $best = max($best ?? $s, $s);
+    }
+    if ($best === null) return null;
+    _SWUBotFired('lastswing', $seat);
+    if ($marginal) {
+        $plain = 0.0;
+        foreach (SWUBotAllowedTargets($ctx, $v) as [$k, $u]) $plain = max($plain, SWUBotTargetValue($v, $k === 'base' ? null : $u, $W));
+        $best -= $plain;
+    }
+    return $best;
+}
+
 function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
     if (_SWUBotHostileActionNoTarget($seat, $action)) return -0.5;   // feature 'nohostiletarget' (p50, end of file)
@@ -5114,6 +5161,13 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         && !SWUBotProposalOn('landoflipaction') && _SWUBotUsableCredits($seat) >= 1 && _SWUBotLeaderCanDeployNow($seat, $fl)) return -0.5;
     if (SWUBotFeatureOn('freekill') && SWUBotActionKind($action) === 'leader-ability'
         && ($fk = _SWUBotFreeKillValue($ctx, $seat, _SWUBotActionSourceText($seat, $action), $W)) !== null) return $fk;
+    // Feature 'lastswing' (p75): Saw's "attack with a unit … then defeat it" is its best candidate's swing; none worth it, and it waits.
+    if (SWUBotFeatureOn('lastswing') && SWUBotActionKind($action) === 'leader-ability'
+        && ($boost = _SWUBotLastSwingBoost(_SWUBotActionSourceText($seat, $action))) !== null) {
+        $best = null;
+        foreach (SWUBotUnits($seat) as $v) if (($s = _SWUBotLastSwingValue($ctx, $v, $boost, $W)) !== null) $best = max($best ?? $s, $s);
+        return ($best === null || $best <= 0.0) ? -0.5 : $best;
+    }
     // Feature 'twoping' (p42): Maul's two mandatory pings, priced as a pair; no gain and it waits. A ping that kills is a kill for the
     // Force: without one, the Force stays for another card that needs it (the 'force' gate's rule, which read kills off "-N/-N" only).
     if (SWUBotFeatureOn('twoping') && ($tp = _SWUBotTwoPingValue($seat, _SWUBotActionSourceText($seat, $action), $W)) !== null) {
