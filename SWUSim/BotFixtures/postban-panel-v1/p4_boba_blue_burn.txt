@@ -1,0 +1,41 @@
+# Post-ban TEST PANEL v1 (owner 2026-11-12), slot 4. Indirect damage + Topple
+# Deck: "Boba Blue Burn"; source: owner paste 2026-11-12 (Ninin)
+# Author: Ninin
+# Style: midrange
+
+Leader
+1 JTL_009
+
+Base
+1 JTL_020
+
+Deck
+2 ASH_146
+3 ASH_030
+2 ASH_032
+2 HMW_159
+3 HMW_177
+2 HMW_186
+3 HMW_039
+2 JTL_140
+3 JTL_143
+3 JTL_162
+2 JTL_175
+2 JTL_181
+2 JTL_237
+2 JTL_240
+3 LAW_173
+2 LAW_174
+3 LAW_044
+2 LOF_130
+2 SEC_171
+3 SEC_172
+3 SEC_183
+
+Sideboard
+1 ASH_148
+3 ASH_048
+1 HMW_159
+1 JTL_181
+3 LAW_191
+1 SEC_163

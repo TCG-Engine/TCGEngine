@@ -1,5 +1,5 @@
 {
-    "generated": "2026-11-11",
+    "generated": "2026-11-12",
     "groups": [
         {
             "id": "force-fam-IC27-predictions",
@@ -65,11 +65,11 @@
                 "LAW_174": 3,
                 "LAW_044": 3,
                 "LOF_130": 2,
-                "SEC_171": 3,
+                "SEC_171": 2,
                 "SEC_172": 3,
                 "SEC_183": 3
             },
-            "total": 51
+            "total": 50
         },
         {
             "key": "force-fam-IC27-predictions--director-krennic_law_blue_naboo",
@@ -173,6 +173,39 @@
                 "SEC_256": 1
             },
             "total": 51
+        },
+        {
+            "key": "force-fam-IC27-predictions--wicket_hmw_green-splash_by-dralack",
+            "group": "force-fam-IC27-predictions",
+            "file": "wicket_hmw_green-splash_by-dralack",
+            "name": "Wicket (HMW) Green Splash By Dralack",
+            "author": "Dralack",
+            "leader": "HMW_014",
+            "base": "LAW_022",
+            "style": "hyperaggro",
+            "cards": {
+                "ASH_034": 3,
+                "ASH_116": 2,
+                "ASH_154": 3,
+                "ASH_156": 2,
+                "ASH_168": 3,
+                "HMW_045": 2,
+                "HMW_115": 3,
+                "HMW_126": 3,
+                "HMW_130": 3,
+                "HMW_162": 1,
+                "HMW_175": 3,
+                "HMW_254": 3,
+                "JTL_096": 2,
+                "JTL_106": 3,
+                "JTL_250": 2,
+                "LAW_078": 2,
+                "SEC_101": 2,
+                "SEC_104": 3,
+                "SEC_148": 3,
+                "SEC_164": 2
+            },
+            "total": 50
         },
         {
             "key": "hmw-meta-2026-11--admiral-piett_jtl_blue-splash",

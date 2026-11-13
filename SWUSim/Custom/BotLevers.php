@@ -40,7 +40,8 @@ function _SWUBotShippedLevers(): array {
                        defined('SWU_BOT_PART68_FEATURES') ? SWU_BOT_PART68_FEATURES : [],    // + p68 (the other six attrition levers)
                        defined('SWU_BOT_PART69_FEATURES') ? SWU_BOT_PART69_FEATURES : [],    // + p69 (twelve team-read levers, levers/teamread_*.php)
                        defined('SWU_BOT_PART70_FEATURES') ? SWU_BOT_PART70_FEATURES : [],    // + p70 (beastearly + spacepitch, levers/beastpitch_*.php)
-                       defined('SWU_BOT_PART72_FEATURES') ? SWU_BOT_PART72_FEATURES : []);   // + p72 (shipwait, levers/survival_shipwait.php)
+                       defined('SWU_BOT_PART72_FEATURES') ? SWU_BOT_PART72_FEATURES : [],    // + p72 (shipwait, levers/survival_shipwait.php)
+                       defined('SWU_BOT_PART74_FEATURES') ? SWU_BOT_PART74_FEATURES : []);   // + p74 (spaceanswer, levers/postban_spaceanswer.php)
 }
 
 function SWUBotLeverRegister(string $theme, string $name, array $hooks): void {

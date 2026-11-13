@@ -1,0 +1,41 @@
+# Post-ban TEST PANEL v1 (owner 2026-11-12), slot 1. Hyper aggro, ground go-wide
+# Deck: "Set 9 Wicket Green"; source: swudb XsohWWMd (QR)
+# Author: VaNah
+# Style: hyperaggro
+
+Leader
+1 HMW_014
+
+Base
+1 HMW_023
+
+Deck
+3 JTL_151
+3 SEC_148
+2 SEC_101
+3 HMW_126
+3 JTL_096
+3 ASH_034
+2 HMW_124
+3 HMW_193
+2 HMW_254
+2 ASH_168
+3 HMW_177
+2 JTL_250
+2 SEC_163
+2 HMW_130
+2 ASH_183
+2 HMW_175
+3 HMW_115
+2 JTL_153
+2 ASH_163
+3 HMW_045
+2 HMW_118
+
+Sideboard
+1 SEC_101
+2 ASH_153
+2 LAW_191
+1 SEC_163
+2 ASH_112
+2 LOF_144

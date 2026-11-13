@@ -1,0 +1,46 @@
+# Self-play fixture — "The Unity of Ewoks" (Wicket, Few Greater Battles to Fight - Aldhani Garrison)
+# Source: [FF] Dralack's SWU Forge deck cmw928cvs1icd01uknorx8k26, the as-played list of 2026-11-10/11 (decklists/asplayed/
+#   the-unity-of-ewoks__58bfe5dc.json; 8 games, Dralack 7-1). Post-ban (Premier banlist of 2026-11-09): his 11-09 list ran Neel x3;
+#   this one replaces it with Ant Droid x2, Teebo x1 and Blue Leader x2 (Luke ASH_112 moved to the sideboard). 50 main-deck cards, 10 sideboard.
+#   Added on the owner's go 2026-11-12, for measuring the post-ban Wicket levers (Unity of Purpose / Figure of Unity) on the list that
+#   produced them. Unity of Purpose JTL_106 is double Command: on this base it is cast through Aldhani Garrison's Epic Action (6/6 of
+#   Dralack's casts).
+#   Base: Aldhani Garrison (LAW 27-HP common, "Green Splash") — the same derived name as Ninin's wicket_hmw_green-splash, hence "_by-dralack".
+# Author: Dralack
+# Archetype: the deck-style classifier (SWUBotDeckStyle, 2026-11-12) — hyperaggro, MEDIUM confidence, source shape: score 0.21, 92% aggro
+#   side (39 units <= 3 cost, 6 attack/buff cards; 0 units >= 6 cost, 0 removal events, 0 wipes). Matches how Dralack played it.
+# Style: hyperaggro
+
+Leader
+1 HMW_014
+
+Base
+1 LAW_022
+
+Deck
+3 ASH_034
+2 ASH_116
+3 ASH_154
+2 ASH_156
+3 ASH_168
+2 HMW_045
+3 HMW_115
+3 HMW_126
+3 HMW_130
+1 HMW_162
+3 HMW_175
+3 HMW_254
+2 JTL_096
+3 JTL_106
+2 JTL_250
+2 LAW_078
+2 SEC_101
+3 SEC_104
+3 SEC_148
+2 SEC_164
+
+Sideboard
+2 ASH_112
+3 LAW_037
+2 LAW_191
+3 LOF_248
