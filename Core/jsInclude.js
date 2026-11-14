@@ -79,7 +79,7 @@ function CardDetailHoverDelay(options) {
   var el = document.getElementById("folderPath");
   var folderPath = el ? el.value : "";
   if (folderPath == "SWUDeck" || folderPath == "AzukiDeck") return SWUDECK_CARD_DETAIL_HOVER_MS;
-  if (folderPath == "SWUSim") return 400;
+  if (folderPath == "SWUSim") return SWUSIM_CARD_PREVIEW_HOVER_MS;   // Core/SWUSimCardPreviewDelay.js
   if (folderPath == "AzukiSim" || folderPath == "FaBSim") return AZUKISIM_CARD_DETAIL_HOVER_MS;
   if (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim") return 100;
   return 1;

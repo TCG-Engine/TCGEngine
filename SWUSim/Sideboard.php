@@ -150,6 +150,7 @@ var titles=<?= json_encode($titles, JSON_UNESCAPED_UNICODE) ?>;
 </script>
 <script src="../Core/SWUCardI18n.js?v=<?= filemtime(__DIR__ . '/../Core/SWUCardI18n.js') ?>"></script>
 <script src="../Core/StyledDialog.js?v=<?= filemtime(__DIR__ . '/../Core/StyledDialog.js') ?>"></script>
+<script src="../Core/SWUSimCardPreviewDelay.js?v=<?= filemtime(__DIR__ . '/../Core/SWUSimCardPreviewDelay.js') ?>"></script>
 <script>
 var deck=<?= json_encode((object)array_map('intval',$mainCounts), JSON_FORCE_OBJECT) ?>;
 var side=<?= json_encode((object)array_map('intval',$sideCounts), JSON_FORCE_OBJECT) ?>;
@@ -181,13 +182,13 @@ function positionSbPreview(ev){
 }
 function hideSbPreview(){ clearTimeout(sbPreviewTimer); sbPreviewTimer=0; if(sbPreview) sbPreview.style.display='none'; }
 // The preview waits (owner, 2026-11-04: a click — above all a tap on a phone — left it open over the other cards). A mouse
-// shows it after SB_PREVIEW_DELAY of hovering and a click hides it; a finger never gets it on a tap, only by holding the
-// card for SB_PREVIEW_DELAY, and lifting the finger hides it without moving the card.
-var SB_PREVIEW_DELAY=500, sbPreviewTimer=0, sbLongPressed=false;
+// shows it after SWUSIM_CARD_PREVIEW_HOVER_MS of hovering and a click hides it; a finger never gets it on a tap, only by
+// holding the card for SWUSIM_CARD_PREVIEW_HOVER_MS, and lifting the finger hides it without moving the card.
+var sbPreviewTimer=0, sbLongPressed=false;
 function wireSbPreview(node, id){
   var last=null;
   var later=function(ev){ last={clientX:ev.clientX, clientY:ev.clientY}; clearTimeout(sbPreviewTimer);
-    sbPreviewTimer=setTimeout(function(){ sbPreviewTimer=0; showSbPreview(id, last); if(ev.pointerType==='touch') sbLongPressed=true; }, SB_PREVIEW_DELAY); };
+    sbPreviewTimer=setTimeout(function(){ sbPreviewTimer=0; showSbPreview(id, last); if(ev.pointerType==='touch') sbLongPressed=true; }, SWUSIM_CARD_PREVIEW_HOVER_MS); };
   node.addEventListener('pointerenter', function(ev){ if(ev.pointerType!=='touch') later(ev); });
   node.addEventListener('pointermove', function(ev){ if(ev.pointerType==='touch') return; last={clientX:ev.clientX, clientY:ev.clientY}; positionSbPreview(ev); });
   node.addEventListener('pointerleave', function(ev){ if(ev.pointerType!=='touch') hideSbPreview(); });

@@ -9,7 +9,7 @@
   'use strict';
   var CTX = window.LB_CONTEXT || {};
   var MATCH = !!CTX.matchId;
-  var POLL_MS = 2000, PREVIEW_DELAY = 500, MIN_DECK = 30;
+  var POLL_MS = 2000, MIN_DECK = 30;
   var DRAFT_KEY = 'tcg:limited:draft:' + (MATCH ? CTX.matchId + ':' + CTX.seat : CTX.lobbyID);
 
   var S = { pool: [], bases: [], cards: {}, deck: { leader: '', base: '', main: {} }, submittedSig: null, ready: false,
@@ -204,7 +204,7 @@
         previewTimer = 0;
         var p = ensurePreview(); p.src = window.swuCardArtUrl ? window.swuCardArtUrl(node.getAttribute('data-id'), 'card') : ''; p.style.display = 'block'; placePreview(last);
         if (ev.pointerType === 'touch') longPressed = true;
-      }, PREVIEW_DELAY);
+      }, SWUSIM_CARD_PREVIEW_HOVER_MS);   // Core/SWUSimCardPreviewDelay.js
     };
     root.addEventListener('pointerover', function (ev) { var n = ev.target.closest('.lb-card'); if (n && ev.pointerType !== 'touch' && !n.contains(ev.relatedTarget)) later(n, ev); });
     root.addEventListener('pointermove', function (ev) { if (ev.pointerType !== 'touch') { last = { clientX: ev.clientX, clientY: ev.clientY }; placePreview(ev); } });

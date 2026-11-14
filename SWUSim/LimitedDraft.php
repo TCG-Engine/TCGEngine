@@ -73,5 +73,6 @@ echo RenderHead($ldDef);
   window.LD_CONTEXT = <?= json_encode(['lobbyID' => $lobbyID, 'canChat' => $ldChatRefusal === null, 'cannotChatReason' => $ldChatRefusal ?? '']) ?>;
 </script>
 <script src="../Core/SWUCardI18n.js?v=<?= filemtime(__DIR__ . '/../Core/SWUCardI18n.js') ?>"></script>
+<script src="../Core/SWUSimCardPreviewDelay.js?v=<?= filemtime(__DIR__ . '/../Core/SWUSimCardPreviewDelay.js') ?>"></script>
 <script src="Limited/ui/limited-draft.js?v=<?= filemtime(__DIR__ . '/Limited/ui/limited-draft.js') ?>"></script>
 </body></html>

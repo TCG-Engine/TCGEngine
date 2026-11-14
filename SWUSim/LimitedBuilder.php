@@ -107,5 +107,6 @@ $icon = fn($a) => '/TCGEngine/Assets/Images/icons/SWU/' . $a . '.webp';
 </script>
 <script src="../Core/SWUCardI18n.js?v=<?= filemtime(__DIR__ . '/../Core/SWUCardI18n.js') ?>"></script>
 <script src="../Core/StyledDialog.js?v=<?= filemtime(__DIR__ . '/../Core/StyledDialog.js') ?>"></script>
+<script src="../Core/SWUSimCardPreviewDelay.js?v=<?= filemtime(__DIR__ . '/../Core/SWUSimCardPreviewDelay.js') ?>"></script>
 <script src="Limited/ui/limited-builder.js?v=<?= filemtime(__DIR__ . '/Limited/ui/limited-builder.js') ?>"></script>
 </body></html>

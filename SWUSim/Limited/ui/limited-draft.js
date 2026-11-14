@@ -7,7 +7,7 @@
 (function () {
   'use strict';
   var CTX = window.LD_CONTEXT || {};
-  var POLL_MS = 1500, PREVIEW_DELAY = 500, NAME_PREVIEW_DELAY = 350;
+  var POLL_MS = 1500;
   var ASPECT_ORDER = ['Vigilance', 'Command', 'Aggression', 'Cunning', 'Heroism', 'Villainy'];
   var RARITY = { Common: 'C', Uncommon: 'U', Rare: 'R', Legendary: 'L', Special: 'S' };
   var S = { st: null, selected: '', busy: false, endsAt: 0, leaving: false, chat: false };
@@ -185,7 +185,7 @@
         previewTimer = 0;
         var p = ensurePreview(); p.src = window.swuCardArtUrl ? window.swuCardArtUrl(node.getAttribute('data-id'), 'card') : ''; p.style.display = 'block'; placePreview(last);
         if (ev.pointerType === 'touch') longPressed = true;
-      }, node.classList.contains('ld-pick-name') ? NAME_PREVIEW_DELAY : PREVIEW_DELAY);
+      }, SWUSIM_CARD_PREVIEW_HOVER_MS);   // Core/SWUSimCardPreviewDelay.js — cards and pick names alike
     };
     root.addEventListener('pointerover', function (ev) { var n = ev.target.closest(PREVIEWABLE); if (n && ev.pointerType !== 'touch' && !n.contains(ev.relatedTarget)) later(n, ev); });
     root.addEventListener('pointermove', function (ev) { if (ev.pointerType !== 'touch') { last = { clientX: ev.clientX, clientY: ev.clientY }; placePreview(ev); } });

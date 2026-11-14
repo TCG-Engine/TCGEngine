@@ -519,6 +519,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
     </script>
 
+    <?php if ($folderPath === 'SWUSim'): /* the shared card-preview hover delay jsInclude.js reads */ ?>
+    <script src="./Core/SWUSimCardPreviewDelay.js?v=<?php echo filemtime('./Core/SWUSimCardPreviewDelay.js'); ?>"></script>
+    <?php endif; ?>
     <script src="./Core/jsInclude.js?v=<?php echo filemtime('./Core/jsInclude.js'); ?>"></script>
     <?php if ($folderPath === 'SWUSim'): /* localized card art (images only): rewrites SWU card-art URLs */ ?>
     <script src="./Core/SWUCardI18n.js?v=<?php echo filemtime('./Core/SWUCardI18n.js'); ?>"></script>

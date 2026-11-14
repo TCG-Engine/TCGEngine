@@ -303,6 +303,7 @@ include_once __DIR__ . '/Disclaimer.php';
          so they are inert on a static page. */ ?>
 <input type="hidden" id="folderPath" value="SWUSim">
 <div id="cardDetail" style="z-index:100000; display:none; position:fixed;"></div>
+<script src="/TCGEngine/Core/SWUSimCardPreviewDelay.js?v=<?php echo @filemtime(__DIR__ . '/../../../Core/SWUSimCardPreviewDelay.js') ?: '1'; ?>"></script>
 <script src="/TCGEngine/Core/jsInclude.js?v=<?php echo @filemtime(__DIR__ . '/../../../Core/jsInclude.js') ?: '1'; ?>"></script>
 </body>
 </html>
