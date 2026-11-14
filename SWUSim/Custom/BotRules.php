@@ -1046,6 +1046,12 @@ function SWUBotRulePlannedAnswer(array $ctx): ?array {
     // Unit 140 times with a ready Vehicle out) — the plan step is dropped and the fallback decides.
     if (SWUBotFeatureOn('pilotchoice') && in_array(strval($ctx['tooltip'] ?? ''), ['Deploy_as_Unit_or_Pilot?', 'Choose_a_Vehicle_to_deploy_onto'], true)
         && ($ctx['tooltip'] ?? '') === $step['tooltip']) { $GLOBALS['SWUBotPlan'][$seat] = $plan; return null; }
+    // Feature 'pilothand' (p76): the same for a pilot played from hand or discard.
+    if (SWUBotFeatureOn('pilothand') && in_array(strval($ctx['tooltip'] ?? ''), ['Play_as_Unit_or_Pilot?', 'Choose_a_Vehicle_to_pilot'], true)
+        && ($ctx['tooltip'] ?? '') === $step['tooltip']) { $GLOBALS['SWUBotPlan'][$seat] = $plan; return null; }
+    // Feature 'poeunit' (p76): Poe's hop onto a Vehicle — whether to hop is the fallback's rule.
+    if (SWUBotFeatureOn('poeunit') && str_starts_with(strval(($ctx['following'] ?? [])[0] ?? ''), 'JTL_100#0')
+        && ($ctx['tooltip'] ?? '') === $step['tooltip']) { $GLOBALS['SWUBotPlan'][$seat] = $plan; return null; }
     $pick = (($ctx['kind'] ?? '') === 'decision' && ($ctx['tooltip'] ?? '') === $step['tooltip'])
         ? _SWUBotFind($ctx, fn($a) => strval($a['cardID'] ?? '') === $step['answer']) : null;
     if ($pick === null) { unset($GLOBALS['SWUBotPlan'][$seat]); return null; }

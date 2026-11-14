@@ -1510,6 +1510,7 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
 
     // A known continuation, or an unknown one whose prompt reads hostile / beneficial. Hurting only your own
     // units scores below PASS, so an optional "deal damage to a unit" with no enemy target is declined.
+    if ($head === 'JTL_100#0' && $onBoard && SWUBotFeatureOn('poeunit') && ($ph = _SWUBotPoeHopScore($seat, $c)) !== null) return $ph - $index * 1e-6;
     if ($head === 'ATTACH_UPGRADE' && $onBoard && SWUBotFeatureOn('picks')) {
         $s = _SWUBotAttachScore($seat, $c, strval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? ''), $W);
         return $s ?? -$index * 1e-6;
@@ -1628,6 +1629,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     }
     // Feature 'pilotchoice' (p42): a pilot leader's deploy — Pilot whenever a host it can use exists, and the best such host.
     if (SWUBotFeatureOn('pilotchoice') && ($pc = _SWUBotPilotChoiceScore($ctx, $seat, $c, $type, $tip)) !== null) return $pc - $index * 1e-6;
+    // Feature 'pilothand' (p76): a pilot from hand or discard — Pilot onto a ready host (an exhausted one for Wedge or a cheap pilot), else Unit.
+    if (SWUBotFeatureOn('pilothand') && ($ph = _SWUBotPilotHandScore($ctx, $seat, $c, $type, $tip)) !== null) return $ph - $index * 1e-6;
     if ($type === 'OPTIONCHOOSE' && strval($ctx['param'] ?? '') === 'Unit&Pilot') {
         // Guide: a Pilot goes on a ready Vehicle.
         $want = _SWUBotControlsReadyVehicle($seat) ? 'Pilot' : 'Unit';
@@ -3904,6 +3907,70 @@ function _SWUBotPilotChoiceScore(array $ctx, int $seat, string $c, string $type,
     }
     if ($tip === 'Choose_a_Vehicle_to_deploy_onto') return _SWUBotPilotHostScore($seat, $c, $trait);
     return null;
+}
+
+// ── Feature 'pilothand' (p76, Petranaki P-31, game 5439) — a pilot played from hand or discard: Unit or Pilot ─────────────────────────
+// "Play_as_Unit_or_Pilot?" was the 0.2 guide below (Pilot only with a READY Vehicle), so a Vehicle played earlier the same turn never got a
+// pilot: R1 Open Circle Ace, then Dagger Squadron Pilot as a 2/1 ground unit that Mae killed. Owner rulings 2026-11-13/14:
+//   1. Pilots are "mostly more worth it as pilots", big bodies included. An EXHAUSTED host only for Wedge (JTL_008) decks — "he doesn't
+//      mind playing pilots on his exhausted ships" — or a cheap pilot (_SWUBotPilotExhaustedHostOk).
+//   2. Han Solo (JTL_203) is a Unit when his Ambush is needed on the ground (tempo decks); Chewbacca (JTL_103) is a Unit against control
+//      (removal-proof body); Poe (JTL_100, feature 'poeunit') is a Unit for the X-Wing.
+// A punish check (pilot only where the opponent can't bounce / strip / kill the host this round) was measured on the post-ban panel and
+// REMOVED 2026-11-14: as "could have it" it cost games (Han Solo Green 279 -> 263/800, p .011), as "likely to have it" it changed none.
+// Every other prompt: NULL.
+// Han, Chewbacca and Poe: the pilots that are sometimes worth more as units.
+function _SWUBotPilotWantsUnit(int $seat, string $pilot): bool {
+    if ($pilot === 'JTL_203') {
+        if (!SWUBotSeatIsTempo($seat)) return false;
+        // His Ambush (4 power) defeats a ground unit and he (5 HP) survives the counter-blow.
+        foreach (SWUBotOpponents($seat) as $opp) foreach (SWUBotUnits($opp) as $v) {
+            if ($v['arena'] !== 'Ground') continue;
+            if (SWUBotDamageKills($v, intval(CardPower($pilot))) && $v['power'] < intval(CardHP($pilot))) return true;
+        }
+        return false;
+    }
+    if ($pilot === 'JTL_103') return _SWUBotOpponentReadsControl($seat);
+    // Owner 2026-11-14 (feature 'poeunit'): "Poe JTL_100 is best played as a unit to get the X-Wing" — his unit side can still hop onto a
+    // Vehicle (_SWUBotPoeHopScore).
+    if ($pilot === 'JTL_100' && SWUBotFeatureOn('poeunit')) return true;
+    return false;
+}
+// The meta's read of an opponent's leader + base is nearer soft control than midrange.
+function _SWUBotOpponentReadsControl(int $seat): bool {
+    foreach (SWUBotOpponents($seat) as $opp) {
+        $rank = SWUBotLeaderBaseStyleRank(strval((GetLeader($opp)[0] ?? null)->CardID ?? ''), strval((GetBase($opp)[0] ?? null)->CardID ?? ''));
+        if ($rank !== null && $rank >= 2.5) return true;
+    }
+    return false;
+}
+// Poe's "You may attach this unit as an upgrade to a friendly Vehicle" (feature 'poeunit'). "vs control the player doesn't hop, to get two
+// threats out instead of one. The piloted X-Wing is easily removed by blue players" — declined there (every host below PASS); otherwise the
+// host a deployed pilot leader would pick.
+function _SWUBotPoeHopScore(int $seat, string $c): ?float {
+    if (_SWUBotOpponentReadsControl($seat)) return -1.0;
+    return _SWUBotPilotHostScore($seat, $c, '');
+}
+// Every deck but Wedge pilots an EXHAUSTED host only with a cheap pilot — one whose unit side is no bigger than its upgrade (Dagger,
+// Nien Nunb, Independent Smuggler).
+function _SWUBotPilotExhaustedHostOk(int $seat, string $pilot): bool {
+    foreach (GetLeader($seat) as $l) if ($l !== null && strval($l->CardID ?? '') === 'JTL_008') return true;
+    return intval(CardPower($pilot)) + intval(CardHP($pilot)) <= intval(CardUpgradePower($pilot)) + intval(CardUpgradeHp($pilot));
+}
+function _SWUBotPilotHandScore(array $ctx, int $seat, string $c, string $type, string $tip): ?float {
+    $next = explode('|', strval(($ctx['following'] ?? [])[0] ?? ''));
+    if ($type !== 'OPTIONCHOOSE' || strval($ctx['param'] ?? '') !== 'Unit&Pilot') return null;
+    if (!in_array($next[0] ?? '', ['PILOT_PLAY_CHOICE', 'OWN_DISCARD_PILOT_CHOICE'], true)) return null;
+    $pilot = strval($next[2] ?? '');
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    $hosts = function_exists('SWUGetPilotValidTargets') ? (array)SWUGetPilotValidTargets($seat, $pilot) : [];
+    $playerID = $saved;
+    $exhaustedOk = _SWUBotPilotExhaustedHostOk($seat, $pilot);
+    $usable = array_filter($hosts, fn($mz) => ($v = SWUBotViewForMz($seat, strval($mz))) !== null && ($v['ready'] || $exhaustedOk));
+    $want = (empty($usable) || _SWUBotPilotWantsUnit($seat, $pilot)) ? 'Unit' : 'Pilot';
+    if ($want !== (_SWUBotControlsReadyVehicle($seat) ? 'Pilot' : 'Unit')) _SWUBotFired('pilothand', $seat);
+    return $c === $want ? 1.0 : 0.0;
 }
 
 // ── Features 'shipdiscount' + 'deployfirst' (p42) — JTL_005 Admiral Piett ──────────────────────────────────────────────────
