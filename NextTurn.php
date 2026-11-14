@@ -648,8 +648,6 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script>
       var _lastUpdate = 0;
     </script>
-      }
-    </script>
     <!-- Your-turn chime (SWUSim: played by swuPlayTurnChime in GameLayoutShared.php).
          This element was inherited from SWUOnline and had been COMMENTED OUT, together with the
          favicon swap above it, because its playback was never ported — so nothing referenced it.
