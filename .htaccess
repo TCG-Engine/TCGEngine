@@ -24,5 +24,8 @@
   # Match records (Core/Match) hold every seat's auth key, and match ids are sequential; the persistent 1v1 rooms
   # (SWUSim/Rooms.php, Matches/rooms/) hold seat keys too. Read only by PHP. Served until 2026-10-30.
   RewriteRule (^|/)Matches(/|$) - [R=404,NC,L]
+  # Utils/ is server-side scripts only; nothing loads it from a browser. A stray GET of SWUSimImplementationStatus.php
+  # rewrote the file SWUDeck/Initialize.php includes and blanked every SWUStats decklist (2026-11-13).
+  RewriteRule ^Utils(/|$) - [R=404,NC,L]
   RewriteRule ^(.+)\.[0-9]{9,}\.(css|js)$ $1.$2 [L]
 </IfModule>

@@ -5,6 +5,10 @@
 // line-by-line as before meant a failed fetch (petranaki's endpoint 404ing → json_decode null → count() fatal)
 // left a truncated, unparseable file behind, and every SWUStats decklist died at that include (2026-11-14).
 
+// DISABLED 2026-11-14: the petranaki endpoint below 404s, and this script is web-reachable (a stray GET is what
+// broke prod). The tracked Output/SWUSimImplementation.php is served as-is until a live source exists again.
+exit("SWUSimImplementationStatus is disabled.\n");
+
 $outPath = "./Output/SWUSimImplementation.php";
 
 $ch = curl_init();
