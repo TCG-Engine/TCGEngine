@@ -60,6 +60,30 @@ P1NODECISION
 
 ---
 
+# EventHealsBase_AlsoTriggers
+#// ANY heal from your base fires it, not only his own Restore (P-33 read it as "when you gain life").
+#// LAW_133 Lost and Forgotten defeats the SEC_080 and heals 3 (5 -> 2); the surviving SOR_046 is then
+#// the lone enemy unit, so the 3 auto-resolves onto it.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:6;myBaseDamage:5}
+P1OnlyActions: true
+WithP1GroundArena: IC27_026:1:0
+WithP2GroundArena: SOR_046:1:0 SEC_080:1:0
+WithP1Hand: LAW_133
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P1BASEDMG:2
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
 # NoEnemyUnit_HealStillHappens
 #// NO-VALID-TARGET: the damage half fizzles cleanly with no enemy unit on the board, but the heal
 #// (a separate keyword) still resolves — the two are not gated on each other.
