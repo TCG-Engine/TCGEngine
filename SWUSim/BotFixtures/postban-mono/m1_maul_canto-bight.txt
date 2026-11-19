@@ -1,0 +1,30 @@
+# Single-colour stand-in (2026-11-19) for the Lando mill rules. Maul, Old Master (HMW_016, Cunning) on Canto Bight (LAW_028, Cunning): mono-yellow Underworld/Pyke units
+# Deck: "maul"; source: https://sw-unlimited-db.com/decks/167817 (2026-10-03, pre-ban; no public Maul + Canto Bight list exists). Real list kept card for card; only its base changed, Research Station 9 HMW_034 (Cunning) -> Canto Bight LAW_028 (Cunning)
+# Author: seri
+# Style: midrange
+
+Leader
+1 HMW_016
+
+Base
+1 LAW_028
+
+Deck
+3 HMW_196
+3 HMW_197
+3 HMW_198
+3 HMW_219
+3 HMW_223
+3 ASH_219
+3 ASH_226
+3 ASH_192
+3 ASH_240
+3 SEC_188
+3 HMW_203
+3 HMW_231
+3 HMW_246
+2 ASH_196
+3 ASH_194
+3 HMW_238
+1 HMW_205
+2 HMW_271

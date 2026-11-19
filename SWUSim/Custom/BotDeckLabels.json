@@ -1,5 +1,5 @@
 {
-    "generated": "2026-11-12",
+    "generated": "2026-11-19",
     "groups": [
         {
             "id": "force-fam-IC27-predictions",
@@ -139,6 +139,42 @@
                 "SEC_078": 2
             },
             "total": 60
+        },
+        {
+            "key": "force-fam-IC27-predictions--lando-calrissian_law_blue_naboo",
+            "group": "force-fam-IC27-predictions",
+            "file": "lando-calrissian_law_blue_naboo",
+            "name": "Lando Calrissian (LAW) Blue (Naboo) By Ninin",
+            "author": "Ninin",
+            "leader": "LAW_018",
+            "base": "HMW_020",
+            "style": "softcontrol",
+            "cards": {
+                "ASH_043": 3,
+                "ASH_062": 2,
+                "ASH_077": 2,
+                "HMW_056": 3,
+                "HMW_075": 3,
+                "HMW_094": 3,
+                "IC27_032": 2,
+                "IC27_035": 2,
+                "IC27_039": 3,
+                "IC27_043": 3,
+                "IC27_047": 3,
+                "JTL_078": 2,
+                "JTL_080": 2,
+                "LAW_089": 2,
+                "LAW_095": 2,
+                "LAW_096": 2,
+                "LAW_127": 2,
+                "LAW_132": 1,
+                "LAW_133": 3,
+                "LOF_057": 3,
+                "SEC_046": 2,
+                "SEC_051": 3,
+                "SEC_078": 2
+            },
+            "total": 55
         },
         {
             "key": "force-fam-IC27-predictions--wicket_hmw_green-splash",

@@ -2130,17 +2130,56 @@ function _SWUBotLandoAspectCounts(int $seat, bool $postFlip): array {
     return _SWUBotAspectCounts($ids);
 }
 
-// A seat's leader COLOR aspects — every aspect on its leader(s) but Heroism / Villainy (public: the leader is face up).
+// A card's COLOR aspects — every aspect but Heroism / Villainy.
+function _SWUBotColorAspects(string $cardID): array {
+    $out = [];
+    foreach (explode(',', strval(CardAspect($cardID) ?? '')) as $a) {
+        $a = trim($a);
+        if ($a !== '' && $a !== 'Heroism' && $a !== 'Villainy') $out[] = $a;
+    }
+    return $out;
+}
+
+// A seat's leader COLOR aspects (public: the leader is face up).
 function _SWUBotLeaderColorAspects(int $seat): array {
     $out = [];
     foreach (GetLeader($seat) as $l) {
         if ($l === null || !empty($l->removed)) continue;
-        foreach (explode(',', strval(CardAspect(strval($l->CardID ?? '')) ?? '')) as $a) {
-            $a = trim($a);
-            if ($a !== '' && $a !== 'Heroism' && $a !== 'Villainy') $out[] = $a;
-        }
+        foreach (_SWUBotColorAspects(strval($l->CardID ?? '')) as $a) $out[] = $a;
     }
     return array_values(array_unique($out));
+}
+
+// 'landocall' (owner 2026-11-19): the color that makes THEIR deck a near-certain hit, so Full Sabacc mills theirs from the first round —
+// "when their leader and base share a color, always pick the opponent and pick that color. and then against another Lando (LAW) leader,
+// always pick the color of their base. if they are playing Lando Lake Country, then always pick 'Cunning'" — and any other colorless base
+// the same way, their leader's color ("that's another certain hit … always name red against Boba Lakes"). null: theirs is a mixed deck.
+function _SWUBotLandoSureCall(int $seat): ?string {
+    $opp = SWUBotOpponent($seat);
+    $base = GetBase($opp)[0] ?? null;
+    $baseColors = $base === null ? [] : _SWUBotColorAspects(strval($base->CardID ?? ''));
+    $leaders = array_filter(GetLeader($opp), fn($l) => $l !== null && empty($l->removed));
+    if (empty($leaders)) return null;
+    foreach ($leaders as $l) {
+        if (!preg_match(SWU_BOT_LANDO_ACTION, strval(CardText(strval($l->CardID ?? ''))))) continue;
+        // their base's color; a colorless base (Lake Country) leaves Lando's own, Cunning
+        return $baseColors[0] ?? (_SWUBotColorAspects(strval($l->CardID ?? ''))[0] ?? null);
+    }
+    $shared = null;   // a colorless base (Lake Country) adds no color, so their leader's alone decides
+    if (!empty($baseColors) || $base === null) $shared = $baseColors;
+    foreach ($leaders as $l) {
+        $colors = _SWUBotColorAspects(strval($l->CardID ?? ''));
+        $shared = $shared === null ? $colors : array_values(array_intersect($shared, $colors));
+    }
+    return count($shared) === 1 ? $shared[0] : null;
+}
+
+// 'landocall': milling MY deck before the flip, name my base's color — "blue for Lando blue" — or my leader's on a colorless base ("yellow
+// if my base is Lake Country").
+function _SWUBotLandoOwnCall(int $seat): ?string {
+    $base = GetBase($seat)[0] ?? null;
+    $colors = $base === null ? [] : _SWUBotColorAspects(strval($base->CardID ?? ''));
+    return $colors[0] ?? (_SWUBotLeaderColorAspects($seat)[0] ?? null);
 }
 
 // 'landomill' — SHIPPED 2026-10-08 as a p42 feature (owner: "turn it on"); '@try-landomill' still names the proposal.
@@ -2158,11 +2197,25 @@ function _SWUBotLandoMillsTheirs(int $seat, bool $postFlip): bool {
 function _SWUBotLandoDecisionScore(array $ctx, string $c, int $index): ?float {
     if (!_SWUBotLandomillOn()) return null;
     $seat = intval($ctx['seat']);
-    [$isLando, $post] = _SWUBotLandoPhase($seat);
+    [$isLando, $flipped] = _SWUBotLandoPhase($seat);
     if (!$isLando) return null;
-    $post = _SWUBotLandoMillsTheirs($seat, $post);   // after the flip, or at 10+ resources (owner 2026-10-08)
+    $post = _SWUBotLandoMillsTheirs($seat, $flipped);   // after the flip, or at 10+ resources (owner 2026-10-08)
+    $sure = SWUBotFeatureOn('landocall') ? _SWUBotLandoSureCall($seat) : null;
+    // 'landocall' tuned (owner 2026-11-19, after the screen leaned negative vs mono decks): "if the bot misses the first two hits against an
+    // opponent, then pivot to naming its own deck on the 4R turn. this is to guarantee at least 1 Credit going into the flip turn" — no Credit
+    // banked by 4R is what those misses leave ('landoflip' keeps that Credit for the 6R + 3C flip).
+    if ($sure !== null && !$flipped && SWUResourceCount($seat) >= SWU_BOT_LANDO_PIVOT_AT && _SWUBotUsableCredits($seat) === 0) {
+        _SWUBotFired('landopivot', $seat);
+        $sure = null;
+    }
+    if ($sure !== null) $post = true;                 // a near-certain hit: mill THEIRS, before the flip too
     $tip = strval($ctx['tooltip'] ?? '');
     if ($tip === 'Choose_an_aspect') {
+        $call = $sure ?? ($post || !SWUBotFeatureOn('landocall') ? null : _SWUBotLandoOwnCall($seat));
+        if ($call !== null && $c === $call) {
+            _SWUBotFired('landocall', $seat);
+            return 3.0 - $index * 1e-6;
+        }
         $counts = _SWUBotLandoAspectCounts($seat, $post);
         // OWNER RULING 2026-10-08: milling THEIR deck, name one of THEIR aspects — the leader's COLOR, never Heroism / Villainy: "against a
         // Lake Country deck, it is safe to pick the aspect that is not Hero or Villain … Boba Fett JTL Lake Country, you would mill Red
@@ -2193,10 +2246,11 @@ function _SWUBotLandoAbilityScore(array $ctx, array $action, array $W): ?float {
     if (!$isLando || !_SWUBotLandoMillsTheirs($seat, $post)) return null;
     $theirDeck = count(array_filter(GetDeck(SWUBotOpponent($seat)), fn($o) => $o !== null && empty($o->removed)));
     if ($theirDeck <= SWU_BOT_LANDO_MILL_KILL) return 10.0;            // milling them out is the plan now
-    // PROPOSAL 'millclock' (owner 2026-10-21): "after flip, if Lando blue has 10+ resources or Lando LC has 8+ resources, then mill the
-    // opponent" — the mill's denial (their removal and bombs) and deck clock, not the Credit, are the point now, so it is a real play: just
-    // above the initiative claim, which ends my round and outscored the 0.02 spare play (5,572 traced rounds), and never the −0.5 below.
-    if ($post && SWUBotProposalOn('millclock') && SWUResourceCount($seat) >= _SWUBotLandoMillClockAt($seat)) {
+    // 'millclock' (owner 2026-10-21, threshold dropped 2026-11-19: "the mill threshold can be for any resource count post-flip. Lando tries to
+    // get 1 Credit pre-flip to turn it into 3 Credits. after that, the Credits are less valuable since you will get to 8R/9R anyways") — the
+    // mill's denial (their removal and bombs) and deck clock, not the Credit, are the point after the flip, so it is a real play: just above
+    // the initiative claim, which ends my round and outscored the 0.02 spare play (5,572 traced rounds), and never the −0.5 below.
+    if ($post && SWUBotFeatureOn('millclock')) {
         _SWUBotFired('millclock', $seat);
         return floatval($W['initiative'] ?? 0.05) + 0.01;
     }
@@ -2208,12 +2262,8 @@ function _SWUBotLandoAbilityScore(array $ctx, array $action, array $W): ?float {
 
 // Their deck at or under this, and the mill outranks the round's plays: each card they cannot draw is damage.
 const SWU_BOT_LANDO_MILL_KILL = 5;
-// 'millclock': the resource count from which the post-flip mill is a real play — 8 on Lake Country (JTL_031), 10 otherwise (owner 2026-10-21).
-const SWU_BOT_LANDO_MILLCLOCK_AT = 10;
-const SWU_BOT_LANDO_MILLCLOCK_AT_LC = 8;
-function _SWUBotLandoMillClockAt(int $seat): int {
-    return strval((GetBase($seat)[0] ?? null)->CardID ?? '') === 'JTL_031' ? SWU_BOT_LANDO_MILLCLOCK_AT_LC : SWU_BOT_LANDO_MILLCLOCK_AT;
-}
+// 'landocall': from this resource count, before the flip, no banked Credit sends the mill back to my own deck (owner 2026-11-19).
+const SWU_BOT_LANDO_PIVOT_AT = 4;
 
 // What losing one of my units costs: its value (cost + what dies with it), less what its When Defeated
 // ability gives back. Owner: Krennic's sacrificial ramp spends cheap units with beneficial When Defeated.
@@ -5226,6 +5276,15 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     // may not be necessary if you already had one banked from the 5R turn. this way you can play a 9-drop").
     if (SWUBotFeatureOn('landoflip') && ($fl = _SWUBotActionLeader($seat, $action)) !== null && _SWUBotCreditFlipLeader($fl)
         && !SWUBotProposalOn('landoflipaction') && _SWUBotUsableCredits($seat) >= 1 && _SWUBotLeaderCanDeployNow($seat, $fl)) return -0.5;
+    // Feature 'landokeep' (p77, owner 2026-11-19: "do not spend those Credits to maximize the 6R turn to be 6R + 3C"): with no ready resource
+    // the engine pays the pre-flip Action's [1 resource] with a banked Credit, unasked — a Credit spent to MAYBE make one (5R, 0 ready, 1
+    // Credit: paid, missed, 0 left). Before the flip, the Action waits for a ready resource.
+    if (SWUBotFeatureOn('landokeep') && ($fl = _SWUBotActionLeader($seat, $action)) !== null && _SWUBotCreditFlipLeader($fl)
+        && _SWUBotKeepsFlipCredit($seat) && _SWUBotUsableCredits($seat) >= 1 && SWUResourceCount($seat, true) < 1
+        && preg_match('/^Action \[1 resource/i', strval(CardText(strval($fl->CardID ?? ''))))) {
+        _SWUBotFired('landokeep', $seat);
+        return -0.5;
+    }
     if (SWUBotFeatureOn('freekill') && SWUBotActionKind($action) === 'leader-ability'
         && ($fk = _SWUBotFreeKillValue($ctx, $seat, _SWUBotActionSourceText($seat, $action), $W)) !== null) return $fk;
     // Feature 'lastswing' (p75): Saw's "attack with a unit … then defeat it" is its best candidate's swing; none worth it, and it waits.

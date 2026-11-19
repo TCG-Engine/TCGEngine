@@ -1,0 +1,54 @@
+# Self-play fixture — "Lando Blue Naboo" (Lando Calrissian, Full Sabacc - Great Grass Plains)
+# Source: Ninin TCG's SWU Forge deck cmwmkxtjb192e01k6stx12gwb "Lando Blue Naboo", current version (main / v2, last edit
+#   2026-11-19T04:44Z), pulled from the Force Fam Team Battle Log 2026-11-19 and added to the IC27 group by the owner. A Force Fam
+#   PREDICTION for the post-ban IC27 meta (Premier banlist of 2026-11-09: Neel, Chimaera, Koska, Aggressive Negotiations — none of
+#   them in this list). 55 main-deck cards, 10 sideboard.
+#   The list churned through 17 edits on its first day (6 games 2026-11-18/19, 5-1); only game b869025f was played on exactly this list.
+#   Base trait: Great Grass Plains is Naboo, and the deck cares (Sando Aqua Monster HMW_094), so the trait is part of its name.
+# Author: Ninin
+# Archetype: the deck-style classifier (SWUBotDeckStyle, 2026-11-19) — softcontrol, HIGH confidence, source shape: score 2.85, 0% aggro
+#   side (21 units <= 3 cost, 0 burn, 0 attack/buff cards; 11 units >= 6 cost, 6 removal events, 7 wipes). Nearest labelled list
+#   hmw-meta-2026-09/lando-calrissian_law_blue is only 38%. Same label as the owner's Lando Blue (T85Challenge list).
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_018
+
+Base
+1 HMW_020
+
+Deck
+3 ASH_043
+2 ASH_062
+2 ASH_077
+3 HMW_056
+3 HMW_075
+3 HMW_094
+2 IC27_032
+2 IC27_035
+3 IC27_039
+3 IC27_043
+3 IC27_047
+2 JTL_078
+2 JTL_080
+2 LAW_089
+2 LAW_095
+2 LAW_096
+2 LAW_127
+1 LAW_132
+3 LAW_133
+3 LOF_057
+2 SEC_046
+3 SEC_051
+2 SEC_078
+
+Sideboard
+1 ASH_077
+2 HMW_078
+1 HMW_081
+2 IC27_036
+1 JTL_080
+1 LAW_096
+1 LAW_132
+1 SEC_078

@@ -143,6 +143,13 @@ $check($has('LAW_008', 'cost-sacrifice') && !$has('LAW_008', 'sacrifice'),
 $check(!$has('LOF_147', 'wipe') && !$has('LOF_147', 'defeat-wipe-friendly'),
     "Kit Fisto's Aethersprite defeats friendly CREDIT TOKENS, not units - no longer a wipe");
 
+// 2026-11-19: SINGULAR sweeps were never wipes while the defeat side demanded plural "units" ("Defeat each unit …").
+$check($has('JTL_080', 'wipe') && $has('TWI_078', 'wipe') && $has('LOF_039', 'wipe'),
+    'Nebula Ignition / Invasion of Christophsis / Darth Sidious "defeat each … unit" -> wipe');
+$check(!$has('SOR_170', 'wipe') && !$has('JTL_180', 'wipe') && !$has('ASH_156', 'wipe')
+    && !$has('SOR_170', 'defeat-wipe-enemy') && !$has('JTL_180', 'defeat-wipe-enemy') && !$has('ASH_156', 'defeat-wipe-enemy'),
+    'Power Failure "upgrades on a unit" / Piercing Shot "Shield tokens on a unit" / R5-D4 "upgrades on the defending unit" are not wipes');
+
 // ── v3 form 2: the new categories ───────────────────────────────────────────────────────────────────────────
 $check($has('SEC_163', 'defeat-upgrade'), 'Outer Rim Constable "You may defeat an upgrade" -> defeat-upgrade (was untagged)');
 $check($has('SOR_100', 'gives-ambush') && !$has('SOR_100', 'ambush'), 'Wedge GRANTS Ambush -> gives-ambush, never ambush');
@@ -306,8 +313,8 @@ const TAG_BASELINE = [
     'defeat-friendly-resource' => 4,
     'defeat-shield' => 4,
     'defeat-upgrade' => 27,
-    'defeat-wipe-enemy' => 8,
-    'defeat-wipe-friendly' => 10,
+    'defeat-wipe-enemy' => 11,
+    'defeat-wipe-friendly' => 13,
     'discount' => 91,
     'discard-opponent-hand' => 15,
     'draw' => 111,
@@ -364,7 +371,7 @@ const TAG_BASELINE = [
     'steal-enemy-resource' => 1,
     'take-control' => 23,
     'uses-the-force' => 32,
-    'wipe' => 22,
+    'wipe' => 28,
 ];
 $live = [];
 foreach ($GLOBALS['SWUBotCardTagTable'] as $id => $faces) {
