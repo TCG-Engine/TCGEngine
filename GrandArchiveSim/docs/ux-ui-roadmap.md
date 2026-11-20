@@ -1,11 +1,13 @@
 # GrandArchiveSim UX/UI roadmap
 
-Status: React prototype paused, 2026-10-28. Branch: `codex/ux-ui-initiative`.
+Status: Classic PHP/JavaScript improvements. Branch: `codex/ux-ui-initiative`.
+
+React prototype, endpoints, request guards, and validation tools are maintained
+on `codex/ga-react-prototype`; they are excluded from this branch.
 
 ## Current direction: improve the existing match screen
 
-Keep the React prototype available for reference. The local lobby defaults to
-Classic again. Continue UX work in the existing PHP/JavaScript interface, using
+The local lobby uses Classic. Continue UX work in the existing PHP/JavaScript interface, using
 `Custom/GameLayout.php` and `Custom/GameLayoutMobile.php` and the existing
 inspection, decision, and rendering hooks. Do not edit generated files.
 
@@ -24,54 +26,6 @@ Proposed sequence:
 
 Validate each small change in Chromium, Firefox, and Safari/WebKit, including
 crowded boards and interactive decisions. React rollout is not current work.
-
-## Preserved React checkpoint
-
-The following describes the completed prototype before it was paused.
-The opt-in React screen now uses the authenticated PHP engine for main actions,
-fast responses, materialization, combat choices, multi-picks, modes, numeric
-choices, splits, naming and rearrangement. It displays board/card information,
-public effects and declared field targets, combat, victory and concession.
-A short two-seat game reaches victory through its HTTP commands. Card actions
-are selected through inspection; secondary zones collapse on the mobile board.
-Validation: 77 HTTP/browser checks, 12 responsive browser/viewport combinations,
-281 projection checks, 75 control checks, 17 JavaScript tests, and revision/codegen
-checks pass. Final JavaScript: 221,408 bytes (68,300 gzip).
-
-Production rollout remains gated on broader gameplay/real-device validation and
-an equivalent-workload performance comparison. Priority automation and the
-remaining production features below are not enabled by this prototype.
-See [current coverage and run instructions](../UIPrototype/README.md).
-Earlier checkpoints below are historical records.
-
-### React trial checkpoint — 2026-10-26
-
-- [x] Build an isolated React action/inspection prototype with simulated normal,
-  attack, Forese-response, and opponent-priority states.
-- [x] Keep state/commands separate from components, preserve unchanged card
-  identity, and reject stale/repeated demo commands.
-- [x] Verify inspection, explicit play/activation, reminder, waiting, and reset
-  in Chromium, Firefox, and WebKit at 320px, 390px, and 1280px. Four store tests
-  pass. Initial production JS: 202,689 bytes, 62,919 bytes gzipped.
-- [x] Prepare and unit-test an unconnected command adapter: revision checks,
-  duplicate submission protection, refusal feedback, and recovery locks.
-- [x] Add an opt-in GrandArchiveSim server revision guard under the existing
-  action write lock; verify malformed/stale revisions and unavailable locks.
-- [x] Recover from unchanged-state refusals through a fresh post-response read,
-  retaining the refusal reason and blocking uncertain resubmissions.
-- [x] Verify the revision guard through authenticated HTTP requests (18 checks;
-  isolated cache stand-in, real endpoint/authentication/engine). Production APCu
-  and browser-to-server integration remain unverified.
-- [ ] Adapt viewer-safe live state and existing server-validated commands to the
-  React boundary; compare equivalent workloads before deciding on adoption.
-- [x] Add a persistent mobile response dock with measured scroll clearance,
-  safe-area padding, and scrollable preferences on short screens.
-- [ ] Complete full zone/chooser parity and real-device usability checks.
-
-Run instructions and limitations: [React UI trial](../UIPrototype/README.md).
-The trial does not implement live Forese rules or automatic passing, and changes
-no existing match renderer or RL execution path. Its speed is not evidence of a
-performance improvement over the live simulator.
 
 ## Direction and scope
 
@@ -272,79 +226,6 @@ trying to predict lethal threats.
 
 Out of scope: automatic card activation, lethal prediction as a safeguard, and
 unconditional yielding through new opponent actions.
-
-### Read-only projection checkpoint
-
-- Added authenticated `UIState.php`, read under the game lock with no-store responses.
-- Allowlisted card identities by viewer and zone; concealed banish and internal engine data omitted.
-- 82 projection checks and 24 HTTP checks pass (HTTP uses the test cache stand-in).
-- Still pending: React live rendering, legal commands, temporary reveals, fuller card presentation, and measured performance comparison. The preview remains simulated.
-
-
-### Read-only React connection checkpoint
-
-- Added an opt-in live viewer alongside the simulated demo, served from the same PHP host as the match.
-- Displays server-filtered card names, zone counts, ready/rested status, damage and turn information. No game actions are enabled.
-- Credentials use POST and remain in memory; disconnect/unmount cancels polling. Failed reads clear private cards and require reconnection. Unchanged revisions skip React store updates.
-- Validation: 16 JS tests, 82 projection checks and 26 HTTP checks; browser connection coverage uses fixture responses. Existing CLI runtime warnings remain.
-- Next: project legal commands and supported decisions, then benchmark both renderers with the same match updates. Card art and temporary-reveal policies remain pending.
-
-
-### Browser-to-PHP verification checkpoint
-
-- Real built React viewer verified against the PHP endpoint in Chromium, Firefox and WebKit using a disposable match, with no browser response mocks.
-- Both seats, own hand rendering, hidden opponent hands, polling revision changes, disconnect, denied access, and absence of browser credential storage pass. The saved fixture is unchanged after the browser checks.
-- Repeat with `php DevTools/test-ga-ui-revision-http.php --browser` after building the preview (28 HTTP/harness checks plus three browser scenarios). The 16 JavaScript tests also pass.
-- Production APCu/deployment verification remains separate. The viewer is still read-only; legal actions and decision presentation are the next implementation milestone.
-
-### Decision context checkpoint
-
-- Live viewer now describes response opportunities, card choices, waiting and spectator status. It reads only the active viewer's first live decision, using fixed messages; parameters, tooltips and future continuations remain private.
-- Unknown decision types direct the player to the existing match screen. This is informational, not a declaration that passing or any other action is legal.
-- Projection coverage expanded to 111 checks, including removed decisions, unknown types and private decision data. Real-server browser checks now require the attention message to be visible on mobile.
-- Next: connect server-authorized commands to the revision-protected action adapter. Passing priority, declining a choice and requesting the end of main phase need distinct legality checks and labels.
-
-### First live action checkpoint
-
-- Optional card choices now expose a decline command to the active seat. Fast response windows use “Pass priority”; other optional choices use “Decline optional choice”. Mandatory decisions and main-phase passing remain unavailable.
-- The POST-only action endpoint fixes the engine command and checks availability and revision under the same write lock as execution. Credentials remain out of URLs.
-- The React action adapter blocks repeated submissions and uncertain retries; controls wait for the visible board revision to catch up after submission.
-- Validation includes command visibility, real endpoint refusals and duplicate protection, plus real pass-button clicks and refreshed boards in Chromium, Firefox and WebKit. Existing runtime override warnings remain.
-- Next: expose safe choice options and response context before adding card play and activation controls.
-
-
-### Visible choice preview checkpoint
-
-The React viewer now displays complete ordinary single-card choice pools using the board's visibility policy, including player and zone labels. This is display-only; selection still happens in the existing match screen. Unsupported selectors or any concealed candidate suppress the entire pool. Fast-action context and selection submission remain next steps. Added privacy/perspective coverage and responsive browser checks for the panel.
-
-
-### Single-card selection checkpoint
-
-Ordinary visible card-choice pools now offer live Choose buttons. Command membership and revision are rechecked against the locked state before passing the selected card to the existing engine validator. Pending submissions reuse the single-action guard and refresh flow. Hidden or unsupported pools stay in the existing match screen. Next: safe effect/response context and compound ability selections.
-
-### Public pending-effects checkpoint
-
-- Added a pending-effects panel to the live viewer with public card names, controllers and activation/trigger categories in newest-first order.
-- Kept captured state, copied identities, source identifiers and raw trigger strings out of the projection.
-- Explicitly distinguish an empty stack from absence of combat or pending decisions.
-- Next: safe target and ability descriptions, followed by compound fast-action choices. The existing match screen remains necessary for complete context.
-
-### Printed effect reference checkpoint
-
-Added expandable static printed card text to public pending stack entries, visible to players and spectators. Text is rendered without HTML execution and labeled as reference rather than the exact pending effect. Runtime targets, copied abilities and captured decision data remain excluded. Next: establish an explicit public runtime effect-description contract before presenting exact ability/target details or compound fast-action choices.
-
-### Public trigger labels checkpoint
-
-Pending effects now identify recognized trigger events (including On Enter, On Attack,
-On Hit and On Kill) using a fixed server allowlist matched to the effect resolver.
-Both players and spectators receive the same labels. Unknown tags and compound
-DTR events retain the generic category; captured decision data and copied identities
-remain excluded. A trigger label describes the event, not the exact ability or targets.
-
-Validation: 278 projection checks and 16 JavaScript tests pass. Existing generated
-ability override warnings remain. Production JavaScript is 212,367 bytes (65,769 gzip).
-Exact ability/target context and compound fast-action choices remain unfinished.
-
 
 ### Classic improvements — October 28, 2026
 

@@ -170,54 +170,6 @@ if (!$viewerInfo['isSpectator']) {
 
 ParseGamestate("./" . $folderPath . "/");
 
-// GA's opt-in React request contract. Existing callers retain their behavior.
-// Validate under the same lock as parse/execute/write, never before the lock.
-if ($folderPath === 'GrandArchiveSim' && array_key_exists('expectedRevision', $_GET)) {
-  require_once __DIR__ . '/GrandArchiveSim/Custom/UIRevision.php';
-  $revisionError = GAUIRevisionError($_GET['expectedRevision'], $updateNumber ?? null, $gameWriteLock);
-  if ($revisionError !== null) {
-    SimGameReleaseWriteLock($gameWriteLock);
-    ProcessInputReply(false, $revisionError, ['refreshRequired' => true]);
-  }
-}
-
-// Revalidate the experimental command against the locked state before executing it.
-if ($folderPath === 'GrandArchiveSim' && array_key_exists('uiCommand', $_GET)) {
-  require_once __DIR__ . '/GrandArchiveSim/Custom/UIProjection.php';
-  require_once __DIR__ . '/GrandArchiveSim/Custom/UIControls.php';
-  $uiBindings = [];
-  $projection = GAUILiveProjection($GLOBALS, $viewerInfo['viewerSeat'], $uiBindings);
-  $allowed = $projection['commands'];
-  if (!isset($_GET['expectedRevision']) || !is_string($_GET['uiCommand'])
-      || !in_array($_GET['uiCommand'], array_column($allowed, 'id'), true)
-      || strval($mode) !== '100' || $cardID !== 'PASS') {
-    SimGameReleaseWriteLock($gameWriteLock);
-    ProcessInputReply(false, 'This action is no longer available.', ['refreshRequired' => true]);
-  }
-  if ($_GET['uiCommand'] === 'answer-decision') {
-    $controls = $uiBindings['controls'] ?? [];
-    $value = is_string($_GET['uiAnswer'] ?? null) ? json_decode($_GET['uiAnswer'], true) : null;
-    $answer = isset($controls['decision']) ? GAUIResolveDecision($controls['decision'], $value) : null;
-    if ($answer === null) {
-      SimGameReleaseWriteLock($gameWriteLock);
-      ProcessInputReply(false, 'Invalid choice. Review the current decision.', ['refreshRequired' => true]);
-    }
-    $cardID = $answer;
-  }
-  foreach ($uiBindings['actions'] ?? [] as $command) {
-    if ($command['id'] === $_GET['uiCommand']) {
-      $mode = $command['_mode'];
-      $cardID = $command['_answer'];
-      break;
-    }
-  }
-  // Resolve the offered presentation ID only after locked-state membership validation.
-  if (str_starts_with($_GET['uiCommand'], 'select:')) {
-    preg_match('/^select:p([12])([A-Za-z]+)-(\d+)$/', $_GET['uiCommand'], $selection);
-    $cardID = (intval($selection[1]) === $viewerInfo['viewerSeat'] ? 'my' : 'their') . $selection[2] . '-' . $selection[3];
-  }
-}
-
 // Inactivity clock (SWUSim): snapshot the progress fingerprint BEFORE the action so the engine's write
 // block can tell a real move from a refused click. Absent in other sims -> nothing happens.
 $GLOBALS['gEngineProgressFingerprintBefore'] =
@@ -249,9 +201,6 @@ $actionResult = EngineExecuteLoadedAction([
   // Absent (an older cached client) = no check.
   'botStepExpectedUpdate' => ctype_digit(strval($_GET["lastUpdate"] ?? '')) ? intval($_GET["lastUpdate"]) : null,
 ]);
-if ($folderPath === 'GrandArchiveSim' && isset($_GET['uiCommand']) && empty($actionResult['message'])) {
-  $actionResult['message'] = GAUIControlText(GetFlashMessage());
-}
 SimGameReleaseWriteLock($gameWriteLock);
 
 if (ProcessInputWantsJsonResponse()) {
