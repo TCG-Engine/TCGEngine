@@ -5775,7 +5775,7 @@ $customDQHandlers["DanteHemomancerRecover"] = function($player, $parts, $lastDec
 
 // ============================================================================
 // Frostnip Pirouette (x79cuuw5vo): choose any amount of non-champion objects
-// and put a wither counter on each. Spellshroud-protected targets are excluded.
+// and put a wither counter on each. This is non-targeting; protected objects are included.
 // ============================================================================
 $customDQHandlers["FrostnipPirouetteWitherLoop"] = function($player, $params, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
@@ -7577,8 +7577,16 @@ $customDQHandlers["TweedledumTargetChosen"] = function($player, $parts, $lastDec
     // The opponent chose from their perspective (myField-X). Flip to attacker's perspective.
     $targetMZ = FlipZonePerspective($lastDecision);
     // Forward to AttackTargetChosen handler with the attacker's player
-    global $customDQHandlers;
-    $customDQHandlers["AttackTargetChosen"]($attackerPlayer, [$attackerMZ], $targetMZ);
+    global $customDQHandlers, $playerID;
+    // Both references belong to the attacker. The choosing opponent is still
+    // the ambient player, which GetZoneObject and attack legality readers use.
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+    try {
+        $customDQHandlers["AttackTargetChosen"]($attackerPlayer, [$attackerMZ], $targetMZ);
+    } finally {
+        $playerID = $savedPlayerID;
+    }
 };
 
 // --- Alizarin Longbowman (inQV2nZfdJ): BecomeDistant — each player draws ---

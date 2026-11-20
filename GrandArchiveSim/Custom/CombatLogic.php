@@ -1079,12 +1079,13 @@ function HasAmbush($fieldObj, array $ownField): bool {
  * instead of relying on the global $playerID for zone resolution.
  *
  * @param int $attackerPlayer
+ * @param string|null $candidateTarget Optional target preview; does not change combat state.
  * @return array|null
  */
-function GetRetaliatorOptions(int $attackerPlayer): ?array {
+function GetRetaliatorOptions(int $attackerPlayer, ?string $candidateTarget = null): ?array {
     $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
     $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker"); // attacker perspective: myField-X
-    $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");   // attacker perspective: theirField-X
+    $targetMZ   = $candidateTarget ?? DecisionQueueController::GetVariable("CombatTarget"); // attacker perspective: theirField-X
     if($attackerMZ === null || $targetMZ === null) return null;
 
     $attackerIdx = intval(explode("-", $attackerMZ, 2)[1] ?? 0);

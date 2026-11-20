@@ -188,3 +188,11 @@ SWUSim/BugReports/
 SWUSim/Chats/
 SWUSim/PlayerReports/
 .bugreports/
+
+# Ship the Grand Archive card back; downloaded card art remains local.
+!GrandArchiveSim/concat/
+GrandArchiveSim/concat/*
+!GrandArchiveSim/concat/CardBack.webp
+!GrandArchiveSim/WebpImages/
+GrandArchiveSim/WebpImages/*
+!GrandArchiveSim/WebpImages/CardBack.webp

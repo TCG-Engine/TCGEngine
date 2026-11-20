@@ -2880,6 +2880,9 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
     unset($GLOBALS['bridgeMemoryOnlyGames'][$gameName]);
   }
 
+  // GA's deterministic shuffle hashes perspective-relative zones. A long-lived
+  // tournament worker must not inherit the previous game's last acting seat.
+  if ($root === 'GrandArchiveSim') $GLOBALS['playerID'] = 1;
   InitializeGamestate();
   SetDeterministicRandomCounter(intval($seed));
   WriteGamestate('./' . $root . '/');
