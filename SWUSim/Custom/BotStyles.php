@@ -28,10 +28,17 @@ function SWUBotActionKind(array $action): string {
     if (preg_match('/^myHand-\d+!FSM!$/', $c)) return 'play';
     if (preg_match('/^my(Ground|Space)Arena-\d+!FSM!$/', $c)) return 'attack';
     if (str_contains($c, '!CustomInput!DeployLeader')) return 'deploy';
-    if (str_ends_with($c, '!CustomInput!LeaderAbility')) return 'leader-ability';
-    if (str_ends_with($c, '!CustomInput!EpicAction')) return 'base-epic';
-    if (str_ends_with($c, '!CustomInput!Activate')) return 'unit-action';
+    // Named Action abilities: each verb may carry ":<abilityId>" — the same kind as the bare form.
+    if (preg_match('/!CustomInput!LeaderAbility(:[^!]*)?$/', $c)) return 'leader-ability';
+    if (preg_match('/!CustomInput!EpicAction(:[^!]*)?$/', $c)) return 'base-epic';
+    if (preg_match('/!CustomInput!Activate(:[^!]*)?$/', $c)) return 'unit-action';
     return 'answer';
+}
+
+// The named Action ability an action uses ("…!CustomInput!Activate:ASH_230.0" → "ASH_230.0"), "" for a bare verb.
+function SWUBotActionAbilityId(array $action): string {
+    if (intval($action['mode'] ?? 0) === 100) return '';
+    return preg_match('/!CustomInput!(?:Activate|EpicAction|LeaderAbility):([^!]+)$/', strval($action['cardID'] ?? ''), $m) ? $m[1] : '';
 }
 
 // How many items a multi-choose candidate selects: "PASS" / "" / "-" select nothing, otherwise the
@@ -101,6 +108,8 @@ function SWUBotAllowedTargets(array $ctx, array $att): array {
         // FEATURE 'tssentinelchip' (p63, owner 2026-10-22): Twin Suns — every style may chip the Sentinel walling the leader's base (BotFallback.php).
         if (function_exists('_SWUBotTSSentinelChipValue') && _SWUBotTSFreeForAll() && !empty($u['sentinel'])
             && _SWUBotTSSentinelChipValue(intval($ctx['seat']), $att, $u, SWUBotWeights(strval($ctx['style']), intval($ctx['seat']))) > 0) { $keep[] = [$k, $u]; continue; }
+        // Lever registry (BotLevers.php): a lever may keep a target the style would prune ('gangkill': the setup hit of a joint kill).
+        if (function_exists('SWUBotLeverFirst') && SWUBotLeverFirst('allowtarget', $ctx, $att, $u) === true) { $keep[] = [$k, $u]; continue; }
         if ($mode === 'aggro') {
             // Feature 'sentinelclear' (p48): …or when a Saboteur breaking the lone Sentinel lets the round clear it (BotFallback.php).
             $break = SWUBotFeatureOn('sentinelclear') && function_exists('_SWUBotSaboteurSentinelGain') && !empty($att['saboteur'])

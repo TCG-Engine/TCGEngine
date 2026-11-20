@@ -36,3 +36,33 @@ function SWUBotPracticeRefusal(string $format): ?string {
     // message does not say to.
     return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Arenabot is not available right now.' : null;
 }
+
+// Who may CREATE a High Ground room. OPEN TO EVERYONE, GUESTS INCLUDED (owner, 2026-11-04: "open up High Ground to the
+// public"); moderators only from 2026-11-02. Joining one through its invite link never sends the highGround flag, so this
+// gate never sees a join. Kept as a function, not deleted, because it is the one switch that closes creation again: the
+// menu (SharedUI/Sites/SWUSim/MainMenu.php) AND the endpoint (APIs/Lobbies/JoinQueue.php) both consult it, so a
+// hand-built request cannot bypass the menu. Mods only again is `CheckLoggedInUserMod() === ''` (require_once
+// AccountFiles/AccountSessionAPI.php). Test: SWUSim/DevTools/tests/high_ground_create_gate_test.php.
+function SWUHighGroundCreateAllowed(): bool {
+    return true;
+}
+
+// Who may CREATE a Limited (Sealed / Draft) room: EVERYONE, guests included (owner, 2026-11-05; moderators only before,
+// spec docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md). Kept as a function because it is the one
+// switch: the menu (SharedUI/Sites/SWUSim/MainMenu.php) AND the endpoint (APIs/Lobbies/JoinQueue.php) both consult it, so
+// closing creation again is one line here.
+function SWULimitedCreateAllowed(): bool {
+    return true;
+}
+
+// JoinQueue's refusal for a Limited room creation that SWULimitedCreateAllowed() rejects: the message, or null to proceed.
+// Unreachable while the gate is open to everyone (2026-11-05).
+function SWULimitedCreateRefusal(): ?string {
+    return SWULimitedCreateAllowed() ? null : 'Creating a Limited room is limited to moderators for now.';
+}
+
+// JoinQueue's refusal for a High Ground creation that SWUHighGroundCreateAllowed() rejects: the message, or null to proceed.
+// Unreachable while the gate is open to everyone (2026-11-04).
+function SWUHighGroundCreateRefusal(): ?string {
+    return SWUHighGroundCreateAllowed() ? null : 'Creating a High Ground room is limited to moderators for now.';
+}

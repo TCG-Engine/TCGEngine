@@ -34,6 +34,7 @@ $customDQHandlers["LAW_103#0"] = function($player, $parts, $lastDecision) {
         $newRes->Controller = $controller;
         SWUKeepCreditTokensLast($controller);
         SWULogResourced($controller, 'the defeated unit');   // game log: face down, never named
+        if (function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($controller));   // IC27_089 Maz Kanata — the CONTROLLER resources it
     }
 };
 

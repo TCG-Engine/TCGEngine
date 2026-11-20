@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-26T09:04:38+00:00",
+    "input_file": "card-regression-batch237.json",
+    "input_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-cleave-the-heavens-red-four-live-sparse-actual-opponent-turn-hand-banish-cost-creates-owned-gate",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 402
+        },
+        {
+            "slug": "card-chowder-hearty-cook-yellow-four-live-sparse-actual-opponent-turn-ally-tap-cost-and-one-real-life",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 408
+        },
+        {
+            "slug": "card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 1089
+        }
+    ]
+}

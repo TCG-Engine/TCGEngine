@@ -52,7 +52,7 @@ $customDQHandlers["LOF_001#1"] = function($player, $parts, $lastDecision) {
     $hostMz  = SWUFindMzByUID($hostUID);
     if ($hostMz === null) return;
     // pay full cost + attach onto Kylo; suppress the attach's After Action (the deploy owns it).
-    _SWUFinalizeUpgradeAttach(intval($player), $up->CardID, $upMz, $hostMz, 0, false, false, true);
+    SWUPlayUpgradeByEffect(intval($player), $up->CardID, $upMz, $hostMz, 0, false, false, true);
     KyloRenWereNotDoneYetOffer(intval($player), $hostUID);   // re-offer (any number)
 };
 

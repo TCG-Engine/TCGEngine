@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 398
+    },
+    {
+        "slug": "card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 591
+    }
+]

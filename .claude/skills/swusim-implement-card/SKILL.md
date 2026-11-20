@@ -133,7 +133,9 @@ confident-looking green:
    one-shot consume DELETED, because a second `Pass` does nothing — it sits on the regroup's own
    "play a resource" prompt. The round is `Pass` → phase **RES** → `ResourcePass` ×2 → phase **MAIN** →
    `Pass, Pass` → the next regroup. ⚠ And `P1OnlyActions` auto-passes the opponent in round ONE only, so
-   the closing step needs BOTH seats. **Before trusting a multi-phase section, probe where it actually
+   the closing step needs BOTH seats — and round 2's action phase opens with **P2** to act (probed on
+   IC27_106, 2026-11-06: `TURNPLAYER:2` after the two `ResourcePass`), so a round-2 P1 action needs a
+   `P2>Pass` in front of it or it silently never happens. **Before trusting a multi-phase section, probe where it actually
    lands** (a throwaway section asserting `PHASE:ZZZ` prints the real phase in the failure message).
 4. **An engine-wide invariant absorbs the mutation — and that green is CORRECT.** `_SWUActionCloseGate()`
    refuses a duplicate action close for every card by construction, so "call `SWUAfterAction` from this
@@ -637,6 +639,7 @@ awk '/\$upgradeHpData = array \(/,/^\);/'    SWUSim/GeneratedCode/GeneratedCardD
 - **⚠ A "while attacking a UNIT" combat conditional must exclude the base explicitly — `$target` is NON-null for base attacks.** `GetZoneObject("theirBase-0")` returns the base object, so a check like `$target !== null && empty($target->removed)` is TRUE when attacking a base too. Gate combat-time "vs unit" buffs/keyword-grants with `strpos((string)$targetMzID, 'Base') === false` as well (cost the SHD_007 Moff Gideon "+1 while attacking a unit" a wrong base-attack buff). The existing SHD_138 `$shd138VsBounty` only avoids this by accident (a base has no Bounty).
 - **⚠ CORRECTED 2026-08-24 — an UNDEPLOYED leader's aspects DO count toward the aspect penalty.** `PlayerAspects()` loops `GetLeader($player)` and `GetBase($player)` with **no `Deployed` check**, so the leader card contributes its icons from the leader zone whether deployed or not (which is the CR-correct reading). This entry previously claimed the opposite — "aspects for cost = the BASE (+ a deployed leader unit)" — and pricing a fixture that way makes a hand card look UNAFFORDABLE when the engine will happily offer it (it cost a red section on HMW_018 The Warrior, whose [Cunning][Heroism] leader front covers both pips of a Cunning+Heroism unit under a Cunning base, penalty 0). **Derive a fixture's effective cost from leader icons + base icons together**, and if you need a card to be genuinely unaffordable, squeeze the RESOURCES rather than assuming a penalty. The real trap in this area is the one below: a leader-action no-op is SILENT, because **the schema runner's `useLeaderAbility` wraps the call in `ob_start()/ob_end_clean()` — it SWALLOWS all output AND PHP warnings**, so a silent no-op inside a leader Action shows nothing. Debug by dropping an `error_log("...")` in the offer/handler and running with `php -d display_errors=stderr … 2>&1 | grep PROBE`.
 - **Epic deploy is fully GENERIC — no per-leader wiring.** `SWUDeployLeader` gates on `SWUResourceCount($player) < intval(CardCost($cardID))`, i.e. the deploy threshold IS the leader's printed cost (SHD_001 cost 6 = "6+ resources", etc.). Just implement the front + deployed abilities; the "Epic Action: if you control N resources, deploy" needs zero code. Deployed-side dispatch map: On Attack → `$onAttackAbilities["CID:0"]` (combat keys on the attacker's CardID = the leader's); When Deployed → `$whenPlayedAbilities["CID:0"]`; deployed `Action:` → `$unitAbilities["CID"]` + `$unitActionCostKind["CID"]` (+`$leaderActionResourceCosts` for the FRONT resource cost); deployed passive → `ObjectCurrentPower/HP` (leader-presence buffs mirror SOR_001: scan `GetLeader($controller)` — works undeployed AND deployed since the leader entry persists) or a keyword registry (deployed Restore/Overwhelm/Saboteur/Grit auto-fire from the generated `*_Cards` lists). Test a leader with `myLeader:CARDID` + `SkipPreGame:true`; front = `UseLeaderAbility`; deployed = `DeployLeader` then `AttackGroundArena:<deployed-idx>` / `UseUnitAbility:myGroundArena-<deployed-idx>` (the deployed leader lands at the NEXT arena index after any pre-placed units).
+  ⚠ (IC27_002 Rey, 2026-10-26) A deployed "On Attack: you may <effect> a <condition> unit" built on `SWUOfferUnitTarget(['may' => true])` raises ONE `MZMAYCHOOSE` — pick a unit or decline with `-`; there is NO YES/NO step. Tests copied from a YES/NO-gated sibling (IC27_001's "you may defeat… If you do") fail with "'YES' is not a candidate". And when the closest RELEASED analogue predates a convention, copy the convention, not its plumbing: SHD_004 Rey pays its `[1 resource]` inline AFTER exhausting (`SWUPayInlineAbilityCost`), while the current form is `$leaderActionResourceCosts` (checked BEFORE the exhaust, paid centrally so Credits/Droids can pay).
 - **"Play a unit from hand then act on THE PLAYED unit" (deal damage / capture / grant Ambush) = the `$gPlayGrantTurnEffect` findable-marker pattern (SEC_018).** Set `global $gPlayGrantTurnEffect; $gPlayGrantTurnEffect = 'MARKER';` then `ActivateCard($player, $handMz, false, $discount)` (save/restore `$gTurnPlayer` + the `PASS` SWUVar around it), null the marker, then scan all arenas for the unit whose `TurnEffects` contains `'MARKER'` — that's the just-played unit. Reuse `'SEC_007'` as the marker to grant the played unit **Ambush this phase**.
 - **⚠ Reactive "When you play a [Smuggle/Underworld/keyword/upgrade] card" LEADER fronts belong to the reactive-trigger subsystem, not Phase 12.** `SWUCollectOwnPlayReactions` scans **deployed UNIT observers only** (`GetUnitsInPlay`), NOT undeployed leaders — so an undeployed-leader "when you play X" reaction has no hook. Defer these leaders (SHD_005/008/010/014/018) to the reactive-trigger phase rather than half-wiring them.
 - **Test-assertion gotchas:** (1) **`UPGRADECOUNT` counts shield tokens** (SOR_T02 are Subcards) — after granting a shield, `UPGRADECOUNT` = upgrades + shields; assert `SHIELDCOUNT` for the shield and don't expect `UPGRADECOUNT:1`. (2) **A top-deck search "choose none" is an EMPTY `AnswerDecision:` (blank), NOT `PASS`** — answering `TOPDECKSEARCH` with `PASS` drains the peeked cards OUT of the deck (they're lost, deck shrinks); the no-pick convention is a blank answer (cf. `PrepareForTakeoff_SearchTop8_ChooseNoneof1`). (3) `myBaseDamage:N` / `theirBaseDamage:N` are the CommonSetup opts to pre-damage a base (for "15+ damage on base" gates etc.). (4) **"Put into play as a resource" enters EXHAUSTED** (`SWURampResourceExhausted` / `AddResources(...,Status:0)`); only explicit "…and ready it" wording uses `SWURampResourceReady`.
@@ -738,7 +741,7 @@ Nine shapes each cost real bugs across the ASH port (466→934 sections, ~30 eng
 ### More recurring bug shapes (ASH validate-tests re-run, 2026-07-26) — leave-play observers, control-transfer, base-prevention, leader-unit status, reduced-deploy
 Five more shapes, each a real engine bug found closing the ASH portable residual (+120 sections):
 - **EVERY leave-play path that defeats a unit's upgrades must fire `_SWUOnUpgradeDefeated`, not just combat/ability-defeat/bounce.** CAPTURE was the miss: `DoCaptureUnit` **and** the base-capture `_SWUBaseCaptureUnit` (SEC_195) discarded the captured unit's upgrades via `SWUAddToDiscard` WITHOUT the observer, so ASH_161 Zeb / ASH_039 / ASH_055 didn't react when their host (or Zeb himself) was captured. Pass the captive's controller as `$controller`; the `$hostObj===ASH_161` OR-clause covers Zeb's OWN upgrades as he's captured. When ANY new leave-play/upgrade-defeat primitive is added, grep that it calls `_SWUOnUpgradeDefeated` for each non-token upgrade. Guard: `Zeb…::ZebCaptured_OwnUpgrade_Trigger`.
-- **Taking control of a unit transfers control of its NON-PILOT upgrades too (CR); PILOTS keep their own controller.** `SWUTakeControlOfUnit` copied subcards verbatim without updating `Controller`, so a stolen unit's regular upgrade kept the OLD controller → "friendly upgrade defeated" (Zeb) didn't fire for the new controller on a JTL_043 NGOR take-control-then-defeat. Fix: set `Controller = $newController` on each non-captive, **non-pilot** subcard. EXCLUDE pilots — a Pilot's defeat-replacement/return follows the player who played it (verified by the stolen-host pilot test `LukeSkywalker_YouStillWithMe::StolenHost_…`). Guard: `Zeb…::NGORTakeControlThenDefeat_RealUpgrade_ZebFires`.
+- **⛔ REVERSED 2026-11-04 — taking control of a unit does NOT transfer its upgrades (CR 27.1.a: they "keep their original controllers"), EXCEPT TOKEN upgrades (CR 2.g: a player controls any token upgrade attached to a unit they control).** The old reading here (transfer every non-pilot upgrade) made P1's Zeb fire for P2's printed upgrade on a stolen unit. `SWUTakeControlOfUnit` now re-assigns Controller + Owner on TOKEN subcards only; printed upgrades and Pilots keep theirs. Guards: `Zeb…::NGORTakeControlThenDefeat_RealUpgrade_StaysEnemy_ZebDoesNotFire` / `…_OriginalControllersZebFires` / `…_TokenUpgrade_BecomesMine_MyZebFires`.
 - **A prevention/cap must skip UNPREVENTABLE damage on the BASE path too, not only unit damage.** Extends the AtAttin ASH_070 shape: JTL_074 Close the Shield Gate (`SWU_SHIELD_GATE` in `SWUDealDamageToBase`) prevented even ASH_196-Underworld combat damage to a base. Hoist the `$isIndirect || (is_object($damager) && _SWUDamageUnpreventable($damager))` computation above the shield-gate block and reuse it there (the combat attacker is already threaded). Guard: `Gorian…::BypassesCloseTheShieldGate`.
 - **A card that keys off "a leader unit" (defeated / in play / attacked) must read the LIVE object via `IsLeaderUnit(GetZoneObject($d['mzID']))`, NOT the printed `CardType 'Leader'`.** A unit made a leader unit by The Darksaber ASH_135 or a deployed Pilot leader has printed type "Unit". Pellaeon ASH_093's `SWU_LEADER_DEFEATED_PHASE` flag missed those. The live object is intact in the defeat-collection (before upgrade-strip), mirroring the adjacent Jyn Erso live-trait read. Guard: `Pellaeon…::RaidWhenDarksaberLeaderUnitDefeated`. (⚠ DSL: an exact-lethal fixture seat may NOT defeat — pre-damage to ≤1 HP remaining to guarantee it.)
 - **A leader with a REDUCED deploy threshold** (Bo-Katan ASH_010 = resources + friendly Mandalorian-unit count ≥ 10; cf. LOF_007 Avar Kriss = resources + Force-uses) needs its OWN `elseif ($cardID===…)` branch in `SWUDeployLeader` — the default branch gates on flat `SWUResourceCount < CardCost`. Guard both a blocked (`Deploy_Blocked_BelowThreshold`) and an allowed-via-the-reducer (`Deploy_Allowed_<Reducer>ReducesThreshold`) case.
@@ -762,7 +765,8 @@ One engine bug + eight correct-but-untested axes. These are **coverage-matrix ce
 - **The actor-negative is a DIFFERENT test from the absence-guard.** "When YOU deploy/play X" needs the case where the **OPPONENT** does it while you control the source — distinct from "you don't control the source at all". Invincible had the latter only.
 - **A zone operation must act on the OWNER's zone, not the resolver's.** A deck search/shuffle triggered by you against an opponent's deck must leave YOUR deck untouched — assert your own `DECKCOUNT` + `DECKTOPCARD`. Invisible unless the test seeds a deck for the searcher too (no other Annihilator section did).
 - **A name check must be tested with a DIFFERENT printing than the rest of the file uses.** "If you control Boba Fett" spans 8 printings; a CardID-keyed impl passes every section that happens to use the same one.
-- **Answering an option proves the BRANCH, never the OFFER.** For any OPTIONCHOOSE/target pool, add one section that leaves the decision pending and asserts the offer itself — `P1OPTIONHAS:`/`P1OPTIONNOT:` for labels, `P1SELECTABLEEXACT:` for targets, `P1DECISIONTOOLTIP:` for a computed amount embedded in the prompt. A stray or missing option passes all the branch tests.
+- **Answering an option proves the BRANCH, never the OFFER.** For any OPTIONCHOOSE/target pool, add one section that leaves the decision pending and asserts the offer itself — `P1OPTIONHAS:`/`P1OPTIONNOT:` for labels, `P1SELECTABLEEXACT:` for targets, `P1DECISIONTOOLTIP:` for a computed amount embedded in the prompt. A stray or missing option passes all the branch tests. ⚠ `SELECTABLEEXACT` joins its targets with **`&`** (`myGroundArena-0&theirGroundArena-0`), the decision Param's own separator — a comma-joined list fails with "expected exactly [a,b], got [a&b]".
+- **"First time this unit has attacked this phase" needs a COUNT, not the "has attacked" flag.** `SWU_ATTACKED_<uid>` (`_SWURecordAttackFlags`) is deliberately IDEMPOTENT — it answers "which units attacked", so it reads the same on a unit's first and second attack. `SWU_UNIT_ATTACKED_<uid>` is added once PER attack in `ExecuteSWUAttack` (the Maul double-attack path adds it instead, never as well) and cleared at every phase start, so a count of exactly 1 at On Attack time means "this is the first". It lives on the controller AT THE TIME — sum it over every live seat, or a mid-phase steal makes a second attack read as a first (IC27_106 Kylo Ren, guarded by a Change of Heart steal-after-attacking section).
 - **A moved/relocated upgrade must still satisfy its OWN attach restriction at the destination.** U-Wing Lander moving JTL_227 ("attach to a Capital Ship or Transport") must not offer a Fighter. ⚠ When the restriction narrows the pool to one, the pick AUTO-RESOLVES — that is itself the proof: assert the end state + `P1NODECISION` rather than a pending choice.
 - **A conditional grant with N positive branches needs MORE THAN ONE negative.** Biggs grants per Fighter/Transport/Speeder; one non-matching host (Capital Ship) doesn't prove the check isn't "is it that one other trait" — add a second (Walker).
 - **⚠ DSL: there is no pre-condition `## EXPECT` block.** A second `## EXPECT` placed before `## WHEN` is not evaluated at that point (it merges into the post-state), so a "starting resources" sanity line fails confusingly. Assert only the end state.
@@ -771,7 +775,7 @@ One engine bug + eight correct-but-untested axes. These are **coverage-matrix ce
 Found building a NEW set card-by-card (not a validate-port), so these bite during ORIGINAL implementation:
 - **⚠⚠ A per-card file CANNOT register into a registry that is initialized AFTER `cards/_loader.php`.** The loader runs at `GameLogic.php:15`; **`$playCostModifiers = []` is initialized around line 2331**, so a `$playCostModifiers["X"] = …` written in `cards/<set>/X.php` is silently WIPED and the card no-ops. It passes its own RED check and then still fails — there is no error. Put cost-modifier closures in GameLogic beside SHD_182 / LAW_179 / TS26_71 (which all live there for exactly this reason) and leave a pointer comment in the card file. **Before registering into any array from a per-card file, check where that array is initialized relative to line 15.**
 - **⚠⚠ The stub generator missed a SPACED multi-trigger header.** `"When Played / On Attack / When Defeated:"` (IC27_024 Thrawn) matched only the LAST window: the detector handled the tight `"When Played/"` but not the spaced form, so two of three triggers dispatched to nothing — a silent in-game no-op with a handler registered. Fixed in `zzCardCodeGenerator.php` (`/When Played\s*\//i`, `/On Attack\s*\//i`). **For any card whose text joins trigger windows with slashes, verify EVERY window has a stub before trusting the dispatch** — and remember `GeneratedAbilityStubs.php` is gitignored, so a hand-patch is local-only and the GENERATOR edit is what ships.
-- **A When-Defeated target collection runs BEFORE `CleanupRemovedCards`, so the dying source is still in its own arena** and gets offered as a target for its own "give a friendly unit X" ability. Exclude the source by UniqueID explicitly — do NOT rely on a `removed` flag, which is not yet set at that point. (This is the other side of the existing "survivors reindex after cleanup" note: the OFFER sees the pre-cleanup array, the RESOLUTION sees the post-cleanup one, so a test's answer index and the target filter are governed by different snapshots.)
+- **~~A When-Defeated target collection runs BEFORE `CleanupRemovedCards`~~ — STALE as of 2026-10-24.** Probed on FOUR defeat paths (combat, a single-target defeat event, NGOR take-control-then-defeat, a simultaneous TWI_173 AoE): the dying source has ALREADY left the arena when its When Defeated builds a pool, so a self-exclusion (the IC27_024 Thrawn idiom) is dead code — its mutation stays green. Don't copy the idiom on faith; instead write an exact-pool section (`P1SELECTABLEEXACT`) with the source seated LAST, which pins the engine invariant and reds if dispatch ever moves before cleanup (IC27_099 Eighth Brother). Thrawn's own exclusion is harmless and was left in place.
 - **`P1OnlyActions` hands P2 the CLAIMED initiative**, so after a regroup P2 is the turn player and P1 cannot act until a `P2>Pass` — but P2 needs no pass before the FIRST action of a phase (its auto-pass only fires in response to a P1 action). A round-crossing test that omits it silently drops every action after the regroup.
 - **★ A leader's two sides can land on OPPOSITE sides of the COST-vs-EFFECT line — and the same sentence reads differently on each.** IC27_001 Darth Vader is `Action [1 resource, Exhaust, defeat a friendly unit]` on the FRONT (the defeat is inside the brackets ⇒ a cost REQUIREMENT: gate it in `SWULeaderActionAffordable`, the leader must not exhaust without a sacrifice, and there is no decline) but `On Attack: You may defeat another friendly unit. If you do, …` DEPLOYED (an EFFECT: never gated, freely declinable, and the payoff hangs off "If you do"). **SOR_006 Emperor Palpatine is the canonical both-sides template — copy it wholesale for this shape.** Decide the classification per SIDE from the printed punctuation (brackets = cost, "you may … If you do" = effect), not per card. **The two sides can also differ in their TARGET FILTER, which is the easiest asymmetry to flatten by accident** — HMW_003 Doctor Hemlock's front gives a Weakness token to "a unit **without a Weakness token on it**" while its deployed On Attack says only "a unit", so the deployed side may stack a second one. Sharing one filter between the sides (or one helper call) silently makes the deployed side weaker than printed. Write the two sides' target pools independently and add the section that proves they DIFFER (`Deployed_..._StacksOnAlreadyWeakenedUnit`).
 - **⚠ FIXTURE TRAP: a card that DRAWS needs a seeded deck, or the draw DAMAGES the base instead.** An empty deck turned "draw a card and heal 2" into base damage going UP, which reads exactly like "the heal is broken" — three sections failed on a fixture omission, not the implementation. Distinct from the documented empty-deck *regroup* penalty: this fires on any draw. Seed `WithP{n}Deck` in every section whose card can draw.
@@ -1349,6 +1353,218 @@ fixture-blind-spot table above for *why* that coverage could not see them.
   searching the resolver's pile, and seed that older copy in the control section.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
+
+### ★ IC27 fifteenth wave 2026-11-05 — enemy triggers that never resolve, the Piloting cost path, slash abilities
+- **★★ An ENEMY unit's When Defeated does not resolve inside the acting player's section.** It is bagged on its CONTROLLER's
+  queue as a pending CUSTOM and waits there, so P1 defeating P2's TWI_032 shows NO Battle Droid even with no suppressor in
+  play. A "this When Defeated must NOT fire" section written that way passes VACUOUSLY (5 Razor Crest sections did, pre-impl).
+  Write it with the dying unit's controller ACTING (`P2OnlyActions`, P2 attacks with it), assert `P2NODECISION`, and keep a
+  paired positive control that proves the fixture fires without the suppressor. (IC27_172 Razor Crest.)
+- **★ The PILOTING path prices itself.** `SWUComputePilotCost` never runs `$playCostFieldModifiers`, so every "cards cost N
+  more/less" aura silently skips a Pilot played as an upgrade (a card being played). Add the aura there explicitly and test the
+  Pilot play with a resource count an UNTAXED Piloting play could afford. Open sibling: SHD_202 Qi'ra. (IC27_043 Raddus.)
+- **A "cannot afford" negative whose play raises a prompt passes vacuously.** `PlayHand` on a Pilot leaves the Unit/Pilot
+  OPTIONCHOOSE pending, so "card still in hand" holds whether or not the play was affordable. Add `P{n}NODECISION`.
+- **A search-window section needs a card AT the edge.** "Top 10" with the only distinct card at position 11 passes a top-3
+  search too. Put one distinct card at position N (HAS) and one at N+1 (NOT). (IC27_155 Han, mutation H3.)
+- **CR: a "When Played/When Defeated" ability is BOTH abilities.** Anything that removes "When Defeated" abilities removes the
+  When Played half too — gate `CollectEntryTriggers`, not just the defeat collector. All 27 slash cards are units.
+- **Seeded discard entries are `From='PLAY'`, `Turn=0`.** A seeded copy cannot stand in for "arrived another way"; for
+  "defeated this phase" provenance compare `Turn` with the round (`SWUAddToDiscard` stamps it) and test a real HAND discard
+  (SOR_091 Legion → SOR_167 Force Throw). A Pilot defeated AS AN UPGRADE stamps no `SWU_DEFEATED_CARD_`. (IC27_042 Obi-Wan.)
+- **`WithP{n}GroundArenaControlled` units are placed AFTER the seat's own units** — index them last.
+- **"Entered play this phase" over the whole table needs `SWUUnitEnteredPlayThisPhaseAnySeat`.** The flag sits on the seat
+  that controlled the unit AS IT ENTERED; the controller-scoped helper loses a unit that changed sides. Sibling left alone:
+  TWI_052 Hello There.
+
+### ★ IC27 fourteenth wave 2026-11-05 — "put X in its owner's deck. Its owner draws N"
+- **The ORDER boundary is an owner deck of ONE card.** Put-then-draw draws the moved unit back with no deck-out; draw-then-put
+  deals 3 and leaves the unit in the deck. A 2+ card deck ends identically under both orders. Pair it with the EMPTY-deck
+  section (draws the unit, takes 3 for the second). (IC27_165 Luke.)
+- **"Its owner" after a removal is DETERMINED by the chosen unit.** Read `SWUObjSeat($o, true)` BEFORE the move (the object is
+  gone after). Two discriminating sections: a stolen unit (`WithP2GroundArenaControlled: <yours>:1`, so owner = you) reds the
+  controller reading, and a far-seat owner reds `OtherPlayer`. Declining = no referent = no draw; a ceasing token still draws.
+
+### ★ IC27 thirteenth wave 2026-11-04 — "enters play" has THREE doors, one Ty question per blast, count-capped budgets
+- **★★ "When a unit enters play" = THREE entry points, not the play path.** `CollectEntryTriggers` (played from anywhere,
+  deployed leaders, Smuggle, discard plays, freed captives), `_SWUCreateOneToken` (created token units) and `DoRescueUnit`
+  — CR 8.34.3: a rescued unit is "considered to enter play" though it is not played. `DoRescueUnit` used to skip ALL
+  entry observers on purpose; IC27_076 Cody is now hooked there, while ASH_041 Outcast and HMW_171 Trap Field still miss
+  rescue (open siblings). One section per door — captives seed with `WithP2GroundArenaCaptive: 0:<CardID>` and are freed
+  by defeating the guard.
+- **"Deal N to each enemy unit AND each enemy base" with HMW_185 Ty Yorrick in play = ONE "+1?" question** (owner ruling
+  2026-10-07, JTL_131). `SWUDealSplitDamage` never asks Ty, but `SWUDealDamageToBase` asks once PER BASE — defer the whole
+  blast behind `_SWUHmw185Defer` and pass `$skipTyOffer = true` to the base calls. The guard is `P1NODECISION` after the
+  YES: a second, per-base question reds it. (IC27_124 K-2SO.)
+- **"Up to N units with combined X or less"** = `SWUQueueBudgetMultiChoose(..., $block, $maxPicks)` +
+  `SWUFilterBudgetAnswer(..., $budget, $maxPicks)` — the COUNT cap is a separate argument from the budget, and
+  `P1DECISIONPARAM:0|N|…` pins the offered cap. Test the count cap with cost-0 TOKENS (four fit any budget). (IC27_123 Jyn.)
+- **A "for this phase" expiry test must be mutated to `SWU_DUR_PERM`, not `SWU_DUR_ROUND`.** RegroupPhaseStart clears
+  round effects straight after its regroup-start triggers, so at the first observable point (phase `RES`) a phase grant and
+  a round grant read the same — the ROUND mutation stays green by design, the PERM one reds.
+- **A When Defeated on P1's queue that fires during P2's turn** (P2 attacks it) needs `- P1>Drain` after P2's action, or
+  the section asserts the board before the trigger resolved.
+
+### ★ IC27 twelfth wave 2026-11-04 — "even if exhausted" attacker pools, a sibling's ruling, two-window cards
+- **An "attack with a unit, even if it's exhausted" pool has NO shared predicate — compose it, and test each piece.**
+  `_SWUUnitCanAttackNow` requires READY; LAW_065 4-LOM checks only that a target exists, so it still offers a Loth-Wolf.
+  The full pool (IC27_077 Mon Mothma): `!_SWUUnitHardCantAttack($o)` + the LOF_063 Oggdo Bogdo "only while damaged"
+  line (copied from `_SWUUnitCanAttackNow`) + `SWUGetAllValidAttackTargets($p, $o, $arena, $noBases)` non-empty, and
+  "another" excluded by UniqueID — the source usually entered EXHAUSTED, so "even if it's exhausted" makes it eligible
+  otherwise. Each exclusion gets its own offer section (one per mutation), and the empty pool raises NO prompt (the
+  4-LOM "BeginSWUAttack readies before looking for a target" trap).
+- **A preview card's open question is often answered by a RELEASED sibling's ruling** — search the rulings file for
+  cards sharing the mechanic SENTENCE, not just the name: SEC_103 Mon Mothma's "units that can't attack bases can still
+  damage bases through … Overwhelm" settled IC27_077's Overwhelm + can't-attack-bases.
+- **"On Attack/When Defeated: X. Then, you may Y"** (IC27_084 Negotiator) = ONE resolver called from both registries
+  (`$onAttackAbilities` + `$whenDefeatedAbilities`, CardID:0). Prove both windows on one board: a pre-damaged attacker
+  trades, so the On Attack offer resolves first, then the When Defeated one — answer them in that order. "Then" is NOT
+  "If you do": the second clause runs on an empty deck too (mutating it into an `=== null` gate reds the empty-deck
+  section, and also every section whose deck is unseeded — seed decks deliberately).
+
+### ★ IC27 eleventh wave 2026-11-03 — "resource a card" has 13 producers, aura recursion, batched mutations
+- **★★ "When you resource a card" = EVERY route into a resource zone.** Rulings errata 07/20/2026 renamed "put into play
+  as a resource" to "resource", so a ramp IS resourcing. There is no funnel — `SWULogResourced` writes ONE line per
+  effect (Stockpile's two cards), not per card. The observer `_SWUIc27089OnResourced($seat, $count)` (IC27_089 Maz) is
+  called from: `DoResourceCard`, `SWUApplyRegroupResource`, `_SWURampResource` (all ramp helpers + Smuggle/Plot refills),
+  Arquitens (`SHD_122`), and the card files Stockpile, Overgrowth, Issue a Command, Display Piece, Expendable Mercenary,
+  Broken Horn, King Grakchawwaa, Osha. **A new card that moves a card into `myResources` must call it**; a new "when you
+  resource" card should reuse it. "You" = the seat whose zone RECEIVES the card (Display Piece: the defeated unit's
+  controller). NOT resourcing: a resource changing control (SHD_213 DJ), a Credit token, pregame starting resources.
+- **★ An aura gated on a KEYWORD that can read POWER recurses — latch PER UNIT, not globally.** IC27_023 Tarkin ("each
+  friendly unit with Sentinel gets +1/+1") reads `HasKeyword_Sentinel`; LOF_085 Praetorian Guard's Sentinel reads "a unit
+  with 4+ power", which includes Tarkin's bonus. A per-UniqueID `static $inProgress` returning 0 for the unit already
+  being evaluated terminates; a GLOBAL latch also zeroes the unit Praetorian is reading, so a Sentinel 3-power unit that
+  Tarkin makes 4 no longer gives the Guard Sentinel. Grep the conditional-keyword switch for `ObjectCurrentPower` before
+  writing any keyword-gated stat aura.
+- **Mutations batch ONE PER CARD PER ROUND.** Different cards' sections are disjoint, so 46 mutations ran in 6 full suites
+  instead of 46 (apply → `php -l` → suite → restore by WRITING the saved content back, all in one script, asserting each
+  replacement count is 1). Read each round's reds per card.
+- **The owner commits mid-pass (twice this run).** After the last restore, an EMPTY `git status` proves no mutant was
+  committed — a captured mutant would show the restored file as modified. Check it before reporting.
+- ⚠ The CR 6.4.587.c "an `Action [Exhaust]` is never target-gated" rule is applied to new cards (Krennic, Jabba, C-3PO),
+  but the SOR_093 / TWI_120 / SOR_177 / LOF_094 discount-play family is still gated in `SWUUnitActionAffordable` — known
+  inconsistency, owner's call; don't copy those gates.
+
+### ★ IC27 tenth wave 2026-11-03 — the damage-commit seam, cross-seat drains, attacker swaps, enemy-targeted links
+- **★★ A replacement "if X would deal combat damage" commits at the START of the `SWUCombatDamage` handler — NOT at
+  `_SWUOfferCombatPreventions`.** The prevention seam can run while ANOTHER seat's On Attack decision is still open
+  (Condemn's disclose), so a commit there resolves before that decision lands and its effect hits the wrong unit
+  (IC27_147: Condemn's -6/-0 landed on Asajj). Re-check legality at the handler start; if the commit queues a decision
+  (uniqueness), re-queue the damage step behind it and return.
+- **★★ A continuation answered by ANOTHER seat must drain the ACTING seat's queue.** If a teammate (Team Suns) answers a
+  choice whose handler queues steps onto the attacker's queue, nothing processes them — the game stalls. End such a
+  handler with `(new DecisionQueueController())->ExecuteStaticMethods($actingSeat, "-")` when `$player !== $actingSeat`,
+  as `BeginSWUAttack` does. Only a section where the OTHER seat answers can see it.
+- **★ "Put into play AS THE ATTACKER" (owner + judge ruling, IC27_147).** What the MODIFIED "attack with a unit" put on
+  the attacker moves to the new attacker ("+2/+0 for this attack", a granted ability, "after completing this attack,
+  defeat it"); a LASTING EFFECT another ability applies during the attack stays (Condemn's -6/-0, Dryden's own double).
+  The line is TIME: the attack-starting effect stamps its riders before the target is declared, so SNAPSHOT the
+  attacker's attack-duration effects at declaration (saved in the gamestate) and move only those. A one-rule "carry
+  every attack-duration effect" passes every attack-action section and fails only the On Attack ones; write both kinds
+  on ONE attack (Commence on Dryden: 5 + 2 = 7, not 14 or 5).
+- **★ "While this unit is in play, the chosen ENEMY unit …": store the link ON THE TARGET, keyed by the source UID.**
+  Huyang/BD-1 key a global effect to one seat and scan only the target's controller's board for the source; for an
+  ENEMY target, and under any control change, that misses — Huyang's own ruling says a control change does NOT end it.
+  (Fixed 2026-11-03: both now read `_SWUChosenUnitLinkCount`, every seat on both ends.) For a new card, a PERM turn
+  effect `CARD-{srcUID}` rides `SWUTakeControlOfUnit` (UID + TurnEffects kept); count it while `_SWUUnitUIDInPlay`.
+- **★ The STACKING board for a unique source is two copies on ONE Team Suns TEAM.** Uniqueness is per player, so P1 and
+  P3 can each control one. A "count → flag" mutation stayed green on two cards until that section existed (IC27_013
+  Restore grant, CR 7.9.b; IC27_019 debuff). HMW_039 Talzin had the same flag bug (fixed 2026-11-03).
+- **Fixture traps:** `LOF_202` Mind Trick only exhausts READY units, so it cannot blank a just-played (exhausted) unit —
+  use `JTL_244` There Is No Escape. There is no "lost abilities" assertion: prove a blank landed with an aura keyword
+  the unit can no longer gain (`SEC_140` Hondo → `NOTKEYWORD:Raid`). Paying with a Credit token in play first raises
+  "defeat Credit tokens to pay less" — answer `-` to keep it.
+
+### ★ IC27 ninth wave 2026-10-30 — one observer at five sites, seeded state that cannot discriminate, pregame through production
+- **"When a (friendly) unit deals DAMAGE to a base" has FIVE producers**, each calling `SWUDealDamageToBase` and then
+  stamping `SWU_DMGDBASE_`: the direct combat hit, the shared Overwhelm spill (`_SWUOverwhelmSpillToBase`), TWI_135 Maul's
+  two-defender spill, a unit's ABILITY damage (the `SWU_DMG_SRC` branch inside `SWUDealDamageToBase`) and indirect
+  (`SWUApplyIndirectAssignment`). Hook the observer right after the call at each, and read
+  **`$GLOBALS['gSWULastBaseDamageDealt']`** — the amount that call ACTUALLY dealt (0 when Close the Shield Gate / Alliance
+  Shield Generator prevented it). ⚠ The ability branch also runs for combat and indirect, so gate it
+  `empty(gInCombatDamage) && !$isIndirect` or each hit reports twice; the board that catches the double is an attacker
+  WITH an On Attack (its dispatch leaves `SWU_DMG_SRC` set for the whole attack). ⚠ Many indirect callers pass no
+  `$sourceUID` (JTL_143's `SWUDealIndirectToEachOpponent`) — fall back to `SWU_DMG_SRC` naming the controller. One section
+  per producer, one mutation per hook (IC27_122 The Ghost).
+- **A seeded "already applied once" token cannot catch a dedupe bug** when the mutant writes a DIFFERENT token: a fixture
+  `IC27_113-1` plus a mutant's bare `IC27_113` are two tokens, so "the second grant stacks" stayed green. Prove stacking
+  with a REAL second application (SHD_182 Bravado readies the attacker for a second attack). Raid stacks per the
+  2026-09-10 ruling, so a repeatable grant needs one token per grant (`CARD-<n>`).
+- **A pregame change needs a PRODUCTION test.** The schema harness never deals or mulligans — it COMPUTES the opening
+  count (`SWUStartingHandSizeFor`, now also reading leaders). Build a real game with `SWUSetupGame(…, ['forcedFirstPlayer'
+  => 1, 'resolvedDecks' => …])` and answer the mulligan through `EngineRunAction` mode 100
+  (`test_ic27006_luke_starting_hand.php`); two mutations there were invisible to the whole schema suite.
+- **"Prevent all combat damage dealt to and by X for this phase" = one phase MARKER read at four points** — the attacker's
+  outgoing power, the defender's outgoing power, `$preventAttackerDmg` (TWI_096's flag) and the attacker's power INTO a
+  marked defender — plus TWI_135's two-defender path. Zeroing the power into a marked defender also correctly removes
+  Overwhelm excess (prevented damage is not excess). Exempt `_SWUDamageUnpreventable` and write the ASH_196 section.
+- **Same-sentence reuse at call time.** A card whose ability is another card's text verbatim delegates to that closure at
+  CALL time (`$onAttackAbilities["ASH_172:0"]($p, $mz)` inside its own closure) — never `= $onAttackAbilities[...]` at load,
+  which depends on the per-card glob order.
+- **Mutation tooling:** zsh does not word-split `$var` in `for pair in "a b"` loops (the script got one argument and touched
+  nothing); run Python mutators with `-u` or their per-mutation lines only appear at the end.
+
+### ★ IC27 eighth wave 2026-10-29 — handler frames, multiplicative modifiers, and boards that can't discriminate
+- **A CUSTOM handler that receives an mzID through `$parts` must set `$playerID = $player` before using it.** The
+  mzID was minted in the queuing player's frame (`myGroundArena-N`); `$playerID` at handler time can be another
+  seat. LAW_086 The Stranger's YES did nothing for a SEAT-2 Stranger for its whole life — every section attacked
+  from seat 1 — and was only found because IC27_142 Greedo needed it from seat 2. Any card whose handler takes a
+  stored mzID gets one section driven from seat 2 (`P1>Pass` then `P2>…`).
+- **"Double a unit's power" is a MULTIPLICATIVE modifier (CR 15.2/15.3), not a +X snapshot, and it cannot live in
+  `ObjectCurrentPowerRaw`**: an attack adds Raid / "+N for this attack" ON TOP of Raw, and those must be doubled too.
+  `_SWUPowerMultiplier` is applied at the END of each power reader (`ObjectCurrentPower`, `ObjectCurrentPowerInAttack`,
+  `SWUCombatDamage` attack + defend power, The Stranger's Grit delta). The discriminating sections: a later buff in
+  the same phase ((3+2)×2, not 6+2), a 0-power Raid unit attacking ((0+2)×2, not 2), and two applications (×4).
+- **Sequential combat damage ("deals after/before") is only proven by the board where the order DECIDES the
+  outcome** — the second unit dies and deals nothing. A "second unit survives, then deals" board ends exactly like
+  simultaneous damage and stays green with the whole ordering deleted (IC27_142 Greedo, measured). Keep it as a
+  positive, but never as the only one.
+- **When the net board equals "nothing happened", assert the log.** IC27_144 Jango discarding the event he then
+  returns leaves hand and pile identical to a no-op; `LOGCONTAINS:discard pile to their hand` is what fails.
+- **A 3-HP unit dies to a 3-power counter.** When a section needs the attacker to survive, pick a defender whose
+  power is below the attacker's HP — two "doubled unit attacks" sections were red for the fixture, not the engine.
+
+### ★ IC27 sixth wave 2026-10-29 — fixture HP, discard-from-hand, and measuring an outcome you delegated
+- **The standard far-seat base `SOR_019` is a 25-HP base, not 30.** Nearly every Twin Suns / Team Suns section
+  seeds `WithP3Base: SOR_019:0` / `WithP4Base: SOR_019:0`, so any expectation derived from a far-seat base's HP
+  ("half its remaining HP", "heal to full", lethal) must read the real HP. A 30-HP assumption reads exactly like
+  an engine bug (IC27_110 Supremacy: P3 took 11, not 14).
+- **"When this unit is discarded from your hand"** = a synchronous `$cardDiscardedHandlers['CID:0']` that
+  checks `$entry->From === 'HAND'` and stamps the discard `Modifier` (SHD_135's shape; IC27_063 is the hand-only
+  variant). `OnCardDiscarded` runs on BOTH the forced (`SWUAddToDiscard`) and the self-chosen (`DoDiscardCard`)
+  paths — write one section per path, plus the DECK and PLAY negatives.
+- **`SWUNestedPlay` returns nothing, so "play X. If it's …, do Y" must MEASURE that the play happened** (count
+  the copies left in the source zone before/after, IC27_066 Mother Talzin). And Y reads the card's PRINTED cost —
+  a free play cost 0, which is exactly the wrong number.
+- **A "for each X that WAS on this unit" When Defeated** is last-known information: count it inside
+  `CollectWhenDefeatedTriggers` beside the JTL_104 power snapshot (subcards still attached) and persist it in a
+  SWUVar keyed by the mzID, so a later request (trigger-order prompt, Thrawn / Shadow Caster reuse) still has it
+  (IC27_045 Qi'ra).
+
+### ★ IC27 fourth wave 2026-10-24 — pick the predicate, not the precedent
+- **Copy a precedent's SHAPE, but re-check its PREDICATE against the shared helper.** The "you may attack
+  with a unit" family (SEC_172, SOR_240's `_SWUReadyFriendlyUnits`) offers any READY unit, including a
+  Loth-Wolf that "can't attack" — picking it silently fizzles. `_SWUUnitCanAttackNow($p, $u, $arena)` is the
+  real "could declare an attack now" predicate (ready + not can't-attack + has a target); use it for any new
+  attacker pool, and write an offer section with a can't-attack unit in it (IC27_143 Wat Tambor).
+- **A unit `Action [Exhaust]` whose only problem is "no target" is NOT gated** (CR 6.4.587.c — the exhaust
+  changes game state). `SOR_094` Bail Organa's target gate in `SWUUnitActionAffordable` predates that sweep;
+  don't copy it. Test the no-target case as "usable, exhausts, resolves to nothing" (IC27_070 C-3PO).
+- **A self-chosen discard from YOUR hand goes through `DoDiscardCard`** (OnCardDiscarded + Padmé SEC_016 +
+  Migs SHD_163 + the per-phase counters). The universal `DISCARD_FROM_OWN_HAND` handler uses
+  `SWUAddToDiscard` and skips the Padmé/Migs reactions.
+- **"pay [N] AND discard a card. If you do" is offered only when BOTH halves can be done** — gate on
+  `SWUTotalPaymentCapacity` and a non-empty hand, write a cannot-pay section for EACH half, and a Credit
+  section (pay with `SWUPayInlineAbilityCost`). A new "next card costs N less" is ONE `$oneShotPlayCharges`
+  row + one RegroupPhaseStart clear line; decide stacking explicitly (`N × count` + `clearPrefix`, the
+  TS26_35 shape) and pre-arm a charge with `WithP1GlobalEffect:` to test it (IC27_145 Poggle).
+- **The preview tool's reprint detection only reads SWUDB's printing links.** SWUDB filed IC27_053
+  Disciples' Devotion (SEC_071 with a punctuation fix) as a separate card, so the tool said "new". Before
+  mocking a "new" preview card, title-match it against the dictionary; a reprint gets an `Overrides.php` line,
+  never a mock (a mock gets a new CardID, so literal-CardID checks like `'SEC_071'` in KeywordEffects miss it).
+- **Mock titles can carry trailing whitespace** (`'Red Leader '`), which breaks every title match. Diff the
+  mock against the preview image before the regen.
 
 ### ★ IC27 third wave 2026-10-07 — a controller-only aura helper, and a control section that could not fail
 

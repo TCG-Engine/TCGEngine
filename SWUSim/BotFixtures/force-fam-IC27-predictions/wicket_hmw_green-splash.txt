@@ -1,0 +1,49 @@
+# Self-play fixture — "Wicket Green Splash" (Wicket, Few Greater Battles to Fight - Imperial Command Complex)
+# Source: given by the owner as JSON 2026-11-09, a Force Fam PREDICTION for the post-ban IC27 meta (Premier banlist of 2026-11-09:
+#   Neel, Chimaera, Koska, Aggressive Negotiations — none of them in this list). 51 main-deck cards, 10 sideboard.
+#   IC27 cards: 3 Ezra Bridger IC27_113, 2 Sabine Wren IC27_119, 1 Infiltrator's Skill IC27_133, 2 Qui-Gon Jinn IC27_079.
+#   Base trait: Imperial Command Complex (LAW 27-HP common, "Green Splash") — no card in the deck cares, so the name carries no trait.
+# Author: Ninin
+#   ⚠ The JSON's author field was EMPTY. Credited to Ninin because "Wicket Green Splash Utrecht" is in Ninin TCG's SWU Forge decks —
+#   an inference.
+# Archetype: the deck-style classifier (SWUBotDeckStyle, 2026-11-09) — hyperaggro, LOW confidence, source shape: score 0.46, 87% aggro
+#   side (34 units <= 3 cost, 14 attack/buff cards; 0 units >= 6 cost, 1 removal event, 2 wipes). Same as the owner's "Hard aggro" label
+#   for Star Wars Dad's HMW Wicket and the Wicket|* style-map row.
+# Style: hyperaggro
+
+Leader
+1 HMW_014
+
+Base
+1 LAW_024
+
+Deck
+2 ASH_168
+2 ASH_183
+3 ASH_034
+3 HMW_115
+3 HMW_126
+2 HMW_175
+3 HMW_254
+3 HMW_045
+3 IC27_113
+2 IC27_119
+1 IC27_133
+2 IC27_079
+3 JTL_151
+3 JTL_250
+3 JTL_096
+3 LAW_202
+3 LAW_037
+3 LAW_078
+2 SEC_101
+1 SEC_104
+1 SEC_256
+
+Sideboard
+2 ASH_163
+3 ASH_171
+2 LAW_191
+1 SEC_104
+1 SEC_163
+1 SEC_256

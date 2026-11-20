@@ -1,12 +1,12 @@
 <?php
-// Meta-baseline CONVERT (skill `swusim-ash-meta-bot-run`, owner 2026-10-11): every real match of the 53-event ASH Premier set, both players' actual melee lists (main + the
+// Meta-baseline CONVERT (skill `swusim-meta-bot-run`, owner 2026-10-11): every real match of the 53-event ASH Premier set, both players' actual melee lists (main + the
 // 10-card sideboard, folded in at play time by SUPERSET=1), one fixture per list. Style = the curated ash-meta fixture's '# Style:' when the
 // deck's archetype (canonical leader + base bucket) has one, else SWUBotDeckStyle (label overlap, then shape score).
 chdir('/var/www/html/TCGEngine');
 include_once './SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 foreach (['./SWUSim/Rl/CardTags.php', './SWUSim/Custom/BotDeckStyle.php'] as $f) include_once $f;
 // usage (SWUSim container): php convert.php <export.json> <lists dir> <work dir> <curated fixture dir>
-$EXPORT = $argv[1]; $LISTS = $argv[2]; $O = $argv[3]; $FIXDIR = $argv[4] ?? 'SWUSim/Tests/BotFixtures/ash-meta-2026-09';
+$EXPORT = $argv[1]; $LISTS = $argv[2]; $O = $argv[3]; $FIXDIR = $argv[4] ?? 'SWUSim/BotFixtures/ash-meta-2026-09';
 @mkdir("$O/fx", 0777, true);
 $e = json_decode(file_get_contents($EXPORT), true);
 $styleByKey = [];

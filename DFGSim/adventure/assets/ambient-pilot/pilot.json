@@ -1,0 +1,54 @@
+{
+  "status": "reviewed_insufficient_motion",
+  "source": "adventure/assets/riverside-quarter-v1.webp",
+  "sourceMapSize": [
+    1536,
+    1024
+  ],
+  "contextRect": [
+    1056,
+    288,
+    480,
+    672
+  ],
+  "reviewedWaterRect": [
+    1305,
+    360,
+    231,
+    510
+  ],
+  "input": "riverside-water-input-v1.png",
+  "mask": "riverside-water-mask-v1.png",
+  "prompt": "water-pilot-prompt.txt",
+  "targetDurationSeconds": 5,
+  "firstAndLastFrame": "riverside-water-input-v1.png",
+  "preferredSettingsFromPreviousWorkflow": "Kling Keyframes, 720p, adaptive ratio, one output, no audio",
+  "currentPriceVerified": true,
+  "approvedCreditCap": 45,
+  "uploadApproved": true,
+  "acceptance": [
+    "Visible flowing water at normal gameplay scale",
+    "Fixed camera and registration to the source crop",
+    "No object motion crossing into the reviewed water mask",
+    "No abrupt first/last-frame loop reset",
+    "Final composite changes no pixels outside the reviewed mask"
+  ],
+  "creditsSpent": 45,
+  "model": "Kling 3.0",
+  "resolution": "720p",
+  "outputs": 1,
+  "displayedPriceCredits": 45,
+  "submissionRequestedAt": "2026-10-31T16:51:36.390819+00:00",
+  "creditBalanceBefore": 326,
+  "creditBalanceAfter": 281,
+  "taskId": "325436916310774",
+  "workId": "325436916318818",
+  "slotId": "945550962742145059",
+  "sourceVideo": "riverside-water-source-v1.mp4",
+  "sourceUrl": "https://v15-kling.klingai.com/bs2/upload-ylab-stunt-sgp/5d47ba97-c8cc-4485-8200-d33b0fafd968-dT002nwqNuA9nEU82feYJQ-output.mp4?x-kcdn-pid=112372",
+  "resultPage": "https://kling.ai/app/creations/grid?project=929951353903251461&slotId=945550962742145059",
+  "sha256": "a62b65b0e2b8c9de9c3912bae9cfc62c7892df8736571fc39701f98e9c9c7544",
+  "review": "Scenery registration is stable, but water movement is too subtle. Study only; not enabled in live adventure.",
+  "processedVideo": "riverside-water-registered-v1.mp4",
+  "measurements": "review.json"
+}

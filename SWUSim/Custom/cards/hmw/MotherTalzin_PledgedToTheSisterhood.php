@@ -33,20 +33,22 @@
 // whose text says "you control" — so it is a family-wide design call, deliberately left for the user
 // rather than swept in mid-card. HMW_039 is correct on its own terms today.
 
-// True when some OTHER friendly (team-wide) unit is an un-blanked Mother Talzin.
-function _SWUHmw039GrantsRestore($obj): bool {
-    if ($obj === null || !empty($obj->removed)) return false;
+// How many OTHER friendly (team-wide), un-blanked Mother Talzins grant Restore 1 to $obj. A COUNT, not a flag: each
+// Talzin is a separate source and Restore stacks (CR 7.9.b) — two on one Team Suns team give Restore 2 (fixed
+// 2026-11-03, pinned by TeamSuns_TwoTalzinsStack; same shape as IC27_013 Nute Gunray).
+function _SWUHmw039RestoreGrants($obj): int {
+    if ($obj === null || !empty($obj->removed)) return 0;
     $ctrl = intval($obj->Controller ?? 0);
-    if ($ctrl <= 0) return false;
+    if ($ctrl <= 0) return 0;
     $selfUID = intval($obj->UniqueID ?? -1);
+    $n = 0;
     foreach (array_merge([$ctrl], SWUTeammatesOf($ctrl)) as $seat) {
-        foreach (GetUnitsInPlay(intval($seat)) as $u) {
-            if (!empty($u->removed)) continue;
+        foreach (GetUnitsInPlay(intval($seat)) as $u) {           // already skips removed units
             if (($u->CardID ?? '') !== 'HMW_039') continue;
             if (intval($u->UniqueID ?? -2) === $selfUID) continue;   // "OTHER" — never herself
             if (LostAbilities($u)) continue;                          // a blanked source grants nothing
-            return true;
+            $n++;
         }
     }
-    return false;
+    return $n;
 }

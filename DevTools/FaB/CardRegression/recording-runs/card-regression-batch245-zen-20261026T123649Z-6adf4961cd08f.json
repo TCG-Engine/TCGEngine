@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T12:36:49+00:00",
+    "input_file": "card-regression-batch245-zen.json",
+    "input_sha256": "b74098a9b2d45b3a43fbc015c519cff07d1e8cf83db9ed1f7beaa04eed085620",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-zen-four-live-sparse-actual-chi-paid-combo-search-banish-and-real-permitted-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 26,
+            "assertions": 690
+        }
+    ]
+}

@@ -1,0 +1,710 @@
+{
+  "status": "APPROVED_FOUR_EXACT_NEW_FOUR_LIVE_REPRESENTATIVES_TWO_CLEAN_REPLAYS_TWO_SCOPED_CONTROLS",
+  "reviewer": "/root/b104_saved_review",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "source_spec": "card-regression-batch219.json",
+  "source_spec_sha256": "bdb0a07a8dd19bf1fba7f8f1779deaaf38e9b37935ee925aba228d481ad2f5a1",
+  "fixtures": [
+    {
+      "index": 0,
+      "slug": "card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+      "card_id": "snapback_red",
+      "source_spec": "card-regression-batch219.json",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PENDING_TARGETED_REPLAY_AND_FOCUSED_QUALIFICATION",
+      "fixture_sha256": "a39f67cbf726cc199de946ef61fc18e2bfc03d3a1abe1a738bee5bdcda3f4139",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "84da335992ad803f56fc7942449f1ee7152731b348188e7df42a166f5e7f811b",
+        "actions.json": "880c238cfbb73b2d6e16a15e807f88a47a5af4f0c735959248084c0646919554",
+        "assertions.json": "71ca0a42cd9c326c856dea59594c874a50547eed672583d3fd36c75f724e8d86",
+        "expected_final_gamestate.txt": "15957d6db51b170115d1adf992a4d64e8e2603941a729fff5bb816d580dc13ce",
+        "meta.json": "2af0b606bbc5550f2804348086c4800aea5be0433d186abf4aa39a5fe200bb5d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "84da335992ad803f56fc7942449f1ee7152731b348188e7df42a166f5e7f811b",
+        "actions.json": "880c238cfbb73b2d6e16a15e807f88a47a5af4f0c735959248084c0646919554",
+        "assertions.json": "71ca0a42cd9c326c856dea59594c874a50547eed672583d3fd36c75f724e8d86",
+        "expected_final_gamestate.txt": "15957d6db51b170115d1adf992a4d64e8e2603941a729fff5bb816d580dc13ce",
+        "meta.json": "2af0b606bbc5550f2804348086c4800aea5be0433d186abf4aa39a5fe200bb5d"
+      },
+      "actions": 13,
+      "native_assertions": 931,
+      "actual_manual_passes": 8,
+      "actual_pass_actors": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Verdance_no_Earth_Banish_actual_Rousing_Snapback_and_Blue",
+          "native_assertions": 113
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "support_Rousing_actual_target_declaration_before_resource_and_Action_assets",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "support_Rousing_actual_P4_target_declared_funding_still_unpaid",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "real_Blue7_pays_support_two_AP1_spent_leaving_one_no_arcane_damage_yet",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "support_Rousing_actual_four_live_responses_actual_response_1_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "support_Rousing_actual_four_live_responses_actual_response_2_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "support_Rousing_actual_four_live_responses_actual_response_3_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "support_Rousing_actual_four_live_responses_fourth_actual_response",
+          "native_assertions": 51
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "primary_Snapback_earned_at_AP_zero_actual_target_declaration_before_resource_and_Action_assets",
+          "native_assertions": 59
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "primary_Snapback_actual_P4_target_declared_costs_paid",
+          "native_assertions": 55
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "primary_actual_Snapback_Instant_four_live_responses_actual_response_1_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "primary_actual_Snapback_Instant_four_live_responses_actual_response_2_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "primary_actual_Snapback_Instant_four_live_responses_actual_response_3_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "primary_actual_Snapback_Instant_four_live_responses_fourth_actual_response",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 27,
+          "action_step": 13,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 113
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "input_sha256": "bdb0a07a8dd19bf1fba7f8f1779deaaf38e9b37935ee925aba228d481ad2f5a1",
+      "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "recorded_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "reviewer": "/root/b104_saved_review",
+      "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "current_clean_replays": [
+        "card-regression-replay-sparse219-f56-r1.json",
+        "card-regression-replay-sparse219-f56-r2.json"
+      ],
+      "current_qualification_status": "TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "index": 1,
+      "slug": "card-silken-gi-four-live-sparse-real-next-attack-cost-three-to-two-and-power-seven-to-six",
+      "card_id": "silken_gi",
+      "source_spec": "card-regression-batch219.json",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PENDING_TARGETED_REPLAY_AND_FOCUSED_QUALIFICATION",
+      "fixture_sha256": "8b6aa49f54312050b43d60de51bd91d2774dd1d86d52adfe6b4e66ee83d41d5c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4e3d375280d029b418178d268179ec7656b9c3c430062ecac3eae92134839183",
+        "actions.json": "a415d75cbcb1d87ba7b4854135ace287e416da088c88c66a0729e51040449568",
+        "assertions.json": "0c81487f5d4e164b93caac627385b3819040061cfbffbd8003afd690f54fd74e",
+        "expected_final_gamestate.txt": "5031f9f70483bfe81d7c56b81942b0e919dcff60f0e492702bc59ec4d25a6d44",
+        "meta.json": "f7732dc6d06b3744b040cadb27062aedfa936aea2061d9b07e6730f87b8502bd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4e3d375280d029b418178d268179ec7656b9c3c430062ecac3eae92134839183",
+        "actions.json": "a415d75cbcb1d87ba7b4854135ace287e416da088c88c66a0729e51040449568",
+        "assertions.json": "0c81487f5d4e164b93caac627385b3819040061cfbffbd8003afd690f54fd74e",
+        "expected_final_gamestate.txt": "5031f9f70483bfe81d7c56b81942b0e919dcff60f0e492702bc59ec4d25a6d44",
+        "meta.json": "f7732dc6d06b3744b040cadb27062aedfa936aea2061d9b07e6730f87b8502bd"
+      },
+      "actions": 33,
+      "native_assertions": 2162,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Generic_Gi_actual_Raging_Blue_no_seeded_discount_or_power",
+          "native_assertions": 114
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Gi_Instant_zero_destroy_cost_public_before_body_AP1_unchanged",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Gi_four_live_Instant_responses_actual_response_1_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Gi_four_live_Instant_responses_actual_response_2_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Gi_four_live_Instant_responses_actual_response_3_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Gi_four_live_Instant_responses_fourth_actual_response",
+          "native_assertions": 51
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "real_adjacent_target_declared_before_assets",
+          "native_assertions": 52
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "real_attack_awaits_resource_and_Action_assets",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "real_blue_pays_printed_attack_cost_and_Action",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "attack_source_layer_actual_response_1_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "attack_source_layer_actual_response_2_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "attack_source_layer_actual_response_3_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "attack_source_layer_fourth_actual_response",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "attack_step_actual_response_1_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "attack_step_actual_response_2_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "attack_step_actual_response_3_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "attack_step_fourth_actual_response",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "P4_completes_actual_defending_declaration",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "defending_priority_actual_response_1_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "defending_priority_actual_response_2_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "defending_priority_actual_response_3_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "defending_priority_fourth_actual_response",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "reaction_step_actual_response_1_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "reaction_step_actual_response_2_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "reaction_step_actual_response_3_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "reaction_step_fourth_actual_response",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "damage_step_actual_response_1_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "damage_step_actual_response_2_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "damage_step_actual_response_3_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "damage_step_fourth_actual_response",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "resolution_step_actual_response_1_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "resolution_step_actual_response_2_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 64,
+          "action_step": 32,
+          "checkpoint": "resolution_step_actual_response_3_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 66,
+          "action_step": 33,
+          "checkpoint": "resolution_step_fourth_actual_response",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 67,
+          "action_step": 33,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 113
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "input_sha256": "bdb0a07a8dd19bf1fba7f8f1779deaaf38e9b37935ee925aba228d481ad2f5a1",
+      "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "recorded_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "reviewer": "/root/b104_saved_review",
+      "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "current_clean_replays": [
+        "card-regression-replay-sparse219-f56-r1.json",
+        "card-regression-replay-sparse219-f56-r2.json"
+      ],
+      "current_qualification_status": "TWO_CLEAN_REPLAYS_WITH_SCOPED_CONTROL",
+      "isolated_native_fault_status": "silken_actual_earned_minus_one_power_omitted_discount_retained"
+    },
+    {
+      "index": 2,
+      "slug": "card-spell-fray-gloves-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "card_id": "spell_fray_gloves",
+      "source_spec": "card-regression-batch219.json",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PENDING_TARGETED_REPLAY_AND_FOCUSED_QUALIFICATION",
+      "fixture_sha256": "c92256e66d025b331f7853c5b3fc140e08983bd27a4a592d58d71e90e0ec0b0d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "263d536649f411de1ba3c5e94a96c316186ae18be959f6dd803c1c8ef3fced3e",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "bb2251c4c1ffd3cc2d2991b7b504eeb1bb7491cfb205e62be98405e919b08df1",
+        "expected_final_gamestate.txt": "2d28e87e02eeb8a52cb195cddb8e3252aeb8c36a134d9ee9d7a7969c152a73fa",
+        "meta.json": "2208b7e558a6d3062caad69e537e0655e16cf75d61a2e8c55ce232d196d060ed"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "263d536649f411de1ba3c5e94a96c316186ae18be959f6dd803c1c8ef3fced3e",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "bb2251c4c1ffd3cc2d2991b7b504eeb1bb7491cfb205e62be98405e919b08df1",
+        "expected_final_gamestate.txt": "2d28e87e02eeb8a52cb195cddb8e3252aeb8c36a134d9ee9d7a7969c152a73fa",
+        "meta.json": "2208b7e558a6d3062caad69e537e0655e16cf75d61a2e8c55ce232d196d060ed"
+      },
+      "actions": 7,
+      "native_assertions": 582,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Generic_Spellvoid_defender_and_real_Wizard_Zap",
+          "native_assertions": 110
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_support_Zap_actual_target_declaration_before_resource_and_Action_assets",
+          "native_assertions": 55
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_support_Zap_actual_P4_target_declared_costs_paid",
+          "native_assertions": 51
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Zap_response_1_of_four_before_Spellvoid",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Zap_response_2_of_four_before_Spellvoid",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Zap_response_3_of_four_before_Spellvoid",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "fourth_Zap_response_waits_for_actual_static_Spellvoid_choice_live_source_no_damage_yet",
+          "native_assertions": 57
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_optional_Gloves_destroy_prevents_one_of_Zap_three_actual_arcane_two_HP18",
+          "native_assertions": 48
+        },
+        {
+          "source_step": 15,
+          "action_step": 7,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 111
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "input_sha256": "bdb0a07a8dd19bf1fba7f8f1779deaaf38e9b37935ee925aba228d481ad2f5a1",
+      "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "recorded_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "reviewer": "/root/b104_saved_review",
+      "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "current_clean_replays": [
+        "card-regression-replay-sparse219-f56-r1.json",
+        "card-regression-replay-sparse219-f56-r2.json"
+      ],
+      "current_qualification_status": "TWO_CLEAN_REPLAYS_WITH_SCOPED_CONTROL",
+      "isolated_native_fault_status": "spellvoid_live_ability_lost_after_offer_before_acceptance"
+    },
+    {
+      "index": 3,
+      "slug": "card-glory-seeker-four-live-sparse-real-three-resource-instant-destroy-and-physical-deck-draw",
+      "card_id": "glory_seeker",
+      "source_spec": "card-regression-batch219.json",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PENDING_TARGETED_REPLAY_AND_FOCUSED_QUALIFICATION",
+      "fixture_sha256": "e6ba0fa2335d22e2f382ea2abb433823e12630b51e78b2a956b33a9a937b239b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8ec38c9f4a33ebe097a301fc7076a37962c8271d8fc4127af6b1fe6c20919d9",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "1969e538980426894212dc0ef80d291936ef684ef201712db39c6d6a89248202",
+        "expected_final_gamestate.txt": "4767c8a38115a304390205f3004d6933b449045dce111c156cf8d0e7496bb2a6",
+        "meta.json": "08ecb9d389d7f106ba5502fec25c806ca9c7a20f26a8cfd7e2e272e5fcc21f11"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e8ec38c9f4a33ebe097a301fc7076a37962c8271d8fc4127af6b1fe6c20919d9",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "1969e538980426894212dc0ef80d291936ef684ef201712db39c6d6a89248202",
+        "expected_final_gamestate.txt": "4767c8a38115a304390205f3004d6933b449045dce111c156cf8d0e7496bb2a6",
+        "meta.json": "08ecb9d389d7f106ba5502fec25c806ca9c7a20f26a8cfd7e2e272e5fcc21f11"
+      },
+      "actions": 6,
+      "native_assertions": 575,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Generic_Glory_Seeker_distinct_known_Deck_card_and_Blue",
+          "native_assertions": 114
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Glory_Instant_waits_three_resource_assets_physical_head_still_live_no_draw_or_Action_cost",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Blue7_pitch_three_pays_all_three_then_physical_Head5_destroyed_before_body_AP1",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_paid_Glory_Instant_four_live_responses_actual_response_1_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_paid_Glory_Instant_four_live_responses_actual_response_2_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_paid_Glory_Instant_four_live_responses_actual_response_3_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_paid_Glory_Instant_four_live_responses_fourth_actual_response",
+          "native_assertions": 51
+        },
+        {
+          "source_step": 13,
+          "action_step": 6,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 114
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "input_sha256": "bdb0a07a8dd19bf1fba7f8f1779deaaf38e9b37935ee925aba228d481ad2f5a1",
+      "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "recorded_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "reviewer": "/root/b104_saved_review",
+      "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "current_clean_replays": [
+        "card-regression-replay-sparse219-f56-r1.json",
+        "card-regression-replay-sparse219-f56-r2.json"
+      ],
+      "current_qualification_status": "TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse219-all-four-actual-saved-independent-review.json",
+    "sha256": "8cb2fb2b9d57f8ed66a5815ea30e610e5b7c2a70fcd440a6750d7ade36d9dd27"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse219-f56-r1.json",
+      "sha256": "3e6527556c3ea6bcb7d3fbde6479c53ff28b973df2fea83d4d02f12ee7af734e"
+    },
+    {
+      "path": "card-regression-replay-sparse219-f56-r2.json",
+      "sha256": "18ffcc637b3fa5f221cdb49274195efde936336fda9fccd4dedcc0da7763d8bb"
+    }
+  ],
+  "causal_controls": {
+    "path": "card-regression-negative-controls-sparse219-f56-results.json",
+    "sha256": "a07576a67d63b32aceb0e06c9acef9eb32867f4bc0714b9cf6ed7fbee0b144ef",
+    "plan_sha256": "fa7dc3927ac5c8d1c872ef4953d12aa58ea4be241bc4b68ad50dd8a7923b9d18",
+    "independent_approval": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch219-two-causal-controls-root-independent-approval.json",
+      "sha256": "965fcbf0c317b54e419027f3cc5b9f44724fa034f1068e98cc48e4f8536981fb"
+    },
+    "detected": 2,
+    "retained_boundary_and_suffix_oracles": 2032,
+    "omitted": 0
+  },
+  "qualification": "One representative each: earned Snapback AP0Instant with realRousing/paid1; Gi actual nextattack cost3to2 andpower7to6; staticSpellvoid realGlovesdestruction/prevention1; Glory actualInstant3/destroy/physicaldraw. Gi control isolatesweakening withdiscount retained; firstpowerfailure only. Spellvoid suppression beforeacceptance also disablesconditionaldestruction; not legalinterruption or numericalprevention-only control. Snapback/Glory positive-only nofaultclaim; Snapback offered-await lifetime untested. No sibling/support/fullcard/fullsuite credit."
+}

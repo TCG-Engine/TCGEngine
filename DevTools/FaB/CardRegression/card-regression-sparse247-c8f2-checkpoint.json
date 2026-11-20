@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T13:24:30.440181+00:00",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "source_spec": "card-regression-batch247.json",
+  "source_spec_sha256": "30425a64cde9e308fae57b689304455575381ed5235b46d7749e03d8b343eb5f",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 50,
+  "native_assertions": 1316,
+  "manual_passes": 42,
+  "totals": {
+    "saved_registered_scenarios": 3504,
+    "duels": 3074,
+    "four_live": 430,
+    "recorded_primary_ids": 661,
+    "identity_denominator": 5196,
+    "recorded_groups": 535,
+    "group_denominator": 3324,
+    "four_live_groups": 426,
+    "phase_qualified_scenarios_at_actual_contexts": 141,
+    "phase_qualified_unique_groups": 139,
+    "creation_replay_passes": 282,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 3,
+  "scenarios": [
+    {
+      "card_id": "arcanite_fortress",
+      "group_id": "identity:arcanite_fortress",
+      "scenario_id": "card-arcanite-fortress-four-live-sparse-actual-two-named-equipment-spellvoid-prevents-two",
+      "effect_branches": [
+        "actual-two-named-equipment-spellvoid-prevents-two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-arcanite-fortress-four-live-sparse-actual-two-named-equipment-spellvoid-prevents-two",
+      "source_spec": "card-regression-batch247.json",
+      "source_spec_sha256": "30425a64cde9e308fae57b689304455575381ed5235b46d7749e03d8b343eb5f",
+      "review_evidence": "review-evidence/sparse247-c8f2-qualified-saved-review.json",
+      "review_evidence_sha256": "e3e7acc0aafa1ade3a907d72175f79cada973436c8968ce599b4c30658d677a9",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "qualification_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse247-c8f2-r1.json",
+          "sha256": "309a8fa4c761f098db9d747019357d5563515be455070110f4d579e39ac2c28e",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse247-c8f2-r2.json",
+          "sha256": "94237b0b109f10cf9a11d00f4d367f566df4d8bc4f5445c318fd95bb390f0615",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "overblast_red",
+      "group_id": "pitch-cycle:overblast",
+      "scenario_id": "card-overblast-red-four-live-sparse-real-earlier-boost-this-chain-gives-exact-plus-one",
+      "effect_branches": [
+        "real-earlier-boost-this-chain-gives-exact-plus-one"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-overblast-red-four-live-sparse-real-earlier-boost-this-chain-gives-exact-plus-one",
+      "source_spec": "card-regression-batch247.json",
+      "source_spec_sha256": "30425a64cde9e308fae57b689304455575381ed5235b46d7749e03d8b343eb5f",
+      "review_evidence": "review-evidence/sparse247-c8f2-qualified-saved-review.json",
+      "review_evidence_sha256": "e3e7acc0aafa1ade3a907d72175f79cada973436c8968ce599b4c30658d677a9",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "qualification_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse247-c8f2-r1.json",
+          "sha256": "309a8fa4c761f098db9d747019357d5563515be455070110f4d579e39ac2c28e",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse247-c8f2-r2.json",
+          "sha256": "94237b0b109f10cf9a11d00f4d367f566df4d8bc4f5445c318fd95bb390f0615",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "anaphylactic_shock_blue / actual opposing hero damage earns life loss",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T18:40:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1youngDori20actualGenericWBRed5cost0targetsadjacentP4youngArakni20, noContractcard/heroability. Allfourrealplay/ATTACK/DEFEND/REACTIONflows, P4declinesblocks; actual4physicaldamageP4HP16earnsHNT_DAMAGED_BYrecordofopposingHero1viaGL1931/HNTDamageRecord90-93(nohistoryseed). DuringDAMAGEthreeactualpassesgiveP4prioritybeforeRESOLUTION. P4actualAssassinInstantShock6cost0/AP0legal; fourresponses4/1/2/3resolveFaBHNTShock97. OnlyP1hasactuallydealtP4damage, soHero1loses1life->HP19; P2/P3stay20,P4stays16. ShockpublicGYFaceDown0, actualWB5stillownedChainATTACKER power4 duringDAMAGE, noGA/APgrants, allqueuesempty. NoAlly/dedup/multipleopponents/repeatedpackets/Contract/nextturn/damage-vs-lifelossalternatebranches orsupportprimarycredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HNT016.webp"
+}

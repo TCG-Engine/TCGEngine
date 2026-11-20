@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch222.json",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T04:16:32.311874+00:00",
+  "fixtures": [
+    {
+      "slug": "card-amulet-of-havencall-blue-four-live-sparse-real-empty-hand-defense-reaction-search-adds-physical-deck-defender",
+      "fixture_sha256": "61dfaaa34f43afcaa815d5817031b65f7013202d0876ec7b86cb580c4c484d69",
+      "passed": true,
+      "result": "[PASS] amulet_of_havencall_blue / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-crater-fist-four-live-sparse-actual-paid-destroy-boosts-real-paid-crush-attack-two-and-fully-blocked",
+      "fixture_sha256": "842438e8853060edf71b53df22b01757f3c46cc0b4551cc5ca4e6bcf86183b72",
+      "passed": true,
+      "result": "[PASS] crater_fist / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-grimoire-of-the-haunt-four-live-sparse-actual-paid-instant-banishes-own-offhand-then-creates-owned-eloquence",
+      "fixture_sha256": "b6e07d17dc2e1d9232eac5c710d06755481f63cf6f142214b925f4967a7cb6ea",
+      "passed": true,
+      "result": "[PASS] grimoire_of_the_haunt / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-amulet-of-havencall-blue-four-live-sparse-real-empty-hand-defense-reaction-search-adds-physical-deck-defender",
+      "returncode": 0,
+      "stdout": "[PASS] amulet_of_havencall_blue / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-crater-fist-four-live-sparse-actual-paid-destroy-boosts-real-paid-crush-attack-two-and-fully-blocked",
+      "returncode": 0,
+      "stdout": "[PASS] crater_fist / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-grimoire-of-the-haunt-four-live-sparse-actual-paid-instant-banishes-own-offhand-then-creates-owned-eloquence",
+      "returncode": 0,
+      "stdout": "[PASS] grimoire_of_the_haunt / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

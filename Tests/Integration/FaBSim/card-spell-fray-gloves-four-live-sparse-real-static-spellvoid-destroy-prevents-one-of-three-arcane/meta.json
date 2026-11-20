@@ -1,0 +1,7 @@
+{
+    "name": "spell_fray_gloves / four live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T04:10:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four legal young living Verdance20 and three Dorinthea20, manual UPF/no passive seats. P4 owns actual primary Gloves5; P1 actually plays ZapRed6, declares P4 before zero-resource Action payment/AP1 to0. First three actual live responses preserve HP20/Gloves5; fourth begins actual printed3 arcane event and offers existing MZMAYCHOOSE Spellvoid optional Equipment5. This is a static replacement, not a new activated/triggered layer. Actual Zap6 is retained on Stack by existing plain-spell lifecycle while its choice awaits; relevant source/controller/kind/marker captured and raw priority intentionally unasserted during private effect. Actual P4 answer destroys real Gloves5 to public GY OwnerController4/FaceDown0 and prevents1, so real Zap damage2/P4HP18. Zap6 only then completes to own public GY FaceDown0; all R0/AP0/other HP20/Stack and queues empty/ACTION. No funding pitch, synthetic prevention/HP/source change or invented response window. Only one optional static Spellvoid1 destruction against actual arcane3, no decline/multiple sources/physical damage/defending or support primary/full-card coverage. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CHN006.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP338.webp https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-26T09:37:34.611281+00:00",
+  "status": "FIXED_VERIFIED_NAMED_YOUNG_PRISM_ACTIVATION",
+  "issue": "FAB-REG-052",
+  "related_prior_issue": "FAB-REG-039",
+  "new_distinct_gameplay_defect_group": false,
+  "same_source_spec": "card-regression-batch236.json",
+  "same_source_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+  "same_initial_sha256": "3851d2ce77dedbee36c300efd0f64e8f8f74025c5b02504072f8a65e92916382",
+  "before": "review-evidence/prism-052-cost-order-native-before.json",
+  "before_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "native_before": "After real Hero click and Soul selection, expected Soul1 got0 while resource2 remained pending and no funding input occurred; banish listeners fired. No passing fixture saved. No separately captured postfailure resource scalar claim.",
+  "after_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "native_after": "Unchanged7inputs/456assertions/4manualresponders: Soul retained before funding; actual Blue3 pays2/R1/AP1 then public BanishUID5; physical Hero1 preserved/once counter observed; ShieldUID8 appears only after fourth response.",
+  "saved_review": "review-evidence/prism-052-qualified-saved-review.json",
+  "saved_review_sha256": "007076186a60d8987cf2789d5c23efeedd2c47f791b30417b2a51a15d33f023d",
+  "source_generation_review": "review-evidence/prism-052-source-generation-review.json",
+  "guarded_generation": "review-evidence/prism-052-guarded-generation.json",
+  "component_results": "review-evidence/prism-052-component-results.json",
+  "actual_component_groups": 31,
+  "actual_component_assertions": 266,
+  "component_limits": "Actual extracted helpers with explicit funding/move/event/transport boundary doubles, not native-game coverage. Existing19 body contracts preserved plus12 Prism groups.",
+  "replays": [
+    "card-regression-replay-prism052-postfix-r1.json",
+    "card-regression-replay-prism052-postfix-r2.json"
+  ],
+  "focused_compatibility": "card-regression-replay-prism052-three-prepared-cost-compat.json",
+  "compatibility_passes": 3,
+  "new_synthetic_helper_controls": 0,
+  "full_suite_run": false,
+  "full_suite_user_command": "& 'C:\\xampp\\php\\php.exe' DevTools/RunIntegrationTests.php --root=FaBSim",
+  "limits": "One young Prism positive activation only. Adult uses same source migration but has no new native identity credit. No cancellation/once-rejection/full-card/whole-family/full-suite credit; historical corpus retains original runtime evidence. Remote authoring unchanged; local exact-body compile bridge retained."
+}

@@ -335,6 +335,42 @@ function _SWUBotDroidPayableAnswers(array $actions, int $seat): array {
     try { return $check(); } finally { $playerID = $saved; }
 }
 
+// The "costs less for each one you pick" riders must leave the play PAYABLE too: HMW_049 Greater Sarlacc ("defeat any number of
+// ready resources … 3 less each", continuation HMW_049#0) and HMW_125 The Marauder ("deal 1 damage to any number of friendly units
+// … 1 less each", HMW_125#0). Both are offered at their best-case price, the fallback answered '-', the handler's abort refused
+// the play, and the bot played it again forever — HMW meta run 2026-10-24: every game with the Sabé Data Vault list on seat 1
+// hit the step cap in round 2 (3 ready resources, Sarlacc in hand). Each answer is priced exactly as its handler's own gate
+// does (valid picks from the same pool, capped at the offered max; the Sarlacc's picks also stop being payment). No answer
+// pays -> unchanged. Guard: SWUSim/DevTools/tests/bot_costriderpay_test.php.
+function _SWUBotCostRiderPayableAnswers(array $actions, int $seat): array {
+    if (!function_exists('_SWUPlayIsPayableAtDiscount')) return $actions;
+    $p = explode('|', _SWUBotNextDecisionParam($seat));
+    $rider = $p[0] ?? '';
+    if ($rider !== 'HMW_049#0' && $rider !== 'HMW_125#0') return $actions;
+    $handMz = strval($p[1] ?? ''); $discount = intval($p[2] ?? 0); $offeredMax = intval($p[3] ?? PHP_INT_MAX);
+    $check = function () use ($actions, $seat, $rider, $handMz, $discount, $offeredMax) {
+        $isSarlacc = $rider === 'HMW_049#0';
+        $legal = array_flip($isSarlacc ? _SWUHmw049LegalPicks($seat) : _SWUHmw125LegalPicks($seat));
+        $out = [];
+        foreach ($actions as $a) {
+            $c = strval($a['cardID'] ?? '');
+            $valid = 0;
+            foreach (($c === '-' || $c === 'PASS') ? [] : array_unique(explode('&', $c)) as $mz) {
+                if ($mz !== '' && isset($legal[$mz]) && $valid < $offeredMax) $valid++;
+            }
+            $payable = $isSarlacc
+                ? _SWUPlayIsPayableAtDiscount($seat, $handMz, $discount + 3 * $valid, [], $valid)
+                : _SWUPlayIsPayableAtDiscount($seat, $handMz, $discount + $valid);
+            if ($payable) $out[] = $a;
+        }
+        return empty($out) ? $actions : $out;
+    };
+    if (function_exists('BridgeWithPlayerPerspective')) return BridgeWithPlayerPerspective($seat, $check);
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    try { return $check(); } finally { $playerID = $saved; }
+}
+
 function SWUBotLegalActions($gameName, $seat) {
     $seat = intval($seat);
     $decisionSeat = SWUBotPendingDecisionSeat();
@@ -351,7 +387,7 @@ function SWUBotLegalActions($gameName, $seat) {
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
         $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
         if (strval($legal['decisionType'] ?? '') === 'NAMECARD') $actions = _SWUBotNameCardPool($actions, $seat);
-        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotDroidPayableAnswers(_SWUBotExploitPayableAnswers($actions, $seat), $seat);
+        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotCostRiderPayableAnswers(_SWUBotDroidPayableAnswers(_SWUBotExploitPayableAnswers($actions, $seat), $seat), $seat);
         $actions = _SWUBotWeaknessEnemyOnly(strval($legal['decisionType'] ?? ''), strval($legal['decisionTooltipRaw'] ?? ''), $actions, $seat);
         if (empty($actions)) {
             $front = null;
@@ -413,7 +449,7 @@ function SWUBotLegalActions($gameName, $seat) {
 //    all, so $actionValue is '', which hits the switch's default (no-op) — the action would be
 //    SILENTLY SWALLOWED, never reaching ActionMap. Confirmed against SWUSim's own generated
 //    client dispatch (GeneratedUI_20260903180200.js GetZoneClickActions() returns
-//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20261023.js'
+//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20261031.js'
 //    CardClick() builds the cardID as `cardId + "!" + Action + "!" + Parameters.join(",")`) and
 //    against GrandArchiveSim/BotLegalActions.php, the sibling this file mirrors, which already
 //    does exactly this ("myHand-$i!FSM!", "myField-$i!FSM!"). Fixed below.
@@ -627,16 +663,25 @@ function SWUBotFreePlayActions($gameName, $seat) {
         $canDeploy  = $haveActionsData ? !empty(($actionsData['leaderDeployByIndex']  ?? [])[$li]) : true;
         $canAbility = $haveActionsData ? !empty(($actionsData['leaderAbilityByIndex'] ?? [])[$li]) : true;
         if ($canDeploy)  $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!DeployLeader:Unit"];
-        if ($canAbility) $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!LeaderAbility"];
+        // Named Action abilities: one action per USABLE leader entry ("LeaderAbility:<id>"); bare without actions data.
+        if (!$haveActionsData) { if ($canAbility) $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!LeaderAbility"]; }
+        else foreach ((array)(($actionsData['leaderActionEntriesByIndex'] ?? [])[$li] ?? []) as $e) {
+            if (!empty($e['enabled'])) $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!LeaderAbility:" . strval($e['id'])];
+        }
     }
 
     // ── Base epic action ──────────────────────────────────────────────────────
     // Real client verb (see deviation #5 above): "EpicAction".
+    // Named Action abilities: one action per USABLE base entry ("EpicAction:<id>" — its own / Epic and each Fortify
+    // upgrade's), from the list the base menu shows. Without actions data, the bare verb (one usable Action).
     $bases = GetZone('myBase');
     foreach ((array)$bases as $bi => $bObj) {
         if ($bObj === null || !empty($bObj->removed)) continue;
-        if ($haveActionsData && empty($actionsData['baseEpic'])) continue;
-        $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myBase-$bi!CustomInput!EpicAction"];
+        if (!$haveActionsData) { $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myBase-$bi!CustomInput!EpicAction"]; continue; }
+        foreach ((array)($actionsData['baseActionEntries'] ?? []) as $e) {
+            if (empty($e['enabled'])) continue;
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myBase-$bi!CustomInput!EpicAction:" . strval($e['id'])];
+        }
     }
 
     // ── Unit activated ability ("Action [...]") ───────────────────────────────
@@ -649,10 +694,15 @@ function SWUBotFreePlayActions($gameName, $seat) {
     // are a real, legal move the engine accepts, but offering them is a WIDENING of the Phase 1
     // action space, so it is recorded for Phase 2 rather than added here off the back of a
     // termination fix.
+    // Named Action abilities: one action per USABLE entry ("Activate:<id>"), from the same entry lists the click menu
+    // shows — a unit with Improvised Identity on top of its own Action offers both.
     if ($haveActionsData) {
-        foreach ((array)($actionsData['unitActions'] ?? []) as $mz) {
+        foreach ((array)($actionsData['unitActionEntries'] ?? []) as $mz => $entries) {
             if (strpos(strval($mz), 'my') !== 0) continue;
-            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "$mz!CustomInput!Activate"];
+            foreach ((array)$entries as $e) {
+                if (empty($e['enabled'])) continue;
+                $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "$mz!CustomInput!Activate:" . strval($e['id'])];
+            }
         }
     } else {
         foreach (['myGroundArena', 'mySpaceArena'] as $zoneName) {
@@ -686,8 +736,8 @@ function SWUBotFreePlayActions($gameName, $seat) {
     // entirely on Pass being unconditional. Taking a counter is always legal for a seat that has not
     // taken one, so listing all three counters is what restores "there is always a terminating action".
     // Remove these and a Twin Suns bot facing available counters would propose only refused actions.
-    if (SeatCountForGame() > 2 && !_SWUSeatTookCounterThisRound($seat)) {
-        if (GetBlastCounter() === 'AVAILABLE') {
+    if (SWUCounterRulesActive() && !_SWUSeatTookCounterThisRound($seat)) {
+        if (SWUBlastCounterAvailable()) {
             $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'BlastCounter-0!CustomInput!TakeCounter'];
         }
         if (GetPlanCounter() === 'AVAILABLE') {

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch209.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T23:40:23.596243+00:00",
+  "fixtures": [
+    {
+      "slug": "card-seekers-gilet-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "fixture_sha256": "e1820294849bc20d1e4fe3c7f15a8ea5126bc6bb9d1bb3758c891c29ebe297eb",
+      "passed": true,
+      "result": "[PASS] seekers_gilet / four live distinctive effect"
+    },
+    {
+      "slug": "card-teklo-foundry-heart-four-live-sparse-real-earned-boost-paid-ability-and-typed-banish-resource",
+      "fixture_sha256": "aa3b1c8412f69144d75bc9277d2d7cda8dda1a256fd2eeac4daa9c3fdd8f92fb",
+      "passed": true,
+      "result": "[PASS] teklo_foundry_heart / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-seekers-gilet-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] seekers_gilet / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-foundry-heart-four-live-sparse-real-earned-boost-paid-ability-and-typed-banish-resource",
+      "returncode": 0,
+      "stdout": "[PASS] teklo_foundry_heart / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

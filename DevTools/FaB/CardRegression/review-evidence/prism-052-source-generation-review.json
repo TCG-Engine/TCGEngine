@@ -1,0 +1,68 @@
+{
+  "status": "APPROVED_COMPONENT_SOURCE_AND_FROZEN_GUARDED_APPLICATION_SCRIPT",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T09:28:16.836837+00:00",
+  "approved": true,
+  "blocking_findings": [],
+  "component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism236-actual-payment-component-proposed\\prepared_payment_prism_component.php",
+    "sha256": "e8d1c5697001249937a401563063bcea35f7434e531a49e7751122abddb085e8",
+    "packet_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism236-actual-payment-component-proposed\\component-review-packet.json",
+    "packet_sha256": "2b3af2758d41a7f94809dfe832325c0ac0620f19ee6dbafa9871ee951f833ae5",
+    "old_harness_sha256": "30d6003b138fdc047e565e7f16d3451a525a9eb83776cae5fcaa756a8434ca07",
+    "all19_entire_contractCase_bodies_order_exact": true,
+    "new_prism_groups": 12,
+    "planned_total": 31,
+    "actual_extraction": "Hash-guarded actual fifteen CardChoices functions including both new Prism helpers plus real TryCompletePayment and ARCPayAbility. No payment/staging/source/rollback/reentry/once algorithm stubbed. Source overrides support candidate testing without R writes.",
+    "meaningful_checks": "Hero1/ABI7/Soul5 identity; declaration/unfunded holds without cost; actual debit2/R1/AP1 before Soul commit/observer; pending clear before actual once dispatch; missing/stale/foreign/removed/wrong-zone and source/spec/charge corruption rejection; missing snapshot fail-closed; asset/effect/event callback reentry; UID follows Soul row compaction; missing declaration not bypassed by suppression.",
+    "boundary_limits": "Manufactured postactivation pending/Undo, controlled Blue3 funding, lookup/move/listener observer/counter/time/catalog/paid callbacks. Does not certify actual activation/SaveUndo/DoPitch/MoveUID/listener implementations, public encoding, await serializer, priority responses or Shield resolution.",
+    "root_actual_result": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism236-actual-payment-component-proposed\\root-results.json",
+      "sha256": "96981b2f59057ce243d9b0c3429bc19e6ff0e3d8a527892d5762b427e9fd6651",
+      "passed": 31,
+      "failed": 0,
+      "assertions": 266,
+      "exact_candidate_source_files_verified": true,
+      "execution_receipt_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism236-actual-payment-component-proposed\\root-execution.json",
+      "execution_receipt_sha256": "09664d3a8b541da7c114fdbf31b74d09de73fe0f1977c0cb4c546f71f7c75273",
+      "reviewer_execution": false
+    },
+    "command_only_erratum": "Initial supplied --key=value invocation failed closed before any contracts. Root corrected to required bare key=value, same immutable harness; no source/expectation change or gameplay failure."
+  },
+  "guarded_application_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\apply_generate_prism052.py",
+    "sha256": "5457c0b3f21172f0027f0cb1552d04d27d11ff1efa24e62ff90fb054ab761c72",
+    "approved_for_root_execution": true,
+    "guards_reviewed": [
+      "Refuses existing attempt directory; exact reviewed proposal/source approval/six before+candidate hashes, generator/config/prior outputs and root lint receipt; current runtime exact before and again after preflight.",
+      "Remote-only read preflight occurs before R mutation; rejects config environment overrides, guards protected config and redacts token in receipts; no remote CardEditor write/import or hand editing generated code.",
+      "Verifies recoverable backups for six source candidates and both generated outputs before mutation; checks intervening source changes. Captures observed/rejected outputs; rejection restores output pair and guarded source bytes, retaining backups and refusing intervening user source overwrites.",
+      "Exactly one named Prepare wrapper/machine/resume per young/adult Prism; one helper per wrapper, exactly three global helper references, same helper called by resume.",
+      "Wrapper before/after matches after only helper name plus single starting PC normalization; resume matches after helper name normalization only. Machine requires one DeclarePrism and Finish and prohibits direct MoveChoice. Approved canonical d077 source and hash-guarded compiler constrain owned machine change.",
+      "Mask only six owned blocks and one valid timestamp, then all other PHP bytes exact. Count JS permits one timestamp only; all count/name/data bytes exact. No whitespace normalization or broader family mask.",
+      "Three exact PHP candidates already linted by root, guarded receipt reused; no duplicate lint requested. Generated PHP lint after compiler is required. Failures/unrelated drift reject and recover transaction. Final native probe/replays/compat remain separate."
+    ],
+    "root_candidate_lint_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism052-candidate-syntax-results.json",
+      "sha256": "895c91f4d68643bc840422c024e5e1cbcb18672262e5c00a8bcf4655084d95ad",
+      "all3_pass": true
+    },
+    "review_delta": "Original script e37d masking gap fixed: helper consistency and wrapper/resume normalized comparisons. d2a09 gate then added runtime guards only; frozen5457 current inspected and approved. No action executed by reviewer."
+  },
+  "generated_baseline": {
+    "php_sha256": "7f6a2a139b551ad55720a8f17de7dad47a36e8dc6d81d0c0eb5636981ebe5f96",
+    "count_sha256": "45d751d279b21c5b7203eb9e24e2080dae267a3ed82a78014f576596698bfe00",
+    "young_helper": "__RunAwait_c50254829ec44480a642",
+    "adult_helper": "__RunAwait_74cb0e9167bb926dee9c",
+    "owned_wrapper_machine_resume_unique_each": true,
+    "each_helper_references": 3
+  },
+  "method": "Manual independent code review plus exact source/harness/receipt/string comparisons. Read-only inspection of root31/266 and lint receipts; no PHP/native/generator execution by reviewer.",
+  "qualification_limit": "Approval to proceed with guarded application/generation. No applied/generation/native passing claim yet; unchanged original correct Prism probe required. Existing039 extension only, no adult/family coverage.",
+  "php_execution_by_reviewer": false,
+  "native_execution_by_reviewer": false,
+  "generation_execution_by_reviewer": false,
+  "repository_writes_by_reviewer": false,
+  "optional_rules_simulator": false,
+  "full_suite_run": false
+}

@@ -25,7 +25,17 @@ $onAttackAbilities["HMW_182:0"] = function ($player, $mzID = '') {
     $uid = intval($self->UniqueID ?? 0);
     if (SWUUnitRoundUseSpent($uid)) return;
     $pool = _SWUCollectUnitTargets(intval($player), ['side' => 'friendly', 'traits' => 'Creature']);
-    if (empty($pool)) return;
+    if (empty($pool)) {
+        // No friendly Creature to damage — reachable when another unit GAINS this ability (ASH_230 Improvised
+        // Identity: the host gains abilities, not the Creature trait). CR 1.2 "Do as much as you can": the
+        // ready still resolves, so offer it alone (bug report 2026-10-29). Not when the unit is already ready
+        // (nothing to do). With a Creature present the damage CAN be done, so it stays part of the ready.
+        if (intval($self->Status ?? 1) === 1) return;
+        DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+            tooltip: "No_friendly_Creature_unit_to_damage_-_ready_this_unit?");
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_182#1|{$uid}", 1);
+        return;
+    }
     SWUQueueMayChooseTarget(intval($player), $pool,
         "Deal_3_damage_to_a_friendly_Creature_unit_and_ready_this_unit?",
         "Deal_3_damage_to_a_friendly_Creature_unit_and_ready_this_unit", "HMW_182#0|{$uid}");
@@ -44,4 +54,14 @@ $customDQHandlers["HMW_182#0"] = function ($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $nexuMz = SWUFindMzByUID($nexuUID);                          // gone if it picked itself and died
     if ($nexuMz !== null) OnReadyCard(intval($player), $nexuMz);  // "and" — not gated on the damage
+};
+
+// The bare ready (no friendly Creature to damage). YES spends the round's use like an accepted pick; NO spends nothing.
+$customDQHandlers["HMW_182#1"] = function ($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision !== 'YES') return;
+    $uid = intval($parts[0] ?? 0);
+    SWUSpendUnitRoundUse($uid);
+    $mz = SWUFindMzByUID($uid);
+    if ($mz !== null) OnReadyCard(intval($player), $mz);
 };

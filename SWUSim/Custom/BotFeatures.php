@@ -857,6 +857,105 @@ const SWU_BOT_PART63_FEATURES = ['tslowseat', 'tssentinelchip'];
 // the game's own undo stack replays it at R4 (5 attackers left) and R5 (7 attackers + 2 plays). The rule now waits while a ready unit can
 // hit their base and claims once the attacks are spent (SWUBotRuleInitiativeForLethal, BotRules.php). '@no-p64' / '@no-chipfirst'.
 const SWU_BOT_PART64_FEATURES = ['chipfirst'];
+// Part 65 'curvekeep' (2026-10-24, HMW meta gap read; owner: "i like your plan. go"). Midrange's resourcer scored a castable-soon card
+// 100 + cost, so it banked the CHEAPEST castable card first — even the only play for rounds 1–2. Ezra Blue Splash banked Arvel Skeen,
+// its lone 3-drop, in 7/7 seat-1 games and only took the initiative in R1–R2; Talzin Red Force banked a ≤3-cost unit while keeping a
+// 6+ drop in 20 of 66 traced R1–R4 picks. With ≤ 4 resources after the pick, the most expensive unit each of the next two rounds can
+// cast stays in hand (_SWUBotCurveKeepIndices, BotResourcing.php). Control keeps the owner's 2026-09-13 castable-soon + one-bomb rule;
+// the aggro wing already resources its most expensive cards. '@no-p65' / '@no-curvekeep'.
+const SWU_BOT_PART65_FEATURES = ['curvekeep'];
+// Part 66 'hpimmune' (2026-10-25, Discord: "Bots seem to have trouble with SEC Cassian leader. I just watched 3 different units get
+// sacked into a Cassian that already had lethal damage on him, but the Cassian had initiative so it didn't matter"). Every "this
+// damage kills it" check compared damage with remaining HP, so a lethal-damaged SEC_012 (remaining ≤ 0) read as killed by ANY attack
+// and a unit dying to his counter-damage scored as a trade. Damage now kills only a unit that can be defeated by having no remaining
+// HP (SWUImmuneToHpDefeat: Cassian with the initiative, Chirrut outside regroup, LOF_043) — SWUBotDamageKills, BotEvaluator.php,
+// at the 16 combat/ping/shrink/loss sites. The same goes for the bot's OWN such unit, which now knows it survives. '@no-p66' / '@no-hpimmune'.
+const SWU_BOT_PART66_FEATURES = ['hpimmune'];
+// Part 67 'attrition' (2026-10-26, owner "ship the 4"): four registry levers from Ninin's Hemlock Red win over Ahsoka Yellow (Nabat Village),
+// each reproduced on a replay board first, then measured on the HMW meta (538 games each vs a plain control: 0-1 winners changed, 0 failed).
+// Custom/levers/attrition_*.php: observerping (my HK-47's ping is part of a kill), wipefirst (a good castable wipe goes before the bomb it
+// would kill, and before attacks while they have a ready unit), finisherfirst (the 1-HP leader finisher before an indirect/divided play),
+// bounceetb (a bounce does not hand back a When Played). Their sibling 'gangkill' stays a proposal. '@no-p67' / '@no-<name>'.
+const SWU_BOT_PART67_FEATURES = ['observerping', 'wipefirst', 'finisherfirst', 'bounceetb'];
+// Part 68 'attrition2' (2026-10-27, owner "ship them"): the other six attrition levers, from Ninin's three Hemlock Red games (vs Ahsoka Yellow,
+// vs Boba Fett indirect burn, the mirror vs Axium's hand-hate list), each reproduced on a replay board, then measured on the HMW meta (538
+// games each vs a fresh control: 0-5 winners changed, all six together 10, nothing significant, 0 failed). Custom/levers/attrition_*.php:
+// gangkill (two attacks share one kill, only when the opponent can't reply in between), onattackshrink (an On Attack Weakness/-P/-H shrinks
+// the defender before damage), deadremoval (a removal body's When Played with no enemy non-leader unit to hit), leaderwipe (a wipe that hits
+// enemy leader units), healblocked (no base-heal value under Grievous / Tri-Fighter), removalbody (shrink-first hands back to an indirect-damage
+// play it cannot see). '@no-p68' / '@no-<name>'.
+const SWU_BOT_PART68_FEATURES = ['gangkill', 'onattackshrink', 'deadremoval', 'leaderwipe', 'healblocked', 'removalbody'];
+// Part 69 'teamread1' (2026-10-30, owner "yes plox"): twelve team-read levers from 335 human team games, measured on the HMW meta (per-lever
+// match subsets + full arms vs a fresh control, 0 failed; all on together 46 of 664 winners changed, null per style). Custom/levers/teamread_*.php:
+// anfix (Aggressive Negotiations' swing goes through the play levers, so finisherhold holds it — soft aggro +8, p 0.02), replayfirst (a deploy
+// replay When Played resolves before a Plot window), xpgift (no Experience Action while only enemy units can take it), weaknessgift (a Weakness
+// on a unit the opponent can sacrifice or recycle is worth little), condemn0 (no attack by a 0-power Condemn carrier), doomedhost (no upgrade on a
+// host that dies this round), pairdraw (Grievous' pair keeps a gated When Played), hammerheadhand (no Hammerhead value with nothing in reach),
+// finisherres (keep resourcing short of the hand-size finisher), pingx1 (X-HP units into a ping leader cost less), ahsokaorder (power spread
+// before Ahsoka's even-power Action), deploywait (a leader deploys once safe or forced). Held as proposals: hemlockr1, maulemptydeploy,
+// krennicwipehold, leaderanswerhold, sweeperpace, stealbait. '@no-p69' / '@no-<name>'.
+const SWU_BOT_PART69_FEATURES = ['anfix', 'replayfirst', 'xpgift', 'weaknessgift', 'condemn0', 'doomedhost', 'pairdraw', 'hammerheadhand',
+                                 'finisherres', 'pingx1', 'ahsokaorder', 'deploywait'];
+// Part 70 'beastpitch' (2026-11-08, owner "ship all three"): the Tarfful Blue SWU Forge read (docs/superpowers/swuforge-research/
+// 2026-11-08_tarfful-blue_bot-feature-report.md), measured on the 118 real HMW pairs with a Tarfful list vs a fresh control (236 games per
+// arm, 0 failed): beastearly (the discard-cost Beast Action before the flip turn — R1 always, later with the last resources after the plays;
+// Tarfful 45.7% -> 56.4%, 40:15, p 0.001), spacepitch (a space Sentinel is the Beast's pitch vs ground aggro, not an early play; null, 2:1),
+// cleanupmid (midrange takes kills/trades over base hits vs aggro in R1-R4, _SWUBotCleanupCap; null, 5:4). levers/beastpitch_*.php +
+// BotFallback.php. '@no-p70' / '@no-<name>'.
+const SWU_BOT_PART70_FEATURES = ['beastearly', 'spacepitch', 'cleanupmid'];
+// Part 71 'strikepicks' (2026-11-09, owner: no post-ban tournaments exist yet, "these bot features will have to go in semi-blindly"): the
+// Krennic Blue (Naboo) post-ban SWU Forge read (docs/superpowers/swuforge-research/2026-11-09_krennic-blue-naboo-postban_bot-feature-report.md).
+// takecontrolpick (a 1v1 "Take_control_of_… unit" pick — HMW_110 Palpatine, Rish Loo, Tarkin SEC, Sly Moore, Liberated By Darkness — read
+// neither hostile nor beneficial and took the FIRST listed unit, 18/18; now the most valuable enemy, a Weakness shrink-kill as a kill;
+// BotFallback.php _SWUBotTakeControlScore), cravingstrike (an upgrade power-strike counts its own +power — LOF_091 read 2 short — and its kill
+// is worth what it kills, unit value / 4 clamped 0.5-2x; BotEvaluator.php SWUBotPowerStrikePower/SWUBotPowerStrikeBestKill). '@no-p71' / '@no-<name>'.
+const SWU_BOT_PART71_FEATURES = ['takecontrolpick', 'cravingstrike'];
+// Part 72 'survival' (2026-11-09, owner: "switched on" — ON before measurement, as p71): the Boba Blue Burn SWU Forge read
+// (docs/superpowers/swuforge-research/2026-11-09_boba-blue-burn_bot-feature-report.md). Ninin claimed the initiative in 5 of 5 rounds where
+// the opponent's next-round board was lethal; the bot in 9 of 38. midwipeinit (the 'wipeinit' claim for a MIDRANGE seat, only to survive
+// — BotRules.php SWUBotRuleInitiativeForWipe), survivalclaim (claim so a removal or a burn finish castable next round goes first —
+// SWUBotRuleSurvivalClaim), shipwait (owner's Boba rule: JTL_009 does not deploy on the ground while not the pressure; waits for a ship
+// to pilot — levers/survival_shipwait.php). '@no-p72' / '@no-survival' / '@no-<name>'.
+const SWU_BOT_PART72_FEATURES = ['midwipeinit', 'survivalclaim', 'shipwait'];
+// Part 73 'reportfix' (2026-11-10, owner: "now let's fix those bot mistakes" — Petranaki bug reports P-20 and P-29, both replayed on the
+// reported boards). buffsave (P-20, game 3274: Jar Jar's Plot "+2/+2 to another friendly unit" went to the planned Support attacker for +2
+// base damage while a ready 7-power Karis could one-shot the just-deployed Ahsoka 5/6, and did; a buff that lifts a friendly unit out of a
+// ready enemy's one-hit reach now goes there instead — BotFallback.php _SWUBotBuffSaveUid), plotdud (P-29, game 5370: SEC_183 Topple the
+// Summit was plotted with only the bot's own 0-0-0 damaged and killed it — played at +0.15 because develop×cost and the Plot keyword's own
+// curve credit outweighed its −0.5 effect; a non-unit Plot card now needs a positive board effect — _SWUBotPlotEffectValue). '@no-p73' /
+// '@no-reportfix' / '@no-<name>'.
+const SWU_BOT_PART73_FEATURES = ['buffsave', 'plotdud'];
+// Part 74 'postban1' (2026-11-13, owner: "go"): the first lever from the Force Fam post-ban team read
+// (docs/superpowers/swuforge-research/2026-11-12_team-force-fam-postban_bot-feature-report.md, G5). spaceanswer — while the opponent's ships
+// outnumber mine (>= 2), a card that damages/defeats a space unit, or a 2+ power space unit, keeps the key-card bonus at resourcing
+// (levers/postban_spaceanswer.php). Measured on the post-ban test panel v1 (Boba Blue Burn, one-sided): 481 -> 490 / 800, flips +14/-5,
+// p .064, the gain vs hyperaggro (+12/-5); inert on a soft-control seat (resourcing3 tiers). '@no-p74' / '@no-postban1' / '@no-spaceanswer'.
+const SWU_BOT_PART74_FEATURES = ['spaceanswer'];
+// Part 75 'lastswing' (2026-11-13, Discord request, Twin Suns): LAW_001 Saw Gerrera's "Attack with a unit. It gets +2/+0 and gains Overwhelm
+// for this attack. After completing this attack, defeat it." sent the bot's PARTNER LEADER to die. The lookahead stops at the attack-target
+// prompt, so the Action was a flat 0.40 that beat a bad plain attack (-3.5, Vader into a Sentinel Devastator) in every style. Now priced as
+// its best swing less the defeat, a leader unit only for a winning swing (BotFallback.php _SWUBotLastSwingValue). '@no-p75' / '@no-lastswing'.
+const SWU_BOT_PART75_FEATURES = ['lastswing'];
+// Part 76 'pilotrisk' (2026-11-13, Petranaki bug report P-31, game 5439: "bot seems to want to always play pilots as units even when
+// piloting is an option"). pilothand — a pilot from hand or discard went on a READY Vehicle only, so R1's just-played Open Circle Ace never
+// got Dagger Squadron Pilot. Owner rulings: an exhausted host only for Wedge decks or a cheap pilot; Han a Unit for a tempo ground Ambush,
+// Chewbacca a Unit against control (BotFallback.php _SWUBotPilotHandScore).
+// '@no-p76' / '@no-pilotrisk' / '@no-pilothand'.
+// Measured 2026-11-14 on post-ban panel v1 (one-sided, vs @no-pilothand): Wedge Yellow 392 -> 417/800 (+45/-20, p .003), Han Solo Green
+// 279 -> 274 (+0/-5, p .06). The punish check (pilot only where the opponent can't answer the host this round) cost games and was removed.
+// poeunit (owner 2026-11-14): JTL_100 Poe plays as a UNIT for the X-Wing, and hops onto a Vehicle except against control.
+const SWU_BOT_PART76_FEATURES = ['pilothand', 'poeunit'];
+// Part 77 'landorules' (2026-11-19, owner rulings on Ninin's Lando Blue Naboo games, docs/superpowers/swuforge-research/
+// 2026-11-19_lando-blue-naboo_bot-feature-report.md; she hit 10/10 milling single-color decks before the flip, 3/6 milling split ones).
+// landocall — Full Sabacc mills THEIR deck from the first round when it is a near-certain hit: their leader and base share a color (that
+// color), another Lando (their base's color; Lake Country → Cunning). Otherwise, before the flip, it mills MY deck naming my base's color
+// (my leader's on Lake Country). BotFallback.php _SWUBotLandoSureCall / _SWUBotLandoOwnCall.
+// millclock — the 2026-10-21 proposal with its 10+ / 8+ resource threshold dropped: after the flip the mill is a real play at any resource
+// count, just above the initiative claim. '@no-p77' / '@no-landorules' / '@no-<name>'. Unmeasured when shipped (owner's direct rulings).
+// landocall tuned the same day (owner): no Credit banked by 4R before the flip → mill my own deck for the guaranteed Credit.
+// landokeep — before the flip, Lando's [1 resource] Action is never paid with a banked Credit (the engine does that, unasked, when no
+// resource is ready): "do not spend those Credits to maximize the 6R turn to be 6R + 3C".
+const SWU_BOT_PART77_FEATURES = ['landocall', 'millclock', 'landokeep'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -866,7 +965,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES, SWU_BOT_PART50_FEATURES, SWU_BOT_PART51_FEATURES, SWU_BOT_PART52_FEATURES, SWU_BOT_PART53_FEATURES, SWU_BOT_PART54_FEATURES, SWU_BOT_PART55_FEATURES, SWU_BOT_PART56_FEATURES, SWU_BOT_PART57_FEATURES, SWU_BOT_PART58_FEATURES, SWU_BOT_PART59_FEATURES, SWU_BOT_PART60_FEATURES, SWU_BOT_PART61_FEATURES, SWU_BOT_PART62_FEATURES, SWU_BOT_PART63_FEATURES, SWU_BOT_PART64_FEATURES);   // part 2, then 3-49
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES, SWU_BOT_PART50_FEATURES, SWU_BOT_PART51_FEATURES, SWU_BOT_PART52_FEATURES, SWU_BOT_PART53_FEATURES, SWU_BOT_PART54_FEATURES, SWU_BOT_PART55_FEATURES, SWU_BOT_PART56_FEATURES, SWU_BOT_PART57_FEATURES, SWU_BOT_PART58_FEATURES, SWU_BOT_PART59_FEATURES, SWU_BOT_PART60_FEATURES, SWU_BOT_PART61_FEATURES, SWU_BOT_PART62_FEATURES, SWU_BOT_PART63_FEATURES, SWU_BOT_PART64_FEATURES, SWU_BOT_PART65_FEATURES, SWU_BOT_PART66_FEATURES, SWU_BOT_PART67_FEATURES, SWU_BOT_PART68_FEATURES, SWU_BOT_PART69_FEATURES, SWU_BOT_PART70_FEATURES, SWU_BOT_PART71_FEATURES, SWU_BOT_PART72_FEATURES, SWU_BOT_PART73_FEATURES, SWU_BOT_PART74_FEATURES, SWU_BOT_PART75_FEATURES, SWU_BOT_PART76_FEATURES, SWU_BOT_PART77_FEATURES);   // part 2, then 3-49
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -881,7 +980,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES, 'p50' => SWU_BOT_PART50_FEATURES, 'bugfix1' => SWU_BOT_PART50_FEATURES, 'p51' => SWU_BOT_PART51_FEATURES, 'step2' => SWU_BOT_PART51_FEATURES, 'p52' => SWU_BOT_PART52_FEATURES, 'engines3' => SWU_BOT_PART52_FEATURES, 'p53' => SWU_BOT_PART53_FEATURES, 'hardctl4' => SWU_BOT_PART53_FEATURES, 'p54' => SWU_BOT_PART54_FEATURES, 'finalists' => SWU_BOT_PART54_FEATURES, 'p55' => SWU_BOT_PART55_FEATURES, 'selfweakfix' => SWU_BOT_PART55_FEATURES, 'p56' => SWU_BOT_PART56_FEATURES, 'controlkit' => SWU_BOT_PART56_FEATURES, 'p57' => SWU_BOT_PART57_FEATURES, 'p58' => SWU_BOT_PART58_FEATURES, 'tempo' => SWU_BOT_PART58_FEATURES, 'p59' => SWU_BOT_PART59_FEATURES, 'tempoplans' => SWU_BOT_PART59_FEATURES, 'tempoall' => array_merge(SWU_BOT_PART58_FEATURES, SWU_BOT_PART59_FEATURES), 'p60' => SWU_BOT_PART60_FEATURES, 'stealwd' => SWU_BOT_PART60_FEATURES, 'p61' => SWU_BOT_PART61_FEATURES, 'p62' => SWU_BOT_PART62_FEATURES, 'p63' => SWU_BOT_PART63_FEATURES, 'tsfocus' => SWU_BOT_PART63_FEATURES, 'p64' => SWU_BOT_PART64_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES, 'p50' => SWU_BOT_PART50_FEATURES, 'bugfix1' => SWU_BOT_PART50_FEATURES, 'p51' => SWU_BOT_PART51_FEATURES, 'step2' => SWU_BOT_PART51_FEATURES, 'p52' => SWU_BOT_PART52_FEATURES, 'engines3' => SWU_BOT_PART52_FEATURES, 'p53' => SWU_BOT_PART53_FEATURES, 'hardctl4' => SWU_BOT_PART53_FEATURES, 'p54' => SWU_BOT_PART54_FEATURES, 'finalists' => SWU_BOT_PART54_FEATURES, 'p55' => SWU_BOT_PART55_FEATURES, 'selfweakfix' => SWU_BOT_PART55_FEATURES, 'p56' => SWU_BOT_PART56_FEATURES, 'controlkit' => SWU_BOT_PART56_FEATURES, 'p57' => SWU_BOT_PART57_FEATURES, 'p58' => SWU_BOT_PART58_FEATURES, 'tempo' => SWU_BOT_PART58_FEATURES, 'p59' => SWU_BOT_PART59_FEATURES, 'tempoplans' => SWU_BOT_PART59_FEATURES, 'tempoall' => array_merge(SWU_BOT_PART58_FEATURES, SWU_BOT_PART59_FEATURES), 'p60' => SWU_BOT_PART60_FEATURES, 'stealwd' => SWU_BOT_PART60_FEATURES, 'p61' => SWU_BOT_PART61_FEATURES, 'p62' => SWU_BOT_PART62_FEATURES, 'p63' => SWU_BOT_PART63_FEATURES, 'tsfocus' => SWU_BOT_PART63_FEATURES, 'p64' => SWU_BOT_PART64_FEATURES, 'p65' => SWU_BOT_PART65_FEATURES, 'p66' => SWU_BOT_PART66_FEATURES, 'p67' => SWU_BOT_PART67_FEATURES, 'p68' => SWU_BOT_PART68_FEATURES, 'attrition2' => SWU_BOT_PART68_FEATURES, 'p69' => SWU_BOT_PART69_FEATURES, 'teamread1' => SWU_BOT_PART69_FEATURES, 'p70' => SWU_BOT_PART70_FEATURES, 'beastpitch' => SWU_BOT_PART70_FEATURES, 'p71' => SWU_BOT_PART71_FEATURES, 'strikepicks' => SWU_BOT_PART71_FEATURES, 'p72' => SWU_BOT_PART72_FEATURES, 'survival' => SWU_BOT_PART72_FEATURES, 'p73' => SWU_BOT_PART73_FEATURES, 'reportfix' => SWU_BOT_PART73_FEATURES, 'p74' => SWU_BOT_PART74_FEATURES, 'postban1' => SWU_BOT_PART74_FEATURES, 'p75' => SWU_BOT_PART75_FEATURES, 'p76' => SWU_BOT_PART76_FEATURES, 'pilotrisk' => SWU_BOT_PART76_FEATURES, 'p77' => SWU_BOT_PART77_FEATURES, 'landorules' => SWU_BOT_PART77_FEATURES,
             'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
@@ -1337,8 +1436,11 @@ const SWU_BOT_PROPOSALS = [
     // real play (above the initiative claim) instead of a Credit worth nothing once the hand is castable. Bot 28% of spare post-flip rounds vs
     // softcontrol, the human 75%. 'rebuildafterwipe': "rebuild is best especially if their wipe cost them all their resources" — the
     // 'wipeaware' / 'wipecap' holds lift while an opponent who has SHOWN a wipe cannot pay for another this round.
-    'millclock', 'rebuildafterwipe',
+    // ('millclock' — SHIPPED 2026-11-19 without its threshold as feature group 'p77'.)
+    'rebuildafterwipe',
     // ('budgetwipe' — SHIPPED 2026-10-22 as feature group 'p61'.)
+    // ('cleanupmid' — SHIPPED 2026-11-08 as feature group 'p70'.)
+    // ('pilotpunish' / 'pilotlikely' — p76's hand-pilot punish checks, measured and REMOVED 2026-11-14: no gain.)
 ];
 
 

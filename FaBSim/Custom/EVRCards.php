@@ -192,7 +192,8 @@ function FaBEVRHit(int $p,object $o,int $n): void {
 }
 function FaBEVRDestroyed(int $p,object $o): void {
  $b=FaBWTRBase($o->CardID);$uid=intval($o->UniqueID);$r=FaBFindUID($uid)['mzID']??'';
- if(!HasNoAbilities($o)&&in_array($b,['coalescence_mirage','phantasmal_haze','miraging_metamorph'],true))FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>$r]);
+ if(!HasNoAbilities($o)&&$b==='phantasmal_haze')FaBROSQueue($p,$o->CardID,$uid,['rosEvent'=>'evrPhantasmalHazeDestroyed']);
+ elseif(!HasNoAbilities($o)&&in_array($b,['coalescence_mirage','miraging_metamorph'],true))FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>$r]);
  if(in_array('EVR_VEILED',(array)($o->TurnEffects??[]),true))DoDrawCard($p,1);
  if(FaBHasType($o,'Illusionist')&&FaBHasType($o,'Aura')&&(!FaBHasType($o,'Token')||$b==='haze_bending')){
   $refs=FaBMONArena($p,'haze_bending');if($b==='haze_bending')$refs[]=$r;

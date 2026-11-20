@@ -7,7 +7,8 @@
 // this phase, play it from your discard pile (paying its cost)." Same TPP stamp as SHD_135 (the upgrade
 // is then played from discard via the SWUPlayFromDiscard → ActivateCard upgrade route). TPP clears at RGS.
 $cardDiscardedHandlers['LAW_200:0'] = function(int $player, object $entry): void {
-    if ($entry->From === 'HAND' || $entry->From === 'DECK') {
-        $entry->Modifier = 'TPP';
+    // A mill IS a discard from the deck (spec §9).
+    if ($entry->From === 'HAND' || $entry->From === 'DECK' || $entry->From === 'MILL') {
+        SWUDiscardAddGrant($entry, 'TPP', 'LAW_200');
     }
 };

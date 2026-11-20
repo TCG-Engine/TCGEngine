@@ -1,4 +1,4 @@
-"""Bot game-1 sweep vs the REAL matchup targets (SWUSim/Tests/BotFixtures/ash-meta-2026-09/real_matchups.json).
+"""Bot game-1 sweep vs the REAL matchup targets (SWUSim/BotFixtures/ash-meta-2026-09/real_matchups.json).
 
 usage: fidelity_vs_real.py <sweep results.tsv> [real_matchups.json] [min real matches = 10]
 
@@ -10,7 +10,7 @@ cold). Bots play single games, so the comparison is per GAME, never per match.""
 import sys, os, re, json, math, glob, collections
 
 res = sys.argv[1]
-real_path = sys.argv[2] if len(sys.argv) > 2 else 'SWUSim/Tests/BotFixtures/ash-meta-2026-09/real_matchups.json'
+real_path = sys.argv[2] if len(sys.argv) > 2 else 'SWUSim/BotFixtures/ash-meta-2026-09/real_matchups.json'
 MIN = int(sys.argv[3]) if len(sys.argv) > 3 else 10
 real = json.load(open(real_path))
 fxdir = os.path.dirname(real_path)

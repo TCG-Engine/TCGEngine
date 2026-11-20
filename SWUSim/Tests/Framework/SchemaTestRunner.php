@@ -86,12 +86,21 @@ class SchemaTestRunner {
         $shadow = function_exists('SwuPgnShadowOn') && SwuPgnShadowOn();
         if ($shadow) SwuPgnShadowBegin($label);
 
+        // EXPECTERROR:<text> — the section EXPECTS a WHEN step to throw with <text> in its message (e.g. a bare
+        // UseUnitAbility on a unit with two usable Actions → "ambiguous"). The steps after it don't run; the other
+        // EXPECT lines are still evaluated. Without a matching throw, the section fails.
+        $expectError = null;
+        foreach ($expectLines as $el) if (preg_match('/^EXPECTERROR:(.+)$/', trim($el), $em)) $expectError = trim($em[1]);
+        $expectLines = array_values(array_filter($expectLines, fn($el) => !preg_match('/^EXPECTERROR:/', trim($el))));
+        $sawError = false;
+
         // Execute main-phase actions.
         foreach ($mainActions as $idx => $action) {
             try {
                 if ($shadow) SwuPgnShadowAction(fn() => self::_execute($g, $action));
                 else self::_execute($g, $action);
             } catch (Throwable $e) {
+                if ($expectError !== null && stripos($e->getMessage(), $expectError) !== false) { $sawError = true; break; }
                 if ($shadow) SwuPgnShadowEnd();
                 $label = "Action " . ($idx + 1) . " [{$action['raw']}]";
                 $trace = implode("\n  ", array_map(
@@ -107,6 +116,7 @@ class SchemaTestRunner {
 
         // Evaluate EXPECT assertions.
         $failures = self::_evalExpect($g, $expectLines);
+        if ($expectError !== null && !$sawError) $failures[] = "EXPECTERROR:{$expectError}: no WHEN step threw an error containing '{$expectError}'";
         if (!empty($failures)) {
             return new SchemaRunResult(false, implode("\n", $failures), $failures, count($mainActions));
         }
@@ -333,7 +343,7 @@ class SchemaTestRunner {
             'WithSeatOrder', 'WithLiveSeats', 'WithEliminatedSeats', 'WithDefeatedPlayer',
             'WithPrivateGame', 'WithRound',
             'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
-            'WithGameLog', 'WithChat', 'WithHouseRules',
+            'WithGameLog', 'WithChat', 'WithHouseRules', 'WithCardPool',
         ];
         static $perSeat = [
             'Deck', 'Hand', 'Discard', 'Resources', 'Credits', 'Force', 'Base', 'Leader', 'Leader2',
@@ -531,14 +541,14 @@ class SchemaTestRunner {
             $resourced   = [1 => 0, 2 => 0];
         } else {
             // Post-pregame: drew D, resourced N → hand = D-N, resources = N, deck = total-D.
-            // D defaults to 6 but a player's base may modify the opening draw (JTL_021/028);
-            // SWUStartingHandModifier is the same helper production's QueuePregameSetup uses.
+            // D defaults to 6 but a player's base or leader may modify the opening draw (JTL_021/028,
+            // IC27_006); SWUStartingHandSizeFor is the same helper production's QueuePregameSetup uses.
             $resourced = [1 => 0, 2 => 0];
             foreach ($pregameActions as $a) {
                 if ($a['cmd'] === 'ResourceHand') $resourced[$a['player']]++;
             }
-            $p1Drew = max(0, 6 + SWUStartingHandModifier($p1BaseID));
-            $p2Drew = max(0, 6 + SWUStartingHandModifier($p2BaseID));
+            $p1Drew = SWUStartingHandSizeFor((string)$p1BaseID, [(string)$p1Leader]);
+            $p2Drew = SWUStartingHandSizeFor((string)$p2BaseID, [(string)$p2Leader]);
             $p1HandCount = max(0, $p1Drew - $resourced[1]);
             $p2HandCount = max(0, $p2Drew - $resourced[2]);
             $p1DeckLeft  = max(0, count($p1Deck) - $p1Drew);
@@ -1283,21 +1293,32 @@ class SchemaTestRunner {
                 $g->answerDecision($player, "-");
                 break;
 
+            // "[<abilityId>]" — named Action abilities; bare = the base's only usable Action ("ambiguous" otherwise).
             case 'UseBaseAbility':
-                $g->useBaseAbility($player);
+                $g->useBaseAbility($player, trim((string)$args));
                 break;
 
-            case 'UseUnitAbility':
-                $g->useUnitAbility($player, trim($args));
+            // "<mz>[:<abilityId>]" — named Action abilities. Without an id the unit must have exactly one usable Action
+            // (two or more is an "ambiguous" error, never a silent pick).
+            case 'UseUnitAbility': {
+                [$uMz, $uId] = array_pad(explode(':', trim($args), 2), 2, '');
+                $g->useUnitAbility($player, $uMz, $uId);
                 break;
-            // The LIVE client's wire form ("<mz>!CustomInput!Activate" → CustomWidgetInput), guards and all. UseUnitAbility
-            // calls SWUUnitAction directly, so it could not see that the input layer dropped every opponent-board mzID.
-            case 'ActivateUnitAbility':
-                $g->activateUnitAbility($player, trim($args));
+            }
+            // The LIVE client's wire form ("<mz>!CustomInput!Activate[:<id>]" → CustomWidgetInput), guards and all.
+            // UseUnitAbility calls SWUUnitAction directly, so it could not see that the input layer dropped every
+            // opponent-board mzID.
+            case 'ActivateUnitAbility': {
+                [$uMz, $uId] = array_pad(explode(':', trim($args), 2), 2, '');
+                $g->activateUnitAbility($player, $uMz, $uId);
                 break;
-            case 'UseLeaderAbility':
-                $g->useLeaderAbility($player, intval($args ?? 0));
+            }
+            // "<idx>[:<abilityId>]" — named Action abilities.
+            case 'UseLeaderAbility': {
+                [$lIdx, $lId] = array_pad(explode(':', trim((string)($args ?? '0')), 2), 2, '');
+                $g->useLeaderAbility($player, intval($lIdx), $lId);
                 break;
+            }
 
             case 'DeployLeader':
                 $g->deployLeader($player, intval($args ?? 0));
@@ -1307,9 +1328,12 @@ class SchemaTestRunner {
                 $g->smuggleResource($player, intval($args));
                 break;
 
-            case 'PlayFromDiscard':
-                $g->playFromDiscard($player, intval($args));
+            // "<idx>[:<abilityId>]" — named Action abilities on the discard pile (spec §9).
+            case 'PlayFromDiscard': {
+                [$dIdx, $dId] = array_pad(explode(':', trim((string)$args), 2), 2, '');
+                $g->playFromDiscard($player, intval($dIdx), $dId);
                 break;
+            }
             case 'PlayFromOpponentDiscard': {
                 // "PlayFromOpponentDiscard: <idx>"        → the one opponent (2-player, unchanged)
                 // "PlayFromOpponentDiscard: P<seat>:<idx>" → that seat's pile (Twin Suns)
@@ -1476,6 +1500,11 @@ class SchemaTestRunner {
             }
             SWUApplyHouseRules($hrActive);
         }
+        // WithCardPool: dualingsuns — the game's SWUCardPool variable, as SWUSetupGame stores it from the lobby's format.
+        // Absent = nothing written, so every other section's gamestate is byte-identical (RNG-material slot, as above).
+        if (isset($given['WithCardPool']) && trim((string)$given['WithCardPool']) !== '') {
+            DecisionQueueController::StoreVariable('SWUCardPool', trim((string)$given['WithCardPool']));
+        }
         for ($oaSeat = 1; $oaSeat <= 4; ++$oaSeat) {
             if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
             $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical
@@ -1538,6 +1567,13 @@ class SchemaTestRunner {
             } elseif ($line === 'P2WIN') {
                 if ($g->state->winner() !== 2)
                     $failures[] = "P2WIN: winner is " . var_export($g->state->winner(), true);
+
+            } elseif ($line === 'DRAW') {
+                // CR 6.3: both bases reached 0 remaining HP in the same event — the game ended with no winner.
+                // A draw is stored as the winner sentinel SWU_GAME_DRAW (-1), so it is distinct from both a
+                // decided game and an undecided one (NOWINNER).
+                if ($g->state->winner() !== -1)
+                    $failures[] = "DRAW: winner is " . var_export($g->state->winner(), true);
 
             } elseif ($line === 'NOWINNER') {
                 // The game has NOT been decided. The positive P1WIN/P2WIN forms cannot express this,
@@ -1709,22 +1745,13 @@ class SchemaTestRunner {
 
             } elseif (preg_match('/^P(\d+)(BLAST|PLAN)AVAIL:(0|1)$/', $line, $m)) {
                 // Twin Suns UI: does seat N's actions data report the counter as available to take?
-                // Mirror SWUComputeActionsData: available iff THIS IS A 3+ SEAT GAME, the seat hasn't
-                // taken a counter this round, and the counter is still AVAILABLE globally.
-                // ⚠ THE SEAT-COUNT GATE IS PART OF THE MIRROR, and was missing. SWUComputeActionsData
-                // defaults blastAvailable/planAvailable to false and only computes them inside
-                // `if (SeatCountForGame() > 2)` — "Inert in premier: all false/[]" — and CustomInput
-                // refuses the action outright below three seats ("premier: no counters"). Without the
-                // gate this assertion reported AVAILABLE in a 2-player game, so it contradicted the
-                // engine it claims to mirror: a premier section asserting :0 failed, and one asserting
-                // :1 would have passed while describing a UI state that can never occur.
-                // Adding it cannot change any existing section — the only other consumer,
-                // twinsuns/PhaseC_CounterAvailability.md, runs at three seats where the gate is a no-op.
-                $seat = intval($m[1]);
-                $counter = ($m[2] === 'BLAST') ? GetBlastCounter() : GetPlanCounter();
-                $avail = (SeatCountForGame() > 2
-                          && !_SWUSeatTookCounterThisRound($seat)
-                          && $counter === 'AVAILABLE') ? '1' : '0';
+                // Read straight from SWUComputeActionsData ('blastAvailable' / 'planAvailable'), like FOURTH/PASSAVAIL.
+                // This used to MIRROR that function (seat count > 2, seat hasn't taken a counter, counter AVAILABLE),
+                // and a mirror drifts: Dualing Suns turned the counters on at two seats and took the Blast away, which
+                // a copied seat-count gate could not see. Reading the payload the buttons are drawn from cannot drift.
+                $key = ($m[2] === 'BLAST') ? 'blastAvailable' : 'planAvailable';
+                $ad = SWUComputeActionsData(intval($m[1]));
+                $avail = !empty($ad[$key]) ? '1' : '0';
                 if ($avail !== $m[3])
                     $failures[] = "{$line}: expected {$m[3]}, got {$avail}";
 
@@ -1816,6 +1843,23 @@ class SchemaTestRunner {
                 if ($glows !== $wantGlow)
                     $failures[] = "{$line}: expected discard entry {$idx} to be " . ($wantGlow ? '' : 'NOT ')
                         . "playable, got " . json_encode($entries);
+
+            } elseif (preg_match('/^P(\d+)OPPDISCARDPLAYABLE(NOT)?:(\d+):(\d+)$/', $line, $m)) {
+                // P#DISCARDPLAYABLE's twin for an OPPONENT's pile: is seat <owner>'s discard entry at VISIBLE
+                // index N offered to seat P# as a play (SWUComputeActionsData()['opponentPlayableDiscards'],
+                // what the client lights)? PlayFromOpponentDiscard never consults it, so a section that just
+                // plays the card cannot see an offer that disagrees with the charge (bug report P-26: 4 ready
+                // + 2 Credits for a cost-6 card was payable but never lit). Same "no decision pending" caveat.
+                $p = intval($m[1]); $wantGlow = ($m[2] !== 'NOT'); $owner = intval($m[3]); $idx = intval($m[4]);
+                $entries = function_exists('SWUComputeActionsData')
+                    ? (SWUComputeActionsData($p)['opponentPlayableDiscards'] ?? []) : [];
+                $glows = false;
+                foreach ($entries as $e) {
+                    if (intval($e['idx'] ?? -1) === $idx && intval($e['owner'] ?? -1) === $owner) { $glows = true; break; }
+                }
+                if ($glows !== $wantGlow)
+                    $failures[] = "{$line}: expected P{$owner}'s discard entry {$idx} to be " . ($wantGlow ? '' : 'NOT ')
+                        . "playable by P{$p}, got " . json_encode($entries);
 
             } elseif (preg_match('/^P(\d+)TEMPZONECOUNT:(\d+)$/', $line, $m)) {
                 // TempZone is the scratch staging zone (SWUQueueDefeatUpgrade, the Credit-payment
@@ -2063,6 +2107,49 @@ class SchemaTestRunner {
                             $failures[] = "{$line}: unit action '{$w}' was unexpectedly offered to P{$p} [" . implode('&', $acts) . "]";
                 }
 
+            } elseif (preg_match('/^P(\d+)ACTIONENTRIES:([^:]+):(EXACT|ENABLED|DISABLED|NOT):(.*)$/', $line, $m)) {
+                // ── NAMED ACTION ABILITIES: what a surface lists for a clicker ───────────────────────────────
+                // P1ACTIONENTRIES:<surface>:<mode>:<id&id|->, surface = a unit mz in P1's frame (myGroundArena-0,
+                // theirSpaceArena-0, p3GroundArena-0), myBase-0 or myLeader-<idx>. EXACT = every listed id, greyed or
+                // not; ENABLED / DISABLED = exactly the usable / greyed ones; NOT = none of these is listed. Sets are
+                // order-insensitive; "-" is the empty set. Reads SWUActionEntriesFor directly (not gated on turn).
+                $p    = intval($m[1]);
+                $surf = $m[2];
+                $kind = $m[3];
+                $want = $m[4] === '-' ? [] : array_values(array_filter(explode('&', $m[4]), fn($x) => $x !== ''));
+                $ents = function_exists('SWUActionEntriesFor') ? SWUActionEntriesFor($p, $surf) : [];
+                $ids  = array_column($ents, 'id');
+                $pick = match ($kind) {
+                    'ENABLED'  => array_column(array_filter($ents, fn($e) => $e['enabled']), 'id'),
+                    'DISABLED' => array_column(array_filter($ents, fn($e) => !$e['enabled']), 'id'),
+                    default    => $ids,
+                };
+                if ($kind === 'NOT') {
+                    foreach ($want as $w) if (in_array($w, $ids, true))
+                        $failures[] = "{$line}: '{$w}' is listed [" . implode('&', $ids) . "]";
+                } else {
+                    $a = array_values($pick); $b = $want; sort($a); sort($b);
+                    if ($a !== $b) $failures[] = "{$line}: expected [" . implode('&', $b) . "], got [" . implode('&', $a) . "]";
+                }
+
+            } elseif (preg_match('/^P(\d+)ACTIONREASON:([^:]+):([^:]+):(.*)$/', $line, $m)) {
+                // The greyed reason of one entry, underscores for spaces ("Not_enough_resources").
+                $p    = intval($m[1]);
+                $want = str_replace('_', ' ', $m[4]);
+                $got  = null;
+                foreach ((function_exists('SWUActionEntriesFor') ? SWUActionEntriesFor($p, $m[2]) : []) as $e)
+                    if ($e['id'] === $m[3]) $got = $e['reason'];
+                if ($got !== $want) $failures[] = "{$line}: reason " . ($got === null ? "(no entry {$m[3]})" : "'{$got}'") . ", expected '{$want}'";
+
+            } elseif (preg_match('/^P(\d+)ACTIONLABEL:([^:]+):([^:]+):(.*)$/', $line, $m)) {
+                // The button label of one entry, underscores for spaces ("Leader_Ability", "Crosshair_[Exhaust]").
+                $p    = intval($m[1]);
+                $want = str_replace('_', ' ', $m[4]);
+                $got  = null;
+                foreach ((function_exists('SWUActionEntriesFor') ? SWUActionEntriesFor($p, $m[2]) : []) as $e)
+                    if ($e['id'] === $m[3]) $got = $e['label'];
+                if ($got !== $want) $failures[] = "{$line}: label " . ($got === null ? "(no entry {$m[3]})" : "'{$got}'") . ", expected '{$want}'";
+
             } elseif (preg_match('/^P(\d+)SELECTABLEEXACT:(.*)$/', $line, $m)) {
                 // The FULL exact legal-target set of a pending target-choice, order-insensitive ('&'-joined
                 // mzIDs, deciding player's frame). Asserts the exact legal-target set of a choice.
@@ -2172,6 +2259,10 @@ class SchemaTestRunner {
                     $propMap = ['CARDID' => 'CardID', 'FROM' => 'From', 'MODIFIER' => 'Modifier'];
                     $prop = $propMap[$field];
                     $val = $actual->$prop ?? '';
+                    // Named Action abilities: a Modifier is a LIST of grants with their sources ("TPP:SHD_135,TPP1U:HMW_122");
+                    // MODIFIER compares the grant kinds only ("TPP,TPP1U"), so a single-grant expectation reads as before.
+                    if ($field === 'MODIFIER' && function_exists('SWUDiscardGrantList'))
+                        $val = implode(',', array_column(SWUDiscardGrantList((string)$val), 'mod'));
                     if ($val !== $expected)
                         $failures[] = "{$line}: expected {$field} {$expected}, got {$val}";
                 }

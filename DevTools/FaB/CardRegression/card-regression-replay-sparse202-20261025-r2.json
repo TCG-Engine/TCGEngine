@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch202.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T21:46:47.834177+00:00",
+  "fixtures": [
+    {
+      "slug": "card-anothos-four-live-sparse-two-real-cost-three-pitches-fund-six-power-hammer",
+      "fixture_sha256": "5057dd4dc08bb98d39661f7ff554f2e95328d13fab4cb76557b2b6c979392d16",
+      "passed": true,
+      "result": "[PASS] anothos / four live distinctive effect"
+    },
+    {
+      "slug": "card-dissipation-shield-yellow-four-live-sparse-actual-instant-four-steam-prevents-four",
+      "fixture_sha256": "e82bfc00f4156773aeb573c611b38708fcc6f7ec44f4d935e87f99c5b5d455aa",
+      "passed": true,
+      "result": "[PASS] dissipation_shield_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-basalt-boots-four-live-sparse-seismic-conditional-actual-block-and-temper-survival",
+      "fixture_sha256": "96de0bafdc338a8247b7678a4ab02dc7501033e7824492af547cc25bf7c81bb6",
+      "passed": true,
+      "result": "[PASS] basalt_boots / four live distinctive effect"
+    },
+    {
+      "slug": "card-staunch-response-red-four-live-sparse-real-optional-six-resource-payment-prevents-nine",
+      "fixture_sha256": "03a76ab1d2de32b108e3a587ce8252bbb34be283dd1c66b30a878289f0616925",
+      "passed": true,
+      "result": "[PASS] staunch_response_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-anothos-four-live-sparse-two-real-cost-three-pitches-fund-six-power-hammer",
+      "returncode": 0,
+      "stdout": "[PASS] anothos / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dissipation-shield-yellow-four-live-sparse-actual-instant-four-steam-prevents-four",
+      "returncode": 0,
+      "stdout": "[PASS] dissipation_shield_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-basalt-boots-four-live-sparse-seismic-conditional-actual-block-and-temper-survival",
+      "returncode": 0,
+      "stdout": "[PASS] basalt_boots / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-staunch-response-red-four-live-sparse-real-optional-six-resource-payment-prevents-nine",
+      "returncode": 0,
+      "stdout": "[PASS] staunch_response_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

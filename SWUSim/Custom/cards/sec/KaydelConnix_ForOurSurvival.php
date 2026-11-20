@@ -12,10 +12,11 @@ $sec149NonUniqueIdxs = function ($host): array {
     $isCap = is_array($up) ? !empty($up['IsCaptive']) : !empty($up->IsCaptive);
     if ($isCap || $cid === '')
       continue;
+    // Token upgrades (Shield, Experience, Advantage, Weakness) ARE non-unique upgrades: CR — token upgrades follow the
+    // same rules as upgrades, and a token is never unique. They used to be skipped (Discord 2026-10-25: "used Kaydel to
+    // try and remove a shield and it didn't work").
     if (CardUnique($cid))
       continue;
-    if (strpos(strtolower(CardType($cid) ?? ''), 'token') !== false)
-      continue;   // tokens aren't "upgrades" here
     $idxs[] = $i;
   }
   return $idxs;

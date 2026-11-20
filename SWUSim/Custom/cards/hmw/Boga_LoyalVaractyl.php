@@ -50,9 +50,8 @@ $customDQHandlers["HMW_122#0"] = function ($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($mz) || strpos($mz, 'myDiscard-') !== 0) return;
     $entry = GetZoneObject($mz);
     if (SWUObjGone($entry)) return;
-    $cur = SWUParseDiscardModifier((string)($entry->Modifier ?? ''));
-    // Keep a better (or an opponent's) permission; replace nothing, a plain at-cost one, or a smaller one.
-    if ($cur['kind'] === '' || ($cur['kind'] === 'TPP' && $cur['discount'] < 1)) {
-        $entry->Modifier = 'TPP1U';
-    }
+    // Named Action abilities (spec §9): Boga's "1 less" is ADDED beside the card's other grants — the player chooses
+    // between them (it used to replace a plain at-cost one, or be dropped beside a better one). Picking the same unit
+    // again adds nothing (identical grant).
+    SWUDiscardAddGrant($entry, 'TPP1U', 'HMW_122');
 };

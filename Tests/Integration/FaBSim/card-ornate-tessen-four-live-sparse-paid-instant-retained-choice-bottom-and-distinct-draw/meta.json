@@ -1,0 +1,7 @@
+{
+    "name": "ornate_tessen / four live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T23:09:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four living Dorinthea20/UPF/manual actors. Owned Generic OffHandTessen5, real BlueWB6 funds printedInstant1 (R2/AP1) before physical5 destroy/publicGYFaceDown0. Proxy10 SourceEquipmentUID5 remains through four responses and actual pending MZCHOOSE, physicalHandYellow7 and DeckRed8/Blue9 unchanged: no earlydraw or virtualcleanup. ActualchooseYellow7 bottoms behind Blue9; realtopRed8 drawn, finalHandRed8, DeckBlue9 thenYellow7, PitchBlue6, sourceGY5, proxygone/queuesempty/R2AP1/HPall20. Different CardIDs and exact physicalUIDs distinguish bottom+draw fromnoop and wrongorder; no shuffle/RNG, no emptyHand/decline/alternatefunding/fullcard claim. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DYN235.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

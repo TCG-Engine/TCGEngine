@@ -1,0 +1,83 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T09:50:08.883654+00:00",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "source_spec": "card-regression-batch238-eirina-corrected.json",
+  "source_spec_sha256": "334e77844daae95d9eb3a6d1eb6bbb6d05468d7c2e282d04c9d9323eb6bc557d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 16,
+  "native_assertions": 659,
+  "manual_passes": 11,
+  "totals": {
+    "saved_registered_scenarios": 3479,
+    "duels": 3074,
+    "four_live": 405,
+    "recorded_primary_ids": 636,
+    "identity_denominator": 5196,
+    "recorded_groups": 510,
+    "group_denominator": 3324,
+    "four_live_groups": 401,
+    "phase_qualified_scenarios_at_actual_contexts": 116,
+    "phase_qualified_unique_groups": 114,
+    "creation_replay_passes": 232,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 4,
+  "scenarios": [
+    {
+      "card_id": "eirinas_prayer_red",
+      "group_id": "pitch-cycle:eirinas_prayer",
+      "scenario_id": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+      "effect_branches": [
+        "actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+      "source_spec": "card-regression-batch238-eirina-corrected.json",
+      "source_spec_sha256": "334e77844daae95d9eb3a6d1eb6bbb6d05468d7c2e282d04c9d9323eb6bc557d",
+      "review_evidence": "review-evidence/sparse238-eirina-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "75bdd7113a862ba9cf70540853149c40613759d2355f47adf4c209015a823d75",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse238-eirina-1f33-r1.json",
+          "sha256": "08755f0d47e9d6081d8060bc9e3cdcc7ffe56cc4627e8f3e8ebf287439c4bdc1",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse238-eirina-1f33-r2.json",
+          "sha256": "f1a1ef4bce04b4824e50fce8c6be0b3a38afe83142d17cb58853bcbd57dfe95a",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "test_oracle_correction": {
+    "kind": "OFFICIAL_UPF_ADJACENT_TARGET_LIST",
+    "engine_bug": false,
+    "engine_changes": false,
+    "original_source": "card-regression-batch238.json",
+    "corrected_source": "card-regression-batch238-eirina-corrected.json",
+    "only_changed_expectation": "P1Voltic choicesP2/P4; nonadjacentP3 removed. All actions/setup/card-effect/economy/damage assertions preserved.",
+    "rules": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+    "original_failed_native_result_retained": true
+  }
+}

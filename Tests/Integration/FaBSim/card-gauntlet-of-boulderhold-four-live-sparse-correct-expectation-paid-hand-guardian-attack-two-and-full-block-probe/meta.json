@@ -1,0 +1,7 @@
+{
+    "name": "gauntlet_of_boulderhold / actual four-live sparse distinctive mechanic",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T06:42:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Bounded correct-expectation probe for the same Gauntlet covered by B224: printed next Guardian attack action has no source-zone restriction. Legal youngGuardianBravo20 activates physicalGauntlet5 Action3; actualBlue6pitch3 pays3/AP0 before printed selfdestroy. Four live source responses complete effect and printedGA/AP1. Real next GuardianAA CartilageCrushRed7 starts in Hand, printedcost3 independently paid by Blue8pitch3/AP0, actual adjacentP4 target declaration before assets, no history or buff seeding. Correct expected power is printed7 plus Gauntlet2=9 even from Hand. Three real vanilla WoundingBlow defenders9/10/11 each3D fully block9/nohit/HPall20; full closure leaves Gauntlet5+attack7publicP1GYFaceDown0, Blue6/8Pitch1, blockers9/10/11publicP4GYFaceDown0, allAP/R0/queuesclear. Source-only ars=true suspicion does not change these correct expectations. No native attempt, confirmed bug, fix, passing test or coverage credit until root executes/reviews. No Battleworn, expiry, nonGuardian, further attack or conditional Cartilage WHEN4damage branch credit. Original B224 Arsenal case remains immutable and valid separately. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MPG007.webp"
+}

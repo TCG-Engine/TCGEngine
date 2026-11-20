@@ -100,5 +100,6 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
         $r->Controller = $me;
         SWUKeepCreditTokensLast($me);
         SWULogResourced($me, 'this card');   // game log: face down, never named
+        if (function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced($me);   // IC27_089 Maz Kanata
     }
 };

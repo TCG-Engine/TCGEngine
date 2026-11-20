@@ -48,12 +48,13 @@ if ($action === 'save') {
     // The menu rebuilds its saved-deck pickers IN PLACE from this (owner, 2026-10-04: saving used to reload the page, which
     // closed the setup modal and left the new deck unselected). `decks` is SWUSetupSavedDecks() — exactly what the page
     // renders on load — plus each deck's leader/base names, and `key` is the new deck's picker key in that list.
-    // Additive: the existing fields are unchanged.
+    // Additive: the existing fields are unchanged. `name` is what was stored, so the profile's import rows can add the deck
+    // to the Saved Decks dropdown in place.
     $decks = array_map(function ($d) {
         $labels = array_map('SWUSetupCardLabel', array_merge((array)$d['leaders'], $d['base'] !== '' ? [$d['base']] : []));
         return $d + ['subtitle' => implode(' · ', $labels)];
     }, SWUSetupSavedDecks($uid));
-    return $respond(['success'=>true,'decklink'=>$decklink,'leader'=>$leader,'base'=>$base,
+    return $respond(['success'=>true,'decklink'=>$decklink,'name'=>$name,'leader'=>$leader,'base'=>$base,
                      'key'=>substr(sha1($decklink), 0, 12), 'decks'=>$decks]);
 }
 // The menu's "last deck used" pointer. Written when a game actually STARTS, and forgotten when
@@ -73,7 +74,11 @@ if ($action === 'matchups') {
     if ($decklink === '') return $respond(['success'=>false,'error'=>'missing_decklink']);
     $overall = ['wins'=>0, 'losses'=>0];
     foreach (LoadSavedDecks($uid) as $d) {
-        if (($d['decklink'] ?? '') === $decklink) { $overall = ['wins'=>(int)$d['wins'], 'losses'=>(int)$d['losses']]; break; }
+        if (($d['decklink'] ?? '') === $decklink) {
+            $overall = ['wins'=>(int)$d['wins'], 'losses'=>(int)$d['losses']];
+            if ((int)($d['draws'] ?? 0) > 0) $overall['draws'] = (int)$d['draws'];   // drawn games (migration 22): only when there are any
+            break;
+        }
     }
     $rows = LoadSavedDeckMatchups($uid, $decklink);
     $matchups = [];
@@ -85,7 +90,7 @@ if ($action === 'matchups') {
             'oppBaseLabel'   => SWUMatchupBaseLabel($r['oppBase']),
             'wins'           => (int)$r['wins'],
             'losses'         => (int)$r['losses'],
-        ];
+        ] + ((int)($r['draws'] ?? 0) > 0 ? ['draws' => (int)$r['draws']] : []);
     }
     return $respond(['success'=>true, 'overall'=>$overall, 'matchups'=>$matchups]);
 }

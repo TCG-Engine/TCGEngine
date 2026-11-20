@@ -3,6 +3,7 @@
 require_once __DIR__ . '/AccountSessionAPI.php';
 require_once __DIR__ . '/AccountDatabaseAPI.php';
 require_once __DIR__ . '/../Database/ConnectionManager.php';
+require_once __DIR__ . '/../Database/functions.inc.php';   // StampUserDateCreated (new accounts' dateCreated)
 require_once __DIR__ . '/UsernameRules.php';
 
 const DISCORD_OAUTH_CLIENT_ID = '1338995198730043432';
@@ -253,6 +254,7 @@ function DiscordOAuthCreateUserFromPending(string $username, string $email, bool
     if (!$stmt->execute()) throw new RuntimeException('Could not create the account.');
     $userId = (int)$conn->insert_id;
     $stmt->close();
+    StampUserDateCreated($conn, $userId);
     $conn->close();
 
     $user = LoadUserDataFromId($userId);

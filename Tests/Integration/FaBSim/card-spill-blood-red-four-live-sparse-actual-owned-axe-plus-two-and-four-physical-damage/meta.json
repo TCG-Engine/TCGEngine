@@ -1,0 +1,7 @@
+{
+    "name": "spill_blood_red / lean four-live implemented first pass",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T08:40:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four actual live legal youngBoltyn20/threeDori20, manualUPF/1234, emptySoul/nocharge/noattackhistory. Real SpillBlood5printedAction1 usesactualBlue6pitch3: R0->3->2/AP1->0, noDQPITCHchooser. Fourresponses resolveprimary+2axes andprintedGA/AP1. ActualownedHatchetBody7printedAction1 declaresadjacentP4 beforecost; payfloatingR2->1/AP1->0, physicalweapon7 becomesusedStatus1. Independentproxy8Owner0Stack/source7 thenowned1currentCombatChain retainsphysicalWeapon7. Realbase2+primary2=4; noHatchetMindlastattack condition isearned/true, noextra+1. P4actuallydeclinesblocks, allfourrespond throughphysicaldamage4/P4HP16. StopDAMAGE, no chainclose/weaponreuse/Boltyncharge. DOMINATE EXISTS IN PRINTEDTEXT BUT LEGALITY/keyword/successfulblocklimit IS EXPLICITLYUNVERIFIED here; thisonepositive credits+2axe power/actualdamage only. No syntheticAP/resources/history or sibling/supportprimarycredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON109.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON105.webp"
+}

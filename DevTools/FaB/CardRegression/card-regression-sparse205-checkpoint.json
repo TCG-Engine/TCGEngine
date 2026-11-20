@@ -1,0 +1,90 @@
+{
+  "status": "FOUR_NEW_FOUR_LIVE_PRIMARY_REPRESENTATIVES_QUALIFIED_NO_ENGINE_CHANGE",
+  "utc": "2026-10-25T22:49:17.765546+00:00",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "inventory_scope": "Through batch205 only.206 planning/native/pending work is excluded without credit; no inventory scan.",
+  "new_scenarios_recorded": 4,
+  "new_scenarios_qualified": 4,
+  "new_groups": 4,
+  "total_saved_through_batch205": 3400,
+  "two_player": 3074,
+  "four_live_through_batch205": 326,
+  "primary_ids_recorded_through_batch205": 559,
+  "identity_denominator": 5196,
+  "groups_recorded_through_batch205": 433,
+  "group_denominator": 3324,
+  "four_live_groups_through_batch205": 324,
+  "registered_review_rows_after": 3400,
+  "phase_scenarios_qualified_at_batch_contexts": 37,
+  "historical_qualification_note": "Registry rows are not blanket current-runtime corpus qualification; earlier3363 review byte bindings remain unresolved.",
+  "new_cases": [
+    {
+      "slug": "card-frailty-four-live-sparse-active-owned-disease-reduces-real-paid-weapon-by-one",
+      "primary_card_ids": [
+        "frailty"
+      ],
+      "actions": 28,
+      "native_assertions": 1748,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-red-liner-four-live-sparse-actual-zero-cost-bow-load-choice-faceup-arrow-and-deferred-go-again",
+      "primary_card_ids": [
+        "red_liner"
+      ],
+      "actions": 6,
+      "native_assertions": 467,
+      "manual_passes": 4
+    },
+    {
+      "slug": "card-perch-grapplers-four-live-sparse-actual-paid-destroy-grants-earned-faceup-arrow-go-again",
+      "primary_card_ids": [
+        "perch_grapplers"
+      ],
+      "actions": 41,
+      "native_assertions": 2943,
+      "manual_passes": 33
+    },
+    {
+      "slug": "card-contest-the-mindfield-blue-four-live-sparse-active-opposing-wizard-aura-reduces-real-endturn-refill",
+      "primary_card_ids": [
+        "contest_the_mindfield_blue"
+      ],
+      "actions": 8,
+      "native_assertions": 574,
+      "manual_passes": 8
+    }
+  ],
+  "persisted_native_assertions": 5732,
+  "author_only_unpersisted_paper_defense_checks": 2,
+  "review_evidence": "review-evidence/sparse205-20261025-qualified-saved-review.json",
+  "targeted_replay_passes": 8,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse205-20261025-r1.json",
+      "sha256": "32c629aee9c1654b2d91e6fa624e728fd80461e1a9c152d8117505c6582f5fd5"
+    },
+    {
+      "path": "card-regression-replay-sparse205-20261025-r2.json",
+      "sha256": "dfb84d38008ce45772bfd2a907cac014bb9daeaa575078e0ea25d52dc6344496"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse205-results.json",
+    "sha256": "37e1d28b115b3cca7f2f2a770b67dd430a26c08e6033e702d36ebb1ab45bbda6",
+    "detected": 3,
+    "total": 3,
+    "retained_suffix_oracles": 4260,
+    "omitted": 0,
+    "global_total": 103
+  },
+  "red_liner_shared_lifetime_contracts_reused": true,
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse205-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T06:21:38+00:00",
+    "input_file": "card-regression-batch229.json",
+    "input_sha256": "4cde304dba364494c72a937da1c27d0165995268e8d874f59a3c749d0ee71f2c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-radiant-touch-four-live-sparse-actual-equipment-and-soul-banish-costs-prevent-two-of-real-zap-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 865
+        },
+        {
+            "slug": "card-cognition-nodes-blue-four-live-sparse-actual-paid-action-retains-owned-item-and-adds-first-steam-after-four-responses",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 479
+        }
+    ]
+}

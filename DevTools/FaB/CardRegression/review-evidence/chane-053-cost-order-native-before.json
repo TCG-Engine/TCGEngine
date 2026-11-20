@@ -1,0 +1,83 @@
+{
+  "utc": "2026-10-26T10:12:20.232431+00:00",
+  "status": "NATIVE_CONFIRMED_OPEN_NO_PASSING_FIXTURE",
+  "issue": "FAB-REG-053",
+  "source_spec": "card-regression-batch240-chane-correct-probe.json",
+  "source_spec_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "immutable_native_receipt": "recording-runs/card-regression-batch240-chane-correct-probe-20261026T100918Z-6adf26ceb5869.json",
+  "immutable_native_receipt_sha256": "48304c337e44716e066925bade8a92297033fc325deffce7eb75ab321d32885c",
+  "initial_gamestate_sha256": "eb06f783dd39910d0b9719139fc7b45a661f92efb3fd9cfe403f9d192f3ffea0",
+  "actual_attempted_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hero-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected p1Arena count 1, got 0.",
+  "observed_state": {
+    "window": "PRIORITY",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "EVR_ACTIVATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_HERO_USED",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": [],
+    "arcActions": {
+      "1": 1
+    },
+    "arcCards": {
+      "7": {
+        "steam": 0
+      }
+    }
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "native_scope": "Four live/manual young legal profile initial guards passed. One real Hero activation accepted; engine reached PRIORITY with payment cleared and no physical SoulShackle in own Arena, although printed token creation is a cost. No opponent response or resolution input executed.",
+  "independent_rules_review_workspace": "sparse240-chane-correct-cost-probe-manual-source-approval.json",
+  "independent_rules_review_sha256": "8e550660fd888d2ad0136761688ba8a6753713512e8adb7b2e7cc08c37230c4c",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "limits": "No separately captured postactivation AP/resource scalar, token destination or later-resolution native claim; native failure proves ownArena0 before responses. Current source creates token in ResolveAbility, but later native creation remains unexercised. No whole-card/adult/grant/damage or all-seat-response credit. Relationship to039 migration family requires repair-design review; not counted as a new fixed group."
+}

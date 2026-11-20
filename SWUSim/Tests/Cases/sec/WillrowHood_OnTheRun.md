@@ -52,7 +52,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
@@ -136,7 +136,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SEC_061
@@ -218,7 +218,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 WithP2GroundArenaUpgrade: 0:SOR_069
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2HANDCOUNT:1
@@ -237,7 +237,7 @@ WithP2GroundArena: SEC_061:1:0
 WithP2GroundArenaUpgrade: 0:SOR_T02
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 ## EXPECT
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
 
@@ -270,7 +270,7 @@ WithP2GroundArena: SEC_061:1:0
 WithP2GroundArenaUpgrade: 0:SOR_120
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:myGroundArena-0.u0
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2HANDCOUNT:1

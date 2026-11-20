@@ -1,0 +1,416 @@
+{
+  "status": "APPROVED_EXACT_SAVED_POSITIVE_FIRST_PASS_WITH_TWO_CURRENT_REPLAYS_NO_ISOLATED_FAULT_CLAIM",
+  "reviewer": "/root/b105_semantic_review",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "source_spec": "card-regression-batch212.json",
+  "source_spec_sha256": "29c670e7a5ba84f9b0ff1d68a08c3394613a281509de2b57b0aa28fc6c9950fa",
+  "fixtures": [
+    {
+      "index": 0,
+      "slug": "card-achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point",
+      "card_id": "achilles_accelerator",
+      "source_spec": "card-regression-batch212.json",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PENDING_TARGETED_REPLAY_AND_FOCUSED_QUALIFICATION",
+      "fixture_sha256": "f1ec5163bb52e22ddcf22c54c19b75dc3bb79f46449d1d4f1dd7746afdc10a61",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f1b5b1a56e67f240396cb7ae3fe7f6f28da3b7c2d330233bafa901eb4c0d288a",
+        "actions.json": "0890558d4d1060e3b0a51ef4d3befc94c37ca565f8e6512523a91485632ac8a4",
+        "assertions.json": "c1f112dbd931cd5513091ee958c5d3124ca45357142d85d7a339572bd5081fb7",
+        "expected_final_gamestate.txt": "b4e49476fdea0296c1fc6b847fd3fdbda4ed463e0244c47cefa50dcdc57c4425",
+        "meta.json": "eef3e01938928bcba3402567e9ab5a292853685914a2f6ed9006d2d97985152a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f1b5b1a56e67f240396cb7ae3fe7f6f28da3b7c2d330233bafa901eb4c0d288a",
+        "actions.json": "0890558d4d1060e3b0a51ef4d3befc94c37ca565f8e6512523a91485632ac8a4",
+        "assertions.json": "c1f112dbd931cd5513091ee958c5d3124ca45357142d85d7a339572bd5081fb7",
+        "expected_final_gamestate.txt": "b4e49476fdea0296c1fc6b847fd3fdbda4ed463e0244c47cefa50dcdc57c4425",
+        "meta.json": "eef3e01938928bcba3402567e9ab5a292853685914a2f6ed9006d2d97985152a"
+      },
+      "actions": 33,
+      "native_assertions": 2701,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_Dash_Achilles_real_Boost_attack_funding_and_Mech_Mech_Generic_Deck",
+          "native_assertions": 126
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Zero_to_Sixty_attack_target_declaration_before_Boost_or_assets",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Boost_declaration_choice_before_AP_and_physical_Deck_banish_cost",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "real_zero_resource_Action_asset_paid_then_actual_top_Mech_UID8_banished_to_earn_Boost",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Boosted_attack_source_actual_response_1_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Boosted_attack_source_actual_response_2_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_Boosted_attack_source_actual_response_3_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_Boosted_attack_source_fourth_actual_response",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_attack_step_actual_response_1_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_attack_step_actual_response_2_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_attack_step_actual_response_3_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_attack_step_fourth_actual_response",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "P4_actually_declares_no_defense",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "defending_priority_actual_response_1_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "defending_priority_actual_response_2_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "defending_priority_actual_response_3_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "defending_priority_fourth_actual_response",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "reaction_step_actual_response_1_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "reaction_step_actual_response_2_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "reaction_step_actual_response_3_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "reaction_step_fourth_actual_response",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "damage_step_earned_Boost_GA_actual_response_1_of_four",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "damage_step_earned_Boost_GA_actual_response_2_of_four",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "damage_step_earned_Boost_GA_actual_response_3_of_four",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "damage_step_earned_Boost_GA_fourth_actual_response",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "resolution_step_closes_actual_combat_chain_before_Achilles_Action_actual_response_1_of_four",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "resolution_step_closes_actual_combat_chain_before_Achilles_Action_actual_response_2_of_four",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "resolution_step_closes_actual_combat_chain_before_Achilles_Action_actual_response_3_of_four",
+          "native_assertions": 78
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "resolution_step_closes_actual_combat_chain_before_Achilles_Action_fourth_actual_response",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "actual_earned_Boost_allows_Achilles_Instant_destroy_cost_preserves_AP1_before_body",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "actual_Achilles_Instant_four_live_responses_actual_response_1_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "actual_Achilles_Instant_four_live_responses_actual_response_2_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 64,
+          "action_step": 32,
+          "checkpoint": "actual_Achilles_Instant_four_live_responses_actual_response_3_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 66,
+          "action_step": 33,
+          "checkpoint": "actual_Achilles_Instant_four_live_responses_fourth_actual_response",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 67,
+          "action_step": 33,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 126
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "input_sha256": "29c670e7a5ba84f9b0ff1d68a08c3394613a281509de2b57b0aa28fc6c9950fa",
+      "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "recorded_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "reviewer": "/root/b105_semantic_review",
+      "current_qualification_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "current_clean_replays": [
+        "card-regression-replay-sparse212-405-20261026-r1.json",
+        "card-regression-replay-sparse212-405-20261026-r2.json"
+      ],
+      "current_qualification_status": "INDEPENDENT_POSITIVE_SAVED_REVIEW_TWO_CLEAN_REPLAYS_NO_ISOLATED_NATIVE_FAULT_CLAIM"
+    },
+    {
+      "index": 1,
+      "slug": "card-fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain",
+      "card_id": "fyendals_spring_tunic",
+      "source_spec": "card-regression-batch212.json",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PENDING_TARGETED_REPLAY_AND_FOCUSED_QUALIFICATION",
+      "fixture_sha256": "4fba58fe8201e3775cfa31dfd7069f8a23b524ac9316d0ef05068ca7545e4acc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "642ceeff533924eb63fb824ffde7c80b89e0c836b071104d71d95d7170d34907",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "9584d57e2ec7add5b6dd63162343a7728a902d32b1addd1cf48b25ef644a6c7d",
+        "expected_final_gamestate.txt": "dfe43441da474150e7a95260735b9e694d0dbbcea1939667458419fc8d2e15b2",
+        "meta.json": "a20194dbf9cd1b21b2a9a9e054d3d00caa07c04c55121dfdef11c28bbeefcfab"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "642ceeff533924eb63fb824ffde7c80b89e0c836b071104d71d95d7170d34907",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "9584d57e2ec7add5b6dd63162343a7728a902d32b1addd1cf48b25ef644a6c7d",
+        "expected_final_gamestate.txt": "dfe43441da474150e7a95260735b9e694d0dbbcea1939667458419fc8d2e15b2",
+        "meta.json": "a20194dbf9cd1b21b2a9a9e054d3d00caa07c04c55121dfdef11c28bbeefcfab"
+      },
+      "actions": 5,
+      "native_assertions": 467,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Generic_Tunic_legitimate_three_Energy_fixture_no_upkeep_credit",
+          "native_assertions": 107
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Tunic_Instant_removes_three_Energy_as_cost_empty_counter_array_no_early_resource_AP1_preserved",
+          "native_assertions": 52
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Tunic_Instant_four_live_responses_actual_response_1_of_four",
+          "native_assertions": 52
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Tunic_Instant_four_live_responses_actual_response_2_of_four",
+          "native_assertions": 52
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Tunic_Instant_four_live_responses_actual_response_3_of_four",
+          "native_assertions": 52
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Tunic_Instant_four_live_responses_fourth_actual_response",
+          "native_assertions": 45
+        },
+        {
+          "source_step": 11,
+          "action_step": 5,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 107
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "input_sha256": "29c670e7a5ba84f9b0ff1d68a08c3394613a281509de2b57b0aa28fc6c9950fa",
+      "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "recorded_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "reviewer": "/root/b105_semantic_review",
+      "current_qualification_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "current_clean_replays": [
+        "card-regression-replay-sparse212-405-20261026-r1.json",
+        "card-regression-replay-sparse212-405-20261026-r2.json"
+      ],
+      "current_qualification_status": "INDEPENDENT_POSITIVE_SAVED_REVIEW_TWO_CLEAN_REPLAYS_NO_ISOLATED_NATIVE_FAULT_CLAIM"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse212-both-actual-saved-independent-review.json",
+    "sha256": "9beb377901fbdf1b2edc94c8b26ae52c131c4d1916025703200d00f07660c0e9"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse212-405-20261026-r1.json",
+      "sha256": "bc2351d7733da6e26c53b3c568d90a78cbba5d87a860aebf4b832c6609d2da0b"
+    },
+    {
+      "path": "card-regression-replay-sparse212-405-20261026-r2.json",
+      "sha256": "54587853578837dce695f152f9d0585fd6465c9e8dbe84f40649eec2e931ff60"
+    }
+  ],
+  "isolated_native_faults": {
+    "status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS",
+    "attempted": 0,
+    "detected": 0,
+    "added_global_control_rows": 0
+  },
+  "qualification": "Only Achilles actualearnedBoost/Instantdestruction/APgain and Tunic preexistingthreeEnergy actualInstantcost/resourcegain. No Energyaccrual/rejection/expiry/othercost branch. All original native expectations/physical ownership/economy/manual-four-seat evidence retained. No forced isolated counter/history/source mutations or fault credit. No sibling/support/full-card/fullsuite or oldcorpus blanketqualification."
+}

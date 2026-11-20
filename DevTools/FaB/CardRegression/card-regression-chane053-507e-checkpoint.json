@@ -1,0 +1,80 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T11:02:15.692450+00:00",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "source_spec": "card-regression-batch240-chane-correct-probe.json",
+  "source_spec_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 25,
+  "native_assertions": 733,
+  "manual_passes": 21,
+  "totals": {
+    "saved_registered_scenarios": 3490,
+    "duels": 3074,
+    "four_live": 416,
+    "recorded_primary_ids": 647,
+    "identity_denominator": 5196,
+    "recorded_groups": 521,
+    "group_denominator": 3324,
+    "four_live_groups": 412,
+    "phase_qualified_scenarios_at_actual_contexts": 127,
+    "phase_qualified_unique_groups": 125,
+    "creation_replay_passes": 254,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "chane",
+      "group_id": "identity:chane",
+      "scenario_id": "card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+      "effect_branches": [
+        "correct-soul-shackle-activation-cost-before-response-priority-and-real-next-shadow-go-again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+      "source_spec": "card-regression-batch240-chane-correct-probe.json",
+      "source_spec_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+      "review_evidence": "review-evidence/chane-053-qualified-saved-review.json",
+      "review_evidence_sha256": "a408418622cdbc0349cbb6eb4ed8334ae17a52be36791e5dacb4e3a26079578c",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "qualification_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-chane053-507e-postfix-r1.json",
+          "sha256": "664ed8b7ed35b8f61bac33743c7d3483415f0da51d950a30047ec4d0d653c1b7",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-chane053-507e-postfix-r2.json",
+          "sha256": "720c5ec7357f905ec3ae0d78fb656139f0ff5c1bbe2948fe33595dd21ac78146",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "fixed_existing_group_extensions": [
+    "FAB-REG-053"
+  ],
+  "new_distinct_gameplay_defect_groups": 0,
+  "repair_evidence": "review-evidence/chane-053-before-after.json",
+  "focused_compatibility_passes": 1,
+  "component_contracts": 44
+}

@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T10:11:13.026858+00:00",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "source_spec": "card-regression-batch240.json",
+  "source_spec_sha256": "b83b1ac785c47f8c34fd45a5bcdd0c8509f5333dd88a241ab65b0d1eb1aacbd3",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 31,
+  "native_assertions": 1179,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 3484,
+    "duels": 3074,
+    "four_live": 410,
+    "recorded_primary_ids": 641,
+    "identity_denominator": 5196,
+    "recorded_groups": 515,
+    "group_denominator": 3324,
+    "four_live_groups": 406,
+    "phase_qualified_scenarios_at_actual_contexts": 121,
+    "phase_qualified_unique_groups": 119,
+    "creation_replay_passes": 242,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 9,
+  "scenarios": [
+    {
+      "card_id": "quiver_of_rustling_leaves",
+      "group_id": "identity:quiver_of_rustling_leaves",
+      "scenario_id": "card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+      "effect_branches": [
+        "actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+      "source_spec": "card-regression-batch240.json",
+      "source_spec_sha256": "b83b1ac785c47f8c34fd45a5bcdd0c8509f5333dd88a241ab65b0d1eb1aacbd3",
+      "review_evidence": "review-evidence/sparse240-two-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "e57d5541095d1d883814582bbcb61e48e35f3c12926f0f7215aba9c2380082e1",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse240-two-1f33-r1.json",
+          "sha256": "a55b3cdf3eb86fb6199935315f8cb78624a4ec4b870ff6d41e5fca554359295d",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse240-two-1f33-r2.json",
+          "sha256": "2424907815f84f196977170be9ca81878a5096e0e0c6b71a6a4ba10dd5159d55",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "blade_cuff",
+      "group_id": "identity:blade_cuff",
+      "scenario_id": "card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+      "effect_branches": [
+        "actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+      "source_spec": "card-regression-batch240.json",
+      "source_spec_sha256": "b83b1ac785c47f8c34fd45a5bcdd0c8509f5333dd88a241ab65b0d1eb1aacbd3",
+      "review_evidence": "review-evidence/sparse240-two-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "e57d5541095d1d883814582bbcb61e48e35f3c12926f0f7215aba9c2380082e1",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse240-two-1f33-r1.json",
+          "sha256": "a55b3cdf3eb86fb6199935315f8cb78624a4ec4b870ff6d41e5fca554359295d",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse240-two-1f33-r2.json",
+          "sha256": "2424907815f84f196977170be9ca81878a5096e0e0c6b71a6a4ba10dd5159d55",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

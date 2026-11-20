@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 2152
+    },
+    {
+        "slug": "card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 1236
+    }
+]

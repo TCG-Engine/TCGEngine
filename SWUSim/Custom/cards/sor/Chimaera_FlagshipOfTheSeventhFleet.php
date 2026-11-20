@@ -37,8 +37,9 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
     $oppHand   = &GetHand($opp);
 
     // "An opponent reveals their hand" — public reveal of the whole hand.
-    $refs = [];
-    foreach ($oppHand as $card) { if (empty($card->removed)) $refs[] = GameLogCardRef($card->CardID); }
+    $refs = []; $shown = [];
+    foreach ($oppHand as $card) { if (empty($card->removed)) { $refs[] = GameLogCardRef($card->CardID); $shown[] = strval($card->CardID); } }
+    if ($shown && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'REVEAL', 'p' => $opp, 'zone' => 'hand', 'cardIDs' => $shown]);   // SWU-PGN: the opponent's reveal
     AddGameLogEntry('REVEAL', "P{$opp} revealed their hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs)), 'ALL');
     SWURecordHandSeen($opp, range(1, SeatCountForGame()));   // a public reveal: every other seat has seen it
     // The name is logged centrally when the NAMECARD answer is applied (GameOnDecisionAnswered).

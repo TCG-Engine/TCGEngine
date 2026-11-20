@@ -1,0 +1,50 @@
+[
+  {
+    "take": 1,
+    "original": "playmat-1-v3.mp3",
+    "short": "playmat-1-v3-short.wav",
+    "startSeconds": 1.0266,
+    "endSeconds": 1.4666,
+    "durationSeconds": 0.44,
+    "originalContactSeconds": 1.3066,
+    "shortContactSeconds": 0.28,
+    "gain": 1,
+    "speed": 1
+  },
+  {
+    "take": 2,
+    "original": "playmat-2-v3.mp3",
+    "short": "playmat-2-v3-short.wav",
+    "startSeconds": 0.6731,
+    "endSeconds": 1.1131,
+    "durationSeconds": 0.44,
+    "originalContactSeconds": 0.9531,
+    "shortContactSeconds": 0.28,
+    "gain": 1,
+    "speed": 1
+  },
+  {
+    "take": 3,
+    "original": "playmat-3-v3.mp3",
+    "short": "playmat-3-v3-short.wav",
+    "startSeconds": 0.5587,
+    "endSeconds": 0.9987,
+    "durationSeconds": 0.44,
+    "originalContactSeconds": 0.8387,
+    "shortContactSeconds": 0.28,
+    "gain": 1,
+    "speed": 1
+  },
+  {
+    "take": 4,
+    "original": "playmat-4-v3.mp3",
+    "short": "playmat-4-v3-short.wav",
+    "startSeconds": 0.807,
+    "endSeconds": 1.247,
+    "durationSeconds": 0.44,
+    "originalContactSeconds": 1.087,
+    "shortContactSeconds": 0.28,
+    "gain": 1,
+    "speed": 1
+  }
+]

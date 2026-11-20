@@ -30,7 +30,7 @@ cd /var/www/html/TCGEngine
 # 10 workers = the owner's M1 Max (10 cores); measured 2026-10-03, games/min plateaus there (8 → 104, 10 → 133, 16 → 131).
 # opcache.file_cache shares compiled scripts across the one-game processes, which otherwise recompile the engine each
 # time: −13% per game, identical results. Timestamps are still validated (revalidate_freq=0), so an edit is picked up.
-SEEDS=${1:-100}; WORKERS=${2:-10}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/Tests/BotFixtures/ash-meta-2026-09}
+SEEDS=${1:-100}; WORKERS=${2:-10}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/BotFixtures/ash-meta-2026-09}
 SUPERSET=${SUPERSET:-}; SUPERSET_DECKS=${SUPERSET_DECKS:-}; VARIANT=${VARIANT:-}
 decks=$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')
 if [ -n "$SUPERSET" ] && [ -n "$SUPERSET_DECKS" ]; then echo "[sweep] set SUPERSET or SUPERSET_DECKS, not both" >&2; exit 1; fi
@@ -49,6 +49,10 @@ ARM=$(if [ -n "$SUPERSET" ]; then echo superset; elif [ -n "$FOLD" ]; then echo 
 # PAIRS_FILE="<path>" (env) — a fidelity SCREEN: play only the listed unordered pairs ("deckA deckB" per line, from
 # SWUSim/DevTools/rl/fidelity_pairs.py), both seat orders. Part of the arm stamp, so a screen never resumes into a full sweep.
 PAIRS_FILE=${PAIRS_FILE:-}
+# GAMES_FILE="<path>" (env) — like PAIRS_FILE, but each "deckA deckB" line is ONE game in that seat order (a meta set's speed set,
+# meta_baseline/speed_set.py). Part of the arm stamp.
+GAMES_FILE=${GAMES_FILE:-}
+if [ -n "$PAIRS_FILE" ] && [ -n "$GAMES_FILE" ]; then echo "[sweep] set PAIRS_FILE or GAMES_FILE, not both" >&2; exit 1; fi
 # SEED_PREFIX="<prefix>" (env, default "s") — a FRESH seed block, as in strength_test.sh: games are deterministic per seed, so a
 # lever picked on the s-block is confirmed on another. Part of the arm stamp when it is not the default.
 SEED_PREFIX=${SEED_PREFIX:-s}
@@ -56,6 +60,10 @@ SEED_PREFIX=${SEED_PREFIX:-s}
 if [ -n "$PAIRS_FILE" ]; then
   [ -s "$PAIRS_FILE" ] || { echo "[sweep] PAIRS_FILE $PAIRS_FILE is missing or empty" >&2; exit 1; }
   ARM="$ARM+pairs:$(basename "$PAIRS_FILE")"
+fi
+if [ -n "$GAMES_FILE" ]; then
+  [ -s "$GAMES_FILE" ] || { echo "[sweep] GAMES_FILE $GAMES_FILE is missing or empty" >&2; exit 1; }
+  ARM="$ARM+games:$(basename "$GAMES_FILE")"
 fi
 if [ -s "$OUT/arm" ] && [ "$(cat "$OUT/arm")" != "$ARM" ]; then
   echo "[sweep] $OUT holds a '$(cat "$OUT/arm")' run; this is '$ARM'. Use a separate outdir." >&2; exit 1
@@ -70,6 +78,12 @@ if [ -n "$PAIRS_FILE" ]; then
     for d in "$a" "$b"; do [ -f "$DIR/$d.txt" ] || { echo "[sweep] PAIRS_FILE names no $DIR/$d.txt" >&2; exit 1; }; done
     for s in $(seq -f "${SEED_PREFIX}%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; echo "$b $a $s" >> "$OUT/jobs.txt"; done
   done < "$PAIRS_FILE"
+elif [ -n "$GAMES_FILE" ]; then
+  while read -r a b; do
+    [ -n "$a" ] || continue
+    for d in "$a" "$b"; do [ -f "$DIR/$d.txt" ] || { echo "[sweep] GAMES_FILE names no $DIR/$d.txt" >&2; exit 1; }; done
+    for s in $(seq -f "${SEED_PREFIX}%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; done
+  done < "$GAMES_FILE"
 else
   for a in $decks; do for b in $decks; do
     [ "$a" = "$b" ] && continue

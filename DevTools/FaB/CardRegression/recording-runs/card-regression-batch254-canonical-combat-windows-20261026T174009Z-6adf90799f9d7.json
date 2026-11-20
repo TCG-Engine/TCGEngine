@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T17:40:09+00:00",
+    "input_file": "card-regression-batch254-canonical-combat-windows.json",
+    "input_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+    "filter": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+    "results": [
+        {
+            "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 503
+        }
+    ]
+}

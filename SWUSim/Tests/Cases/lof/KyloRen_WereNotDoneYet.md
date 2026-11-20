@@ -252,3 +252,32 @@ WithP1Resources: 10
 P1LEADER:DEPLOYED
 P1GROUNDARENAUNIT:0:CARDID:LOF_001
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+
+---
+
+# Deployed_DiscardUpgradeSpendsTheNextCardCharge
+#// Poggle's "next card costs 3 less" charge is armed. LOF_001 Kylo Ren deploys and plays SOR_120 Academy
+#// Training (cost 2) from the discard — that IS the next card played: it costs 0 and spends the charge.
+#// SOR_225 TIE/ln (cost 1) then pays full: 7 -> 7 -> 6. A charge left unspent makes the TIE free (7).
+
+## GIVEN
+CommonSetup: gbk/brk/{
+  myLeader:LOF_001
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 7
+WithP1Discard: SOR_120
+WithP1Hand: SOR_225
+WithP1GlobalEffect: SWU_IC27145_DISCOUNT_NEXT
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myDiscard-0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1HANDCOUNT:0
+P1RESAVAILABLE:6
+P1NOGLOBALEFFECT:SWU_IC27145_DISCOUNT_NEXT

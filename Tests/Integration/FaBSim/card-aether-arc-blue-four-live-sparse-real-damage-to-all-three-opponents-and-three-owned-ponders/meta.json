@@ -1,0 +1,7 @@
+{
+    "name": "aether_arc_blue / four live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T04:32:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four legal young living Verdance20 and three Dorinthea20 heroes, explicit manual UPF seats1234/no passive seats. Actual primary5 Hand, no shields/barriers/Spellvoid/Quell, no Earth Banish or hero heal triggers. Actually play printed0-cost Action; AP1 becomes0, no target choice because printed each opposing hero is an effect instruction. First three real manual responses leave all HP20/Ponder0. Fourth resolves actual1 arcane against each opposing hero, including nonadjacent P3: P1 stays20 and P2/P3/P4 each19. Three heroes were dealt damage, so exactly three Ponder tokens are created under P1 ownership/control, physical UIDs6/7/8, Status2. Primary5 completes to own public GY FaceDown0, R0/AP0, Stack/queues empty/ACTION. This genuinely exercises three separate live multiplayer recipients. No synthetic damage/count/history/resources, not merely four serialized slots. Only unprevented synchronous each-opponent damage and resulting Ponder count credited; prevention/amp/async offers/elimination and later Ponder draw/end destruction are untested, and source lifetime within an atomic no-await body is not certified. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HVY252.webp https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

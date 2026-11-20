@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T00:23:25+00:00",
+    "input_file": "card-regression-batch211.json",
+    "input_sha256": "6aa4532eb0e0b2f0dcad87e37b7ac1f4790b52edcc16ac7d4c14848c4dc938a4",
+    "filter": "aether-sink",
+    "results": [
+        {
+            "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 914
+        }
+    ]
+}

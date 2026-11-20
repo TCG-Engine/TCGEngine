@@ -826,7 +826,8 @@ function HasConditionalKeyword_Overwhelm($obj) {
     // ⚠ Vacuously TRUE while you control no resources at all (zero resources are all exhausted). That
     // is the plain reading of "each", and harmless — with no resources the Raid clause is also 0, so he
     // is a 0-power attacker either way — but it is a deliberate call, not an accident.
-    if (($obj->CardID ?? '') === 'HMW_117') {
+    // Identity, not CardID: ASH_230 Improvised Identity lends this clause to its host (see _SWUStatIdentities).
+    if (in_array('HMW_117', _SWUStatIdentities($obj), true)) {
         $ctrl117 = intval($obj->Controller ?? 0);
         if ($ctrl117 > 0 && SWUResourceCount($ctrl117, true) === 0) return true;
     }
@@ -834,6 +835,8 @@ function HasConditionalKeyword_Overwhelm($obj) {
     // Base-hosted and continuous: read live from the board, so it ends the moment the upgrade leaves.
     // "Friendly" is relative to the BASE's controller and spans the team (see the card file).
     if (function_exists('_SWUHmw112GrantsOverwhelm') && _SWUHmw112GrantsOverwhelm($obj)) return true;
+    // IC27_101 General Hux — "Each other friendly First Order unit … gains Overwhelm." Team-wide (card file).
+    if (function_exists('_SWUIc27101Count') && _SWUIc27101Count($obj) > 0) return true;
     if (_SWUUnitHasActiveUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
     if (_SWUUnitHasActiveUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura
@@ -910,6 +913,8 @@ function HasConditionalKeyword_Saboteur($obj) {
     // so > 0 is the whole test — but it must go through the COUNT reader, because that is what scans the
     // link by source UID and therefore sees a BD-1 ability COPIED onto another unit (TS26_34 Fives).
     if (_SWULof191BuffCount($obj) > 0) return true;
+    // IC27_160 Tantive IV — "Each other friendly Rebel unit gains Raid 2 and Saboteur." Team-wide (card file).
+    if (function_exists('_SWUIc27160Count') && _SWUIc27160Count($obj) > 0) return true;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_143'
         && SWUEnemyUnitsDefeatedThisPhase(intval($obj->Controller ?? 0)) > 0) return true;
@@ -1371,9 +1376,12 @@ function GetConditionalKeyword_Raid_Value($obj) {
     // zone would inflate the Raid value for every Credit the player is holding.
     // "You control" is the CONTROLLER — a Chewbacca under a take-control effect reads the new
     // controller's resources, not his owner's.
-    if (($obj->CardID ?? '') === 'HMW_117') {
+    // Counted per IDENTITY: ASH_230 Improvised Identity lends this clause to its host, and a lent copy on a
+    // Chewbacca stacks with his own (Raid values add) — see _SWUStatIdentityCount.
+    $n117 = _SWUStatIdentityCount($obj, 'HMW_117');
+    if ($n117 > 0) {
         $ctrl117 = intval($obj->Controller ?? 0);
-        if ($ctrl117 > 0) $amount += SWUResourceCount($ctrl117) - SWUResourceCount($ctrl117, true);
+        if ($ctrl117 > 0) $amount += $n117 * (SWUResourceCount($ctrl117) - SWUResourceCount($ctrl117, true));
     }
     // HMW_212 The Chieftain — "This unit gains Raid 1 for each other friendly Tusken unit."
     // _SWUCountFriendlyTraitUnits excludes the source by UniqueID (she is herself a Tusken, so a count
@@ -1394,6 +1402,9 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     if (_SWUSEC104AuraActive($obj)) $amount += 1;   // SEC_104 aura — Raid 1
+    // IC27_160 Tantive IV — "Each other friendly Rebel unit gains Raid 2 …" Each Tantive on the team is its own
+    // source, so the values add (CR 7.5.8.b). See the card file.
+    if (function_exists('_SWUIc27160Count')) $amount += 2 * _SWUIc27160Count($obj);
     // HMW_126 Verdant Fortress (Fortify) — "Attached base gains: 'Friendly units gain Raid 1.'"
     // Base-hosted and continuous, read live. Numeric, so EACH copy on each friendly base (own + team)
     // adds its own Raid 1 (CR 7.5.8.b) — the difference from HMW_112's boolean Overwhelm. See the card file.
@@ -1619,6 +1630,8 @@ function GetConditionalKeyword_Restore_Value($obj) {
     if (_SWUUnitHasActiveUpgrade($obj, 'TWI_051') && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
     // TWI_062 Daughter of Dathomir — "While this unit is undamaged, it gains Restore 2."
     if (($obj->CardID ?? '') === 'TWI_062' && intval($obj->Damage ?? 0) === 0) $amount += 2;
+    // IC27_037 Finn — "While this unit is upgraded, he gains Restore 2." Any non-captive upgrade, tokens included.
+    if (($obj->CardID ?? '') === 'IC27_037' && _SWUIsUpgraded($obj)) $amount += 2;
     if (_SWUUnitHasActiveUpgrade($obj, 'TS26_37')) $amount += 1;  // TS26_37 Abandoned the Order — attached unit gains Restore 1
     // HMW_066 Carrion Spike — "For each upgrade on your base, this unit gets +1/+0 and GAINS RESTORE 1."
     // Restore N, not a flat Restore 1: the leading "For each" scopes both halves of the sentence (the
@@ -1635,7 +1648,10 @@ function GetConditionalKeyword_Restore_Value($obj) {
     // as a case in the friendly-unit loop below because that loop is SELF-ONLY
     // (GetUnitsInPlay($obj->Controller)) and "friendly" spans the TEAM. See the card file's family
     // note: the textually identical SEC_047 / SOR_102 / TS26_40 are still self-only.
-    if (function_exists('_SWUHmw039GrantsRestore') && _SWUHmw039GrantsRestore($obj)) $amount += 1;
+    if (function_exists('_SWUHmw039RestoreGrants')) $amount += _SWUHmw039RestoreGrants($obj);
+    // IC27_013 Nute Gunray — "Each other friendly Separatist unit gains Restore 1." Same team-wide shape as
+    // HMW_039, but a COUNT: each friendly Nute is a separate source, and Restore stacks (CR 7.9.b).
+    if (function_exists('_SWUIc27013RestoreGrants')) $amount += _SWUIc27013RestoreGrants($obj);
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'RESTORE')) $amount += 2;
     switch ($obj->CardID) {

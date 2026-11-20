@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T05:42:47+00:00",
+    "input_file": "card-regression-batch224-boulderhold-hand-correct-probe.json",
+    "input_sha256": "0720d26f11271a975713210416b1b770ba4eeb8fa8ad84cbb524fdb10e7c62a0",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-gauntlet-of-boulderhold-four-live-sparse-correct-expectation-paid-hand-guardian-attack-two-and-full-block-probe",
+            "status": "recorded_semantically_checked",
+            "actions": 37,
+            "assertions": 2642
+        }
+    ]
+}

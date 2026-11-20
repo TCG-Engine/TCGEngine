@@ -19,7 +19,32 @@ $post = function (array $fields) use ($URL) {
 $gamesBefore = count(glob($ROOT . '/SWUSim/Games/*') ?: []);
 
 // A) A pasted list (the fixture format the free-text importer accepts).
-$list = (string)file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/ash-meta-2026-09/darth-vader_jtl_yellow.txt');
+$list = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
 $a = $post(['rootName' => 'SWUSim', 'deckLink' => $list]);
 $check(is_array($a) && ($a['ok'] ?? false) === true, 'a pasted list is classified', json_encode($a));
 $check(in_array($a['style'] ?? '', ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol'], true),

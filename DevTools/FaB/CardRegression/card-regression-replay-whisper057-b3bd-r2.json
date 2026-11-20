@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch253-whisper-correct-probe.json",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T16:31:23.775024+00:00",
+  "fixtures": [
+    {
+      "slug": "card-whisper-of-the-oracle-red-four-live-sparse-real-opt-four-source-retained-until-mixed-order-completes",
+      "fixture_sha256": "67b7343487a25110354c69b6d3dd8c9683193d9d851b1b6418c793e93850b8de",
+      "passed": true,
+      "result": "[PASS] whisper_of_the_oracle_red / correct source lifetime and late own go again after Opt four"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-whisper-of-the-oracle-red-four-live-sparse-real-opt-four-source-retained-until-mixed-order-completes",
+      "returncode": 0,
+      "stdout": "[PASS] whisper_of_the_oracle_red / correct source lifetime and late own go again after Opt four\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

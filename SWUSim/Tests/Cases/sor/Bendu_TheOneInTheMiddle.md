@@ -259,3 +259,25 @@ P2RESAVAILABLE:5
 P1SPACEARENACOUNT:1
 P2SPACEARENACOUNT:1
 P1BASEDMG:4
+
+---
+
+# OnAttack_NextNeutralUpgradeDiscounted
+#// SOR_056 Bendu "On Attack: the next non-Heroism, non-Villainy card you play this phase costs 2 less" —
+#// ASH_230 (Cunning only, cost 2) is that card: it costs 0. 2 ready stays 2; the charge is spent.
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_056:1:0
+WithP1Hand: ASH_230
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:2
+P1NOGLOBALEFFECT:SWU_NEUTRAL_DISCOUNT

@@ -6,6 +6,11 @@ function FaBPrepareHeroCreationCode(string $code,string $cardID): string {
  $code=FaBPrepareDejaVuPitchCode($code,$cardID);
  $code=FaBPrepareDeclaredEffectCostCode($code,$cardID);
  // Local, idempotent corrections run before the hero-only preprocessing below.
+ // Boulderhold applies to the next Guardian attack action from any legal play zone.
+ // Keep the shared Arsenal-only consumer for other cards and remote authored data intact.
+ if($cardID==='gauntlet_of_boulderhold')$code=str_replace(
+  "FaBMPGNext(\$mpgPlayer, 2, '', true, true);",
+  "FaBMPGNext(\$mpgPlayer, 2, '', false, true);",$code);
  if($cardID==='flying_high_blue')$code=str_replace("'SEA_RED_POWER'","'SEA_BLUE_POWER'",$code);
  if($cardID==='flying_high_yellow')$code=str_replace("'SEA_RED_POWER'","'SEA_YELLOW_POWER'",$code);
  // Preserve an explicitly supplied creator-owner across Smoldering's serialized choice.
@@ -129,6 +134,40 @@ CODE;
 
 /** Bridge only known legacy PrepareCard bodies; do not overwrite authored edits. */
 function FaBPrepareDeclaredEffectCostCode(string $code, string $cardID): string {
+    // Existing Chane ResolveAbility: creation is now its native activation cost.
+    if (in_array($cardID, ['chane','chane_bound_by_shadow'], true)
+        && (str_contains($code, 'soul_shackle') || str_contains($code, "'CHANE'"))) {
+        $normalized = trim(str_replace("\r\n", "\n", $code));
+        if (hash_equals('de7e8a75ed89202a82385dbc5ed2d9743d9575c506196387e8d7aa8df29b9726', hash('sha256', $normalized))) return $code;
+        if (!hash_equals('656c822edd0582ab1eeeb51738fd63f0d5892009a9ef883105636dcfe41a26b6', hash('sha256', $normalized))) {
+            throw new RuntimeException('Chane creation-cost source changed for '.$cardID.'; review before regeneration.');
+        }
+        return "FaBMONAdd(\$player, 'CHANE', 0);\n";
+    }
+    if (in_array($cardID, ['prism','prism_sculptor_of_arc_light'], true) && str_contains($code, 'FaBFinishPreparedCard')) {
+        $normalized = trim(str_replace("\r\n", "\n", $code));
+        if (hash_equals('d077d00e63ef5ad9898b986d3f71a8a5e244d163fc60e09d3ac4bf57bc3b7775', hash('sha256', $normalized))) return $code;
+        if (!hash_equals('2bd5f8ac1e2603882ff23f4df639671d8876eaca62fe5d6690a146c51b726555', hash('sha256', $normalized))) {
+            throw new RuntimeException('Prism Soul-cost preparation source changed for '.$cardID.'; review before regeneration.');
+        }
+        return <<<'FAB039_PRISM_SOUL'
+$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);
+
+$chosen = 'PASS';
+ $targets = FaBMONSoul($player);
+
+if ($targets !== "") {
+ $chosen = await $player.MZChoose($targets, "Banish_from_soul");
+ 
+}
+ if (!FaBDeclarePrismSoulCost($player, $uid, $chosen ?? '')) {
+ return;
+ 
+}
+
+FaBFinishPreparedCard($uid);
+FAB039_PRISM_SOUL;
+    }
     if (!in_array($cardID, ['tome_of_harvests_blue','rouse_the_ancients_blue'], true)
         || !str_contains($code, 'FaBFinishPreparedCard')) return $code;
     if (str_contains($code, 'FaBDeclarePreparedEffectCost')) return $code;

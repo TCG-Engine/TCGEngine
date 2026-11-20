@@ -3,7 +3,9 @@ import { chromium, firefox, webkit } from 'playwright';
 import fs from 'node:fs';
 const [,, S, ENG = 'chromium', W = '1728', H = '1000'] = process.argv;
 const BASE = 'http://localhost:3400/TCGEngine/';
-const DECK = fs.readFileSync('/Users/mt/Documents/GitHub/Karabast-SWU/OTMTCGE/SWUSim/Tests/BotFixtures/twinsuns_deck_a.txt', 'utf8');
+// A Twin Suns-legal list, inline: 2 leaders + 80 singleton SOR cards (CR §12.2).
+const DECK = ['Leader', '1 SOR_001', '1 SOR_002', 'Base', '1 SOR_019', 'Deck',
+  ...Array.from({ length: 80 }, (_, i) => `1 SOR_${String(31 + i).padStart(3, '0')}`)].join('\n');
 const b = await ({ chromium, firefox, webkit })[ENG].launch();
 const host = await (await b.newContext({ viewport: { width: +W, height: +H } })).newPage();
 await host.goto(BASE + 'SharedUI/Sites/SWUSim/MainMenu.php', { waitUntil: 'load' });

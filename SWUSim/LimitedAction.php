@@ -1,0 +1,240 @@
+<?php
+// Limited room actions. POST lobbyID, authKey (the caller's own room key), action, plus the action's params.
+// Spec: docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.1, §3.3, §3.6
+//   settings (settings = JSON)        — host, during setup: merged over the defaults, validated, stored with its errors
+//   start                             — host: open every seat's packs and begin the build
+//   kickVote | kickWait (targetPlayerID) — a live seat about another, during the build (the true-majority vote)
+//   tick                              — any seat: apply the build clock and start the match once it is due
+//   startRound                        — host, between Swiss rounds: start the next round once every seat is Ready
+//   ready                             — a seat, between Swiss rounds: Ready with the deck it played last
+//   addBot | removeBot (targetPlayerID) — host, during setup: fill a seat with a bot, or take one out (Plan 5)
+//   rematch (bestOf) | rematchCancel   — host, after a played Sealed match: ask the other player to replay the same decks
+//   rematchAccept | rematchDecline     — the asked player answers (a bot accepts at once); Accept starts the match
+//   newPool                            — host, after a played Sealed match: back to setup, same settings, fresh pools
+// Other people are always named by lobby playerID — never by their room key, which only its owner holds.
+// Reply: {success, message?, errors?}.
+require_once __DIR__ . '/../Core/NetworkingLibraries.php';
+require_once __DIR__ . '/../APIs/Lobbies/Classes/Player.php';
+require_once __DIR__ . '/../APIs/Lobbies/Classes/LobbyStore.php';
+require_once __DIR__ . '/MatchFlow.php';                 // SWUCreateMatchFromLobby — at FILE scope (it sets engine globals)
+require_once __DIR__ . '/Limited/LimitedRoom.php';
+require_once __DIR__ . '/Limited/LimitedSettings.php';   // packs + settings (card data) — FILE scope, after the engine
+require_once __DIR__ . '/Limited/LimitedDeck.php';
+require_once __DIR__ . '/Limited/LimitedBot.php';         // bot seats build their decks (Plan 5)
+require_once __DIR__ . '/Mod/DevGate.php';               // SWUIsLocalDevRequest — the test-only short pick clock
+require_once __DIR__ . '/LobbyAdapter.php';              // SWULobbyAdapter::BOT_NAME_LETTERS (room-bot names)
+
+header('Content-Type: application/json');
+
+function LimitedActionFail($message, $status = 400) {
+    http_response_code($status);
+    echo json_encode(['success' => false, 'message' => $message]);
+    exit;
+}
+
+$lobbyID = strval($_POST['lobbyID'] ?? '');
+$authKey = strval($_POST['authKey'] ?? '');
+$action  = strval($_POST['action'] ?? '');
+if ($lobbyID === '' || $authKey === '' || $action === '') LimitedActionFail('Invalid request.');
+if (!in_array($action, ['settings', 'start', 'kickVote', 'kickWait', 'tick', 'startRound', 'ready', 'addBot', 'removeBot',
+                         'rematch', 'rematchCancel', 'rematchAccept', 'rematchDecline', 'newPool'], true)) LimitedActionFail('Unknown action.');
+
+SWURoomRehydrate($lobbyID);
+$now = time();
+
+if ($action === 'tick') {
+    $snap = apcu_fetch($lobbyID);
+    if (!SWUIsLimitedRoom($snap) || SWULimitedSeatForKey($snap, $authKey) === null) LimitedActionFail('You are not in this room.', 403);
+    SWULimitedTick($lobbyID, $now);
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+if ($action === 'startRound') {
+    $snap = apcu_fetch($lobbyID);
+    if (!SWUIsLimitedRoom($snap)) LimitedActionFail('Room not found.', 404);
+    $me = SWULimitedSeatForKey($snap, $authKey);
+    if ($me === null) LimitedActionFail('You are not in this room.', 403);
+    if (!SWULimitedIsHost($snap, intval($me->getPlayerID()))) LimitedActionFail('Only the host can start the round.', 403);
+    if ($snap->limited['mode'] !== 'draft' || $snap->limited['phase'] !== 'between') LimitedActionFail('There is no round to start.', 409);
+    $r = SWULimitedTryStartRound($lobbyID, $now, true);
+    if (empty($r['success'])) LimitedActionFail(strval($r['message'] ?? 'Everyone must be Ready first.'), 409);
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+// Start: the packs are opened OUTSIDE the lock (a 16-pack Sealed pool is real work) from a snapshot, then committed in a
+// short lock that re-checks the room — LTStart refuses if the seats or settings moved meanwhile.
+$opened = null;
+if ($action === 'start') {
+    $snap = apcu_fetch($lobbyID);
+    if (!SWUIsLimitedRoom($snap)) LimitedActionFail('Room not found.', 404);
+    $me = SWULimitedSeatForKey($snap, $authKey);
+    if ($me === null) LimitedActionFail('You are not in this room.', 403);
+    if (!SWULimitedIsHost($snap, intval($me->getPlayerID()))) LimitedActionFail('Only the host can start.', 403);
+    $lt = $snap->limited;
+    if ($lt['phase'] !== 'setup') LimitedActionFail('The event has already started.', 409);
+    if ($lt['settingsErrors'] !== []) LimitedActionFail('Fix the settings first: ' . implode(' ', $lt['settingsErrors']), 409);
+    $live = LTLiveSeats($lt);
+    $draft = $lt['mode'] === 'draft';
+    if (!LTCanStart($lt)) LimitedActionFail($draft ? 'Draft needs at least 3 players.' : 'Sealed needs two players.', 409);
+    $seed = random_int(1, PHP_INT_MAX);
+    $rng = SWULimitedRng($seed);
+    $lineups = []; $pools = [];
+    if ($draft) {
+        ['lineups' => $lineups, 'leaderPacks' => $leaderPacks, 'cardPacks' => $cardPacks, 'aspects' => $aspects, 'order' => $order, 'facts' => $facts]
+            = SWULimitedOpenDraft($lt['settings'], $live, $rng);
+    } else {
+        $rolled = SWULimitedRollLineups($lt['settings'], count($live), $rng);   // seats 1..N, in seat order
+        foreach ($live as $i => $pid) { $lineups[$pid] = $rolled[$i + 1]; $pools[$pid] = SWULimitedOpenSealedPool($lineups[$pid], $rng); }
+        $leaderPacks = []; $cardPacks = []; $aspects = []; $order = $live; $facts = [];
+    }
+    // The pick clock is 5 minutes. Only a LOCAL dev request may shorten it — for the simulations and harnesses.
+    $pickSeconds = LT_PICK_SECONDS;
+    if ($draft && SWUIsLocalDevRequest() && isset($_POST['testPickSeconds'])) $pickSeconds = max(5, min(LT_PICK_SECONDS, intval($_POST['testPickSeconds'])));
+    // Sealed: a bot seat builds from its pool at once (a Draft bot builds once the draft ends — SWULimitedTick).
+    $botDecks = [];
+    if (!$draft) foreach ($live as $pid) if (LTIsBot($lt, $pid)) $botDecks[$pid] = SWULimitedBotBuildDeck($pools[$pid], SWULimitedSetsInPlay($lt['settings']));
+    $opened = ['lineups' => $lineups, 'pools' => $pools, 'sets' => SWULimitedSetsInPlay($lt['settings']), 'seed' => $seed, 'botDecks' => $botDecks,
+               'seats' => $live, 'settings' => $lt['settings'], 'draft' => $draft, 'order' => $order,
+               'leaderPacks' => $leaderPacks, 'cardPacks' => $cardPacks, 'aspects' => $aspects, 'pickSeconds' => $pickSeconds, 'facts' => $facts];
+}
+
+// A Rematch replays each seat's LAST deck, read from the finished match before the lock (I/O).
+$lastDecks = [];
+if ($action === 'rematch' || $action === 'rematchAccept') {
+    $snap = apcu_fetch($lobbyID);
+    if (SWUIsLimitedRoom($snap)) $lastDecks = SWULimitedLastDecks($snap);
+}
+
+$err = null; $code = 400; $errors = null; $startDue = false;
+$lobby = LobbyMutate($lobbyID, function ($l) use ($action, $authKey, $now, $opened, $lastDecks, &$err, &$code, &$errors, &$startDue) {
+    if (!SWUIsLimitedRoom($l)) { $err = 'Room not found.'; $code = 404; return false; }
+    $me = SWULimitedSeatForKey($l, $authKey);
+    if ($me === null) { $err = 'You are not in this room.'; $code = 403; return false; }
+    $mePid = intval($me->getPlayerID());
+    $lt = $l->limited;
+    switch ($action) {
+        case 'settings':
+            if (!SWULimitedIsHost($l, $mePid)) { $err = 'Only the host can change the settings.'; $code = 403; return false; }
+            $posted = json_decode(strval($_POST['settings'] ?? ''), true);
+            $s = SWULimitedSettingsFromRequest(is_array($posted) ? $posted : [], $lt['mode']);
+            $errors = SWULimitedValidateSettings($s);
+            $next = LTSetSettings($lt, $s, $errors);
+            if ($next === null) { $err = 'The settings are locked once the event starts.'; $code = 409; return false; }
+            $l->limited = $next;
+            return true;
+        case 'start':
+            if (LTLiveSeats($lt) !== $opened['seats'] || $lt['settings'] !== $opened['settings']) { $err = 'The room changed — press Start again.'; $code = 409; return false; }
+            if ($opened['draft']) {
+                $next = LTDraftBegin($lt, $opened['order'], $opened['leaderPacks'], $opened['cardPacks'], $opened['aspects'],
+                                     $opened['seed'], $opened['pickSeconds'], $now, $opened['facts']);
+                if ($next !== null) { $next['lineups'] = $opened['lineups']; $next['setsInPlay'] = $opened['sets']; $next['draft']['splash'] = SWULimitedSplashInPlay($opened['sets']); }
+            } else {
+                $next = LTStart($lt, $opened['lineups'], $opened['pools'], $opened['sets'], $opened['seed'], $now);
+            }
+            if ($next === null) { $err = 'The event cannot start yet.'; $code = 409; return false; }
+            $l->limited = $next;
+            foreach ($opened['botDecks'] as $pid => $deck) SWULimitedApplyBotBuild($l, intval($pid), $deck);
+            // A started room: no deck swaps, no host removal, and joining another room no longer releases this seat
+            // (LobbyHasStarted). The kick vote replaces the host's Remove from here on.
+            $l->state = 'started';
+            return true;
+        case 'kickVote':
+        case 'kickWait':
+            $target = intval($_POST['targetPlayerID'] ?? 0);
+            $next = ($action === 'kickVote') ? LTKickVote($lt, $mePid, $target, SWULimitedLastSeen($l), $now)
+                                             : LTKickWait($lt, $mePid, $target, $now);
+            if ($next === null) { $err = 'You can\'t do that right now.'; $code = 409; return false; }
+            $l->limited = $next;
+            return true;
+        case 'addBot':
+        case 'removeBot':
+            // Bots fill any Draft seat or Sealed's second (spec §3.7). Each is a lobby Player with no account, named by the
+            // next Greek letter in the order bots are added (never reused, as in Twin Suns rooms).
+            if (!SWULimitedIsHost($l, $mePid)) { $err = $action === 'addBot' ? 'Only the host can add a bot.' : 'Only the host can remove a bot.'; $code = 403; return false; }
+            if ($lt['phase'] !== 'setup') { $err = 'Bots are added before the event starts.'; $code = 409; return false; }
+            if ($action === 'removeBot') {
+                $target = intval($_POST['targetPlayerID'] ?? 0);
+                if (!LTIsBot($lt, $target)) { $err = 'That is not a bot.'; $code = 409; return false; }
+                $l->players = array_values(array_filter($l->players, fn($p) => !($p instanceof Player) || intval($p->getPlayerID()) !== $target));
+                $l->numPlayers = count($l->players);
+                $l->limited = LTDropSeat($lt, $target, 'left');   // in setup this frees the seat
+                return true;
+            }
+            $nextID = 1;
+            foreach ($l->players as $p) if ($p instanceof Player) $nextID = max($nextID, intval($p->getPlayerID()) + 1);
+            $letters = SWULobbyAdapter::BOT_NAME_LETTERS;
+            $n = intval($l->limitedBotNameIndex ?? 0);
+            $name = 'Arenabot ' . $letters[$n % count($letters)];
+            $next = LTAddBotSeat($lt, $nextID, $name);
+            if ($next === null) { $err = 'That room is full.'; $code = 409; return false; }
+            $bot = new Player($nextID, '');
+            $bot->setBotProfile('limited');   // the style is set once it has built ('limited-<style>', LimitedBot.php)
+            $bot->setUsername($name);
+            $bot->touch($now);
+            $l->players[] = $bot;
+            $l->numPlayers = count($l->players);
+            $l->limitedBotNameIndex = $n + 1;
+            $l->limited = $next;
+            return true;
+        case 'ready':
+            // Between rounds a seat may Ready straight from the room with the deck it played last (it is still submitted).
+            if (!empty($lt['seats'][$mePid]['dropped'])) { $err = 'You are no longer in this event.'; $code = 409; return false; }
+            $next = $lt['phase'] === 'between' ? LTReady($lt, $mePid) : null;
+            if ($next === null) { $err = 'Submit a legal deck first.'; $code = 409; return false; }
+            $l->limited = $next;
+            $me->setDeckLink(SWULimitedDeckJson($next['seats'][$mePid]['deck'], $next['pools'][$mePid] ?? []));
+            $me->setDeckOk(true);
+            $me->setReady(true);
+            return true;
+        case 'rematch':
+            if (!SWULimitedIsHost($l, $mePid)) { $err = 'Only the host can ask for a rematch.'; $code = 403; return false; }
+            $next = LTRematchAsk($lt, $mePid, intval($_POST['bestOf'] ?? 0), $now);
+            if ($next === null) { $err = 'A rematch can\'t be asked for right now.'; $code = 409; return false; }
+            $to = intval($next['rematch']['to']);
+            if (LTIsBot($next, $to)) {   // a bot always says yes
+                $next = LTRematchAccept($next, $to, $lastDecks, $now);
+                if ($next === null) { $err = 'The rematch could not start.'; $code = 409; return false; }
+                $startDue = true;
+            }
+            $l->limited = $next;
+            return true;
+        case 'rematchCancel':
+        case 'rematchDecline':
+            $next = $action === 'rematchCancel' ? LTRematchCancel($lt, $mePid) : LTRematchDecline($lt, $mePid);
+            if ($next === null) { $err = 'There is no rematch to answer.'; $code = 409; return false; }
+            $l->limited = $next;
+            return true;
+        case 'rematchAccept':
+            $next = LTRematchAccept($lt, $mePid, $lastDecks, $now);
+            if ($next === null) { $err = 'There is no rematch to accept.'; $code = 409; return false; }
+            $l->limited = $next;
+            $startDue = true;
+            return true;
+        case 'newPool':
+            if (!SWULimitedIsHost($l, $mePid)) { $err = 'Only the host can start a new pool.'; $code = 403; return false; }
+            $next = LTNewPool($lt);
+            if ($next === null) { $err = 'A new pool can\'t be started right now.'; $code = 409; return false; }
+            $l->limited = $next;
+            // Setup again: the room takes settings and Start as it did before the first event (LobbyHasStarted is false).
+            $l->state = 'open';
+            foreach ($l->players as $p) {
+                if (!($p instanceof Player)) continue;
+                $p->setReady(false);
+                $p->setDeckOk(false);
+                if (LTIsBot($next, intval($p->getPlayerID()))) $p->setBotProfile('limited');   // the style is set again once it has built
+            }
+            return true;
+    }
+    return false;
+});
+if ($err !== null) LimitedActionFail($err, $code);
+if ($lobby === null) LimitedActionFail('The room is busy — try again.', 409);
+SWURoomSaveLatest($lobbyID);
+// The last Ready, or a kick that removed the host while everyone else was Ready, may make the next round due now — the
+// start needs the engine, which only these endpoints load.
+if ($action === 'ready' || $action === 'kickVote' || $startDue) SWULimitedTick($lobbyID, $now);
+$out = ['success' => true];
+if ($errors !== null) $out['errors'] = array_values($errors);
+echo json_encode($out);

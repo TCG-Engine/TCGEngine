@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch210.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T23:44:23.159681+00:00",
+  "fixtures": [
+    {
+      "slug": "card-annals-of-sutcliffe-four-live-sparse-actual-two-pitch-types-pay-three-draw-and-create-runechant",
+      "fixture_sha256": "4da8f6d326c4f7a3e3935bb1bdc5cdea341dc38e1e447d3061bb7d8abc8aaaf7",
+      "passed": true,
+      "result": "[PASS] annals_of_sutcliffe / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-high-riser-four-live-sparse-actual-all-four-draw-earns-weapon-power-and-pitches-drawn-blue",
+      "fixture_sha256": "12c159053627efe40406ef027b308d08e8a29546d18d6597d283e8ecff441001",
+      "passed": true,
+      "result": "[PASS] high_riser / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-teklo-blaster-four-live-sparse-actual-plain-three-resource-gun-attack-and-two-damage",
+      "fixture_sha256": "5d5ec51d7c7e3d58e1bd22823cfc667641cf04723f724c14fa5b7bf47149c66c",
+      "passed": true,
+      "result": "[PASS] teklo_blaster / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-annals-of-sutcliffe-four-live-sparse-actual-two-pitch-types-pay-three-draw-and-create-runechant",
+      "returncode": 0,
+      "stdout": "[PASS] annals_of_sutcliffe / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-high-riser-four-live-sparse-actual-all-four-draw-earns-weapon-power-and-pitches-drawn-blue",
+      "returncode": 0,
+      "stdout": "[PASS] high_riser / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-blaster-four-live-sparse-actual-plain-three-resource-gun-attack-and-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] teklo_blaster / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

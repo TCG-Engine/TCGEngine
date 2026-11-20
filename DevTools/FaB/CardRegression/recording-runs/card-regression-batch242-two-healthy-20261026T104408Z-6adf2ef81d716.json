@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T10:44:08+00:00",
+    "input_file": "card-regression-batch242-two-healthy.json",
+    "input_sha256": "671aa5db1c38f421e58f8b8ee123d06263aadb72ed055c7a795da5edcd4795e6",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-enigma-four-live-sparse-actual-chi-three-pitch-payment-creates-owned-shield-with-one-power-counter",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 378
+        },
+        {
+            "slug": "card-pierce-reality-blue-four-live-sparse-actual-cast-persistent-aura-buffs-real-first-illusionist-attack-by-two",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 830
+        }
+    ]
+}

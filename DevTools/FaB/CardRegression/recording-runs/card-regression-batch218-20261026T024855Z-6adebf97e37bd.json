@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T02:48:55+00:00",
+    "input_file": "card-regression-batch218.json",
+    "input_sha256": "c2544de1eac9641fae296245602c94e12f01cd77901a2008693d4b203d2e1aa5",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 992
+        },
+        {
+            "slug": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+            "status": "recorded_semantically_checked",
+            "actions": 36,
+            "assertions": 2404
+        }
+    ]
+}

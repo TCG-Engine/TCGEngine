@@ -48,7 +48,7 @@ $customDQHandlers["SEC_003#3"] = function($player, $parts, $lastDecision) {
     $host   = ($hostMz !== '' && str_contains($hostMz, '-')) ? GetZoneObject($hostMz) : null;
     if ($cardID === '' || SWUObjGone($host)) return;
     // prepaid=1 = "costs 1 resource less"; suppress After Action (combat owns it on onAttackEnd).
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upMz, $hostMz, 1, false, false, true);
+    SWUPlayUpgradeByEffect(intval($player), $cardID, $upMz, $hostMz, 1, false, false, true);
 };
 
 // Leader Action [Exhaust]: Play an upgrade from your hand on a friendly non-Vehicle unit. It costs 1
@@ -86,7 +86,7 @@ $customDQHandlers["SEC_003#1"] = function($player, $parts, $lastDecision) {
     if ($cardID === '' || SWUObjGone($host)) { SWUAfterAction(intval($player)); return; }
     $hostUID = intval($host->UniqueID ?? 0);
     // prepaid=1 applies "costs 1 resource less"; suppress the helper's own After Action (we own it).
-    $triggered = _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upMz, $hostMz, 1, false, false, true);
+    $triggered = SWUPlayUpgradeByEffect(intval($player), $cardID, $upMz, $hostMz, 1, false, false, true);
     // "If you do, deal 1 damage to that unit." Re-resolve the host by UID (the attach kept it in place).
     $hMz = SWUFindMzByUID($hostUID);
     if ($hMz !== null) SWUDealDamageToUnit($hMz, 1, intval($player));

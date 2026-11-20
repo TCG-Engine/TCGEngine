@@ -536,8 +536,8 @@ include_once "../SharedUI/Header.php";
     "player2": "{...}",        // Player 2 stats JSON
     "p1DeckLink": "https://swustats.net/path/to/deck?gameName=1234",
     "p2DeckLink": "https://swustats.net/path/to/deck?gameName=5678",
-    "p1id": "player1_id",      // Optional player IDs
-    "p2id": "player2_id",
+    "p1id": 1234,              // Optional SWUStats user IDs (whole numbers, e.g. 1234 or "1234");
+    "p2id": 5678,              // any other value is ignored and the game is still recorded
     "format": "premier",       // Optional: game format (default: "premier"). Examples: "premier", "preview"
                                // Preview formats ("preview", "twinsuns-preview", "padawan-preview") are
                                // ACCEPTED and still return {"success": true}, but record NO statistics --

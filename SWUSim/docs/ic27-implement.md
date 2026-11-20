@@ -1,6 +1,11 @@
 # IC27 — Card Implementation Plan
 
-**⚠ PREVIEW SET.** All 21 cards (as of 2026-10-07; the first 15 below, 4 more in Phase 8, 2 more in Phase 9) are mock entries in `AppCore/SWU/CardMocks.php` (imported via
+**✅ OFFICIAL DATA since 2026-11-07 (Phase 24).** The IC27 mocks are retired: the oracle is now the IC27 CardIDs in
+`SWUSim/GeneratedCode/GeneratedCardDictionaries.php` (`$setData` value `IC27`, 194 numbered + 2 tokens), and
+`php SWUSim/DevTools/scaffold-cards.php IC27 --dry` lists anything with text and no handler. The CardMocks wording
+below is historical.
+
+**⚠ (historical) PREVIEW SET.** All 21 cards (as of 2026-10-07; the first 15 below, 4 more in Phase 8, 2 more in Phase 9) are mock entries in `AppCore/SWU/CardMocks.php` (imported via
 `zzPreviewTool.php`), not official-API data. Icons 2027 Edition releases **2026-11-20**. The card
 list GROWS as previews land — re-run `swusim-generate-set-implement-doc IC27` after each import;
 the `### Already Done` line survives regeneration.
@@ -10,7 +15,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149, IC27_138, IC27_148, IC27_007, IC27_147, IC27_013, IC27_019, IC27_023, IC27_029, IC27_057, IC27_060, IC27_086, IC27_087, IC27_089, IC27_004, IC27_081, IC27_077, IC27_084, IC27_124, IC27_123, IC27_076, IC27_165, IC27_042, IC27_162, IC27_083, IC27_155, IC27_043, IC27_172, IC27_005, IC27_160, IC27_179, IC27_106, IC27_102, IC27_151, IC27_109, IC27_117, IC27_114
 
 ## Foundations already built — do not re-do
 
@@ -256,11 +261,669 @@ Both mocks checked against their preview images.
     TWI_092 Yularen / TWI_114 Cody auras all ignore a TEAMMATE's units in Team Suns. Premier and Twin
     Suns are unaffected. Needs a per-card audit of each card's wording ("friendly" vs "you control").
 
+## Phase 10 — Fourth preview wave, 2026-10-24 (21 → 29 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff. None of the eight was in the engine
+dictionary on arrival — ran the three preview regens first. All eight mocks checked against their
+preview images; two mock typos fixed in `CardMocks.php` (IC27_075 title had a trailing space —
+`'Red Leader '` — which breaks name matching; IC27_070 read "another unit.Then,"). Reprint note:
+IC27_053 Disciples' Devotion is SEC_071 but SWUDB lists it as a separate card, so the preview tool
+classified it "new" — mapped by hand in `Overrides.php` (IC27_053 → SEC_071), not mocked.
+
+- [x] **Batch 10.1 — IC27_065, IC27_075, IC27_098, IC27_153** — keyword-only Step-0 no-ops, verified
+  2026-10-24 against the regenerated registries: IC27_065 Darth Maul (Sentinel, Overwhelm, Raid 3),
+  IC27_075 Red Leader (Sentinel, Restore 2), IC27_098 Commander Pyre (Saboteur), IC27_153 Greef Karga
+  (Raid 3). No ability stub for any of them. No test files.
+- [x] **Batch 10.2 — IC27_099, IC27_143** — done 2026-10-24, 16 sections, suite 13410 → 13426/0.
+  - IC27_099 Eighth Brother (Ill-Fated Escape): "When Defeated: You may ready an Imperial unit." SOR_226
+    Motti's shape via `SWUOfferUnitTarget` (`traits => Imperial`, `may`, `READY_UNIT`) — whole table,
+    enemy and far seats included. **No self-exclusion needed**: probed on four defeat paths (combat,
+    Crushing Blow, NGOR, a simultaneous TWI_173 AoE) and he has always left the arena before his pool is
+    built, so an IC27_024-style exclusion was dead code (mutation green) and was removed; two exact-pool
+    sections now pin the engine invariant. 10 sections, 6 mutations (unregistered, no trait gate, `my`
+    side, two-seat filter, mandatory pick, no self-exclusion — the last green, explained above).
+  - IC27_143 Wat Tambor (Warped Warbling): Sentinel (auto) + "When Played: You may attack with a unit."
+    SEC_172 Cinta Kaz's continuation (`SEC_172#0`), but the pool is `_SWUUnitCanAttackNow` rather than a
+    bare ready check, so a Loth-Wolf is never offered. 6 sections, 4 mutations, each red.
+- [x] **Batch 10.3 — IC27_070** — done 2026-10-24, 9 sections, suite 13426 → 13435/0.
+  - IC27_070 C-3PO (Impulse Buy): "Action [Exhaust]: Give an Experience token to another unit. Then, if it
+    has 6 or more power, draw a card." SOR_094 Bail Organa's action without "friendly": the pool is
+    `_SWUCollectUnitTargets` minus C-3PO by UID (whole table, far seats, leader units), mandatory pick,
+    `IC27_070#0` gives the token THEN reads `ObjectCurrentPower` (5-power → 6 draws; 4 → 5 does not), and
+    the ACTIVATOR draws even when the token went to an enemy. **Judgement call:** no availability gate —
+    the [Exhaust] cost changes game state (CR 6.4.587.c), so with no other unit the action is usable and
+    resolves to nothing. ⚠ SOR_094 Bail Organa still carries the older target gate in
+    `SWUUnitActionAffordable` (predates the CR 6.4.587.c sweep) — left alone, owner's call.
+    7 mutations, each red.
+- [x] **Batch 10.4 — IC27_145** — done 2026-10-24, 12 sections, suite 13435 → 13447/0.
+  - IC27_145 Poggle the Lesser (Secret Designs): "On Attack: You may pay [1 resource] and discard a card
+    from your hand. If you do, the next card you play this phase costs [3 resources] less." YESNO (offered
+    only when BOTH halves are possible: `SWUTotalPaymentCapacity >= 1` AND a card in hand) →
+    `SWUPayInlineAbilityCost` (Credits/Droids pay as a last resort) → mandatory hand pick queued from the
+    CUSTOM (safe from the On Attack `$playerID` restore) → `DoDiscardCard` (the full ceremony: OnCardDiscarded,
+    Padmé SEC_016, Migs SHD_163, per-phase counters) → arm `SWU_IC27145_DISCOUNT_NEXT`. The discount is one
+    `$oneShotPlayCharges` row (any card type; `3 × count` + `clearPrefix`, so two charges armed before a
+    play stack on that card and are both spent — the TS26_35 precedent) plus a RegroupPhaseStart clear.
+    **Judgement call (preview, no ruling):** the stacking reading above. 9 mutations, each red.
+  - ⚠ Noticed, not changed: the universal `DISCARD_FROM_OWN_HAND` handler (CardDQHandlers.php) discards
+    via `SWUAddToDiscard`, which fires OnCardDiscarded but NOT the Padmé SEC_016 / Migs SHD_163 hand-discard
+    reactions that `DoDiscardCard` fires — any self-chosen discard routed through it skips both.
+
+## Phase 11 — Fifth preview wave, 2026-10-26 (29 → 30 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff: one card, not in the engine dictionary on arrival — ran the three
+preview regens first (plain `zzCardCodeGenerator.php` for SWUSim + SWUDeck from cache, then `Data/ProcessKeywordsSWU.php`);
+Rey then appeared in the dictionary and in `HasOnAttackAbility`.
+
+- [x] **Batch 11.1 — IC27_002 Rey (In Balance)** — done 2026-10-26, 14 sections, suite 13451 → 13465/0. Leader, both sides:
+  FRONT "Action [1 resource, Exhaust]: Give an Experience token to a damaged unit" + Epic deploy at 5 (= printed cost, no
+  wiring); DEPLOYED "On Attack: You may give an Experience token to a damaged unit". Built on the released analogue SHD_004
+  Rey (same shape, different condition): `$leaderActionResourceCosts["IC27_002"] = 1` (the cost is checked BEFORE Rey exhausts
+  and paid centrally, so Credits/Droids can pay), front pool = `SWUAllUnits()` filtered to damage > 0, deployed =
+  `SWUOfferUnitTarget` with `may` + the same filter and NO `excludeSelf` (a damaged Rey may take it herself). Settled by the
+  CR, not a judgement call: the front Action is usable with NO damaged unit (CR 637.3 — the cost changes the game state), so
+  it exhausts Rey and spends the resource for no effect. Preview assumption flagged: "a damaged unit" read as ANY unit with
+  damage (no side, no "another") — the printed text has no qualifier. Seven single-point mutations each caught by their own
+  sections. Side-find, not changed: SHD_004 pays its 1 resource INLINE after exhausting (predates `$leaderActionResourceCosts`),
+  so it can exhaust with no resource to pay and Credits can't pay it.
+
+## Phase 12 — Sixth preview wave, 2026-10-29 (30 → 51 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff: 21 new cards, all regenerated into the dictionary
+by the owner before the run. Two mock typos fixed in `CardMocks.php` (IC27_045 "Experience token" → "tokens",
+IC27_056 "multiple unit" → "units"); IC27_062's subtitle "Conan In Command" is correct per the card image.
+Ordered simplest first. Baseline suite 13513/0.
+
+- [x] **Batch 12.0 — IC27_032, IC27_058** — keyword-only Step-0 no-ops, verified 2026-10-29: IC27_032 Kaydel
+  Connix (Sentinel, `$Sentinel_Cards`), IC27_058 General Veers (Overwhelm, `$Overwhelm_Cards`). No stubs. No tests.
+- [x] **Batch 12.1 — IC27_037, IC27_101, IC27_107** — done 2026-10-29, 28 sections, suite 13513 → 13541/0.
+  - IC27_037 Finn: one self-conditional line in `GetConditionalKeyword_Restore_Value` (`_SWUIsUpgraded`: tokens
+    count, a captive does not). 8 sections; the drop-the-gate mutation reds its three negatives.
+  - IC27_101 General Hux: `_SWUIc27101Count` (card file, the IC27_034 shape — team-wide "friendly", "other" by
+    UniqueID, counted, blanked source grants nothing) feeds BOTH the +1/+0 in `ObjectCurrentPowerRaw` and the
+    Overwhelm in `HasConditionalKeyword_Overwhelm`. 10 sections, 7 mutations each red on its own sections.
+  - IC27_107 Aurra Sing: `$unitAbilities` (default exhaust) → mandatory pick over EVERY unit (herself included,
+    so a lone Aurra auto-resolves onto herself) → `DEAL_UNIT_DAMAGE|4|<source>`; the encoded source is proven by
+    ASH_196 Gorian Shard's Corsair making the damage unpreventable. 10 sections, 4 mutations each red.
+- [x] **Batch 12.2 — On Attack: IC27_157, IC27_040, IC27_062, IC27_014, IC27_031** — done 2026-10-29, 35 sections,
+  suite 13541 → 13576/0, 18 mutations each red on its own sections.
+  - IC27_157 The Mandalorian: SEC_208 Hunter word for word — synchronous `SWU_DEF_DEBUFF_4` in `ExecuteSWUAttack`
+    (gated on a UNIT defender and `!LostAbilities`), empty stub in `$swuLogEffectAppliedElsewhere`. ⚠ Side-find,
+    not changed: SEC_208's own branch has no `LostAbilities` gate and no unit-target gate.
+  - IC27_040 Rose: SOR_050 The Ghost's clause — `SWUOfferUnitTarget(traits Resistance, excludeSelf, may)`, enemy
+    Resistance units legal.
+  - IC27_062 Admiral Motti: SEC_119 Crucible's team loop (`SWUFriendlyUnits`) + Imperial filter.
+  - IC27_014 Dryden Vos: friendly (team) MAY pick incl. himself → 1 damage with Dryden as source → token only if
+    the chosen unit (re-found by UniqueID) survived. **Judgement call:** a Shield that prevents the damage still
+    leaves a survivor → it gets the token.
+  - IC27_031 BB-8: picks routed through CUSTOMs (mandatory On Attack pick). **Judgement calls:** "If you do" =
+    damage actually healed (an undamaged choice → no ping); no damaged friendly unit → no prompt at all.
+- [x] **Batch 12.3 — When Played / When Defeated: IC27_163, IC27_110, IC27_045, IC27_056** — done 2026-10-29,
+  33 sections, suite 13576 → 13609/0, 14 mutations each red on its own sections.
+  - IC27_163 Bo-Katan Kryze: snapshot of 'their' units → registered `IC27_163` STAT_DEBUFF (-7/-0, phase).
+    Shielded + When Played = two entry triggers, so every play answers the trigger-order pick.
+  - IC27_110 Supremacy: `SWUOfferBaseTarget('any')` (own base included, every live seat) → `IC27_110#0` deals
+    `intdiv(SWUBaseRemainingHp, 2)` (real max HP — a 34-HP base gives 17).
+  - IC27_045 Qi'ra: When Played two Experience on herself; When Defeated count snapshotted at the defeat
+    collection point (JTL_104 window, persisted as `SWU_IC27045_EXP_<mz>`), optional pick over the whole table,
+    nothing offered at 0.
+  - IC27_056 Allegiant General Pryde: CUSTOM-built pool of the friendly (team) units tied for the most CURRENT
+    power; one leader auto-resolves.
+- [x] **Batch 12.4 — IC27_049, IC27_046** — done 2026-10-29, 19 sections, suite 13609 → 13628/0, 13 mutations
+  each red on its own sections.
+  - IC27_049 Dexter Jettster: Poggle's YESNO (offered only with payment capacity AND a non-empty deck) →
+    `SWUPayInlineAbilityCost` → `DoScry(3)`.
+  - IC27_046 Vigilant Defense: Cunning Ploy's three-clause chain; friendly = team units + bases (a teammate's base
+    counts); "remaining HP" read when clause 3 runs; registered `IC27_046` STAT_BUFF + the SENTINEL grant.
+- [x] **Batch 12.5 — IC27_021 General Grievous** — done 2026-10-29, 11 sections, suite 13628 → 13639/0, 5 mutations
+  each red. Collected beside ASH_047/SHD_067 in `CollectWhenPlayedAsUpgradeTriggers` (host must be the player's
+  own, and not blanked); modes tracked per copy as `SWU_IC27021_<uid>_<mode>` (cleared at regroup); one mode left
+  resolves without a prompt. Per-copy (vs per-player) is only observable if he leaves and re-enters in one phase —
+  not tested.
+- [x] **Batch 12.6 — IC27_063, IC27_066, IC27_068** — done 2026-10-29, 24 sections, suite 13639 → 13663/0,
+  13 mutations each red on its own sections.
+  - IC27_063 Kylo's TIE Silencer: SHD_135's `$cardDiscardedHandlers` TPP stamp restricted to From HAND (a deck mill
+    or a defeat does not count); never downgrades a better permission.
+  - IC27_066 Mother Talzin: SHD_242's optional discard pick (Villainy UNIT, printed cost ≤ 4) → `SWUNestedPlay`
+    free → if the card actually left the discard and is not Night/Undead (printed traits), she takes its PRINTED cost.
+  - IC27_068 Devastator: `DoTopDeckPlay(5, Villainy unit ≤ 12, budget 12, max 1)`; the filter is re-checked
+    server-side. No Villainy unit costs 13+, so the upper side of the cost boundary cannot be built.
+- [x] **Batch 12.7 — IC27_003 Kylo Ren (Supreme Leader)** — done 2026-10-29, 14 sections (front 8 / deployed 6),
+  suite 13663 → 13677/0, 6 mutations each red. FRONT = SHD_011 Kylo Ren's cost word for word (the discard is a
+  COST — added to SHD_011's `SWULeaderActionAffordable` gate; `DoDiscardCard`, so IC27_063's replay stamp fires off
+  it) → Experience to any unit on the table. DEPLOYED When Deployed = optional return of a UNIT card from his
+  controller's discard. Epic deploy generic (printed cost 5).
+
+## Phase 13 — Seventh preview wave, 2026-10-29 (51 → 54 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff; all three already regenerated into the dictionary.
+Baseline 13677/0.
+
+- [x] **Batch 13.1 — IC27_116 Black One** — 6 sections. One closure on `$whenPlayedAbilities` + `$whenDefeatedAbilities`
+  (the resolver draws: a stolen copy's thief draws). Combat, effect, opponent's-turn and control-change defeats.
+- [x] **Batch 13.2 — IC27_115 Poe Dameron** — 8 sections. A case in `SWUCollectOwnPlayReactions` beside SOR_143: another
+  card (any type — a Resistance pilot played as an upgrade counts) with the Resistance trait, his own play excluded by
+  UniqueID; inline phase buff with a unique `^IC27115_<n>` suffix so plays stack. **Judgement calls:** any card type;
+  stacking. No Resistance event/upgrade exists, so those branches are unreachable today.
+- [x] **Batch 13.3 — IC27_127 Act of Aggression** — 10 sections. Vigilant Defense's chain: draw → optional 3 damage to
+  any unit → mandatory friendly (team) +3/+0 (registered `IC27_127` STAT_BUFF) + OVERWHELM grant, the buff pool built
+  after the damage.
+- Phase total: 24 sections, suite 13677 → 13701/0, 13 mutations each red on its own sections, zero deferrals.
+
+## Phase 14 — Eighth preview wave, 2026-10-29 (54 → 58 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff; all four already regenerated into the dictionary and checked
+word for word against their preview images (no typos). The same import added the reprint alias IC27_150 Frozen in Carbonite
+→ SHD_193 in `Overrides.php` (no code; reprint aliases are not on the tracker line). Baseline 13701/0.
+
+- [x] **Batch 14.1 — IC27_144 Jango Fett (Straight Shooter)** — 14 sections. Ambush printed. When Defeated: the SEC_197
+  Furtive Handmaiden shape — optional discard from the resolver's hand, THEN a mandatory return of an event from the
+  resolver's own discard pile (the discarded card itself qualifies; the event that defeated him is in its owner's pile per
+  CR 6.2). Skipped when it could only throw a card away (no event in pile or hand). NGOR control-change section.
+- [x] **Batch 14.2 — IC27_159 Princess Leia (Calculated Distraction)** — 11 sections. When Played/On Attack: two optional
+  picks in a row (not the `SWUQueueBudgetMultiChoose` modal, which can cap neither the count nor the arena): ready units of
+  printed cost ≤ 4, then ready units in the FIRST pick's arena within what is left. Friendly, enemy, leader units, tokens.
+- [x] **Batch 14.3 — IC27_126 Saw Gerrera (For the Cause)** — 15 sections. Engine: a phase-long MULTIPLICATIVE power
+  modifier (`_SWUPowerMultiplier`, registry `IC27_126`, stacking token per application) applied at the end of every power
+  read — `ObjectCurrentPower`, `ObjectCurrentPowerInAttack`, `SWUCombatDamage` attack + defend power, The Stranger's Grit
+  delta — so Raid, "+N for this attack" and later buffs are doubled too (CR 15.2/15.3). Team Suns section.
+- [x] **Batch 14.4 — IC27_142 Greedo (Big-Timer)** — 15 sections. Ambush printed. `SWUCombatDamage`: attacking → the
+  LAW_086 defender-first path; defending → the attacker-first path. CR 6.3.5.c conflicts: Greedo + a deal-first source asks
+  his controller (YESNO in `ExecuteSWUAttack`, attack-scoped `IC27_142_FIRST`); Greedo vs Greedo = simultaneous; defending
+  vs The Stranger's YES = The Stranger's choice stands. **Side-find fixed:** LAW_086 The Stranger's YES resolved its stored
+  `myGroundArena-N` in the wrong frame, so a seat-2 Stranger's choice did nothing — handler now sets `$playerID`; new section
+  `law/TheStranger_NoSurvivors.md::DefenderFirst_StrangerOnSeatTwo`.
+- Phase total: 55 IC27 sections + 1 LAW section, 39 mutations each red on its own sections, zero deferrals.
+
+## Phase 15 — Ninth preview wave, 2026-10-30 (58 → 65 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff: 7 new cards, none in the engine dictionary on arrival — ran
+the three preview regens first (SWUSim + SWUDeck from cache, then `Data/ProcessKeywordsSWU.php`). Spelling pass over all 65
+IC27 mocks against the preview images; five fixed in `CardMocks.php`: IC27_035 "dealt to **an** dealt by" → "and",
+IC27_122 "deals damage **on** an enemy base" → "to", IC27_101 "{first order}" → "First Order", IC27_167 "owner's hands" →
+"owners' hands", IC27_002 "resources **,** deploy" → "resources, deploy". IC27_113's subtitle "Down With The Freedom" and
+IC27_049's "Obi-Wannnn!!!" are correct per the card images. Baseline 13770/0.
+
+- [x] **Batch 15.1 — IC27_039 Ahsoka Tano (Not On My Death Watch)** — 10 sections, suite 13770 → 13780/0, 6 mutations each
+  red on its own sections. TWI_076 Death by Droids' whole-table pool as an optional pick: `SWUOfferUnitTarget` (`may`,
+  `DEFEAT_UNIT`, `extraFilter` printed cost ≤ 3). Tokens (cost 0) qualify; a deployed leader unit is read at its leader
+  card's printed cost; a teammate's and far seats' units are offered.
+- [x] **Batch 15.2 — IC27_113 Ezra Bridger (Down With The Freedom)** — 10 sections, suite 13780 → 13790/0, 9 mutations
+  each red on its own sections. Raid 2 printed; On Attack → intermediate CUSTOM (`IC27_113#0`) → mandatory
+  `SWUOfferUnitTarget` (`side friendly`, Ezra excluded by UID, Heroism ASPECT) → `IC27_113#1` stamps the registered
+  `GRANT_KEYWORD_VALUE` row (Raid 2, phase) as `IC27_113-<n>`, one token per grant so a second grant STACKS (Raid ruling
+  2026-09-10; proven by a Bravado re-attack — a seeded earlier token could not discriminate the dedupe). **Judgement
+  call (preview):** two grants from Ezra to one unit in a phase = Raid 4. Green, recorded: queuing the pick straight from
+  the On Attack closure — every board here has the attacker as the dispatcher's saved `$playerID`.
+- [x] **Batch 15.3 — IC27_006 Luke Skywalker (I Have to Face Him)** — leader, 9 sections (front 3 / deployed 6) + the
+  production test `DevTools/tdd-regression/test_ic27006_luke_starting_hand.php`, suite 13790 → 13799/0, 5 mutations each
+  caught. FRONT: new `SWUStartingHandSizeFor($baseID, $leaderIDs)` / `SWUPlayerStartingHandSize($player)` in GameLogic —
+  the ONE source for the opening deal, the mulligan redraw and the harness pregame count (leader modifiers summed, so a
+  Twin Suns seat's two leaders both count). +2 applies to the mulligan hand too (official Colossus ruling). DEPLOYED:
+  Overwhelm from `$Overwhelm_Cards`; the On Attack is ASH_172 Razor Crest's text verbatim, dispatched to its closure at
+  call time. Two mutations (the seat helper ignoring leaders, the mulligan reading the base only) are invisible to the
+  schema suite by design and red only the production test.
+- [x] **Batch 15.4 — IC27_120 Rey (Embracing Destiny)** — 10 sections, suite 13799 → 13809/0, 7 mutations each red on its
+  own sections. `$unitActionCostKind 'none'` + `$unitActionResourceCosts 1` (no [Exhaust]: repeatable, usable while
+  exhausted; the resource goes through the alt-payment funnel, so a Credit pays) + the hand gate beside ASH_217 in
+  `SWUUnitActionAffordable` → mandatory discard (`DoDiscardCard`) → mandatory attacker pick over `_SWUUnitCanAttackNow`
+  (Rey included) → `SWUAddAttackPowerBonus +2` → `BeginSWUAttack`. **Judgement call (preview):** with no unit able to
+  attack, the action is still usable (the cost changes game state) and resolves to nothing.
+- [x] **Batch 15.5 — IC27_122 The Ghost (Whale Watching)** — 18 sections, suite 13809 → 13827/0, 18 mutations each red on
+  its own sections. Overwhelm from the registry. The reaction is a new observer `_SWUIc27122OnUnitDamagedBase($srcCtrl,
+  $baseOwner)` (card file) called right after `SWUDealDamageToBase` at FIVE sites — direct combat hit, the shared Overwhelm
+  spill, TWI_135 Maul's two-defender spill, a unit's ability damage (the `SWU_DMG_SRC` branch, limited to non-combat,
+  non-indirect so nothing reports twice), and indirect damage (threaded `$sourceUID`, else `SWU_DMG_SRC` naming the
+  controller — JTL_143 Devastator threads none). `SWUDealDamageToBase` now records the amount it ACTUALLY dealt
+  (`gSWULastBaseDamageDealt`, 0 when prevented/deferred), so prevented damage draws nothing. Friendly = the dealer is on the
+  Ghost controller's TEAM; enemy base = `SWUIsEnemySeat`. **Judgement calls (preview):** "deals damage" = every damage path
+  (not only combat, JTL_177's reading); one draw per instance (Maul's combined spill = one).
+- [x] **Batch 15.6 — IC27_119 Sabine Wren (Liberator of Krownest)** — 12 sections, suite 13827 → 13839/0, 9 mutations
+  each red on its own sections. Saboteur from the registry. When Played: LAW_018 Lando's "a deck" picker
+  (`SWUSeatsWithNonEmptyDeck` → one deck resolves silently, else `SWUDeckPickerLabels` OPTIONCHOOSE → `SWUDecodeDeckPick`)
+  → `SWUMillTopCard` ×2 → `|printed cost 1 − printed cost 2|` → optional `SWUOfferUnitTarget` (`DEAL_UNIT_DAMAGE`, any
+  unit, Sabine as the source re-found by UID). **Judgement calls (preview):** a 1-card deck discards its card but has no
+  difference (no offer); a difference of 0 offers nothing.
+- [x] **Batch 15.7 — IC27_035 Yoda (A Disturbing Puzzle)** — 18 sections, suite 13839 → 13856/0, 13 mutations each red on
+  its own sections. On Attack: optional `SWUOfferUnitTarget` over ENEMY units (`side their` — team-aware) → `IC27_035#0`
+  stamps the registered phase MARKER `IC27_035`. `SWUCombatDamage` reads it through `_SWUIc27035Marked` (card file):
+  BY the marked unit — attacker's `$attackPower` / defender's `$defendPower` zeroed; TO it — as attacker via TWI_096
+  Aayla's `$preventAttackerDmg`, as defender the attacker's power zeroed (so no defeat and no Overwhelm excess —
+  prevented damage is not excess). Unpreventable damage (ASH_196) is exempt. TWI_135 Maul's two-defender path mirrors
+  all of it (`$P1`/`$P2` per defender). Combat damage only — ability damage lands. ✅ Side-find FIXED 2026-10-30 (TDD):
+  `$preventAttackerDmg` (TWI_096 / JTL_193 / TS26_59 / IC27_035) was checked BEFORE the defender's
+  `_SWUDamageUnpreventable` in all three combat orderings, so an unpreventable counter-hit into a protected attacker was
+  prevented; and `_SWUCombatDamageStillReaches` counted unpreventable damage, so SEC_101 / ASH_062 offered a paid
+  prevention that could only fizzle. Guard: `core/UnpreventableCombatDamage_IgnoresEveryPrevention.md` (31 sections —
+  every combat prevention on each side, every ordering, Maul's two-defender path; 14 mutation points each red).
+- **Phase total:** 87 sections + the production test `test_ic27006_luke_starting_hand.php`, suite 13770 → 13856/0, 72
+  mutations each red on its own sections (two Ezra greens re-built/recorded, see 15.2), zero deferrals.
+  ⚠ Side-find, not changed: `SWUParsedTurnEffects`' `$isCardID` regex is `[A-Z]{2,5}_…`, so a digit set code (IC27, TS26)
+  never counts as a CardID token — those turn effects show no source-card art in the Active Effects popup.
+
+## Phase 16 — Tenth preview wave, 2026-11-02 (65 → 70 CardIDs; `--iterative`)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff: IC27_007, IC27_138, IC27_147, IC27_148, IC27_149 — all already
+in the engine dictionary. Spelling pass against the five preview images (both faces of the IC27_007 leader): one fix in
+`CardMocks.php` — IC27_147's cost read `[5 resources]CunningVillainy`, normalised to the official-data form
+`[5 resources Cunning Villainy]` (as Smuggle / Piloting costs are written), then the three preview regens. Kept as printed:
+IC27_007's subtitle "Bald and Beautiful". IC27_148 matched its image exactly. Baseline 13986 passed / 3 failed (the three
+known P-17 reds: Congress of Malastare, Peli Motto, Vanguard Ace). Order, simplest first: IC27_149, IC27_138, IC27_148,
+IC27_007, IC27_147.
+⚠ **The opening diff MISSED two cards** (found by the end-of-run re-diff, 2026-11-03): IC27_013 Nute Gunray and IC27_019
+Soulless One were already in the committed `CardMocks.php` (since `08d114153`) — 72 IC27 mocks, not 70. Their spelling
+pass, done late: IC27_013 had THREE errors vs the image, fixed + regenerated — subtitle "RIng Ring" → "Ring Ring, Space
+Calling"; aspects [Vigilance] → [Vigilance, Villainy] (a rules bug: the aspect penalty); reminder "(When this unit
+attacks…" → "(When it attacks…" as printed. IC27_019 matched its image exactly. Both still to implement.
+
+- [x] **IC27_149 The Invisible Hand (Confederate Might)** — done 2026-11-02, 13 sections, suite 13986 → 13999 (3 known
+  reds unchanged), 8 mutations each red on its own sections. One closure on `$whenPlayedAbilities` +
+  `$whenDefeatedAbilities` arms `SWU_IC27149_DISCOUNT_NEXT`; the discount is a `$oneShotPlayCharges` row beside IC27_145
+  Poggle (`'card'=>true` — any card type incl. an upgrade and a pilot; `9 × count` + `clearPrefix`), cleared at the
+  regroup. Fixture: IC27_121 Kanan Jarrus (vanilla 6, Aggression/Heroism) is an effective 10 under `yyk`, so 1 vs 0
+  ready separates −9 from −8 and −10. **Engine edge found by a section:** a When Defeated can resolve in the REGROUP
+  phase (SOR_219 Sneak Attack defeats its unit at the start of the regroup, and the When Defeated resolves after
+  RegroupPhaseStart's clears), so the closure arms only when `GetCurrentPhase() === 'MAIN'` — without it the charge reached the next action phase.
+  **Judgement calls (preview):** When Played + When Defeated in one phase STACK on the next card (−18, both spent —
+  Poggle's convention); a charge armed in the regroup phase expires unused; under JTL_043 the new controller gets it.
+  ⚠ Side-find, not changed: any OTHER "this phase" effect a When Defeated creates during the regroup (via Sneak Attack)
+  has the same leak shape — not audited.
+- [x] **IC27_138 Banshee (Scream Machine)** — done 2026-11-03, 13 sections, 6 mutations each red on its own sections.
+  Gates ran after the HMW Utrecht control arm finished (06:18 UTC), so nothing touched the live tree mid-run; suite
+  13999 → 14032 together with IC27_148 (3 known reds unchanged). The On Attack asks a YESNO, then `_topDeckSearchBegin(5, non-unit, count:1)` finished by the shared `LOF_103#0`
+  (chosen card on top, revealed and logged; the rest to the bottom in random order). Nothing in GameLogic changed.
+  **Judgement call (preview):** "You **may** search" makes the whole SEARCH optional: declining leaves the top five
+  in place, while searching and choosing nothing bottoms all five (separate sections). ⚠ JTL_089 The Invisible Hand
+  (Crawling With Vultures), the only other "You may search the top N", has no up-front decline (an empty pick
+  bottoms the eight). Same reading would apply there; not changed.
+- [x] **IC27_148 Count Dooku (Silver-Tongued)** — done 2026-11-03, 20 sections, 18 mutations each red on its own
+  sections; suite 13999 → 14032 with IC27_138. When Played = `SWUOfferUnitTarget` may/any side (Dooku included). The
+  regroup limit is SHARED code: `ReadyPhase`'s two arena loops became one `$readyArena` closure (candidates = live,
+  not LOF_098-in-space, `$cantReadyRegroup` false — still called for every live unit since it CONSUMES flags — and
+  exhausted); `_SWUIc27148Slots` caps an opponent of Dooku's controller at 1 per arena, with more candidates than slots
+  the seat CHOOSES (`IC27_148#0`). Effect readies in the regroup phase are counted in `OnReadyCard`/`_SWUReadyInline`
+  and refused in `_SWUReadyBlocked` once the slot is spent; the count (`SWU_IC27148_READIED_G/S`) clears at
+  RegroupPhaseStart. The step's own readies are deliberately NOT counted (the step is the regroup's last ready — a
+  mutation showed the count unobservable, so the line was removed). Helpers live in the card file.
+  **Judgement calls (preview):** the LIMITED player chooses which unit readies, and must ready one; a regroup-start
+  effect ready (SOR_226 Motti via Sneak Attack) spends the slot — including an OPPONENT's effect readying your unit
+  (the count follows the readied unit's controller); a deployed leader unit competes for the ground slot, while the
+  leader card and resources ready freely; a unit that can't ready (Frozen in Carbonite) is no candidate and spends
+  nothing; Team Suns teammates are never limited; a stolen Dooku limits its new controller's opponents.
+  ⚠ Side-find, not changed: Motti's "ready a Villainy unit" pool still OFFERS a unit whose ready will be refused (any
+  blocked ready — SOR_186, Frozen in Carbonite — behaves the same; the pick is spent and the refusal logged).
+- [x] **IC27_007 Asajj Ventress (Bald and Beautiful)** — done 2026-11-03, BOTH sides, 17 sections (front 11, deployed
+  6), 11 mutations each red on its own sections; suite 14032 → 14052 (+17 mine; the other +3 are concurrent work in
+  the tree, 3 known reds unchanged). The named-actions inventory test (red since the wave began) is green again.
+  FRONT: `$leaderAbilities` picks a ready friendly unit (no ready unit → the [Exhaust] still pays, the action closes)
+  and arms an attack-duration `IC27_007` MARKER (Follow Me's ASH_184 seam): captured into `$combatCtx` at combat
+  start, raised as the IC27_007 trigger in `CollectAfterAttackTriggers` only if the attacker is still in play BY UID.
+  DEPLOYED: Saboteur is keyword data; On Attack reuses the same "may ready a resource" offer.
+  **Judgement calls (preview):** "ready a resource" = one of YOUR resources (the engine family's reading — the owner
+  ruling on unqualified "ready a resource" is still OPEN, see the Oct bugs pass); no prompt when nothing is exhausted;
+  the rider belongs to the Action's attack only (a later attack by the same unit offers nothing); a unit you control
+  but don't own can be the attacker, and the resource readied is still yours.
+  ⚠ Probe note: `SWUMakeTurnEffect($id, [])` takes the REGISTRY's duration, so dropping the duration argument is a
+  no-op mutation; the phase-length probe has to pass `SWU_DUR_PHASE` explicitly.
+- [x] **IC27_147 Asajj Ventress (Death From Above)** — done 2026-11-03, 41 sections, 26 mutations each red on its own
+  sections; suite 14052 → 14093 (+41, 3 known reds unchanged). A replacement effect at the combat-damage step, built to
+  the OWNER'S DESIGN ("set up at declaration, re-check at damage"):
+  · DECLARATION — `_SWUIc27147OfferAtDeclaration` at all three places a BASE becomes the attack target in CombatLogic
+    (`BeginSWUAttack`'s single-target path, `SWUResolveAttack`, TWI_135 Maul's Base pick): for a friendly non-leader
+    ground attacker, a seat holding Asajj that can pay (5 + aspect penalty, `SWUTotalPaymentCapacity`) chooses
+    `Attack` / `Asajj_Ventress`. Choosing her only ARMS it (`SWU_IC27147_ARMED`) — nothing paid or revealed. (A prompt
+    at damage would add a pause to every base attack only while she is held — leaking her.)
+  · DAMAGE — `_SWUIc27147CommitAtDamage` at the START of `SWUCombatDamage`, after every On Attack and every other
+    seat's decision (the earlier prevention seam ran while Condemn's disclose was still pending, and the -6/-0 then
+    landed on Asajj). Re-checks: same attacker, in play, would deal > 0 to the base (current power + Raid unless
+    blanked + "+N this attack" + HP-as-damage), Asajj still in hand, still affordable — else it lapses silently. On
+    commit: reveal (logged), `SWUPayCost`, `SWUBounceUnit` the attacker (owner's hand; upgrades discarded, tokens set
+    aside), Asajj into play EXHAUSTED under the holder, `SWU_IC27147_SWAP` hands her to the damage step; a uniqueness
+    choice re-queues the damage step behind it.
+  · She enters "AS THE ATTACKER", so what the MODIFIED "ATTACK WITH A UNIT" put on the attacker moves to her —
+    "+N/+0 for this attack" (LAW_202, LAW_001, LAW_205, SOR_150), Babu Frik's HP-as-damage, a granted ability (SOR_150's
+    self-defeat), and the post-attack riders (IC27_007, ASH_184, LAW_001's and LAW_205's "defeat it/that unit"). A
+    LASTING EFFECT another ability applies to the unit during the attack STAYS (Condemn's disclosed -6/-0, Dryden's own
+    double, Condemn's blanking), as do its printed abilities (Raid) and "for this phase" buffs. Drawn by TIME: the
+    attack-starting effect stamps its riders before the base is declared, so the declaration snapshots the attacker's
+    attack-duration effects (`SWU_IC27147_CARRY`, saved in the gamestate) and only those move.
+    CR 7.5.d: the original's "deals combat damage to a base" never fires. One replacement per attack (CR 7.5.e/f).
+    **Revised twice 2026-11-03 on owner review** (→ 50 sections; suite 14110 → 14119): (1) the first build kept the
+    +2/+0 and "defeat it" with the bounced unit — the owner ruled both follow her; (2) the follow-up carried EVERY
+    attack-duration effect — an unofficial judge ruling (Mac; open to change if the CR clarifies Icons), adopted by the
+    owner: Condemn's -6/-0 is a lasting effect on that unit, not part of the modified attack, so Asajj still deals 5.
+    Dryden's double follows the same line (applied by analogy). Snapshot mutation pass: 6 mutations, 5 red; the 6th
+    exposed redundant clears, now deleted.
+  · Team Suns: a teammate is asked on your attack; the continuation drains the ATTACKER's queue (it is not the one
+    being processed). · Bot (owner rule, no unit tests): choose her when her 5 beats the attacker's base damage.
+  **Owner rulings (2026-11-03):** timing B (declaration + damage re-check); the leader rider follows the new attacker;
+  "friendly" spans the team; the bot rule above; the modified attack's riders (incl. the post-attack "defeat it")
+  follow her, a lasting effect applied to the unit (Condemn's -6/-0) does not.
+  ⚠ Not built: the bot preferring its WEAKEST eligible attacker to carry her (attack-order policy — a lever for later).
+  ⚠ `_SWUIc27147AttackerBaseDamage` mirrors only the base-relevant terms of `SWUCombatDamage`'s power build; a future
+  base-specific power modifier there would need adding here too.
+- [x] **IC27_013 Nute Gunray (Ring Ring, Space Calling)** — done 2026-11-03, 17 sections, 9 mutations (8 red on their
+  own sections; the 9th exposed a redundant `removed` guard — `GetUnitsInPlay` already skips removed units — now
+  deleted); suite 14093 → 14110 (+17, 3 known reds unchanged). A constant aura modelled on HMW_039 Mother Talzin:
+  `_SWUIc27013RestoreGrants` summed into `GetConditionalKeyword_Restore_Value`, recomputed every read. Team-wide
+  "friendly" relative to Nute's CONTROLLER; "other" by UniqueID (a teammate's Nute grants to yours); Separatist via
+  `TraitContains` (tokens, deployed leaders). Returns a COUNT — Restore from different sources stacks (CR 7.9.b), so two
+  friendly Nutes give Restore 2.
+  Side-find FIXED 2026-11-03 (owner go): HMW_039's helper returned a flag, so two Talzins on one Team Suns team
+  under-healed by 1 — now `_SWUHmw039RestoreGrants` (a count), pinned by `TeamSuns_TwoTalzinsStack`.
+- [x] **IC27_019 Soulless One (Soulless Fun)** — done 2026-11-03, 14 sections, 7 mutations (6 red at once; the 7th —
+  count → flag — was green until `TeamSuns_TwoSoullessOnes_Stack` was added, now red); suite 14119 → 14133 (+14, 3 known
+  reds unchanged). Modelled on TWI_110 Huyang, whose official rulings apply by analogy (lasts until the source leaves
+  play; unchanged by a control change). The link is a PERM turn effect on the CHOSEN unit, `IC27_019-{sourceUID}`
+  (registry entry + `-3 ×` `_SWUIc27019DebuffCount` in the power getter), counted while that source UID is in play on
+  ANY seat — so it survives either unit changing sides (Huyang's per-seat global key would not). Pool
+  `SWUAllUnits('their', GroundArena)` (team-relative "enemy"). Blanking the source does not end it (CR 14.3).
+  Side-find FIXED 2026-11-03 (owner go): Huyang's and BD-1's readers looked only at the TARGET's controller's effects
+  and board, so a control change of either unit dropped the buff — against Huyang's official ruling. Both now read
+  `_SWUChosenUnitLinkCount` (every seat's effects, source in play on any seat); 4 `Control_*` sections pin it. Suite
+  14133 → 14138.
+
+## Phase 17 — Eleventh preview wave, 2026-11-03 (72 → 79 CardIDs; ONE batch, autonomous)
+
+Derived mechanically (`comm -23` of the `CardMocks.php` IC27 IDs vs the `### Already Done` line): IC27_023, IC27_029,
+IC27_057, IC27_060, IC27_086, IC27_087, IC27_089. IC27_048 Desperate Commando is a reprint (`Overrides.php` → JTL_060), no
+code. None was in the engine dictionary on arrival — ran the three preview regens. Baseline 14138 passed / 3 failed (the
+three known P-17 reds).
+**Spelling pass** against the seven images — two fixes in `CardMocks.php`: IC27_057 Krennic "a unit that costs 7 or
+**less**" → "7 or **more**" (a rules bug — it inverted the card); IC27_086 Enfys's Ambush reminder "it may attack" →
+"she may attack", as printed. The other five matched their images.
+
+- [x] **IC27_023 Grand Moff Tarkin (Cracking Down on Lothal)** — 17 sections. Team-wide constant aura
+  `_SWUIc27023Bonus` added in BOTH stat getters (the IC27_034 Interceptor shape): counted (two Tarkins on a team →
+  +2/+2), self included, Sentinel read live (granted counts, SOR_140-lost does not), blanked Tarkin grants nothing.
+  **Recursion found by design:** LOF_085 Praetorian Guard's Sentinel reads power, which includes this bonus — a
+  PER-UNIT re-entry latch breaks the loop; a global latch would also drop the bonus of the unit Praetorian is reading
+  (`PraetorianGuard_BuffedSentinelEnablesIt` reds under it).
+- [x] **IC27_029 Chimaera (Grand Admiral's Might)** — 9 sections. When Played: per-unit counts of EVERY upgrade (any
+  controller) snapshotted before any token; heal counts upgrades a FRIENDLY (team) player controls on ANY unit, after the
+  tokens. Shielded vs When Played order is the player's and changes both numbers.
+- [x] **IC27_057 Director Krennic (Architect of Annihilation)** — 12 sections. SOR_093 Alliance Dispatcher's
+  `SWUOfferDiscountPlay` with `discount 2` + a PRINTED-cost ≥ 7 filter. Not gated in `SWUUnitActionAffordable`
+  (CR 6.4.587.c) — see judgement calls.
+- [x] **IC27_060 Jabba the Hutt (Bounties Left and Right)** — 13 sections. Phase marker `IC27_060-<n>` on the chosen
+  enemy (registry row), read in `SWUCombatDamage` beside TWI_072: +4/+0 per marker for ANY attacker of it. Unique tokens
+  so two Jabbas on a team stack; follows the unit through a control change.
+- [x] **IC27_086 Enfys Nest (No More!)** — 10 sections. `$ic27086VsCheap` in `SWUCombatDamage` (+2 and added to the
+  Overwhelm gate): a UNIT target with printed cost ≤ 3 (tokens 0, leader units their leader cost), not while blanked.
+- [x] **IC27_087 Issue a Command** — 8 sections. HMW_148's reveal-and-draw + a mandatory team-friendly Experience pick +
+  HMW_151's "Resource this card".
+- [x] **IC27_089 Maz Kanata (It Calls to You)** — 16 sections. `_SWUIc27089OnResourced($seat, $count)` called from
+  EVERY route into a resource zone (rulings errata 07/20/2026: "put into play as a resource" IS "resource"): regroup,
+  `_SWURampResource` (ramp helpers, Smuggle/Plot refills), `DoResourceCard`, Arquitens, Stockpile (×2), Overgrowth, Issue
+  a Command, Display Piece (the defeated unit's CONTROLLER), Expendable Mercenary, Broken Horn, King Grakchawwaa (×N),
+  Osha. One section per producer; `DoResourceCard` (the ResourceCard macro) has no DSL route and is hooked untested.
+
+Suite 14138 → **14223 passed / 3 failed** (+85 sections, the 3 known reds unchanged). **46 mutations**, every one red on
+its own sections (one per gate / pool / duration / stacking rule / producer hook).
+**Judgement calls (preview, flagged):** (1) Krennic and Jabba are NOT availability-gated — usable with nothing to play /
+no enemy unit, exhausting to nothing (CR 6.4.587.c; IC27_070 C-3PO precedent). **Owner go 2026-11-03:** the gate is gone
+from SOR_093 / TWI_120 / SOR_177 too, and LOF_094 keeps only its Force gate (two no-op sections rewritten, two
+`NothingPlayable_*` sections added). (2) Jabba's +4 is a lasting effect on the chosen unit: survives Jabba leaving play,
+applies to any attacker (incl. its original controller after a steal) — owner-approved. (3) Chimaera's "friendly
+upgrade" = upgrade CONTROLLED by a friendly player, on any unit: a non-token upgrade by whoever played it (CR 2.f, e.g. a
+Bounty upgrade on an enemy), a TOKEN upgrade by the HOST's controller (CR 2.g). **Engine fix:** `DoGiveShieldToken` /
+`DoGiveExperienceToken` / `DoGiveAdvantageToken` stamped the CREATOR as the token's owner/controller; they now stamp the
+host's controller, like `DoGiveTokenUpgrade` (3 `EnemyGiven*OnMyUnit_IsFriendly` sections, each red under its revert).
+(4) Maz's token is given as the card lands; a control change of a resource / a Credit token / pregame resources are not
+resourcing — owner-approved ("it is mandatory").
+TWI_135 Maul's two-defender path applies neither Jabba's +4 nor Enfys's rider — parked by the owner until reported.
+
+## Phase 18 — Twelfth preview wave, 2026-11-04 (79 → 83 CardIDs; IC27_004 alone, then ONE batch of three)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff (mechanical `comm -23`). IC27_004 Mace Windu (leader) was done
+first on its own; the batch was IC27_081 → IC27_077 → IC27_084, simplest first.
+**Spelling pass:** one fix — IC27_077 Mon Mothma's mock listed `Command` only; the card shows Command + Heroism (added).
+The other two match their images exactly.
+
+- [x] **IC27_004 Mace Windu – Here With Backup** (leader) — front: `$leaderActionResourceCosts` 1, pool `_SWUUnitCanAttackNow`,
+  attack-duration `RESTORE 2` grant; deployed: printed Restore 2 + When Deployed `SWUResourceTopOfDeck`. 12 sections.
+  Not covered: a unit with its own Restore gaining 2 more (Restore stacking is unruled).
+- [x] **IC27_081 Mace Windu – Dropping By** — LAW_037's On Attack verbatim (`DoGiveExperienceToken`); Ambush printed.
+  6 sections (the token counts for the attack that gives it: 5 → 6).
+- [x] **IC27_077 Mon Mothma – Truth Is An Abyss** — the LAW_065 shape + attack-duration `OVERWHELM`; pool composed from
+  `_SWUUnitHardCantAttack` + Oggdo + no-base targets, "another" by UniqueID; empty pool = no prompt. 9 sections.
+  Preview assumption, from a RELEASED sibling: SEC_103's ruling — Overwhelm still spills to the base.
+- [x] **IC27_084 Negotiator – Prepare the Troops** — one resolver on On Attack + When Defeated; "Then" unconditional;
+  `SWUFriendlyResourceMzIDs` (team-wide, Credits excluded) → owner's hand. 11 sections incl. Team Suns + Twin Suns control.
+
+Suite 14272 → **14298/0** (+26 for the batch; +12 earlier for IC27_004). Zero deferrals.
+
+## Phase 19 — Thirteenth preview wave, 2026-11-04 (83 → 86 CardIDs; ONE batch of three)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff (mechanical `comm -23`): IC27_123 + IC27_124 at the start (already
+in the dictionary); IC27_076 landed MID-RUN (the end-of-batch re-diff found it) — ran the three preview regens for it.
+**Spelling pass:** all three match their images word for word, aspect icons included (two each). Order: IC27_124 → IC27_123 →
+IC27_076. Baseline 14298/0.
+
+- [x] **IC27_124 K-2SO – Evacuate The Vault Door** — When Defeated: `SWUDealSplitDamage` over every `their*` unit (the ASH_112
+  Luke funnel) + `OpponentsOf()` bases, inside `SWUSimultaneousBaseDamage`. HMW_185 Ty Yorrick gets ONE "+1?" for the whole
+  blast (the JTL_131 ruling), the base funnel's own question suppressed. 12 sections incl. Twin Suns / Team Suns, stolen,
+  enemy-turn defeat, Shield.
+- [x] **IC27_123 Jyn Erso – Her Father's Revenge** — `SWUQueueBudgetMultiChoose` (budget 7, printed cost) + a new optional
+  COUNT cap on it and on `SWUFilterBudgetAnswer` (`$maxPicks`, default 0 = unchanged for every existing caller). Whole-table
+  pool, ready units included (CR 1.e); `OnReadyCard` then `SABOTEUR@phase`, the rider ungated (no "If you do"). 14 sections.
+- [x] **IC27_076 Clone Commander Cody – Loyal to the Republic** — `_SWUIc27076OnUnitEntered`, hooked at all three entry points:
+  `CollectEntryTriggers`, `_SWUCreateOneToken`, and `DoRescueUnit` (CR 8.34.3 — a rescued unit enters play). Team-wide
+  "friendly", blank-aware, "another" by UID. 13 sections. Open sibling: ASH_041 Outcast / HMW_171 Trap Field still skip rescue.
+
+Suite 14298 → **14337/0** (+39). Double-close notices identical to baseline (145). 30 mutations, each red on its own section.
+Zero deferrals.
+
+## Phase 20 — Fourteenth preview wave, 2026-11-05 (86 → 87 CardIDs; one card)
+
+Derived by `comm -23` of `### Already Done` vs `CardMocks.php`: IC27_165 only. It was mocked (committed in `eb185158f`) but
+absent from the dictionary — ran the three preview regens. **Spelling pass:** matches the image word for word, two aspect
+icons (Cunning + Heroism). Baseline 14345/0.
+
+- [x] **IC27_165 Luke Skywalker – Overplaying His Hand** — When Played: `SWUOfferUnitTarget` (`side 'their'`, `nonLeader`,
+  `may`) → `IC27_165#0`: `SWUUnitToBottomOfDeck`, THEN `DoDrawCard(owner, 2)`. Preview judgement calls (no released analogue
+  prints "its owner draws" after a removal): declining = nobody draws (no "its"); a token that ceases still gives its owner the
+  2 (not "If you do"); put-then-draw order, so an owner with a 1-card deck draws the unit back. 14 sections incl. Twin Suns
+  far-seat owner, Team Suns teammate excluded, stolen unit (owner ≠ controller), empty/1-card owner deck, upgrades, token.
+
+Suite 14345 → **14359/0** (+14). 8 mutations, each red on its own section(s), no collateral.
+
+## Phase 21 — Fifteenth preview wave, 2026-11-05 (87 → 93 CardIDs; `--iterative`, Obi-Wan first by request)
+
+`comm -23` of `### Already Done` vs `CardMocks.php`: IC27_042, 043, 083, 155, 162, 172. Order: **042 Obi-Wan** (owner's
+priority), then simplest first — 162 Chewbacca, 083 Padmé, 155 Han, 043 Raddus, 172 Razor Crest. Baseline 14359/0.
+**Spelling pass** (all six images read): IC27_042 "from your discard **pilot**" → **pile**; IC27_043 Raddus was missing its
+**Heroism** aspect (two icons on the card: Vigilance + Heroism). The other four match word for word, aspect icons included.
+Three preview regens re-run after the fixes.
+
+- [x] **IC27_042 Obi-Wan Kenobi – I sense a Trap** — "You may choose one" = OPTIONCHOOSE of the viable modes + `Pass`
+  (LAW_178's decline); a fizzle-only mode is left off. Mode 1: pool = `SWUPlayablesAtDiscount(myDiscard, -5, withExploit)`
+  ∩ discard entries that left play THIS round (`From='PLAY'`, `Turn` = current round) ∩ the owner's `SWU_DEFEATED_CARD_`
+  multiset; played via `SWUNestedPlayUnit` (full ceremony), discount on the continuation Param. Mode 2: `APPLY_PHASE_DEBUFF|5|5`
+  over a whole-table pool read with the NEW `SWUUnitEnteredPlayThisPhaseAnySeat` (CardHelpers) — the controller-scoped helper
+  loses a unit that entered and then changed control. Judgement calls: Obi-Wan may target himself; a Pilot defeated as an
+  UPGRADE is not "a unit that was defeated"; no "enters ready". 21 sections. ⚠ Open sibling: TWI_052 Hello There has the
+  same control-change gap (uses the controller-scoped helper) — not changed. Suite 14359 → **14380/0** (+21); 11 mutations,
+  each red on its own section(s). ⚠ Commit 318173617 captured mutant M10 (mode 2's entered-this-phase filter dropped).
+
+**The other five as ONE batch** (owner: "let's do the rest batched"). 50 sections, 26 mutations — each red on its own
+section(s), after one fix (H3: the top-ten offer needed a card at position TEN; position 11 alone let a top-3 search pass).
+Suite 14380 → **14430/0** (+50).
+
+- [x] **IC27_162 Chewbacca – Cool Backpack** — `case 'IC27_162'` in ObjectCurrentPower's blank-gated self-buff switch →
+  `_SWUIc27162Bonus` (+4/+0 while Damage > 0; LOF_233's shape). 7 sections (heal ends it, a Shield keeps him undamaged, blank).
+- [x] **IC27_083 Padmé Amidala – With Great Pleasure** — `_SWUIc27083Bonus`, hooked into BOTH stat reads beside IC27_023 Tarkin:
+  +3/+3 per other friendly (team) Padmé to a unit with the HEROISM ASPECT ICON (`SWUCardAspectIcons`; a TWI_T02 token counts).
+  IC27_034 Interceptor's shape. 10 sections incl. both control directions, two Team Suns, Twin Suns far seat not friendly.
+- [x] **IC27_155 Han Solo – Gamblin' Man** — TS26_39 Vaughn's shape: `_topDeckSearchBegin(10, any, count:1:must)` →
+  `IC27_155#0` finishes the search THEN `_SWUPlayerDiscardRandom`; an empty deck skips straight to the discard ("then" is
+  unconditional). 7 sections (top-ten window both edges, decline still takes the top card, empty deck, exactly one).
+- [x] **IC27_043 Raddus – Hope of the Resistance** — `$playCostFieldModifiers["IC27_043"]` in GameLogic beside SOR_034 (the array
+  is initialised after the card loader) → `_SWUIc27043TaxFrom`: +3 while EXHAUSTED, team-aware `SWUIsEnemySeat`. ⚠ NEW: the
+  PILOTING path (`SWUComputePilotCost`) never ran the field modifiers, so it now adds `_SWUIc27043Tax` explicitly. 13 sections
+  (6/7 boundary pair, Pilot pair, event, stolen Raddus, Twin Suns pair, Team Suns teammate). Open sibling: SHD_202 Qi'ra's
+  named-card surcharge is also a field modifier, so a named Pilot played as an upgrade dodges it — not changed.
+- [x] **IC27_172 Razor Crest – Stay Off the Ice** — `_SWUIc27172Active($batch)` (live, unblanked, any seat; OR in the wipe
+  window's pre-effect snapshot; OR in the same defeat batch = LKI), read once per `CollectWhenDefeatedTriggers` batch and gating
+  EVERY When Defeated route (printed, ASH_063/TWI_001 field grants, phase/upgrade grants incl. SHD_001, Support-lent). CR: a
+  "When Played/When Defeated" ability IS a When Defeated ability → `CollectEntryTriggers` skips its When Played under a Razor
+  Crest (all 27 such cards are units with no other When Played). Judgement calls: Bounty is NOT a When Defeated ability (CR 13.c;
+  the engine already treats it so for Thrawn/Krennic); a Razor Crest leaving play in the same defeat still applies. 13 sections.
+  ⚠ Commit edf106914 captured mutant Z3 (the same-batch LKI loop emptied).
+
+## Phase 22 — Sixteenth preview wave, 2026-11-06 (93 → 94 CardIDs; one leader, owner's priority)
+
+`comm -23` of `### Already Done` vs `CardMocks.php`: IC27_005 only — mocked uncommitted, absent from the dictionary; ran the
+three preview regens. Baseline 14435/0. **Spelling pass** (both faces read): the mock had **Villainy only**; the card carries
+**Aggression + Villainy** (two icons). Fixed, regens re-run. Text, stats, traits, subtitle match word for word.
+
+- [x] **IC27_005 Darth Maul – Mechanism of Menace** — IC27_002 Rey's two-sided shape. Front: `$leaderActionResourceCosts` = 1 +
+  `$leaderAbilities` → mandatory `SWUQueueChooseTarget(SWUAllUnits(), DEAL_UNIT_DAMAGE|1)` + `SWUQueueAfterAction` (no unit in
+  play: still usable, CR 637.3). Deployed: `$onAttackAbilities["IC27_005:0"]` → `SWUOfferUnitTarget` may, no excludeSelf.
+  Judgement calls: "a unit" includes Maul himself (TWI_135 Maul's released ruling, by analogy); the ping is left source-less
+  like SHD_012 / IC27_002 (no source reader in the pool can see it). 21 sections incl. Twin Suns (both sides), Team Suns
+  teammate pool, Credit payment, Shield, ping-kills-the-defender-before-combat, and an aspect-icon section pinning the mock
+  fix (TWI_133 at printed cost under a Vigilance base). Suite 14435 → **14453/0** (+18; 3 green pre-impl by design).
+  9 mutations: 8 red on their own sections; the 9th (the empty-pool guard) was green → redundant, deleted.
+  **Limited:** Icons packs build their pools live from the dictionary, so Maul opens in the leader slot with no table change
+  (probe: in the pool of 6, 157 / 4000 packs); `DevTools/swu-printing-rarities.php` re-run → still 40 reprints listed (no
+  change); `limited_packs_test.php` ALL PASS.
+
+## Phase 23 — Seventeenth preview wave, 2026-11-06 (94 → 100 CardIDs; ONE batch of six, autonomous)
+
+`comm -23` of `### Already Done` vs `CardMocks.php`: IC27_102, 106, 109, 151, 160, 179 — all already in the dictionary.
+Baseline 14453/0. **Spelling pass:** all six match their images word for word, aspect icons counted (102/106/109
+Aggression + Villainy, 151/160 Cunning + Heroism, 179 Villainy only). R2-D2's mock carries `<br/>` between its bullets —
+formatting, not a rules typo; left as entered. Order: simplest first. End-of-run `comm -23` empty (100 mocked).
+
+- [x] **IC27_160 Tantive IV – For Alderaan** — "each other friendly Rebel unit gains Raid 2 and Saboteur". IC27_101 Hux's
+  aura shape: `_SWUIc27160Count` (card file) read live, team-wide, "other" by UID, blanked source grants nothing; hooked
+  into `GetConditionalKeyword_Raid_Value` (+2 per copy — two Tantives on one team give Raid 4, CR 7.5.8.b / the LAW_233
+  ruling) and `HasConditionalKeyword_Saboteur` (> 0). 13 sections; 6 mutations red. Suite → 14466/0.
+- [x] **IC27_179 Morgan Elsbeth – Tales Based On Truths** — On Attack reveal top: printed cost ≥ 6 → `DoDrawCard` (draw
+  observers fire — ASH_169 guard), otherwise `SWUMillTopCard` (From=DECK). Empty deck: nothing revealed, no deck-out
+  damage. SHD_041 Kuiil's shape. 8 sections incl. the 5/6 boundary pair; 3 mutations red. Suite → 14474/0.
+- [x] **IC27_106 Kylo Ren – Relentless** — Hidden (generated) + On Attack ready if the count of `SWU_UNIT_ATTACKED_<uid>`
+  (one entry per attack, added in `ExecuteSWUAttack`; cleared every phase start) is exactly 1, summed over every seat so a
+  mid-phase control change cannot fake a first attack; readies through `OnReadyCard`. 8 sections incl. next-round reset
+  and a Change of Heart steal-after-attacking board (built because the controller-only mutation was green without it).
+  Fixture note: round 2 opens with P2 to act. Suite → 14482/0.
+- [x] **IC27_102 Third Sister – Reckless** — SOR_033 Death Trooper's shape (same sentence, 2 → 1, as an On Attack): two
+  mandatory picks, friendly ground (team, herself included — Death Trooper's "must be chosen" ruling carried over) then
+  enemy ground (`'their'` = every opponent) from a CUSTOM continuation. Source-less like Death Trooper. 11 sections incl.
+  Team/Twin Suns pools and ping-kills-the-defender; 5 of 6 mutations red — the 6th (skip the enemy half on an empty
+  friendly pool) is green structurally: she is always in her own friendly pool. Recorded in the ledger. Suite → 14493/0.
+- [x] **IC27_151 R2-D2 – The First Protagonist** — On Attack modal (OPTIONCHOOSE, house rule: fizzle-only modes dropped,
+  one mode → no menu). Ready a resource = YOURS (engine-wide reading; the owner ruling on "any player's resource" is still
+  OPEN — follows IC27_007 Asajj); deal 1 to ANY ground unit (whole table, himself included); look at top card →
+  SOR_192 Ezra's `@CardID&Discard&Leave`. 15 sections; 7 mutations red. Suite → 14508/0.
+- [x] **IC27_109 Supreme Leader Snoke – Darkness Rising** — Overwhelm (generated) + When Played: UID snapshot of every
+  other unit (LOF_170 Bendu's pool, Snoke as source), 4 each inside `SWUSimulDefeatBegin/End` (Rancor Keeper ruling, the
+  HMW_263 Wrecker shape), then ONE `DoDrawCard` for the friendly (team-wide) victims that are gone. 9 sections incl. a
+  victim-observer batch section in the discriminating order (LOF_130 HK-47 dies first) and Team/Twin Suns; 5 mutations
+  red (deleting the window reds exactly the HK-47 section). Suite → **14517/0**.
+
+Judgement calls (preview cards, no official rulings): Tantive's Raid stacks per copy; Morgan's empty deck reveals nothing
+and takes no deck-out damage; Third Sister may target herself; R2-D2's "ready a resource" is self-only (OPEN ruling);
+Snoke's "defeated this way" is measured (Shield/HP survivors don't count) and teammates' units are friendly.
+**Limited:** Icons packs build their pools live from the dictionary (Phase 22 note), so all six reach the packs with no
+table change.
+
+## Phase 24 — Official flip, 2026-11-07 (100 mocks → 196 official CardIDs)
+
+FFG's API published all of IC27. Ran the HMW flip runbook (`docs/superpowers/plans/2026-09-16-swu-official-data-flip.md`
+Task 6): `withPreview=1` regens for SWUSim + SWUDeck (IC27 100 → 196; no other set's values changed) → SWUDB backfill of
+the four reprint-base traits (IC27_009–012, matching JTL_019/SOR_024/TWI_026/JTL_030) → `flip-audit.php --set=IC27`:
+**0 blocks**, 30 REVIEW, 96 NEW → all 100 mocks deleted (`SWUDeleteMockCard`) → regens → 324 `mock_IC27_*` art files
+pruned (official WebpImages/concat/crops present for each).
+
+- **Reprints:** 92 of the 96 never-mocked cards are reprints. 64 were already aliased; the other **28** (the 30 SWUDB
+  never listed, minus two new cards) were added to `Overrides.php` after a field-by-field check against the original
+  printing — only IC27_092 Resupply Carrier ("resource the top card") and IC27_137 Kintan Intimidator ("the defending
+  unit") reword, both equivalent. The other two NEW are tokens T01/T02.
+- **REVIEW that changed rules:** IC27_024 Thrawn — official "**another** friendly unit" (mock: "a friendly unit"). Owner
+  confirmed; he is now excluded in all three windows (one closure). `OnAttack_MayTargetHimself` became
+  `OnAttack_CannotTargetHimself` (owner-approved), `EnemyUnitIsNotAFriendlyTarget` no longer answers a prompt that only
+  existed because he could pick himself, + `WhenPlayed_OffersOnlyOtherFriendlyUnits` (offer asserted) and
+  `WhenPlayed_AloneNoPrompt`. Mutation (exclude nothing) reds 4 sections.
+- **REVIEW, no code impact:** IC27_040 title "Rose" → "Rose Tico" (nothing matches on it); ~12 subtitle capitalisations;
+  text formatting (bullets dropped, `[N resources]` → `N resources`, a missing closing parenthesis, he/it).
+- [x] **IC27_114 Cassian Andor – Blending In** — keyword-only (Hidden, generated into `$Hidden_Cards`). No code.
+- [x] **IC27_117 Hera Syndulla – Against the Odds** — "When you play another Rebel card: Deal 1 damage to a base." SOR_143
+  Fighters for Freedom's shape in `SWUCollectOwnPlayReactions` (trait gate, any card type, "another" by UID) + a
+  `DispatchTrigger` case: mandatory `SWUOfferBaseTarget` over every base. 11 sections incl. offer (2P + 4-seat), own base,
+  Rebel event + Rebel pilot-as-upgrade, two plays across a request boundary, opponent's play, blanked. Mutations: trait
+  gate → `NonRebelCard_NoTrigger` red; "another" → `HerasOwnPlay_DoesNotCount` red.
+- `test_swu_display_card_id`: reprint universe 88 → 171 groups, 36 → 111 display changes (all IC27; the corpus without
+  IC27 is still 88), and its Special-printing example moved from Open Fire (now reprinted non-Special as IC27_136) to
+  Waylay SOR_222.
+- **Limited (2026-11-08):** `DevTools/swu-printing-rarities.php` now reads the OFFICIAL FFG data (SWUSim's generated
+  dictionary) instead of the swu-db.com API, which still listed only 40 of the 92 reprints (agreeing on all 40). Re-run →
+  **92** reprints in `PrintingRarities.php` (+34 C, +18 U; the 40 unchanged, the 16 Starter Box Specials still never in
+  packs); `limited_packs_test` "waiting" 52 → **0**.
+- Flip-stale tests (2026-11-08, owner-approved): `test_swudeck_card_browser` (its 2 mock checks run only while a set is
+  mocked), `test_swudeck_preview_cards` (passes "no preview set mocked" on an empty mock FILE, fails on a missing one),
+  `test_loaddeck_holds_preview_reprints` (examples IC27_010/017 became Special → Onyx Squadron Brute IC27_015 + Homestead
+  Militia IC27_090; ⚠ **delete it on 2026-11-20** when IC27 leaves `PreviewSets.php`), `action_abilities_inventory_test`
+  (skips printings a deck loads as a different printing: IC27_139/154; IBH reprints still checked).
+
+Suite 14517 → **14530/0**.
+
 ## Status
 
-**✅ IC27 IS CARD-COMPLETE AT 21 / 21 CardIDs** (2026-10-07 — re-derived at the END of the run: the
-`### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty). True only
-until the next preview import. Third wave (Phase 9): +15 sections, zero deferrals, no preview assumption
+**IC27: OFFICIAL — every one of the 194 numbered CardIDs plays** (2026-11-07). 102 have their own handlers or keywords
+(the 100 former mocks + IC27_114/117); 92 are reprints aliased in `Overrides.php`. Suite → 14530/0.
+Before the flip: **100 / 100** mocked CardIDs (seventeenth wave).
+
+**IC27: 100 / 100 mocked CardIDs implemented** (2026-11-06, seventeenth wave; suite 14453 → 14517/0; the end-of-run
+`comm -23` of `### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **94 / 94** (sixteenth wave).
+
+**IC27: 94 / 94 mocked CardIDs implemented** (2026-11-06, sixteenth wave; suite → 14453/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **93 / 93** (fifteenth wave).
+
+**IC27: 93 / 93 mocked CardIDs implemented** (2026-11-05, fifteenth wave; suite → 14430/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **87 / 87** (fourteenth wave).
+
+**IC27: 87 / 87 mocked CardIDs implemented** (2026-11-05, fourteenth wave; suite → 14359/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **86 / 86** (thirteenth wave).
+
+**IC27: 86 / 86 mocked CardIDs implemented** (2026-11-04, thirteenth wave; suite → 14337/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **83 / 83** (twelfth wave).
+
+**IC27: 83 / 83 mocked CardIDs implemented** (2026-11-04, twelfth wave; suite → 14298/0; the end-of-run `comm -23` of
+`### Already Done` vs `CardMocks.php` is empty). True only until the next preview import.
+Before this wave: **79 / 79** (eleventh wave).
+
+**IC27: 79 / 79 mocked CardIDs implemented** (2026-11-03, eleventh wave — one batch; suite 14138 → 14223, 3 known reds
+unchanged; re-derived at the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty).
+True only until the next preview import.
+Before this wave: **72 / 72** (tenth wave, `--iterative`; suite 13986 → 14133, 3 known reds
+unchanged. The wave's opening diff missed IC27_013 and IC27_019 — see the Phase 16 note; both now done).
+Before that:
+
+**✅ IC27 IS CARD-COMPLETE AT 65 / 65 mocked CardIDs** (2026-10-30, ninth wave — suite 13770 → 13856/0; re-derived at
+the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty). True only until the next
+preview import. Before it 58/58 (2026-10-29, eighth wave — suite 13701 → 13757/0); before that 54/54
+at 13701/0 (seventh wave); before that 51/51 at
+13677/0 — re-derived at the END of the run: the
+`### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty), plus the
+hand-mapped reprint overrides in `Overrides.php`. True only until the next preview import.
+Sixth wave (Phase 12): suite 13513 → **13677/0** (+164 sections across 19 implemented cards, 2 keyword-only no-ops),
+zero deferrals, 81 mutations each red on its own sections. Preview judgement calls flagged: IC27_014 Dryden (a
+Shield-prevented ping still "survives" → token), IC27_031 BB-8 ("If you do" = damage actually healed; no damaged
+friendly unit → no prompt).
+Before that: **30 / 30** (2026-10-26).
+Fifth wave (Phase 11): suite 13451 → **13465/0** (+14 sections), zero deferrals; one preview assumption flagged
+(Rey's "a damaged unit" = any unit with damage).
+Before that: **29 / 29** (2026-10-24).
+Fourth wave (Phase 10): suite 13410 → **13447/0** (+37 sections), zero deferrals; two judgement calls
+flagged (IC27_070 no availability gate; IC27_145 charges stack).
+Before that: **21 / 21** (2026-10-07). Third wave (Phase 9): +15 sections, zero deferrals, no preview assumption
 needed (the aura's only open question, "friendly" in Team Suns, is settled by the 2026-08-25 ruling).
 Second wave (Phase 8): suite 11485 → **11528/0** (+43 sections), zero deferrals; one preview assumption
 flagged (IC27_038's single-instruction deck-out).

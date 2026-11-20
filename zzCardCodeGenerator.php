@@ -1924,7 +1924,7 @@ function GetPropertyValue($card, $property)
     case "PokeSim":
       $value = $card->$property ?? null;
       if (is_object($value) || is_array($value)) return json_decode(json_encode($value), true);
-      if ($property === 'energyType' && $card->id === 'me03-088') return 'Special';
+      if ($property === 'energyType' && in_array($card->id, ['me03-088', 'me04-086'], true)) return 'Special';
       return $value;
     case "SWUDeck":
       switch($property) {

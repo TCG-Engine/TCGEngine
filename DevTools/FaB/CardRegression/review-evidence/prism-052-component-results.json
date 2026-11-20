@@ -1,0 +1,208 @@
+{
+    "status": "PASS",
+    "component": "live_selected_payment_functions_existing19_plus_prism12_with_instrumented_boundary_doubles",
+    "source_files": {
+        "game": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e"
+        },
+        "choices": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\FaBSim\\Custom\\CardChoices.php",
+            "sha256": "801d26cacf4ea83e0ca9b8b6c927a9a70366eef591ed34ff9b65fdb715db7961"
+        },
+        "arc": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\FaBSim\\Custom\\ARCAbilities.php",
+            "sha256": "5c393d91c993b1b0af065b1ba563b694f381029a229020fee1645bde656f9657"
+        }
+    },
+    "selected_function_sha256": {
+        "FaBPreparedEffectCostSource": "febc0abcdcfa9e5e5bec2553e841ffa0d3eefd83888083e027094b8c18215339",
+        "FaBPreparedEffectCostRollback": "3d07b95c7c1ebbcac42c2cf949fa2471f73708bc152d00d199a03599934aeafc",
+        "FaBPreparedEffectCostMayComplete": "037b5aa02d7aac46e4d888e32fc3d51e36ed286820d950e4c13fcbd48289644c",
+        "FaBDeclarePreparedEffectCost": "44fe52ebd988a87b21e64a4a96f798b0a0e32f44221766154c1283a78f07e919",
+        "FaBPreparedEffectCostCanPitch": "df630a56c3e64a5d214b3c47c3b1e64a59556d132b5fae5b44e2e08983dbdd59",
+        "FaBPreparedEffectCostBeginAssets": "2139501ff0d8d7656880f6a476fab3f888378bd63d96966084aa47a6e9b59fb4",
+        "FaBPreparedEffectCostAssetsArePaid": "4621b426d775cc483e40841cc5ff86356f030a1aa1fdd34129e1a1daceab78d8",
+        "FaBPreparedEffectCostMarkAssetsPaid": "1b3e5df4fbead4cf2bf8b4e8ce0049ac75564f9440d3134ce22b8e833109c7a1",
+        "FaBPayDeclaredPreparedEffectCost": "ca88651ad3c89962a77a5a4923da6857ceec8ad5f3f81518c6087b638703b61d",
+        "FaBFinishPreparedCard": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce",
+        "FaBBodicePreparedEffectCostSource": "54b01214fa6450e5dae643fe59e0c7a7bfa3530cba5b4d8b8a142e3cffea4981",
+        "FaBBodiceControlledAura": "d246da0ebd279984a7ef2400ea9523c9f1cc6d99d486a828a02ef27c2c667aa8",
+        "FaBDeclareBodiceAuraCost": "acf2b520bdacda135b0401c3f8d7b1c279521775738bcff1c0e1e18414ba310c",
+        "FaBPrismPreparedEffectCostSource": "7da4a043a4a350730ec9e276660eb4ed3ad111ee6b74a2fd306e1a14d409486b",
+        "FaBDeclarePrismSoulCost": "09abc77495608f358fa988876df72b83b49f253f596fbdec3e05ec1543011b82",
+        "FaBTryCompletePayment": "5fc6b90dd3f4ad957978a1c5a1d545a17c0002bbec0cdae9556d163804fcd311",
+        "FaBARCPayAbility": "60c331ed6935d5025393b21e10d90049d4917f248791641bb736688308efcaaa"
+    },
+    "tests": [
+        {
+            "name": "tome_actual_asset_debit_before_move_and_play",
+            "status": "PASS",
+            "assertions": 12
+        },
+        {
+            "name": "rouse_reserved_uids_asset_debit_before_reveal_and_grants",
+            "status": "PASS",
+            "assertions": 16
+        },
+        {
+            "name": "missing_declaration_and_repeated_finish_do_not_debit",
+            "status": "PASS",
+            "assertions": 10
+        },
+        {
+            "name": "same_uid_changed_card_identity_fails_closed",
+            "status": "PASS",
+            "assertions": 4
+        },
+        {
+            "name": "descriptor_type_mismatch_fails_closed",
+            "status": "PASS",
+            "assertions": 4
+        },
+        {
+            "name": "cost_mutation_during_actual_resource_debit_rejected",
+            "status": "PASS",
+            "assertions": 4
+        },
+        {
+            "name": "lost_declared_physical_uid_rolls_back_after_assets_without_effect",
+            "status": "PASS",
+            "assertions": 5
+        },
+        {
+            "name": "optional_rouse_decline_pays_assets_without_reveal_or_grant",
+            "status": "PASS",
+            "assertions": 4
+        },
+        {
+            "name": "unavailable_snapshot_stops_invalid_payment_without_free_play",
+            "status": "PASS",
+            "assertions": 4
+        },
+        {
+            "name": "resource_callback_reentry_does_not_double_debit",
+            "status": "PASS",
+            "assertions": 10
+        },
+        {
+            "name": "effect_callback_reentry_does_not_repeat_paid_effect_or_play",
+            "status": "PASS",
+            "assertions": 10
+        },
+        {
+            "name": "exact_existing_prepare_suppression_exception_remains_marker_free",
+            "status": "PASS",
+            "assertions": 1
+        },
+        {
+            "name": "ordinary_marker_free_payment_remains_ordinary",
+            "status": "PASS",
+            "assertions": 1
+        },
+        {
+            "name": "bodice_actual_ap_before_aura_and_actual_arc_equipment_self_destroy",
+            "status": "PASS",
+            "assertions": 9
+        },
+        {
+            "name": "bodice_control_not_ownership_defines_eligible_aura",
+            "status": "PASS",
+            "assertions": 8
+        },
+        {
+            "name": "bodice_missing_declaration_holds_without_any_cost",
+            "status": "PASS",
+            "assertions": 1
+        },
+        {
+            "name": "bodice_no_aura_or_noncontrolled_aura_cannot_pay",
+            "status": "PASS",
+            "assertions": 4
+        },
+        {
+            "name": "bodice_wrong_physical_equipment_source_uid_fails_closed",
+            "status": "PASS",
+            "assertions": 1
+        },
+        {
+            "name": "bodice_effect_callback_reentry_is_once_only",
+            "status": "PASS",
+            "assertions": 8
+        },
+        {
+            "name": "prism_declare_unpaid_then_actual_cost2_before_soul_commit_and_arc_once",
+            "status": "PASS",
+            "assertions": 18
+        },
+        {
+            "name": "prism_missing_declaration_repeated_finish_holds_even_with_assets",
+            "status": "PASS",
+            "assertions": 2
+        },
+        {
+            "name": "prism_actor_hero_layer_source_and_spec_binding_fail_closed",
+            "status": "PASS",
+            "assertions": 22
+        },
+        {
+            "name": "prism_foreign_missing_removed_or_wrong_zone_soul_declaration_rejected",
+            "status": "PASS",
+            "assertions": 8
+        },
+        {
+            "name": "prism_declared_soul_staleness_or_card_identity_change_after_assets_rolls_back",
+            "status": "PASS",
+            "assertions": 18
+        },
+        {
+            "name": "prism_mutated_actual_charge_during_debit_rejected",
+            "status": "PASS",
+            "assertions": 6
+        },
+        {
+            "name": "prism_source_changes_during_actual_debit_rejected_before_effect",
+            "status": "PASS",
+            "assertions": 6
+        },
+        {
+            "name": "prism_missing_undo_snapshot_stops_without_unpaid_announcement",
+            "status": "PASS",
+            "assertions": 6
+        },
+        {
+            "name": "prism_actual_asset_callback_reentry_cannot_repeat_debit",
+            "status": "PASS",
+            "assertions": 16
+        },
+        {
+            "name": "prism_effect_and_banish_boundary_reentry_cannot_repeat_commit",
+            "status": "PASS",
+            "assertions": 17
+        },
+        {
+            "name": "prism_declared_uid_not_stale_soul_row_index_is_committed",
+            "status": "PASS",
+            "assertions": 15
+        },
+        {
+            "name": "prism_hero_ability_loss_does_not_bypass_missing_declaration_or_cancel_declared_cost",
+            "status": "PASS",
+            "assertions": 16
+        }
+    ],
+    "assertions": 266,
+    "passed": 31,
+    "failed": 0,
+    "native_games": 0,
+    "backend_reads": 0,
+    "backend_writes": 0,
+    "repository_writes": 0,
+    "limits": [
+        "Component boundary doubles are not engine gameplay/replay evidence.",
+        "Actual activation and SaveUndo capture remain native scope; component fixtures intentionally manufacture bound pending/snapshot inputs.",
+        "Prism funding uses a controlled Blue3 boundary, not real DoPitchCard; actual native pitch/move/listener/response/Shield behavior remains separate.",
+        "banish_event_boundary is an explicit observer double reached from the actual commit helper via its move adapter, not an extracted MON event implementation.",
+        "Actual pitch/ownership/zone adapters, generated await save/reload, Flock/Boost/Rise compatibility require the separately planned native or focused existing tests."
+    ]
+}

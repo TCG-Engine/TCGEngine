@@ -1,0 +1,68 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch193.json",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T09:29:26.513799+00:00",
+  "fixtures": [
+    {
+      "slug": "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+      "fixture_sha256": "5ba5cc9df4c5c2ece96f7e0498fff248846a1ebef027368585556ce239ae8e2b",
+      "passed": true,
+      "result": "[PASS] FAB-REG-039 / Tome of Harvests / four live asset-before-effect costs"
+    },
+    {
+      "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "fixture_sha256": "79c7837f9db5ba7f34bc57de0979893a08a7600269257d0f54e974453e532a78",
+      "passed": true,
+      "result": "[PASS] FAB-REG-039 / Rouse the Ancients / four live asset-before-reveal costs"
+    },
+    {
+      "slug": "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+      "fixture_sha256": "22bd69776a0899d490dc8b15ad8baaceae4b013376f101a14d66a6313a150132",
+      "passed": true,
+      "result": "[PASS] Bloodtorn Bodice / four live corrected action-before-effect costs"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+      "returncode": 0,
+      "stdout": "[PASS] FAB-REG-039 / Tome of Harvests / four live asset-before-effect costs\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "returncode": 0,
+      "stdout": "[PASS] FAB-REG-039 / Rouse the Ancients / four live asset-before-reveal costs\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+      "returncode": 0,
+      "stdout": "[PASS] Bloodtorn Bodice / four live corrected action-before-effect costs\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+    "card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+    "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+    "card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+    "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+    "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+    "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+    "card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+    "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+    "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+    "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+    "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+    "card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+    "repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+    "repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+    "repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

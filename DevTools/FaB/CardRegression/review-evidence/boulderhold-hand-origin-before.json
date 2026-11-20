@@ -1,0 +1,144 @@
+{
+  "status": "NATIVE_CONFIRMED_BOULDERHOLD_HAND_POWER_SEVEN_INSTEAD_OF_NINE",
+  "issue_id": "FAB-REG-051",
+  "utc": "2026-10-26T04:56:15.469398+00:00",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "source_spec": "card-regression-batch224-boulderhold-hand-correct-probe.json",
+  "source_sha256": "0720d26f11271a975713210416b1b770ba4eeb8fa8ad84cbb524fdb10e7c62a0",
+  "initial_gamestate_sha256": "d87f08da749fb84661a39e97aaf18acf15fb8c9b398117268a75eefb61ba8c1c",
+  "attempted_actions_count": 13,
+  "attempted_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Equipment-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "error": "power  expected 9 got 7",
+  "observed_window": "ATTACK",
+  "observed_attack_uid": 7,
+  "unconsumed_effect": [
+    {
+      "type": "MPG_NEXT",
+      "amount": 1,
+      "uses": 1,
+      "power": 2,
+      "tag": "",
+      "arsenal": true,
+      "action": true
+    }
+  ],
+  "recording_run": {
+    "path": "recording-runs/card-regression-batch224-boulderhold-hand-correct-probe-20261026T044935Z-6adedbdf58060.json",
+    "sha256": "03e2d70cf9a94705fc672f2818967f88662b9b7df2eae610d5b368abc0b67652"
+  },
+  "full_before_workspace": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-hand-native-before14d9\\recording-results.json",
+    "sha256": "a83339f788633239b25105186847d2fda401666746c0139c04e86a4d8cca59d3"
+  },
+  "independent_expected_probe_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-hand-probe-independent-manual-review-106.json",
+    "sha256": "dc446447bbf1ddf9cd50dc4e8ba522c7bf416cb663e7853423966b039079e1f5"
+  },
+  "fixture_saved": false,
+  "limits": "Actualpaidability/attack source responses, expectedpower9 actual7. Probe stopsbeforeblocking/damage; no finaldamage orHPclaim. CorrectArsenalbranch is separately valid, not proof ofHandbehavior."
+}

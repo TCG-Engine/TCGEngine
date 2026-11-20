@@ -1,0 +1,31 @@
+# Single-colour stand-in (2026-11-19) for the Lando mill rules. Darth Sidious, There Is No Mercy (HMW_011, Aggression) on Dendroid Wilds (HMW_029, Aggression, the Endor-trait red base): mono-red damage
+# Deck: "Dolor"; source: https://sw-unlimited-db.com/decks/171880 (created 2026-11-14, post-ban), exact leader + base, unchanged
+# Author: Jorsot
+# Style: softaggro
+
+Leader
+1 HMW_011
+
+Base
+1 HMW_029
+
+Deck
+3 IC27_098
+3 IC27_102
+3 IC27_103
+1 HMW_159
+2 HMW_174
+3 HMW_177
+3 HMW_176
+3 HMW_185
+3 SEC_134
+3 SEC_133
+3 LOF_132
+2 HMW_186
+2 ASH_146
+3 JTL_162
+3 IC27_127
+3 HMW_193
+3 LAW_208
+1 ASH_183
+3 SEC_176

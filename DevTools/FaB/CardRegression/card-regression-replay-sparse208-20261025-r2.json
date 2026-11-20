@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch208.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T23:24:10.592679+00:00",
+  "fixtures": [
+    {
+      "slug": "card-firebreathing-red-four-live-sparse-actual-paid-attacking-instant-increases-real-attack-damage",
+      "fixture_sha256": "6fbef94c33879133859b69eff4f3ced5cb772a3c0753cd58ed1f479d9f4eefef",
+      "passed": true,
+      "result": "[PASS] firebreathing_red / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-seismic-shelter-blue-four-live-sparse-active-owned-aura-scales-real-defense-by-two-surge-tokens",
+      "fixture_sha256": "337b53fa2c3688643564c49b6350fa1a60419b3d40d6748a2932f6d9dc03ab8c",
+      "passed": true,
+      "result": "[PASS] seismic_shelter_blue / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-crucible-of-aetherweave-four-live-sparse-actual-paid-staff-instant-amplifies-real-next-arcane-by-one",
+      "fixture_sha256": "48a19c51679bd3d2ad432a03f709bfbaab65c5bfb2e2aed9d819ee50a30667f9",
+      "passed": true,
+      "result": "[PASS] crucible_of_aetherweave / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+      "fixture_sha256": "9c5bd7cc139c009bcfcc23e7902ce953ebe512f7e4eeb59836f42e16be75e7d8",
+      "passed": true,
+      "result": "[PASS] aether_flare_red / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-firebreathing-red-four-live-sparse-actual-paid-attacking-instant-increases-real-attack-damage",
+      "returncode": 0,
+      "stdout": "[PASS] firebreathing_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-seismic-shelter-blue-four-live-sparse-active-owned-aura-scales-real-defense-by-two-surge-tokens",
+      "returncode": 0,
+      "stdout": "[PASS] seismic_shelter_blue / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-crucible-of-aetherweave-four-live-sparse-actual-paid-staff-instant-amplifies-real-next-arcane-by-one",
+      "returncode": 0,
+      "stdout": "[PASS] crucible_of_aetherweave / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] aether_flare_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

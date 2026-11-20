@@ -1,0 +1,58 @@
+{
+  "status": "FOUR219_REPRESENTATIVES_QUALIFIED_REGISTERED_TWO_SCOPED_CONTROLS",
+  "utc": "2026-10-26T03:26:50.767315+00:00",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "new_scenarios_recorded": 4,
+  "new_scenarios_qualified": 4,
+  "new_groups": 4,
+  "total_saved_through219": 3433,
+  "two_player": 3074,
+  "four_live_through219": 359,
+  "primary_ids_recorded_through219": 592,
+  "identity_denominator": 5196,
+  "groups_recorded_through219": 466,
+  "group_denominator": 3324,
+  "four_live_groups_through219": 357,
+  "registered_review_rows_after": 3433,
+  "phase_scenarios_qualified_at_batch_contexts": 70,
+  "creation_replay_passes_at_batch_contexts": 140,
+  "new_targeted_replay_passes": 8,
+  "actions": 59,
+  "native_assertions": 4250,
+  "manual_passes": 45,
+  "qualified_review_evidence": "review-evidence/sparse219-f56-qualified-saved-review.json",
+  "qualified_review_sha256": "a9bd62b25f8d0f0739fccb72835045c3a1124322406ca81ec8490cbb00326b05",
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse219-f56-r1.json",
+      "sha256": "3e6527556c3ea6bcb7d3fbde6479c53ff28b973df2fea83d4d02f12ee7af734e"
+    },
+    {
+      "path": "card-regression-replay-sparse219-f56-r2.json",
+      "sha256": "18ffcc637b3fa5f221cdb49274195efde936336fda9fccd4dedcc0da7763d8bb"
+    }
+  ],
+  "causal_controls": {
+    "path": "card-regression-negative-controls-sparse219-f56-results.json",
+    "sha256": "a07576a67d63b32aceb0e06c9acef9eb32867f4bc0714b9cf6ed7fbee0b144ef",
+    "detected": 2,
+    "total": 2,
+    "retained_boundary_and_suffix_oracles": 2032,
+    "omitted": 0,
+    "global_total": 117,
+    "phase_total": 33,
+    "positive_only": [
+      "snapback_red",
+      "glory_seeker"
+    ]
+  },
+  "inventory_scope": "Through219 only; later220saved/pending andRapturefailedprobe excluded. Index snapshot remains through218; no rebuild or fullsuite.",
+  "engine_source_changed_in_this_batch": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "issue_ledger_updated": false,
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse219-f56-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

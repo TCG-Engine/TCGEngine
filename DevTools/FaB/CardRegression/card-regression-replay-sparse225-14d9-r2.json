@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch225.json",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T05:12:12.983465+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arcane-twining-red-four-live-sparse-real-hand-discard-instant-amp-consumed-by-earned-snapback",
+      "fixture_sha256": "977b7ee1352e30018d78a5db54c9b433b4530c109b12ba5f1c7cea09464f63cb",
+      "passed": true,
+      "result": "[PASS] arcane_twining_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcane-twining-red-four-live-sparse-real-hand-discard-instant-amp-consumed-by-earned-snapback",
+      "returncode": 0,
+      "stdout": "[PASS] arcane_twining_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

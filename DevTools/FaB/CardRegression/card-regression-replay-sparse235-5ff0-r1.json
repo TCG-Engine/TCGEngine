@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch235.json",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T07:45:18.506212+00:00",
+  "fixtures": [
+    {
+      "slug": "card-draco-fire-red-four-live-sparse-actual-next-draconic-cost-one-becomes-zero-and-printed-three-gets-two",
+      "fixture_sha256": "2a5b0a886a0e1fa2ef255605e383f4f88f69014a83837476164a33ed1b915c2c",
+      "passed": true,
+      "result": "[PASS] draco_fire_red / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-cloud-cover-red-four-live-sparse-actual-lightning-instant-prevents-three-of-real-four-physical-damage",
+      "fixture_sha256": "167cdcde5b110b0550d68608da52c8d20622890d270c0fff3e043de9439dfe0e",
+      "passed": true,
+      "result": "[PASS] cloud_cover_red / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-electrify-red-four-live-sparse-actual-paid-arsenal-lightning-action-draws-one-real-physical-card-and-go-again",
+      "fixture_sha256": "4a2e753cc75c95101be610156921fbeaf0d56bf5945fdea3510a6f3d439ecd3a",
+      "passed": true,
+      "result": "[PASS] electrify_red / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-draco-fire-red-four-live-sparse-actual-next-draconic-cost-one-becomes-zero-and-printed-three-gets-two",
+      "returncode": 0,
+      "stdout": "[PASS] draco_fire_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cloud-cover-red-four-live-sparse-actual-lightning-instant-prevents-three-of-real-four-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] cloud_cover_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-electrify-red-four-live-sparse-actual-paid-arsenal-lightning-action-draws-one-real-physical-card-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] electrify_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -25,7 +25,7 @@ $cardDiscardedHandlers['JTL_221:0'] = function(int $player, object $entry, ?obje
     //             then queue the picker to RE-STAMP it onto the seat the controller actually names.
     //             The re-stamp is idempotent and locates the entry by CardID within the owner's pile.
     $lone = SWUChooseOpponent($controller);
-    $entry->Modifier = ($lone === $player) ? 'TPF' : SWUBuildDiscardModifier('OTPF', $lone);
+    SWUDiscardAddGrant($entry, ($lone === $player) ? 'TPF' : SWUBuildDiscardModifier('OTPF', $lone), 'JTL_221');
     if (SeatCountForGame() <= 2) return;
     // ⚠ NO $eligible filter: any live opponent can be granted the free play. An opponent who cannot
     // currently afford to ACT on it is still a legal choice — the ruling notes they simply may not get to
@@ -44,11 +44,12 @@ $customDQHandlers["JTL_221#0"] = function($player, $parts, $lastDecision) {
     $d = &GetDiscard($owner);
     for ($i = count($d) - 1; $i >= 0; $i--) {          // most recent matching entry
         if (!empty($d[$i]->removed) || ($d[$i]->CardID ?? '') !== $cardID) continue;
-        $cur = SWUParseDiscardModifier((string)($d[$i]->Modifier ?? ''));
-        if ($cur['kind'] === '') break;                 // grant already expired (regroup cleared it)
-        $d[$i]->Modifier = ($opp === $owner)
-            ? 'TPF'
-            : SWUBuildDiscardModifier('OTPF', $opp);
+        // Re-stamp THIS card's grant only (named Action abilities: other grants on the entry stay).
+        $mine = array_filter(SWUDiscardGrantList((string)($d[$i]->Modifier ?? '')), fn($g) => $g['source'] === 'JTL_221');
+        if (empty($mine)) break;                        // grant already expired (regroup cleared it)
+        $others = array_filter(SWUDiscardGrantList((string)($d[$i]->Modifier ?? '')), fn($g) => $g['source'] !== 'JTL_221');
+        $d[$i]->Modifier = implode(',', array_map(fn($g) => $g['source'] !== '' ? "{$g['mod']}:{$g['source']}" : $g['mod'], $others));
+        SWUDiscardAddGrant($d[$i], ($opp === $owner) ? 'TPF' : SWUBuildDiscardModifier('OTPF', $opp), 'JTL_221');
         break;
     }
     unset($d);

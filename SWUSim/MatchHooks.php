@@ -20,7 +20,15 @@ function SWUResolveLobbyDecks($lobby) {
     foreach ($lobby->players as $player) {
         $r = SWUResolveDeckInput($player->getDeckLink());
         if (empty($r['success'])) { SetFlashMessage("Deck error for player $seat: " . ($r['message'] ?? '')); return null; }
-        $errs = SWUCheckFormat($format, $r['leader'], $r['base'], $r['mainDeck'], $r['sideboard']);
+        // A Limited match (SWUSim/Limited/LimitedRoom.php SWULimitedStartMatch) is checked against the seat's own pool, not
+        // the format: a pool's sideboard is far over Constructed's 10 and it has no copy limit.
+        if (isset($lobby->limited) && is_array($lobby->limited) && isset($lobby->limited['pools'])) {
+            require_once __DIR__ . '/Limited/LimitedDeck.php';   // the engine (and its card dictionary) is already loaded here
+            $leader = is_array($r['leader']) ? strval($r['leader'][0] ?? '') : strval($r['leader']);
+            $errs = SWUCheckLimitedDeck($lobby->limited['pools'][$seat] ?? [], $lobby->limited['setsInPlay'] ?? [], $leader, strval($r['base']), $r['mainDeck']);
+        } else {
+            $errs = SWUCheckFormat($format, $r['leader'], $r['base'], $r['mainDeck'], $r['sideboard']);
+        }
         if (!empty($errs)) { SetFlashMessage("Deck illegal for player $seat ($format): " . implode('; ', array_slice($errs, 0, 3))); return null; }
         $resolved[$seat] = $r;
         ++$seat;
@@ -60,8 +68,16 @@ function SWUValidateResolvedDeck($resolved, $format) {
 function SWUFlashMatchResult($gameName, $winnerSeat, $m) {
     if (count($m['players'] ?? []) > 2) {
         $winners = is_array($m['winners'] ?? null) && !empty($m['winners']) ? $m['winners'] : [intval($winnerSeat)];
+        if (intval($winnerSeat) === 0 && empty(array_filter($winners))) {   // Team Suns: both teams wiped out together
+            SetFlashMessage("MATCHOVER:The game is a draw!");
+            return;
+        }
         $labels = array_map(fn($s) => 'Player ' . intval($s), $winners);
         SetFlashMessage("MATCHOVER:" . implode(', ', $labels) . " " . (count($labels) > 1 ? 'win' : 'wins') . " the game!");
+        return;
+    }
+    if (intval($winnerSeat) === 0) {   // a drawn match (CR 6.3 draws): equal game wins after the full series
+        SetFlashMessage("MATCHOVER:The match is a draw " . intval($m['wins']['1'] ?? 0) . "-" . intval($m['wins']['2'] ?? 0) . "!");
         return;
     }
     SetFlashMessage("MATCHOVER:Player " . intval($winnerSeat) . " wins the match " .
@@ -81,8 +97,11 @@ function SWURecordDeckStatsForGame(array &$match, $winnerSeat) {
     // Twin Suns (v1): N-player deck W/L attribution isn't modeled yet (the pairwise
     // opponent-matchup logic below assumes exactly 2 seats) — skip stats for >2 seats.
     if (count($match['players'] ?? []) > 2) return;
+    // Limited and Dualing Suns record nothing (Limited spec §3.9) — a pool deck has no saved list to credit anyway.
+    if (SWUFormatRecordsNothing($match['format'] ?? '')) return;
     $winnerSeat = intval($winnerSeat);
-    if ($winnerSeat !== 1 && $winnerSeat !== 2) return;
+    $draw = ($winnerSeat === 0);   // MatchRecordGameDraw: a drawn game counts as a draw for BOTH seats
+    if ($winnerSeat !== 1 && $winnerSeat !== 2 && !$draw) return;
     require_once __DIR__ . '/../Database/ConnectionManager.php';
     require_once __DIR__ . '/../Database/functions.inc.php';
     require_once __DIR__ . '/Custom/DeckImport.php';
@@ -93,14 +112,14 @@ function SWURecordDeckStatsForGame(array &$match, $winnerSeat) {
         $deckId = $p['deckIdentity'] ?? '';
         if ($userId === null || $deckId === '') continue;          // guest or no identity
         $won = ($seat === $winnerSeat);
-        $affected = RecordSavedDeckResult($userId, $deckId, $won);
+        $affected = RecordSavedDeckResult($userId, $deckId, $won, $draw);
         if ($affected <= 0) continue;                              // deck not saved → skip matchup
         $opp = ($seat === 1) ? '2' : '1';
         $oppDeck = $match['players'][$opp]['originalDeck'] ?? [];
         $oppLeader = (string)($oppDeck['leader'] ?? '');
         $oppBase   = SWUNormalizeBaseForMatchup($oppDeck['base'] ?? '');
         if ($oppLeader !== '' && $oppBase !== '') {
-            RecordSavedDeckMatchup($userId, $deckId, $oppLeader, $oppBase, $won);
+            RecordSavedDeckMatchup($userId, $deckId, $oppLeader, $oppBase, $won, $draw);
         }
     }
 }
@@ -121,6 +140,9 @@ function SWUMetaPremierRateMatch($matchId) {
 // allowsSeriesChange hook: no Rematch / Quick Rematch / Convert-to-Bo3 in a rated format — those build a new or longer
 // match between the same two players without the queue (spec §4.5). Players re-queue instead.
 function SWUMatchAllowsSeriesChange(array $m): bool {
+    if (!empty($m['highGround'])) return false;   // a High Ground hill match returns to its room: winner stays, no rematch
+    // A Limited match returns to its room too, and a rematch would be a Limited match with no pools to check decks against.
+    if (!empty($m['limited'])) return false;
     return !SWUFormatIsRated(strval($m['format'] ?? ''));
 }
 
@@ -137,6 +159,39 @@ function SWUMatchEndSeriesAfterGame(array $m): int {
     if (($d['endReason'] ?? '') !== 'abandon' && !$early) return 0;
     $winner = intval($last['winner']);
     return ($winner === 1) ? 2 : (($winner === 2) ? 1 : 0);
+}
+
+// A rematch keeps where its match came from (persistent lobby, docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md
+// call 11): the ROOM (so its end screen still offers Return to Lobby and the room stays held), the CHAT (the room's, or
+// the public pairing's — an accepted Rematch later carries it into the new room), and the QUEUE a public pairing came
+// from (Requeue rejoins that queue, not the rematch's own length). Lives here, not in Rooms.php, so the hook can never
+// be silently uncallable.
+function SWURematchCarryOrigin(array $old, $newId): void {
+    $newId = strval($newId);
+    $chatId = strval($old['chatId'] ?? '');
+    $roomId = strval($old['roomId'] ?? '');
+    $requeue = is_array($old['requeue'] ?? null) ? $old['requeue']
+             : ['format' => strval($old['format'] ?? ''), 'queueType' => strval($old['queueType'] ?? 'bo1')];
+    MatchWithLock('SWUSim', $newId, function (&$m) use ($chatId, $roomId, $requeue) {
+        if ($chatId !== '') $m['chatId'] = $chatId;
+        if ($roomId !== '') $m['roomId'] = $roomId;
+        $m['requeue'] = $requeue;
+    });
+    if ($chatId !== '') MatchPublishChatConversation($newId, $chatId);
+}
+
+// One game of a match was recorded (gameResultRecorded hook). Only a High Ground hill match cares: its room's "Tonight"
+// table and line follow every game. Loaded lazily so ordinary matches never pull in the room code.
+function SWUMatchGameResultRecorded(array $m, $gameName): void {
+    // A Limited event's match: its room follows the series and ends the event with it (SWUSim/Limited/LimitedRoom.php).
+    if (!empty($m['limited'])) {
+        require_once __DIR__ . '/Limited/LimitedRoom.php';
+        SWULimitedOnGameResult($m, strval($gameName));
+        return;
+    }
+    if (empty($m['highGround'])) return;
+    require_once __DIR__ . '/HighGround.php';
+    SWUHighGroundOnGameResult($m, strval($gameName));
 }
 
 // ── Registration ──────────────────────────────────────────────────────────────
@@ -156,6 +211,8 @@ MatchRegisterHooks('SWUSim', [
     'rateMatch'         => 'SWUMetaPremierRateMatch',
     'allowsSeriesChange' => 'SWUMatchAllowsSeriesChange',
     'endSeriesAfterGame' => 'SWUMatchEndSeriesAfterGame',
+    'rematchCreated'    => 'SWURematchCarryOrigin',
+    'gameResultRecorded' => 'SWUMatchGameResultRecorded',
     // config
     'queueTypes'        => ['bo1', 'bo3'],
     'sideboardUrl'      => 'Sideboard.php',

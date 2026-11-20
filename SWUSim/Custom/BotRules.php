@@ -421,7 +421,10 @@ function SWUBotRuleShrinkFirst(array $ctx): ?array {
     $read = fn() => ['pow' => $readyPow(), 'hand' => count(array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed)))];
     $score = fn(array $r) => ($before - $r['pow']) * 10 + ($r['hand'] >= $handBefore ? 1 : 0);   // hand kept its size = it drew
     $ok = fn(array $r) => ($before - $r['pow']) >= $bar;
-    return _SWUBotBestLine($ctx, $read, $score, $ok, $consider);
+    $pick = _SWUBotBestLine($ctx, $read, $score, $ok, $consider);
+    // Lever registry (BotLevers.php): a lever may hand the decision back to the fallback ('removalbody').
+    if ($pick !== null && function_exists('SWUBotLeverFirst') && SWUBotLeverFirst('shrinkveto', $ctx, $pick) === true) return null;
+    return $pick;
 }
 
 // PROPOSAL 'killfirst' (default OFF) — ORDERING, the family every shipped win came from. When an attack this turn
@@ -1020,12 +1023,12 @@ function SWUBotHandCardKills(string $cid, array $u): bool {
         if ($val > $n) return false;
         if (preg_match('/\bdefeat\b/i', $t)) return true;
     }
-    if (preg_match('/-(\d+)\/-\d+/', $t, $m)) return intval($m[1]) >= $u['remaining'];
+    if (preg_match('/-(\d+)\/-\d+/', $t, $m)) return SWUBotDamageKills($u, intval($m[1]));
     if ($u['shields'] > 0) return false;
-    if (preg_match('/deals? (\d+) damage to (a|an) (enemy )?(non-leader )?(ground |space )?unit/i', $t, $m)) return intval($m[1]) >= $u['remaining'];
+    if (preg_match('/deals? (\d+) damage to (a|an) (enemy )?(non-leader )?(ground |space )?unit/i', $t, $m)) return SWUBotDamageKills($u, intval($m[1]));
     if (str_contains(strval(CardType($cid)), 'Unit') && preg_match('/damage equal to (her|his|its) power/i', $t)) {
         $p = intval(CardPower($cid)) + (stripos($t, 'Experience token to this unit') !== false ? 1 : 0);
-        return $p >= $u['remaining'];
+        return SWUBotDamageKills($u, $p);
     }
     return false;
 }
@@ -1042,6 +1045,12 @@ function SWUBotRulePlannedAnswer(array $ctx): ?array {
     // Feature 'pilotchoice' (p42): a pilot leader's Unit/Pilot answer and host are the fallback's own rules (the audit: this rule answered
     // Unit 140 times with a ready Vehicle out) — the plan step is dropped and the fallback decides.
     if (SWUBotFeatureOn('pilotchoice') && in_array(strval($ctx['tooltip'] ?? ''), ['Deploy_as_Unit_or_Pilot?', 'Choose_a_Vehicle_to_deploy_onto'], true)
+        && ($ctx['tooltip'] ?? '') === $step['tooltip']) { $GLOBALS['SWUBotPlan'][$seat] = $plan; return null; }
+    // Feature 'pilothand' (p76): the same for a pilot played from hand or discard.
+    if (SWUBotFeatureOn('pilothand') && in_array(strval($ctx['tooltip'] ?? ''), ['Play_as_Unit_or_Pilot?', 'Choose_a_Vehicle_to_pilot'], true)
+        && ($ctx['tooltip'] ?? '') === $step['tooltip']) { $GLOBALS['SWUBotPlan'][$seat] = $plan; return null; }
+    // Feature 'poeunit' (p76): Poe's hop onto a Vehicle — whether to hop is the fallback's rule.
+    if (SWUBotFeatureOn('poeunit') && str_starts_with(strval(($ctx['following'] ?? [])[0] ?? ''), 'JTL_100#0')
         && ($ctx['tooltip'] ?? '') === $step['tooltip']) { $GLOBALS['SWUBotPlan'][$seat] = $plan; return null; }
     $pick = (($ctx['kind'] ?? '') === 'decision' && ($ctx['tooltip'] ?? '') === $step['tooltip'])
         ? _SWUBotFind($ctx, fn($a) => strval($a['cardID'] ?? '') === $step['answer']) : null;
@@ -1210,9 +1219,16 @@ function SWUBotRuleInitiativeForWipe(array $ctx): ?array {
     $hand = SWUBotFeatureOn('wipeinit'); $draw = SWUBotFeatureOn('wipedraw');
     if ((!$hand && !$draw) || !_SWUBotIsFreePlay($ctx)) return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
-    if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) return null;
+    // Feature 'midwipeinit' (p72): a MIDRANGE seat claims for its wipe too, but only to survive — their board is lethal next round and
+    // not already this round. Ninin's Boba Blue Burn: 9f6bf2e4 R7 (9 HP vs 17) and R10, fb43e291 R6 (16 vs 16) — the wipe went first.
+    // The bot claimed in 9 of 38 such rounds (rank 2 never reached this rule). Holding the initiative unclaimed is not enough then: the
+    // opponent's 'initiative-for-lethal' takes it, so the claim locks it.
+    $survive = SWUBotFeatureOn('midwipeinit') && SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 2
+        && SWUBotLethalNextRound($opp, $seat) && !SWUBotLethalNow($opp, $seat);
+    if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3 && !$survive) return null;
     $init = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'initiative');
-    if ($init === null || strval(GetInitiativeCounter() ?? '') !== 'P' . $opp . '_UNCLAIMED') return null;
+    $counter = strval(GetInitiativeCounter() ?? '');
+    if ($init === null || ($counter !== 'P' . $opp . '_UNCLAIMED' && !($survive && $counter === 'P' . $seat . '_UNCLAIMED'))) return null;
     // '@try-claimlethal' (2026-10-07 gap screen): their ready attackers already have lethal this round — the wipe next round never comes
     // (Lando s007 R5 claimed at 9 HP into 10 ready damage; diagnosis .claude/tmp/diag_vader). Leave the round's plays to the other rules.
     if (SWUBotProposalOn('claimlethal') && SWUBotBasePotential($opp, $seat, true) >= SWUBaseRemainingHp($seat)) return null;
@@ -1232,7 +1248,73 @@ function SWUBotRuleInitiativeForWipe(array $ctx): ?array {
         $s = max(0.0, SWUBotScoreAction($noGuides, $a, $i));
         if ($k === 'attack') $attacks += $s; else $other = max($other, $s);
     }
-    return $W['base'] * $gain > $attacks + $other ? $init : null;
+    if ($W['base'] * $gain <= $attacks + $other) return null;
+    if ($survive && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) {
+        if ($attacks + $other >= SWU_BOT_SURVIVE_SPENT) return null;
+        _SWUBotFired('midwipeinit', $seat);
+    }
+    return $init;
+}
+
+// ── Feature 'survivalclaim' (p72) — claim the initiative so next round's ANSWER goes first, when their board is lethal next round ─────
+// Owner 2026-11-09 (Boba Blue Burn read, docs/superpowers/swuforge-research/2026-11-09_boba-blue-burn_bot-feature-report.md G1): the
+// human claimed in 5 of 5 rounds where the opponent's next-round board was lethal; the wipe half is 'midwipeinit' above. This is the
+// rest: 9f6bf2e4 R8 (5 HP vs Grievous's 8 → Devastator killed him first) and fb43e291 R8 (Grievous's 4 when played → lethal first).
+// The answer must be castable NEXT round and not now (a card castable now is simply played): a hand card that defeats one of their
+// units (worth that unit's base threat, as 'initiative-for-answer' prices it), or burn that finishes their base before they swing
+// (worth their whole next-round swing). Midrange and control only; the same "what claiming forgoes" accounting as the rules above.
+//
+// Both survival claims (this and 'midwipeinit') wait until the round is SPENT — no attack or play left worth SWU_BOT_SURVIVE_SPENT: the
+// human's claims all came with the round's plays made (a claim instead of a pass). Measured 2026-11-10 without it (600 paired games vs
+// Vader Yellow / Obi Yellow / Tarfful Colossus): midwipeinit 0 up / 5 down — Boba claimed R6 vs Tarfful with 7 resources, a castable
+// Grievous and four ready attackers, then his own Single Reactor Ignition took the four.
+const SWU_BOT_SURVIVE_SPENT = 0.1;
+
+// The most base damage ONE hand card castable next round (not now) deals when played — "Deal N damage to a base", Single Reactor
+// Ignition's 1 per enemy unit — plus 1 for Boba Fett's (JTL_009) leader-side ping, which readies at the regroup.
+function _SWUBotBurnNextRound(int $seat, int $opp): int {
+    $capNow = SWUTotalPaymentCapacity($seat); $capNext = _SWUBotCapNextRound($seat);
+    $best = 0;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $capNow || $cost > $capNext) continue;
+        $t = strval(CardText(strval($o->CardID ?? '')));
+        if (preg_match("/deal (\\d+) damage to (?:a|an enemy|each enemy|the defending player's) base/i", $t, $m)) $best = max($best, intval($m[1]));
+        elseif (preg_match('/For each enemy unit defeated this way, deal 1 damage/i', $t)) $best = max($best, count(SWUBotUnits($opp)));
+    }
+    if ($best > 0 && _SWUBotLeaderFront($seat, 'JTL_009') !== null) $best++;
+    return $best;
+}
+
+function SWUBotRuleSurvivalClaim(array $ctx): ?array {
+    if (!SWUBotFeatureOn('survivalclaim') || !_SWUBotIsFreePlay($ctx)) return null;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 2) return null;
+    $init = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'initiative');
+    if ($init === null || !SWUBotLethalNextRound($opp, $seat) || SWUBotLethalNow($opp, $seat)) return null;
+    $capNow = SWUTotalPaymentCapacity($seat); $capNext = _SWUBotCapNextRound($seat);
+    $gain = 0;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $capNow || $cost > $capNext) continue;
+        foreach (SWUBotUnits($opp) as $u) if (SWUBotHandCardKills(strval($o->CardID ?? ''), $u)) $gain = max($gain, SWUBotUnitBaseThreat($seat, $u));
+    }
+    if (_SWUBotBurnNextRound($seat, $opp) >= SWUBaseRemainingHp($opp)) $gain = max($gain, SWUBotBasePotential($opp, $seat, false));
+    if ($gain <= 0) return null;
+    $W = SWUBotWeights(strval($ctx['style']), $seat);
+    $noGuides = array_merge($ctx, ['_guides' => ['attackFirst' => [], 'maxUnits' => '']]);
+    $attacks = 0.0; $other = 0.0;
+    foreach ($ctx['actions'] as $i => $a) {
+        $k = SWUBotActionKind($a);
+        if ($k === 'pass' || $k === 'initiative') continue;
+        $s = max(0.0, SWUBotScoreAction($noGuides, $a, $i));
+        if ($k === 'attack') $attacks += $s; else $other = max($other, $s);
+    }
+    if ($W['base'] * $gain <= $attacks + $other || $attacks + $other >= SWU_BOT_SURVIVE_SPENT) return null;
+    _SWUBotFired('survivalclaim', $seat);
+    return $init;
 }
 
 function SWUBotRulesBeforeFilter(): array {
@@ -1357,7 +1439,8 @@ function SWUBotRulesAfterFilter(): array {
         'krennic-plan'             => 'SWUBotRuleKrennicPlan',           // proposal 'krennicplan' — inert unless "@try-krennicplan"
         'control-wipe'             => 'SWUBotRuleControlWipe',
         'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"
-        'initiative-for-wipe'      => 'SWUBotRuleInitiativeForWipe',     // features 'wipeinit' + 'wipedraw' (p36)
+        'initiative-for-wipe'      => 'SWUBotRuleInitiativeForWipe',     // features 'wipeinit' + 'wipedraw' (p36), 'midwipeinit' (p72)
+        'survival-claim'           => 'SWUBotRuleSurvivalClaim',         // feature 'survivalclaim' (p72)
         'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
         'krennic-ramp'             => 'SWUBotRuleKrennicRamp',           // proposal 'krennicramp'
         'merc-line'                => 'SWUBotRuleMercLine',              // proposals 'mercramp' + 'krennicmerc'

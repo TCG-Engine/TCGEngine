@@ -1,0 +1,572 @@
+{
+  "status": "APPROVED_B243_THREE_ACTUAL_SAVED_FOUR_LIVE_CASES_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T11:37:45.001234+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch243.json",
+  "input_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+  "manifest_sha256": "1df67ff5779164b9c2ad2361259650635b54b226485c2b9393fe5fc5cb404022",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse243-three-manual-source-approval.json",
+    "sha256": "e6b56fc217dfe2f6ec080f0dad1c37ab25413e8da034928b75a0e469b91d6e56"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch243-20261026T112146Z-6adf37ca97aae.json",
+    "sha256": "60a79b0c3a156fa6dc5515bc0a5728195b07a7f963be707594c2b4f954b70433"
+  },
+  "fixtures": [
+    {
+      "slug": "card-oscilio-four-live-sparse-actual-discarded-instant-cost-draws-real-deck-card-with-eighteen-health",
+      "card_id": "oscilio",
+      "group_id": "identity:oscilio",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B243_EXACT_THREE_POSITIVE_BRANCHES_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch243.json",
+      "input_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+      "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "fixture_sha256": "5a3a79a7dd07edd211d123ac151de748f15710535bf700f1c9ae9fe419555d32",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1572f8fdcbc2b585a288ddefe7d4eb3e6140a022b5edf6cde350c8617b66e05",
+        "actions.json": "c7ea305b42d17f73c1e066e52f52583af51678b8f7ba46998101b138e73fe061",
+        "assertions.json": "087115a9bae6159206817e9341a9652c9e4f9596daae3ffaa80f0ce5da065fb5",
+        "expected_final_gamestate.txt": "872197c26f84f3fca8b903b0b6a3e9a0389b41bb0eb5e52d0da075a4818ae4a7",
+        "meta.json": "793bdbcde910e38366fb81b6ecdfe5ba5f0a4e28efa15906c28fa9969607e5a4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b1572f8fdcbc2b585a288ddefe7d4eb3e6140a022b5edf6cde350c8617b66e05",
+        "actions.json": "c7ea305b42d17f73c1e066e52f52583af51678b8f7ba46998101b138e73fe061",
+        "assertions.json": "087115a9bae6159206817e9341a9652c9e4f9596daae3ffaa80f0ce5da065fb5",
+        "expected_final_gamestate.txt": "872197c26f84f3fca8b903b0b6a3e9a0389b41bb0eb5e52d0da075a4818ae4a7",
+        "meta.json": "793bdbcde910e38366fb81b6ecdfe5ba5f0a4e28efa15906c28fa9969607e5a4"
+      },
+      "actions": 6,
+      "native_assertions": 363,
+      "native_card_property_assertions": 102,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 4,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_printed_young_Oscilio_eighteen_HP_real_Instant_and_Deck_card",
+          "step": 0,
+          "native_assertions": 118
+        },
+        {
+          "checkpoint": "actual_Instant_discard_cost_choice_before_Hand_departure",
+          "step": 1,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "actual_discard_Instant_cost_paid_before_priority_no_heal_or_early_draw",
+          "step": 2,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_Oscilio_draw_actual_responder_1",
+          "step": 3,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Oscilio_draw_actual_responder_2",
+          "step": 4,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Oscilio_draw_actual_responder_3",
+          "step": 5,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Oscilio_draw_actual_responder_4",
+          "step": 6,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "full_final_same_actual_deck_UID_drawn_Instant_discard_did_not_resolve",
+          "step": 6,
+          "native_assertions": 119
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Deck": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Hand": [
+          [
+            "5",
+            "sigil_of_solace_red",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Hand": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "5",
+            "sigil_of_solace_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          18,
+          20,
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "combat_open": false
+      },
+      "semantic_boundary": "Legal printed18HP Oscilio stays18; chosen Sigil5 is discarded as actual effect-cost and never played/healed. Actual fourth response draws original Deck6; Hero1/oncecounter2 retained, AP1/R0, publicGY5 and Hand6 only.",
+      "limits": "No taxed/cancelled branch, Transcend/Lightning trigger, negative eligible cost, repeat, adult or support-primary credit. This zero-resource/non-Action effect-only cost does not exercise039 staged assets."
+    },
+    {
+      "slug": "card-ink-lined-cloak-four-live-sparse-actual-sigil-aura-cast-earns-condition-then-destroy-instant-gains-one",
+      "card_id": "ink_lined_cloak",
+      "group_id": "identity:ink_lined_cloak",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B243_EXACT_THREE_POSITIVE_BRANCHES_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch243.json",
+      "input_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+      "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "fixture_sha256": "3a4d06b5ba3f62557aba02a81516469b17b75892cb992dee370528b44b61b102",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6f387e4c5070a38a228ea70034bae67a82a82b14f83c220379e775204a328004",
+        "actions.json": "68c0bc7e57b22f872676d2d62260c672775a25a6c8c01418e37bdc68f99609fd",
+        "assertions.json": "121097ed582d192694054599243ba1b5959b76df679506a91887580eef9471a9",
+        "expected_final_gamestate.txt": "b6ddfa0ecc2db047f9894eb64b7744fa6afd4c142e7e3430fb8ed75531ec55c5",
+        "meta.json": "46e464a0dd03ece391d3b284c5f9ca201a62f27f0ed786948b79c891debf2104"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6f387e4c5070a38a228ea70034bae67a82a82b14f83c220379e775204a328004",
+        "actions.json": "68c0bc7e57b22f872676d2d62260c672775a25a6c8c01418e37bdc68f99609fd",
+        "assertions.json": "121097ed582d192694054599243ba1b5959b76df679506a91887580eef9471a9",
+        "expected_final_gamestate.txt": "b6ddfa0ecc2db047f9894eb64b7744fa6afd4c142e7e3430fb8ed75531ec55c5",
+        "meta.json": "46e464a0dd03ece391d3b284c5f9ca201a62f27f0ed786948b79c891debf2104"
+      },
+      "actions": 11,
+      "native_assertions": 458,
+      "native_card_property_assertions": 127,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 8,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 8,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Wizard_gear_and_real_Sigil_Aura_cost_one",
+          "step": 0,
+          "native_assertions": 125
+        },
+        {
+          "checkpoint": "actual_Sigil_Action_one_normal_PITCH_empty_DQ",
+          "step": 1,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_Sigil_one_leaves_two_AP_zero",
+          "step": 2,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_Sigil_Aura_cast_actual_responder_1",
+          "step": 3,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Sigil_Aura_cast_actual_responder_2",
+          "step": 4,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Sigil_Aura_cast_actual_responder_3",
+          "step": 5,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Sigil_Aura_cast_actual_responder_4",
+          "step": 6,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "actual_controlled_Sigil_condition_and_real_destroy_cost_before_gain",
+          "step": 7,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_Ink_Cloak_resource_actual_responder_1",
+          "step": 8,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Ink_Cloak_resource_actual_responder_2",
+          "step": 9,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Ink_Cloak_resource_actual_responder_3",
+          "step": 10,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Ink_Cloak_resource_actual_responder_4",
+          "step": 11,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "full_final_earned_Sigil_presence_and_actual_resource_two_to_three",
+          "step": 11,
+          "native_assertions": 125
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Equipment": [
+          [
+            "5",
+            "ink_lined_cloak",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Hand": [
+          [
+            "6",
+            "sigil_of_protection_red",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "7",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Arena": [
+          [
+            "6",
+            "sigil_of_protection_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "5",
+            "ink_lined_cloak",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "7",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          20,
+          20,
+          20,
+          20
+        ],
+        "resources": [
+          3,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "combat_open": false
+      },
+      "semantic_boundary": "Actually cast Sigil6 cost1/Blue7 givesR2/AP0 and retained owned Aura; real Cloak5 Instant destroys as cost. No early resource gain through first3 responses; fourthR3, allHP20, AP0, Aura6/Pitch7/publicGY5 retained.",
+      "limits": "No future Sigil start-turn destruction/Ward, life-gain hero trigger, negative condition/repeat/other Sigils/support-primary or expiry credit."
+    },
+    {
+      "slug": "card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "card_id": "aurora",
+      "group_id": "identity:aurora",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B243_EXACT_THREE_POSITIVE_BRANCHES_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch243.json",
+      "input_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+      "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "fixture_sha256": "e0e8266c427438c46ea7efa2b4910903962529553454cab3248d6f41e0dcfb21",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "17f07522ee9fe2922a2a43da6edbe502b81dfa84d44f09ee12b2beb643e455f0",
+        "actions.json": "486bc8c00f098a2cfdeea8f6a2d5b1b9c0f7ae86e919b641492dd310ab0e485a",
+        "assertions.json": "c756b02f05ee210eaae575308369db69a47fdc503a0e3e212a2168f532130f96",
+        "expected_final_gamestate.txt": "92e3fc9009a9bd038575d11d6bd2fec6e055b7ae0d57b8b41b3f41b96b22fefc",
+        "meta.json": "5b72899b8d8df4421a376f0fd18b4d6dfad925536c759a84a1e4b50ea44a7e4b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "17f07522ee9fe2922a2a43da6edbe502b81dfa84d44f09ee12b2beb643e455f0",
+        "actions.json": "486bc8c00f098a2cfdeea8f6a2d5b1b9c0f7ae86e919b641492dd310ab0e485a",
+        "assertions.json": "c756b02f05ee210eaae575308369db69a47fdc503a0e3e212a2168f532130f96",
+        "expected_final_gamestate.txt": "92e3fc9009a9bd038575d11d6bd2fec6e055b7ae0d57b8b41b3f41b96b22fefc",
+        "meta.json": "5b72899b8d8df4421a376f0fd18b4d6dfad925536c759a84a1e4b50ea44a7e4b"
+      },
+      "actions": 11,
+      "native_assertions": 442,
+      "native_card_property_assertions": 110,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 8,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 8,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Elemental_Runeblade_Lightning_hero_and_actual_Lightning_card",
+          "step": 0,
+          "native_assertions": 118
+        },
+        {
+          "checkpoint": "actual_Lightning_Action_zero_pays_AP_before_responses",
+          "step": 1,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_Lightning_Flash_action_actual_responder_1",
+          "step": 2,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Lightning_Flash_action_actual_responder_2",
+          "step": 3,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Lightning_Flash_action_actual_responder_3",
+          "step": 4,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Lightning_Flash_action_actual_responder_4",
+          "step": 5,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "actual_earned_Lightning_condition_Hero_Instant_two_PITCH_wait",
+          "step": 6,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_Instant_two_leaves_one_AP_retained",
+          "step": 7,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "actual_Aurora_token_actual_responder_1",
+          "step": 8,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Aurora_token_actual_responder_2",
+          "step": 9,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Aurora_token_actual_responder_3",
+          "step": 10,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_Aurora_token_actual_responder_4",
+          "step": 11,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "full_final_real_earned_condition_paid_two_and_one_owned_token",
+          "step": 11,
+          "native_assertions": 126
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Hand": [
+          [
+            "5",
+            "flash_red",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Arena": [
+          [
+            "8",
+            "embodiment_of_lightning",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "5",
+            "flash_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          20,
+          20,
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "combat_open": false
+      },
+      "semantic_boundary": "Real Flash5 Action0/ownGA earns played-Lightning condition with AP1 and publicGY5; real HeroInstant2/Blue6 leavesR1/AP1. No token first3 responses, fourth creates owned/controller1 Embodiment8; Hero1 oncecounter2, allHP20, queues/Stack drained.",
+      "limits": "No synthetic played history or AP; unused Flash future-go-again and Embodiment later consumption, negative condition/repeat/adult/hero/support-primary or sibling coverage."
+    }
+  ],
+  "total_actions": 28,
+  "total_native_assertions": 1263,
+  "total_card_property_assertions": 339,
+  "total_manual_passes": 20,
+  "total_priority_response_passes": 20,
+  "total_endpoint_preference_values": 288,
+  "blocked_attempts": [],
+  "limits": [
+    "Exact source actions/every normalized native oracle/metadata/initial and terminal physical snapshots checked; all raw15 unchanged.",
+    "All12 initial four-live guards and actual48 manual endpoint settings each verified. Actual intermediate/native query evidence remains root recording, not reviewer executed engine or hidden locals observation.",
+    "Replay/registration gates separate; no PHP/native/R changes, optional paper model, full-card/sibling/unsupported branches or source-only holds coverage."
+  ]
+}

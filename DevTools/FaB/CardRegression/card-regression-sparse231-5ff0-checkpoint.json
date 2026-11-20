@@ -1,0 +1,106 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T06:34:06.498949+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "source_spec": "card-regression-batch231.json",
+  "source_spec_sha256": "4fde36bfabbc7b5a46ea1f9442e17883b3c678d7ee37fa9654431722a1892981",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 38,
+  "native_assertions": 2025,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 3456,
+    "duels": 3074,
+    "four_live": 382,
+    "recorded_primary_ids": 613,
+    "identity_denominator": 5196,
+    "recorded_groups": 487,
+    "group_denominator": 3324,
+    "four_live_groups": 378,
+    "phase_qualified_scenarios_at_actual_contexts": 93,
+    "phase_qualified_unique_groups": 91,
+    "creation_replay_passes": 186,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 8,
+  "scenarios": [
+    {
+      "card_id": "ion_charged_yellow",
+      "group_id": "identity:ion_charged_yellow",
+      "scenario_id": "card-ion-charged-yellow-four-live-sparse-actual-instant-conditionally-adds-one-to-real-arsenal-lightning-attack-with-go-again",
+      "effect_branches": [
+        "actual-instant-conditionally-adds-one-to-real-arsenal-lightning-attack-with-go-again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-ion-charged-yellow-four-live-sparse-actual-instant-conditionally-adds-one-to-real-arsenal-lightning-attack-with-go-again",
+      "source_spec": "card-regression-batch231.json",
+      "source_spec_sha256": "4fde36bfabbc7b5a46ea1f9442e17883b3c678d7ee37fa9654431722a1892981",
+      "review_evidence": "review-evidence/sparse231-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "6875af0b811a739b34340dc19d75ccaa75350122088b318ca21fa505098f7c92",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse231-5ff0-r1.json",
+          "sha256": "39eec9591a1d6f48acde744aa4fcac519e2fa37d472e6a509a1bded37d95adc0",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse231-5ff0-r2.json",
+          "sha256": "375188ece05c56fae4f737361e4dc13de7c573acef365e597162c68dd2356ad8",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "verdant_tide_red",
+      "group_id": "identity:verdant_tide_red",
+      "scenario_id": "card-verdant-tide-red-four-live-sparse-actual-earth-pitch-bond-and-own-replacement-create-two-owned-embodiments",
+      "effect_branches": [
+        "actual-earth-pitch-bond-and-own-replacement-create-two-owned-embodiments"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-verdant-tide-red-four-live-sparse-actual-earth-pitch-bond-and-own-replacement-create-two-owned-embodiments",
+      "source_spec": "card-regression-batch231.json",
+      "source_spec_sha256": "4fde36bfabbc7b5a46ea1f9442e17883b3c678d7ee37fa9654431722a1892981",
+      "review_evidence": "review-evidence/sparse231-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "6875af0b811a739b34340dc19d75ccaa75350122088b318ca21fa505098f7c92",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse231-5ff0-r1.json",
+          "sha256": "39eec9591a1d6f48acde744aa4fcac519e2fa37d472e6a509a1bded37d95adc0",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse231-5ff0-r2.json",
+          "sha256": "375188ece05c56fae4f737361e4dc13de7c573acef365e597162c68dd2356ad8",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false
+}

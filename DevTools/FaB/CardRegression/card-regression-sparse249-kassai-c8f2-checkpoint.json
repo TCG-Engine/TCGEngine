@@ -1,0 +1,75 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T14:08:31.663004+00:00",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "source_spec": "card-regression-batch249.json",
+  "source_spec_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 25,
+  "native_assertions": 663,
+  "manual_passes": 21,
+  "totals": {
+    "saved_registered_scenarios": 3507,
+    "duels": 3074,
+    "four_live": 433,
+    "recorded_primary_ids": 664,
+    "identity_denominator": 5196,
+    "recorded_groups": 538,
+    "group_denominator": 3324,
+    "four_live_groups": 429,
+    "phase_qualified_scenarios_at_actual_contexts": 144,
+    "phase_qualified_unique_groups": 142,
+    "creation_replay_passes": 288,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 6,
+  "scenarios": [
+    {
+      "card_id": "kassai",
+      "group_id": "identity:kassai",
+      "scenario_id": "card-kassai-four-live-sparse-real-gold-draw-earns-sword-activation-one-to-zero-discount",
+      "effect_branches": [
+        "real-gold-draw-earns-sword-activation-one-to-zero-discount"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-kassai-four-live-sparse-real-gold-draw-earns-sword-activation-one-to-zero-discount",
+      "source_spec": "card-regression-batch249.json",
+      "source_spec_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+      "review_evidence": "review-evidence/sparse249-kassai-c8f2-qualified-saved-review.json",
+      "review_evidence_sha256": "db02377f900c9388d9b085798dce4ee137376dafec8748e8fe947faa665de6ef",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "qualification_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse249-kassai-c8f2-r1.json",
+          "sha256": "3d8459431307261b1f677705a5ac5bfb0cad1f4f6d304b19ddabe0be8c4e0591",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse249-kassai-c8f2-r2.json",
+          "sha256": "062dfe6ba1a741a15df2c0c61ca23d636571cdd4d5a54df1cfa81125a83b0d91",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage"
+  ]
+}

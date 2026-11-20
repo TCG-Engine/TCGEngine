@@ -1,0 +1,85 @@
+{
+  "status": "THREE_NEW_FOUR_LIVE_POSITIVE_REPRESENTATIVES_QUALIFIED_ISOLATED_FAULT_UNRUN_UNSUPPORTED",
+  "utc": "2026-10-25T23:53:22.564331+00:00",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "inventory_scope": "Through batch210 only; later planning/native/pending work excluded without credit. No inventory scan.",
+  "new_scenarios_recorded": 3,
+  "new_scenarios_qualified": 3,
+  "new_groups": 3,
+  "total_saved_through_batch210": 3413,
+  "two_player": 3074,
+  "four_live_through_batch210": 339,
+  "primary_ids_recorded_through_batch210": 572,
+  "identity_denominator": 5196,
+  "groups_recorded_through_batch210": 446,
+  "group_denominator": 3324,
+  "four_live_groups_through_batch210": 337,
+  "registered_review_rows_after": 3413,
+  "phase_scenarios_qualified_at_batch_contexts": 50,
+  "historical_qualification_note": "Registry rows are not blanket current-runtime corpus qualification; earlier3363 review byte-binding limitation retained.",
+  "new_cases": [
+    {
+      "slug": "card-annals-of-sutcliffe-four-live-sparse-actual-two-pitch-types-pay-three-draw-and-create-runechant",
+      "primary_card_ids": [
+        "annals_of_sutcliffe"
+      ],
+      "actions": 7,
+      "native_assertions": 615,
+      "manual_passes": 4
+    },
+    {
+      "slug": "card-high-riser-four-live-sparse-actual-all-four-draw-earns-weapon-power-and-pitches-drawn-blue",
+      "primary_card_ids": [
+        "high_riser"
+      ],
+      "actions": 34,
+      "native_assertions": 2761,
+      "manual_passes": 29
+    },
+    {
+      "slug": "card-teklo-blaster-four-live-sparse-actual-plain-three-resource-gun-attack-and-two-damage",
+      "primary_card_ids": [
+        "teklo_blaster"
+      ],
+      "actions": 28,
+      "native_assertions": 1564,
+      "manual_passes": 25
+    }
+  ],
+  "persisted_native_assertions": 4940,
+  "review_evidence": "review-evidence/sparse210-20261025-qualified-saved-review.json",
+  "targeted_replay_passes": 6,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse210-20261025-r1.json",
+      "sha256": "f09d71e724f37fe0433fbcef53ae35aee8233671a286bd2cc5496411a6c8227f"
+    },
+    {
+      "path": "card-regression-replay-sparse210-20261025-r2.json",
+      "sha256": "7bdff8f019289778da9c46064499113075665fa614a6d424c713dfa0b65ea289"
+    }
+  ],
+  "isolated_native_faults": {
+    "status": "UNRUN_UNSUPPORTED_EXISTING_HELPER",
+    "native_attempts": 0,
+    "detected": 0,
+    "claimed": 0,
+    "independent_capability_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch210-high-riser-existing-helper-gap-independent-confirmation-105.json",
+      "sha256": "b18bb2d6d1ff6426dc6ebe029c2ac5bcd645e43b3e11cac51e065359dd36de9d"
+    },
+    "reason": "HighRiser+1 reads actual DRAWN history directly, without a removable earned object tag. SUP_NO_POWER_GAIN has no consumer; existinghelper cannot add a real global cap. No history/privatecap/artificialdelta or new mutator permitted. Annals/Blaster retain positive-only evidence; no isolated fault claim."
+  },
+  "native_controls_added": 0,
+  "global_native_controls_detected": 109,
+  "phase_native_controls_detected_before_and_after": 25,
+  "source_only_no_abilities_branch_native_confirmed": false,
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse210-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

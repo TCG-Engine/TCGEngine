@@ -1,0 +1,485 @@
+{
+    "policy": "a1290580183e9bea",
+    "seeds": [
+        110001,
+        110050
+    ],
+    "totalGames": 400,
+    "notes": [
+        "Snapshots are immediately before the bot attacks or ends its own turn, after its preparation.",
+        "Blocker percentages overlap and condition on reaching that turn.",
+        "Energy mass counts discard plus hand Fire plus attached Energy. 16 is an optimistic lower bound for 15 discarded plus one attached Fire.",
+        "Diagnostics do not change decisions. No cards are moved or revealed by the audit."
+    ],
+    "variants": {
+        "baseline": {
+            "summary": {
+                "games": 200,
+                "completed": 200,
+                "turns": {
+                    "2": {
+                        "reached": 173,
+                        "ready330": 1,
+                        "winningBelow330": 0,
+                        "avgDiscard": 6.25,
+                        "avgHandFire": 2.2,
+                        "avgAttached": 1.28,
+                        "avgExposed": 9.73,
+                        "blockers": {
+                            "shortDiscard": 172,
+                            "insufficientExposedMass": 166,
+                            "enoughHandFuel": 5,
+                            "handBacklog3Plus": 53,
+                            "noHandFire": 74,
+                            "noEx": 54,
+                            "noEvolutionInHand": 40,
+                            "evolutionTiming": 7,
+                            "exButNoPoweredEx": 2,
+                            "poweredExNotAttacking": 5,
+                            "blockedCarmine": 25,
+                            "blockedExplorer": 55,
+                            "prismUsedWithFuel": 57,
+                            "handFuelNoLegalOutlet": 96
+                        },
+                        "supporters": {
+                            "me02-089": 36,
+                            "none": 20,
+                            "sv08.5-107": 58,
+                            "sv06-145": 42,
+                            "me02.5-183": 1,
+                            "me02.5-192": 16
+                        }
+                    },
+                    "3": {
+                        "reached": 160,
+                        "ready330": 11,
+                        "winningBelow330": 0,
+                        "avgDiscard": 9.41,
+                        "avgHandFire": 2.03,
+                        "avgAttached": 1.76,
+                        "avgExposed": 13.19,
+                        "blockers": {
+                            "shortDiscard": 149,
+                            "insufficientExposedMass": 124,
+                            "enoughHandFuel": 14,
+                            "handBacklog3Plus": 46,
+                            "noHandFire": 58,
+                            "noEx": 22,
+                            "noEvolutionInHand": 15,
+                            "evolutionTiming": 4,
+                            "exButNoPoweredEx": 0,
+                            "poweredExNotAttacking": 1,
+                            "blockedCarmine": 31,
+                            "blockedExplorer": 52,
+                            "prismUsedWithFuel": 65,
+                            "handFuelNoLegalOutlet": 85
+                        },
+                        "supporters": {
+                            "none": 22,
+                            "me02-089": 23,
+                            "me02.5-192": 28,
+                            "sv08.5-107": 51,
+                            "sv06-145": 33,
+                            "me02.5-183": 3
+                        }
+                    },
+                    "4": {
+                        "reached": 143,
+                        "ready330": 49,
+                        "winningBelow330": 1,
+                        "avgDiscard": 13.08,
+                        "avgHandFire": 1.8,
+                        "avgAttached": 1.82,
+                        "avgExposed": 16.7,
+                        "blockers": {
+                            "shortDiscard": 91,
+                            "insufficientExposedMass": 46,
+                            "enoughHandFuel": 29,
+                            "handBacklog3Plus": 32,
+                            "noHandFire": 33,
+                            "noEx": 13,
+                            "noEvolutionInHand": 11,
+                            "evolutionTiming": 1,
+                            "exButNoPoweredEx": 1,
+                            "poweredExNotAttacking": 0,
+                            "blockedCarmine": 23,
+                            "blockedExplorer": 36,
+                            "prismUsedWithFuel": 46,
+                            "handFuelNoLegalOutlet": 53
+                        },
+                        "supporters": {
+                            "sv08.5-107": 43,
+                            "me02.5-183": 4,
+                            "sv06-145": 40,
+                            "me02-089": 30,
+                            "none": 19,
+                            "me02.5-192": 7
+                        }
+                    },
+                    "5": {
+                        "reached": 130,
+                        "ready330": 87,
+                        "winningBelow330": 2,
+                        "avgDiscard": 15.68,
+                        "avgHandFire": 0.92,
+                        "avgAttached": 1.88,
+                        "avgExposed": 18.48,
+                        "blockers": {
+                            "shortDiscard": 38,
+                            "insufficientExposedMass": 17,
+                            "enoughHandFuel": 11,
+                            "handBacklog3Plus": 8,
+                            "noHandFire": 18,
+                            "noEx": 7,
+                            "noEvolutionInHand": 6,
+                            "evolutionTiming": 1,
+                            "exButNoPoweredEx": 0,
+                            "poweredExNotAttacking": 0,
+                            "blockedCarmine": 5,
+                            "blockedExplorer": 10,
+                            "prismUsedWithFuel": 12,
+                            "handFuelNoLegalOutlet": 14
+                        },
+                        "supporters": {
+                            "sv08.5-107": 37,
+                            "sv06-145": 36,
+                            "none": 30,
+                            "me02.5-183": 4,
+                            "me02.5-192": 17,
+                            "me02-089": 6
+                        }
+                    }
+                }
+            },
+            "classification": {
+                "2": {
+                    "groups": {
+                        "massShort": 166,
+                        "enoughLooseFuelWaitingConversion": 5,
+                        "massIncludesCommittedAttachments": 1,
+                        "discardReadyAttackerNotReady": 0,
+                        "ready": 1
+                    },
+                    "conversionDetail": {
+                        "cases": 5,
+                        "supporterUsed": 5,
+                        "noLegalOutlet": 5,
+                        "prismUsed": 3,
+                        "supporters": {
+                            "me02-089": 2,
+                            "sv06-145": 2,
+                            "me02.5-192": 1
+                        }
+                    }
+                },
+                "3": {
+                    "groups": {
+                        "massShort": 124,
+                        "enoughLooseFuelWaitingConversion": 14,
+                        "massIncludesCommittedAttachments": 11,
+                        "discardReadyAttackerNotReady": 0,
+                        "ready": 11
+                    },
+                    "conversionDetail": {
+                        "cases": 14,
+                        "supporterUsed": 14,
+                        "noLegalOutlet": 14,
+                        "prismUsed": 9,
+                        "supporters": {
+                            "me02-089": 10,
+                            "sv08.5-107": 4
+                        }
+                    }
+                },
+                "4": {
+                    "groups": {
+                        "massShort": 46,
+                        "enoughLooseFuelWaitingConversion": 29,
+                        "massIncludesCommittedAttachments": 16,
+                        "discardReadyAttackerNotReady": 3,
+                        "ready": 49
+                    },
+                    "conversionDetail": {
+                        "cases": 29,
+                        "supporterUsed": 28,
+                        "noLegalOutlet": 27,
+                        "prismUsed": 25,
+                        "supporters": {
+                            "sv08.5-107": 7,
+                            "me02-089": 19,
+                            "sv06-145": 2,
+                            "none": 1
+                        }
+                    }
+                },
+                "5": {
+                    "groups": {
+                        "massShort": 17,
+                        "enoughLooseFuelWaitingConversion": 11,
+                        "massIncludesCommittedAttachments": 10,
+                        "discardReadyAttackerNotReady": 5,
+                        "ready": 87
+                    },
+                    "conversionDetail": {
+                        "cases": 11,
+                        "supporterUsed": 9,
+                        "noLegalOutlet": 6,
+                        "prismUsed": 9,
+                        "supporters": {
+                            "me02.5-192": 4,
+                            "none": 2,
+                            "sv06-145": 2,
+                            "me02-089": 3
+                        }
+                    }
+                }
+            },
+            "supporterSequencing": {
+                "firebreatherPlays": 116,
+                "firebreatherWithFuelAndCarmineHeld": 0,
+                "lilliePlays": 75,
+                "fireReturnedByLillie": 82
+            }
+        },
+        "fire-to-petrel": {
+            "summary": {
+                "games": 200,
+                "completed": 200,
+                "turns": {
+                    "2": {
+                        "reached": 183,
+                        "ready330": 0,
+                        "winningBelow330": 0,
+                        "avgDiscard": 6.7,
+                        "avgHandFire": 1.76,
+                        "avgAttached": 1.26,
+                        "avgExposed": 9.72,
+                        "blockers": {
+                            "shortDiscard": 182,
+                            "insufficientExposedMass": 171,
+                            "enoughHandFuel": 10,
+                            "handBacklog3Plus": 43,
+                            "noHandFire": 85,
+                            "noEx": 57,
+                            "noEvolutionInHand": 39,
+                            "evolutionTiming": 14,
+                            "exButNoPoweredEx": 3,
+                            "poweredExNotAttacking": 5,
+                            "blockedCarmine": 25,
+                            "blockedExplorer": 60,
+                            "prismUsedWithFuel": 53,
+                            "handFuelNoLegalOutlet": 91
+                        },
+                        "supporters": {
+                            "sv06-145": 39,
+                            "sv08.5-107": 55,
+                            "me02-089": 26,
+                            "me02.5-192": 23,
+                            "me02.5-207": 17,
+                            "none": 20,
+                            "me02.5-183": 3
+                        }
+                    },
+                    "3": {
+                        "reached": 171,
+                        "ready330": 14,
+                        "winningBelow330": 0,
+                        "avgDiscard": 9.91,
+                        "avgHandFire": 1.87,
+                        "avgAttached": 1.75,
+                        "avgExposed": 13.53,
+                        "blockers": {
+                            "shortDiscard": 154,
+                            "insufficientExposedMass": 117,
+                            "enoughHandFuel": 29,
+                            "handBacklog3Plus": 42,
+                            "noHandFire": 65,
+                            "noEx": 23,
+                            "noEvolutionInHand": 15,
+                            "evolutionTiming": 6,
+                            "exButNoPoweredEx": 0,
+                            "poweredExNotAttacking": 6,
+                            "blockedCarmine": 30,
+                            "blockedExplorer": 47,
+                            "prismUsedWithFuel": 55,
+                            "handFuelNoLegalOutlet": 84
+                        },
+                        "supporters": {
+                            "me02.5-192": 19,
+                            "sv08.5-107": 53,
+                            "sv06-145": 30,
+                            "none": 23,
+                            "me02-089": 31,
+                            "me02.5-207": 11,
+                            "me02.5-183": 4
+                        }
+                    },
+                    "4": {
+                        "reached": 161,
+                        "ready330": 45,
+                        "winningBelow330": 2,
+                        "avgDiscard": 12.68,
+                        "avgHandFire": 1.45,
+                        "avgAttached": 1.78,
+                        "avgExposed": 15.91,
+                        "blockers": {
+                            "shortDiscard": 110,
+                            "insufficientExposedMass": 61,
+                            "enoughHandFuel": 29,
+                            "handBacklog3Plus": 36,
+                            "noHandFire": 51,
+                            "noEx": 20,
+                            "noEvolutionInHand": 15,
+                            "evolutionTiming": 3,
+                            "exButNoPoweredEx": 1,
+                            "poweredExNotAttacking": 1,
+                            "blockedCarmine": 24,
+                            "blockedExplorer": 40,
+                            "prismUsedWithFuel": 47,
+                            "handFuelNoLegalOutlet": 53
+                        },
+                        "supporters": {
+                            "sv08.5-107": 49,
+                            "me02.5-207": 14,
+                            "me02.5-192": 17,
+                            "me02-089": 18,
+                            "sv06-145": 38,
+                            "none": 23,
+                            "me02.5-183": 2
+                        }
+                    },
+                    "5": {
+                        "reached": 148,
+                        "ready330": 92,
+                        "winningBelow330": 3,
+                        "avgDiscard": 15.32,
+                        "avgHandFire": 1.18,
+                        "avgAttached": 1.76,
+                        "avgExposed": 18.26,
+                        "blockers": {
+                            "shortDiscard": 47,
+                            "insufficientExposedMass": 18,
+                            "enoughHandFuel": 24,
+                            "handBacklog3Plus": 20,
+                            "noHandFire": 14,
+                            "noEx": 9,
+                            "noEvolutionInHand": 4,
+                            "evolutionTiming": 3,
+                            "exButNoPoweredEx": 1,
+                            "poweredExNotAttacking": 1,
+                            "blockedCarmine": 10,
+                            "blockedExplorer": 25,
+                            "prismUsedWithFuel": 29,
+                            "handFuelNoLegalOutlet": 25
+                        },
+                        "supporters": {
+                            "none": 27,
+                            "me02-089": 21,
+                            "sv06-145": 43,
+                            "sv08.5-107": 38,
+                            "me02.5-192": 13,
+                            "me02.5-207": 5,
+                            "me02.5-183": 1
+                        }
+                    }
+                }
+            },
+            "classification": {
+                "2": {
+                    "groups": {
+                        "massShort": 171,
+                        "enoughLooseFuelWaitingConversion": 10,
+                        "massIncludesCommittedAttachments": 1,
+                        "discardReadyAttackerNotReady": 1,
+                        "ready": 0
+                    },
+                    "conversionDetail": {
+                        "cases": 10,
+                        "supporterUsed": 8,
+                        "noLegalOutlet": 9,
+                        "prismUsed": 7,
+                        "supporters": {
+                            "sv06-145": 1,
+                            "me02-089": 7,
+                            "none": 2
+                        }
+                    }
+                },
+                "3": {
+                    "groups": {
+                        "massShort": 117,
+                        "enoughLooseFuelWaitingConversion": 29,
+                        "massIncludesCommittedAttachments": 8,
+                        "discardReadyAttackerNotReady": 3,
+                        "ready": 14
+                    },
+                    "conversionDetail": {
+                        "cases": 29,
+                        "supporterUsed": 28,
+                        "noLegalOutlet": 26,
+                        "prismUsed": 20,
+                        "supporters": {
+                            "none": 1,
+                            "sv08.5-107": 7,
+                            "me02-089": 18,
+                            "me02.5-207": 2,
+                            "me02.5-192": 1
+                        }
+                    }
+                },
+                "4": {
+                    "groups": {
+                        "massShort": 61,
+                        "enoughLooseFuelWaitingConversion": 29,
+                        "massIncludesCommittedAttachments": 20,
+                        "discardReadyAttackerNotReady": 6,
+                        "ready": 45
+                    },
+                    "conversionDetail": {
+                        "cases": 29,
+                        "supporterUsed": 27,
+                        "noLegalOutlet": 26,
+                        "prismUsed": 24,
+                        "supporters": {
+                            "me02-089": 15,
+                            "sv06-145": 2,
+                            "sv08.5-107": 7,
+                            "none": 2,
+                            "me02.5-192": 2,
+                            "me02.5-183": 1
+                        }
+                    }
+                },
+                "5": {
+                    "groups": {
+                        "massShort": 18,
+                        "enoughLooseFuelWaitingConversion": 24,
+                        "massIncludesCommittedAttachments": 5,
+                        "discardReadyAttackerNotReady": 9,
+                        "ready": 92
+                    },
+                    "conversionDetail": {
+                        "cases": 24,
+                        "supporterUsed": 22,
+                        "noLegalOutlet": 17,
+                        "prismUsed": 21,
+                        "supporters": {
+                            "me02-089": 18,
+                            "me02.5-192": 1,
+                            "none": 2,
+                            "me02.5-183": 1,
+                            "sv06-145": 1,
+                            "me02.5-207": 1
+                        }
+                    }
+                }
+            },
+            "supporterSequencing": {
+                "firebreatherPlays": 120,
+                "firebreatherWithFuelAndCarmineHeld": 0,
+                "lilliePlays": 78,
+                "fireReturnedByLillie": 85
+            }
+        }
+    }
+}

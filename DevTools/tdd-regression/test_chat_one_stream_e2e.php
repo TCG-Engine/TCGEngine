@@ -30,11 +30,33 @@ req($B . 'AccountFiles/AttemptPasswordLogin.php', $jar2, ['submit'=>'1','userID'
 
 // ⚠ A PREMIER-LEGAL list. This room is Premier because Premier starts at TWO seats; the Twin Suns
 // fixture next door is 2 leaders + 80 highlander and StartRoom would refuse it as an illegal deck
-// (and Twin Suns needs 3 players anyway). Same fixture the public-queue test uses; its '#' lines are
-// comments the parser must not see.
-$deck = trim(implode("\n", array_filter(
-    explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/ash-meta-2026-09/darth-vader_jtl_yellow.txt')),
-    fn($l) => !str_starts_with($l, '#'))));
+// (and Twin Suns needs 3 players anyway). Darth Vader (JTL) Yellow, inline.
+$deck = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
 $host = json_decode(req($L . 'JoinQueue.php', $jar1, ['rootName'=>'SWUSim','createPrivate'=>'1','format'=>'premier','deckLink'=>$deck]), true);
 check(!empty($host['success']), 'created a private premier room', $host);
 if (empty($host['success'])) { echo "\nCANNOT CONTINUE\n"; exit; }

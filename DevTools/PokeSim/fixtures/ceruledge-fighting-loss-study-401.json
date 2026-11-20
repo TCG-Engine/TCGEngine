@@ -1,0 +1,3755 @@
+{
+    "baselinePolicy": "e39de78b9eb03dbd",
+    "pairs": 100,
+    "start": 401,
+    "variants": {
+        "baseline": {
+            "deck": [
+                {
+                    "id": "me02-019",
+                    "count": 4
+                },
+                {
+                    "id": "sv08-036",
+                    "count": 4
+                },
+                {
+                    "id": "me01-074",
+                    "count": 4
+                },
+                {
+                    "id": "me01-075",
+                    "count": 4
+                },
+                {
+                    "id": "sv06-145",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-192",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-183",
+                    "count": 1
+                },
+                {
+                    "id": "me01-131",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-196",
+                    "count": 2
+                },
+                {
+                    "id": "mee-002",
+                    "count": 10
+                },
+                {
+                    "id": "base1-97",
+                    "count": 11
+                },
+                {
+                    "id": "sv08.5-107",
+                    "count": 2
+                },
+                {
+                    "id": "sv08-164",
+                    "count": 1
+                },
+                {
+                    "id": "me01-116",
+                    "count": 4
+                },
+                {
+                    "id": "me03-081",
+                    "count": 1
+                }
+            ],
+            "summary": {
+                "games": 200,
+                "wins": 178,
+                "deckoutLosses": 1,
+                "attackBy2": 120,
+                "ready330By4": 55,
+                "ready330By5": 95
+            },
+            "games": [
+                {
+                    "seed": 401,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 401,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 402,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 402,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 403,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 403,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 404,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 404,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 405,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 405,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 406,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 406,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 407,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 407,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 408,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 408,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 409,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 409,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 410,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 410,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 411,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 411,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 412,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 412,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 413,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 413,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 414,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 414,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 415,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 415,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 416,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 416,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 417,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 417,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 418,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 418,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 419,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 419,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 420,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 420,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 421,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 421,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 422,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 422,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 423,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 423,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 424,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 424,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 425,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 425,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 426,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 426,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 427,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 427,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 428,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 428,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 429,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 429,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 430,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 430,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 431,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 431,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 432,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 432,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 433,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 433,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 434,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 434,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 435,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 435,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 436,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 436,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 437,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 437,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 438,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 438,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 439,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 439,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 440,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 440,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 441,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 441,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 442,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 442,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 443,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 443,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 444,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 444,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 445,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 445,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 446,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 446,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 447,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 447,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 448,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 448,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 449,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 449,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 450,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 450,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 451,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 451,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 452,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 452,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 453,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 453,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 454,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 454,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 455,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 455,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 456,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 456,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 457,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 457,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 458,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 458,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 459,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 459,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 460,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 460,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 461,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 461,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 462,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 462,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 463,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 463,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 464,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 464,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 465,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 465,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 466,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 466,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 467,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 467,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 468,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 468,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 469,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 469,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 470,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 470,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 471,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 471,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 472,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 472,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 473,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 473,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 474,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 474,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 475,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 475,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 476,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 476,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 477,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 477,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 478,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 478,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 479,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 479,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 480,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 480,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 481,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 481,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 482,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 482,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 483,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 483,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 484,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 484,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 485,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 485,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 486,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 486,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 487,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 487,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 488,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 488,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 489,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 489,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 490,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 490,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 491,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 491,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 492,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "deck-out"
+                },
+                {
+                    "seed": 492,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 493,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 493,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 494,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 494,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 495,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 495,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 496,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 496,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 497,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 497,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 498,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 498,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 499,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 499,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 500,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 500,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                }
+            ]
+        },
+        "resource-reserves": {
+            "deck": [
+                {
+                    "id": "me02-019",
+                    "count": 4
+                },
+                {
+                    "id": "sv08-036",
+                    "count": 4
+                },
+                {
+                    "id": "me01-074",
+                    "count": 4
+                },
+                {
+                    "id": "me01-075",
+                    "count": 4
+                },
+                {
+                    "id": "sv06-145",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-192",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-183",
+                    "count": 1
+                },
+                {
+                    "id": "me01-131",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-196",
+                    "count": 2
+                },
+                {
+                    "id": "mee-002",
+                    "count": 10
+                },
+                {
+                    "id": "base1-97",
+                    "count": 11
+                },
+                {
+                    "id": "sv08.5-107",
+                    "count": 2
+                },
+                {
+                    "id": "sv08-164",
+                    "count": 1
+                },
+                {
+                    "id": "me01-116",
+                    "count": 4
+                },
+                {
+                    "id": "me03-081",
+                    "count": 1
+                }
+            ],
+            "summary": {
+                "games": 200,
+                "wins": 180,
+                "deckoutLosses": 0,
+                "attackBy2": 117,
+                "ready330By4": 39,
+                "ready330By5": 86
+            },
+            "games": [
+                {
+                    "seed": 401,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 401,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 402,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 402,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 403,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 403,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 404,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 404,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 405,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 405,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 406,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 406,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 407,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 407,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 408,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 408,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 409,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 409,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 410,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 410,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 411,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 411,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 412,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 412,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 413,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 413,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 414,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 414,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 415,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 415,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 416,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 416,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 417,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 417,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 418,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 418,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 419,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 419,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 420,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 420,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 421,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 421,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 422,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 422,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 423,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 423,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 424,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 424,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 425,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 425,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 426,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 426,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 427,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 427,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 428,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 428,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 429,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 429,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 430,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 430,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 431,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 431,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 432,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 432,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 433,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 433,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 434,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 434,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 435,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 435,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 436,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 436,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 437,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 437,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 438,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 438,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 439,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 439,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 440,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 440,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 441,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 441,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 442,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 442,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 443,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 443,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 444,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 444,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 445,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 445,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 446,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 446,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 447,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 447,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 448,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 448,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 449,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 449,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 450,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 450,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 451,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 451,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 452,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 452,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 453,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 453,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 454,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 454,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 455,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 455,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 456,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 456,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 457,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 457,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 458,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 458,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 459,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 459,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 460,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 460,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 461,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 461,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 462,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 462,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 463,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 463,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 464,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 464,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 465,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 465,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 466,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 466,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 467,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 467,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 468,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 468,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 469,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 469,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 470,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 470,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 471,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 471,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 472,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 472,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 473,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 473,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 474,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 474,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 475,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 475,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 476,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 476,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 477,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 477,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 478,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 478,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 479,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 479,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 480,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 480,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 481,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 481,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 482,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 482,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 483,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 483,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 484,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 484,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 485,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 485,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 486,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 486,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 487,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 487,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 488,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 488,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 489,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 489,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 490,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 490,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 491,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 491,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 492,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 492,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 493,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 493,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 494,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 494,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 495,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 495,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 496,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 1,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 496,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 497,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 497,
+                    "first": 2,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 498,
+                    "first": 1,
+                    "ready330By4": true,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 498,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 499,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 499,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 500,
+                    "first": 1,
+                    "ready330By4": false,
+                    "ready330By5": true,
+                    "attackBy2": true,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                },
+                {
+                    "seed": 500,
+                    "first": 2,
+                    "ready330By4": false,
+                    "ready330By5": false,
+                    "attackBy2": false,
+                    "winner": 2,
+                    "reason": "prizes-or-no-pokemon"
+                }
+            ]
+        }
+    }
+}

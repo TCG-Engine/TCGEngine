@@ -285,3 +285,44 @@ WithP1Hand: SEC_211
 P1HANDCOUNT:1
 P1RESAVAILABLE:1
 P1DISCARDCOUNT:0
+
+---
+
+# FirstGambitUpgradeDiscount
+#// Bug report P-17 (game 2563): ASH_230 Improvised Identity (Gambit upgrade, cost 2) played onto LAW_229 as the
+#// round's first Gambit card was charged the full 2. With 2 ready resources it attaches for 1 and leaves 1 ready.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:2}
+WithP1GroundArena: LAW_229:1:0
+WithP1Hand: ASH_230
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:1
+
+---
+
+# GambitUpgradeSpendsTheFirstSlot
+#// The discounted Gambit upgrade IS the round's first Gambit card: SEC_211 (Gambit event, cost 2) played after
+#// it pays full price. 3 ready = 1 (ASH_230 discounted) + 2 (SEC_211) -> 0 left; 1 left means the slot was not spent.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:3}
+WithP1GroundArena: LAW_229:1:0
+WithP1Hand: [ASH_230 SEC_211]
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:0
+P1DISCARDCOUNT:1

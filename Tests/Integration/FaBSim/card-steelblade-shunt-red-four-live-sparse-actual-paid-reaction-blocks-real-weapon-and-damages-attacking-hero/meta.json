@@ -1,0 +1,7 @@
+{
+    "name": "steelblade_shunt_red / actual four-live defensive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T20:27:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal Dori20x4. Actual Dawnblade5 attack proxy9 targets P4, Blue6 pays printed1/R1left2/AP0. P4Shunt7 actual printed1 paid by Blue8/R4left2; fourth source response makes it defend actual weapon and deals1physical to attacking P1HP19. Real Dawnblade3 is blocked, P4HP20/actualdamage0; Shunt7 publicGYFace0/Blue8Pitch, physicalDawnblade5 retainedStatus1 and proxy9 noGYghost. Shunt6 defense is author-computed; this attack pins enough defense to prevent3 plus distinctive retaliation, not an isolated exact-six-defense threshold. Nonweapon branch/siblings/other targets untested. Sources: https://judge.fabtcg.com/cards/detail/239/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

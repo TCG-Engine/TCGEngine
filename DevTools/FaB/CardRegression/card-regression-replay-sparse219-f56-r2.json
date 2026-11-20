@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch219.json",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T03:13:29.006341+00:00",
+  "fixtures": [
+    {
+      "slug": "card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+      "fixture_sha256": "a39f67cbf726cc199de946ef61fc18e2bfc03d3a1abe1a738bee5bdcda3f4139",
+      "passed": true,
+      "result": "[PASS] snapback_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-silken-gi-four-live-sparse-real-next-attack-cost-three-to-two-and-power-seven-to-six",
+      "fixture_sha256": "8b6aa49f54312050b43d60de51bd91d2774dd1d86d52adfe6b4e66ee83d41d5c",
+      "passed": true,
+      "result": "[PASS] silken_gi / four live distinctive effect"
+    },
+    {
+      "slug": "card-spell-fray-gloves-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "fixture_sha256": "c92256e66d025b331f7853c5b3fc140e08983bd27a4a592d58d71e90e0ec0b0d",
+      "passed": true,
+      "result": "[PASS] spell_fray_gloves / four live distinctive effect"
+    },
+    {
+      "slug": "card-glory-seeker-four-live-sparse-real-three-resource-instant-destroy-and-physical-deck-draw",
+      "fixture_sha256": "e6ba0fa2335d22e2f382ea2abb433823e12630b51e78b2a956b33a9a937b239b",
+      "passed": true,
+      "result": "[PASS] glory_seeker / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+      "returncode": 0,
+      "stdout": "[PASS] snapback_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-silken-gi-four-live-sparse-real-next-attack-cost-three-to-two-and-power-seven-to-six",
+      "returncode": 0,
+      "stdout": "[PASS] silken_gi / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spell-fray-gloves-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] spell_fray_gloves / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-glory-seeker-four-live-sparse-real-three-resource-instant-destroy-and-physical-deck-draw",
+      "returncode": 0,
+      "stdout": "[PASS] glory_seeker / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,75 @@
+{
+  "status": "study_only",
+  "originalArt": "cedar-grove-input-v1.png",
+  "motionGuide": "cedar-grove-registered-v2.mp4",
+  "method": "Original artwork sampled through a smoothed, closed-loop motion guide. Stronger movement is concentrated near illustrated branch edges; foliage interiors receive less. Fixed trunk bases and cropped objects are protected.",
+  "protectedTrunkRects": [
+    [
+      59,
+      188,
+      29,
+      46
+    ],
+    [
+      169,
+      156,
+      30,
+      30
+    ],
+    [
+      260,
+      153,
+      30,
+      34
+    ],
+    [
+      417,
+      185,
+      32,
+      48
+    ]
+  ],
+  "endpointCheck": "First and last frames exactly match original before encoding. No crossfade.",
+  "additionalCreditsSpent": 0,
+  "variants": [
+    {
+      "id": "light",
+      "label": "Light breeze",
+      "maximumDisplacementPixels": 4.000000476837158,
+      "limitPixels": 4,
+      "motionGain": 0.6,
+      "meanFoliageDisplacementPixels": 0.49741351110073856,
+      "protectedTrunkMaxChannelDifferenceBeforeEncoding": 0,
+      "maximumMeanFrameStep": 1.6979573567708333,
+      "video": "cedar-grove-light-v3.mp4",
+      "durationSeconds": 5.041666666666667,
+      "playbackRate": 0.91
+    },
+    {
+      "id": "medium",
+      "label": "Clear breeze",
+      "maximumDisplacementPixels": 7.000000953674316,
+      "limitPixels": 7,
+      "motionGain": 1.05,
+      "meanFoliageDisplacementPixels": 0.870473579098017,
+      "protectedTrunkMaxChannelDifferenceBeforeEncoding": 0,
+      "maximumMeanFrameStep": 2.7796480155285495,
+      "video": "cedar-grove-medium-v3.mp4",
+      "durationSeconds": 5.041666666666667,
+      "playbackRate": 0.91
+    },
+    {
+      "id": "strong",
+      "label": "Strong breeze",
+      "maximumDisplacementPixels": 10.000001907348633,
+      "limitPixels": 10,
+      "motionGain": 1.5,
+      "meanFoliageDisplacementPixels": 1.2435337406172506,
+      "protectedTrunkMaxChannelDifferenceBeforeEncoding": 0,
+      "maximumMeanFrameStep": 3.667848186728395,
+      "video": "cedar-grove-strong-v3.mp4",
+      "durationSeconds": 5.041666666666667,
+      "playbackRate": 0.91
+    }
+  ]
+}

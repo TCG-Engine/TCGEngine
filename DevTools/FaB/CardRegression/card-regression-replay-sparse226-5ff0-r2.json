@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch226.json",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T05:51:31.348542+00:00",
+  "fixtures": [
+    {
+      "slug": "card-stand-ground-four-live-sparse-owned-might-and-vigor-give-two-real-defense",
+      "fixture_sha256": "8748d9f78268a5cbe314e17ddb30b07c41e4c8aa14adf7fa54e8d56f53b2d649",
+      "passed": true,
+      "result": "[PASS] stand_ground / four-live actual two-token conditional defense"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stand-ground-four-live-sparse-owned-might-and-vigor-give-two-real-defense",
+      "returncode": 0,
+      "stdout": "[PASS] stand_ground / four-live actual two-token conditional defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

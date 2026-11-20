@@ -348,3 +348,68 @@ P1HANDCOUNT:1
 P2HANDCOUNT:0
 P1SPACEARENACOUNT:0
 P1GROUNDARENACOUNT:0
+
+---
+
+# PlaysVernestra_HerAdditionalCostIsOffered
+#// LAW_020 Daimyo's Palace → HMW_048 Vernestra Rwoh. Bug report P-24 (game 5021): "When you use a base to
+#// ignore aspects and then play Vernestra, it won't trigger her when played at all." The Epic Action played
+#// the card by entering at ActivateCard, past every pre-payment step SWUBeginPlayCard owns, so Vernestra's
+#// "As an additional cost … put up to 2 units … on the bottom of your deck" was never offered and she
+#// gained nothing. Per CR an additional cost is paid however the play was begun.
+#// P1 is Vigilance/Heroism; Vernestra is Command+Cunning (penalty 4), the base waives one pip → 6 + 2 = 8.
+#// She bottoms SHD_080 Salacious Crumb + SOR_046 and gains Crumb's "heal 1 from your base": 5 → 4.
+
+## GIVEN
+CommonSetup: bbw/brk/{
+  myBase:LAW_020;
+  myBaseDamage:5
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: HMW_048
+WithP1Discard: [SHD_080 SOR_046]
+WithP1Deck: [SOR_095 SOR_128]
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:myDiscard-0&myDiscard-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:HMW_048
+P1BASEDMG:4
+P1DECKCOUNT:4
+P1DISCARDCOUNT:0
+P1RESAVAILABLE:0
+P1BASE:EPICUSED
+
+---
+
+# PlaysAnExploitUnit_ExploitIsOffered
+#// LAW_020 → TWI_167 Heavy Persuader Tank (Aggression, cost 7, Exploit 2) — the same seam as P-24 for
+#// Exploit, the other additional cost SWUBeginPlayCard owns. P1 is Vigilance/Heroism: the Aggression pip is
+#// waived, so 7. P1 has 7 resources, so the bug played it at full price with no Exploit offer (3 units on
+#// the ground, 0 ready). With Exploit offered, P1 defeats both SOR_095s → 7 - 4 = 3 paid, 4 ready.
+
+## GIVEN
+CommonSetup: bbw/brk/{
+  myBase:LAW_020
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 7
+WithP1Hand: TWI_167
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_167
+P1RESAVAILABLE:4
+P1BASE:EPICUSED

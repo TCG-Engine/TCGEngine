@@ -28,6 +28,7 @@ $leaderActionResourceCosts = [
     "SOR_013" => 1, // Cassian Andor
     "JTL_013" => 1, // Poe Dameron (flip + attach as Pilot to a 0-pilot friendly Vehicle)
     "JTL_003" => 1, // Lando Calrissian (play a unit from hand; conditional Shield)
+    "ASH_002" => 1, // Fennec Shand (also requires a READY friendly unit to exhaust — see SWULeaderActionAffordable)
     "JTL_007" => 1, // Admiral Holdo (+2/+2 to a Resistance unit)
     "JTL_015" => 1, // Rio Durant (attack with a space unit, +1/+0 + Saboteur)
     "JTL_016" => 1, // Admiral Ackbar (exhaust a non-leader unit → controller creates an X-Wing)
@@ -589,11 +590,12 @@ function Ash005DeployedTrigger($player, $mzID): void {
 
 
 // ASH_002 Fennec Shand — Action [1 resource, Exhaust, exhaust a friendly unit]: play a unit from your hand
-// (paying its cost). It enters play ready. Costs: 1 resource + leader exhaust (auto) + exhaust a friendly
-// unit (chosen in ASH_002#0), then play a hand unit with $gForceEnterReady (ASH_002#1).
+// (paying its cost). It enters play ready. Costs: 1 resource (paid centrally — $leaderActionResourceCosts /
+// $unitActionResourceCosts, so Credits and SEC_122 Droids can pay it) + leader exhaust (auto, front only) + exhaust a
+// friendly unit (chosen in ASH_002#0), then play a hand unit with $gForceEnterReady (ASH_002#1).
+// An empty hand does NOT stop it (CR 6.4.587.c, owner go 2026-11-04): the costs are still paid and nothing is played.
 $leaderAbilities["ASH_002"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    $handUnits = ZoneSearch("myHand", ["Unit", "Token Unit"]);
     $ready = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         $arr = GetZone($z);
@@ -602,8 +604,7 @@ $leaderAbilities["ASH_002"] = function(int $player): void {
             if ($u !== null && empty($u->removed) && intval($u->Status) === 1) $ready[] = "{$z}-{$i}";
         }
     }
-    if (empty($handUnits) || empty($ready)) { SWUAfterAction($player); return; }   // can't pay / nothing to play
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (empty($ready)) { SWUAfterAction($player); return; }   // unreachable: both affordability gates require a ready unit
     SWUQueueChooseTarget($player, $ready, "Exhaust_a_friendly_unit_(cost)", "ASH_002#0");
 };
 
@@ -620,6 +621,7 @@ global $unitAbilities, $unitActionCostKind, $unitActionResourceCosts;
 
 // ASH_002 Fennec Shand — Action [1 resource, exhaust a friendly unit]: play a unit ready.
 $unitAbilities["ASH_002"]      = $leaderAbilities["ASH_002"];
+$unitActionResourceCosts["ASH_002"] = 1;
 
 
 // LOF_013 Barriss Offee — Action [use the Force]: play an event from hand, costs 1 less.

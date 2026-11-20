@@ -48,7 +48,7 @@ $customDQHandlers["ASH_090#1"] = function($player, $parts, $lastDecision) {
         if ($h !== null && empty($h->removed) && ($h->CardID ?? '') === $cardID) $handMz = $mz;
     }
     if ($handMz === '') return;
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, 4, false, false, true);   // prepaid 4 = "costs 4 less"
+    SWUPlayUpgradeByEffect(intval($player), $cardID, $handMz, $hostMz, 4, false, false, true);   // prepaid 4 = "costs 4 less"
 };
 
 // When Played (event) — migrated from OnPlayEvent.

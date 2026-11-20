@@ -5,7 +5,10 @@
 // meta.recorderErrors, and the game goes on.
 //
 // Request-scoped globals (never gamestate): SWU_PGN_RECORDING (bool), SWU_PGN_NOTES (list), SWU_PGN_S0 (snapshot),
-// SWU_PGN_FRAME_GAME (the game the frame began on).
+// SWU_PGN_FRAME_GAME (the game the frame began on), SWU_PGN_FRAME_BUSY (a decision was pending as it began), SWU_PGN_ACTED
+// (an action note was already taken this request), SWU_PGN_OPEN_ACTION (the pending decision is the player's own action's
+// question — "Play as Unit or Pilot?" — so that action's note is still to come, and is numbered; state.openAction keeps it
+// between requests).
 
 function _SwuPgnRecError(string $g, Throwable $e, string $where): void {
     error_log("SWU-PGN recorder ($where, game $g): " . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
@@ -29,7 +32,15 @@ function SwuPgnRecIsRecording(string $g): bool {
 function _SwuPgnRecResetRequest(): void {
     $GLOBALS['SWU_PGN_RECORDING'] = false;
     $GLOBALS['SWU_PGN_NOTES'] = [];
-    unset($GLOBALS['SWU_PGN_S0'], $GLOBALS['SWU_PGN_FRAME_GAME']);
+    unset($GLOBALS['SWU_PGN_S0'], $GLOBALS['SWU_PGN_FRAME_GAME'], $GLOBALS['SWU_PGN_ACTION_SRC'], $GLOBALS['SWU_PGN_FRAME_BUSY'], $GLOBALS['SWU_PGN_ACTED'],
+        $GLOBALS['SWU_PGN_OPEN_ACTION']);
+}
+
+// True when a decision is pending for either seat: the request answers it, so an ability is still resolving — a play,
+// attack or action ability made now is that ability's, not a player's own action (§9.1).
+function _SwuPgnQueueBusy(): bool {
+    foreach ([1, 2] as $p) foreach (GetDecisionQueue($p) ?? [] as $d) if (is_object($d) && empty($d->removed)) return true;
+    return false;
 }
 
 // The SWU-PGN phase letter for a snapshot: setup (S) until the recorder's state says the first round began.
@@ -53,7 +64,7 @@ function _SwuPgnRecFlush(string $g, array $before, array $notes): array {
     $state = SwuPgnStateRead($g);
     $pos = _SwuPgnRecPos($state, $before);
     $ctx = ['ledger' => $state['ledger'] ?? SwuPgnLedgerInit([]), 'counters' => $state['counters'] ?? [],
-        'round' => $pos['round'], 'phase' => $pos['phase']];
+        'round' => $pos['round'], 'phase' => $pos['phase'], 'abilityUses' => $state['abilityUses'] ?? []];
     // Notes carried from the previous frame (a play whose card moves only after a later pick) go first. One that
     // is still unclaimed after SWUPGN_CARRY_FRAMES frames is dropped.
     $carried = [];
@@ -63,6 +74,7 @@ function _SwuPgnRecFlush(string $g, array $before, array $notes): array {
     SwuPgnEventsAppend($g, $r['events']);
     $state['ledger'] = $ctx['ledger'];
     $state['counters'] = $ctx['counters'];
+    $state['abilityUses'] = $ctx['abilityUses'] ?? [];
     $state['prev'] = $after;
     foreach ($r['events'] as $e) if ($e['t'] === 'CLAIM_INITIATIVE') $state['initiativeTaken'] = true;
     $state['gaps'] = intval($state['gaps'] ?? 0) + count($r['gaps']);
@@ -100,6 +112,8 @@ function SwuPgnRecFrameBegin(): void {
         $GLOBALS['SWU_PGN_S0'] = SwuPgnSnapshot();
         $GLOBALS['SWU_PGN_FRAME_GAME'] = $g;
         $GLOBALS['SWU_PGN_RECORDING'] = true;
+        $GLOBALS['SWU_PGN_FRAME_BUSY'] = _SwuPgnQueueBusy();
+        $GLOBALS['SWU_PGN_OPEN_ACTION'] = $GLOBALS['SWU_PGN_FRAME_BUSY'] && !empty(SwuPgnStateRead($g)['openAction']);
         SwuPgnTxBegin($g);   // the frame's writes wait for its commit
         // The board the recorder last saw is the board now — unless something outside the runner changed it: that
         // change is written here (plain records, counted as gaps), so the file and the board never drift apart.
@@ -118,6 +132,9 @@ function SwuPgnRecFrameCommit(): void {
     $frameGame = $GLOBALS['SWU_PGN_FRAME_GAME'] ?? null;
     $before = $GLOBALS['SWU_PGN_S0'] ?? null;
     $notes = $GLOBALS['SWU_PGN_NOTES'] ?? [];
+    // The player's own action is still open when a fresh request took no action note but left a decision pending (its
+    // question comes before its announcement), or when a request answering such a question still has not taken it.
+    $open = !empty($GLOBALS['SWU_PGN_FRAME_BUSY']) ? !empty($GLOBALS['SWU_PGN_OPEN_ACTION']) : empty($GLOBALS['SWU_PGN_ACTED']);
     _SwuPgnRecResetRequest();
     // The frame must end on the game it began on: a request that loaded another game mid-action (a quick
     // rematch) would otherwise diff one game's board against another's.
@@ -125,6 +142,9 @@ function SwuPgnRecFrameCommit(): void {
         if ($active && $frameGame === $g && is_array($before)) {
             _SwuPgnTestThrow('commit');
             _SwuPgnRecFlush($g, $before, $notes);
+            $state = SwuPgnStateRead($g);
+            $state['openAction'] = $open && _SwuPgnQueueBusy();
+            SwuPgnStateWrite($g, $state);
             if (function_exists('SwuPgnRecFinishIfOver')) SwuPgnRecFinishIfOver($g);
         }
     } catch (Throwable $e) {
@@ -180,14 +200,19 @@ function SwuPgnRecBoundary(string $enginePhase): void {
             if ($pos['phase'] === 'S') $recs[] = ['seq' => 'R0.S.end', 't' => 'PHASE_END', 'phase' => 'setup'];
             if ($pos['phase'] === 'G') array_push($recs, ...SwuPgnRecRoundEndRecords($state, $snap, intval($pos['round'])));
             $state['initiativeTaken'] = false;
-            $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => SWUPGN_PHASE_NAMES[$pos['phase']] ?? 'regroup', 'initiativeTaken' => false]);
-            $recs[] = ['seq' => "R$round.start", 't' => 'ROUND_START', 'round' => $round] + ($kf !== null ? ['keyframe' => $kf] : []);
-            $recs[] = ['seq' => "R$round.A.start", 't' => 'PHASE_START', 'phase' => 'action'];
+            $state['abilityUses'] = SwuPgnAbilityUsesClear($state['abilityUses'] ?? [], ['phase', 'round']);   // §12.2 ROUND_START
+            // §10.1 [W-46]: the round's first active player is the initiative holder (CR 5.4.1.b) — the counter still names
+            // it here (ActionPhaseStart hands the turn to it just after); the turn player is the last round's.
+            $active = intval($snap['initiative']) ?: null;
+            $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => SWUPGN_PHASE_NAMES[$pos['phase']] ?? 'regroup', 'initiativeTaken' => false, 'active' => $active, 'abilityUses' => $state['abilityUses']]);
+            $recs[] = ['seq' => "R$round.start", 't' => 'ROUND_START', 'round' => $round, 'active' => $active] + ($kf !== null ? ['keyframe' => $kf] : []);
+            $recs[] = ['seq' => "R$round.A.start", 't' => 'PHASE_START', 'phase' => 'action', 'active' => $active];
             $pos = ['round' => $round, 'phase' => 'A'];
             unset($state['setup']);
         } elseif ($enginePhase === 'RGS' && $pos['phase'] === 'A') {
             $recs[] = ['seq' => "R{$pos['round']}.A.end", 't' => 'PHASE_END', 'phase' => 'action'];
             $recs[] = ['seq' => "R{$pos['round']}.G.start", 't' => 'PHASE_START', 'phase' => 'regroup'];
+            $state['abilityUses'] = SwuPgnAbilityUsesClear($state['abilityUses'] ?? [], ['phase']);   // §12.2 PHASE_START
             $pos['phase'] = 'G';
         }
         SwuPgnEventsAppend($g, $recs);
@@ -203,7 +228,7 @@ function SwuPgnRecBoundary(string $enginePhase): void {
 // ready taxes), and it belongs to this round. It still runs before ActionPhaseStart tears the round down, and
 // initiativeTaken / phase come from the records this round wrote anyway (§13's trap).
 function SwuPgnRecRoundEndRecords(array $state, array $snap, int $round): array {
-    $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => 'regroup', 'initiativeTaken' => !empty($state['initiativeTaken'])]);
+    $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => 'regroup', 'initiativeTaken' => !empty($state['initiativeTaken']), 'abilityUses' => $state['abilityUses'] ?? []]);
     return [
         ['seq' => "R$round.G.end", 't' => 'PHASE_END', 'phase' => 'regroup'],
         ['seq' => "R$round.end", 't' => 'ROUND_END', 'round' => $round] + ($kf !== null ? ['keyframe' => $kf] : []),
@@ -329,7 +354,10 @@ function _SwuPgnKfIds(array $cardIDs, array $copies): array {
     return $out;
 }
 
-// §11 ReducedState for both seats, or null when a seat cannot be built (a partial keyframe is non-conformant, §13).
+// §11 ReducedState for both seats, or null when a seat cannot be built (a partial keyframe is non-conformant, §13). No `effects`:
+// SWUSim keeps none as something the recorder can read as §11 states them (per-card TurnEffects / GlobalEffects flags), and
+// §13 says omit what you cannot read rather than invent it. `abilityUses` comes from $ctx['abilityUses'] — the writer's own
+// fold of the `limit` records it wrote (named Action abilities), not an engine read.
 function SwuPgnKeyframe(array $snap, array $ledger, array $ctx): ?array {
     $players = [];
     foreach ([1, 2] as $p) {
@@ -344,12 +372,23 @@ function SwuPgnKeyframe(array $snap, array $ledger, array $ctx): ?array {
             // A unit's attachments and captives are listed under whichever seat moved them (UniqueIDs are game-wide).
             $both = fn(string $k) => array_merge($ledger['zones'][1][$k] ?? [], $ledger['zones'][2][$k] ?? []);
             $attached = array_values(array_filter($both("attached:$uid"), fn($c) => !str_starts_with($c, 'TOKEN:')));
-            $cards[] = ['id' => SwuPgnLedgerByUid($ledger, intval($uid)) ?? SwuPgnCardRef($u['cardID']), 'zone' => $u['arena'],
+            $upIds = _SwuPgnKfIds(array_column($u['upgrades'], 'cardID'), $attached);
+            // §11 [W-57]: the attached upgrades the other seat controls, by id (absent when none).
+            $upCtl = [];
+            foreach ($u['upgrades'] as $i => $up) if (isset($up['controller']) && $up['controller'] > 0 && $up['controller'] !== $p) $upCtl[$upIds[$i]] = $up['controller'];
+            $card = ['id' => SwuPgnLedgerByUid($ledger, intval($uid)) ?? SwuPgnCardRef($u['cardID']), 'zone' => $u['arena'],
                 'damage' => $u['damage'], 'exhausted' => !$u['ready'],
-                'upgrades' => _SwuPgnKfIds(array_column($u['upgrades'], 'cardID'), $attached),
+                'upgrades' => $upIds,
                 'shields' => intval($u['tokens']['shield'] ?? 0), 'experience' => intval($u['tokens']['experience'] ?? 0),
                 'statusTokens' => (object)$statusTokens, 'captured' => _SwuPgnKfIds($u['captives'], $both("capture:$uid")),
                 'power' => $u['power'], 'hp' => $u['hp'], 'keywords' => $u['keywords']];
+            // §11 / §13 [W-57]: traits on every card, blank / leaderUnit only when true, owner only when it is the other seat.
+            if (isset($u['traits'])) $card['traits'] = $u['traits'];
+            if (!empty($u['blank'])) $card['blank'] = true;
+            if (!empty($u['leaderUnit'])) $card['leaderUnit'] = true;
+            if (intval($u['owner'] ?? 0) > 0 && intval($u['owner']) !== $p) $card['owner'] = intval($u['owner']);
+            if ($upCtl) $card['upgradeControllers'] = $upCtl;
+            $cards[] = $card;
         }
         // Cards a deck search is holding are off the engine's deck, but nothing left the deck in the file.
         $staged = count(array_filter($z['temp'] ?? [], fn($c) => ($ledger['tempOrigin'][$c] ?? 'deck') === 'deck'))
@@ -358,10 +397,18 @@ function SwuPgnKeyframe(array $snap, array $ledger, array $ctx): ?array {
             'handSize' => count($s['hand']), 'hand' => _SwuPgnKfIds($s['hand'], $z['hand'] ?? []), 'deckSize' => count($s['deck']) + $staged,
             'resourcesReady' => count(array_filter($rows, fn($r) => $r['ready'])),
             'resourcesExhausted' => count(array_filter($rows, fn($r) => !$r['ready'])),
-            'resources' => _SwuPgnKfIds(array_column($rows, 'cardID'), $z['resource'] ?? []),
+            'resources' => $resIds = _SwuPgnKfIds(array_column($rows, 'cardID'), $z['resource'] ?? []),
+            // §11 [W-57]: the row's cards the other seat owns — an empty list when none.
+            'foreignResources' => array_values(array_map(fn($i) => $resIds[$i], array_keys(array_filter($rows, fn($r) => intval($r['owner'] ?? $p) !== $p)))),
             'baseEpicActionUsed' => $s['base']['epicUsed'],
+            // What the base holds: an upgrade on it (Fortify) and a unit it captured (Arrest).
+            'baseUpgrades' => _SwuPgnKfIds($s['base']['upgrades'], $z['base'] ?? []),
+            'baseCaptured' => _SwuPgnKfIds($s['base']['captives'], array_merge($ledger['zones'][1]["capture:base@$p"] ?? [], $ledger['zones'][2]["capture:base@$p"] ?? [])),
             'credits' => count($s['resources']) - count($rows), 'hasForce' => $s['force'],
-            'discard' => _SwuPgnKfIds($s['discard'], $z['discard'] ?? []), 'cards' => $cards];
+            'discard' => _SwuPgnKfIds($s['discard'], $z['discard'] ?? []), 'cards' => $cards,
+            // §11 [W-49]: limited abilities used since their reset — the writer's own fold of its `limit` records
+            // (SwuPgnAbilityUses*), an empty list when none.
+            'abilityUses' => array_values($ctx['abilityUses'][$p] ?? [])];
         $l = $s['leader'];
         if ($l !== null) {
             $id = $l['deployedUid'] !== null ? SwuPgnLedgerByUid($ledger, $l['deployedUid']) : null;
@@ -379,7 +426,7 @@ function SwuPgnKeyframe(array $snap, array $ledger, array $ctx): ?array {
         $players[strval($p)] = $seat;
     }
     return ['round' => intval($ctx['round']), 'phase' => strval($ctx['phase']), 'initiative' => $snap['initiative'] ?: null,
-        'initiativeTaken' => (bool)$ctx['initiativeTaken'], 'active' => $snap['active'] ?: null, 'players' => $players];
+        'initiativeTaken' => (bool)$ctx['initiativeTaken'], 'active' => array_key_exists('active', $ctx) ? $ctx['active'] : ($snap['active'] ?: null), 'players' => $players];
 }
 
 // Copy ids for every card already on the board outside the decks (a fixture, or a game whose recording starts late).
@@ -393,6 +440,7 @@ function SwuPgnLedgerAdopt(array &$ledger, array $snap): void {
         if ($s['force']) SwuPgnLedgerPut($ledger, $seat, 'force', SwuPgnLedgerNewToken($ledger, 'LOF_T03'));
         if ($s['leader'] !== null && !$s['leader']['deployed']) SwuPgnLedgerPut($ledger, $seat, 'base', SwuPgnLedgerNewToken($ledger, $s['leader']['cardID']));
         foreach ($s['base']['captives'] ?? [] as $id) SwuPgnLedgerPut($ledger, $seat, "capture:base@$seat", SwuPgnLedgerNewToken($ledger, $id));
+        foreach ($s['base']['upgrades'] ?? [] as $id) SwuPgnLedgerPut($ledger, $seat, 'base', SwuPgnLedgerNewToken($ledger, $id));   // Fortify
         foreach ($s['units'] as $uid => $u) {
             $uid = intval($uid);
             SwuPgnLedgerPut($ledger, $seat, $u['arena'], SwuPgnLedgerNewToken($ledger, $u['cardID']), $uid);
@@ -405,9 +453,11 @@ function SwuPgnLedgerAdopt(array &$ledger, array $snap): void {
     }
 }
 
-// Record only human 2-seat PvP: no game mode (goldfish/hotseat/Arenabot), no bot seat, exactly two seats.
+// Record only human 2-seat PvP: no game mode (goldfish/hotseat/Arenabot), no bot seat, exactly two seats — and never a
+// Limited or Dualing Suns game, which record nothing anywhere (SWU Forge included; spec 2026-11-04-swusim-limited §3.9).
 function SwuPgnRecShouldRecord(): bool {
-    return SWUGameMode() === '' && !SWUHasBotSeats() && SeatCountForGame() === 2;
+    return SWUGameMode() === '' && !SWUHasBotSeats() && SeatCountForGame() === 2
+        && !SWUFormatRecordsNothing(strval(SWUGameCardPool()));
 }
 
 // Called by SWUSetupGame after the decks are loaded (shuffled) and the seats, first player and phase are set, before
@@ -487,4 +537,10 @@ function SwuPgnRecForceForTest(string $g): void {
         'accounts' => [1 => null, 2 => null], 'setup' => $setup, 'decks' => _SwuPgnRecDecks($snap, []), 'test' => true]);
     SwuPgnEventsTruncate($g, 0);
     SwuPgnStateWrite($g, ['counters' => [], 'ledger' => $ledger, 'prev' => $snap, 'gaps' => 0]);
+}
+
+// §12.2: a PHASE_START drops every seat's `phase` uses, a ROUND_START its `phase` and `round` uses.
+function SwuPgnAbilityUsesClear(array $uses, array $pers): array {
+    foreach ($uses as $seat => $list) $uses[$seat] = array_values(array_filter((array)$list, fn($u) => !in_array($u['per'] ?? '', $pers, true)));
+    return $uses;
 }

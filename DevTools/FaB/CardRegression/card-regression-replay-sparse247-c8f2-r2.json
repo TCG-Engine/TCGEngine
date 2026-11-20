@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch247.json",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T13:21:38.365441+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arcanite-fortress-four-live-sparse-actual-two-named-equipment-spellvoid-prevents-two",
+      "fixture_sha256": "b55e096358603f9b8faa56f8633a4bcb4bac20a2b9185a9c602647a28fa28932",
+      "passed": true,
+      "result": "[PASS] arcanite_fortress / actual dynamic Spellvoid two on real arcane three"
+    },
+    {
+      "slug": "card-overblast-red-four-live-sparse-real-earlier-boost-this-chain-gives-exact-plus-one",
+      "fixture_sha256": "2c781d08c6e10b44a090bb5bc47110d40d744c1c0c87d54c35be74a4883cc920",
+      "passed": true,
+      "result": "[PASS] overblast_red / actual one earlier boost in same combat chain"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcanite-fortress-four-live-sparse-actual-two-named-equipment-spellvoid-prevents-two",
+      "returncode": 0,
+      "stdout": "[PASS] arcanite_fortress / actual dynamic Spellvoid two on real arcane three\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-overblast-red-four-live-sparse-real-earlier-boost-this-chain-gives-exact-plus-one",
+      "returncode": 0,
+      "stdout": "[PASS] overblast_red / actual one earlier boost in same combat chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+Create a seamless five-second ambient animation of this complete illustrated sanctuary altar and lamps section for a warm cartoon adventure game.
+
+Both wall-lamp flames flicker naturally with restrained warm local glow. The complete blue cloth banners beside the altar gently stir from fixed top attachments. Complete potted plants near the altar have a soft breeze in their leaves. The water in the central offering bowl has faint illustrated ripples. Walls, columns, furniture, pots, bowl, altar steps, trunks, floor and sun emblem remain precisely fixed. Objects cut by the crop edge remain entirely stationary. No global brightness pulsing.
+
+Keep the established flat cartoon colors and dark drawn outlines. Motion is gentle but clearly visible at normal game-map scale across the section. The camera is absolutely locked: no zoom, pan, shake, reframing or parallax. Keep scenery aligned with the supplied image. No new objects, particles, text, audio or photorealistic textures. No flashing or sudden exposure changes.
+
+The supplied first and last keyframes are identical. Return precisely to the supplied scene for a seamless loop, with natural continuous movement and no frozen interval or abrupt reset.

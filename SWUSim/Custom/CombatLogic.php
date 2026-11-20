@@ -9,6 +9,7 @@ function _SWUOverwhelmSpillToBase(int $player, string $targetMzID, $attacker, in
     $GLOBALS['gInCombatDamage'] = true;
     SWUDealDamageToBase($overflowAmt, SWUMzOwner($targetMzID, $player)); // Twin Suns: the overwhelmed defender's own base
     $GLOBALS['gInCombatDamage'] = false;
+    _SWUIc27122OnUnitDamagedBase(intval($attacker->Controller ?? $player), SWUMzOwner($targetMzID, $player));   // IC27_122 The Ghost
     $combatCtx['baseCombatDmg'] += max(0, $overflowAmt); // overwhelm counts for LOF_025
     // Overwhelm excess IS combat damage the attacker deals to the base (CR 7.d), so it must trigger
     // "when this unit deals (combat) damage to a base" abilities — JTL_177 Stay on Target's granted draw,
@@ -335,6 +336,9 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($targetPlayer);
+    // The amount this call ACTUALLY dealt (0 when a prevention returned early or Ty Yorrick deferred it) — read
+    // right after the call by "when a unit deals damage to a base" observers (IC27_122 The Ghost).
+    $GLOBALS['gSWULastBaseDamageDealt'] = 0;
     // HMW_185 Ty Yorrick — "you may have that ability deal that much damage plus 1 instead." Source-side,
     // so it is offered before EVERY prevention below (Close the Shield Gate, the Alliance Shield
     // Generator, the At Attin cap) — those replace the damage as it would be dealt, i.e. after Ty's
@@ -353,10 +357,21 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             $tyDealer = ($savedPID > 0 && $savedPID !== intval($targetPlayer))
                 ? intval($savedPID) : OtherPlayer(intval($targetPlayer));
         }
-        if (_SWUHmw185Decider($tyDealer) > 0) {
+        $tyDecider = _SWUHmw185Decider($tyDealer);
+        if ($tyDecider > 0) {
             $tyTok = is_object($damager) ? ('U' . intval($damager->UniqueID ?? 0))
                    : (($damager === null) ? 'N' : ('P' . intval($damager)));
-            _SWUHmw185Defer(_SWUHmw185Decider($tyDealer),
+            // Inside a simultaneous "each base" event the answer is only RECORDED (HMW_185#4): every base's damage
+            // then lands together once all of the event's questions are answered (HMW_185#5, queued by the bracket),
+            // so two bases reaching 0 is still one event — a draw (CR 6.3), not a win for whichever base was answered first.
+            if (SWUInSimultaneousBaseDamage()) {
+                _SWUHmw185Defer($tyDecider,
+                    "HMW_185#4|{$tyDealer}|" . intval($damage) . "|" . intval($targetPlayer) . "|{$tyTok}");
+                $GLOBALS['gSWUSimulTyDecider'] = $tyDecider;
+                $playerID = $savedPID;
+                return;
+            }
+            _SWUHmw185Defer($tyDecider,
                 "HMW_185#3|{$tyDealer}|" . intval($damage) . "|" . intval($targetPlayer) . "|{$tyTok}");
             $playerID = $savedPID;
             return;
@@ -420,6 +435,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             SetFlashMessage("At Attin Safety Droid: base damage reduced to 4.");
         }
         $base[$i]->Damage = intval($base[$i]->Damage) + $damage;
+        $GLOBALS['gSWULastBaseDamageDealt'] = intval($damage);
         SWUQueueDamageAnim("myBase-0", intval($damage), intval($targetPlayer));
         // LOF_252 The Daughter — "When damage is dealt to your base: may use the Force → heal 2 from your
         // base." Post-damage reaction owned by the base owner (often the non-active player in combat); it
@@ -537,13 +553,21 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 // that after a control change we can still ask "did this unit damage a base belonging to
                 // someone who is NOW its controller's opponent?". See _SWUSec012Protected.
                 AddGlobalEffects($srcCtrl, 'SWU_DMGDBASE_' . $srcUid . '_' . intval($targetPlayer));
+                // IC27_122 The Ghost — a unit's ABILITY damage. Combat (direct + Overwhelm) and indirect report
+                // from their own call sites, so they are excluded here to keep one report per instance.
+                if (empty($GLOBALS['gInCombatDamage']) && !$isIndirect) _SWUIc27122OnUnitDamagedBase($srcCtrl, intval($targetPlayer));
             }
         }
         $baseHP = SWUBaseMaxHp($base[$i]->CardID);
         // Goldfish practice: P2's Echo Base is an infinite damage sponge — never trigger the loss,
         // so the damage counter just keeps climbing past its HP. (P1's own base win-con is untouched.)
         $spongeExempt = ($targetPlayer === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish');
-        if (!$spongeExempt && $base[$i]->Damage >= $baseHP) {
+        if (!$spongeExempt && $base[$i]->Damage >= $baseHP && SWUInSimultaneousBaseDamage()) {
+            // One event that damages several bases (SWUSimultaneousBaseDamage): don't end the game on the first base it
+            // kills — the bracket decides once all of its damage is dealt (CR 6.3 draw). Remember the eliminator for
+            // Twin Suns' CR 12.6.2 heal.
+            if ($damage > 0) $GLOBALS['gSWUSimulBaseKiller'][intval($targetPlayer)] = intval($damager);
+        } elseif (!$spongeExempt && $base[$i]->Damage >= $baseHP) {
             if (SeatCountForGame() > 2) {
                 // Twin Suns: eliminate the seat (heals $damager 5, defers most-HP scoring) — do NOT
                 // declare an instant winner. $damager was resolved above when $damage > 0.
@@ -868,7 +892,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     $obj->removed = true;
     // Pass $obj so SWUAddToDiscard can revert a TWI_116 Clone copy's CardID to the real card (it leaves
     // play as Clone, not as the card it copied).
-    SWUAddToDiscard($owner, $cardID, 'PLAY', $hasSecondChance ? 'TPF' : '', $obj);
+    SWUAddToDiscard($owner, $cardID, 'PLAY', $hasSecondChance ? 'TPF:SHD_053' : '', $obj);
     if ($owner !== intval($player)) {
         AddGlobalEffects(intval($player), 'SWU_ENEMY_DEFEATED');
     }
@@ -2201,6 +2225,13 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     if (!empty($combatCtx['ash184GiveAdv'])) {
         AddTrigger($activePlayer, 'ASH_184', 'ASH_184', '');
     }
+    // IC27_007 Asajj Ventress (leader front) — "After completing this attack, if the attacker survived, you may ready
+    // a resource." Unlike Follow Me this one needs the attacker alive: looked up by its captured UID, since a dead
+    // attacker's arena slot is reused by whichever unit reindexes into it.
+    if (!empty($combatCtx['ic27007ReadyRes']) && intval($combatCtx['attackerUID'] ?? 0) > 0
+        && SWUFindMzByUID(intval($combatCtx['attackerUID'])) !== null) {
+        AddTrigger($activePlayer, 'IC27_007', 'IC27_007', $attackerMzID);
+    }
     // ASH_183 Whistling Birds — deal 2 to each enemy in the captured arena if the host dealt combat damage to a
     // base this attack. Fires from combatCtx (captured at combat start) so it still resolves when the host died.
     if (!empty($combatCtx['ash183Arena']) && intval($combatCtx['baseCombatDmg'] ?? 0) > 0) {
@@ -2707,20 +2738,31 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     }
     // IBH_010 / IBH_042 Han Solo — Raid 2 (keyword, auto) + On Attack: the defender gets -2/-0 for this
     // attack. Synchronous marker (the deferred OnAttack trigger is too late). Stub handler is a no-op.
-    if (in_array($attacker->CardID ?? '', ['IBH_010', 'IBH_042'], true)) {
+    // ⚠ _SWUAttackerGrants, not the attacker's own CardID — this and the three -4/-0 checks below: a GRANTED copy
+    // (ASH_230 Improvised Identity's discarded unit, a Support unit's lent abilities) rides the SUPPORT_GRANT marker,
+    // which an own-CardID test never sees (Discord 2026-11-04: Improvised Identity → Hunter SEC_208, no -4/-0).
+    if (_SWUAttackerGrants($attacker, 'IBH_010') || _SWUAttackerGrants($attacker, 'IBH_042')) {
         AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
     }
     // SEC_208 Hunter — On Attack: if the defender is exhausted, it gets -4/-0 for this attack. Applied
     // synchronously (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
-    if (($attacker->CardID ?? '') === 'SEC_208') {
+    if (_SWUAttackerGrants($attacker, 'SEC_208')) {
         $defObj = GetZoneObject($targetMzID);
         if ($defObj !== null && empty($defObj->removed) && intval($defObj->Status ?? 0) === 0) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
         }
     }
+    // IC27_157 The Mandalorian — SEC_208's text word for word. Gated on the defender being a UNIT (a base
+    // has no Status, which would read as exhausted) and on Mando keeping his abilities.
+    if (_SWUAttackerGrants($attacker, 'IC27_157') && !LostAbilities($attacker) && strpos($targetMzID, 'Arena') !== false) {
+        $d157 = GetZoneObject($targetMzID);
+        if ($d157 !== null && empty($d157->removed) && intval($d157->Status ?? 1) === 0) {
+            AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
+        }
+    }
     // SHD_216 Chain Code Collector — On Attack: if the defender has a Bounty, it gets -4/-0 for this attack.
     // Synchronous (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
-    if (($attacker->CardID ?? '') === 'SHD_216') {
+    if (_SWUAttackerGrants($attacker, 'SHD_216')) {
         $d216 = GetZoneObject($targetMzID);
         if ($d216 !== null && empty($d216->removed) && ObjectHasBounty($d216) > 0) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
@@ -2776,6 +2818,20 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
             tooltip: "Have_the_defending_unit_deal_combat_damage_first?");
         DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_086#0|{$attackerMzID}", 1);
+    }
+
+    // IC27_142 Greedo — an attacking Greedo that ALSO deals combat damage first (Shoot First, Carson Teva's Support
+    // grant, Anakin's Podracer) has two orderings for one unit, and CR 6.3.5.c lets his controller decide. YES = deal
+    // first (the IC27_142_FIRST marker, read in SWUCombatDamage). Not offered against a defending Greedo — the two
+    // "after"s cancel out to simultaneous damage there — nor when Greedo has lost his abilities.
+    if (_SWUAttackerGrants($attacker, 'IC27_142') && !LostAbilities($attacker) && strpos($targetMzID, 'Arena') !== false
+        && _SWUAttackerDealsDamageFirst($attacker)) {
+        $gdDefender = GetZoneObject($targetMzID);
+        if (!(($gdDefender->CardID ?? '') === 'IC27_142' && !LostAbilities($gdDefender))) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                tooltip: "Deal_Greedo's_combat_damage_first_instead_of_after?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "IC27_142#0|{$attackerMzID}", 1);
+        }
     }
 
     // Step 1: collect On Attack / On Defense triggers, then flush them onto the
@@ -2893,6 +2949,29 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     $attackerMzID = $parts[0] ?? '';
     $targetMzID   = $parts[1] ?? '';
     $attackerUID  = intval($parts[2] ?? 0);
+    // IC27_147 Asajj Ventress — an armed replacement commits HERE, where combat damage is actually committed: every
+    // On Attack / On Defense and every other seat's decision has resolved (the earlier prevention seam can run while
+    // another seat — Condemn's disclose — is still deciding). Re-checked, may lapse; see the card file. If it raises
+    // the uniqueness choice, this step re-queues behind it.
+    if (GetSWUVar('SWU_IC27147_ARMED', '') !== '' && function_exists('_SWUIc27147CommitAtDamage')
+        && _SWUIc27147CommitAtDamage(intval($player))) {
+        DecisionQueueController::AddDecision(intval($player), 'CUSTOM',
+            "SWUCombatDamage|{$attackerMzID}|{$targetMzID}|{$attackerUID}|" . intval($player), 1);
+        $playerID = $savedPID;
+        return;
+    }
+    // …and once committed it swapped the attacker after this entry was queued with the ORIGINAL's mzID + UID: follow
+    // the swap to her. Not found (the uniqueness rule took the new copy) → the UID re-scan below finds nothing and the
+    // damage fizzles, as for any attacker gone before damage.
+    $ic27147Swap = GetSWUVar('SWU_IC27147_SWAP', '');
+    if ($ic27147Swap !== '') {
+        [$swOld, $swNew] = array_map('intval', explode('|', $ic27147Swap) + [0, 0]);
+        if ($swOld === $attackerUID) {
+            SetSWUVar('SWU_IC27147_SWAP', '');
+            $attackerUID  = $swNew;
+            $attackerMzID = SWUFindMzByUID($swNew) ?? $attackerMzID;
+        }
+    }
 
     $attacker = GetZoneObject($attackerMzID);
     // Attacker re-validation by UID (mirror of the defender re-validation below). The mzID is stale
@@ -3094,6 +3173,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         && intval(CardCost($attacker->CardID ?? '')) <= 3
         && _SWULeaderDeployed(intval($attacker->Controller ?? $player), 'SHD_007');
     if ($shd007Front || $shd007Deployed) $attackPower += 1;
+    // IC27_086 Enfys Nest: "While attacking a unit that costs 3 or less, this unit gets +2/+0 and gains Overwhelm." The
+    // defender's PRINTED cost (a token unit costs 0, a leader unit its leader cost); a unit, never a base.
+    $ic27086VsCheap = $shd007VsUnitTarget && _SWUAttackerGrants($attacker, 'IC27_086') && !LostAbilities($attacker)
+        && intval(CardCost($target->CardID ?? '')) <= 3;
+    if ($ic27086VsCheap) $attackPower += 2;
     // ASH_207 Heroic Purrgil — "While attacking using Ambush, this unit gets +2/+0." Marker set when the
     // Ambush entry-trigger attack proceeds; attack-duration.
     if (($attacker->CardID ?? '') === 'ASH_207' && is_array($attacker->TurnEffects ?? null)
@@ -3137,6 +3221,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     if ($target !== null && empty($target->removed)
         && is_array($target->TurnEffects ?? null) && in_array('TWI_072', $target->TurnEffects, true)) {
         $attackPower -= 4;   // floored once, below (CR 8.15.4)
+    }
+    // IC27_060 Jabba the Hutt: "For this phase, while that unit is defending, the attacker gets +4/+0." One phase marker
+    // per use on the chosen (defending) unit, each +4, and ANY attacker gets it.
+    if ($target !== null && empty($target->removed) && function_exists('_SWUIc27060MarkerCount')) {
+        $attackPower += 4 * _SWUIc27060MarkerCount($target);
     }
     // LAW_108 Lando Calrissian: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'LAW_108') {
@@ -3194,6 +3283,28 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         && !SWUUnitEnteredPlayThisPhase($target)) {
         $hasShootFirst = true;
     }
+    // IC27_142 Greedo — "While attacking or defending, this unit deals combat damage after the other attacking or
+    // defending unit." Attacking, he takes the defender-first path; defending, he puts the attacker on the
+    // attacker-first path. Each needs the other unit to survive before it deals (CR 6.3.5.c). Conflicts:
+    //   • attacking with a deal-first source too → his controller chose before combat (IC27_142_FIRST = first);
+    //   • Greedo against Greedo → each deals after the other, which cancels out to simultaneous damage;
+    //   • defending against The Stranger's DEFENDER_FIRST → that choice stands (Greedo deals first).
+    // A Greedo that has lost his abilities deals damage normally.
+    if (strpos((string)$targetMzID, 'Arena') !== false && $target !== null && empty($target->removed)) {
+        $gdAttacking = _SWUAttackerGrants($attacker, 'IC27_142') && !LostAbilities($attacker);
+        $gdDefending = ($target->CardID ?? '') === 'IC27_142' && !LostAbilities($target);
+        if ($gdAttacking && $gdDefending) {
+            $hasShootFirst = false;
+            $defenderFirst = false;
+        } elseif ($gdAttacking) {
+            if (!$hasShootFirst || !in_array('IC27_142_FIRST', $attacker->TurnEffects ?? [], true)) {
+                $hasShootFirst = false;
+                $defenderFirst = true;
+            }
+        } elseif ($gdDefending && !$defenderFirst) {
+            $hasShootFirst = true;
+        }
+    }
     // "+N power for this attack" one-shot bonuses (Surprise Strike SOR_220, attack-with
     // riders SOR_227/SOR_240). Summed into attack power and consumed so they don't persist
     // as a stat (the attacker's ObjectCurrentPower is unchanged before/after).
@@ -3207,6 +3318,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     }
     // One floor, after every addition and subtraction (CR 8.15.4) — Cantina Braggart 0 −2 +Raid 2 attacks for 0.
     $attackPower = max(0, intval($attackPower));
+    // IC27_126 Saw Gerrera's phase-long double — multiplicative, so after Raid and every "+N for this attack" above.
+    // Not when the attack deals its remaining HP INSTEAD of its power (LOF_206): that replaces power outright.
+    if (!(is_array($attacker->TurnEffects ?? null) && in_array('SWU_HP_AS_DAMAGE', $attacker->TurnEffects))) {
+        $attackPower *= _SWUPowerMultiplier($attacker);
+    }
     // MULTIPLICATIVE modifiers come LAST (CR v9.0 8.15.2: additive, then subtractive, then multiplicative), after
     // every addition and subtraction above — SEC_137 Dryden Vos "double this unit's power for this attack".
     // A value can't go below 0 (CR 8.15.4), so it is the clamped total that doubles. Consumed with the attack.
@@ -3272,12 +3388,14 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if ($teBase === 'LAW_205') $combatCtx['law205SelfDefeat']   = true;
         if ($teBase === 'LAW_062') $combatCtx['law062SelfDefeat']   = true;
         if ($teBase === 'ASH_184') $combatCtx['ash184GiveAdv']      = true;   // Follow Me — post-attack grant
+        if ($teBase === 'IC27_007') $combatCtx['ic27007ReadyRes']   = true;   // Asajj Ventress — post-attack, if it survived
         if ($teBase === 'ASH_137') $combatCtx['ash137Excess']       = true;   // Wipe Them Out — excess to another unit
         if ($teBase === 'ASH_162') $combatCtx['ash162Discard']      = true;   // Rash Action — opp discards on base hit
         if ($teBase === 'JTL_177') $combatCtx['jtl177BaseDraw']    = true;
         if ($teBase === 'JTL_193') $preventAttackerDmg            = true;
         if ($teBase === 'TWI_096') $preventAttackerDmg            = true;   // Aayla Secura — prevent all combat damage to her this attack
         if ($teBase === 'TS26_59') $preventAttackerDmg          = true;   // Brothers — prevent all combat damage to the chosen attacker this attack
+        if ($teBase === 'IC27_035') $preventAttackerDmg         = true;   // Yoda — combat damage TO the marked unit is prevented this phase
     }
     // Support (ASH) — capture the SUPPORT_GRANT marker NOW (before SWUExpireTurnEffects strips it). The
     // attack-END consumers (the When-Attack-Ends graft + ASH_101's combat-hit defeat) run AFTER expiry, so
@@ -3295,6 +3413,10 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     if (is_array($attacker->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $attacker->TurnEffects, true)) {
         $attackPower = 0;
     }
+    // IC27_035 Yoda — combat damage dealt BY the marked unit is prevented this phase (to a unit or a base). Unpreventable
+    // damage (ASH_196 Gorian Shard's Corsair) is not. Damage TO a marked attacker rides $preventAttackerDmg above; TO a
+    // marked defender is handled in the unit branch below.
+    if (_SWUIc27035Marked($attacker) && !_SWUDamageUnpreventable($attacker)) $attackPower = 0;
 
     $targetZone = explode('-', $targetMzID)[0];
     // Twin Suns (Phase 3): a base target is "theirBase" (2-player) OR "p{n}Base" (a specific opponent's
@@ -3322,6 +3444,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $GLOBALS['gInCombatDamage'] = true;
         SWUDealDamageToBase($attackPower, SWUMzOwner($targetMzID, $player), $attacker);   // thread attacker for ASH_070 unpreventable check
         $GLOBALS['gInCombatDamage'] = false;
+        _SWUIc27122OnUnitDamagedBase(intval($attacker->Controller ?? $player), SWUMzOwner($targetMzID, $player));   // IC27_122 The Ghost
         $_logBaseDealt = max(0, intval((GetBase($_logBaseOwner)[0] ?? null)->Damage ?? 0) - $_logBaseBefore);
         $combatCtx['dealtToBase'] = ($attackPower > 0);
         if ($attackPower > 0) $combatCtx['baseDmgOwner'] = SWUMzOwner($targetMzID, $player);   // see the note at the overwhelm site
@@ -3343,14 +3466,20 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $combatCtx['baseCombatDmg'] += max(0, intval($attackPower)); // LOF_025 threshold (incl. overwhelm below)
         // (Restore now fires once per attack in ExecuteSWUAttack — for unit AND base targets.)
     } elseif ($target !== null && !isset($target->removed)) {
-        $defendPower = max(0, intval(ObjectCurrentPower($target)) - $defenderPowerDebuff);
+        $defendPower = max(0, max(0, intval(ObjectCurrentPowerRaw($target))) - $defenderPowerDebuff);
         // Every "while defending, +X/+0" (LOF_049, SHD_042, ASH_073, HMW_083, ASH_018, HMW_212) — the one
         // helper TWI_135 Darth Maul's two-defender path uses as well.
         $defendPower += _SWUWhileDefendingPowerBonus($target);
+        // IC27_126 Saw Gerrera's double — multiplicative, so after the "-N for this attack" and the defending bonus.
+        $defendPower *= _SWUPowerMultiplier($target);
         // "Can't deal combat damage this phase" (LAW_130) on the defender → it deals no counter-damage.
         if (is_array($target->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $target->TurnEffects, true)) {
             $defendPower = 0;
         }
+        // IC27_035 Yoda — a marked DEFENDER deals no combat damage and takes none (unless that damage is unpreventable).
+        // Prevented damage is not excess, so a marked defender also stops Overwhelm (official Shield/Overwhelm ruling).
+        if (_SWUIc27035Marked($target) && !_SWUDamageUnpreventable($target))   $defendPower = 0;
+        if (_SWUIc27035Marked($target) && !_SWUDamageUnpreventable($attacker)) $attackPower = 0;
         $combatCtx['defenderIsLeader'] = IsLeaderUnit($target);
 
         // (Saboteur's shield-defeat now resolves at BEGIN ATTACK in ExecuteSWUAttack — CR 3.3 — so by
@@ -3384,7 +3513,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 // Defender survived — take counter-damage normally (unless prevented this attack).
                 if (_SWUMaybeRedirectAttackerDamage($attackerMzID, $redirectMz, $defendPower, intval($player))) {
                     // SHD_090 Maul — redirected to the chosen friendly unit; Maul takes nothing.
-                } elseif ($preventAttackerDmg) {
+                } elseif ($preventAttackerDmg && !_SWUDamageUnpreventable($target)) {   // CR 8.36: unpreventable counter-damage ignores it
                     SWUQueuePreventedAnim($attackerMzID, intval($player));
                 } elseif (_SWUDamageUnpreventable($target)) {   // ASH_196 — defender's counter bypasses Shield + prevention
                     $attacker->Damage = intval($attacker->Damage) + $defendPower;
@@ -3414,7 +3543,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // 1. Defender deals to the attacker first.
             if (_SWUMaybeRedirectAttackerDamage($attackerMzID, $redirectMz, $defendPower, intval($player))) {
                 // SHD_090 Maul — redirected to the chosen friendly unit; Maul takes nothing (still deals below).
-            } elseif ($preventAttackerDmg) {
+            } elseif ($preventAttackerDmg && !_SWUDamageUnpreventable($target)) {   // CR 8.36: unpreventable counter-damage ignores it
                 SWUQueuePreventedAnim($attackerMzID, intval($player));
             } elseif (_SWUDamageUnpreventable($target)) {   // ASH_196 — defender's hit bypasses Shield + prevention
                 $attacker->Damage = intval($attacker->Damage) + $defendPower;
@@ -3434,7 +3563,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             //    damage) and deal to the defender. A defeated attacker deals no combat damage.
             $attackerRemainingHP = intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage);
             if ($attackerRemainingHP > 0) {
-                $attackPower += max(0, intval(ObjectCurrentPower($attacker)) - $attackBasePower); // Grit delta
+                // Grit delta, measured before the IC27_126 double (as $attackBasePower is) and then doubled with it.
+                $attackPower += max(0, max(0, intval(ObjectCurrentPowerRaw($attacker))) - $attackBasePower)
+                              * _SWUPowerMultiplier($attacker);
                 if (_SWUDamageUnpreventable($attacker)) {   // ASH_196 — bypass Shield + all prevention
                     $target->Damage = intval($target->Damage) + $attackPower;
                     SWUQueueDamageAnim($targetAnimMzID, $attackPower, intval($player));
@@ -3455,7 +3586,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // Shield (CR 7.6.5): attacker's shield absorbs all counter-damage in one hit.
             if (_SWUMaybeRedirectAttackerDamage($attackerMzID, $redirectMz, $defendPower, intval($player))) {
                 // SHD_090 Maul — redirected to the chosen friendly unit; Maul takes nothing.
-            } elseif ($preventAttackerDmg) {
+            } elseif ($preventAttackerDmg && !_SWUDamageUnpreventable($target)) {   // CR 8.36: unpreventable counter-damage ignores it
                 SWUQueuePreventedAnim($attackerMzID, intval($player));   // JTL_193: all damage to it prevented
             } elseif (_SWUDamageUnpreventable($target)) {   // ASH_196 — defender's counter bypasses Shield + prevention
                 $attacker->Damage = intval($attacker->Damage) + $defendPower;
@@ -3553,7 +3684,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                             420, intval($atkObj->UniqueID ?? 0) ?: null);
                     }
                     $atkObj->removed = true;
-                    SWUAddToDiscard($atkOwner, $atkObj->CardID, 'PLAY', $atkHasSecondChance ? 'TPF' : '', $atkObj);
+                    SWUAddToDiscard($atkOwner, $atkObj->CardID, 'PLAY', $atkHasSecondChance ? 'TPF:SHD_053' : '', $atkObj);
                     AddGlobalEffects($atkOwner, 'SWU_DEFEATED_CARD_' . $atkObj->CardID);
                 }
                 AddGlobalEffects(SWUMzOwner($targetMzID, $player), 'SWU_ENEMY_DEFEATED'); // the defender (whose enemy — the attacker — died)
@@ -3611,7 +3742,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                             420, intval($defObj->UniqueID ?? 0) ?: null);
                     }
                     $defObj->removed = true;
-                    SWUAddToDiscard($defOwner, $defObj->CardID, 'PLAY', $defHasSecondChance ? 'TPF' : '', $defObj);
+                    SWUAddToDiscard($defOwner, $defObj->CardID, 'PLAY', $defHasSecondChance ? 'TPF:SHD_053' : '', $defObj);
                     AddGlobalEffects($defOwner, 'SWU_DEFEATED_CARD_' . $defObj->CardID);
                 }
                 AddGlobalEffects($player, 'SWU_ENEMY_DEFEATED');
@@ -3620,7 +3751,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             }
             // Overwhelm: excess damage (negative $defenderHP) spills to the opponent's base (CR 7.6.4).
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
-            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed)
+            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed || $ic27086VsCheap)
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
                 // ASH_137 Wipe Them Out + Overwhelm (user ruling 2026-10-03): the same excess can go to
                 // another unit in the arena OR to the base, so HOLD it here and let the ASH_137 trigger ask.
@@ -3660,7 +3791,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                         420, intval($rObj->UniqueID ?? 0) ?: null);
                 }
                 $rObj->removed = true;
-                SWUAddToDiscard($rOwner, $rObj->CardID, 'PLAY', _SWUUnitHasUpgrade($rObj, 'SHD_053') ? 'TPF' : '', $rObj);
+                SWUAddToDiscard($rOwner, $rObj->CardID, 'PLAY', _SWUUnitHasUpgrade($rObj, 'SHD_053') ? 'TPF:SHD_053' : '', $rObj);
                 AddGlobalEffects($rOwner, 'SWU_DEFEATED_CARD_' . $rObj->CardID);
             }
             AddGlobalEffects(intval($rObj->Controller ?? $player), 'SWU_FRIENDLY_DEFEATED');
@@ -4258,7 +4389,11 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     }
 
     if (count($validTargets) === 1) {
-        ExecuteSWUAttack($player, $attackerMzID, $validTargets[0]);
+        // IC27_147 Asajj Ventress: a base target may first ask whether to set her up (see the card file).
+        if (!(function_exists('_SWUIc27147OfferAtDeclaration')
+              && _SWUIc27147OfferAtDeclaration(intval($player), $attackerMzID, $validTargets[0]))) {
+            ExecuteSWUAttack($player, $attackerMzID, $validTargets[0]);
+        }
     } else {
         // Queue target selection
         $targetStr = implode("&", $validTargets);
@@ -4289,6 +4424,9 @@ $customDQHandlers["SWUResolveAttack"] = function($player, $parts, $lastDecision)
         return;
     }
     $attackerMzID = $parts[0] ?? '';
+    // IC27_147 Asajj Ventress: a base target may first ask whether to set her up (see the card file).
+    if (function_exists('_SWUIc27147OfferAtDeclaration')
+        && _SWUIc27147OfferAtDeclaration(intval($player), $attackerMzID, (string)$lastDecision)) return;
     ExecuteSWUAttack($player, $attackerMzID, $lastDecision);
 };
 
@@ -4306,6 +4444,9 @@ $customDQHandlers["TWI135_MODE"] = function($player, $parts, $lastDecision) {
     $baseMz       = $parts[1] ?? '';
     if ($lastDecision === 'Base') {
         $playerID = $savedPID;
+        // IC27_147 Asajj Ventress: a base target may first ask whether to set her up (see the card file).
+        if (function_exists('_SWUIc27147OfferAtDeclaration')
+            && _SWUIc27147OfferAtDeclaration(intval($player), $attackerMzID, $baseMz)) return;
         ExecuteSWUAttack($player, $attackerMzID, $baseMz);
         return;
     }
@@ -4498,7 +4639,7 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
                 420, intval($obj->UniqueID ?? 0) ?: null);
         }
         $obj->removed = true;
-        SWUAddToDiscard($owner, $obj->CardID, 'PLAY', $hasSecondChance ? 'TPF' : '', $obj);
+        SWUAddToDiscard($owner, $obj->CardID, 'PLAY', $hasSecondChance ? 'TPF:SHD_053' : '', $obj);
         AddGlobalEffects($owner, 'SWU_DEFEATED_CARD_' . $obj->CardID);
     }
     if ($isAttacker) {
@@ -4643,6 +4784,13 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     if (is_array($attacker->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $attacker->TurnEffects, true)) $P = 0;
     if (!$d1Gone && is_array($def1->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $def1->TurnEffects, true)) $D1 = 0;
     if (!$d2Gone && is_array($def2->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $def2->TurnEffects, true)) $D2 = 0;
+    // IC27_035 Yoda — combat damage to and by a marked unit is prevented (unpreventable damage excepted).
+    $ic27035Atk = _SWUIc27035Marked($attacker);
+    if ($ic27035Atk && !_SWUDamageUnpreventable($attacker)) $P = 0;
+    if (!$d1Gone && (_SWUIc27035Marked($def1) || $ic27035Atk) && !_SWUDamageUnpreventable($def1)) $D1 = 0;
+    if (!$d2Gone && (_SWUIc27035Marked($def2) || $ic27035Atk) && !_SWUDamageUnpreventable($def2)) $D2 = 0;
+    $P1 = (!$d1Gone && _SWUIc27035Marked($def1) && !_SWUDamageUnpreventable($attacker)) ? 0 : $P;
+    $P2 = (!$d2Gone && _SWUIc27035Marked($def2) && !_SWUDamageUnpreventable($attacker)) ? 0 : $P;
 
     // Game log: like the single-defender resolver, the hits are carried by the ATTACK summary (with the
     // numbers), not by per-hit DAMAGE lines printed ABOVE it. Measured as damage actually added.
@@ -4654,8 +4802,8 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     $GLOBALS['gSWULogCombatStep'] = true;
 
     // Maul → each defender (his full power to each, not split).
-    _SWUMaulDealCombat($attacker, $def1, $def1Mz, $P, $player);
-    _SWUMaulDealCombat($attacker, $def2, $def2Mz, $P, $player);
+    _SWUMaulDealCombat($attacker, $def1, $def1Mz, $P1, $player);
+    _SWUMaulDealCombat($attacker, $def2, $def2Mz, $P2, $player);
 
     // Both defenders → Maul, combined into one simultaneous event (a single Shield absorbs all of it).
     $counter = $D1 + $D2;
@@ -4733,6 +4881,7 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
             $GLOBALS['gInCombatDamage'] = true;
             SWUDealDamageToBase($exc, $owner);
             $GLOBALS['gInCombatDamage'] = false;
+            _SWUIc27122OnUnitDamagedBase($ovActrl, intval($owner));   // IC27_122 The Ghost
             // SEC_012 — Overwhelm excess is base damage dealt by the attacker (not a SWU_DMG_SRC ability
             // dispatch, so arm here). Enemy base only. NOT a SWU_DEALT_BASEDMG "attack" (it attacked a unit).
             if ($ovAuid > 0 && intval($owner) !== $ovActrl) AddGlobalEffects($ovActrl, 'SWU_UNITDMGBASE_' . $ovAuid);
@@ -4874,6 +5023,8 @@ function _SWUOfferCombatPreventions(int $activePlayer): bool {
 // Begin attack, beside the On Attack triggers, and an On Attack resolved first can remove the damage they were
 // raised for (defeat the defender → no counter-damage; defeat the attacker → nothing hits the defender). They
 // are re-checked here, when they RESOLVE, so a Shield or a sacrifice is never spent on damage that cannot come.
+// "Reach" means PREVENTABLE damage: unpreventable damage (ASH_196 Gorian Shard's Corsair) lands regardless, so it is
+// never a reason to offer a prevention (core/UnpreventableCombatDamage_IgnoresEveryPrevention.md).
 function _SWUCombatDamageStillReaches($protected): bool {
     $uid    = intval($protected->UniqueID ?? 0);
     $atkUID = intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'));
@@ -4885,7 +5036,9 @@ function _SWUCombatDamageStillReaches($protected): bool {
             $mz = SWUFindMzByUID(intval($d));
             if ($mz === null) continue;
             $o = GetZoneObject($mz);
-            if (!SWUObjGone($o) && intval(ObjectCurrentPower($o)) > 0) return true;
+            // Unpreventable counter-damage (ASH_196) cannot be prevented, so it does not count: an offer that could only
+            // fizzle is never raised (CR 8.36; the "fizzle-only optional cost" house rule).
+            if (!SWUObjGone($o) && intval(ObjectCurrentPower($o)) > 0 && !_SWUDamageUnpreventable($o)) return true;
         }
         return false;
     }
@@ -4894,7 +5047,7 @@ function _SWUCombatDamageStillReaches($protected): bool {
     $mz = SWUFindMzByUID($atkUID);
     if ($mz === null) return false;
     $a = GetZoneObject($mz);
-    return !SWUObjGone($a) && intval(ObjectCurrentPowerInAttack($a)) > 0;
+    return !SWUObjGone($a) && intval(ObjectCurrentPowerInAttack($a)) > 0 && !_SWUDamageUnpreventable($a);   // unpreventable: nothing to prevent
 }
 
 function SEC101PreventTrigger($player, $mzID): void {

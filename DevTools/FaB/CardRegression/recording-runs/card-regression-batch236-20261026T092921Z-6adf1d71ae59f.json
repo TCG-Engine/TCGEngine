@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T09:29:21+00:00",
+    "input_file": "card-regression-batch236.json",
+    "input_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+    "filter": "card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+    "results": [
+        {
+            "slug": "card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 456
+        }
+    ]
+}

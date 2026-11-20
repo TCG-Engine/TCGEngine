@@ -8,7 +8,7 @@
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off SWUSim/DevTools/regen-opponent-styles.php
 // Sources, every list weighted 1:
 //   - the owner-labelled curated fixture groups below ('# DeckStyle:' — what the deck IS — over '# Style:', how the bot pilots it);
-//   - every real list in SWUSim/Tests/BotFixtures/meta-baselines/*/fixtures.tar.gz, labelled by the curated fixture of its EXACT
+//   - every real list in SWUSim/BotFixtures/meta-baselines/*/fixtures.tar.gz, labelled by the curated fixture of its EXACT
 //     archetype (SWUBotFixtureFileName) when one exists, else by the deck-style classifier (SWUBotDeckStyle: label overlap, then shape).
 //     The baked '# Style:' header of a tournament list is NOT trusted: re-deriving it here is what lets a classifier fix reach the map.
 chdir(dirname(__DIR__, 2));
@@ -28,7 +28,7 @@ $styleOf = function (string $text): ?string {
 // Every list: [leader, base, style, source].
 $lists = []; $curatedByName = [];
 foreach (SWU_OSM_CURATED as $g) {
-    foreach (glob("./SWUSim/Tests/BotFixtures/$g/*.txt") ?: [] as $path) {
+    foreach (glob("./SWUSim/BotFixtures/$g/*.txt") ?: [] as $path) {
         $text = (string)file_get_contents($path); $style = $styleOf($text); $deck = SWUBotDeckFromFixtureText($text);
         if ($style === null || $deck['leader'] === '' || $deck['base'] === '') { fwrite(STDERR, "skip curated " . basename($path) . " (no style/leader/base)\n"); continue; }
         $curatedByName[basename($path, '.txt')] ??= $style;   // first group wins (the order above)
@@ -36,7 +36,7 @@ foreach (SWU_OSM_CURATED as $g) {
     }
 }
 $tmp = sys_get_temp_dir() . '/swu-osm-' . getmypid();
-foreach (glob('./SWUSim/Tests/BotFixtures/meta-baselines/*/fixtures.tar.gz') ?: [] as $tar) {
+foreach (glob('./SWUSim/BotFixtures/meta-baselines/*/fixtures.tar.gz') ?: [] as $tar) {
     $dir = "$tmp/" . basename(dirname($tar)); @mkdir($dir, 0777, true);
     exec('tar xzf ' . escapeshellarg($tar) . ' -C ' . escapeshellarg($dir), $o, $rc);
     if ($rc !== 0) { fwrite(STDERR, "REFUSED: cannot unpack $tar\n"); exit(1); }

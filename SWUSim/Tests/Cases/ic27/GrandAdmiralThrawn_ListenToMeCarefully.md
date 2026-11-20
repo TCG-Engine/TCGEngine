@@ -1,8 +1,9 @@
 # WhenPlayed_GivesExperienceAndSentinel
 #// IC27_024 Grand Admiral Thrawn (Listen to Me Carefully) — 6 cost, 4/4, Vigilance+Villainy, Ground,
 #//   Imperial/Official (unique).
-#// Text: "When Played / On Attack / When Defeated: You may give an Experience token to a friendly
-#//   unit. It gains Sentinel for this phase."
+#// Text: "When Played/On Attack/When Defeated: You may give an Experience token to another friendly
+#//   unit. It gains Sentinel for this phase." (The preview mock read "a friendly unit"; the official
+#//   text, 2026-11-07, says "another" — Thrawn is never his own target.)
 #// ONE ability on THREE trigger windows — each is a separate dispatch path and needs its own section.
 #// ⚠ The stub generator detected only the WhenDefeated window: it matched the tight slash form
 #// ("When Played/") but not the SPACED one this card uses, so the other two halves were silent no-ops.
@@ -46,7 +47,7 @@ P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 
 # OnAttack_GivesExperienceAndSentinel
 #// THE SECOND DISPATCH PATH. Thrawn attacks the base; the same ability fires from the On Attack
-#// window. He may target HIMSELF here ("a friendly unit", not "another"), but the Marine is chosen.
+#// window and gives the Marine its token.
 
 ## GIVEN
 CommonSetup: bbk/bbk/{}
@@ -66,9 +67,10 @@ P1GROUNDARENAUNIT:1:HASKEYWORD:Sentinel
 
 ---
 
-# OnAttack_MayTargetHimself
-#// SCOPE: "a friendly unit" carries no "another" qualifier, so Thrawn is a legal target for his own
-#// ability — he becomes 5/5 with Sentinel.
+# OnAttack_CannotTargetHimself
+#// SCOPE: "ANOTHER friendly unit". Thrawn attacks alone, so there is no legal target: no prompt, and he
+#// stays 4/4 without Sentinel. (Until the official text this section asserted the opposite — the mock
+#// read "a friendly unit".)
 
 ## GIVEN
 CommonSetup: bbk/bbk/{}
@@ -77,13 +79,52 @@ WithP1GroundArena: IC27_024:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENAUNIT:0:CARDID:IC27_024
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HP:4
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P1NODECISION
+
+---
+
+# WhenPlayed_OffersOnlyOtherFriendlyUnits
+#// OFFER ASSERTED: two friendly Marines, an enemy unit, and Thrawn himself (index 2 once played). The pool
+#// is exactly the two Marines — "another" drops Thrawn, "friendly" drops the enemy.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:6;myhandCardIds:IC27_024}
+P1OnlyActions: true
+WithP1GroundArena: [SOR_095:1:0 SOR_095:1:0]
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:2:CARDID:IC27_024
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# WhenPlayed_AloneNoPrompt
+#// "Another" on the When Played path: Thrawn is in play when it resolves, but is the only friendly unit —
+#// nothing to offer, no prompt, no token on himself.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:6;myhandCardIds:IC27_024}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:IC27_024
-P1GROUNDARENAUNIT:0:POWER:5
-P1GROUNDARENAUNIT:0:HP:5
-P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P1NODECISION
 
 ---
 
@@ -129,11 +170,11 @@ WithP2GroundArena: SEC_080:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:-
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:POWER:3
 P2GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P1NODECISION
 
 ---
 

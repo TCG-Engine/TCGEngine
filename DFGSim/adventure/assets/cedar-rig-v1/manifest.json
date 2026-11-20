@@ -1,0 +1,113 @@
+{
+  "status": "one_tree_study_only",
+  "artPreparation": "Built-in image_gen: transparent separated-parts sheet, followed by removal of an unwanted trunk on one foliage piece. Parts are cropped and registered locally.",
+  "source": "parts-source.png",
+  "periodSeconds": 8,
+  "frameCount": 120,
+  "exportFps": 15.0,
+  "canvas": [
+    512,
+    512
+  ],
+  "layers": [
+    {
+      "id": "trunk",
+      "name": "Trunk and roots",
+      "image": "trunk.webp",
+      "sourceRect": [
+        297,
+        14,
+        352,
+        508
+      ],
+      "rect": [
+        165,
+        80,
+        190,
+        355
+      ],
+      "pivot": [
+        256,
+        435
+      ],
+      "amplitudeDegrees": 0,
+      "phase": 0
+    },
+    {
+      "id": "lower",
+      "name": "Lower foliage",
+      "image": "lower.webp",
+      "sourceRect": [
+        1084,
+        193,
+        490,
+        275
+      ],
+      "rect": [
+        101,
+        210,
+        310,
+        173
+      ],
+      "pivot": [
+        256,
+        250
+      ],
+      "amplitudeDegrees": 1.1,
+      "phase": 0
+    },
+    {
+      "id": "middle",
+      "name": "Middle foliage",
+      "image": "middle.webp",
+      "sourceRect": [
+        231,
+        563,
+        450,
+        295
+      ],
+      "rect": [
+        124,
+        145,
+        264,
+        172
+      ],
+      "pivot": [
+        256,
+        195
+      ],
+      "amplitudeDegrees": 1.35,
+      "phase": 1.6
+    },
+    {
+      "id": "top",
+      "name": "Top foliage",
+      "image": "top.webp",
+      "sourceRect": [
+        1165,
+        572,
+        334,
+        294
+      ],
+      "rect": [
+        158,
+        67,
+        196,
+        172
+      ],
+      "pivot": [
+        256,
+        180
+      ],
+      "amplitudeDegrees": 1.6,
+      "phase": 3.2
+    }
+  ],
+  "method": "Fixed trunk plus three overlapping rigid foliage pieces; rotation only, no scaling or per-pixel displacement. Canvas preview and exported frames share the layer settings and periodic angle function.",
+  "checks": {
+    "protectedRootMaxChannelDifference": 0,
+    "periodicEndpointMaxChannelDifference": 0
+  },
+  "liveGameChanged": false,
+  "klingCreditsSpent": 0
+}

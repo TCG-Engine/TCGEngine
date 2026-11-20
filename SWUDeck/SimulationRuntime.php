@@ -20,7 +20,7 @@ const SWU_SIMULATION_OPPONENT_GROUPS = ['ash-meta-2026-09'];
 function swuSimulationOpponents(): array {
     $result = [];
     foreach (SWU_SIMULATION_OPPONENT_GROUPS as $group) {
-        foreach (glob(__DIR__ . '/../SWUSim/Tests/BotFixtures/' . $group . '/*.txt') ?: [] as $path) {
+        foreach (glob(__DIR__ . '/../SWUSim/BotFixtures/' . $group . '/*.txt') ?: [] as $path) {
             $id = pathinfo($path, PATHINFO_FILENAME);
             if (isset($result[$id])) continue;
             $file = fopen($path, 'rb');
@@ -41,7 +41,7 @@ function swuSimulationOpponentPath(string $id): string {
     // feature 500'd on every pick. Still no '.' and no '/', so an id cannot escape the fixture directory.
     if (!preg_match('/^[a-z0-9_-]+$/', $id)) throw new InvalidArgumentException('Choose an available opponent.');
     foreach (SWU_SIMULATION_OPPONENT_GROUPS as $group) {
-        $path = __DIR__ . '/../SWUSim/Tests/BotFixtures/' . $group . '/' . $id . '.txt';
+        $path = __DIR__ . '/../SWUSim/BotFixtures/' . $group . '/' . $id . '.txt';
         if (is_file($path)) return $path;
     }
     throw new InvalidArgumentException('Choose an available opponent.');

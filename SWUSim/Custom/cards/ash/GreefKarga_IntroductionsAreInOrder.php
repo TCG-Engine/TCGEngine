@@ -4,7 +4,8 @@
 // Text: Action [1 resource, Exhaust]: If your base was attacked this phase, create a Mandalorian token.
 
 // ASH_119 Greef Karga — Action [1 resource, Exhaust]: if your base was attacked this phase, create a
-// Mandalorian token. (Availability gated on SWU_BASE_ATTACKED in SWUUnitActionAffordable.) Registered
+// Mandalorian token. The base-attacked clause is RESOLUTION, not cost, so the Action is usable either way (CR
+// 6.4.587.c, owner go 2026-11-04) — it pays and creates nothing when the base was not attacked. Registered
 // AFTER the $unitAbilities=[] init so it isn't wiped.
 $unitActionResourceCosts["ASH_119"] = 1;
 

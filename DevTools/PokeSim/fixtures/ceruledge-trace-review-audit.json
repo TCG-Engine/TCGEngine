@@ -1,0 +1,313 @@
+{
+    "matchup": {
+        "seat1": "brisbane-lopunny",
+        "seat2": "ceruledge-ex"
+    },
+    "seeds": [
+        10001,
+        10050
+    ],
+    "gamesPerPolicy": 100,
+    "metricsNote": "Per-turn averages and readiness condition on reaching that Ceruledge player turn; ready330 requires a legal Ceruledge ex attack with at least 15 discarded Energy. Separate seeds from the reviewed traces.",
+    "traceFindings": [
+        "Prism Tower could discard the final useful draw\/search Trainers because search scoring suppressed cards already held.",
+        "Fan Rotom retreat payment lost priority to extra Bench attachments.",
+        "Nonwinning one-Prize gusts consumed the draw Supporter before Energy buildup.",
+        "Enriching Energy could consume the attachment before the active attacker had Fire.",
+        "Fully powered boards unnecessarily reserved hand Energy, delaying Ultra Ball discards."
+    ],
+    "before": {
+        "policy": "59dbc4b113c34868",
+        "summary": {
+            "first": {
+                "games": 50,
+                "completed": 50,
+                "wins": 21,
+                "turns": {
+                    "1": {
+                        "reached": 50,
+                        "avgDiscard": 1.54,
+                        "avgDamage": 0,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 48,
+                        "avgDiscard": 2.83,
+                        "avgDamage": 61.7,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 35
+                    },
+                    "3": {
+                        "reached": 45,
+                        "avgDiscard": 4.64,
+                        "avgDamage": 113.1,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 42
+                    },
+                    "4": {
+                        "reached": 41,
+                        "avgDiscard": 7.07,
+                        "avgDamage": 148,
+                        "discard15": 1,
+                        "ready330": 1,
+                        "ex": 36
+                    },
+                    "5": {
+                        "reached": 36,
+                        "avgDiscard": 9.33,
+                        "avgDamage": 165.8,
+                        "discard15": 5,
+                        "ready330": 4,
+                        "ex": 30
+                    },
+                    "6": {
+                        "reached": 30,
+                        "avgDiscard": 11.63,
+                        "avgDamage": 226.7,
+                        "discard15": 10,
+                        "ready330": 7,
+                        "ex": 28
+                    },
+                    "7": {
+                        "reached": 21,
+                        "avgDiscard": 11.48,
+                        "avgDamage": 191.4,
+                        "discard15": 4,
+                        "ready330": 2,
+                        "ex": 17
+                    },
+                    "8": {
+                        "reached": 13,
+                        "avgDiscard": 13,
+                        "avgDamage": 263.1,
+                        "discard15": 5,
+                        "ready330": 4,
+                        "ex": 12
+                    }
+                }
+            },
+            "second": {
+                "games": 50,
+                "completed": 50,
+                "wins": 24,
+                "turns": {
+                    "1": {
+                        "reached": 50,
+                        "avgDiscard": 2.32,
+                        "avgDamage": 6.2,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 48,
+                        "avgDiscard": 5.06,
+                        "avgDamage": 107.1,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 39
+                    },
+                    "3": {
+                        "reached": 46,
+                        "avgDiscard": 6.65,
+                        "avgDamage": 140.7,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 42
+                    },
+                    "4": {
+                        "reached": 41,
+                        "avgDiscard": 8.88,
+                        "avgDamage": 179.3,
+                        "discard15": 3,
+                        "ready330": 3,
+                        "ex": 35
+                    },
+                    "5": {
+                        "reached": 40,
+                        "avgDiscard": 11.18,
+                        "avgDamage": 222.5,
+                        "discard15": 9,
+                        "ready330": 9,
+                        "ex": 35
+                    },
+                    "6": {
+                        "reached": 31,
+                        "avgDiscard": 12.55,
+                        "avgDamage": 250.6,
+                        "discard15": 9,
+                        "ready330": 9,
+                        "ex": 28
+                    },
+                    "7": {
+                        "reached": 18,
+                        "avgDiscard": 13,
+                        "avgDamage": 290,
+                        "discard15": 5,
+                        "ready330": 5,
+                        "ex": 18
+                    },
+                    "8": {
+                        "reached": 7,
+                        "avgDiscard": 13.14,
+                        "avgDamage": 292.9,
+                        "discard15": 3,
+                        "ready330": 3,
+                        "ex": 7
+                    }
+                }
+            }
+        }
+    },
+    "after": {
+        "policy": "fa62a509a77567bf",
+        "summary": {
+            "first": {
+                "games": 50,
+                "completed": 50,
+                "wins": 24,
+                "turns": {
+                    "1": {
+                        "reached": 50,
+                        "avgDiscard": 1.68,
+                        "avgDamage": 0,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 49,
+                        "avgDiscard": 3.27,
+                        "avgDamage": 80,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 38
+                    },
+                    "3": {
+                        "reached": 46,
+                        "avgDiscard": 5.35,
+                        "avgDamage": 126.5,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 42
+                    },
+                    "4": {
+                        "reached": 41,
+                        "avgDiscard": 8.44,
+                        "avgDamage": 174.6,
+                        "discard15": 3,
+                        "ready330": 3,
+                        "ex": 38
+                    },
+                    "5": {
+                        "reached": 39,
+                        "avgDiscard": 11.05,
+                        "avgDamage": 225.9,
+                        "discard15": 9,
+                        "ready330": 8,
+                        "ex": 36
+                    },
+                    "6": {
+                        "reached": 32,
+                        "avgDiscard": 12.63,
+                        "avgDamage": 221.9,
+                        "discard15": 14,
+                        "ready330": 11,
+                        "ex": 27
+                    },
+                    "7": {
+                        "reached": 21,
+                        "avgDiscard": 12.43,
+                        "avgDamage": 215.7,
+                        "discard15": 8,
+                        "ready330": 6,
+                        "ex": 18
+                    },
+                    "8": {
+                        "reached": 7,
+                        "avgDiscard": 10.57,
+                        "avgDamage": 190,
+                        "discard15": 1,
+                        "ready330": 0,
+                        "ex": 6
+                    }
+                }
+            },
+            "second": {
+                "games": 50,
+                "completed": 50,
+                "wins": 35,
+                "turns": {
+                    "1": {
+                        "reached": 50,
+                        "avgDiscard": 2.6,
+                        "avgDamage": 13.4,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 0
+                    },
+                    "2": {
+                        "reached": 48,
+                        "avgDiscard": 5.71,
+                        "avgDamage": 114.4,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 39
+                    },
+                    "3": {
+                        "reached": 47,
+                        "avgDiscard": 7.87,
+                        "avgDamage": 170.6,
+                        "discard15": 0,
+                        "ready330": 0,
+                        "ex": 44
+                    },
+                    "4": {
+                        "reached": 44,
+                        "avgDiscard": 9.93,
+                        "avgDamage": 210,
+                        "discard15": 4,
+                        "ready330": 4,
+                        "ex": 40
+                    },
+                    "5": {
+                        "reached": 40,
+                        "avgDiscard": 13.25,
+                        "avgDamage": 279,
+                        "discard15": 16,
+                        "ready330": 16,
+                        "ex": 38
+                    },
+                    "6": {
+                        "reached": 37,
+                        "avgDiscard": 14.57,
+                        "avgDamage": 300.5,
+                        "discard15": 21,
+                        "ready330": 21,
+                        "ex": 34
+                    },
+                    "7": {
+                        "reached": 11,
+                        "avgDiscard": 13.82,
+                        "avgDamage": 306.4,
+                        "discard15": 6,
+                        "ready330": 6,
+                        "ex": 11
+                    },
+                    "8": {
+                        "reached": 4,
+                        "avgDiscard": 13.25,
+                        "avgDamage": 295,
+                        "discard15": 2,
+                        "ready330": 2,
+                        "ex": 4
+                    }
+                }
+            }
+        }
+    }
+}

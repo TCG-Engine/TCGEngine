@@ -1,0 +1,360 @@
+{
+ "vectors": [
+  {
+   "file": "minimal.swupgn",
+   "class": "positive",
+   "level": "complete",
+   "errors": [],
+   "warnings": [],
+   "about": "Appendix A by another writer (examplewriter, no WriterRevision, not pre-release)"
+  },
+  {
+   "file": "records.swupgn",
+   "class": "positive",
+   "level": "complete",
+   "errors": [],
+   "warnings": [],
+   "about": "limit/abilityUses, LOOK, NAME, blind CHOICE, EFFECT_START/END with keyframe effects"
+  },
+  {
+   "file": "not-swupgn.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "not-swupgn"
+   ],
+   "warnings": [],
+   "about": "text before the [Game] line"
+  },
+  {
+   "file": "bad-escape.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "bad-escape"
+   ],
+   "warnings": [],
+   "about": "a header escape other than \\\\ and \\\""
+  },
+  {
+   "file": "duplicate-section.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "duplicate-section"
+   ],
+   "warnings": [],
+   "about": "two %%% EVENTS banners"
+  },
+  {
+   "file": "rounds-not-digits.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "bad-count"
+   ],
+   "warnings": [],
+   "about": "[Rounds \"two\"]"
+  },
+  {
+   "file": "bad-recorder-errors.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "bad-count"
+   ],
+   "warnings": [],
+   "about": "[RecorderErrors \"none\"]"
+  },
+  {
+   "file": "unsupported-major.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "unsupported-major"
+   ],
+   "warnings": [],
+   "about": "SWU-PGN/2.0"
+  },
+  {
+   "file": "duplicate-key.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "duplicate-key"
+   ],
+   "warnings": [],
+   "about": "a PASS with two p keys"
+  },
+  {
+   "file": "bad-move.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "bad-zone"
+   ],
+   "warnings": [],
+   "about": "a MOVE to sideboard"
+  },
+  {
+   "file": "bad-token-name.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "bad-token-name"
+   ],
+   "warnings": [],
+   "about": "a CREATE_TOKEN whose token id breaks the grammar"
+  },
+  {
+   "file": "credit-zone.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "credit-zone"
+   ],
+   "warnings": [],
+   "about": "a Credit token MOVE into resource"
+  },
+  {
+   "file": "deck-build-move.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "deck-build-move"
+   ],
+   "warnings": [],
+   "about": "a MOVE outsideTheGame -> deck"
+  },
+  {
+   "file": "fortify-enemy-base.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "fortify-host"
+   ],
+   "warnings": [],
+   "about": "Fortify on the other seat's base"
+  },
+  {
+   "file": "token-to-hand.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "token-zone"
+   ],
+   "warnings": [],
+   "about": "a token leaving play for hand"
+  },
+  {
+   "file": "round-start-no-active.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "round-start-active"
+   ],
+   "warnings": [],
+   "about": "a ROUND_START with no active"
+  },
+  {
+   "file": "duplicate-seq.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "duplicate-seq"
+   ],
+   "warnings": [],
+   "about": "two records labelled R1.A.1"
+  },
+  {
+   "file": "result-mismatch.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "result-mismatch"
+   ],
+   "warnings": [],
+   "about": "[Result \"P1\"] with no GAME_END"
+  },
+  {
+   "file": "dangling-ref.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "dangling-ref"
+   ],
+   "warnings": [],
+   "about": "an annotation on a missing seq"
+  },
+  {
+   "file": "proto-token.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "reserved-key"
+   ],
+   "warnings": [],
+   "about": "__proto__ as a status token name in a keyframe"
+  },
+  {
+   "file": "deck-reserved-key.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "reserved-key"
+   ],
+   "warnings": [],
+   "about": "__proto__ inside an extension field of a DECKS record"
+  },
+  {
+   "file": "to-string-key.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "reserved-key"
+   ],
+   "warnings": [],
+   "about": "a toString key inside an extension field of a PASS"
+  },
+  {
+   "file": "reserved-token-name.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "reserved-key"
+   ],
+   "warnings": [],
+   "about": "a STATUS_TOKEN whose token is toString"
+  },
+  {
+   "file": "nested-reserved-token.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "reserved-key"
+   ],
+   "warnings": [],
+   "about": "the same inside an annotation's line"
+  },
+  {
+   "file": "reserved-tag-name.swupgn",
+   "class": "negative",
+   "level": "malformed",
+   "errors": [
+    "reserved-key"
+   ],
+   "warnings": [],
+   "about": "a header tag [hasOwnProperty \"x\"]"
+  },
+  {
+   "file": "newer-minor-bad-seat.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "schema"
+   ],
+   "warnings": [
+    "newer-minor"
+   ],
+   "about": "SWU-PGN/1.7, a PASS by seat 3"
+  },
+  {
+   "file": "newer-minor-result-seat.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "schema"
+   ],
+   "warnings": [
+    "newer-minor"
+   ],
+   "about": "SWU-PGN/1.7, [Result \"P3\"]"
+  },
+  {
+   "file": "over-cap.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "over-cap"
+   ],
+   "warnings": [],
+   "about": "a keyframe hand of 1002 cards"
+  },
+  {
+   "file": "effect-end-unknown.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [
+    "effect-end-unknown"
+   ],
+   "warnings": [],
+   "about": "an EFFECT_END for fx@1 never started"
+  },
+  {
+   "file": "pre-release.swupgn",
+   "class": "negative",
+   "level": "well-formed",
+   "errors": [],
+   "warnings": [
+    "pre-release"
+   ],
+   "about": "no WriterRevision, a listed pilot Engine product (test registry: pilotwriter)",
+   "pilotProducts": [
+    "pilotwriter"
+   ]
+  },
+  {
+   "file": "damaged-keyframe.swupgn",
+   "class": "negative",
+   "level": "valid",
+   "errors": [],
+   "warnings": [
+    "keyframe-mismatch"
+   ],
+   "about": "a keyframe the events do not fold to"
+  },
+  {
+   "file": "unknown-type.swupgn",
+   "class": "negative",
+   "level": "complete",
+   "errors": [],
+   "warnings": [
+    "unknown-type"
+   ],
+   "about": "an event type from a later version"
+  },
+  {
+   "file": "unknown-section.swupgn",
+   "class": "negative",
+   "level": "complete",
+   "errors": [],
+   "warnings": [
+    "unknown-section"
+   ],
+   "about": "a section from a later version"
+  },
+  {
+   "file": "higher-minor.swupgn",
+   "class": "negative",
+   "level": "verified",
+   "errors": [],
+   "warnings": [
+    "newer-minor",
+    "unknown-defeat",
+    "unknown-value"
+   ],
+   "about": "SWU-PGN/1.7, unknown DEFEAT.reason"
+  },
+  {
+   "file": "newer-minor-result.swupgn",
+   "class": "negative",
+   "level": "complete",
+   "errors": [],
+   "warnings": [
+    "newer-minor",
+    "unknown-value"
+   ],
+   "about": "SWU-PGN/1.7, [Result \"Abandoned\"]"
+  }
+ ]
+}

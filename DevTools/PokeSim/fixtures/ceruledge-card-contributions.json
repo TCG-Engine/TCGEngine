@@ -1,0 +1,587 @@
+{
+    "seeds": [
+        40001,
+        40050
+    ],
+    "gamesPerList": 200,
+    "opponents": [
+        "brisbane-lopunny",
+        "dhelmise-v2"
+    ],
+    "notes": [
+        "Rates use all games including early losses; each seed is played with both starting orders.",
+        "Fixed Ceruledge policy; slot swaps alter opening deals and mulligans.",
+        "Direct discard attribution is descriptive; searches, recovery, draw and thinning have indirect value.",
+        "Blender-only handling is inactive in lists without Blender; baseline behavior is unchanged by that policy extension."
+    ],
+    "baselineCards": {
+        "me02-089": {
+            "usedGames": 89,
+            "trainerUses": 89,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 0,
+            "searchedFire": 562
+        },
+        "me01-131": {
+            "usedGames": 176,
+            "trainerUses": 343,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 416,
+            "searchedFire": 0
+        },
+        "me02.5-183": {
+            "usedGames": 32,
+            "trainerUses": 36,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 0,
+            "searchedFire": 0
+        },
+        "sv07-118": {
+            "usedGames": 150,
+            "trainerUses": 0,
+            "abilityUses": 150,
+            "attachUses": 0,
+            "attackUses": 46,
+            "discardedEnergy": 0,
+            "searchedFire": 0
+        },
+        "me02.5-192": {
+            "usedGames": 96,
+            "trainerUses": 111,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 0,
+            "searchedFire": 0
+        },
+        "sv06-145": {
+            "usedGames": 163,
+            "trainerUses": 243,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 376,
+            "searchedFire": 0
+        },
+        "sv08-036": {
+            "usedGames": 179,
+            "trainerUses": 0,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 549,
+            "discardedEnergy": 0,
+            "searchedFire": 0
+        },
+        "mee-002": {
+            "usedGames": 198,
+            "trainerUses": 0,
+            "abilityUses": 0,
+            "attachUses": 631,
+            "attackUses": 0,
+            "discardedEnergy": 0,
+            "searchedFire": 0
+        },
+        "me02-019": {
+            "usedGames": 89,
+            "trainerUses": 0,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 113,
+            "discardedEnergy": 0,
+            "searchedFire": 170
+        },
+        "sv08.5-107": {
+            "usedGames": 157,
+            "trainerUses": 292,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 545,
+            "searchedFire": 0
+        },
+        "sv08-191": {
+            "usedGames": 78,
+            "trainerUses": 0,
+            "abilityUses": 0,
+            "attachUses": 78,
+            "attackUses": 0,
+            "discardedEnergy": 0,
+            "searchedFire": 0
+        },
+        "me04-080": {
+            "usedGames": 177,
+            "trainerUses": 177,
+            "abilityUses": 628,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 708,
+            "searchedFire": 0
+        },
+        "me02-020": {
+            "usedGames": 7,
+            "trainerUses": 0,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 7,
+            "discardedEnergy": 28,
+            "searchedFire": 0
+        },
+        "me02.5-196": {
+            "usedGames": 108,
+            "trainerUses": 135,
+            "abilityUses": 0,
+            "attachUses": 0,
+            "attackUses": 0,
+            "discardedEnergy": 0,
+            "searchedFire": 0
+        }
+    },
+    "comparisons": {
+        "baseline": {
+            "changes": [],
+            "games": 200,
+            "wins": 108,
+            "by2ExAttack": 126,
+            "by4Ready330": 12,
+            "by5Ready330": 57,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 64,
+                    "by2ExAttack": 63,
+                    "by4Ready330": 5,
+                    "by5Ready330": 28,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 2.3,
+                            "avgDamage": 2.5
+                        },
+                        "2": {
+                            "reached": 98,
+                            "avgDiscard": 4.62,
+                            "avgDamage": 89.7
+                        },
+                        "3": {
+                            "reached": 95,
+                            "avgDiscard": 7.4,
+                            "avgDamage": 145.4
+                        },
+                        "4": {
+                            "reached": 93,
+                            "avgDiscard": 10.02,
+                            "avgDamage": 196.6
+                        },
+                        "5": {
+                            "reached": 89,
+                            "avgDiscard": 12.71,
+                            "avgDamage": 244.8
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 44,
+                    "by2ExAttack": 63,
+                    "by4Ready330": 7,
+                    "by5Ready330": 29,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 2.58,
+                            "avgDamage": 4.9
+                        },
+                        "2": {
+                            "reached": 96,
+                            "avgDiscard": 5.7,
+                            "avgDamage": 113
+                        },
+                        "3": {
+                            "reached": 90,
+                            "avgDiscard": 7.97,
+                            "avgDamage": 143.6
+                        },
+                        "4": {
+                            "reached": 80,
+                            "avgDiscard": 11.1,
+                            "avgDamage": 224.6
+                        },
+                        "5": {
+                            "reached": 74,
+                            "avgDiscard": 13.82,
+                            "avgDamage": 290.4
+                        }
+                    }
+                }
+            },
+            "pairedWinDeltaPercentagePoints": 0,
+            "approximatePaired95Interval": [
+                0,
+                0
+            ]
+        },
+        "one-boss-to-firebreather": {
+            "changes": {
+                "me02.5-183": -1,
+                "me02-089": 1
+            },
+            "games": 200,
+            "wins": 115,
+            "by2ExAttack": 120,
+            "by4Ready330": 22,
+            "by5Ready330": 63,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 72,
+                    "by2ExAttack": 60,
+                    "by4Ready330": 8,
+                    "by5Ready330": 29,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 2.49,
+                            "avgDamage": 5.6
+                        },
+                        "2": {
+                            "reached": 95,
+                            "avgDiscard": 4.93,
+                            "avgDamage": 97.6
+                        },
+                        "3": {
+                            "reached": 89,
+                            "avgDiscard": 7.8,
+                            "avgDamage": 152.4
+                        },
+                        "4": {
+                            "reached": 85,
+                            "avgDiscard": 10.47,
+                            "avgDamage": 200.8
+                        },
+                        "5": {
+                            "reached": 81,
+                            "avgDiscard": 12.84,
+                            "avgDamage": 252.6
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 43,
+                    "by2ExAttack": 60,
+                    "by4Ready330": 14,
+                    "by5Ready330": 34,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 2.73,
+                            "avgDamage": 4.4
+                        },
+                        "2": {
+                            "reached": 95,
+                            "avgDiscard": 5.46,
+                            "avgDamage": 112.4
+                        },
+                        "3": {
+                            "reached": 82,
+                            "avgDiscard": 8.06,
+                            "avgDamage": 157.3
+                        },
+                        "4": {
+                            "reached": 74,
+                            "avgDiscard": 11.18,
+                            "avgDamage": 238
+                        },
+                        "5": {
+                            "reached": 67,
+                            "avgDiscard": 13.79,
+                            "avgDamage": 313.9
+                        }
+                    }
+                }
+            },
+            "pairedWinDeltaPercentagePoints": 3.5,
+            "approximatePaired95Interval": [
+                -4.8,
+                11.8
+            ]
+        },
+        "boss-nonex-to-firebreather": {
+            "changes": {
+                "me02.5-183": -2,
+                "me02-020": -1,
+                "me02-089": 3
+            },
+            "games": 200,
+            "wins": 107,
+            "by2ExAttack": 100,
+            "by4Ready330": 28,
+            "by5Ready330": 62,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 67,
+                    "by2ExAttack": 53,
+                    "by4Ready330": 13,
+                    "by5Ready330": 28,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 2.03,
+                            "avgDamage": 8.4
+                        },
+                        "2": {
+                            "reached": 88,
+                            "avgDiscard": 4.64,
+                            "avgDamage": 86.7
+                        },
+                        "3": {
+                            "reached": 79,
+                            "avgDiscard": 7.96,
+                            "avgDamage": 151.1
+                        },
+                        "4": {
+                            "reached": 75,
+                            "avgDiscard": 11.52,
+                            "avgDamage": 225.5
+                        },
+                        "5": {
+                            "reached": 71,
+                            "avgDiscard": 13.46,
+                            "avgDamage": 272.7
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 40,
+                    "by2ExAttack": 47,
+                    "by4Ready330": 15,
+                    "by5Ready330": 34,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 2.15,
+                            "avgDamage": 7.5
+                        },
+                        "2": {
+                            "reached": 82,
+                            "avgDiscard": 5.13,
+                            "avgDamage": 95.4
+                        },
+                        "3": {
+                            "reached": 69,
+                            "avgDiscard": 8.01,
+                            "avgDamage": 145.7
+                        },
+                        "4": {
+                            "reached": 62,
+                            "avgDiscard": 11.65,
+                            "avgDamage": 234.7
+                        },
+                        "5": {
+                            "reached": 54,
+                            "avgDiscard": 14.19,
+                            "avgDamage": 313.3
+                        }
+                    }
+                }
+            },
+            "pairedWinDeltaPercentagePoints": -0.5,
+            "approximatePaired95Interval": [
+                -9.6,
+                8.6
+            ]
+        },
+        "blender": {
+            "changes": {
+                "sv08-191": -1,
+                "sv08-164": 1
+            },
+            "games": 200,
+            "wins": 120,
+            "by2ExAttack": 117,
+            "by4Ready330": 32,
+            "by5Ready330": 75,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 76,
+                    "by2ExAttack": 58,
+                    "by4Ready330": 11,
+                    "by5Ready330": 34,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 3.1,
+                            "avgDamage": 6.9
+                        },
+                        "2": {
+                            "reached": 95,
+                            "avgDiscard": 5.64,
+                            "avgDamage": 99.3
+                        },
+                        "3": {
+                            "reached": 89,
+                            "avgDiscard": 8.19,
+                            "avgDamage": 164.9
+                        },
+                        "4": {
+                            "reached": 87,
+                            "avgDiscard": 10.98,
+                            "avgDamage": 220.7
+                        },
+                        "5": {
+                            "reached": 77,
+                            "avgDiscard": 13.19,
+                            "avgDamage": 278.8
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 44,
+                    "by2ExAttack": 59,
+                    "by4Ready330": 21,
+                    "by5Ready330": 41,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 3.56,
+                            "avgDamage": 5.3
+                        },
+                        "2": {
+                            "reached": 91,
+                            "avgDiscard": 6.3,
+                            "avgDamage": 124.7
+                        },
+                        "3": {
+                            "reached": 80,
+                            "avgDiscard": 8.95,
+                            "avgDamage": 170.1
+                        },
+                        "4": {
+                            "reached": 73,
+                            "avgDiscard": 11.96,
+                            "avgDamage": 250.5
+                        },
+                        "5": {
+                            "reached": 65,
+                            "avgDiscard": 14.23,
+                            "avgDamage": 310.6
+                        }
+                    }
+                }
+            },
+            "pairedWinDeltaPercentagePoints": 6,
+            "approximatePaired95Interval": [
+                -2.3,
+                14.3
+            ]
+        },
+        "blender-firebreather": {
+            "changes": {
+                "sv08-191": -1,
+                "sv08-164": 1,
+                "me02.5-183": -1,
+                "me02-089": 1
+            },
+            "games": 200,
+            "wins": 116,
+            "by2ExAttack": 111,
+            "by4Ready330": 31,
+            "by5Ready330": 74,
+            "opponents": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 73,
+                    "by2ExAttack": 57,
+                    "by4Ready330": 17,
+                    "by5Ready330": 36,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 2.98,
+                            "avgDamage": 5.4
+                        },
+                        "2": {
+                            "reached": 94,
+                            "avgDiscard": 5.41,
+                            "avgDamage": 100.7
+                        },
+                        "3": {
+                            "reached": 88,
+                            "avgDiscard": 8.36,
+                            "avgDamage": 150.9
+                        },
+                        "4": {
+                            "reached": 83,
+                            "avgDiscard": 11.64,
+                            "avgDamage": 216.6
+                        },
+                        "5": {
+                            "reached": 73,
+                            "avgDiscard": 13.49,
+                            "avgDamage": 266.6
+                        }
+                    }
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "completed": 100,
+                    "wins": 43,
+                    "by2ExAttack": 54,
+                    "by4Ready330": 14,
+                    "by5Ready330": 38,
+                    "turns": {
+                        "1": {
+                            "reached": 100,
+                            "avgDiscard": 3.34,
+                            "avgDamage": 6.9
+                        },
+                        "2": {
+                            "reached": 93,
+                            "avgDiscard": 5.84,
+                            "avgDamage": 110.1
+                        },
+                        "3": {
+                            "reached": 77,
+                            "avgDiscard": 9.03,
+                            "avgDamage": 174.4
+                        },
+                        "4": {
+                            "reached": 70,
+                            "avgDiscard": 11.46,
+                            "avgDamage": 233.6
+                        },
+                        "5": {
+                            "reached": 62,
+                            "avgDiscard": 14.18,
+                            "avgDamage": 318.1
+                        }
+                    }
+                }
+            },
+            "pairedWinDeltaPercentagePoints": 4,
+            "approximatePaired95Interval": [
+                -4.7,
+                12.7
+            ]
+        }
+    }
+}

@@ -39,7 +39,38 @@ foreach (['public queue' => [], 'private room' => ['createPrivate' => '1']] as $
 }
 
 // ── 2. Chat: guests read, only accounts send ────────────────────────────────────────────────────────
-$deck = file_get_contents('./SWUSim/Tests/BotFixtures/premier_deck_a.txt');
+$deck = <<<'DECK'
+Leader
+1 SOR_009
+Base
+1 SOR_022
+Deck
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_239
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+1 SOR_242
+1 SOR_100
+2 SOR_093
+1 SOR_094
+2 SOR_248
+1 SOR_096
+3 SOR_237
+2 SOR_111
+2 SOR_112
+1 SOR_099
+2 SOR_250
+3 SOR_124
+2 SOR_123
+2 SOR_127
+2 SOR_103
+3 SOR_120
+2 SOR_121
+DECK;
 $game = json_decode($http('POST', 'APIs/Lobbies/JoinQueue.php',
     ['rootName' => 'SWUSim', 'format' => 'goldfish', 'queueType' => 'bo1', 'deckLink' => $deck]));
 $gameName = is_object($game) ? strval($game->gameName ?? '') : '';

@@ -1,0 +1,663 @@
+{
+  "status": "APPROVED_B238_TWO_ACTUAL_SAVED_ONLY_ORIGINAL_EIRINA_ORACLE_REJECTED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T09:44:21.092828+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch238.json",
+  "input_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+  "manifest_sha256": "8aeef5dc4b9eebc2c297e1d67a7b4147c83b8ebbb0b71c363b8aa90180e816d9",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch238-independent-manual-spec-review-106-v3.json",
+    "sha256": "a3ce2ee4adb5226da741f2c425033017ca43ed77a0801e1bb1bca643baf118ed",
+    "scope": "Successful Serenity/Beam only; original Eirina target-list approval revoked."
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch238-20261026T093845Z-6adf1fa53fe26.json",
+    "sha256": "baa862aff219ee228d8563aac34b72e23dfb2a3cf34d4a30f1ebcf44c1be005b"
+  },
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-serenity-red-four-live-sparse-actual-instant-prevents-three-of-four-real-physical-damage",
+      "card_id": "blessing_of_serenity_red",
+      "group_id": "pitch-cycle:blessing_of_serenity",
+      "reviewer": "/root/b106_semantic_review",
+      "priority_response_passes": 23,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B238_HEALTHY_CASE_ONLY",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch238.json",
+      "input_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "3daf4b1bb5d38c4f6666e78c1fd3377ee9cd1c622aec7da72144a0cf37a8f886",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1143ce6ebde3eb314ff670476e7b1e9469245f8cdacf2f5c43db102c44752218",
+        "actions.json": "0efcaf6e17222ea05da8414d178a311ab7464516b7bec595ee798bdf5394e971",
+        "assertions.json": "7ea73864c3fed3805ea8c9cf6c4a485cba6488eef2c16eeb05c21b5ac8ddc3e4",
+        "expected_final_gamestate.txt": "fed69e10df65e3c7459cbe010e78b9032a4229323c33d979673f363aa4beef7a",
+        "meta.json": "2f99970f185b29d4d6ac5c3b4c485244fe6d1d5948fa772b487730a667b319af"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1143ce6ebde3eb314ff670476e7b1e9469245f8cdacf2f5c43db102c44752218",
+        "actions.json": "0efcaf6e17222ea05da8414d178a311ab7464516b7bec595ee798bdf5394e971",
+        "assertions.json": "7ea73864c3fed3805ea8c9cf6c4a485cba6488eef2c16eeb05c21b5ac8ddc3e4",
+        "expected_final_gamestate.txt": "fed69e10df65e3c7459cbe010e78b9032a4229323c33d979673f363aa4beef7a",
+        "meta.json": "2f99970f185b29d4d6ac5c3b4c485244fe6d1d5948fa772b487730a667b319af"
+      },
+      "actions": 27,
+      "native_assertions": 767,
+      "native_card_property_assertions": 166,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 24,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Guardian_and_four_manual_live_seats",
+          "step": 0,
+          "native_assertions": 117
+        },
+        {
+          "checkpoint": "actual_adjacent_attack_target_preflight",
+          "step": 1,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_vanilla_Action_zero_paid_AP_one_to_zero",
+          "step": 2,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_attack_response_earns_P2",
+          "step": 3,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_attack_response_earns_P3",
+          "step": 4,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_attack_response_earns_P4",
+          "step": 5,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_zero_Instant_above_attack_all_assets_zero",
+          "step": 6,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "real_Serenity_responses_actor_4",
+          "step": 7,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Serenity_responses_actor_1",
+          "step": 8,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Serenity_responses_actor_2",
+          "step": 9,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Serenity_responses_fourth_actor_3",
+          "step": 10,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_attack_layer_responses_actor_1",
+          "step": 11,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_attack_layer_responses_actor_2",
+          "step": 12,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_attack_layer_responses_actor_3",
+          "step": 13,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_attack_layer_responses_fourth_actor_4",
+          "step": 14,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_actor_1",
+          "step": 15,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_actor_2",
+          "step": 16,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_actor_3",
+          "step": 17,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_fourth_actor_4",
+          "step": 18,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defender_declines_all_blocks",
+          "step": 19,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "real_defend_priority_actor_1",
+          "step": 20,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defend_priority_actor_2",
+          "step": 21,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defend_priority_actor_3",
+          "step": 22,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defend_priority_fourth_actor_4",
+          "step": 23,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_actor_1",
+          "step": 24,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_actor_2",
+          "step": 25,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_actor_3",
+          "step": 26,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_fourth_actor_4",
+          "step": 27,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "full_final_physical_four_minus_three_HP19_source_public_no_tokens",
+          "step": 27,
+          "native_assertions": 124
+        }
+      ],
+      "computed_final_oracles_exactly_retained_and_root_native_passed": [
+        {
+          "step": 27,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 4
+        },
+        {
+          "step": 27,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 4
+        },
+        {
+          "step": 27,
+          "type": "computed_go_again_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 0
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Hand": [
+          [
+            "6",
+            "wounding_blow_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Hand": [
+          [
+            "5",
+            "blessing_of_serenity_red",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1CombatChain": [
+          [
+            "6",
+            "wounding_blow_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Graveyard": [
+          [
+            "5",
+            "blessing_of_serenity_red",
+            "4",
+            "4",
+            "0"
+          ]
+        ]
+      },
+      "actual_final_attack_turn_effects": "-",
+      "observed_recording_summary": {
+        "slug": "card-blessing-of-serenity-red-four-live-sparse-actual-instant-prevents-three-of-four-real-physical-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 767
+      },
+      "actual_meaningful_evidence": [
+        "RealP4Serenity5 Instant0 aboveactualWB6/AP0; fourprimaryresponses4,1,2,3 before source5publicGY/effect, noearlyHPchange. Actualoriginalsource/ATTACK/defensecompletion/DEFEND_PRIORITY/REACTION produces physical4minus3=1/P4HP19/hittrue; no tokens.",
+        "FinalDAMAGE actualWB6chainOwnerController1/FromHand; P4Serenity5publicGYFaceDown0, allAP/R0, noStack/decision/payment/frame. No closure/expiry/furtherpacket claim."
+      ]
+    },
+    {
+      "slug": "card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+      "card_id": "blinding_beam_red",
+      "group_id": "pitch-cycle:blinding_beam",
+      "reviewer": "/root/b106_semantic_review",
+      "priority_response_passes": 23,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B238_HEALTHY_CASE_ONLY",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch238.json",
+      "input_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "188cae17fdb293a657eb3fe4d6843657af49945a57122c0f8526c83ffc7e174b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "47f8670d7729b0e10e173442d73f5544b4e35f0844827b63d598c7ca27c7ab51",
+        "actions.json": "6de160e37daa502bb161c44cdbfbfa192a4fb2fcd71a05a736a8f25083cf87e7",
+        "assertions.json": "3dbc6d2fccec09fa2d571ad43d61add7df554782b952ec9caa4f745e28aad790",
+        "expected_final_gamestate.txt": "2eb0019fa9a57cea6963eb1bd7d7e4ca6d286701b50a76a83952255904c7512c",
+        "meta.json": "25af69ba12f811fcb7e093bb8d381b28c608481e37ec58dc4ec673dedbd70784"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "47f8670d7729b0e10e173442d73f5544b4e35f0844827b63d598c7ca27c7ab51",
+        "actions.json": "6de160e37daa502bb161c44cdbfbfa192a4fb2fcd71a05a736a8f25083cf87e7",
+        "assertions.json": "3dbc6d2fccec09fa2d571ad43d61add7df554782b952ec9caa4f745e28aad790",
+        "expected_final_gamestate.txt": "2eb0019fa9a57cea6963eb1bd7d7e4ca6d286701b50a76a83952255904c7512c",
+        "meta.json": "25af69ba12f811fcb7e093bb8d381b28c608481e37ec58dc4ec673dedbd70784"
+      },
+      "actions": 29,
+      "native_assertions": 861,
+      "native_card_property_assertions": 212,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 24,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Light_and_Shadow_manual_live_seats",
+          "step": 0,
+          "native_assertions": 121
+        },
+        {
+          "checkpoint": "actual_Ghost_adjacent_target_before_payment",
+          "step": 1,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_Ghost_normal_PITCH_empty_DQ",
+          "step": 2,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_Ghost_one_leaves_two_APzero",
+          "step": 3,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_Ghost_layer_responses_actor_1",
+          "step": 4,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_Ghost_layer_responses_actor_2",
+          "step": 5,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_Ghost_layer_responses_actor_3",
+          "step": 6,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_Ghost_layer_responses_fourth_actor_4",
+          "step": 7,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_earns_P2",
+          "step": 8,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "real_attack_priority_earns_P3",
+          "step": 9,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "real_attack_priority_earns_P4",
+          "step": 10,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "Beam_target_declared_in_Prepare_before_discount_and_payment",
+          "step": 11,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "actual_Shadow_discount_commits_Instant_without_any_funding",
+          "step": 12,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "real_Beam_responses_actor_4",
+          "step": 13,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "real_Beam_responses_actor_1",
+          "step": 14,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "real_Beam_responses_actor_2",
+          "step": 15,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "real_Beam_responses_fourth_actor_3",
+          "step": 16,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "real_attack_priority_actor_1",
+          "step": 17,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_actor_2",
+          "step": 18,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_actor_3",
+          "step": 19,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_attack_priority_fourth_actor_4",
+          "step": 20,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defender_declines_all_blocks",
+          "step": 21,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "real_defend_priority_actor_1",
+          "step": 22,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defend_priority_actor_2",
+          "step": 23,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defend_priority_actor_3",
+          "step": 24,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_defend_priority_fourth_actor_4",
+          "step": 25,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_actor_1",
+          "step": 26,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_actor_2",
+          "step": 27,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_actor_3",
+          "step": 28,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_reaction_priority_fourth_actor_4",
+          "step": 29,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "full_final_actual_power_four_minus_three_and_physical_one_damage",
+          "step": 29,
+          "native_assertions": 128
+        }
+      ],
+      "computed_final_oracles_exactly_retained_and_root_native_passed": [
+        {
+          "step": 29,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 1
+        },
+        {
+          "step": 29,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 1
+        },
+        {
+          "step": 29,
+          "type": "computed_go_again_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 0
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Hand": [
+          [
+            "6",
+            "ghostly_visit_red",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "7",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Hand": [
+          [
+            "5",
+            "blinding_beam_red",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1CombatChain": [
+          [
+            "6",
+            "ghostly_visit_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Graveyard": [
+          [
+            "5",
+            "blinding_beam_red",
+            "4",
+            "4",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "7",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "actual_final_attack_turn_effects": "WTR_POWER:-3",
+      "observed_recording_summary": {
+        "slug": "card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 861
+      },
+      "actual_meaningful_evidence": [
+        "ActualGhost6ShadowHand cost1/base4 funded byBlue7pitch3/R2/AP0, targetsP4 and becomes currentchain. P4Beam5 declared at earnedATTACKpriority targets actualShadowAA6 before assets; R0/no other funding/Pitch makes cost1minus1=0 observable.",
+        "FourBeamresponses4,1,2,3 grant actualminus3 to sameUID6; rootnative computedpower1/GAfalse and realdamage1/P4HP19. FinalGhost6currentchain/negative tag, P4Beam5publicGYFaceDown0, Blue7Pitch/R2/allAP0; no syntheticcharge/Banishhistory."
+      ]
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+      "card_id": "eirinas_prayer_red",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "classification": "ORACLE_ERROR_UPF_SINGLE_HERO_ADJACENCY_NOT_ENGINE_BUG",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch238.json",
+      "input_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+      "native_attempted_actions": 1,
+      "native_error": "Expected p1DecisionQueue-0.Param to equal 'p2Hero-0&p3Hero-0&p4Hero-0', got 'p2Hero-0&p4Hero-0'.",
+      "reason": "TRP9.3 restricts single targetVoltic fromP1 to immediate neighborsP2/P4. Original Param erroneously includes nonadjacentP3; actual action chooses legalP4 and allcost/damage/setup remains correct.",
+      "official_rule": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "source_confirmation": "ARCCards.php34-39 adjacent-opponent selection for nonmultiple spell.",
+      "prior_manual_erratum": "a3ce proof original Eirina target-list approval is revoked; other two case approvals retained. No enginebug/sourcefix/finaldamage/fixture credit for failed Eirina."
+    }
+  ],
+  "totals": {
+    "approved_saved_fixtures": 2,
+    "blocked_unsaved_attempts": 1,
+    "actions": 56,
+    "native_assertions": 1628,
+    "card_property_assertions": 378,
+    "manual_pass_until_inputs": 48,
+    "priority_response_passes": 46,
+    "defender_declaration_completion_inputs": 2,
+    "end_phase_admin_passes": 0,
+    "recorder_only_checks": 0,
+    "endpoint_manual_preference_values": 192
+  },
+  "limits": [
+    "Only two saved fixtures approved; originalEirina unqualifiable until targeted oracle successor separately approved/native recorded.",
+    "Every native action/oracle matched unchanged approved input; raw10 and physical initial/final profiles independently audited. Computed native queries bound to rootPASS; no enginequery/simulator byreviewer or cache substitution.",
+    "Both stopDAMAGE: no closure/expiry/furtherprevention/unpreventable/otherpitches/nonShadow/defendingtarget/Banish/BloodDebt/hero/sibling/support credit.",
+    "Runtime1f33 root-reported execution corroborated by current fingerprint/sourceguards; clean replay qualification separately root-owned."
+  ],
+  "php_execution": 0,
+  "native_execution": 0,
+  "repository_writes": 0,
+  "optional_rules_simulation": 0
+}

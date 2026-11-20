@@ -8,13 +8,43 @@
 //   the hand never runs under the pile row (desktop); no horizontal page overflow.
 // Usage: node swusim-deck-pile-xbrowser.mjs [baseURL]   ENGINES=chromium,firefox,webkit   SKIP_TWINSUNS=1
 import { chromium, firefox, webkit } from 'playwright';
-import fs from 'node:fs';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
 const MENU = BASE + 'SharedUI/Sites/SWUSim/MainMenu.php';
 const OUT = process.env.OUT || '/tmp';
-const PREMIER = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/premier_deck_a.txt', import.meta.url), 'utf8');
-const TWIN = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/twinsuns_deck_a.txt', import.meta.url), 'utf8');
+const PREMIER = `Leader
+1 SOR_009
+Base
+1 SOR_022
+Deck
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_239
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+1 SOR_242
+1 SOR_100
+2 SOR_093
+1 SOR_094
+2 SOR_248
+1 SOR_096
+3 SOR_237
+2 SOR_111
+2 SOR_112
+1 SOR_099
+2 SOR_250
+3 SOR_124
+2 SOR_123
+2 SOR_127
+2 SOR_103
+3 SOR_120
+2 SOR_121`;
+// A Twin Suns-legal list, inline: 2 leaders + 80 singleton SOR cards (CR §12.2).
+const TWIN = ['Leader', '1 SOR_001', '1 SOR_002', 'Base', '1 SOR_019', 'Deck',
+  ...Array.from({ length: 80 }, (_, i) => `1 SOR_${String(31 + i).padStart(3, '0')}`)].join('\n');
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.fromEntries(Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n)));
 let allOk = true;

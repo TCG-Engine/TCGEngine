@@ -5,13 +5,13 @@ usage: paired_sweep_compare.py <control results.tsv> <treatment results.tsv> [la
 
 Per deck (both seats pooled): win rate in each arm, games won only in B / only in A, and the exact two-sided McNemar p.
 Then each deck style, overall game length, and failures. Decks are named by fixture; style comes from the fixture's
-"# Style:" line (SWUSim/Tests/BotFixtures/ash-meta-2026-09)."""
+"# Style:" line (SWUSim/BotFixtures/ash-meta-2026-09)."""
 import sys, os, re, json, glob, math, collections, statistics
 
 A_PATH, B_PATH = sys.argv[1:3]
 LA = sys.argv[3] if len(sys.argv) > 3 else 'A'
 LB = sys.argv[4] if len(sys.argv) > 4 else 'B'
-FX = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09'
+FX = 'SWUSim/BotFixtures/ash-meta-2026-09'
 style = {os.path.basename(f)[:-4]: re.search(r'^# Style:\s*(\S+)', open(f).read(), re.M).group(1)
          for f in glob.glob(os.path.join(FX, '*.txt'))}
 

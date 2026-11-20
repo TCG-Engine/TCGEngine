@@ -1,0 +1,109 @@
+{
+  "status": "NATIVE_CONFIRMED_UNACTIVATED_RAPTURE_INCORRECT_MANDATORY_WARD_OFFER",
+  "utc": "2026-10-26T03:21:44.191266+00:00",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "source_spec": "card-regression-batch220-rapture-unactivated-probe.json",
+  "source_sha256": "4b7f69a5274fe3acc7be41b0f6b384052a3bbd997248d915299a3a81d23fa79f",
+  "result_sha256": "34af5eaade5aae9d7ccbf5c460106bcad6bc53df0c705047af9048c292e187b8",
+  "initial_gamestate_sha256": "f5b3217d58228c22e8dc36128940cf66b5a12b4630da50a46eb5026676ec4f78",
+  "attempted_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [
+      {
+        "Type": "MZCHOOSE",
+        "Param": "p4Equipment-0",
+        "Block": 1,
+        "Tooltip": "Choose_damage_prevention",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "zap_red:0:ResolveCard-await|zap_red:0:ResolveCard#1|4|dtdChosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      }
+    ]
+  },
+  "error": "Unexpected decision {\"1\":[],\"2\":[],\"3\":[],\"4\":[{\"Type\":\"MZCHOOSE\",\"Param\":\"p4Equipment-0\",\"Block\":1,\"Tooltip\":\"Choose_damage_prevention\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null},{\"Type\":\"CUSTOM\",\"Param\":\"zap_red:0:ResolveCard-await|zap_red:0:ResolveCard#1|4|dtdChosen\",\"Block\":1,\"Tooltip\":\"\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null}]}",
+  "fixture_saved": false,
+  "scope": "Actual Zap at unactivated Rapture, four native manual response actors. Unexpected mandatory p4Equipment-0 Ward/prevention chooser occurs before final damage. No prevention selected; actual prevented damage or final HP is not claimed.",
+  "source_paths": {
+    "FaBSim/Custom/MSTCards.php": "d8abcf502b260e220956b9b9edac336293792180afd9a8bff18f7020af2d48d1"
+  },
+  "issue_id": "FAB-REG-050",
+  "recording_run": {
+    "path": "recording-runs/card-regression-batch220-rapture-unactivated-probe-20261026T031954Z-6adec6da580a5.json",
+    "sha256": "523fd1a87f9950197e8beaac5917499e5e73138255159c3348748f7b618cc516"
+  },
+  "full_before_workspace": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\empyrean-unactivated-ward-native-before-f56\\recording-results.json",
+    "sha256": "34af5eaade5aae9d7ccbf5c460106bcad6bc53df0c705047af9048c292e187b8"
+  },
+  "independent_expected_probe_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\empyrean-unactivated-ward-probe-independent-review-106.json",
+    "sha256": "30db37a965076fa5e5b4e3da0566b000217d875e9f88a8fb1571892a27718c1f"
+  }
+}

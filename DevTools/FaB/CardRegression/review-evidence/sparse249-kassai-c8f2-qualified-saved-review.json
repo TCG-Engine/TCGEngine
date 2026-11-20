@@ -1,0 +1,216 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "manifest_sha256": "c64b7293cecf582a5200663ed9833dd44cf0418599c031fd49827a45c29a996f",
+  "status": "INDEPENDENT_ACTUAL_SAVED_KASSAI_SUBSET_APPROVED_RAPID_UNSAVED_DIAGNOSIS_PENDING",
+  "method": "Read-only one completed raw5, all25 actual inputs/all663 persisted assertions, complete initial/final physicalsnapshots and four-live manual settings. Prior independent case0 manual printed/source review reused. Existing schema parser/normalizer only, no simulator/model/PHP/native/repository mutation.",
+  "source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse249-two-independent-manual-approval.json",
+    "sha256": "23e6ac2cc6943a59d9eded912543dd24daae04b3a8d1cc53cdfa1077d42fc50b",
+    "reuse": "Case0 Kassai only; no passing approval inferred for failed case1."
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch249-20261026T135629Z-6adf5c0d47e45.json",
+    "sha256": "f65dd67d2d39e41e44f204312ebec1e42269937cbc2ff8875e58d76ecaef3192"
+  },
+  "totals": {
+    "approved_scenarios": 1,
+    "actions": 25,
+    "native_assertions": 663,
+    "actual_manual_passes": 21,
+    "manual_priority_passes": 20,
+    "defender_declaration_finish_inputs": 1,
+    "card_property_assertions": 148,
+    "endpoint_manual_preferences_verified": 96
+  },
+  "fixtures": [
+    {
+      "slug": "card-kassai-four-live-sparse-real-gold-draw-earns-sword-activation-one-to-zero-discount",
+      "source_case_index": 0,
+      "primary_card_id": "kassai",
+      "group_id": "identity:kassai",
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_FOUR_LIVE_POSITIVE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch249.json",
+      "source_spec_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+      "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "actions": 25,
+      "native_assertions": 663,
+      "manual_passes": 21,
+      "actual_manual_passes": 21,
+      "manual_priority_passes": 20,
+      "defender_declaration_finish_inputs": 1,
+      "administrative_endphase_inputs": 0,
+      "pass_actor_counts": {
+        "1": 5,
+        "2": 5,
+        "3": 5,
+        "4": 6
+      },
+      "priority_pass_actor_counts": {
+        "1": 5,
+        "2": 5,
+        "3": 5,
+        "4": 5
+      },
+      "card_property_assertions": 148,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "73297e17fd565286d7bc0e2dd26d278d68115bbe91cf56ad689aeeceabde1919",
+        "actions.json": "5ff84e6a3620ada91c1269047e17861143fdb3b211d62f6144d7f27f161e327c",
+        "assertions.json": "ea4dd934dbb4607141046cef5ebabbc6cf25d831e3cd0a36d59f7fc81dfc3357",
+        "expected_final_gamestate.txt": "80af99ff7c57122c58b2dcfd7f48daf530605d4d6dd4152cfa6982c2f4acd593",
+        "meta.json": "485276f089af6522b999ef9cddb7fbba1c68d68d43dba452247d9b42ac159a09"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "73297e17fd565286d7bc0e2dd26d278d68115bbe91cf56ad689aeeceabde1919",
+        "actions.json": "5ff84e6a3620ada91c1269047e17861143fdb3b211d62f6144d7f27f161e327c",
+        "assertions.json": "ea4dd934dbb4607141046cef5ebabbc6cf25d831e3cd0a36d59f7fc81dfc3357",
+        "expected_final_gamestate.txt": "80af99ff7c57122c58b2dcfd7f48daf530605d4d6dd4152cfa6982c2f4acd593",
+        "meta.json": "485276f089af6522b999ef9cddb7fbba1c68d68d43dba452247d9b42ac159a09"
+      },
+      "fixture_sha256": "82e4fe2e084306171efcb666a25b20daecf882637aab0210a3fadb30a5a024a6",
+      "checkpoints": [
+        {
+          "step": 0,
+          "native_assertions": 131
+        },
+        {
+          "step": 1,
+          "native_assertions": 30
+        },
+        {
+          "step": 2,
+          "native_assertions": 28
+        },
+        {
+          "step": 3,
+          "native_assertions": 13
+        },
+        {
+          "step": 4,
+          "native_assertions": 13
+        },
+        {
+          "step": 5,
+          "native_assertions": 13
+        },
+        {
+          "step": 6,
+          "native_assertions": 21
+        },
+        {
+          "step": 7,
+          "native_assertions": 15
+        },
+        {
+          "step": 8,
+          "native_assertions": 30
+        },
+        {
+          "step": 9,
+          "native_assertions": 13
+        },
+        {
+          "step": 10,
+          "native_assertions": 13
+        },
+        {
+          "step": 11,
+          "native_assertions": 13
+        },
+        {
+          "step": 12,
+          "native_assertions": 22
+        },
+        {
+          "step": 13,
+          "native_assertions": 13
+        },
+        {
+          "step": 14,
+          "native_assertions": 13
+        },
+        {
+          "step": 15,
+          "native_assertions": 13
+        },
+        {
+          "step": 16,
+          "native_assertions": 13
+        },
+        {
+          "step": 17,
+          "native_assertions": 14
+        },
+        {
+          "step": 18,
+          "native_assertions": 13
+        },
+        {
+          "step": 19,
+          "native_assertions": 13
+        },
+        {
+          "step": 20,
+          "native_assertions": 13
+        },
+        {
+          "step": 21,
+          "native_assertions": 13
+        },
+        {
+          "step": 22,
+          "native_assertions": 13
+        },
+        {
+          "step": 23,
+          "native_assertions": 13
+        },
+        {
+          "step": 24,
+          "native_assertions": 13
+        },
+        {
+          "step": 25,
+          "native_assertions": 15
+        },
+        {
+          "step": 25,
+          "native_assertions": 136
+        }
+      ],
+      "author_only_checks": [],
+      "findings": [
+        "Exact native ABI9/sourceGold6 normalPITCHcost2 precedes real Blue7 pitch3 payment. Paid boundary R1/AP0, Gold6 token ceases/no GY ghost; first3 Gold response inputs do not draw. Fourth actual response draws same Deck8 to Hand and printed GoldGA restoresAP1, earning Kassai drawn condition without injected history.",
+        "Actual Dawnblade5 targetP4 commits printed1 discounted0, preserving R1 and spending AP1. Native source/proxy assertions retain physicalSword5 usedStatus1 and Stack/Chain proxy10 tied by WEAPON_UID5. Four-live unblocked combat native computedpower3 and real P4HP17 match printed math.",
+        "Full final snapshot independently confirms physicaldrawn8Hand/Blue7Pitch, Gold6 and ABI9 absent in every schema zone, Sword5/proxy10 ownership, R1/AP0 and allheroes20/20/20/17. Stack/queues/activeframes/payment clear; DAMAGE combat remains open."
+      ],
+      "four_live_profile": "All4 legal youngheroes/living/UPF1234/passive[], initial heroUIDs/assets/declared zones exact. All96 endpoint manual preferences verified;20 priority passes distributed5each and one P4 declaration finish.",
+      "limits": [
+        "Kassai real-draw Sword discount positive only; no Hero graveyard-banish ability/Goldhittrigger/no-drawnegative/secondSword/cleanup/full-card or support-primary credit.",
+        "Root executed native; this agent read exact completed streams/snapshots. Intermediate assertions have native successful execution binding, not separately captured prefix snapshots. No isolated native control or replay execution by this reviewer."
+      ]
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+      "source_case_index": 1,
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "status": "UNSAVED_NATIVE_FAILURE_RULES_OR_RECIPE_DIAGNOSIS_PENDING",
+      "attempted_actions": 5,
+      "first_error": "Expected p1ActionPoints to equal 1, got 0.",
+      "initial_gamestate_sha256": "4b7e3310e3d1525b93b9c2d98cd01e722e1156edf9ee3280a3683d892002f325",
+      "recording_receipt": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch249-20261026T135629Z-6adf5c0d47e45.json",
+      "recording_receipt_sha256": "f65dd67d2d39e41e44f204312ebec1e42269937cbc2ff8875e58d76ecaef3192",
+      "reason": "Actual first source resolution reached ACTION with p1AP0 where authored own-GA oracle expected1. Classification pending reviewer105; this proof makes no rules/engine-defect or passing assertion for Rapid."
+    }
+  ],
+  "limits": [
+    "Register reviewed Kassai subset only after parent new-only clean replay gates. Rapid original failed source remains separate/unsaved; no fixture or card/group credit.",
+    "No new bug claim, exhaustive matrix, native fault control, sibling/support-primary coverage, fullsuite or historical requalification."
+  ]
+}

@@ -155,3 +155,55 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_017
 P1GROUNDARENAUNIT:0:CARDID:SEC_193
 P1GROUNDARENAUNIT:0:READY
 P1NODECISION
+
+---
+
+# Clone_FromResources_CopyChoiceIsOffered
+#// ⚠ BUG REPORT P-19 (game 3240): "Clone is not working … from the resource row with Endless Legions, it says
+#// 'Endless Legions defeated <player>'s Clone'". The unit was played through SWUNestedPlay, which enters at
+#// ActivateCard — the SECOND half of playing a card — so everything SWUBeginPlayCard owns before payment was skipped,
+#// TWI_116 Clone's "enter play as a copy" choice among them. Clone entered as its printed 0/0 and died at once.
+#// "Play for free ignores all resource costs, including the aspect penalty, but not other additional costs" (official
+#// Endless Legions ruling): it is still a full play. Reads the OFFER: the copy choice must be pending.
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SHD_109
+WithP1Resources: 1:TWI_116:0,14:SOR_251:1
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myResources-0
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_a_unit_to_copy
+
+---
+
+# Clone_FromResources_EntersAsTheCopy_AndTheLoopGoesOn
+#// The rest of P-19: the copy is taken (Clone enters as SOR_095, 3/3, with the Clone trait — and survives), both plays
+#// are still FREE (15 ready: Endless Legions' own 14 leaves 1, which pays for neither Clone's 7 nor SEC_080's 2, so a
+#// charged play would have failed), and the reveal loop offers the next unit-resource afterwards. The copy choice
+#// DEFERS the play to a later request; the boundary proves it resumes and the loop still continues.
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SHD_109
+WithP1Resources: 1:TWI_116:0,1:SEC_080:0,15:SOR_251:1
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myResources-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:myResources-0
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:HASTRAIT:Clone
+P1GROUNDARENAUNIT:0:HP:3
+P1GROUNDARENAUNIT:1:CARDID:SEC_080
+P1RESAVAILABLE:1
+NOEXTRAACTION

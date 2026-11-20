@@ -10,6 +10,10 @@
   require_once __DIR__ . "/Classes/LobbySeatIdentity.php"; // LobbyFindExistingSeat — one human, one seat
   require_once __DIR__ . "/Classes/LobbyBots.php";  // LobbyHasRoomForHuman / LobbyYieldBotSeatIfFull — bots as placeholders
   require_once __DIR__ . '/../../SWUSim/Mod/DevGate.php';  // SWUBotPracticeAllowed — Bot Practice is admin-only
+  // SWUSim 1v1 rooms outlive their matches and are saved to disk (Return to Lobby). File scope on purpose.
+  if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Rooms.php';
+  if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/HighGround.php';   // High Ground rooms
+  if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Limited/LimitedRoom.php';   // Limited (Sealed) rooms
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -77,6 +81,8 @@
   $deckLink2 = isset($_POST['deckLink2']) ? $_POST['deckLink2'] : '';
   $preconstructedDeck = isset($_POST['preconstructedDeck']) ? $_POST['preconstructedDeck'] : '';
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
+  // SWUSim High Ground (king of the hill) room — an additive flag on createPrivate; absent = today's private room.
+  $createHighGround = $createPrivate && ($_POST['rootName'] ?? '') === 'SWUSim' && strval($_POST['highGround'] ?? '') === '1';
   $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
   $createRlBot = isset($_POST['createRlBot']) && ($_POST['createRlBot'] === '1' || strtolower($_POST['createRlBot']) === 'true');
   $azukiRlBotProfile = function_exists('NormalizeAzukiRlBotProfile')
@@ -132,6 +138,9 @@
   // validated below, which must check the deck against the format the game will actually be played in.
   // Read-only pre-pass: it only learns the settings; the authoritative join (capacity, blocks, caster
   // mode, seat assignment) still happens in the invite branch further down.
+  // A SWUSim room APCu has lost comes back from its disk snapshot first, so the invite resolves (SWUSim/Rooms.php).
+  // A quiet end-game screen frees its seat here too: the capacity pre-check below reads the room before any lock.
+  if ($privateInviteCode !== '' && function_exists('SWURoomPrepareForInvite')) SWURoomPrepareForInvite($privateInviteCode, time());
   if ($privateInviteCode !== '') {
     $inviteKey   = LobbyKeyForInvite($privateInviteCode, $rootName);
     $inviteLobby = $inviteKey !== null ? apcu_fetch($inviteKey) : false;
@@ -159,6 +168,39 @@
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
+    // High Ground: any 1v1 format that isn't rated. Checked before the deck, so the reason is the format, not the list.
+    if ($createHighGround && ($hgRefusal = SWUHighGroundCreateRefusal()) !== null) {   // open to everyone since 2026-11-04 (DevGate.php)
+      http_response_code(403);
+      $response->success = false;
+      $response->message = $hgRefusal;
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
+    if ($createHighGround && ($hgRefusal = SWUHighGroundFormatRefusal($format)) !== null) {
+      http_response_code(400);
+      $response->success = false;
+      $response->message = $hgRefusal;
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
+    // Limited (Sealed): a private room only, created with NO deck — decks are built later from the packs the room opens
+    // (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md). An invite join adopted the room's format
+    // above, so it lands here too. Creation is behind its own gate (SWUSim/Mod/DevGate.php).
+    $limitedRefusal = null;
+    if (SWUFormatIsLimited($format)) {
+      if (!$createPrivate && $privateInviteCode === '')                                   $limitedRefusal = 'Limited is played in a private room.';
+      elseif ($createPrivate && ($limitedRefusal = SWULimitedCreateRefusal()) !== null)   http_response_code(403);
+      elseif ($createPrivate && !in_array(strval($_POST['limitedMode'] ?? ''), ['sealed', 'draft'], true)) $limitedRefusal = 'Choose Sealed or Draft.';
+    }
+    if ($limitedRefusal !== null) {
+      $response->success = false;
+      $response->message = $limitedRefusal;
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
     // No account is required to play any SWUSim format (owner, 2026-09-21) — guests lose only chat (SubmitChat.php).
     // Arenabot keeps its own switch, the same one the menu uses, so a hand-built request cannot bypass it:
     // SWUSim/Mod/DevGate.php SWUBotPracticeAllowed().
@@ -214,9 +256,12 @@
   $isAzukiTutorialRequest = ($rootName === 'AzukiSim' && $format === 'tutorial');
   $isHellbreakTutorialRequest = ($rootName === 'HellbreakSim' && $format === 'tutorial');
   $isTutorialRequest = $isAzukiTutorialRequest || $isHellbreakTutorialRequest;
+  // A Limited seat brings no deck: whatever was posted is dropped, so a reclaim can never write one onto the seat.
+  $isLimitedRequest = ($rootName === 'SWUSim' && function_exists('SWUFormatIsLimited') && SWUFormatIsLimited($format));
+  if ($isLimitedRequest) { $deckLink = ''; $preconstructedDeck = ''; }
 
   // Require either deckLink or preconstructedDeck for player-authored games.
-  if(!$isTutorialRequest && empty($deckLink) && empty($preconstructedDeck)) {
+  if(!$isTutorialRequest && !$isLimitedRequest && empty($deckLink) && empty($preconstructedDeck)) {
     $response->success = false;
     $response->message = "Either deck link or preconstructed deck is required.";
     header('Content-Type: application/json');
@@ -224,7 +269,7 @@
     exit;
   }
 
-  $deckValidation = $isTutorialRequest
+  $deckValidation = ($isTutorialRequest || $isLimitedRequest)
     ? ['success' => true, 'message' => '']
     : ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format, $joiningUserId);
   if(!$deckValidation['success']) {
@@ -444,7 +489,11 @@
         continue;
       }
       // Bots in a Twin Suns room are placeholders (LobbyHasRoomForHuman): a room full only because of them is not full.
-      if (!LobbyHasRoomForHuman($lobby)) { $inviteRefusal = $roomFullMessage($lobby); continue; }
+      // Someone already seated here (the link opened again, in this browser or another) is not a new occupant: the mutation
+      // below gives them their seat back before it checks capacity, so a full room must not turn them away first.
+      if (!LobbyHasRoomForHuman($lobby) && LobbyFindExistingSeat($lobby, $joiningUserId, $presentedAuthKey) === null) {
+        $inviteRefusal = $roomFullMessage($lobby); continue;
+      }
 
       // The scan above is a LOOKUP, not a claim: it tells us which key to mutate. Every eligibility
       // condition is re-checked inside the mutation, because the room can fill or start while the
@@ -459,13 +508,13 @@
       // dropped" a real causal chain. It also collapses the SECOND resolution of the same deck
       // link: ValidateDeckSubmissionForQueue at the top of this file already fetched it once.
       $isRoom   = $joinAdapter !== null && $joinAdapter->wantsWaitingRoom($snapshot);
-      $resolved = $isRoom ? _SWURoomResolveDeck($snapshot, $deckLink, $preconstructedDeck)
+      $resolved = ($isRoom && !$isLimitedRequest) ? _SWURoomResolveDeck($snapshot, $deckLink, $preconstructedDeck)
                           : ['ok' => true, 'leaders' => [], 'base' => '', 'cards' => []];
 
-      $joinErr = null; $newPlayer = null; $playerID = 0;
+      $joinErr = null; $newPlayer = null; $playerID = 0; $limitedJoinRefusal = null;
       $stored = LobbyMutate($targetKey, function ($lobby) use (
-          $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
-          $presentedAuthKey, $shareAnonymizedGameplayData, $joiningUsername, &$joinErr, &$newPlayer, &$playerID) {
+          $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $rootName, $isLimitedRequest,
+          $presentedAuthKey, $shareAnonymizedGameplayData, $joiningUsername, &$joinErr, &$newPlayer, &$playerID, &$limitedJoinRefusal) {
         if ($isRoom && !empty($lobby->gameName))                      { $joinErr = 'started'; return false; }
         // ALREADY IN THIS ROOM? Re-seat them. Checked BEFORE the capacity gate on purpose: you are
         // not a new occupant of a room you are already sitting in, and a full room would otherwise
@@ -477,6 +526,8 @@
           $lobby->numPlayers = count(array_filter($lobby->players, fn($p) => $p instanceof Player));
           return true;
         }
+        // A 1v1 room's end-game screen that has gone quiet (tab closed) frees its seat first (SWUSim/Rooms.php).
+        if (function_exists('SWURoomReleaseQuietSeats')) SWURoomReleaseQuietSeats($lobby, time());
         // A full room whose bots are placeholders hands the OLDEST bot's seat to this human (Decision 6,
         // SWUSim/docs/todo-twinsuns-fill-bot.md). No-op for every other room.
         LobbyYieldBotSeatIfFull($lobby);
@@ -492,8 +543,13 @@
         $playerID  = _SWUNextPlayerID($lobby);
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
         $newPlayer->setUsername($joiningUsername);
-        if ($isRoom) _SWURoomApplyResolvedDeck($newPlayer, $resolved);
+        if ($isRoom && !$isLimitedRequest) _SWURoomApplyResolvedDeck($newPlayer, $resolved);
+        if ($isLimitedRequest) $newPlayer->touch();   // no deck to resolve, so start the presence clock here
         $lobby->players[] = $newPlayer;
+        if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWUHighGroundOnJoin($lobby, $newPlayer);   // back of the line
+        // A Limited room seats only during setup, and only up to its mode's cap. A reclaim never reaches here.
+        if (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($lobby)
+            && ($limitedJoinRefusal = SWULimitedOnJoin($lobby, $newPlayer)) !== null) { $joinErr = 'limited'; return false; }
         LobbyEnsureFixedSeats($lobby);
         // Team rooms: force the joiner onto the only team with room; otherwise they pick (spec §4.3).
         // Must run AFTER the player is appended so the counts include them.
@@ -506,6 +562,7 @@
       // pre-lock gates above, so they get the same two messages rather than the catch-all.
       if ($joinErr === 'started') { $inviteRefusal = 'That game has already started. You can still watch it as a spectator.'; continue; }
       if ($joinErr === 'full')    { $inviteRefusal = $roomFullMessage($stored ?? $snapshot); continue; }
+      if ($joinErr === 'limited') { $inviteRefusal = $limitedJoinRefusal; continue; }
       if ($joinErr !== null) continue;
       if ($stored === null) {
         $response->success = false;
@@ -515,6 +572,9 @@
         exit;
       }
       $lobby = $stored;
+      if (!empty($lobby->roomMatchId) && function_exists('SWURoomSave')) SWURoomSave($lobby);   // a new seat in a 1v1 room
+      elseif (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSaveLatest(strval($lobby->id));   // …or a High Ground room
+      elseif (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($lobby)) SWURoomSaveLatest(strval($lobby->id));   // …or a Limited room
 
       // Game creation stays OUTSIDE the mutation: it writes files and rows, which is exactly the
       // I/O the lock must not span. Only a non-room private lobby reaches it here (a room waits
@@ -551,6 +611,7 @@
       $response->seat   = $newPlayer->getSeat();
       $response->inviteCode = $lobby->inviteCode;
       $response->casterMode = !empty($lobby->casterMode);
+      if (function_exists('SWUIsLimitedRoom') && SWUIsLimitedRoom($lobby)) $response->limited = true;   // additive: Limited rooms only
       if (isset($lobby->gameName) && $lobby->gameName) $response->gameName = $lobby->gameName;
       header('Content-Type: application/json');
       echo json_encode($response);
@@ -596,8 +657,10 @@
     // format not solo/local" — which for a private lobby is every format a human plays against another.
     $createAdapter = LobbyAdapterFor($rootName);
     $createIsRoom  = $createAdapter !== null && $createAdapter->wantsWaitingRoom($lobby);
-    if ($createIsRoom) _SWURoomApplyResolvedDeck($newPlayer, _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck));
+    if ($createIsRoom && !$isLimitedRequest) _SWURoomApplyResolvedDeck($newPlayer, _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck));
     $lobby->players = array($newPlayer);
+    if ($createHighGround) SWUHighGroundCreate($lobby, $newPlayer);   // 16 places, the line, Tonight
+    if ($isLimitedRequest) { SWULimitedCreate($lobby, $newPlayer, strval($_POST['limitedMode'])); $newPlayer->touch(); }   // the room's mode, settings + seats
 
     apcu_store($lobbyId, $lobby, $ttl);
     // O(1) invite lookup. Three call sites used to walk the WHOLE apcu cache — which also holds
@@ -615,6 +678,14 @@
     $response->casterMode = !empty($lobby->casterMode);
     $response->maxPlayers = $lobby->maxPlayers;
     $response->isRoom = $createIsRoom;
+    if ($createHighGround) {
+      SWURoomSave($lobby);              // a persistent room from the start: it outlives an APCu wipe
+      $response->highGround = true;     // additive: only High Ground creations carry it
+    }
+    if ($isLimitedRequest) {
+      SWURoomSave($lobby);              // an event outlives APCu: persistent from the start
+      $response->limited = true;        // additive: only Limited creations carry it
+    }
 
     header('Content-Type: application/json');
     echo json_encode($response);

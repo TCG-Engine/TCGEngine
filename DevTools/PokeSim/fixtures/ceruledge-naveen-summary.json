@@ -1,0 +1,38 @@
+{
+    "seed": 120001,
+    "pairs": 100,
+    "policy": "5b54d8c10457ed84",
+    "variants": {
+        "baseline": {
+            "games": 400,
+            "complete": 400,
+            "won": 232,
+            "by2ExAttack": 207,
+            "by4Ready330": 121,
+            "by5Ready330": 200,
+            "naveen": {
+                "seen": 0,
+                "uses": 0,
+                "discardedEnergy": 0
+            }
+        },
+        "lillie-to-naveen": {
+            "games": 400,
+            "complete": 400,
+            "won": 235,
+            "by2ExAttack": 207,
+            "by4Ready330": 130,
+            "by5Ready330": 213,
+            "naveen": {
+                "seen": 208,
+                "uses": 126,
+                "discardedEnergy": 251
+            }
+        }
+    },
+    "pairedWinDelta95ApproxPP": [
+        0.75,
+        -5.075249486412352,
+        6.575249486412352
+    ]
+}

@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch239.json",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T09:59:39.731288+00:00",
+  "fixtures": [
+    {
+      "slug": "card-heat-wave-four-live-sparse-actual-destroyed-equipment-adds-one-to-already-attacking-first-phoenix-flame",
+      "fixture_sha256": "bd89dfc5add6515603fc59a19e7cdba9bc070f863b6f78a73dbc7a9041301a90",
+      "passed": true,
+      "result": "[PASS] heat_wave / lean four-live meaningful positive"
+    },
+    {
+      "slug": "card-ancestral-harmony-blue-four-live-sparse-actual-top-combo-banish-permission-and-real-four-damage-attack",
+      "fixture_sha256": "8e03dc01aa1087c1688ecac5392a15d6a3ba151d85fff97fcee4dc3a5f5a6c3d",
+      "passed": true,
+      "result": "[PASS] ancestral_harmony_blue / lean four-live meaningful positive"
+    },
+    {
+      "slug": "card-hyper-driver-red-four-live-sparse-actual-paid-one-cost-item-enters-owned-with-three-steam",
+      "fixture_sha256": "0471c9df7e777ddbe014a39ef852b65690567e9e150e46213e30d0859932633b",
+      "passed": true,
+      "result": "[PASS] hyper_driver_red / lean four-live meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-heat-wave-four-live-sparse-actual-destroyed-equipment-adds-one-to-already-attacking-first-phoenix-flame",
+      "returncode": 0,
+      "stdout": "[PASS] heat_wave / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ancestral-harmony-blue-four-live-sparse-actual-top-combo-banish-permission-and-real-four-damage-attack",
+      "returncode": 0,
+      "stdout": "[PASS] ancestral_harmony_blue / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hyper-driver-red-four-live-sparse-actual-paid-one-cost-item-enters-owned-with-three-steam",
+      "returncode": 0,
+      "stdout": "[PASS] hyper_driver_red / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

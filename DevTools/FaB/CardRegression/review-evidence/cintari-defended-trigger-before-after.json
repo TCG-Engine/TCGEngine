@@ -1,0 +1,144 @@
+{
+  "status": "NATIVE_MISSING_DEFENDED_TRIGGER_RESPONSE_WINDOW_FIXED_BOUNDED",
+  "issue_id": "FAB-REG-049",
+  "root_cause_group": "cintari_defended_trigger_response_window",
+  "new_distinct_root_cause_group": true,
+  "before_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "after_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+  "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "external_auth_rebind": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\external-auth-runtime-delta-20261026.json",
+    "sha256": "d4edb536dea04b7f9e4af52c93c59c80f8227e96f6ea21c6802dc6dd02d2fb87",
+    "user_commit": "1d070d851fa3506069e261f35c2ce8b86215a23c",
+    "auth_sha256": "b1c169fbb58e28703cca927dfed10c7b338c4e8d10b81dfe5449e472e016bb6c",
+    "preserved": true,
+    "scope": "Only externally committed Auth additions differ from f3. Original recording/source application/components/ROS compatibility keep f3 context; two fresh unchanged-fixture replays qualify currentF56."
+  },
+  "unchanged_correct_probe": {
+    "path": "card-regression-batch216-cintari-probe.json",
+    "sha256": "9f19e21ad056fc2dc3f35696dfce2a2e7d81feec0fb192827d612cfcb168ea2a",
+    "source_oracles": 2194,
+    "persisted_native_oracles": 2193,
+    "actions": 33
+  },
+  "native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-native-before405\\card-regression-batch216-cintari-probe.recording-results.json",
+    "sha256": "1804911af522ab18a289365033b39e30b553c88dd9c354821200f9b72efe3ab0",
+    "receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-native-before405\\receipt.json",
+      "sha256": "1ed114372308d25001e5605101ed0ce7a16a300256b5441931b2eb9870cf57af"
+    },
+    "error": "Expected Stack count 1, got 0.",
+    "successful_actions": 13,
+    "same_initial_sha256": "a64ac442094e6624daf2ffe949311c0230ee2ec353e00e89d21f96bebadf979b",
+    "same_action_prefix_as_after": true,
+    "fixture_saved": false,
+    "observed_window": "DEFEND_PRIORITY",
+    "scope": "After completed actual AA defense declaration, correct expected trigger Stack1 was absent/actual0. This proves missing responseable WHEN layer, not a separate old physical-buff target or duration defect."
+  },
+  "repair": {
+    "source_paths": [
+      "FaBSim/Custom/CRUCards.php",
+      "FaBSim/Custom/ROSCards.php"
+    ],
+    "source_application": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-trigger-apply-backup\\application.json",
+      "sha256": "7d9703835db6f4c4ddfd125de528c91f9d010d53f740990ac698eff32cf2bbd5"
+    },
+    "application_manifest": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-trigger-v3-crlf\\application-manifest.json",
+      "sha256": "fcea2de3d84e93dbdc170577489a396b581dda1ef27fcf48b94269a525b9a729"
+    },
+    "independent_source_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-defended-trigger-independent-source-review-106.json",
+      "sha256": "d8a7b7c43cd32350b0d55565d5fb8ae58e92496b6d489a4d63ac5e7fe20fef73"
+    },
+    "final_eol_component_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-v3-eol-component-independent-review-106.json",
+      "sha256": "79bb70a80efac9d020d38da10e1bd1a482ee45dfe4ee9dcdc2859c971f137e60"
+    },
+    "mechanism": "Named Cintari producer queues existing ROS trigger after completed AA defense group, with actual physical source/controller/epoch. Four responses precede physical weapon5 +1 tag. Attackproxy8 reads actual source dynamically; no duplicate power grant. Existing old physical source target/duration was not a separate identified defect.",
+    "core_generated_schema_changed": false,
+    "crlf_preserved": true
+  },
+  "native_after": {
+    "fixture": "Tests/Integration/FaBSim/card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+    "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+    "review_evidence": "review-evidence/sparse216-cintari-f56-qualified-saved-review.json",
+    "all_original_actions_oracles_unchanged": true,
+    "native_assertions": 2193,
+    "recorded_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+    "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+    "original_f3_replays": [
+      {
+        "path": "card-regression-replay-cintari-f3-20261026-r1.json",
+        "sha256": "87fd62679ec0832b5dbb5a9aa45ca48e476e260f09a6449beb29801b4bea9fce",
+        "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1"
+      },
+      {
+        "path": "card-regression-replay-cintari-f3-20261026-r2.json",
+        "sha256": "a61d13e609476764ccad95228388dcecce6b634aed8eb429d2005a7de1dcbf4d",
+        "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1"
+      }
+    ],
+    "fresh_f56_replays": [
+      {
+        "path": "card-regression-replay-cintari-f56-auth-rebind-r1.json",
+        "sha256": "642948bdc6f512a3e5366eab93ac3937eaa2f598acdcb99c566c63f4c6011a99",
+        "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+      },
+      {
+        "path": "card-regression-replay-cintari-f56-auth-rebind-r2.json",
+        "sha256": "ce2bc41e4d70e8959cc88dfc736b9069e70747348a89e064e852817ad736dbfb",
+        "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+      }
+    ],
+    "printed_semantics": "Real source5/base2 and actual proxy8; expected captured WHEN layer before power changes, four living manual responses then physical5+1, live computedpower3, actual3defense/0damage, no double counting, full closure retains physical weapon/tag."
+  },
+  "components": {
+    "path": "components/cintari_defended_trigger_component.php",
+    "sha256": "312c9283a29d5d2cee22d2348b902be4b06dac6540693353b645ce464f246d86",
+    "results": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-actual-components-results.json",
+      "sha256": "07cd337e1fb63d5e7541065c9a1da8af04078e9253fdaf277ac1e63a4d8be81b"
+    },
+    "groups": 11,
+    "checks": 20,
+    "executed_runtime_context": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+    "functions_source_bytes_unchanged_at_current_runtime": true,
+    "actual_function_boundary_doubles_explicit": true,
+    "scope": "Actual producer/resolver/physical epoch hook, ROS producer/dispatcher, source suppression predicate, tag helper and WTR live power reader extracted from exact files. State/zone/type/unrelated power gates are controlled doubles. Native completed declaration/all-four priority, source/proxy movement and full chain cleanup remain separately required unchanged four-seat probe gates. Actual EndTurn expiry is NOT executed or claimed by this component.",
+    "tests": [
+      "inactive_or_proxy_source_at_event",
+      "queue_once_after_completed_AA_group",
+      "printed_source_suppressed_at_event",
+      "non_AA_defender",
+      "queued_ability_survives_later_suppression",
+      "attack_proxy_departed_source_survives",
+      "source_left_arena_before_resolution",
+      "source_leaves_returns_persistent_UID",
+      "same_arena_move_retains_instance",
+      "proxy_does_not_acquire_source_epoch",
+      "physical_tag_is_live_power_not_double_counted"
+    ]
+  },
+  "compatibility": {
+    "path": "card-regression-replay-cintari-f3-ros-mauvrion-compat.json",
+    "sha256": "c739a28de652965810d0bdba68b33608674feb2abeedc4a43c02f37548a4ed93",
+    "passed": 1,
+    "executed_runtime_context": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+    "scope": "Existing ROS Mauvrion trigger witness only; omitted Haze is not claimed rerun."
+  },
+  "negative_control_ledger": {
+    "total": 111,
+    "phase_total": 27,
+    "sha256": "48ca0b6a56f8087484879d21db9d6bfd3185e012c11763a6f4853d582897fcaf",
+    "changed": false,
+    "new_synthetic_controls": 0
+  },
+  "limits": [
+    "Actual end-turn expiry and physical source Stack detours are not natively tested.",
+    "Normal removal/return and same-arena identity are bounded component contracts; no universal identity framework claim.",
+    "No Core/generated changes, sibling/support/new primary breadth beyond Cintari, full suite or blanket current-runtime old-corpus certification."
+  ]
+}

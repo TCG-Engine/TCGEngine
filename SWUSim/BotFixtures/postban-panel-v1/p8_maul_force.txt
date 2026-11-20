@@ -1,0 +1,41 @@
+# Post-ban TEST PANEL v1 (owner 2026-11-12), slot 8. Ping / Force engine
+# Deck: "Maul Blue (Force) Icons"; source: transcribed from the owner image (SWU Forge render)
+# Author: Star Wars Dad
+# Style: softcontrol
+
+Leader
+1 LOF_009
+
+Base
+1 LOF_020
+
+Deck
+3 LOF_129
+3 LOF_031
+3 LOF_061
+3 SEC_028
+2 JTL_144
+3 ASH_030
+2 HMW_039
+3 IC27_102
+2 SEC_038
+3 ASH_048
+2 LOF_231
+3 LOF_035
+3 JTL_043
+1 SEC_077
+3 HMW_185
+2 LAW_133
+2 LOF_070
+2 IC27_026
+2 LAW_044
+3 ASH_053
+1 JTL_143
+
+Sideboard
+2 SEC_163
+2 JTL_078
+1 SEC_077
+1 LAW_133
+2 ASH_148
+1 JTL_143

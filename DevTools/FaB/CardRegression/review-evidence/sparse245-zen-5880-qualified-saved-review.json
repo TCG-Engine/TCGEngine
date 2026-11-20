@@ -1,0 +1,217 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "input_sha256": "b74098a9b2d45b3a43fbc015c519cff07d1e8cf83db9ed1f7beaa04eed085620",
+  "manifest_sha256": "46fa6483bdd8f09b58aca4a65dc2d050aec3aaf6ef7eefce5e2466975e6d891e",
+  "status": "INDEPENDENT_ACTUAL_SAVED_SEMANTIC_APPROVAL_REPLAYS_SEPARATE",
+  "method": "Manual priorapprovedprinted/source rationale reused plus independent actualsavedstream/oracle/physicalsnapshot audit using schema-aware read-only positionalparser; no syntheticrulesmodel, PHP orengineexecution.",
+  "source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse245-zen-only-independent-approval.json",
+    "sha256": "a8fff97bef0dc38762a6e069630389fef012a25dd30570eb68842eee662c2733"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch245-zen-20261026T123649Z-6adf4961cd08f.json",
+    "sha256": "2817a5425ac9b0aac90d4507c97e4bcaa9c273b8cc5c9d47a28d872f44c2abcb",
+    "root_status": "recorded_semantically_checked",
+    "actions": 26,
+    "assertions": 690
+  },
+  "fixtures": [
+    {
+      "slug": "card-zen-four-live-sparse-actual-chi-paid-combo-search-banish-and-real-permitted-attack",
+      "source_case_index": 0,
+      "primary_card_id": "zen",
+      "group_id": "identity:zen",
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_FOUR_LIVE_ZEN_CHI_SEARCH_REAL_PERMISSION",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch245-zen.json",
+      "source_spec_sha256": "b74098a9b2d45b3a43fbc015c519cff07d1e8cf83db9ed1f7beaa04eed085620",
+      "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "actions": 26,
+      "native_assertions": 690,
+      "manual_passes": 21,
+      "manual_priority_passes": 20,
+      "defender_declaration_finish_inputs": 1,
+      "administrative_endphase_inputs": 0,
+      "card_property_assertions": 141,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4170ffbe52cef4488c242d153db65f6b0abd07f30dd0e08ec9d952bf55421f6d",
+        "actions.json": "0d87f7df2ae0b594e2512211ddfb1df01a4562b70d22d8c7448afe028e819a6a",
+        "assertions.json": "670f6fc39453324dedf30b538afe52603925278814947a4c1cf60fb33e04ae04",
+        "expected_final_gamestate.txt": "75e81ef9d5b41b279590b09970014f06f5ad534335c751a67a78acf5ae41ff8a",
+        "meta.json": "98682f04aad758003c5c285d4286ef501f4c23f45ea8784c89768a8b6fbc8664"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4170ffbe52cef4488c242d153db65f6b0abd07f30dd0e08ec9d952bf55421f6d",
+        "actions.json": "0d87f7df2ae0b594e2512211ddfb1df01a4562b70d22d8c7448afe028e819a6a",
+        "assertions.json": "670f6fc39453324dedf30b538afe52603925278814947a4c1cf60fb33e04ae04",
+        "expected_final_gamestate.txt": "75e81ef9d5b41b279590b09970014f06f5ad534335c751a67a78acf5ae41ff8a",
+        "meta.json": "98682f04aad758003c5c285d4286ef501f4c23f45ea8784c89768a8b6fbc8664"
+      },
+      "fixture_sha256": "e8806bdbb2a85f7c3d85ebb553d8847697c964a3874f240729daf4052d9aa34e",
+      "author_only_checks": [],
+      "checkpoints": [
+        {
+          "checkpoint": "full_initial_legal_mystic_ninja_real_chi_and_combo_deck",
+          "step": 0,
+          "native_assertions": 120
+        },
+        {
+          "checkpoint": "actual_hero_chi_payment_normal_PITCH_empty_DQ",
+          "step": 1,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "real_chi_three_paid_before_responses_AP_retained",
+          "step": 2,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_zen_ability_response_1",
+          "step": 3,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "real_zen_ability_response_2",
+          "step": 4,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "real_zen_ability_response_3",
+          "step": 5,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "fourth_zen_response_actual_search_choice_source_retained",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "actual_selected_combo_public_banish_permission_after_search_complete",
+          "step": 7,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_banish_attack_target_preflight",
+          "step": 8,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_same_banished_combo_played_zero_cost_AP_paid",
+          "step": 9,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_permitted_attack_response_1",
+          "step": 10,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "real_permitted_attack_response_2",
+          "step": 11,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "real_permitted_attack_response_3",
+          "step": 12,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "fourth_attack_response_no_combo_history",
+          "step": 13,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "attack_window_manual_response_1",
+          "step": 14,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "attack_window_manual_response_2",
+          "step": 15,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "attack_window_manual_response_3",
+          "step": 16,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "fourth_attack_window_response",
+          "step": 17,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "actual_defender_declines_blocks",
+          "step": 18,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "defend_window_manual_response_1",
+          "step": 19,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "defend_window_manual_response_2",
+          "step": 20,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "defend_window_manual_response_3",
+          "step": 21,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "fourth_defend_window_response",
+          "step": 22,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "reaction_window_manual_response_1",
+          "step": 23,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_window_manual_response_2",
+          "step": 24,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_window_manual_response_3",
+          "step": 25,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_fourth_reaction_response_real_damage",
+          "step": 26,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "full_final_actual_combo_from_banish_damage_and_owned_tiger",
+          "step": 26,
+          "native_assertions": 130
+        }
+      ],
+      "findings": [
+        "Exact26supportednativeinputs/690persistedassertions match approvedsingleZen source in order, no extra/omitted actions/oracles.21Passinputs=20realpriorityresponses+1P4defenderdeclarationfinish, fouractorsreal.",
+        "ActualInnerChi5 Handpitch3 paysChi3 fromHeroABI7SourceHero1 (virtualOwner0/Controller1), leavesR0/Chi0/AP1 beforefourresponses. Sourceheroretained, firstthree responses produce no earlysearch/token.",
+        "Fourthabilityresponse boundary6 retains ABI7onStack duringMZMULTICHOOSE, createsownedTiger8Hand and stagesactualsoleComboHundredWinds6Deck->Temp. Actualanswer boundary7 moves same6publicBanish/Playable1 and drainsability; no substituteUID/syntheticpermission.",
+        "Actualclick sameBanish6 andadjacentP4target spendsrealAP1->0/cost0; sameUID6 StackATTACK SourceBanish thenrealChain6. PrintedfirstHundredWinds3power/ownGA, noearlierCombohistory, yields actualP4HP20->17 unblocked. StopsDAMAGE/AP0 beforegoAgainAPrefund.",
+        "Fullinitial/finalfourlegalheroes20living/UPF1234/passive[] and all96manualpreferences matched; endpoints independently inspected allphysicalzones. ExactfinalownHero1 +Tiger8Hand +Chi5Pitch +Hundred6Chain/FromBanish; emptyDeck/Temp/Banish/Stack/DQ/frames/pendingpayment/resolvingReaction."
+      ],
+      "limits": [
+        "OneZenrepresentative successfulChi/search/playpermission branch. NoTranscend/Tigerplay/Ephemeral/Combobonus/once-rejection/negativeChi/expiry/extra-target/RNGpermutation/hero-sibling/support-primary/full-card credit.",
+        "Prior sourceapproval105+completecurrentguards reused; independentlyviewedZen/Hundredfaces and manuallychecked physicalmath. KnownmiscachedlocalChiimage not used asprintedimageproof.",
+        "Read-onlysaveddatareview, noPHP/native/game/model/repositorymutation. Intermediatefacts bindactualpassednativeoracles/recordingstream, noextra independentprefixsnapshots claim.",
+        "Two focusedcleanreplays/faultqualification not assertedbythisproof. Positive-only breadthreview; noisolatednativecontrolinvented.",
+        "Haunting/Kayoholds not in source; noattempt/bug/coverage credit here."
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "limits": [
+    "Nativegames/replays belong to root; current18sourceguards independentlymatch5880context.",
+    "Oneactualsavedcaseonly; nohistoricalre-review/fullsuite/currentblanketreadiness."
+  ]
+}

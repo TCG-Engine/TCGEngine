@@ -2,7 +2,7 @@
 // FLAVOUR REGISTRY (RL bots spec, Section 5 "Flavour profiles"): the owner's flavour tags per ARCHETYPE, keyed by
 // leader + the base ("LEADER|BASE_ID", else "LEADER|Aspect", else "LEADER|*"), so any deck — not only the fixtures — gets its
 // flavours in live play. A deck not listed has none and plays its style alone. Source: the owner's labels (spec,
-// "Archetype vocabulary"), as tagged in SWUSim/Tests/BotFixtures/ash-meta-2026-09/README.md (bot_flavours_test.php
+// "Archetype vocabulary"), as tagged in SWUSim/BotFixtures/ash-meta-2026-09/README.md (bot_flavours_test.php
 // checks every fixture header against this table).
 require_once __DIR__ . '/../Rl/CardTags.php';
 require_once __DIR__ . '/BotTempo.php';

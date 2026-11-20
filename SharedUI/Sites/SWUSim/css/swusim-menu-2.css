@@ -122,6 +122,10 @@
        than its neighbours so the fourth card joins the set rather than shouting,
        and kept off the Command-green hue so it never reads as an aspect colour. */
     --tint-solo: oklch(0.795 0.092 148);
+    /* High Ground (warm gold, between PvP's amber and the hill's gold rim) and Limited (a cool violet, off the
+       Vigilance-blue and Cunning-yellow hues) — the same lightness and chroma band as the four above. */
+    --tint-hg:   oklch(0.800 0.095 88);
+    --tint-lim:  oklch(0.760 0.090 285);
 
     /* --- rim stops: a lit steel edge, translucent over glass - */
     --rim-hi: rgba(196, 214, 238, 0.60);
@@ -542,16 +546,15 @@
     grid-template-columns: minmax(0, 1fr);
     grid-auto-rows: 1fr;
 
-    /* FOUR modes now, so the tracks must divide 4 exactly — 1, 2 or 4 across,
-       never 3, which would strand a single card on its own row. Two-up starts
-       as soon as a card clears ~300px; four-up waits until each still clears
-       ~210px, below which these tall cards read as splinters. */
+    /* SIX modes now (owner, 2026-11-05: PvP · Twin Suns · High Ground over Arenabot · Limited · 1P Mode), so the
+       tracks must divide 6 exactly — 1, 2 or 3 across, never 4, which would strand two cards on a row of their
+       own. Two-up starts as soon as a card clears ~300px; three-up waits until each still clears ~300px. */
     @media (min-width: 620px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-auto-rows: auto;
     }
     @media (min-width: 1100px) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -590,8 +593,12 @@
     @media (min-width: 620px) {
       min-block-size: 520px;
     }
+    /* Three-up shows all SIX cards on one screen (owner, 2026-11-05): two rows share the viewport below the header,
+       so a card is half of what is left — smaller and squarer on a short screen, capped at the old 600px on a tall
+       one. The 180px is the header, the page gutters and the row gap. */
     @media (min-width: 1100px) {
-      min-block-size: 600px;
+      min-block-size: clamp(330px, calc((100vh - 180px) / 2), 600px);
+      min-block-size: clamp(330px, calc((100dvh - 180px) / 2), 600px);
     }
 
     /* --plane-art is declared HERE, so var(--sweep) resolves against
@@ -653,7 +660,11 @@
        neighbours (measured: 22-47px of spread at 900-1280). Fixing the art and
        flexing the BODY instead makes the row align by construction. */
     @media (min-width: 620px)  { flex: 0 0 auto; block-size: 320px; min-block-size: 0; }
-    @media (min-width: 1100px) { block-size: 336px; }
+    /* the art takes what the card has left after its text block (~205px), within 120–336px */
+    @media (min-width: 1100px) {
+      block-size: clamp(120px, calc((100vh - 180px) / 2 - 205px), 336px);
+      block-size: clamp(120px, calc((100dvh - 180px) / 2 - 205px), 336px);
+    }
 
     /* The card art plate. Crops are 350x270 landscape and the art well is tall,
        so `cover` takes a centre-right slice — deliberately off 50% because the
@@ -1513,6 +1524,111 @@
     gap: 6px;
     margin-block-start: var(--s-3);
   }
+
+  /* ---------- News & tips carousel (Welcome tab) ------------ */
+  /* the divider only separates it from content ABOVE it in the panel — first in the panel, the tab strip's own
+     bottom border already does that, and a second rule would stack under it */
+  .news:not(:first-child) {
+    margin-block-start: var(--s-4);
+    padding-block-start: var(--s-3);
+    border-block-start: 1px solid var(--edge);
+  }
+
+  .news__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-2);
+  }
+
+  .news__heading {
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--t-12);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .news__count {
+    font-size: var(--t-12);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
+  }
+
+  /* every slide in ONE cell: the viewport is as tall as the tallest slide, so paging never moves the panels below */
+  .news__viewport {
+    display: grid;
+    margin-block-start: var(--s-2);
+    touch-action: pan-y;
+  }
+
+  .news__slide {
+    grid-area: 1 / 1;
+    min-inline-size: 0;
+    transition: opacity 220ms var(--ease), translate 220ms var(--ease), visibility 0s;
+
+    /* inactive = inert (set server-side for the first paint, then by initNewsCarousel) */
+    &[inert] {
+      visibility: hidden;
+      opacity: 0;
+      translate: 8px 0;
+      transition: opacity 220ms var(--ease), translate 220ms var(--ease), visibility 0s 220ms;
+    }
+  }
+
+  .news__kind {
+    margin: 0;
+    font-size: var(--t-11);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .news__title {
+    margin: 3px 0 0;
+    font-family: inherit;
+    font-size: var(--t-15);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  /* always a horizontal 2:1 rectangle, whatever the source's shape */
+  .news__img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    margin-block-start: var(--s-2);
+  }
+
+  .news__body {
+    margin: 6px 0 0;
+    font-size: var(--t-13);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .news__slide .keys { margin-block-start: var(--s-2); }
+
+  .news__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-2);
+    margin-block-start: var(--s-2);
+  }
+
+  .news__dots { display: flex; }
+
+  .news__nav { display: flex; gap: var(--s-1); }
+
+  /* square 44px arrows; padding and the dots live at the end of the file, past the legacy button alias */
+  .news__arrow { inline-size: var(--tap); }
 
   kbd {
     --cut: 6px;
@@ -3654,6 +3770,47 @@ body:has(.home-header) {
   font-weight: 700;
 }
 
+/* News & tips carousel controls (Welcome tab). The rule above (0-3-0) would pad the square arrows, and components.css's
+   `button:not(.btn):not(.switch)` alias (0-2-1, its ::before/::after 0-2-2, :hover 0-3-1) would give each dot a fill,
+   a chamfer and a 1.1x hover scale. Every dot is a 28x44 target; its pip is the ::before. */
+.news .news__arrow.swu2-btn:not(.btn):not(.switch) { padding-inline: 0; }
+
+.news .news__dot:not(.btn):not(.switch) {
+  inline-size: 28px;
+  block-size: var(--tap, 44px);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: none;
+  animation: none;
+  transform: none;
+  filter: none;
+}
+.news .news__dot:not(.btn):not(.switch)::before {
+  content: "";
+  position: absolute;
+  inset: auto;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  z-index: 0;
+  inline-size: 10px;
+  block-size: 4px;
+  translate: -50% -50%;
+  background: var(--ink-3);
+  opacity: 0.5;
+  clip-path: none;
+  transition: inline-size 220ms var(--ease), background-color 220ms var(--ease), opacity 150ms var(--ease);
+}
+.news .news__dot:not(.btn):not(.switch)::after { content: none; }
+.news .news__dot:not(.btn):not(.switch):hover::before { opacity: 0.9; }
+.news .news__dot:not(.btn):not(.switch)[aria-current="true"]::before {
+  inline-size: 20px;
+  background: var(--gold);
+  opacity: 1;
+}
+
 /* Fields: `button, input, select, textarea { padding: 5px 7px }` (menuStyles.css:94) added
    block padding the design does not have. The inline padding already matched. */
 body:has(.home-header) .setup .input {
@@ -4601,6 +4758,79 @@ body:has(#cardDetail) .blocked-user-addrow {
 }
 body:has(#cardDetail) .blocked-user-addrow input { flex: 1 1 160px; margin-block-end: 0; }
 body:has(#cardDetail) .blocked-user-addrow button { flex: none; }
+
+/* Saved Decks → Import decks (SharedUI/Render/DeckLibrary.php RenderDeckImport). A row is the link box with its ✕
+   beside it and the row's result underneath; the ✕ is hidden while only one box is left, and the box then takes the
+   full width. */
+body:has(#cardDetail) .dl-import {
+  margin-block-start: var(--s-4);
+  padding-block-start: var(--s-4);
+  border-block-start: 1px solid var(--edge);
+}
+body:has(#cardDetail) .dl-import-title {
+  margin: 0 0 var(--s-1, 4px);
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#cardDetail) .dl-import-hint {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-12);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+body:has(#cardDetail) .dl-import-rows { display: grid; gap: var(--s-2); }
+body:has(#cardDetail) .dl-import-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px var(--s-2);
+}
+body:has(#cardDetail) .dl-import-input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+body:has(#cardDetail) .dl-import-remove {
+  min-inline-size: var(--tap);
+  min-block-size: var(--tap);
+  margin: 0;
+  padding-inline: 0;
+  font-size: var(--t-15);
+  line-height: 1;
+}
+body:has(#cardDetail) .dl-import-remove[hidden] { display: none; }
+body:has(#cardDetail) .dl-import-status {
+  grid-column: 1 / -1;
+  font-size: var(--t-12);
+  line-height: 1.4;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+body:has(#cardDetail) .dl-import-status:empty { display: none; }
+body:has(#cardDetail) .dl-import-row[data-state="ok"] .dl-import-status { color: var(--tint-solo); }
+body:has(#cardDetail) .dl-import-row[data-state="error"] .dl-import-status { color: oklch(0.780 0.120 28); }
+body:has(#cardDetail) .dl-import-row[data-state="error"] .dl-import-input { border-color: oklch(0.700 0.130 28); }
+body:has(#cardDetail) .dl-import-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-block-start: var(--s-3);
+}
+body:has(#cardDetail) .dl-import-controls button { margin: 0; }
+body:has(#cardDetail) .dl-import-plus { font-size: var(--t-15); line-height: 1; }
+body:has(#cardDetail) .dl-import-summary {
+  margin-block-start: var(--s-3);
+  font-size: var(--t-13);
+  line-height: 1.5;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+body:has(#cardDetail) .dl-import-summary:empty { display: none; }
 body:has(#cardDetail) .blocked-user-empty,
 body:has(#cardDetail) .blocked-user-list {
   margin: var(--s-3) 0 0;
@@ -5350,6 +5580,15 @@ body:has(.sb-row) .sb-actions {
   margin-block-start: auto;
   padding-block-start: var(--s-4);
 }
+/* The two-step sideboard (2026-11-03): Submit Sideboard · Ready for Game N · Cancel, then where this seat and the
+   opponent stand. Wraps on a phone. A ready seat's list is locked until it cancels. */
+body:has(.sb-row) .sb-actions { flex-wrap: wrap; gap: var(--s-3); }
+body:has(.sb-row) .sb-actions [hidden] { display: none; }
+body:has(.sb-row) .sb-status { display: flex; flex-direction: column; gap: 2px; min-inline-size: 0; font-size: var(--t-13); }
+body:has(.sb-row) #oppStatus { color: var(--ink-3); }
+body.sb-is-ready:has(.sb-row) .section .card { cursor: not-allowed; opacity: 0.55; }
+/* Return to Lobby / Return to Main Menu (they forfeit the Bo3, behind a confirm): the far end of the row, away from Submit. */
+body:has(.sb-row) .sb-leave { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-inline-start: auto; }
 
 body:has(.sb-row) .sb-main h2 {
   margin: 0 0 var(--s-2);
@@ -5431,8 +5670,10 @@ body:has(.sb-row) .fixed .slot img {
   object-fit: contain;
 }
 
-body:has(.sb-row) #status { margin-inline-start: var(--s-3); font-size: var(--t-13); color: var(--ink-2); }
+body:has(.sb-row) #status { font-size: var(--t-13); color: var(--ink-2); }
 
+/* Holding a finger on a card shows its preview (Sideboard.php): no iOS "Save image" callout or text selection over it. */
+body:has(.sb-row) :is(.grid .card, .fixed .slot) { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 /* the floating card preview, matching the deck grid's */
 body:has(.sb-row) #sbPreview {
   position: fixed;
@@ -5463,3 +5704,644 @@ body:has(.home-header) .tcgc-card:hover { color: var(--gold-hi); text-decoration
 #swupgnReplayEmpty[hidden] { display: none; }
 /* .match__meta is a single uppercase line in the games list; here it wraps instead of clipping. */
 #swupgnReplayList .match__meta { white-space: normal; overflow: visible; text-overflow: clip; }
+
+/* ══ HIGH GROUND ROOMS ═════════════════════════════════════════════════════
+   SharedUI/Render/WaitingRoom.php draws #hg-root in place of the seat tiles when the poll carries `highGround`
+   (docs/superpowers/specs/2026-10-30-swusim-high-ground-design.md). Same scope as the waiting room above
+   (`body:has(#wr-root) .wr-panel`), same recipes: chamfered wells, 44px controls, the room's pills. Every class is
+   hg- prefixed — `.line`, `.rule`, `.banner` are the kind of generic name the shared sheets already use. */
+body:has(#wr-root) .wr-panel #hg-root { display: grid; gap: var(--s-4); margin-block-end: var(--s-4); }
+body:has(#wr-root) .wr-panel .hg-format {
+  align-self: center;
+  font-size: var(--t-13);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-inline-end: var(--s-3);
+}
+
+/* ---------- the hill banner: the room's one big well ---------------------- */
+body:has(#wr-root) .wr-panel .hg-banner {
+  --cut: 12px;
+  --rim: 1px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  justify-items: start;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  background-image: linear-gradient(180deg, var(--gold-hi), var(--gold) 76%);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+body:has(#wr-root) .wr-panel .hg-banner::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--rim);
+  background-color: var(--e-sunk);
+  clip-path: polygon(var(--ci) 0, 100% 0, 100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%, 0 100%, 0 var(--ci));
+}
+body:has(#wr-root) .wr-panel .hg-banner-live,
+body:has(#wr-root) .wr-panel .hg-banner-next {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-hi);
+}
+body:has(#wr-root) .wr-panel .hg-vs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+body:has(#wr-root) .wr-panel .hg-vs-sep { font-size: var(--t-13); color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em; }
+body:has(#wr-root) .wr-panel .hg-contender { display: grid; gap: 2px; justify-items: start; min-width: 0; }
+body:has(#wr-root) .wr-panel .hg-who { font-size: var(--t-20); font-weight: 700; color: var(--ink); overflow-wrap: break-word; min-width: 0; }
+body:has(#wr-root) .wr-panel .hg-holds { font-size: var(--t-11); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .hg-ident { font-size: var(--t-12); color: var(--ink-3); overflow-wrap: anywhere; }
+body:has(#wr-root) .wr-panel .hg-ready-on  { color: var(--success, #59c27a); }
+body:has(#wr-root) .wr-panel .hg-ready-off { color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-wait,
+body:has(#wr-root) .wr-panel .hg-note,
+body:has(#wr-root) .wr-panel .hg-empty { font-size: var(--t-13); color: var(--ink-2); margin: 0; }
+
+/* ---------- host controls ------------------------------------------------- */
+body:has(#wr-root) .wr-panel .hg-toback { font-size: var(--t-11); text-transform: uppercase; letter-spacing: 0.04em; }
+body:has(#wr-root) .wr-panel .hg-contender .hg-row-ctl { margin-inline-start: 0; margin-block-start: 4px; }
+body:has(#wr-root) .wr-panel .hg-hostctl { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .hg-end-pick { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); font-size: var(--t-13); color: var(--ink-2); }
+body:has(#wr-root) .wr-panel .hg-end-pick[hidden] { display: none; }
+
+/* ---------- the line, the bleachers, Tonight ------------------------------ */
+body:has(#wr-root) .wr-panel .hg-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-5); align-items: start; }
+body:has(#wr-root) .wr-panel .hg-col { display: grid; gap: var(--s-2); min-width: 0; }
+body:has(#wr-root) .wr-panel .hg-h {
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#wr-root) .wr-panel .hg-line,
+body:has(#wr-root) .wr-panel .hg-bleachers { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+body:has(#wr-root) .wr-panel .hg-line-row,
+body:has(#wr-root) .wr-panel .hg-bleacher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s-2);
+  min-block-size: 40px;
+  padding: 4px var(--s-3);
+  background-color: var(--e-sunk);
+  border-inline-start: 2px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .hg-me { border-inline-start-color: var(--gold); }
+body:has(#wr-root) .wr-panel .hg-pos { min-inline-size: 1.4em; font-size: var(--t-12); font-weight: 700; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .hg-name { font-size: var(--t-15); font-weight: 600; color: var(--ink); }
+body:has(#wr-root) .wr-panel .hg-you { font-size: var(--t-12); color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .hg-line-row .hg-ident { flex: 1 1 8em; }
+body:has(#wr-root) .wr-panel .hg-row-ctl { display: inline-flex; gap: 4px; margin-inline-start: auto; }
+/* ↑ ↓ ✕ sit inside a row beside a name — like the room's Remove, the buttons that are not 44px. */
+body:has(#wr-root) .wr-panel .hg-up,
+body:has(#wr-root) .wr-panel .hg-down,
+body:has(#wr-root) .wr-panel .hg-toback,
+body:has(#wr-root) .wr-panel .hg-kick {
+  --btn-pad: 0 9px;
+  --btn-cut: 6px;
+  --btn-cut-inner: 5.2px;
+  min-block-size: 32px;
+  min-inline-size: 32px;
+  font-size: var(--t-14);
+  text-transform: none;
+}
+body:has(#wr-root) .wr-panel .hg-rule { margin: 0; font-size: var(--t-12); color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-tonight { width: 100%; border-collapse: collapse; font-size: var(--t-13); }
+body:has(#wr-root) .wr-panel .hg-tonight th {
+  padding: 6px var(--s-2);
+  text-align: start;
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-block-end: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .hg-tonight td { padding: 6px var(--s-2); color: var(--ink-2); vertical-align: top; border-block-end: 1px solid color-mix(in oklch, var(--edge) 55%, transparent); }
+/* break-word, not anywhere: `anywhere` shrinks the cell's min-content, so the table split "claudebot1" into "claudebot / 1"
+   on a phone. break-word only breaks a name that cannot fit at all. */
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-name { color: var(--ink); font-weight: 600; overflow-wrap: break-word; }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-id { overflow-wrap: anywhere; }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-deck { display: block; font-size: var(--t-11); color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-wld,
+body:has(#wr-root) .wr-panel .hg-tonight th:last-child { text-align: end; white-space: nowrap; font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-empty td { color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-mine { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+@media (max-width: 900px) {
+  body:has(#wr-root) .wr-panel .hg-cols { grid-template-columns: minmax(0, 1fr); }
+  body:has(#wr-root) .wr-panel .hg-banner { padding: var(--s-3) var(--s-4); }
+  body:has(#wr-root) .wr-panel .hg-who { font-size: var(--t-17); }
+}
+
+/* ===========================================================================
+   Limited room panel (SWUSim Sealed)
+   SharedUI/Render/WaitingRoom.php draws #lt-root in place of the seat tiles and the deck bar when the poll carries
+   `limited`; SWUSim/Limited/ui/limited-room.js fills it (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-
+   design.md §3.1). Same scope and recipes as the High Ground panel above. Every class is lt- prefixed.
+   =========================================================================== */
+body:has(#wr-root) .wr-panel #lt-root:empty { display: none; }
+body:has(#wr-root) .wr-panel .lt-panel { display: grid; gap: var(--s-4); margin-block-end: var(--s-4); }
+body:has(#wr-root) .wr-panel .lt-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-title {
+  margin: 0;
+  font-size: var(--t-20);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+body:has(#wr-root) .wr-panel .lt-phase,
+body:has(#wr-root) .wr-panel .lt-label {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#wr-root) .wr-panel .lt-phase { color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .lt-form { display: grid; gap: var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+}
+body:has(#wr-root) .wr-panel .lt-row--top { align-items: start; }
+body:has(#wr-root) .wr-panel .lt-row--tools { grid-template-columns: none; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-value { font-weight: 600; color: var(--ink); }
+body:has(#wr-root) .wr-panel .lt-seg { max-inline-size: 520px; }
+body:has(#wr-root) .wr-panel .lt-sel { display: block; max-inline-size: 320px; }
+body:has(#wr-root) .wr-panel .lt-sel .select { inline-size: 100%; }
+body:has(#wr-root) .wr-panel .lt-lineup { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-pack {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 320px) auto;
+  justify-content: start;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+}
+body:has(#wr-root) .wr-panel .lt-shuffle { min-inline-size: 44px; padding-inline: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-chaos { display: grid; grid-template-columns: repeat(3, minmax(0, 6rem)); gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-check { display: inline-flex; align-items: center; gap: var(--s-2); min-block-size: 44px; color: var(--ink-2); cursor: pointer; }
+body:has(#wr-root) .wr-panel .lt-check input { inline-size: 20px; block-size: 20px; accent-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-note { font-size: var(--t-13); color: var(--ink-2); margin: 0; }
+body:has(#wr-root) .wr-panel .lt-err { font-size: var(--t-13); font-weight: 600; color: #ff6b6b; }
+body:has(#wr-root) .wr-panel .lt-seats { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+body:has(#wr-root) .wr-panel .lt-seat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s-2);
+  min-block-size: 44px;
+  padding: 4px var(--s-3);
+  background-color: var(--e-sunk);
+  border-inline-start: 2px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-seat--me { border-inline-start-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-name { font-weight: 700; color: var(--ink); overflow-wrap: anywhere; min-width: 0; margin-inline-end: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-chip {
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  color: var(--ink-2);
+  border: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-chip--on { color: var(--success, #59c27a); border-color: currentColor; }
+body:has(#wr-root) .wr-panel .lt-chip--off { color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .lt-build { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-clock { font-size: var(--t-28, 28px); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink); }
+body:has(#wr-root) .wr-panel .lt-clock--warn { color: #ff6b6b; }
+body:has(#wr-root) .wr-panel .lt-result { font-size: var(--t-17); font-weight: 700; color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .lt-actions { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .lt-actions a.btn { display: inline-flex; align-items: center; justify-content: center; min-block-size: 44px; text-decoration: none; }
+body:has(#wr-root) .wr-panel .lt-kick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  padding: var(--s-3);
+  background-color: color-mix(in oklch, #ff6b6b 14%, transparent);
+  color: var(--ink);
+}
+/* Draft: the pod in seating order, with each seat's queued packs (Plan 3) */
+body:has(#wr-root) .wr-panel .lt-pod { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-podseat {
+  padding: 4px var(--s-3);
+  font-size: var(--t-12);
+  font-weight: 600;
+  color: var(--ink-2);
+  background-color: var(--e-sunk);
+  border: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-podseat--me { color: var(--ink); border-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-podseat--slow { color: #ff9a8a; border-color: #ff6b6b; }
+body:has(#wr-root) .wr-panel .lt-podseat--gone { text-decoration: line-through; opacity: 0.55; }
+body:has(#wr-root) .wr-panel .lt-q { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .lt-need { color: var(--gold-hi); }
+/* Bots (Plan 5): the seat chip, the small tag on tables / standings, the host's ✕ */
+body:has(#wr-root) .wr-panel .lt-chip--bot { color: var(--gold-hi); border-color: currentColor; }
+body:has(#wr-root) .wr-panel .lt-bot { font-size: var(--t-11); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .lt-remove-bot { margin-inline-start: auto; min-inline-size: 44px; }
+/* Swiss rounds: this round's tables and the standings (Plan 4) */
+body:has(#wr-root) .wr-panel .lt-sub { margin: 0; font-size: var(--t-13, 13px); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+body:has(#wr-root) .wr-panel .lt-tables { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+body:has(#wr-root) .wr-panel .lt-table {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s-3);
+  min-block-size: 44px;
+  padding: 4px var(--s-3);
+  background-color: var(--e-sunk);
+  border-inline-start: 2px solid var(--edge);
+  color: var(--ink);
+}
+body:has(#wr-root) .wr-panel .lt-table--me { border-inline-start-color: var(--gold); }
+body:has(#wr-root) .wr-panel .lt-vs { font-weight: 700; overflow-wrap: anywhere; min-width: 0; flex: 1 1 12rem; }
+body:has(#wr-root) .wr-panel .lt-score { font-weight: 700; font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .lt-standings { inline-size: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; color: var(--ink); }
+body:has(#wr-root) .wr-panel .lt-standings th {
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: start;
+  padding: 4px var(--s-2);
+  border-block-end: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .lt-standings td { padding: 6px var(--s-2); border-block-end: 1px solid var(--e-sunk); vertical-align: top; }
+body:has(#wr-root) .wr-panel .lt-standings .lt-name { margin: 0; }
+body:has(#wr-root) .wr-panel .lt-standings .lt-tb { display: none; font-size: var(--t-11); color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .lt-standings .lt-row--gone { opacity: 0.55; }
+body:has(#wr-root) .wr-panel .lt-standings .lt-row--gone .lt-name { text-decoration: line-through; }
+@media (max-width: 600px) {
+  body:has(#wr-root) .wr-panel .lt-standings .lt-omw,
+  body:has(#wr-root) .wr-panel .lt-standings .lt-gw,
+  body:has(#wr-root) .wr-panel .lt-standings .lt-ogw { display: none; }
+  body:has(#wr-root) .wr-panel .lt-standings .lt-tb { display: block; }
+}
+@media (max-width: 760px) {
+  body:has(#wr-root) .wr-panel .lt-row,
+  body:has(#wr-root) .wr-panel .lt-pack { grid-template-columns: minmax(0, 1fr); }
+  body:has(#wr-root) .wr-panel .lt-pack { grid-template-columns: minmax(0, 1fr) auto; }
+  body:has(#wr-root) .wr-panel .lt-pack .lt-label { grid-column: 1 / -1; }
+  body:has(#wr-root) .wr-panel .lt-actions .btn { flex: 1 1 100%; }
+}
+
+/* ===========================================================================
+   Limited deckbuilder (SWUSim/LimitedBuilder.php + SWUSim/Limited/ui/limited-builder.js)
+   docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.4. A standalone page like the sideboard
+   (RenderHead + RenderHeader, so the .home-header scope and the canonical controls apply), every class lb- prefixed.
+   Desktop: pool left, deck right. ≤900px: one column at a time (the Pool | Deck switch) and a sticky footer.
+   ⚠ Scoped `body:has(.lb-row)`, NOT `.lb-root`: Firefox never re-matches a :has() for elements parsed BEFORE its
+   target, so the row, the side column and the chat (all ahead of <main class="lb-root">) silently lost every rule
+   there and the desktop row fell back to display:block. The row is the first lb- element, as .sb-row is the sideboard's.
+   =========================================================================== */
+body:has(.lb-row) { margin: 0; min-block-size: 100vh; color: var(--ink); font-size: var(--t-14); }
+body:has(.lb-row) .lb-row { display: flex; align-items: stretch; gap: 0; }
+body:has(.lb-row) .lb-root {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  box-sizing: border-box;
+  padding: var(--s-4) clamp(var(--s-3), 4vw, var(--s-6));
+}
+body:has(.lb-row) .lb-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); }
+body:has(.lb-row) .lb-title { margin: 0; font-size: var(--t-20); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+body:has(.lb-row) .lb-timer { font-size: var(--t-20); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--gold-hi); }
+body:has(.lb-row) .lb-timer--warn { color: #ff6b6b; }
+body:has(.lb-row) .lb-opp { font-size: var(--t-13); color: var(--success, #59c27a); }
+body:has(.lb-row) .lb-switch { display: none; }
+body:has(.lb-row) .lb-cols { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--s-5); align-items: start; }
+body:has(.lb-row) .lb-pool,
+body:has(.lb-row) .lb-deck { display: grid; gap: var(--s-3); min-inline-size: 0; align-content: start; }
+body:has(.lb-row) .lb-tabs { max-inline-size: none; }
+body:has(.lb-row) .lb-search { display: block; }
+body:has(.lb-row) .lb-search .input { inline-size: 100%; }
+body:has(.lb-row) .lb-filters { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(.lb-row) .lb-tog {
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  padding-inline: var(--s-3);
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(.lb-row) .lb-tog--icon { padding-inline: var(--s-2); }
+body:has(.lb-row) .lb-tog--icon img { display: block; inline-size: 24px; block-size: 24px; opacity: 0.55; }
+body:has(.lb-row) .lb-tog[aria-pressed="true"] { color: var(--ink); outline: 2px solid var(--gold); outline-offset: -2px; }
+body:has(.lb-row) .lb-tog[aria-pressed="true"] img { opacity: 1; }
+body:has(.lb-row) .lb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--s-2); }
+body:has(.lb-row) .lb-card {
+  position: relative;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: translate 120ms var(--ease), opacity 120ms var(--ease);
+}
+body:has(.lb-row) .lb-card img { display: block; inline-size: 100%; aspect-ratio: 1; object-fit: cover; }
+body:has(.lb-row) .lb-card:hover { translate: 0 -2px; }
+body:has(.lb-row) .lb-card:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 2px; }
+body:has(.lb-row) .lb-card--used { opacity: 0.3; }
+body:has(.lb-row) .lb-card--on { outline: 3px solid var(--gold); outline-offset: -3px; }
+body:has(.lb-row) .lb-qty {
+  position: absolute;
+  inset-block-end: 4px;
+  inset-inline-end: 4px;
+  min-inline-size: 22px;
+  padding: 1px 5px;
+  font-size: var(--t-12);
+  font-weight: 700;
+  text-align: center;
+  color: var(--on-gold, #241a09);
+  background-color: var(--gold);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+/* an aspect group's label: a full-width row of the grid it heads */
+body:has(.lb-row) .lb-group {
+  grid-column: 1 / -1;
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-block-end: 1px solid var(--edge);
+  padding-block-end: 2px;
+}
+body:has(.lb-row) .lb-group:first-child { margin-block-start: 0; }
+body:has(.lb-row) .lb-empty { grid-column: 1 / -1; margin: 0; padding: var(--s-4); font-size: var(--t-13); color: var(--ink-3); }
+body:has(.lb-row) .lb-hint { margin: 0; font-size: var(--t-12); color: var(--ink-3); }
+body:has(.lb-row) .lb-slots { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--s-3); }
+body:has(.lb-row) .lb-slot {
+  display: grid;
+  place-items: center;
+  inline-size: clamp(140px, 14vw, 200px);
+  aspect-ratio: 628 / 450;
+  box-sizing: border-box;
+  border: 1px dashed var(--edge-strong, rgba(196, 214, 238, 0.35));
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+}
+body:has(.lb-row) .lb-slot--full { border-style: solid; border-color: var(--gold); }
+body:has(.lb-row) .lb-slot img { display: block; inline-size: 100%; block-size: 100%; object-fit: contain; }
+body:has(.lb-row) .lb-curve { display: flex; align-items: flex-end; gap: 6px; min-block-size: 86px; margin-inline-start: auto; }
+body:has(.lb-row) .lb-bar-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+body:has(.lb-row) .lb-bar-fill { display: block; inline-size: 14px; min-block-size: 2px; background-color: var(--gold); }
+body:has(.lb-row) .lb-bar-n,
+body:has(.lb-row) .lb-bar-c { font-size: var(--t-11); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(.lb-row) .lb-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2); font-size: var(--t-14); }
+body:has(.lb-row) .lb-legal { color: var(--success, #59c27a); font-weight: 700; margin-inline-start: var(--s-2); }
+body:has(.lb-row) .lb-errors { margin: 0; padding-inline-start: var(--s-5); color: #ff6b6b; font-size: var(--t-13); }
+body:has(.lb-row) .lb-errors:empty { display: none; }
+/* Desktop: the action bar and the chat share ONE sticky left column, bar on top (owner 2026-11-05: "above the chat
+   window … sticky like the chat window"). The column takes over the chat's own sizing — its width, gutter and sticky
+   pin — and the chat inside it is an ordinary flex child that gives up height to the bar.
+   ⚠ The chat rule is 1-2-1 so it beats the 1-1-1 `body:has(.home-header) #tcg-chat-panel { position: sticky }` above;
+   relative (not static) keeps a containing block for the glass ::before / ::after. */
+body:has(.lb-row) .lb-side {
+  --lb-gutter: 24px;
+  position: sticky;
+  inset-block-start: var(--lb-gutter);
+  align-self: flex-start;
+  flex: 0 0 clamp(180px, 18%, 320px);
+  inline-size: clamp(180px, 18%, 320px);
+  margin: var(--lb-gutter) 0 var(--lb-gutter) var(--lb-gutter);
+  max-block-size: calc(100vh - 2 * var(--lb-gutter));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+body:has(.lb-row) .lb-side #tcg-chat-panel {
+  position: relative; inset-block-start: auto; align-self: stretch; flex: 0 1 auto; inline-size: auto; margin: 0;
+  min-block-size: 160px; max-block-size: none;
+}
+body:has(.lb-row) .lb-foot {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2);
+  padding: var(--s-3);
+  background-color: var(--e-sunk);
+  border: 1px solid var(--edge);
+  border-radius: 4px;
+}
+body:has(.lb-row) .lb-foot-count,
+body:has(.lb-row) .lb-foot-timer { font-variant-numeric: tabular-nums; }
+body:has(.lb-row) .lb-foot-timer:empty { display: none; }
+body:has(.lb-row) .lb-foot-count { flex: 1 1 60%; }   /* > 50%, so Submit can never share its line */
+body:has(.lb-row) .lb-foot-timer { color: var(--gold-hi); font-weight: 700; }
+/* count + timer on the first line, Submit | Ready halves on the second, status and Back to the room full width */
+body:has(.lb-row) .lb-foot .swu2-btn { flex: 1 1 calc(50% - var(--s-2)); min-inline-size: 0; }
+body:has(.lb-row) .lb-status { flex: 1 1 100%; font-size: var(--t-13); color: var(--ink-2); }
+body:has(.lb-row) .lb-status:empty { display: none; }
+body:has(.lb-row) .lb-foot .lb-back { flex: 1 1 100%; text-decoration: none; text-align: center; }
+body:has(.lb-row).lb-is-ready .lb-card,
+body:has(.lb-row).lb-is-ready .lb-slot { cursor: default; }
+body:has(.lb-row) #lbPreview {
+  position: fixed;
+  z-index: 60;
+  display: none;
+  inline-size: 300px;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
+}
+@media (max-width: 900px) {
+  /* The chat is a block at the foot of the page, as on the sideboard (not the phone drawer + launcher). Same 1-2-1
+     specificity as the sideboard rule, so it beats ChatPanel's drawer on purpose. */
+  body:has(.lb-row) .lb-row { flex-direction: column; }
+  body:has(.lb-row) .lb-row .lb-root { order: 1; }
+  /* the side column dissolves: the bar and the chat become rows of .lb-row again — bar after the content, chat last */
+  body:has(.lb-row) .lb-side { display: contents; }
+  body:has(.lb-row) .lb-row #tcg-chat-panel {
+    order: 3; align-self: stretch; position: static; transform: none; flex: 0 0 auto; inline-size: auto; max-inline-size: none;
+    margin: 0 clamp(var(--s-3), 4vw, var(--s-6)) var(--s-5); block-size: auto; min-block-size: 0; max-block-size: 70vh; z-index: auto;
+  }
+  body:has(.lb-row) #tcg-chat-toggle { display: none; }
+  body:has(.lb-row) .lb-switch { display: grid; max-inline-size: none; }
+  body:has(.lb-row) .lb-cols { grid-template-columns: minmax(0, 1fr); }
+  body:has(.lb-row) .lb-cols[data-view="pool"] .lb-deck,
+  body:has(.lb-row) .lb-cols[data-view="deck"] .lb-pool { display: none; }
+  body:has(.lb-row) .lb-grid { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
+  body:has(.lb-row) .lb-curve { margin-inline-start: 0; }
+  body:has(.lb-row) .lb-foot {
+    order: 2;
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 20;
+    margin-block-end: var(--s-4);
+    padding: var(--s-2) clamp(var(--s-3), 4vw, var(--s-6));
+    border-width: 1px 0 0;
+    border-radius: 0;
+  }
+  body:has(.lb-row) .lb-foot-count,
+  body:has(.lb-row) .lb-foot .swu2-btn:not(.lb-back) { flex: 0 0 auto; }
+}
+
+/* ===========================================================================
+   Limited draft — the pick screen (SWUSim/LimitedDraft.php + SWUSim/Limited/ui/limited-draft.js)
+   docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md §3.2; mockup draft-pick.html. A standalone page
+   like the builder (the .home-header scope and the canonical controls apply), every class ld- prefixed.
+   Desktop: the pack left, your picks right. ≤900px: the picks panel folds into a bar under the pack.
+   =========================================================================== */
+body:has(.ld-row) { margin: 0; min-block-size: 100vh; color: var(--ink); font-size: var(--t-14); }
+body:has(.ld-row) .ld-row { display: flex; align-items: stretch; gap: 0; }
+body:has(.ld-row) .ld-root {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  box-sizing: border-box;
+  padding: var(--s-4) clamp(var(--s-3), 4vw, var(--s-6));
+}
+body:has(.ld-row) .ld-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); }
+body:has(.ld-row) .ld-title { margin: 0; font-size: var(--t-20); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+body:has(.ld-row) .ld-dir { font-size: var(--t-12); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+body:has(.ld-row) .ld-clock { margin-inline-start: auto; font-size: var(--t-20); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--gold-hi); }
+body:has(.ld-row) .ld-clock--warn { color: #ff6b6b; }
+body:has(.ld-row) .ld-status { margin: 0; font-size: var(--t-14); color: var(--ink-2); }
+body:has(.ld-row) .ld-kicks:empty { display: none; }
+body:has(.ld-row) .ld-kicks { display: grid; gap: var(--s-2); }
+body:has(.ld-row) .ld-kick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  padding: var(--s-3);
+  background-color: color-mix(in oklch, #ff6b6b 14%, transparent);
+  color: var(--ink);
+}
+body:has(.ld-row) .ld-pod { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+body:has(.ld-row) .ld-seat {
+  padding: 4px var(--s-3);
+  font-size: var(--t-12);
+  font-weight: 600;
+  color: var(--ink-2);
+  background-color: var(--e-sunk);
+  border: 1px solid var(--edge);
+}
+body:has(.ld-row) .ld-seat--me { color: var(--ink); border-color: var(--gold); }
+body:has(.ld-row) .ld-seat--slow { color: #ff9a8a; border-color: #ff6b6b; }
+body:has(.ld-row) .ld-seat--gone { text-decoration: line-through; opacity: 0.55; }
+body:has(.ld-row) .ld-q { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(.ld-row) .ld-bot { font-size: var(--t-11); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-hi); }
+/* Every seat's drafted leaders (public; owner 2026-11-05). Folds into a toggle at phone width, like "Your picks". */
+body:has(.ld-row) .ld-podleads { display: grid; gap: var(--s-2); }
+body:has(.ld-row) .ld-podleads-toggle { display: none; }
+body:has(.ld-row) .ld-podleads-body { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); }
+body:has(.ld-row) .ld-pl-row { display: flex; align-items: center; gap: var(--s-2); min-inline-size: 0; }
+body:has(.ld-row) .ld-pl-row--me .ld-pl-name { color: var(--gold-hi); }
+body:has(.ld-row) .ld-pl-row--gone { opacity: 0.55; }
+body:has(.ld-row) .ld-pl-row--gone .ld-pl-name { text-decoration: line-through; }
+body:has(.ld-row) .ld-pl-name { font-size: var(--t-12); font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+body:has(.ld-row) .ld-pl-list { display: flex; gap: 4px; }
+body:has(.ld-row) .ld-plead { inline-size: 62px; block-size: 44px;   /* leaders are landscape */ object-fit: cover; border: 1px solid var(--edge); background-color: var(--e-sunk); cursor: zoom-in; }
+body:has(.ld-row) .ld-pl-none { color: var(--ink-3); }
+body:has(.ld-row) .ld-cols { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: var(--s-5); align-items: start; }
+body:has(.ld-row) .ld-packwrap { display: grid; gap: var(--s-3); min-inline-size: 0; }
+body:has(.ld-row) .ld-pack { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: var(--s-2); }
+body:has(.ld-row) .ld-card {
+  position: relative;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: translate 120ms var(--ease);
+}
+body:has(.ld-row) .ld-card img { display: block; inline-size: 100%; aspect-ratio: 1; object-fit: cover; }
+body:has(.ld-row) .ld-card:hover { translate: 0 -2px; }
+body:has(.ld-row) .ld-card:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 2px; }
+body:has(.ld-row) .ld-card--sel { outline: 3px solid var(--gold); outline-offset: -3px; }
+body:has(.ld-row) .ld-rar {
+  position: absolute;
+  inset-block-end: 4px;
+  inset-inline-start: 4px;
+  min-inline-size: 18px;
+  padding: 1px 4px;
+  font-size: var(--t-11);
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink);
+  background-color: rgba(0, 0, 0, 0.68);
+}
+body:has(.ld-row) .ld-empty { grid-column: 1 / -1; margin: 0; padding: var(--s-4); font-size: var(--t-13); color: var(--ink-3); }
+body:has(.ld-row) .ld-confirm { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+body:has(.ld-row) .ld-hint { margin: 0; font-size: var(--t-12); color: var(--ink-3); }
+body:has(.ld-row) .ld-side {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  background-color: var(--e-sunk);
+  border: 1px solid var(--edge);
+}
+body:has(.ld-row) .ld-side-toggle { display: none; }
+body:has(.ld-row) .ld-side-body { display: grid; gap: var(--s-2); }
+body:has(.ld-row) .ld-h { margin: 0; font-size: var(--t-13); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+body:has(.ld-row) .ld-leaders,
+body:has(.ld-row) .ld-leaning { margin: 0; font-size: var(--t-13); color: var(--ink-2); }
+body:has(.ld-row) .ld-lean { display: flex; align-items: flex-end; gap: 8px; min-block-size: 70px; }
+body:has(.ld-row) .ld-bar { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+body:has(.ld-row) .ld-bar-fill { display: block; inline-size: 20px; min-block-size: 2px; background-color: var(--gold); }
+body:has(.ld-row) .ld-bar--vigilance  { background-color: #4f8fd6; }
+body:has(.ld-row) .ld-bar--command    { background-color: #4caf6a; }
+body:has(.ld-row) .ld-bar--aggression { background-color: #d9534f; }
+body:has(.ld-row) .ld-bar--cunning    { background-color: #e0b84a; }
+body:has(.ld-row) .ld-bar--heroism    { background-color: #e8e2d0; }
+body:has(.ld-row) .ld-bar--villainy   { background-color: #2b2b33; outline: 1px solid var(--edge-strong, rgba(196, 214, 238, 0.35)); }
+body:has(.ld-row) .ld-bar-c { font-size: var(--t-11); color: var(--ink-3); }
+body:has(.ld-row) .ld-side-toggle,
+body:has(.ld-row) .ld-podleads-toggle,
+body:has(.ld-row) .ld-all-toggle { min-block-size: 44px; }
+body:has(.ld-row) .ld-all { display: grid; gap: 2px; max-block-size: 40vh; overflow: auto; font-size: var(--t-12); color: var(--ink-2); }
+/* a name in my picks previews its card on hover (350 ms, limited-draft.js) — the gold says it is live */
+body:has(.ld-row) .ld-pick-name { cursor: default; }
+body:has(.ld-row) .ld-pick-name:hover { color: var(--gold-hi); }
+body:has(.ld-row) .ld-all[hidden] { display: none; }
+body:has(.ld-row) .ld-error { margin: 0; color: #ff6b6b; font-size: var(--t-13); }
+body:has(.ld-row) .ld-error:empty { display: none; }
+body:has(.ld-row) #ldPreview {
+  position: fixed;
+  z-index: 60;
+  display: none;
+  inline-size: 300px;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
+}
+@media (max-width: 900px) {
+  /* the chat is a block at the foot of the page, as on the sideboard and the builder (1-2-1, beats ChatPanel's drawer) */
+  body:has(.ld-row) .ld-row { flex-direction: column; }
+  body:has(.ld-row) .ld-row .ld-root { order: 1; }
+  body:has(.ld-row) .ld-row #tcg-chat-panel {
+    order: 2; align-self: stretch; position: static; transform: none; flex: 0 0 auto; inline-size: auto; max-inline-size: none;
+    margin: 0 clamp(var(--s-3), 4vw, var(--s-6)) var(--s-5); block-size: auto; min-block-size: 0; max-block-size: 70vh; z-index: auto;
+  }
+  body:has(.ld-row) #tcg-chat-toggle { display: none; }
+  body:has(.ld-row) .ld-cols { grid-template-columns: minmax(0, 1fr); }
+  body:has(.ld-row) .ld-pack { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  body:has(.ld-row) .ld-side-toggle { display: block; inline-size: 100%; text-align: start; }
+  body:has(.ld-row) .ld-side-body { display: none; }
+  body:has(.ld-row) .ld-side--open .ld-side-body { display: grid; }
+  body:has(.ld-row) .ld-side .ld-h { display: none; }
+  body:has(.ld-row) .ld-podleads-toggle { display: block; inline-size: 100%; text-align: start; }
+  body:has(.ld-row) .ld-podleads-h, body:has(.ld-row) .ld-podleads-body { display: none; }
+  body:has(.ld-row) .ld-podleads--open .ld-podleads-body { display: grid; gap: var(--s-2); }
+}

@@ -19,7 +19,7 @@ function SwuPgnViewerRemoveFolder(string $dir): bool
 }
 
 // Under one lock on the index: drop expired games (deleting their folders), refuse when $who or everyone
-// is over the cap, else $create() the game and register it. Returns ['ok' => true, 'gameName'] or
+// is over the cap, else $create() the game and register it ($create() null = no game could be made: 503). Returns ['ok' => true, 'gameName'] or
 // ['ok' => false, 'status', 'message'].
 function SwuPgnViewerAdmit(string $gamesDir, string $who, int $now, callable $create): array
 {
@@ -43,9 +43,12 @@ function SwuPgnViewerAdmit(string $gamesDir, string $who, int $now, callable $cr
         if ($recent >= SWUPGN_VIEWER_MAX_PER_CLIENT) $r = ['ok' => false, 'status' => 429, 'message' => 'Too many replays opened recently. Try again in a few minutes.'];
         elseif (count($games) >= SWUPGN_VIEWER_MAX_LIVE) $r = ['ok' => false, 'status' => 503, 'message' => 'Too many replays are open right now. Try again later.'];
         else {
-            $g = (string)$create();
-            $games[$g] = ['t' => $now, 'who' => $who];
-            $r = ['ok' => true, 'gameName' => $g];
+            $g = $create();
+            if ($g === null || (string)$g === '') $r = ['ok' => false, 'status' => 503, 'message' => 'The replay viewer is unavailable right now.'];
+            else {
+                $games[(string)$g] = ['t' => $now, 'who' => $who];
+                $r = ['ok' => true, 'gameName' => (string)$g];
+            }
         }
         ftruncate($fh, 0); rewind($fh);
         fwrite($fh, json_encode(['games' => (object)$games]));
@@ -66,4 +69,19 @@ function SwuPgnViewerSweepDue(string $gamesDir, int $now): bool
     if (is_file($marker) && filemtime($marker) > $now - SWUPGN_VIEWER_MAX_AGE) return false;
     touch($marker, $now);
     return true;
+}
+
+// A new viewer game's folder: the first name $next($try) hands out whose folder is EMPTY (made here when absent). A
+// number handed out again — a reset game counter, with old game folders still on disk — can hold another game's files,
+// and a NextGame.json or Sideboard.json there sends every poll of the viewer somewhere else. Null after $tries.
+function SwuPgnViewerNewGameFolder(string $gamesDir, callable $next, int $tries = 64): ?string
+{
+    for ($i = 0; $i < $tries; $i++) {
+        $g = (string)$next($i);
+        if (preg_match('/^\d{1,15}$/', $g) !== 1) continue;
+        $dir = rtrim($gamesDir, '/') . '/' . $g;
+        if (!is_dir($dir) && @mkdir($dir, 0777)) return $g;
+        if (is_dir($dir) && count(scandir($dir) ?: ['x', 'y', 'z']) === 2) return $g;
+    }
+    return null;
 }

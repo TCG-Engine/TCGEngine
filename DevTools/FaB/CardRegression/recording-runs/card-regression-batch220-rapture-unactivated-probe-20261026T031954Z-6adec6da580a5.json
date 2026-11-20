@@ -1,0 +1,197 @@
+{
+    "completed_at_utc": "2026-10-26T03:19:54+00:00",
+    "input_file": "card-regression-batch220-rapture-unactivated-probe.json",
+    "input_sha256": "4b7f69a5274fe3acc7be41b0f6b384052a3bbd997248d915299a3a81d23fa79f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-empyrean-rapture-four-live-sparse-unactivated-equipment-has-no-ward-and-real-zap-deals-full-three",
+            "status": "blocked_or_incorrect",
+            "error": "Unexpected decision {\"1\":[],\"2\":[],\"3\":[],\"4\":[{\"Type\":\"MZCHOOSE\",\"Param\":\"p4Equipment-0\",\"Block\":1,\"Tooltip\":\"Choose_damage_prevention\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null},{\"Type\":\"CUSTOM\",\"Param\":\"zap_red:0:ResolveCard-await|zap_red:0:ResolveCard#1|4|dtdChosen\",\"Block\":1,\"Tooltip\":\"\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null}]}",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p4Hero-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "DYN_SURGENT_USED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "zap_red"
+                    ]
+                },
+                "arcCards": {
+                    "7": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "target": 4,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "rosLastLightning": false
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "resolvingReaction": {
+                    "uid": 7,
+                    "owner": 1,
+                    "controller": 1,
+                    "kind": "ACTION",
+                    "resolutionClass": "PLAIN_SPELL",
+                    "completionSource": {
+                        "CardID": "zap_red",
+                        "Owner": 1,
+                        "Controller": 1,
+                        "Kind": "ACTION",
+                        "SourceZone": "Hand",
+                        "SourceUniqueID": 7,
+                        "Params": [],
+                        "UniqueID": 7,
+                        "TurnEffects": [],
+                        "Counters": {
+                            "FAB_PLAY_ORDER": 1
+                        },
+                        "removed": null,
+                        "Location": "Stack",
+                        "PlayerID": 0,
+                        "mzIndex": 0,
+                        "_sourceZone": null
+                    },
+                    "cardID": "zap_red",
+                    "sourceMZ": "Stack-0",
+                    "baselineFrameKeys": [],
+                    "ownedFrameKeys": [
+                        "zap_red:0:ResolveCard#1"
+                    ]
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": [
+                    {
+                        "Type": "MZCHOOSE",
+                        "Param": "p4Equipment-0",
+                        "Block": 1,
+                        "Tooltip": "Choose_damage_prevention",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "CUSTOM",
+                        "Param": "zap_red:0:ResolveCard-await|zap_red:0:ResolveCard#1|4|dtdChosen",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    }
+                ]
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": [
+                    "p4Hand-0"
+                ]
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\nverdance 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\nprism 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\nempyrean_rapture 2 0 4 4 0 5 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\nzap_red 7 1 1\r\n0\r\n0\r\n1\r\nwounding_blow_blue 6 4 4\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n7\r\n0\r\n",
+            "initial_gamestate_sha256": "f5b3217d58228c22e8dc36128940cf66b5a12b4630da50a46eb5026676ec4f78"
+        }
+    ]
+}

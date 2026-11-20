@@ -40,9 +40,13 @@ PHASE:MAIN
 
 ---
 
-# PlanCounter_DecliningTheChoiceStillPasses
-#// The choice is a "may" prompt; declining it (the Pass button) must still end the plan taker's turn — the
-#// deferred pass is exempt from the sticky-PASS skip (dontSkipOnPass), or the seat would keep the turn.
+# PlanCounter_TheBottomCardIsMandatory_NoPass
+#// CR (Twin Suns counters): "When a player takes the plan counter, they draw 1 card from their deck, then place 1 card from
+#// their hand on the bottom of their deck." The bottom-a-card is NOT optional (owner report 2026-11-04: "the plan action
+#// allows you to pass on putting a card at the bottom of your deck. this is not allowed"). This section used to assert
+#// the opposite — a PASS accepted and the turn moved on with 2 cards in hand. The pick is now a MANDATORY MZCHOOSE, which
+#// has no Pass button and on which SWUValidateDecisionAnswer refuses a PASS (the harness throws on one — Vanquish's
+#// decline=N/A convention). Read the OFFER, left pending: its type, its pool (both cards), and the turn held meanwhile.
 ## GIVEN
 CommonSetup3P: bbk/bbk/bbk
 SkipPreGame: true
@@ -51,10 +55,29 @@ WithP1Hand: SOR_251
 WithP1Deck: [SOR_095 SOR_095 SOR_095]
 ## WHEN
 - P1>TakeCounter:plan
-- P1>AnswerDecision:PASS
 ## EXPECT
-TURNPLAYER:2
+P1DECISIONTYPE:MZCHOOSE
+P1SELECTABLEEXACT:myHand-0&myHand-1
+TURNPLAYER:1
 P1HANDCOUNT:2
+
+---
+
+# PlanCounter_OnlyTheDrawnCardInHand_ItGoesToTheBottom
+#// The boundary: an empty hand draws 1, and that card is the only legal pick — a mandatory choice with one option is no
+#// choice, so it goes to the bottom at once and the turn moves on. Before, the lone card was still a "may" and could be kept.
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>TakeCounter:plan
+## EXPECT
+PLANCOUNTER:P1
+TURNPLAYER:2
+P1HANDCOUNT:0
+P1DECKCOUNT:3
 P1NODECISION
 
 ---

@@ -23,6 +23,11 @@ $unitAbilities["SHD_155"] = function($player, $mzID) {
     }
     if ($idx < 0) { SWUAfterAction($player); return; }
     SWUDefeatUpgrade(intval($player), $mzID, $idx);   // cost: defeat a Heroic Resolve on this unit
+    // OWNER RULING 2026-11-02 — soft pass: an EXHAUSTED host may still use this (both costs above are paid), but a
+    // unit must be ready to attack, so there is no attack and no "for this attack" buff. BeginSWUAttack has no
+    // ready check of its own (the "even if it's exhausted" attacks rely on that), so the gate is here.
+    $host = GetZoneObject($mzID);
+    if (SWUObjGone($host) || intval($host->Status ?? 0) !== 1) { SWUAfterAction($player); return; }
     SWUAddAttackPowerBonus($mzID, 4);                 // +4/+0 for this attack
     AddTurnEffect($mzID, 'SHD_155');                  // Overwhelm for this attack (registry, attack-duration)
     BeginSWUAttack(intval($player), $mzID);           // BeginSWUAttack owns the combat continuation / after-action

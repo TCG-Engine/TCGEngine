@@ -35,7 +35,7 @@ $customDQHandlers["TWI_040#1"] = function($player, $parts, $lastDecision) {
     $origOwner = ($srcObj !== null) ? SWUObjSeat($srcObj, true) : intval($player);
     if ($origOwner <= 0) $origOwner = intval($player);
     $GLOBALS['gTwi040IgnoreAspect'] = true;
-    _SWUFinalizeUpgradeAttach(intval($player), $cid, $upMz, $lastDecision, 0, false, $isPilot, true);
+    SWUPlayUpgradeByEffect(intval($player), $cid, $upMz, $lastDecision, 0, false, $isPilot, true);
     $GLOBALS['gTwi040IgnoreAspect'] = false;
     // Fix ownership on the just-attached subcard if it came from the opponent's discard.
     if ($origOwner !== intval($player)) {

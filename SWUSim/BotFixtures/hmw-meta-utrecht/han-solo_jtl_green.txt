@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Han Solo, Never Tell Me the Odds - Emperor's Throne Room
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #6 of 789 (11-3-0), player Dashrendar72
+#   https://melee.gg/Decklist/View/0b62e99e-b241-47a3-adb8-b4f301677487 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Han Solo (JTL) Green list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softaggro — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: softaggro
+
+Leader
+1 JTL_017
+
+Base
+1 ASH_021
+
+Deck
+3 ASH_110
+3 JTL_215
+3 HMW_049
+3 JTL_203
+3 HMW_136
+2 JTL_103
+2 HMW_208
+1 LAW_223
+3 SEC_213
+3 JTL_217
+3 JTL_249
+3 ASH_201
+3 ASH_117
+3 JTL_212
+3 JTL_221
+3 ASH_253
+2 SEC_207
+2 HMW_236
+2 SEC_176
+
+Sideboard
+3 ASH_220
+2 JTL_207
+2 HMW_221
+1 HMW_236
+1 JTL_103
+1 HMW_216

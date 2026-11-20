@@ -1,0 +1,89 @@
+{
+  "status": "FOUR_NEW_FOUR_LIVE_PRIMARY_REPRESENTATIVES_QUALIFIED_NO_ENGINE_CHANGE",
+  "utc": "2026-10-25T23:29:45.148137+00:00",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "inventory_scope": "Through batch208 only; later planning/native/pending work excluded without credit. No inventory scan.",
+  "new_scenarios_recorded": 4,
+  "new_scenarios_qualified": 4,
+  "new_groups": 4,
+  "total_saved_through_batch208": 3408,
+  "two_player": 3074,
+  "four_live_through_batch208": 334,
+  "primary_ids_recorded_through_batch208": 567,
+  "identity_denominator": 5196,
+  "groups_recorded_through_batch208": 441,
+  "group_denominator": 3324,
+  "four_live_groups_through_batch208": 332,
+  "registered_review_rows_after": 3408,
+  "phase_scenarios_qualified_at_batch_contexts": 45,
+  "historical_qualification_note": "Registry rows are not blanket current-runtime corpus qualification; earlier3363 review byte-binding limitation retained.",
+  "new_cases": [
+    {
+      "slug": "card-firebreathing-red-four-live-sparse-actual-paid-attacking-instant-increases-real-attack-damage",
+      "primary_card_ids": [
+        "firebreathing_red"
+      ],
+      "actions": 33,
+      "native_assertions": 1680,
+      "manual_passes": 29
+    },
+    {
+      "slug": "card-seismic-shelter-blue-four-live-sparse-active-owned-aura-scales-real-defense-by-two-surge-tokens",
+      "primary_card_ids": [
+        "seismic_shelter_blue"
+      ],
+      "actions": 29,
+      "native_assertions": 2165,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-crucible-of-aetherweave-four-live-sparse-actual-paid-staff-instant-amplifies-real-next-arcane-by-one",
+      "primary_card_ids": [
+        "crucible_of_aetherweave"
+      ],
+      "actions": 12,
+      "native_assertions": 761,
+      "manual_passes": 8
+    },
+    {
+      "slug": "card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+      "primary_card_ids": [
+        "aether_flare_red"
+      ],
+      "actions": 18,
+      "native_assertions": 1138,
+      "manual_passes": 12
+    }
+  ],
+  "persisted_native_assertions": 5744,
+  "review_evidence": "review-evidence/sparse208-20261025-qualified-saved-review.json",
+  "targeted_replay_passes": 8,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse208-20261025-r1.json",
+      "sha256": "41431cbb07f9f1c684482c1de44c594249c5fb3fb3d648adaa3434c649235bd8"
+    },
+    {
+      "path": "card-regression-replay-sparse208-20261025-r2.json",
+      "sha256": "2df9d49cdceb473545ba5b9792fc1c81c916c352db5839aa006fdba71c3ec509"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse208-results.json",
+    "sha256": "1d18eadbd97dcbabec82ecf424f248a526f4fc2fb0eafb6b2ed74978ce8adb3f",
+    "detected": 2,
+    "total": 2,
+    "retained_suffix_oracles": 1527,
+    "omitted": 0,
+    "global_total": 108,
+    "scope": "Firebreathing earnedpower and Crucible earnednextarcane omission; no separate syntheticfault credit for Shelter/Flare."
+  },
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse208-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

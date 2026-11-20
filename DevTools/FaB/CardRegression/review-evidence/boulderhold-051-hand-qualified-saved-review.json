@@ -1,0 +1,442 @@
+{
+  "status": "APPROVED_ONE_ACTUAL_SAVED_BOULDERHOLD_HAND_ROUTE_POST051_CURRENT5FF0",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T05:51:30.170643+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch224-boulderhold-hand-correct-probe.json",
+  "input_sha256": "0720d26f11271a975713210416b1b770ba4eeb8fa8ad84cbb524fdb10e7c62a0",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "fixtures": [
+    {
+      "slug": "card-gauntlet-of-boulderhold-four-live-sparse-correct-expectation-paid-hand-guardian-attack-two-and-full-block-probe",
+      "card_id": "gauntlet_of_boulderhold",
+      "group_id": "identity:gauntlet_of_boulderhold",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CORRECT_HAND_ROUTE_POST_CANONICAL_PRODUCER_FIX",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "fixture_sha256": "ca8c894ea7fa42613b5152b7cc388ba3fbb92a05bb7945eea0b4ef2823c59bb3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d87f08da749fb84661a39e97aaf18acf15fb8c9b398117268a75eefb61ba8c1c",
+        "actions.json": "b79843d38cb454c292255d63f189191aa868d3eb4ce0aa115ba6f87fbcedfd92",
+        "assertions.json": "a09affb60c46babc200f5291cbe28fb1739dd8a05432b6ea102887ed16cb6ba3",
+        "expected_final_gamestate.txt": "51648017941204a1cf4c0db7163b9f9f938ce7bb3413cdee55b94e31f5743567",
+        "meta.json": "87424b821285f5df62e156cb45356e85fe6124e2b9f5081b444a1225f07306e3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d87f08da749fb84661a39e97aaf18acf15fb8c9b398117268a75eefb61ba8c1c",
+        "actions.json": "b79843d38cb454c292255d63f189191aa868d3eb4ce0aa115ba6f87fbcedfd92",
+        "assertions.json": "a09affb60c46babc200f5291cbe28fb1739dd8a05432b6ea102887ed16cb6ba3",
+        "expected_final_gamestate.txt": "51648017941204a1cf4c0db7163b9f9f938ce7bb3413cdee55b94e31f5743567",
+        "meta.json": "87424b821285f5df62e156cb45356e85fe6124e2b9f5081b444a1225f07306e3"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch224-boulderhold-hand-correct-probe.json",
+      "input_sha256": "0720d26f11271a975713210416b1b770ba4eeb8fa8ad84cbb524fdb10e7c62a0",
+      "actions": 37,
+      "native_assertions": 2642,
+      "paper_only_defense_assertions": 1,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 28,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_same_as_failing_before": true,
+      "initial_physical_cards": {
+        "p1Equipment": [
+          [
+            "5",
+            "gauntlet_of_boulderhold",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Hand": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "7",
+            "cartilage_crush_red",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "8",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Hand": [
+          [
+            "9",
+            "wounding_blow_red",
+            "4",
+            "4",
+            null
+          ],
+          [
+            "10",
+            "wounding_blow_yellow",
+            "4",
+            "4",
+            null
+          ],
+          [
+            "11",
+            "wounding_blow_blue",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Graveyard": [
+          [
+            "5",
+            "gauntlet_of_boulderhold",
+            "1",
+            "1",
+            "0"
+          ],
+          [
+            "7",
+            "cartilage_crush_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p4Graveyard": [
+          [
+            "9",
+            "wounding_blow_red",
+            "4",
+            "4",
+            "0"
+          ],
+          [
+            "10",
+            "wounding_blow_yellow",
+            "4",
+            "4",
+            "0"
+          ],
+          [
+            "11",
+            "wounding_blow_blue",
+            "4",
+            "4",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "8",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_Guardian_hand_attack_and_two_real_blue_pitch_cards",
+          "step": 0,
+          "native_assertions": 134
+        },
+        {
+          "checkpoint": "actual_printed_resource_asset_required_before_effect_cost",
+          "step": 1,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "actual_resource_and_Action_assets_then_printed_self_movement_cost_paid",
+          "step": 2,
+          "native_assertions": 63
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_manual_response_1_of_four",
+          "step": 3,
+          "native_assertions": 63
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_manual_response_2_of_four",
+          "step": 4,
+          "native_assertions": 63
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_manual_response_3_of_four",
+          "step": 5,
+          "native_assertions": 63
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_fourth_manual_response_boundary",
+          "step": 6,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_adjacent_target_declared_before_assets",
+          "step": 7,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "real_printed_attack_resource_cost_before_pitch",
+          "step": 8,
+          "native_assertions": 63
+        },
+        {
+          "checkpoint": "actual_attack_assets_paid_before_all_four_responses",
+          "step": 9,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_1_of_four",
+          "step": 10,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_2_of_four",
+          "step": 11,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_3_of_four",
+          "step": 12,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_fourth_manual_response_boundary",
+          "step": 13,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_1_of_four",
+          "step": 14,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_2_of_four",
+          "step": 15,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_3_of_four",
+          "step": 16,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_fourth_manual_response_boundary",
+          "step": 17,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "completed_three_real_three_defense_cards_block_printed_seven_plus_two",
+          "step": 21,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_1_of_four",
+          "step": 22,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_2_of_four",
+          "step": 23,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_3_of_four",
+          "step": 24,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_fourth_manual_response_boundary",
+          "step": 25,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_1_of_four",
+          "step": 26,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_2_of_four",
+          "step": 27,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_3_of_four",
+          "step": 28,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_fourth_manual_response_boundary",
+          "step": 29,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_computed_attack_damage_not_cached_defense",
+          "step": 29,
+          "native_assertions": 76
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_1_of_four",
+          "step": 30,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_2_of_four",
+          "step": 31,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_3_of_four",
+          "step": 32,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_damage_step_fourth_manual_response_boundary",
+          "step": 33,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_1_of_four",
+          "step": 34,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_2_of_four",
+          "step": 35,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_3_of_four",
+          "step": 36,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_fourth_manual_response_boundary",
+          "step": 37,
+          "native_assertions": 59
+        },
+        {
+          "checkpoint": "full_final_four_live_physical_ownership_economy_and_queues",
+          "step": 37,
+          "native_assertions": 138
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-gauntlet-of-boulderhold-four-live-sparse-correct-expectation-paid-hand-guardian-attack-two-and-full-block-probe",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 2642
+      },
+      "meaningful_evidence": [
+        "Real firstBlue6 pitch pays Gauntlet3/AP0 and destroys5; four actual source responses grant abilityGA/AP1.",
+        "Real Cartilage7 from Hand targetsP4 before actual secondBlue8 pitch pays3/AP0/R0. Unchanged native checkpoint13 computes9, same exact13 inputs previously computed7. No terminal-HP substitution for power.",
+        "Three real P4 Hand defenders9/10/11 each printed3D fully block9; complete declaration followed by genuine four-seat response windows, zero damage/no hit, full closure.",
+        "Final ownpublicGY5/7, pitch6/8, opposingpublicGY9/10/11; no virtualAbility12 ghost/remaining chain/queues/frame/payment; allfourHP20/APR0."
+      ],
+      "limits": [
+        "Single existing primary card/group additional Hand-route scenario. No new card/group or support/hero/sibling credit.",
+        "Recorder-only defense9 assertion is not persisted native coverage. Native computedpower9 independently pins the corrected bonus despite both7 and9 being fully blocked.",
+        "Saved raw5 plus passed root recording/replay receipts support checkpoints; no direct unseen intermediate locals/callback observation claimed. Final shared DQ references/arcCards include historical IDs, not surviving physical proxies.",
+        "No Battleworn/expiry/nonGuardian/furtherattack/Crush4damage branch or broad suite qualification. Remote upstream remains incorrect; local canonical builder/snapshot/generation shim protects local generated body."
+      ]
+    }
+  ],
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch224-boulderhold-hand-correct-probe-20261026T054247Z-6adee857b3ee4.json",
+    "sha256": "67f7e439758129321bf8d871f0e5e776df5af3b1525ad444bf56dfa9e51b9296"
+  },
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-hand-probe-independent-manual-review-106.json",
+    "sha256": "dc446447bbf1ddf9cd50dc4e8ba522c7bf416cb663e7853423966b039079e1f5"
+  },
+  "independent_actual_generation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-attempt2-actual-generated-independent-review-106.json",
+    "sha256": "4a91a73df126d8dc3a104848a1430a293a82589ce7efe3ad688adabf14ca327e"
+  },
+  "native_before_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-hand-native-before14d9\\receipt.json",
+    "sha256": "eef7150293d105802ea99c02522d0cdea0445e18eb55d0bde07ed4db69372865"
+  },
+  "native_before_results": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-hand-native-before14d9\\recording-results.json",
+    "sha256": "a83339f788633239b25105186847d2fda401666746c0139c04e86a4d8cca59d3"
+  },
+  "root_clean_replay_receipts": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-boulderhold051-5ff0-r1.json",
+      "sha256": "6196b65b21f6243867bf627b78c53072ae5bacfa0ba5afc6bcd4471800fbefec"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-boulderhold051-5ff0-r2.json",
+      "sha256": "f846bd0272bb3bc21225a5dbde565ca4a46bf3cdbffb9e5153accc3882cf5955"
+    }
+  ],
+  "totals": {
+    "fixtures": 1,
+    "actions": 37,
+    "native_assertions": 2642,
+    "manual_passes": 29,
+    "paper_only_defense": 1
+  },
+  "native_execution": 0,
+  "php_execution": 0,
+  "optional_rules_simulation": 0,
+  "repository_writes": 0,
+  "reviewer_activity": "Manual expected-route reuse; exact source/action/persisted-oracle comparison and parsed actual endpoint/identity/profile/hash verification only. No runtime semantic simulator or game execution. Registrar/issue closure remains root-owned."
+}

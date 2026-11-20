@@ -1,0 +1,121 @@
+{
+  "status": "NATIVE_DREADBORE_LIFETIME_FIXED_AS_EXISTING_MANAGED_VIRTUAL_GROUP_EXTENSION",
+  "repair_group": "managed_virtual_lifetime",
+  "new_distinct_root_cause_group": false,
+  "before_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "after_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "before_facts": [
+    {
+      "slug": "card-dreadbore-four-live-sparse-correct-expectation-paid-load-await-layer-and-go-again-lifetime",
+      "error": "Expected Stack count 1, got 0.",
+      "prefix_actions": 6,
+      "actual_snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse203-dread-native-before\\actual_gamestate.txt",
+      "actual_sha256": "43f4a29b3bc9f737f8037206af0c2952d5ecaf5dd680bdaf03a5f4a3b8155d08",
+      "window": "ACTION",
+      "stack": [],
+      "p1Weapons": [
+        {
+          "CardID": "dreadbore",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "5",
+          "TurnEffects": "-",
+          "Counters": "eyJFTEVfVVNFX1RVUk4iOjIsIkVMRV9VU0VTXzAiOjEsIkFSQ19VU0VEXzAiOjJ9"
+        }
+      ],
+      "p1Hand": [
+        {
+          "CardID": "sic_em_shot_red",
+          "UniqueID": "6",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "p1Arsenal": [],
+      "p1Pitch": [
+        {
+          "CardID": "wounding_blow_blue",
+          "UniqueID": "7",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "p1ActionPoints": "1",
+      "p1Resources": "2",
+      "observed_decisions": {
+        "1": [
+          {
+            "Type": "MZMAYCHOOSE",
+            "Param": "p1Hand-0",
+            "Block": 1,
+            "Tooltip": "Load_arrow",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "dreadbore:0:ResolveAbility-await|dreadbore:0:ResolveAbility#1|2|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 1,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "saved_passing_fixture": false
+    }
+  ],
+  "before_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse203-dread-native-before\\receipt.json",
+    "sha256": "556740ec5f46c7c1b32e5b2ddc87ae6a2eaf1a62af802531a851a3e9116db6b4"
+  },
+  "source_backup": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\managed-native-ability-lifetime-backup\\receipt.json",
+    "sha256": "84ed55727ab8b7d2bb1b99e11dfc466f1519620b62e083fabe838a74072ef4f4"
+  },
+  "source_change": {
+    "path": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "d39d7fc1bf6df8c9796dd3a4e19c17bcbac7a1baabf47329cb299dd41425757b",
+    "after_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+    "description": "Remove the native ability admission and ResolveAbility-frame card allowlists; preserve actual arcSpec/rosTrigger guards and existing exactly-once completion."
+  },
+  "independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\managed-native-ability-lifetime-independent-source-review-106.json",
+    "sha256": "e17d610411d856642ce747e5cb161d4b0b5c87ffa4e53e0502788703c00a2cc5"
+  },
+  "independent_native_after": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch203-dread-actual-saved-independent-review-106.json",
+    "sha256": "a007dc013f12d390b8c83daabfd3be6cdc860791d806e63fb294c6efd7c5d2a2",
+    "summary": "Original34actions/1895nativeassertions unchanged. ActualpaidDread ability8 remainsStack/controller1/source5/AP0 whileLoad_arrow waits; afteranswer realArrow6movesfaceup/+1, proxyremoved/AP1. ActualArrow5damage/P4HP15/R1/GAAP1 andallpubliccleanup/queues match approvedmodel. All48manualpreferences and4realactors verified; no privateframe-localinspection claimed."
+  },
+  "after_saved_review": "review-evidence/sparse203-20261025-qualified-saved-review.json",
+  "passing_fixture": "Tests/Integration/FaBSim/card-dreadbore-four-live-sparse-correct-expectation-paid-load-await-layer-and-go-again-lifetime",
+  "unchanged_correct_source_spec": "card-regression-batch203.json",
+  "frame_components": {
+    "path": "review-evidence\\native-ability-frame-component-validation-20261025.json",
+    "sha256": "8c1d1da5eb05d74089547e5339393e44131ebf8248f08eb9121b9b04d6c9f8e2",
+    "actual_contracts_passed": 15,
+    "specific_mutants_detected": 3
+  },
+  "directly_affected_existing_replays": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\managed-native-ability-compatibility-results.json",
+    "sha256": "efee032af1985ec563a75fdefa13eb212e88d509d2c690cc99bc53aaa5edfcd0",
+    "passed": 6,
+    "scope": "Six directly affected existing witnesses once; no whole-inventory or historical semantic requalification."
+  },
+  "failed_case_saved_as_passing": false,
+  "limits": "Only actual Dread load-and-follow-up-arrow branch; no private mid-await locals claim, arbitrary ability registry, eliminated chooser, Ornate/Optekal/Hood or sibling credit. Six existing witnesses replayed once; no full suite or historical semantic rereview."
+}

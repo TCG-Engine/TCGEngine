@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "contracts": 22,
+  "passed": [
+    "single gained hit queues exact host/controller/count without output",
+    "distinct grants queue distinct layers and apply modifiers at each resolution",
+    "event-time ability suppression blocks gained hit queue",
+    "event-time hit suppression blocks gained hit queue",
+    "earned hit survives source loss and later suppression",
+    "nonpositive or unrelated tags cannot create Rune layers",
+    "Haze destruction queues exact source/controller without inline Shield",
+    "Haze event-time loss of abilities prevents queue",
+    "earned Haze Shield uses captured controller despite source loss and later blanking",
+    "Haze all pitch variants use the same captured destruction route",
+    "Coalescence and Miraging existing macro routes unchanged",
+    "Phantasm closure retains new destruction layer and response priority",
+    "Phantasm closure without eligible trigger retains empty-stack ACTION",
+    "failed Phantasm condition preserves existing defend-priority window",
+    "prevention grant captures actual ABI source actor creator and Block classification",
+    "prevention grant unknown or mutated native origin fails closed before storage",
+    "zero prevention retains first marker and partial prevention consumes it once",
+    "first marker is persistently consumed before reentrant queue callback",
+    "two independent grants capture separate source token and once results",
+    "earned prevention resolver keeps captured source controller owner and action after departure",
+    "stored metadata-free nonempty-token grant fails closed without mutation or queue",
+    "empty-token and ordinary source-selective prevention remain outside ABI requirement"
+  ],
+  "extracted_function_sha256": {
+    "FaBCRUHit": "b073fd21c5bd46b45f6698c9ed5b061684477e8f7e00e338480dfc27bad565a3",
+    "FaBEVRDestroyed": "00fddbf1d3dbb5e8e2569504dc6a31064ea6441a42ac769e197963f44d5851cf",
+    "FaBROSQueue": "4fa2bca6c95aa05fbf4fd5069efec469d246626f4e76e3b162f057dc320452ac",
+    "FaBROSResolveTrigger": "7ded3cc5d9b6677140c24e7836f5a1675d92253c719d4d06a9bd6def9aad0049",
+    "FaBARCCreateRunes": "5a330584c1f2230ab9d7043e5ba1fcf1b79d57070ee7721859038dd1e53954f2",
+    "DoResolveCard": "30efb901005e55bdd931ff872c0d0f512b2ac094823152e500af7594469de6b6",
+    "FaBManagedAbilityResolutionOwns": "a6d87419992738fee257d1a51f9cac13e5f1de7b965d4831f2daa641378a7619",
+    "FaBManagedVirtualResolutionClass": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511",
+    "FaBROSAdd": "0aeb173fec513c45d5ab8c301134ca3980870707c9e4ceb664131fe266490664",
+    "FaBROSPrevent": "a891c068fb59bd7d67439707fb6f3c033469f8d02996ff0bc708f37a47c0ee29",
+    "FaBROSPreventionTokenOrigin": "6815de0e9461343307edb7895754c70c10753ef61c5c5d6056e707560581258f",
+    "FaBROSPreventionTokenPayload": "322d1f89e7f5cb0c2f42e285aba586d2b525025e3fa12206e23c2b8c79f82e19",
+    "FaBROSResolvePreventedToken": "62b8cb6eeaa2c10f7d3f62a53b64ebd8fce94bdb634df21f9ef7e89a7970ae03",
+    "FaBWTRAddEffect": "4122610d0d71519975485e802878fdf94c15c7621c706a3182154a5a7bb3c3e3",
+    "FaBWTREffects": "39d1d1b7ee08fe9a8d0f652415a325e7d56a7636c5ee08d7f40373012a51e07a",
+    "FaBWTRSetEffects": "493dd382cee3afd41ab6f73ea205086beee0a6ca18f69d90c41a055c57a2ea3e"
+  },
+  "limits": [
+    "Controlled component doubles, no game imports/actions. Actual native ABI source ownership, grant/effect storage, prevention, queue and dispatcher functions are extracted; external identity/type/factory/transport inputs are controlled.",
+    "Actual token ownership/UIDs/physical destruction, priority passes, and full post-repair recording remain native witness scope.",
+    "Phantasm destruction/chain-close body is a boundary double; the reviewed actual DoResolveCard branch restores its resulting pending-layer window.",
+    "New factory recorder preserves old3field output and separately records all7 real factory arguments; factory/gameplay/token UID behavior remains native scope.",
+    "Haunting/Mental native activation/generated macro context is represented by controlled ABI inputs here; unchanged correctHaunting nativeprobe validates actual context transport. MentalBlock remains source-only, no native credit."
+  ]
+}

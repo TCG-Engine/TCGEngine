@@ -1,0 +1,141 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T10:34:30.940507+00:00",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "source_spec": "card-regression-batch241.json",
+  "source_spec_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 41,
+  "native_assertions": 1596,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 3487,
+    "duels": 3074,
+    "four_live": 413,
+    "recorded_primary_ids": 644,
+    "identity_denominator": 5196,
+    "recorded_groups": 518,
+    "group_denominator": 3324,
+    "four_live_groups": 409,
+    "phase_qualified_scenarios_at_actual_contexts": 124,
+    "phase_qualified_unique_groups": 122,
+    "creation_replay_passes": 248,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 12,
+  "scenarios": [
+    {
+      "card_id": "sash_of_sandikai",
+      "group_id": "identity:sash_of_sandikai",
+      "scenario_id": "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "effect_branches": [
+        "real-red-action-earns-condition-then-destroy-instant-gains-one"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "source_spec": "card-regression-batch241.json",
+      "source_spec_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+      "review_evidence": "review-evidence/sparse241-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "bf9dd8cdb3c12821c28bf3579e64de92a3998e98ae66cd6e27ef375b46d8ff8e",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse241-1f33-r1.json",
+          "sha256": "84381187471fcff377c011918859e9d3d93caeadfbe9779ade6e57dde779080a",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse241-1f33-r2.json",
+          "sha256": "6a953a128ed0eec87369185ba15aaf032b5695358d8414b33e6114c9754d1383",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "kavdaen_trader_of_skins",
+      "group_id": "identity:kavdaen_trader_of_skins",
+      "scenario_id": "card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+      "effect_branches": [
+        "paid-hero-action-compares-four-lives-and-changes-unique-high-low"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+      "source_spec": "card-regression-batch241.json",
+      "source_spec_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+      "review_evidence": "review-evidence/sparse241-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "bf9dd8cdb3c12821c28bf3579e64de92a3998e98ae66cd6e27ef375b46d8ff8e",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse241-1f33-r1.json",
+          "sha256": "84381187471fcff377c011918859e9d3d93caeadfbe9779ade6e57dde779080a",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse241-1f33-r2.json",
+          "sha256": "6a953a128ed0eec87369185ba15aaf032b5695358d8414b33e6114c9754d1383",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "plasma_barrel_shot",
+      "group_id": "identity:plasma_barrel_shot",
+      "scenario_id": "card-plasma-barrel-shot-four-live-sparse-paid-charge-then-real-steam-cost-unboosted-gun-attack",
+      "effect_branches": [
+        "paid-charge-then-real-steam-cost-unboosted-gun-attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-plasma-barrel-shot-four-live-sparse-paid-charge-then-real-steam-cost-unboosted-gun-attack",
+      "source_spec": "card-regression-batch241.json",
+      "source_spec_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+      "review_evidence": "review-evidence/sparse241-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "bf9dd8cdb3c12821c28bf3579e64de92a3998e98ae66cd6e27ef375b46d8ff8e",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse241-1f33-r1.json",
+          "sha256": "84381187471fcff377c011918859e9d3d93caeadfbe9779ade6e57dde779080a",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse241-1f33-r2.json",
+          "sha256": "6a953a128ed0eec87369185ba15aaf032b5695358d8414b33e6114c9754d1383",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

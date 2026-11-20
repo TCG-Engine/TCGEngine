@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-25T23:00:35+00:00",
+    "input_file": "card-regression-batch206.json",
+    "input_sha256": "3ba91a61160db42e76b4b2596e7d06e6c2711e55f33a3c46e92cdbeaa66a2d5c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 2786
+        },
+        {
+            "slug": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 2642
+        },
+        {
+            "slug": "card-teklo-plasma-pistol-four-live-sparse-real-steam-attack-cost-and-two-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 1720
+        }
+    ]
+}

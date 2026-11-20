@@ -82,9 +82,11 @@ if ($all && $p1 && $p2) {
     SwuPgnTestCheck(!str_contains($f['all'] . $f['p1'] . $f['p2'], '"ms"'), 'no ms anywhere');
     $end = end($all['events']);
     SwuPgnTestCheck(($end['t'] ?? '') === 'GAME_END' && $end['winner'] === 1 && str_ends_with($end['seq'], '.game-end'), 'the last event is GAME_END at <round>.<phase>.game-end');
-    SwuPgnTestCheck(count(array_filter($all['cards'], fn($c) => $c['id'] === 'SOR#95' && $c['name'] === 'Battlefield Marine' && ($c['kind'] ?? null) === 'unit')) === 1, 'CARDS names the cards, with kind');
+    SwuPgnTestCheck(count(array_filter($all['cards'], fn($c) => $c["id"] === "SOR#095" && $c["name"] === "Battlefield Marine" && ($c['kind'] ?? null) === 'unit')) === 1, 'CARDS names the cards, with kind');
     SwuPgnTestCheck(is_array($all['story']) && count($all['story']) > 0, 'a STORY');
     SwuPgnTestEq(count($all['decks']), 2, 'DECKS for both seats');
+    SwuPgnTestEq(array_map(fn($r) => [$r['seq'], $r['t']], $all['setup']), [['R0.S.0', 'INIT']], '§8 [W-35]: the INIT record is R0.S.0');
+    SwuPgnTestEq($h['WriterRevision'] ?? null, '4', '[W-12] WriterRevision 4 (named Action abilities)');
 }
 $hl = $healthLines();
 SwuPgnTestCheck(count($hl) === 1 && ($hl[0]['game'] ?? '') === $gameName && empty($hl[0]['refused']), 'one health line', json_encode($hl));
@@ -146,6 +148,52 @@ SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"x\"]\n%%% CARDS\n{\"id\":\"SOR#95\",\"n
     'a player named like a card is no PII hit');
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbaxian\"]\n%%% EVENTS\n", ['zorbaxian']) === true, 'the scan is case-insensitive');
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg ab\"]\n", ['ab']) === false, 'names under 3 characters are not scanned');
+// A username is a hit only as a whole word, and never when it is a word of the game's own card text: those would block
+// every game a player named "Ash" or "Deal" plays. A real name in free text still is.
+$pgnText = "[GameId \"4439b6eb-45c7-5c53-aab6-6929ad301885\"]\n[P1Id \"sha256:0516fbed9dc44ec20953977eb418e0ea\"]\n%%% EVENTS\n"
+    . "{\"seq\":\"R1.A.1\",\"t\":\"CHOICE\",\"prompt\":\"Deal 1 damage to a unit in space rather than start the attack\"}\n"
+    . "{\"seq\":\"R1.A.2\",\"t\":\"ABILITY_ACTIVATE\",\"title\":\"Action [Exhaust]: Play a unit from your hand. Return it to its owner's base.\"}\n";
+foreach (['ash', 'han', 'ace', 'art', 'the', 'unit', 'deal', 'play', 'base', 'Space', 'fed'] as $u)
+    SwuPgnTestCheck(SwuPgnPiiScan($pgnText, [$u]) === false, "no PII hit for a player named \"$u\" (inside another word, or a word of the card text)");
+foreach (['ash', 'sec', 'Sor', 'ts26'] as $u)
+    SwuPgnTestCheck(SwuPgnPiiScan("[CardPool \"SOR,SHD,SEC,TS26,ASH\"]\n[P1Leader \"ASH#097\"]\n", [$u]) === false, "no PII hit for a player named \"$u\" (a set code)");
+// The writer's own fixed fields (a hex GameId, the engine hash, the format, an event's type and seq) never hold a
+// player's text; the P1/P2 name headers and Reason still are scanned.
+$fixed = "[GameId \"4439b6eb-fede-5c53-cafe-6929ad301885\"]\n[Engine \"petranaki@06aab77\"]\n[Format \"premier\"]\n[P1 \"Player 1\"]\n%%% EVENTS\n"
+    . "{\"seq\":\"R10.A.11a\",\"t\":\"GAME_END\",\"for\":\"R10.A.11\"}\n";
+foreach (['fede', 'cafe', '06aab77', 'premier', 'r10', 'game_end'] as $u)
+    SwuPgnTestCheck(SwuPgnPiiScan($fixed, [$u]) === false, "no PII hit for a player named \"$u\" (a fixed field)");
+SwuPgnTestCheck(SwuPgnPiiScan(str_replace('Player 1', 'zorbaxian', $fixed), ['zorbaxian']) === true, 'a username in the P1 header is still a hit');
+SwuPgnTestCheck(SwuPgnPiiScan(str_replace('rather than', 'for zorbaxian', $pgnText), ['Zorbaxian']) === true, 'a username as a word in a prompt is still a hit');
+SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbax_99!\"]\n", ['zorbax_99']) === true, 'a username with digits and an underscore is matched whole');
+SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbax_990\"]\n", ['zorbax_99']) === false, 'but not as the start of a longer name');
+
+// SWU Forge delivery: a seat whose account is linked to SWU Forge gets its all-seeing file queued when the game ends
+// (SWUSim/SWUForgeDelivery.php); the other seat's unlinked account gets nothing, and a refused file queues nothing.
+$fCfg = $GLOBALS['SWUFORGE_CONFIG'] ?? null;   // a configured box (SWU Forge is off without a client secret)
+$GLOBALS['SWUFORGE_CONFIG'] = ['baseUrl' => 'https://forge.test', 'clientId' => 'petranaki', 'clientSecret' => 'test-secret', 'redirectUri' => 'http://localhost:3400/cb'];
+$fConn = GetLocalMySQLConnection();
+$fUser = 990000241; $fOther = 990000242;
+$fConn->query("DELETE FROM swuforge_deliveries WHERE usersId IN ($fUser, $fOther)");
+SWUForgeSaveLink($fConn, $fUser, 'Forge', 'a', 'r', time() + 3600);
+$fRows = fn(string $g) => $fConn->query("SELECT seat, usersId, pgn, status FROM swuforge_deliveries WHERE gameName = '" . $fConn->real_escape_string($g) . "'")->fetch_all(MYSQLI_ASSOC);
+$a = $lethal('forge');
+$frame(fn() => null);
+$fm = SwuPgnMetaRead($gameName); $fm['accounts'] = ['1' => $fOther, '2' => $fUser]; SwuPgnMetaWrite($gameName, $fm);
+SwuPgnRecFinish($gameName, 1, 'Base Destroyed');
+$q = $fRows($gameName);
+SwuPgnTestCheck(count($q) === 1 && (int)$q[0]['seat'] === 2 && (int)$q[0]['usersId'] === $fUser && $q[0]['status'] === 'pending'
+    && $q[0]['pgn'] === ($files($gameName)['all'] ?? null), 'a game end queues the all-seeing file for the linked seat only',
+    json_encode(array_map(fn($r) => ['seat' => $r['seat'], 'u' => $r['usersId'], 'st' => $r['status'], 'len' => strlen($r['pgn'])], $q)));
+$a = $lethal('forgepii');
+$frame(fn() => null);
+$fm = SwuPgnMetaRead($gameName); $fm['accounts'] = ['1' => $fOther, '2' => $fUser]; SwuPgnMetaWrite($gameName, $fm);
+SwuPgnRecFinish($gameName, 1, 'gg zorbaxian');
+SwuPgnTestEq($fRows($gameName), [], 'a file the PII gate refused is not queued');
+$fConn->query("DELETE FROM swuforge_deliveries WHERE usersId IN ($fUser, $fOther)");
+$fConn->query("DELETE FROM swuforge_links WHERE usersId = $fUser");
+$fConn->close();
+if ($fCfg === null) unset($GLOBALS['SWUFORGE_CONFIG']); else $GLOBALS['SWUFORGE_CONFIG'] = $fCfg;
 
 // A file that fails our own check is still written — and says so in its header ([RecorderErrors]), like any other
 // recorder error: the count is taken before the files are built.
@@ -159,6 +207,27 @@ $sf = $files($gameName);
 SwuPgnTestCheck($sf['all'] !== null && $sf['p1'] !== null && $sf['p2'] !== null, 'a file failing our check is still written');
 SwuPgnTestEq(array_map(fn($t) => $t === null ? null : (SwuPgnParse($t)['headers']['RecorderErrors'] ?? null), $sf), ['all' => '1', 'p1' => '1', 'p2' => '1'],
     'and every file carries [RecorderErrors "1"]');
+
+// A DRAW (CR 6.3): two Sabine Wren leaders, both bases at 29 of 30; one "deal 1 damage to each base" defeats both.
+// The game finishes with Result "Draw" and a GAME_END whose winner is "Draw" — the spec's existing value, so no
+// WriterRevision bump.
+$gameName = 'swupgnfin_draw_' . getmypid(); $games[] = $gameName;
+@mkdir('./SWUSim/Games/' . $gameName, 0777, true);
+$b = new GameStateBuilder();
+CommonSetup($b, 'grw', 'grw', ['resourceCount' => 4, 'baseDamage' => 29], ['resourceCount' => 4, 'baseDamage' => 29]);
+$b->WithActivePlayer(1);
+foreach (['SOR_101', 'SOR_102'] as $c) { $b->WithCardInDeckForPlayer(1, $c); $b->WithCardInDeckForPlayer(2, $c); }
+$a = new GameTestAdapter(); $a->loadState($b);
+SwuPgnRecForceForTest($gameName);
+$frame(fn() => $a->useLeaderAbility(1));
+SwuPgnTestEq(SWUGetGameWinner(), -1, 'the game is a draw');
+$df = $files($gameName);
+$dAll = $checkFile($df['all'], 'the drawn all.swupgn');
+if ($dAll) {
+    SwuPgnTestEq([$dAll['headers']['Result'], $dAll['headers']['Reason']], ['Draw', 'Base Destroyed'], 'Result Draw / Reason Base Destroyed');
+    $dEnd = end($dAll['events']);
+    SwuPgnTestCheck(($dEnd['t'] ?? '') === 'GAME_END' && ($dEnd['winner'] ?? null) === 'Draw', 'GAME_END winner "Draw"', json_encode($dEnd));
+}
 
 foreach ($games as $x) exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $x));
 @unlink(MatchPath('SWUSim', $matchId)); @unlink($health);

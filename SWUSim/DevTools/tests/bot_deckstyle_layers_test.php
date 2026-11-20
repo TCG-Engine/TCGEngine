@@ -15,7 +15,7 @@ $check = function ($ok, $msg, $detail = '') use (&$fails) {
 $S = array_flip(SWU_DECKSTYLE_SCALE);
 $shape = fn(array $d) => SWUBotStyleFromScore(SWUBotDeckShapeScore($d))['style'];
 $labelled = [];
-foreach (['ash-meta-2026-09', 'hmw-meta-2026-09', 'force-fam-HMW-predictions'] as $g) foreach (glob("./SWUSim/Tests/BotFixtures/$g/*.txt") ?: [] as $p) {
+foreach (['ash-meta-2026-09', 'hmw-meta-2026-09', 'force-fam-HMW-predictions'] as $g) foreach (glob("./SWUSim/BotFixtures/$g/*.txt") ?: [] as $p) {
     $t = (string)file_get_contents($p); preg_match('/^# DeckStyle:\s*(\S+)/m', $t, $dm); preg_match('/^# Style:\s*(\S+)/m', $t, $m);
     $l = strtolower(strval($dm[1] ?? $m[1] ?? ''));
     if (isset($S[$l])) $labelled[] = ["$g/" . basename($p, '.txt'), SWUBotDeckFromFixtureText($t), $l];
@@ -63,7 +63,7 @@ foreach (['midrange', 'softcontrol'] as $st) {
 // Expected counts are derived from SWUBotCardTags / card data here, never pinned.
 // Two lists from opposite ends, so a feature that is 0 in one (Krennic has no attack/buff cards) is exercised by the other.
 foreach (['director-krennic_law_blue-splash', 'ahsoka-tano_ash_blue'] as $fx) {
-    $deck = SWUBotDeckFromFixtureText((string)file_get_contents("./SWUSim/Tests/BotFixtures/ash-meta-2026-09/$fx.txt"));
+    $deck = SWUBotDeckFromFixtureText((string)file_get_contents("./SWUSim/BotFixtures/ash-meta-2026-09/$fx.txt"));
     $want = ['heal' => 0, 'aggroTags' => 0, 'units3' => 0, 'events3' => 0];
     foreach ($deck['cards'] as $id => $c) {
         $tags = array_unique(SWUBotCardTags(strval($id)));

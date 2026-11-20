@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch197.json",
+  "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T19:44:36.941230+00:00",
+  "fixtures": [
+    {
+      "slug": "card-amplify-the-arknight-red-four-live-sparse-real-runechant-discount-and-six-physical-damage",
+      "fixture_sha256": "e41d0f65cee91b7573816c0732defc75ee5a8e5909678639dbf28e361a27387d",
+      "passed": true,
+      "result": "[PASS] amplify_the_arknight_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-passing-mirage-blue-four-live-sparse-first-illusionist-attack-survives-real-six-power-block",
+      "fixture_sha256": "d061dcd424033a66d4c3cccebdb6e5f46400ac1bcbcffc92282e20d616b23b7b",
+      "passed": true,
+      "result": "[PASS] passing_mirage_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-amplify-the-arknight-red-four-live-sparse-real-runechant-discount-and-six-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] amplify_the_arknight_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-passing-mirage-blue-four-live-sparse-first-illusionist-attack-survives-real-six-power-block",
+      "returncode": 0,
+      "stdout": "[PASS] passing_mirage_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,296 @@
+{
+  "status": "APPROVED_B233_ONE_ACTUAL_SAVED_FOUR_LIVE_TIGER_FINAL_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T07:17:07.537444+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch233.json",
+  "input_sha256": "0205e9c1fb7651f92e30771903e3a52ec17e93c1cfaa29fb36ade97426ae5c05",
+  "manifest_sha256": "c00a3d6c3bafeedbd79fb7e5b36e95c17e2b7fcfe8de1dd11c204ee9b868768f",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch233-independent-manual-spec-review-106.json",
+    "sha256": "07cd5a525912a5d843a03bc1541d6420e341bb3d14852286625e630c581bb6c0"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch233-20261026T071212Z-6adefd4cbb6ee.json",
+    "sha256": "a14204df4256da10226fd3473963ab8407756b1f3e159b770ae3a3e7c75acf9d"
+  },
+  "fixtures": [
+    {
+      "slug": "card-crouching-tiger-four-live-sparse-actual-zero-power-go-again-and-ephemeral-disappearance-on-full-combat-close",
+      "card_id": "crouching_tiger",
+      "group_id": "identity:crouching_tiger",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_LEAN_FOUR_LIVE_TIGER_GA_AND_EPHEMERAL_CLOSE_FINAL_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch233.json",
+      "input_sha256": "0205e9c1fb7651f92e30771903e3a52ec17e93c1cfaa29fb36ade97426ae5c05",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "fixture_sha256": "65c15330f9ef71e04bf331b6937a44ae5d2f5fdf9c4d89c6ad8056086ad539af",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eba7480e7ce66964d8192632e06d8d37d5f48b1d0aa78b1fa66fbb583cb7bdb1",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7171c2f3b14fda9c0be03c3b1df95033e9a88ef677325051efc07d141b359deb",
+        "expected_final_gamestate.txt": "48c51281bd9474585eddb6a0274d293256b977a86dc13e4d63e20254a1c86aeb",
+        "meta.json": "232ebba2af8c25d78f4e97b3f01abb34850215c2913ef29e0e3f5d6aa8cf825e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "eba7480e7ce66964d8192632e06d8d37d5f48b1d0aa78b1fa66fbb583cb7bdb1",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7171c2f3b14fda9c0be03c3b1df95033e9a88ef677325051efc07d141b359deb",
+        "expected_final_gamestate.txt": "48c51281bd9474585eddb6a0274d293256b977a86dc13e4d63e20254a1c86aeb",
+        "meta.json": "232ebba2af8c25d78f4e97b3f01abb34850215c2913ef29e0e3f5d6aa8cf825e"
+      },
+      "actions": 27,
+      "native_assertions": 736,
+      "native_card_property_assertions": 103,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 25,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 24,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_Ninja_and_legitimate_created_Tiger_Hand_checkpoint",
+          "step": 0,
+          "native_assertions": 109
+        },
+        {
+          "checkpoint": "actual_adjacent_target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_attack_assets_paid_before_all_four_responses",
+          "step": 2,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_1_of_four",
+          "step": 3,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_2_of_four",
+          "step": 4,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_3_of_four",
+          "step": 5,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_attack_source_fourth_manual_response_boundary",
+          "step": 6,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_1_of_four",
+          "step": 7,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_2_of_four",
+          "step": 8,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_3_of_four",
+          "step": 9,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_attack_step_fourth_manual_response_boundary",
+          "step": 10,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_P4_declares_no_defenders_against_real_printed_zero_power_attack",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_1_of_four",
+          "step": 12,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_2_of_four",
+          "step": 13,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_3_of_four",
+          "step": 14,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_step_fourth_manual_response_boundary",
+          "step": 15,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_1_of_four",
+          "step": 16,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_2_of_four",
+          "step": 17,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_3_of_four",
+          "step": 18,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_reaction_step_fourth_manual_response_boundary",
+          "step": 19,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_zero_damage_no_hit_and_no_hero_health_change",
+          "step": 19,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "actual_damage_step_and_printed_attack_go_again_manual_response_1_of_four",
+          "step": 20,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_damage_step_and_printed_attack_go_again_manual_response_2_of_four",
+          "step": 21,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_damage_step_and_printed_attack_go_again_manual_response_3_of_four",
+          "step": 22,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_damage_step_and_printed_attack_go_again_fourth_manual_response_boundary",
+          "step": 23,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_full_chain_close_applies_printed_Ephemeral_instead_of_graveyard_manual_response_1_of_four",
+          "step": 24,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_full_chain_close_applies_printed_Ephemeral_instead_of_graveyard_manual_response_2_of_four",
+          "step": 25,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_full_chain_close_applies_printed_Ephemeral_instead_of_graveyard_manual_response_3_of_four",
+          "step": 26,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_full_chain_close_applies_printed_Ephemeral_instead_of_graveyard_fourth_manual_response_boundary",
+          "step": 27,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "full_final_earned_Action_point_and_no_active_Tiger_in_any_zone_or_Stack",
+          "step": 27,
+          "native_assertions": 105
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Hand": [
+          [
+            "5",
+            "crouching_tiger",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {},
+      "observed_recording_summary": {
+        "slug": "card-crouching-tiger-four-live-sparse-actual-zero-power-go-again-and-ephemeral-disappearance-on-full-combat-close",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 736
+      },
+      "actual_meaningful_evidence": [
+        "Actual initial ownHand5 is Crouching Tiger Owner/Controller1, with no seeded effects/played/combo/resource history, no PhoenixFlame or created-card action. Current printed types are NinjaActionAttack, not literal Token.",
+        "Real zero-cost Hand attack declares adjacentP4 before spending AP1. All four actors pass through each native source/combat boundary; persisted transition assertions require actual power0, GAtrue, physicalUID5/owner/controller1/FromHand.",
+        "Zero physical damage/no hit keeps allHP20. Native resolution boundary awards exactly AP1 while physical5 is retained on chain through three real close responses. Fourth response fully closes; every physical nonhero zone across allfour seats and Stack is empty, including GY0. This matches Ephemeral replacement instead of graveyard entry.",
+        "Final ACTION/closedchain/AP1/R0/no pending payment, marker, decision, await frame or ghost. Historical arcCards5/sharedDQcombat reference remains cache only and is not an active surviving Tiger."
+      ],
+      "limits": [
+        "Single existing-created ownHand play/printedGA/Ephemeral-to-GY replacement. No creation/constructorraw0/creatorownership/deckbuilding start/game/Fai/support or hero credit.",
+        "No buff/combo/positive hit/other target/other leave-zone/suppression/turnend expiry/further attack/fullcard branches.",
+        "All736 native oracles and raw5 match unchanged approved lean recipe; no old assertions were removed or old corpus reviewed. Record/replay/fault qualification remains root-owned.",
+        "Snapshots and passed root native checkpoint assertions provide scoped evidence; no unseen callback locals, removed versions/history snapshots as activeobjects, or broader engine metadata certification."
+      ]
+    }
+  ],
+  "totals": {
+    "fixtures": 1,
+    "actions": 27,
+    "native_assertions": 736,
+    "card_property_assertions": 103,
+    "manual_pass_until_inputs": 25,
+    "priority_response_passes": 24,
+    "defender_declaration_completion_inputs": 1,
+    "end_phase_admin_passes": 0,
+    "recorder_only_checks": 0,
+    "endpoint_manual_preference_values": 96
+  },
+  "source_only_holds": [
+    {
+      "card_id": "written_in_the_stars_blue",
+      "status": "UNCHANGED_UNATTEMPTED_UNCOVERED_SOURCE_ONLY_IMPLEMENTATION_HOLD"
+    },
+    {
+      "card_id": "minerva_themis",
+      "status": "UNCHANGED_UNATTEMPTED_UNCOVERED_SOURCE_ONLY_IMPLEMENTATION_HOLD"
+    }
+  ],
+  "php_execution": 0,
+  "native_execution": 0,
+  "optional_rules_simulation": 0,
+  "repository_writes": 0
+}

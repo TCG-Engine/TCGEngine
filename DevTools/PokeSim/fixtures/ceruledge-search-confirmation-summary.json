@@ -1,0 +1,135 @@
+{
+    "policy": "26fc8cf067c4398e",
+    "seed": 160001,
+    "pairs": 100,
+    "baselineSHA256": "679c616c1bef00738521fb7a6a667745dec5583a4e2b0645b4aee0e8447cfcf0",
+    "note": "Matched seeds and starting orders. Percentages count all games. Win intervals cluster the four games sharing each seed; approximate 95%, no adjustment for comparing multiple candidates.",
+    "variants": {
+        "baseline": {
+            "changes": [],
+            "games": 400,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 162
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 96
+                }
+            },
+            "complete": 400,
+            "completePct": 100,
+            "won": 258,
+            "wonPct": 64.5,
+            "by2ExAttack": 238,
+            "by2ExAttackPct": 59.5,
+            "by4Ready330": 130,
+            "by4Ready330Pct": 32.5,
+            "by5Ready330": 207,
+            "by5Ready330Pct": 51.75,
+            "winDeltaPP": 0,
+            "seedCluster95ApproxPP": [
+                0,
+                0
+            ]
+        },
+        "boss-to-poffin": {
+            "changes": {
+                "me02.5-183": -1,
+                "sv05-144": 1
+            },
+            "games": 400,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 168
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 101
+                }
+            },
+            "complete": 400,
+            "completePct": 100,
+            "won": 269,
+            "wonPct": 67.25,
+            "by2ExAttack": 240,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 134,
+            "by4Ready330Pct": 33.5,
+            "by5Ready330": 223,
+            "by5Ready330Pct": 55.75,
+            "winDeltaPP": 2.75,
+            "seedCluster95ApproxPP": [
+                -2.99,
+                8.49
+            ]
+        },
+        "boss-stretcher-to-poffin": {
+            "changes": {
+                "me02.5-183": -1,
+                "me02.5-196": -1,
+                "sv05-144": 2
+            },
+            "games": 400,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 162
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 103
+                }
+            },
+            "complete": 400,
+            "completePct": 100,
+            "won": 265,
+            "wonPct": 66.25,
+            "by2ExAttack": 242,
+            "by2ExAttackPct": 60.5,
+            "by4Ready330": 130,
+            "by4Ready330Pct": 32.5,
+            "by5Ready330": 219,
+            "by5Ready330Pct": 54.75,
+            "winDeltaPP": 1.75,
+            "seedCluster95ApproxPP": [
+                -3.28,
+                6.78
+            ]
+        },
+        "boss-to-pad": {
+            "changes": {
+                "me02.5-183": -1,
+                "me03-081": 1
+            },
+            "games": 400,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 200,
+                    "wins": 168
+                },
+                "dhelmise-v2": {
+                    "games": 200,
+                    "wins": 104
+                }
+            },
+            "complete": 400,
+            "completePct": 100,
+            "won": 272,
+            "wonPct": 68,
+            "by2ExAttack": 240,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 141,
+            "by4Ready330Pct": 35.25,
+            "by5Ready330": 226,
+            "by5Ready330Pct": 56.5,
+            "winDeltaPP": 3.5,
+            "seedCluster95ApproxPP": [
+                -2.41,
+                9.41
+            ]
+        }
+    }
+}

@@ -156,6 +156,8 @@
 
   function cardName(cid) {
     try { if (typeof CardTitle === 'function' && CardTitle(cid)) return String(CardTitle(cid)); } catch (e) {}
+    // The board page has no CardTitle(); it loads the generated card dictionary's titleData map instead.
+    if (typeof titleData !== 'undefined' && titleData && titleData[cid]) return String(titleData[cid]);
     return String(cid).replace(/_/g, ' ');
   }
 
@@ -243,7 +245,7 @@
       const btn = document.createElement('button');
       btn.className = 'optchoose-btn btn';
       // DISPLAY is humanised; the SUBMITTED value is always the raw option (see optionDisplayLabel).
-      btn.textContent = optionDisplayLabel(opt);
+      appendOptionLabel(btn, opt);
       btn.setAttribute('data-option', opt);   // the raw submitted value — for tests, never for display
       btn.addEventListener('click', function() {
         submitCallback(opt, decisionIndex);
@@ -272,6 +274,27 @@
    * Gated on that global EXISTING so other sims sharing this Core file are untouched; inside SWUSim it is
    * always defined (an empty object when nobody is logged in).
    */
+  // A bare card token "[[SET_NNN]]" in an option label (SOR_233 I Am Your Father: "[[LAW_124]] Takes 7 Damage") is drawn as
+  // the card's NAME with the game log's hover preview (swuLogCardHover, when the board defines it). Bare form only — the
+  // title stays client-side, so a title with a space or "&" never enters the delimited Param. Text nodes everywhere else.
+  // Split on the RAW option: optionDisplayLabel turns "_" into spaces, which would break the CardID inside a token.
+  function appendOptionLabel(btn, opt) {
+    const parts = String(opt).split(/(\[\[[A-Za-z0-9]+_[A-Za-z0-9]+\]\])/);
+    if (parts.length === 1) { btn.textContent = optionDisplayLabel(opt); return; }
+    parts.forEach(function(seg, i) {
+      if (i % 2 === 0) { if (seg) btn.appendChild(document.createTextNode(optionDisplayLabel(seg))); return; }
+      const cid = seg.slice(2, -2);
+      const link = document.createElement('span');
+      link.className = 'swu-card-link';
+      link.textContent = cardName(cid);
+      if (typeof window.swuLogCardHover === 'function') {
+        link.addEventListener('mousemove', function(e) { window.swuLogCardHover(e, cid); });
+        link.addEventListener('mouseout', function() { if (typeof HideCardDetail === 'function') HideCardDetail(); });
+      }
+      btn.appendChild(link);
+    });
+  }
+
   function optionDisplayLabel(opt) {
     // Underscores are a TRANSPORT artifact, not typography: DecisionQueue's Param is space-delimited,
     // so a multi-word option label has to be written "Replace_Raid_With_Restore" server-side. Render it

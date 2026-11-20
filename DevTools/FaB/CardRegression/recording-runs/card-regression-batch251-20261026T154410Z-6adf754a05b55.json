@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T15:44:10+00:00",
+    "input_file": "card-regression-batch251.json",
+    "input_sha256": "e62eee0599fab0b9469493b69832e148fd6e33f2776c97a684d43a07ba32fe29",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-iris-of-reality-four-live-sparse-real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 690
+        },
+        {
+            "slug": "card-barbed-castaway-four-live-sparse-real-offturn-instant-paid-hand-arrow-load-face-up-with-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 10,
+            "assertions": 458
+        }
+    ]
+}

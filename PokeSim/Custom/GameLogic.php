@@ -5,6 +5,7 @@ require_once __DIR__ . '/FossilLogic.php';
 /** Pokémon rules and headless action surface over generated zones and macros. */
 $customDQHandlers = [];
 $customDQHandlers['PokeFinishAttack'] = function($player, $parts, $lastDecision) {
+    PokeReturnAttackEnergy((int)$player);
     PokeOpeningResolved((int)$player);
     PokeResolveKnockouts(); if (GetCurrentPhase() === 'MAIN') PokeSetVar('endAttack', true);
 };
@@ -93,7 +94,12 @@ function PokeCreateGame(array $deck1, array $deck2, int $seed = 1, int $firstPla
     SetTurnPlayer(GetFirstPlayer()); SetCurrentPhase('SETUP');
     PokeSetVar('decks', [$deck1, $deck2]); PokeSetVar('prizeCount', $prizeCount);
     PokeSetVar('initialSeed',$seed);
-    foreach ([1=>$deck1,2=>$deck2] as $seat=>$deck) PokeSetVar('deckKey:'.$seat,PokeDetectDeck($deck));
+    foreach ([1=>$deck1,2=>$deck2] as $seat=>$deck) {
+        PokeSetVar('deckKey:'.$seat,PokeDetectDeck($deck));
+        PokeSetVar('initialBasicFire:'.$seat,array_sum(array_column(array_filter($deck,fn($entry)=>$entry['id']==='mee-002'),'count')));
+        PokeSetVar('initialEnergy:'.$seat,array_sum(array_column(array_filter($deck,fn($entry)=>CardType($entry['id'])==='Energy'),'count')));
+        PokeSetVar('initialBasicFighting:'.$seat,array_sum(array_column(array_filter($deck,fn($entry)=>CardType($entry['id'])==='Energy'&&CardEnergyType($entry['id'])==='Normal'&&in_array('Fighting',PokeEnergyTypes($entry['id']),true)),'count')));
+    }
     PokeOpeningInit();
     foreach ([1 => $deck1, 2 => $deck2] as $seat => $deck) {
         foreach ($deck as $entry) for ($i = 0; $i < $entry['count']; ++$i) PokeAdd($seat, 'Deck', $entry['id']);
@@ -136,6 +142,7 @@ function PokePlayBasicFromZone(int $player, string $ref, string $zone = 'Bench')
     $pokemon->Controller = $player; $pokemon->EnteredTurn = GetTurnNumber(); $pokemon->EvolvedTurn = -1;
     PokeLog('play-pokemon', ['player' => $player, 'card' => $pokemon->CardID, 'zone' => $zone]);
     if ($fromHand && $zone === 'Bench' && GetCurrentPhase() === 'MAIN') PokemonBenched($player, PokeRef($player,$zone,$pokemon->mzIndex));
+    if ($zone === 'Bench') DispatchMacroListeners('PokemonBenched', $player, ['mzID'=>PokeRef($player,$zone,$pokemon->mzIndex)], ['Stadium']);
 }
 function PokeCanEvolve(int $player, $evolution, $pokemon): bool {
     return GetPlayerTurns($player) > 1 && CardType($evolution->CardID) === 'Pokemon'
@@ -144,10 +151,11 @@ function PokeCanEvolve(int $player, $evolution, $pokemon): bool {
 }
 function PokeEvolve(int $player, string $handRef, string $targetRef): void {
     $card = GetZoneObject($handRef); $pokemon = GetZoneObject($targetRef);
+    $fromHand = $card->Location === 'Hand';
     $pokemon->Evolutions[] = $pokemon->CardID; $pokemon->CardID = $card->CardID;
     $pokemon->EvolvedTurn = GetTurnNumber(); $pokemon->Conditions = []; $pokemon->TurnEffects = [];
     $card->Remove(); PokeLog('evolve', ['player' => $player, 'card' => $pokemon->CardID]);
-    if (!HasNoAbilities($pokemon)) PokemonEvolved($player, $targetRef);
+    if ($fromHand && !HasNoAbilities($pokemon)) PokemonEvolved($player, $targetRef);
 }
 function PokeSwitch(int $player, string $benchRef, bool $clear = true): void {
     $bench = GetZoneObject($benchRef);
@@ -167,7 +175,7 @@ function PokeCanPlayTrainer(int $player, string $ref): bool {
     $obj = GetZoneObject($ref);
     if (!$obj || !PokeCardImplemented($obj->CardID) || CardType($obj->CardID) !== 'Trainer') return false;
     if (CardTrainerType($obj->CardID) === 'Item' && PokeVar('itemLock:'.$player, -1) === GetTurnNumber()) return false;
-    if (CardTrainerType($obj->CardID) === 'Supporter' && (GetSupporterUsed($player) || ($player === GetFirstPlayer() && GetPlayerTurns($player) === 1))) return false;
+    if (CardTrainerType($obj->CardID) === 'Supporter' && (GetSupporterUsed($player) || ($player === GetFirstPlayer() && GetPlayerTurns($player) === 1 && CardName($obj->CardID) !== 'Carmine'))) return false;
     if (CardTrainerType($obj->CardID) === 'Stadium' && (PokeVar('stadiumPlayed:'.$player) === GetTurnNumber() || (PokeStadium() && CardName(PokeStadium()->CardID) === CardName($obj->CardID)))) return false;
     return !function_exists('PokeGeneratedCanPlayTrainer') || PokeGeneratedCanPlayTrainer($player, $ref);
 }
@@ -249,18 +257,18 @@ function PokeLegalActions(int $player): array {
             } elseif (PokeCanPlayTrainer($player, $ref)) $actions[] = ['type' => 'trainer', 'source' => $ref];
         }
         $activeRef = PokeFirstRef($player, 'Active'); $active = $activeRef ? GetZoneObject($activeRef) : null;
-        if ($active && !PokeIsFossil($active->CardID) && !GetRetreatUsed($player) && empty($active->Conditions['Asleep']) && empty($active->Conditions['Paralyzed'])) {
+        if ($active && !PokeIsFossil($active->CardID) && !GetRetreatUsed($player) && empty($active->Conditions['Asleep']) && empty($active->Conditions['Paralyzed']) && ($active->TurnEffects['noRetreatThrough'] ?? -1) < GetTurnNumber()) {
             foreach (PokeCombinations(array_keys($active->Energy), PokeRetreatCost($active)) as $payment) {
                 foreach (PokeObjects($player, 'Bench') as $i => $obj) $actions[] = ['type' => 'retreat', 'target' => PokeRef($player, 'Bench', $i), 'payment' => $payment];
             }
         }
         if ($active && empty($active->Conditions['Asleep']) && empty($active->Conditions['Paralyzed']) && !($player === GetFirstPlayer() && GetPlayerTurns($player) === 1)) {
             foreach (CardAttacks($active->CardID) ?? [] as $i => $attack) {
-                if (PokeHasAttackEnergy($active, PokeAttackCost($active, $attack['cost'] ?? []))) $actions[] = ['type' => 'attack', 'source' => $activeRef, 'index' => $i];
+                if (PokeCanUseAttack($player, $activeRef, $active->CardID, $i) && PokeHasAttackEnergy($active, PokeAttackCost($active, $attack['cost'] ?? []))) $actions[] = ['type' => 'attack', 'source' => $activeRef, 'index' => $i];
             }
             if (!HasNoAbilities($active) && EvaluateAttackCopyAllowed($active->CardID,$player,$active,$active)>0) {
                 foreach (PokeObjects($player,'Bench') as $n=>$bench) foreach (CardAttacks($bench->CardID)??[] as $i=>$attack) {
-                    if (PokeHasAttackEnergy($active,PokeAttackCost($active,$attack['cost']??[]))) $actions[]=['type'=>'attack','source'=>$activeRef,'index'=>$i,'copySource'=>PokeRef($player,'Bench',$n)];
+                    if (PokeCanUseAttack($player,$activeRef,$bench->CardID,$i) && PokeHasAttackEnergy($active,PokeAttackCost($active,$attack['cost']??[]))) $actions[]=['type'=>'attack','source'=>$activeRef,'index'=>$i,'copySource'=>PokeRef($player,'Bench',$n)];
                 }
             }
         }
@@ -411,6 +419,12 @@ function PokeObservation(int $viewer = 1): array {
     foreach ([1,2] as $seat) {
         $row = ['deckCount' => PokeCount($seat, 'Deck'), 'prizeCount' => PokeCount($seat, 'Prizes'), 'handCount' => PokeCount($seat, 'Hand'), 'turns' => GetPlayerTurns($seat), 'energyUsed'=>GetEnergyUsed($seat), 'supporterUsed'=>GetSupporterUsed($seat)];
         $row['legacyEnergyUsed']=(bool)PokeVar('legacyEnergyUsed:'.$seat,false);
+        $row['lunarCycleUsed']=PokeVar('lunarCycle:'.$seat,-1)===GetTurnNumber();
+        if($viewer===$seat)$row['initialBasicFire']=(int)PokeVar('initialBasicFire:'.$seat,20);
+        if($viewer===$seat&&PokeVar('initialEnergy:'.$seat,null)!==null){
+            $row['initialEnergy']=(int)PokeVar('initialEnergy:'.$seat);
+            $row['initialBasicFighting']=(int)PokeVar('initialBasicFighting:'.$seat,0);
+        }
         foreach (['Active', 'Bench', 'Discard', 'Hand', 'TempZone'] as $zone) {
             $row[$zone] = [];
             if (in_array($zone, ['Hand','TempZone'], true) && $viewer !== $seat) continue;
@@ -428,5 +442,5 @@ function PokeObservation(int $viewer = 1): array {
     $log = PokeVar('log', []);
     if (GetCurrentPhase() === 'SETUP') $log = array_values(array_filter($log, fn($event)=>!in_array($event['event'], ['play-pokemon','switch'], true) || ($event['player'] ?? 0) === $viewer));
     return ['viewer'=>$viewer, 'players'=>$players, 'phase'=>GetCurrentPhase(), 'turn'=>GetTurnNumber(), 'turnPlayer'=>GetTurnPlayer(), 'firstPlayer'=>GetFirstPlayer(),'seed'=>PokeVar('initialSeed'),
-        'damageTurns'=>PokeVar('damageTurns', []), 'winner'=>GetWinner(), 'stadium'=>PokeStadium()?['id'=>PokeStadium()->CardID,'ref'=>'Stadium-'.PokeStadium()->mzIndex,'name'=>CardName(PokeStadium()->CardID),'effect'=>CardEffect(PokeStadium()->CardID),'abilities'=>PokeStadium()->CardID==='me05-076'?[['name'=>'Fossil Quarry']]:[], 'attacks'=>[]]:null, 'actions'=>PokeLegalActions($viewer), 'decision'=>PokeDecisionOptions($viewer), 'log'=>$log, 'revision'=>$GLOBALS['updateNumber'] ?? 0];
+        'damageTurns'=>PokeVar('damageTurns', []), 'winner'=>GetWinner(), 'stadium'=>PokeStadium()?['id'=>PokeStadium()->CardID,'ref'=>'Stadium-'.PokeStadium()->mzIndex,'name'=>CardName(PokeStadium()->CardID),'effect'=>CardEffect(PokeStadium()->CardID),'abilities'=>array_map(fn($name)=>['name'=>$name],CardActivateAbilityCountNames(PokeStadium()->CardID)), 'attacks'=>[]]:null, 'actions'=>PokeLegalActions($viewer), 'decision'=>PokeDecisionOptions($viewer), 'log'=>$log, 'revision'=>$GLOBALS['updateNumber'] ?? 0];
 }

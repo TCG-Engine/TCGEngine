@@ -1,0 +1,25 @@
+{
+  "utc": "2026-10-26T11:57:33.341724+00:00",
+  "status": "APPLIED_SYNTAX_COMPONENT_PASSED_NATIVE_QUALIFICATION_PENDING",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+      "after_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "eol": "CRLF preserved",
+      "before_crlf_lines": 2429,
+      "after_crlf_lines": 2497
+    }
+  ],
+  "runtime_before_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "runtime_after_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "source_review_sha256": "cb79945cc3b7ff2995abe77f3a4e77771384ee3191c34d95c4a72cfce905aff9",
+  "component_review_sha256": "d28354c33990ef48eb5485d46e951cfedab934d191d24aa1efeeabede289dfdd",
+  "component_results_sha256": "1e75936bfbd1c3504420f358d8fba118493a991afc69d854919669913b955019",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-source-application\\backup\\FaBSim\\Custom\\GameLogic.php",
+  "backup_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+  "generated_files_changed": false,
+  "core_changed": false,
+  "full_suite_run": false
+}

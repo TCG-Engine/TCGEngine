@@ -1,0 +1,7 @@
+{
+    "name": "adaptive_dissolver / actual four-live modular relocation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T07:00:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal youngDash20 and three youngDori20; actual owned Mechanologist Modular Equipment5 starts legally equippedHead, represented by existing EVO_SLOT counter. This is current slot state, not synthetic history or an effectgrant. Actual Action0 spends AP1->0, virtualability6 captures Equipment/SourceUID5; physical5 stays Head through four real manual responses. The nonmodal printed equip instruction makes an equipment-zone selection during resolution using existing Modal UI: currentHead excluded, vacantChest/Arms/Legs are offered. While MZMODAL1|1|Chest&Arms&Legs waits, physicalsource5 and independentability6 remain live; no raw priority oracle during privatechoice. Actual index1 selectsArms. SameUID5/OwnerController1 now has EVO_SLOTArms (GameLogic effective types consume this counter); source is not destroyed/replaced, no new equipment/card appears. No printedGA: finalAP0, allR0/HP20, Stack/queuesempty/ACTION, allotherzonesempty. ArcaneBarrier, game-start equip selection, occupiedslots, type-dependent futureplays and alternatezones remain uncredited. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS246.webp"
+}

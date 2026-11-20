@@ -1,0 +1,45 @@
+{
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "completed_utc": "2026-10-25T23:46:50.536182+00:00",
+  "plan_sha256": "d87ae36cb9b406952dd3e59177ca48df022a965b7d1c14421f58e1a644488e63",
+  "independent_saved_proof_sha256": "7633f654677feb53a971f157f58081b94ba8588816c37a5877e17a58ac3b1123",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch209-one-causal-control-final97-plan.json",
+    "d87ae36cb9b406952dd3e59177ca48df022a965b7d1c14421f58e1a644488e63",
+    "card-regression-negative-controls-sparse209-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "gilet_actual_paid_opt_completed_prevention_one_omission",
+      "fixture": "card-seekers-gilet-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "fixture_sha256": "e1820294849bc20d1e4fe3c7f15a8ea5126bc6bb9d1bb3758c891c29ebe297eb",
+      "source_raw5": {
+        "initial_gamestate.txt": "f48752b6988a5ee9d5c9e6ec4b065e67ad2022f38e270f9cabb7d3967d82ca80",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "6eb3af1163eec117dccd26d4334697c5f1627e07dbc3404e021964c832b977a3",
+        "expected_final_gamestate.txt": "385a2dc94707641dbed731b5177dc451760d856f873d1da2f50fa523fd5072e1",
+        "meta.json": "50e21a088bca86c7c9c8148860ea646fbda54ef01c034e4622688af26a60dbbe"
+      },
+      "prefix_actions": 26,
+      "mutation": {
+        "remove_effect": "PREVENT_DAMAGE"
+      },
+      "retained_assertions": 1166,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 14, got 13.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] seekers_gilet / four live distinctive effect: Step 4 assertion failed: Expected p4Health to equal 14, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual P4Gilet Instant1 payment/destruction/four responses and actualOptBottomRed answer finish the ability at26, omit only the globally unique naturally earned PREVENT_DAMAGE1. Keep physicalsourceGY, bluePitch/cost/R2/AP0, realDeck order10/11/9, clearedTemp/layer/frame, actualattack7 and all actors. Real nextseven damage now reachesP4 in full instead of beingprevented1: firstphysicalHP14-to13 precedes laterdamageDealt6-to7. No privateawait/caster/history/cache/HP/target mutation.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

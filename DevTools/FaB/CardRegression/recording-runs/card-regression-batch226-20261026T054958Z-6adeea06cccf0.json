@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T05:49:58+00:00",
+    "input_file": "card-regression-batch226.json",
+    "input_sha256": "d0059258f2d53840243ecbbb9fc776bc5aad3e84355336bccdf9652a4296d7ac",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-stand-ground-four-live-sparse-owned-might-and-vigor-give-two-real-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 1381
+        }
+    ]
+}

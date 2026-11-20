@@ -1,0 +1,84 @@
+{
+  "status": "051_REPAIR_AND_226_STAND_GROUND_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T05:56:29.446731+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "saved_scenarios": 3450,
+  "registered_scenarios": 3450,
+  "pending_registered_scenarios": 0,
+  "two_player": 3074,
+  "four_live": 376,
+  "primary_ids_recorded": 607,
+  "identity_denominator": 5196,
+  "groups_recorded": 481,
+  "group_denominator": 3324,
+  "four_live_groups": 372,
+  "phase_scenarios_qualified_at_actual_contexts": 87,
+  "phase_unique_groups_qualified_at_actual_contexts": 85,
+  "creation_replay_passes": 174,
+  "current_runtime_new_cases_with_two_clean_replays": 2,
+  "new_scenarios": 2,
+  "new_primary_ids": 1,
+  "new_groups": 1,
+  "new_fix_groups": 1,
+  "phase_distinct_new_fixed_gameplay_groups": 7,
+  "existing_group_extensions": 2,
+  "new_helper_fault_controls": 0,
+  "global_helper_controls": 117,
+  "phase_helper_controls": 33,
+  "hand_native": {
+    "actions": 37,
+    "assertions": 2642,
+    "manual_passes": 29,
+    "review": {
+      "path": "review-evidence/boulderhold-051-hand-qualified-saved-review.json",
+      "sha256": "6844ca250038fea48e11677fc5f12a23ac856270e0d930bab3ed47772d1ba1ba"
+    },
+    "replays": [
+      {
+        "path": "card-regression-replay-boulderhold051-5ff0-r1.json",
+        "sha256": "6196b65b21f6243867bf627b78c53072ae5bacfa0ba5afc6bcd4471800fbefec"
+      },
+      {
+        "path": "card-regression-replay-boulderhold051-5ff0-r2.json",
+        "sha256": "f846bd0272bb3bc21225a5dbde565ca4a46bf3cdbffb9e5153accc3882cf5955"
+      }
+    ],
+    "affected_arsenal": {
+      "path": "card-regression-replay-boulderhold051-arsenal-5ff0-compat.json",
+      "sha256": "38f660816de428f8b43992db26cb59a07cee7be597f28f27eb7a94332a0be509"
+    }
+  },
+  "stand_ground_native": {
+    "actions": 20,
+    "assertions": 1381,
+    "manual_passes": 17,
+    "review": {
+      "path": "review-evidence/sparse226-5ff0-qualified-saved-review.json",
+      "sha256": "704d58b1f008c939ba455c30b6becf9e39098ad294c9eb805eae0eeda8b0740b"
+    },
+    "replays": [
+      {
+        "path": "card-regression-replay-sparse226-5ff0-r1.json",
+        "sha256": "497d9bf927bec9ea860db825324bce4c8cd60ceabf79124ceefbd0329c35d4a1"
+      },
+      {
+        "path": "card-regression-replay-sparse226-5ff0-r2.json",
+        "sha256": "35322bc4c81afca20f1e08d64a2e9e807f6149dfb63e5296fdb6531f2ee7fbb4"
+      }
+    ],
+    "limits": "OnlyMight+Vigorpositivecondition/currentDAMAGEcombatOPEN. NoTemper/closure/tokencreation/fullcard."
+  },
+  "known_source_only_holds": [
+    "aether_conduit",
+    "beseech_the_demigon_red"
+  ],
+  "before_after": "review-evidence/boulderhold-051-before-after.json",
+  "no_full_suite": true,
+  "broad_validation_command": "& 'C:\\xampp\\php\\php.exe' DevTools/RunIntegrationTests.php --root=FaBSim",
+  "upstream_remote_reconciled": false,
+  "historical_evidence_retagged": false,
+  "limits": "Recordedprimarypresence/partialnamedbranchesatstatedruntimes, nosiblinginheritance/fullcardorcurrentcorpusqualification. Existing3363bytebindingcaveatretained; unchangedcasesnotreplayed.",
+  "staged": false,
+  "committed": false,
+  "pushed": false
+}

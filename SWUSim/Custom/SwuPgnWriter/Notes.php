@@ -9,6 +9,17 @@ function SwuPgnNote(array $note): void {
     if (empty($GLOBALS['SWU_PGN_RECORDING'])) return;
     try {
         _SwuPgnTestThrow('note');
+        // §9.1: a play, attack, deploy or action ability is a player's own (numbered) action only as the first one of a request
+        // that began with no decision pending (or that answers the question the player's own action asked first — Recorder's
+        // SWU_PGN_OPEN_ACTION); any other was made by an ability resolving — a lettered sub-step (`sub`).
+        $t = $note['t'] ?? '';
+        if (in_array($t, ['PLAY', 'ATTACK', 'DEPLOY'], true) || ($t === 'ABILITY' && in_array($note['kind'] ?? '', ['action', 'epic'], true))) {
+            $note['sub'] = (!empty($GLOBALS['SWU_PGN_FRAME_BUSY']) && empty($GLOBALS['SWU_PGN_OPEN_ACTION'])) || !empty($GLOBALS['SWU_PGN_ACTED']);
+            $GLOBALS['SWU_PGN_ACTED'] = true;
+            $GLOBALS['SWU_PGN_OPEN_ACTION'] = false;
+        } elseif (in_array($t, ['PASS', 'CLAIM'], true)) {
+            $GLOBALS['SWU_PGN_ACTED'] = true;
+        }
         $GLOBALS['SWU_PGN_NOTES'][] = $note;
     } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }
@@ -31,14 +42,56 @@ function SwuPgnNoteRef($obj) {
     return isset($obj->CardID) ? strval($obj->CardID) : null;
 }
 
-// The card whose ability is resolving (the game log's source), base@N when it is that seat's base; a one-shot
-// $GLOBALS['SWU_PGN_DAMAGE_SRC'] (a rule, e.g. "rule:deck-out") wins.
+// The card whose ability is resolving (the game log's source), base@N when it is that seat's base — or an ability the
+// base GAINED from a Fortify upgrade on it ("Attached base gains: …"): the base dealt that damage (§10.3). A one-shot
+// $GLOBALS['SWU_PGN_DAMAGE_SRC'] (a rule, e.g. "rule:deck-out") wins; with no game-log source, the base Action this
+// request began (SwuPgnNoteBaseUpgradeAction) is the source.
 function SwuPgnNoteSource() {
     if (!empty($GLOBALS['SWU_PGN_DAMAGE_SRC'])) return strval($GLOBALS['SWU_PGN_DAMAGE_SRC']);
     [$p, $cardID] = function_exists('SWULogSource') ? SWULogSource() : [0, ''];
+    if (($p <= 0 || $cardID === '') && isset($GLOBALS['SWU_PGN_ACTION_SRC'])) [$p, $cardID] = $GLOBALS['SWU_PGN_ACTION_SRC'];
     if ($p <= 0 || $cardID === '') return null;
-    foreach (GetBase($p) ?? [] as $b) if (empty($b->removed) && $b->CardID === $cardID) return "base@$p";
+    foreach (GetBase($p) ?? [] as $b) {
+        if (!empty($b->removed)) continue;
+        if ($b->CardID === $cardID) return "base@$p";
+        if (_SwuPgnBaseGrants($p, $cardID)) return "base@$p";
+    }
     return $cardID;
+}
+
+// True when $cardID is a Fortify upgrade on $p's base whose ability is one it GRANTS the base (not its own printed one).
+function _SwuPgnBaseGrants(int $p, string $cardID): bool {
+    if (!function_exists('_SWUFortifyGrantsToBase') || !_SWUFortifyGrantsToBase($cardID)) return false;
+    foreach (GetBase($p) ?? [] as $b) {
+        if (!empty($b->removed)) continue;
+        foreach (GetUpgradesOnUnit($b) as $sub) if ((is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '')) === $cardID) return true;
+    }
+    return false;
+}
+
+// A base Action that an upgrade on the base provides (the engine runs it without a game-log "used …'s Action"): the
+// ABILITY note — the base's own, grantedBy the upgrade, when the upgrade grants it ("Attached base gains: …"); the
+// upgrade's when it is the upgrade's printed Action (Bacta Tank's "Action [defeat this upgrade]") — and the source for
+// the rest of the request.
+// $entry (named Action abilities): adds the ability id, its printed text and its use limit (W-49).
+function SwuPgnNoteBaseUpgradeAction(int $p, string $cardID, ?array $entry = null): void {
+    if (!SwuPgnNoteOn()) return;
+    try {
+        $GLOBALS['SWU_PGN_ACTION_SRC'] = [$p, $cardID];
+        $granted = _SwuPgnBaseGrants($p, $cardID);
+        $named = $entry === null ? [] : array_filter(['ability' => (string)$entry['id'],
+            'title' => ($entry['title'] ?? '') !== '' ? (string)$entry['title'] : null,
+            'limit' => is_array($entry['limit'] ?? null) ? $entry['limit'] : null], fn($v) => $v !== null);
+        SwuPgnNote(['t' => 'ABILITY', 'p' => $p, 'cardID' => $granted ? "base@$p" : $cardID, 'kind' => 'action'] + ($granted ? ['grantedBy' => $cardID] : []) + $named);
+    } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
+}
+
+// A base defeated outright — no damage dealt (HMW_004 Grand Moff Tarkin: "defeat a base").
+function SwuPgnNoteBaseDefeat(int $seat, ?int $killer): void {
+    if (!SwuPgnNoteOn()) return;
+    try {
+        SwuPgnNote(['t' => 'BASE_DEFEAT', 'p' => intval($killer ?? 0), 'seat' => $seat, 'by' => SwuPgnNoteSource()]);
+    } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }
 
 // Combat damage: the attacker dealt it, unless it landed on the attacker's side (the defender's counter).
@@ -73,17 +126,19 @@ function SwuPgnNoteHeal($tgtObj, int $amount): void {
 // The rules' own reasons for a defeat (§6.4), set around the engine code that does it: the uniqueness rule (it wins over any
 // card in the log's source), the rules engine — "frameworkEffect" — when no card is to blame ($fallback: a card in the
 // source wins), or a keyword of the card being played (Exploit). $fn runs either way; the reason lasts only while it does.
-function SwuPgnDefeatCause(string $reason, ?string $byCardID, callable $fn, bool $fallback = false) {
+// $byPlayed: $byCardID is the card being played (Exploit) — the matcher names the copy that is played, not any copy of it.
+function SwuPgnDefeatCause(string $reason, ?string $byCardID, callable $fn, bool $fallback = false, bool $byPlayed = false) {
     $prev = $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] ?? null;
-    $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = ['reason' => $reason, 'by' => $byCardID, 'fallback' => $fallback];
+    $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = ['reason' => $reason, 'by' => $byCardID, 'fallback' => $fallback, 'byPlayed' => $byPlayed];
     try { return $fn(); } finally { $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = $prev; }
 }
-// [reason, by] for an effect defeat: the cause set around it, else the card in the log's source ("ability"), else $default.
+// [reason, by] for an effect defeat: the cause set around it, else the card in the log's source — "nonCombatDamage" for a
+// damage kill ($default), "ability" for an outright one (§6.4) — else $default.
 function _SwuPgnDefeatReason(string $default): array {
     $cause = $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] ?? null;
     if ($cause !== null && empty($cause['fallback'])) return [$cause['reason'], $cause['by']];
     $by = SwuPgnNoteSource();
-    if ($by !== null) return ['ability', $by];
+    if ($by !== null && !str_starts_with($by, 'rule:')) return [$default === 'nonCombatDamage' ? 'nonCombatDamage' : 'ability', $by];
     return $cause !== null ? [$cause['reason'], $cause['by']] : [$default, null];
 }
 
@@ -94,7 +149,10 @@ function SwuPgnNoteDefeat($obj, string $reason, $byObj = null): void {
         if ($reason === 'attack') $by = $byObj !== null ? SwuPgnNoteRef($byObj) : null;
         elseif ($byObj !== null) [$reason, $by] = ['ability', SwuPgnNoteRef($byObj)];
         else [$reason, $by] = _SwuPgnDefeatReason($reason);
-        SwuPgnNote(['t' => 'DEFEAT', 'uid' => intval($obj->UniqueID ?? 0) ?: null, 'cardID' => strval($obj->CardID ?? ''), 'reason' => $reason, 'by' => $by]);
+        $cause = $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] ?? null;
+        $byPlayed = $reason !== 'attack' && $byObj === null && !empty($cause['byPlayed']) && $by === ($cause['by'] ?? null);
+        SwuPgnNote(['t' => 'DEFEAT', 'uid' => intval($obj->UniqueID ?? 0) ?: null, 'cardID' => strval($obj->CardID ?? ''), 'reason' => $reason, 'by' => $by]
+            + ($byPlayed ? ['byPlayed' => true] : []));
     } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }
 
@@ -122,24 +180,51 @@ function SwuPgnNoteChoice(int $player, $head, string $answer): void {
             $mzs = array_values(array_filter(explode('&', strval($head->Param ?? '')), fn($m) => $m !== '' && $m !== '-'));
             $idx = array_search($answer, $mzs, true);
             if ($idx === false) return;
-            $offered = []; $seats = []; $zones = [];
-            foreach ($mzs as $mz) {
+            $offered = []; $seats = []; $zones = []; $idxs = [];
+            foreach ($mzs as $k => $mz) {
+                $idxs[$k] = preg_match('/^[A-Za-z]+-(\d+)$/', $mz, $mi) ? intval($mi[1]) : null;   // its place in the zone
+                // An upgrade on a host ("<host mz>.u<Subcards key>"): its card, in the host's zone — a base's own, or the
+                // unit's attachments.
+                if (preg_match('/^(.+-\d+)\.u(\d+)$/', $mz, $m)) {
+                    $host = _SWULogResolve($m[1], $player);
+                    $sub = is_object($host) && is_array($host->Subcards ?? null) ? ($host->Subcards[intval($m[2])] ?? null) : null;
+                    $cid = is_array($sub) ? ($sub['CardID'] ?? null) : (is_object($sub) ? ($sub->CardID ?? null) : null);
+                    if (is_string($cid) && $cid !== '') {
+                        $offered[] = $cid;
+                        $seats[] = str_starts_with($mz, 'their') ? 3 - $player : $player;
+                        $zones[] = $host instanceof Base ? 'base' : 'attached:' . intval($host->UniqueID ?? 0);
+                        continue;
+                    }
+                }
                 $o = _SWULogResolve($mz, $player);
                 $offered[] = SwuPgnNoteRef($o) ?? $mz;
                 // Whose zone it is, and which: a card in both decks is THIS seat's copy (the matcher resolves by these).
                 $seats[] = str_starts_with($mz, 'their') ? 3 - $player : $player;
                 $zones[] = _SwuPgnNoteMzZone($mz);
             }
+        } elseif ($type === 'NAMECARD') {
+            // §10.2 [W-51]: "Name a card" — a NAME, the title as printed (the client may send other casing), not a CHOICE.
+            $name = $answer;
+            foreach ($GLOBALS['titleData'] ?? [] as $t) if (strcasecmp(trim((string)$t), trim($answer)) === 0) { $name = (string)$t; break; }
+            SwuPgnNote(['t' => 'NAME', 'p' => $player, 'name' => trim($name)]);
+            return;
         } elseif ($type === 'OPTIONCHOOSE' || $type === 'YESNO') {
-            $offered = $type === 'YESNO' ? ['YES', 'NO'] : explode('&', strval($head->Param ?? ''));
+            // An "@CardID" segment is a card shown above the buttons (OptionChooseUI strips it), not an option — and the
+            // card is often hidden (an opponent's hand, the top of a deck). A popup left with one button ("Opponent's
+            // hand … OK") is an acknowledgement, not a choice.
+            $offered = $type === 'YESNO' ? ['YES', 'NO'] : array_values(array_filter(explode('&', strval($head->Param ?? '')), fn($o) => !str_starts_with($o, '@')));
+            if (count($offered) < 2) return;
             $idx = array_search($answer, $offered, true);
             if ($idx === false) return;
-            $offered = array_map(fn($o) => str_replace('_', ' ', $o), $offered);
+            // A bare card token in a label ("[[LAW_124]]_Takes_7_Damage", SOR_233) becomes the card's title — PGN labels are
+            // plain text, and the blanket "_" replace would otherwise mangle the CardID inside it.
+            $offered = array_map(fn($o) => preg_replace_callback('/\[\[([A-Za-z0-9]+_[A-Za-z0-9]+)\]\]|_/',
+                fn($m) => ($m[1] ?? '') !== '' ? strval(CardTitle($m[1]) ?: $m[1]) : ' ', $o), $offered);
         } else {
             return;
         }
         $prompt = trim(str_replace('_', ' ', strval($head->Tooltip ?? '')));
         SwuPgnNote(['t' => 'CHOICE', 'p' => $player, 'offered' => $offered, 'chose' => intval($idx), 'prompt' => $prompt !== '' && $prompt !== '-' ? $prompt : null]
-            + (isset($seats) ? ['offeredSeats' => $seats, 'offeredZones' => $zones] : []));
+            + (isset($seats) ? ['offeredSeats' => $seats, 'offeredZones' => $zones, 'offeredIdx' => $idxs] : []));
     } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }

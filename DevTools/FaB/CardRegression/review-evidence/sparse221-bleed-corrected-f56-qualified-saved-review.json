@@ -1,0 +1,409 @@
+{
+  "status": "APPROVED_EXACT_NEW_FOUR_LIVE_REPRESENTATIVES_TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+  "reviewer": "/root/b104_saved_review",
+  "assembled_by": "/root from actual independent saved review and actual replay receipts",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "source_spec": "card-regression-batch221-bleed-corrected-protocol.json",
+  "source_spec_sha256": "1254290d861ead3af59280e03124e4f0f4721cc70a8f757d9e753f776da3b660",
+  "fixtures": [
+    {
+      "index": 0,
+      "original_batch221_index": 2,
+      "card_id": "bleed_out_red",
+      "slug": "card-bleed-out-red-four-live-sparse-real-two-dagger-damage-earns-zero-cost-next-link",
+      "semantically_approved": true,
+      "verdict": "APPROVED_REAL_SAVED_CORRECTED_BLEED_ONLY_TARGETED_QUALIFICATION_SEPARATE",
+      "fixture_sha256": "428d84d2c1795fcc8af8a92212135bf440e85676f9977b0c0141a5128ea0a8cd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bbf5dcc0931a2e672874ee9f25f1261ce0fdca562854fe36c710e806863a03ea",
+        "actions.json": "3c36009acfbf5285fd72472d01c6ff863a25fd85750aa02f3f32be8fcba578c1",
+        "assertions.json": "adff26acc4a43abf3accafca939edbe0f1137157739786170e977a7fdf1e00f7",
+        "expected_final_gamestate.txt": "b28f3a4dcebf6ccd2797cea37c7d84f5bb4cf57d8a8365bc7423a5c020376cd0",
+        "meta.json": "4d58284b8069005b03d6c538cfbde1f52ed27e38604583f2b6cd096a56dbe054"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "bbf5dcc0931a2e672874ee9f25f1261ce0fdca562854fe36c710e806863a03ea",
+        "actions.json": "3c36009acfbf5285fd72472d01c6ff863a25fd85750aa02f3f32be8fcba578c1",
+        "assertions.json": "adff26acc4a43abf3accafca939edbe0f1137157739786170e977a7fdf1e00f7",
+        "expected_final_gamestate.txt": "b28f3a4dcebf6ccd2797cea37c7d84f5bb4cf57d8a8365bc7423a5c020376cd0",
+        "meta.json": "4d58284b8069005b03d6c538cfbde1f52ed27e38604583f2b6cd096a56dbe054"
+      },
+      "source_spec": "card-regression-batch221-bleed-corrected-protocol.json",
+      "input_sha256": "1254290d861ead3af59280e03124e4f0f4721cc70a8f757d9e753f776da3b660",
+      "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "recorded_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "actions": 50,
+      "native_assertions": 3533,
+      "actual_manual_passes": 46,
+      "actual_pass_actors": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_recorded_actions_assertions_exact": true,
+      "full_physical_endpoints_independently_inspected": true,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Ninja_dagger_primary_Bleed_Blue_no_prior_chain_damage",
+          "native_assertions": 114
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "real_adjacent_target_declared_before_assets",
+          "native_assertions": 52
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "real_attack_awaits_resource_and_Action_assets",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Blue7_pays_Dagger_one_leaves_two_AP0_physical_weapon_used",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_support_Dagger_source_actual_response_1_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_support_Dagger_source_actual_response_2_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_support_Dagger_source_actual_response_3_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_support_Dagger_source_fourth_actual_response",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_support_Dagger_attack_step_actual_response_1_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_support_Dagger_attack_step_actual_response_2_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_support_Dagger_attack_step_actual_response_3_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_support_Dagger_attack_step_fourth_actual_response",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "P4_declares_no_Dagger_defense",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "actual_support_Dagger_defending_priority_actual_response_1_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "actual_support_Dagger_defending_priority_actual_response_2_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "actual_support_Dagger_defending_priority_actual_response_3_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_support_Dagger_defending_priority_fourth_actual_response",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "actual_support_Dagger_reaction_damage_two_actual_response_1_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "actual_support_Dagger_reaction_damage_two_actual_response_2_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "actual_support_Dagger_reaction_damage_two_actual_response_3_of_four",
+          "native_assertions": 65
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "actual_support_Dagger_reaction_damage_two_fourth_actual_response",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "actual_support_Dagger_damage_to_legal_open_chain_Resolution_AP1_actual_response_1_of_four",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "actual_support_Dagger_damage_to_legal_open_chain_Resolution_AP1_actual_response_2_of_four",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "actual_support_Dagger_damage_to_legal_open_chain_Resolution_AP1_actual_response_3_of_four",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "actual_support_Dagger_damage_to_legal_open_chain_Resolution_AP1_fourth_actual_response",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "actual_Bleed_printed_two_minus_actual_two_Dagger_damage_cost_zero_AP_spent_R2_unchanged",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "actual_primary_Bleed_source_second_chain_link_actual_response_1_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "actual_primary_Bleed_source_second_chain_link_actual_response_2_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "actual_primary_Bleed_source_second_chain_link_actual_response_3_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "actual_primary_Bleed_source_second_chain_link_fourth_actual_response",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "actual_primary_Bleed_attack_step_actual_response_1_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "actual_primary_Bleed_attack_step_actual_response_2_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 64,
+          "action_step": 32,
+          "checkpoint": "actual_primary_Bleed_attack_step_actual_response_3_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 66,
+          "action_step": 33,
+          "checkpoint": "actual_primary_Bleed_attack_step_fourth_actual_response",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 68,
+          "action_step": 34,
+          "checkpoint": "P4_declares_no_primary_Bleed_defense",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 70,
+          "action_step": 35,
+          "checkpoint": "actual_primary_Bleed_defending_priority_actual_response_1_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 72,
+          "action_step": 36,
+          "checkpoint": "actual_primary_Bleed_defending_priority_actual_response_2_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 74,
+          "action_step": 37,
+          "checkpoint": "actual_primary_Bleed_defending_priority_actual_response_3_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 76,
+          "action_step": 38,
+          "checkpoint": "actual_primary_Bleed_defending_priority_fourth_actual_response",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 78,
+          "action_step": 39,
+          "checkpoint": "actual_primary_Bleed_reaction_damage_four_actual_response_1_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 80,
+          "action_step": 40,
+          "checkpoint": "actual_primary_Bleed_reaction_damage_four_actual_response_2_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 82,
+          "action_step": 41,
+          "checkpoint": "actual_primary_Bleed_reaction_damage_four_actual_response_3_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 84,
+          "action_step": 42,
+          "checkpoint": "actual_primary_Bleed_reaction_damage_four_fourth_actual_response",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 86,
+          "action_step": 43,
+          "checkpoint": "actual_primary_Bleed_damage_refunds_own_printed_go_again_actual_response_1_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 88,
+          "action_step": 44,
+          "checkpoint": "actual_primary_Bleed_damage_refunds_own_printed_go_again_actual_response_2_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 90,
+          "action_step": 45,
+          "checkpoint": "actual_primary_Bleed_damage_refunds_own_printed_go_again_actual_response_3_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 92,
+          "action_step": 46,
+          "checkpoint": "actual_primary_Bleed_damage_refunds_own_printed_go_again_fourth_actual_response",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 94,
+          "action_step": 47,
+          "checkpoint": "actual_full_chain_close_after_both_real_attacks_actual_response_1_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 96,
+          "action_step": 48,
+          "checkpoint": "actual_full_chain_close_after_both_real_attacks_actual_response_2_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 98,
+          "action_step": 49,
+          "checkpoint": "actual_full_chain_close_after_both_real_attacks_actual_response_3_of_four",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 100,
+          "action_step": 50,
+          "checkpoint": "actual_full_chain_close_after_both_real_attacks_fourth_actual_response",
+          "native_assertions": 52
+        },
+        {
+          "source_step": 101,
+          "action_step": 50,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 115
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "current_clean_replays": [
+        "card-regression-replay-sparse221-bleed-corrected-f56-r1.json",
+        "card-regression-replay-sparse221-bleed-corrected-f56-r2.json"
+      ],
+      "current_qualification_status": "TWO_CLEAN_REPLAYS_ACTUAL_SAVED_REVIEW_POSITIVE_ONLY",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse221-bleed-corrected-actual-saved-independent-review.json",
+    "sha256": "c0de8f6b0df0f0fbcf168e4e079165b3efb1f1483d54857fc98aaeca2bd1cdcb"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse221-bleed-corrected-f56-r1.json",
+      "sha256": "7e1ced376256565f57c129efa0b1ad49e44d57f8c2310e70c64094cc9fc90278"
+    },
+    {
+      "path": "card-regression-replay-sparse221-bleed-corrected-f56-r2.json",
+      "sha256": "e9f02eca8711c279abff163f97bc49f323351839821f00bba0e762c5e302cb23"
+    }
+  ],
+  "method": "Manual independent printed/rules/source analysis followed by actual native action/assertion-stream and full physical endpoint review. No optional paper simulator executed or certification synthesized.",
+  "isolated_native_faults": {
+    "attempted": 0,
+    "detected": 0
+  },
+  "qualification": "Only exact all-three-opponents AetherArc/Ponder3 and reallethal Intervention survival, or exact realdaggerdamage-earned Bleed nextlinkcost0/power4/GA/fullclose. Positive-only; no isolatedhistoryfault/sibling/support/fullcard/fullsuites credit. Original Bleed targetprompt was a corrected UPF sole-target recipe mismatch, not an enginebug."
+}

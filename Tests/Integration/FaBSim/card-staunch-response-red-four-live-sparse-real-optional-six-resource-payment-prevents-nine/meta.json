@@ -1,0 +1,7 @@
+{
+    "name": "staunch_response_red / four live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T22:28:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four living legal Fai20/2 Dorinthea20/Bravo20. P1 actual owned Potion5 Action destroy/virtual11/four manual responses earns NEXT_ATTACK2 and ownGA, then actual Raging9 printed7+2=9/Blue10 pays3/AP0. No synthetic attack modifier. Empty defense then actual response priority to P4. Actual Staunch6 DefenseReaction choice declares optional4 RESOURCE cost, total2+4=6 before funding; real Blue7 pitches3 stillunpaid, actual Blue8 funds6, R0/AP0 throughout response (noActioncost). Four response actors4,1,2,3 resolve physical Staunch6 into defending Chain. Printed defense7+paid3=10 prevents actual9 attack completely, P4HP20; without paidbonus defense7 wouldtake2, so branch material. Full closure primary6 P4 publicGY, both real Pitch7/8, P1 GY UNORDERED memberships Potion5+Raging9/count2 and independent exactUIDset{5,9}, Blue10 Pitch, allHP20/AP/R0/queues empty. No reliance on unpersisted computed-defense/can-play or arbitrary GY indices. Base option/insufficient fullfunding/repeated reactions/siblings/support primary credit unverified. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP058.webp https://judge.fabtcg.com/cards/detail/164/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP382.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/WTR188.webp"
+}

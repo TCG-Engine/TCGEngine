@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T04:06:39+00:00",
+    "input_file": "card-regression-batch220-rapture-activated-corrected.json",
+    "input_sha256": "e839f6efc1f9760692af9bdecbeeb07f381776206fcd312e885a1f80d4df8c7e",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-empyrean-rapture-four-live-sparse-actual-paid-once-instant-grants-ward-one-then-consumes-equipment-on-real-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 928
+        }
+    ]
+}

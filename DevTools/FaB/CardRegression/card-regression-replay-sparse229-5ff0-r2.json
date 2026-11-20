@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch229.json",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T06:23:44.521002+00:00",
+  "fixtures": [
+    {
+      "slug": "card-radiant-touch-four-live-sparse-actual-equipment-and-soul-banish-costs-prevent-two-of-real-zap-three",
+      "fixture_sha256": "78702eb072d5b013a54dba5e1c8e6414a6b8dc50b81c84a16befad4049fac3a6",
+      "passed": true,
+      "result": "[PASS] radiant_touch / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-cognition-nodes-blue-four-live-sparse-actual-paid-action-retains-owned-item-and-adds-first-steam-after-four-responses",
+      "fixture_sha256": "314dd687d3a2e77080d0cba1e51b83030726cc8b8d02ce6b1f4115706b209e79",
+      "passed": true,
+      "result": "[PASS] cognition_nodes_blue / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-radiant-touch-four-live-sparse-actual-equipment-and-soul-banish-costs-prevent-two-of-real-zap-three",
+      "returncode": 0,
+      "stdout": "[PASS] radiant_touch / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cognition-nodes-blue-four-live-sparse-actual-paid-action-retains-owned-item-and-adds-first-steam-after-four-responses",
+      "returncode": 0,
+      "stdout": "[PASS] cognition_nodes_blue / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

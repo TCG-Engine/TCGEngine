@@ -9,6 +9,7 @@ include_once './APIs/Lobbies/Classes/Player.php';   // unserializing an APCu lob
 
 $folderPath = preg_replace('/[^A-Za-z0-9_]/', '', TryGET("folderPath", ""));
 $lastChatID = intval(TryGET("lastChatID", "0"));
+ChatPersistUseRoot($folderPath);   // saved chat for Petranaki only (Core/ChatStore.php)
 
 // A lobby or match conversation is NOT public: unlike a game, which anyone may spectate, a room's
 // talk is between the people in it. Those two scopes therefore require the caller's seat authKey,

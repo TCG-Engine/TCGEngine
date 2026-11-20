@@ -227,7 +227,10 @@ function SimGameBuildAuthKeysFromLobby($lobby)
   }
 
   if (!empty($authKeys['isPrivate'])) {
-    $authKeys['spectator'] = bin2hex(random_bytes(16));
+    // A lobby may supply the key: a SWUSim High Ground room hands every game of a hill match the room's watch key, so
+    // its members can watch game 2 and 3 of a Bo3 too. Absent (every other lobby): a fresh random key, as before.
+    $supplied = (is_object($lobby) && isset($lobby->spectatorKey) && is_string($lobby->spectatorKey)) ? $lobby->spectatorKey : '';
+    $authKeys['spectator'] = ($supplied !== '') ? $supplied : bin2hex(random_bytes(16));
   }
 
   return $authKeys;
@@ -324,6 +327,33 @@ function SimGameResolvePresentedAuthKey($authKey = '')
   if ($authKey !== '') return $authKey;
   if (isset($_COOKIE['lastAuthKey'])) return trim(strval($_COOKIE['lastAuthKey']));
   return '';
+}
+
+function SimGameSeatCookieName($rootName)
+{
+  return 'tcgengine_' . SimGameSanitizeRootName($rootName) . '_lastAuthKey';
+}
+
+function SimGameResolveBoardAuthKey($rootName, $gameName, $playerID, $requestedAuthKey = '')
+{
+  // Explicit links and the waiting room's app-scoped cookie take precedence over legacy
+  // session/cookie credentials, which may belong to another game on the parent domain.
+  $requestedAuthKey = trim(strval($requestedAuthKey));
+  if ($requestedAuthKey !== '') return $requestedAuthKey;
+  if (in_array(strval($playerID), ['1', '2', '3', '4'], true)) {
+    $candidates = [
+      trim(strval($_COOKIE[SimGameSeatCookieName($rootName)] ?? '')),
+      trim(strval($_SESSION['p' . $playerID . 'AuthKey'] ?? '')),
+      SimGameResolvePresentedAuthKey(),
+    ];
+    // Menus that still write only the legacy cookie must work after a previous room game.
+    // Select a credential this browser already holds that actually belongs to this seat.
+    foreach ($candidates as $candidate) {
+      if ($candidate !== '' && SimGameValidateSeatAuth($rootName, $gameName, $playerID, $candidate)) return $candidate;
+    }
+    foreach ($candidates as $candidate) if ($candidate !== '') return $candidate;
+  }
+  return SimGameResolvePresentedAuthKey();
 }
 
 function SimGameIsPrivateGame($rootName, $gameName)

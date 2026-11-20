@@ -20,8 +20,14 @@ foreach (['premier', 'eternal', 'twinsuns', 'padawan'] as $f) {
     $checks["'$f' produces stats"] = in_array($f, $stats, true);
 }
 // Preview formats are first-class formats separated by their own key.
-foreach (['preview', 'twinsuns-preview', 'teamsuns-preview', 'padawan-preview', 'eternal-preview'] as $f) {
+foreach (['preview', 'padawan-preview', 'eternal-preview'] as $f) {
     $checks["preview '$f' produces stats"] = in_array($f, $stats, true);
+}
+// Twin Suns / Team Suns Preview are OFF since 2026-11-04 (owner: 'twinsuns' / 'teamsuns' carry IC27 themselves). A closed
+// window writes nothing but stays READABLE — the asymmetry checked below.
+foreach (['twinsuns-preview', 'teamsuns-preview'] as $f) {
+    $checks["closed preview '$f' writes no stats"] = !in_array($f, $stats, true);
+    $checks["closed preview '$f' stays readable"]  = in_array($f, SWUStatsFormats(false), true);
 }
 // Open and the local/solo MODES never do. Goldfish is one player; Hotseat is one person on both seats.
 foreach (['open', 'goldfish', 'hotseat'] as $f) {

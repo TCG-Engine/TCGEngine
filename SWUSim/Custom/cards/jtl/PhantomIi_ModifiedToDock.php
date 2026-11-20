@@ -8,8 +8,8 @@
 // (resource-only, no exhaust). Reuses SWUMoveUnitToUpgrade; the +3/+3 + Grit grant lives in
 // ObjectCurrentPower/HP + the Grit conditional. "The Ghost" is TITLE-based — any unit titled "The Ghost"
 // on EITHER player's side is a legal host (JTL_053, SOR_050, …), so when >1 is in play the player picks.
-// SWUMoveUnitToUpgrade handles the "defeat all upgrades on it and remove all damage" rider. Affordability
-// (SWUUnitActionAffordable) gates on any "The Ghost" being in play.
+// SWUMoveUnitToUpgrade handles the "defeat all upgrades on it and remove all damage" rider. NOT gated on a Ghost
+// being in play (CR 6.4.587.c): the [1 resource] cost changes game state, so with no Ghost it pays and stays a unit.
 $unitActionCostKind["JTL_050"] = 'none';
 
 $unitActionResourceCosts["JTL_050"] = 1;

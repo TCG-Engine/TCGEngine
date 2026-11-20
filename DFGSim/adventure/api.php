@@ -27,6 +27,7 @@ try{
         $journey=ADApply($journey,$body['action']);
     }
     $journey=ADUpgradeStarter($journey);
+    $journey=ADUpgradeExploration($journey);
     if($fresh||$method==='POST'||$journey['revision']!==$originalRevision){
         $temporary=$dir.'/'.$saveId.'.'.bin2hex(random_bytes(5)).'.tmp.php';
         if(file_put_contents($temporary,$prefix.json_encode($journey,JSON_THROW_ON_ERROR),LOCK_EX)===false)throw new RuntimeException('Unable to save journey');

@@ -1,0 +1,518 @@
+{
+  "status": "APPROVED_B242_TWO_ACTUAL_SAVED_FOUR_LIVE_CASES_ONLY_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T10:47:18.181555+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch242-two-healthy.json",
+  "input_sha256": "671aa5db1c38f421e58f8b8ee123d06263aadb72ed055c7a795da5edcd4795e6",
+  "manifest_sha256": "c5579b16dd7170d7a82598ca919040a5a7b9215516cccfa2ac0ec6538d5decdb",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse242-two-healthy-manual-source-approval.json",
+    "sha256": "1282d1dd375bbe49a74bcc5a319609b7912e4aaade87702f3e28c93075e5a259"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch242-two-healthy-20261026T104408Z-6adf2ef81d716.json",
+    "sha256": "e7df06716bb07ae6c3a2df3c6519de2aa87da7806764eb65fb51e2791c10cc42"
+  },
+  "fixtures": [
+    {
+      "slug": "card-enigma-four-live-sparse-actual-chi-three-pitch-payment-creates-owned-shield-with-one-power-counter",
+      "card_id": "enigma",
+      "group_id": "identity:enigma",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B242_TWO_HEALTHY_CASES_ONLY_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch242-two-healthy.json",
+      "input_sha256": "671aa5db1c38f421e58f8b8ee123d06263aadb72ed055c7a795da5edcd4795e6",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "fccbf712f5a5c31543e740d31f7ea9ccc422b6cda088561e76eec12eda962c4c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6ff3aaa42832a65360b38661a68fb03357bd5e9f85cd75afab4954a115d884b",
+        "actions.json": "814e7718d72ddc7f7e93fdea11d66d9b31b6d4a9925eff4af8583a9daaef7559",
+        "assertions.json": "de0c96bc17881821a1ebd8cb05100ee43af832934ab1851a1b50f15b61f73eb5",
+        "expected_final_gamestate.txt": "f9cba02911ec0b780e36847c261c951467bee049dda7920d3f10709d6e495017",
+        "meta.json": "ac306242d0dc3aaaf0eee2935a4fb5e892e8fadd18311223f3134651168a3e08"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d6ff3aaa42832a65360b38661a68fb03357bd5e9f85cd75afab4954a115d884b",
+        "actions.json": "814e7718d72ddc7f7e93fdea11d66d9b31b6d4a9925eff4af8583a9daaef7559",
+        "assertions.json": "de0c96bc17881821a1ebd8cb05100ee43af832934ab1851a1b50f15b61f73eb5",
+        "expected_final_gamestate.txt": "f9cba02911ec0b780e36847c261c951467bee049dda7920d3f10709d6e495017",
+        "meta.json": "ac306242d0dc3aaaf0eee2935a4fb5e892e8fadd18311223f3134651168a3e08"
+      },
+      "actions": 6,
+      "native_assertions": 378,
+      "native_card_property_assertions": 91,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 4,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Mystic_hero_real_Inner_Chi_Hand_no_Chi_balance",
+          "step": 0,
+          "native_assertions": 118
+        },
+        {
+          "checkpoint": "actual_Chi_ability_normal_PITCH_empty_DQ",
+          "step": 1,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "actual_Chi_pitch_three_assets_all_consumed_Instant_AP_retained",
+          "step": 2,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_Enigma_Shield_responses_actor_1",
+          "step": 3,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_Enigma_Shield_responses_actor_2",
+          "step": 4,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_Enigma_Shield_responses_actor_3",
+          "step": 5,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_Enigma_Shield_responses_fourth_actor_4",
+          "step": 6,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "full_final_real_Chi_payment_and_owned_POWER_one_Shield",
+          "step": 6,
+          "native_assertions": 125
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Hand": [
+          [
+            "5",
+            "inner_chi_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Arena": [
+          [
+            "7",
+            "spectral_shield",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "5",
+            "inner_chi_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          20,
+          20,
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "chi": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "combat_open": false
+      },
+      "semantic_boundary": "Actual Chi3 Hand5 pitch pays full3 Chi/resources, AP1 retained; owned Shield7 appears only after fourth response and has POWER1. Hero1 retained/oncecounter2, Chi/R0, actual InnerChi5 Pitch, no ghost proxy/GY.",
+      "limits": "Existing legitimate InnerChi back-face Hand setup only; no Transcend creation/history, Ward, discount, ordinary-Blue rejection, repeat/adult/expiry or support credit. Misleading local InnerChi image remains excluded as in prior manual review."
+    },
+    {
+      "slug": "card-pierce-reality-blue-four-live-sparse-actual-cast-persistent-aura-buffs-real-first-illusionist-attack-by-two",
+      "card_id": "pierce_reality_blue",
+      "group_id": "identity:pierce_reality_blue",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B242_TWO_HEALTHY_CASES_ONLY_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch242-two-healthy.json",
+      "input_sha256": "671aa5db1c38f421e58f8b8ee123d06263aadb72ed055c7a795da5edcd4795e6",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "b7b9a4e02bde8d8aff1c7d33fa00bc0ea4da7ec9b7058522fc1632b7b16cfb7f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ad3afd3380142a05487be9c28ce9a18bef5b2bacf7d22338b2ea493e67a3c37f",
+        "actions.json": "3cfb28227b8140f5f2614b06096fce53a82f7902dcd34b5238e3a4b3f6910682",
+        "assertions.json": "f47f4247526256613c44521c4fa5ed2fbaafed3a336ea5ca46e0b9e1562ee555",
+        "expected_final_gamestate.txt": "c06cee38a9827fedf491ae7139a5e09e1748e1503a7469364cc1a88f610ef265",
+        "meta.json": "3ba3c007563104ce11c096fe84a355760055a23ab44f0ec0e391289053e139c3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ad3afd3380142a05487be9c28ce9a18bef5b2bacf7d22338b2ea493e67a3c37f",
+        "actions.json": "3cfb28227b8140f5f2614b06096fce53a82f7902dcd34b5238e3a4b3f6910682",
+        "assertions.json": "f47f4247526256613c44521c4fa5ed2fbaafed3a336ea5ca46e0b9e1562ee555",
+        "expected_final_gamestate.txt": "c06cee38a9827fedf491ae7139a5e09e1748e1503a7469364cc1a88f610ef265",
+        "meta.json": "3ba3c007563104ce11c096fe84a355760055a23ab44f0ec0e391289053e139c3"
+      },
+      "actions": 30,
+      "native_assertions": 830,
+      "native_card_property_assertions": 168,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 25,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 24,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Illusionist_Aura_and_real_Boots_AP_route",
+          "step": 0,
+          "native_assertions": 133
+        },
+        {
+          "checkpoint": "actual_Boots_Action_one_funding_before_destroy",
+          "step": 1,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_Boots_one_leaves_two_AP_spent_destroy_paid",
+          "step": 2,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "actual_Boots_ability_actor_1",
+          "step": 3,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Boots_ability_actor_2",
+          "step": 4,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Boots_ability_actor_3",
+          "step": 5,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_Boots_ability_fourth_actor_4",
+          "step": 6,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_Aura_Action_zero_spends_AP_and_real_Boots_grants_go_again",
+          "step": 7,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "actual_Aura_cast_actor_1",
+          "step": 8,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_Aura_cast_actor_2",
+          "step": 9,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_Aura_cast_actor_3",
+          "step": 10,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_Aura_cast_fourth_actor_4",
+          "step": 11,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_first_Illusionist_attack_adjacent_target_preflight",
+          "step": 12,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_Spears_one_cost_paid_and_Aura_static_first_attack_plus_two",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_attack_layer_actor_1",
+          "step": 14,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_attack_layer_actor_2",
+          "step": 15,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_attack_layer_actor_3",
+          "step": 16,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_attack_layer_fourth_actor_4",
+          "step": 17,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "actual_attack_priority_actor_1",
+          "step": 18,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_attack_priority_actor_2",
+          "step": 19,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_attack_priority_actor_3",
+          "step": 20,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_attack_priority_fourth_actor_4",
+          "step": 21,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_defender_declines_blocks",
+          "step": 22,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_defend_priority_actor_1",
+          "step": 23,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_defend_priority_actor_2",
+          "step": 24,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_defend_priority_actor_3",
+          "step": 25,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_defend_priority_fourth_actor_4",
+          "step": 26,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_reaction_priority_actor_1",
+          "step": 27,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_reaction_priority_actor_2",
+          "step": 28,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_reaction_priority_actor_3",
+          "step": 29,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "actual_reaction_priority_fourth_actor_4",
+          "step": 30,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "full_final_persistent_Aura_and_actual_five_plus_two_damage",
+          "step": 30,
+          "native_assertions": 139
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Equipment": [
+          [
+            "5",
+            "mage_master_boots",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Hand": [
+          [
+            "6",
+            "pierce_reality_blue",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "7",
+            "spears_of_surreality_red",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "8",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Arena": [
+          [
+            "6",
+            "pierce_reality_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1CombatChain": [
+          [
+            "7",
+            "spears_of_surreality_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "5",
+            "mage_master_boots",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "8",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          20,
+          20,
+          20,
+          13
+        ],
+        "resources": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "chi": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "window": "DAMAGE",
+        "combat_open": true
+      },
+      "semantic_boundary": "Real Boots5 Action1/Blue8 pays1 leavesR2/AP0 and destroys as cost; four responses grant AP1/next-NAA-GA. Real Aura6 cast spends AP then resolves retained Arena with earned GA/AP1. Real first Spears7 costs1\u2192R1/AP0, static Aura gives printed5+2=7 and actual P4HP13 at DAMAGE/open combat; physical Boots5 publicGY/Blue8 Pitch retained.",
+      "limits": "Stops DAMAGE before printed Spears GA AP refund/closure. Native computedGA true is preserved query evidence; raw attackGoAgain cache false is not substituted for the query. No Spectra/Phantasm/later attack/turn reset/second Aura/Dromai/support/sibling credit."
+    }
+  ],
+  "total_actions": 36,
+  "total_native_assertions": 1208,
+  "total_card_property_assertions": 259,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_completion_inputs": 1,
+  "total_endpoint_preference_values": 192,
+  "blocked_attempts": [],
+  "excluded_cases": [
+    "take_cover_red: no approval or coverage; separate source-timing concern/probe remains outside this healthy2 input."
+  ],
+  "limits": [
+    "Exact source action and every saved oracle matched; no omissions/rewrites. Raw10 unchanged through read-only audit.",
+    "Initial/final raw states and all12 persisted live guards/48 endpoint preferences checked per case. Native intermediate/computed assertions remain original root-executed evidence, no hidden frame-local observation or reviewer query execution claimed.",
+    "No PHP/native/R writes/model/certification/source patch. Replay/registration root gates separate; recorded source1f33 unchanged, future Chane candidate code not part of this qualification."
+  ]
+}

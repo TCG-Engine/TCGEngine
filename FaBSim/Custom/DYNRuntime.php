@@ -141,7 +141,6 @@ function FaBDYNRandomDiscard(int $p,int $uid,string $id): void {
 }
 function FaBDYNWard(int $p,int $amount,bool $unpreventable=false): int {
  while($amount>0){$ward=null;$value=0;foreach(array_merge(FaBChoiceRefs($p,'Arena'),FaBChoiceRefs($p,'Equipment')) as $r){$f=FaBIdentityFromMZ($r);$o=$f['object'];if(FaBWTRBase($o->CardID)==='mini_forcefield'&&!HasNoAbilities($o)){$ward=$o;$value=intval(FaBObjectCounters($o)['STEAM']??0);if($value>0)break;}if(FaBMSTWardActive($o)){$ward=$o;$value=FaBMSTWard($p,$o);break;}}
-  if(!$ward){foreach(FaBCRUEquipment($p,'empyrean_rapture') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array('DTD_WARD:1',(array)$o->TurnEffects,true)){$ward=$o;$value=1;break;}}}
   if(!$ward)break;if(!$unpreventable)$amount=max(0,$amount-$value);FaBMONDestroy(intval($ward->UniqueID));
  }return $amount;
 }

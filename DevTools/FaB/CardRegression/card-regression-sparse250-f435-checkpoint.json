@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T14:37:37.659828+00:00",
+  "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "source_spec": "card-regression-batch250.json",
+  "source_spec_sha256": "804cdcc329717da94555d9c4026b10b5e33f942d4f060748d71fe789ee5b3c26",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 58,
+  "native_assertions": 1369,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 3510,
+    "duels": 3074,
+    "four_live": 436,
+    "recorded_primary_ids": 667,
+    "identity_denominator": 5196,
+    "recorded_groups": 541,
+    "group_denominator": 3324,
+    "four_live_groups": 432,
+    "phase_qualified_scenarios_at_actual_contexts": 147,
+    "phase_qualified_unique_groups": 145,
+    "creation_replay_passes": 294,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 3,
+  "scenarios": [
+    {
+      "card_id": "arakni_solitary_confinement",
+      "group_id": "identity:arakni_solitary_confinement",
+      "scenario_id": "card-arakni-solitary-confinement-four-live-sparse-real-first-stealth-earns-go-again-and-action-point",
+      "effect_branches": [
+        "real-first-stealth-earns-go-again-and-action-point"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-arakni-solitary-confinement-four-live-sparse-real-first-stealth-earns-go-again-and-action-point",
+      "source_spec": "card-regression-batch250.json",
+      "source_spec_sha256": "804cdcc329717da94555d9c4026b10b5e33f942d4f060748d71fe789ee5b3c26",
+      "review_evidence": "review-evidence/sparse250-f435-qualified-saved-review.json",
+      "review_evidence_sha256": "a52e594ce2700badf037a6d38b50959f22245b44d91910a75f51301fd272b436",
+      "recorded_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "qualification_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse250-f435-r1.json",
+          "sha256": "4bdb479e6fa9c683b38999fce8404a5de6bd5938f33abef3c64d4920277b8a9f",
+          "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse250-f435-r2.json",
+          "sha256": "c531fbb12a267a9d07e35fb71c1b826f3aad3e60782f5f953439c6c28d17c50c",
+          "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "maxx_nitro",
+      "group_id": "identity:maxx_nitro",
+      "scenario_id": "card-maxx-nitro-four-live-sparse-earned-boost-paid-create-two-steam-token-and-crank",
+      "effect_branches": [
+        "earned-boost-paid-create-two-steam-token-and-crank"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-maxx-nitro-four-live-sparse-earned-boost-paid-create-two-steam-token-and-crank",
+      "source_spec": "card-regression-batch250.json",
+      "source_spec_sha256": "804cdcc329717da94555d9c4026b10b5e33f942d4f060748d71fe789ee5b3c26",
+      "review_evidence": "review-evidence/sparse250-f435-qualified-saved-review.json",
+      "review_evidence_sha256": "a52e594ce2700badf037a6d38b50959f22245b44d91910a75f51301fd272b436",
+      "recorded_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "qualification_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse250-f435-r1.json",
+          "sha256": "4bdb479e6fa9c683b38999fce8404a5de6bd5938f33abef3c64d4920277b8a9f",
+          "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse250-f435-r2.json",
+          "sha256": "c531fbb12a267a9d07e35fb71c1b826f3aad3e60782f5f953439c6c28d17c50c",
+          "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

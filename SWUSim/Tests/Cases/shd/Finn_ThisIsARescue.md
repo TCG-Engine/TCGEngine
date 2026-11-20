@@ -343,3 +343,44 @@ WithP2GroundArena: SOR_046:1:0
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P1NODECISION
+
+---
+
+# Finn_Front_FriendlyFortifyOnMyBase_IsNotOnAUnit
+#// SHD_003 Finn — "Defeat a friendly upgrade ON A UNIT." P1's own Fortify upgrade is friendly but sits on
+#// P1's BASE, so it is not offered (sibling of the P-23 System Shock report, same shared pool). With it as
+#// the only friendly upgrade the action fizzles: no picker, the Fortify stays.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myLeader:SHD_003}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1BaseUpgrade: HMW_126
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1NODECISION
+P1BASEUPGRADECOUNT:1
+
+---
+
+# Finn_Deployed_OnAttack_FriendlyFortifyOnMyBase_IsNotOffered
+#// SHD_003 Finn (deployed On Attack) — the same "on a unit" scope on the leader unit's side: P1's Fortify
+#// on P1's base is not offered, so the attack raises no "defeat a friendly upgrade" prompt.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myLeader:SHD_003;myResources:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_126
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P1BASEUPGRADECOUNT:1

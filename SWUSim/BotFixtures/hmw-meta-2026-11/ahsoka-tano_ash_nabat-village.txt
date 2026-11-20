@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Nabat Village
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #39 of 789 (9-4-0), player Hibadino
+#   https://melee.gg/Decklist/View/fff7593c-6255-4236-aa95-b4f3017920d5 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Ahsoka Tano (ASH) Nabat Village list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softaggro — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: softaggro
+
+Leader
+1 ASH_009
+
+Base
+1 JTL_028
+
+Deck
+3 HMW_254
+3 JTL_203
+3 SEC_111
+3 HMW_208
+3 ASH_248
+3 HMW_213
+2 LOF_191
+2 JTL_103
+2 HMW_136
+2 SEC_101
+1 ASH_110
+3 SEC_213
+3 SEC_099
+3 ASH_201
+3 JTL_221
+3 ASH_222
+2 JTL_217
+2 SEC_207
+2 LOF_215
+2 HMW_216
+
+Sideboard
+2 SEC_204
+2 LAW_068
+2 ASH_220
+2 LAW_246
+2 IBH_052

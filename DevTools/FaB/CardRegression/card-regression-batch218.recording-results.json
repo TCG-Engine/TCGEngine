@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 992
+    },
+    {
+        "slug": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+        "status": "recorded_semantically_checked",
+        "actions": 36,
+        "assertions": 2404
+    }
+]

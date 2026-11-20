@@ -165,12 +165,12 @@ function HasKeyword_{$kwKey}(\$obj) {
 
 PHP;
 
-        if ($kw === 'Exploit' || $kw === 'Raid') {
-            // Exploit and Raid stack additively — multiple instances add together (Exploit CR 7.5.16.b;
+        if ($kw === 'Exploit' || $kw === 'Raid' || $kw === 'Restore') {
+            // Exploit, Raid and Restore stack additively — multiple instances add together (Exploit CR 7.5.16.b;
             // Raid CR 7.5.8.b, USER RULING 2026-09-10: "Raid does stack … summed as part of the Raid amount
-            // calculation"). Printed Raid 1 + Rallying Cry's Raid 2 is Raid 3, not 2.
-            // Restore still uses max() in the shared template below — its CR text (7.5.9.b) is identical,
-            // so it is the same question, pending its own ruling.
+            // calculation"; Restore CR 7.9.b: "the numerals following each instance of Restore are added
+            // together"). Printed Raid 1 + Rallying Cry's Raid 2 is Raid 3, not 2; printed Restore 2 + IC27_004
+            // Mace Windu's "gains Restore 2" is Restore 4.
             $php .= <<<PHP
 function GetKeyword_{$kwKey}_Value(\$obj) {
     global \${$kwKey}_Cards;

@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T07:40:31+00:00",
+    "input_file": "card-regression-batch234.json",
+    "input_sha256": "7048b26117fb1745bce78c89b156b220fc0a1380c5958d35c6ff95a5c75156d0",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 25,
+            "assertions": 761
+        },
+        {
+            "slug": "card-tempest-aurora-red-four-live-sparse-actual-eligible-cost-zero-arcane-card-boosts-three-to-four",
+            "status": "recorded_semantically_checked",
+            "actions": 11,
+            "assertions": 474
+        }
+    ]
+}

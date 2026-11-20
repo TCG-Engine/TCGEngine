@@ -248,6 +248,38 @@ return array (
       'source' => 'swudb',
     ),
   ),
+  'IC27_009' => 
+  array (
+    'trait' => 
+    array (
+      'value' => 'Cloud City',
+      'source' => 'swudb',
+    ),
+  ),
+  'IC27_010' => 
+  array (
+    'trait' => 
+    array (
+      'value' => 'Hoth',
+      'source' => 'swudb',
+    ),
+  ),
+  'IC27_011' => 
+  array (
+    'trait' => 
+    array (
+      'value' => 'Mustafar',
+      'source' => 'swudb',
+    ),
+  ),
+  'IC27_012' => 
+  array (
+    'trait' => 
+    array (
+      'value' => 'Tatooine',
+      'source' => 'swudb',
+    ),
+  ),
   'JTL_019' => 
   array (
     'trait' => 

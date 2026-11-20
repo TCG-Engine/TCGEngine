@@ -1,0 +1,44 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Great Grass Plains
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #5 of 789 (10-1-3), player AllyG_TT
+#   https://melee.gg/Decklist/View/04011df8-5b48-47a2-a077-b4f301848fc0 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Director Krennic (LAW) Blue list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softcontrol — the owner's label from hmw-meta-2026-09/director-krennic_law_blue.txt
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 HMW_020
+
+Deck
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 ASH_048
+3 LAW_097
+3 ASH_079
+3 ASH_097
+3 LOF_059
+3 ASH_053
+1 HMW_110
+3 ASH_052
+3 LAW_101
+3 JTL_033
+3 JTL_119
+1 ASH_102
+2 LAW_039
+3 JTL_043
+1 JTL_121
+3 LOF_091
+
+Sideboard
+2 SEC_038
+2 SEC_078
+2 HMW_150
+1 JTL_041
+1 LAW_149
+1 JTL_121
+1 LAW_044

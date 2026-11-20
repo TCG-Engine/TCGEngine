@@ -1,0 +1,7 @@
+{
+    "name": "reaping_blade / actual four-live sparse distinctive mechanic",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T02:14:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "All four young legal heroes start at actual20, P1Florian owns RunebladeBlade5 Weapons. Actual P4 zero-cost Instant SigilSolace6 resolves after four live responses while all heroes tied, earns3 life to23; a second actual zero-cost Sigil7 resolves after a fresh four live responses and Blade static highest-life restriction prevents its entire3 gain, leaving P4HP23 rather than26. Both P4 support cards public GY FaceDown0, Blade5 retained Weapons/Status2, all othersHP20, resources0, P1AP1 and others0. No seeded life lead, AP, history or synthetic effects. The six ACTION priority-advance passes are real opportunities, not END_PHASE/turn transitions. Primary baseline weapon deployment/attack and removal/other leader cases untested; supports/hero IDs receive no coverage. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP261.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP387.webp"
+}

@@ -28,11 +28,18 @@ if (!function_exists('_SWUHmw008OfferPlay')) {
         if ($remaining <= 0) { SWUAfterAction($player); return; }
         // "play a UNIT" — an event or upgrade in hand is not a legal pick (CR 17.c also keeps a Piloting
         // card from being played as an upgrade here; SWUBeginPlayCard's unitOnly flag enforces that).
-        $targets = SWUPlayablesAtDiscount($player, 'myHand', ['Unit'], 0);
+        // withExploit: the play below is SWUBeginPlayCard, which offers Exploit, so a unit affordable only by exploiting
+        // is a legal pick (bug report P-18 — a 9-cost Battle Droid Legion with 8 to pay and units to defeat).
+        $targets = SWUPlayablesAtDiscount($player, 'myHand', ['Unit'], 0, null, true);
         if (empty($targets)) { SWUAfterAction($player); return; }   // soft pass: nothing playable
         SWUQueueMayChooseTarget($player, $targets, "Play_a_unit_from_your_hand?",
             "Choose_a_unit_to_play", "HMW_008#0|{$remaining}|{$block}", $block);
     }
+}
+
+// The "then" step of each play: marks the play as this ability's, so a deferred one resumes nested (see HMW_008#0).
+if (!function_exists('_SWUHmw008PlayDone')) {
+    function _SWUHmw008PlayDone(int $player, string $placedMz): void {}
 }
 
 $leaderAbilities["HMW_008"] = function($player) {
@@ -50,7 +57,11 @@ $customDQHandlers["HMW_008#0"] = function($player, $parts, $lastDecision) {
         SWUAfterAction(intval($player));                      // declined → the ability ends here
         return;
     }
-    SWUWithNestedActionFrame(fn() => SWUBeginPlayCard(intval($player), (string)$lastDecision, 0, unitOnly: true));
+    // SWUNestedPlayUnit, not a bare nested SWUBeginPlayCard: a play that stops for an additional cost (an Exploit pick —
+    // bug report P-18's Battle Droid Legion) resumes in a LATER request, and only a play begun with a "then" step resumes
+    // inside a nested frame there (the PLAY_CARD dispatch). Without one the resumed play closed the leader Action itself
+    // and this ability closed it again (BLOCKED-DOUBLE-CLOSE). The step does nothing: the re-offer below owns the close.
+    SWUNestedPlayUnit(intval($player), (string)$lastDecision, 0, ['then' => '_SWUHmw008PlayDone']);
     // Re-offer from a CUSTOM at the NEXT block: the pool must be rebuilt after this play has paid, and
     // the played unit's own entry decisions must resolve before the second offer appears.
     // dontSkipOnPass=1: a decline anywhere inside the played unit's entry (an Ambush "no", say) leaves a

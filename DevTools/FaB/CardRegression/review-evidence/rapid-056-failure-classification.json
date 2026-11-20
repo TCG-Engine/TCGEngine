@@ -1,0 +1,85 @@
+{
+  "status": "CONFIRMED_GAMEPLAY_FAILURE_CORRECT_SPEC_EXPECTATION",
+  "reviewer": "/root/b105_semantic_review",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "prior_manual_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse249-two-independent-manual-approval.json",
+    "sha256": "23e6ac2cc6943a59d9eded912543dd24daae04b3a8d1cc53cdfa1077d42fc50b",
+    "scope": "Rules-correct source specification, not execution qualification. Rapid native failure does not authorize weakening AP1 oracle."
+  },
+  "native_failure": {
+    "receipt": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch249-20261026T135629Z-6adf5c0d47e45.json",
+    "sha256": "f65dd67d2d39e41e44f204312ebec1e42269937cbc2ff8875e58d76ecaef3192",
+    "slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+    "successful_inputs_before_oracle_failure": 5,
+    "expected_p1_action_points": 1,
+    "observed_p1_action_points": 0,
+    "error": "Expected p1ActionPoints to equal 1, got 0.",
+    "observed_window": "ACTION",
+    "observed_pending_payment": null,
+    "observed_effect_types_p1": [
+      "EVR_PLAYED",
+      "EVR_GRAVEYARD",
+      "ARC_RAPID"
+    ],
+    "native_fixture_saved": false,
+    "boundary": "NAA own resolution after4 actual responses; later Arrow suffix not executed and unqualified."
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/386/",
+      "checked": "Current official text has Arrow grant, Reload, and separate own Go again line; own keyword is not inferred from first grant clause."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "checked": "CR8.3.5/8.3.5a: non-attack layer with go again gives its controller one AP after its other resolution abilities finish; 8.3.5b separately governs later Arrow combat."
+    },
+    {
+      "local_face": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rapid_fire_yellow.webp",
+      "sha256": "359810d3ff987c6bf1a00f100b9e27307214207d2ddb8e5310a0078a82b9cb94",
+      "actually_viewed": true
+    }
+  ],
+  "source_chain": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "316-334",
+      "fact": "String FaBKeywords reads CardCard_keywords only; FaBHasKeyword returns false when Go again missing there."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "388-404",
+      "fact": "FaBPrintedKeywordIsActive389 returns false before parsing functional text401, so actual standalone own Go again is unreachable."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedCardDictionaries.php",
+      "lines": "111627-111630 and138731-138733",
+      "fact": "Actual card_keywords is Reload only, but actual functional_text_plain contains terminal standalone Go again."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/cardArrayCache.json",
+      "fact": "Same metadata discrepancy: card_keywords Reload only; granted_keywords Go again; functional_text_plain includes separate own Go again."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "5853-5857,87594-87632",
+      "fact": "Actual Rapid resolver adds ARC_RAPID then skips Reload because Arsenal full and finishes immediately. It does not itself add AP; generic resolution owns that."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1761-1765",
+      "fact": "Normal NAA go-again handling consumes false own-keyword result, producing no refund. No replacement/suppression is set by this fixture."
+    }
+  ],
+  "source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "dcd02e442313777e6c18ebce9528df5d42b38885f9e5ccd12cda1dca02753fa6"
+  },
+  "classification": "One encountered native gameplay failure caused by metadata-gated own-keyword detection; not an oracle/control-flow error. No claim on other cards or how many similar source records exist. Repository Core is not implicated by this trace.",
+  "narrow_repair_direction_for_root": "Make detection of a genuine standalone own keyword independent of an incomplete card_keywords gate, while retaining quote/grant/conditional exclusions and metadata-dependent empty-text fallback. This is a direction only, not a patch approval; component contracts should include Rapid own+grant, grant-only negative, conditional/quoted negative, and unchanged empty-text behavior.",
+  "preservation": "Original input/manifest/approval/immutable failure receipt retained. No automatic snapshot refresh, AP edit, card-specific fake GA tag or weakened suffix. Kassai saved result remains separate.",
+  "execution_limits": "Read-only source/receipt and primary-source review; W-only proof write. No PHP/native games, source/repository edits, code generation, broad scan or simulator."
+}

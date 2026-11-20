@@ -33,3 +33,7 @@ The other twenty variations retain their PvP source abilities and exchange one p
 These target the PvP repertoire’s power range, with situational payoffs and costs instead of unconditional upgrades. Equal printed totals alone do not establish equal power: effects, routes, burns, armor, and the opposing pool can change a card’s value. Playtesting should compare those matchups before calling the cards balanced.
 
 The automated checks preserve all 36 PvP definitions, verify every opponent’s six-per-color deck and twelve shared foundations, compare supporting stat budgets, exercise the headline conditions, and check migration of old saves. Public-observation bot smoke tests cover all four matchups; they are integration checks rather than balance measurements.
+
+## Signature illustration direction
+
+Style A (strict card-color monochrome) is selected. All 24 champion techniques use version 2 WebP illustrations: fighter, costume, scenery, and action effects stay in the card color’s tonal family, without contrasting accent streaks. Full-color v1 sources and the A/B study remain archived. `assets/techniques/monochrome-v2-prompts.json` records the imagegen prompts and source references.

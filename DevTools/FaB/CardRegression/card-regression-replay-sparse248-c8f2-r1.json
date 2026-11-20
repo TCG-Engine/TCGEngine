@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch248.json",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T13:43:21.098160+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dash-database-four-live-sparse-real-top-deck-item-instant-plus-one-cost-and-steam-entry",
+      "fixture_sha256": "234e19f488e8eb2f4c05129218ff12d07edd2c5333fc0007e67096fa66861dcf",
+      "passed": true,
+      "result": "[PASS] dash_database / actual top Deck Item Instant permission and additional resource"
+    },
+    {
+      "slug": "card-oldhim-four-live-sparse-real-earth-pitch-defense-reaction-prevents-two-physical",
+      "fixture_sha256": "97b821c802aa94fdb59fdbe55b4c73dab328dd495ef13c539fc126516ea117cb",
+      "passed": true,
+      "result": "[PASS] oldhim / actual Earth pitch pays defense reaction and prevents two"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dash-database-four-live-sparse-real-top-deck-item-instant-plus-one-cost-and-steam-entry",
+      "returncode": 0,
+      "stdout": "[PASS] dash_database / actual top Deck Item Instant permission and additional resource\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-oldhim-four-live-sparse-real-earth-pitch-defense-reaction-prevents-two-physical",
+      "returncode": 0,
+      "stdout": "[PASS] oldhim / actual Earth pitch pays defense reaction and prevents two\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

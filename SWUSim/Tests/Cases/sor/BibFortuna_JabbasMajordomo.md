@@ -1,20 +1,18 @@
-# Action_NoEventInHand_NoOp
+# Action_NoEventInHand_StillExhausts
 #// SOR_177 Bib Fortuna — the Action plays only an EVENT (not a unit). Here the hand holds
-#// a UNIT (SOR_095, Battlefield Marine), no events, with resources to spare. The action has
-#// no legal play, so it is a full no-op: Bib stays READY (action not spent), the unit stays
-#// in hand, resources unchanged, no decision pending. Guards the event-only type filter
-#// (distinguishing Bib from Alliance Dispatcher SOR_093, which plays a unit).
+#// a UNIT (SOR_095, Battlefield Marine), no events, with resources to spare. CR 6.4.587.c (owner
+#// go 2026-11-03): the [Exhaust] cost changes game state, so the Action is still usable with no
+#// legal play — Bib is EXHAUSTED and nothing is played: the unit stays in hand, resources
+#// unchanged, no decision pending. Guards the event-only type filter (distinguishing Bib from
+#// Alliance Dispatcher SOR_093, which plays a unit).
 #// COVERAGE: offer=Offer_EventsOnly_UnitAndUpgradeExcluded (pending SELECTABLEEXACT over the hand:
 #//           events only, unit + upgrade excluded) + Offer_AffordabilityBoundaryAfterTheDiscount ·
 #//           boundary=Offer_AffordabilityBoundaryAfterTheDiscount (2-cost in / 3-cost out at 1 ready
 #//           resource) + Discount_CostOneEventBecomesFree (the -1 floors at zero) ·
 #//           control=UnderEnemyControl_PlaysFromTheControllersHand ("your hand" follows the
 #//           CONTROLLER, not the owner) · reqboundary=EventPickSurvivesRequestBoundary ·
-#//           decline=Decline_NoEventPlayed_ExhaustStillPaid — ⚠ currently RED. A "play a card from
-#//           your HAND" offer must be declinable (the hand is a hidden zone, so no player can be
-#//           compelled to reveal they held a playable card); SOR_177 raises a MANDATORY MZCHOOSE, so
-#//           the branch is unreachable. Same printed shape and same offer helper as SOR_093 Alliance
-#//           Dispatcher / TWI_120 Strategic Acumen, whose decline sections pass.
+#//           decline=Decline_NoEventPlayed_ExhaustStillPaid (a "play a card from your HAND" offer is
+#//           always declinable — the hand is a hidden zone) · no target=this (usable, exhausts, nothing).
 
 ## GIVEN
 CommonSetup: yyk/yyk/{myResources:3;handCardIds:SEC_080}
@@ -26,7 +24,7 @@ WithP1GroundArena: SOR_177:1:0    # Bib Fortuna (ready) — index 0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
-P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:0:EXHAUSTED
 P1HANDCOUNT:1
 P1RESAVAILABLE:3
 P1NODECISION

@@ -53,6 +53,14 @@ function FaBCRUCoax(string $choice): void {
     }
 }
 function FaBCRUAfterMove(int $p,object $o,string $from,string $to): void {
+    // Physical Saber identity changes only when it crosses the arena boundary.
+    // Attack proxies carry WEAPON_UID and must not acquire weapon-instance metadata.
+    if($o->CardID==='cintari_saber'&&intval(FaBObjectCounters($o)['WEAPON_UID']??0)===0){
+        $arena=['Arena','Equipment','Weapons','Hero','CombatChain'];
+        if(in_array($from,$arena,true)!==in_array($to,$arena,true)){
+            $uid=intval($o->UniqueID);FaBARCSetCard($uid,'cruSaberArenaEpoch',intval(FaBARCCard($uid,'cruSaberArenaEpoch'))+1);
+        }
+    }
     if($from==='Deck'&&$to==='Banish'&&FaBCRUHero($p,'data_doll_mkii')&&FaBHasType($o,'Mechanologist')&&FaBHasType($o,'Item')&&intval(CardCost($o->CardID))<=2){
         $item=FaBMoveUID(intval($o->UniqueID),'Arena',$p);if($item)FaBARCEnterItem($p,$item);
     }
@@ -83,10 +91,18 @@ function FaBCRUAsInstant(int $p,object $o): bool {
     $b=FaBWTRBase($o->CardID);
     return ($b==='cindering_foresight'&&intval(GetTurnPlayer())!==$p)||($b==='snapback'&&FaBCRUWizardPlayed($p))||($b==='rattle_bones'&&FaBCRUArcane($p,true)>0);
 }
+/** Trap itself has no play restriction (CR 8.2.7); retain explicit own-card text. */
+function FaBCRUTrapRequiresArsenal(object $o): bool {
+    $text = (string)CardFunctional_text_plain($o->CardID);
+    $text = preg_replace('/"[^"]*"|“[^”]*”/u', '', $text);
+    $name = preg_quote((string)CardName($o->CardID), '/');
+    $subject = $name === '' ? 'this' : '(?:this|' . $name . ')';
+    return preg_match('/^\s*' . $subject . '\s+can\s+only\s+be\s+played\s+from\s+(?:your\s+)?arsenal\s*(?:\.|$)/iu', $text) === 1;
+}
 function FaBCRUCanPlay(int $p,array $f): bool {
     $o=$f['object'];$b=FaBWTRBase($o->CardID);$s=FaBGetState();
     if($b==='feign_death'&&!FaBCRUCount($p,'DAMAGED'))return false;
-    if(FaBHasType($o,'Trap')&&$f['zone']!=='Arsenal')return false;
+    if(FaBHasType($o,'Trap')&&$f['zone']!=='Arsenal'&&FaBCRUTrapRequiresArsenal($o))return false;
     if(FaBCRUCount($p,'CRUSH_WEAK')&&GetCurrentPhase()==='MAIN'&&intval(GetTurnPlayer())===$p&&FaBWTRIsAttackAction($o)&&intval(CardPower($o->CardID))<=3)return false;
     if(FaBHasType($o,'Defense Reaction')&&!FaBCRUBlockLegal($p,$f))return false;
     if($b==='aetherize'&&FaBCRUTargets($p,'negate')==='')return false;
@@ -183,8 +199,29 @@ function FaBCRUPower(int $p,object $o): int {
 function FaBCRUDefended(int $p,object $block): void {
     $s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));if(!$a)return;$o=$a['object'];$uid=intval($o->UniqueID);
     $weapon=FaBFindUID(intval(FaBObjectCounters($o)['WEAPON_UID']??0));
-    if($o->CardID==='cintari_saber'&&FaBWTRIsAttackAction($block)&&!FaBARCCard($uid,'saber')){FaBARCSetCard($uid,'saber',true);if($weapon)FaBWTRTag($weapon['object'],'WTR_POWER:1');}
+    if($o->CardID==='cintari_saber'&&FaBWTRIsAttackAction($block)&&$weapon
+        &&$weapon['object']->CardID==='cintari_saber'
+        &&in_array($weapon['zone'],['Arena','Equipment','Weapons','Hero','CombatChain'],true)
+        &&intval(FaBObjectCounters($weapon['object'])['WEAPON_UID']??0)===0
+        &&!HasNoAbilities($weapon['object'])&&!FaBARCCard($uid,'saber')){
+        // OnDefended runs after the complete declaration group. Several AAs still trigger once.
+        FaBARCSetCard($uid,'saber',true);
+        $weaponUID=intval($weapon['object']->UniqueID);
+        $controller=intval($weapon['object']->Controller??0)?:intval($weapon['player']);
+        FaBROSQueue($controller,'cintari_saber',$weaponUID,['rosEvent'=>'cruCintariDefended',
+            'cruSaberAttackUID'=>$uid,'cruSaberArenaEpoch'=>intval(FaBARCCard($weaponUID,'cruSaberArenaEpoch'))]);
+    }
     if($o->CardID==='zephyr_needle'&&FaBCurrentDefense($block,$p)>FaBAttackPower($s)&&$weapon)FaBWTRTag($weapon['object'],'CRU_BREAK_CHAIN');
+}
+function FaBCRUResolveCintariDefended(int $p,object $trigger): void {
+    $uid=intval($trigger->SourceUniqueID??0);$source=FaBFindUID($uid);
+    if(!$source||$source['object']->CardID!=='cintari_saber'
+        ||!in_array($source['zone'],['Arena','Equipment','Weapons','Hero','CombatChain'],true)
+        ||intval(FaBObjectCounters($source['object'])['WEAPON_UID']??0)!==0
+        ||intval(FaBARCCard($uid,'cruSaberArenaEpoch'))!==intval($trigger->Params['cruSaberArenaEpoch']??-1))return;
+    // The triggered ability is independent of later suppression, control, or attack departure.
+    // Tag only the physical weapon: WTRAttackPowerModifier already reads its live tags.
+    FaBWTRTag($source['object'],'WTR_POWER:1');
 }
 function FaBCRUHitSuppressed(object $o,bool $all=false): bool {
     if(!$all&&FaBMPGSuppressed($o))return true;
@@ -197,7 +234,12 @@ function FaBCRUHit(int $p,object $o,int $amount): void {
     if(FaBWTRIsAttackAction($o)&&FaBCRUHero($p,'benji_the_piercing_wind')&&intval(FaBGetState()['attackActionHits'][(string)$p]??0)===1)FaBWTRAddEffect($p,'NEXT_ATTACK',1);
     if(FaBWTRIsWeapon($o))FaBCRUAdd($p,'WEAPON_HITS');
     if(FaBWTRIsWeapon($o)&&FaBCRUCount($p,'SPOILS'))for($i=0;$i<2*FaBCRUCount($p,'SPOILS');++$i)FaBWTRCreateArena($p,'copper');
-    $r=0;foreach((array)$o->TurnEffects as $tag)if(str_starts_with($tag,'CRU_RUNE_HIT:'))$r+=intval(substr($tag,13));if($r&&!FaBCRUHitSuppressed($o))FaBARCCreateRunes($p,$r);
+    // Each granted hit ability is its own layer; creation modifiers apply on resolution.
+    if(!HasNoAbilities($o)&&!FaBCRUHitSuppressed($o))foreach((array)$o->TurnEffects as $tag){
+        if(!str_starts_with($tag,'CRU_RUNE_HIT:'))continue;
+        $r=intval(substr($tag,13));
+        if($r>0)FaBROSQueue($p,$o->CardID,intval($o->UniqueID),['rosEvent'=>'cruMauvrionRuneHit','runeCount'=>$r]);
+    }
     if(!FaBCRUHitSuppressed($o)&&FaBWTRBase($o->CardID)!=='consuming_volition'&&in_array('CRU_DISCARD_HIT',(array)$o->TurnEffects,true)&&FaBFaiHeroHit())FaBRunSourceMacro('Hit',$p,'consuming_volition_red',['mzID'=>FaBFindUID(intval($o->UniqueID))['mzID'],'amount'=>$amount]);
     if(FaBWTRIsAttackAction($o)&&FaBHasType($o,'Ninja'))foreach(FaBCRUEquipment($p,'breeze_rider_boots') as $ref)FaBRunSourceMacro('Hit',$p,'breeze_rider_boots',['mzID'=>$ref,'amount'=>$amount]);
 }

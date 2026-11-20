@@ -1,0 +1,130 @@
+{
+  "status": "temple_and_restrained_cedar_integrated",
+  "purpose": "Retry cedar grove with restrained branch-tip motion; first generation of the previously deferred temple court.",
+  "sections": [
+    {
+      "id": "cedar-grove",
+      "name": "Cedar grove",
+      "zone": "courtyard",
+      "source": "sumerian-overworld-v1.png",
+      "rect": [
+        0,
+        0,
+        576,
+        384
+      ],
+      "playbackRate": 0.91,
+      "phase": 0.47,
+      "input": "cedar-grove-input-v1.png",
+      "firstAndLastFrame": "cedar-grove-input-v1.png",
+      "excludeMapRects": [
+        [
+          0,
+          280,
+          150,
+          104
+        ],
+        [
+          0,
+          350,
+          576,
+          34
+        ],
+        [
+          530,
+          0,
+          46,
+          130
+        ],
+        [
+          515,
+          288,
+          61,
+          96
+        ]
+      ],
+      "status": "raw_retry_rejected_local_derivative_integrated",
+      "version": 2,
+      "model": "Kling 4.0",
+      "durationSeconds": 5,
+      "resolution": "720p",
+      "outputs": 1,
+      "creditsSpent": null,
+      "prompt": "cedar-grove-prompt-v2.txt",
+      "slotId": "945672109765443594",
+      "displayedPriceCredits": 50,
+      "submissionRecordedAt": "2026-11-01T00:54:48.392419+00:00",
+      "sourceVideo": "cedar-grove-source-v2.mp4",
+      "registeredVideo": "cedar-grove-registered-v2.mp4",
+      "mask": "cedar-grove-mask-v2.png",
+      "review": "cedar-grove-review-v2.json",
+      "quotedCredits": 50,
+      "sha256": "c59c706e60fbb21cd92c239b11a7eba822adc19d7595ebe88545afa92353e6d3",
+      "workId": "325465800525641",
+      "downloadMethod": "Official Kling Download control",
+      "resultPage": "https://kling.ai/app/creations/grid?project=929951353903251461&slotId=945672109765443594",
+      "rawAssessment": "Still deforms large foliage masses and invents spiky twigs; not used directly in the live map.",
+      "liveVideo": "cedar-grove-restrained-v2.mp4",
+      "localProcessing": "cedar-grove-restrained-v2.json",
+      "additionalProcessingCredits": 0
+    },
+    {
+      "id": "temple-court",
+      "name": "Temple court",
+      "zone": "courtyard",
+      "source": "sumerian-overworld-v1.png",
+      "rect": [
+        848,
+        0,
+        688,
+        704
+      ],
+      "playbackRate": 0.79,
+      "phase": 0.71,
+      "input": "temple-court-input-v1.png",
+      "firstAndLastFrame": "temple-court-input-v1.png",
+      "excludeMapRects": [
+        [
+          848,
+          590,
+          352,
+          114
+        ],
+        [
+          848,
+          0,
+          45,
+          300
+        ]
+      ],
+      "status": "integrated_in_adventure",
+      "version": 2,
+      "model": "Kling 4.0",
+      "durationSeconds": 5,
+      "resolution": "720p",
+      "outputs": 1,
+      "creditsSpent": null,
+      "prompt": "temple-court-prompt-v2.txt",
+      "slotId": "945672567632429149",
+      "displayedPriceCredits": 50,
+      "submissionRecordedAt": "2026-11-01T00:54:48.392419+00:00",
+      "sourceVideo": "temple-court-source-v2.mp4",
+      "registeredVideo": "temple-court-registered-v2.mp4",
+      "mask": "temple-court-mask-v2.png",
+      "review": "temple-court-review-v2.json",
+      "quotedCredits": 50,
+      "sha256": "32ba7206af11fae717b70a7a2105266122e19c7ccc958b7c9b2fb265890ba259",
+      "workId": "325465909534826",
+      "downloadMethod": "Official Kling Download control",
+      "resultPage": "https://kling.ai/app/creations/grid?project=929951353903251461&slotId=945672567632429149",
+      "assessment": "Blue banners, door cloth and palm leaves move; temple architecture and bull statues remain aligned. Empty braziers stay empty. Partial terrace and canal-overlap context excluded."
+    }
+  ],
+  "approvedCreditCap": 100,
+  "perJobCap": 50,
+  "uploadApproved": true,
+  "creditBalanceBeforeDisplay": "1.3k",
+  "quotedBatchCredits": 100,
+  "creditsSpent": null,
+  "chargeNote": "Two jobs submitted at displayed quotes of 50 each. Account balance is abbreviated in the header, so exact debit is not inferred."
+}

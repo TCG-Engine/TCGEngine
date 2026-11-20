@@ -1,0 +1,79 @@
+{
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "completed_utc": "2026-10-25T23:29:21.378148+00:00",
+  "plan_sha256": "da44f9edf03fdbaf657f2a7783708fc6b34a8066ea9bbe4dbcdc8e82e8c5c0c8",
+  "independent_saved_proof_sha256": "1080f4421bbf5782c98227c927282dbe2068c86cb41bf44559552fce5da0fe79",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch208-two-causal-controls-final97-plan.json",
+    "da44f9edf03fdbaf657f2a7783708fc6b34a8066ea9bbe4dbcdc8e82e8c5c0c8",
+    "card-regression-negative-controls-sparse208-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "firebreathing_actual_paid_attacking_instant_power_tag_omission",
+      "fixture": "card-firebreathing-red-four-live-sparse-actual-paid-attacking-instant-increases-real-attack-damage",
+      "fixture_sha256": "6fbef94c33879133859b69eff4f3ced5cb772a3c0753cd58ed1f479d9f4eefef",
+      "source_raw5": {
+        "initial_gamestate.txt": "49decf7bd4dfb79d0c68ef5756c1e8758ae8d42d6bc9389978023b6aee46fdac",
+        "actions.json": "ea35ed0caf528d4d202eebe34951eba38dd7103aedcd62e337217df9dd1107d8",
+        "assertions.json": "335653a1ab42780a54fd88e258776afa0e24ce701302f9932d0a92bbd3dedcc3",
+        "expected_final_gamestate.txt": "13c47d48b36f8d5511d6ec0c1b6daa236b5c286b37a8dcdae3d5ecb6abb397b4",
+        "meta.json": "a3f8d60851184e23523d5bb695a41795eed2dc71daecf1731baa76431e775fc4"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "firebreathing_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 1117,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] firebreathing_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual paid Firebreathing attack and its actual Instant1 activation with four responses have earned WTR_POWER:1 on the actual attacking card, omit only that tag. Keep real source5 onChain/physicalbluePitch6, spentresources/AP, completed virtual7 and all priorities. Retained prefix12 computedpower4-to3 is first Initial failure before its later exacttag/physicalHP16-to17 oracles. This tests one earned+1 activation, not repeat activations or legality failures.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "crucible_actual_paid_staff_next_arcane_grant_omission",
+      "fixture": "card-crucible-of-aetherweave-four-live-sparse-actual-paid-staff-instant-amplifies-real-next-arcane-by-one",
+      "fixture_sha256": "48a19c51679bd3d2ad432a03f709bfbaab65c5bfb2e2aed9d819ee50a30667f9",
+      "source_raw5": {
+        "initial_gamestate.txt": "4829794ce81974d6f33d733e4686d4630a9bf4f21f6937403b0fc2974726318e",
+        "actions.json": "95130ddfbd1e68c3c2fd8349733ab6ce58e92a61a8c3615f7e612fd9c179235c",
+        "assertions.json": "ca495f3024b0ccb1e2509fa061c61f8e2977a92987115918b4c0adaedd008329",
+        "expected_final_gamestate.txt": "2174ada6401ec87b626244bca2d126785d76d4fad324ecd8f38cfe1966f6608a",
+        "meta.json": "19468a0f237acc9ef228bad5a03dcc949bed47c9be331548414cc32b7fd96256"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "ARC_NEXT_ARCANE"
+      },
+      "retained_assertions": 410,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p4Health to equal 16, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] crucible_of_aetherweave / actual four-live sparse distinctive mechanic: Step 6 assertion failed: Expected p4Health to equal 16, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual StaffInstant1/Bluepitch3 payment and four responses award one unique ARC_NEXT_ARCANE, omit only that earned global grant before actual Zap announcement. Native Zapprinted3 then deals3 instead4 to sameactualP4; physicalHP16-to17 is firstfailure before cumulativearcane4-to3. Keep actualstaff/oncecost/BluePitch/R2/AP1, target declaration and every oracle. No private spell/caster state, damagehistory, cachedamount or HP mutation.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

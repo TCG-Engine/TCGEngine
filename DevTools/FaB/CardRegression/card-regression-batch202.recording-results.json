@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-anothos-four-live-sparse-two-real-cost-three-pitches-fund-six-power-hammer",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 1991
+    },
+    {
+        "slug": "card-dissipation-shield-yellow-four-live-sparse-actual-instant-four-steam-prevents-four",
+        "status": "recorded_semantically_checked",
+        "actions": 36,
+        "assertions": 2304
+    },
+    {
+        "slug": "card-basalt-boots-four-live-sparse-seismic-conditional-actual-block-and-temper-survival",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 2045
+    },
+    {
+        "slug": "card-staunch-response-red-four-live-sparse-real-optional-six-resource-payment-prevents-nine",
+        "status": "recorded_semantically_checked",
+        "actions": 44,
+        "assertions": 3315
+    }
+]

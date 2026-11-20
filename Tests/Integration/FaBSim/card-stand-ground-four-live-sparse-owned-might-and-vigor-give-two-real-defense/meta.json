@@ -1,0 +1,7 @@
+{
+    "name": "stand_ground / four-live actual two-token conditional defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T06:49:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuinely live legal young heroes: P1/P2/P3 Dorinthea20; P4 Bravo20. Existing owned StandGround6 equipment and physical Might7/Vigor8 tokens in P4Arena represent a legal current-turn state; no token creation or history is credited. Real WoundingBlowRed5 costs0 and spends P1AP1, declares adjacentP4 before payment and passes all four live seats. P4 actually declares StandGround6 as defender. Printed defense0 plus controlledMight1 plus controlledVigor1=2; actual attack4 minus defense2 deals2, so P4HP20->18. Tokens7/8 stay owned/controlled4 inArena throughout; no P4startturn occurs. Both actual cards retain physical identity/ownership on current chain link; resources/AP0, otherHP20, queues/Stackempty at stableDAMAGE. Stop before RESOLUTION/chainclose: Temper/counter/destruction, alternate token conditions, token creation/start effects, hero abilities and support coverage are untested. No synthetic AP/resources/damage/conditional flags. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HVY056.webp https://fabtcg.com/articles/jump-start-welcome-pit-fight/"
+}

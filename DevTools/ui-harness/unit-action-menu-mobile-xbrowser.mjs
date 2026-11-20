@@ -89,7 +89,8 @@ for (const [name, launcher] of ENGINES) {
         ok(label, 'the menu is position:fixed', m.position === 'fixed', m.position);
         const [x, y, w, h] = m.rect;
         ok(label, 'the menu is inside the viewport', x >= 0 && y >= 0 && x + w <= m.vw && y + h <= m.vh, JSON.stringify(m.rect));
-        ok(label, 'both buttons are shown', m.buttons.map((b) => b.text).join('|') === 'Attack|Ability', m.buttons.map((b) => b.text).join('|'));
+        // Named Action abilities (2026-11-02): the Action button is labelled after its card, not "Ability".
+        ok(label, 'both buttons are shown', m.buttons.map((b) => b.text).join('|') === 'Attack|Bail Organa', m.buttons.map((b) => b.text).join('|'));
         for (const b of m.buttons) ok(label, `the ${b.text} button is not covered by anything`, b.topmost, JSON.stringify(b.rect));
         await page.screenshot({ path: `/tmp/unit-action-menu-${name}-${layout}.png` });
 

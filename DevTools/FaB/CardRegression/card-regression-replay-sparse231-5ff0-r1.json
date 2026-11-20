@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch231.json",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T06:30:53.159546+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ion-charged-yellow-four-live-sparse-actual-instant-conditionally-adds-one-to-real-arsenal-lightning-attack-with-go-again",
+      "fixture_sha256": "5fee3bbe4aab6b425fd7d8e322aa8e5307e8fdf17cd71c69c2f7ca2c37e59edb",
+      "passed": true,
+      "result": "[PASS] ion_charged_yellow / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-verdant-tide-red-four-live-sparse-actual-earth-pitch-bond-and-own-replacement-create-two-owned-embodiments",
+      "fixture_sha256": "23122133448e50a102cb9215154070e69542fcc469acc2a278978f74aa4533f4",
+      "passed": true,
+      "result": "[PASS] verdant_tide_red / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ion-charged-yellow-four-live-sparse-actual-instant-conditionally-adds-one-to-real-arsenal-lightning-attack-with-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] ion_charged_yellow / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-verdant-tide-red-four-live-sparse-actual-earth-pitch-bond-and-own-replacement-create-two-owned-embodiments",
+      "returncode": 0,
+      "stdout": "[PASS] verdant_tide_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

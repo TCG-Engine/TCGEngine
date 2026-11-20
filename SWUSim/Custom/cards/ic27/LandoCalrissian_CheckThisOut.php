@@ -2,7 +2,7 @@
 // IC27_167
 // Cost 3 - Lando Calrissian - Check This Out - [Cunning,Cunning] - Unit (Ground) 4/4 (unique)
 //   Trait: Official
-// Text: When Played: Return 3 friendly resources to their owner's hands. Then, you may resource up to
+// Text: When Played: Return 3 friendly resources to their owners' hands. Then, you may resource up to
 //       3 cards from your hand.
 //
 // Two halves, and only the SECOND is optional. The return is mandatory and exact-3 (fewer only when

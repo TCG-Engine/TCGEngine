@@ -1,0 +1,7 @@
+{
+    "name": "oldhim / actual Earth pitch pays defense reaction and prevents two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T14:41:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourYoung20P1Dori/P2Dori/P3Dori/P4Oldhim. RealP1HandWoundingRed5Action0targetsP4, AP1->0; fouractualpriority/attack/defendflows produceunblockedpower4. DuringREACTION actualpasses1/2/3 earnP4. P4actualHero4DefenseReaction3createsvirtualABI7SourceHero4, normalPITCHemptyDQbeforefunding/AP4stays0. ActualP4HandAutumnsTouchBlue6 isEarth, realpitch3pays3->R4=0; physical6PitchOwnerController4, ABI7stillStack. Fouractualresponses4/1/2/3 resolveEarth-onlyprevention2, returnREACTIONP1/HP4still20/noDefendingcard/P4Chain0. Fourmoreactualreactionresponses1/2/3/4 dealactual4minus2=2physicalHP4=18. NoIcepitched/attackerHandtopchoice, noEarthfusion/assetshistoryinjection/HeroAPgain/once-rejection/barrier/expiry/sibling/Autumnprimarycredit. Finalrealattack5Chain, Earth6Pitch, Hero4remainsowned, Stackempty/AP1=0/AP4=0/allR0. StopDAMAGEbeforecleanup. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ELE002.webp https://rules.fabtcg.com/en/cr/07-combat/"
+}

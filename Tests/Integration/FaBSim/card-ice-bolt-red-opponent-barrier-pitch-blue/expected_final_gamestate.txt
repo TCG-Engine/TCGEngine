@@ -102,7 +102,7 @@ wounding_blow_blue 5 2 2
 1
 MAIN
 
-{"mzID":"p2Pitch-0","mzIDCardID":"ice_bolt_red","chosen":"p2Hero-0","cardID":"ice_bolt_red","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":"","barrier":"p2Equipment-0","pitched":"p2Hand-0"}
+{"mzID":"Stack-0","mzIDCardID":"ice_bolt_red","chosen":"p2Hero-0","cardID":"ice_bolt_red","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":"","barrier":"p2Equipment-0","pitched":"p2Hand-0"}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"ice_bolt_red":1}}}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"ice_bolt_red":1}}}
 5

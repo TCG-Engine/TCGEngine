@@ -1,0 +1,37 @@
+{
+  "status": "FIXED_FOCUSED_QUALIFIED_REGISTERED_HAND_INSTANT_TRAP",
+  "issue": "FAB-REG-058",
+  "runtime_sha256": "77a0bdd8458aee8723f873fb3ba23619c51193932d354965ad1524be9468708c",
+  "source_application": "review-evidence/wrapup-058-runner-source-application.json",
+  "independent_source_review": "review-evidence/trap-058-source-review.json",
+  "native_before": "review-evidence/trap-058-native-before.json",
+  "actual_saved_review": "review-evidence/trap-058-qualified-saved-review.json",
+  "actual_saved_review_sha256": "7e0bb7ea3b68749f4ea6d3b9067190a723c59cc7775177d52827c92d05308b45",
+  "same_correct_input_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+  "before_native_inputs": 23,
+  "before_fixture_saved": false,
+  "after_native_inputs": 27,
+  "after_native_assertions": 503,
+  "focused_replays": [
+    {
+      "path": "card-regression-replay-trap058-shock-77a0-r1.json",
+      "sha256": "8f3c29bbee1d398ceeda46286eaf51ab7e1e0c2d6d7508619a869df4d9a30182",
+      "passed": true
+    },
+    {
+      "path": "card-regression-replay-trap058-shock-77a0-r2.json",
+      "sha256": "a5fcddc731dbf052cce6e7fb8bdef4f2617e28134aa4027024e5b9ec890ac7c7",
+      "passed": true
+    }
+  ],
+  "actual_component": {
+    "normal_groups": 12,
+    "normal_checks": 15,
+    "in_memory_mutants_detected": 2,
+    "native_fault_control_credit": 0,
+    "candidate_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\trap058-candidate-component-results.json",
+    "installed_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\wrapup058-runner-installed-checks.json"
+  },
+  "checkpoint": "card-regression-trap058-shock-77a0-checkpoint.json",
+  "limits": "Exact Hand Shock hero-life-loss branch only; no sibling or ally behavior/full Trap grammar certification. Legacy printed restrictions tested with actual extracted functions and real selected metadata under explicit external boundary doubles. Older coverage runtimes preserved."
+}

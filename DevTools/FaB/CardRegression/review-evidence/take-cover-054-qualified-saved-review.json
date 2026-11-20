@@ -1,0 +1,277 @@
+{
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "input_sha256": "5883b7d0c5527809f6b4999104406cc3b095acbba0db82251eb7e0d439e9c7bd",
+  "status": "INDEPENDENT_ACTUAL_SAVED_SEMANTIC_REVIEW_REPLAYS_PENDING",
+  "method": "Manual prior printed/currentCR source rationale reused; read-only positional schema parser compares actual saved input/oracle streams and initial/final physical data. No game model/simulator/PHP/native/repository mutation.",
+  "source_approval_sha256": "cb79945cc3b7ff2995abe77f3a4e77771384ee3191c34d95c4a72cfce905aff9",
+  "source_after_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+  "application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-source-application\\receipt.json",
+    "sha256": "0291827073cff032e3359df24000e883a67ca979793e9ccf7a20068d157851c0"
+  },
+  "component_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-actual-frame-component-proposed-v2-clock-boundary\\root-component-results.json",
+    "sha256": "1e75936bfbd1c3504420f358d8fba118493a991afc69d854919669913b955019",
+    "root_status": "PASS",
+    "contracts": 28,
+    "checks": 108,
+    "honest_scope": "Actual extracted movement/finisher/AP functions with explicit boundary doubles; no native by reviewer. Prior missingclock21-pass failure retained separately, corrected clock-onlyV2 result is full28pass."
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch242-take-cover-correct-probe-20261026T115747Z-6adf403be8143.json",
+    "sha256": "c5b243eaccdedc0ebce49e13cb11ccf4dbc4c1db37571746424b994d1d43fb0b"
+  },
+  "before_failure": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\take-cover-054-resolution-native-before.json",
+    "sha256": "ff0bcf9854d742b2507fe898bc8da671cf4367d029a1287f0c582c7571366f92",
+    "unchanged_initial_sha256": "15c265a9b26d5aec15248e0c840239ca9f4703cfd7e34419aa10aefd7cf6284f",
+    "unchanged_spec_sha256": "5883b7d0c5527809f6b4999104406cc3b095acbba0db82251eb7e0d439e9c7bd",
+    "native_before": "At24 accepted inputs correct firstStack1 check got0 whileReload pending; no fixture saved. Same correct source/oracles now pass after shared repair."
+  },
+  "classification": "FAB-REG-054 extends existing008 reaction-source-lifetime caller; no new distinctrootcause from this caller alone. Native closure bounded to this correct RedReload case plus root separately observed component/compat gates.",
+  "fixtures": [
+    {
+      "slug": "card-take-cover-red-four-live-correct-reload-effects-before-defense-reaction-leaves-stack",
+      "source_case_index": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_FOUR_LIVE_DR_RELOAD_TIMING",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch242-take-cover-correct-probe.json",
+      "source_spec_sha256": "5883b7d0c5527809f6b4999104406cc3b095acbba0db82251eb7e0d439e9c7bd",
+      "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "actions": 29,
+      "native_assertions": 810,
+      "manual_passes": 24,
+      "manual_priority_passes": 23,
+      "defender_declaration_finish_inputs": 1,
+      "administrative_endphase_inputs": 0,
+      "schema_card_property_checks": 164,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "15c265a9b26d5aec15248e0c840239ca9f4703cfd7e34419aa10aefd7cf6284f",
+        "actions.json": "90e73927759c24496a655054cac338d768daa9eb1a46c732027585a245bea29d",
+        "assertions.json": "a70a58ef841da6026a95f95c4fa87577eab764874a6bdd9fd1b7ce2fd371e4e4",
+        "expected_final_gamestate.txt": "7ca7d967c30c4a8ee7f829c4b94f49a983095e1f2c14fc3726e083dcb153ad90",
+        "meta.json": "1308f9727ca6330404e23748ce442578f89b6faccade92576c2a892524a0b0fe"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "15c265a9b26d5aec15248e0c840239ca9f4703cfd7e34419aa10aefd7cf6284f",
+        "actions.json": "90e73927759c24496a655054cac338d768daa9eb1a46c732027585a245bea29d",
+        "assertions.json": "a70a58ef841da6026a95f95c4fa87577eab764874a6bdd9fd1b7ce2fd371e4e4",
+        "expected_final_gamestate.txt": "7ca7d967c30c4a8ee7f829c4b94f49a983095e1f2c14fc3726e083dcb153ad90",
+        "meta.json": "1308f9727ca6330404e23748ce442578f89b6faccade92576c2a892524a0b0fe"
+      },
+      "fixture_sha256": "6ccf0c2ac3b8d978e2f92f3b72bddede7aff64edc9148cac520fb6d0d0876d56",
+      "initial_sha256": "15c265a9b26d5aec15248e0c840239ca9f4703cfd7e34419aa10aefd7cf6284f",
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_boundary": 0,
+          "checkpoint": "full_initial_legal_Ranger_defense_reaction_and_real_incoming_seven",
+          "native_assertions": 130
+        },
+        {
+          "source_step": 2,
+          "action_boundary": 1,
+          "checkpoint": "actual_incoming_attack_target_preflight",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 4,
+          "action_boundary": 2,
+          "checkpoint": "actual_incoming_three_funding_wait_empty_DQ",
+          "native_assertions": 23
+        },
+        {
+          "source_step": 6,
+          "action_boundary": 3,
+          "checkpoint": "actual_Blue_three_pays_attack_three_before_priority",
+          "native_assertions": 26
+        },
+        {
+          "source_step": 8,
+          "action_boundary": 4,
+          "checkpoint": "actual_incoming_attack_layer_actor_1",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 10,
+          "action_boundary": 5,
+          "checkpoint": "actual_incoming_attack_layer_actor_2",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 12,
+          "action_boundary": 6,
+          "checkpoint": "actual_incoming_attack_layer_actor_3",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 14,
+          "action_boundary": 7,
+          "checkpoint": "actual_incoming_attack_layer_fourth_actor_4",
+          "native_assertions": 23
+        },
+        {
+          "source_step": 16,
+          "action_boundary": 8,
+          "checkpoint": "actual_incoming_attack_priority_actor_1",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 18,
+          "action_boundary": 9,
+          "checkpoint": "actual_incoming_attack_priority_actor_2",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 20,
+          "action_boundary": 10,
+          "checkpoint": "actual_incoming_attack_priority_actor_3",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 22,
+          "action_boundary": 11,
+          "checkpoint": "actual_incoming_attack_priority_fourth_actor_4",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 24,
+          "action_boundary": 12,
+          "checkpoint": "actual_defender_declines_ordinary_blocks",
+          "native_assertions": 17
+        },
+        {
+          "source_step": 26,
+          "action_boundary": 13,
+          "checkpoint": "actual_defend_priority_actor_1",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 28,
+          "action_boundary": 14,
+          "checkpoint": "actual_defend_priority_actor_2",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 30,
+          "action_boundary": 15,
+          "checkpoint": "actual_defend_priority_actor_3",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 32,
+          "action_boundary": 16,
+          "checkpoint": "actual_defend_priority_fourth_actor_4",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 34,
+          "action_boundary": 17,
+          "checkpoint": "actual_reaction_pass_earns_P2",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 36,
+          "action_boundary": 18,
+          "checkpoint": "actual_reaction_pass_earns_P3",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 38,
+          "action_boundary": 19,
+          "checkpoint": "actual_reaction_pass_earns_P4",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 40,
+          "action_boundary": 20,
+          "checkpoint": "actual_zero_defense_reaction_on_stack_before_responses",
+          "native_assertions": 24
+        },
+        {
+          "source_step": 42,
+          "action_boundary": 21,
+          "checkpoint": "actual_DR_resolution_actor_4",
+          "native_assertions": 24
+        },
+        {
+          "source_step": 44,
+          "action_boundary": 22,
+          "checkpoint": "actual_DR_resolution_actor_1",
+          "native_assertions": 24
+        },
+        {
+          "source_step": 46,
+          "action_boundary": 23,
+          "checkpoint": "actual_DR_resolution_actor_2",
+          "native_assertions": 24
+        },
+        {
+          "source_step": 48,
+          "action_boundary": 24,
+          "checkpoint": "correct_Reload_effect_pending_physical_DR_still_STACK_absent_defending_Chain",
+          "native_assertions": 28
+        },
+        {
+          "source_step": 50,
+          "action_boundary": 25,
+          "checkpoint": "actual_Reload_choice_moves_same_Hand_UID_face_down_Arsenal",
+          "native_assertions": 30
+        },
+        {
+          "source_step": 52,
+          "action_boundary": 26,
+          "checkpoint": "actual_after_reload_reaction_priority_actor_1",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 54,
+          "action_boundary": 27,
+          "checkpoint": "actual_after_reload_reaction_priority_actor_2",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 56,
+          "action_boundary": 28,
+          "checkpoint": "actual_after_reload_reaction_priority_actor_3",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 58,
+          "action_boundary": 29,
+          "checkpoint": "actual_after_reload_reaction_priority_fourth_actor_4",
+          "native_assertions": 17
+        },
+        {
+          "source_step": 59,
+          "action_boundary": 29,
+          "checkpoint": "full_final_physical_DR_four_reload_face_down_and_seven_minus_four_damage",
+          "native_assertions": 140
+        }
+      ],
+      "author_only_checks": [],
+      "actual_saved_findings": [
+        "All29 real supported recorded inputs and every810 persisted oracle match unchanged5883 source in exact order; zero omissions/recorder-only assertions. Actual native recording receipt recorded_semantically_checked29/810.",
+        "Initial and final all4 heroes legal/living, UPF active1234/passive[],96 endpoint shortcut settings all correct: each holdPrioritytrue/all11false. All24 Pass inputs use actual source-bound actor; one P4declaring-blocks finish is not a priority response.",
+        "At actual boundary24, first original oracle Stackcount1, P4CombatChain0; TakeCoverUID5 remains physical StackOwnerController4KindDEFENSE_REACTION SourceHand5 while MZMAYCHOOSE points actualHandArrowUID6 and Arsenalempty. No raw private-choice priority oracle.",
+        "Boundary25 actual P4 choice moves sameArrowUID6 to ownFaceDown1Arsenal; afterward samephysicalTakeUID5 becomes P4ChainLink1RoleDEFENSE_REACTIONFromHand. No remainingStack/queue.",
+        "After real four response passes, actual RagingOnslaughtUID7 printed7 vs physicalTakeCover printeddef4 yields physicalP4HP20->17; native computed_power7 and goAgainfalse preserved. No cacheddefenseValue assertion substitutes for physicaldamage.",
+        "FinalDAMAGE combatOpentrue, exact owned UID1..8 locations: heroes1..4, attack7P1Chain, Take5P4Chain, Arrow6P4ArsenalF1, Blue8P1Pitch; no disappearing/resurrected/duplicatedsource. EmptyStack/DQ/awaitframes/resolvingReaction/pendingPayment and once-onlyhandBlockUIDs[5]."
+      ],
+      "limits": [
+        "One Red TakeCover successful Reload branch, source remains through real await; no deniedReload/otherDR/sibling/allreaction/cancel/stalechain native coverage claimed.",
+        "Saved snapshots directly prove endpoints; intermediate statements are bound actual native successful assertions/recording stream, not additional prefix snapshots or independent engine execution.",
+        "StopsDAMAGE with combat open; no combat cleanup/endturn claim. Genuine four live seats, response streams include all4 actors; this is one incomingP1 attack and P4reaction.",
+        "23 priority passes plus one defender declaration finish; no administrative end-phase passes.",
+        "Positive saved semantic review only. Root two clean replays and3 focusedcompat were in flight when this proof was written; no early replay/fault/full-suite claim."
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "qualification_limits": [
+    "No fullsuite; no oldcase requalification or broadcurrent-runtime coverage.",
+    "Native execution/replays belong to root. Old15component contract bodies and3 mutants preserved by independent source/harness review; this packet does not rerun or re-certify them."
+  ],
+  "reviewer": "/root/b104_saved_review"
+}

@@ -1,0 +1,57 @@
+{
+  "source": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\GeneratedCardDictionaries.php",
+  "source_sha256": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+  "rows": [
+    {
+      "card_id": "anaphylactic_shock_blue",
+      "name": "Anaphylactic Shock",
+      "types": [
+        "Assassin",
+        "Instant",
+        "Trap"
+      ],
+      "functional_text_plain": "Each opposing hero and ally that has dealt damage to you this turn loses 1{h}."
+    },
+    {
+      "card_id": "pitfall_trap_yellow",
+      "name": "Pitfall Trap",
+      "types": [
+        "Ranger",
+        "Defense Reaction",
+        "Trap"
+      ],
+      "functional_text_plain": "This can only be played from arsenal.\nWhen this defends, deal 2 damage to the attacking hero unless they pay {r}."
+    },
+    {
+      "card_id": "tripwire_trap_red",
+      "name": "Tripwire Trap",
+      "types": [
+        "Ranger",
+        "Defense Reaction",
+        "Trap"
+      ],
+      "functional_text_plain": "This can only be played from arsenal.\nWhen this defends, hit effects don't trigger this chain link unless the attacking hero pays {r}."
+    },
+    {
+      "card_id": "rockslide_trap_blue",
+      "name": "Rockslide Trap",
+      "types": [
+        "Ranger",
+        "Defense Reaction",
+        "Trap"
+      ],
+      "functional_text_plain": "This can only be played from arsenal.\nWhen this defends, target attack gets -2{p} unless the attacking hero pays {r}."
+    },
+    {
+      "card_id": "boulder_trap_yellow",
+      "name": "Boulder Trap",
+      "types": [
+        "Ranger",
+        "Defense Reaction",
+        "Trap"
+      ],
+      "functional_text_plain": "When this defends an attack with {p} greater than its base, put a -1{d} counter on an equipment the attacking hero controls."
+    }
+  ],
+  "boundary_scope": "Only selected newShock, three explicit CRUlegacy restrictions and one unrestricted OUTTrap. Not a catalog-wide migration/completeness claim."
+}

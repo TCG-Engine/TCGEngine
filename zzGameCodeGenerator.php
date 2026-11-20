@@ -2106,6 +2106,14 @@ if($rootName === "SWUSim" || $rootName === "SWUDeck") {
 //TODO: Validate these inputs
 fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
 if($rootName == "SWUSim") {
+  // High Ground "End match": the host ended this hill match with no result — EVERY viewer (players and spectators) goes
+  // back to the room. Checked first: an ended match must not send anyone on to sideboarding.
+  fwrite($handler, "\$swuRoomPtr = __DIR__ . '/Games/' . preg_replace('/[^A-Za-z0-9_]/', '', strval(\$gameName)) . '/RoomReturn.json';\r\n");
+  fwrite($handler, "if (is_file(\$swuRoomPtr)) {\r\n");
+  // ⚠ The reply names NO room: it is sent before any auth and game names are sequential, so a room id here would lead anyone
+  // to the room (and its invite code). The board already knows its room — the room page remembered it (tcg:hg:lastRoom).
+  fwrite($handler, "  echo '1237ROOM'; exit;\r\n");
+  fwrite($handler, "}\r\n");
   // Plan C: a finished game awaiting sideboarding sends SEATED players to the sideboard screen;
   // spectators skip it and keep polling (they follow MATCHADVANCE once the next game spawns).
   fwrite($handler, "\$swuSidePtr = __DIR__ . '/Games/' . preg_replace('/[^A-Za-z0-9_]/', '', strval(\$gameName)) . '/Sideboard.json';\r\n");

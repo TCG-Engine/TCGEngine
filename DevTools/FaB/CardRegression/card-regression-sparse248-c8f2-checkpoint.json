@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T13:49:43.919398+00:00",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "source_spec": "card-regression-batch248.json",
+  "source_spec_sha256": "810fd2d957a7a7602a5e6359fdc8ba83b52957c077bc2d79867cc56d3fe449c1",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 34,
+  "native_assertions": 1080,
+  "manual_passes": 28,
+  "totals": {
+    "saved_registered_scenarios": 3506,
+    "duels": 3074,
+    "four_live": 432,
+    "recorded_primary_ids": 663,
+    "identity_denominator": 5196,
+    "recorded_groups": 537,
+    "group_denominator": 3324,
+    "four_live_groups": 428,
+    "phase_qualified_scenarios_at_actual_contexts": 143,
+    "phase_qualified_unique_groups": 141,
+    "creation_replay_passes": 286,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 5,
+  "scenarios": [
+    {
+      "card_id": "dash_database",
+      "group_id": "identity:dash_database",
+      "scenario_id": "card-dash-database-four-live-sparse-real-top-deck-item-instant-plus-one-cost-and-steam-entry",
+      "effect_branches": [
+        "real-top-deck-item-instant-plus-one-cost-and-steam-entry"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dash-database-four-live-sparse-real-top-deck-item-instant-plus-one-cost-and-steam-entry",
+      "source_spec": "card-regression-batch248.json",
+      "source_spec_sha256": "810fd2d957a7a7602a5e6359fdc8ba83b52957c077bc2d79867cc56d3fe449c1",
+      "review_evidence": "review-evidence/sparse248-c8f2-qualified-saved-review.json",
+      "review_evidence_sha256": "d55cb12c8a4353ae013f28a694e8ba099e0f5004cb5c9f371f890748a096c6dc",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "qualification_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse248-c8f2-r1.json",
+          "sha256": "b986a098e36b3d358989fa2a788a30ab78d7bbf0a23b0ee20df9d9fc2a9e63d8",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse248-c8f2-r2.json",
+          "sha256": "3e78d8dec85b6c3d8f5bcbf0eb1440128f764218cf2cebef82aac82b7b870a4c",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "oldhim",
+      "group_id": "identity:oldhim",
+      "scenario_id": "card-oldhim-four-live-sparse-real-earth-pitch-defense-reaction-prevents-two-physical",
+      "effect_branches": [
+        "real-earth-pitch-defense-reaction-prevents-two-physical"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-oldhim-four-live-sparse-real-earth-pitch-defense-reaction-prevents-two-physical",
+      "source_spec": "card-regression-batch248.json",
+      "source_spec_sha256": "810fd2d957a7a7602a5e6359fdc8ba83b52957c077bc2d79867cc56d3fe449c1",
+      "review_evidence": "review-evidence/sparse248-c8f2-qualified-saved-review.json",
+      "review_evidence_sha256": "d55cb12c8a4353ae013f28a694e8ba099e0f5004cb5c9f371f890748a096c6dc",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "qualification_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse248-c8f2-r1.json",
+          "sha256": "b986a098e36b3d358989fa2a788a30ab78d7bbf0a23b0ee20df9d9fc2a9e63d8",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse248-c8f2-r2.json",
+          "sha256": "3e78d8dec85b6c3d8f5bcbf0eb1440128f764218cf2cebef82aac82b7b870a4c",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -11,7 +11,7 @@ ServerInclude: /Custom/CustomInput.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 Macro: Name=TrainerPlayed(mzID); ChoiceFunction=PokeOnTrainerPlayed; PrereqFunction=PokeGeneratedCanPlayTrainer; SourceParam=mzID; Action={}
-Macro: Name=Attack(mzID,attackIndex); ChoiceFunction=PokeOnAttack; SourceParam=mzID; SelectedIndexParam=attackIndex; Action={}
+Macro: Name=Attack(mzID,attackIndex); ChoiceFunction=PokeOnAttack; PrereqFunction=PokeGeneratedCanAttack; SourceParam=mzID; SelectedIndexParam=attackIndex; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=PokeOnActivateAbility; PrereqFunction=PokeGeneratedCanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=EnergyAttached(mzID,energyID); ChoiceFunction=PokeOnEnergyAttached; SourceParam=mzID; Action={}
 Macro: Name=PokemonBenched(mzID); ChoiceFunction=PokeOnPokemonBenched; SourceParam=mzID; Action={}

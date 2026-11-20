@@ -98,6 +98,7 @@ function SWUMenuLobbyRows(string $rootName = 'SWUSim'): array {
 
 // The card copy. Every state says something, INCLUDING zero — a card whose foot goes blank when
 // the site is quiet reads as broken rather than as empty.
+// Every label is at most 24 characters, like the menu's fixed stat lines (SWUSim/DevTools/tests/menu_stat_lines_test.php).
 function SWUMenuStatLabel(string $card, array $stats): string {
     if ($card === 'multi') {
         $n = intval($stats['multiTables'] ?? 0);

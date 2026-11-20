@@ -230,8 +230,11 @@ function GameOnDecisionAnswered(int $player, string $answer): void {
             break;
         case 'OPTIONCHOOSE':
             // Labels are single tokens on the wire ("Draw&Discard" separates options; "Your_deck" uses
-            // underscores for spaces) — show them as words.
-            AddGameLogEntry('CHOICE', $who . ' chose ' . str_replace('_', ' ', $answer) . SWULogSourceSuffix(), 'ALL');
+            // underscores for spaces) — show them as words. A bare card token in a label ("[[LAW_124]]_Takes_7_Damage",
+            // SOR_233 I Am Your Father) keeps its CardID's underscore and becomes the named "[[id|name]]" log link.
+            $shown = preg_replace_callback('/\[\[([A-Za-z0-9]+_[A-Za-z0-9]+)\]\]|_/',
+                fn($m) => ($m[1] ?? '') !== '' ? GameLogCardRef($m[1]) : ' ', $answer);
+            AddGameLogEntry('CHOICE', $who . ' chose ' . $shown . SWULogSourceSuffix(), 'ALL');
             break;
     }
 }
@@ -508,13 +511,14 @@ function SWULogUpgradeReturned($host, string $cardID, string $how): void {
 
 // A card taken into hand from a deck by a search ("search … and draw it"): same wording as
 // TOPDECKSEARCH_FINALIZE — named publicly only when the effect REVEALS it.
-function SWULogSearchedToHand(int $player, array $cardIDs, bool $revealed): void {
+// $seen (SWU-PGN only): every card the player looked at in the search (default: the cards drawn).
+function SWULogSearchedToHand(int $player, array $cardIDs, bool $revealed, ?array $seen = null): void {
     $cardIDs = array_values(array_filter($cardIDs, fn($c) => (string)$c !== ''));
     $n = count($cardIDs);
     if ($player <= 0 || $n <= 0) return;
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) {
-        if ($revealed) SwuPgnNote(['t' => 'REVEAL', 'p' => $player, 'zone' => 'deck', 'cardIDs' => $cardIDs]);
-        SwuPgnNote(['t' => 'SEARCH', 'p' => $player, 'cardIDs' => $cardIDs]);   // claims the cards' deck → hand moves
+        // claims the cards' deck → hand moves; `revealed`: the matcher writes the REVEAL, of the copies that moved
+        SwuPgnNote(['t' => 'SEARCH', 'p' => $player, 'cardIDs' => $cardIDs, 'seen' => array_values(array_map('strval', $seen ?? $cardIDs)), 'revealed' => $revealed]);
     }
     $refs = implode(', ', array_map('GameLogCardRef', $cardIDs));
     if ($revealed) {
@@ -858,15 +862,35 @@ function SWULogForceDefeated(int $player): void {
 // Leader / unit / base Actions: "P1 used [[JTL_016|Admiral Ackbar]]'s Action" — and it becomes the source
 // of everything that Action does. Called at each invocation point (the direct path and the alternative-
 // payment continuations are separate sites, so each logs exactly once).
-function SWULogBeginAction(int $player, string $cardID, string $kind = 'Action'): void {
+// $entry: the named Action ability being used (ActionAbilities.php), when the caller has one. It decides WHOSE ability
+// the SWU-PGN record names: a granted one ("Attached unit gains: …", Satine's grant) belongs to the HOST, by uid, with
+// grantedBy the granter (§10.1, W-31); one printed on the card itself — a unit's own, a Pilot's (Poe), a Fortify
+// upgrade's — belongs to that card. It also carries the ability id, its printed text and its use limit (W-49).
+function SWULogBeginAction(int $player, string $cardID, string $kind = 'Action', ?array $entry = null): void {
     SWULogSetSource($player, $cardID);
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) {
-        $isBase = false;
-        foreach (GetBase($player) ?? [] as $b) if (empty($b->removed) && ($b->CardID ?? '') === $cardID) $isBase = true;
-        SwuPgnNote(['t' => 'ABILITY', 'p' => $player, 'cardID' => $isBase ? "base@$player" : $cardID,
-            'kind' => stripos($kind, 'Epic') !== false ? 'epic' : 'action']);
+        SwuPgnNote(_SWULogActionAbilityNote($player, $cardID, $kind, $entry));
     }
-    AddGameLogEntry('ACTION', 'P' . $player . ' used ' . GameLogCardRef($cardID) . "'s {$kind}", 'ALL');
+    $phrase = $entry !== null ? SWUActionLogPhrase($entry, $kind) : 'used ' . GameLogCardRef($cardID) . "'s {$kind}";
+    AddGameLogEntry('ACTION', 'P' . $player . ' ' . $phrase, 'ALL');
+}
+
+// The SWU-PGN ABILITY note for SWULogBeginAction (built only for a recorded game — the caller is guarded).
+function _SWULogActionAbilityNote(int $player, string $cardID, string $kind, ?array $entry): array {
+    $isBase = false;
+    foreach (GetBase($player) ?? [] as $b) if (empty($b->removed) && ($b->CardID ?? '') === $cardID) $isBase = true;
+    $note = ['t' => 'ABILITY', 'p' => $player, 'cardID' => $isBase ? "base@$player" : $cardID,
+        'kind' => stripos($kind, 'Epic') !== false ? 'epic' : 'action'];
+    if ($entry === null) return $note;
+    $granted = in_array($entry['kind'] ?? '', ['grant', 'satine'], true);
+    if (($granted || in_array($entry['kind'] ?? '', ['own', 'self-grant'], true)) && intval($entry['hostUid'] ?? 0) > 0 && !$isBase) {
+        $note['uid'] = intval($entry['hostUid']);
+    }
+    if ($granted) $note['grantedBy'] = (string)$entry['source'];
+    $note['ability'] = SWUActionPgnAbilityId($entry);
+    if (($entry['title'] ?? '') !== '') $note['title'] = (string)$entry['title'];
+    if (is_array($entry['limit'] ?? null)) $note['limit'] = $entry['limit'];
+    return $note;
 }
 
 // ─── Phase 3c: deck peeks, searches, moves, returns ─────────────────────────────────────────────────────
