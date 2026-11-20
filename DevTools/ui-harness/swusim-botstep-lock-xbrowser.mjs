@@ -13,11 +13,69 @@ import { chromium, firefox, webkit } from 'playwright';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
 const PLAY_MS = Number(process.env.PLAY_MS || 45000);
-const fs = await import('node:fs');
-const readFixture = (rel) => fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/' + rel, import.meta.url), 'utf8')
-  .split('\n').filter(l => !l.startsWith('#')).join('\n').trim();
-const DECK_A = readFixture('premier_deck_a.txt');
-const DECK_B = readFixture('premier_deck_b.txt');
+// Two all-SOR decks, inline (Bot Practice is unrestricted).
+const DECK_A = `Leader
+1 SOR_009
+Base
+1 SOR_022
+Deck
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_239
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+1 SOR_242
+1 SOR_100
+2 SOR_093
+1 SOR_094
+2 SOR_248
+1 SOR_096
+3 SOR_237
+2 SOR_111
+2 SOR_112
+1 SOR_099
+2 SOR_250
+3 SOR_124
+2 SOR_123
+2 SOR_127
+2 SOR_103
+3 SOR_120
+2 SOR_121`;
+const DECK_B = `Leader
+1 SOR_010
+Base
+1 SOR_025
+Deck
+3 SOR_128
+3 SOR_130
+2 SOR_227
+2 SOR_228
+2 SOR_229
+2 SOR_161
+2 SOR_164
+2 SOR_165
+2 SOR_232
+1 SOR_230
+1 SOR_131
+1 SOR_133
+1 SOR_129
+2 SOR_159
+1 SOR_160
+3 SOR_225
+2 SOR_231
+2 SOR_132
+2 SOR_163
+1 SOR_134
+2 SOR_172
+2 SOR_139
+2 SOR_167
+1 SOR_233
+3 SOR_166
+2 SOR_137
+1 SOR_136`;
 
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.fromEntries(Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n)));

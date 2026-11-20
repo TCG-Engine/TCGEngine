@@ -36,6 +36,11 @@ try {
     $html = RenderMetaPremierRating(U, $conn);
     check('settled rating, W-L, matches', strpos($html, '1612') !== false && strpos($html, '1612?') === false
         && strpos($html, '3–2') !== false && strpos($html, '5 matches') !== false, $html);
+    check('no draws: the record stays W–L', strpos($html, '3–2 ·') !== false, $html);
+    // A drawn rated match (migration 22's draws column): W–L–D, so the three add up to the match count.
+    $conn->query("UPDATE glicko_ratings SET draws=1, games=6 WHERE userId=" . U);
+    $html = RenderMetaPremierRating(U, $conn);
+    check('a draw shows as W–L–D', strpos($html, '3–2–1 · 6 matches') !== false, $html);
 
     $conn->query("RENAME TABLE glicko_ratings TO glicko_ratings_parked_by_test");
     try {

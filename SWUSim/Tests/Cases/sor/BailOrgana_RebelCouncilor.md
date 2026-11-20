@@ -139,6 +139,7 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 #// SOR_094 — boundary at zero targets. Bail is P1's ONLY unit; "another friendly unit" therefore has
 #// no referent, so no Experience token is created anywhere and the enemy unit — never eligible in the
 #// first place — carries no upgrade. Bail himself never gets the token ("another" excludes him).
+#// The Action is still USABLE (CR 6.4.587.c, owner go 2026-11-04): [Exhaust] changes game state, so Bail exhausts.
 
 ## GIVEN
 CommonSetup: ggw/ggw
@@ -156,6 +157,7 @@ P1GROUNDARENAUNIT:0:HP:2
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:POWER:3
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:EXHAUSTED
 P1NODECISION
 
 ---

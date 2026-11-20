@@ -1,0 +1,36 @@
+# Post-ban TEST PANEL v1 (owner 2026-11-12), slot 2. Hyper aggro, space
+# Deck: "Vader Yellow"; source: swudb qctNrNuVH (QR)
+# Author: StarWarsDad
+# Style: hyperaggro
+
+Leader
+1 JTL_006
+
+Base
+1 ASH_026
+
+Deck
+3 SEC_213
+3 LAW_211
+3 HMW_136
+3 HMW_203
+3 JTL_217
+3 JTL_221
+3 SEC_189
+3 JTL_085
+3 JTL_081
+3 ASH_117
+2 HMW_271
+3 SEC_185
+3 JTL_115
+3 LOF_091
+3 SEC_082
+3 SEC_186
+3 JTL_212
+
+Sideboard
+2 HMW_205
+2 IBH_052
+2 JTL_235
+2 SEC_195
+2 ASH_194

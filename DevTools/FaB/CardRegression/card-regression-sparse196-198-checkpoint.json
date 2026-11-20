@@ -1,0 +1,224 @@
+{
+  "status": "QUALIFIED9_NEW_FOUR_LIVE_REPRESENTATIVES_TWO_NATIVE_BUGS_FIXED",
+  "utc": "2026-10-25T20:29:12.191757+00:00",
+  "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "new_scenarios_recorded": 9,
+  "new_scenarios_qualified": 9,
+  "new_primary_identities": 9,
+  "new_groups": 9,
+  "total_saved": 3372,
+  "two_player": 3074,
+  "four_live": 298,
+  "identity_denominator": 5196,
+  "group_denominator": 3324,
+  "new_cases": [
+    {
+      "slug": "card-brush-off-red-four-live-sparse-actual-zero-cost-instant-prevents-real-two-physical-damage",
+      "card_ids": [
+        "brush_off_red"
+      ],
+      "source_spec": "card-regression-batch196.json",
+      "actions": 35,
+      "native_assertions": 1637,
+      "manual_passes": 32,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-steelblade-shunt-red-four-live-sparse-actual-paid-reaction-blocks-real-weapon-and-damages-attacking-hero",
+      "card_ids": [
+        "steelblade_shunt_red"
+      ],
+      "source_spec": "card-regression-batch196.json",
+      "actions": 37,
+      "native_assertions": 1967,
+      "manual_passes": 32,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-rally-the-rearguard-red-four-live-sparse-actual-defending-activation-discards-owned-card-and-adds-three-defense",
+      "card_ids": [
+        "rally_the_rearguard_red"
+      ],
+      "source_spec": "card-regression-batch196.json",
+      "actions": 37,
+      "native_assertions": 1857,
+      "manual_passes": 32,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-soul-shield-yellow-four-live-sparse-actual-paid-six-defense-reaction-then-soul-only-at-chain-close",
+      "card_ids": [
+        "soul_shield_yellow"
+      ],
+      "source_spec": "card-regression-batch196.json",
+      "actions": 37,
+      "native_assertions": 1886,
+      "manual_passes": 32,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-sigil-of-suffering-red-four-live-sparse-actual-arcane-to-attacking-hero-earns-four-defense-before-physical-damage",
+      "card_ids": [
+        "sigil_of_suffering_red"
+      ],
+      "source_spec": "card-regression-batch196.json",
+      "actions": 35,
+      "native_assertions": 1647,
+      "manual_passes": 32,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-amplify-the-arknight-red-four-live-sparse-real-runechant-discount-and-six-physical-damage",
+      "card_ids": [
+        "amplify_the_arknight_red"
+      ],
+      "source_spec": "card-regression-batch197.json",
+      "actions": 33,
+      "native_assertions": 4029,
+      "manual_passes": 29,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-passing-mirage-blue-four-live-sparse-first-illusionist-attack-survives-real-six-power-block",
+      "card_ids": [
+        "passing_mirage_blue"
+      ],
+      "source_spec": "card-regression-batch197.json",
+      "actions": 29,
+      "native_assertions": 3827,
+      "manual_passes": 25,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+      "card_ids": [
+        "mauvrion_skies_red"
+      ],
+      "source_spec": "card-regression-batch198.json",
+      "actions": 37,
+      "native_assertions": 2152,
+      "manual_passes": 33,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    },
+    {
+      "slug": "card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+      "card_ids": [
+        "phantasmal_haze_red"
+      ],
+      "source_spec": "card-regression-batch198.json",
+      "actions": 21,
+      "native_assertions": 1236,
+      "manual_passes": 17,
+      "scope": "One primary representative only; exact source spec and qualified review define branch limits."
+    }
+  ],
+  "targeted_replays": [
+    {
+      "path": "card-regression-replay-sparse196-20261025-r1.json",
+      "sha256": "9c8df9a24feb2ce5d8f5eb41490efa5dc705e3dc3d05498b4227944a484fe293",
+      "passed": 5
+    },
+    {
+      "path": "card-regression-replay-sparse196-20261025-r2.json",
+      "sha256": "14a282ea4590fa5fa902dba1b4ac7450bdcca16931aa6784ad520c3998733fca",
+      "passed": 5
+    },
+    {
+      "path": "card-regression-replay-sparse197-20261025-r1.json",
+      "sha256": "ffcab596f126ac79ad213587afdd68c3e7b0b3ff4cd4a7ca7d4b0bd8560167c2",
+      "passed": 2
+    },
+    {
+      "path": "card-regression-replay-sparse197-20261025-r2.json",
+      "sha256": "abb6f9386e495cb6236a209ca7d64058f5e5bf5d4fff034c1a5f611cab6eeb45",
+      "passed": 2
+    },
+    {
+      "path": "card-regression-replay-sparse198-20261025-r1.json",
+      "sha256": "e912438b1c242726c221e6b125df30297ca7bde32d11a537f73f18c9682c5020",
+      "passed": 2
+    },
+    {
+      "path": "card-regression-replay-sparse198-20261025-r2.json",
+      "sha256": "1b62a982934e15d692dfaf9db27a0191cb92d851d64b279f1ee306c22231ebcc",
+      "passed": 2
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse196-198-results.json",
+    "sha256": "57c37226991908c8626b9db72a7a4bced65773582d37e799ebde218c8428a434",
+    "detected": 4,
+    "total": 4,
+    "suffix_oracles_retained": 4412,
+    "omitted": 0,
+    "scope": "Brush effect omission, Rally/Sigil positive-defense-gain lock and Mirage phantasm-suppression omission; exact source/application scopes only. Amplify cost, Shunt retaliation and Soul self-destination lack isolated mechanism faults; positive native outcomes/economy remain verified."
+  },
+  "actual_bug_regressions": {
+    "native_before_failures": 2,
+    "unchanged_after_expectations_pass": true,
+    "evidence": "review-evidence/sparse198-confirmed-trigger-before-after.json",
+    "issue_ids": [
+      "FAB-REG-043",
+      "FAB-REG-044"
+    ]
+  },
+  "component": {
+    "path": "components/queued_card_trigger_component.php",
+    "sha256": "e2f06d1cd51d76bc0c291cf0cc955ca48951433e1fbc15de4c7563d8ba1fc303",
+    "contracts": 14,
+    "result": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-retained-component-results.json",
+      "sha256": "f2277213594fc50e2e6a912e3b6f7492d38da2b0774fcdd8911438bb0820ad77"
+    },
+    "scope": "Controlled actual-function contracts, not extra native variant coverage."
+  },
+  "focused_existing_families": {
+    "result_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-focused-family-results.json",
+    "sha256": "9ab20444ef2a17bb46bcb3992855fd72a21859b2322e95b922840dd8cb601c44",
+    "commands": [
+      [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/FaB/cru_test.php"
+      ],
+      [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/FaB/evr_rules_test.php"
+      ]
+    ],
+    "all_passed": true
+  },
+  "selected_source_only_holds": [
+    "art_of_war_yellow",
+    "tome_of_aetherwind_red",
+    "reinforce_the_line_red"
+  ],
+  "related_unattempted_inline_routes": [
+    "coalescence_mirage_blue",
+    "miraging_metamorph_red",
+    "haze_bending_blue"
+  ],
+  "full_suite_runs_this_breadth_batch": 0,
+  "historical_full_suite_note": "Earlier3363/3363 pass stays bound to86b; intervening shared-code merge and these new fixes changed runtime. No earlier pass is retagged current.",
+  "next_batches": {
+    "batch199": "Four assigned groups, fresh workspace authoring after reconnection; not natively attempted.",
+    "batch200": "Four assigned groups, fresh workspace authoring after reconnection; not natively attempted."
+  },
+  "git_head_at_resume": "c3d6fcb93f64dfa0c58be8bc27967cfbf498f05c",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false,
+  "backups": {
+    "source": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-trigger-repair-backup",
+    "metadata": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse196-198-metadata-backup"
+  },
+  "primary_ids_saved": 531,
+  "groups_saved": 405,
+  "four_live_groups_saved": 296,
+  "registered_historical_and_current_review_entries": 3372,
+  "strict_exact_review_and_two_current_replays": 9,
+  "historical_review_byte_binding_limitation": "The strict refresh rejects 3363 older exact fixture hash bindings after intervening Git normalization. One investigated fixture matches old raw hashes by reversing only TXT CRLF-to-LF conversion; actions/assertions already match. No blanket historical-equivalence review or reapproval performed. Recorded subject/profile counts and original review entries are retained separately; no old pass is retagged current.",
+  "coverage_indexes": {
+    "card-regression-coverage.json": "c8f137a127104a5c3da4c776b56d6f4d8628323fb7c1bee10a73550bacf2f936",
+    "cycle-coverage-current.json": "e544d01e86e2f82c0f78d6027aadd3c8a76736790121457be1da66a9830c1be8"
+  }
+}

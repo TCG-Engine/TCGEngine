@@ -50,4 +50,5 @@ $whenPlayedAbilities["HMW_123:0"] = function($player, $mzID = '') {
     }
     if ($done > 0) SWULogResourced($me, ($done === 1 ? 'the top card of their deck and readied it' : "the top {$done} cards of their deck and readied them"));
     SWUKeepCreditTokensLast($me);
+    if ($done > 0 && function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced($me, $done);   // IC27_089 Maz Kanata — one per card
 };

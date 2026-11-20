@@ -1,0 +1,98 @@
+{
+  "status": "EXISTING_GROUP_BUG_WITNESS_QUALIFIED_REGISTERED_V2_BOUNDARY_CLOSED",
+  "utc": "2026-10-26T15:32:44.468298+00:00",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "source_spec": "card-regression-batch249-induction-own-keyword-probe.json",
+  "new_scenarios": 1,
+  "new_groups": 0,
+  "new_primary_ids": 0,
+  "introduced_by_v1_patch_not_new_preexisting_bug": true,
+  "actions": 6,
+  "native_assertions": 333,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 3511,
+    "duels": 3074,
+    "four_live": 437,
+    "recorded_primary_ids": 667,
+    "identity_denominator": 5196,
+    "recorded_groups": 541,
+    "group_denominator": 3324,
+    "four_live_groups": 432,
+    "phase_qualified_scenarios_at_actual_contexts": 148,
+    "phase_qualified_unique_groups": 145,
+    "creation_replay_passes": 296,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "scenarios": [
+    {
+      "card_id": "induction_chamber_red",
+      "group_id": "identity:induction_chamber_red",
+      "scenario_id": "card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+      "effect_branches": [
+        "ordinary-play-pays-two-resource-and-keeps-action-point-spent"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+      "source_spec": "card-regression-batch249-induction-own-keyword-probe.json",
+      "source_spec_sha256": "25e43b31fcf3afae4fcb9f2cf3aea086d7c585a19272e7102f2099a2ce489fea",
+      "review_evidence": "review-evidence/rapid-056-induction-v2-qualified-saved-review.json",
+      "review_evidence_sha256": "bf43ed54e2009c1d41032b029dd418d47894b2577964d8518e6a42aac6700d9a",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "qualification_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-rapid056-v2-induction-7315-r1.json",
+          "sha256": "2682e2b60655ce2cf182644ddad44cbf1a1a17ebe54afd2d21c11fe7493b4b70",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-rapid056-v2-induction-7315-r2.json",
+          "sha256": "68e3446d4dc4f7890cca0c075cdee57f0467f30061371fb5ca7a1b3b1303eafc",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_existing_group_bug_regression",
+      "coverage_kind": "EXISTING_GROUP_BUG_WITNESS",
+      "new_group_credit": false,
+      "new_primary_id_credit": false,
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NO_NEW_ISOLATED_FAULT_CREDIT_BEFORE_AFTER_BUG_EVIDENCE_SEPARATE"
+    }
+  ],
+  "rapid_requalification": {
+    "fixture_unchanged": true,
+    "current_native_replays": [
+      {
+        "path": "card-regression-replay-rapid056-v2-rapid-7315-r1.json",
+        "sha256": "c4011f1f41979f53f6e8010a53cf7835438d697f3016e53d91bc7d7fcaa63928",
+        "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+        "passed": true
+      },
+      {
+        "path": "card-regression-replay-rapid056-v2-rapid-7315-r2.json",
+        "sha256": "7a26548d2dd44b5f5daa2b9ccdf0d7e1e3e4bb640f4322d7b64607193bb56a31",
+        "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+        "passed": true
+      }
+    ],
+    "semantic_overlay": "review-evidence/rapid-056-v2-rapid-current-validation.json",
+    "original_recorded_semantic_runtime": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+    "new_creation_replay_credit": 0
+  },
+  "activation_compatibility": {
+    "path": "card-regression-replay-rapid056-v2-activation-7315-compat.json",
+    "sha256": "551f5f0333d79d3c175f1e9ead4763364cca3f8ade64ccc79fdd3bdb56f0feea",
+    "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+    "passed": true
+  },
+  "actual_parser_contracts": 48,
+  "new_helper_controls": 0,
+  "new_distinct_preexisting_bug_groups": 0,
+  "full_suite_runs": 0,
+  "limitations": "One specific bug-control exception to sparse one-per-cycle; no newID/group/fullcardcredit. V1 Rapid correctness and f435 proofs preserved, introduced boundary error explicit. No old corpus replay/retag."
+}

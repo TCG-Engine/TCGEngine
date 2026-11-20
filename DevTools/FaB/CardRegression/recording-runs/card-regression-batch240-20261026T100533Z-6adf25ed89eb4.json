@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T10:05:33+00:00",
+    "input_file": "card-regression-batch240.json",
+    "input_sha256": "b83b1ac785c47f8c34fd45a5bcdd0c8509f5333dd88a241ab65b0d1eb1aacbd3",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 436
+        },
+        {
+            "slug": "card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 25,
+            "assertions": 743
+        }
+    ]
+}

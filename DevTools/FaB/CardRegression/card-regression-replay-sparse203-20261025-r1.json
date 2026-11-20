@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch203.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T21:46:51.766495+00:00",
+  "fixtures": [
+    {
+      "slug": "card-embodiment-of-earth-four-live-sparse-active-owned-earth-token-boosts-real-nonattack-block",
+      "fixture_sha256": "f56c29366fb4988ee4ba1ab3d33ce5ab0be7d42e889ff0f1cf1b583880761b6b",
+      "passed": true,
+      "result": "[PASS] embodiment_of_earth / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-parable-of-humility-yellow-four-live-sparse-active-owned-light-aura-reduces-real-opposing-attack-by-one",
+      "fixture_sha256": "1dca83b130421c6a50f23e5b0c8a4bc48038c556eca5765dbcebd65661f7923b",
+      "passed": true,
+      "result": "[PASS] parable_of_humility_yellow / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-titans-fist-four-live-sparse-actual-three-cost-pitch-earns-weapon-four-power-and-damage",
+      "fixture_sha256": "1ba19dc3ba25adf7cbdb3fed2e14354590e30b73e1f340dd085b24b3a3c30379",
+      "passed": true,
+      "result": "[PASS] titans_fist / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-dreadbore-four-live-sparse-correct-expectation-paid-load-await-layer-and-go-again-lifetime",
+      "fixture_sha256": "4663eb1d0353347b1fde25f319ad872c65d08121c01d3dd5c58504ecee129189",
+      "passed": true,
+      "result": "[PASS] dreadbore / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-embodiment-of-earth-four-live-sparse-active-owned-earth-token-boosts-real-nonattack-block",
+      "returncode": 0,
+      "stdout": "[PASS] embodiment_of_earth / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-parable-of-humility-yellow-four-live-sparse-active-owned-light-aura-reduces-real-opposing-attack-by-one",
+      "returncode": 0,
+      "stdout": "[PASS] parable_of_humility_yellow / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-titans-fist-four-live-sparse-actual-three-cost-pitch-earns-weapon-four-power-and-damage",
+      "returncode": 0,
+      "stdout": "[PASS] titans_fist / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dreadbore-four-live-sparse-correct-expectation-paid-load-await-layer-and-go-again-lifetime",
+      "returncode": 0,
+      "stdout": "[PASS] dreadbore / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

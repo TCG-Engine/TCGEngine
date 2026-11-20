@@ -47,7 +47,8 @@ function LoadEmptyGoldfishLoadout($playerID) {
 // who goes first. Backward-compat: including this file with an ambient $lobby still auto-runs setup.
 function GASetupGame($lobby, $opts = []) {
     global $gameName;
-    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: !GamestateUsesMemoryStorage());
+    // The generated writer persists a durable save even when APCu caches the state.
+    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: true);
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");
@@ -84,6 +85,8 @@ function GASetupGame($lobby, $opts = []) {
         SetGABotPlayers($botPlayers);
     }
 
+    // Optional reproducible headless-test stream; ordinary games are unchanged.
+    if (isset($opts['randomSeed'])) SetDeterministicRandomCounter(intval($opts['randomSeed']));
     $playerCounter = 1;
     // Production games retain cryptographic deck shuffles. Headless regression callers may opt
     // into EngineShuffle's persisted deterministic stream for reproducible fixtures.
@@ -101,6 +104,8 @@ function GASetupGame($lobby, $opts = []) {
         } else {
             LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck(), $useStrongShuffleEntropy);
         }
+        // Capture the submitted multiset before opening draws, never its order.
+        GABotRememberDecklist($playerCounter, array_map(fn($card) => $card->CardID, GetDeck($playerCounter)));
         ++$playerCounter;
     }
 

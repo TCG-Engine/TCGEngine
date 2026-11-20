@@ -1,0 +1,7 @@
+{
+    "name": "blinding_beam_red / lean four-live implemented effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T10:38:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal Levia20/Dori20/Dori20/unchargedBoltyn20Light. P1 actually plays GhostlyVisit6 ShadowAA1 fromHand, declaresP4, actually pitches GenericBlue7 resource3 pays1 leavesR2/AP0. Four realresponsesresolveGhost toChainbase4. ATTACKresponses1/2/3 earnP4priority. P4actuallyannouncesLightInstantBeam5 withR0/nofunding, PITCHPreparedeclares existing attackingShadowAA6 before payment. ActualShadowdiscount1->0 permitscommitwithoutpitch/APspend; no syntheticgrant. Four actualresponders4/1/2/3 resolveBeam to ownpublicGY and apply-3 to physicalGhostUID6, computed4->1. ActualallfourATTACK, defenderdecline, DEF_PRIORITY and REACTION leadrealphysical1damage\u2192P4HP19. StopDAMAGE, noattackGA; physicalsource5GY4F0/Ghost6Chain1/PitchBlue7. DiscountispositivelytestedbyaffordabilityR0, attackpowerbyactualHP19. No nonShadowcost/defendingtarget/furthercostbound/banishplay/BloodDebt/EOT/Levia/chargedBoltyn/supportprimarycredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON084.webp"
+}

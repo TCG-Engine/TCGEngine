@@ -1,0 +1,344 @@
+{
+    "source": "explorer-swaps-full-1101.json",
+    "policy": "92464900f73feb55",
+    "variants": {
+        "baseline": {
+            "games": 400,
+            "deck": [
+                {
+                    "id": "me02-019",
+                    "count": 4
+                },
+                {
+                    "id": "sv08-036",
+                    "count": 4
+                },
+                {
+                    "id": "me01-074",
+                    "count": 4
+                },
+                {
+                    "id": "me01-075",
+                    "count": 4
+                },
+                {
+                    "id": "sv06-145",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-192",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-183",
+                    "count": 1
+                },
+                {
+                    "id": "me01-131",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-196",
+                    "count": 2
+                },
+                {
+                    "id": "mee-002",
+                    "count": 10
+                },
+                {
+                    "id": "base1-97",
+                    "count": 11
+                },
+                {
+                    "id": "sv08.5-107",
+                    "count": 2
+                },
+                {
+                    "id": "sv08-164",
+                    "count": 1
+                },
+                {
+                    "id": "me01-116",
+                    "count": 4
+                },
+                {
+                    "id": "me03-081",
+                    "count": 1
+                }
+            ],
+            "counts": {
+                "win": 371,
+                "lunar": 309,
+                "attackBy2": 252,
+                "ready330By5": 204
+            },
+            "rates": {
+                "win": 0.9275,
+                "lunar": 0.7725,
+                "attackBy2": 0.63,
+                "ready330By5": 0.51
+            },
+            "order": {
+                "second": {
+                    "win": 0.915,
+                    "lunar": 0.845,
+                    "attackBy2": 0.685,
+                    "ready330By5": 0.585
+                },
+                "first": {
+                    "win": 0.94,
+                    "lunar": 0.7,
+                    "attackBy2": 0.575,
+                    "ready330By5": 0.435
+                }
+            },
+            "pairedDeltas": []
+        },
+        "deck-explorer-to-pad": {
+            "games": 400,
+            "deck": [
+                {
+                    "id": "me02-019",
+                    "count": 4
+                },
+                {
+                    "id": "sv08-036",
+                    "count": 4
+                },
+                {
+                    "id": "me01-074",
+                    "count": 4
+                },
+                {
+                    "id": "me01-075",
+                    "count": 4
+                },
+                {
+                    "id": "sv06-145",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-192",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-183",
+                    "count": 1
+                },
+                {
+                    "id": "me01-131",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-196",
+                    "count": 2
+                },
+                {
+                    "id": "mee-002",
+                    "count": 10
+                },
+                {
+                    "id": "base1-97",
+                    "count": 11
+                },
+                {
+                    "id": "sv08.5-107",
+                    "count": 1
+                },
+                {
+                    "id": "sv08-164",
+                    "count": 1
+                },
+                {
+                    "id": "me01-116",
+                    "count": 4
+                },
+                {
+                    "id": "me03-081",
+                    "count": 2
+                }
+            ],
+            "counts": {
+                "win": 359,
+                "lunar": 313,
+                "attackBy2": 256,
+                "ready330By5": 165
+            },
+            "rates": {
+                "win": 0.8975,
+                "lunar": 0.7825,
+                "attackBy2": 0.64,
+                "ready330By5": 0.4125
+            },
+            "order": {
+                "second": {
+                    "win": 0.875,
+                    "lunar": 0.83,
+                    "attackBy2": 0.66,
+                    "ready330By5": 0.46
+                },
+                "first": {
+                    "win": 0.92,
+                    "lunar": 0.735,
+                    "attackBy2": 0.62,
+                    "ready330By5": 0.365
+                }
+            },
+            "pairedDeltas": {
+                "win": {
+                    "estimate": -0.03,
+                    "approx95CI": [
+                        -0.06448417887908629,
+                        0.004484178879086295
+                    ]
+                },
+                "lunar": {
+                    "estimate": 0.01,
+                    "approx95CI": [
+                        -0.026071107885960475,
+                        0.04607110788596048
+                    ]
+                },
+                "attackBy2": {
+                    "estimate": 0.01,
+                    "approx95CI": [
+                        -0.03280185972571632,
+                        0.05280185972571633
+                    ]
+                },
+                "ready330By5": {
+                    "estimate": -0.0975,
+                    "approx95CI": [
+                        -0.1520674074865116,
+                        -0.04293259251348842
+                    ]
+                }
+            }
+        },
+        "deck-explorer-to-naveen": {
+            "games": 400,
+            "deck": [
+                {
+                    "id": "me02-019",
+                    "count": 4
+                },
+                {
+                    "id": "sv08-036",
+                    "count": 4
+                },
+                {
+                    "id": "me01-074",
+                    "count": 4
+                },
+                {
+                    "id": "me01-075",
+                    "count": 4
+                },
+                {
+                    "id": "sv06-145",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-192",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-183",
+                    "count": 1
+                },
+                {
+                    "id": "me01-131",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-196",
+                    "count": 2
+                },
+                {
+                    "id": "mee-002",
+                    "count": 10
+                },
+                {
+                    "id": "base1-97",
+                    "count": 11
+                },
+                {
+                    "id": "sv08.5-107",
+                    "count": 1
+                },
+                {
+                    "id": "sv08-164",
+                    "count": 1
+                },
+                {
+                    "id": "me01-116",
+                    "count": 4
+                },
+                {
+                    "id": "me03-081",
+                    "count": 1
+                },
+                {
+                    "id": "me03-079",
+                    "count": 1
+                }
+            ],
+            "counts": {
+                "win": 361,
+                "lunar": 300,
+                "attackBy2": 250,
+                "ready330By5": 180
+            },
+            "rates": {
+                "win": 0.9025,
+                "lunar": 0.75,
+                "attackBy2": 0.625,
+                "ready330By5": 0.45
+            },
+            "order": {
+                "second": {
+                    "win": 0.89,
+                    "lunar": 0.8,
+                    "attackBy2": 0.645,
+                    "ready330By5": 0.48
+                },
+                "first": {
+                    "win": 0.915,
+                    "lunar": 0.7,
+                    "attackBy2": 0.605,
+                    "ready330By5": 0.42
+                }
+            },
+            "pairedDeltas": {
+                "win": {
+                    "estimate": -0.025,
+                    "approx95CI": [
+                        -0.056645254155287816,
+                        0.006645254155287814
+                    ]
+                },
+                "lunar": {
+                    "estimate": -0.0225,
+                    "approx95CI": [
+                        -0.06377352017137249,
+                        0.018773520171372488
+                    ]
+                },
+                "attackBy2": {
+                    "estimate": -0.005,
+                    "approx95CI": [
+                        -0.05159695463122593,
+                        0.04159695463122594
+                    ]
+                },
+                "ready330By5": {
+                    "estimate": -0.06,
+                    "approx95CI": [
+                        -0.11958272995208183,
+                        -0.0004172700479181668
+                    ]
+                }
+            }
+        }
+    }
+}

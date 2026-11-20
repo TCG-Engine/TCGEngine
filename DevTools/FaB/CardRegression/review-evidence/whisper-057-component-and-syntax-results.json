@@ -1,0 +1,349 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/components/gorganian_resolution_component.php",
+    "C:\\xampp\\htdocs\\TCGEngine",
+    "none"
+  ],
+  "exit_code": 0,
+  "stderr": "",
+  "actual_component_report": {
+    "status": "PASS",
+    "mutant": "none",
+    "checks": 541,
+    "profiles": [
+      {
+        "actor": 1,
+        "owner": 1,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 1,
+        "owner": 2,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 1,
+        "owner": 3,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 1,
+        "owner": 4,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 1,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 2,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 3,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 4,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 1,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 2,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 3,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 4,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 1,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 2,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 3,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 4,
+        "canonical_callback": false,
+        "suppression": ""
+      },
+      {
+        "actor": 1,
+        "owner": 1,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 1,
+        "owner": 2,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 1,
+        "owner": 3,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 1,
+        "owner": 4,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 1,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 2,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 3,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 4,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 1,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 2,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 3,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 3,
+        "owner": 4,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 1,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 2,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 3,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 4,
+        "owner": 4,
+        "canonical_callback": true,
+        "suppression": ""
+      },
+      {
+        "actor": 2,
+        "owner": 4,
+        "suppression": "MPG"
+      },
+      {
+        "actor": 2,
+        "owner": 4,
+        "suppression": "SUP"
+      },
+      {
+        "actor": 2,
+        "owner": 4,
+        "suppression": "NO_ABILITIES"
+      },
+      {
+        "actor": 3,
+        "owner": 2,
+        "queued_work": true
+      }
+    ],
+    "current_profile": {
+      "actor": 3,
+      "owner": 2,
+      "queued_work": true
+    },
+    "error": null,
+    "trace": [
+      [
+        "draw",
+        3,
+        4,
+        "Stack",
+        5,
+        0,
+        3
+      ],
+      [
+        "go-again",
+        3,
+        1,
+        "Stack"
+      ],
+      [
+        "clear",
+        5,
+        "Graveyard",
+        2,
+        3,
+        1
+      ]
+    ],
+    "function_hashes": {
+      "FaBReactionResolutionIsPending": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+        "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+      },
+      "FaBReactionResolutionHasWork": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+        "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+      },
+      "FaBKnownPlainSpellLifecycleCard": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "82993ad1171d732cb43e5125f57a39356f432e1094d999e0462747e2ab6afb24",
+        "evaluated_sha256": "82993ad1171d732cb43e5125f57a39356f432e1094d999e0462747e2ab6afb24"
+      },
+      "FaBManagedVirtualResolutionClass": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511",
+        "evaluated_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511"
+      },
+      "HasNoAbilities": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+        "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+      },
+      "FaBPrintedKeywordIsActive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "107d1baf77f8ce6838aecf8bfc827790a47cbb901054fa5eb6f0982d930c686e",
+        "evaluated_sha256": "107d1baf77f8ce6838aecf8bfc827790a47cbb901054fa5eb6f0982d930c686e"
+      },
+      "FaBResolveRules": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7",
+        "evaluated_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7"
+      },
+      "DoResolveCard": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "30efb901005e55bdd931ff872c0d0f512b2ac094823152e500af7594469de6b6",
+        "evaluated_sha256": "30efb901005e55bdd931ff872c0d0f512b2ac094823152e500af7594469de6b6"
+      },
+      "FaBFinishReactionResolution": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "ffb5d1ba7d7167e101f5f3366cd3b49a6ba65dfa3fb52c884480ffde0c473c4b",
+        "evaluated_sha256": "ffb5d1ba7d7167e101f5f3366cd3b49a6ba65dfa3fb52c884480ffde0c473c4b"
+      },
+      "FaBPlainSpellResolutionIsManaged": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5",
+        "evaluated_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5"
+      },
+      "FaBFinishPlainSpellGoAgain": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1",
+        "evaluated_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1"
+      },
+      "FaBRunSourceMacro": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+        "function_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9",
+        "evaluated_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9"
+      },
+      "FaBCRUResolveGorganian": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+        "source_sha256": "a7f823700eb3679c02d843cf8f4ff2c72aa5fcbcadbdb45bfacd2a285ba315b8",
+        "function_sha256": "a3c43dfeee83b55326b9cab60e54290490922665c49c72fa4956ce9123c94a40",
+        "evaluated_sha256": "a3c43dfeee83b55326b9cab60e54290490922665c49c72fa4956ce9123c94a40"
+      }
+    },
+    "generated_callback_sha256": "8b3c93d75c92d7d37d88cbb003d2551bc4ed69b7797f3f116867be2bdd196515",
+    "scope": "Actual extracted resolver/dispatch/managed completion/Tome helper. External metadata/zones/draw/clear/await tracking mocked. No game/fixture imports, four-player integration or legal foreign permission claimed."
+  },
+  "syntax_checked_candidate_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+  "syntax_result": "Exact candidate passed PHP -l before installation; installed bytes match it. See source-application receipt.",
+  "scope": "Existing actual extracted managed-resolution/component compatibility, with explicit external metadata/zones/await tracking doubles; no native multi-seat or Whisper-specific claim from component. Actual new native case and two replays are separate.",
+  "full_suite_run": false,
+  "utc": "2026-10-26T16:31:46.135852+00:00"
+}

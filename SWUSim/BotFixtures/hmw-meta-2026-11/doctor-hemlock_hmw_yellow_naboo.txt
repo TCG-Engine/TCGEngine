@@ -1,0 +1,49 @@
+# Real-deck self-play fixture — Doctor Hemlock, Emotion Has No Place Here - Otoh Gunga
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #1 of 485 (13-2-0), player julianharmon
+#   https://melee.gg/Decklist/View/aa31a448-952a-4bde-a2a7-b4fa0157136a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Doctor Hemlock (HMW) Yellow (Naboo) list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 53 (base minimum 50), sideboard 10.
+# Archetype: softcontrol — the owner's label from hmw-meta-2026-09/doctor-hemlock_hmw_yellow_naboo.txt
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_003
+
+Base
+1 HMW_033
+
+Deck
+3 ASH_192
+3 SEC_186
+3 ASH_048
+3 ASH_079
+3 HMW_055
+3 ASH_053
+3 HMW_198
+2 HMW_202
+2 HMW_062
+2 ASH_220
+2 HMW_094
+2 HMW_064
+1 SEC_034
+1 LAW_239
+3 ASH_052
+3 HMW_204
+2 ASH_194
+1 JTL_041
+1 LAW_101
+3 LAW_217
+3 JTL_043
+2 HMW_100
+2 SEC_038
+
+Sideboard
+2 HMW_207
+2 LAW_044
+1 LAW_239
+1 LAW_101
+1 HMW_062
+1 ASH_220
+1 ASH_194
+1 HMW_048

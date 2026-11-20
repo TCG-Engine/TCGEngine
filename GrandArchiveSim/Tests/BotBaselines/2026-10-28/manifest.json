@@ -1,0 +1,8 @@
+{
+  "files": {
+    "BotDecisions.php": "9eda2242ae0cf8929889ba753d7d22445e19e39fd89b78a1f2fc3c2c699b42e7",
+    "BotLegalActions.php": "0ff91caeb5357c90fb868e2460f5573bca9a0283a236d429956a8c585f2de554",
+    "BotHeuristic.php": "80c5bc7ed1ea5844e3abf11d6bfea5e9bc7cb8f1faa9213786a40cf4fbab889f"
+  },
+  "scope": "Chooser policies only; current engine and legal enumeration are shared"
+}

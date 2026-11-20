@@ -31,13 +31,9 @@ const CRED = { user: 'claudebot1', pass: 'pass' };
 
 // A Twin Suns-legal list as FREE TEXT — 2 leaders + 80 singleton cards (CR §12.2). Deliberately not a
 // swudb URL: the harness must not depend on an external host, or a network blip reads as a product
-// failure. Mirrors SWUSim/Tests/BotFixtures/twinsuns_deck_a.txt.
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-const HERE = dirname(fileURLToPath(import.meta.url));
-const DECK = readFileSync(join(HERE, '../../SWUSim/Tests/BotFixtures/twinsuns_deck_a.txt'), 'utf8')
-  .split('\n').filter((l) => !l.startsWith('#')).join('\n').trim();
+// failure. Inline, so it never depends on a fixture file either.
+const DECK = ['Leader', '1 SOR_001', '1 SOR_002', 'Base', '1 SOR_019', 'Deck',
+  ...Array.from({ length: 80 }, (_, i) => `1 SOR_${String(31 + i).padStart(3, '0')}`)].join('\n');
 
 const ENGINES = { chromium, firefox, webkit };
 

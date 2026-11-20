@@ -53,6 +53,18 @@
     background: var(--surface-raised);
     border-color: var(--accent);
 }
+/* Named Action abilities: one button per Action. A greyed one (the unit has it but can't use it now) is a disabled
+   button, dimmed, with its reason under the label — it stays visible on purpose (owner decision 2026-11-02). */
+.swu-uam-btn .swu-uam-label { display: block; }
+.swu-uam-btn .swu-uam-reason { display: block; font-size: 11px; color: var(--text-muted, var(--text)); }
+.swu-uam-btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+.swu-uam-btn[disabled]:hover {
+    background: var(--surface-sunken);
+    border-color: var(--border);
+}
 
 /* ── Arena HUD darkening overlay (shared: desktop + mobile) ─────────────────────
    Blue cyan-interface wash inside each arena box, clipped to the box (behind the
@@ -1022,6 +1034,13 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #game-over-overlay > *:not(#game-over-title):not(#game-over-subtitle):not(#game-over-buttons):not(#game-over-stats):not(#swuEndGameToggle) {
     grid-area: buttons;
 }
+/* A game with no match behind it (Goldfish, Hotseat, a harness game) gets the core's lone "Return to Menu" instead of
+   #game-over-buttons. The core floats it in the panel corner (position:absolute; top/right 24px) — but an absolute grid
+   item takes its grid AREA as its containing block and gives that row no height, so the "buttons" row collapsed to 0px
+   and the button landed 24px down, on top of the save-replay row under it. In this grid it is an ordinary item. */
+#game-over-overlay > #game-over-menu-btn {
+    position: static !important; justify-self: start !important; align-self: start !important; margin: 0 !important;
+}
 
 /* ── Minimise / restore ───────────────────────────────────────────────────────────────────────
    The panel covers 80% of the board, and the whole reason it is a panel rather than a full-screen
@@ -1102,6 +1121,11 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     color: #9b3e3e !important;
     text-shadow: 0 0 26px rgba(150,62,62,0.58), 0 0 60px rgba(120,42,42,0.30), 0 4px 12px rgba(0,0,0,0.8) !important;
 }
+/* "Draw" (both bases fell together, CR 6.3): a solid cool silver with a soft glow — neither the win cyan nor the loss red. */
+#game-over-overlay.draw #game-over-title {
+    color: #c9d3de !important;
+    text-shadow: 0 0 26px rgba(190,210,230,0.45), 0 0 60px rgba(150,175,200,0.22), 0 4px 12px rgba(0,0,0,0.8) !important;
+}
 
 #game-over-stats {
     grid-area: stats !important;
@@ -1125,6 +1149,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #game-over-buttons button { flex: 0 0 100% !important; }
 /* Rematch fills the row; the short Bo1/Bo3 toggle sits compact to its right. */
 #game-over-buttons #swu-rematch-btn { flex: 1 1 auto !important; }
+/* A finished 1v1 match's end screen: Quick Rematch shares its row with the same toggle (its length). */
+#game-over-buttons #swu-end-quick   { flex: 1 1 auto !important; }
 #game-over-buttons #swu-bestof-btn  { flex: 0 0 auto !important; }
 /* Twin Suns table rematch: your own vote reads pressed (gold rim); the tally/waiting line spans the row. */
 #game-over-buttons button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px #e9b866 !important; }
@@ -1293,7 +1319,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
    question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
    nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
-   (Core/UILibraries20261023.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   (Core/UILibraries20261031.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
    the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
    ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
    context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
@@ -1864,6 +1890,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // game (SeatCountForGame() <= 2 → SWUComputeActionsData leaves them false), so both buttons stay
         // hidden and Pass is never disabled — premier is unchanged.
         var _ad = window.myActionsData || {};
+        // Dualing Suns: stealing the initiative costs 1 damage to your own base — say so on the control. The default title
+        // is remembered on first sight and put back otherwise, so every other format's tooltip is unchanged.
+        document.querySelectorAll('.swu-take-init').forEach(function (el) {
+            if (el.dataset.defaultTitle === undefined) el.dataset.defaultTitle = el.getAttribute('title') || '';
+            var _t = (_ad.initiativeToll > 0 && !claimed)
+                ? 'Take the initiative — costs ' + _ad.initiativeToll + ' damage to your base (your opponent holds it)'
+                : el.dataset.defaultTitle;
+            if (_t) el.setAttribute('title', _t); else el.removeAttribute('title');
+        });
         var _blastBtn = document.getElementById('swuBlastBtn');
         var _planBtn  = document.getElementById('swuPlanBtn');
         if (_blastBtn) _blastBtn.hidden = !(canAct && _ad.blastAvailable);
@@ -1935,6 +1970,18 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var ad = window.myActionsData || {};
         return ad.passAvailable === undefined ? false : !ad.passAvailable;
     };
+
+    // The most button rows the pass cluster can show at once in THIS game (syncPassReserveVar reserves for it).
+    // Two players: Take/Keep Initiative + Pass. Twin Suns: Pass is hidden while any counter is available, so the
+    // worst case is Take Initiative + one row per counter kind — Blast and Plan, plus the house-rule fourth
+    // counter (Credit/Restore) when the game has it. Fixed for the game, so it is printed once here.
+    window.SWU_PASS_ROWS = <?php
+        $swuPassRows = 2;
+        if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) {
+            $swuPassRows = max(2, 1 + 2 + ((function_exists('SWUFourthCounterKind') && SWUFourthCounterKind() !== '') ? 1 : 0));
+        }
+        echo intval($swuPassRows);
+    ?>;
 
     // Hotseat: one person plays both seats from one browser (shared authKey). Switch reloads the
     // page as the OTHER seat. No-op in non-hotseat games.
@@ -2366,6 +2413,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         showWaitingMessage: true,
         messageAnchorId: 'myHandSlot',
         waitingMessageBuilder: function(ctx) {
+            // 3-4 seats: name who the game is waiting on — every seat that owes a decision, else the
+            // turn player. "The other player" means nothing at a four-seat table, and the turn player
+            // used to get no message at all while a far seat finished its mulligan (bug report P-16).
+            if (String(window.SeatOrderData || '').trim().length > 2) {
+                var waiting = (ctx && ctx.waitingSeats && ctx.waitingSeats.length)
+                    ? ctx.waitingSeats : [parseInt(window.TurnPlayerData, 10)];
+                var names = waiting.filter(function(s) { return s >= 1; }).map(swuSeatName);
+                if (names.length) return 'Waiting for ' + names.join(', ');
+            }
             return (ctx && typeof ctx.defaultBuilder==='function') ? ctx.defaultBuilder() : null;
         }
     };
@@ -2482,10 +2538,58 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var rowH = btn.getBoundingClientRect().height;
         if (rowH <= 0) return;                       // not laid out yet; the CSS fallback stands
         // Take/Keep sits above Pass with the same class, so two rows plus the 4px gap between them,
-        // plus the clearance above the hand.
-        var reserve = rowH * 2 + 4 + 10;
+        // plus the clearance above the hand. Twin Suns can stack more rows (the counter buttons) — see
+        // SWU_PASS_ROWS; reserving only two put the counters on the leader at every size (2026-10-29).
+        var rows = Math.max(2, parseInt(window.SWU_PASS_ROWS, 10) || 2);
+        var reserve = rowH * rows + 4 * (rows - 1) + 10;
         document.documentElement.style.setProperty('--swu-pass-reserve-h', Math.round(reserve) + 'px');
+        syncLaneCapVars();
     }
+
+    // Publish the measured shape of MY stacked centre lane, so GameLayout's min-height:681px cap can size
+    // the lane to clear the pass cluster. The lane's height is (nearly) affine in its width:
+    //     stack height = fixed + k * lane width
+    // where k is the base + leader art's height per pixel of lane (the art fills the lane) and fixed is
+    // everything else — the base health bar, padding, gaps, wrapper borders and any FORTIFIED/ARRESTED tabs.
+    // The cap used to GUESS both (k from "cardH ~ 0.68 * lane", 26px of overhead) and the guess went stale
+    // once the health bar moved to the midline side: KEEP INITIATIVE covered the bottom ~20px of the
+    // leader at every desktop size (bug report 2026-10-29, 1536x738 @ DPR 1.25; still 18px at 1920x1080).
+    // Measured only in the STACKED lane and only once both cards have rendered; hysteresis keeps a value
+    // that the narrowing itself nudges from re-flowing the board on every poll.
+    function syncLaneCapVars() {
+        var col = document.querySelector('.swu-center-col-bot');
+        var base = document.getElementById('myBaseSlot');
+        var leader = document.getElementById('myLeaderSlot');
+        if (!col || !base || !leader || !window.matchMedia('(min-height: 681px)').matches) return;
+        if (getComputedStyle(col).flexDirection !== 'column') return;
+        // This runs from pollGlobals, i.e. when game data ARRIVES — usually before the card art has loaded,
+        // and then not again until the next update. So re-measure when a not-yet-loaded card image finishes
+        // (a fresh board would otherwise keep the fallback until the opponent acts).
+        var imgs = [base.querySelector('img'), leader.querySelector('img')];
+        for (var i = 0; i < imgs.length; i++) {
+            if (!imgs[i]) return;
+            if (!imgs[i].complete || !imgs[i].naturalHeight) {
+                if (!imgs[i].dataset.swuLaneWait) {
+                    imgs[i].dataset.swuLaneWait = '1';
+                    imgs[i].addEventListener('load', syncLaneCapVars, { once: true });
+                }
+                return;
+            }
+        }
+        var laneW = parseFloat(getComputedStyle(col).width);
+        var leaderWrap = leader.closest('.swu-leader-slot-wrap') || leader;
+        var cardsH = base.getBoundingClientRect().height + leader.getBoundingClientRect().height;
+        var stackH = leaderWrap.getBoundingClientRect().bottom - col.getBoundingClientRect().top;
+        if (!(laneW > 0) || !(cardsH > 0) || !(stackH > cardsH)) return;
+        var k = Math.round(cardsH / laneW * 100) / 100;
+        var fixed = Math.round(stackH - cardsH);
+        var root = document.documentElement.style;
+        var oldK = parseFloat(root.getPropertyValue('--swu-lane-k')), oldFixed = parseFloat(root.getPropertyValue('--swu-lane-fixed-h'));
+        if (isNaN(oldK) || Math.abs(oldK - k) > 0.02) root.setProperty('--swu-lane-k', String(k));
+        if (isNaN(oldFixed) || Math.abs(oldFixed - fixed) > 2) root.setProperty('--swu-lane-fixed-h', fixed + 'px');
+    }
+    // A resize can cross into (or out of) the stacked lane, or change how tall the lane may be.
+    window.addEventListener('resize', function () { requestAnimationFrame(syncLaneCapVars); });
     function pollGlobals() {
         swuHbSyncMotion();
         if (typeof window.swuApplyHealthBarVisibility === 'function') window.swuApplyHealthBarVisibility();
@@ -2499,6 +2603,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         swuRenderHomeStrips();
         refreshResourceSelectionPanel();
         swuUpdateUndoUI(MY_PLAYER_ID);
+        syncLaneCapVars();   // again, AFTER the base tabs above are drawn — a new FORTIFIED/ARRESTED tab adds height
     }
     function watchGlobalData() {
         pollGlobals();
@@ -2529,7 +2634,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         try { var obj = JSON.parse(jsonStr); return obj; } catch (e) { return {CardID: cardID}; }
     }
 
-    function showLeaderMenu(cardID, abilityAvail, deployAvail, leaderIndex) {
+    // entries: the leader's front Action entries ({id, label, enabled, reason} — named Action abilities); a greyed one is
+    // a disabled button with its reason. The deploy buttons are unchanged.
+    function showLeaderMenu(cardID, entries, deployAvail, leaderIndex) {
         var idx = (leaderIndex === undefined || leaderIndex === null) ? 0 : leaderIndex;
         var existing = document.getElementById('swuLeaderMenu');
         if (existing) { existing.remove(); return; }
@@ -2544,10 +2651,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var btnStyle = 'width:100%;padding:8px 16px;background:var(--btn-plain-fill,#1e3a5f);border:1px solid var(--border,#888);' +
             'border-radius:var(--radius,5px);color:var(--btn-text,#eee);cursor:pointer;font-size:13px;margin-bottom:2px;';
         var html = '<div style="font-size:15px;font-weight:bold;color:var(--accent-strong,#f0c040);margin-bottom:16px;">Leader Actions</div>';
-        if (abilityAvail) {
-            html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
-                'onclick="swuDoLeaderAction(\'LeaderAbility\',' + idx + ')">Leader Ability</button></div>';
-        }
+        html += '<div id="swuLeaderMenuActions"></div>';   // the Action entries, built below (titles may hold quotes)
         if (deployAvail && !isPilot) {
             html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
                 'onclick="swuDoLeaderAction(\'DeployLeader:Unit\',' + idx + ')">Deploy Leader</button></div>';
@@ -2562,6 +2666,23 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             'border-radius:var(--radius,5px);color:var(--text-muted,#aaa);cursor:pointer;font-size:12px;" ' +
             'onclick="document.getElementById(\'swuLeaderMenu\').remove()">Cancel</button></div>';
         menu.innerHTML = html;
+        var holder = menu.querySelector('#swuLeaderMenuActions');
+        (entries || []).forEach(function (en) {
+            var wrap = document.createElement('div');
+            wrap.style.marginBottom = '8px';
+            var btn = document.createElement('button');
+            btn.className = 'swu-uam-btn';
+            btn.style.cssText = btnStyle;
+            var lab = document.createElement('span'); lab.className = 'swu-uam-label'; lab.textContent = en.label; btn.appendChild(lab);
+            if (!en.enabled) {
+                btn.disabled = true;
+                if (en.reason) { var why = document.createElement('span'); why.className = 'swu-uam-reason'; why.textContent = en.reason; btn.appendChild(why); btn.title = en.reason; }
+            } else {
+                btn.addEventListener('click', function () { window.swuDoLeaderAction('LeaderAbility:' + en.id, idx); });
+            }
+            wrap.appendChild(btn);
+            holder.appendChild(wrap);
+        });
         document.body.appendChild(menu);
         setTimeout(function () {
             document.addEventListener('click', function outsideClose(e) {
@@ -2583,7 +2704,6 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 
     function handleLeaderClick(e) {
         var d = window.myActionsData || {};
-        var abilityByIdx = d.leaderAbilityByIndex || {0: d.leaderAbility};
         var deployByIdx  = d.leaderDeployByIndex  || {0: d.leaderDeploy};
         // Which leader was clicked? Walk up to the nearest myLeader-{i} span; default to 0 (single leader).
         var idx = 0;
@@ -2594,9 +2714,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             }
             el = el.parentNode;
         }
-        var ability = !!abilityByIdx[idx];
+        var entries = (d.leaderActionEntriesByIndex || {})[idx] || [];
+        var usable  = entries.filter(function (en) { return en.enabled; });
         var deploy  = !!deployByIdx[idx];
-        if (!ability && !deploy) return;
+        if (!entries.length && !deploy) return;
         e.stopPropagation(); e.preventDefault();
         // Parse the i-th card from the split leader data.
         var raw = String(window.myLeaderData || '').trim();
@@ -2604,13 +2725,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var obj = swuParseZoneCard(parts[idx] || parts[0] || '');
         var cardID = (obj && obj.CardID) ? obj.CardID : '';
         var isPilot = (window.SWU_PILOT_LEADERS || []).indexOf(cardID) !== -1;
-        if (ability && !deploy) {
-            window.swuDoLeaderAction('LeaderAbility', idx);
-        } else if (!ability && deploy) {
-            isPilot ? showLeaderMenu(cardID, false, true, idx)
-                    : window.swuDoLeaderAction('DeployLeader:Unit', idx);
+        // One usable Action and nothing else (no deploy, nothing greyed) → it just runs; a lone non-pilot deploy likewise.
+        if (!deploy && usable.length === 1 && entries.length === 1) {
+            window.swuDoLeaderAction('LeaderAbility:' + usable[0].id, idx);
+        } else if (!entries.length && deploy && !isPilot) {
+            window.swuDoLeaderAction('DeployLeader:Unit', idx);
         } else {
-            showLeaderMenu(cardID, ability, deploy, idx);
+            showLeaderMenu(cardID, entries, deploy, idx);
         }
     }
 
@@ -2625,11 +2746,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         SubmitInput('10001', '&cardID=' + encodeURIComponent('myBase-0!CustomInput!EpicAction'));
     };
 
+    // Named Action abilities: the base opens the shared Action menu — one button per base Action (its own / Epic and
+    // each Fortify upgrade's), greyed ones included — and submits "EpicAction:<id>".
     function handleBaseClick(e) {
         var d = window.myActionsData || {};
-        if (!d.baseEpic) return;
+        var entries = d.baseActionEntries || [];
+        if (!entries.length) return;
         e.stopPropagation(); e.preventDefault();
-        window.swuDoBaseAction();
+        var anchor = e.currentTarget || document.getElementById('myBaseSlot');
+        showActionEntryMenu(anchor, entries.map(function(en) {
+            return { label: en.label, enabled: !!en.enabled, reason: en.reason || '', run: function() {
+                SubmitInput('10001', '&cardID=' + encodeURIComponent('myBase-0!CustomInput!EpicAction:' + en.id));
+            } };
+        }));
     }
 
     function setupBaseClick() {
@@ -2657,7 +2786,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                                         : ('PlayFromOpponentDiscard-' + idx);
                         SubmitInput('10001', '&cardID=' + encodeURIComponent(tok + '!CustomInput!'));
                     } else {
-                        SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromDiscard-' + idx + '!CustomInput!'));
+                        // Named Action abilities (spec §9): a card with SEVERAL ways to be played (Cobb Vanth's free play,
+                        // Boga's 1 less) opens the shared Action menu, each with its price; one way plays at once.
+                        var pd = ((window.myActionsData || {}).playableDiscards || []).filter(function (x) { return String(x.idx) === String(idx); })[0];
+                        var ents = (pd && pd.entries) || [];
+                        var play = function (id) {
+                            SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromDiscard-' + idx + '!CustomInput!' + (id ? 'Play:' + id : '')));
+                        };
+                        if (ents.length > 1) {
+                            showActionEntryMenu(el, ents.map(function (en) {
+                                return { label: en.label, enabled: !!en.enabled, reason: en.reason || '', note: en.note || '',
+                                         run: function () { play(en.id); } };
+                            }), true);
+                        } else {
+                            play(ents.length ? ents[0].id : '');
+                        }
                     }
                     return;
                 }
@@ -2735,18 +2878,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // abilityOnly: a unit I do NOT control whose Action any opponent may use (TS26_15 C-3P0, LAW_156, SHD_256) — it is not
     // mine to attack with, so the menu offers the Ability alone. `mzid` is then the SERVER's id from the offer list
     // ("their…" at 2 seats, "p{n}…" at 3-4), which is what CustomInput routes; never the rendered one.
+    // Named Action abilities: "Attack" (when the unit can attack) + ONE BUTTON PER ACTION from
+    // myActionsData.unitActionEntries[mzid] — {id, label, enabled, reason}. A greyed entry is a disabled button with its
+    // reason; it does nothing. With exactly one usable button and nothing greyed, the click doesn't open a menu at all.
     function showUnitActionMenu(mzid, anchorEl, abilityOnly) {
         removeUnitActionMenu();
-        var menu = document.createElement('div');
-        menu.id = 'swuUnitActionMenu';
-        menu.className = 'swu-unit-action-menu';
-
-        var atkBtn = document.createElement('button');
-        atkBtn.className = 'swu-uam-btn';
-        atkBtn.textContent = 'Attack';
-        atkBtn.addEventListener('click', function(ev) {
-            ev.stopPropagation();
-            removeUnitActionMenu();
+        var d = window.myActionsData || {};
+        var entries = (d.unitActionEntries || {})[mzid] || [];
+        var canAttack = !abilityOnly && (d.attackers || []).indexOf(mzid) !== -1;
+        var attack = function() {
             // Delegate to the framework's normal unit-click attack flow. CardClick's
             // GetZoneClickActions switches on the BARE zone name (no my/their prefix),
             // while the mzid passed as cardId stays player-prefixed (e.g. myGroundArena-0).
@@ -2754,19 +2894,64 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (typeof CardClick === 'function') {
                 CardClick({ stopPropagation: function() {} }, zone, mzid);
             }
+        };
+        var use = function(id) {
+            SubmitInput('10001', '&cardID=' + encodeURIComponent(mzid + '!CustomInput!Activate:' + id));
+        };
+        var items = [];
+        if (canAttack) items.push({ label: 'Attack', enabled: true, reason: '', run: attack });
+        entries.forEach(function(e) {
+            items.push({ label: e.label, enabled: !!e.enabled, reason: e.reason || '', run: function() { use(e.id); } });
         });
+        // A unit click NEVER runs an Action outright (allowDirect=false): before named Action abilities a unit with an
+        // Action always opened its menu, and a lone usable Action can be costly to misclick — one tap on an opponent's
+        // Mercenary Gunship would spend 4 and take control; on an exhausted Heroic Resolve host it would defeat the
+        // upgrade for nothing.
+        showActionEntryMenu(anchorEl, items, false);
+    }
+    // The shared Action menu (units, the base): items = [{label, enabled, reason, run}]. A disabled item is a dimmed
+    // button with its reason and does nothing. With allowDirect (the base's long-standing one-click use), exactly one
+    // usable item and nothing greyed just runs; a unit passes false and always gets the menu.
+    function showActionEntryMenu(anchorEl, items, allowDirect) {
+        removeUnitActionMenu();
+        var usable = items.filter(function(it) { return it.enabled; });
+        if (allowDirect !== false && usable.length === 1 && usable.length === items.length) { usable[0].run(); return; }
+        if (items.length === 0) return;
 
-        var abilityBtn = document.createElement('button');
-        abilityBtn.className = 'swu-uam-btn';
-        abilityBtn.textContent = 'Ability';
-        abilityBtn.addEventListener('click', function(ev) {
-            ev.stopPropagation();
-            removeUnitActionMenu();
-            SubmitInput('10001', '&cardID=' + encodeURIComponent(mzid + '!CustomInput!Activate'));
+        var menu = document.createElement('div');
+        menu.id = 'swuUnitActionMenu';
+        menu.className = 'swu-unit-action-menu';
+        items.forEach(function(it) {
+            var btn = document.createElement('button');
+            btn.className = 'swu-uam-btn';
+            var lab = document.createElement('span');
+            lab.className = 'swu-uam-label';
+            lab.textContent = it.label;
+            btn.appendChild(lab);
+            if (it.enabled && it.note) {   // e.g. a discard play's price ("Free", "1 resource")
+                var note = document.createElement('span');
+                note.className = 'swu-uam-reason';
+                note.textContent = it.note;
+                btn.appendChild(note);
+            }
+            if (!it.enabled) {
+                btn.disabled = true;
+                if (it.reason) {
+                    var why = document.createElement('span');
+                    why.className = 'swu-uam-reason';
+                    why.textContent = it.reason;
+                    btn.appendChild(why);
+                    btn.title = it.reason;
+                }
+            }
+            btn.addEventListener('click', function(ev) {
+                ev.stopPropagation();
+                if (!it.enabled) return;
+                removeUnitActionMenu();
+                it.run();
+            });
+            menu.appendChild(btn);
         });
-
-        if (!abilityOnly) menu.appendChild(atkBtn);
-        menu.appendChild(abilityBtn);
         document.body.appendChild(menu);
 
         // Position centered above the unit; flip below if it would clip the top.
@@ -2791,7 +2976,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (window.SelectionMode && window.SelectionMode.active) return;
         var el = e.target;
         while (el && el !== e.currentTarget) {
-            if (el.classList && el.classList.contains('unit-action')) {
+            // .unit-has-actions: any unit with an Action, usable or greyed (refreshUnitActionGlows) — owner decision
+            // 2026-11-02: such a unit always opens the menu, so its greyed Actions stay visible.
+            if (el.classList && el.classList.contains('unit-has-actions')) {
                 // An opponent's unit carries the server's offer id (refreshUnitActionGlows) — the rendered
                 // "their…" of a Twin Suns matchup view is not the seat the server's "their" names.
                 var actMz = el.getAttribute && el.getAttribute('data-swu-act-mz');
@@ -2816,17 +3003,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     function refreshUnitActionGlows() {
         var d = window.myActionsData || {};
-        document.querySelectorAll('.unit-action').forEach(function(el) { el.classList.remove('unit-action'); el.removeAttribute('data-swu-act-mz'); });
+        document.querySelectorAll('.unit-action, .unit-has-actions').forEach(function(el) {
+            el.classList.remove('unit-action'); el.classList.remove('unit-has-actions'); el.removeAttribute('data-swu-act-mz');
+        });
         document.querySelectorAll('.can-attack').forEach(function(el) { el.classList.remove('can-attack'); });
         // Read-only: a board that isn't yours (4-player other-pair) shows no "you can act" glows — the
         // actions data is computed for YOU, not the seat on screen, so its mzIDs don't apply here.
         if (window.swuSpectating) return;
-        var abilityMz = {};
-        (d.unitActions || []).forEach(function(mz) {
-            abilityMz[mz] = true;
-            // An opponent's any-player Action is offered as "their…" (2 seats) or "p{n}…" (3-4 seats). The board draws
-            // the CURRENT view's opponent as "their…", so a p{n} id is mapped onto it (off-view → nothing on the board),
-            // and the element keeps the server id for the submit. The Twin Suns Home tiles carry p{n} ids as data-mz.
+        // An opponent's any-player Action is offered as "their…" (2 seats) or "p{n}…" (3-4 seats). The board draws
+        // the CURRENT view's opponent as "their…", so a p{n} id is mapped onto it (off-view → nothing on the board),
+        // and the element keeps the server id for the submit. The Twin Suns Home tiles carry p{n} ids as data-mz.
+        var mark = function(mz, cls) {
             var rendered = mz, theirs = /^their/.test(mz);
             var pm = /^p(\d+)(GroundArena|SpaceArena)-(\d+)$/.exec(mz);
             if (pm) {
@@ -2835,12 +3022,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 theirs = true;
             }
             var el = rendered ? document.querySelector('[data-mzid="' + rendered + '"]') : null;
-            if (el) { el.classList.add('unit-action'); if (theirs) el.setAttribute('data-swu-act-mz', mz); }
+            if (el) { el.classList.add(cls); if (theirs) el.setAttribute('data-swu-act-mz', mz); }
             if (pm) {
                 var tile = document.querySelector('#swuHomeStrips .swu-mb-card[data-mz="' + mz + '"]');
-                if (tile) { tile.classList.add('unit-action'); tile.setAttribute('data-swu-act-mz', mz); }
+                if (tile) { tile.classList.add(cls); tile.setAttribute('data-swu-act-mz', mz); }
             }
-        });
+        };
+        // Every unit with an Action (usable or greyed) opens the menu on click; the cyan glow is only for a unit with
+        // at least one USABLE Action (unitActions).
+        Object.keys(d.unitActionEntries || {}).forEach(function(mz) { mark(mz, 'unit-has-actions'); });
+        var abilityMz = {};
+        (d.unitActions || []).forEach(function(mz) { abilityMz[mz] = true; mark(mz, 'unit-action'); });
         // "Can attack" green glow — skip units already showing the cyan ability glow (their click menu
         // already offers Attack), so a unit never carries both highlights.
         (d.attackers || []).forEach(function(mz) {
@@ -3143,6 +3335,73 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var serverSeat = (m[1] === 'their') ? home.oppSeat : home.viewSeat;
         return (seat && seat !== serverSeat) ? ('p' + seat + m[2]) : zoneName;
     };
+
+    // ── The target prompt must never sit on one of its own targets ─────────────────────────────────
+    // Core places #selection-message ("Choose a unit… / PASS") bottom-centre, or wherever the player last
+    // dragged it — blind to the board. On an iPad Pro 11" in landscape (Safari's ~1194x760) a go-wide board
+    // wraps the ground arena to a second row and the prompt covered it: ASH_052 Chimaera could not take the
+    // Mandalorian token it was offering (report 2026-11-06). After Core places it, slide it to the NEAREST
+    // spot that covers no .selectable-card. Wrapped here rather than in Core so it is SWUSim-only and needs
+    // no UILibraries cache bump; UILibraries loads in <head>, before this layout, and its own calls resolve
+    // ShowSelectionMessage through the global binding, so they reach the wrapper.
+    // ⚠ The saved drag position is NOT rewritten — this is a per-prompt displacement, and the next prompt
+    //   starts again from where the player put it.
+    // ⚠ If no spot is clear, the spot covering the LEAST target area wins; ties keep the nearest.
+    function swuPromptOverlapArea(r, rects) {
+        var a = 0;
+        for (var i = 0; i < rects.length; i++) {
+            var t = rects[i];
+            var w = Math.min(r.right, t.right) - Math.max(r.left, t.left);
+            var h = Math.min(r.bottom, t.bottom) - Math.max(r.top, t.top);
+            if (w > 0 && h > 0) a += w * h;
+        }
+        return a;
+    }
+    function swuKeepPromptOffTargets() {
+        var el = document.getElementById('selection-message');
+        if (!el || el.style.display === 'none' || el.parentElement !== document.body) return;   // hidden, or embedded in a panel
+        var targets = [];
+        document.querySelectorAll('.selectable-card').forEach(function (c) {
+            var r = c.getBoundingClientRect();
+            if (r.width > 0 && r.height > 0) targets.push(r);
+        });
+        if (!targets.length) return;
+        var cur = el.getBoundingClientRect();
+        if (swuPromptOverlapArea(cur, targets) === 0) return;
+        var vw = window.innerWidth, vh = window.innerHeight, w = cur.width, h = cur.height;
+        var sidebar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--swu-sidebar-w')) || 0;
+        var maxLeft = Math.max(8, vw - sidebar - w - 8), maxTop = Math.max(8, vh - h - 8);
+        // A full-width prompt (the phone layout pins left AND right) can only slide vertically.
+        var lefts = el.style.right && el.style.right !== 'auto'
+            ? [cur.left]
+            : [cur.left, (vw - sidebar - w) / 2, 8, maxLeft];
+        var best = null;
+        for (var li = 0; li < lefts.length; li++) {
+            var left = Math.min(maxLeft, Math.max(8, lefts[li]));
+            for (var top = 8; top <= maxTop; top += 4) {
+                var r = { left: left, top: top, right: left + w, bottom: top + h };
+                var cost = swuPromptOverlapArea(r, targets);
+                var dist = Math.abs(left - cur.left) + Math.abs(top - cur.top);
+                if (!best || cost < best.cost || (cost === best.cost && dist < best.dist)) best = { left: left, top: top, cost: cost, dist: dist };
+            }
+        }
+        if (!best || best.cost >= swuPromptOverlapArea(cur, targets)) return;
+        el.style.transform = 'none';
+        el.style.bottom = 'auto';
+        el.style.left = Math.round(best.left) + 'px';
+        el.style.top = Math.round(best.top) + 'px';
+    }
+    if (typeof window.ShowSelectionMessage === 'function') {
+        var swuCoreShowSelectionMessage = window.ShowSelectionMessage;
+        window.ShowSelectionMessage = function () {
+            var result = swuCoreShowSelectionMessage.apply(this, arguments);
+            swuKeepPromptOffTargets();
+            // Legacy render paths rebuild the rows AFTER the prompt, and pulse/selectable classes land a tick later.
+            setTimeout(swuKeepPromptOffTargets, 0);
+            return result;
+        };
+        window.addEventListener('resize', function () { setTimeout(swuKeepPromptOffTargets, 0); });
+    }
 
     function swuSeatOfMzid(mzid) {
         var s = String(mzid || '');
@@ -3743,7 +4002,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             }
             // A glowing tile unit with an any-player Action I may use (TS26_15 C-3P0 …) → the Ability menu, straight from
             // the Home view — the surface Twin Suns players actually act from. Not during a decision: then a click picks.
-            var actTile = t.closest && t.closest('#swuHomeStrips .swu-mb-card.unit-action[data-swu-act-mz]');
+            var actTile = t.closest && t.closest('#swuHomeStrips .swu-mb-card.unit-has-actions[data-swu-act-mz]');
             if (actTile && !(window.SelectionMode && window.SelectionMode.active)) {
                 e.stopPropagation();
                 showUnitActionMenu(actTile.getAttribute('data-swu-act-mz'), actTile, true);
@@ -5253,7 +5512,23 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ── Match-aware end-game menu ─────────────────────────────────────────────
     // The root SharedUI/MainMenu.php pointer renders whatever Sites/<ActiveSite>/ is set (SWUSim here);
     // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
-    function SWUGoMainMenu() { SWUAnnounceLeave(); window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
+    // ── One click, one action (owner, 2026-11-04) ──
+    // A button that LEAVES the page fires once: a second click while the page is going does nothing (it used to post a
+    // second leave / a second "returned to the lobby" line, or start a second navigation that aborts the first). A button
+    // behind a confirm opens ONE dialog; Cancel re-arms it. Request buttons (Rematch, Quick Rematch, Request again) and
+    // toggles (Bo1/Bo3) are deliberately not guarded — pressing them again is meaningful.
+    function SWULeavePage() { if (window._swuLeavingPage) return false; window._swuLeavingPage = true; return true; }
+    var _swuConfirmOnce = {};
+    function SWUConfirmOnce(key, message, onConfirm, opts) {
+        if (_swuConfirmOnce[key] || window._swuLeavingPage) return;
+        _swuConfirmOnce[key] = 'asking';
+        StyledConfirm(message, opts || {}).then(function (ok) {
+            if (!ok) { delete _swuConfirmOnce[key]; return; }
+            _swuConfirmOnce[key] = 'done';
+            onConfirm();
+        });
+    }
+    function SWUGoMainMenu() { if (!SWULeavePage()) return; SWUAnnounceLeave(); window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
     // Tell the table this seat left, so whoever is still on the end-game screen knows whether chatting is
     // still worth it (owner request 2026-10-10). A BEACON, because the page is navigating away in the same
     // tick and an ordinary request would be cancelled. The server composes the text and dedupes per seat.
@@ -5306,8 +5581,32 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             x.send('action=blockOpponent&gameName=' + encodeURIComponent(gn));
         }, { confirmLabel: 'Block', danger: true });
     }
-    // Collapsible "Block Player" widget: collapsed header → expand shows the opponent's username
-    // + a Block button. Returns null when there's no logged-in opponent to block.
+    // A one-time report token. randomUUID needs a secure context; any 8-64 [A-Za-z0-9-] token works, so fall back to hex.
+    function SWUNewReportToken() {
+        return (window.crypto && typeof window.crypto.randomUUID === 'function') ? window.crypto.randomUUID()
+            : (Date.now().toString(16) + Math.random().toString(16).slice(2) + Math.random().toString(16).slice(2));
+    }
+    // The Report half of Report/Block Player: one report per reporter per match, so a second report in the same
+    // match comes back as a follow-up (SWUSim/SubmitPlayerReport.php). cb gets the endpoint's {success, message}.
+    // ⚠ The caller keeps `tok` until the server confirms — a retry after a lost response must send the SAME token,
+    // or it lands as a follow-up and burns one of the three (the bug-report modal keeps its token the same way).
+    function SWUSubmitPlayerReport(note, tok, cb) {
+        var gnEl = document.getElementById('gameName');
+        var gn = gnEl ? gnEl.value : '';
+        var x = new XMLHttpRequest();
+        x.open('POST', '/TCGEngine/SWUSim/SubmitPlayerReport.php', true);
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        x.onreadystatechange = function() {
+            if (x.readyState !== 4) return;
+            var r = null; try { r = JSON.parse(x.responseText); } catch (e) {}
+            cb(r && typeof r === 'object' ? r : { success: false, message: 'The report could not be sent. Please try again.' });
+        };
+        x.send('gameName=' + encodeURIComponent(gn) + '&note=' + encodeURIComponent(note) + '&clientToken=' + encodeURIComponent(tok));
+    }
+    // Collapsible "Report/Block Player" widget: collapsed header → expand shows the opponent's username and three
+    // choices — Block (exactly the old Block button), Report, Report & Block. The two report choices open a short
+    // note form; Report & Block files the report first, then runs the normal block (with its confirm).
+    // Returns null when there's no logged-in opponent (the same rule for reporting as for blocking).
     function SWUBuildBlockPlayerWidget(opts) {
         opts = opts || {};
         var viewerSeat = window.SWU_VIEWER_SEAT;
@@ -5322,25 +5621,61 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var oppSeat = (viewerSeat === 1) ? 2 : 1;
         var oppName = window.SWU_SEAT_USERNAMES ? window.SWU_SEAT_USERNAMES[String(oppSeat)] : null;
         if (!oppName) return null; // opponent anonymous / unknown → nothing to block
+        // Report is 1v1 only (the server refuses a 3-4 seat table too). At a Twin Suns table the widget stays exactly
+        // the old Block Player — Block's behaviour must not change here.
+        var canReport = Object.keys(window.SWU_SEAT_DISPLAY_NAMES || {}).length <= 2;
+        var title = canReport ? 'Report/Block Player' : 'Block Player';
         var wrap = document.createElement('div'); wrap.className = 'swu-blockplayer';
         var head = document.createElement('button'); head.type = 'button';
-        head.className = 'swu-blockplayer-head'; head.textContent = 'Block Player ▸';
+        head.className = 'swu-blockplayer-head'; head.textContent = title + ' ▸';
         var body = document.createElement('div'); body.className = 'swu-blockplayer-body'; body.style.display = 'none';
         var nameEl = document.createElement('span'); nameEl.className = 'swu-blockplayer-name'; nameEl.textContent = oppName;
-        var btn = document.createElement('button'); btn.type = 'button';
-        btn.className = 'swu-blockplayer-btn'; btn.textContent = 'Block';
+        var actions = document.createElement('div'); actions.className = 'swu-blockplayer-actions';
+        var mkBtn = function(label, extraCls) {
+            var b = document.createElement('button'); b.type = 'button';
+            b.className = 'swu-blockplayer-btn' + (extraCls ? ' ' + extraCls : ''); b.textContent = label;
+            actions.appendChild(b); return b;
+        };
+        var btn = mkBtn('Block');
+        var reportBtn = canReport ? mkBtn('Report', 'swu-reportplayer-btn') : document.createElement('button');
+        var bothBtn = canReport ? mkBtn('Report & Block', 'swu-reportplayer-btn') : document.createElement('button');
         btn.onclick = function() { SWUBlockOpponent({ liveBo3: !!opts.liveBo3 }); wrap.style.display = 'none'; };
+        // The note form, shared by Report and Report & Block. mode remembers which one opened it.
+        var form = document.createElement('div'); form.className = 'swu-report-form'; form.style.display = 'none';
+        var note = document.createElement('textarea'); note.className = 'swu-report-note';
+        note.maxLength = 1000; note.setAttribute('maxlength', '1000'); note.placeholder = 'What happened?'; note.rows = 3;
+        var submit = document.createElement('button'); submit.type = 'button';
+        submit.className = 'swu-blockplayer-btn swu-report-submit'; submit.textContent = 'Submit';
+        var msg = document.createElement('div'); msg.className = 'swu-report-msg'; msg.setAttribute('role', 'status');
+        form.appendChild(note); form.appendChild(submit);
+        var mode = 'report';
+        var formToken = null;   // one per report: kept across retries, replaced only after the server accepts
+        var openForm = function(m) { mode = m; form.style.display = 'flex'; msg.textContent = ''; if (!formToken) formToken = SWUNewReportToken(); note.focus(); };
+        reportBtn.onclick = function() { openForm('report'); };
+        bothBtn.onclick = function() { openForm('both'); };
+        submit.onclick = function() {
+            submit.disabled = true; msg.textContent = 'Sending…';
+            if (!formToken) formToken = SWUNewReportToken();
+            SWUSubmitPlayerReport(note.value, formToken, function(r) {
+                msg.textContent = r.message || (r.success ? 'Reported. A moderator will review it.' : 'The report could not be sent. Please try again.');
+                if (!r.success) { submit.disabled = false; return; }
+                formToken = null;
+                form.style.display = 'none'; note.value = ''; submit.disabled = false;
+                if (mode === 'both') SWUBlockOpponent({ liveBo3: !!opts.liveBo3 });
+            });
+        };
         head.onclick = function() {
             var open = body.style.display !== 'none';
             body.style.display = open ? 'none' : 'flex';
-            head.textContent = open ? 'Block Player ▸' : 'Block Player ▾';
+            head.textContent = title + (open ? ' ▸' : ' ▾');
         };
-        body.appendChild(nameEl); body.appendChild(btn);
+        body.appendChild(nameEl); body.appendChild(actions); body.appendChild(form); body.appendChild(msg);
         wrap.appendChild(head); wrap.appendChild(body);
         return wrap;
     }
     window.SWUBuildBlockPlayerWidget = SWUBuildBlockPlayerWidget;
     function SWUGoSideboard(info) {
+        if (!SWULeavePage()) return;
         var pid = document.getElementById('playerID').value;
         var ak = document.getElementById('authKey').value;
         if (!info || !info.matchId) { window.location.reload(); return; }
@@ -5457,6 +5792,187 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (j && !j.success && j.message && typeof StyledAlert === 'function') StyledAlert(j.message);
             }).catch(function () {});
     }
+    // ── 1v1 end screen: Return to Lobby / Requeue, and Rematch / Quick Rematch / Convert as requests ────────────────
+    // docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md. The state is EndGameInfo.endScreen
+    // ({incoming, outgoing, declined, opponentWent, kinds, result}); every write goes through SWUSim/EndScreenAction.php.
+    var SWU_END_KIND_LABEL = { rematch: 'Rematch', quick: 'Quick Rematch', convert: 'Convert to Best of 3' };
+    var SWU_END_KIND_BTN = { rematch: 'swu-end-rematch', quick: 'swu-end-quick', convert: 'swu-end-convert' };
+    // The opponent in a sentence: their username, else "Player N" — the game log's rule (AnnounceLeave.php); the
+    // match's "Guest PN" placeholder reads oddly mid-sentence.
+    function SWUEndOppName(info) {
+        var pid = parseInt(document.getElementById('playerID').value, 10);
+        var opp = pid === 1 ? 2 : 1;
+        var n = info && info.winnerNames && info.winnerNames[String(opp)];
+        return (typeof n === 'string' && n !== '' && n !== 'Guest P' + opp) ? n : 'Player ' + opp;
+    }
+    function SWUEndScreenPost(action, extra) {
+        var f = new FormData();
+        f.append('gameName', document.getElementById('gameName').value);
+        f.append('playerID', document.getElementById('playerID').value);
+        f.append('authKey', document.getElementById('authKey').value);
+        f.append('action', action);
+        Object.keys(extra || {}).forEach(function (k) { f.append(k, extra[k]); });
+        return fetch('./SWUSim/EndScreenAction.php', { method: 'POST', body: f }).then(function (r) { return r.json(); });
+    }
+    function SWUEndStatus(text) {
+        var row = document.getElementById('game-over-buttons');
+        var line = document.getElementById('swu-end-status');
+        if (!line && row) {
+            line = document.createElement('div');
+            line.id = 'swu-end-status';
+            line.className = 'swu-tr-status';   // the Twin Suns status line's look; INSIDE the buttons row (grid areas)
+            row.appendChild(line);
+        }
+        if (line) { line.textContent = text || ''; line.style.display = text ? '' : 'none'; }
+    }
+    // An action's answer: follow a room hand-off, else refresh from the endScreen it carries, and say any refusal.
+    function SWUEndHandle(j, info) {
+        if (!j) return;
+        if (j.go && j.go.kind === 'room') { SWUTableRematchFollow({ kind: 'room', lobbyID: j.go.lobbyID, authKey: j.go.authKey }); return; }
+        if (j.endScreen) SWUUpdateEndScreen({ endScreen: j.endScreen, winnerNames: info && info.winnerNames, origin: info && info.origin, seriesOver: true });
+        if (!j.success && j.message) SWUEndStatus(j.message);
+    }
+    function SWUEndRequest(kind, info) {
+        var extra = { kind: kind };
+        if (kind === 'quick') extra.bestOf = String(window._swuEndQuickBestOf);
+        SWUEndScreenPost('request', extra).then(function (j) { SWUEndHandle(j, info); }).catch(function () { SWUEndStatus('Could not reach the server — try again.'); });
+    }
+    function SWUEndScreenButtons(info) {
+        var b = [];
+        // The Quick Rematch length starts at the length just played (after a Bo3, Bo3 — as it always has); a rebuild of
+        // this same menu keeps whatever the player picked since.
+        if (window._swuEndQuickBestOf !== 1 && window._swuEndQuickBestOf !== 3) window._swuEndQuickBestOf = info.bestOf === 3 ? 3 : 1;
+        if (info.origin === 'room') {
+            b.push({ id: 'swu-end-lobby', label: 'Return to Lobby', onClick: function (ev) {
+                var btn = ev && ev.currentTarget; if (btn) btn.disabled = true;
+                // Stays disabled when it leads into the room: re-enabled only if the return did not happen.
+                SWUEndScreenPost('lobby').then(function (j) { if (btn && !(j && j.go)) btn.disabled = false; SWUEndHandle(j, info); })
+                    .catch(function () { if (btn) btn.disabled = false; SWUEndStatus('Could not reach the server — try again.'); });
+            } });
+        } else if (info.origin === 'public' && info.requeue) {
+            b.push({ id: 'swu-end-requeue', label: 'Requeue', onClick: function (ev) { SWUEndRequeue(info, ev && ev.currentTarget); } });
+        }
+        if (!info.rated) {
+            b.push({ id: SWU_END_KIND_BTN.rematch, label: SWU_END_KIND_LABEL.rematch, onClick: function () { SWUEndRequest('rematch', info); } });
+            b.push({ id: SWU_END_KIND_BTN.quick, label: SWU_END_KIND_LABEL.quick, onClick: function () { SWUEndRequest('quick', info); } });
+            // The Quick Rematch length (call 12): the requester picks it, and the pop-up states it.
+            b.push({ id: 'swu-bestof-btn', label: 'Bo' + window._swuEndQuickBestOf, onClick: function (ev) {
+                window._swuEndQuickBestOf = window._swuEndQuickBestOf === 3 ? 1 : 3; ev.target.textContent = 'Bo' + window._swuEndQuickBestOf; } });
+            b.push({ id: SWU_END_KIND_BTN.convert, label: SWU_END_KIND_LABEL.convert, onClick: function () { SWUEndRequest('convert', info); } });
+        }
+        b.push({ label: 'Return to Main Menu', onClick: SWUGoMainMenu });
+        // Draw the request state once the row exists (ShowGameOver builds it from these specs).
+        setTimeout(function () { SWUUpdateEndScreen(info); }, 0);
+        return b;
+    }
+    // Requeue: rejoin the public queue this match came from, with this seat's deck. A refusal (the rated queue's
+    // abandon cooldown, a deck no longer legal) stays on the end screen and says why (call 9).
+    function SWUEndRequeue(info, btn) {
+        if (window._swuRequeueing) return;
+        window._swuRequeueing = true;
+        if (btn) { btn.disabled = true; btn.textContent = 'Requeueing…'; }
+        var rq = info.requeue || {};
+        var f = new FormData();
+        f.append('rootName', 'SWUSim');
+        f.append('format', rq.format || 'premier');
+        f.append('queueType', rq.queueType || 'bo1');
+        f.append('deckLink', rq.deckLink || '');
+        f.append('preconstructedDeck', '');
+        f.append('game_type', '');
+        var undo = function (msg) { window._swuRequeueing = false; if (btn) { btn.disabled = false; btn.textContent = 'Requeue'; } SWUEndStatus(msg); };
+        fetch('./APIs/Lobbies/JoinQueue.php', { method: 'POST', body: f })
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+                if (!j || !j.success) { undo((j && j.message) || 'Could not join the queue.'); return; }
+                SWUEndScreenPost('requeue').catch(function () {}).then(function () {
+                    if (j.ready && j.gameName) {
+                        try { document.cookie = 'lastAuthKey=' + encodeURIComponent(j.authKey) + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax'; } catch (e) {}
+                        window.location = './NextTurn.php?gameName=' + encodeURIComponent(j.gameName) + '&playerID=' + encodeURIComponent(j.playerID) + '&folderPath=SWUSim';
+                        return;
+                    }
+                    // Still waiting: the main menu owns the waiting pop-up and its poll; hand the seat over.
+                    try {
+                        sessionStorage.setItem('swu:queueWait', JSON.stringify({ lobbyID: j.lobbyID, playerID: j.playerID, authKey: j.authKey,
+                            submission: { deckLink: rq.deckLink || '', gameType: '', preconstructedDeck: '', format: rq.format || 'premier', queueType: rq.queueType || 'bo1' } }));
+                    } catch (e) {}
+                    window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php';
+                });
+            })
+            .catch(function () { undo('Could not reach the server — try again.'); });
+    }
+    // The opponent's request, as a pop-up — shown once per request id.
+    function SWUShowEndRequestPopup(incoming, info) {
+        window._swuEndReqShown = window._swuEndReqShown || {};
+        if (window._swuEndReqShown[incoming.id]) return;
+        window._swuEndReqShown[incoming.id] = true;
+        var old = document.getElementById('swu-end-request-modal');
+        if (old) old.remove();
+        var opp = SWUEndOppName(info);
+        var title = incoming.kind === 'quick' ? opp + ' wants a Quick Rematch, Best of ' + (incoming.bestOf === 3 ? 3 : 1)
+                  : incoming.kind === 'convert' ? opp + ' wants to convert to Best of 3'
+                  : opp + ' wants a rematch';
+        var acceptLabel = incoming.kind !== 'rematch' ? 'Accept'
+                        : (info.origin === 'room' ? 'Accept and Return to Lobby' : 'Accept and Go to Lobby');
+        var overlay = document.createElement('div');
+        overlay.id = 'swu-end-request-modal';
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:10050;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;';
+        var modal = document.createElement('div');
+        modal.style.cssText = 'background:var(--surface-raised,#0D1B2A);border:1px solid var(--border,transparent);padding:28px 24px;border-radius:var(--radius,10px);box-shadow:0 0 24px #0009;backdrop-filter:blur(10px) saturate(110%);-webkit-backdrop-filter:blur(10px) saturate(110%);text-align:center;width:min(100%,420px);box-sizing:border-box;';
+        var msg = document.createElement('div');
+        msg.style.cssText = 'font-size:17px;color:var(--text,#fff);margin-bottom:20px;';
+        msg.textContent = title;
+        var row = document.createElement('div');
+        row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;justify-content:center;';
+        var answer = function (accept) {
+            overlay.remove();
+            SWUEndScreenPost('answer', { id: incoming.id, accept: accept ? '1' : '0' }).then(function (j) { SWUEndHandle(j, info); })
+                .catch(function () { SWUEndStatus('Could not reach the server — try again.'); });
+        };
+        var yes = document.createElement('button');
+        yes.className = 'btn btn-primary';
+        yes.textContent = acceptLabel;
+        yes.onclick = function () { answer(true); };
+        var no = document.createElement('button');
+        no.className = 'btn';
+        no.textContent = 'Decline';
+        no.onclick = function () { answer(false); };
+        row.appendChild(yes); row.appendChild(no);
+        modal.appendChild(msg); modal.appendChild(row);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        try { yes.focus(); } catch (e) {}
+    }
+    // Draw the request state onto the end screen: which request buttons show and their labels, the status line, the
+    // pop-up for a new request, and following an agreed Rematch into the room.
+    function SWUUpdateEndScreen(info) {
+        var es = info && info.endScreen;
+        if (!es) return;
+        if (es.result && es.result.kind === 'room' && es.result.authKey) { SWUTableRematchFollow(es.result); return; }
+        var kinds = es.kinds || [];
+        Object.keys(SWU_END_KIND_BTN).forEach(function (kind) {
+            var btn = document.getElementById(SWU_END_KIND_BTN[kind]);
+            if (!btn) return;
+            btn.style.display = kinds.indexOf(kind) === -1 ? 'none' : '';
+            var mine = es.outgoing && es.outgoing.kind === kind;
+            btn.disabled = !!(mine && es.outgoing.repeatIn > 0);
+            btn.textContent = !mine ? SWU_END_KIND_LABEL[kind]
+                            : (es.outgoing.repeatIn > 0 ? SWU_END_KIND_LABEL[kind] + ' requested…' : 'Request again');
+        });
+        var bo = document.getElementById('swu-bestof-btn');
+        if (bo) bo.style.display = kinds.indexOf('quick') === -1 ? 'none' : '';
+        if (es.incoming && kinds.length) SWUShowEndRequestPopup(es.incoming, info);
+        else { var stale = document.getElementById('swu-end-request-modal'); if (stale && !es.incoming) stale.remove(); }
+        var opp = SWUEndOppName(info);
+        var went = { lobby: ' returned to the lobby.', requeue: ' requeued.', menu: ' returned to the menu.', gone: ' left.' }[es.opponentWent];
+        SWUEndStatus(went ? opp + went
+            : (es.result && es.result.kind === 'failed') ? (es.result.message || 'That could not start — try again.')
+            : es.declined ? opp + ' declined.'
+            : es.outgoing ? 'Waiting for ' + opp + ' to answer…'
+            : '');
+    }
+
     // While the end-game menu is open and the match is still convertible, poll for the opponent's
     // convert request so the button updates without an alert. Once both confirm, the match leaves
     // the convertible state (→ Bo3 sideboarding): rebuild the menu so it shows the Bo3 options.
@@ -5466,10 +5982,30 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (!document.getElementById('game-over-overlay')) {
                 clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null; return;
             }
-            fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+            // poll=1: no stats table (only the first load draws it, and it is most of the payload).
+            fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak) + '&poll=1')
                 .then(function(r){ return r.json(); }).then(function(info){
                     if (!info || !info.isMatch) return;
+                    // Between games of a live Bo3: wait for the series to end, then redraw as the finished match. Checked
+                    // first — mid-series, the 1v1 branch below would read "not over" as an accepted Convert and rebuild forever.
+                    if (window._swuEndMenuLiveSeries) {
+                        if (info.seriesOver) SWURebuildEndMenuForFinishedSeries();
+                        return;
+                    }
                     if (info.tableRematch) { if (!info.isSpectator) SWUUpdateTableRematch(info); return; }   // Twin Suns: the table vote
+                    if (info.endScreen) {
+                        // 1v1: requests, pop-ups, where the opponent went. An accepted Convert turns the match back into a
+                        // live Bo3 (series no longer over): rebuild the menu for it, as below.
+                        if (!info.seriesOver) {
+                            clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null;
+                            var ov1 = document.getElementById('game-over-overlay'); if (ov1) ov1.remove();
+                            var md = document.getElementById('swu-end-request-modal'); if (md) md.remove();
+                            if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
+                            return;
+                        }
+                        SWUUpdateEndScreen(info);
+                        return;
+                    }
                     if (!info.convertible) { // both confirmed → rebuild for the new (Bo3) match shape
                         clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null;
                         var ov = document.getElementById('game-over-overlay'); if (ov) ov.remove();
@@ -5480,6 +6016,23 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 }).catch(function(){});
         }, 2500);
     }
+    // The between-games menu of a live Bo3 when the series ends under it (a forfeit, by either seat): its buttons were
+    // "Go to Next Game" / "Forfeit", which no longer apply. Redraw it from the finished match.
+    function SWURebuildEndMenuForFinishedSeries() {
+        window._swuEndMenuLiveSeries = false;
+        if (window._swuEndGamePollTimer) { clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null; }
+        var ov = document.getElementById('game-over-overlay'); if (ov) ov.remove();
+        if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
+    }
+    function SWUGoHighGroundRoom(info) {
+        if (!SWULeavePage()) return;   // the button and the auto-return timer both lead here
+        window.location.replace('SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(info.roomId));
+    }
+    function SWUHighGroundAutoReturn(info) {
+        if (window._swuHgReturnArmed) return;
+        window._swuHgReturnArmed = true;
+        setTimeout(function () { SWUGoHighGroundRoom(info); }, 8000);
+    }
     function SWUBuildEndGameButtons(info) {
         var b = [];
         var mid = info && info.isMatch;
@@ -5487,6 +6040,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var seriesOver = info ? info.seriesOver : true;
         var spectator = info ? info.isSpectator : false;
         var multiSeat = !!(info && info.seatCount > 2);
+        // SWUSim High Ground: a hill match ends back in its room — one way out, for players and watchers alike, and it goes
+        // by itself after a few seconds (spec: "everyone returns to the room automatically"). Mid-Bo3, players still
+        // sideboard as usual below; watchers simply wait for the next game.
+        if (info && info.origin === 'highground' && !info.roomId) { try { info.roomId = localStorage.getItem('tcg:hg:lastRoom') || ''; } catch (e) {} }
+        if (info && info.origin === 'highground' && info.roomId && (seriesOver || spectator)) {
+            if (seriesOver) SWUHighGroundAutoReturn(info);
+            b.push({label:'Back to the room', onClick:function(){ SWUGoHighGroundRoom(info); }});
+            b.push({label:'Report Bug', onClick: SWUReportBug});
+            return b;
+        }
+        // SWUSim Limited: the event's match also ends back in its room, where the result is shown. Mid-Bo3, players go on
+        // to the between-games builder below (Sideboard.php sends a Limited match there).
+        if (info && info.origin === 'limited' && info.roomId && seriesOver && !spectator) {
+            SWUHighGroundAutoReturn(info);
+            b.push({label:'Back to the room', onClick:function(){ SWUGoHighGroundRoom(info); }});
+            b.push({label:'Report Bug', onClick: SWUReportBug});
+            return b;
+        }
         if (spectator || !mid) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
             // Arenabot (spec 2026-09-23 §3): one click into a fresh game with the same two decks, the
@@ -5566,9 +6137,20 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return b;
         }
         if (bestOf === 3 && !seriesOver) {
-            b.push({label:'Return to Main Menu', onClick:function(){ SWUConfirm('Leave now? This forfeits the best-of-3.', function(){ SubmitInput('10007',''); SWUGoMainMenu(); }, { confirmLabel: 'Leave', danger: true }); }});
+            b.push({label:'Return to Main Menu', onClick:function(){ SWUConfirmOnce('leave', 'Leave now? This forfeits the best-of-3.', function(){ SubmitInput('10007',''); SWUGoMainMenu(); }, { confirmLabel: 'Leave', danger: true }); }});
             b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
-            b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
+            // The same dialog as Core's confirmConcedeMatch, opened once (that one opens a new dialog per click).
+            b.push({label:'Forfeit Best of 3', onClick:function(){
+                var pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
+                if (pid !== 1 && pid !== 2) return;
+                SWUConfirmOnce('forfeit', 'Concede the whole match? This forfeits the entire series.', function(){ SubmitInput('10007', ''); },
+                               { title: 'Concede match', danger: true, confirmLabel: 'Concede' });
+            }});
+        } else if (seriesOver && info.origin) {
+            // A finished 1v1 match (persistent lobby, docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md):
+            // Return to Lobby (a room's match) or Requeue (a public match); Rematch / Quick Rematch / Convert are requests
+            // the opponent accepts on a pop-up. Which of those three show follows info.endScreen.kinds (SWUUpdateEndScreen).
+            SWUEndScreenButtons(info).forEach(function (x) { b.push(x); });
         } else if (bestOf === 1 && seriesOver) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
             // Meta Premier (rated): no rematch — players re-queue. The server refuses these too.
@@ -5633,6 +6215,38 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         });
         return 'Winner(s): ' + names.join(', ');
     }
+    // A spectator won nothing and lost nothing (owner, 2026-11-04: spectators read "You Lost"): the title names who won —
+    // "Drixx Won", "Drixx & Player 3 Won" for a shared victory. Plain text, like the winners line.
+    function SWUSpectatorWinTitle(seats, nameMap) {
+        if (!seats || !seats.length) return '';
+        return seats.map(function (s) {
+            var n = nameMap && nameMap[String(s)];
+            return (typeof n === 'string' && n !== '') ? n : ('Player ' + s);
+        }).join(' & ') + ' Won';
+    }
+    // ShowGameOver (Core, shared by every sim) only knows "You Won!" / "You Lost" / "Draw": a spectator's title is set on
+    // the overlay it drew, in the win colours. No-op without a title (a draw keeps "Draw").
+    function SWUApplySpectatorTitle(text) {
+        var ov = document.getElementById('game-over-overlay'), t = document.getElementById('game-over-title');
+        if (!ov || !t || !text || ov.classList.contains('draw')) return;
+        t.textContent = text;
+        ov.classList.remove('lost'); ov.classList.add('won');
+    }
+    function SWUIsSpectatorSeat(pid) { var n = parseInt(pid, 10); return !(n >= 1 && n <= 4); }
+    // A match menu that must be redrawn and whose data did not come back: retry shortly rather than draw the no-match
+    // overlay — for up to 30s from the first failure, ONE retry pending at a time (the board's own poll asks too, about
+    // every second, so a count of attempts ran out in a few seconds). Returns whether the caller should stand down.
+    function SWURetryMatchMenu() {
+        if (!window._swuEndMenuWasMatch) return false;
+        var now = Date.now();
+        if (!window._swuEndMenuFailedAt) window._swuEndMenuFailedAt = now;
+        if (now - window._swuEndMenuFailedAt > 30000) return false;   // give up: show what the board knows
+        if (!window._swuEndMenuRetryPending) {
+            window._swuEndMenuRetryPending = true;
+            setTimeout(function () { window._swuEndMenuRetryPending = false; SWUShowEndGameMenu(); }, 1500);
+        }
+        return true;
+    }
     function SWUShowEndGameMenu() {
         if (document.getElementById('game-over-overlay')) return;
         var gn = document.getElementById('gameName').value;
@@ -5640,6 +6254,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var ak = document.getElementById('authKey').value;
         fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
             .then(function(r){ return r.json(); }).then(function(info){
+                // This board already drew a MATCH menu, so "no match" now is a read that failed, not a fact: a redraw (a
+                // forfeit between games) must not fall back to the plain overlay and its lone Return to Menu. Ask again.
+                if ((!info || !info.isMatch) && SWURetryMatchMenu()) return;
                 // Non-match game (schema-test harness / goldfish): no match layer behind it, so
                 // EndGameInfo returns {isMatch:false} with no didWin. Show the plain overlay using the
                 // locally-known winner — not a match menu whose buttons (Rematch / Next Game) don't apply.
@@ -5652,18 +6269,50 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     // EndGameInfo handed back rematch inputs, and keep the previous null for every
                     // other local mode (goldfish / hotseat / harness), whose behaviour is unchanged.
                     var localBtns = (info && info.rematch) ? SWUBuildEndGameButtons(info) : null;
-                    // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line.
-                    ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
+                    // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line. -1 = a drawn game.
+                    ShowGameOver(SWULocalGameWinner() === -1 ? 'draw' : ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
                                  localBtns, SWUWinnersLine(ws, null, 2));
+                    if (SWUIsSpectatorSeat(pid)) SWUApplySpectatorTitle(SWUSpectatorWinTitle(ws, null));
                     return;
                 }
                 // Prefer the match record's winner set; fall back to the gamestate's if this record
                 // predates it. Naming the winners matters most in Twin Suns, where three of the four
                 // seats see "You Lost" and nothing else would say who took it.
+                window._swuEndMenuWasMatch = true; window._swuEndMenuFailedAt = 0;
                 var winners = (info.winners && info.winners.length) ? info.winners : SWULocalGameWinners();
-                ShowGameOver(!!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
-                             SWUBuildEndGameButtons(info),
-                             SWUWinnersLine(winners, info.winnerNames, info.seatCount));
+                // A draw is knowable from the board alone (GAMEOVER_WINNER -1): the match record can lag the gamestate by
+                // one request, and without this both players would read "You Lost" in that gap.
+                var isDraw = !!info.isDraw || SWULocalGameWinner() === -1;
+                // A drawn MATCH whose last game was decided (Bo3 D-W-L): the title is that game's result, so say what the
+                // series came to — since draws, winning the last game no longer means winning the match.
+                var subtitle = (info.matchDraw && !isDraw && info.wins)
+                    ? 'The match is a draw (' + (info.wins['1'] || 0) + '–' + (info.wins['2'] || 0) + ')'
+                    : SWUWinnersLine(winners, info.winnerNames, info.seatCount);
+                var didWin = !!info.didWin;
+                // A FORFEITED match reads as the match's result: after a forfeit between games, the last game's winner
+                // can be the very seat that forfeited.
+                if (info.seriesOver && info.concededBy) {
+                    isDraw = false;
+                    didWin = !info.isSpectator && info.matchWinner === parseInt(pid, 10);
+                    subtitle = ((info.winnerNames || {})[info.concededBy] || ('Player ' + info.concededBy)) + ' forfeited the match';
+                }
+                // A spectator: "<winner> Won" — the match's winner after a forfeit, else this game's — and no winners line under
+                // a title that already names them.
+                var specTitle = '';
+                if (info.isSpectator && !isDraw) {
+                    specTitle = SWUSpectatorWinTitle((info.seriesOver && info.concededBy && info.matchWinner) ? [info.matchWinner] : winners, info.winnerNames);
+                    if (subtitle === SWUWinnersLine(winners, info.winnerNames, info.seatCount)) subtitle = '';
+                }
+                // Responses overlap — the board asks again on every poll while the first is in flight, so the menu may
+                // already be up. A live-series menu is redrawn if the series has ended since; otherwise it stands, flag and all.
+                var drawn = !!document.getElementById('game-over-overlay');
+                if (drawn && window._swuEndMenuLiveSeries && info.seriesOver) { SWURebuildEndMenuForFinishedSeries(); return; }
+                ShowGameOver(isDraw ? 'draw' : didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
+                             SWUBuildEndGameButtons(info), subtitle);
+                SWUApplySpectatorTitle(specTitle);
+                // Between games of a live 2-seat Bo3, only the end of the series changes this menu (a forfeit, by either
+                // seat): SWUEnterSideboardOrMenu and the poll below watch for it.
+                if (!drawn) window._swuEndMenuLiveSeries = !!(info.bestOf === 3 && !info.seriesOver && !info.isSpectator && info.seatCount <= 2);
                 var goOv = document.getElementById('game-over-overlay');
                 if (goOv && info.seatCount > 2) goOv.classList.add('swu-table');   // 3-4 seat layout fixes (CSS above)
                 // Collapsible Block Player, placed below the stats panel.
@@ -5709,6 +6358,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                         submitted_without_owner: ['Game sent to SWUStats (deck-owner stats were not recorded)', '#F0B429'],
                         skipped_early: ['Game not sent to SWUStats due to ending before Round 2', '#F0B429'],
                         skipped_multiplayer: ['Multiplayer games are not sent to SWUStats', '#F0B429'],
+                        skipped_draw:  ['Drawn games are not sent to SWUStats', '#F0B429'],
+                        skipped_limited: ['Limited games are not recorded.', '#F0B429'],
+                        skipped_alternate: ['Alternate formats are not recorded.', '#F0B429'],
                         failed:        ['Game failed to send to SWUStats', '#E06666']
                     };
                     var st = stMap[info.statsStatus];
@@ -5720,16 +6372,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                         goStats.insertBefore(sd, goStats.firstChild);
                     }
                 }
-                if (info.convertible) SWUStartEndGamePoll(gn, pid, ak);
+                // 1v1: the poll is the end-screen heartbeat and carries the opponent's requests (EndGameInfo.endScreen).
+                if (info.convertible || (info.endScreen && info.seriesOver) || window._swuEndMenuLiveSeries) SWUStartEndGamePoll(gn, pid, ak);
                 // Twin Suns: keep the table vote live (tally, Quick blocked, the result) — and the poll IS this seat's
                 // end-screen heartbeat, so a seat that closes the tab goes quiet.
                 // Spectators have no vote and no seat to move: they follow a Quick rematch through MATCHADVANCE like
                 // any game advance, and are never shown a Rematch room.
                 if (info.tableRematch && info.seriesOver && !info.isSpectator) { SWUUpdateTableRematch(info); SWUStartEndGamePoll(gn, pid, ak); }
             }).catch(function(){
+                if (SWURetryMatchMenu()) return;   // a match menu being redrawn: ask again, don't downgrade it
                 var ws = SWULocalGameWinners();
-                ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
+                ShowGameOver(SWULocalGameWinner() === -1 ? 'draw' : ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
                              null, SWUWinnersLine(ws, null, 2));
+                if (SWUIsSpectatorSeat(pid)) SWUApplySpectatorTitle(SWUSpectatorWinTitle(ws, null));
             });
     }
     window.SWUShowEndGameMenu = SWUShowEndGameMenu;
@@ -5748,6 +6403,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             .then(function(r){ return r.json(); })
             .then(function(info){
                 if (info && info.sideboardPending && info.matchId) { SWUGoSideboard(info); return; }
+                // The series ended under the between-games menu (a forfeit, by either seat): redraw it as the finished match.
+                if (info && info.seriesOver && window._swuEndMenuLiveSeries && document.getElementById('game-over-overlay')) { SWURebuildEndMenuForFinishedSeries(); return; }
                 SWUShowEndGameMenu();
             })
             .catch(function(){ SWUShowEndGameMenu(); });
@@ -6643,14 +7300,14 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
      13.33px in Chromium/Firefox but 11px in WebKit, so Concede / Return / Report Bug rendered two
      sizes across engines inside the same menu. */
   .swu-settings-action { display: block; width: 100%; margin: 6px 0 0; font-size: 13px; }
-  /* Collapsible Block Player widget (shared by the gear menu + game-over overlay) */
+  /* Collapsible Report/Block Player widget (shared by the gear menu + game-over overlay) */
   .swu-blockplayer { margin: 8px auto 0; max-width: 360px; text-align: left;
     font-family: var(--swu-font-ui, "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif); }
   .swu-blockplayer-head { display: block; width: 100%; padding: 6px 0; background: transparent; border: 0;
     color: rgba(140,210,255,0.7); font-family: inherit; font-weight: 700; font-size: 12px; line-height: 1;
     text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; text-align: left; }
   .swu-blockplayer-head:hover { color: #cfe6fb; }
-  .swu-blockplayer-body { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  .swu-blockplayer-body { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px;
     margin-top: 6px; padding: 8px 12px; background: rgba(8,15,25,0.5);
     border: 1px solid rgba(255,255,255,0.12); border-radius: 7px; }
   .swu-blockplayer-name { color: #f0e6c8; font-size: 14px; font-weight: 600; overflow: hidden;
@@ -6659,6 +7316,16 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     border: 1px solid rgba(220,80,95,0.6); border-radius: 6px; color: #ffd7dc;
     font-family: inherit; font-weight: 700; font-size: 13px; line-height: 1; cursor: pointer; }
   .swu-blockplayer-btn:hover { background: rgba(200,50,65,0.4); }
+  .swu-blockplayer-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  /* Report is not a block: amber, so the destructive red stays on Block alone. */
+  .swu-reportplayer-btn { background: rgba(190,140,40,0.18); border-color: rgba(230,180,80,0.6); color: #ffe9b8; }
+  .swu-reportplayer-btn:hover { background: rgba(210,160,50,0.34); }
+  .swu-report-form { flex: 1 1 100%; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .swu-report-note { box-sizing: border-box; width: 100%; min-height: 64px; resize: vertical; padding: 6px 8px;
+    background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; color: #f0e6c8;
+    font-family: inherit; font-size: 13px; line-height: 1.35; }
+  .swu-report-msg { flex: 1 1 100%; color: #cfe6fb; font-size: 13px; }
+  .swu-report-msg:empty { display: none; }
   /* Sits inside the stats box, directly under the stats table. */
   #game-over-stats .swu-blockplayer { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); }
   /* SWUConfirm now delegates to the shared StyledDialog (which self-injects its themed CSS);

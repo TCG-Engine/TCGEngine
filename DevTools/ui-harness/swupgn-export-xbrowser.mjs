@@ -12,10 +12,32 @@ const SHOTS = new URL('./_shots/', import.meta.url);
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n));
 const LAYOUTS = (process.env.LAYOUTS || 'desktop,mobile').split(',');
-const deckFile = (f) => fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/ash-meta-2026-09/' + f, import.meta.url), 'utf8')
-  .split('\n').filter((l) => !l.startsWith('#')).join('\n').trim();
-const DECK = deckFile('darth-vader_jtl_yellow.txt');
-const DECK_B = deckFile(process.env.DECK_B || 'darth-vader_jtl_yellow.txt');
+// Darth Vader (JTL) Yellow, Premier-legal. DECK_B=<path to a deck file> gives the guest a different list.
+const DECK = `Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199`;
+const DECK_B = process.env.DECK_B ? fs.readFileSync(process.env.DECK_B, 'utf8') : DECK;
 let allOk = true; const results = [];
 const ok = (tag, name, cond, extra = '') => { if (!cond) allOk = false; results.push([tag, name, !!cond, extra]); };
 setTimeout(() => { console.log('WATCHDOG: 600s'); report(); process.exit(9); }, 600000);

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch245-zen.json",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T12:38:00.778858+00:00",
+  "fixtures": [
+    {
+      "slug": "card-zen-four-live-sparse-actual-chi-paid-combo-search-banish-and-real-permitted-attack",
+      "fixture_sha256": "e8806bdbb2a85f7c3d85ebb553d8847697c964a3874f240729daf4052d9aa34e",
+      "passed": true,
+      "result": "[PASS] zen / lean four-live meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-zen-four-live-sparse-actual-chi-paid-combo-search-banish-and-real-permitted-attack",
+      "returncode": 0,
+      "stdout": "[PASS] zen / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

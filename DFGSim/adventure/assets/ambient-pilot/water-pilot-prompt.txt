@@ -1,0 +1,9 @@
+Create a seamless five-second looping ambient animation of this exact cartoon riverside crop.
+
+Animate only the existing turquoise river water. Give the water clearly visible, continuous flowing ripples and small moving illustrated highlights, noticeable at normal game-map size. Natural, relaxed movement, without long frozen intervals. Keep the established flat cartoon outlines, palette, daylight and drawn ripple style. No photorealistic water.
+
+The camera is absolutely locked. No pan, zoom, tilt, shake, reframing or parallax. Keep every pier board, rope, post, rock, reed, leaf, palm, bank, path and building exactly stationary and identically aligned with the supplied frame. No land or object movement, no bending architecture, no changing shadows or exposure. No new objects, creatures, foam clouds, splashes, mist, text or audio.
+
+The supplied first and last image are identical. Start and finish with this exact framing and scene registration, while the water flows naturally around a seamless loop. Water motion should remain inside its original banks and around the fixed pier posts.
+
+Compositing constraint (enforced locally after generation): only the reviewed inset water mask may change. All land, objects and the shoreline guard band will be taken from the original static map. Reject camera drift, altered objects entering the mask, an obvious loop reset, or motion too faint at normal map scale.

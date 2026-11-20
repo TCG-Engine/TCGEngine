@@ -31,7 +31,12 @@ $spawn = function (array $deck1, array $deck2) {
     MatchSubmitSideboardDeck('SWUSim', $matchId, 1, $deck1);
     MatchSubmitSideboardDeck('SWUSim', $matchId, 2, $deck2);
     $next = (string)MatchMaybeSpawnAfterSideboard('SWUSim', $matchId);
-    global $gameName; $gameName = $next;
+    global $gameName, $playerID; $gameName = $next; $playerID = 1;
+    // A Bo3 game 2 opens with the game-1 loser (seat 1) choosing who goes first (CR 5.2.1c;
+    // test_swusim_initiative_choice.php); the pregame is queued only once that is answered. Answer it as a mode-100
+    // does, then drain statics as EngineActionRunner does after every action — the queue the client then receives.
+    $dq = new DecisionQueueController();
+    ob_start(); $dq->PopDecision(1); $dq->ExecuteStaticMethods(1, 'Go_first'); ProcessGoldfishAutomation(); ob_end_clean();
     return $next;
 };
 $interactive = fn($d) => $d !== null && in_array($d->Type, ['YESNO', 'MZCHOOSE', 'MZMAYCHOOSE', 'MZMULTICHOOSE', 'OPTIONCHOOSE'], true);

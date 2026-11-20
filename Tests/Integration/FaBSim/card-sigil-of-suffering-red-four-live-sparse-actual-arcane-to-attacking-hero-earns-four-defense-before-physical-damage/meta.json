@@ -1,0 +1,7 @@
+{
+    "name": "sigil_of_suffering_red / actual four-live defensive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T20:28:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P4 legal young RunebladeChane20. Actual Sigil6 cost0 DefenseReaction resolves through all four live responses: deals1arcane to attacking P1HP19, recorded actual caster4\u2192target1 arcaneDealt1. Its printedbase3 plus condition now earned by actualdamage gives defense4. Actual RedWounding5 power4 deals0/P4HP20 (without +1 defense this would leak1). Sigil6 stays physical current defending chain until actual closure and ends P4publicGYFace0. No seeded arcane history, skip/prevention, opponent barrier, sibling or hero credit. Sources: https://judge.fabtcg.com/cards/detail/1266/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

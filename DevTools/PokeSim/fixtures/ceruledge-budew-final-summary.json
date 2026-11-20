@@ -1,0 +1,129 @@
+{
+    "policy": "77e34bfb09f5f3e4",
+    "seed": 200001,
+    "pairs": 50,
+    "baselineSHA256": "679c616c1bef00738521fb7a6a667745dec5583a4e2b0645b4aee0e8447cfcf0",
+    "note": "Matched seeds and starting orders. Percentages count all games. Win intervals cluster the four games sharing each seed; approximate 95%, no adjustment for comparing multiple candidates.",
+    "variants": {
+        "baseline": {
+            "changes": [],
+            "games": 200,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "wins": 83
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "wins": 49
+                }
+            },
+            "complete": 200,
+            "completePct": 100,
+            "won": 132,
+            "wonPct": 66,
+            "by2ExAttack": 113,
+            "by2ExAttackPct": 56.5,
+            "by4Ready330": 64,
+            "by4Ready330Pct": 32,
+            "by5Ready330": 106,
+            "by5Ready330Pct": 53,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": 0,
+            "seedCluster95ApproxPP": [
+                0,
+                0
+            ]
+        },
+        "budew3-fez-shovels": {
+            "changes": {
+                "sv07-118": -4,
+                "me04-080": -4,
+                "sv08.5-004": 3,
+                "me02.5-142": 1,
+                "sv05-144": 2,
+                "me03-074": 2
+            },
+            "games": 200,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "wins": 73
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "wins": 43
+                }
+            },
+            "complete": 200,
+            "completePct": 100,
+            "won": 116,
+            "wonPct": 58,
+            "by2ExAttack": 120,
+            "by2ExAttackPct": 60,
+            "by4Ready330": 35,
+            "by4Ready330Pct": 17.5,
+            "by5Ready330": 77,
+            "by5Ready330Pct": 38.5,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": -8,
+            "seedCluster95ApproxPP": [
+                -15.6,
+                -0.4
+            ]
+        },
+        "budew-fez-tutors": {
+            "changes": {
+                "sv07-118": -4,
+                "me04-080": -4,
+                "sv08.5-004": 2,
+                "me02.5-142": 1,
+                "sv05-144": 2,
+                "me02.5-207": 2,
+                "me03-079": 1
+            },
+            "games": 200,
+            "matchups": {
+                "brisbane-lopunny": {
+                    "games": 100,
+                    "wins": 76
+                },
+                "dhelmise-v2": {
+                    "games": 100,
+                    "wins": 49
+                }
+            },
+            "complete": 200,
+            "completePct": 100,
+            "won": 125,
+            "wonPct": 62.5,
+            "by2ExAttack": 112,
+            "by2ExAttackPct": 56,
+            "by4Ready330": 31,
+            "by4Ready330Pct": 15.5,
+            "by5Ready330": 66,
+            "by5Ready330Pct": 33,
+            "legacyAttached": 0,
+            "legacyAttachedPct": 0,
+            "legacyTriggered": 0,
+            "legacyTriggeredPct": 0,
+            "winDeltaPP": -3.5,
+            "seedCluster95ApproxPP": [
+                -12.24,
+                5.24
+            ]
+        }
+    },
+    "variantPolicies": {
+        "baseline": "77e34bfb09f5f3e4",
+        "budew3-fez-shovels": "77e34bfb09f5f3e4",
+        "budew-fez-tutors": "914aea58802a3358"
+    },
+    "sourceNote": "Fixed policy; same seed ranges and starting orders. Slot swaps change deals\/mulligans. Usage attribution is descriptive, not causal. byX rates count every game, including losses before turn X. Tutor rerun fixes recursive Petrel discard-cost scoring; baseline and Shovel lists contain no Petrel and are unaffected by that targeted change."
+}

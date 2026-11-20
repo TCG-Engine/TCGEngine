@@ -16,13 +16,14 @@ $customDQHandlers["ASH_002#0"] = function($player, $parts, $lastDecision) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed)) $handUnits[] = $mz;
     }
-    if (empty($handUnits)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, $handUnits, "Play_a_unit_from_your_hand_(it_enters_ready)", "ASH_002#1");
+    if (empty($handUnits)) { SWUAfterAction($player); return; }   // costs already paid — a soft pass (CR 6.4.587.c)
+    // Play-from-HAND is always declinable (the hand is hidden — the player is never forced to reveal a playable unit).
+    SWUQueueChooseTarget($player, $handUnits, "Play_a_unit_from_your_hand_(it_enters_ready)", "ASH_002#1", may: true);
 };
 
 $customDQHandlers["ASH_002#1"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer, $gForceEnterReady; $playerID = intval($player);
-    if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction($player); return; }
+    if (SWUDecisionDeclined($lastDecision) || !str_contains((string)$lastDecision, '-')) { SWUAfterAction($player); return; }
     $gForceEnterReady = true;
     $refusedBefore = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0);
     SWUNestedPlay(intval($player), $lastDecision, false, 0);   // play from hand, paying its cost

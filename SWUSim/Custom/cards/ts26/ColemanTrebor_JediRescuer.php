@@ -19,11 +19,15 @@ $whenPlayedAbilities["TS26_19:0"] = function($player, $mzID) {
     };
     // Measure per base and SUM: "heal 1 for each damage dealt this way" counts every point that
     // actually landed across every enemy base, so at four seats this heals up to 2 (or 3), not 1.
+    // One simultaneous event: Twin Suns bases it defeats together are decided together (SWUSimultaneousBaseDamage). The
+    // damage itself still lands inside the bracket, so the per-base measurement is unchanged.
     $dealt = 0;
-    foreach (OpponentsOf(intval($player)) as $opp) {
-        $before = $dmgOf($opp);
-        SWUDealDamageToBase(1, $opp);
-        $dealt += max(0, $dmgOf($opp) - $before);
-    }
+    SWUSimultaneousBaseDamage(function () use ($player, $dmgOf, &$dealt) {
+        foreach (OpponentsOf(intval($player)) as $opp) {
+            $before = $dmgOf($opp);
+            SWUDealDamageToBase(1, $opp);
+            $dealt += max(0, $dmgOf($opp) - $before);
+        }
+    });
     if ($dealt > 0) OnHealBase(intval($player), intval($player), $dealt);
 };

@@ -116,7 +116,7 @@ async function request(body = null) {
     throw error;
   } finally { clearTimeout(timer); }
 }
-function accept(data) {
+function accept(data,acceptedAction=null) {
   if(window.DFGTutorial) DFGTutorial.accept(data.tutorial);
   const previousState=state;
   const moves=[];
@@ -137,6 +137,7 @@ function accept(data) {
   render();
   DFGAssetPreloader.warmCards(data.cards, [state?.players[0].color ?? 'Red', state?.players[1].color ?? 'Purple']);
   animateMeterChanges(previousState,state);
+  window.DFGCombatSounds?.transition(previousState,state,acceptedAction);
   TCGCardMotion.playPreparedZoneMoves(prepared,1);
 }
 function animateMeterChanges(previous,next) {
@@ -218,6 +219,7 @@ function prepareMotion(moves) {
   activeMotion=prepared;return prepared;
 }
 function changeSelection(update,moves=[]) {
+  window.DFGCombatSounds?.selection(moves);
   const prepared=prepareMotion(moves);
   update(); closePreview(); render();
   TCGCardMotion.playPreparedZoneMoves(prepared,1);
@@ -239,7 +241,7 @@ async function act(action) {
   if (busy || !state) return;
   busy = true; showError(''); render();
   let accepted=false;
-  try { const data=await request({command:'action',action,revision:state.revision,matchId:state.matchId});busy=false;accept(data);accepted=true; }
+  try { const data=await request({command:'action',action,revision:state.revision,matchId:state.matchId});busy=false;accept(data,action);accepted=true; }
   catch(error) { if(error.status===409 || !error.status) { try { accept(await request()); } catch {} } showError(error.message); }
   finally { busy = false; if(!accepted) render(); }
 }
@@ -504,7 +506,7 @@ document.addEventListener('click',event=>{
   event.target.closest('.commit-prompt.needs-main')?.focus({preventScroll:true});
   const button=event.target.closest('button');if(!button||button.disabled)return;
   if(button.id==='showRules'){showRulesPopup();return;}
-  if(window.DFGMatchMode&&['goHome','newMatch','playAgain'].includes(button.id)){location.href=DFGMatchMode.returnUrl?.(button.id)??(button.id==='goHome'?'roguelike/?overview=1':'roguelike/');return;}
+  if(window.DFGMatchMode&&['goHome','newMatch','playAgain'].includes(button.id)){if(DFGMatchMode.navigateHome?.(button.id))return;location.href=DFGMatchMode.returnUrl?.(button.id)??(button.id==='goHome'?'roguelike/?overview=1':'roguelike/');return;}
   if(button.id==='goHome'){if($('tutorialGuide'))location.href='index.php';else showScreen(false);return;}
   if(button.id==='homePlay'){
     if(state && state.phase!=='finished' && !state.needsNewMatch) showScreen(true);

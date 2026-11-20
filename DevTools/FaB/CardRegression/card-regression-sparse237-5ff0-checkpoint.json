@@ -1,0 +1,141 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T09:19:09.770530+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "source_spec": "card-regression-batch237.json",
+  "source_spec_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 43,
+  "native_assertions": 1899,
+  "manual_passes": 38,
+  "totals": {
+    "saved_registered_scenarios": 3475,
+    "duels": 3074,
+    "four_live": 401,
+    "recorded_primary_ids": 632,
+    "identity_denominator": 5196,
+    "recorded_groups": 506,
+    "group_denominator": 3324,
+    "four_live_groups": 397,
+    "phase_qualified_scenarios_at_actual_contexts": 112,
+    "phase_qualified_unique_groups": 110,
+    "creation_replay_passes": 224,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 27,
+  "scenarios": [
+    {
+      "card_id": "cleave_the_heavens_red",
+      "group_id": "pitch-cycle:cleave_the_heavens",
+      "scenario_id": "card-cleave-the-heavens-red-four-live-sparse-actual-opponent-turn-hand-banish-cost-creates-owned-gate",
+      "effect_branches": [
+        "actual-opponent-turn-hand-banish-cost-creates-owned-gate"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cleave-the-heavens-red-four-live-sparse-actual-opponent-turn-hand-banish-cost-creates-owned-gate",
+      "source_spec": "card-regression-batch237.json",
+      "source_spec_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+      "review_evidence": "review-evidence/sparse237-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "1ebc536e555b6958cb1cecc99d94d9391fdc6e2c25942e69fc9f693222a902b0",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse237-5ff0-r1.json",
+          "sha256": "2e144902ae62aec8508dfedc82a27164a1a1d9cd8d92f95382851d91396a83cb",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse237-5ff0-r2.json",
+          "sha256": "2492e33b9055a01b639ee6d6c8548023cc5e9be1f3005dd1ec8feac240ff6a09",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "chowder_hearty_cook_yellow",
+      "group_id": "identity:chowder_hearty_cook_yellow",
+      "scenario_id": "card-chowder-hearty-cook-yellow-four-live-sparse-actual-opponent-turn-ally-tap-cost-and-one-real-life",
+      "effect_branches": [
+        "actual-opponent-turn-ally-tap-cost-and-one-real-life"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chowder-hearty-cook-yellow-four-live-sparse-actual-opponent-turn-ally-tap-cost-and-one-real-life",
+      "source_spec": "card-regression-batch237.json",
+      "source_spec_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+      "review_evidence": "review-evidence/sparse237-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "1ebc536e555b6958cb1cecc99d94d9391fdc6e2c25942e69fc9f693222a902b0",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse237-5ff0-r1.json",
+          "sha256": "2e144902ae62aec8508dfedc82a27164a1a1d9cd8d92f95382851d91396a83cb",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse237-5ff0-r2.json",
+          "sha256": "2492e33b9055a01b639ee6d6c8548023cc5e9be1f3005dd1ec8feac240ff6a09",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "battered_not_broken_red",
+      "group_id": "identity:battered_not_broken_red",
+      "scenario_id": "card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+      "effect_branches": [
+        "actual-instant-prevents-two-physical-damage-and-creates-one-might"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+      "source_spec": "card-regression-batch237.json",
+      "source_spec_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+      "review_evidence": "review-evidence/sparse237-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "1ebc536e555b6958cb1cecc99d94d9391fdc6e2c25942e69fc9f693222a902b0",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse237-5ff0-r1.json",
+          "sha256": "2e144902ae62aec8508dfedc82a27164a1a1d9cd8d92f95382851d91396a83cb",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse237-5ff0-r2.json",
+          "sha256": "2492e33b9055a01b639ee6d6c8548023cc5e9be1f3005dd1ec8feac240ff6a09",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

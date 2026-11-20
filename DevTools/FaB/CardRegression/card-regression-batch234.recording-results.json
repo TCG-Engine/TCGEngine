@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 25,
+        "assertions": 761
+    },
+    {
+        "slug": "card-tempest-aurora-red-four-live-sparse-actual-eligible-cost-zero-arcane-card-boosts-three-to-four",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 474
+    }
+]

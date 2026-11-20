@@ -15,7 +15,6 @@
 //
 // Usage: node swusim-games-in-progress-xbrowser.mjs [baseURL]   ENGINES=chromium,firefox,webkit   SKIP_LIVE=1
 import { chromium, firefox, webkit } from 'playwright';
-import fs from 'node:fs';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
 const MENU = BASE + 'SharedUI/Sites/SWUSim/MainMenu.php';
@@ -125,8 +124,31 @@ for (const [engine, driver] of Object.entries(ENGINES)) {
 
 // ── PART B (live) ────────────────────────────────────────────────────────────────────────────────────
 if (!process.env.SKIP_LIVE) {
-  const deckText = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/ash-meta-2026-09/darth-vader_jtl_yellow.txt', import.meta.url), 'utf8')
-    .split('\n').filter(l => !l.startsWith('#')).join('\n').trim();
+  // Darth Vader (JTL) Yellow, Premier-legal
+  const deckText = `Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199`;
   const join = async () => {
     const r = await fetch(BASE + 'APIs/Lobbies/JoinQueue.php', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ rootName: 'SWUSim', format: 'premier', queueType: 'bo1', deckLink: deckText }) });

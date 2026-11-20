@@ -1,0 +1,52 @@
+# Real-deck self-play fixture — Admiral Piett, Commanding the Armada - Coaxium Mine
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #31 of 789 (9-3-1), player Licane
+#   https://melee.gg/Decklist/View/a940741c-8dbd-4ace-b62f-b4f4006c18d3 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Admiral Piett (JTL) Blue Splash list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: midrange — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: midrange
+
+Leader
+1 JTL_005
+
+Base
+1 LAW_021
+
+Deck
+3 ASH_073
+3 LAW_071
+2 ASH_118
+2 SEC_110
+2 ASH_048
+2 SEC_080
+2 LAW_075
+2 ASH_097
+1 LAW_118
+1 ASH_079
+1 ASH_053
+3 ASH_052
+3 JTL_089
+2 SEC_037
+2 LAW_101
+2 JTL_118
+2 LAW_135
+2 HMW_247
+1 JTL_041
+1 JTL_038
+1 JTL_143
+1 ASH_102
+1 LAW_039
+2 JTL_043
+2 JTL_131
+1 SEC_179
+2 LOF_091
+1 SEC_038
+
+Sideboard
+2 JTL_143
+2 JTL_181
+2 JTL_121
+1 JTL_041
+1 SEC_038
+1 LAW_149
+1 JTL_131

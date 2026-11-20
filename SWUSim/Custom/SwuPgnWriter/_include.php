@@ -14,3 +14,4 @@ require_once __DIR__ . '/../SwuPgnCardMap.php';   // SwuPgnMapCardId — the CAR
 require_once __DIR__ . '/Finish.php';
 require_once __DIR__ . '/Export.php';
 require_once __DIR__ . '/Shadow.php';
+require_once __DIR__ . '/../../SWUForgeDelivery.php';   // a finished game is queued for each seat linked to SWU Forge

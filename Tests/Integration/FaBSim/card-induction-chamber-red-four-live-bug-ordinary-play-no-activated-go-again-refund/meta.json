@@ -1,0 +1,7 @@
+{
+    "name": "Induction Chamber / correct ordinary play spends AP without activated ability refund",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T16:15:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourlegalYoung20Dash/3Dori/manualUPF. HandInductionChamberRed5printedMechanologistActionItemcost2 plusGenericBlueWB6, allresources0/AP1=1. ActualHandItem5clickANNOUNCESordinaryCARDPLAY(KindACTION/SourceHandUID5), normalPITCHemptyDQcost2/AP1still1beforefunding/ItemnotArena. RealHandBlue6clickpitches3/pays2->R1/AP1->0, physical5Stackthroughfourmanualresponses1/2/3/4. FourthresolutionmovesSAME5ownedArenaStatus2/CounterFAB_PLAY_ORDER1andNOSTEAMkey(semanticsSteam0), noactivatedabilitycalled, Blue6Pitch. CardhasNOownGoAgain: itsunquotedGoAgainbelongsAction1activation(notordinaryplay), sofinalAP0/R1 notrefundedAP1. Current056V1maywronglyrefundAP1; strictcorrectAP0firstendcheckmustFAILbeforeSaveifso. Noactivation/charge/targetPistol/Steamconsumption/GoAgainCardhistoryinjection/no newgroupcredit. Sourcegroupalreadycoveredactivationonly; thisisfocusedordinaryPLAYbugwitness. AllHP20/Stackempty/HandDeckGYempty/turnplayer1ACTION. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARC010.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

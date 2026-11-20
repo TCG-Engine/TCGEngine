@@ -1,0 +1,7 @@
+{
+    "name": "rapid_fire_yellow / meaningful four-live first-pass representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T15:18:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungAzalea20/3Dori20; DeathDealer5Weaponslegal2HBow, HandRapidFireYellow6/BlueWB7, facedownArsenalHeadShotRed8. ActualRapidFireAction0spendsAP1->0; fourresponses giveallArrowsGAandownGArestoresAP1. ReloadhasnoapplicableemptyArsenalconditionbecause8alreadypresent, no choice/extraHandmove. ActuallyplayHeadShot8fromfacedownArsenal(nofaceuploadevent), targetadjacentP4thenactualnormalPITCHcost1/emptyDQ; realBlue7Handclick3pays1->R2/AP0. Fourresponses realArrowbase4(NoHeadShot+2) withgrantedGAtrue; allmanualcombatunblocked4damageP4HP16. FouractualDAMAGEpasses\u2192RESOLUTIONandearnedGAAP1whilechainopen. FinalHeadShot8Chain/GYRapid6publicF0/PitchBlue7/unusedBow5ready2, AP1/R2. NoHeadShotprimary/faceuploadtrigger, Reloadpositive/secondArrow/expiry/alternativearrow/no-bowfailure/Azaleaabilitycredit; no fakeAP/history. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARC047.webp"
+}

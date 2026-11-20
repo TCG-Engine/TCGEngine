@@ -194,7 +194,7 @@ Call the MCP `get_zone_schema` tool to understand what properties exist on cards
 
 ### Step 3: Find existing helper functions
 Call the MCP `get_helper_functions` tool to discover what helper functions already exist. Search with relevant terms. Key helpers for Grand Archive include:
-- `ZoneSearch(zoneName, cardTypes, floatingMemoryOnly, cardElements, cardSubtypes)` — search a zone by type/element/subtype. All params after `zoneName` are optional and can be passed by name (e.g. `ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"])`). If the card is a spell, you'll need to use FilterSpellshroudTargets to filter the results.
+- `ZoneSearch(zoneName, cardTypes, floatingMemoryOnly, cardElements, cardSubtypes)` — search a zone by type/element/subtype. All params after `zoneName` are optional and can be passed by name (e.g. `ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"])`). For a spell's explicit targets, use FilterSpellshroudTargets to filter the results. Do not apply targeting protections to non-targeting choices (such as choosing a regalia to sacrifice), or to effects that do not target.
 - `DealChampionDamage(player, amount)` — add damage to the player's champion on the field
 - `RecoverChampion(player, amount)` — remove damage from the player's champion on the field
 - `DealDamage(player, source, target, amount)` — deal damage from a source to a target (via macro)

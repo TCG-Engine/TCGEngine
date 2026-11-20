@@ -106,7 +106,7 @@ wounding_blow_blue 7 4 4
 1
 MAIN
 
-{"mzID":"p4Pitch-0","mzIDCardID":"aether_dart_blue","chosen":"p4Hero-0","cardID":"aether_dart_blue","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":"","barrier":"p4Arena-0","pitched":"p4Hand-0"}
+{"mzID":"Stack-0","mzIDCardID":"aether_dart_blue","chosen":"p4Hero-0","cardID":"aether_dart_blue","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":"","barrier":"p4Arena-0","pitched":"p4Hand-0"}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"aether_dart_blue":1}}}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"aether_dart_blue":1}}}
 7

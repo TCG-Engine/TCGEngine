@@ -64,10 +64,10 @@ SwuPgnTestEq($p1['discard'], ['SOR_101', 'SOR_102'], 'discard in zone order');
 
 // Resources + Force.
 SwuPgnTestEq($p1['resources'], [
-    ['cardID' => 'SOR_095', 'ready' => false, 'credit' => false],
-    ['cardID' => 'SOR_095', 'ready' => false, 'credit' => false],
-    ['cardID' => 'LAW_T01', 'ready' => true,  'credit' => true],
-], 'resources carry ready + credit');
+    ['cardID' => 'SOR_095', 'ready' => false, 'credit' => false, 'owner' => 1],
+    ['cardID' => 'SOR_095', 'ready' => false, 'credit' => false, 'owner' => 1],
+    ['cardID' => 'LAW_T01', 'ready' => true,  'credit' => true, 'owner' => 1],
+], 'resources carry ready + credit + owner (§11 foreignResources)');
 SwuPgnTestEq($p1['force'], true, 'the Force is with seat 1');
 SwuPgnTestEq($p2['force'], false, 'the Force is not with seat 2');
 
@@ -91,15 +91,31 @@ SwuPgnTestCheck($u !== null, 'units are keyed by UniqueID');
 SwuPgnTestEq([$u['cardID'], $u['arena'], $u['damage'], $u['ready'], $u['owner'], $u['controller']],
     ['SOR_049', 'ground', 2, false, 1, 1], 'unit: card, arena, damage, exhausted, owner, controller');
 SwuPgnTestEq($u['tokens'], ['shield' => 1, 'experience' => 0, 'advantage' => 1, 'weakness' => 0], 'token upgrades are counted as tokens');
-SwuPgnTestEq($u['upgrades'], [['cardID' => 'SOR_120', 'uid' => null, 'isPilot' => false]], 'printed upgrades only (no tokens, no captives)');
+SwuPgnTestEq($u['upgrades'], [['cardID' => 'SOR_120', 'uid' => null, 'isPilot' => false, 'controller' => 1]], 'printed upgrades only (no tokens, no captives), with their controller');
 SwuPgnTestEq($u['captives'], ['SOR_095'], 'a guarded captive');
 SwuPgnTestEq($u['power'], ObjectCurrentPower($obi), 'power = ObjectCurrentPower of the live (buffed) unit');
 SwuPgnTestEq($u['hp'], ObjectCurrentHP($obi), 'hp = ObjectCurrentHP of the live (buffed) unit');
 SwuPgnTestCheck($u['power'] > 4, 'the buff is visible in power', (string)$u['power']);
 $v = $p1['units'][intval($space[0]->UniqueID)];
 SwuPgnTestEq($v['arena'], 'space', 'a space unit');
-SwuPgnTestEq($v['upgrades'], [['cardID' => 'JTL_034', 'uid' => null, 'isPilot' => true]], 'a pilot is an upgrade flagged isPilot');
+SwuPgnTestEq($v['upgrades'], [['cardID' => 'JTL_034', 'uid' => null, 'isPilot' => true, 'controller' => 1]], 'a pilot is an upgrade flagged isPilot');
 SwuPgnTestCheck(!isset($p2['units'][intval($deadUid)]) && count($p2['units']) === 1, 'a tombstoned unit is excluded');
+
+// §10.1 STATS attributes [W-55]: traits (lower case, sorted, the engine's live trait test), blank, leaderUnit.
+$printed = array_map(fn($t) => strtolower(trim($t)), explode(',', CardTrait('SOR_049'))); sort($printed);
+SwuPgnTestEq([$u['traits'], $u['blank'], $u['leaderUnit']], [$printed, false, false], 'a unit\'s printed traits; not blank, not made a leader unit');
+SwuPgnTestEq($p1['units'][$p1['leader']['deployedUid']]['leaderUnit'], false, 'a deployed leader is a leader unit by being one: leaderUnit false');
+$obi->TurnEffects = ['SOR_138'];   // "loses all abilities"
+SwuPgnTestEq(SwuPgnSnapshot()['seats'][1]['units'][intval($obi->UniqueID)]['blank'], true, 'a unit that lost all its abilities is blank');
+$obi->TurnEffects = ['SEC_038'];   // Condemn: "loses all OTHER abilities" — another stands in their place (CR 8.14.4)
+SwuPgnTestEq(SwuPgnSnapshot()['seats'][1]['units'][intval($obi->UniqueID)]['blank'], false, 'Condemn\'s "all other abilities" is not blank');
+$obi->TurnEffects = [];
+$obi->Subcards[] = $sub('JTL_001', ['IsPilot' => true]);   // a leader Pilot on it (Asajj Ventress): "Attached unit is a leader unit."
+SwuPgnTestEq(SwuPgnSnapshot()['seats'][1]['units'][intval($obi->UniqueID)]['leaderUnit'] ?? null, true, 'a unit a leader Pilot made a leader unit: leaderUnit true');
+array_pop($obi->Subcards);
+$res = &GetResources(1); $res[0]->Owner = 2; unset($res);
+SwuPgnTestEq(array_column(SwuPgnSnapshot()['seats'][1]['resources'], 'owner'), [2, 1, 1], 'a resource the other seat owns says so');
+$res = &GetResources(1); $res[0]->Owner = 1; unset($res);
 
 // Keywords: sorted, lower-case, numeric ones carry their value.
 $kw = $u['keywords'];

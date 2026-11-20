@@ -1,0 +1,502 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v3",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.87,
+  "normalize": false,
+  "style": "",
+  "groups": [
+    {
+      "id": "commit",
+      "title": "Commit move",
+      "prompt": "Fighting card game move locked in sound",
+      "duration": 1,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "commit-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "commit-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "commit-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "commit-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "burn-bonus",
+      "title": "Bonus burn",
+      "prompt": "Card game card consumed, short fiery whoosh, no sizzle",
+      "duration": 0.7,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "burn-bonus-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "burn-bonus-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "burn-bonus-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "burn-bonus-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "hit-light",
+      "title": "Light hit",
+      "prompt": "Fighting game light punch impact",
+      "duration": 1,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "hit-light-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "hit-light-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "hit-light-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "hit-light-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "hit-medium",
+      "title": "Medium hit",
+      "prompt": "Fighting game strong punch impact",
+      "duration": 1,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "hit-medium-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "hit-medium-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "hit-medium-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "hit-medium-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "confirm-mark",
+      "title": "Mark damage",
+      "prompt": "Fighting game danger mark applied sound",
+      "duration": 1,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "confirm-mark-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "confirm-mark-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "confirm-mark-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "confirm-mark-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "confirm-cash",
+      "title": "Confirm damage",
+      "prompt": "Fighting game bonus damage triggered sound",
+      "duration": 1,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "confirm-cash-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "confirm-cash-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "confirm-cash-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "confirm-cash-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "round-ready",
+      "title": "New round",
+      "prompt": "Fighting game next round start sound",
+      "duration": 1.5,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "round-ready-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "round-ready-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "round-ready-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "round-ready-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "knockout",
+      "title": "Knockout",
+      "prompt": "Fighting game knockout impact",
+      "duration": 1.2,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "knockout-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "knockout-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "knockout-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "knockout-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "victory",
+      "title": "Victory",
+      "prompt": "Fighting game victory fanfare",
+      "duration": 2,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "victory-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "victory-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "victory-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "victory-r2-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "defeat",
+      "title": "Defeat",
+      "prompt": "Fighting game defeat jingle",
+      "duration": 2,
+      "round": 2,
+      "takes": [
+        {
+          "take": 1,
+          "file": "defeat-r2-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "defeat-r2-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "defeat-r2-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "defeat-r2-take-4.mp3"
+        }
+      ]
+    }
+  ],
+  "sounds": [
+    {
+      "id": "commit-r2-1",
+      "file": "commit-r2-take-1.mp3",
+      "duration": 1,
+      "prompt": "Fighting card game move locked in sound"
+    },
+    {
+      "id": "commit-r2-2",
+      "file": "commit-r2-take-2.mp3",
+      "duration": 1,
+      "prompt": "Fighting card game move locked in sound"
+    },
+    {
+      "id": "commit-r2-3",
+      "file": "commit-r2-take-3.mp3",
+      "duration": 1,
+      "prompt": "Fighting card game move locked in sound"
+    },
+    {
+      "id": "commit-r2-4",
+      "file": "commit-r2-take-4.mp3",
+      "duration": 1,
+      "prompt": "Fighting card game move locked in sound"
+    },
+    {
+      "id": "burn-bonus-r2-1",
+      "file": "burn-bonus-r2-take-1.mp3",
+      "duration": 0.7,
+      "prompt": "Card game card consumed, short fiery whoosh, no sizzle"
+    },
+    {
+      "id": "burn-bonus-r2-2",
+      "file": "burn-bonus-r2-take-2.mp3",
+      "duration": 0.7,
+      "prompt": "Card game card consumed, short fiery whoosh, no sizzle"
+    },
+    {
+      "id": "burn-bonus-r2-3",
+      "file": "burn-bonus-r2-take-3.mp3",
+      "duration": 0.7,
+      "prompt": "Card game card consumed, short fiery whoosh, no sizzle"
+    },
+    {
+      "id": "burn-bonus-r2-4",
+      "file": "burn-bonus-r2-take-4.mp3",
+      "duration": 0.7,
+      "prompt": "Card game card consumed, short fiery whoosh, no sizzle"
+    },
+    {
+      "id": "hit-light-r2-1",
+      "file": "hit-light-r2-take-1.mp3",
+      "duration": 1,
+      "prompt": "Fighting game light punch impact"
+    },
+    {
+      "id": "hit-light-r2-2",
+      "file": "hit-light-r2-take-2.mp3",
+      "duration": 1,
+      "prompt": "Fighting game light punch impact"
+    },
+    {
+      "id": "hit-light-r2-3",
+      "file": "hit-light-r2-take-3.mp3",
+      "duration": 1,
+      "prompt": "Fighting game light punch impact"
+    },
+    {
+      "id": "hit-light-r2-4",
+      "file": "hit-light-r2-take-4.mp3",
+      "duration": 1,
+      "prompt": "Fighting game light punch impact"
+    },
+    {
+      "id": "hit-medium-r2-1",
+      "file": "hit-medium-r2-take-1.mp3",
+      "duration": 1,
+      "prompt": "Fighting game strong punch impact"
+    },
+    {
+      "id": "hit-medium-r2-2",
+      "file": "hit-medium-r2-take-2.mp3",
+      "duration": 1,
+      "prompt": "Fighting game strong punch impact"
+    },
+    {
+      "id": "hit-medium-r2-3",
+      "file": "hit-medium-r2-take-3.mp3",
+      "duration": 1,
+      "prompt": "Fighting game strong punch impact"
+    },
+    {
+      "id": "hit-medium-r2-4",
+      "file": "hit-medium-r2-take-4.mp3",
+      "duration": 1,
+      "prompt": "Fighting game strong punch impact"
+    },
+    {
+      "id": "confirm-mark-r2-1",
+      "file": "confirm-mark-r2-take-1.mp3",
+      "duration": 1,
+      "prompt": "Fighting game danger mark applied sound"
+    },
+    {
+      "id": "confirm-mark-r2-2",
+      "file": "confirm-mark-r2-take-2.mp3",
+      "duration": 1,
+      "prompt": "Fighting game danger mark applied sound"
+    },
+    {
+      "id": "confirm-mark-r2-3",
+      "file": "confirm-mark-r2-take-3.mp3",
+      "duration": 1,
+      "prompt": "Fighting game danger mark applied sound"
+    },
+    {
+      "id": "confirm-mark-r2-4",
+      "file": "confirm-mark-r2-take-4.mp3",
+      "duration": 1,
+      "prompt": "Fighting game danger mark applied sound"
+    },
+    {
+      "id": "confirm-cash-r2-1",
+      "file": "confirm-cash-r2-take-1.mp3",
+      "duration": 1,
+      "prompt": "Fighting game bonus damage triggered sound"
+    },
+    {
+      "id": "confirm-cash-r2-2",
+      "file": "confirm-cash-r2-take-2.mp3",
+      "duration": 1,
+      "prompt": "Fighting game bonus damage triggered sound"
+    },
+    {
+      "id": "confirm-cash-r2-3",
+      "file": "confirm-cash-r2-take-3.mp3",
+      "duration": 1,
+      "prompt": "Fighting game bonus damage triggered sound"
+    },
+    {
+      "id": "confirm-cash-r2-4",
+      "file": "confirm-cash-r2-take-4.mp3",
+      "duration": 1,
+      "prompt": "Fighting game bonus damage triggered sound"
+    },
+    {
+      "id": "round-ready-r2-1",
+      "file": "round-ready-r2-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Fighting game next round start sound"
+    },
+    {
+      "id": "round-ready-r2-2",
+      "file": "round-ready-r2-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Fighting game next round start sound"
+    },
+    {
+      "id": "round-ready-r2-3",
+      "file": "round-ready-r2-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Fighting game next round start sound"
+    },
+    {
+      "id": "round-ready-r2-4",
+      "file": "round-ready-r2-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Fighting game next round start sound"
+    },
+    {
+      "id": "knockout-r2-1",
+      "file": "knockout-r2-take-1.mp3",
+      "duration": 1.2,
+      "prompt": "Fighting game knockout impact"
+    },
+    {
+      "id": "knockout-r2-2",
+      "file": "knockout-r2-take-2.mp3",
+      "duration": 1.2,
+      "prompt": "Fighting game knockout impact"
+    },
+    {
+      "id": "knockout-r2-3",
+      "file": "knockout-r2-take-3.mp3",
+      "duration": 1.2,
+      "prompt": "Fighting game knockout impact"
+    },
+    {
+      "id": "knockout-r2-4",
+      "file": "knockout-r2-take-4.mp3",
+      "duration": 1.2,
+      "prompt": "Fighting game knockout impact"
+    },
+    {
+      "id": "victory-r2-1",
+      "file": "victory-r2-take-1.mp3",
+      "duration": 2,
+      "prompt": "Fighting game victory fanfare"
+    },
+    {
+      "id": "victory-r2-2",
+      "file": "victory-r2-take-2.mp3",
+      "duration": 2,
+      "prompt": "Fighting game victory fanfare"
+    },
+    {
+      "id": "victory-r2-3",
+      "file": "victory-r2-take-3.mp3",
+      "duration": 2,
+      "prompt": "Fighting game victory fanfare"
+    },
+    {
+      "id": "victory-r2-4",
+      "file": "victory-r2-take-4.mp3",
+      "duration": 2,
+      "prompt": "Fighting game victory fanfare"
+    },
+    {
+      "id": "defeat-r2-1",
+      "file": "defeat-r2-take-1.mp3",
+      "duration": 2,
+      "prompt": "Fighting game defeat jingle"
+    },
+    {
+      "id": "defeat-r2-2",
+      "file": "defeat-r2-take-2.mp3",
+      "duration": 2,
+      "prompt": "Fighting game defeat jingle"
+    },
+    {
+      "id": "defeat-r2-3",
+      "file": "defeat-r2-take-3.mp3",
+      "duration": 2,
+      "prompt": "Fighting game defeat jingle"
+    },
+    {
+      "id": "defeat-r2-4",
+      "file": "defeat-r2-take-4.mp3",
+      "duration": 2,
+      "prompt": "Fighting game defeat jingle"
+    }
+  ]
+}

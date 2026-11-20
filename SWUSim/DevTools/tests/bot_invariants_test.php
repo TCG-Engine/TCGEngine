@@ -23,7 +23,9 @@ $scoreOf = function (string $style, string $cardID) use ($botCtx) {
     foreach ($ctx['actions'] as $i => $a) if (strval($a['cardID']) === $cardID) return SWUBotScoreAction($ctx, $a, $i);
     return null;
 };
-$ability = 'myLeader-0!CustomInput!LeaderAbility';
+// Named Action abilities: the bot names the leader's Action — "…!LeaderAbility:<LeaderID>.0" (a front side has one).
+$abilityOf = fn(string $leader) => "myLeader-0!CustomInput!LeaderAbility:$leader.0";
+$ability = $abilityOf('JTL_012');   // Luke (sections 1 and 8C)
 $play = 'myHand-0!FSM!';
 
 // ══ 1. NEVER USE A HOSTILE EFFECT WHOSE ONLY TARGETS ARE MINE (Bug Report #1100, game 1402804) ═══════════════════════════════════════
@@ -47,7 +49,7 @@ $luke([['JTL_149', 2], ['JTL_147', 0]], []);
 $act(1, 10001, $ability);
 $check($stack('normal') === 'mySpaceArena-1', '1C: forced self-damage chips the healthy ship, never kills the hurt one');
 // A DECLARED friendly cost is paid: SHD_028 Doctor Pershing "Action [Exhaust, deal 1 damage to a friendly unit]: Draw a card".
-$pershing = 'myGroundArena-0!CustomInput!Activate';
+$pershing = 'myGroundArena-0!CustomInput!Activate:SHD_028.0';   // named Action abilities: the bot names the Action
 $build(function ($b) {
     $b->MyLeader('SOR_014', false, false, true);
     $b->WithGroundUnitForPlayer(1, 'SHD_028', true); $b->WithGroundUnitForPlayer(1, 'SOR_095', false);
@@ -56,7 +58,7 @@ $build(function ($b) {
 $check(($scoreOf('normal', $pershing) ?? -1) > 0.0 && $stack('normal') === $pershing, '1D: a declared friendly COST is paid (Pershing draws)');
 // The single-target hole (owner report 2026-10-07): SOR_025 Tarkintown "Epic Action: Deal 3 damage to a damaged non-leader unit" with the
 // only damaged unit MINE auto-resolves (no prompt) — refused; with the only damaged unit THEIRS — used.
-$EPIC = 'myBase-0!CustomInput!EpicAction';
+$EPIC = 'myBase-0!CustomInput!EpicAction:SOR_025.0';   // named Action abilities: the bot names the Action
 $tarkintown = function (array $mine, array $theirs) use ($build) {
     $build(function ($b) use ($mine, $theirs) {
         $b->MyLeader('SOR_014', false, false, true); $b->MyBase('SOR_025', 0);
@@ -100,10 +102,10 @@ $check(($scoreOf('normal', $play) ?? -1) > 0.0, '2G: a -2/-2 upgrade on the only
 // ══ 3. BUFFS GO ON MY UNITS (live game 183227: "wasted an action using their Ahsoka leader ability to buff my unit") ════════════════════
 // ASH_009 Ahsoka: "Choose a unit with less power than a friendly unit. It gets +2/+0 for this phase."
 $build(function ($b) { $b->MyLeader('ASH_009'); $b->WithGroundUnitForPlayer(1, 'SOR_095', false); $b->WithSpaceUnitForPlayer(2, 'SOR_225', true); });
-$check(in_array($ability, $ids($botCtx('normal')['actions']), true) && $stack('normal') !== $ability, "3A: an Action whose only target is an enemy (a buff) is not used");
+$check(in_array($abilityOf('ASH_009'), $ids($botCtx('normal')['actions']), true) && $stack('normal') !== $abilityOf('ASH_009'), "3A: an Action whose only target is an enemy (a buff) is not used");
 $build(function ($b) { $b->MyLeader('ASH_009'); $b->WithGroundUnitForPlayer(1, 'SOR_095', false); $b->WithGroundUnitForPlayer(1, 'SEC_T01', true);
     $b->WithSpaceUnitForPlayer(2, 'SOR_225', true); });
-$act(1, 10001, $ability);
+$act(1, 10001, $abilityOf('ASH_009'));
 $check(str_starts_with(strval($stack('normal')), 'my'), '3B: the +2/+0 goes on MY unit, never the enemy');
 // Deployed Ahsoka's On Attack "+2/+0 to a unit with less power" when only the ENEMY's unit qualifies (owner: buffing it is a TAUNT): declined.
 $build(function ($b) { $b->MyLeader('ASH_009', true, true, true, 'unit'); $b->TheirBase('SOR_020'); $b->WithGroundUnitForPlayer(2, 'SOR_095', false); });
@@ -228,7 +230,7 @@ foreach (['softcontrol', 'midrange', 'hyperaggro'] as $style) {
 }
 // 7B (leader audit 2026-10-08): a plan step whose answers were CUT SHORT (only my own unit tried — the bridge lists mine first) is not
 // followed blindly: LOF_009 Darth Maul's ping goes to an enemy.
-$maulAbility = ['playerID' => 1, 'mode' => 10001, 'cardID' => $ability];
+$maulAbility = ['playerID' => 1, 'mode' => 10001, 'cardID' => $abilityOf('LOF_009')];
 $maulBoard = function () use ($build) {
     $build(function ($b) {
         $b->MyLeader('LOF_009', true); $b->MyBase('LOF_020'); $b->WithForceForPlayer(1); $b->WithCurrentRoundBeing(4);
@@ -243,7 +245,7 @@ $maulBoard();
 $line = SWUBotLookaheadBest(1, $maulAbility, $read, $score, SWU_BOT_LOOKAHEAD_DEPTH, 2);
 $check(!empty(($line['_path'][0] ?? [])['truncated']), '7B fixture: the cut-short plan step is marked truncated');
 $maulBoard();
-$act(1, 10001, $ability);
+$act(1, 10001, $abilityOf('LOF_009'));
 $GLOBALS['SWUBotPlan'][1] = $line['_path'];
 $check(str_starts_with(strval($stack('midrange')), 'their'), '7B: the truncated plan is overruled — the ping goes to an enemy');
 

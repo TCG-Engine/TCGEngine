@@ -20,9 +20,9 @@
 #//           reqboundary=N/A here — the only pending state is the ordinary attack-target decision, which
 #//           the shared attack machinery already carries across the boundary (core coverage), and this
 #//           card adds no ability-specific state to it.
-#// KNOWN GAP: activating with an EXHAUSTED host (the CR "you may pay a cost even if the effect does
-#//           nothing" branch) is not portable today — the action is gated on the host being ready, so no
-#//           cost is paid and no upgrade is defeated. Left unencoded pending a ruling.
+#// EXHAUSTED HOST (soft pass): ExhaustedHost_TheCostsAreStillPayable_AsASoftPass (the costs) +
+#//           ExhaustedHost_SoftPass_PaysAndDefeats_NoAttack (no attack is offered, the turn passes — owner
+#//           ruling 2026-11-02; until then the exhausted host was offered an attack target).
 
 ## GIVEN
 CommonSetup: rrk/rrk
@@ -271,3 +271,28 @@ P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SHD_155
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# ExhaustedHost_SoftPass_PaysAndDefeats_NoAttack
+#// SHD_155 — OWNER RULING 2026-11-02 (closes the KNOWN GAP noted at the top of this file): the granted Action can be
+#// used while the host is EXHAUSTED, as a soft pass. Both costs are paid — 2 resources and the Heroic Resolve is
+#// defeated — but there is no attack: a unit must be ready to attack. The turn then passes normally (no
+#// P1OnlyActions, so TURNPLAYER is live).
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1Resources: 2
+WithP1GroundArena: SOR_046:0:0
+WithP1GroundArenaUpgrade: 0:SHD_155
+WithP2GroundArena: SOR_160:1:0
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0:SHD_155.0
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:0
+P2BASEDMG:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:DAMAGE:0
+TURNPLAYER:2
+P1NODECISION

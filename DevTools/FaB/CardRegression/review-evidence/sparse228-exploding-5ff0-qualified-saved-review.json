@@ -1,0 +1,186 @@
+{
+  "status": "APPROVED_ONE_ACTUAL_SAVED_CORRECTED_EXPLODING_ONLY_TARGETED_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T06:52:25.816367+00:00",
+  "method": "Manualindependentprinted/sourceapproval reused; actualcomplete nativeactions/assertions andschema-aware realinitial/finalphysical snapshots reviewed. No simulator orpredicted state.",
+  "source_spec": "card-regression-batch228-exploding-corrected-prepare.json",
+  "input_sha256": "fa5c4031845af559712a85f21c69ad12549d1833d337029a04dffe9e068b3258",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "recording_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse228-exploding-only-corrected-prepare-manual-approval.json",
+    "sha256": "4703ae8f6a57ec5c2e7c75f37ca44b98424e8f6a38a9fb48e9315320cfdb7736"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch228-exploding-corrected-prepare-20261026T065003Z-6adef81b246c4.json",
+    "sha256": "0ba87f4a2bb20f2704aa2faed3fea83d4c5e0c9e1de694d97c9eacf8d95b9394"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "exploding_aether_red",
+      "slug": "card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+      "source_spec": "card-regression-batch228-exploding-corrected-prepare.json",
+      "input_sha256": "fa5c4031845af559712a85f21c69ad12549d1833d337029a04dffe9e068b3258",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "reviewer": "/root/b104_saved_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_CORRECTED_EXPLODING_RECORDING_REPLAY_QUALIFICATION_SEPARATE",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "770eefb4f0a4408cd561b09d7ceba67e45bf1fb953d1962845305da87cae0831",
+        "actions.json": "684be6f7797fb01dc0694d86ec30dedfca13c5c5c1f68a62795ed1b21633672b",
+        "assertions.json": "1811d2e25896fc11b47d26c2ae93e782508c6c9c390e5fb55e1eb45a6022a5f8",
+        "expected_final_gamestate.txt": "4f6f0c09f38c8c3b33a852062b5d3276f6753cb6bd14f0a7fe77f4b9f91760b4",
+        "meta.json": "10f3dd201f654744d145b79cedd3d533171445e2c432f0f99daf161390167a50"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "770eefb4f0a4408cd561b09d7ceba67e45bf1fb953d1962845305da87cae0831",
+        "actions.json": "684be6f7797fb01dc0694d86ec30dedfca13c5c5c1f68a62795ed1b21633672b",
+        "assertions.json": "1811d2e25896fc11b47d26c2ae93e782508c6c9c390e5fb55e1eb45a6022a5f8",
+        "expected_final_gamestate.txt": "4f6f0c09f38c8c3b33a852062b5d3276f6753cb6bd14f0a7fe77f4b9f91760b4",
+        "meta.json": "10f3dd201f654744d145b79cedd3d533171445e2c432f0f99daf161390167a50"
+      },
+      "fixture_sha256": "b08c390ba32af8541215c838482964cf7f358ae14054a6c620a7f8d8f37fbbc7",
+      "actions": 12,
+      "native_assertions": 755,
+      "actual_manual_passes": 8,
+      "actual_pass_actors": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_recorded_actions_assertions_exact": true,
+      "full_physical_endpoints_independently_inspected": true,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_young20_no_initial_amp_or_damage_history",
+          "native_assertions": 117
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "real_printed_two_cost_waits_for_actual_Blue_funding",
+          "native_assertions": 40
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Blue_three_pays_two_AP_spent_no_early_damage",
+          "native_assertions": 40
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "priority_manual_response_1_of_four",
+          "native_assertions": 40
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "priority_manual_response_2_of_four",
+          "native_assertions": 40
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "priority_manual_response_3_of_four",
+          "native_assertions": 40
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "priority_fourth_manual_response_boundary",
+          "native_assertions": 39
+        },
+        {
+          "source_step": 13,
+          "action_step": 6,
+          "checkpoint": "primary_real_resolution_earns_go_again_and_next_damage_amp",
+          "native_assertions": 39
+        },
+        {
+          "source_step": 15,
+          "action_step": 7,
+          "checkpoint": "actual_Zap_declaration_before_zero_resource_Action_asset",
+          "native_assertions": 42
+        },
+        {
+          "source_step": 17,
+          "action_step": 8,
+          "checkpoint": "actual_Zap_Action_paid_from_restored_AP_no_second_pitch",
+          "native_assertions": 41
+        },
+        {
+          "source_step": 19,
+          "action_step": 9,
+          "checkpoint": "priority_manual_response_1_of_four",
+          "native_assertions": 41
+        },
+        {
+          "source_step": 21,
+          "action_step": 10,
+          "checkpoint": "priority_manual_response_2_of_four",
+          "native_assertions": 41
+        },
+        {
+          "source_step": 23,
+          "action_step": 11,
+          "checkpoint": "priority_manual_response_3_of_four",
+          "native_assertions": 41
+        },
+        {
+          "source_step": 25,
+          "action_step": 12,
+          "checkpoint": "priority_fourth_manual_response_boundary",
+          "native_assertions": 37
+        },
+        {
+          "source_step": 26,
+          "action_step": 12,
+          "checkpoint": "full_final_real_Zap_three_plus_primary_amp_three_equals_six",
+          "native_assertions": 117
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 12,
+  "total_manual_passes": 8,
+  "total_native_assertions": 755,
+  "actual_read_only_audit_checks": 207,
+  "limits": [
+    "CorrectedsingleExplodingfa5csourceprovenance only. ExistingFender/Fletchraw5 remainboundtheirV4source0ff8andseparateb3cf9actualproof, noretag/re-review. Earlierfailedrecipes/receipts arehistoricalrecipeerrors withnopassingfixturecredit.",
+    "ActualnormalHandclickBlue7pitch3 paysprimary2/R1AP0; fourthrealresponse resolvesAmp3/sourceGA/AP1; actualZap6targetselectioncorrectlyPITCHpendingcost0beforeAPpayment; fourresponsesdeal3+3=6/P4HP14.",
+    "Allfouractualmanual actors each2passes and48manualprefsperendpointverified; every755assertionexact. Timingcomesfromrealpassednativeassertions/receipt; noextracapturedintermediaterawstate.",
+    "FinalexactunorderedownpublicGY5Exploding/6Zap, Pitch7/R1AP0, no source/frame/queueleak. Actual6arcanepacketandAmpconsumed inspectedseparatelyfromHP.",
+    "OneRedcycle positiveAmp3consumptiononly; no repeated/prevented/expiry/otherpitch/sibling/support/hero/fullcardcoverage orisolatednativefaultclaim.",
+    "Roottwotargetednew-onlyreplayreceiptsremainpending/separatequalification; no replaypassassertedhere."
+  ],
+  "synthetic_simulator_created": false,
+  "native_execution_by_reviewer": false,
+  "repository_writes_by_reviewer": false
+}

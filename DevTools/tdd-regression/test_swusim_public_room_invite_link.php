@@ -62,13 +62,35 @@ function poll($jar, $r) {
     return post($L . 'PollLobbyUpdates.php', ['rootName' => 'SWUSim', 'playerID' => $r['playerID'] ?? 0,
         'lobbyID' => $r['lobbyID'] ?? '', 'authKey' => $r['authKey'] ?? ''], $jar);
 }
-function fixture($rel) {
-    return trim(implode("\n", array_filter(explode("\n",
-        file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/' . $rel)), fn($l) => !str_starts_with($l, '#'))));
-}
-
-$TWINSUNS = fixture('twinsuns_deck_a.txt');
-$PREMIER  = fixture('ash-meta-2026-09/darth-vader_jtl_yellow.txt');
+// A Twin Suns-legal list, inline: 2 leaders + 80 singleton SOR cards (CR §12.2).
+$TWINSUNS = "Leader\n1 SOR_001\n1 SOR_002\nBase\n1 SOR_019\nDeck\n" . implode("\n", array_map(fn($n) => sprintf('1 SOR_%03d', $n), range(31, 110)));
+// Darth Vader (JTL) Yellow, Premier-legal
+$PREMIER = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
 $bot1 = login('claudebot1');
 $bot2 = login('claudebot2');
 $bot3 = login('claudebot3');

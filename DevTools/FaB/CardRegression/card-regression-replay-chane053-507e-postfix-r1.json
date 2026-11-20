@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch240-chane-correct-probe.json",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T10:53:10.749666+00:00",
+  "fixtures": [
+    {
+      "slug": "card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+      "fixture_sha256": "6cabf4b3801acffbba51ca0c4fbcbad7ab40948ae50993f89ed01ae0e636430d",
+      "passed": true,
+      "result": "[PASS] Chane / correct token-as-effect-cost native probe"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Chane / correct token-as-effect-cost native probe\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

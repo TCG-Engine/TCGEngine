@@ -44,3 +44,32 @@ P2GROUNDARENACOUNT:0
 P2BASEDMG:1
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:JTL_143
+
+---
+
+# GalenNamedDevastator_OverrideIsOff_TheDamagedPlayerAssigns
+#// Bug report P-30 (game 5370): "Galen not suppressing Devastator's passive ability to redirect indirect damage." SEC_046 Galen Erso:
+#// "Name a card. While this unit is in play, each non-leader card an opponent owns with that name … loses all abilities." P2's Galen
+#// names Devastator, so P1's Devastator loses "You assign all indirect damage you deal to opponents" and CR 35.1 applies again: the
+#// DAMAGED player assigns. Same board as OverridesSeparateSource (where P1 assigns): P1's Torpedo Barrage → Opponent, and the 5 is
+#// now P2's to split. (P2 is rrk: Galen's Vigilance + Heroism pips cost +4 → 8.)
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:3;handCardIds:JTL_234}
+WithActivePlayer: 2
+WithP1SpaceArena: JTL_143:1:0
+WithP2Resources: 8
+WithP2Hand: SEC_046
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Devastator
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P1NODECISION
+P2HASDECISION
+P2DECISIONTYPE:MZSPLITASSIGN
+P2GROUNDARENACOUNT:2

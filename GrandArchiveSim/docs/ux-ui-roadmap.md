@@ -1,6 +1,33 @@
 # GrandArchiveSim UX/UI roadmap
 
-Status: live playable prototype, 2026-10-28. Branch: `codex/ux-ui-initiative`.
+Status: React prototype paused, 2026-10-28. Branch: `codex/ux-ui-initiative`.
+
+## Current direction: improve the existing match screen
+
+Keep the React prototype available for reference. The local lobby defaults to
+Classic again. Continue UX work in the existing PHP/JavaScript interface, using
+`Custom/GameLayout.php` and `Custom/GameLayoutMobile.php` and the existing
+inspection, decision, and rendering hooks. Do not edit generated files.
+
+Proposed sequence:
+
+1. Card readability: preserve useful card sizes on crowded fields and hands;
+   evaluate scrolling and inspection against the current shrink-to-fit behavior.
+2. Board space: reduce secondary panel prominence and keep hand, field, and
+   current decision visible together on phones.
+3. Card actions: make legal actions and selection states easier to identify,
+   retaining existing engine validation and explicit confirmations.
+4. Prompt clarity: improve priority ownership, pending effects, and response
+   controls before introducing any automatic passing.
+5. Performance: measure existing rendering and polling, then reduce redundant
+   updates without changing game behavior.
+
+Validate each small change in Chromium, Firefox, and Safari/WebKit, including
+crowded boards and interactive decisions. React rollout is not current work.
+
+## Preserved React checkpoint
+
+The following describes the completed prototype before it was paused.
 The opt-in React screen now uses the authenticated PHP engine for main actions,
 fast responses, materialization, combat choices, multi-picks, modes, numeric
 choices, splits, naming and rearrangement. It displays board/card information,
@@ -317,3 +344,17 @@ remain excluded. A trigger label describes the event, not the exact ability or t
 Validation: 278 projection checks and 16 JavaScript tests pass. Existing generated
 ability override warnings remain. Production JavaScript is 212,367 bytes (65,769 gzip).
 Exact ability/target context and compound fast-action choices remain unfinished.
+
+
+### Classic improvements — October 28, 2026
+
+Implemented the first pass of the four Classic priorities in authored custom layouts:
+
+- Readability: mobile fields retain 88–112px card cells and scroll when crowded. The hand uses separated 96px-high art instead of overlapping cards. Scroll regions support keyboard focus.
+- Board space: compact resource bands, more room for the hand, and scrolling for short landscape viewports so controls remain reachable.
+- Action clarity: existing engine-provided legal choices receive visible outlines; attacking and targeted cards have distinct solid/dashed outlines. Keyboard focus and reduced-motion preferences are supported. No priority or legality rules changed.
+- Rendering: removed the 400ms field layout refresh, skip unchanged phase/hand-summary writes, and coalesce desktop field updates into one animation frame.
+
+Validation: crowded 18-card fields/hands in Chromium, Firefox, and WebKit at 320px, 390px, and 740px landscape. At 390px the original field cells were 54px and neither field nor hand scrolled; updated cells were 112px and both scrolled. Over a 1.25-second idle sample, field attribute mutations dropped from 6 to 0. This measures layout overhead, not end-to-end game speed. PHP syntax checks pass. Full live-game and physical-device evaluation remains useful.
+
+Repeat layout checks with `PLAYWRIGHT_MODULE=<path-to-playwright/index.mjs> node DevTools/ga-classic-layout-check.mjs` from the repository root.

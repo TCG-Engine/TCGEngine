@@ -1,0 +1,121 @@
+{
+  "status": "PASS",
+  "contracts": 28,
+  "checks": 108,
+  "mutant": "none",
+  "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+  "extractor_sha256": "ca10febfe5f102c0eca748c0fc82f83b0b1a814e4789d7f955b7fe82aca85199",
+  "zone_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+  "ros_sha256": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+  "actual_functions": {
+    "FaBManagedVirtualResolutionClass": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511",
+      "evaluated_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511"
+    },
+    "FaBTrackReactionAwaitFrames": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd",
+      "evaluated_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd"
+    },
+    "FaBReactionResolutionHasWork": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+      "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+    },
+    "FaBReactionResolutionIsPending": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+      "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+    },
+    "FaBFinishReactionResolution": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "ffb5d1ba7d7167e101f5f3366cd3b49a6ba65dfa3fb52c884480ffde0c473c4b",
+      "evaluated_sha256": "ffb5d1ba7d7167e101f5f3366cd3b49a6ba65dfa3fb52c884480ffde0c473c4b"
+    },
+    "FaBFinishDefenseReactionLayer": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "b0c680dfafcc9e6b69cc93fcdae5bf801681f0e0da5ed92d65767e07b8586da4",
+      "evaluated_sha256": "b0c680dfafcc9e6b69cc93fcdae5bf801681f0e0da5ed92d65767e07b8586da4"
+    },
+    "FaBMoveStackUID": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "7baf9f757391553f593736f1d8e10bfcaa60f7a8f4d65c5f68904c77d386bce3",
+      "evaluated_sha256": "7baf9f757391553f593736f1d8e10bfcaa60f7a8f4d65c5f68904c77d386bce3"
+    },
+    "FaBMoveUID": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "cafc3afd246d3856acec448e97e10c05e34bc5eed41136d925c7fec96040e65b",
+      "evaluated_sha256": "cafc3afd246d3856acec448e97e10c05e34bc5eed41136d925c7fec96040e65b"
+    },
+    "FaBBeforeActionPoints": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "715ebd949aefff4ff098084e00a09b0235c8a39a4521b5a489d074a70d49e741",
+      "evaluated_sha256": "715ebd949aefff4ff098084e00a09b0235c8a39a4521b5a489d074a70d49e741"
+    },
+    "HasNoAbilities": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+      "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+    },
+    "FaBObjectCounters": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "function_sha256": "f5dae50d6969e79f396106c449177b3d74289911def73343a8cb2cb713eb3489",
+      "evaluated_sha256": "f5dae50d6969e79f396106c449177b3d74289911def73343a8cb2cb713eb3489"
+    },
+    "AddActionPoints": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\ZoneAccessors.php",
+      "source_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "function_sha256": "3e05ca378e6f9c6e987635cb69abb9acb4a0d6bc9b95b2fb8625a957c65e13d5",
+      "evaluated_sha256": "3e05ca378e6f9c6e987635cb69abb9acb4a0d6bc9b95b2fb8625a957c65e13d5"
+    },
+    "FaBROSGo": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSRuntime.php",
+      "source_sha256": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+      "function_sha256": "fcfd7c611faf5346778f0b92bc62f94c7c4a641ac550c00a033b9a4eaf3718e3",
+      "evaluated_sha256": "fcfd7c611faf5346778f0b92bc62f94c7c4a641ac550c00a033b9a4eaf3718e3"
+    }
+  },
+  "completed_contracts": [
+    "01 native Dreadbore arcSpec ability admitted",
+    "02 admission uses native layer protocol rather than card allowlist",
+    "03 rosTrigger no-arcSpec and non-ability layers stay excluded",
+    "04 marked Runechant trigger predicate remains exact",
+    "05 actual tracker owns new Dreadbore ResolveAbility frame",
+    "06 pre-existing baseline frame stays unowned",
+    "07 foreign card namespace stays unowned",
+    "08 ResolveCard frame cannot impersonate native ability frame",
+    "09 matching namespace with foreign physical source stays unowned",
+    "10 repeated tracking deduplicates while retaining earlier owned keys",
+    "11 Runechant marker still tracks ResolveCard not ResolveAbility",
+    "12 frame-only work holds resolution with every decision queue empty",
+    "13 any seat static decision row holds completion",
+    "14 callback depth independently prevents premature completion",
+    "15 drained queues and frames release work gate but preserve marker until finisher",
+    "16 actual tracker owns DR ResolveCard source not foreign namespace",
+    "17 actual queued Reload body holds source and every completion effect",
+    "18 actual frame-only gate holds DR after queue drains",
+    "19 synchronous DR completion moves and defends once with callback reentry held",
+    "20 foreign owner is retained on controllers completed chain",
+    "21 actual self-move captures latest LKI and never resurrects source",
+    "22 closed or replaced chain clears remaining source to its owner",
+    "23 ordinary ability loss preserves granted GA and nonapplicable Fog does not block DR",
+    "24 explicit cannot-gain and no-go-again restrictions still apply",
+    "25 actual off-turn AP hook and ROS guard prevent off-turn benefit",
+    "26 printed ability loss without a separate grant does not grant GA",
+    "27 actual body depth blocks early completion before any queue exists",
+    "28 other Stack kinds remain rejected while prior AR lifecycle remains supported"
+  ],
+  "scope": "Actual extracted admission/tracker/work/completion/self-move/LKI/AP-hook functions; external state, zone/card-rule/hooks and queue boundaries are controlled. No native game, full entry/macro transport, token factory or per-card qualification."
+}

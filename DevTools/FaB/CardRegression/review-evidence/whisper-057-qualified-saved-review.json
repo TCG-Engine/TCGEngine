@@ -1,0 +1,171 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T16:32:41.875731+00:00",
+  "review_method": "Original independent strict manual probe reused; static actualraw5/input/assertion/endpoint comparison only. No simulator or engine execution.",
+  "source_spec": "card-regression-batch253-whisper-correct-probe.json",
+  "input_sha256": "ffe8de56db8566ff706bb6ca37214659f247af5418f919eaea4574fd5057e802",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "recorded_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "historical_manifest_sha256": "b58609a89015b39f6708df23c99534036a242894d99e9e5d4b5c3bf9ce26a40b",
+  "historical_manifest_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\whisper-oracle-correct-opt-four-independent-probe-approval.json",
+    "sha256": "7d3951066551aea1b38376dde45066c440ecb0ce9a7a836466d34c8831e24baf"
+  },
+  "source_repair_peer": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\whisper-057-source-review.json",
+    "sha256": "8483cdc5b322ddcde6a898fbbdd1559a04b1f2fc3e5a6b1f830f65e1ab1f5fd2"
+  },
+  "source_application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\whisper057-source-application\\receipt.json",
+    "sha256": "d3298dddad5a14d1771b0a93c4fde7e2eafa0faa6e5fa5c3bdc3f3aeaabacd29"
+  },
+  "source_guard_delta": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+      "after_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3"
+    }
+  ],
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch253-whisper-correct-probe-20261026T162953Z-6adf800182c9a.json",
+    "sha256": "43af727de61728926b04e24d0ff27ec0c5c4569300f97eaa6f53b7ea035c196b"
+  },
+  "native_before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\whisper-057-native-before.json",
+    "sha256": "241f95419a5a54204b68e3e7e8ef67cc4e474e73285c56eb4cecd57cb0471aab",
+    "input_sha256": "ffe8de56db8566ff706bb6ca37214659f247af5418f919eaea4574fd5057e802",
+    "actual_inputs": 5,
+    "observed": "Stack0 during actual pending MZREARRANGE; no fixture saved.",
+    "not_observed": "Before AP/GY later assertions not reached; no native-before AP value claimed."
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\audit_whisper057_actual_files.py",
+    "sha256": "70b9794f730e6040d859800d25d45edd3278b6500580c644a7511477d7ac8aff"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "whisper_of_the_oracle_red",
+      "slug": "card-whisper-of-the-oracle-red-four-live-sparse-real-opt-four-source-retained-until-mixed-order-completes",
+      "source_spec": "card-regression-batch253-whisper-correct-probe.json",
+      "input_sha256": "ffe8de56db8566ff706bb6ca37214659f247af5418f919eaea4574fd5057e802",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "recorded_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CORRECT_OPT4_SOURCE_LIFETIME_NATIVE_AFTER",
+      "fixture_sha256": "67b7343487a25110354c69b6d3dd8c9683193d9d851b1b6418c793e93850b8de",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dc2e9b84a983154929f82614a5170d5a67b5e72dacf456a5e2482cd49396973c",
+        "actions.json": "063dec1eded1764c61187134f079368559b9005642a8929bc0a7ff81de0b9b61",
+        "assertions.json": "fa6883dfc82ad8919d4dae597d0795c125909fa4562bd68a377547ffaeb150b3",
+        "expected_final_gamestate.txt": "30d6e3c87a909c43395f98197a007121627c5bcf2e672046146e300c481a5fda",
+        "meta.json": "1f6348a4533772dd2b6f0880c3557daab4d01a2819652657015e70725cfd1be8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "dc2e9b84a983154929f82614a5170d5a67b5e72dacf456a5e2482cd49396973c",
+        "actions.json": "063dec1eded1764c61187134f079368559b9005642a8929bc0a7ff81de0b9b61",
+        "assertions.json": "fa6883dfc82ad8919d4dae597d0795c125909fa4562bd68a377547ffaeb150b3",
+        "expected_final_gamestate.txt": "30d6e3c87a909c43395f98197a007121627c5bcf2e672046146e300c481a5fda",
+        "meta.json": "1f6348a4533772dd2b6f0880c3557daab4d01a2819652657015e70725cfd1be8"
+      },
+      "actions": 6,
+      "native_assertions": 351,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_live_legal_Generic_action_five_known_deck_cards",
+          "native_assertions": 133
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Action_zero_asset_cost_AP_spent_before_any_Opt_or_go_again",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_manual_spell_response_1",
+          "native_assertions": 9
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_manual_spell_response_2",
+          "native_assertions": 9
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_manual_spell_response_3",
+          "native_assertions": 9
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "fourth_manual_response_effect_Opt_pending_source_still_Stack_no_premature_GY_or_GA",
+          "native_assertions": 35
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "full_final_actual_mixed_top_bottom_opt_then_source_clears_and_own_GA",
+          "native_assertions": 134
+        }
+      ],
+      "exact_final_deck_uid_order": [
+        7,
+        9,
+        10,
+        6,
+        8
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "total_actions": 6,
+  "total_native_assertions": 351,
+  "total_manual_passes": 4,
+  "classification": "FAB-REG-057 existing FAB-REG-021 named_plain_lifecycle extension; no distinct new root-cause count.",
+  "limits": [
+    "Newactual after runtimeb3 is bound explicitly; original correctffe8 actions/oracles/initial setup and historical7315 manifest/expectedfailure metadata remain untouched. This does not relabel pre-fix evidence.",
+    "Actualpassed pending assertions pin source5Stack/GY0/AP0 while physical6..9Temp/sentinel10Deck and actualOptchoice pending; exactmixedDeck7,9,10,6,8 then source5publicGY/AP1/endpoints drained. Allfour actors/48manual preferences checked.",
+    "Only Red nativeOpt4/mixedpath; source-compatible Yellow/Blue admission is not native/sibling coverage. No shortDeck/reorder matrix/suppression/source-interposition/foreigncontroller/elimination/fullcard/control credit.",
+    "Private intermediate assertions are exact passed nativechecks; no independent raw pending-frame-local capture/certification is claimed.",
+    "Root two newfocused replays and unchanged existing Gorganian component compatibility are separate evidence gates. No PHP/native/fullsuite/source/repository writes or synthetic model/certification performed by reviewer."
+  ]
+}

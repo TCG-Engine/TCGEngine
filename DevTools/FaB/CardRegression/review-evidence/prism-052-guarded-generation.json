@@ -1,0 +1,133 @@
+{
+  "utc": "2026-10-26T09:28:59.462662+00:00",
+  "status": "ACCEPTED_GENERATED_NATIVE_QUALIFICATION_PENDING",
+  "source_proposal_sha256": "943cbb19de3be31cb84d139769da76f5c0ddd2b8c6a84445cd8f16e7c86c370e",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "before_sha256": "8d3564f16fca863e8bc8df07847449eb3c7580efc8cee63c491bd0bb31532e62",
+      "after_sha256": "801d26cacf4ea83e0ca9b8b6c927a9a70366eef591ed34ff9b65fdb715db7961",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\FaBSim\\Custom\\CardChoices.php",
+      "eol": "CRLF preserved",
+      "before_crlf_lines": 602,
+      "after_crlf_lines": 655
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "before_sha256": "75cb4edf424cf03de18e9446b6f4b063e0cb6ed0075fddeb4e4b7880af5a2dfe",
+      "after_sha256": "5c393d91c993b1b0af065b1ba563b694f381029a229020fee1645bde656f9657",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\FaBSim\\Custom\\ARCAbilities.php",
+      "eol": "CRLF preserved",
+      "before_crlf_lines": 335,
+      "after_crlf_lines": 348
+    },
+    {
+      "path": "DevTools/FaB/build_mon_abilities.py",
+      "before_sha256": "d63730195e44d9095e9940b0fbdeba95333943d905a9fa9921fbe7bfe10371f8",
+      "after_sha256": "60f85a67671c9701b37b0a3a83d6029485cb7fc877b6cc6d1acf995541f9141c",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\DevTools\\FaB\\build_mon_abilities.py",
+      "eol": "CRLF preserved",
+      "before_crlf_lines": 241,
+      "after_crlf_lines": 244
+    },
+    {
+      "path": "DevTools/FaB/mon_abilities.json",
+      "before_sha256": "eacef413b4c27ff8f376c4076443e68250f25c1ac992627bbae08040a3dc0473",
+      "after_sha256": "441685ea345b774eef1a01503ed605b277c154ab4540eb1b20f3c08181508c55",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\DevTools\\FaB\\mon_abilities.json",
+      "eol": "CRLF preserved",
+      "before_crlf_lines": 2956,
+      "after_crlf_lines": 2956
+    },
+    {
+      "path": "DevTools/FaB/pen_abilities.json",
+      "before_sha256": "7173118a7b7983bcecf2e1c11ce449399aba3d3ef7e0801ed484029ce31db8dd",
+      "after_sha256": "4eefbe8eebe7b318214305aa31cd59d115586118362b662fd57b6431c9efd436",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\DevTools\\FaB\\pen_abilities.json",
+      "eol": "CRLF preserved",
+      "before_crlf_lines": 3471,
+      "after_crlf_lines": 3471
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "3d7293442eca473bea4e3f096c9fb1f5ebaf10be89c5bee82eb4c01c149239ca",
+      "after_sha256": "3a8832b918df2d970e9fe76caa93d71fc742d0f875d3f64259bf10947ae80a48",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\candidate\\FaBSim\\Custom\\CodeGeneration.php",
+      "eol": "CRLF preserved",
+      "before_crlf_lines": 213,
+      "after_crlf_lines": 237
+    }
+  ],
+  "remote_authoring_writes": false,
+  "generated_before_sha256": {
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "7f6a2a139b551ad55720a8f17de7dad47a36e8dc6d81d0c0eb5636981ebe5f96",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "45d751d279b21c5b7203eb9e24e2080dae267a3ed82a78014f576596698bfe00"
+  },
+  "remote_preflight": {
+    "returncode": 0,
+    "stdout": "{\"status\":\"PASS_REMOTE_ONLY_READ_PREFLIGHT\",\"config_path\":\"C:/xampp/htdocs/TCGEngine/DevTools/local/card-code-connections.php\",\"config_sha256\":\"ade2e4ea8d37d60f3f3c0f047e202d84c2a474163f7961eb3bd4f50f6708b33c\",\"protected_header\":true,\"FaBSim_entry\":true,\"url_present\":true,\"workspace_is_FaBSim\":true,\"inline_token_present\":true,\"tokenEnv_key_present\":false,\"local_config_override_present\":false,\"legacy_remote_environment_present\":false,\"effective_matches_protected_file\":true,\"repository_class\":\"RemoteCardAbilityRepository\",\"is_remote\":true,\"card_GET_revision\":\"dd52194d70895bdc5a845275c2d3413f049add44ed0840237ae90b4cd84f0d40\",\"remote_write_called\":false}\n",
+    "stderr": ""
+  },
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "zzGameCodeGenerator.php",
+    "rootName=FaBSim",
+    "only=MacroCode",
+    "expectedSHA=7f6a2a139b551ad55720a8f17de7dad47a36e8dc6d81d0c0eb5636981ebe5f96",
+    "expectedCountSHA=45d751d279b21c5b7203eb9e24e2080dae267a3ed82a78014f576596698bfe00"
+  ],
+  "generator": {
+    "returncode": 0,
+    "stdout": "Generated JavaScript macro count file: ./FaBSim/GeneratedCode/GeneratedMacroCount.js<BR>Generated macro code file: ./FaBSim/GeneratedCode/GeneratedMacroCode.php<BR>",
+    "stderr": ""
+  },
+  "generated_observed_sha256": {
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "e60f2b1e673180bf877c4165c786ccfaf66045a49f511cfbad3411bfa2229bf7",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "9027732dfc6f20c2391d9c082db57b6e32a9b70fc7da87195d791726594b8a62"
+  },
+  "generated_php_lint": {
+    "returncode": 0,
+    "stdout": "No syntax errors detected in FaBSim/GeneratedCode/GeneratedMacroCode.php\n",
+    "stderr": ""
+  },
+  "outputs_restored": false,
+  "source_restored": false,
+  "strict_gate": {
+    "six_named_owned_blocks_only": true,
+    "single_timestamp_each": true,
+    "all_other_macro_and_count_bytes_identical": true,
+    "before_owned": {
+      "prism": {
+        "wrapper": "fae24cf4626a5f7cbd6c0ba1c17ab1e780572fff30e5945f0b5f0c3a9eca70c2",
+        "machine": "21a951812e41dce9e9fea39b03f4a0c4b5cabcfce4bc96a5cc77d740ab61f896",
+        "resume": "af99af03f3ad19746bd4d5b348654456ba64f168ccf45073ffac470a68997869",
+        "wrapper_normalized_sha256": "4e5e31724b08a3032d093e579de204c5d4b43f46f9c686b696b3b4563fcd99cd",
+        "resume_normalized_sha256": "426832a84b58004ef62f3a3313ce9ac7e4e7150c71e8c66abbf4911f7a90a200"
+      },
+      "prism_sculptor_of_arc_light": {
+        "wrapper": "8d9b875ace9ef0d94bc0c7c7ea2d18a067988791e490e37e30432f19f72c4a0d",
+        "machine": "12b691aff51960d6878d281c81868c7d26fa92712135c1c20d1763117ecce932",
+        "resume": "a5dad3bbddc38ec11ece57b1ac36cc1fe2ba4eb1614cb495c68e06792e1fb5b4",
+        "wrapper_normalized_sha256": "5ee811e879e020dd8ec6d0c885266421d185931b5240a5c291b4a63bb1398f01",
+        "resume_normalized_sha256": "215c2cf191abd87f450ce30d079e35c823e1c0231f29093c4ae80bf8e4e52535"
+      }
+    },
+    "after_owned": {
+      "prism": {
+        "wrapper": "28ce71f58ad58d19d4e2003569da4e81a1970adcb1e906900d46e98f0959fb97",
+        "machine": "086e916b211e6681adb196b3964890560e429e591814aaa21eda7754be5863b1",
+        "resume": "af99af03f3ad19746bd4d5b348654456ba64f168ccf45073ffac470a68997869",
+        "wrapper_normalized_sha256": "4e5e31724b08a3032d093e579de204c5d4b43f46f9c686b696b3b4563fcd99cd",
+        "resume_normalized_sha256": "426832a84b58004ef62f3a3313ce9ac7e4e7150c71e8c66abbf4911f7a90a200"
+      },
+      "prism_sculptor_of_arc_light": {
+        "wrapper": "019a414fcf53f116b690a2a0b34a57356b70969d21ddefaa25ca3803ae03d337",
+        "machine": "c2fb131a944f31bbda9f8e3709ba96aef53fab50fea328fcbbc891e84aa6c6da",
+        "resume": "a5dad3bbddc38ec11ece57b1ac36cc1fe2ba4eb1614cb495c68e06792e1fb5b4",
+        "wrapper_normalized_sha256": "5ee811e879e020dd8ec6d0c885266421d185931b5240a5c291b4a63bb1398f01",
+        "resume_normalized_sha256": "215c2cf191abd87f450ce30d079e35c823e1c0231f29093c4ae80bf8e4e52535"
+      }
+    }
+  },
+  "runtime_after_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77"
+}

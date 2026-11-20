@@ -5,6 +5,8 @@
 #//   HMW_175 Fennec Shand, A Ship For a Life (1, 0/4, Raid 2) given Ambush by HMW_018 The Warrior's front
 #//   SHD_016 Fennec Shand leader (plays a unit <=4 and GRANTS Ambush — on top of ASH_192's printed one)
 #//   ASH_002 Fennec Shand leader (plays a unit that ENTERS PLAY READY — then its Ambush attack)
+#// ASH_002's hand pick is a MAY (play-from-hand is always declinable, owner 2026-11-04), so its sections name
+#// myHand-0 explicitly.
 #// Each shape is asserted twice: ALTERNATING (no P1OnlyActions, so TURNPLAYER can see an extra action) with
 #// NOEXTRAACTION and EXHAUSTED after the Ambush attack; and P1OnlyActions + a second
 #// "P1>AttackGroundArena:<i>:BASE" that must NOT land (P2BASEDMG:0).
@@ -215,6 +217,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:YES
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED
@@ -239,6 +242,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:YES
 - P1>AttackGroundArena:1:BASE
 ## EXPECT
@@ -259,6 +263,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SOR_046:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:YES
 - P1>AttackGroundArena:1:BASE
 ## EXPECT
@@ -282,6 +287,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:NO
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:ASH_192
@@ -303,6 +309,7 @@ WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-1
 - P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:YES
 - P1>AttackGroundArena:2:BASE
 ## EXPECT
@@ -418,6 +425,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: [SEC_214:1:0 SEC_214:1:0]
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:theirGroundArena-1
 - P2>Pass
@@ -504,6 +512,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 ## EXPECT
 P1HASDECISION
 TURNPLAYER:1
@@ -543,6 +552,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:NO
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:ASH_192
@@ -567,6 +577,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:NO
 - P1>AttackGroundArena:1:BASE
 ## EXPECT
@@ -592,6 +603,7 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_214:1:0
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 ## EXPECT
 P1HANDCOUNT:1
 P1LEADER:EXHAUSTED

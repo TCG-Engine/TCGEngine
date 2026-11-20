@@ -1,0 +1,31 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch200.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T21:43:30.784624+00:00",
+  "fixtures": [
+    {
+      "slug": "card-induction-chamber-red-four-live-sparse-real-paid-zero-to-one-steam-charge",
+      "fixture_sha256": "0c44fdaec98e97cff43eea23e2bae3dc9f620bb6d404ef33b8ff3accc79dc13a",
+      "passed": true,
+      "result": "[PASS] induction_chamber_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-induction-chamber-red-four-live-sparse-real-paid-zero-to-one-steam-charge",
+      "returncode": 0,
+      "stdout": "[PASS] induction_chamber_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-rain-razors-yellow-four-live-sparse-real-arrow-plus-two-and-six-damage",
+    "card-stir-the-wildwood-red-four-live-correct-earned-arcane-plus-two-and-briar-responseable-trigger",
+    "card-talishar-the-lost-prince-four-live-sparse-paid-attack-rust-one-and-four-damage"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

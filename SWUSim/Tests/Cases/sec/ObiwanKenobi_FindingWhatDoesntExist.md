@@ -552,3 +552,99 @@ P4DECKCOUNT:2
 P4DISCARDCOUNT:1
 P2DECKCOUNT:3
 P3DECKCOUNT:3
+
+---
+
+# MilledCard_PayableWithCredits_IsOffered
+#// Bug report P-26 (game 5197): "Discarded a six cost card … but I can't play it even though I have 4 resources
+#// and 2 credits." Obi-Wan mills SOR_134 Ruthless Raider (cost 6, Aggression/Villainy — OTPN ignores the
+#// penalty) from P2's deck. P1 holds 4 ready resources + 2 Credit tokens = 6, which the play's own payer
+#// (SWUPayInlineAbilityCost) accepts. The client offers "Play" only on a LIT entry, and the opponent-pile list
+#// counted READY RESOURCES alone (4 < 6), so the card was never offered. This asserts the offer itself.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 4
+WithP1Credits: 2
+WithP2Deck: [SOR_134 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_134
+P1OPPDISCARDPLAYABLE:2:0
+
+---
+
+# MilledCard_PayableWithCredits_PlaysAndSpendsThem
+#// The same board, played: Ruthless Raider enters under P1, paid with all 4 ready resources and both Credits.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 4
+WithP1Credits: 2
+WithP2Deck: [SOR_134 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_134
+P1RESAVAILABLE:0
+P1CREDITCOUNT:0
+P2DISCARDCOUNT:0
+
+---
+
+# MilledCard_OneShortEvenWithCredits_IsNotOffered
+#// BOUNDARY: 4 ready + 1 Credit = 5 < 6. The entry stays dark — the offer counts Credits, it does not ignore cost.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 4
+WithP1Credits: 1
+WithP2Deck: [SOR_134 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2DISCARDUNIT:0:CARDID:SOR_134
+P1OPPDISCARDPLAYABLENOT:2:0
+
+---
+
+# ThreeSeat_MilledCardPayableWithCredits_IsOfferedFromTheDefendersPile
+#// P-26's own shape: a Twin Suns game, the card in a THIRD seat's pile. P1's Obi-Wan hits P3's base and mills
+#// SOR_134 into P3's discard; P2 and P3 pass, and on P1's next action the entry is offered from P3's pile,
+#// payable with 4 ready + 2 Credits.
+
+## GIVEN
+CommonSetup3P: yyk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 4
+WithP1Credits: 2
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_134 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:P3B
+- P2>Pass
+- P3>Pass
+
+## EXPECT
+TURNPLAYER:1
+P3DISCARDUNIT:0:CARDID:SOR_134
+P1OPPDISCARDPLAYABLE:3:0

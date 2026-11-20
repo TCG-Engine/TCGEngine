@@ -1,0 +1,250 @@
+{
+  "status": "APPROVED_ONE_ACTUAL_SAVED_B226_TARGETED_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T05:52:45.507034+00:00",
+  "method": "Manual independent printed/source approval reused; actual complete action/assertion stream compared exactly and schema-aware full initial/final raw snapshots inspected. No simulated or predicted game state.",
+  "source_spec": "card-regression-batch226.json",
+  "input_sha256": "d0059258f2d53840243ecbbb9fc776bc5aad3e84355336bccdf9652a4296d7ac",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "recording_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse226-one-manual-source-approval.json",
+    "sha256": "831e61b4565eaf79ea383bc5b6a612085a83302dc8878cf38cce1636fdd269a5"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch226-20261026T054958Z-6adeea06cccf0.json",
+    "sha256": "a22eb60c81a58457f1e8196304ba541fe1b3f7d9feec9164e34c36b18322561c"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "stand_ground",
+      "slug": "card-stand-ground-four-live-sparse-owned-might-and-vigor-give-two-real-defense",
+      "source_spec": "card-regression-batch226.json",
+      "input_sha256": "d0059258f2d53840243ecbbb9fc776bc5aad3e84355336bccdf9652a4296d7ac",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "reviewer": "/root/b104_saved_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_OWN_MIGHT_VIGOR_DEFENSE_AT_OPEN_DAMAGE_REPLAY_QUALIFICATION_SEPARATE",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12f1855afa6631539e722bb4e3a5a3d64d15199b7f9420eb3ec8a2f91e22ba99",
+        "actions.json": "56e909297196ec665c2d9730260ba261ff62742a64b5e24f4d5325ccd6daac00",
+        "assertions.json": "8e50409e47d2ab1e47210715560082b9a551d67746aec2c63c9b87e10aa36191",
+        "expected_final_gamestate.txt": "b2d0d0b851c4e4fb129e6ae01fcb5c67ab6d381266e9aa8c0f3f060ab8fe26c6",
+        "meta.json": "301b6bfe73d3a095449164a93ca8508e1402c1140dd516405ca6ea809b1598b7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "12f1855afa6631539e722bb4e3a5a3d64d15199b7f9420eb3ec8a2f91e22ba99",
+        "actions.json": "56e909297196ec665c2d9730260ba261ff62742a64b5e24f4d5325ccd6daac00",
+        "assertions.json": "8e50409e47d2ab1e47210715560082b9a551d67746aec2c63c9b87e10aa36191",
+        "expected_final_gamestate.txt": "b2d0d0b851c4e4fb129e6ae01fcb5c67ab6d381266e9aa8c0f3f060ab8fe26c6",
+        "meta.json": "301b6bfe73d3a095449164a93ca8508e1402c1140dd516405ca6ea809b1598b7"
+      },
+      "fixture_sha256": "8748d9f78268a5cbe314e17ddb30b07c41e4c8aa14adf7fa54e8d56f53b2d649",
+      "actions": 20,
+      "native_assertions": 1381,
+      "actual_manual_passes": 17,
+      "actual_pass_actors": {
+        "1": 4,
+        "2": 4,
+        "3": 4,
+        "4": 5
+      },
+      "actual_priority_response_passes": 16,
+      "actual_finish_defense_declaration_inputs": 1,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_recorded_actions_assertions_exact": true,
+      "full_physical_endpoints_independently_inspected": true,
+      "recorder_only_checks": [
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_stand_ground_defends_base_zero_plus_owned_might_one_and_vigor_one",
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "native_assertions": 124
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "declare_actual_adjacent_target_before_payment_and_responses",
+          "native_assertions": 46
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_zero_resource_attack_paid_one_action_point",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "attack_layer_manual_response_1_of_four",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "attack_layer_manual_response_2_of_four",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "attack_layer_manual_response_3_of_four",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "attack_layer_fourth_manual_response_boundary",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "attack_step_manual_response_1_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "attack_step_manual_response_2_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "attack_step_manual_response_3_of_four",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "attack_step_fourth_manual_response_boundary",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_stand_ground_defends_base_zero_plus_owned_might_one_and_vigor_one",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_defender_finishes_block_declaration",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "defend_step_manual_response_1_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "defend_step_manual_response_2_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "defend_step_manual_response_3_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "defend_step_fourth_manual_response_boundary",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "reaction_step_real_damage_manual_response_1_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "reaction_step_real_damage_manual_response_2_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "reaction_step_real_damage_manual_response_3_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "reaction_step_real_damage_fourth_manual_response_boundary",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 41,
+          "action_step": 20,
+          "checkpoint": "real_post_prevention_damage_and_physical_effect",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 42,
+          "action_step": 20,
+          "checkpoint": "final_full_four_live_actual_health_economy_identity_and_effect",
+          "native_assertions": 135
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_window": "DAMAGE",
+      "final_combat_open": true
+    }
+  ],
+  "total_actions": 20,
+  "total_manual_passes": 17,
+  "total_native_assertions": 1381,
+  "total_recorder_only_defense_checks": 1,
+  "actual_read_only_audit_checks": 219,
+  "limits": [
+    "Four actual live/manual seats and48 manual preferences per endpoint. Seventeen inputs include16 priority response passes plus one P4finish-defend-declaration input.",
+    "Actual StandGroundUID6 fromEquipment defends currentlink with ownedMight7+Vigor8 retainedArena, realWounding5 printed4 hits2/P4HP18. Damagecache2 is corroborating only; realHP and physical source/defender/tokens inspected independently.",
+    "One defense2 recorder-only check was evaluated by parent recorder but not persisted; every1381persisted assertion retained exactly. Terminal computed power4/noGA assertions checked against independently viewed printed identity/actual vanilla object tags; native execution belongs to parent recorder/replay.",
+    "Intentional endpoint DAMAGE/combatOPEN. No Temper counter/destruction, chain closure/cleanup, token creation/start-turn/futureturn, otherowner/missingtoken/extra-count or support/hero/full-card/sibling behavior credited.",
+    "Intermediate timing relies on actual recorded passed assertions/receipt; no extra raw intermediate snapshots/privateframe captures claimed.",
+    "Positive-only distinctive branch; no isolated native causal fault claimed or forced. Root targeted replay receipts remain separate qualification gates.",
+    "AetherConduit/Beseech source-only holds remain unattempted/uncredited/notconfirmedgameplaybugs."
+  ],
+  "synthetic_simulator_created": false,
+  "native_execution_by_reviewer": false,
+  "repository_writes_by_reviewer": false
+}

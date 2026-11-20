@@ -1,0 +1,396 @@
+{
+  "status": "APPROVED_EXACT_INDEPENDENT_SAVED_REVIEW_WITH_TWO_CURRENT_REPLAYS_AND_ONE_CAUSAL_CONTROL",
+  "reviewer": "/root/b105_semantic_review",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "source_spec": "card-regression-batch207.json",
+  "source_spec_sha256": "86bf80740a39d29a9593d0acf5810de6ebcf4e50b0bccfe5f73ff3ffe6aeb67c",
+  "fixtures": [
+    {
+      "index": 0,
+      "slug": "card-stonewall-confidence-red-four-live-sparse-real-cast-next-live-turn-and-plus-four-defense",
+      "semantically_approved": true,
+      "fixture_sha256": "5ee1da2385728175457a0aec9e279ab93765c960ce6bae8b4385beb683968c57",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "976f397078d09b164240f9176c1f2f18ff5f853927666002cb5acd025583a6af",
+        "actions.json": "c80ee14a3711041abcaa5273fb70352a77c9b24b2bf1d0438261ae00f7f9615d",
+        "assertions.json": "1d67fd2a2ab31119bbb359fd2650fa7f9756015d1c2188cd79ee6b1852e30ab8",
+        "expected_final_gamestate.txt": "18a6de81139f6311461620568ff9cf9ebbc23197794687067d96f589e2215db0",
+        "meta.json": "8770222528b3b7a9aa2c510d4769db4aa3061e815868d4ef915cee206d977443"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "976f397078d09b164240f9176c1f2f18ff5f853927666002cb5acd025583a6af",
+        "actions.json": "c80ee14a3711041abcaa5273fb70352a77c9b24b2bf1d0438261ae00f7f9615d",
+        "assertions.json": "1d67fd2a2ab31119bbb359fd2650fa7f9756015d1c2188cd79ee6b1852e30ab8",
+        "expected_final_gamestate.txt": "18a6de81139f6311461620568ff9cf9ebbc23197794687067d96f589e2215db0",
+        "meta.json": "8770222528b3b7a9aa2c510d4769db4aa3061e815868d4ef915cee206d977443"
+      },
+      "actions": 48,
+      "native_assertions": 4836,
+      "manual_passes": 41,
+      "pass_actors": {
+        "1": 11,
+        "2": 10,
+        "3": 10,
+        "4": 10
+      },
+      "manual_settings_verified_per_seat": 12,
+      "manual_settings_verified_per_endpoint": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Guardian_primary_Hand_funding_blocker_known_refill_and_actual_P2_support",
+          "native_assertions": 142
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Stonewall_Action_announced_before_real_resource_and_Action_assets",
+          "native_assertions": 94
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Blue_UID6_pays_two_and_AP_no_early_Aura_or_static_effect",
+          "native_assertions": 90
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Stonewall_source_actual_response_1_of_four",
+          "native_assertions": 90
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Stonewall_source_actual_response_2_of_four",
+          "native_assertions": 90
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Stonewall_source_actual_response_3_of_four",
+          "native_assertions": 90
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_Stonewall_source_fourth_actual_response",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "P1_real_action_passes_choose_to_end_turn_actual_response_1_of_four",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "P1_real_action_passes_choose_to_end_turn_actual_response_2_of_four",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "P1_real_action_passes_choose_to_end_turn_actual_response_3_of_four",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "P1_real_action_passes_choose_to_end_turn_fourth_actual_response",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "P1_real_End_phase_passes_decline_Arsenal_keep_blocker_then_refill_actual_response_1_of_four",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "P1_real_End_phase_passes_decline_Arsenal_keep_blocker_then_refill_actual_response_2_of_four",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "P1_real_End_phase_passes_decline_Arsenal_keep_blocker_then_refill_actual_response_3_of_four",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "P1_real_End_phase_passes_decline_Arsenal_keep_blocker_then_refill_fourth_actual_response",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "next_live_P2_really_activates_owned_Potion_destroy_Action_cost",
+          "native_assertions": 95
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_P2_Potion_four_live_responses_rotating_2_3_4_1_actual_response_1_of_four",
+          "native_assertions": 95
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "actual_P2_Potion_four_live_responses_rotating_2_3_4_1_actual_response_2_of_four",
+          "native_assertions": 95
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "actual_P2_Potion_four_live_responses_rotating_2_3_4_1_actual_response_3_of_four",
+          "native_assertions": 95
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "actual_P2_Potion_four_live_responses_rotating_2_3_4_1_fourth_actual_response",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "P2_actual_adjacent_attack_target_declaration_chooses_Aura_owner_P1",
+          "native_assertions": 89
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "actual_P2_Raging_attack_waits_real_Blue_resource_and_Action_assets",
+          "native_assertions": 95
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "actual_P2_Blue_UID10_pays_three_Raging_with_real_earned_Potion_plus_two",
+          "native_assertions": 91
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "P2_actual_attack_layer_four_live_rotating_responses_actual_response_1_of_four",
+          "native_assertions": 91
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "P2_actual_attack_layer_four_live_rotating_responses_actual_response_2_of_four",
+          "native_assertions": 91
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "P2_actual_attack_layer_four_live_rotating_responses_actual_response_3_of_four",
+          "native_assertions": 91
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "P2_actual_attack_layer_four_live_rotating_responses_fourth_actual_response",
+          "native_assertions": 97
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "P2_actual_attack_step_four_live_actual_response_1_of_four",
+          "native_assertions": 97
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "P2_actual_attack_step_four_live_actual_response_2_of_four",
+          "native_assertions": 97
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "P2_actual_attack_step_four_live_actual_response_3_of_four",
+          "native_assertions": 97
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "P2_actual_attack_step_four_live_fourth_actual_response",
+          "native_assertions": 97
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "P1_actual_cost_three_Hand_card_defends_while_really_cast_Stonewall_Aura_remains_live",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 64,
+          "action_step": 32,
+          "checkpoint": "P1_completes_actual_defense_declaration_to_turn_player_P2",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 66,
+          "action_step": 33,
+          "checkpoint": "defending_priority_all_four_live_actual_response_1_of_four",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 68,
+          "action_step": 34,
+          "checkpoint": "defending_priority_all_four_live_actual_response_2_of_four",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 70,
+          "action_step": 35,
+          "checkpoint": "defending_priority_all_four_live_actual_response_3_of_four",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 72,
+          "action_step": 36,
+          "checkpoint": "defending_priority_all_four_live_fourth_actual_response",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 74,
+          "action_step": 37,
+          "checkpoint": "reaction_priority_real_nine_minus_seven_equals_two_actual_response_1_of_four",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 76,
+          "action_step": 38,
+          "checkpoint": "reaction_priority_real_nine_minus_seven_equals_two_actual_response_2_of_four",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 78,
+          "action_step": 39,
+          "checkpoint": "reaction_priority_real_nine_minus_seven_equals_two_actual_response_3_of_four",
+          "native_assertions": 100
+        },
+        {
+          "source_step": 80,
+          "action_step": 40,
+          "checkpoint": "reaction_priority_real_nine_minus_seven_equals_two_fourth_actual_response",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 82,
+          "action_step": 41,
+          "checkpoint": "damage_priority_no_GA_actual_response_1_of_four",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 84,
+          "action_step": 42,
+          "checkpoint": "damage_priority_no_GA_actual_response_2_of_four",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 86,
+          "action_step": 43,
+          "checkpoint": "damage_priority_no_GA_actual_response_3_of_four",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 88,
+          "action_step": 44,
+          "checkpoint": "damage_priority_no_GA_fourth_actual_response",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 90,
+          "action_step": 45,
+          "checkpoint": "resolution_priority_all_four_live_actual_response_1_of_four",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 92,
+          "action_step": 46,
+          "checkpoint": "resolution_priority_all_four_live_actual_response_2_of_four",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 94,
+          "action_step": 47,
+          "checkpoint": "resolution_priority_all_four_live_actual_response_3_of_four",
+          "native_assertions": 102
+        },
+        {
+          "source_step": 96,
+          "action_step": 48,
+          "checkpoint": "resolution_priority_all_four_live_fourth_actual_response",
+          "native_assertions": 88
+        },
+        {
+          "source_step": 97,
+          "action_step": 48,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 143
+        }
+      ],
+      "final_health": [
+        18,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "administrative_end_phase_pass_actions": 4,
+      "other_supported_phase_pass_actions": 37,
+      "scope": "Actual cast and next-live combat; EndPhase priority fields are internal administrative routeguards, not rule-legal response windows",
+      "recorded_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_qualification_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_clean_replays": [
+        "card-regression-replay-sparse207-20261025-r1.json",
+        "card-regression-replay-sparse207-20261025-r2.json"
+      ],
+      "current_qualification_status": "TWO_TARGETED_REPLAYS_PASS_ONE_SUPPORTED_DEFENSE_APPLICATION_CONTROL"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse207-stonewall-actual-saved-independent-review.json",
+    "sha256": "d865f9d23adb2c7ddc8eab95735344c4c5933020643cba88ff3330864b43c261"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse207-20261025-r1.json",
+      "sha256": "924debaac902e548aa310dde9984c9f74ac24d5ca8d6addc4875f765303da4ac"
+    },
+    {
+      "path": "card-regression-replay-sparse207-20261025-r2.json",
+      "sha256": "f613d6e63864848650a0bfd3bd448f39a3712e5ff1574d6704c9e6ef19538fc9"
+    }
+  ],
+  "causal_controls": {
+    "path": "card-regression-negative-controls-sparse207-results.json",
+    "sha256": "ef24cbc473e277ccaef1f3c471a3c7bfd1268f4be0b40cf00f35e144914b4133",
+    "detected": 1,
+    "total": 1,
+    "retained_suffix_oracles": 2044,
+    "omitted_oracles": 0
+  },
+  "qualification": "Only real Stonewall cast/payment/next-live-turn persistence/actualcost3defender+4 and physical9-7=2damage. Existing attacktag application-lock sensitivity preserves actualAura and its entire earnedpersistentUIDrecord; tests application, not Aura ability blanking/expiry.48actions4836native;41supportedpasses include4administrativeEndPhase and37otherphase passes, not41legalpriorityresponses. No privateUID mutation, cache/HP substitution, source edit, sibling/support/full-card credit or full suite."
+}

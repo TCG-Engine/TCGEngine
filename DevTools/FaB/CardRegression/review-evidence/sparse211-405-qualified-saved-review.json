@@ -1,0 +1,942 @@
+{
+  "status": "APPROVED_THREE_EXACT_SAVED_REPRESENTATIVES_TWO_FINAL405_REPLAYS_AND_BOUNDED_REPAIR_GATES",
+  "reviewer": "/root/b106_semantic_review",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "source_spec": "card-regression-batch211.json",
+  "source_spec_sha256": "6aa4532eb0e0b2f0dcad87e37b7ac1f4790b52edcc16ac7d4c14848c4dc938a4",
+  "fixtures": [
+    {
+      "slug": "card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
+      "card_id": "parry_blade",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+      "recorded_runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+      "fixture_sha256": "1babf74a227581a5ef3f1b502c7ed93ed88131c4953f9c8142e167c9e6af174c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "782902ba2f76bfc83c0bd01a93c1c63775709c68ba8a2b4d0165df4ef028ca81",
+        "actions.json": "714be4a8df278a39e6aea584c6afd1825b8e9a767c05d1c18e2557932fd2772a",
+        "assertions.json": "51da562add4f93e3075d489bea4eaf8cd8b9ecb32f1b60d1e2455d87e80f38f0",
+        "expected_final_gamestate.txt": "ca58bef529efb3b46ca2c66df6f91015f26e74f067fd81af57fca4aa4f28a2c6",
+        "meta.json": "4b2dae4f72f097ecbe5790c736c1160c6e348d79604952a8c50a3705ac8feefb"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "782902ba2f76bfc83c0bd01a93c1c63775709c68ba8a2b4d0165df4ef028ca81",
+        "actions.json": "714be4a8df278a39e6aea584c6afd1825b8e9a767c05d1c18e2557932fd2772a",
+        "assertions.json": "51da562add4f93e3075d489bea4eaf8cd8b9ecb32f1b60d1e2455d87e80f38f0",
+        "expected_final_gamestate.txt": "ca58bef529efb3b46ca2c66df6f91015f26e74f067fd81af57fca4aa4f28a2c6",
+        "meta.json": "4b2dae4f72f097ecbe5790c736c1160c6e348d79604952a8c50a3705ac8feefb"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch211.json",
+      "input_sha256": "6aa4532eb0e0b2f0dcad87e37b7ac1f4790b52edcc16ac7d4c14848c4dc938a4",
+      "actions": 21,
+      "native_assertions": 1365,
+      "actual_manual_passes": 17,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "administrative_end_phase_pass_actions": [],
+      "priority_or_declaration_pass_actions": 17,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "step": 0,
+          "native_assertions": 119
+        },
+        {
+          "checkpoint": "actual_clockwise_adjacent_target_before_payment",
+          "step": 1,
+          "native_assertions": 41
+        },
+        {
+          "checkpoint": "actual_weapon_cost_before_real_blue_pitch",
+          "step": 2,
+          "native_assertions": 51
+        },
+        {
+          "checkpoint": "actual_attack_assets_paid_before_four_live_responses",
+          "step": 3,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_manual_response_1_of_four",
+          "step": 4,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_manual_response_2_of_four",
+          "step": 5,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_manual_response_3_of_four",
+          "step": 6,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_fourth_manual_response_boundary",
+          "step": 7,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_1_of_four",
+          "step": 8,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_2_of_four",
+          "step": 9,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_3_of_four",
+          "step": 10,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_fourth_manual_response_boundary",
+          "step": 11,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_owned_equipment_or_weapon_defender_with_printed_bonus",
+          "step": 12,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defending_seat_finishes_declaration",
+          "step": 13,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_1_of_four",
+          "step": 14,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_2_of_four",
+          "step": 15,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_3_of_four",
+          "step": 16,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_fourth_manual_response_boundary",
+          "step": 17,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_1_of_four",
+          "step": 18,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_2_of_four",
+          "step": 19,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_3_of_four",
+          "step": 20,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_fourth_manual_response_boundary",
+          "step": 21,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "final_stable_damage_actual_quantity_and_four_live_state",
+          "step": 21,
+          "native_assertions": 136
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 1365
+      },
+      "actual_endpoint": {
+        "p4_health": 19,
+        "p1_resources": 2,
+        "p1_action_points": 0,
+        "own_arena": [],
+        "opposing_p4_arena": [],
+        "own_graveyard": [],
+        "own_pitch": [
+          {
+            "CardID": "wounding_blow_blue",
+            "UniqueID": "6",
+            "Owner": "1",
+            "Controller": "1"
+          }
+        ],
+        "p4_resources": 0,
+        "opposing_p4_graveyard": [],
+        "opposing_p4_pitch": [],
+        "opposing_p4_deck": [],
+        "own_banish": [],
+        "own_equipment": []
+      },
+      "limits": [
+        "Selected actual saved state/actions/oracles review; root clean replays and meaningful available causal controls remain separate gates.",
+        "One bounded representative per group; no full-card/support/hero/excluded-branch credit."
+      ],
+      "current_qualification_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "current_clean_replays": [
+        "card-regression-replay-sparse211-405-20261026-r1.json",
+        "card-regression-replay-sparse211-405-20261026-r2.json"
+      ],
+      "current_qualification_status": "TWO_FINAL405_REPLAYS_ONE_FORGED_APPLICATION_FAULT_AND_TRUE_SINK_REPAIR_EVIDENCE"
+    },
+    {
+      "slug": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+      "card_id": "forged_for_war_yellow",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+      "recorded_runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+      "fixture_sha256": "6aabfd4cb83ce42728a730e51c15d58f6194369226e752316f6ab23b9e13afd0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9666451e93a90a9e448eb57b1a10bb0d5e3054d094d37fbc20b8bd89818c950c",
+        "actions.json": "73d6eae8b4b6947075b4863c168d9e22b650f6625196354f990d78528769db49",
+        "assertions.json": "cf23843802911afdaa83bc6aa2e015d9402f8b07f97dbbcdbed79cdebd7446b3",
+        "expected_final_gamestate.txt": "b057d6dc1119d1db2aaae72dac588a2ba433f6f1f116cd353da3e3b56410f3a7",
+        "meta.json": "bc6c37720761665567153de9d61931355f61996ef7ee27d33c3f3b0982ea9293"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9666451e93a90a9e448eb57b1a10bb0d5e3054d094d37fbc20b8bd89818c950c",
+        "actions.json": "73d6eae8b4b6947075b4863c168d9e22b650f6625196354f990d78528769db49",
+        "assertions.json": "cf23843802911afdaa83bc6aa2e015d9402f8b07f97dbbcdbed79cdebd7446b3",
+        "expected_final_gamestate.txt": "b057d6dc1119d1db2aaae72dac588a2ba433f6f1f116cd353da3e3b56410f3a7",
+        "meta.json": "bc6c37720761665567153de9d61931355f61996ef7ee27d33c3f3b0982ea9293"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch211.json",
+      "input_sha256": "6aa4532eb0e0b2f0dcad87e37b7ac1f4790b52edcc16ac7d4c14848c4dc938a4",
+      "actions": 34,
+      "native_assertions": 2039,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "administrative_end_phase_pass_actions": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "priority_or_declaration_pass_actions": 25,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "step": 0,
+          "native_assertions": 122
+        },
+        {
+          "checkpoint": "actual_guardian_aura_cast_requires_printed_two",
+          "step": 1,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_aura_assets_paid_not_seeded_persistent_effect",
+          "step": 2,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_forged_aura_source_manual_response_1_of_four",
+          "step": 3,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_forged_aura_source_manual_response_2_of_four",
+          "step": 4,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_forged_aura_source_manual_response_3_of_four",
+          "step": 5,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_forged_aura_source_fourth_manual_response_boundary",
+          "step": 6,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_caster_action_end_manual_response_1_of_four",
+          "step": 7,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_caster_action_end_manual_response_2_of_four",
+          "step": 8,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_caster_action_end_manual_response_3_of_four",
+          "step": 9,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_caster_action_end_fourth_manual_response_boundary",
+          "step": 10,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_caster_end_phase_response_1_of_four",
+          "step": 11,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_caster_end_phase_response_2_of_four",
+          "step": 12,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_caster_end_phase_response_3_of_four",
+          "step": 13,
+          "native_assertions": 45
+        },
+        {
+          "checkpoint": "actual_blue_pitch_return_refill_and_next_live_seat_turn",
+          "step": 14,
+          "native_assertions": 123
+        },
+        {
+          "checkpoint": "actual_clockwise_adjacent_target_before_payment",
+          "step": 15,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_attack_assets_paid_before_four_live_responses",
+          "step": 16,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_manual_response_1_of_four",
+          "step": 17,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_manual_response_2_of_four",
+          "step": 18,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_manual_response_3_of_four",
+          "step": 19,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_attack_layer_fourth_manual_response_boundary",
+          "step": 20,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_1_of_four",
+          "step": 21,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_2_of_four",
+          "step": 22,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_3_of_four",
+          "step": 23,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_attack_step_fourth_manual_response_boundary",
+          "step": 24,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "actual_owned_equipment_or_weapon_defender_with_printed_bonus",
+          "step": 25,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defending_seat_finishes_declaration",
+          "step": 26,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_1_of_four",
+          "step": 27,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_2_of_four",
+          "step": 28,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_3_of_four",
+          "step": 29,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_fourth_manual_response_boundary",
+          "step": 30,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_1_of_four",
+          "step": 31,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_2_of_four",
+          "step": 32,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_3_of_four",
+          "step": 33,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_fourth_manual_response_boundary",
+          "step": 34,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "final_stable_damage_actual_quantity_and_four_live_state",
+          "step": 34,
+          "native_assertions": 136
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 34,
+        "assertions": 2039
+      },
+      "actual_endpoint": {
+        "p4_health": 20,
+        "p1_resources": 0,
+        "p1_action_points": 0,
+        "own_arena": [
+          {
+            "CardID": "forged_for_war_yellow",
+            "Status": "2",
+            "Owner": "1",
+            "Controller": "1",
+            "Damage": "0",
+            "UniqueID": "5",
+            "TurnEffects": "-",
+            "Counters": "eyJGQUJfUExBWV9PUkRFUiI6MX0="
+          }
+        ],
+        "opposing_p4_arena": [],
+        "own_graveyard": [],
+        "own_pitch": [],
+        "p4_resources": 0,
+        "opposing_p4_graveyard": [],
+        "opposing_p4_pitch": [],
+        "opposing_p4_deck": [],
+        "own_banish": [],
+        "own_equipment": []
+      },
+      "limits": [
+        "Selected actual saved state/actions/oracles review; root clean replays and meaningful available causal controls remain separate gates.",
+        "One bounded representative per group; no full-card/support/hero/excluded-branch credit."
+      ],
+      "current_qualification_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "current_clean_replays": [
+        "card-regression-replay-sparse211-405-20261026-r1.json",
+        "card-regression-replay-sparse211-405-20261026-r2.json"
+      ],
+      "current_qualification_status": "TWO_FINAL405_REPLAYS_ONE_FORGED_APPLICATION_FAULT_AND_TRUE_SINK_REPAIR_EVIDENCE"
+    },
+    {
+      "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+      "card_id": "aether_sink_yellow",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "recorded_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "fixture_sha256": "870c2dfd777b4e068389b251e5b620390c4bf9623127fbbed19ea37b2b1d0529",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b9d417c5aa17df9cc23bd2a88c7df9a6aad4642dbd14f71467688511284b8060",
+        "actions.json": "73975a81151752219e23b1718dafb1eea834a2e187037362bc35ce1ac660f8f8",
+        "assertions.json": "c43a665c5d39d2d8ede8d850cc3750996059a69dd382fba6b0318516aa6fb261",
+        "expected_final_gamestate.txt": "3afb61999474fc4a4c06ab1cb1e762e809ab8db261b014125d3e9562a9d20185",
+        "meta.json": "08cc7c7e438ca516ef3f5714d656176eb0b2a3f1d0d73eddcecc820d212bbeb6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b9d417c5aa17df9cc23bd2a88c7df9a6aad4642dbd14f71467688511284b8060",
+        "actions.json": "73975a81151752219e23b1718dafb1eea834a2e187037362bc35ce1ac660f8f8",
+        "assertions.json": "c43a665c5d39d2d8ede8d850cc3750996059a69dd382fba6b0318516aa6fb261",
+        "expected_final_gamestate.txt": "3afb61999474fc4a4c06ab1cb1e762e809ab8db261b014125d3e9562a9d20185",
+        "meta.json": "08cc7c7e438ca516ef3f5714d656176eb0b2a3f1d0d73eddcecc820d212bbeb6"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch211.json",
+      "input_sha256": "6aa4532eb0e0b2f0dcad87e37b7ac1f4790b52edcc16ac7d4c14848c4dc938a4",
+      "actions": 16,
+      "native_assertions": 914,
+      "actual_manual_passes": 11,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "step": 0,
+          "native_assertions": 120
+        },
+        {
+          "checkpoint": "actual_zap_target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "actual_zap_cost_zero_paid_before_priority",
+          "step": 2,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_zap_response_opportunity_1_before_defender_activates",
+          "step": 3,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_zap_response_opportunity_2_before_defender_activates",
+          "step": 4,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_zap_response_opportunity_3_before_defender_activates",
+          "step": 5,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_defender_instant_removes_one_steam_as_cost_without_early_barrier",
+          "step": 6,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_defender_sink_instant_source_manual_response_1_of_four",
+          "step": 7,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_defender_sink_instant_source_manual_response_2_of_four",
+          "step": 8,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_defender_sink_instant_source_manual_response_3_of_four",
+          "step": 9,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_defender_sink_instant_source_fourth_manual_response_boundary",
+          "step": 10,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_zap_fourth_response_and_barrier_choice_manual_response_1_of_four",
+          "step": 11,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_zap_fourth_response_and_barrier_choice_manual_response_2_of_four",
+          "step": 12,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_zap_fourth_response_and_barrier_choice_manual_response_3_of_four",
+          "step": 13,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "actual_zap_fourth_response_and_barrier_choice_actual_resolution_choice",
+          "step": 14,
+          "native_assertions": 40
+        },
+        {
+          "checkpoint": "actual_optional_barrier_two_requires_real_opponent_blue_pitch",
+          "step": 15,
+          "native_assertions": 40
+        },
+        {
+          "checkpoint": "final_full_actual_one_arcane_after_real_barrier_two_payment",
+          "step": 16,
+          "native_assertions": 122
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 914
+      },
+      "actual_endpoint": {
+        "p4_health": 19,
+        "p1_resources": 0,
+        "p1_action_points": 0,
+        "own_arena": [],
+        "opposing_p4_arena": [
+          {
+            "CardID": "aether_sink_yellow",
+            "Status": "2",
+            "Owner": "4",
+            "Controller": "4",
+            "Damage": "0",
+            "UniqueID": "5",
+            "TurnEffects": "ARC_BARRIER_2",
+            "Counters": "-"
+          }
+        ],
+        "own_graveyard": [
+          {
+            "CardID": "zap_red",
+            "UniqueID": "6",
+            "Owner": "1",
+            "Controller": "1",
+            "FaceDown": "0"
+          }
+        ],
+        "own_pitch": [],
+        "p4_resources": 1,
+        "opposing_p4_graveyard": [],
+        "opposing_p4_pitch": [
+          {
+            "CardID": "wounding_blow_blue",
+            "UniqueID": "7",
+            "Owner": "4",
+            "Controller": "4"
+          }
+        ],
+        "opposing_p4_deck": [],
+        "own_banish": [],
+        "own_equipment": []
+      },
+      "limits": [
+        "Selected actual saved state/actions/oracles review; root clean replays and meaningful available causal controls remain separate gates.",
+        "One bounded representative per group; no full-card/support/hero/excluded-branch credit."
+      ],
+      "current_qualification_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "current_clean_replays": [
+        "card-regression-replay-sparse211-405-20261026-r1.json",
+        "card-regression-replay-sparse211-405-20261026-r2.json"
+      ],
+      "current_qualification_status": "TWO_FINAL405_REPLAYS_ONE_FORGED_APPLICATION_FAULT_AND_TRUE_SINK_REPAIR_EVIDENCE"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch211-all-three-actual-saved-independent-review-106.json",
+    "sha256": "a73482a7edc72e30bc8a0802a78a0f92f7d148b726b2ada9add8d810d22b9b32"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse211-405-20261026-r1.json",
+      "sha256": "44dfec74b78be3c4eb51aaada7fbb6d468ef1aa3064621c14f7355b977cead68"
+    },
+    {
+      "path": "card-regression-replay-sparse211-405-20261026-r2.json",
+      "sha256": "299e23f76e5e29077a64efb3caeecd3e67a30517803bfc87a3adf288974ab72b"
+    }
+  ],
+  "causal_controls": {
+    "path": "card-regression-negative-controls-sparse211-results.json",
+    "sha256": "0d4f736ee4701c16a0aaec1da0f7f8b1706c8aba899f86d7af2c0433e33ae247",
+    "detected": 1,
+    "total": 1,
+    "retained_boundary_and_suffix_oracles": 696,
+    "omitted": 0,
+    "scope": "Forged actualequipment+1 application only; Aura/persistentUIDrecord intact. Earlierassertions covered by two cleanpositives, boundary/suffix retained byfault."
+  },
+  "native_causal_repair": {
+    "issue": "FAB-REG-048",
+    "evidence": "review-evidence/sparse211-effect-pitch-source-context-before-after.json",
+    "sha256": "2ab83a9a9967ce02da9def1884477d89c3de57755aa4c34e806ef14418334910"
+  },
+  "qualification": "Only selectedParry weapon-block, Forged actualcast/nextturn/printed0Equipment+1, and Sink actualSteam/barrier/fundedprevention branches. Parry/Forged recorded62 bytes preserved with405replaybridge; Sink recorded405. Sourcecontext defect distinctfrom041caster. Twelvecontrolledfunction contracts are not nativebranch expansion. Four END_PHASE administrativepasses not priority claims. No sibling/support/fullcard or blanket currentcorpus qualification/fullsuite credit."
+}

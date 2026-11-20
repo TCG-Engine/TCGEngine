@@ -13,7 +13,8 @@ function _SwuPgnShadowKeyframeEvent(string $seq, string $t, int $round): ?array 
     $state = SwuPgnStateRead(strval($gameName));
     $pos = _SwuPgnRecPos($state, SwuPgnSnapshot());
     $kf = SwuPgnKeyframe(SwuPgnSnapshot(), $state['ledger'] ?? SwuPgnLedgerInit([]),
-        ['round' => $round, 'phase' => SWUPGN_PHASE_NAMES[$pos['phase']] ?? 'action', 'initiativeTaken' => !empty($state['initiativeTaken'])]);
+        ['round' => $round, 'phase' => SWUPGN_PHASE_NAMES[$pos['phase']] ?? 'action', 'initiativeTaken' => !empty($state['initiativeTaken']),
+         'abilityUses' => $state['abilityUses'] ?? []]);
     return $kf === null ? null : ['seq' => $seq, 't' => $t, 'round' => $round, 'keyframe' => $kf];
 }
 

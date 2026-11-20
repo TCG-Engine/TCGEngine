@@ -1,0 +1,25 @@
+{
+  "model": "eleven_text_to_sound_v3",
+  "outputs": [
+    {
+      "file": "playmat-1-v3.mp3",
+      "durationSeconds": 1.48,
+      "sha256": "fba588cc4eb46d9598d9e5150a9ac242dc7dc9bcd3fcaf41d69ea66b3306d8c6"
+    },
+    {
+      "file": "playmat-2-v3.mp3",
+      "durationSeconds": 1.48,
+      "sha256": "5e21602d88f2d2f7dccd875f6674e27698ce0f5898af14785203c74f5bea8f80"
+    },
+    {
+      "file": "playmat-3-v3.mp3",
+      "durationSeconds": 1.48,
+      "sha256": "821842c51037bc17dffc7047bba504341588938b9cbf604957b1c508f409fb97"
+    },
+    {
+      "file": "playmat-4-v3.mp3",
+      "durationSeconds": 1.48,
+      "sha256": "ce6516b799c386ab5a56038ce180d504d59114a91eb79e5f674e5e7571b2c320"
+    }
+  ]
+}

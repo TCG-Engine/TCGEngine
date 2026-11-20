@@ -5,7 +5,7 @@
 
 // LAW_126 Adventurer Sniper Rifle (granted) — "Action [Exhaust]: Choose an undamaged non-leader ground
 // unit. Its printed HP is considered to be 1 for this phase." Provider = the upgrade CardID (the host
-// is exhausted by the framework). Affordability requires ≥1 valid target (SWUUnitActionAffordable).
+// is exhausted by the framework). NOT target-gated (CR 6.4.587.c): with no valid target the host still exhausts.
 $unitAbilities["LAW_126"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $targets = [];

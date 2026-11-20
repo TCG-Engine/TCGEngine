@@ -1,0 +1,7 @@
+{
+    "name": "yendurai / four-live actual defensive passive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T21:41:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P4 legal young Dromai20 owns active Yendurai6, initialized with exactly existing transform-factory representation: invocation front InvokeYenduraiRed, ash material, endurance1 and Damage0. Actual paid0/AP1 RedWoundingBlow5 chooses adjacent P4Arena6 as PERMANENT, not hero. Four-live real combat responses precede4physical Allydamage; endurance1 is removed to prevent3, physical Damage becomes1 and living Dragon stays owned Arena. Printedhealth3 minus persistedDamage1 gives remaininglife2; all heroes remain20HP, actualdamageDealt1 targets Ally. No unsupported ObjectCurrentHP assertion: current FaBSim exposes remaining life via UPRDisplayHealth virtual, so physicalDamage/counter/living identity pins it. No invocation/payment/transformation/entry/Phantasm, Dragonattack or expiry credit. Sources: https://judge.fabtcg.com/cards/detail/1518/"
+}

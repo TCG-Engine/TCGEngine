@@ -1,0 +1,7 @@
+{
+    "name": "contest_the_mindfield_blue / actual four-live sparse distinctive mechanic",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T23:34:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P4 legal youngWizardVerdance20 owns active Contest9; all4heroes printedintellect4. P1 actualDori turn2 startsHand0/knownDeck5RedWB,6YellowWB,7BlueWB,8Nimblism. FouractualACTIONpasses enterEND_PHASE; fouractualEND_PHASEpasses closeP1turn. Active globalAura reduces P1intellect4\u21923, so nativeendturnrefill draws exactlyphysicalUID5/6/7 to ownHand, leavesUID8Deck (withoutpassive woulddraw4). NativeTurn3 passes toP2 withAP2=1/AP1=0, allheroHP20/resources0, sourceAura9 staysownedP4Arena. No cast2/own-start destruction, otherheroes individualrefills or support/hero credit. No internalintellectflag as primaryoracle; actualdrawquantity/UIDs pins effect. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVO243.webp https://rules.fabtcg.com/en/cr/04-game-structure/"
+}

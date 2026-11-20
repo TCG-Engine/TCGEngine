@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T10:48:46.315044+00:00",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "source_spec": "card-regression-batch242-two-healthy.json",
+  "source_spec_sha256": "671aa5db1c38f421e58f8b8ee123d06263aadb72ed055c7a795da5edcd4795e6",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 36,
+  "native_assertions": 1208,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 3489,
+    "duels": 3074,
+    "four_live": 415,
+    "recorded_primary_ids": 646,
+    "identity_denominator": 5196,
+    "recorded_groups": 520,
+    "group_denominator": 3324,
+    "four_live_groups": 411,
+    "phase_qualified_scenarios_at_actual_contexts": 126,
+    "phase_qualified_unique_groups": 124,
+    "creation_replay_passes": 252,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 14,
+  "scenarios": [
+    {
+      "card_id": "enigma",
+      "group_id": "identity:enigma",
+      "scenario_id": "card-enigma-four-live-sparse-actual-chi-three-pitch-payment-creates-owned-shield-with-one-power-counter",
+      "effect_branches": [
+        "actual-chi-three-pitch-payment-creates-owned-shield-with-one-power-counter"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-enigma-four-live-sparse-actual-chi-three-pitch-payment-creates-owned-shield-with-one-power-counter",
+      "source_spec": "card-regression-batch242-two-healthy.json",
+      "source_spec_sha256": "671aa5db1c38f421e58f8b8ee123d06263aadb72ed055c7a795da5edcd4795e6",
+      "review_evidence": "review-evidence/sparse242-two-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "75f10f9bfed82e723f1f99c3079ae5ef794805bd1c1f4e19b536c157712201c4",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse242-two-1f33-r1.json",
+          "sha256": "36c4a785427d15630f7c9853a515b6e232b789d7ef0d8cefb5be647da861912d",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse242-two-1f33-r2.json",
+          "sha256": "00c637efc009200818e2b2ec38153090b17258557bdb02c0c7cdc5262aa61c05",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "pierce_reality_blue",
+      "group_id": "identity:pierce_reality_blue",
+      "scenario_id": "card-pierce-reality-blue-four-live-sparse-actual-cast-persistent-aura-buffs-real-first-illusionist-attack-by-two",
+      "effect_branches": [
+        "actual-cast-persistent-aura-buffs-real-first-illusionist-attack-by-two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pierce-reality-blue-four-live-sparse-actual-cast-persistent-aura-buffs-real-first-illusionist-attack-by-two",
+      "source_spec": "card-regression-batch242-two-healthy.json",
+      "source_spec_sha256": "671aa5db1c38f421e58f8b8ee123d06263aadb72ed055c7a795da5edcd4795e6",
+      "review_evidence": "review-evidence/sparse242-two-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "75f10f9bfed82e723f1f99c3079ae5ef794805bd1c1f4e19b536c157712201c4",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse242-two-1f33-r1.json",
+          "sha256": "36c4a785427d15630f7c9853a515b6e232b789d7ef0d8cefb5be647da861912d",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse242-two-1f33-r2.json",
+          "sha256": "00c637efc009200818e2b2ec38153090b17258557bdb02c0c7cdc5262aa61c05",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

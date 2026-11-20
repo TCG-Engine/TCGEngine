@@ -12,7 +12,7 @@ $filter = '';
 foreach (array_slice($argv, 1) as $a) if ($a !== '--pieces') $filter = $a;
 $rows = [];
 foreach (['ash-meta-2026-09', 'hmw-meta-2026-09', 'force-fam-HMW-predictions', 'ideas'] as $dir) {
-    foreach (glob("SWUSim/Tests/BotFixtures/$dir/*.txt") ?: [] as $f) {
+    foreach (glob("SWUSim/BotFixtures/$dir/*.txt") ?: [] as $f) {
         if ($filter !== '' && !str_contains($f, $filter)) continue;
         $leader = ''; $cards = []; $sec = ''; $header = false;
         foreach (file($f, FILE_IGNORE_NEW_LINES) as $l) {

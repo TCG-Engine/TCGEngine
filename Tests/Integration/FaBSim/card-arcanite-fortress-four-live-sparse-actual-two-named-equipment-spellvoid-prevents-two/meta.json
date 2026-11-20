@@ -1,0 +1,7 @@
+{
+    "name": "arcanite_fortress / actual dynamic Spellvoid two on real arcane three",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T14:19:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1youngVerdance20 castsactualZapRed7WizardAction0targetadjacentP4Dori20. P4wearsGenericArcaniteSkullcap5HeadandGenericArcaniteFortress6Chest, exactly2Arcaniteequipment; equalall20meansSkullcapArcaneBarrier3conditionFALSEbeforepacket. ActualZapPreparePITCHtargetchoiceBEFOREAPpayment; selectP4pays0/AP1->0. Fourrealmanualresponses1/2/3/4; fourthopensSpellvoidMZMAYCHOOSEp4Equipment1, physicalZap7stillStack, bothgear5/6stilllive, HP20. ChooseactualFortress6: SpellvoidXdeterminedwhenappliedbeforecostX=2; selfdestroyphysical6publicGY then3-2=1realremainingarcane, P4HP19. NoadditionalresponseLayerforstaticSpellvoidreplacement. Zap7publicGYaftereffectcompletion, Skullcap5remainsEq. EmptyHandDeckArena/Stack, R0/AP0. SkullcapcannewlygainBarrierafterHP19butcannotretroactivelypreventcompletedpacket; nolaterpacketcredit. Noequipmentdefense/Guardwell/Battleworn/expiry/activation/preventeddamageUIDfabrication, noSkullcapprimarycredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAB254-GF.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

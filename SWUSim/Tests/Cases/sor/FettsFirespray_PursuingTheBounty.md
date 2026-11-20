@@ -336,3 +336,28 @@ P2GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:1:EXHAUSTED
 P1RESAVAILABLE:1
 P1SPACEARENAUNIT:0:READY
+
+---
+
+# Action_NoNonUniqueUnit_StillUsable_PaysTwo
+#// CR 6.4.587.c (owner go 2026-11-04 — "do as much as you can"; an Action like this is a legitimate soft pass): the
+#// cost changes game state, so the Action is usable with nothing to target — the cost is paid and the effect does nothing.
+#// Only UNIQUE units in play (Doctor Pershing; the Firespray itself is unique), so nothing can be exhausted — the 2
+#// resources are still spent. RED before 2026-11-04 (gate required a non-unique unit).
+## GIVEN
+CommonSetup: ryk/brw/{
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_184:1:0
+WithP2GroundArena: SHD_028:1:0
+WithP1Resources: 3
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:READY
+P1SPACEARENAUNIT:0:READY
+P1RESAVAILABLE:1
+P1NODECISION

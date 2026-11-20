@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-25T23:57:24+00:00",
+    "input_file": "card-regression-batch209-blood-tribute-probe.json",
+    "input_sha256": "0b8f2ad05c5b1d1e8cd2d973679bb77f4a286e7b702721d61478e9b81721a23e",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-blood-tribute-red-four-live-correct-source-lifetime-real-opt-three-then-physical-banish",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 616
+        }
+    ]
+}

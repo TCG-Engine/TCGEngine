@@ -41,9 +41,18 @@ function MatchNextId($rootName) {
 
 function MatchRead($rootName, $matchId) {
     $path = MatchPath($rootName, $matchId);
-    if ($path === '' || !is_file($path)) return null;
-    $decoded = json_decode(file_get_contents($path), true);
-    return is_array($decoded) ? $decoded : null;
+    if ($path === '' || !is_dir(dirname($path))) return null;
+    // A match whose directory exists is being written, not missing: MatchWrite renames a fresh file over this one, and a
+    // filesystem that shows that rename as a moment with no file (Docker Desktop's macOS share does, ~6% of reads against
+    // a busy writer — test_match_write_atomic.php) must not answer "Unknown match.". Try again briefly. No lock here on
+    // purpose: MatchWithLock reads inside its own lock, and a shared lock would deadlock it.
+    for ($try = 0; $try < 5; $try++) {
+        $raw = is_file($path) ? @file_get_contents($path) : false;
+        $decoded = (is_string($raw) && $raw !== '') ? json_decode($raw, true) : null;
+        if (is_array($decoded)) return $decoded;
+        if ($try < 4) usleep(20000);
+    }
+    return null;
 }
 
 // The match carries its own rootName, so writes derive the path from the array.
@@ -51,7 +60,13 @@ function MatchWrite(array $match) {
     $path = MatchPath($match['rootName'] ?? '', $match['matchId'] ?? '');
     if ($path === '') return false;
     $match['updatedAt'] = time();
-    return file_put_contents($path, json_encode($match), LOCK_EX) !== false;
+    // ATOMIC: a temp file beside it, renamed over. file_put_contents(LOCK_EX) truncated the file BEFORE taking its lock, and
+    // MatchRead takes none, so a read during a write saw an empty record ("Unknown match."; up to a fifth of reads against
+    // a busy writer — test_match_write_atomic.php). Writers still serialize on Match.lock (MatchWithLock), not this file.
+    $tmp = $path . '.' . getmypid() . '.' . bin2hex(random_bytes(4)) . '.tmp';
+    if (file_put_contents($tmp, json_encode($match)) === false) return false;
+    if (!rename($tmp, $path)) { @unlink($tmp); return false; }
+    return true;
 }
 
 // Read-modify-write under an exclusive lock. $fn receives the match array by
@@ -104,6 +119,9 @@ function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = fals
             $v = $p[$fact] ?? null;
             if ($v !== null && $v !== '') $matchPlayers[$seatKey][$fact] = strval($v);
         }
+        // A 2-seat match against a BOT (SWUSim Limited, 2026-11-05) keeps the bot's profile too, so game 2 of a Bo3 still
+        // has its bot seat (MatchSyntheticPlayer reads it). Absent when there is no bot: a 2-seat record keeps its shape.
+        elseif (strval($p['botProfile'] ?? '') !== '') $matchPlayers[$seatKey]['botProfile'] = strval($p['botProfile']);
         $wins[$seatKey] = 0;
     }
     $match = [
@@ -133,6 +151,7 @@ function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = fals
     // ⚠ PUBLISH THE MATCH'S OWN REDIRECT TOO, not just each game's. The Sideboard addresses the
     // conversation as 'm:<matchId>', but a match created from a lobby ADOPTS 'l:<lobbyID>' — without
     // this the sideboard reads an empty bucket while the whole conversation sits under the lobby id.
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // a SWUSim pointer is saved (Core/ChatStore.php)
     MatchPublishChatConversation($matchId, $match['chatId'] ?? null);
     return $matchId;
 }
@@ -142,15 +161,42 @@ function MatchIsOver(array $match) {
     foreach (($match['wins'] ?? []) as $w) {
         if (intval($w) >= $need) return true;
     }
-    return false;
+    // A drawn game decides a game without giving anyone a win, so a series can also end by running its full length
+    // (Bo1 drawn; Bo3 W-L-D). Only a sim that records draws (MatchRecordGameDraw) can reach this: otherwise every
+    // decided game is a win and winsNeeded is always reached first.
+    return MatchDecidedGameCount($match) >= intval($match['bestOf'] ?? 1);
 }
 
+// Games with a result — a win or a draw. Shells (winner null) don't count.
+function MatchDecidedGameCount(array $match): int {
+    $n = 0;
+    foreach (($match['games'] ?? []) as $g) if (($g['winner'] ?? null) !== null) $n++;
+    return $n;
+}
+
+// The seat that won the series: the one that reached winsNeeded, or — for a series that ran its full length because of
+// drawn games — the one with strictly the most game wins (Bo3 D-D-W). Equal game wins = a drawn match = 0.
 function MatchWinner(array $match) {
     $need = intval($match['winsNeeded'] ?? 1);
     foreach (($match['wins'] ?? []) as $seat => $w) {
         if (intval($w) >= $need) return intval($seat);
     }
-    return 0;
+    $leaders = _MatchFullLengthLeaders($match);
+    return count($leaders) === 1 ? $leaders[0] : 0;
+}
+
+// Seats with the most game wins, when the series ran its full length without anyone reaching winsNeeded. [] when it
+// hasn't, or when nobody won a game.
+function _MatchFullLengthLeaders(array $match): array {
+    if (MatchDecidedGameCount($match) < intval($match['bestOf'] ?? 1)) return [];
+    $best = 0; $seats = [];
+    foreach (($match['wins'] ?? []) as $seat => $w) {
+        $w = intval($w);
+        if ($w <= 0 || $w < $best) continue;
+        if ($w > $best) { $best = $w; $seats = []; }
+        $seats[] = intval($seat);
+    }
+    return $seats;
 }
 
 // Human-readable name per seat: the player's PUBLIC username when they were logged in, otherwise
@@ -194,6 +240,10 @@ function MatchWinners(array $match) {
     $seats = [];
     foreach (($match['wins'] ?? []) as $seat => $w) {
         if (intval($w) >= $need) $seats[] = intval($seat);
+    }
+    if (empty($seats)) {   // a full-length series with drawn games: a strict leader wins; a tie is a drawn match
+        $leaders = _MatchFullLengthLeaders($match);
+        if (count($leaders) === 1) $seats = $leaders;
     }
     sort($seats);
     return $seats;
@@ -249,6 +299,43 @@ function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $rou
             $match['state']    = 'complete';
             $match['winner']   = MatchWinner($match);
             $match['winners']  = MatchWinners($match);
+            // Only reachable with a drawn game earlier in the series (Bo3 D-W-L): otherwise a decided series always
+            // has a winner, and this key never appears.
+            if ($match['winner'] === 0) $match['matchDraw'] = true;
+        }
+    });
+}
+
+// Record a DRAWN game (CR 6.3: both bases at 0 at the same time). The counterpart of MatchRecordGameResult, and
+// idempotent by gameName the same way. A drawn game is DECIDED — winner 0, not null (null means "undecided" and would
+// leave the game open forever) — and carries an explicit draw flag, so a reader never has to infer it from 0. Nobody's
+// win count moves. Draw keys appear only on drawn games/matches: a decided record keeps its exact shape.
+function MatchRecordGameDraw($rootName, $matchId, $gameName, $roundNumber = null) {
+    return MatchWithLock($rootName, $matchId, function (&$match) use ($rootName, $gameName, $roundNumber) {
+        $idx = null;
+        foreach ($match['games'] as $i => $g) {
+            if (($g['gameName'] ?? null) === strval($gameName)) {
+                if (($g['winner'] ?? null) !== null) return; // already decided — idempotent
+                $idx = $i; break;
+            }
+        }
+        if ($idx === null) {
+            $match['games'][] = ['gameName' => strval($gameName), 'gameNumber' => count($match['games']) + 1, 'winner' => null];
+            $idx = count($match['games']) - 1;
+        }
+        $match['games'][$idx]['winner'] = 0;
+        $match['games'][$idx]['winners'] = [];
+        $match['games'][$idx]['draw'] = true;
+        $match['games'][$idx]['statsRecorded'] = true;   // sealed, exactly like a win (see MatchRecordGameResult)
+        if ($roundNumber === null || intval($roundNumber) >= 2) {
+            $rds = $GLOBALS['MATCH_HOOKS'][$rootName]['recordDeckStats'] ?? null;
+            if (is_callable($rds)) { $rds($match, 0); }   // seat 0 = a draw for both seats
+        }
+        if (MatchIsOver($match)) {
+            $match['state']   = 'complete';
+            $match['winner']  = MatchWinner($match);
+            $match['winners'] = MatchWinners($match);
+            if ($match['winner'] === 0) $match['matchDraw'] = true;
         }
     });
 }
@@ -273,11 +360,18 @@ if (!defined('MATCH_SIDEBOARD_WARN_MARKS')) define('MATCH_SIDEBOARD_WARN_MARKS',
 // so a mid-spawn failure can never strand both players in sideboarding forever.
 if (!defined('MATCH_SPAWN_CLAIM_TTL')) define('MATCH_SPAWN_CLAIM_TTL', 15);
 
+// Two optional PER-MATCH fields, absent on every match that does not set them (so every existing match behaves as before):
+//   sideboardSeconds   int — this match's sideboard clock, which runs EVEN ON A PRIVATE match (the carve-out below is for
+//                      matches that never asked for a clock). SWUSim Limited sets 300: one player must not stall the event.
+//   sideboardFallback  'original' (default) | 'current' — what a seat that never readied plays when the clock runs out
+//                      (MatchSideboardTimeoutCheck): its match-start list, or the list it played last game.
 function MatchBeginSideboarding($rootName, $matchId, $loserSeat) {
     $seconds = intval(MatchConfig($rootName, 'sideboardSeconds', MATCH_SIDEBOARD_SECONDS));
     MatchWithLock($rootName, $matchId, function (&$m) use ($loserSeat, $seconds) {
         $m['state'] = 'sideboarding';
-        $m['pendingFirstPlayer'] = ($loserSeat === 1 || $loserSeat === 2) ? $loserSeat : 1;
+        // 0 = the prior game was a DRAW: no loser to go first, so the next game picks at random (owner, 2026-10-30) —
+        // MatchSpawnNextGameWithDecks passes no forced first player for it. Any other out-of-range seat keeps P1.
+        $m['pendingFirstPlayer'] = ($loserSeat === 0 || $loserSeat === 1 || $loserSeat === 2) ? $loserSeat : 1;
         $m['sideboard'] = [
             '1' => ['ready' => false, 'deck' => null],
             '2' => ['ready' => false, 'deck' => null],
@@ -286,7 +380,9 @@ function MatchBeginSideboarding($rootName, $matchId, $loserSeat) {
         // MatchSideboardTimeoutCheck (which treats an absent deadline as PHP_INT_MAX) never fire, so
         // players take as long as they want. Public/queued matches keep the shared countdown.
         unset($m['sideboardDeadline']);
-        if (empty($m['isPrivate'])) {
+        if (isset($m['sideboardSeconds'])) {
+            $m['sideboardDeadline'] = time() + intval($m['sideboardSeconds']);   // the match asked for its own clock
+        } elseif (empty($m['isPrivate'])) {
             $m['sideboardDeadline'] = time() + $seconds;
         }
     });
@@ -306,4 +402,46 @@ function MatchSubmitSideboardDeck($rootName, $matchId, $seat, $resolvedDeck) {
         if (!empty($m['sideboard'][$s]['ready'])) return; // first submit wins
         $m['sideboard'][$s] = ['ready' => true, 'deck' => $resolvedDeck];
     });
+}
+
+// ── The two-step sideboard (SWUSim, owner 2026-11-03): SUBMIT a list, READY separately, CANCEL back to editing ──────────
+// MatchSubmitSideboardDeck above stays the one-click submit-and-ready for any caller that wants it. A saved-but-not-ready
+// seat keeps 'ready' false and its list in 'deck'; the countdown (MatchSideboardTimeoutCheck) readies it with that list.
+// Each returns true when it changed the seat, false when refused (not sideboarding, bad seat, or the state below).
+
+// Save (or replace) a seat's list without readying it. Refused once the seat is ready: cancel first.
+function MatchSaveSideboardDeck($rootName, $matchId, $seat, $resolvedDeck) {
+    $done = false;
+    MatchWithLock($rootName, $matchId, function (&$m) use ($seat, $resolvedDeck, &$done) {
+        $s = strval(intval($seat));
+        if (($m['state'] ?? '') !== 'sideboarding' || !isset($m['sideboard'][$s]) || !empty($m['sideboard'][$s]['ready'])) return;
+        $m['sideboard'][$s]['deck'] = $resolvedDeck;
+        $done = true;
+    });
+    return $done;
+}
+
+// Ready a seat with its saved list, or $fallbackDeck when it saved none (the caller's "last game's deck").
+function MatchReadySideboardSeat($rootName, $matchId, $seat, $fallbackDeck) {
+    $done = false;
+    MatchWithLock($rootName, $matchId, function (&$m) use ($seat, $fallbackDeck, &$done) {
+        $s = strval(intval($seat));
+        if (($m['state'] ?? '') !== 'sideboarding' || !isset($m['sideboard'][$s]) || !empty($m['sideboard'][$s]['ready'])) return;
+        $m['sideboard'][$s] = ['ready' => true, 'deck' => $m['sideboard'][$s]['deck'] ?? $fallbackDeck];
+        $done = true;
+    });
+    return $done;
+}
+
+// Back to editing: not ready, nothing saved. Refused once the next game is being spawned — the spawn claim is taken under
+// this same lock with both seats ready, and from then on the decks it read are the ones that get played.
+function MatchCancelSideboardSeat($rootName, $matchId, $seat) {
+    $done = false;
+    MatchWithLock($rootName, $matchId, function (&$m) use ($seat, &$done) {
+        $s = strval(intval($seat));
+        if (($m['state'] ?? '') !== 'sideboarding' || !isset($m['sideboard'][$s]) || !empty($m['spawnClaimedAt'])) return;
+        $m['sideboard'][$s] = ['ready' => false, 'deck' => null];
+        $done = true;
+    });
+    return $done;
 }

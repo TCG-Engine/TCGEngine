@@ -1,0 +1,109 @@
+{
+  "status": "rejected",
+  "originalArt": "cedar-grove-input-v1.png",
+  "motionGuide": null,
+  "method": "Locally authored overlapping periodic breeze fields with spatially staggered phases. Every frame samples only original artwork. No Kling gust timeline or generated textures are used. Branch edges move more than broad interiors. Fixed trunk bases and cropped objects are protected.",
+  "protectedTrunkRects": [
+    [
+      59,
+      188,
+      29,
+      46
+    ],
+    [
+      169,
+      156,
+      30,
+      30
+    ],
+    [
+      260,
+      153,
+      30,
+      34
+    ],
+    [
+      417,
+      185,
+      32,
+      48
+    ]
+  ],
+  "endpointCheck": "First and last frames exactly match each other before encoding; periodic motion continues through the seam. No crossfade or hold.",
+  "additionalCreditsSpent": 0,
+  "variants": [
+    {
+      "id": "light",
+      "label": "Light breeze",
+      "maximumDisplacementPixels": 3.999999761581421,
+      "limitPixels": 4,
+      "meanFoliageDisplacementPixels": 1.4081400196794116,
+      "protectedTrunkMaxChannelDifferenceBeforeEncoding": 0,
+      "maximumMeanFrameStep": 0.6280668282214507,
+      "video": "cedar-grove-light-v4.mp4",
+      "durationSeconds": 8.041666666666666,
+      "continuousActivity": {
+        "windowSeconds": 0.5,
+        "minimumMeanFoliageChannelChange": 5.968971813893849,
+        "medianMeanFoliageChannelChange": 8.72671526537528,
+        "minimumPerCanopyChannelChange": [
+          2.2376510493958026,
+          2.9843406200885836,
+          2.922350526045676,
+          3.8436802654917894
+        ],
+        "matchingEndpointsMaxChannelDifference": 0
+      },
+      "playbackRate": 0.91
+    },
+    {
+      "id": "medium",
+      "label": "Clear breeze",
+      "maximumDisplacementPixels": 6.999999523162842,
+      "limitPixels": 7,
+      "meanFoliageDisplacementPixels": 2.4642450506009284,
+      "protectedTrunkMaxChannelDifferenceBeforeEncoding": 0,
+      "maximumMeanFrameStep": 1.0609839168595678,
+      "video": "cedar-grove-medium-v4.mp4",
+      "durationSeconds": 8.041666666666666,
+      "continuousActivity": {
+        "windowSeconds": 0.5,
+        "minimumMeanFoliageChannelChange": 9.21900902138572,
+        "medianMeanFoliageChannelChange": 13.06572989650593,
+        "minimumPerCanopyChannelChange": [
+          3.542812050974018,
+          4.74856408058294,
+          4.705901975878882,
+          6.109839598710686
+        ],
+        "matchingEndpointsMaxChannelDifference": 0
+      },
+      "playbackRate": 0.91
+    },
+    {
+      "id": "strong",
+      "label": "Strong breeze",
+      "maximumDisplacementPixels": 10.0,
+      "limitPixels": 10,
+      "meanFoliageDisplacementPixels": 3.5203501781466238,
+      "protectedTrunkMaxChannelDifferenceBeforeEncoding": 0,
+      "maximumMeanFrameStep": 1.4831949869791667,
+      "video": "cedar-grove-strong-v4.mp4",
+      "durationSeconds": 8.041666666666666,
+      "continuousActivity": {
+        "windowSeconds": 0.5,
+        "minimumMeanFoliageChannelChange": 11.750832875394972,
+        "medianMeanFoliageChannelChange": 15.894914594495582,
+        "minimumPerCanopyChannelChange": [
+          4.51711304265894,
+          6.010344334904985,
+          6.130690274570181,
+          7.8639736034025685
+        ],
+        "matchingEndpointsMaxChannelDifference": 0
+      },
+      "playbackRate": 0.91
+    }
+  ],
+  "rejectionReason": "User review: psychedelic image deformation. Local displacement fields distort branch drawings rather than producing natural continuous sway. Withdrawn from gallery; not integrated."
+}

@@ -56,3 +56,25 @@ P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:DAMAGE:0
 P1GROUNDARENAUNIT:1:SHIELDCOUNT:0
 P1HANDCOUNT:1
+
+---
+
+# NoOtherFriendlyUnit_StillUsable_NoDamageNoSearch
+#// CR 6.4.587.c (owner go 2026-11-04 — "do as much as you can"; an Action like this is a legitimate soft pass): the
+#// cost changes game state, so the Action is usable with nothing to target — the cost is paid and the effect does nothing.
+#// Only an ENEMY unit besides 8D8 — not "friendly", so no damage is dealt, and the "If you do" search does not happen
+#// (the deck's unit stays in the deck). RED before 2026-11-04 (gate required another friendly unit).
+## GIVEN
+CommonSetup: ggk/ggk
+WithP1GroundArena: ASH_118:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: SEC_080
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1HANDCOUNT:0
+P1NODECISION

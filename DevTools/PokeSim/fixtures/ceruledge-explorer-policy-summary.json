@@ -1,0 +1,38 @@
+{
+    "note": "Matched 400 games, same seeds and unchanged selected deck. Narrow policy only recognizes in-hand\/newly kept Charcadet as an evolution partner and preserves Blender priority.",
+    "variants": {
+        "before": {
+            "policy": "dcca64edd3fddfdf",
+            "games": 400,
+            "wins": 237,
+            "explorerUses": 554,
+            "keptCharDiscardedExNoExistingBasicOrHandEx": 12,
+            "ofThoseKeptBlender": 1,
+            "keptPairNoExistingBasic": 3,
+            "reachedT5": 275,
+            "medianDeckT5": 9
+        },
+        "broad": {
+            "policy": "804a1ececa7d2f47",
+            "games": 400,
+            "wins": 233,
+            "explorerUses": 544,
+            "keptCharDiscardedExNoExistingBasicOrHandEx": 3,
+            "ofThoseKeptBlender": 1,
+            "keptPairNoExistingBasic": 13,
+            "reachedT5": 273,
+            "medianDeckT5": 9
+        },
+        "narrow": {
+            "policy": "6f5b18ee488e7628",
+            "games": 400,
+            "wins": 236,
+            "explorerUses": 550,
+            "keptCharDiscardedExNoExistingBasicOrHandEx": 3,
+            "ofThoseKeptBlender": 1,
+            "keptPairNoExistingBasic": 13,
+            "reachedT5": 275,
+            "medianDeckT5": 9
+        }
+    }
+}

@@ -1,0 +1,787 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T13:03:30.767902+00:00",
+  "review_method": "Independent manual semantics reused from exact first review; static actual raw-file/input/assertion/profile comparison only. No synthetic game, PHP, native controls or repository mutation.",
+  "source_spec": "card-regression-batch246.json",
+  "input_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse246-three-independent-manual-approval.json",
+    "sha256": "b8d753034423d96a4e1b8b38460ba51915a9ba283ea545f8cb3289f3c4b60c05"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch246-20261026T125825Z-6adf4e719be4d.json",
+    "sha256": "aebe2d26c25b1ddc15002349dc34353fb0eb4450bd3f3c24156c8fa91bf1afc6"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\audit_sparse246_actual_files.py",
+    "sha256": "c9eeb28ebd89838dfad193ea31bd443f4f121ac1efe47a77caa44dfad20823c8"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "heart_of_vengeance",
+      "slug": "card-heart-of-vengeance-four-live-sparse-real-eligible-arakni-target-discounts-paid-attack-three-to-two",
+      "source_spec": "card-regression-batch246.json",
+      "input_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_sha256": "feea0d92b9f79f0b3fc0d567221da50d5a60a6fa776621dcffe2510c4700d13d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a4ae689e6669303ab658b3bb8573ae25fc42ff109f368c2310091a8d3ca416b8",
+        "actions.json": "527180cc4a46136c99723e85474f7845e4c860eb1f89b3b59704796b3128e00d",
+        "assertions.json": "de580a7ba09572337cd6f3d50543e3b2f4e77eae12e8ff591fdd24ccbf057877",
+        "expected_final_gamestate.txt": "2a0f31b3d9b46129eb194051d237b689db07df4a40c3573aa9988ef2659268be",
+        "meta.json": "03d25ee90e67ee8f13ba4395841eef12e3de405ed16ec0e1e8dc8c39b418f8dc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a4ae689e6669303ab658b3bb8573ae25fc42ff109f368c2310091a8d3ca416b8",
+        "actions.json": "527180cc4a46136c99723e85474f7845e4c860eb1f89b3b59704796b3128e00d",
+        "assertions.json": "de580a7ba09572337cd6f3d50543e3b2f4e77eae12e8ff591fdd24ccbf057877",
+        "expected_final_gamestate.txt": "2a0f31b3d9b46129eb194051d237b689db07df4a40c3573aa9988ef2659268be",
+        "meta.json": "03d25ee90e67ee8f13ba4395841eef12e3de405ed16ec0e1e8dc8c39b418f8dc"
+      },
+      "actions": 25,
+      "native_assertions": 629,
+      "actual_manual_passes": 21,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_live_legal_draconic_chest_and_real_arakni",
+          "native_assertions": 126
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_instant_destroy_cost_before_four_responses",
+          "native_assertions": 27
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "real_heart_layer_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "real_heart_layer_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "real_heart_layer_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "real_heart_layer_fourth_actual_response",
+          "native_assertions": 16
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_attack_target_preflight_before_announcement",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "real_card_cost_before_actual_blue_funding",
+          "native_assertions": 24
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "real_attack_cost_paid_AP_spent_before_priority",
+          "native_assertions": 20
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "real_attack_layer_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "real_attack_layer_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "real_attack_layer_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "real_attack_layer_fourth_actual_response",
+          "native_assertions": 20
+        },
+        {
+          "source_step": 25,
+          "action_step": 12,
+          "checkpoint": "exact_real_seven_power_after_discount_without_power_bonus",
+          "native_assertions": 6
+        },
+        {
+          "source_step": 27,
+          "action_step": 13,
+          "checkpoint": "attack_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 29,
+          "action_step": 14,
+          "checkpoint": "attack_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 31,
+          "action_step": 15,
+          "checkpoint": "attack_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 33,
+          "action_step": 16,
+          "checkpoint": "attack_priority_fourth_actual_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 35,
+          "action_step": 17,
+          "checkpoint": "actual_defender_declines_all_blocks",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 37,
+          "action_step": 18,
+          "checkpoint": "defend_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 39,
+          "action_step": 19,
+          "checkpoint": "defend_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 41,
+          "action_step": 20,
+          "checkpoint": "defend_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 43,
+          "action_step": 21,
+          "checkpoint": "defend_priority_fourth_actual_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 45,
+          "action_step": 22,
+          "checkpoint": "reaction_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 47,
+          "action_step": 23,
+          "checkpoint": "reaction_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 49,
+          "action_step": 24,
+          "checkpoint": "reaction_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 51,
+          "action_step": 25,
+          "checkpoint": "reaction_priority_fourth_actual_response",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 52,
+          "action_step": 25,
+          "checkpoint": "full_final_real_discount_economy_and_seven_physical_damage",
+          "native_assertions": 130
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 1,
+      "card_id": "blazing_aether_red",
+      "slug": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "source_spec": "card-regression-batch246.json",
+      "input_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_sha256": "7d2ec096d71c4c81e96877864129c24b119783983ac536158c86c55a0125bc75",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6ea2babb9c5b973bff5f7678ae68f7e91b70e106b1aae05efb540a459936a212",
+        "actions.json": "187aa2de3cfa78aa0883333d5987797c4ac0225a668089f3915ff280e80259b7",
+        "assertions.json": "c9817b9a51e25df77003131a17acf81887d3241f7de6dd61ca8c79f5fc407a81",
+        "expected_final_gamestate.txt": "68171732c8fae3f4975d747b4d6dfadb08f1aee8385f304e439236fa2fb1dc56",
+        "meta.json": "4d48c5fb0aa580baef1349199903c5c4e3bc0f12b34fc9e83461f7fed626b4d2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6ea2babb9c5b973bff5f7678ae68f7e91b70e106b1aae05efb540a459936a212",
+        "actions.json": "187aa2de3cfa78aa0883333d5987797c4ac0225a668089f3915ff280e80259b7",
+        "assertions.json": "c9817b9a51e25df77003131a17acf81887d3241f7de6dd61ca8c79f5fc407a81",
+        "expected_final_gamestate.txt": "68171732c8fae3f4975d747b4d6dfadb08f1aee8385f304e439236fa2fb1dc56",
+        "meta.json": "4d48c5fb0aa580baef1349199903c5c4e3bc0f12b34fc9e83461f7fed626b4d2"
+      },
+      "actions": 18,
+      "native_assertions": 564,
+      "actual_manual_passes": 12,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_legal_young_kano_fifteen_and_actual_arcane_sources",
+          "native_assertions": 130
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "real_striders_one_cost_normal_pitch_before_self_destruction",
+          "native_assertions": 30
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_blue_pitch_pays_striders_one_and_destroys_source",
+          "native_assertions": 31
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "real_striders_layer_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "real_striders_layer_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "real_striders_layer_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "real_striders_layer_fourth_actual_response",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_first_zap_one_prepare_target_before_assets",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_first_zap_one_legally_played_and_asset_cost_complete",
+          "native_assertions": 21
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_first_zap_one_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_first_zap_one_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_first_zap_one_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_first_zap_one_fourth_actual_response",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "actual_blazing_earned_x_one_prepare_target_before_assets",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "actual_blazing_earned_x_one_legally_played_and_asset_cost_complete",
+          "native_assertions": 21
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "actual_blazing_earned_x_one_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_blazing_earned_x_one_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "actual_blazing_earned_x_one_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "actual_blazing_earned_x_one_fourth_actual_response",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 37,
+          "action_step": 18,
+          "checkpoint": "full_final_actual_one_plus_one_arcane_not_hardcoded_three",
+          "native_assertions": 127
+        }
+      ],
+      "final_health": [
+        15,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 2,
+      "card_id": "riled_up_red",
+      "slug": "card-riled-up-red-four-live-sparse-real-six-power-discard-earned-plus-one-and-paid-eight-damage",
+      "source_spec": "card-regression-batch246.json",
+      "input_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_sha256": "937ba0c44f6c690b8bba2ac072dd6b4afea789f6e9a37a0ad9a92e5a8d14d321",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42ca0cd2b5bc5cd42022e60cc95aa45fb96decfb772c122df1015459e748613d",
+        "actions.json": "96a5aabc2306843fdc55b4b1d20e402c30d5afe0a6af9d19a1cf97352ad1a134",
+        "assertions.json": "854e252a7968d169d837d66c95b0c64b9886c89c2822d559286a0914f89b8308",
+        "expected_final_gamestate.txt": "8150215469572406d7161fb736afb17bc7ffe835d045ebf5e2db2f3de6a62171",
+        "meta.json": "5c31650cb661977bac5b0b314805ad3ece66b3bd21ac721184f473efaa06dd91"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "42ca0cd2b5bc5cd42022e60cc95aa45fb96decfb772c122df1015459e748613d",
+        "actions.json": "96a5aabc2306843fdc55b4b1d20e402c30d5afe0a6af9d19a1cf97352ad1a134",
+        "assertions.json": "854e252a7968d169d837d66c95b0c64b9886c89c2822d559286a0914f89b8308",
+        "expected_final_gamestate.txt": "8150215469572406d7161fb736afb17bc7ffe835d045ebf5e2db2f3de6a62171",
+        "meta.json": "5c31650cb661977bac5b0b314805ad3ece66b3bd21ac721184f473efaa06dd91"
+      },
+      "actions": 34,
+      "native_assertions": 796,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_brute_legal_actual_sole_draw_discard_and_physical_resources",
+          "native_assertions": 139
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_skull_action_cost_source_destroyed_before_responses",
+          "native_assertions": 29
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "real_skull_action_layer_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "real_skull_action_layer_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "real_skull_action_layer_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "real_skull_action_layer_fourth_actual_response",
+          "native_assertions": 24
+        },
+        {
+          "source_step": 11,
+          "action_step": 5,
+          "checkpoint": "actual_remaining_energy_item_identity_6",
+          "native_assertions": 6
+        },
+        {
+          "source_step": 13,
+          "action_step": 6,
+          "checkpoint": "actual_energy_destroy_cost_before_resource_gain_6",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 15,
+          "action_step": 7,
+          "checkpoint": "real_energy_resource_layer_6_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 17,
+          "action_step": 8,
+          "checkpoint": "real_energy_resource_layer_6_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 19,
+          "action_step": 9,
+          "checkpoint": "real_energy_resource_layer_6_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 21,
+          "action_step": 10,
+          "checkpoint": "real_energy_resource_layer_6_fourth_actual_response",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 22,
+          "action_step": 10,
+          "checkpoint": "actual_remaining_energy_item_identity_7",
+          "native_assertions": 6
+        },
+        {
+          "source_step": 24,
+          "action_step": 11,
+          "checkpoint": "actual_energy_destroy_cost_before_resource_gain_7",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 26,
+          "action_step": 12,
+          "checkpoint": "real_energy_resource_layer_7_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 28,
+          "action_step": 13,
+          "checkpoint": "real_energy_resource_layer_7_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 30,
+          "action_step": 14,
+          "checkpoint": "real_energy_resource_layer_7_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 32,
+          "action_step": 15,
+          "checkpoint": "real_energy_resource_layer_7_fourth_actual_response",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 34,
+          "action_step": 16,
+          "checkpoint": "actual_attack_target_preflight_before_announcement",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 36,
+          "action_step": 17,
+          "checkpoint": "real_attack_cost_paid_AP_spent_before_priority",
+          "native_assertions": 20
+        },
+        {
+          "source_step": 38,
+          "action_step": 18,
+          "checkpoint": "real_attack_layer_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 40,
+          "action_step": 19,
+          "checkpoint": "real_attack_layer_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 42,
+          "action_step": 20,
+          "checkpoint": "real_attack_layer_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 44,
+          "action_step": 21,
+          "checkpoint": "real_attack_layer_fourth_actual_response",
+          "native_assertions": 20
+        },
+        {
+          "source_step": 45,
+          "action_step": 21,
+          "checkpoint": "actual_discard_earned_exact_seven_plus_one",
+          "native_assertions": 4
+        },
+        {
+          "source_step": 47,
+          "action_step": 22,
+          "checkpoint": "attack_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 49,
+          "action_step": 23,
+          "checkpoint": "attack_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 51,
+          "action_step": 24,
+          "checkpoint": "attack_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 53,
+          "action_step": 25,
+          "checkpoint": "attack_priority_fourth_actual_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 55,
+          "action_step": 26,
+          "checkpoint": "actual_defender_declines_all_blocks",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 57,
+          "action_step": 27,
+          "checkpoint": "defend_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 59,
+          "action_step": 28,
+          "checkpoint": "defend_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 61,
+          "action_step": 29,
+          "checkpoint": "defend_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 63,
+          "action_step": 30,
+          "checkpoint": "defend_priority_fourth_actual_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 65,
+          "action_step": 31,
+          "checkpoint": "reaction_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 67,
+          "action_step": 32,
+          "checkpoint": "reaction_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 69,
+          "action_step": 33,
+          "checkpoint": "reaction_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 71,
+          "action_step": 34,
+          "checkpoint": "reaction_priority_fourth_actual_response",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 72,
+          "action_step": 34,
+          "checkpoint": "full_final_genuine_discard_condition_and_actual_eight_damage",
+          "native_assertions": 136
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "total_actions": 77,
+  "total_native_assertions": 1989,
+  "total_manual_passes": 62,
+  "limits": [
+    "Only three B246 actual saved fixtures, exact raw15/current588 execution context. No source rereview, prior-case audit, PHP/native execution, controls or repository writes by reviewer.",
+    "Every input and all1989 persisted assertions match reviewed source; all four actual actors and48 preferences at each endpoint/fixture verified. No private-frame-local certification from endpoints.",
+    "Heart positive eligibleArakni cost3-to2/real7damage only; Blazing realBlueZap1 then same-targetX1 only; Riled genuine soleeligible7powerdiscard/twoactualPotions/paid8damage only.",
+    "Exact unordered physical GY UID sets explicitly audited, including duplicate Potion6/7. Physical attack cases stopDAMAGE before cleanup; wizard case fully completes ACTION.",
+    "No untested pitch-sibling, negativecondition, broaderRNG, support-primary, full-card or native-fault coverage credit.",
+    "Root targeted replay/qualification receipts and registration remain separate evidence gates. Any later055 source change must retain recorded588 provenance and obtain appropriate targeted current-runtime evidence."
+  ]
+}

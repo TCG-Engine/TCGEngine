@@ -92,6 +92,36 @@ function GABotScoreAttackAction($player, array $action) {
     return $score;
 }
 
+// Only evaluate targets exposed by the engine; never inspect hidden opposing zones.
+function GABotScoreHandPlay($player, array $action) {
+    if (!preg_match('/^myHand-(\d+)/', strval($action['cardID'] ?? ''), $m)) return -1;
+    $obj = GetHand($player)[intval($m[1])] ?? null;
+    if ($obj === null || !empty($obj->removed)) return -1;
+    // Prevention belongs in the response policy, not an empty main-phase window.
+    if ($obj->CardID === '1n3gygojwk') return -1;
+    $fallback = 10 + GABotHandCardMemoryCost($action['cardID'], $player);
+    if (!in_array($obj->CardID, ['0G32Pp5atK', '0op3nq0ymv', '0xm513tj3j'], true)) return $fallback;
+    global $playerID;
+    $saved = $playerID;
+    $playerID = $player;
+    try {
+        $specs = GAActivationTargetSpecs($player, $obj);
+        if (!is_array($specs)) return -1;
+        foreach ($specs as $spec) {
+            if (($spec['key'] ?? '') !== 'primary') continue;
+            $best = -1;
+            foreach ($spec['targets'] as $target) {
+                $best = max($best, GABotDamageTargetScore($player, $target, $obj->CardID . ':0:CardActivated-1'));
+            }
+            return $best;
+        }
+        // Older runtime data without declarations retains its existing behavior.
+        return $fallback;
+    } finally {
+        $playerID = $saved;
+    }
+}
+
 function GABotChooseActionHeuristic(array $actions, array $legal) {
     $kind = strval($legal['kind'] ?? '');
     $player = intval($legal['playerID'] ?? 0);
@@ -108,6 +138,13 @@ function GABotChooseActionHeuristic(array $actions, array $legal) {
     $endTurnAction = null;
     foreach ($actions as $a) { if (($a['mode'] ?? 0) == 10001) { $endTurnAction = $a; break; } }
 
+    // Score once per candidate. A removal or lethal spell should precede routine pressure.
+    $handScores = [];
+    foreach ($materializeActions as $action) $handScores[$action['cardID']] = GABotScoreHandPlay($player, $action);
+    $materializeActions = array_values(array_filter($materializeActions, fn($a) => $handScores[$a['cardID']] >= 0));
+    usort($materializeActions, fn($a, $b) => $handScores[$b['cardID']] <=> $handScores[$a['cardID']]);
+    if (!empty($materializeActions) && $handScores[$materializeActions[0]['cardID']] >= 10000) return $materializeActions[0];
+
     if (!empty($attackActions)) {
         $oppHP = GABotOpponentChampionHP($player);
         $potentialDamage = GABotEstimateAttackPower($player, $attackActions);
@@ -115,17 +152,12 @@ function GABotChooseActionHeuristic(array $actions, array $legal) {
         if ($oppHP !== null && $potentialDamage >= $oppHP && $potentialDamage > 0) {
             return $attackActions[0]; // go for lethal with the best individual attacker
         }
+        if (!empty($materializeActions) && $handScores[$materializeActions[0]['cardID']] >= 65) return $materializeActions[0];
         // Favor a strong, survivable pressure attack over another marginal development play.
         if (GABotScoreAttackAction($player, $attackActions[0]) >= 55) return $attackActions[0];
     }
 
     if (!empty($materializeActions)) {
-        // Highest-cost-first is a crude proxy for "biggest impact" — good enough for a first pass.
-        usort($materializeActions, function ($a, $b) use ($player) {
-            $costA = GABotHandCardMemoryCost($a['cardID'] ?? '', $player);
-            $costB = GABotHandCardMemoryCost($b['cardID'] ?? '', $player);
-            return $costB <=> $costA;
-        });
         return $materializeActions[0];
     }
 

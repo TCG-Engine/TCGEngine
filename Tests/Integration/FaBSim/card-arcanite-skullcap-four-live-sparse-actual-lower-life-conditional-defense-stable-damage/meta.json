@@ -1,0 +1,7 @@
+{
+    "name": "arcanite_skullcap / four-live actual defensive passive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T21:36:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four live legal Dori heroes; defending P4 starts19HP versus opposing heroes20. Actual RedWoundingBlow5 costs0/AP1, targets P4. Actual Skullcap6 blocks for printed1 plus live conditional1=2; real4-2=2damage gives P4HP17. Physical Skullcap6 is defending current ChainLink1/FromEquipment at stable DAMAGE. Stop before resolution/close. No Battleworn counter, ArcaneBarrier, alternate life conditions, casting or hero/support credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARC150-CF.webp https://fabtcg.com/articles/jump-start-welcome-pit-fight/"
+}

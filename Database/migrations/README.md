@@ -36,6 +36,10 @@ Apply in numeric order:
 | 17 | `17_glicko_ratings.sql` | Creates `glicko_ratings`, `glicko_results`, `glicko_penalties` (Glicko-2 ratings per format + match type, rated-match log, abandon cooldowns). Apply to **every app DB that serves SWUSim logins**, before deploying the code that writes them; until then matches simply go unrated. Idempotent | SWUSim Meta Premier rated queue |
 | 18 | `18_swustats_link.sql` | Creates `swustats_links` (Petranaki account ↔ SWUStats account, OAuth tokens). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs linking is simply off. Idempotent | Petranaki ↔ SWUStats link |
 | 19 | `19_swusim_bug_reports.sql` | Creates `swusim_bug_reports` (Petranaki's own SWUSim bug reports; the reports themselves live on disk in `SWUSim/BugReports/`). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs reports are saved to disk only. Idempotent | Petranaki local bug reports |
+| 20 | `20_swuforge_link.sql` | Creates `swuforge_links` (Petranaki account ↔ SWU Forge account, OAuth tokens) and `swuforge_deliveries` (finished games queued for SWU Forge). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs the link is simply off. Idempotent | Petranaki → SWU Forge game delivery |
+| 22 | `22_draws.sql` | Adds `draws` to `favoritedeck`, `favoritedeckmatchup` and `glicko_ratings` (drawn games, CR 6.3: a draw is neither a win nor a loss). Apply to the **SWUSim** app DB only. The code checks DBColumnExists() first, so until it runs draws are simply not counted. Idempotent | SWUSim drawn games |
+| 23 | `23_users_datecreated.sql` | Adds `users.dateCreated` (`datetime(3)`, NULL, UTC; no default, so existing accounts stay NULL = unknown). Safe for **every** app DB that serves logins. New accounts are stamped by `StampUserDateCreated()` (signup, the signup API and Discord signup), which checks DBColumnExists() first, so a box without the column signs people up as before. Idempotent | Account creation dates |
+| 24 | `24_users_datecreated_backfill_swu.sql` | Backfills `users.dateCreated = 2026-11-08 00:00:00.000` where it is NULL (= "created on or before the day tracking began"). Apply to the **SWUSim** and **SWUStats** app DBs ONLY, after 23. Never overwrites a real stamp; idempotent | Account creation dates |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.
@@ -102,3 +106,6 @@ Record where each has been applied (date / environment) as they roll out:
 - prod GrandArchiveSim DB: 14 _pending_.
 - `swusim` local docker: 18 applied 2026-10-10.
 - petranaki.net (SWUSim): 18 _pending_ — linking stays off there until it runs.
+- `swusim` + `swudeck` local docker: 23, 24 applied 2026-11-08.
+- petranaki.net (`swusim`) + swustats.net (`swudeck`): 23, 24 applied 2026-11-08 (users tables backed up first to
+  `/root/users-before-dateCreated-20261108.sql` on each box).

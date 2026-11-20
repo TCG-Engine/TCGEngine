@@ -1,0 +1,538 @@
+{
+  "status": "APPROVED_B240_TWO_ACTUAL_SAVED_FOUR_LIVE_EQUIPMENT_CASES_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T10:09:49.824252+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch240.json",
+  "input_sha256": "b83b1ac785c47f8c34fd45a5bcdd0c8509f5333dd88a241ab65b0d1eb1aacbd3",
+  "manifest_sha256": "52e9059eaa2ab30ac78afd10bef83a7250dd3385cb780308bed6ad5f39448577",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch240-independent-manual-spec-review-106.json",
+    "sha256": "03b064bfea841ea79fbb32cad2af442390cc9a1699b1a4e88306123d9ec92ad5"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch240-20261026T100533Z-6adf25ed89eb4.json",
+    "sha256": "6d6f8a72209f1c56427071b41b257cc6776c3f8797c25ea02fad734bc6c07382"
+  },
+  "fixtures": [
+    {
+      "slug": "card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+      "card_id": "quiver_of_rustling_leaves",
+      "group_id": "identity:quiver_of_rustling_leaves",
+      "reviewer": "/root/b106_semantic_review",
+      "priority_response_passes": 4,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B240_TWO_HEALTHY_EQUIPMENT_CASES_FINAL_REPLAYS_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch240.json",
+      "input_sha256": "b83b1ac785c47f8c34fd45a5bcdd0c8509f5333dd88a241ab65b0d1eb1aacbd3",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "ca3876c9b1904a25fcf4bbb8dc1c3df77ad855b977f637e54258ee08bb1fe187",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12801f33e53ab9fa01bd5cbbb331152e7ec7115d8dd5dfd9c423ae16e68cf8b7",
+        "actions.json": "14cc73ee117578435a0073b2b14ca595cad2ead1a0d96e5027e9b44da3a58fdd",
+        "assertions.json": "f639e8f178fca1fa93c57ccefa2bf0d9d9ec90b5620e3a7dd7522d17ddd8a552",
+        "expected_final_gamestate.txt": "a12133d5633fb20bb695e9b887f68359e98d593e9114feea0aea6cd431e0f48f",
+        "meta.json": "e33462d662348ed30baaf42dc9ea3616a321acb0c70b11850217d7b2cca718dd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "12801f33e53ab9fa01bd5cbbb331152e7ec7115d8dd5dfd9c423ae16e68cf8b7",
+        "actions.json": "14cc73ee117578435a0073b2b14ca595cad2ead1a0d96e5027e9b44da3a58fdd",
+        "assertions.json": "f639e8f178fca1fa93c57ccefa2bf0d9d9ec90b5620e3a7dd7522d17ddd8a552",
+        "expected_final_gamestate.txt": "a12133d5633fb20bb695e9b887f68359e98d593e9114feea0aea6cd431e0f48f",
+        "meta.json": "e33462d662348ed30baaf42dc9ea3616a321acb0c70b11850217d7b2cca718dd"
+      },
+      "actions": 6,
+      "native_assertions": 436,
+      "native_card_property_assertions": 170,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Quiver_WEAPONS_plus_Bow_and_real_top_Arrow",
+          "step": 0,
+          "native_assertions": 129
+        },
+        {
+          "checkpoint": "actual_Instant_three_funding_wait_source_remains_equipped",
+          "step": 1,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_three_AP_retained_no_early_load_or_destroy",
+          "step": 2,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "real_Quiver_effect_actual_responder_1",
+          "step": 3,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_Quiver_effect_actual_responder_2",
+          "step": 4,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_Quiver_effect_actual_responder_3",
+          "step": 5,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_Quiver_effect_actual_responder_4",
+          "step": 6,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "full_final_real_faceup_Arrow_and_conditional_Quiver_destruction",
+          "step": 6,
+          "native_assertions": 129
+        }
+      ],
+      "computed_final_oracles_exactly_retained_and_root_native_passed": [],
+      "initial_physical_cards": {
+        "p1Weapons": [
+          [
+            "5",
+            "quiver_of_rustling_leaves",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "6",
+            "death_dealer",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Deck": [
+          [
+            "7",
+            "sic_em_shot_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Hand": [
+          [
+            "8",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Weapons": [
+          [
+            "6",
+            "death_dealer",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Arsenal": [
+          [
+            "7",
+            "sic_em_shot_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "5",
+            "quiver_of_rustling_leaves",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "8",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 436
+      },
+      "actual_meaningful_evidence": [
+        "Actual equippedQuiver5Weapons alongsideBowDeathDealer6 and topDeckArrow7/BlueHand8 exactly match approved legalRanger setup; no early source destruction. NativePITCH wait has actualcost3/AP1/R0, then actualBlue8pitch3pays3/R0/AP1 whileQuiver5andDeck7remain until four manualresponses1,2,3,4.",
+        "Fourth nativeeffect loads sameArrowUID7 ownArsenalFaceDown0 and destroys physicalQuiver5 to ownpublicGYFaceDown0. FinalBow6Status2 retained, Blue8Pitch, emptyHand/Deck/Stack/queues andallHP20/AP1/R0. No ABI9 ghostGY; movement/destruction are resolution outcomes, not misclassified activationdestroycost. Reveal UI/internal callback ordering and negativeArrow/occupiedArsenal remain untested."
+      ]
+    },
+    {
+      "slug": "card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+      "card_id": "blade_cuff",
+      "group_id": "identity:blade_cuff",
+      "reviewer": "/root/b106_semantic_review",
+      "priority_response_passes": 20,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B240_TWO_HEALTHY_EQUIPMENT_CASES_FINAL_REPLAYS_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch240.json",
+      "input_sha256": "b83b1ac785c47f8c34fd45a5bcdd0c8509f5333dd88a241ab65b0d1eb1aacbd3",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "b229c93a084e2eb42c86363027f75d7bac9fc0e418c80abdcec0cc81a16a191d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "248b9520a9c067b36a51421f35d0cbcabe5b0e7d129e1b2091d0fc6ecbe84e3f",
+        "actions.json": "5dd77d56a32522ad1ee1900a3c95369208b9404fc201b193b67c06dcf09c63d2",
+        "assertions.json": "1762a467e5bf96f11eaef040596af19759105ecd38e0586932e81540f666248b",
+        "expected_final_gamestate.txt": "c7af73bc86a87f05de4e0fe1e906cf3939a02f7e282fdadbb1f76ac94a924bb3",
+        "meta.json": "6c4de6095112a33e42a9af545ea347c8fea4597b75bb231940e4c3d6b215b697"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "248b9520a9c067b36a51421f35d0cbcabe5b0e7d129e1b2091d0fc6ecbe84e3f",
+        "actions.json": "5dd77d56a32522ad1ee1900a3c95369208b9404fc201b193b67c06dcf09c63d2",
+        "assertions.json": "1762a467e5bf96f11eaef040596af19759105ecd38e0586932e81540f666248b",
+        "expected_final_gamestate.txt": "c7af73bc86a87f05de4e0fe1e906cf3939a02f7e282fdadbb1f76ac94a924bb3",
+        "meta.json": "6c4de6095112a33e42a9af545ea347c8fea4597b75bb231940e4c3d6b215b697"
+      },
+      "actions": 25,
+      "native_assertions": 743,
+      "native_card_property_assertions": 217,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 21,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Ninja_equipment_and_controlled_real_dagger",
+          "step": 0,
+          "native_assertions": 126
+        },
+        {
+          "checkpoint": "actual_Action_two_asset_funding_before_destroy_cost",
+          "step": 1,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_Blue_pays_two_Action_AP_spent_and_source_destroyed",
+          "step": 2,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "real_Cuff_effect_actual_responder_1",
+          "step": 3,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "real_Cuff_effect_actual_responder_2",
+          "step": 4,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "real_Cuff_effect_actual_responder_3",
+          "step": 5,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "real_Cuff_effect_actual_responder_4",
+          "step": 6,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "actual_dagger_attack_adjacent_target_preflight",
+          "step": 7,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "actual_dagger_one_cost_paid_and_physical_weapon_used",
+          "step": 8,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "real_dagger_layer_actual_responder_1",
+          "step": 9,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_dagger_layer_actual_responder_2",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_dagger_layer_actual_responder_3",
+          "step": 11,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_dagger_layer_actual_responder_4",
+          "step": 12,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_attack_priority_actual_responder_1",
+          "step": 13,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_attack_priority_actual_responder_2",
+          "step": 14,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_attack_priority_actual_responder_3",
+          "step": 15,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_attack_priority_actual_responder_4",
+          "step": 16,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "actual_defender_declines_all_blocks",
+          "step": 17,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "real_defend_priority_actual_responder_1",
+          "step": 18,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_defend_priority_actual_responder_2",
+          "step": 19,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_defend_priority_actual_responder_3",
+          "step": 20,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_defend_priority_actual_responder_4",
+          "step": 21,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_reaction_priority_actual_responder_1",
+          "step": 22,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_reaction_priority_actual_responder_2",
+          "step": 23,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_reaction_priority_actual_responder_3",
+          "step": 24,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "real_reaction_priority_actual_responder_4",
+          "step": 25,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "full_final_physical_weapon_source_proxy_and_actual_two_damage",
+          "step": 25,
+          "native_assertions": 134
+        }
+      ],
+      "computed_final_oracles_exactly_retained_and_root_native_passed": [
+        {
+          "step": 25,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 2
+        },
+        {
+          "step": 25,
+          "type": "computed_go_again_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 1
+        },
+        {
+          "step": 25,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 2
+        },
+        {
+          "step": 25,
+          "type": "computed_go_again_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 1
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Weapons": [
+          [
+            "6",
+            "harmonized_kodachi",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Equipment": [
+          [
+            "5",
+            "blade_cuff",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Hand": [
+          [
+            "7",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Weapons": [
+          [
+            "6",
+            "harmonized_kodachi",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1CombatChain": [
+          [
+            "9",
+            "harmonized_kodachi",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "5",
+            "blade_cuff",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "7",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 25,
+        "assertions": 743
+      },
+      "actual_meaningful_evidence": [
+        "ActualNinjaCuff5 Arms/Kodachi6/Blue7 setup has no seededAP/buff/history. ActualAction2 waits withliveEq5/AP1/R0; actualBlue7funding pays2/R1/AP0 then selfdestroy5publicGY before four abilityresponses1,2,3,4. Fourth resolves controlleddagger+1 and abilityGoAgain restoresAP1.",
+        "ActualsameKodachi6 activates, declares legaladjacentP4, pays1 from earnedR1\u21920/AP1\u21920, and physical6Status1 is retainedWeapons. Separateactualproxy9 SourceWeaponsUID6 normalizes OwnerController1 onchain; nativecomputedpower2 and realdamage2/HP18 pin actual+1 dagger effect. ChainproxyCountersWEAPON_UID6 confirms physicalbinding.",
+        "Blue7printedcost0 is actually inPitch and nativecomputedGoAgain=true is retained. RawGameState attackGoAgain=false is a cache field, not the dynamic WTRKodachi query; it must not be substituted for the actual computed oracle. AP0 at finalDAMAGE is correct before laterResolutionGA. FinalphysicalCuff5publicGY, Blue7Pitch, Kodachi6Weapons andproxy9Chain; no premature attackAP/closure/expiry/Fai or BladeBreak claim."
+      ]
+    }
+  ],
+  "totals": {
+    "fixtures": 2,
+    "actions": 31,
+    "native_assertions": 1179,
+    "card_property_assertions": 387,
+    "manual_pass_until_inputs": 25,
+    "priority_response_passes": 24,
+    "defender_declaration_completion_inputs": 1,
+    "end_phase_admin_passes": 0,
+    "recorder_only_checks": 0,
+    "endpoint_manual_preference_values": 192
+  },
+  "source_only_holds": [
+    {
+      "card_id": "chane",
+      "group_id": "identity:chane",
+      "status": "UNCHANGED_UNATTEMPTED_SOURCE_ONLY_HOLD_NO_COVERAGE_NO_CONFIRMED_BUG",
+      "scope": "Not reviewed as a case or included in this healthy input; separate root-assigned correctprobe is outside this approval."
+    }
+  ],
+  "limits": [
+    "QuiverpositiveArrowonly, paid3/noAPspend, faceupArsenalmoveandconditionaldestroy; noactualrevealUIevent/negativeArrow/empty/occupied/repeat/BoworArrowattackcredit.",
+    "Bladeonlycontrolleddagger+1 andactual2damage; noBladeBreak/otherdaggers/expiry/once-rejection/Faiheroability. StopsDAMAGE/AP0beforelaterGAAPgrant.",
+    "Chaneheldunattempted/notqualified, separatecorrectprobeonlybeforenativeconfirmation/rootfixdecision. No replacementhunt.",
+    "Onepergroup no sibling/supportprimary/fullcardcredit. WJSON/manualrationaleonly; noPHP/native/R/source/remote/generatorwrites/fullsuite/optionalmodel/simulator/certification.",
+    "No native PASS/savedfixture/coverage before rootrecording, independentraw5audit and targetedreplays. Only manual printed/rule/source/protocol and datahash/schema checks; no optional semantic model/certification, PHP/native or repositorywrites.",
+    "Every newly saved action/oracle matches approved input and endpoints/raw10 independently audited. Actual computed power/GA is bound to root nativePASS; no reviewer engine/query or optionalmodel run, cached fields not substituted.",
+    "Recorded1f33 is root-reported context corroborated by current runtime/source guards; pending clean targeted replay results are separate root qualification.",
+    "Only Quiver positiveArrowload and Cuff one actualcontrolleddagger attack; no revealUI/emptyoccupied/nonArrow/repeat/futureBladeBreak/otherdaggers/expiry/hero/sibling/support primary credit. Chane remains outside the two fixtures."
+  ],
+  "blockers": [],
+  "php_execution": 0,
+  "native_execution": 0,
+  "repository_writes": 0,
+  "optional_rules_simulation": 0
+}

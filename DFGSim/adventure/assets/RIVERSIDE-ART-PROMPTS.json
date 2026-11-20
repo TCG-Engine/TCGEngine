@@ -1,0 +1,19 @@
+{
+  "tool": "built-in image_gen",
+  "map": {
+    "prompt": "Use case: stylized-concept. Create a NEW exploration background for this game's SUMERIAN RIVERSIDE QUARTER, matching input image's warm illustrated top-down/isometric-lite adventure map style, thick clean dark outlines, cel shaded sandy ochre architecture, lush palms, turquoise water, readable uncluttered sandy paths. Landscape EXACT1536x1024, NO text, labels, UI, grid, characters or creatures. Designed as24 columns x16 rows of64pixel tiles but do NOT draw grid. Layout: broad main open sandy path enters WEST edge at x0,y544 and branches freely through district. NW pottery yard: low ochre workshop building x64..480,y64..240, tiny round kiln near x224,y288, open working yard below x100..500,y300..500. Center-north outfitter stall canopy x576..832,y128..300, open trading space in front at x650,y400. Northeast quiet teaching garden: pavilion x960..1280,y64..240, small low herb beds near x1050 and1180,y280..330, open meditation patch near x920,y420. FAR RIGHT strip x1344..1536 is turquoise river throughout. Small wooden pier protrudes into river near y650 with rope posts at shore x1280,y650; clear sandy dockyard x950..1330,y550..850. Two small modest crate stacks sit near x1120,y520 and x1280,y850, leave plenty of open walking space. Southwest is open clay-bank yard with a clay mound near x224,y800 and scattered pots along edges. Lower center quiet sandy riverside walking loop x500..1250,y800..960 with a few flat stepping stones and reeds along edges. Include small inconspicuous stone markers near x416,y672; x800,y864; x1248,y352. Prioritize large connected WALKABLE OPEN ground among all four places, no large obstacles in central paths. Map reaches all image edges, no frame. Top boundary and corners use trees/rocks. Same approachable playful adventure visual as reference, no photorealistic texture.",
+    "reference": "sumerian-overworld-v1.png",
+    "output": "riverside-quarter-v1.webp"
+  },
+  "npcs": {
+    "prompt": "Use case: stylized-concept. Asset: TRANSPARENT game NPC sprite atlas, EXACT2 equal columns x2 equal rows, full bodies centered within each quadrant, generous transparent padding with feet above tile bottom. Overall portrait2:3 aspect, each quadrant portrait2:3. Four separate distinct friendly SUMERIAN fantasy townspeople in same chibi cartoon adventure style as input reference: bold dark brown outlines, expressive simple faces, chunky compact proportions, cel shading, sandals, three-quarter view facing camera slightly left. Preserve style only, do not copy elder's identity for everyone. TOP LEFT: Belit the outfitter, confident middle-aged woman, curly dark hair, teal and ochre robe, small copper circlet, one hand on hip, friendly raised palm. TOP RIGHT: Taram the potter, round cheerful older man, short gray beard, rust-orange work apron over cream tunic, hands holding ONE small clay bowl at waist. BOTTOM LEFT: Lugal dock steward, broad stocky adult man, dark curly beard and cloth headband, rolled-sleeve ochre tunic, rope coil draped over one shoulder, hand raised in greeting. BOTTOM RIGHT: Sila river teacher, kindly older woman with silver braid, modest turquoise robe with cream sash, relaxed posture holding a small tea cup. Each is a single full-body character with no furniture, floor, ground/shadow, backgrounds, text, frame or dividers. Four characters do not overlap quadrant edges. Genuinely transparent alpha background.",
+    "reference": "elder-overworld-v1.png",
+    "layout": "2x2 atlas, reading order Belit, Taram, Lugal, Sila; quadrant export only",
+    "outputs": [
+      "belit-overworld-v1.webp",
+      "taram-overworld-v1.webp",
+      "lugal-overworld-v1.webp",
+      "sila-overworld-v1.webp"
+    ]
+  }
+}

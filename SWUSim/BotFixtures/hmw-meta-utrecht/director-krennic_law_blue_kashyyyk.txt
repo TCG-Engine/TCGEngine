@@ -1,0 +1,49 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Kachirho
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #30 of 789 (9-3-1), player Gibki
+#   https://melee.gg/Decklist/View/1d463dfa-9c85-4f0a-9c2a-b4f301714f6f — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Director Krennic (LAW) Blue (Kashyyyk) list in the event's top 64.
+#   Main 53 (base minimum 50), sideboard 10.
+# Archetype: midrange — carried from the owner's label of the same leader + base colour (a different Homeworlds trait) — AWAITING THE OWNER'S CHECK
+# Style: midrange
+
+Leader
+1 LAW_008
+
+Base
+1 HMW_021
+
+Deck
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 ASH_048
+3 LAW_097
+3 ASH_079
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 HMW_103
+1 HMW_110
+1 LAW_149
+1 ASH_133
+3 ASH_052
+2 LAW_101
+1 JTL_041
+1 SEC_088
+1 ASH_102
+2 LAW_039
+3 JTL_043
+3 HMW_151
+1 SEC_078
+2 SEC_038
+2 LOF_091
+
+Sideboard
+2 SEC_078
+2 JTL_121
+1 HMW_110
+1 SEC_088
+1 LAW_149
+1 LAW_044
+1 LAW_132
+1 ASH_133

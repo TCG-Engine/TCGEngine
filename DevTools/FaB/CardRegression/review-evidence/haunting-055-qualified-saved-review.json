@@ -1,0 +1,334 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_REPLAY_QUALIFICATION",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T13:10:31.355051+00:00",
+  "review_method": "Manual correct-trigger semantics reused; static actual raw5/input/assertion/profile comparison only. No game simulator, PHP/native execution, controls or repository mutation.",
+  "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+  "input_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting-rendition-correct-trigger-probe-independent-approval.json",
+    "sha256": "3f1f1f1aa8ad67c82a3e0d39415abb91b0f77b2d6cbb10ae3d8a8c85d924eb71",
+    "historical_prefixed_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38"
+  },
+  "source_repair_peer": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting055-v2-independent-source-approval.json",
+    "sha256": "cde0d749cd25c4c3ad2cd90071c8197c3777090d8ba84152fb3549ff087c786b"
+  },
+  "component_peer": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting055-queued-component-independent-approval.json",
+    "sha256": "ddd6c38b5a61403beb93c355bafd9d7b43d680832480e80ad1ddf8eb5941f491"
+  },
+  "source_guard_delta_since_original_semantic_manifest": [
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "d3cbb8b9cff7dd4bde041c619e153a239e97cc56dd45eb854186522da8982d95",
+      "after_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00"
+    }
+  ],
+  "historical_manifest_preserved": true,
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch245-haunting-correct-probe-20261026T130551Z-6adf502fc3c10.json",
+    "sha256": "fee186e5f202a2959bc0a2f91ba2dab6f27ed0ad7304145cc08a70eb39443748"
+  },
+  "actual_file_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\audit_haunting055_actual_files.py",
+    "sha256": "cf494ac38832cd0b0478e6055fcf90e76ea86e9cca1bbbaaeb788928fb6e0b2b"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "haunting_rendition_red",
+      "slug": "card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+      "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+      "input_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CORRECT_EARNED_TRIGGER_NATIVE",
+      "fixture_sha256": "ccf9137a6ef0454df4778d552d48a3565f1c43e3fa26164be8f51b4cb0f1f236",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe656070e0f979a70d9fe4238251ed4c727168ec757a05a620af7f04d934daef",
+        "actions.json": "353f0e2ed5086e3ed6eebe612c2fb6972006ca842b3aec58f4d80be3618e111d",
+        "assertions.json": "2843faddd6cbf3b1ae3e4454ecf49eabfc4ed17fe0b725b3e21e12fcf4a052b5",
+        "expected_final_gamestate.txt": "308fca484528bd6874195c0f951469b7f64c9487c59e267248d30ea035ea5acb",
+        "meta.json": "c4cbe8e0313bffffec56884e65f3d22c0953f129b24d6dad0f65aec4090346d0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fe656070e0f979a70d9fe4238251ed4c727168ec757a05a620af7f04d934daef",
+        "actions.json": "353f0e2ed5086e3ed6eebe612c2fb6972006ca842b3aec58f4d80be3618e111d",
+        "assertions.json": "2843faddd6cbf3b1ae3e4454ecf49eabfc4ed17fe0b725b3e21e12fcf4a052b5",
+        "expected_final_gamestate.txt": "308fca484528bd6874195c0f951469b7f64c9487c59e267248d30ea035ea5acb",
+        "meta.json": "c4cbe8e0313bffffec56884e65f3d22c0953f129b24d6dad0f65aec4090346d0"
+      },
+      "actions": 31,
+      "native_assertions": 822,
+      "actual_manual_passes": 28,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_legal_live_manual_seats_real_hand_ability",
+          "native_assertions": 119
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "real_attack_target_before_announcement",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_attack_paid_zero_AP_spent_before_responses",
+          "native_assertions": 23
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "real_attack_response_earns_player_2",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "real_attack_response_earns_player_3",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "real_attack_response_earns_player_4",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "real_discard_cost_before_ability_responses_no_prevention_token",
+          "native_assertions": 30
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "real_discard_ability_response_1",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "real_discard_ability_response_2",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "real_discard_ability_response_3",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "fourth_discard_ability_response_returns_underlying_attack_no_token",
+          "native_assertions": 20
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "real_underlying_attack_response_1",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "real_underlying_attack_response_2",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "real_underlying_attack_response_3",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "fourth_attack_response_physical_attack_survives_no_token_before_damage",
+          "native_assertions": 23
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "attack_window_manual_response_1",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "attack_window_manual_response_2",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "attack_window_manual_response_3",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "fourth_attack_window_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "actual_defender_declines_blocks",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "defend_window_manual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "defend_window_manual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "defend_window_manual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "fourth_defend_window_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "reaction_window_manual_response_1",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "reaction_window_manual_response_2",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "reaction_window_manual_response_3",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "correct_earned_prevention_trigger_queued_before_priority_no_rune_yet",
+          "native_assertions": 36
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "real_earned_trigger_manual_response_1",
+          "native_assertions": 36
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "real_earned_trigger_manual_response_2",
+          "native_assertions": 36
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "real_earned_trigger_manual_response_3",
+          "native_assertions": 36
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "fourth_earned_trigger_response_creates_exactly_owned_runechant",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 63,
+          "action_step": 31,
+          "checkpoint": "full_final_physical_source_public_graveyard_and_rune_after_responses",
+          "native_assertions": 132
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "total_actions": 31,
+  "total_native_assertions": 822,
+  "total_manual_passes": 28,
+  "limits": [
+    "Only this newly saved corrected Haunting case reviewed. Currentc8/ROS12bd recording and raw5 are distinct from original588 source-only/probe failure. The old source manifest remains historical; no retagging of its runtime.",
+    "The old native failure supports missing requiredStack layer only. This review makes no additional claim about pre-fix native physical HP/token counts beyond separately captured evidence.",
+    "Native intermediate trigger8/source5/controller4/noRune through firstthree responses is pinned by exact step assertions and completed recording receipt; raw initial/final files do not independently expose separate intermediate captures/private locals.",
+    "Actual final source5 publicGY, owned/controller4 Rune9, attack6Chain and HP18 verified. All four manual actors/48preferences per endpoint and every action/assertion match. Original ability7 and trigger8 have no physical-zone ghost.",
+    "First positive prevention/trigger case only; no second packet, expiry, suppression, source-leave variant, Runechant-use, sibling or full-card coverage credit.",
+    "Root targeted clean replays/shared-dispatcher compatibility and component execution are separate gates; no PHP/native execution or repository writes by reviewer."
+  ]
+}

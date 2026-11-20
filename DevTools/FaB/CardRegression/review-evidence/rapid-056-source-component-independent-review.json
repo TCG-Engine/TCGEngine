@@ -1,0 +1,76 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "status": "APPROVED_SOURCE_AND_COMPONENT_DATA_ONLY_EXECUTION_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "component_cases_approved": true,
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "runtime_before_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\proposal.json",
+  "proposal_sha256": "c5d4432aeabe656810b1d6aef2f3bc1c86d4cbac815ac7b60abc9bd7bc007aa6",
+  "diff_sha256": "4ff37a2a172cd69b7d5ecfe11a73a4555a18fbfaed682f95954241c46dd772ab",
+  "strict_anchors_sha256": "4f7d7c2261faad865b1f11efcc5663b332e7d2b26462b1250ad375f1636dc02f",
+  "method": "Independent manual exact-source and component-data/harness review with byte/hash/reconstruction comparisons. Current official Rapid text independently opened; no PHP/native/game/model execution or repository mutation.",
+  "files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "after_sha256": "1141624ae114dc93f6c30ac9f37c5f9a57a92b5ed38e14c3be2bc1da58158b6b",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\FaBSim\\Custom\\GameLogic.php"
+    },
+    {
+      "path": "DevTools/FaB/printed_keyword_cases.json",
+      "before_sha256": "1980e97c4f365c452ef91e7bdcb3e76a39784395298c6b0eb8b4a7d3b72d95ca",
+      "after_sha256": "65124031892341b433a158832785c0e5527b07d7fd127df5612fbb9ec8ce61f8",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\DevTools\\FaB\\printed_keyword_cases.json"
+    }
+  ],
+  "exact_edit_findings": [
+    "Exactly two strict CRLF anchors reconstruct the entire candidate GameLogic bytes: remove the early negative metadata gate; put metadata membership into the pre-existing empty-text Go again/Dominate fallback. No other source-byte differences.",
+    "Exact own functional-text sentences now succeed independently of missing metadata. The actual Rapid functional text has distinct grant, Reload and own Go again lines; official JudgeHub386 independently confirms the terminal own keyword. Normal NAA completion therefore must receive a true own-keyword result without changing the correct AP1 oracle.",
+    "Quote-removal/terminal-punctuation preservation, comma/colon wrap joining, sentence split, case-insensitive exact match and live suppression/grant/AP callers are unchanged. No Rapid CardID override, granted_keywords shortcut or empty-text blanket admission is introduced.",
+    "Empty-text behavior is logically preserved: only Go again/Dominate can fall back and still require FaBHasKeyword. Nonempty grant-only/quoted/conditional phrases are not exact own-keyword sentences. This is a printed-text classification API; object suppression remains the unchanged caller responsibility."
+  ],
+  "component": {
+    "harness_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\printed_keyword_test.php",
+    "harness_sha256": "2cadd9183da2b9c7cfdf88df55382799cd9c66e62eb1f0ad5be5bf7823475562",
+    "harness_unchanged": true,
+    "component_script_sha256": "2cadd9183da2b9c7cfdf88df55382799cd9c66e62eb1f0ad5be5bf7823475562",
+    "cases_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\DevTools\\FaB\\printed_keyword_cases.json",
+    "cases_sha256": "65124031892341b433a158832785c0e5527b07d7fd127df5612fbb9ec8ce61f8",
+    "original_cases_sha256": "1980e97c4f365c452ef91e7bdcb3e76a39784395298c6b0eb8b4a7d3b72d95ca",
+    "old_total": 32,
+    "unchanged_old_cases": 31,
+    "corrected_old_index_zero_based": 25,
+    "added_cases": 7,
+    "planned_total": 39,
+    "erratum_sha256": "5700d685798bb519d310cd5f68b4594221fce4d4c02976cf86ebdaf8075d1c06",
+    "case_review": "Entire original document metadata unchanged; original32 file preserved byte-exact. Only oldcase25 name and expectedfalse->true change; identical text Go again/keyword Go again/has_keywordfalse now tests printed truth rather than metadata completeness. Seven additions independently cover actual Rapid positive, missing-metadata grant-only/quote-only/wrapped conditional/wrapped grant negatives, quoted-then-real-own positive and empty Dominate negative. Native source input/actions/oracles unchanged.",
+    "extraction_review": "Unchanged harness token_get_all locates the actual named function and balances real code braces; eval executes that extracted body, not a shadow implementation. Controlled doubles are only FaBHasKeyword and CardFunctional_text_plain lookups. Supplied candidate source/cases/harness command has exact pre-execution hashes. No engine/card lifecycle, live suppression, dictionary completeness or native integration is proven by these synthetic inputs.",
+    "execution": "NOT_EXECUTED_BY_REVIEWER; root actual39-case result and lint required."
+  },
+  "independent_primary_source": {
+    "url": "https://judge.fabtcg.com/cards/detail/386/",
+    "checked": "Current official own Go again follows separate Arrow grant and Reload; independent of generated metadata."
+  },
+  "native_before": {
+    "classification_sha256": "339c2a3403b39bd96b5abc08d3a79c2cf433909e59047e92ff19247e0948d584",
+    "receipt_sha256": "f65dd67d2d39e41e44f204312ebec1e42269937cbc2ff8875e58d76ecaef3192",
+    "input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+    "actual_inputs": 5,
+    "first_error": "Expected p1ActionPoints to equal 1, got 0.",
+    "fixture_saved": false,
+    "limits": "Later Arrow suffix unexecuted in this before-run; no passing Rapid fixture or sibling coverage yet."
+  },
+  "classification": "Existing038 printed_keyword shared-parser admission extension; keep native encounter separately visible, not a new independent root-cause family.",
+  "required_root_validation": [
+    "Lint exact candidate and run unchanged actual parser harness against exact39-case data.",
+    "Guarded source/data application with backups, then unchanged rules-correct original Rapid source only; complete real Arrow/cost/damage/GA suffix before saved qualification.",
+    "Independent actual saved review plus two new-only clean replays; one bounded directly affected existing parser consumer compatibility if required. No full suite/catalog scan or Kassai rerun required."
+  ],
+  "limits": [
+    "Approval is source/component-data readiness, not executed component or native pass certification.",
+    "No general claim that every conditional keyword formatting is parsed; existing grammar and object-suppression responsibilities are preserved.",
+    "No generated/cache/metadata/remote authoring/Core changes or new control/coverage credit. Other direct metadata consumers are outside scope."
+  ]
+}

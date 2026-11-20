@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch224-boulderhold-hand-correct-probe.json",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T05:43:56.127489+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gauntlet-of-boulderhold-four-live-sparse-correct-expectation-paid-hand-guardian-attack-two-and-full-block-probe",
+      "fixture_sha256": "ca8c894ea7fa42613b5152b7cc388ba3fbb92a05bb7945eea0b4ef2823c59bb3",
+      "passed": true,
+      "result": "[PASS] gauntlet_of_boulderhold / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gauntlet-of-boulderhold-four-live-sparse-correct-expectation-paid-hand-guardian-attack-two-and-full-block-probe",
+      "returncode": 0,
+      "stdout": "[PASS] gauntlet_of_boulderhold / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -15,12 +15,40 @@
 // driver). The pinned local install is 1.61.1, so webkit launches directly. If you upgrade past 1.62,
 // route it through a playwright@1.52.0 side-install via PW152, as waiting-room-xbrowser.mjs documents.
 import { chromium, firefox, webkit } from 'playwright';
-import fs from 'node:fs';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
 const MENU = BASE + 'SharedUI/Sites/SWUSim/MainMenu.php';
 const CRED = { user: 'claudebot1', pass: 'pass' };
-const DECK = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/premier_deck_a.txt', import.meta.url), 'utf8');
+const DECK = `Leader
+1 SOR_009
+Base
+1 SOR_022
+Deck
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_239
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+1 SOR_242
+1 SOR_100
+2 SOR_093
+1 SOR_094
+2 SOR_248
+1 SOR_096
+3 SOR_237
+2 SOR_111
+2 SOR_112
+1 SOR_099
+2 SOR_250
+3 SOR_124
+2 SOR_123
+2 SOR_127
+2 SOR_103
+3 SOR_120
+2 SOR_121`;
 const ENGINES = { chromium, firefox, webkit };
 
 let allOk = true;

@@ -285,3 +285,28 @@ P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_050
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_128
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# NoGhostInPlay_StillUsable_PaysOneAndStaysAUnit
+#// CR 6.4.587.c (owner go 2026-11-04 — "do as much as you can"; an Action like this is a legitimate soft pass): the
+#// cost changes game state, so the Action is usable with nothing to target — the cost is paid and the effect does nothing.
+#// No unit titled "The Ghost" anywhere: the 1 resource is spent and the Phantom stays a unit (no exhaust — the cost is
+#// resources only). RED before 2026-11-04 (gate required a Ghost in play).
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1SpaceArena: JTL_050:1:0
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_050
+P1SPACEARENAUNIT:0:READY
+P1RESAVAILABLE:1
+P1NODECISION

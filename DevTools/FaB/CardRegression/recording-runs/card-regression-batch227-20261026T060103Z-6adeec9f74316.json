@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T06:01:03+00:00",
+    "input_file": "card-regression-batch227.json",
+    "input_sha256": "8a0dc8c30fe5faa24ad263bd82258b983273ceaa44f43c09e81a6ca99e88cfea",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-adaptive-dissolver-four-live-sparse-real-action-and-equipment-zone-choice-head-to-arms",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 409
+        },
+        {
+            "slug": "card-spellbane-aegis-four-live-sparse-real-optional-spellvoid-token-destruction-prevents-one-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 572
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T13:07:40.267561+00:00",
+  "fixtures": [
+    {
+      "slug": "card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+      "fixture_sha256": "ccf9137a6ef0454df4778d552d48a3565f1c43e3fa26164be8f51b4cb0f1f236",
+      "passed": true,
+      "result": "[PASS] haunting_rendition_red / correct earned-prevention trigger response probe"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+      "returncode": 0,
+      "stdout": "[PASS] haunting_rendition_red / correct earned-prevention trigger response probe\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,32 @@
+[
+    {
+        "slug": "card-brush-off-red-four-live-sparse-actual-zero-cost-instant-prevents-real-two-physical-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 35,
+        "assertions": 1637
+    },
+    {
+        "slug": "card-steelblade-shunt-red-four-live-sparse-actual-paid-reaction-blocks-real-weapon-and-damages-attacking-hero",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 1967
+    },
+    {
+        "slug": "card-rally-the-rearguard-red-four-live-sparse-actual-defending-activation-discards-owned-card-and-adds-three-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 1857
+    },
+    {
+        "slug": "card-soul-shield-yellow-four-live-sparse-actual-paid-six-defense-reaction-then-soul-only-at-chain-close",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 1886
+    },
+    {
+        "slug": "card-sigil-of-suffering-red-four-live-sparse-actual-arcane-to-attacking-hero-earns-four-defense-before-physical-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 35,
+        "assertions": 1647
+    }
+]

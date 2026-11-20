@@ -6,8 +6,14 @@
 // Epic Action: If you control 5 or more resources, deploy this leader.
 
 // TS26_08 Ahsoka Tano (front) — reactive "when you play an event": may exhaust this leader → look at the
-// top card, then play it (full cost) / discard / leave. Hooked from OnPlayEvent (undeployed-leader
-// observer). Deployed side: Raid 1 auto + When Attack Ends look-top (play at -1).
+// top card, then play it (full cost) / discard / leave. Collected by SWUCollectOwnPlayReactions AFTER the
+// event resolves (an undeployed-leader observer). Deployed side: Raid 1 auto + When Attack Ends look-top (play at -1).
+function Ts26008FrontReaction($player): void {
+    if (!_SWULeaderReadyUndeployed(intval($player), 'TS26_08')) return;
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Ahsoka_to_look_at_the_top_card?");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_08#0", 1);
+}
+
 $customDQHandlers["TS26_08#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);

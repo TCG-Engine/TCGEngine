@@ -1,0 +1,2131 @@
+{
+    "seedRange": [
+        160001,
+        160050
+    ],
+    "policy": "26fc8cf067c4398e",
+    "note": "Turn snapshots condition on reaching the turn; sample overlaps search confirmation. Search uses span the whole game.",
+    "variants": {
+        "baseline": {
+            "summary": {
+                "games": 200,
+                "wins": 127,
+                "padUses": 0,
+                "padFirstLine": 0,
+                "padBackup": 0,
+                "padTargets": [],
+                "stretcherTargets": {
+                    "me02-019": 82,
+                    "sv08-036": 49,
+                    "mee-002": 9
+                },
+                "turns": {
+                    "2": {
+                        "reached": 185,
+                        "noEx": 65,
+                        "benchedEvolutionLine": 149
+                    },
+                    "3": {
+                        "reached": 174,
+                        "noEx": 21,
+                        "benchedEvolutionLine": 154
+                    },
+                    "4": {
+                        "reached": 158,
+                        "noEx": 15,
+                        "benchedEvolutionLine": 132
+                    },
+                    "5": {
+                        "reached": 144,
+                        "noEx": 5,
+                        "benchedEvolutionLine": 116
+                    }
+                }
+            },
+            "pad": [],
+            "stretcherRecoveries": [
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "mee-002",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 7,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "mee-002",
+                    "lines": 3
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 7,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 6,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "mee-002",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 7,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                }
+            ]
+        },
+        "boss-to-pad": {
+            "summary": {
+                "games": 200,
+                "wins": 143,
+                "padUses": 72,
+                "padFirstLine": 16,
+                "padBackup": 56,
+                "padTargets": {
+                    "me02-019": 65
+                },
+                "stretcherTargets": {
+                    "me02-019": 61,
+                    "sv08-036": 57,
+                    "mee-002": 7
+                },
+                "turns": {
+                    "2": {
+                        "reached": 187,
+                        "noEx": 53,
+                        "benchedEvolutionLine": 147
+                    },
+                    "3": {
+                        "reached": 172,
+                        "noEx": 18,
+                        "benchedEvolutionLine": 158
+                    },
+                    "4": {
+                        "reached": 164,
+                        "noEx": 13,
+                        "benchedEvolutionLine": 141
+                    },
+                    "5": {
+                        "reached": 144,
+                        "noEx": 4,
+                        "benchedEvolutionLine": 126
+                    }
+                }
+            },
+            "pad": [
+                {
+                    "seed": 160002,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160004,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 3,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160006,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160006,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160007,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160007,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160008,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 3,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160010,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160010,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160011,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160011,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160012,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160013,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 6,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 3
+                },
+                {
+                    "seed": 160018,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160021,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 2,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160021,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160026,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 2,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160027,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160027,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160031,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160031,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160037,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 3,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160038,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 2,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160041,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160041,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160042,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160043,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 2,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160045,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 2,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160048,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160048,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160049,
+                    "opponent": "brisbane-lopunny",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160049,
+                    "opponent": "brisbane-lopunny",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160001,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 3,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160002,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 2,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160004,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160004,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160005,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160005,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160006,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160006,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160007,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160007,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160010,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160010,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160011,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 2,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160011,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160019,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 6,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 3
+                },
+                {
+                    "seed": 160021,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160021,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160024,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 3,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160026,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160026,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 5,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160027,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160028,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160028,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 3
+                },
+                {
+                    "seed": 160032,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160034,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160034,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 2,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160038,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 3,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160039,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 3,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160040,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 3,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160042,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 5,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 3
+                },
+                {
+                    "seed": 160043,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 2,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 1,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160044,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 7,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 3
+                },
+                {
+                    "seed": 160044,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 5,
+                    "lines": 1,
+                    "ex": 0,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160046,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 5,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 3
+                },
+                {
+                    "seed": 160046,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160047,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160048,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160049,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 1,
+                    "lines": 0,
+                    "ex": 0,
+                    "discardChar": 0,
+                    "chosen": "me02-019"
+                },
+                {
+                    "seed": 160050,
+                    "opponent": "dhelmise-v2",
+                    "first": 1,
+                    "turn": 5,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 3
+                },
+                {
+                    "seed": 160050,
+                    "opponent": "dhelmise-v2",
+                    "first": 2,
+                    "turn": 4,
+                    "lines": 1,
+                    "ex": 1,
+                    "discardChar": 2,
+                    "chosen": "me02-019"
+                }
+            ],
+            "stretcherRecoveries": [
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "mee-002",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "mee-002",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "mee-002",
+                    "lines": 3
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 7,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 7,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "mee-002",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 3,
+                    "card": "mee-002",
+                    "lines": 3
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 7,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 3,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 7,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 7,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 1,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 2,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "sv08-036",
+                    "lines": 2
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 2,
+                    "card": "me02-019",
+                    "lines": 0
+                },
+                {
+                    "turn": 6,
+                    "card": "me02-019",
+                    "lines": 1
+                },
+                {
+                    "turn": 4,
+                    "card": "sv08-036",
+                    "lines": 3
+                },
+                {
+                    "turn": 5,
+                    "card": "me02-019",
+                    "lines": 1
+                }
+            ]
+        }
+    }
+}

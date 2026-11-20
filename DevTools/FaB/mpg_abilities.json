@@ -520,8 +520,9 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$mpgPlayer = $player;\nFaBMPGNext($mpgPlayer, 2, '', true, true);\n",
-        "isImplemented": true
+        "abilityCode": "$mpgPlayer = $player;\nFaBMPGNext($mpgPlayer, 2, '', false, true);\n",
+        "isImplemented": true,
+        "previousCodeHash": "95a333caa440abe933c76232a57edd29f738918b2aa5a50249bd3096324eaadc"
       }
     ]
   },

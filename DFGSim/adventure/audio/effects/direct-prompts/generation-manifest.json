@@ -1,0 +1,40 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.3,
+  "normalize": false,
+  "style": "",
+  "sounds": [
+    {
+      "id": "direct-1",
+      "file": "direct-1.mp3",
+      "duration": 1,
+      "prompt": "digital card game card swipe"
+    },
+    {
+      "id": "direct-2",
+      "file": "direct-2.mp3",
+      "duration": 1,
+      "prompt": "digital card game card swipe sound effect"
+    },
+    {
+      "id": "direct-3",
+      "file": "direct-3.mp3",
+      "duration": 1,
+      "prompt": "digital card game playing a card sound effect"
+    },
+    {
+      "id": "direct-4",
+      "file": "direct-4.mp3",
+      "duration": 1,
+      "prompt": "fantasy card game attack hit sound effect"
+    },
+    {
+      "id": "direct-5",
+      "file": "direct-5.mp3",
+      "duration": 1,
+      "prompt": "fantasy card game blocking an attack sound effect"
+    }
+  ]
+}

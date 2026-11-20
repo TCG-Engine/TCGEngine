@@ -1,0 +1,25 @@
+{
+  "status": "rejected",
+  "source": "cedar-grove-registered-v5.mp4",
+  "video": "cedar-grove-active-loop-v6.mp4",
+  "sourceFramesInclusive": [
+    42,
+    87
+  ],
+  "sourceTimeRangeSeconds": [
+    1.75,
+    3.6666666666666665
+  ],
+  "fps": 24.0,
+  "frames": 46,
+  "durationSeconds": 1.9166666666666667,
+  "defaultPlaybackRate": 0.4,
+  "effectiveLoopSeconds": 4.791666666666667,
+  "method": "Forward-only trim of an active interior cycle. Browser plays at 40% speed. No image warp, reverse playback, crossfade or generated frames.",
+  "seamMeanChannelDifferenceInsideMask": 4.30511474609375,
+  "maximumNormalStepInsideMask": 9.186652183532715,
+  "meanNormalStepInsideMask": 3.234246692806482,
+  "additionalCreditsSpent": 0,
+  "liveGameChanged": false,
+  "rejectionReason": "User rejected the trimmed/slowed result. Retiming does not resolve the unnatural tree deformation in the generated footage. Not approved for integration."
+}

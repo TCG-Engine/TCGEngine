@@ -1,0 +1,376 @@
+{
+  "status": "APPROVED_ONE_ACTUAL_CORRECTED_FORGE_SAVED_ONLY_TARGETED_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T07:04:47.779463+00:00",
+  "method": "Manualindependentprinted/sourceapproval reused; actualcomplete savedaction/assertion stream andschema-aware realinitial/finalphysicalsnapshots independentlyinspected. No simulator/predictedstate/nativeexecutionbyreviewer.",
+  "source_spec": "card-regression-batch230-forge-corrected-weapon-status.json",
+  "input_sha256": "961d88c01dcefe2c5823c76d0ec17d37ce03e99c1ce7b802affa39093cd14800",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "recording_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse230-forge-only-used-status-manual-delta-approval.json",
+    "sha256": "d6d4f70bd32b798eda084fb5b838df230460d2e4d65fc43d141f3aff12652a3b"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch230-forge-corrected-weapon-status-20261026T065956Z-6adefa6c9d19b.json",
+    "sha256": "d75ef9436937ea2696108b19f14a814877444ac8349e383b97014ae8f520bda0"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "visit_the_imperial_forge_red",
+      "slug": "card-visit-the-imperial-forge-red-four-live-sparse-actual-sword-piercing-three-against-real-equipment-defender",
+      "source_spec": "card-regression-batch230-forge-corrected-weapon-status.json",
+      "input_sha256": "961d88c01dcefe2c5823c76d0ec17d37ce03e99c1ce7b802affa39093cd14800",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "reviewer": "/root/b104_saved_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_CORRECTED_FORGE_ONLY_SAVED_REPLAY_QUALIFICATION_SEPARATE",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b8e5d1d628fedd2f21049e6a7ddf506c46ec5c00a890e46cd507566d2d693e7f",
+        "actions.json": "4b6e0331bd3e4fe596c05aac1422464c9cbe8bbebbdb05982a47872eacf522c8",
+        "assertions.json": "034c72051301ebe64141be92fbb40f68925cf9daaaccffe553d77e58a733fd3f",
+        "expected_final_gamestate.txt": "e1a301a20012a062afd6ae61364edc458c13949106d5ae776eb132cf31c29a77",
+        "meta.json": "1970b8146c12caebfc64ab1c2efcf993bd844d051ed57ae232544c4edb3cc4dc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b8e5d1d628fedd2f21049e6a7ddf506c46ec5c00a890e46cd507566d2d693e7f",
+        "actions.json": "4b6e0331bd3e4fe596c05aac1422464c9cbe8bbebbdb05982a47872eacf522c8",
+        "assertions.json": "034c72051301ebe64141be92fbb40f68925cf9daaaccffe553d77e58a733fd3f",
+        "expected_final_gamestate.txt": "e1a301a20012a062afd6ae61364edc458c13949106d5ae776eb132cf31c29a77",
+        "meta.json": "1970b8146c12caebfc64ab1c2efcf993bd844d051ed57ae232544c4edb3cc4dc"
+      },
+      "fixture_sha256": "f3139665d7f458d9739c37c146b30cd101420f27a1f0d5a9760b55f6d6837a7a",
+      "actions": 26,
+      "native_assertions": 1794,
+      "actual_manual_passes": 21,
+      "actual_pass_actors": {
+        "1": 5,
+        "2": 5,
+        "3": 5,
+        "4": 6
+      },
+      "actual_priority_response_passes": 20,
+      "actual_finish_defend_declaration_inputs": 1,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_recorded_actions_assertions_exact": true,
+      "full_physical_endpoints_independently_inspected": true,
+      "recorder_only_checks": [
+        {
+          "source_step": 35,
+          "action_step": 17,
+          "checkpoint": "actual_Equipment_block_enables_printed_piercing_three",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 37,
+          "action_step": 18,
+          "checkpoint": "actual_defender_finishes_equipment_declaration",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 39,
+          "action_step": 19,
+          "checkpoint": "defend_priority_manual_response_1_of_four",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 41,
+          "action_step": 20,
+          "checkpoint": "defend_priority_manual_response_2_of_four",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 43,
+          "action_step": 21,
+          "checkpoint": "defend_priority_manual_response_3_of_four",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 45,
+          "action_step": 22,
+          "checkpoint": "defend_priority_fourth_manual_response_boundary",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 47,
+          "action_step": 23,
+          "checkpoint": "reaction_manual_response_1_of_four",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 49,
+          "action_step": 24,
+          "checkpoint": "reaction_manual_response_2_of_four",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 51,
+          "action_step": 25,
+          "checkpoint": "reaction_manual_response_3_of_four",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 53,
+          "action_step": 26,
+          "checkpoint": "reaction_fourth_manual_response_boundary",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "source_step": 54,
+          "action_step": 26,
+          "checkpoint": "full_final_real_six_minus_one_damage_five_physical_sword_preserved",
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_uncharged_Warrior_no_Soul_or_weapon_history",
+          "native_assertions": 123
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_primary_zero_cost_Action_spends_AP_only",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "priority_manual_response_1_of_four",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "priority_manual_response_2_of_four",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "priority_manual_response_3_of_four",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "priority_fourth_manual_response_boundary",
+          "native_assertions": 46
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_weapon_adjacent_target_declared_before_resource_payment",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_weapon_one_cost_pending_requires_real_Hand_click_pitch",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_Blue_three_pays_weapon_one_leaves_two_AP_zero",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "priority_manual_response_1_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "priority_manual_response_2_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "priority_manual_response_3_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "priority_fourth_manual_response_boundary",
+          "native_assertions": 54
+        },
+        {
+          "source_step": 25,
+          "action_step": 12,
+          "checkpoint": "actual_sword_base_power_three_before_Equipment_defends",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 27,
+          "action_step": 13,
+          "checkpoint": "attack_manual_response_1_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 29,
+          "action_step": 14,
+          "checkpoint": "attack_manual_response_2_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 31,
+          "action_step": 15,
+          "checkpoint": "attack_manual_response_3_of_four",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 33,
+          "action_step": 16,
+          "checkpoint": "attack_fourth_manual_response_boundary",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 35,
+          "action_step": 17,
+          "checkpoint": "actual_Equipment_block_enables_printed_piercing_three",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 37,
+          "action_step": 18,
+          "checkpoint": "actual_defender_finishes_equipment_declaration",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 39,
+          "action_step": 19,
+          "checkpoint": "defend_priority_manual_response_1_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 41,
+          "action_step": 20,
+          "checkpoint": "defend_priority_manual_response_2_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 43,
+          "action_step": 21,
+          "checkpoint": "defend_priority_manual_response_3_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 45,
+          "action_step": 22,
+          "checkpoint": "defend_priority_fourth_manual_response_boundary",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 47,
+          "action_step": 23,
+          "checkpoint": "reaction_manual_response_1_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 49,
+          "action_step": 24,
+          "checkpoint": "reaction_manual_response_2_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 51,
+          "action_step": 25,
+          "checkpoint": "reaction_manual_response_3_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 53,
+          "action_step": 26,
+          "checkpoint": "reaction_fourth_manual_response_boundary",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 54,
+          "action_step": 26,
+          "checkpoint": "full_final_real_six_minus_one_damage_five_physical_sword_preserved",
+          "native_assertions": 140
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_window": "DAMAGE",
+      "final_combat_open": true
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 26,
+  "total_manual_passes": 21,
+  "total_native_assertions": 1794,
+  "total_recorder_only_defense_checks": 11,
+  "actual_read_only_audit_checks": 233,
+  "limits": [
+    "CorrectedSINGLEForgebound961dsourceonly. ActualAlluvion/Cloakstayboundoriginald0fdandseparateb866actualproof; itsblockedForge rowdescribesHISTORICALstaleStatusrecipefailure, notthiscorrectedrun.",
+    "ActualForge5Action0/GAearnsAPforactualSword7cost1; Blue6pitch3leavesR2/AP0andphysicalSwordready2becomesused1beforepriority. RealSwordproxy9SourceUID7hasbase3beforeblockthenactualHelm8makesForgePiercing3power6. Physical5damage/HP15verifiedwithnativeevent/actualendpoints.",
+    "PhysicalSword7Status1/owner1/countersfirstactivation; proxy9owner1onChain withWEAPON_UID7, Helm8owner4fromEquipment. NativeStackOwner0conventionandrecordedintermediatetiming retained; noextra rawintermediatesnapshots/privateframecapture.",
+    "Every1794persistedassertion and26nativeinputs retainedexact, all4actors/manualprefsverified.21passinputs include20priorityresponsesplus1finishdefenseinput.11DEF1checksrecorderevaluatedbutnotpersisted.",
+    "EndpointDAMAGE/combatOPEN; noBladeBreak/chainclosure/Dawnsecondhit/reset/rejection/GOAGAINAP/futureturn orfullcard/sibling/support/heroidentitycredit.",
+    "Noisolatednativefaultclaimed/forced; realrootcorrectedrecordingpassaloneisnotreplayqualification. Twofocusednew-onlyreplayspending/separate, noneclaimedhere."
+  ],
+  "synthetic_simulator_created": false,
+  "native_execution_by_reviewer": false,
+  "repository_writes_by_reviewer": false
+}

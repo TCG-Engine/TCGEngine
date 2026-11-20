@@ -23,7 +23,9 @@ function RenderMetaPremierRating($userId, ?mysqli $conn = null): string {
         // While RD is high the number is still settling — shown as "1500?" (Lichess convention).
         $num = (string)round(floatval($r['rating'])) . (floatval($r['rd']) > MP_PROVISIONAL_RD ? '?' : '');
         $rows .= "<li class='mp-row'><span class='mp-label'>$label</span><span class='mp-value'>$num</span>"
-               . "<span class='mp-record'>" . intval($r['wins']) . '–' . intval($r['losses']) . ' · ' . intval($r['games']) . " matches</span></li>";
+               . "<span class='mp-record'>" . intval($r['wins']) . '–' . intval($r['losses'])
+               . (intval($r['draws'] ?? 0) > 0 ? '–' . intval($r['draws']) : '')   // W–L–D once a match was drawn (migration 22)
+               . ' · ' . intval($r['games']) . " matches</span></li>";
     }
     return "<div class='metaPremierRating container bg-black'><h2>Meta Premier</h2>"
          . "<p class='note'>Your rating is visible only to you. A ? means it's still settling.</p>"

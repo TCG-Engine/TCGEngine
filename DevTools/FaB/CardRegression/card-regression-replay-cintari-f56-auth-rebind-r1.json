@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch216-cintari-probe.json",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T02:34:39.668819+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+      "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+      "passed": true,
+      "result": "[PASS] cintari_saber / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+      "returncode": 0,
+      "stdout": "[PASS] cintari_saber / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

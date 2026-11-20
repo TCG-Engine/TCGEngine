@@ -1,0 +1,184 @@
+{
+  "approved": true,
+  "status": "PRECISE_BOTH_VERSIONS_EXPECTED_ONLY_CORRECTION_APPROVED_POST_APPLY_REPLAY_PENDING",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "proposal_manifest_sha256": "de2b47a8400b242f95bc2e304ccd89be14cef5f11090ce9b204229d174b68dda",
+  "diagnostic_capture_receipt_sha256": "8ff118a4b01c60b4d5ea48812d52a78616025859a8b6d3949723ebccc6884c5e",
+  "prior_outer_state_approval_sha256": "113333ad5baeaba4e28bfa3c370959773dd46a2c115e0d65d2f9dd29bfdd393d",
+  "method": "Independent read-only completebytes comparison of2candidate snapshots, both nestedUndoVersions each, canonicalraw5, full actual diagnostic outputs, and previously reviewedsource/rules causalmodel. NoPHP/native/game/model/repository writes.",
+  "fixtures": [
+    {
+      "slug": "card-unmovable-red-hand-paid-blue-three",
+      "before_raw5_sha256": {
+        "initial_gamestate.txt": "dbb5dd6b3abbac4c7033d509e55f5c30da01b6ae7197f13cddd125dda9bb673d",
+        "actions.json": "443dee083ef87115d087ca8a141b3b542b67814f9f9af61318db9fe0dfa679c3",
+        "assertions.json": "7d5cd084c3a47749896f66fe489de4ae2115de2821fabc2e5b75b71856d88df4",
+        "expected_final_gamestate.txt": "2d847f30cf92f5bc8cc77a214a30fe48962a5cbed3cfaa9780cd5ccc37d64763",
+        "meta.json": "5f208f339775903bc04d4cd3850cb4e7fb1fb07d24b1c69aa59421d4fe2b53d9"
+      },
+      "candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-undo-snapshot-model-proposed-v2-preserve-lf\\card-unmovable-red-hand-paid-blue-three\\expected_final_gamestate.txt",
+      "candidate_sha256": "efcc6098819f71d3a91b2e58fdeb1ea2023ffd4fd9972ac4315c3b7f5c2826e8",
+      "changed_lines": [
+        98,
+        100
+      ],
+      "nested_variable_index": 90,
+      "nested_variable": "GameState",
+      "nested_field_count": 96,
+      "all_95_other_nested_variables_byte_exact": true,
+      "whole_actual_capture_sha256": "c5d6ffaa0eb1bc3c2faa24a8491d24f0c61517d0179d39a2c3ce183ea2b94682",
+      "whole_candidate_equals_actual_after_crlf_to_lf_only": true,
+      "original_lf_preserved": true,
+      "line_endings": {
+        "old_lf": 111,
+        "candidate_lf": 111,
+        "actual_crlf": 111
+      },
+      "original_pre_first_correction_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-two-legacy-snapshot-backup\\fixtures\\card-unmovable-red-hand-paid-blue-three",
+      "original_backup_exists_and_raw5_verified": true,
+      "precise_allowed_semantics": [
+        {
+          "line": 98,
+          "version_segment": 90,
+          "allowed_json_changes": [
+            {
+              "path": "/arcCards/6/iarPermission",
+              "before": "<ABSENT>",
+              "after": []
+            }
+          ]
+        },
+        {
+          "line": 100,
+          "version_segment": 90,
+          "allowed_json_changes": [
+            {
+              "path": "/arcCards/6/iarPermission",
+              "before": "<ABSENT>",
+              "after": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
+      "before_raw5_sha256": {
+        "initial_gamestate.txt": "554e312ce2e546cbf86b14360024447ba6dca8d0279d0a52f7467507804d45ee",
+        "actions.json": "13baf676b94005abc1cdb577dee0386d94b8c784a05e2034e0461dde039c587a",
+        "assertions.json": "d981f3191967dee6a6e896487c75e5e5eba3b682286acfda1b47a7002718f541",
+        "expected_final_gamestate.txt": "26373140af2531edab33e5d22f401992c020b4caed79931f2325d91dc031a093",
+        "meta.json": "bfce687e94c6ddf419199b124b3ed2739180e3f036f7604f095670ed01a2f662"
+      },
+      "candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-undo-snapshot-model-proposed-v2-preserve-lf\\card-fate-foreseen-red-hand-opt-one-top-then-draw\\expected_final_gamestate.txt",
+      "candidate_sha256": "29c8aa85bd118b52010f7746e97a636cf216d300e21c49db149b2c4ea103e454",
+      "changed_lines": [
+        100,
+        102
+      ],
+      "nested_variable_index": 90,
+      "nested_variable": "GameState",
+      "nested_field_count": 96,
+      "all_95_other_nested_variables_byte_exact": true,
+      "whole_actual_capture_sha256": "ebe26daee994f5523e8f26feed0ad474961b42c5a4cbb9a4eb54c841fd368069",
+      "whole_candidate_equals_actual_after_crlf_to_lf_only": true,
+      "original_lf_preserved": true,
+      "line_endings": {
+        "old_lf": 113,
+        "candidate_lf": 113,
+        "actual_crlf": 113
+      },
+      "original_pre_first_correction_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-two-legacy-snapshot-backup\\fixtures\\card-fate-foreseen-red-hand-opt-one-top-then-draw",
+      "original_backup_exists_and_raw5_verified": true,
+      "precise_allowed_semantics": [
+        {
+          "line": 100,
+          "version_segment": 90,
+          "allowed_json_changes": [
+            {
+              "path": "/turnEffects/2/4/type",
+              "before": "MST_BLUE_DEFENDED",
+              "after": "SEA_DRAWN"
+            },
+            {
+              "path": "/turnEffects/2/5/type",
+              "before": "SEA_DRAWN",
+              "after": "DTD_DRAWN"
+            },
+            {
+              "path": "/turnEffects/2/6/type",
+              "before": "DTD_DRAWN",
+              "after": "MST_BLUE_DEFENDED"
+            },
+            {
+              "path": "/arcCards/5/iarPermission",
+              "before": "<ABSENT>",
+              "after": []
+            },
+            {
+              "path": "/arcCards/6/iarPermission",
+              "before": "<ABSENT>",
+              "after": []
+            }
+          ]
+        },
+        {
+          "line": 102,
+          "version_segment": 90,
+          "allowed_json_changes": [
+            {
+              "path": "/turnEffects/2/4/type",
+              "before": "MST_BLUE_DEFENDED",
+              "after": "SEA_DRAWN"
+            },
+            {
+              "path": "/turnEffects/2/5/type",
+              "before": "SEA_DRAWN",
+              "after": "DTD_DRAWN"
+            },
+            {
+              "path": "/turnEffects/2/6/type",
+              "before": "DTD_DRAWN",
+              "after": "MST_BLUE_DEFENDED"
+            },
+            {
+              "path": "/arcCards/5/iarPermission",
+              "before": "<ABSENT>",
+              "after": []
+            },
+            {
+              "path": "/arcCards/6/iarPermission",
+              "before": "<ABSENT>",
+              "after": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "independent_findings": [
+    "Only two Versions lines per fixture change; within each serialized96variableVersion only variable90GameState changes. Prefix/name and all95other fields are byte-exact. All other snapshot lines byte-exact.",
+    "Unmovable nested each copy adds onlyarcCards/6/iarPermission=[]. Fate each copy adds onlyUID5/6emptypermission plus moves unchanged BLUE_DEFENDED marker after unchanged SEA_DRAWN/DTD_DRAWN. Derived directly from each oldnestedState using prior reviewedrule model; no source/card/economy/phase/queue/UID/history amount changes.",
+    "This matches actualSaveVersion capture of currentstate before passingpriority: corrected sharedmove preserves existingIARAfterMove cleanup ratherthan stale overwrite. Emptypermission grants nothing. SinkBelowBLUE body actual draw precedes itsownOnDefended, asCR5.3.4 precedes5.3.6b. It is not a separate latermanualdraw and not earlyFateRedblue marker.",
+    "Fullindependent modelcandidate equals fullcapturedactual ONLYafter exactCRLF\u2192LFconversion; old canonical LF is preserved. No blanketactualrecapture, arbitrary normalization, or weakened oracle.",
+    "Original pre-first-correction fullraw5 backups verifiedoutsideR. Source/actions/assertions/initial/meta remain preserved; currenttwo failedreports retained. No additionalenginefix indicated by these completecaptured diffs."
+  ],
+  "source_current_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+  "apply_constraints": [
+    "Root verify before_raw5 again, preserve current expected_final backup aswell as original tenfiles/oldselectedreview records, then apply only exactcandidatehashes.",
+    "Run onlythese2focusedexisting replays afterapply; no fullsuite. Any furtherdiff requires separate diagnosis.",
+    "Do not retag oldreview evidence or award newcoverage/full-current-runtime guarantees. All38 native assertions previouslypassed but finalsnapshot qualification waits successfulpostupdate focusedruns."
+  ],
+  "limits": [
+    "Root owns diagnostic/nativeexecution; disposablecloneremoval/canonicalpreservation verifiedfromreceipt+currenthashes, no game executedbyreviewer.",
+    "Snapshot containsUndoVersion storagecopies, not new independentactions or semanticcoverage.",
+    "No assertion/action/meta/initial/source/runtime change requested."
+  ],
+  "reviewer": "/root/b104_saved_review",
+  "prior_unreleased_scratch_approval_sha256": "0e0d72aa371287867266a62ab1487b3e5829d459f1efcddb0bd7868edf499387",
+  "metadata_path_correction": "Prior scratchnote omitted /fixtures/ backupdirectory; exactten originalfiles independentlyverified at correctedpath now. Allcandidate/semantics/bytechecks unchanged.",
+  "selected_old_review_rows_backup": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-two-legacy-snapshot-backup\\selected-old-review-rows.json",
+    "sha256": "8cd89d082e053d989b61fc7c714f3afd89acb0ded261573a90c12fe78ec1ccbe"
+  }
+}

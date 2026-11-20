@@ -1,0 +1,110 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "status": "APPROVED_BOUNDED_SHARED_TRAP_LEGALITY_SOURCE_COMPONENT_NATIVE_GATES_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\trap-legality-anaphylactic-shared-proposed\\proposal.json",
+  "proposal_sha256": "87658678942352786945c48707be90173688d06561153aa4e3a99b05ca3c788c",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "runtime_before_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "runtime_after_sha256": null,
+  "method": "Independent manual current official rules/selected official card text and exact source-diff review; static unique-anchor reconstruction/inverse, selected dictionary text and source/runtime hash checks. No PHP/native/component/model execution or repository mutation.",
+  "files": [
+    {
+      "path": "FaBSim/Custom/CRUCards.php",
+      "before_sha256": "a7f823700eb3679c02d843cf8f4ff2c72aa5fcbcadbdb45bfacd2a285ba315b8",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\trap-legality-anaphylactic-shared-proposed\\candidate\\CRUCards.php",
+      "after_sha256": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292"
+    }
+  ],
+  "byte_guards": {
+    "source_guards_verified": 9,
+    "all_current_guards_match": true,
+    "runtime_fingerprint_match": true,
+    "unique_exact_anchors": 2,
+    "candidate_reconstructed_from_current_bytes": true,
+    "inverse_reconstructs_entire_current_file": true,
+    "before_crlf_count": 561,
+    "candidate_crlf_count": 569,
+    "only_changed_file": "FaBSim/Custom/CRUCards.php",
+    "review_diff_sha256": "f919c1a790d881d709b0936821eb2d003343c9a066cd278ae66049b36cbbb48c",
+    "strict_byte_anchors_sha256": "84b2710da72ef597fce8a0c2e8a89bde7af7e8b493231679b577970aed536183"
+  },
+  "official_findings": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "section": "8.2.7",
+      "finding": "Current official rule removes functional meaning from the Trap subtype since2023. Trap alone imposes no Arsenal origin restriction. Instant timing still follows priority under8.1.6a; ordinary DR timing remains8.1.3a."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3473/",
+      "finding": "AnaphylacticShock is Assassin Instant Trap cost0 with earned opponent damage/life-loss text and no Arsenal restriction."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/667/",
+      "finding": "PitfallTrap explicitly restricts its own play to Arsenal; preserve independently of nonfunctional subtype."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/666/",
+      "finding": "TripwireTrap explicitly restricts its own play to Arsenal; preserve independently of nonfunctional subtype."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/668/",
+      "finding": "RockslideTrap explicitly restricts its own play to Arsenal; preserve independently of nonfunctional subtype."
+    }
+  ],
+  "source_findings": [
+    "Current CRU97 rejects every Trap when zone is not Arsenal before CanPlay can accept modern unrestricted InstantShock. Candidate replaces only this blanket origin condition with a shared explicit-own-text predicate, keeping Trap and non-Arsenal scoping. It introduces no Shock-ID special case, game-state history injection, source permissions or new cost logic.",
+    "FaBCRUTrapRequiresArsenal reads current CardFunctional_text_plain and exact CardName. Removing straight/curly quoted spans excludes granted quoted text; anchored first unquoted own This/exact-name sentence recognizes explicit can-only-be-played-from [your] arsenal. CardName is preg_quote escaped; whitespace and case variants are handled. Current five selected functional texts/names match the actual generated dictionary exactly.",
+    "Official legacy leading This wording and frozen named-card catalog wording are both recognized. The new guard still rejects those legacy traps from Hand/non-Arsenal and bypasses this local restriction for Arsenal. Modern Shock and current unrestricted BoulderTrap do not acquire an implicit subtype restriction. These are local CanPlay boundary conclusions, not full new native legality/body coverage.",
+    "Every other FaBCRUCanPlay statement remains exact, including FeignDeath, CrushWeak, defense-reaction block legality, target availability and RattleBones graveyard checks. The outer common priority/live/controller/zone/timing/resources/generic permissions remain untouched. Arrow handling, abilities, card bodies, history, source lifetime, generated/cache/Core/schema files and remote canonical data are unchanged.",
+    "Exact candidate b747 has two source edits: the small shared predicate insertion and one guard extension. Byte anchors are unique, candidate exactly reconstructed, reverse replacements restore the entire live a7f8 source with original CRLF. Current actual runtime b3 and all9 declared source guards match."
+  ],
+  "selected_printed_boundaries": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\trap-legality-anaphylactic-shared-proposed\\selected-printed-text-boundaries.json",
+    "sha256": "6f9ac9ba83a38b9c5be822bf40ee7bec52061ad33abe9156375ac853ba266f81",
+    "actual_dictionary_names_and_functional_text_verified": [
+      "anaphylactic_shock_blue",
+      "pitfall_trap_yellow",
+      "tripwire_trap_red",
+      "rockslide_trap_blue",
+      "boulder_trap_yellow"
+    ],
+    "catalog_wide_audit": false
+  },
+  "planned_components": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\trap-legality-anaphylactic-shared-proposed\\component-boundary-contracts.json",
+    "sha256": "adbdfed5dbd8cf46f144101a249df99d67508818eaef0fb5367507edf2b9aa2b",
+    "planned_groups": 12,
+    "data_scope_reviewed": true,
+    "extractor_harness_reviewed": false,
+    "executed": false,
+    "finding": "Selected Shock Hand/Arsenal, three explicit legacy Hand-reject/Arsenal-pass boundaries, unrestricted Boulder Hand, exact named/This leading sentences, quoted/conditional/activated negatives and non-Trap unchanged cohort are useful focused contracts. Actual extractor/controlled-boundary honesty requires separate frozen-harness peer gate; these plans are not passing components."
+  },
+  "native_before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\trap-058-native-before.json",
+    "sha256": "7aeca758d91f03e1e1791700ad7fdc7be3752c59034023914843e320cd6874bf",
+    "input_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+    "attempted_inputs": 23,
+    "fixture_saved": false,
+    "first_error": "Expected Stack count 1, got 0.",
+    "bounded_interpretation": "Actual P4 Hand click leaves Shock in Hand with empty Stack/DQs and only WB in cardsPlayed after earned damage history. Current explicit blanket Trap guard is a confirmed matching rejection source. No Shock resolution/life-loss endpoint, separate after-failure AP scalar or passing fixture is claimed."
+  },
+  "classification": {
+    "family": "obsolete_trap_subtype_legality",
+    "assessment": "Distinct source mechanism from038/056 own-keyword recognition,021 managed plain completion and051 card-specific origin/power producer. Old nonfunctional subtype-wide legality ban is a new repair family rather than a completion/parser caller extension; final issue/count bookkeeping remains parent-owned.",
+    "source_only_fixed_credit": 0
+  },
+  "qualification_gates": [
+    "Root-only guarded backup/apply exact before/candidate bytes and PHP syntax lint.",
+    "Separate peer-reviewed actual-extracted12-boundary harness then root execution, with local CanPlay metadata/unrelated-engine adapters disclosed.",
+    "Unchanged Shock correct probe must actually announce from Hand, resolve after four response passes and satisfy real earned-history life-loss/physical endpoints; independent actual-saved review and two focused clean replays remain required.",
+    "Small selected explicit legacy Arsenal compatibility if parent chooses; no broad Trap or full regression suite required by this source review."
+  ],
+  "limits": [
+    "Conservative recognizer supports current leading unconditional own-card wording, not all arbitrary future/nonleading/conditional restriction grammar. Such new cases need canonical prerequisites or targeted support.",
+    "No new dynamic text, loss-of-abilities, alternate origin permission or override semantics are certified; existing behavior outside selected guard preserved.",
+    "Other Trap cards, all three legacy card bodies/triggers and siblings receive no native/coverage credit from text or component checks.",
+    "Actual component/native success is pending; no full suite, source mutation, PHP/game execution, optional certification simulator or remote write by this reviewer."
+  ]
+}

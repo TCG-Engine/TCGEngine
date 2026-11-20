@@ -49,7 +49,7 @@ for c in json.loads((HERE/'mpg_catalog.json').read_text()):
  if b=='daily_grind':add('ResolveAbility',clash_effect('mill',opponent="intval(DecisionQueueController::GetVariable('rosTarget'))"))
  if b=='pec_perfect':add('ResolveAbility',clash_effect('mill',opponent="intval(DecisionQueueController::GetVariable('rosTarget'))"))
  if b in ['craterhoof','gauntlet_of_boulderhold','leave_a_dent','overswing']:
-  add('ResolveAbility' if b in ['craterhoof','gauntlet_of_boulderhold'] else 'ResolveCard',"FaBMPGNext($player, "+str(v if b=='overswing' else (2 if b=='gauntlet_of_boulderhold' else 0))+", '"+('DOMINATE' if b=='craterhoof' else ('MPG_DENT' if b=='leave_a_dent' else ''))+"', "+('true' if b in ['craterhoof','gauntlet_of_boulderhold'] else 'false')+", "+('false' if b=='leave_a_dent' else 'true')+");")
+  add('ResolveAbility' if b in ['craterhoof','gauntlet_of_boulderhold'] else 'ResolveCard',"FaBMPGNext($player, "+str(v if b=='overswing' else (2 if b=='gauntlet_of_boulderhold' else 0))+", '"+('DOMINATE' if b=='craterhoof' else ('MPG_DENT' if b=='leave_a_dent' else ''))+"', "+('true' if b=='craterhoof' else 'false')+", "+('false' if b=='leave_a_dent' else 'true')+");")
  if b=='disenchantment_of_the_old_ones':add('Hit',crush("FaBMPGDestroyAuras($victim);",True))
  if b=='fault_line':add('Hit',crush("FaBMPGBottomArsenals();"))
  if b=='fearless_confrontation':add('ResolveAbility',"$uid = intval(DecisionQueueController::GetVariable('arcAttackUID')); FaBTagUID($uid, 'WTR_POWER:-1'); FaBTagUID($uid, 'MPG_NO_DOMINATE');")

@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-adaptive-dissolver-four-live-sparse-real-action-and-equipment-zone-choice-head-to-arms",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 409
+    },
+    {
+        "slug": "card-spellbane-aegis-four-live-sparse-real-optional-spellvoid-token-destruction-prevents-one-arcane",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 572
+    }
+]

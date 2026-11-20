@@ -212,3 +212,30 @@ WithP1SpaceArena: SOR_225:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1RESAVAILABLE:3
+
+---
+
+# FreeUpgradeIsTheFirstNonUnit_SecondPaysPenalty
+#// ASH_212 Peli Motto — "Ignore the aspect penalties of the first non-unit card you play each phase."
+#// Jabba's free replay of SOR_120 (Command upgrade) is the first non-unit card played, so the second SOR_120
+#// from hand pays 2 + 2 (Command penalty in a byk deck): 8 - 4 (Jabba) - 4 = 0. An unspent waiver leaves 2.
+
+## GIVEN
+CommonSetup: byk/byk/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: [ASH_212:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 1:SOR_120
+WithP1Hand: [ASH_042 SOR_120]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:myGroundArena-2
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:2:UPGRADECOUNT:1
+P1HANDCOUNT:0
+P1RESAVAILABLE:0

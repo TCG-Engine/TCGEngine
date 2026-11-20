@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Meta-baseline FETCH (skill `swusim-ash-meta-bot-run`). usage: fetch_lists.py <export.json> <lists dir> [workers=2]
+"""Meta-baseline FETCH (skill `swusim-meta-bot-run`). usage: fetch_lists.py <export.json> <lists dir> [workers=2]
 
 Fetch EVERY entry's decklist contents (not just one per archetype) into decklists/<DecklistId>.json.
 

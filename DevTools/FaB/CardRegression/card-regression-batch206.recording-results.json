@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 34,
+        "assertions": 2786
+    },
+    {
+        "slug": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 34,
+        "assertions": 2642
+    },
+    {
+        "slug": "card-teklo-plasma-pistol-four-live-sparse-real-steam-attack-cost-and-two-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 1720
+    }
+]

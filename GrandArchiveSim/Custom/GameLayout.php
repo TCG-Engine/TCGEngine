@@ -8,6 +8,10 @@
 //   Player-scoped zones: my{BindTo} and their{BindTo}
 //   Global zones:        {BindTo}  (no prefix)
 require_once __DIR__ . '/GameLayoutDevice.php';
+include __DIR__ . '/MatchClarity.php';
+include __DIR__ . '/RevealHistory.php';
+include __DIR__ . '/FieldRows.php';
+include __DIR__ . '/CleanUI.php';
 if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
@@ -1827,7 +1831,7 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           };
      })();
 
-     // App-level turn indicator config hook (consumed by Core/UILibraries20261023.js).
+     // App-level turn indicator config hook (consumed by Core/UILibraries20261031.js).
      // This keeps ownership/wording customizable per app layout.
      window.TurnIndicatorSettings = {
           showWaitingMessage: true,
@@ -2289,16 +2293,18 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
                     restoreScrollLeft();
                 }
 
+               var layoutFrame = null;
                new MutationObserver(function() {
-                    ensureButtons();
-                    bindButtonHandlers(leftBtn, -1);
-                    bindButtonHandlers(rightBtn, 1);
-                    bindWrapper();
-                    window.requestAnimationFrame(function() {
+                    if (layoutFrame !== null) return;
+                    layoutFrame = window.requestAnimationFrame(function() {
+                         layoutFrame = null;
+                         ensureButtons();
+                         bindButtonHandlers(leftBtn, -1);
+                         bindButtonHandlers(rightBtn, 1);
+                         bindWrapper();
                          restoreScrollLeft();
                          updateButtons();
                     });
-                    updateButtons();
                }).observe(slot, { childList: true, subtree: true });
 
                lastKnownScrollLeft = readSavedScrollLeft();

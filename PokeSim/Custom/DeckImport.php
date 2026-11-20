@@ -2,14 +2,14 @@
 const POKE_SET_CODES = ['PBL' => 'me05', 'ASC' => 'me02.5', 'SSP' => 'sv08', 'CRI' => 'me04',
     'POR' => 'me03', 'BLK' => 'sv10.5b', 'WHT' => 'sv10.5w', 'JTG' => 'sv09', 'MEE' => 'mee',
     'TEF'=>'sv05', 'PFL'=>'me02', 'SCR'=>'sv07', 'DRI'=>'sv10', 'MEG'=>'me01', 'SVI'=>'sv01', '30C'=>'30th',
-    'SFA'=>'sv06.5', 'TWM'=>'sv06', 'PRE'=>'sv08.5'];
+    'SFA'=>'sv06.5', 'TWM'=>'sv06', 'PRE'=>'sv08.5', 'BS'=>'base1'];
 
 function PokeParseDeckText(string $text, bool $verify = true): array {
     $entries = [];
     foreach (preg_split('/\R/u', trim($text)) as $line) {
         $line = trim($line);
         if ($line === '' || preg_match('/^(Pokémon|Pokemon|Trainer|Energy|Total Cards|\*|#)/u', $line)) continue;
-        if (preg_match('/^(\d+)\s+([a-z][a-z0-9._]*-[A-Za-z0-9]+)$/D', $line, $m)) {
+        if (preg_match('/^(\d+)\s+([a-z0-9][a-z0-9._]*-[A-Za-z0-9]+)$/D', $line, $m)) {
             $count = (int)$m[1]; $id = $m[2]; $name = null;
         } elseif (preg_match('/^(\d+)\s+(.+)\s+([A-Z0-9]+)\s+(\d+)$/uD', $line, $m)) {
             $count = (int)$m[1]; $name = $m[2]; $set = POKE_SET_CODES[$m[3]] ?? null;
@@ -20,7 +20,8 @@ function PokeParseDeckText(string $text, bool $verify = true): array {
                 }
             }
             if ($set === null) throw new InvalidArgumentException("Unknown set code {$m[3]}; use a TCGdex printing ID");
-            $id = $set . '-' . (isset(POKE_SET_CODES[$m[3]]) ? str_pad($m[4], 3, '0', STR_PAD_LEFT) : $m[4]);
+            // Base Set TCGdex IDs use unpadded numbers (base1-97).
+            $id = $set . '-' . (isset(POKE_SET_CODES[$m[3]]) && $set !== 'base1' ? str_pad($m[4], 3, '0', STR_PAD_LEFT) : $m[4]);
         } else throw new InvalidArgumentException("Unrecognized deck line: $line");
         // Limitless MEE 13 is not in TCGdex's eight-card MEE catalog. Resolve
         // this basic Energy to its equivalent MEE 5 record; retain the export.

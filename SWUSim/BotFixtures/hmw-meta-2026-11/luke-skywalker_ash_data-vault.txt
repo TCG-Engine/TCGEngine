@@ -1,0 +1,51 @@
+# Real-deck self-play fixture — Luke Skywalker, I Can Save Him - Data Vault
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #19 of 485 (9-3-0), player Kitsye
+#   https://melee.gg/Decklist/View/27b9fa98-bca0-418b-b18a-b4fb00f55335 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Luke Skywalker (ASH) Data Vault list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 64 (base minimum 60), sideboard 10.
+# Archetype: midrange — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: midrange
+
+Leader
+1 ASH_005
+
+Base
+1 JTL_024
+
+Deck
+3 SEC_051
+3 SEC_098
+3 LOF_093
+3 HMW_035
+3 ASH_056
+3 ASH_079
+3 LAW_039
+3 SEC_094
+3 ASH_106
+3 LAW_149
+3 LOF_045
+2 SEC_046
+2 LOF_100
+2 LOF_096
+2 HMW_078
+2 ASH_077
+2 ASH_062
+1 ASH_059
+1 HMW_136
+1 ASH_053
+3 JTL_096
+2 ASH_063
+2 ASH_109
+1 ASH_052
+1 JTL_119
+3 LAW_133
+2 SEC_078
+2 LAW_041
+
+Sideboard
+2 HMW_122
+2 LAW_106
+2 ASH_028
+2 LAW_132
+1 SEC_046
+1 SEC_078

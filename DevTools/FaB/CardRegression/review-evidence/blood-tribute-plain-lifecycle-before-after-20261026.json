@@ -1,0 +1,266 @@
+{
+  "status": "BLOOD_RED_NATIVE_BEFORE_FAIL_AFTER_PASS_SAME_CORRECT_INPUT_EXISTING_GROUP_EXTENSION",
+  "repair_group": "named_plain_lifecycle",
+  "new_distinct_root_cause_group": false,
+  "before_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "after_runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+  "unchanged_input_spec": {
+    "path": "card-regression-batch209-blood-tribute-probe.json",
+    "sha256": "0b8f2ad05c5b1d1e8cd2d973679bb77f4a286e7b702721d61478e9b81721a23e"
+  },
+  "same_initial_sha256": "c81c5faa963871b7ac4b48c6048fa9cba7fd9788aaeee47e0946941e5bc3cb13",
+  "same_first_five_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "same_first_five_actions_canonical_json_sha256": "52fbc583581b32eaac17dbb9fc6c1bd74d94678ce8830a245cf0cfad3ff726ec",
+  "native_before": {
+    "original_full_archive": {
+      "path": "recording-runs\\card-regression-batch209-blood-tribute-probe-20261025T234539Z-6ade94a36d536.json",
+      "sha256": "440d7e5e41223aeb04d948d01ae3b98c1837531b6351f75ef37565625d97aa62"
+    },
+    "original_results_sha256": "6ad31d6c3798950d1cd6428d7ef264c2e7a37d4e96048a7e63e38ccd26f243e6",
+    "error": "state window expected \"PRIORITY\" got \"ACTION\"",
+    "observed_window": "ACTION",
+    "pending_decisions": {
+      "1": [
+        {
+          "Type": "MZREARRANGE",
+          "Param": "Top=wounding_blow_red,wounding_blow_blue,wounding_blow_yellow;Bottom=",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 0,
+          "_sourceZone": null
+        },
+        {
+          "Type": "CUSTOM",
+          "Param": "blood_tribute_red:0:ResolveCard-await|blood_tribute_red:0:ResolveCard#1|4|order",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 1,
+          "_sourceZone": null
+        }
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "passing_fixture_saved": false
+  },
+  "physical_confirmation": {
+    "error": "Expected p1Graveyard count 0, got 1.",
+    "same_initial_and_first5": true,
+    "pending_choice": {
+      "Type": "MZREARRANGE",
+      "Param": "Top=wounding_blow_red,wounding_blow_blue,wounding_blow_yellow;Bottom=",
+      "Block": 1,
+      "Tooltip": "",
+      "DontSkipOnPass": 0,
+      "removed": null,
+      "Location": "",
+      "PlayerID": 0,
+      "mzIndex": -1,
+      "_sourceZone": null
+    },
+    "passing_fixture_saved": false,
+    "source_identity_limit": "Native observed Graveyard count1 with correctsource only eligible for that zone under unchanged initial5/Deck6-9 and five actions; rawcurrent Graveyard UID not separately dumped.",
+    "external_compact_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-before97-physical-confirmation.json",
+      "sha256": "93484e5bd6a0fc533aa5a554d39b1ab33d8deb8a85aff482b1d37be2c532b206"
+    },
+    "external_full_diagnostic_recovery": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-before97-graveyard-first-diagnostic\\blood-tribute-graveyard-first-diagnostic.recording-results.json",
+      "sha256": "9e052ac5fd76a9c6ccb2c1efc38e6c2e9474c8915f66303ffadc2eba24877a1e",
+      "retention": "Retained in task workspace outside repository; original full native-before archive remains immutable in repository."
+    }
+  },
+  "source_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-plain-family-apply-backup\\application.json",
+    "sha256": "f03bcb0b971fae4739b7217a4ce988b5dd79f40b8160e2bedcb5318c62665651",
+    "source_path": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+    "after_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+    "proposal": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-plain-family-repair-proposed\\proposal.json",
+      "sha256": "0d209a715c95d8d987b0e09d5189a68d4c17a653ea3a96c3887821b4a2a26c26"
+    },
+    "patch": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-plain-family-repair-proposed\\blood-tribute-plain-family.patch",
+      "sha256": "2a91cefdf1cd778c9951c9cb34f2e69898d48a3e1bc41dd3b20d65d66b020cd8"
+    },
+    "independent_source_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-plain-family-independent-source-review-106.json",
+      "sha256": "d5e81acde6071a7dc843f9d0b109436c1c78a15f0e2a15d71d15a89286b8b777"
+    }
+  },
+  "native_after": {
+    "passing_fixture": "Tests/Integration/FaBSim/card-blood-tribute-red-four-live-correct-source-lifetime-real-opt-three-then-physical-banish",
+    "fixture_sha256": "9f88f790e22b43487ab24697cab238f977b7f1829ff28079b7b87891394f1ebb",
+    "actions_sha256": "e298c54dd551cecbe4c04f25f21d973aa8e63d70c094ae635e46adfdd00a3353",
+    "independent_actual_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-red-postfix-actual-saved-independent-review-106.json",
+      "sha256": "b83728a04e6cdfe22383b7f1e90968a6006b152f4b8af274f4898c531e07092f"
+    },
+    "summary": "Original unchanged0b8 correct expectations all616persisted; sixrealactions include manualpassactors1/2/3/4 and actualOptanswer. Same initial bytes c81c5 as native97failed attempt and exactfirst5actions. SourceUID5 actualStack/GY0 throughOptawait bound by savednativeoracles/ownedPLAIN_SPELL marker; selectedBlue7 publiclybanished afterOpt, remainingDeck6,9,8, source5publicGYFace0 afterremainingeffect, AP1/R0/allHP20. ActualfinalStack/queues/awaitframes/marker/payment empty. Only red representative credited; siblingclassification is source-only.",
+    "review_evidence": "review-evidence/blood-tribute-red-20261026-qualified-saved-review.json",
+    "replays": [
+      {
+        "path": "card-regression-replay-blood-tribute62-20261026-r1.json",
+        "sha256": "1e896e2356a243be57504123f2ce09c6977e0befa1f81f342792e47e348a69ab"
+      },
+      {
+        "path": "card-regression-replay-blood-tribute62-20261026-r2.json",
+        "sha256": "c0bb366ac77aaa5c89e8e71864cedc1d6bfd71c1bb0de527f606b05d7479fe1d"
+      }
+    ]
+  },
+  "classifier_scope": {
+    "external_results": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\blood-tribute-classifier-scope-results.json",
+      "sha256": "fc9f3c0e77729e70d5a823340563033763d45e0dbee0cea120d360ddc398550c"
+    },
+    "passed": 9,
+    "functions": {
+      "FaBKnownPlainSpellLifecycleCard": {
+        "path": "C:/xampp/htdocs/TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+        "function_sha256": "e43e8a2a4ceab68a446d24b52a7722a11b23016365b370140cb6943b57567c62",
+        "evaluated_sha256": "e43e8a2a4ceab68a446d24b52a7722a11b23016365b370140cb6943b57567c62"
+      },
+      "FaBPlainSpellResolutionIsManaged": {
+        "path": "C:/xampp/htdocs/TCGEngine/FaBSim/Custom/GameLogic.php",
+        "source_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+        "function_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5",
+        "evaluated_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5"
+      }
+    },
+    "cases": [
+      [
+        "blood_tribute_red",
+        "INSTANT",
+        1,
+        1,
+        true
+      ],
+      [
+        "blood_tribute_yellow",
+        "INSTANT",
+        1,
+        1,
+        true
+      ],
+      [
+        "blood_tribute_blue",
+        "INSTANT",
+        1,
+        1,
+        true
+      ],
+      [
+        "blood_tribute_red",
+        "ABILITY",
+        1,
+        1,
+        false
+      ],
+      [
+        "blood_tribute_red",
+        "ATTACK",
+        1,
+        1,
+        false
+      ],
+      [
+        "blood_tribute_red",
+        "INSTANT",
+        1,
+        2,
+        false
+      ],
+      [
+        "gorganian_tome",
+        "ACTION",
+        2,
+        1,
+        true
+      ],
+      [
+        "this_rounds_on_me_blue",
+        "ACTION",
+        1,
+        1,
+        true
+      ],
+      [
+        "sonic_boom_yellow",
+        "ACTION",
+        1,
+        1,
+        false
+      ]
+    ],
+    "scope": "Actual gate only; no native sibling, body, await-frame, card-rule or full-suite credit. Existing kind/foreign-owner/Tome exception and TROM admission preserved. Sonic remains excluded, not certified correct."
+  },
+  "existing_compatibility": {
+    "path": "card-regression-replay-blood-plain62-trom-compat.json",
+    "sha256": "13c0f92048e00063b54bb451ffe42899fca6fa5e3726cc6ee90d620a2750eaca",
+    "passed": 1,
+    "scope": "Existing HighRiser/TRoM once at62; not new primary/variant credit."
+  },
+  "native_body_credit": [
+    "blood_tribute_red"
+  ],
+  "source_admission_only_untested_siblings": [
+    "blood_tribute_yellow",
+    "blood_tribute_blue"
+  ],
+  "isolated_helper_fault_attempted": false,
+  "full_suite_run": false,
+  "limits": "Only Red exercised. Nine actual classifier contracts admitRGB and preserve boundaries; not sibling bodies or native branching. Physical diagnostic observed Graveyard count1; sourceUID5 was uniquely eligible but rawcurrent UID was not separately dumped. No Core/generated/body changes, new rootcause, blanket corpus readiness or old hash-binding repair."
+}

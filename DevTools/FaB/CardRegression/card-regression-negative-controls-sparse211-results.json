@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "completed_utc": "2026-10-26T00:40:22.625518+00:00",
+  "plan_sha256": "62bd0025f19e2011c6827005b1710ec2961a00ef5b8183d2bd1c2110e3ea7125",
+  "independent_saved_proof_sha256": "9806e1cca1c0f4c1d56a9383fe94df6940bae6393a8b7d2e0b18de02c0ab24f5",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch211-one-causal-control-final405-plan.json",
+    "62bd0025f19e2011c6827005b1710ec2961a00ef5b8183d2bd1c2110e3ea7125",
+    "card-regression-negative-controls-sparse211-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "forged_actual_earned_equipment_defense_one_application_locked",
+      "fixture": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+      "fixture_sha256": "6aabfd4cb83ce42728a730e51c15d58f6194369226e752316f6ab23b9e13afd0",
+      "source_raw5": {
+        "initial_gamestate.txt": "9666451e93a90a9e448eb57b1a10bb0d5e3054d094d37fbc20b8bd89818c950c",
+        "actions.json": "73d6eae8b4b6947075b4863c168d9e22b650f6625196354f990d78528769db49",
+        "assertions.json": "cf23843802911afdaa83bc6aa2e015d9402f8b07f97dbbcdbed79cdebd7446b3",
+        "expected_final_gamestate.txt": "b057d6dc1119d1db2aaae72dac588a2ba433f6f1f116cd353da3e3b56410f3a7",
+        "meta.json": "bc6c37720761665567153de9d61931355f61996ef7ee27d33c3f3b0982ea9293"
+      },
+      "prefix_actions": 25,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 2,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "add",
+            "tag": "SUP_NO_DEFENSE_GAIN"
+          }
+        ]
+      },
+      "retained_assertions": 696,
+      "expected_failure_step": 9,
+      "expected_failure": "Expected p1Health to equal 17, got 16.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] forged_for_war_yellow / actual four-live sparse distinctive mechanic: Step 9 assertion failed: Expected p1Health to equal 17, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Forged cast and live turntransition, actual P2WB4 attack and actual P1Crown6 Equipment block, add existing defense-gain application lock only to actual attackingWB8. Actual printedCrownbase0, ownedAura5 and entire naturallyearned EQUIPMENT_DEFENSE1/persistentUID5 record remain untouched. Known ObjectCurrentDefense applies WTR+1 then clamps solepositive delta1 to0; actual4damage rather than3 gives firstphysicalP1HP17-to16. No printedbase/history/privateUID/cache/HP mutation. This tests bonusapplication, not Aura suppression/expiry or Crownability.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

@@ -1,0 +1,79 @@
+{
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "completed_utc": "2026-10-26T03:23:48.995671+00:00",
+  "plan_sha256": "fa7dc3927ac5c8d1c872ef4953d12aa58ea4be241bc4b68ad50dd8a7923b9d18",
+  "independent_saved_proof_sha256": "f116be4c373da030a30aeccb024bf06b5fc8ef2a1229368ebc679f5e4f206b08",
+  "command": [
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch219-two-causal-controls-finalf56-plan.json",
+    "fa7dc3927ac5c8d1c872ef4953d12aa58ea4be241bc4b68ad50dd8a7923b9d18",
+    "card-regression-negative-controls-sparse219-f56-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "silken_actual_earned_minus_one_power_omitted_discount_retained",
+      "fixture": "card-silken-gi-four-live-sparse-real-next-attack-cost-three-to-two-and-power-seven-to-six",
+      "fixture_sha256": "8b6aa49f54312050b43d60de51bd91d2774dd1d86d52adfe6b4e66ee83d41d5c",
+      "source_raw5": {
+        "initial_gamestate.txt": "4e3d375280d029b418178d268179ec7656b9c3c430062ecac3eae92134839183",
+        "actions.json": "a415d75cbcb1d87ba7b4854135ace287e416da088c88c66a0729e51040449568",
+        "assertions.json": "0c81487f5d4e164b93caac627385b3819040061cfbffbd8003afd690f54fd74e",
+        "expected_final_gamestate.txt": "5031f9f70483bfe81d7c56b81942b0e919dcff60f0e492702bc59ec4d25a6d44",
+        "meta.json": "f7732dc6d06b3744b040cadb27062aedfa936aea2061d9b07e6730f87b8502bd"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "OUT_NEXT"
+      },
+      "retained_assertions": 1816,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 7.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] silken_gi / four live distinctive effect: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 7.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Gi Instant destruction and four responses, remove only naturally earned OUT_NEXT(aa,-1). Actual OUT_SILKEN discount remains, so real Raging6 still costs2, Blue7pays3/R1/AP0 and actual physical source is unchanged. Its base7 power now lacks minus1 and becomes7; first original computed power6 fails at actual source-to-Chain entry. Later realHP14-to13 suffix assertions retained but not reached. This isolates earned weakening, not discount amount or expiry.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "spellvoid_live_ability_lost_after_offer_before_acceptance",
+      "fixture": "card-spell-fray-gloves-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "fixture_sha256": "c92256e66d025b331f7853c5b3fc140e08983bd27a4a592d58d71e90e0ec0b0d",
+      "source_raw5": {
+        "initial_gamestate.txt": "263d536649f411de1ba3c5e94a96c316186ae18be959f6dd803c1c8ef3fced3e",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "bb2251c4c1ffd3cc2d2991b7b504eeb1bb7491cfb205e62be98405e919b08df1",
+        "expected_final_gamestate.txt": "2d28e87e02eeb8a52cb195cddb8e3252aeb8c36a134d9ee9d7a7969c152a73fa",
+        "meta.json": "2208b7e558a6d3062caad69e537e0655e16cf75d61a2e8c55ce232d196d060ed"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Equipment",
+            "cardID": "spell_fray_gloves",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 216,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected p4Health to equal 18, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] spell_fray_gloves / four live distinctive effect: Step 1 assertion failed: Expected p4Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Zap6 begins arcane damage and offers static Spellvoid, add existing NO_ABILITIES to physical owned Gloves5 before original P4 answer. Queued actual Equipment choice remains a physical candidate; body FaBMONSpellvoid rechecks live keyword and returns0, so Gloves are not destroyed and no1prevention applies. Source remains managed until body completes; actual Zap3 givesHP17 rather than18. First physicalHP oracle precedes retained source-destruction oracles. Static availability at acceptance, not a legal priority-interruption scenario or an isolated prevention-only amount change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

@@ -1,0 +1,80 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch07.json",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T12:32:51.195563+00:00",
+  "fixtures": [
+    {
+      "slug": "card-unmovable-red-hand-paid-blue-three",
+      "fixture_sha256": "701129f46287a05e6bf05f1c0efc8ff3e3de5248549eeb15912c06708549f29d",
+      "passed": true,
+      "result": "[PASS] Unmovable / hand-paid-blue-three"
+    },
+    {
+      "slug": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
+      "fixture_sha256": "406645dcf3904bdaf7c33eebd9adb3ebbcc86f0d8d36f77c609201a4556aadeb",
+      "passed": true,
+      "result": "[PASS] Fate Foreseen / hand-opt-one-top-then-draw"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-unmovable-red-hand-paid-blue-three",
+      "returncode": 0,
+      "stdout": "[PASS] Unmovable / hand-paid-blue-three\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fate-foreseen-red-hand-opt-one-top-then-draw",
+      "returncode": 0,
+      "stdout": "[PASS] Fate Foreseen / hand-opt-one-top-then-draw\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-fate-foreseen-blue-arsenal-empty-deck-no-opt",
+    "card-fate-foreseen-blue-arsenal-opt-one-bottom-then-draw",
+    "card-fate-foreseen-blue-arsenal-opt-one-top-then-draw",
+    "card-fate-foreseen-blue-hand-empty-deck-no-opt",
+    "card-fate-foreseen-blue-hand-opt-one-bottom-then-draw",
+    "card-fate-foreseen-blue-hand-opt-one-top-then-draw",
+    "card-fate-foreseen-red-arsenal-empty-deck-no-opt",
+    "card-fate-foreseen-red-arsenal-one-card-deck-bottom",
+    "card-fate-foreseen-red-arsenal-one-card-deck-top",
+    "card-fate-foreseen-red-arsenal-opt-one-bottom-then-draw",
+    "card-fate-foreseen-red-arsenal-opt-one-top-then-draw",
+    "card-fate-foreseen-red-hand-empty-deck-no-opt",
+    "card-fate-foreseen-red-hand-one-card-deck-bottom",
+    "card-fate-foreseen-red-hand-one-card-deck-top",
+    "card-fate-foreseen-red-hand-opt-one-bottom-then-draw",
+    "card-fate-foreseen-yellow-arsenal-empty-deck-no-opt",
+    "card-fate-foreseen-yellow-arsenal-opt-one-bottom-then-draw",
+    "card-fate-foreseen-yellow-arsenal-opt-one-top-then-draw",
+    "card-fate-foreseen-yellow-hand-empty-deck-no-opt",
+    "card-fate-foreseen-yellow-hand-opt-one-bottom-then-draw",
+    "card-fate-foreseen-yellow-hand-opt-one-top-then-draw",
+    "card-unmovable-blue-arsenal-insufficient-two-pitch",
+    "card-unmovable-blue-arsenal-paid-blue-three",
+    "card-unmovable-blue-arsenal-paid-red-one-yellow-two",
+    "card-unmovable-blue-hand-insufficient-two-pitch",
+    "card-unmovable-blue-hand-paid-blue-three",
+    "card-unmovable-blue-hand-paid-red-one-yellow-two",
+    "card-unmovable-red-arsenal-before-reaction-rejected",
+    "card-unmovable-red-arsenal-insufficient-two-pitch",
+    "card-unmovable-red-arsenal-paid-blue-three",
+    "card-unmovable-red-arsenal-paid-red-one-yellow-two",
+    "card-unmovable-red-hand-before-reaction-rejected",
+    "card-unmovable-red-hand-insufficient-two-pitch",
+    "card-unmovable-red-hand-paid-red-one-yellow-two",
+    "card-unmovable-yellow-arsenal-insufficient-two-pitch",
+    "card-unmovable-yellow-arsenal-paid-blue-three",
+    "card-unmovable-yellow-arsenal-paid-red-one-yellow-two",
+    "card-unmovable-yellow-hand-insufficient-two-pitch",
+    "card-unmovable-yellow-hand-paid-blue-three",
+    "card-unmovable-yellow-hand-paid-red-one-yellow-two"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -29,13 +29,28 @@ function GABotFrontDecision($seat) {
     return null;
 }
 
+// Use engine eligibility for the strongest available single retaliation, including
+// Ambush and attacks that cannot be retaliated. No combat state is changed.
+function GABotRetaliationPower($player, $candidate) {
+    $strongest = 0;
+    $field = GetField(3 - intval($player));
+    foreach (GetRetaliatorOptions(intval($player), $candidate) ?? [] as $mzID) {
+        $index = intval(explode('-', $mzID, 2)[1]);
+        $unit = $field[$index] ?? null;
+        if ($unit !== null && empty($unit->removed)) {
+            $strongest = max($strongest, intval(ObjectCurrentPower($unit)));
+        }
+    }
+    return $strongest;
+}
+
 function GABotChooseCombatTarget($player, array $candidates) {
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = intval($player);
     $attackerMZ = DecisionQueueController::GetVariable('CombatAttacker');
     $attacker = $attackerMZ !== null ? GetZoneObject($attackerMZ) : null;
-    $attackPower = $attacker !== null ? max(0, intval(ObjectCurrentPower($attacker))) : 0;
+    $attackPower = $attacker !== null ? max(0, intval(GetAttackThreatAmount($attacker, $player))) : 0;
     $attackHP = $attacker !== null ? max(0, intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage ?? 0)) : 0;
     $best = null; $bestScore = PHP_INT_MIN;
     foreach ($candidates as $candidate) {
@@ -44,17 +59,23 @@ function GABotChooseCombatTarget($player, array $candidates) {
         $type = EffectiveCardType($target);
         $targetPower = max(0, intval(ObjectCurrentPower($target)));
         $targetHP = max(0, intval(ObjectCurrentHP($target)) - intval($target->Damage ?? 0));
-        $score = 0;
+        // Public-board estimate; prevention and response cards remain unmodeled.
+        $retaliation = GABotRetaliationPower($player, $candidate);
+        $dies = $retaliation > 0 && $attackHP <= $retaliation;
+        $kills = $attackPower > 0 && $attackPower >= $targetHP;
+        $score = min($attackPower, $targetHP) * 8;
         if (PropertyContains($type, 'CHAMPION')) {
-            $score = 500 + $attackPower * 8;
-            if ($attackPower >= $targetHP && $attackPower > 0) $score += 10000;
+            $score += 30;
+            if ($kills) $score += 10000;
         } else {
-            // Favor killing a unit without losing the attacker; avoid suicidal trades unless
-            // the target is substantially more powerful.
-            if ($attackPower >= $targetHP && $attackPower > 0) $score += 180;
-            $score += $targetPower * 10;
-            if ($attackHP > $targetPower) $score += 80;
-            else $score -= max(0, $attackPower * 5 - $targetPower * 2);
+            // Removing a threat beats incidental face damage; chipping a large
+            // ally without removing it should not outweigh ordinary pressure.
+            if ($kills) $score += 65 + $targetPower * 12;
+            else $score -= 25;
+        }
+        if ($dies) {
+            $score -= 45 + $attackPower * 12;
+            if (PropertyContains(EffectiveCardType($attacker), 'CHAMPION')) $score -= 20000;
         }
         if ($score > $bestScore) { $bestScore = $score; $best = $candidate; }
     }
@@ -105,12 +126,9 @@ function GABotLegalActions($gameName, $player) {
         } elseif ($type === 'YESNO') {
             foreach (['NO', 'YES'] as $answer) $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $answer];
         } elseif ($type === 'NAMECARD') {
-            // Use the same deterministic chooser as goldfish automation: prefer an explicit
-            // preview candidate, then a card visible in the bot's own zones. NAMECARD expects
-            // the display name as the decision response, not an mzID.
-            $name = function_exists('GoldfishChooseCardName')
-                ? GoldfishChooseCardName($pending, $param)
-                : 'Fireball';
+            // Goldfish's fallback reads the top of myDeck; a competitive bot must
+            // instead guess from its known multiset, never the hidden order.
+            $name = GABotKnownCardName($pending);
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $name];
         } elseif ($type === 'MZREARRANGE') {
             // The engine's rearrange protocol already encodes the complete desired ordering.
@@ -124,6 +142,14 @@ function GABotLegalActions($gameName, $player) {
             $context['candidates'] = GABotChoiceCandidates($pending, $parts[2] ?? '');
             $minimum = $context['minimum'];
             $answer = $minimum > 0 ? implode('&', array_slice($context['candidates'], 0, $minimum)) : '-';
+            if (str_starts_with($context['handler'], 'OKkRsNIzM8:0:AlternativeCost-await|')) {
+                $payment = GABotTreflePayment($context['candidates'], $minimum, $context['maximum']);
+                if ($payment !== null) {
+                    $answer = $payment;
+                    // Count-valid subsets can still fail this card's exact-cost check.
+                    $context['constrainedMultiChoice'] = true;
+                }
+            }
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $answer ?: '-'];
         } elseif (in_array($type, ['MZMODAL', 'NUMBERCHOOSE', 'TWOSIDEDSLIDER', 'MZSPLITASSIGN', 'CHOOSEZONE', 'ICONCHOICE'], true)) {
             // Goldfish already has a deterministic, engine-compatible response encoder for these
@@ -155,11 +181,21 @@ function GABotLegalActions($gameName, $player) {
             // click would only produce a no-op the controller then has to exclude and retry, so skip it here
             // (the flash message the check sets is preserved).
             if (function_exists('ActivationRefusedBeforeStart') && ActivationRefusedBeforeStart($player, $obj, false, true)) continue;
+            // Declaration can reject an otherwise playable card before paying costs.
+            // Do not repeatedly offer spells such as Undying Dreams on an ally-free board.
+            $specs = GAActivationTargetSpecs($player, $obj);
+            if (!is_array($specs)) continue;
+            foreach ($specs as $spec) {
+                if (count($spec['targets']) < $spec['min']) continue 2;
+            }
             $actions[] = ['playerID' => $player, 'mode' => 10002, 'cardID' => "myHand-$i!FSM!"];
         }
     }
 
-    $field = GetField($player);
+    // BeginCombatPhase forbids the opening player's first-turn attacks. Do not
+    // offer them only to have the controller execute and retry each rejection.
+    $openingAttackBlocked = IsFirstTurnAttackLocked($player);
+    $field = $openingAttackBlocked ? [] : GetField($player);
     foreach ($field as $i => $obj) {
         if ($obj === null || !empty($obj->removed)) continue;
         if (intval($obj->Status ?? 0) !== 2) continue; // must be awake/rested-ready
@@ -175,6 +211,12 @@ function GABotLegalActions($gameName, $player) {
         // for every candidate that DOES pass this filter).
         $power = function_exists('ObjectCurrentPower') ? intval(ObjectCurrentPower($obj)) : 0;
         if ($power <= 0) continue;
+        // Use the engine's live Pride value so suppression and removal still permit attacks.
+        if (PrideAmount($obj) > PlayerLevel($player)) continue;
+        // Shadows can attack only surviving units damaged by our champion this turn.
+        if ($obj->CardID === 'gveirpdm44' && !HasNoAbilities($obj)
+            && !array_filter(GetChampionCombatDamageTargets($player),
+                fn($mz) => !GetZoneObject($mz)->removed)) continue;
         $actions[] = ['playerID' => $player, 'mode' => 10002, 'cardID' => "myField-$i!FSM!"];
     }
 

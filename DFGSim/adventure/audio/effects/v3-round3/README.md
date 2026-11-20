@@ -1,0 +1,1 @@
+Round 3: four ElevenLabs SFX v3 takes each for commit, bonus burn, and pending-damage warning. Original provider output is preserved. See generation-manifest.json for exact prompts and validation.json for hashes and durations.

@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch204.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T22:12:37.892339+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ornate-tessen-four-live-sparse-paid-instant-retained-choice-bottom-and-distinct-draw",
+      "fixture_sha256": "30bc974c4c2aac235ca3a479053d7c282bbf233a6b72f098b93d9ff8c1e389e6",
+      "passed": true,
+      "result": "[PASS] ornate_tessen / four live distinctive effect"
+    },
+    {
+      "slug": "card-optekal-monocle-blue-four-live-sparse-paid-steam-retained-opt-bottom-choice-delays-go-again",
+      "fixture_sha256": "39f7aba2575f5cc16bcfa47a4dc724914a4fc95f8a124c7827651a796f817061",
+      "passed": true,
+      "result": "[PASS] optekal_monocle_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "fixture_sha256": "10f43d905070128e6c85bc3e069adb37322ebab57f22d487d1c879ff05743ddb",
+      "passed": true,
+      "result": "[PASS] mordred_tide_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-meat-and-greet-red-four-live-sparse-earned-real-arcane-go-again-with-physical-full-block",
+      "fixture_sha256": "43c66072e23af79e9f3abd9584aa8ea531bb6bd4a3e323f33ee55ee0361ca250",
+      "passed": true,
+      "result": "[PASS] meat_and_greet_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ornate-tessen-four-live-sparse-paid-instant-retained-choice-bottom-and-distinct-draw",
+      "returncode": 0,
+      "stdout": "[PASS] ornate_tessen / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-optekal-monocle-blue-four-live-sparse-paid-steam-retained-opt-bottom-choice-delays-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] optekal_monocle_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "returncode": 0,
+      "stdout": "[PASS] mordred_tide_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-meat-and-greet-red-four-live-sparse-earned-real-arcane-go-again-with-physical-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] meat_and_greet_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

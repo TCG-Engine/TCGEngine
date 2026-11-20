@@ -22,14 +22,16 @@ $customDQHandlers["SEC_219#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $selfUID = intval($parts[0] ?? 0);
     if (SWUDecisionDeclined($lastDecision)) return;
-    $icons = [];
+    $icons = []; $shown = [];
     foreach (array_values(array_filter(explode('&', (string)$lastDecision))) as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed)) {
             $icons = array_merge($icons, SWUCardAspectIcons($o->CardID ?? ''));
             AddGameLogEntry('DISCLOSE', 'P' . intval($player) . ' discloses ' . GameLogCardRef($o->CardID ?? '')); // log the revealed card
+            $shown[] = strval($o->CardID ?? '');
         }
     }
+    if ($shown && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'REVEAL', 'p' => intval($player), 'zone' => 'hand', 'cardIDs' => $shown]);   // SWU-PGN: the disclose
     $selfMz = SWUFindMzByUID($selfUID);
     if ($selfMz === null) return;
     if (in_array('Heroism', $icons, true))  SWUAddAttackPowerBonus($selfMz, 2);     // +2/+0 this attack

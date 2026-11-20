@@ -1,0 +1,7 @@
+{
+    "name": "spellfire_cloak / actual four-live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T07:50:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine live youngDori20/Dori20/Dori20/Verdance20; P1isactualTurnPlayer/startsAP1 andP4WizardownsCloak5. ActualACTIONpasses byP1,P2,P3 giveP4priorityduringopponentP1turn, whileTurnPlayer1/AP1remain. P4actuallyactivates printedInstant0: destroyphysicalCloak5intoownpublicGYOwnerController4/F0asrealcost, independentvirtual6Owner0Controller4SourceEquipment5retained; noresource/APspent. Allfourrealresponseactors4,1,2,3 respond, thenactualbodygainsP4exactR1. FinalACTIONpriorityP1/Turn1/AP1, P4AP0/R1, allHP20/Stackqueuesempty; physicalCloak5onlyP4GY/otherzonesempty. Noown-turnillegalattempt, ArcaneBarrier, damage/prevention, furtheruse/expiry/heroability orsupportcredit; no seededpriorityresourcehistory. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR167.webp"
+}

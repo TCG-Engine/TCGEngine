@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T03:57:02+00:00",
+    "input_file": "card-regression-batch220-rapture-unactivated-probe.json",
+    "input_sha256": "4b7f69a5274fe3acc7be41b0f6b384052a3bbd997248d915299a3a81d23fa79f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-empyrean-rapture-four-live-sparse-unactivated-equipment-has-no-ward-and-real-zap-deals-full-three",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 458
+        }
+    ]
+}

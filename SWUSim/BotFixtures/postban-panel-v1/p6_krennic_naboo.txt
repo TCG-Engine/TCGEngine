@@ -1,0 +1,39 @@
+# Post-ban TEST PANEL v1 (owner 2026-11-12), slot 6. Soft control, removal + wipes
+# Deck: "Krennic Blue (Naboo)"; source: SWU Forge cmw9soszn0prg01pli60nc73m, Sando x2 per owner image
+# Author: Ninin TCG
+# Style: softcontrol
+
+Leader
+1 LAW_008
+
+Base
+1 HMW_020
+
+Deck
+3 ASH_116
+2 ASH_133
+3 ASH_048
+3 ASH_053
+3 ASH_097
+3 HMW_107
+3 HMW_110
+2 HMW_094
+2 IC27_185
+3 JTL_032
+3 JTL_033
+3 JTL_043
+2 LAW_101
+2 LAW_132
+3 LAW_133
+3 LAW_159
+3 LAW_097
+3 LOF_091
+2 SEC_078
+
+Sideboard
+2 ASH_102
+1 ASH_133
+2 JTL_112
+1 JTL_041
+3 LAW_135
+1 SEC_078

@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Darth Maul, Sith Revealed - Nightsister Lair
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #47 of 789 (9-4-0), player papoudi
+#   https://melee.gg/Decklist/View/d15a3a44-e867-47ff-a746-b4f3016e07f7 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Darth Maul (LOF) Blue Force list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: midrange — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: midrange
+
+Leader
+1 LOF_009
+
+Base
+1 LOF_020
+
+Deck
+3 LOF_129
+3 LAW_191
+3 LOF_231
+3 LOF_031
+3 ASH_079
+3 ASH_030
+3 LOF_160
+3 ASH_053
+3 LOF_061
+3 LOF_035
+2 HMW_159
+2 HMW_039
+2 SEC_163
+2 SEC_028
+3 ASH_052
+2 JTL_143
+2 JTL_043
+2 LAW_044
+1 SEC_179
+2 SEC_038
+
+Sideboard
+3 SEC_144
+1 SEC_038
+1 JTL_143
+1 HMW_159
+1 HMW_039
+1 JTL_043
+1 LAW_044
+1 LAW_132

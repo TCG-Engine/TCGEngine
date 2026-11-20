@@ -16,6 +16,11 @@ function PokeOnTrainerPlayed($player, $mzID): string {
     PokeMacro('TrainerPlayed', $player, GetZoneObject($mzID)->CardID, 0, ['mzID' => $mzID]);
     return 'PLAYED';
 }
+/** Copied attacks evaluate their own authored prerequisites on the actual attacker. */
+function PokeCanUseAttack(int $player, string $ref, string $cardID, int $index): bool {
+    $prereq=$GLOBALS['attackPrereqs'][$cardID.':'.$index] ?? null;
+    return !$prereq || $prereq($player, $ref, $index);
+}
 function PokeOnAttack($player, $mzID, $attackIndex): string {
     $obj = GetZoneObject($mzID);
     $copy = PokeVar('copiedAttack'); PokeSetVar('copiedAttack', null);
@@ -82,6 +87,7 @@ function PokeCandidates(int $player, string $zone, string $filter = 'any'): stri
     foreach (PokeObjects($player, $zone) as $i => $obj) {
         $id = $obj->CardID; $match = match ($filter) {
             'pokemon' => EffectiveCardType($obj) === 'Pokemon',
+            'basicPokemon' => EffectiveCardType($obj) === 'Pokemon' && in_array('Basic', EffectiveCardSubtypes($obj), true),
             'nonRuleBox' => EffectiveCardType($obj) === 'Pokemon' && !PokeHasRuleBox($id),
             'nonRuleBoxOrBasicEnergy' => (EffectiveCardType($obj) === 'Pokemon' && !PokeHasRuleBox($id))
                 || (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal'),
@@ -89,7 +95,12 @@ function PokeCandidates(int $player, string $zone, string $filter = 'any'): stri
             'supporter' => CardTrainerType($id) === 'Supporter',
             'rocketSupporter' => CardTrainerType($id) === 'Supporter' && str_contains(CardName($id), 'Team Rocket'),
             'basicEnergy' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal',
+            'basicDarkness' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Darkness', PokeEnergyTypes($id), true),
             'basicMetal' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Metal', PokeEnergyTypes($id), true),
+            'basicFire' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Fire', PokeEnergyTypes($id), true),
+            'basicFighting' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Fighting', PokeEnergyTypes($id), true),
+            'fightingGong' => (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Fighting', PokeEnergyTypes($id), true))
+                || (EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && in_array('Fighting', explode(',', EffectiveCardElement($obj)), true)),
             'pokemonOrEnergy' => EffectiveCardType($obj) === 'Pokemon' || (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal'),
             'basicPsychic' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && in_array('Psychic', explode(',', EffectiveCardElement($obj)), true),
             'fanCall' => EffectiveCardType($obj) === 'Pokemon' && str_contains(EffectiveCardElement($obj), 'Colorless') && (int)CardHp($id) <= 100,
@@ -158,3 +169,19 @@ function PokeShuffleHandDraw(int $player, int $number, bool $bottom = false): vo
     if (!$bottom || $hand) PokeDraw($player, $number, false);
 }
 function PokeBlackBelt(int $player): void { PokeSetVar('blackBelt:' . $player, GetTurnNumber()); }
+function PokeEvolutionSearchCandidates(int $player, string $ref): string {
+    $name=CardName(GetZoneObject($ref)->CardID);
+    return implode('&', array_filter(explode('&', PokeCandidates($player,'Deck','pokemon')), fn($candidate)=>$candidate !== '' && CardEvolveFrom(GetZoneObject($candidate)->CardID) === $name));
+}
+/** Preserve the selected top card; searches reveal neither card to the opponent. */
+function PokeStackSearchedCards(int $player, string $top): void {
+    $refs=array_keys(PokeObjects($player, 'TempZone'));
+    $ordered=[$top];
+    foreach ($refs as $i) { $ref=PokeRef($player,'TempZone',$i); if ($ref !== $top) $ordered[]=$ref; }
+    $cards=[];
+    foreach ($ordered as $ref) { $obj=GetZoneObject($ref); if ($obj && !$obj->Removed()) { $cards[]=$obj->CardID; $obj->Remove(); } }
+    $deck=&GetDeck($player); $remaining=array_values(PokeObjects($player,'Deck')); $deck=[];
+    foreach ($cards as $id) PokeAdd($player,'Deck',$id);
+    $deck=array_merge($deck,$remaining);
+    foreach ($deck as $i=>$obj) { $obj->mzIndex=$i; $obj->BuildIndex(); }
+}

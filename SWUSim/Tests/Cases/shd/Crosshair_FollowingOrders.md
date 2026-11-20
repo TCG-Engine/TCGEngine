@@ -30,8 +30,7 @@ WithP1GroundArena: SHD_087:1:0
 WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
-- P1>UseUnitAbility:myGroundArena-0
-- P1>AnswerDecision:Buff
+- P1>UseUnitAbility:myGroundArena-0:SHD_087.0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:3
@@ -52,8 +51,7 @@ WithP1GroundArena: SHD_087:1:0
 WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
-- P1>UseUnitAbility:myGroundArena-0
-- P1>AnswerDecision:Deal
+- P1>UseUnitAbility:myGroundArena-0:SHD_087.1
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2

@@ -1,0 +1,175 @@
+{
+  "status": "EIGHT_NEW_FOUR_LIVE_REPRESENTATIVES_QUALIFIED_MANAGED_LIFETIME_EXTENDED",
+  "utc": "2026-10-25T22:14:15.677883+00:00",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "inventory_scope": "Checkpoint through batch203 only; batch204 in-flight and excluded without credit.",
+  "new_groups": 8,
+  "new_scenarios_recorded": 8,
+  "new_scenarios_qualified": 8,
+  "total_saved": 3392,
+  "two_player": 3074,
+  "four_live": 318,
+  "primary_ids_recorded": 551,
+  "identity_denominator": 5196,
+  "groups_recorded": 425,
+  "group_denominator": 3324,
+  "four_live_groups_recorded": 316,
+  "phase_scenarios_qualified_at_recorded_batch_contexts": 29,
+  "phase_new_distinct_gameplay_fix_groups": 3,
+  "existing_gameplay_group_extensions": 1,
+  "new_cases": [
+    {
+      "slug": "card-anothos-four-live-sparse-two-real-cost-three-pitches-fund-six-power-hammer",
+      "primary_card_ids": [
+        "anothos"
+      ],
+      "source_spec": "card-regression-batch202.json",
+      "actions": 29,
+      "native_assertions": 1991,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-dissipation-shield-yellow-four-live-sparse-actual-instant-four-steam-prevents-four",
+      "primary_card_ids": [
+        "dissipation_shield_yellow"
+      ],
+      "source_spec": "card-regression-batch202.json",
+      "actions": 36,
+      "native_assertions": 2304,
+      "manual_passes": 32
+    },
+    {
+      "slug": "card-basalt-boots-four-live-sparse-seismic-conditional-actual-block-and-temper-survival",
+      "primary_card_ids": [
+        "basalt_boots"
+      ],
+      "source_spec": "card-regression-batch202.json",
+      "actions": 29,
+      "native_assertions": 2045,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-staunch-response-red-four-live-sparse-real-optional-six-resource-payment-prevents-nine",
+      "primary_card_ids": [
+        "staunch_response_red"
+      ],
+      "source_spec": "card-regression-batch202.json",
+      "actions": 44,
+      "native_assertions": 3315,
+      "manual_passes": 36
+    },
+    {
+      "slug": "card-embodiment-of-earth-four-live-sparse-active-owned-earth-token-boosts-real-nonattack-block",
+      "primary_card_ids": [
+        "embodiment_of_earth"
+      ],
+      "source_spec": "card-regression-batch203.json",
+      "actions": 28,
+      "native_assertions": 1643,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-parable-of-humility-yellow-four-live-sparse-active-owned-light-aura-reduces-real-opposing-attack-by-one",
+      "primary_card_ids": [
+        "parable_of_humility_yellow"
+      ],
+      "source_spec": "card-regression-batch203.json",
+      "actions": 27,
+      "native_assertions": 1391,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-titans-fist-four-live-sparse-actual-three-cost-pitch-earns-weapon-four-power-and-damage",
+      "primary_card_ids": [
+        "titans_fist"
+      ],
+      "source_spec": "card-regression-batch203.json",
+      "actions": 28,
+      "native_assertions": 1564,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-dreadbore-four-live-sparse-correct-expectation-paid-load-await-layer-and-go-again-lifetime",
+      "primary_card_ids": [
+        "dreadbore"
+      ],
+      "source_spec": "card-regression-batch203.json",
+      "actions": 34,
+      "native_assertions": 1895,
+      "manual_passes": 29
+    }
+  ],
+  "registered": [
+    {
+      "batch": 202,
+      "evidence": "review-evidence/sparse202-20261025-qualified-saved-review.json",
+      "sha256": "a2a5399ef018a678858a535d1d13356affa726949cd28a91e1f57f2894a68663"
+    },
+    {
+      "batch": 203,
+      "evidence": "review-evidence/sparse203-20261025-qualified-saved-review.json",
+      "sha256": "3433429aaa5470ca4d25ba1bacb6fbad1dfb281ebd30bd70fb2b0b33e48c6d0f"
+    }
+  ],
+  "targeted_replay_passes": 16,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse202-20261025-r1.json",
+      "sha256": "8fc883504d93acc3a6dd5fd139f765cbe1dccddf272a3654d1d2ecc1a86e08aa"
+    },
+    {
+      "path": "card-regression-replay-sparse202-20261025-r2.json",
+      "sha256": "59a5c02d41fa23ba4f2b4119abf0f9bbb0163624bc57f08b5acc2512b334763d"
+    },
+    {
+      "path": "card-regression-replay-sparse203-20261025-r1.json",
+      "sha256": "93f033427b4ed918d89c37e54f19056a6643c71f9a7012e29ed25a029639f63d"
+    },
+    {
+      "path": "card-regression-replay-sparse203-20261025-r2.json",
+      "sha256": "518f5661ff1129b5cd3c89d9ff5d3e9c63d5960776187d2b54746aa91a7096c9"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse202-203-results.json",
+    "sha256": "dab7e1f33346ea036d112c62da3071f7b513149429afa366301d05d3a0809ed3",
+    "detected": 4,
+    "total": 4,
+    "retained_suffix_assertions": 4302,
+    "omitted_suffix_oracles": 0,
+    "global_total": 99
+  },
+  "native_gameplay_repair": {
+    "issue": "FAB-REG-046",
+    "existing_group": "managed_virtual_lifetime",
+    "new_distinct_group": false,
+    "evidence": "review-evidence/sparse203-dreadbore-managed-lifetime-before-after.json"
+  },
+  "frame_component_contracts": 15,
+  "specific_component_mutants": 3,
+  "directly_affected_existing_witness_passes": 6,
+  "full_suite_runs": 0,
+  "coverage_limits": "Only exact tested primaries/branches; untested pitch siblings/supports not credited. Static-source cases do not cover casting/maintenance. Staunch +3 quantity caught by actual earned tag because nine damage alone cannot distinguish+2. Basalt/weapon conditional omissions have no forced native helper fault.",
+  "historical_byte_binding_limit": "Prior3363 exact review hash bindings remain unresolved; one inspected example was TXT line-ending-only, without whole-corpus equivalence or requalification.",
+  "source_only_or_inflight": "204 Ornate/Optekal and other candidates excluded pending their own recording/review; no sibling/card credit from the shared source patch.",
+  "backups": {
+    "metadata": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse202-203-metadata-backup",
+    "source": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\managed-native-ability-lifetime-backup"
+  },
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false,
+  "live_recorded_at_registration": {
+    "total_saved": 3396,
+    "two_player": 3074,
+    "four_live": 322,
+    "primary_ids_recorded": 555,
+    "groups_recorded": 429,
+    "four_live_groups_recorded": 320,
+    "accounting_source": "Root confirmed four batch204 saves; no additional inventory scan.",
+    "batch204_saved_pending_registration": 4,
+    "batch204_awarded_by_this_checkpoint": 0
+  },
+  "registered_review_rows_after": 3392,
+  "qualification_note": "29 phase representatives qualified at their batch contexts;3392 registry rows are not a blanket current-runtime qualification claim. Historical3363 byte-binding limitation retained."
+}

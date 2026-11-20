@@ -18,6 +18,7 @@ function SWUCosmeticCatalog() {
             'law-starfield' => ['label'=>'LAW Starfield', 'asset'=>'./Assets/Boards/SWUSim/law-starfield.webp', 'isDefault'=>false],
             'ash-starfield' => ['label'=>'ASH Starfield', 'asset'=>'./Assets/Boards/SWUSim/ash-starfield.webp', 'isDefault'=>false],
             'hmw-starfield' => ['label'=>'HMW Starfield', 'asset'=>'./Assets/Boards/SWUSim/hmw-starfield.webp', 'isDefault'=>false],
+            'ic27-starfield' => ['label'=>'IC27 Starfield', 'asset'=>'./Assets/Boards/SWUSim/ic27-starfield.webp', 'isDefault'=>false],
             //new backgrounds above this line
         ],
         'cardback' => [
@@ -113,6 +114,7 @@ function SWUCosmeticCatalog() {
             'law-key-art' => ['label'=>'LAW Key Art', 'asset'=>'./Assets/Playmats/SWUSim/law-key-art.webp', 'isDefault'=>false],
             'ash-key-art' => ['label'=>'ASH Key Art', 'asset'=>'./Assets/Playmats/SWUSim/ash-key-art.webp', 'isDefault'=>false],
             'hmw-key-art' => ['label'=>'HMW Key Art', 'asset'=>'./Assets/Playmats/SWUSim/hmw-key-art.webp', 'isDefault'=>false],
+            'ic27-key-art' => ['label'=>'IC27 Key Art', 'asset'=>'./Assets/Playmats/SWUSim/ic27-key-art.webp', 'isDefault'=>false],
             //new playmats above this line
         ],
     ];
@@ -131,10 +133,16 @@ function SWUCosmeticAssetUrl($asset) {
 
 // Render a <select> of a slot's catalog options, with $currentId pre-selected. Shared by the
 // Profile chooser and the in-game gear menu so option markup + data-asset URLs live in one place.
+// Card backs list the default first, then A→Z by label (the catalog appends new backs at the end, and there are dozens);
+// backgrounds and playmats keep catalog order.
 function SWUCosmeticSelectHtml(string $slot, string $currentId, string $class = 'cos-select'): string {
     $esc = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES);
+    $options = SWUCosmeticCatalog()[$slot] ?? [];
+    if ($slot === 'cardback') {
+        uasort($options, fn($a, $b) => (empty($a['isDefault']) <=> empty($b['isDefault'])) ?: strcasecmp($a['label'], $b['label']));
+    }
     $opts = '';
-    foreach (SWUCosmeticCatalog()[$slot] ?? [] as $id => $o) {
+    foreach ($options as $id => $o) {
         $sel   = ((string)$id === (string)$currentId) ? ' selected' : '';
         $asset = SWUCosmeticAssetUrl($o['asset'] ?? null);
         $opts .= "<option value=\"{$esc($id)}\" data-asset=\"{$esc($asset)}\"$sel>{$esc($o['label'])}</option>";

@@ -19,7 +19,7 @@ $customDQHandlers["SHD_115#0"] = function($player, $parts, $lastDecision) {
     $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     foreach ($resolved['drawn'] as $cardID) {
-        SWUAddToDiscard(intval($player), $cardID, 'MILL', 'TPF');
+        SWUAddToDiscard(intval($player), $cardID, 'MILL', 'TPF:SHD_115');   // grant + its source (named Action abilities)
     }
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
 };

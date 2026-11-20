@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-26T14:17:41.647699+00:00",
+  "status": "APPLIED_SOURCE_AND_CASE_DATA_39_COMPONENT_PASS_NATIVE_PENDING",
+  "runtime_before_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "after_sha256": "1141624ae114dc93f6c30ac9f37c5f9a57a92b5ed38e14c3be2bc1da58158b6b",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "eol": "CRLF preserved",
+      "function_before_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569",
+      "function_after_sha256": "30a5a15b924d9f4e57deef0c3ca2192677bf12429a5642c956dd5eb5e5f5e34d"
+    },
+    {
+      "path": "DevTools/FaB/printed_keyword_cases.json",
+      "before_sha256": "1980e97c4f365c452ef91e7bdcb3e76a39784395298c6b0eb8b4a7d3b72d95ca",
+      "after_sha256": "65124031892341b433a158832785c0e5527b07d7fd127df5612fbb9ec8ce61f8",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\DevTools\\FaB\\printed_keyword_cases.json",
+      "eol": "CRLF preserved",
+      "kind": "actual existing parser component data, one explicit erratum plus seven additive cases"
+    }
+  ],
+  "source_peer_sha256": "5fbe2cb8bc175606d5c90a4c116d7f7c1f68379400736a3e37d4b2920b1c2299",
+  "component_results_sha256": "b2b6c4a5c2032610ed28c337f39703ef6ccd24cb52e11dfcb17825d2f7e2c50f",
+  "core_changed": false,
+  "generated_files_changed": false,
+  "full_suite_run": false,
+  "runtime_after_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid056-source-application\\backup"
+}

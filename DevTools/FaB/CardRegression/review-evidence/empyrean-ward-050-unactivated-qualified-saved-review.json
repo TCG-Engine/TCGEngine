@@ -1,0 +1,60 @@
+{
+  "status": "APPROVED_EXACT_SAVED_050_BRANCH_TWO_CURRENT_CLEAN_REPLAYS_AND_BOUNDED_REPAIR_EVIDENCE",
+  "reviewer": "/root/b106_semantic_review",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "source_spec": "card-regression-batch220-rapture-unactivated-probe.json",
+  "source_spec_sha256": "4b7f69a5274fe3acc7be41b0f6b384052a3bbd997248d915299a3a81d23fa79f",
+  "fixtures": [
+    {
+      "slug": "card-empyrean-rapture-four-live-sparse-unactivated-equipment-has-no-ward-and-real-zap-deals-full-three",
+      "card_id": "empyrean_rapture",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXACT_SAVED_050_BRANCH_WITH_TWO_CURRENT_TARGETED_REPLAYS",
+      "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "recorded_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "fixture_sha256": "89fac1ebb523993b466664d9be01daa4dff74264b44d640fb0b66f4632d448b5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f5b3217d58228c22e8dc36128940cf66b5a12b4630da50a46eb5026676ec4f78",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "167d724dfa50aa043891bc5fe3c9181f90d67b9236d83e9e6e5a8e3d800b1fd6",
+        "expected_final_gamestate.txt": "4f527818d3fd898a18a9fdd2cb18bd1eedfa83e2697373414ebbc903c85ebb50",
+        "meta.json": "17ac055fe1d91913d002516ec5210b572b3fb503ae380ad6c67d9f4f40df816d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f5b3217d58228c22e8dc36128940cf66b5a12b4630da50a46eb5026676ec4f78",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "167d724dfa50aa043891bc5fe3c9181f90d67b9236d83e9e6e5a8e3d800b1fd6",
+        "expected_final_gamestate.txt": "4f527818d3fd898a18a9fdd2cb18bd1eedfa83e2697373414ebbc903c85ebb50",
+        "meta.json": "17ac055fe1d91913d002516ec5210b572b3fb503ae380ad6c67d9f4f40df816d"
+      },
+      "actions": 6,
+      "native_assertions": 458,
+      "actual_manual_passes": 4,
+      "current_qualification_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "current_clean_replays": [
+        "card-regression-replay-rapture-unactivated-14d9-r1.json",
+        "card-regression-replay-rapture-unactivated-14d9-r2.json"
+      ],
+      "isolated_native_fault_status": "NO_NEW_GENERIC_HELPER_CONTROL_NATIVE_PRE_POST_REPAIR_EVIDENCE_SEPARATE"
+    }
+  ],
+  "independent_actual_pair_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\empyrean-pair-postfix-actual-saved-independent-review-106.json",
+    "sha256": "bbbf7d52fb89ba86b7d11fd1f28a254a6f79fdb32195629360cdc8677db0765b"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-rapture-unactivated-14d9-r1.json",
+      "sha256": "75cfc812181648433b205d4a82d33060bc6290f9130309eff645f39c163157ae"
+    },
+    {
+      "path": "card-regression-replay-rapture-unactivated-14d9-r2.json",
+      "sha256": "296c15c3f801de3f2c89fa02280987b42c59e4d4a7ef396556184e05e3a190d5"
+    }
+  ],
+  "repair_evidence": {
+    "path": "review-evidence/empyrean-ward-050-before-after.json",
+    "sha256": "d08d255582254eed61d2d4afdcbf14eb3e47247dd517b94621d49904b89ea8db"
+  },
+  "qualification": "One exact unactivated or actualpaid activated Rapture branch. Two current14d9 clean replays, unchangedraw5 and independent saved/manual four-live review. Six-input native before/after causal evidence is separate from unchanged117 helper controls. Ten controlled actual-function groups/38checks do not constitute native direct/unpreventable/suppression coverage. No Herald/Soul/repeat/EOT/full-card/fullsuites or legacy-corpus certification."
+}

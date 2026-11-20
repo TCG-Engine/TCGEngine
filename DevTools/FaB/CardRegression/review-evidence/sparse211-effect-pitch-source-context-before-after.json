@@ -1,0 +1,151 @@
+{
+  "status": "NATIVE_WRONG_SOURCE_PITCH_CALLBACK_BUG_FIXED_DISTINCT_FROM_CASTER_ATTRIBUTION",
+  "issue_id": "FAB-REG-048",
+  "root_cause_group": "effect_pitch_source_context",
+  "new_distinct_root_cause_group": true,
+  "related_prior_issue": "FAB-REG-041",
+  "distinction": "Prior041 corrected resumed caster. Here actual failing caster was already1/target4/amount1, but source reference was funding p4Pitch0 instead of enclosing Zap6. Wrongcard and resulting missingproperty exception are one source-context defect, not two.",
+  "before_runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+  "after_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "unchanged_input": {
+    "path": "card-regression-batch211.json",
+    "sha256": "6aa4532eb0e0b2f0dcad87e37b7ac1f4790b52edcc16ac7d4c14848c4dc938a4"
+  },
+  "native_before": {
+    "external_full_exception_evidence": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse211-error-trace\\card-regression-batch211.recording-results.json",
+      "sha256": "943e8ba20b1defa57bdacbf748a32680520780f34751c08f80d559d7ce4c8768"
+    },
+    "error": "Undefined property: Pitch::$TurnEffects",
+    "error_file": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ELECards.php",
+    "error_line": 144,
+    "trace_excerpt": [
+      "#1 C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php(1863): FaBELEDamaged(1, 4, 1, 'p4Pitch-0')",
+      "#2 C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php(76): DoDamage(1, 'p4Pitch-0', 4, 1, 'ARCANE')",
+      "#3 C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php(114546): FaBARCDealArcane(1, 4, 3, 2)"
+    ],
+    "same_initial_sha256": "b9d417c5aa17df9cc23bd2a88c7df9a6aad4642dbd14f71467688511284b8060",
+    "same_attempted_action_prefix_as_current_sink": true,
+    "attempted_actions": 15,
+    "postfix_total_actions": 16,
+    "passing_fixture_saved": false
+  },
+  "repair": {
+    "source_path": "FaBSim/Custom/ARCCards.php",
+    "source_before_sha256": "b8f3c0d36e78794d24a61365aed387e6ec171c5eb2a4785b84f028475fac9b4b",
+    "source_after_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+    "application": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\aether-pitch-source-context-apply-backup\\application.json",
+      "sha256": "eeee7b744f981adb39b99dbc6f355d9c55a5879b7e32cb372c61a4cb24d6248f"
+    },
+    "proposal": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\aether-sink-pitch-source-context-repair-proposed\\proposal.json",
+      "sha256": "25e61d7f5dd8fceca59f4d83756dbc2991fae06612ed29ac5a74afef869f4650"
+    },
+    "patch": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\aether-sink-pitch-source-context-repair-proposed\\pitch-source-context.patch",
+      "sha256": "77caa1bb217866cf930c57cf9aed5672697fedcab63d20ed86ab90cca489e623"
+    },
+    "independent_source_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\aether-sink-pitch-source-context-independent-source-review-106.json",
+      "sha256": "d06d18d2342de290531e6f60a3bc162cc4b45b9a86b233fba3b9c2ca4f90ab6a"
+    },
+    "mechanism": "Scope only original sharedmzID presence/value around effectpitch callbacks with finally; retain actual movement/resource/events, other variables/frames, original exception propagation. No propertydefault/workaround, wholeworldrollback, Core/generated/body edit."
+  },
+  "native_after": {
+    "passing_fixture": "Tests/Integration/FaBSim/card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+    "fixture_sha256": "870c2dfd777b4e068389b251e5b620390c4bf9623127fbbed19ea37b2b1d0529",
+    "original_assertions": 914,
+    "all_actions_and_assertions_unchanged": true,
+    "review_evidence": "review-evidence/sparse211-405-qualified-saved-review.json",
+    "scope": "RealSink Steam/barrier2 and actual funding pitch prevent2 of Zap3, leaving actualdamage1. No raw5 claim of post-fix internal argument trace; actual-extracted component separately pins parentSpellUID6."
+  },
+  "controlled_components": {
+    "path": "components/effect_pitch_source_context_component.php",
+    "sha256": "dee106eefc888281826c026787a6789f8ab6bc56e3556b18a1f099ac694a4a67",
+    "results": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\aether-sink-pitch-source-context-component-results.json",
+      "sha256": "4636d916c6aa7d40e6bc6f84a645ca0b53e9d40bec8ada9c3a73022dc567ee8b"
+    },
+    "contracts": 12,
+    "assertions": 68,
+    "passed": [
+      "parent_spell_source_restored_and_actual_damage_callback_gets_spell_uid",
+      "absent_parent_mzid_remains_absent",
+      "explicit_null_parent_mzid_stays_present_null",
+      "empty_parent_mzid_preserved_exactly",
+      "new_variables_and_child_await_captures_are_not_rolled_back",
+      "movement_callback_source_clobber_is_scoped",
+      "iar_callback_source_clobber_is_scoped",
+      "nested_effect_pitch_contexts_restore_in_stack_order",
+      "callback_exception_restores_context_and_propagates",
+      "invalid_pitch_reference_has_no_effect",
+      "foreign_hand_reference_rejected_without_context_change",
+      "caller_nonstack_source_context_is_not_guessed_or_rewritten"
+    ],
+    "actual_functions": {
+      "FaBARCPitchForEffect": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/ARCCards.php",
+        "source_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+        "function_sha256": "682343b2a8caa7364704f4d52e09e4dca6b000974f72360398fdd5eec8b4346f",
+        "evaluated_sha256": "682343b2a8caa7364704f4d52e09e4dca6b000974f72360398fdd5eec8b4346f"
+      },
+      "FaBARCDealArcane": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/ARCCards.php",
+        "source_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+        "function_sha256": "119e5189936aa4a51f9d770a899ae337aac1309563112963d28a3d56ceb080f6",
+        "evaluated_sha256": "119e5189936aa4a51f9d770a899ae337aac1309563112963d28a3d56ceb080f6"
+      }
+    },
+    "limits": [
+      "Controlled dependencies only; no engine/game/bootstrap imports or filesystem writes.",
+      "Actual extracted functions prove source-reference propagation and key-scoping contracts; native unchanged Sink proves real card movement/prevention/keyword/damage callbacks.",
+      "Core variable API is an explicit boundary double, not independent Core validation; child frame test checks preservation, not asynchronous pitch-trigger resolution ordering.",
+      "No blanket missing-property defaults, exception swallowing, whole-world rollback or generated code changes."
+    ]
+  },
+  "compatibility": {
+    "quickening_decline": {
+      "path": "card-regression-replay-effect-pitch405-quickening-compat.json",
+      "sha256": "7198a50906447e2a3d56d53019e8b17ea15cb100f5f5f808d5c7b0f234f6046c",
+      "passed": 1,
+      "actual_funding_pitch": false
+    },
+    "funded_wellingtons": {
+      "path": "card-regression-replay-effect-pitch405-two-red-corrected.json",
+      "sha256": "9060b4e671ad104968c593e7c5a3eb95df03f84fc35dd2e67c756928164f238b",
+      "passed": 1,
+      "actual_funding_pitches": 2,
+      "retained_prior_failed_report": "card-regression-replay-effect-pitch405-two-red-compat.json",
+      "expected_only_correction": {
+        "review": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\effect-pitch405-wellingtons-one-leaf-independent-review-106.json",
+          "sha256": "c07dc88b6c5af05aaefe753ad6c028c8d82b6bcd188c93e48f72779b3451cfe6"
+        },
+        "application": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\effect-pitch405-existing-funded-snapshot\\applied-one-leaf.json",
+          "sha256": "69ae0b4ec90a3e465ec99fd75272b1cb6c1601605008c0402b7cf413d7876dc6"
+        },
+        "delta": {
+          "physical_line": 106,
+          "field": "DecisionQueueVariables.mzID",
+          "before": "p2Pitch-1",
+          "after": "Stack-0",
+          "other_json_keys_unchanged": true,
+          "raw_change_exactly_one_literal": true,
+          "original_line_endings_preserved": true,
+          "normalized_candidate_equals_captured_actual": true,
+          "physical_lines": 110,
+          "other_physical_lines_unchanged": 109,
+          "split_newline_records_including_trailing_empty": 111
+        },
+        "expected_before_sha256": "4dffa6543602783a33663050083d0b08c1a62814a851ea227e53e3c0d0e1af43",
+        "expected_after_sha256": "7be64c55f6d16b302cb79fa34ffc1858cda2e6d2ef34705949313ebbcf55a7d5",
+        "initial_actions_assertions_meta_unchanged": true,
+        "new_coverage_credit": false,
+        "semantic_reason": "Reviewed405 FaBARCPitchForEffect now restores enclosing source after each realfundingpitch callback. TwoRed funding sequence must leave parentresolver referenceStack0 rather thanlastPitch1. Unchanged adjacentmzIDCardID/cardID aether_dart_red confirms originalspell namespace. SharedmzID ishistoricalresolvercontext aftercleanup, not claim livefinalStack. Physical/gameplayassets/allotherexpectedfields and allnativeactions/assertions untouched."
+      }
+    }
+  },
+  "limits": "Snapshot oneleaf is a separately reviewed stale-resolver-context oracle correction, not new card coverage or historical-row retagging. No general asynchronous callback ordering/Core validation/allcards/fullsuite certification."
+}

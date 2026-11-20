@@ -1,0 +1,32 @@
+# Single-colour stand-in (2026-11-19) for the Lando mill rules. Mace Windu, Here With Backup (IC27_004, Command) on Origin Tree (HMW_024, Command): mono-green ramp into big Command units
+# Deck: "Oops All Mace(Mean Green)"; source: https://sw-unlimited-db.com/decks/172437 (created 2026-11-17, post-ban), exact leader + base, unchanged
+# Author: The Prophet
+# Style: midrange
+
+Leader
+1 IC27_004
+
+Base
+1 HMW_024
+
+Deck
+2 IC27_070
+3 IC27_081
+3 IC27_086
+2 HMW_124
+3 HMW_128
+2 HMW_135
+2 HMW_138
+3 HMW_142
+2 IC27_078
+2 IC27_076
+3 HMW_136
+2 HMW_130
+2 HMW_115
+3 LOF_096
+2 HMW_043
+2 IC27_075
+3 IC27_084
+3 IC27_087
+3 HMW_149
+3 HMW_151

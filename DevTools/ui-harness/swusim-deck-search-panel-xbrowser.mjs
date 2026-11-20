@@ -2,7 +2,7 @@
 // Bug report 2026-10-01 (game 1438045): "Search Your Feelings when played gives a terrible UI/UX". The panel was
 // built for a handful of top cards; given the whole deck it drew ~45 cards as 180px art in an unbounded box, so
 // its title and its confirm button were OFF-SCREEN, and the deck came in raw order.
-// Core/UILibraries20261023.js ShowTopDeckSearchPanel + the 'deck' scope segment (SWUSim/Custom/GameLogic.php
+// Core/UILibraries20261031.js ShowTopDeckSearchPanel + the 'deck' scope segment (SWUSim/Custom/GameLogic.php
 // _topDeckSearchBegin). Pinned, Chromium / Firefox / WebKit, desktop 1600x1000 and phone 390x844:
 //   · title "SEARCH YOUR DECK"; the box fits the viewport; title, filter and CONFIRM are on-screen; only the grid scrolls;
 //   · tiles sorted by cost; the filter narrows in place and keeps focus while typing;
@@ -21,7 +21,34 @@ const ok  = () => { checks++; };
 const want = (n, c, m) => c ? ok() : bad(n, m);
 
 // A real 50-card list (each copy its own entry), in fixture order — NOT sorted, so the sort is what is tested.
-const fx = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/ash-meta-2026-09/director-krennic_law_blue.txt', import.meta.url), 'utf8');
+// Director Krennic (LAW) Blue.
+const fx = `Leader
+1 LAW_008
+Base
+1 ASH_019
+Deck
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 ASH_079
+3 LAW_039
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 SEC_087
+2 ASH_048
+2 LAW_097
+2 ASH_133
+1 SEC_111
+3 ASH_052
+2 LAW_101
+2 JTL_033
+1 SEC_088
+1 ASH_102
+3 JTL_043
+1 SEC_078
+3 LOF_091
+1 SEC_038`;
 const deckIDs = [];
 let inDeck = false;
 for (const line of fx.split('\n')) {

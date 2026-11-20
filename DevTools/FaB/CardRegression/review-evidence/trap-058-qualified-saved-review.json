@@ -1,0 +1,297 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T17:46:58.404751+00:00",
+  "review_method": "Prior printed/source semantics and independently corrected canonical protocol reused; static actual Shock raw5/input/assertion/profile comparison only. No engine execution or model.",
+  "source_spec": "card-regression-batch254-canonical-combat-windows.json",
+  "input_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+  "runtime_sha256": "77a0bdd8458aee8723f873fb3ba23619c51193932d354965ad1524be9468708c",
+  "recorded_runtime_sha256": "77a0bdd8458aee8723f873fb3ba23619c51193932d354965ad1524be9468708c",
+  "historical_manifest_sha256": "271d093a4809ea386c1903636d02ab4bcbf034f160c671d246aa798be6c99d63",
+  "historical_manifest_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse254-current-b3-first-manual-independent-approval.json",
+    "sha256": "84de42280dcdc3ffe48bb0e356e5e056db49cac6ec65b7076cdeb551bcbdf9af"
+  },
+  "canonical_protocol_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse254-v5-canonical-combat-protocol-independent-approval.json",
+    "sha256": "4d763a4c6df86f1afe5ab9c493250807ff4a08bd87a5b064030a90a48fb54cef"
+  },
+  "source_application_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\wrapup-058-runner-source-application.json",
+    "sha256": "0b849e25815d3e9ff72e239cfe99dd2ac5767e9532be036fb4ea8b43d1016535"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch254-canonical-combat-windows-20261026T174009Z-6adf90799f9d7.json",
+    "sha256": "6efc842f6b1e314cb5a8e5214c537ed1c2ebee98a597745f12cd7072e8f8e118"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\audit_sparse254_shock_actual_files.py",
+    "sha256": "81462196e7aa7042f7a5504b482c5b8982e594c6bca4372d70e10d7555b5abad"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "anaphylactic_shock_blue",
+      "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+      "source_spec": "card-regression-batch254-canonical-combat-windows.json",
+      "input_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "77a0bdd8458aee8723f873fb3ba23619c51193932d354965ad1524be9468708c",
+      "recorded_runtime_sha256": "77a0bdd8458aee8723f873fb3ba23619c51193932d354965ad1524be9468708c",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_SHOCK_AFTER_TRAP_LEGALITY_REPAIR",
+      "fixture_sha256": "8f191e36c8c6362d08df73656186e705138cf948257d99704a18d6fea5268841",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "155bff9fab1540809ad54026ea68eadea3fbe5793319ac5eefef0265563c7da1",
+        "actions.json": "3d238f1fc7cb218c4c955b007b44716428f29a7aaa9d92a6e2a9986d7211e2b8",
+        "assertions.json": "e5fca51b5955430a93e3dd887a8a3c7101623e6b49df4c325bcf064baedd7634",
+        "expected_final_gamestate.txt": "035e6dacf3565c8e5040b00c60c66ecf59dacbeadc48377ddbd7f070c6341add",
+        "meta.json": "00e36b7abff8f394716f74e910478cb0503a12448dd3709fdbe76b43205044e8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "155bff9fab1540809ad54026ea68eadea3fbe5793319ac5eefef0265563c7da1",
+        "actions.json": "3d238f1fc7cb218c4c955b007b44716428f29a7aaa9d92a6e2a9986d7211e2b8",
+        "assertions.json": "e5fca51b5955430a93e3dd887a8a3c7101623e6b49df4c325bcf064baedd7634",
+        "expected_final_gamestate.txt": "035e6dacf3565c8e5040b00c60c66ecf59dacbeadc48377ddbd7f070c6341add",
+        "meta.json": "00e36b7abff8f394716f74e910478cb0503a12448dd3709fdbe76b43205044e8"
+      },
+      "actions": 27,
+      "native_assertions": 503,
+      "actual_manual_passes": 24,
+      "actual_priority_response_passes": 23,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_live_young_legal_Assassin_and_no_earned_damage_history",
+          "native_assertions": 117
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Wounding_target_preflight_still_Hand_before_any_asset_payment",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_adjacent_P4_declared_zero_cost_attack_AP_spent",
+          "native_assertions": 19
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_attack_play_response_1",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_attack_play_response_2",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_attack_play_response_3",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "fourth_play_response_real_attack_chain_entry",
+          "native_assertions": 17
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_attack_step_response_1",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_attack_step_response_2",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_attack_step_response_3",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "fourth_attack_step_response_real_defender_declaration",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_defender_declines_all_blocks",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_defend_priority_response_1",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "actual_defend_priority_response_2",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "actual_defend_priority_response_3",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "fourth_defend_response_reaction_window",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_unmodified_reaction_response_1",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "actual_unmodified_reaction_response_2",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "actual_unmodified_reaction_response_3",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "fourth_reaction_response_actual_four_damage_earns_opposing_hero_history",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "actual_damage_step_response_1_before_primary_Instant",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "actual_damage_step_response_2_before_primary_Instant",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "actual_damage_step_response_3_before_primary_Instant",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "actual_zero_cost_Assassin_Instant_announced_after_real_Hero_damage",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "actual_primary_Shock_response_1",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "actual_primary_Shock_response_2",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "actual_primary_Shock_response_3",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "full_final_only_actual_damaging_opposing_Hero_loses_one_life",
+          "native_assertions": 128
+        }
+      ],
+      "final_health": [
+        19,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "total_actions": 27,
+  "total_native_assertions": 503,
+  "total_manual_passes": 24,
+  "total_priority_response_passes": 23,
+  "total_defender_declaration_finish_inputs": 1,
+  "limits": [
+    "Shock case0 only at current77a; Absorb earlier registered at historicalb3 is not inspected or retagged by this proof. Original3f655 actions/oracles and historicalmanifest preserved.",
+    "Actual WB4damage/P4HP16 naturally earns only Hero1 damage history, then actual AssassinHandInstant0 source6/responders4,1,2,3 causes P1life20to19; allAP/R0, source6publicowner4GY and physicalWB5stillChain.27inputs/503checks/raw5/all4actors/48prefs verified.",
+    "24 actual Pass inputs include23priority responses and1defender-declarationfinish; no administrative passes. Canonical native property query oracles are exact; raw snapshot serializes attacking role as ATTACK.",
+    "No Ally-damage/life-loss, multipledamage-dealers/repeatedpackets/dedup/Contract/suppression/expiry/fullcard/supportprimary/sibling/nativecontrol coverage. No generic Trap family claim beyond separately peer-reviewed source patch.",
+    "Before058correctinputfailedand noShockfixtureexisted; no before-HP/Stack observation is invented here. This proof binds new actualsaved output only; root retains before source/receipt classification separately.",
+    "Root two new-only clean replays/qualification remain separate gates. No Rwrites/PHP/native/fullsuite/source edits/model certification or investigation of separate suite failures performed."
+  ]
+}

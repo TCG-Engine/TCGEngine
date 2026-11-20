@@ -1,0 +1,205 @@
+{
+  "status": "PASS_15_ACTUAL_FUNCTION_CONTRACTS_AND_THREE_SPECIFIC_MUTATION_DETECTIONS",
+  "component": {
+    "path": "components/native_ability_frame_component.php",
+    "sha256": "295ae2629b18f02afcb43ada771d06394b62edab0fd96fae59e4c2564e4f59de"
+  },
+  "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+  "independent_body_review_sha256": "4b1e28431d59d67df9e1fb7158a4cafe9dec916b387b4e4f5d0c80af864e834c",
+  "independent_portable_delta_review_sha256": "c809063d0848ad85cb8240cdb8c10466a9948979f0ae47e002e5460d8d6a05e9",
+  "tests": [
+    {
+      "mode": "none",
+      "exit": 0,
+      "expected_contract_detected": true,
+      "result": {
+        "status": "PASS",
+        "contracts": 15,
+        "checks": 28,
+        "mutant": "none",
+        "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+        "extractor_sha256": "ca10febfe5f102c0eca748c0fc82f83b0b1a814e4789d7f955b7fe82aca85199",
+        "actual_functions": {
+          "FaBManagedVirtualResolutionClass": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511",
+            "evaluated_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511"
+          },
+          "FaBTrackReactionAwaitFrames": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd",
+            "evaluated_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd"
+          },
+          "FaBReactionResolutionHasWork": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+            "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+          },
+          "FaBReactionResolutionIsPending": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+            "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+          }
+        },
+        "completed_contracts": [
+          "01 native Dreadbore arcSpec ability admitted",
+          "02 admission uses native layer protocol rather than card allowlist",
+          "03 rosTrigger no-arcSpec and non-ability layers stay excluded",
+          "04 marked Runechant trigger predicate remains exact",
+          "05 actual tracker owns new Dreadbore ResolveAbility frame",
+          "06 pre-existing baseline frame stays unowned",
+          "07 foreign card namespace stays unowned",
+          "08 ResolveCard frame cannot impersonate native ability frame",
+          "09 matching namespace with foreign physical source stays unowned",
+          "10 repeated tracking deduplicates while retaining earlier owned keys",
+          "11 Runechant marker still tracks ResolveCard not ResolveAbility",
+          "12 frame-only work holds resolution with every decision queue empty",
+          "13 any seat static decision row holds completion",
+          "14 callback depth independently prevents premature completion",
+          "15 drained queues and frames release work gate but preserve marker until finisher"
+        ],
+        "scope": "Actual extracted admission/tracker/work gates; external state and queues are controlled. No native game, completion-effect, AP-refund or per-card qualification."
+      }
+    },
+    {
+      "mode": "classifier-allowlist",
+      "exit": 1,
+      "expected_contract_detected": true,
+      "result": {
+        "status": "FAIL",
+        "mutant": "classifier-allowlist",
+        "failed_contract": "01 native Dreadbore arcSpec ability admitted",
+        "error": "native admission",
+        "completed_contracts": [],
+        "actual_functions": {
+          "FaBManagedVirtualResolutionClass": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511",
+            "evaluated_sha256": "85feba020dc609190bd636a161206c000b565ed1b4bbf0c3f44bd7deaedd84e6"
+          },
+          "FaBTrackReactionAwaitFrames": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd",
+            "evaluated_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd"
+          },
+          "FaBReactionResolutionHasWork": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+            "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+          },
+          "FaBReactionResolutionIsPending": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+            "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+          }
+        }
+      }
+    },
+    {
+      "mode": "frame-allowlist",
+      "exit": 1,
+      "expected_contract_detected": true,
+      "result": {
+        "status": "FAIL",
+        "mutant": "frame-allowlist",
+        "failed_contract": "05 actual tracker owns new Dreadbore ResolveAbility frame",
+        "error": "new native ability frame ownership",
+        "completed_contracts": [
+          "01 native Dreadbore arcSpec ability admitted",
+          "02 admission uses native layer protocol rather than card allowlist",
+          "03 rosTrigger no-arcSpec and non-ability layers stay excluded",
+          "04 marked Runechant trigger predicate remains exact"
+        ],
+        "actual_functions": {
+          "FaBManagedVirtualResolutionClass": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511",
+            "evaluated_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511"
+          },
+          "FaBTrackReactionAwaitFrames": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd",
+            "evaluated_sha256": "afe8e51acbfde90cdb09e343f2d690a23b4ef4a952e1dba33ff922394516a382"
+          },
+          "FaBReactionResolutionHasWork": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+            "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+          },
+          "FaBReactionResolutionIsPending": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+            "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+          }
+        }
+      }
+    },
+    {
+      "mode": "ignore-frame-only",
+      "exit": 1,
+      "expected_contract_detected": true,
+      "result": {
+        "status": "FAIL",
+        "mutant": "ignore-frame-only",
+        "failed_contract": "12 frame-only work holds resolution with every decision queue empty",
+        "error": "actual completion work gate sees frame without queue mask",
+        "completed_contracts": [
+          "01 native Dreadbore arcSpec ability admitted",
+          "02 admission uses native layer protocol rather than card allowlist",
+          "03 rosTrigger no-arcSpec and non-ability layers stay excluded",
+          "04 marked Runechant trigger predicate remains exact",
+          "05 actual tracker owns new Dreadbore ResolveAbility frame",
+          "06 pre-existing baseline frame stays unowned",
+          "07 foreign card namespace stays unowned",
+          "08 ResolveCard frame cannot impersonate native ability frame",
+          "09 matching namespace with foreign physical source stays unowned",
+          "10 repeated tracking deduplicates while retaining earlier owned keys",
+          "11 Runechant marker still tracks ResolveCard not ResolveAbility"
+        ],
+        "actual_functions": {
+          "FaBManagedVirtualResolutionClass": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511",
+            "evaluated_sha256": "070545df568e98084d1a08cf36ef41f208e3ab75cce82af033d8b385ebf5f511"
+          },
+          "FaBTrackReactionAwaitFrames": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd",
+            "evaluated_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd"
+          },
+          "FaBReactionResolutionHasWork": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+            "evaluated_sha256": "e055bb1873c70decf5b2019f804a1438e399aec34f5a4d2bc27988cf71e633d0"
+          },
+          "FaBReactionResolutionIsPending": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+            "source_sha256": "82a10388fff92d2aa82a4958ca8b43b6ae9de29f876a0c284557b27dfcb4666d",
+            "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+            "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+          }
+        }
+      }
+    }
+  ],
+  "full_external_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\managed-native-frame-component-results.json",
+    "sha256": "6e9992a0fdddf2b08b110664b559f136ff3093f0ac8d70600e07c0ec94a4ca8a"
+  },
+  "limits": "Actual extracted classifier/tracker/work gates; external state/queues controlled. No native AP/refund/source-completion claim from component. Actual Dread/native focused witnesses qualify those separately."
+}

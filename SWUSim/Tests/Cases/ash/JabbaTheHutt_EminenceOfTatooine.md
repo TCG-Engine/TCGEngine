@@ -168,3 +168,27 @@ P1SPACEARENAUNIT:1:CARDID:SOR_237
 P1SPACEARENAUNIT:1:UPGRADECOUNT:1
 P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_211
 P1NODECISION
+
+---
+
+# ReplayFree_IsAPlay_CountsAsACardPlayed
+#// The free replay is a PLAY (owner ruling 2026-11-04: a card-effect play is a play, and uses up "first/next card"
+#// discounts like any other). It used to go straight to _SWUFinalizeUpgradeAttach, which only attaches: the play was
+#// never committed, so the cards-played-this-phase count missed it. SOR_191 Vanguard Ace — "When Played: For each
+#// other card you played this phase, give an Experience token to this unit" — counts Jabba AND the replayed SOR_120:
+#// 2 tokens. Without the commit it gave 1.
+## GIVEN
+CommonSetup: byk/byk/{myResources:12}
+WithP1Hand: [ASH_042 SOR_191]
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-1
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:1:POWER:4
+P1SPACEARENAUNIT:0:CARDID:SOR_191
+P1SPACEARENAUNIT:0:UPGRADECOUNT:2

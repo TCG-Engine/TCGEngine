@@ -1,0 +1,422 @@
+{
+  "status": "APPROVED_ONE_EXACT_SAVED_CINTARI_REPRESENTATIVE_NATIVE_CAUSAL_REPAIR_TWO_CURRENT_REPLAYS_AND_BOUNDED_COMPONENTS",
+  "reviewer": "/root/b106_semantic_review",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "recorded_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+  "source_application_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+  "external_auth_rebind": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\external-auth-runtime-delta-20261026.json",
+    "sha256": "d4edb536dea04b7f9e4af52c93c59c80f8227e96f6ea21c6802dc6dd02d2fb87",
+    "preserved_user_change": true
+  },
+  "recorded_context_replays": [
+    {
+      "path": "card-regression-replay-cintari-f3-20261026-r1.json",
+      "sha256": "87fd62679ec0832b5dbb5a9aa45ca48e476e260f09a6449beb29801b4bea9fce",
+      "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1"
+    },
+    {
+      "path": "card-regression-replay-cintari-f3-20261026-r2.json",
+      "sha256": "a61d13e609476764ccad95228388dcecce6b634aed8eb429d2005a7de1dcbf4d",
+      "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1"
+    }
+  ],
+  "source_spec": "card-regression-batch216-cintari-probe.json",
+  "source_spec_sha256": "9f19e21ad056fc2dc3f35696dfce2a2e7d81feec0fb192827d612cfcb168ea2a",
+  "fixtures": [
+    {
+      "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+      "card_id": "cintari_saber",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+      "recorded_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+      "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a64ac442094e6624daf2ffe949311c0230ee2ec353e00e89d21f96bebadf979b",
+        "actions.json": "c9d30b2668dbfb15a3d614a23d25903cc76e97e39180bad700c714248369cf22",
+        "assertions.json": "b23997d504fc0f999d54c0fac14e20cb88cee8c8b685530bcb7454eb748d93b3",
+        "expected_final_gamestate.txt": "ceea6d1e41c6ecfd088ab8bbd2cc90c8eba42f430fcac9b44bcb76f39a50b193",
+        "meta.json": "d856c91106f0317935769ad89ce8903eb8abf658ce408ee714f0301079d0a935"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a64ac442094e6624daf2ffe949311c0230ee2ec353e00e89d21f96bebadf979b",
+        "actions.json": "c9d30b2668dbfb15a3d614a23d25903cc76e97e39180bad700c714248369cf22",
+        "assertions.json": "b23997d504fc0f999d54c0fac14e20cb88cee8c8b685530bcb7454eb748d93b3",
+        "expected_final_gamestate.txt": "ceea6d1e41c6ecfd088ab8bbd2cc90c8eba42f430fcac9b44bcb76f39a50b193",
+        "meta.json": "d856c91106f0317935769ad89ce8903eb8abf658ce408ee714f0301079d0a935"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch216-cintari-probe.json",
+      "input_sha256": "9f19e21ad056fc2dc3f35696dfce2a2e7d81feec0fb192827d612cfcb168ea2a",
+      "actions": 33,
+      "native_assertions": 2193,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_legal_four_live_uncharged_empty_soul_warriors_and_real_weapon_payment_fixture",
+          "step": 0,
+          "native_assertions": 118
+        },
+        {
+          "checkpoint": "actual_adjacent_target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 40
+        },
+        {
+          "checkpoint": "real_printed_attack_resource_cost_before_pitch",
+          "step": 2,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_attack_assets_paid_before_all_four_responses",
+          "step": 3,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_1_of_four",
+          "step": 4,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_2_of_four",
+          "step": 5,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_3_of_four",
+          "step": 6,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_attack_source_fourth_manual_response_boundary",
+          "step": 7,
+          "native_assertions": 53
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_1_of_four",
+          "step": 8,
+          "native_assertions": 53
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_2_of_four",
+          "step": 9,
+          "native_assertions": 53
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_3_of_four",
+          "step": 10,
+          "native_assertions": 53
+        },
+        {
+          "checkpoint": "actual_attack_step_fourth_manual_response_boundary",
+          "step": 11,
+          "native_assertions": 53
+        },
+        {
+          "checkpoint": "after_completed_defender_declaration_first_priority_requires_pending_when_layer_not_applied_bonus",
+          "step": 13,
+          "native_assertions": 62
+        },
+        {
+          "checkpoint": "correct_printed_when_trigger_four_responses_before_bonus_manual_response_1_of_four",
+          "step": 14,
+          "native_assertions": 61
+        },
+        {
+          "checkpoint": "correct_printed_when_trigger_four_responses_before_bonus_manual_response_2_of_four",
+          "step": 15,
+          "native_assertions": 61
+        },
+        {
+          "checkpoint": "correct_printed_when_trigger_four_responses_before_bonus_manual_response_3_of_four",
+          "step": 16,
+          "native_assertions": 61
+        },
+        {
+          "checkpoint": "correct_printed_when_trigger_four_responses_before_bonus_fourth_manual_response_boundary",
+          "step": 17,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "fourth_trigger_response_has_actual_base_two_plus_one_on_original_weapon",
+          "step": 17,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "actual_defend_step_after_trigger_manual_response_1_of_four",
+          "step": 18,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_after_trigger_manual_response_2_of_four",
+          "step": 19,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_after_trigger_manual_response_3_of_four",
+          "step": 20,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_defend_step_after_trigger_fourth_manual_response_boundary",
+          "step": 21,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_1_of_four",
+          "step": 22,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_2_of_four",
+          "step": 23,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_3_of_four",
+          "step": 24,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_reaction_step_fourth_manual_response_boundary",
+          "step": 25,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_computed_attack_damage_not_cached_defense",
+          "step": 25,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_1_of_four",
+          "step": 26,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_2_of_four",
+          "step": 27,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_3_of_four",
+          "step": 28,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_damage_step_fourth_manual_response_boundary",
+          "step": 29,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_1_of_four",
+          "step": 30,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_2_of_four",
+          "step": 31,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_3_of_four",
+          "step": 32,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_fourth_manual_response_boundary",
+          "step": 33,
+          "native_assertions": 40
+        },
+        {
+          "checkpoint": "full_final_four_live_physical_ownership_economy_and_queues",
+          "step": 33,
+          "native_assertions": 119
+        },
+        {
+          "checkpoint": "full_final_fully_blocked_three_no_hit_and_real_weapon_pitch_lifecycle",
+          "step": 33,
+          "native_assertions": 121
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 2193
+      },
+      "actual_endpoint": {
+        "p4_health": 20,
+        "p1_resources": 2,
+        "p1_action_points": 0,
+        "own_arena": [],
+        "opposing_p4_arena": [],
+        "own_graveyard": [],
+        "own_pitch": [
+          {
+            "CardID": "wounding_blow_blue",
+            "UniqueID": "6",
+            "Owner": "1",
+            "Controller": "1"
+          }
+        ],
+        "p4_resources": 0,
+        "opposing_p4_graveyard": [
+          {
+            "CardID": "wounding_blow_red",
+            "UniqueID": "7",
+            "Owner": "4",
+            "Controller": "4",
+            "FaceDown": "0"
+          }
+        ],
+        "opposing_p4_pitch": [],
+        "opposing_p4_deck": [],
+        "own_banish": [],
+        "own_equipment": []
+      },
+      "limits": [
+        "Selected actual saved state/actions/oracles review; root clean replays and meaningful available causal controls remain separate gates.",
+        "One bounded representative per group; no full-card/support/hero/excluded-branch credit."
+      ],
+      "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "current_clean_replays": [
+        "card-regression-replay-cintari-f56-auth-rebind-r1.json",
+        "card-regression-replay-cintari-f56-auth-rebind-r2.json"
+      ],
+      "current_qualification_status": "NATIVE_CORRECT_EXPECTATION_BEFORE_FAIL_AFTER_PASS_TWO_CLEAN_REPLAYS_AND_ELEVEN_CONTROLLED_ACTUAL_FUNCTION_GROUPS",
+      "isolated_native_fault_status": "NO_SYNTHETIC_HELPER_CONTROL_CLAIM_NATIVE_PRE_POST_BUG_CAUSAL_EVIDENCE_SEPARATE"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-postfix-actual-saved-independent-review-106.json",
+    "sha256": "99ec3b2e0598d87c61497e8d887bf60c836bfddf3b45a06693140886be771b44"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-cintari-f56-auth-rebind-r1.json",
+      "sha256": "642948bdc6f512a3e5366eab93ac3937eaa2f598acdcb99c566c63f4c6011a99"
+    },
+    {
+      "path": "card-regression-replay-cintari-f56-auth-rebind-r2.json",
+      "sha256": "ce2bc41e4d70e8959cc88dfc736b9069e70747348a89e064e852817ad736dbfb"
+    }
+  ],
+  "native_causal_repair": {
+    "issue_id": "FAB-REG-049",
+    "evidence": "review-evidence/cintari-defended-trigger-before-after.json",
+    "sha256": "5934858043b6f1ef04422d208df723374f23bfb4d7593ec170f19ee62ad6468f"
+  },
+  "components": {
+    "path": "components/cintari_defended_trigger_component.php",
+    "sha256": "312c9283a29d5d2cee22d2348b902be4b06dac6540693353b645ce464f246d86",
+    "groups": 11,
+    "checks": 20
+  },
+  "qualification": "Same correct original native initial/actions/all2193 persisted oracles pass after missing response-window repair; two targeted clean replays and independently reviewed actual saved four-live model. Actual component functions with explicit doubles and one existing Mauvrion ROS compatibility witness at their actual f3 context. New final replays are F56 after externally committed Auth-only additions; original recording/source application stay f3. Native before/after causal proof is separate from unchanged111 generic helper controls; no new synthetic control claimed. Only one bounded Cintari representative, no universal identity/EOT/full-card/fullsuite/legacy corpus credit."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "overblast_red / actual one earlier boost in same combat chain",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T14:20:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungDash20/3Dori20; actualHandZeroToSixtyRed5/OverblastRed6/BlueWB7, soleDeckMechanicalStrengthBlue8. ActualZero5normaladjacentP4target thenBoostdeclaredMZMODAL0 beforeassets/effectcost; Action0spendsAP1->0 thenactualtopMech8publicBanish earnsBoost (nofakehistory). Fourresponses/normalunblockedcombatZero4damageHP4=16 andearnedGAtrue. FouractualDAMAGEpasses enterRESOLUTION, GArestoresAP1 whilephysicalZero5stilllink1/chainopen. DoNOTpassRESOLUTIONfourtimes(closeschain); CR7.6.3a explicitlypermitsnextattacknow. ClickactualOverblast6Hand0; priorcombatfocusP4solelegaltargetauto-commits(noinventedtargetanswer), normalPITCHemptyDQcost2/Blue7actualHandclick3pays2->R1/AP0. Fourresponses actualsamechainlink2/physical6 powerprinted5+oneearnedBoost=6, noGA. Normalunblocked6damage\u2192finalP4HP10,total4+6. FinalChainUID5link1/6link2,Banish8MechF0,Pitch7,otherzonesempty. NoDashstartItem/heroactivation, secondBoost/negativeboost/sibling/failedtarget/OverblastGA/cleanup/chainresetcredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CRU112.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

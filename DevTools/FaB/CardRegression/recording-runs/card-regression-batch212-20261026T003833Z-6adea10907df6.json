@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T00:38:33+00:00",
+    "input_file": "card-regression-batch212.json",
+    "input_sha256": "29c670e7a5ba84f9b0ff1d68a08c3394613a281509de2b57b0aa28fc6c9950fa",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 2701
+        },
+        {
+            "slug": "card-fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 467
+        }
+    ]
+}

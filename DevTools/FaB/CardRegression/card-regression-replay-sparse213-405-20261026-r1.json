@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch213.json",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T00:46:50.356426+00:00",
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
+      "fixture_sha256": "18ca85ac251ee38e76d8bbfcaac218fb35f74e9038513925d46eb11a94e5f67d",
+      "passed": true,
+      "result": "[PASS] talisman_of_dousing_yellow / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
+      "returncode": 0,
+      "stdout": "[PASS] talisman_of_dousing_yellow / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

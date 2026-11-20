@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch205.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T22:37:23.061587+00:00",
+  "fixtures": [
+    {
+      "slug": "card-frailty-four-live-sparse-active-owned-disease-reduces-real-paid-weapon-by-one",
+      "fixture_sha256": "30489f01693892ef6027e71eeab054b968d5b06dd1807c88b4f42b5849e8e59c",
+      "passed": true,
+      "result": "[PASS] frailty / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-red-liner-four-live-sparse-actual-zero-cost-bow-load-choice-faceup-arrow-and-deferred-go-again",
+      "fixture_sha256": "ee7ca953e4dd2875e33dca75149e9e7e6bc09cbf2fe54e1c77a94a792399f77f",
+      "passed": true,
+      "result": "[PASS] red_liner / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-perch-grapplers-four-live-sparse-actual-paid-destroy-grants-earned-faceup-arrow-go-again",
+      "fixture_sha256": "5752506a76a5a552c8064c82a8a1838935c96028821d7942f20e731f0a594651",
+      "passed": true,
+      "result": "[PASS] perch_grapplers / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-contest-the-mindfield-blue-four-live-sparse-active-opposing-wizard-aura-reduces-real-endturn-refill",
+      "fixture_sha256": "86e221beec44e13ab30306d8379632acc00ed262f1c46b9806383ad2da863f30",
+      "passed": true,
+      "result": "[PASS] contest_the_mindfield_blue / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-frailty-four-live-sparse-active-owned-disease-reduces-real-paid-weapon-by-one",
+      "returncode": 0,
+      "stdout": "[PASS] frailty / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-red-liner-four-live-sparse-actual-zero-cost-bow-load-choice-faceup-arrow-and-deferred-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] red_liner / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-perch-grapplers-four-live-sparse-actual-paid-destroy-grants-earned-faceup-arrow-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] perch_grapplers / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-contest-the-mindfield-blue-four-live-sparse-active-opposing-wizard-aura-reduces-real-endturn-refill",
+      "returncode": 0,
+      "stdout": "[PASS] contest_the_mindfield_blue / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

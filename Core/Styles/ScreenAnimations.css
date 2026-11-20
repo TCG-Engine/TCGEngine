@@ -183,6 +183,15 @@
     0 4px 12px rgba(0, 0, 0, 0.8);
 }
 
+/* A drawn game (SWUSim, CR 6.3): neither the win gold nor the loss red — a cool neutral silver. */
+#game-over-overlay.draw #game-over-title {
+  color: #c9d3de;
+  text-shadow:
+    0 0 28px rgba(190, 210, 230, 0.70),
+    0 0 70px rgba(150, 175, 200, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
 @keyframes gameOverTitlePop {
   from { opacity: 0; transform: scale(0.3) translateY(20px); }
   to   { opacity: 1; transform: scale(1)   translateY(0); }

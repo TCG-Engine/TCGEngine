@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch250.json",
+  "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T14:33:10.324144+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arakni-solitary-confinement-four-live-sparse-real-first-stealth-earns-go-again-and-action-point",
+      "fixture_sha256": "37327ea3023919b8e8a53a820f8e08b831886e4cc6c18e70cbaffda868e6b8bf",
+      "passed": true,
+      "result": "[PASS] arakni_solitary_confinement / real first Stealth attack grants go again"
+    },
+    {
+      "slug": "card-maxx-nitro-four-live-sparse-earned-boost-paid-create-two-steam-token-and-crank",
+      "fixture_sha256": "eb54c1bb992f93190bebc070e0754588dfbf01e5ac8f2f0128e63f97eaa4d4ea",
+      "passed": true,
+      "result": "[PASS] maxx_nitro / earned Boost paid Hero creation with actual Crank choice"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arakni-solitary-confinement-four-live-sparse-real-first-stealth-earns-go-again-and-action-point",
+      "returncode": 0,
+      "stdout": "[PASS] arakni_solitary_confinement / real first Stealth attack grants go again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-maxx-nitro-four-live-sparse-earned-boost-paid-create-two-steam-token-and-crank",
+      "returncode": 0,
+      "stdout": "[PASS] maxx_nitro / earned Boost paid Hero creation with actual Crank choice\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

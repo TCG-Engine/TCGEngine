@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T13:05:51+00:00",
+    "input_file": "card-regression-batch245-haunting-correct-probe.json",
+    "input_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+            "status": "recorded_semantically_checked",
+            "actions": 31,
+            "assertions": 822
+        }
+    ]
+}

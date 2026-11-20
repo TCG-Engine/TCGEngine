@@ -1,0 +1,61 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v3",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.87,
+  "normalize": false,
+  "style": "",
+  "groups": [
+    {
+      "id": "commit",
+      "title": "Commit move",
+      "prompt": "Electronic confirm sound",
+      "duration": 0.5,
+      "round": 4,
+      "takes": [
+        {
+          "take": 1,
+          "file": "commit-r4-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "commit-r4-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "commit-r4-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "commit-r4-take-4.mp3"
+        }
+      ]
+    }
+  ],
+  "sounds": [
+    {
+      "id": "commit-r4-1",
+      "file": "commit-r4-take-1.mp3",
+      "duration": 0.5,
+      "prompt": "Electronic confirm sound"
+    },
+    {
+      "id": "commit-r4-2",
+      "file": "commit-r4-take-2.mp3",
+      "duration": 0.5,
+      "prompt": "Electronic confirm sound"
+    },
+    {
+      "id": "commit-r4-3",
+      "file": "commit-r4-take-3.mp3",
+      "duration": 0.5,
+      "prompt": "Electronic confirm sound"
+    },
+    {
+      "id": "commit-r4-4",
+      "file": "commit-r4-take-4.mp3",
+      "duration": 0.5,
+      "prompt": "Electronic confirm sound"
+    }
+  ]
+}

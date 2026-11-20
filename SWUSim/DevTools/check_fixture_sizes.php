@@ -9,7 +9,7 @@ const SWU_DECK_MIN = ['JTL_024' => 60, 'JTL_025' => 45];
 // A Sideboard section (owner 2026-10-01, for the superset research mode) is checked too: at most 10 cards, and
 // at most 3 copies of a card across main deck AND sideboard combined (SWU's copy limit spans both).
 $bad = 0; $n = 0;
-foreach (glob('SWUSim/Tests/BotFixtures/*/*.txt') as $f) {
+foreach (glob('SWUSim/BotFixtures/*/*.txt') as $f) {
     $sec = ''; $base = ''; $cards = 0; $side = 0; $copies = [];
     foreach (file($f, FILE_IGNORE_NEW_LINES) as $l) {
         $l = trim($l);

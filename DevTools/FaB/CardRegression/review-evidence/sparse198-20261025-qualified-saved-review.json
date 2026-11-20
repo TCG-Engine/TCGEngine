@@ -1,0 +1,556 @@
+{
+  "status": "APPROVED_INDEPENDENT_SAVED_REVIEW_COMPOSED_WITH_TWO_CURRENT_TARGETED_REPLAYS",
+  "reviewer": "/root/b106_semantic_review",
+  "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "source_spec": "card-regression-batch198.json",
+  "source_spec_sha256": "58abbb7225f6173ac2f640d015fc98c6c6c4ca26295b8d5c1b113a423943e3fe",
+  "fixtures": [
+    {
+      "slug": "card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REPAIRED_TRIGGER_FLOW_FOCUSED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "fixture_sha256": "6ec9a8dc340e7a6dd6876d4328c63ab1bc47c3b8816c34ee846214082af73dce",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0652b09dcc11e278d3b35a409562b8a9232b7390c7020e260c8737d904d02577",
+        "actions.json": "f64fd77184eaf4487b5e721149700e6aa1bac1e17b03016dbbb9e188a63f772a",
+        "assertions.json": "e8ddca2d8b09b53eb40498060d961601543ab504bf3c718ad8e78bd1fb677b84",
+        "expected_final_gamestate.txt": "35d7280b2339fa1f401c735c62cbad973bbbfe67c45ce9534852d73e0c72b8e6",
+        "meta.json": "cb7697a28a0ed18bfdbe4d2a8083bb04b0599651cff6aa340d28d23e0f70c96d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0652b09dcc11e278d3b35a409562b8a9232b7390c7020e260c8737d904d02577",
+        "actions.json": "f64fd77184eaf4487b5e721149700e6aa1bac1e17b03016dbbb9e188a63f772a",
+        "assertions.json": "e8ddca2d8b09b53eb40498060d961601543ab504bf3c718ad8e78bd1fb677b84",
+        "expected_final_gamestate.txt": "35d7280b2339fa1f401c735c62cbad973bbbfe67c45ce9534852d73e0c72b8e6",
+        "meta.json": "cb7697a28a0ed18bfdbe4d2a8083bb04b0599651cff6aa340d28d23e0f70c96d"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch198.json",
+      "input_sha256": "58abbb7225f6173ac2f640d015fc98c6c6c4ca26295b8d5c1b113a423943e3fe",
+      "actions": 37,
+      "native_assertions": 2152,
+      "actual_manual_passes": 33,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_runeblade_real_Mauvrion_host_and_blue_inputs",
+          "step": 0,
+          "native_assertions": 113
+        },
+        {
+          "checkpoint": "actual_zero_cost_Mauvrion_spends_one_Action_no_early_host_grant_or_tokens",
+          "step": 1,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "Mauvrion_source_actual_response_1_of_four",
+          "step": 2,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "Mauvrion_source_actual_response_2_of_four",
+          "step": 3,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "Mauvrion_source_actual_response_3_of_four",
+          "step": 4,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "Mauvrion_source_fourth_actual_response",
+          "step": 5,
+          "native_assertions": 40
+        },
+        {
+          "checkpoint": "actual_adjacent_opponent_target_preflight",
+          "step": 6,
+          "native_assertions": 41
+        },
+        {
+          "checkpoint": "actual_printed_attack_cost_waits_separate_real_blue_pitch",
+          "step": 7,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "real_blue_pitch_pays_printed_resource_and_Action_costs_no_early_damage_or_tokens",
+          "step": 8,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "real_host_source_actual_response_1_of_four",
+          "step": 9,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "real_host_source_actual_response_2_of_four",
+          "step": 10,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "real_host_source_actual_response_3_of_four",
+          "step": 11,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "real_host_source_fourth_actual_response",
+          "step": 12,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_attack_step_actual_response_1_of_four",
+          "step": 13,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_attack_step_actual_response_2_of_four",
+          "step": 14,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_attack_step_actual_response_3_of_four",
+          "step": 15,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_attack_step_fourth_actual_response",
+          "step": 16,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "P4_declares_no_defending_cards",
+          "step": 17,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_defend_priority_actual_response_1_of_four",
+          "step": 18,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_defend_priority_actual_response_2_of_four",
+          "step": 19,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_defend_priority_actual_response_3_of_four",
+          "step": 20,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_defend_priority_fourth_actual_response",
+          "step": 21,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_reaction_actual_response_1_of_four",
+          "step": 22,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_reaction_actual_response_2_of_four",
+          "step": 23,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "host_reaction_actual_response_3_of_four",
+          "step": 24,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "actual_six_damage_earned_host_hit_layer_before_ANY_Runechant_creation",
+          "step": 25,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "earned_Mauvrion_hit_trigger_actual_response_1_of_four",
+          "step": 26,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "earned_Mauvrion_hit_trigger_actual_response_2_of_four",
+          "step": 27,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "earned_Mauvrion_hit_trigger_actual_response_3_of_four",
+          "step": 28,
+          "native_assertions": 56
+        },
+        {
+          "checkpoint": "earned_Mauvrion_hit_trigger_fourth_actual_response",
+          "step": 29,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_damage_priority_actual_response_1_of_four",
+          "step": 30,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_damage_priority_actual_response_2_of_four",
+          "step": 31,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_damage_priority_actual_response_3_of_four",
+          "step": 32,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_damage_priority_fourth_actual_response",
+          "step": 33,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_resolution_priority_actual_response_1_of_four",
+          "step": 34,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_resolution_priority_actual_response_2_of_four",
+          "step": 35,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_resolution_priority_actual_response_3_of_four",
+          "step": 36,
+          "native_assertions": 66
+        },
+        {
+          "checkpoint": "host_resolution_priority_fourth_actual_response",
+          "step": 37,
+          "native_assertions": 54
+        },
+        {
+          "checkpoint": "full_final_exact_three_owned_Runechants_six_damage_granted_go_again_and_public_sources",
+          "step": 37,
+          "native_assertions": 128
+        }
+      ],
+      "correct_trigger_action": 25,
+      "output_creation_action": 29,
+      "unchanged_correct_checkpoint_oracles": 290,
+      "actual_endpoint": {
+        "p4_health": 14,
+        "p1_action_points": 1,
+        "p1_resources": 0,
+        "owned_tokens": [
+          {
+            "card_id": "runechant",
+            "uid": 9,
+            "owner": 1,
+            "controller": 1,
+            "status": 2
+          },
+          {
+            "card_id": "runechant",
+            "uid": 10,
+            "owner": 1,
+            "controller": 1,
+            "status": 2
+          },
+          {
+            "card_id": "runechant",
+            "uid": 11,
+            "owner": 1,
+            "controller": 1,
+            "status": 2
+          }
+        ],
+        "own_public_graveyard": [
+          {
+            "card_id": "mauvrion_skies_red",
+            "uid": 5,
+            "owner": 1,
+            "controller": 1,
+            "face_down": 0
+          },
+          {
+            "card_id": "amplify_the_arknight_red",
+            "uid": 6,
+            "owner": 1,
+            "controller": 1,
+            "face_down": 0
+          }
+        ],
+        "p4_public_graveyard": []
+      },
+      "limits": [
+        "Native completed recording receipt plus exactly persisted original assertions provides intermediate checkpoint evidence; raw5 has no independent PHP-local snapshots.",
+        "Two final-source targeted replay receipts and causal fault/component gates remain root qualification scope.",
+        "One red representative per new pitch-cycle; no sibling/full-card/support/hero/excluded-condition coverage."
+      ],
+      "recorded_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "current_clean_replays": [
+        "card-regression-replay-sparse198-20261025-r1.json",
+        "card-regression-replay-sparse198-20261025-r2.json"
+      ],
+      "current_qualification_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7"
+    },
+    {
+      "slug": "card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REPAIRED_TRIGGER_FLOW_FOCUSED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "fixture_sha256": "487dca0e6e1cb42bf85c27b6d8a2c7bf94468ef6b64b9cb5b21e04db02e295b4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ffe998ce89505ff7baf163ebed63fbce357e58a7e8ac1e507965cbddb6931f15",
+        "actions.json": "8f8cc9c8f4a46b8cba015a5164eb330b508be284bfbaab2b85212e1c9e6a0088",
+        "assertions.json": "0110cea6df58067496c0bb5b6694099a40a95e7d3b817c495cff72b4d121cff6",
+        "expected_final_gamestate.txt": "0fca29d4eb80eea5cc5cfd7e4f5ecace93168f8160a1b5fa6e3cf49bc8cfa79a",
+        "meta.json": "7cf08af9d6c3b1bbc6e205feb52af22775bef4a5545082cfe3fe99b01b59ce58"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ffe998ce89505ff7baf163ebed63fbce357e58a7e8ac1e507965cbddb6931f15",
+        "actions.json": "8f8cc9c8f4a46b8cba015a5164eb330b508be284bfbaab2b85212e1c9e6a0088",
+        "assertions.json": "0110cea6df58067496c0bb5b6694099a40a95e7d3b817c495cff72b4d121cff6",
+        "expected_final_gamestate.txt": "0fca29d4eb80eea5cc5cfd7e4f5ecace93168f8160a1b5fa6e3cf49bc8cfa79a",
+        "meta.json": "7cf08af9d6c3b1bbc6e205feb52af22775bef4a5545082cfe3fe99b01b59ce58"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch198.json",
+      "input_sha256": "58abbb7225f6173ac2f640d015fc98c6c6c4ca26295b8d5c1b113a423943e3fe",
+      "actions": 21,
+      "native_assertions": 1236,
+      "actual_manual_passes": 17,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_Illusionist_real_Haze_blue_and_six_power_nonIllusionist_blocker",
+          "step": 0,
+          "native_assertions": 113
+        },
+        {
+          "checkpoint": "actual_adjacent_opponent_target_preflight",
+          "step": 1,
+          "native_assertions": 40
+        },
+        {
+          "checkpoint": "actual_printed_attack_cost_waits_separate_real_blue_pitch",
+          "step": 2,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "real_blue_pitch_pays_printed_resource_and_Action_costs_no_early_damage_or_tokens",
+          "step": 3,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "real_Haze_source_actual_response_1_of_four",
+          "step": 4,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "real_Haze_source_actual_response_2_of_four",
+          "step": 5,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "real_Haze_source_actual_response_3_of_four",
+          "step": 6,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "real_Haze_source_fourth_actual_response",
+          "step": 7,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "Haze_attack_step_actual_response_1_of_four",
+          "step": 8,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "Haze_attack_step_actual_response_2_of_four",
+          "step": 9,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "Haze_attack_step_actual_response_3_of_four",
+          "step": 10,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "Haze_attack_step_fourth_actual_response",
+          "step": 11,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "P4_actually_defends_with_six_power_nonIllusionist_card_before_Phantasm_resolution",
+          "step": 12,
+          "native_assertions": 51
+        },
+        {
+          "checkpoint": "real_defender_declaration_queues_Phantasm_layer_attack_and_blocker_still_physical",
+          "step": 13,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "Phantasm_actual_response_1_of_four",
+          "step": 14,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "Phantasm_actual_response_2_of_four",
+          "step": 15,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "Phantasm_actual_response_3_of_four",
+          "step": 16,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "Phantasm_destroyed_Haze_and_closed_chain_NEW_destroyed_layer_with_ZERO_Shields",
+          "step": 17,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "earned_Haze_destroyed_trigger_actual_response_1_of_four",
+          "step": 18,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "earned_Haze_destroyed_trigger_actual_response_2_of_four",
+          "step": 19,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "earned_Haze_destroyed_trigger_actual_response_3_of_four",
+          "step": 20,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "earned_Haze_destroyed_trigger_fourth_actual_response",
+          "step": 21,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "full_final_exact_one_owned_Shield_after_destroyed_trigger_no_damage_or_refunded_Action",
+          "step": 21,
+          "native_assertions": 120
+        }
+      ],
+      "correct_trigger_action": 17,
+      "output_creation_action": 21,
+      "unchanged_correct_checkpoint_oracles": 350,
+      "actual_endpoint": {
+        "p4_health": 20,
+        "p1_action_points": 0,
+        "p1_resources": 0,
+        "owned_tokens": [
+          {
+            "card_id": "spectral_shield",
+            "uid": 10,
+            "owner": 1,
+            "controller": 1,
+            "status": 2
+          }
+        ],
+        "own_public_graveyard": [
+          {
+            "card_id": "phantasmal_haze_red",
+            "uid": 5,
+            "owner": 1,
+            "controller": 1,
+            "face_down": 0
+          }
+        ],
+        "p4_public_graveyard": [
+          {
+            "card_id": "raging_onslaught_yellow",
+            "uid": 7,
+            "owner": 4,
+            "controller": 4,
+            "face_down": 0
+          }
+        ]
+      },
+      "limits": [
+        "Native completed recording receipt plus exactly persisted original assertions provides intermediate checkpoint evidence; raw5 has no independent PHP-local snapshots.",
+        "Two final-source targeted replay receipts and causal fault/component gates remain root qualification scope.",
+        "One red representative per new pitch-cycle; no sibling/full-card/support/hero/excluded-condition coverage."
+      ],
+      "recorded_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "current_clean_replays": [
+        "card-regression-replay-sparse198-20261025-r1.json",
+        "card-regression-replay-sparse198-20261025-r2.json"
+      ],
+      "current_qualification_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch198-actual-saved-independent-review-106.json",
+    "sha256": "c00ad48a7c01042c0062ff4f58fa5b35bf1f5d90c4faf49a73fe030d7126c4dd",
+    "retention": "Historical complete review retained outside repository; required exact saved observations are copied here. Not a runtime/runner input."
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse198-20261025-r1.json",
+      "sha256": "e912438b1c242726c221e6b125df30297ca7bde32d11a537f73f18c9682c5020"
+    },
+    {
+      "path": "card-regression-replay-sparse198-20261025-r2.json",
+      "sha256": "1b62a982934e15d692dfaf9db27a0191cb92d851d64b279f1ee306c22231ebcc"
+    }
+  ],
+  "qualification": "One positive exact representative per previously uncovered group. Recorded pre/post contexts remain explicit; no sibling or exhaustive-card credit. Four isolated causal native controls cover Brush/Rally/Sigil/Mirage; two true pre-fix negative reproducers cover Mauvrion/Haze; Amplify/Shunt/Soul retain positive physical/economy validation without an isolated mechanism fault."
+}

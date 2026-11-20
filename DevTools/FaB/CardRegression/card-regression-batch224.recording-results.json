@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-skullbone-crosswrap-four-live-sparse-actual-faceup-cost-and-private-opt-one-bottom-retains-layer-until-answer",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 554
+    },
+    {
+        "slug": "card-amethyst-tiara-four-live-sparse-actual-destroy-grants-owned-runechant-spellvoid-preventing-one-of-real-zap-three",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 853
+    },
+    {
+        "slug": "card-gauntlet-of-boulderhold-four-live-sparse-actual-paid-destroy-boosts-real-paid-arsenal-guardian-attack-two-and-full-block",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 2650
+    }
+]

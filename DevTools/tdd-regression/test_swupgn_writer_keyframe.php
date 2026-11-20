@@ -50,6 +50,19 @@ $L = SwuPgnStateRead($gameName)['ledger']; $L['zones'][2]["attached:$lu"] = ['SO
 $kfCards = SwuPgnKeyframe($snap, $L, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false])['players']['1']['cards'];
 $mine = array_values(array_filter($kfCards, fn($c) => $c['id'] === SwuPgnLedgerByUid($L, $lu)))[0] ?? [];
 SwuPgnTestEq($mine['upgrades'] ?? null, ['SOR#120:2'], 'a unit\'s upgrade is named from either seat\'s ledger list');
+// §11 / §13 [W-57]: owner when not the holder, upgradeControllers for upgrades the other seat controls, traits on every card,
+// foreignResources on every seat (empty when none).
+SwuPgnTestCheck(!array_key_exists('owner', $mine) && !array_key_exists('upgradeControllers', $mine) && is_array($mine['traits'] ?? null),
+    'an own card with an own upgrade: no owner, no upgradeControllers, traits listed', json_encode($mine));
+$snap['seats'][1]['units'][$lu]['upgrades'][0]['controller'] = 2;
+$snap['seats'][1]['units'][$lu]['owner'] = 2;
+$snap['seats'][1]['resources'][0]['owner'] = 2;
+$kfx = SwuPgnKeyframe($snap, $L, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false]);
+$mine = array_values(array_filter($kfx['players']['1']['cards'], fn($c) => $c['id'] === SwuPgnLedgerByUid($L, $lu)))[0] ?? [];
+SwuPgnTestEq([$mine['owner'] ?? null, $mine['upgradeControllers'] ?? null], [2, ['SOR#120:2' => 2]], 'the other seat\'s card: owner 2; its upgrade controlled by seat 2');
+SwuPgnTestEq([$kfx['players']['1']['foreignResources'] ?? null, $kfx['players']['2']['foreignResources'] ?? null], [[$kfx['players']['1']['resources'][0]], []],
+    'foreignResources: the row\'s card seat 2 owns; [] for a seat with none');
+SwuPgnTestCheck(!array_key_exists('effects', $kfx) && ($kfx['players']['1']['abilityUses'] ?? null) === [], 'effects omitted (not read, §13); abilityUses carried, [] when none (§11, W-49 — named Action abilities)');
 
 // Mid-search: the peeked cards are off the deck in the engine, but nothing left the deck in the file.
 SwuPgnRecFrameBegin();
@@ -61,6 +74,18 @@ SwuPgnTestEq($kf()['players']['1']['deckSize'] ?? null, 3, 'deckSize counts card
 $Lh = SwuPgnStateRead($gameName)['ledger']; $Lh['limbo'][] = ['copy' => 'SOR#103', 'cardID' => 'SOR_103', 'seat' => 1, 'from' => 'deck', 'key' => 'deck', 'host' => null, 'deploy' => false];
 SwuPgnTestEq(SwuPgnKeyframe(SwuPgnSnapshot(), $Lh, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false])['players']['1']['deckSize'] ?? null, 4,
     'and a card held out of the search until it is played (limbo)');
+
+// What a base holds (SWU-PGN 1.0 base-host revision): an upgrade on it and a unit it captured, by the ledger's copy ids.
+$kb = SwuPgnKeyframe(SwuPgnSnapshot(), $Lh, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false]);
+SwuPgnTestEq([$kb['players']['1']['baseUpgrades'] ?? null, $kb['players']['2']['baseCaptured'] ?? null], [[], []], 'a bare base holds nothing — the fields are there, empty');
+$base = &GetBase(1); $base[0]->Subcards = [['CardID' => 'HMW_206', 'Owner' => 1, 'Controller' => 1, 'TurnEffects' => [], 'IsPilot' => false]]; unset($base);
+AddGlobalEffects(1, 'SWU_BASECAPTIVE|SOR_049|2');
+$Lb = $Lh;
+SwuPgnLedgerPut($Lb, 1, 'base', 'HMW#206');
+SwuPgnLedgerPut($Lb, 1, 'capture:base@1', 'SOR#049:2');
+$kb = SwuPgnKeyframe(SwuPgnSnapshot(), $Lb, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false]);
+SwuPgnTestEq([$kb['players']['1']['baseUpgrades'] ?? null, $kb['players']['1']['baseCaptured'] ?? null, $kb['players']['2']['baseUpgrades'] ?? null],
+    [['HMW#206'], ['SOR#049:2'], []], 'a base upgrade and a base captive are in that seat\'s baseUpgrades / baseCaptured');
 
 exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $gameName));
 SwuPgnTestFinish();

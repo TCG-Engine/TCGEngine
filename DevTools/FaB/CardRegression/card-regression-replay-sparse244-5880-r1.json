@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch244.json",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T12:27:32.117111+00:00",
+  "fixtures": [
+    {
+      "slug": "card-hold-focus-four-live-sparse-actual-destroy-action-amp-one-then-real-zap-four-damage",
+      "fixture_sha256": "9b6bd536247272edc9234eb1a900bab19a82c361b2deda28fe1891ea9eb0a187",
+      "passed": true,
+      "result": "[PASS] hold_focus / lean four-live meaningful positive"
+    },
+    {
+      "slug": "card-calming-cloak-four-live-sparse-actual-paid-destroy-instant-discounts-next-four-cost-aura-by-two",
+      "fixture_sha256": "7b36f3b3cc1fb97ead41182c14ff3638dd0c137b07ac806cab9a732ead5b56cd",
+      "passed": true,
+      "result": "[PASS] calming_cloak / lean four-live meaningful positive"
+    },
+    {
+      "slug": "card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+      "fixture_sha256": "cf2ea09c65ba32eeab98888066e791a05ec7472ed0b036b018b2e6d4b4fc0fb3",
+      "passed": true,
+      "result": "[PASS] lightning_greaves / lean four-live meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hold-focus-four-live-sparse-actual-destroy-action-amp-one-then-real-zap-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] hold_focus / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-calming-cloak-four-live-sparse-actual-paid-destroy-instant-discounts-next-four-cost-aura-by-two",
+      "returncode": 0,
+      "stdout": "[PASS] calming_cloak / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+      "returncode": 0,
+      "stdout": "[PASS] lightning_greaves / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

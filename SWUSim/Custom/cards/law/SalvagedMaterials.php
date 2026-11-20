@@ -25,7 +25,7 @@ $customDQHandlers["LAW_245#1"] = function($player, $parts, $lastDecision) {
     if ($cardID === '' || SWUObjGone($host)) return;
     $hostUID = intval($host->UniqueID ?? 0);
     // prepaid=3 = "costs 3 resources less"; suppress After Action (the event's FINISH_PLAY_CARD owns it).
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upMz, $hostMz, 3, false, false, true);
+    SWUPlayUpgradeByEffect(intval($player), $cardID, $upMz, $hostMz, 3, false, false, true);
     if ($hostUID > 0) AddGlobalEffects(intval($player), "SWU_LAW245_DEFEAT|{$hostUID}|{$cardID}");
 };
 

@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T15:50:50.205124+00:00",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "source_spec": "card-regression-batch251.json",
+  "source_spec_sha256": "e62eee0599fab0b9469493b69832e148fd6e33f2776c97a684d43a07ba32fe29",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 34,
+  "native_assertions": 1148,
+  "manual_passes": 28,
+  "totals": {
+    "saved_registered_scenarios": 3513,
+    "duels": 3074,
+    "four_live": 439,
+    "recorded_primary_ids": 669,
+    "identity_denominator": 5196,
+    "recorded_groups": 543,
+    "group_denominator": 3324,
+    "four_live_groups": 434,
+    "phase_qualified_scenarios_at_actual_contexts": 150,
+    "phase_qualified_unique_groups": 147,
+    "creation_replay_passes": 300,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 4,
+  "scenarios": [
+    {
+      "card_id": "iris_of_reality",
+      "group_id": "identity:iris_of_reality",
+      "scenario_id": "card-iris-of-reality-four-live-sparse-real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again",
+      "effect_branches": [
+        "real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-iris-of-reality-four-live-sparse-real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again",
+      "source_spec": "card-regression-batch251.json",
+      "source_spec_sha256": "e62eee0599fab0b9469493b69832e148fd6e33f2776c97a684d43a07ba32fe29",
+      "review_evidence": "review-evidence/sparse251-7315-qualified-saved-review.json",
+      "review_evidence_sha256": "1a3616bb1e93538588221f8664915516dcc958909ee4ef10b86874fac17cf107",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "qualification_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse251-7315-r1.json",
+          "sha256": "e33601752be038f4453e6c7d92ceb3cf5a7d9d0c20a1e31a5c7319c5b18cd2dc",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse251-7315-r2.json",
+          "sha256": "d7205d987a20b7bb5679aa325a4fb3eeaa955f0caa8cc7f391bcce8c72467b76",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "barbed_castaway",
+      "group_id": "identity:barbed_castaway",
+      "scenario_id": "card-barbed-castaway-four-live-sparse-real-offturn-instant-paid-hand-arrow-load-face-up-with-zero-ap",
+      "effect_branches": [
+        "real-offturn-instant-paid-hand-arrow-load-face-up-with-zero-ap"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-barbed-castaway-four-live-sparse-real-offturn-instant-paid-hand-arrow-load-face-up-with-zero-ap",
+      "source_spec": "card-regression-batch251.json",
+      "source_spec_sha256": "e62eee0599fab0b9469493b69832e148fd6e33f2776c97a684d43a07ba32fe29",
+      "review_evidence": "review-evidence/sparse251-7315-qualified-saved-review.json",
+      "review_evidence_sha256": "1a3616bb1e93538588221f8664915516dcc958909ee4ef10b86874fac17cf107",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "qualification_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse251-7315-r1.json",
+          "sha256": "e33601752be038f4453e6c7d92ceb3cf5a7d9d0c20a1e31a5c7319c5b18cd2dc",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse251-7315-r2.json",
+          "sha256": "d7205d987a20b7bb5679aa325a4fb3eeaa955f0caa8cc7f391bcce8c72467b76",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

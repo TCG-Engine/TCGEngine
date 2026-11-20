@@ -1,0 +1,7 @@
+{
+    "name": "brush_off_red / actual four-live defensive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T20:26:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Generic Instant0 played by P4 during real reaction priority, four live responses, then actual BlueWoundingBlow2 is fully prevented. P4HP20/actualdamage0 and primaryUID6 publicGYFaceDown0. Source grant is not seeded. Only one \u22643 prevention event; >3, later-event consumption/expiry, arcane prevention and sibling variants untested. Sources: https://judge.fabtcg.com/cards/detail/2161/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

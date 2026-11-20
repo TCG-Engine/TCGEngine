@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch207.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T23:08:48.496254+00:00",
+  "fixtures": [
+    {
+      "slug": "card-stonewall-confidence-red-four-live-sparse-real-cast-next-live-turn-and-plus-four-defense",
+      "fixture_sha256": "5ee1da2385728175457a0aec9e279ab93765c960ce6bae8b4385beb683968c57",
+      "passed": true,
+      "result": "[PASS] stonewall_confidence_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stonewall-confidence-red-four-live-sparse-real-cast-next-live-turn-and-plus-four-defense",
+      "returncode": 0,
+      "stdout": "[PASS] stonewall_confidence_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

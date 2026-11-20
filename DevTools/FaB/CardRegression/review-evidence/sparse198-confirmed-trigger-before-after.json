@@ -1,0 +1,151 @@
+{
+  "status": "TWO_NATIVE_REPRODUCED_TRIGGER_BUGS_FIXED_WITH_UNCHANGED_EXPECTATIONS",
+  "before_runtime_sha256": "de0a7c62f376a9eec473f30d9602589f86ca6b04085589213f8e2cb92cac0ed3",
+  "after_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "before_facts": [
+    {
+      "slug": "card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+      "error": "state window expected \"PRIORITY\" got \"DAMAGE\"",
+      "prefix_actions": 25,
+      "actual_snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-native-before\\case0\\actual_gamestate.txt",
+      "actual_sha256": "48319368b7c047b19e4b55773532f0cdbca03c05bf413c51a25b3ee2a0be1de7",
+      "window": "DAMAGE",
+      "combatOpen": true,
+      "stack": [],
+      "p1Arena": [
+        {
+          "CardID": "runechant",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "8",
+          "TurnEffects": "-",
+          "Counters": "-"
+        },
+        {
+          "CardID": "runechant",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "9",
+          "TurnEffects": "-",
+          "Counters": "-"
+        },
+        {
+          "CardID": "runechant",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "10",
+          "TurnEffects": "-",
+          "Counters": "-"
+        }
+      ],
+      "p1Graveyard": [
+        {
+          "CardID": "mauvrion_skies_red",
+          "UniqueID": "5",
+          "Owner": "1",
+          "Controller": "1",
+          "FaceDown": "0"
+        }
+      ],
+      "p4Graveyard": [],
+      "saved_passing_fixture": false
+    },
+    {
+      "slug": "card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+      "error": "state window expected \"PRIORITY\" got \"ACTION\"",
+      "prefix_actions": 17,
+      "actual_snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-native-before\\case1\\actual_gamestate.txt",
+      "actual_sha256": "e8a528123f0f595efd2926045804779a578ec7b6dc20babdd4554e765b8c89aa",
+      "window": "ACTION",
+      "combatOpen": false,
+      "stack": [],
+      "p1Arena": [
+        {
+          "CardID": "spectral_shield",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "9",
+          "TurnEffects": "-",
+          "Counters": "-"
+        }
+      ],
+      "p1Graveyard": [
+        {
+          "CardID": "phantasmal_haze_red",
+          "UniqueID": "5",
+          "Owner": "1",
+          "Controller": "1",
+          "FaceDown": "0"
+        }
+      ],
+      "p4Graveyard": [
+        {
+          "CardID": "raging_onslaught_yellow",
+          "UniqueID": "7",
+          "Owner": "4",
+          "Controller": "4",
+          "FaceDown": "0"
+        }
+      ],
+      "saved_passing_fixture": false
+    }
+  ],
+  "before_full_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-native-before\\receipt.json",
+    "sha256": "9a406773776b84ee7eb60f6a30fed4ea978452064c69683e190b86bc087fc024",
+    "retention": "Recoverable historical diagnostic outside repository, not runnable passing input."
+  },
+  "source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch198-trigger-source-independent-review-106.json",
+    "sha256": "56ba835c23345c59384e1ceb59c2d509f9c5f5fc886b2755d938af84fe3a838a"
+  },
+  "after_saved_review": "review-evidence/sparse198-20261025-qualified-saved-review.json",
+  "unchanged_correct_source_spec": "card-regression-batch198.json",
+  "focused_replays": [
+    {
+      "path": "card-regression-replay-sparse198-20261025-r1.json",
+      "sha256": "e912438b1c242726c221e6b125df30297ca7bde32d11a537f73f18c9682c5020",
+      "passed": 2
+    },
+    {
+      "path": "card-regression-replay-sparse198-20261025-r2.json",
+      "sha256": "1b62a982934e15d692dfaf9db27a0191cb92d851d64b279f1ee306c22231ebcc",
+      "passed": 2
+    }
+  ],
+  "source_changes": [
+    {
+      "path": "FaBSim/Custom/CRUCards.php",
+      "before_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+      "after_sha256": "b0db9b6ab1b3efca5d11be83f1f99bed74f3ae046eb10ad90d7ed40fd4385258",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-trigger-repair-backup\\FaBSim\\Custom\\CRUCards.php"
+    },
+    {
+      "path": "FaBSim/Custom/EVRCards.php",
+      "before_sha256": "30e33826659bf44af3658f7b3ab9a113e86044b7f0ff695143a7748debfedbc9",
+      "after_sha256": "dee27af62c574dc67e99daf1455fb35e806f4a2299479401027cd999c386ff52",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-trigger-repair-backup\\FaBSim\\Custom\\EVRCards.php"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "0a09955352b07186f1d2cfcebd2f558d4fc4fb2f7ca83620fb30378e4a5b4481",
+      "after_sha256": "e3c63c7355038dfc70746a3e44253bf0885a21c798e416c70fd89578621867b8",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-trigger-repair-backup\\FaBSim\\Custom\\ROSCards.php"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "524d6ee4e6d8e157dba34b2260304d0b3df9cfa1613a7836c554045dc8ec1a0e",
+      "after_sha256": "d39d7fc1bf6df8c9796dd3a4e19c17bcbac7a1baabf47329cb299dd41425757b",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse198-trigger-repair-backup\\FaBSim\\Custom\\GameLogic.php"
+    }
+  ],
+  "no_failed_passing_fixture_saved": true
+}

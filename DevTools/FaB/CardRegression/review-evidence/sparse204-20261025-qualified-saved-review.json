@@ -1,0 +1,683 @@
+{
+  "status": "APPROVED_EXACT_INDEPENDENT_SAVED_REVIEW_WITH_TWO_CURRENT_REPLAYS_AND_ONE_CAUSAL_CONTROL",
+  "reviewer": "/root/b105_semantic_review",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "source_spec": "card-regression-batch204.json",
+  "source_spec_sha256": "79ac944f10bfafec9592a6baed7b165bb4e5d19f41040291f9b9208c8db4e897",
+  "fixtures": [
+    {
+      "index": 0,
+      "slug": "card-ornate-tessen-four-live-sparse-paid-instant-retained-choice-bottom-and-distinct-draw",
+      "semantically_approved": true,
+      "fixture_sha256": "30bc974c4c2aac235ca3a479053d7c282bbf233a6b72f098b93d9ff8c1e389e6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9d033822b4fb9c234ebde2a5bb2ebda0d48a9df27bd73445174be68943a08659",
+        "actions.json": "1c354f3e71561d50ec6cea8ff2ea4d47711298cf4a354e45e33903761b68d5f8",
+        "assertions.json": "567055c5d93c7f7b55f46d09f14b34f50b9b9ea4eae0f6238991c473adef984e",
+        "expected_final_gamestate.txt": "497e0a0c984226ca198d12daea3fc434373f0d9e637b20bd24987297aef80190",
+        "meta.json": "3203ec88ef1a163f618d7b5252bcd0f19d36f3093761011f76d0f3b818ba654e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9d033822b4fb9c234ebde2a5bb2ebda0d48a9df27bd73445174be68943a08659",
+        "actions.json": "1c354f3e71561d50ec6cea8ff2ea4d47711298cf4a354e45e33903761b68d5f8",
+        "assertions.json": "567055c5d93c7f7b55f46d09f14b34f50b9b9ea4eae0f6238991c473adef984e",
+        "expected_final_gamestate.txt": "497e0a0c984226ca198d12daea3fc434373f0d9e637b20bd24987297aef80190",
+        "meta.json": "3203ec88ef1a163f618d7b5252bcd0f19d36f3093761011f76d0f3b818ba654e"
+      },
+      "actions": 7,
+      "native_assertions": 712,
+      "manual_passes": 4,
+      "pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "manual_settings_verified_per_seat": 12,
+      "manual_settings_verified_per_endpoint": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_Tessen_owned_Off_Hand_real_blue_bottom_candidate_and_two_distinct_Deck_cards",
+          "native_assertions": 122
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Tessen_Instant_waits_one_resource_with_physical_source_still_live",
+          "native_assertions": 72
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "real_blue_pays_one_destroy_cost_public_source_but_virtual_layer_retained_AP_preserved",
+          "native_assertions": 66
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "Tessen_actual_response_1_of_four",
+          "native_assertions": 66
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "Tessen_actual_response_2_of_four",
+          "native_assertions": 66
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "Tessen_actual_response_3_of_four",
+          "native_assertions": 66
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "fourth_Tessen_response_waits_actual_bottom_choice_with_virtual_layer_and_no_early_draw",
+          "native_assertions": 73
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_bottom_Yellow_UID7_then_draw_DIFFERENT_Red_UID8_untouched_Blue_UID9_now_top",
+          "native_assertions": 59
+        },
+        {
+          "source_step": 15,
+          "action_step": 7,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 122
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "pending_resolution_markers": "Exact source oracles checked; raw5 endpoints alone do not contain intermediate serialized await locals",
+      "recorded_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_qualification_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_clean_replays": [
+        "card-regression-replay-sparse204-20261025-r1.json",
+        "card-regression-replay-sparse204-20261025-r2.json"
+      ],
+      "current_qualification_status": "TWO_TARGETED_REPLAYS_PASS_ONE_SUPPORTED_CAUSAL_FAULT_AND_REUSED_LIFETIME_CONTRACTS"
+    },
+    {
+      "index": 1,
+      "slug": "card-optekal-monocle-blue-four-live-sparse-paid-steam-retained-opt-bottom-choice-delays-go-again",
+      "semantically_approved": true,
+      "fixture_sha256": "39f7aba2575f5cc16bcfa47a4dc724914a4fc95f8a124c7827651a796f817061",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "853a1cee6083426e1c3dad7e879576d8454ba4c4db891ef43ff89b69d71dc0b5",
+        "actions.json": "7063e933d3672e3f4a3f19c485259ae712cc960609ff0a6ad56fcac714e6753a",
+        "assertions.json": "4969b883c0d9a1673b7aa687e2f1d8478e79c79e4f5f4fafa1f1c48207c0823c",
+        "expected_final_gamestate.txt": "bcc833b4e02924263d597adb0fe094fccb3996531e67078855d2938f37a10c34",
+        "meta.json": "117f17d302422ff900f44fe88fd29444255ba9372fd6fa44025a5276cea439af"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "853a1cee6083426e1c3dad7e879576d8454ba4c4db891ef43ff89b69d71dc0b5",
+        "actions.json": "7063e933d3672e3f4a3f19c485259ae712cc960609ff0a6ad56fcac714e6753a",
+        "assertions.json": "4969b883c0d9a1673b7aa687e2f1d8478e79c79e4f5f4fafa1f1c48207c0823c",
+        "expected_final_gamestate.txt": "bcc833b4e02924263d597adb0fe094fccb3996531e67078855d2938f37a10c34",
+        "meta.json": "117f17d302422ff900f44fe88fd29444255ba9372fd6fa44025a5276cea439af"
+      },
+      "actions": 6,
+      "native_assertions": 616,
+      "manual_passes": 4,
+      "pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "manual_settings_verified_per_seat": 12,
+      "manual_settings_verified_per_endpoint": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_Dash_owned_two_Steam_Monocle_and_three_distinct_Deck_cards",
+          "native_assertions": 119
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Monocle_Action_AP_paid_then_Steam_two_to_one_cost_no_early_Opt_or_go_again",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "Monocle_actual_response_1_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "Monocle_actual_response_2_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "Monocle_actual_response_3_of_four",
+          "native_assertions": 63
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "fourth_Monocle_response_stages_only_top_UID6_retains_proxy_and_AP_zero_until_actual_Opt_answer",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_Opt_bottom_choice_changes_Deck_UID_order_to_7_8_6_then_only_now_returns_go_again",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 13,
+          "action_step": 6,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 119
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "pending_resolution_markers": "Exact source oracles checked; raw5 endpoints alone do not contain intermediate serialized await locals",
+      "recorded_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_qualification_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_clean_replays": [
+        "card-regression-replay-sparse204-20261025-r1.json",
+        "card-regression-replay-sparse204-20261025-r2.json"
+      ],
+      "current_qualification_status": "TWO_TARGETED_REPLAYS_PASS_ONE_SUPPORTED_CAUSAL_FAULT_AND_REUSED_LIFETIME_CONTRACTS"
+    },
+    {
+      "index": 2,
+      "slug": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "semantically_approved": true,
+      "fixture_sha256": "10f43d905070128e6c85bc3e069adb37322ebab57f22d487d1c879ff05743ddb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7025dcc9c88b3b347d3c87cfcef58ca50dd3f6d3181d8d9ca8006a55f936871",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "8f65b651bc71507cb5618363846759b21485a7c0d3dda767df18d3a0e6699585",
+        "expected_final_gamestate.txt": "4da0ba757b633285c044c4c1a193e793f2f2eedc8ca6c26d0eb8815f693c53af",
+        "meta.json": "2215c992462644a6e975e2d141ea9547ea06c9f10e5c23677521cef4a2c49134"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b7025dcc9c88b3b347d3c87cfcef58ca50dd3f6d3181d8d9ca8006a55f936871",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "8f65b651bc71507cb5618363846759b21485a7c0d3dda767df18d3a0e6699585",
+        "expected_final_gamestate.txt": "4da0ba757b633285c044c4c1a193e793f2f2eedc8ca6c26d0eb8815f693c53af",
+        "meta.json": "2215c992462644a6e975e2d141ea9547ea06c9f10e5c23677521cef4a2c49134"
+      },
+      "actions": 10,
+      "native_assertions": 747,
+      "manual_passes": 8,
+      "pass_actors": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "manual_settings_verified_per_seat": 12,
+      "manual_settings_verified_per_endpoint": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Florian_zero_Earth_Banish_Mordred_and_actual_support",
+          "native_assertions": 109
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_mordred_tide_red_zero_cost_Action_paid_source_awaits_four_live_responses",
+          "native_assertions": 49
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Mordred_Action_actual_response_1_of_four",
+          "native_assertions": 49
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Mordred_Action_actual_response_2_of_four",
+          "native_assertions": 49
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Mordred_Action_actual_response_3_of_four",
+          "native_assertions": 49
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Mordred_Action_fourth_actual_response",
+          "native_assertions": 47
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_read_the_runes_red_zero_cost_Action_paid_source_awaits_four_live_responses",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_Read_the_Runes_creation_event_actual_response_1_of_four",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_Read_the_Runes_creation_event_actual_response_2_of_four",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_Read_the_Runes_creation_event_actual_response_3_of_four",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_Read_the_Runes_creation_event_fourth_actual_response",
+          "native_assertions": 66
+        },
+        {
+          "source_step": 21,
+          "action_step": 10,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 129
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pending_resolution_markers": "Exact source oracles checked; raw5 endpoints alone do not contain intermediate serialized await locals",
+      "recorded_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_qualification_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_clean_replays": [
+        "card-regression-replay-sparse204-20261025-r1.json",
+        "card-regression-replay-sparse204-20261025-r2.json"
+      ],
+      "current_qualification_status": "TWO_TARGETED_REPLAYS_PASS_ONE_SUPPORTED_CAUSAL_FAULT_AND_REUSED_LIFETIME_CONTRACTS"
+    },
+    {
+      "index": 3,
+      "slug": "card-meat-and-greet-red-four-live-sparse-earned-real-arcane-go-again-with-physical-full-block",
+      "semantically_approved": true,
+      "fixture_sha256": "43c66072e23af79e9f3abd9584aa8ea531bb6bd4a3e323f33ee55ee0361ca250",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c6cc33f02efc5d6e002a93770e0d67e018618b267ce0b0a76862c9ec636842b1",
+        "actions.json": "cae4fa7dbd13318a5679d247cb3fc8fe4306701c78ca9f8c3c6706e76f754763",
+        "assertions.json": "2b25994ce26afedc80c432cece695427b3f01ee537be5a976f9c40f5a945c080",
+        "expected_final_gamestate.txt": "b569673ba1df67aa0c013900f77cfdf8ef67a7d977653c20c439ad800a0e5065",
+        "meta.json": "d2ea66795c0c8849afab544b8f9c16f178dd5f5e168644520aec204615e75731"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c6cc33f02efc5d6e002a93770e0d67e018618b267ce0b0a76862c9ec636842b1",
+        "actions.json": "cae4fa7dbd13318a5679d247cb3fc8fe4306701c78ca9f8c3c6706e76f754763",
+        "assertions.json": "2b25994ce26afedc80c432cece695427b3f01ee537be5a976f9c40f5a945c080",
+        "expected_final_gamestate.txt": "b569673ba1df67aa0c013900f77cfdf8ef67a7d977653c20c439ad800a0e5065",
+        "meta.json": "d2ea66795c0c8849afab544b8f9c16f178dd5f5e168644520aec204615e75731"
+      },
+      "actions": 35,
+      "native_assertions": 2589,
+      "manual_passes": 29,
+      "pass_actors": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "manual_settings_verified_per_seat": 12,
+      "manual_settings_verified_per_endpoint": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_Florian_real_Runechant_blue_and_physical_full_defense_cards",
+          "native_assertions": 123
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "real_adjacent_target_declared_before_assets",
+          "native_assertions": 61
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "real_attack_awaits_resource_and_Action_assets",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_blue_pays_one_then_real_owned_Runechant_trigger_requires_target_choice",
+          "native_assertions": 72
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Runechant_target_P4_declared_no_arcane_damage_yet",
+          "native_assertions": 72
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Runechant_arcane_event_actual_response_1_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_Runechant_arcane_event_actual_response_2_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_Runechant_arcane_event_actual_response_3_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_Runechant_arcane_event_fourth_actual_response",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_Meat_source_layer_actual_response_1_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_Meat_source_layer_actual_response_2_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_Meat_source_layer_actual_response_3_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_Meat_source_layer_fourth_actual_response",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "actual_Meat_attack_step_actual_response_1_of_four",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "actual_Meat_attack_step_actual_response_2_of_four",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "actual_Meat_attack_step_actual_response_3_of_four",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_Meat_attack_step_fourth_actual_response",
+          "native_assertions": 64
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "P4_actual_Yellow_Raging_physical_hand_defense_three",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "P4_actual_Ironrot_equipment_defense_one_makes_physical_total_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "P4_finishes_actual_full_block_declaration",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "defending_priority_actual_response_1_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "defending_priority_actual_response_2_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "defending_priority_actual_response_3_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "defending_priority_fourth_actual_response",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "reaction_step_actual_response_1_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "reaction_step_actual_response_2_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "reaction_step_actual_response_3_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "reaction_step_fourth_actual_response",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "damage_step_actual_response_1_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "damage_step_actual_response_2_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "damage_step_actual_response_3_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "damage_step_fourth_actual_response",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 64,
+          "action_step": 32,
+          "checkpoint": "resolution_step_actual_response_1_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 66,
+          "action_step": 33,
+          "checkpoint": "resolution_step_actual_response_2_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 68,
+          "action_step": 34,
+          "checkpoint": "resolution_step_actual_response_3_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 70,
+          "action_step": 35,
+          "checkpoint": "resolution_step_fourth_actual_response",
+          "native_assertions": 55
+        },
+        {
+          "source_step": 71,
+          "action_step": 35,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 118
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "pending_resolution_markers": "Exact source oracles checked; raw5 endpoints alone do not contain intermediate serialized await locals",
+      "recorded_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_qualification_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+      "current_clean_replays": [
+        "card-regression-replay-sparse204-20261025-r1.json",
+        "card-regression-replay-sparse204-20261025-r2.json"
+      ],
+      "current_qualification_status": "TWO_TARGETED_REPLAYS_PASS_ONE_SUPPORTED_CAUSAL_FAULT_AND_REUSED_LIFETIME_CONTRACTS"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse204-all-four-actual-saved-independent-review.json",
+    "sha256": "a2b97d9677546d100f0ee8285d858add3c8ae7090ce14ed3e22d6787df270a37"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse204-20261025-r1.json",
+      "sha256": "5bb3287bf90480ca361ddedd144adcd514008ffc08db0f4f8976ad728551d75b"
+    },
+    {
+      "path": "card-regression-replay-sparse204-20261025-r2.json",
+      "sha256": "ba97cf05fdb927030c7abbab24686defb8092cb9ca68cc967e58f3220c0891b1"
+    }
+  ],
+  "causal_controls": {
+    "path": "card-regression-negative-controls-sparse204-results.json",
+    "sha256": "3cfb94f57a19f64b5ed4016e6dfc1689f19d9f35c470bcbfeabedc0a14c3c796",
+    "detected": 1,
+    "total": 1,
+    "retained_suffix_oracles": 442,
+    "omitted_oracles": 0
+  },
+  "shared_lifetime_evidence": {
+    "path": "review-evidence/native-ability-frame-component-validation-20261025.json",
+    "sha256": "8c1d1da5eb05d74089547e5339393e44131ebf8248f08eb9121b9b04d6c9f8e2",
+    "contracts": 15,
+    "specific_mutants": 3,
+    "before_after": "review-evidence/sparse203-dreadbore-managed-lifetime-before-after.json"
+  },
+  "qualification": "Only exact primary and selected branch. Tessen paid retained choice/different draw; Monocle STEAM2-to1 opt branch, no five-Steam entry; Mordred actual Read3 event creates4; Meat actual earned arcane/full-block/GA. No sibling/support/full-card credit. Meat has no isolated native history fault; Tessen/Monocle reuse stable shared frame/lifecycle contracts. Decision-stop guard correction changed no game expectations; no source change or full-suite run."
+}

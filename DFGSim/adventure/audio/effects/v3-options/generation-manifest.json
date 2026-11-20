@@ -1,0 +1,1046 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v3",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.87,
+  "normalize": false,
+  "style": "",
+  "groups": [
+    {
+      "id": "card-return",
+      "title": "Card return",
+      "prompt": "Card game returning card to hand",
+      "takes": [
+        {
+          "take": 1,
+          "file": "card-return-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "card-return-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "card-return-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "card-return-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "commit",
+      "title": "Commit move",
+      "prompt": "Card game confirm move button",
+      "takes": [
+        {
+          "take": 1,
+          "file": "commit-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "commit-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "commit-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "commit-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "reveal",
+      "title": "Reveal cards",
+      "prompt": "Card game revealing cards",
+      "takes": [
+        {
+          "take": 1,
+          "file": "reveal-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "reveal-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "reveal-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "reveal-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "burn-bonus",
+      "title": "Bonus burn",
+      "prompt": "Card game burning a card",
+      "takes": [
+        {
+          "take": 1,
+          "file": "burn-bonus-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "burn-bonus-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "burn-bonus-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "burn-bonus-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "burn-reaction",
+      "title": "Reaction burn",
+      "prompt": "Card game reaction card activating",
+      "takes": [
+        {
+          "take": 1,
+          "file": "burn-reaction-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "burn-reaction-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "burn-reaction-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "burn-reaction-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "hit-light",
+      "title": "Light hit",
+      "prompt": "Martial arts game light punch hit",
+      "takes": [
+        {
+          "take": 1,
+          "file": "hit-light-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "hit-light-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "hit-light-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "hit-light-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "hit-medium",
+      "title": "Medium hit",
+      "prompt": "Martial arts game punch impact",
+      "takes": [
+        {
+          "take": 1,
+          "file": "hit-medium-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "hit-medium-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "hit-medium-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "hit-medium-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "hit-heavy",
+      "title": "Heavy hit",
+      "prompt": "Martial arts game heavy punch impact",
+      "takes": [
+        {
+          "take": 1,
+          "file": "hit-heavy-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "hit-heavy-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "hit-heavy-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "hit-heavy-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "block",
+      "title": "Block",
+      "prompt": "Martial arts game blocking an attack",
+      "takes": [
+        {
+          "take": 1,
+          "file": "block-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "block-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "block-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "block-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "advantage-gain",
+      "title": "Gain advantage",
+      "prompt": "Card game gaining an advantage token",
+      "takes": [
+        {
+          "take": 1,
+          "file": "advantage-gain-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "advantage-gain-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "advantage-gain-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "advantage-gain-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "advantage-spend",
+      "title": "Spend advantage",
+      "prompt": "Card game spending an advantage token",
+      "takes": [
+        {
+          "take": 1,
+          "file": "advantage-spend-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "advantage-spend-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "advantage-spend-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "advantage-spend-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "barrier-absorb",
+      "title": "Barrier absorbs",
+      "prompt": "Fantasy game shield absorbing a hit",
+      "takes": [
+        {
+          "take": 1,
+          "file": "barrier-absorb-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "barrier-absorb-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "barrier-absorb-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "barrier-absorb-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "barrier-break",
+      "title": "Barrier breaks",
+      "prompt": "Fantasy game shield breaking",
+      "takes": [
+        {
+          "take": 1,
+          "file": "barrier-break-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "barrier-break-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "barrier-break-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "barrier-break-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "break-stop",
+      "title": "Break checkpoint holds",
+      "prompt": "Game health bar checkpoint stopping damage",
+      "takes": [
+        {
+          "take": 1,
+          "file": "break-stop-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "break-stop-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "break-stop-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "break-stop-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "burst-break",
+      "title": "Burst segment breaks",
+      "prompt": "Game health bar barrier breakthrough",
+      "takes": [
+        {
+          "take": 1,
+          "file": "burst-break-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "burst-break-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "burst-break-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "burst-break-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "confirm-mark",
+      "title": "Mark damage",
+      "prompt": "Card game placing a damage mark",
+      "takes": [
+        {
+          "take": 1,
+          "file": "confirm-mark-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "confirm-mark-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "confirm-mark-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "confirm-mark-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "confirm-cash",
+      "title": "Confirm damage",
+      "prompt": "Card game triggering marked damage",
+      "takes": [
+        {
+          "take": 1,
+          "file": "confirm-cash-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "confirm-cash-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "confirm-cash-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "confirm-cash-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "reaction-ready",
+      "title": "Reaction opportunity",
+      "prompt": "Card game your turn to react",
+      "takes": [
+        {
+          "take": 1,
+          "file": "reaction-ready-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "reaction-ready-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "reaction-ready-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "reaction-ready-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "round-ready",
+      "title": "New round",
+      "prompt": "Card game new round start",
+      "takes": [
+        {
+          "take": 1,
+          "file": "round-ready-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "round-ready-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "round-ready-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "round-ready-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "knockout",
+      "title": "Knockout",
+      "prompt": "Martial arts game knockout hit",
+      "takes": [
+        {
+          "take": 1,
+          "file": "knockout-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "knockout-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "knockout-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "knockout-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "victory",
+      "title": "Victory",
+      "prompt": "Fantasy card game victory sound",
+      "takes": [
+        {
+          "take": 1,
+          "file": "victory-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "victory-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "victory-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "victory-take-4.mp3"
+        }
+      ]
+    },
+    {
+      "id": "defeat",
+      "title": "Defeat",
+      "prompt": "Fantasy card game defeat sound",
+      "takes": [
+        {
+          "take": 1,
+          "file": "defeat-take-1.mp3"
+        },
+        {
+          "take": 2,
+          "file": "defeat-take-2.mp3"
+        },
+        {
+          "take": 3,
+          "file": "defeat-take-3.mp3"
+        },
+        {
+          "take": 4,
+          "file": "defeat-take-4.mp3"
+        }
+      ]
+    }
+  ],
+  "sounds": [
+    {
+      "id": "card-return-1",
+      "file": "card-return-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game returning card to hand"
+    },
+    {
+      "id": "card-return-2",
+      "file": "card-return-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game returning card to hand"
+    },
+    {
+      "id": "card-return-3",
+      "file": "card-return-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game returning card to hand"
+    },
+    {
+      "id": "card-return-4",
+      "file": "card-return-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game returning card to hand"
+    },
+    {
+      "id": "commit-1",
+      "file": "commit-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game confirm move button"
+    },
+    {
+      "id": "commit-2",
+      "file": "commit-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game confirm move button"
+    },
+    {
+      "id": "commit-3",
+      "file": "commit-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game confirm move button"
+    },
+    {
+      "id": "commit-4",
+      "file": "commit-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game confirm move button"
+    },
+    {
+      "id": "reveal-1",
+      "file": "reveal-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game revealing cards"
+    },
+    {
+      "id": "reveal-2",
+      "file": "reveal-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game revealing cards"
+    },
+    {
+      "id": "reveal-3",
+      "file": "reveal-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game revealing cards"
+    },
+    {
+      "id": "reveal-4",
+      "file": "reveal-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game revealing cards"
+    },
+    {
+      "id": "burn-bonus-1",
+      "file": "burn-bonus-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game burning a card"
+    },
+    {
+      "id": "burn-bonus-2",
+      "file": "burn-bonus-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game burning a card"
+    },
+    {
+      "id": "burn-bonus-3",
+      "file": "burn-bonus-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game burning a card"
+    },
+    {
+      "id": "burn-bonus-4",
+      "file": "burn-bonus-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game burning a card"
+    },
+    {
+      "id": "burn-reaction-1",
+      "file": "burn-reaction-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game reaction card activating"
+    },
+    {
+      "id": "burn-reaction-2",
+      "file": "burn-reaction-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game reaction card activating"
+    },
+    {
+      "id": "burn-reaction-3",
+      "file": "burn-reaction-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game reaction card activating"
+    },
+    {
+      "id": "burn-reaction-4",
+      "file": "burn-reaction-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game reaction card activating"
+    },
+    {
+      "id": "hit-light-1",
+      "file": "hit-light-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game light punch hit"
+    },
+    {
+      "id": "hit-light-2",
+      "file": "hit-light-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game light punch hit"
+    },
+    {
+      "id": "hit-light-3",
+      "file": "hit-light-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game light punch hit"
+    },
+    {
+      "id": "hit-light-4",
+      "file": "hit-light-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game light punch hit"
+    },
+    {
+      "id": "hit-medium-1",
+      "file": "hit-medium-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game punch impact"
+    },
+    {
+      "id": "hit-medium-2",
+      "file": "hit-medium-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game punch impact"
+    },
+    {
+      "id": "hit-medium-3",
+      "file": "hit-medium-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game punch impact"
+    },
+    {
+      "id": "hit-medium-4",
+      "file": "hit-medium-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game punch impact"
+    },
+    {
+      "id": "hit-heavy-1",
+      "file": "hit-heavy-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game heavy punch impact"
+    },
+    {
+      "id": "hit-heavy-2",
+      "file": "hit-heavy-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game heavy punch impact"
+    },
+    {
+      "id": "hit-heavy-3",
+      "file": "hit-heavy-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game heavy punch impact"
+    },
+    {
+      "id": "hit-heavy-4",
+      "file": "hit-heavy-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game heavy punch impact"
+    },
+    {
+      "id": "block-1",
+      "file": "block-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game blocking an attack"
+    },
+    {
+      "id": "block-2",
+      "file": "block-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game blocking an attack"
+    },
+    {
+      "id": "block-3",
+      "file": "block-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game blocking an attack"
+    },
+    {
+      "id": "block-4",
+      "file": "block-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game blocking an attack"
+    },
+    {
+      "id": "advantage-gain-1",
+      "file": "advantage-gain-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game gaining an advantage token"
+    },
+    {
+      "id": "advantage-gain-2",
+      "file": "advantage-gain-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game gaining an advantage token"
+    },
+    {
+      "id": "advantage-gain-3",
+      "file": "advantage-gain-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game gaining an advantage token"
+    },
+    {
+      "id": "advantage-gain-4",
+      "file": "advantage-gain-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game gaining an advantage token"
+    },
+    {
+      "id": "advantage-spend-1",
+      "file": "advantage-spend-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game spending an advantage token"
+    },
+    {
+      "id": "advantage-spend-2",
+      "file": "advantage-spend-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game spending an advantage token"
+    },
+    {
+      "id": "advantage-spend-3",
+      "file": "advantage-spend-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game spending an advantage token"
+    },
+    {
+      "id": "advantage-spend-4",
+      "file": "advantage-spend-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game spending an advantage token"
+    },
+    {
+      "id": "barrier-absorb-1",
+      "file": "barrier-absorb-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield absorbing a hit"
+    },
+    {
+      "id": "barrier-absorb-2",
+      "file": "barrier-absorb-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield absorbing a hit"
+    },
+    {
+      "id": "barrier-absorb-3",
+      "file": "barrier-absorb-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield absorbing a hit"
+    },
+    {
+      "id": "barrier-absorb-4",
+      "file": "barrier-absorb-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield absorbing a hit"
+    },
+    {
+      "id": "barrier-break-1",
+      "file": "barrier-break-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield breaking"
+    },
+    {
+      "id": "barrier-break-2",
+      "file": "barrier-break-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield breaking"
+    },
+    {
+      "id": "barrier-break-3",
+      "file": "barrier-break-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield breaking"
+    },
+    {
+      "id": "barrier-break-4",
+      "file": "barrier-break-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy game shield breaking"
+    },
+    {
+      "id": "break-stop-1",
+      "file": "break-stop-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar checkpoint stopping damage"
+    },
+    {
+      "id": "break-stop-2",
+      "file": "break-stop-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar checkpoint stopping damage"
+    },
+    {
+      "id": "break-stop-3",
+      "file": "break-stop-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar checkpoint stopping damage"
+    },
+    {
+      "id": "break-stop-4",
+      "file": "break-stop-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar checkpoint stopping damage"
+    },
+    {
+      "id": "burst-break-1",
+      "file": "burst-break-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar barrier breakthrough"
+    },
+    {
+      "id": "burst-break-2",
+      "file": "burst-break-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar barrier breakthrough"
+    },
+    {
+      "id": "burst-break-3",
+      "file": "burst-break-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar barrier breakthrough"
+    },
+    {
+      "id": "burst-break-4",
+      "file": "burst-break-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Game health bar barrier breakthrough"
+    },
+    {
+      "id": "confirm-mark-1",
+      "file": "confirm-mark-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game placing a damage mark"
+    },
+    {
+      "id": "confirm-mark-2",
+      "file": "confirm-mark-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game placing a damage mark"
+    },
+    {
+      "id": "confirm-mark-3",
+      "file": "confirm-mark-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game placing a damage mark"
+    },
+    {
+      "id": "confirm-mark-4",
+      "file": "confirm-mark-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game placing a damage mark"
+    },
+    {
+      "id": "confirm-cash-1",
+      "file": "confirm-cash-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game triggering marked damage"
+    },
+    {
+      "id": "confirm-cash-2",
+      "file": "confirm-cash-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game triggering marked damage"
+    },
+    {
+      "id": "confirm-cash-3",
+      "file": "confirm-cash-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game triggering marked damage"
+    },
+    {
+      "id": "confirm-cash-4",
+      "file": "confirm-cash-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game triggering marked damage"
+    },
+    {
+      "id": "reaction-ready-1",
+      "file": "reaction-ready-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game your turn to react"
+    },
+    {
+      "id": "reaction-ready-2",
+      "file": "reaction-ready-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game your turn to react"
+    },
+    {
+      "id": "reaction-ready-3",
+      "file": "reaction-ready-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game your turn to react"
+    },
+    {
+      "id": "reaction-ready-4",
+      "file": "reaction-ready-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game your turn to react"
+    },
+    {
+      "id": "round-ready-1",
+      "file": "round-ready-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Card game new round start"
+    },
+    {
+      "id": "round-ready-2",
+      "file": "round-ready-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Card game new round start"
+    },
+    {
+      "id": "round-ready-3",
+      "file": "round-ready-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Card game new round start"
+    },
+    {
+      "id": "round-ready-4",
+      "file": "round-ready-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Card game new round start"
+    },
+    {
+      "id": "knockout-1",
+      "file": "knockout-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game knockout hit"
+    },
+    {
+      "id": "knockout-2",
+      "file": "knockout-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game knockout hit"
+    },
+    {
+      "id": "knockout-3",
+      "file": "knockout-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game knockout hit"
+    },
+    {
+      "id": "knockout-4",
+      "file": "knockout-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Martial arts game knockout hit"
+    },
+    {
+      "id": "victory-1",
+      "file": "victory-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game victory sound"
+    },
+    {
+      "id": "victory-2",
+      "file": "victory-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game victory sound"
+    },
+    {
+      "id": "victory-3",
+      "file": "victory-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game victory sound"
+    },
+    {
+      "id": "victory-4",
+      "file": "victory-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game victory sound"
+    },
+    {
+      "id": "defeat-1",
+      "file": "defeat-take-1.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game defeat sound"
+    },
+    {
+      "id": "defeat-2",
+      "file": "defeat-take-2.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game defeat sound"
+    },
+    {
+      "id": "defeat-3",
+      "file": "defeat-take-3.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game defeat sound"
+    },
+    {
+      "id": "defeat-4",
+      "file": "defeat-take-4.mp3",
+      "duration": 1.5,
+      "prompt": "Fantasy card game defeat sound"
+    }
+  ]
+}

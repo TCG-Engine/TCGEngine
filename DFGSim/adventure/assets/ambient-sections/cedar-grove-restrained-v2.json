@@ -1,0 +1,11 @@
+{
+  "method": "Original input artwork sampled through a smoothed, attenuated optical-flow field from the registered Kling retry. Generated textures are not copied.",
+  "motionGuide": "cedar-grove-registered-v2.mp4",
+  "originalArt": "cedar-grove-input-v1.png",
+  "output": "cedar-grove-restrained-v2.mp4",
+  "maximumDisplacementPixels": 2.000000238418579,
+  "motionGain": 0.18,
+  "endpointCorrection": "Subtract smoothstep-weighted final flow; first and last frames exactly original before encoding.",
+  "durationSeconds": 5.041666666666667,
+  "additionalCreditsSpent": 0
+}

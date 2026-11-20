@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T17:02:48.316534+00:00",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "source_spec": "card-regression-batch255.json",
+  "source_spec_sha256": "db56339d630f5134d9222c1865f35d5be7b2a28aaeaaf2d27c2084c83ce62f2c",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 38,
+  "native_assertions": 989,
+  "manual_passes": 28,
+  "totals": {
+    "saved_registered_scenarios": 3519,
+    "duels": 3074,
+    "four_live": 445,
+    "recorded_primary_ids": 675,
+    "identity_denominator": 5196,
+    "recorded_groups": 549,
+    "group_denominator": 3324,
+    "four_live_groups": 440,
+    "phase_qualified_scenarios_at_actual_contexts": 156,
+    "phase_qualified_unique_groups": 153,
+    "creation_replay_passes": 312,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 3,
+  "scenarios": [
+    {
+      "card_id": "aetherize_blue",
+      "group_id": "identity:aetherize_blue",
+      "scenario_id": "card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+      "effect_branches": [
+        "real-paid-opposing-instant-negation-before-healing"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+      "source_spec": "card-regression-batch255.json",
+      "source_spec_sha256": "db56339d630f5134d9222c1865f35d5be7b2a28aaeaaf2d27c2084c83ce62f2c",
+      "review_evidence": "review-evidence/sparse255-b3bd-qualified-saved-review.json",
+      "review_evidence_sha256": "eea10ec9369260e975e5fdd4804559b5d64ffdb6ea594cf88a6ae8621f5835d2",
+      "recorded_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "qualification_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse255-b3bd-r1.json",
+          "sha256": "710c73cad9fdba58c960c69d3d6896c4b9a8d97154b5349635a0878cd3a883a8",
+          "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse255-b3bd-r2.json",
+          "sha256": "4f26428da810e947a84da3bed384d5f27d1edf364bfd1e3450c811ec42ee6e01",
+          "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "aether_wildfire_red",
+      "group_id": "identity:aether_wildfire_red",
+      "scenario_id": "card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+      "effect_branches": [
+        "real-offturn-four-damage-increases-next-action-blue-arcane-to-five"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+      "source_spec": "card-regression-batch255.json",
+      "source_spec_sha256": "db56339d630f5134d9222c1865f35d5be7b2a28aaeaaf2d27c2084c83ce62f2c",
+      "review_evidence": "review-evidence/sparse255-b3bd-qualified-saved-review.json",
+      "review_evidence_sha256": "eea10ec9369260e975e5fdd4804559b5d64ffdb6ea594cf88a6ae8621f5835d2",
+      "recorded_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "qualification_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse255-b3bd-r1.json",
+          "sha256": "710c73cad9fdba58c960c69d3d6896c4b9a8d97154b5349635a0878cd3a883a8",
+          "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse255-b3bd-r2.json",
+          "sha256": "4f26428da810e947a84da3bed384d5f27d1edf364bfd1e3450c811ec42ee6e01",
+          "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

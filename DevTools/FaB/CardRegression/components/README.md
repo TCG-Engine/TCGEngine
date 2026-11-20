@@ -28,3 +28,50 @@ php DevTools/FaB/CardRegression/components/intimidate_return_component.php $repo
 ```
 
 See [current repair handoff](../REPAIR_HANDOFF_20261024.md). Generation and focused qualification passed; broad compatibility remains unrun by request. Older22October failure receipts are historical.
+
+## Captured card triggers
+
+Twenty-two contracts exercise actual extracted queue, dispatch, token-creation, Phantasm-resolution, native ability ownership and prevention-grant helpers with explicit boundary doubles. The original fourteen case bodies are preserved; eight prevention-grant contracts were added. They cover per-grant capture, event-time suppression, source independence, creation-time modifiers and pending-layer priority. Actual physical movement, all-seat responses and token ownership are covered by separate four-live regressions. Prevention tests check source capture, per-grant first-marker consumption, reentry, independent grants and complete seven-argument factory forwarding. Factory, transport, card-type and clock-related dependencies remain controlled; no native Mental Block, repeated-event or modifier matrix is implied. See the055 before/after proof and explicit unsupported legacy-grant boundary.
+
+```powershell
+$repo = (Get-Location).Path
+$triggerHashes = @('GameLogic.php','CRUCards.php','EVRCards.php','ROSCards.php','ARCCards.php','WTRCards.php') | ForEach-Object { (Get-FileHash -LiteralPath "FaBSim/Custom/$_" -Algorithm SHA256).Hash.ToLowerInvariant() }
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/components/queued_card_trigger_component.php $repo @triggerHashes
+```
+
+The explicit hashes bind the actual current files; the existing shared component extractor is reused. No external proposal manifest, engine bootstrap or game storage is needed.
+
+## Briar first attack-action damage trigger
+
+Thirteen controlled contracts exercise actual extracted ELE damage/marker and ROS queue/dispatch functions. They check first-event eligibility, no early output, source capture, duplicate suppression and earned-source independence. Controlled dependencies do not add native variant, suppression-implementation or arcane-driver coverage. The unfused Stir four-live fixture separately tests real damage and all-seat responses.
+
+```powershell
+$repo = (Get-Location).Path
+$briarHashes = @('ELECards.php','ROSCards.php') | ForEach-Object { (Get-FileHash -LiteralPath "FaBSim/Custom/$_" -Algorithm SHA256).Hash.ToLowerInvariant() }
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/components/briar_first_damage_trigger_component.php $repo @briarHashes
+```
+
+Supply the reviewed source hashes deliberately; the pure shared extractor is reused, with no engine bootstrap or game storage. See the batches 199ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ200 checkpoint for the qualified source versions and limits.
+
+## Native activated-ability lifetime
+
+Twenty-eight contracts (108 checks) extract actual admission, owned await-frame/work gates, reaction completion, physical source movement and go-again helpers. The original fifteen contracts remain unchanged; thirteen defense-reaction contracts were added. Three in-memory mutants must fail at contracts01 (admission),05 (frame ownership) and12 (frame-only work). External state and queues are controlled; actual AP/refund and source completion are covered by the separate Dreadbore/Opal/Deja/Rune and synchronous-item native witnesses.
+
+```powershell
+$gamePath = Join-Path (Get-Location).Path 'FaBSim/Custom/GameLogic.php'
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/components/native_ability_frame_component.php $gamePath none
+```
+
+Append `classifier-allowlist`, `frame-allowlist` or `ignore-frame-only` instead of `none` for the mutation controls. Each must exit1 at its named contract; the ordinary run exits0. Source SHA706caa1f and the existing shared tokenizer, ZoneAccessors and ROSRuntime hashes are guarded. The retained bytes match the executed portable copy. All three original in-memory mutation controls were detected at contracts01/05/12. External clock, zones, queues, card rules, next-defense and OnDefended boundaries are explicit doubles; they do not add native multiplayer or caller coverage. See the054 before/after proof for the actual four-live witness and focused compatibility. No full suite was run.
+
+## Printed own keywords
+
+The existing `DevTools/FaB/printed_keyword_test.php` extracts the actual shared parser with controlled metadata/text lookups. Run from repository root:
+
+```powershell
+& 'C:\xampp\php\php.exe' DevTools/FaB/printed_keyword_test.php
+```
+
+All39 contracts passed against the exact applied parser/case bytes.31 older cases remain unchanged; one explicit metadata-first premise was corrected because current Rapid Fire text and its native AP1 oracle establish an own keyword despite incomplete metadata, and seven focused boundaries were added. The original32-case file is preserved in the external056 source backup; [erratum](../review-evidence/rapid-056-component-case-erratum.json) records the exact revision. Native Rapid and Abyssal Bite witnesses are separate from these controlled component contracts.
+
+Latest056V2: the default printed-keyword harness now runs48 passing contracts, retaining all39 fromV1 and adding9 controls for real unquotedactivated-ability text/header boundaries. V1 missed this distinction; its39-pass record remains historical. Native ordinaryItemplayAP0 and activatedabilityAP1 are separate witnesses, along with current Rapid own-cardAP1. The original32-case file, its explicit one-case erratum and V1/V2 source backups remain recoverable.

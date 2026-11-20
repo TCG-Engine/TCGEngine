@@ -1,0 +1,109 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T07:10:51.346907+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "source_spec": "card-regression-batch230.json",
+  "source_spec_sha256": "d0fd940cdb22b262121f756ef20892dc14e398c129334dc6fceb5b6de8eb2a5f",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 24,
+  "native_assertions": 1416,
+  "manual_passes": 19,
+  "totals": {
+    "saved_registered_scenarios": 3461,
+    "duels": 3074,
+    "four_live": 387,
+    "recorded_primary_ids": 618,
+    "identity_denominator": 5196,
+    "recorded_groups": 492,
+    "group_denominator": 3324,
+    "four_live_groups": 383,
+    "phase_qualified_scenarios_at_actual_contexts": 98,
+    "phase_qualified_unique_groups": 96,
+    "creation_replay_passes": 196,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 13,
+  "scenarios": [
+    {
+      "card_id": "alluvion_constellas",
+      "group_id": "identity:alluvion_constellas",
+      "scenario_id": "card-alluvion-constellas-four-live-sparse-actual-energy-two-discounts-staff-three-to-zero-and-real-arcane",
+      "effect_branches": [
+        "actual-energy-two-discounts-staff-three-to-zero-and-real-arcane"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-alluvion-constellas-four-live-sparse-actual-energy-two-discounts-staff-three-to-zero-and-real-arcane",
+      "source_spec": "card-regression-batch230.json",
+      "source_spec_sha256": "d0fd940cdb22b262121f756ef20892dc14e398c129334dc6fceb5b6de8eb2a5f",
+      "review_evidence": "review-evidence/sparse230-two-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "b866172cc5e95ecc5d4385ff6e5990069019122b31f11baecb38de48faf20c58",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse230-two-5ff0-r1.json",
+          "sha256": "d74d7f2916e8235e324665601254ed9c9b81446e8f7056b3797af12dcc47d1ca",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse230-two-5ff0-r2.json",
+          "sha256": "2ebe7315c68e5e6f1c0bb9cc7981e031e570a7924e5179ea039974f699d7552a",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "spellfire_cloak",
+      "group_id": "identity:spellfire_cloak",
+      "scenario_id": "card-spellfire-cloak-four-live-sparse-actual-opponent-turn-instant-destruction-gains-one-resource",
+      "effect_branches": [
+        "actual-opponent-turn-instant-destruction-gains-one-resource"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spellfire-cloak-four-live-sparse-actual-opponent-turn-instant-destruction-gains-one-resource",
+      "source_spec": "card-regression-batch230.json",
+      "source_spec_sha256": "d0fd940cdb22b262121f756ef20892dc14e398c129334dc6fceb5b6de8eb2a5f",
+      "review_evidence": "review-evidence/sparse230-two-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "b866172cc5e95ecc5d4385ff6e5990069019122b31f11baecb38de48faf20c58",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse230-two-5ff0-r1.json",
+          "sha256": "d74d7f2916e8235e324665601254ed9c9b81446e8f7056b3797af12dcc47d1ca",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse230-two-5ff0-r2.json",
+          "sha256": "2ebe7315c68e5e6f1c0bb9cc7981e031e570a7924e5179ea039974f699d7552a",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-visit-the-imperial-forge-red-four-live-sparse-actual-sword-piercing-three-against-real-equipment-defender"
+  ]
+}

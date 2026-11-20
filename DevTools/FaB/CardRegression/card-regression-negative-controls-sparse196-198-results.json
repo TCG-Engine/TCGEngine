@@ -1,0 +1,147 @@
+{
+  "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "completed_utc": "2026-10-25T19:49:13.851964+00:00",
+  "plan_sha256": "81a4d40c1bd590974bfd16f6832dbaef5e1eb66c366dc0bce45d25e7189aada6",
+  "independent_saved_proof_sha256": "d2d71ec95aa326c9296b25e7d9b39f0c531ecca4779694057845da5295b118dd",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse196-197-four-causal-controls-final6a-plan.json",
+    "81a4d40c1bd590974bfd16f6832dbaef5e1eb66c366dc0bce45d25e7189aada6",
+    "card-regression-negative-controls-sparse196-198-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "brush_actual_prevention_effect_omission",
+      "fixture": "card-brush-off-red-four-live-sparse-actual-zero-cost-instant-prevents-real-two-physical-damage",
+      "fixture_sha256": "c88f62fcca299d1b03a54f61c9f167027e9dadb4a17a2df36d4256e9cbade722",
+      "source_raw5": {
+        "initial_gamestate.txt": "9eae1026b1b521a956f4b3d14bc4a4e75a481058c053e37b5496e150ea7f92ed",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "8db3e9f44d5150484f27cc976be7dc1954ee164c38c54e55b79c54925097197c",
+        "expected_final_gamestate.txt": "103f054afea978e12186c8c784e1483e8d6219647eea9c01da5d2338ce17322d",
+        "meta.json": "deb7990d6713a3cf863a90d349dadcbc155e1a87d554a004511b020b062a3c1f"
+      },
+      "prefix_actions": 23,
+      "mutation": {
+        "remove_effect": "OUT_BRUSH"
+      },
+      "retained_assertions": 670,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 20, got 18.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] brush_off_red / actual four-live defensive effect: Step 4 assertion failed: Expected p4Health to equal 20, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the single actual resolved OUT_BRUSH global effect after Brush source resolution, retaining physical primary/destinations, realWBBlue2 attack and defender0. At actual damage physicalP4HP20-to18 is the first changed native oracle; no health override or cacheddamage substitution.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "rally_actual_positive_defense_gain_disabled",
+      "fixture": "card-rally-the-rearguard-red-four-live-sparse-actual-defending-activation-discards-owned-card-and-adds-three-defense",
+      "fixture_sha256": "5a28d506b893746548f20b957242bcab9d2de5e3b3f8bf53d2f1fefe30b21946",
+      "source_raw5": {
+        "initial_gamestate.txt": "fbdef25c4e1e6bf138f5d10c174c1305e59bc0e61746c21ed7e25f19fb1b15fd",
+        "actions.json": "7489602bdb6faa5e7cd9f733cd7dc9a9c5cfb9cd7318c03ce427db84ce4a3b89",
+        "assertions.json": "0feb4b275bbd28a8b4d549d22662b07645f9341599021dda2148811f9b36ff61",
+        "expected_final_gamestate.txt": "f0868376885ac4e21678476f701c070162d99634bc209f0c203dfb881e33fe38",
+        "meta.json": "f2fa5742efa6a36858948f8ad5d9f4f25617536a87dc88f6291d2bcd8ac326b2"
+      },
+      "prefix_actions": 25,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "add",
+            "tag": "SUP_NO_DEFENSE_GAIN"
+          }
+        ]
+      },
+      "retained_assertions": 716,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 20, got 18.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] rally_the_rearguard_red / actual four-live defensive effect: Step 4 assertion failed: Expected p4Health to equal 20, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add only existing SUP_NO_DEFENSE_GAIN to the real WBRed host after actual Rally activation/discard and +3grant. Preserve exact WTR_DEFENSE3 source tag, base2 blocker and discarded card. Clamp sole positive delta3 through actual defense code; unchanged power4 leaks2, first physicalP4HP20-to18. This is application-lock sensitivity, not deleting the tagged defender or trimming its oracles.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "sigil_actual_earned_defense_gain_disabled",
+      "fixture": "card-sigil-of-suffering-red-four-live-sparse-actual-arcane-to-attacking-hero-earns-four-defense-before-physical-damage",
+      "fixture_sha256": "20a1fe4ad935113264c8873c4b8291f2d1d51a2527896544c921c1f7710f2fe6",
+      "source_raw5": {
+        "initial_gamestate.txt": "894c06e00bbace2e986a3aae882d069860cf9b60372d10bd5ca5d6228acb8340",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "7522b2488bfcc361ed34b09f1df45b2425bb6e1dd0757a4ba738c1e53f180a37",
+        "expected_final_gamestate.txt": "09f1711b6e548ba7b935d0e8a2c628e0e95f6d1509d47a2f804d8a4cf6c3950e",
+        "meta.json": "f171be1e22a12a3b00a348021415e03c2adc2bfd7a86f3782f6051d7fa16d31c"
+      },
+      "prefix_actions": 23,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "add",
+            "tag": "SUP_NO_DEFENSE_GAIN"
+          }
+        ]
+      },
+      "retained_assertions": 680,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] sigil_of_suffering_red / actual four-live defensive effect: Step 4 assertion failed: Expected p4Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Sigil arcane1, add only existing SUP_NO_DEFENSE_GAIN to real WBRed host. Keep P1HP19, actual arcaneDealt4to1=1, base3 Sigil and all costs. Clamp sole earned positive delta1; unchanged power4 leaks1, first physicalP4HP20-to19. No arcane cache or terminalhealth mutation.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "mirage_actual_phantasm_removal_omission",
+      "fixture": "card-passing-mirage-blue-four-live-sparse-first-illusionist-attack-survives-real-six-power-block",
+      "fixture_sha256": "d061dcd424033a66d4c3cccebdb6e5f46400ac1bcbcffc92282e20d616b23b7b",
+      "source_raw5": {
+        "initial_gamestate.txt": "630049e95981348d60369bfd8a86b9c29222ca0c64bb277171f7a2809e847b5f",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "01248ddd50ee7c49f94f3b5724af5017f40308d129dc21ad95de62224f51d6c2",
+        "expected_final_gamestate.txt": "59b3c950d92587c299e551be3aaf24ef662f8bfdf5d345d48fdb37acdfc03160",
+        "meta.json": "c3bf12629fef8e0f89110916bbd4c817f603a4cbe0f4a862c0d414b8bfa20172"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spears_of_surreality_red",
+            "mode": "remove",
+            "tag": "MON_NO_PHANTASM"
+          }
+        ]
+      },
+      "retained_assertions": 2346,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected Stack count 0, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] passing_mirage_blue / four live distinctive effect: Step 1 assertion failed: Expected Stack count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual P4 RagingYellow8 block, remove only Mirage-created MON_NO_PHANTASM from actual Spears6 before finishdeclaration. Aura5 and every physical/payment/power/GA oracle remain. Real six-power blocker now causes FaBMONPhantasm(false) to queue an extra uprPhantasm layer; originalstep13 Stack0-to1 is intended first failure. No source/defender removal, no later destroyed-attack failure relabeled as first.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

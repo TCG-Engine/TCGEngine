@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 436
+    },
+    {
+        "slug": "card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 25,
+        "assertions": 743
+    }
+]

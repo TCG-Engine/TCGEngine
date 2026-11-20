@@ -5,12 +5,13 @@
 // 'enabled' => false (preferred — keeps in-flight matches resolvable) or comment
 // out the whole block. SWUListFormats() hides disabled formats from selectors,
 // but SWUGetFormat()/SWUCheckFormat() still resolve them for anything mid-flight.
+require_once __DIR__ . '/BoosterSets.php';
 
 function SWUFormatDefinitions() {
     $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW',];   // HMW released 2026-09-16 (owner)
     $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH', 'HMW',];
     $previewSets = ['IC27',];  // the next set to release (or a future set's preview window)
-    $premierBans = ['ASH_011'];
+    $premierBans = ['ASH_011', 'ASH_248', 'ASH_052', 'ASH_079', 'SEC_179'];   // 2026-11-09: Neel, Chimaera (ASH), Koska Reeves (ASH), Aggressive Negotiations
     $eternalBans = ['JTL_140', 'JTL_170'];
     return [
         // NOTE: JTL_256 (Vulture Droid) copy-exception and JTL_024/025 deck-size modifiers are
@@ -116,7 +117,10 @@ function SWUFormatDefinitions() {
         // SWUCheckFormat (see _SWULeaderStartAlignment in DeckValidation.php).
         'twinsuns' => [
             'displayName' => 'Twin Suns',
-            'legalSets'   => $eternalSets,                        // every printed set
+            // Every printed set PLUS the preview set (owner, 2026-11-04: "add IC27 to the Twin Suns standard pool"; the
+            // Twin Suns Preview format is off). Premier/Eternal keep previews out. This makes SWUFormatIsPreview true for
+            // it — harmless for stats, since a multiplayer game is never submitted (statsStatus skipped_multiplayer).
+            'legalSets'   => array_merge($eternalSets, $previewSets),
             'banned'      => [],                                  // no bans yet
             'minDeck'     => 80,                                  // CR §12.2.1.a
             'maxCopies'   => 1,                                   // CR §12.2.2 (highlander)
@@ -134,7 +138,7 @@ function SWUFormatDefinitions() {
         // appear twice on a team (uniqueTeamLeaders). Strictly 4P; there is no 3P Team Suns.
         'teamsuns' => [
             'displayName'       => 'Team Suns',
-            'legalSets'         => $eternalSets,
+            'legalSets'         => array_merge($eternalSets, $previewSets),   // + IC27, as twinsuns (owner, 2026-11-04)
             'banned'            => [],
             'minDeck'           => 80,
             'maxCopies'         => 1,
@@ -207,7 +211,9 @@ function SWUFormatDefinitions() {
             'minPlayers'  => 3,
             'maxPlayers'  => 4,
             'publicQueue' => true,   // public ROOM queue — see the note on twinsuns
-            'enabled'     => true,
+            // OFF since 2026-11-04 (owner): 'twinsuns' itself now carries the preview set. Still resolvable, so a room or
+            // match already in flight keeps working.
+            'enabled'     => false,
         ],
         // Team Suns pool + the upcoming set's previews (owner, 2026-09-16: "add both options to Team Suns as well").
         // This REVERSES the 2026-08-29 decision recorded in DevTools/tdd-regression/test_swusim_formats_config.php
@@ -226,7 +232,7 @@ function SWUFormatDefinitions() {
             'teams'             => 2,
             'uniqueTeamLeaders' => true,
             'publicQueue'       => true,   // public ROOM queue — see the note on twinsuns
-            'enabled'           => true,
+            'enabled'           => false,  // OFF since 2026-11-04 (owner), as twinsuns-preview: 'teamsuns' carries the preview set
         ],
         // Eternal pool + the upcoming set's previews — the Eternal counterpart of 'preview'. Same
         // shape as 'eternal' (no rarity restriction, standard deck rules); only the pool differs.
@@ -237,6 +243,35 @@ function SWUFormatDefinitions() {
             'banned'      => $eternalBans,
             'enabled'     => true,
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
+        ],
+        // Limited — Sealed (and later Draft) in a private room only, decks built from packs opened in the room
+        // (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md). The pool, not this entry, decides
+        // what a deck may hold: SWUCheckLimitedDeck (SWUSim/Limited/LimitedDeck.php) replaces SWUCheckFormat for it.
+        // No public queue, never rated, and never a stats format (SWUStatsFormats). maxPlayers stays 2: the room sets
+        // its own seat count from the Limited mode.
+        'limited' => [
+            'displayName' => 'Limited',
+            'legalSets'   => array_keys(SWUBoosterSets()),
+            'banned'      => [],
+            'enabled'     => true,
+            'publicQueue' => false,
+            'minDeck'     => 30,
+            'maxCopies'   => PHP_INT_MAX,   // no copy limit — only what the pool holds
+        ],
+        // Dualing Suns — 1v1 Twin Suns with an initiative toll (docs/superpowers/specs/2026-11-12-swusim-dualing-suns-design.md).
+        // Twin Suns deckbuilding and pool at two seats; the engine keys its counter rules off this id (SWUIsDualingSuns).
+        // A private room only (against a friend or a room bot), never rated, and it records nothing (SWUFormatRecordsNothing).
+        'dualingsuns' => [
+            'displayName' => 'Dualing Suns',
+            'legalSets'   => array_merge($eternalSets, $previewSets),   // the Twin Suns standard pool, as twinsuns
+            'banned'      => [],
+            'minDeck'     => 80,
+            'maxCopies'   => 1,
+            'leaderCount' => 2,
+            'minPlayers'  => 2,
+            'maxPlayers'  => 2,
+            'publicQueue' => false,
+            'enabled'     => true,
         ],
     ];
 }
@@ -345,6 +380,9 @@ function SWUStatsFormats(bool $enabledOnly = true): array {
         // Meta Premier games are reported to the stats site as premier (SWUStatsFormatFor), so the stats
         // whitelist — which the public SubmitGameResult / meta-stats APIs read — stays exactly as it was.
         if ($id === 'metapremier') continue;
+        // Limited and Dualing Suns record nothing anywhere (Limited spec §3.9): Limited decks are one-off pools, and
+        // Dualing Suns is a private fun format.
+        if (SWUFormatRecordsNothing($id)) continue;
         $f = SWUGetFormat($id);
         if ($f === null || !empty($f['localMode'])) continue;
         if ($enabledOnly && empty($f['enabled'])) continue;
@@ -432,6 +470,19 @@ function SWUMenuTree(): array {
             ['id' => 'hotseat',  'label' => 'Hotseat',  'format' => 'hotseat',  'pools' => []],
         ]],
     ];
+    // A pool exists only while its format is ENABLED — the rule Meta Premier's splice above already follows, for the same
+    // reason: the setup dialogs render from this UNFILTERED tree (MainMenu's $swuMenuTreeFull, kept for invites), so a
+    // disabled pool stayed listed there and led to a format that refuses you. Seen when Twin Suns / Team Suns Preview went
+    // off (owner, 2026-11-04): the Twin Suns dialog still offered "Preview (IC27)". An option left with no pools keeps its
+    // place only if it never had any (1P modes); otherwise it would be an empty choice.
+    foreach ($tree as &$gt) {
+        foreach ($gt['options'] as &$opt) {
+            if (empty($opt['pools'])) continue;
+            $opt['pools'] = array_values(array_filter($opt['pools'], fn($p) => !empty(SWUGetFormat($p['format'])['enabled'])));
+        }
+        unset($opt);
+    }
+    unset($gt);
     // Join Queue is offered per POOL: only a pool whose option has no format of its own (PvP) stores the pool's format,
     // so only those can queue. Arenabot and 1P options store their own local-mode format and never queue.
     foreach ($tree as &$gt) {
@@ -517,6 +568,21 @@ function SWUFormatSeatRange($formatId) {
 function SWUFormatIsRoomFormat($formatId) {
     [, $max] = SWUFormatSeatRange($formatId);
     return $max > 2;
+}
+
+// The Limited format (Sealed / Draft rooms). Every "Limited records nothing" guard asks this, never the literal id.
+function SWUFormatIsLimited($formatId): bool {
+    return strval($formatId) === 'limited';
+}
+
+// Dualing Suns (1v1 Twin Suns with the initiative toll). The engine's counter rules ask SWUIsDualingSuns, which reads this.
+function SWUFormatIsDualingSuns($formatId): bool {
+    return strval($formatId) === 'dualingsuns';
+}
+
+// A format that records nothing anywhere: no SWUStats, no deck stats, no SWU-PGN, no SWU Forge. Every such guard asks this.
+function SWUFormatRecordsNothing($formatId): bool {
+    return SWUFormatIsLimited($formatId) || SWUFormatIsDualingSuns($formatId);
 }
 
 // A "team" format splits its seats into fixed teams (Team Suns: Red/Blue, 2 each).

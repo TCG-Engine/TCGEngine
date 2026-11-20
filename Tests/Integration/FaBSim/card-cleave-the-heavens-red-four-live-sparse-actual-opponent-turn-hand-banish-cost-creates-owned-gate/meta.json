@@ -1,0 +1,7 @@
+{
+    "name": "cleave_the_heavens_red / lean four-live implemented effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T10:04:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine live Dori20/Dori20/Dori20/Levia20, explicitmanualUPF1234. P4legalShadowBrute ownsCleave5Hand. ActualACTIONpasses1/2/3earnP4priorityinP1turn; P4AP0/offturnmakesnormalAA2unavailable, soleexistingHandInstant0nativeabilityisused. ActualHandclickbanishesphysical5toownpublicBanishOwnerController4/F0asrealcost; zero-resourceInstant hasnoAP/resourceasset. IndependentABI6Owner0Controller4/SourceHandUID5 waits; noGatebeforefouractualresponders4,1,2,3. FourthcreatesexactGate7OwnerController4. Finalsource5Banish/Gate7Arena/P1AP1/P4AP0/allR0/allHP20/StackqueuesemptyACTION. No inventedhistory/AP/permission, primaryAAattack, BloodDebt/EOT/LeviaconditionalorGatepermission/otherpitches/supportprimarycredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR020.webp"
+}

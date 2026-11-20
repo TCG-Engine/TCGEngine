@@ -1,0 +1,92 @@
+{
+  "status": "APPROVED_ACTUAL_ARCHIVED_051_GENERATION_ATTEMPT2_EXACT_OUTPUT_DELTA_NATIVE_HAND_SAVED_REVIEW_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "utc": "2026-10-26T05:45:43.256577+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "generation_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-generation-attempt2\\receipt.json",
+    "sha256": "96eff474f636f16745132f8d031deb29f1daa5f821ca10405ff264f3cde5a84e"
+  },
+  "outputs": [
+    {
+      "repository_path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "verified_backup_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-apply-backup\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php",
+      "before_sha256": "ab56ba30ed55b339fce05cf0c47dedc1c2a268ca911d1fabc0927e2507913241",
+      "actual_archived_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-generation-attempt2\\actual-observed\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php",
+      "observed_and_current_sha256": "7f6a2a139b551ad55720a8f17de7dad47a36e8dc6d81d0c0eb5636981ebe5f96",
+      "old_timestamp": "2026-10-24 18:33:01",
+      "new_timestamp": "2026-10-26 06:41:52",
+      "all_other_bytes_identical": true,
+      "gauntlet_only_boolean_changed": true,
+      "newline_counts_preserved": {
+        "CRLF": 32558,
+        "LF_total": 264779,
+        "CR_total": 32558
+      }
+    },
+    {
+      "repository_path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "verified_backup_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-apply-backup\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js",
+      "before_sha256": "9b9ca9904182614d3b50824d108d9a8c56a50b453e3ea4c64041f507af20dea8",
+      "actual_archived_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-generation-attempt2\\actual-observed\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js",
+      "observed_and_current_sha256": "45d751d279b21c5b7203eb9e24e2080dae267a3ed82a78014f576596698bfe00",
+      "old_timestamp": "2026-10-24 18:33:02",
+      "new_timestamp": "2026-10-26 06:41:54",
+      "all_other_bytes_identical": true,
+      "gauntlet_only_boolean_changed": false,
+      "newline_counts_preserved": {
+        "CRLF": 9975,
+        "LF_total": 9975,
+        "CR_total": 9975
+      }
+    }
+  ],
+  "applied_source_guards": {
+    "zzGameCodeGenerator.php": "97cf0691cb5f01b05b852e64f285d799e139190ad5f1ffbc837343f45ead53b5",
+    "DevTools/FaB/build_mpg_abilities.py": "0408b25638c3e0ae0ae341d728cbf3451cf7b0acea6a41c5d3834e117a207223",
+    "DevTools/FaB/mpg_abilities.json": "ffab225740b0957cfe245c1994fdf3be11fb8b5e03c420fbb411eb39df4a4f1a",
+    "FaBSim/Custom/CodeGeneration.php": "3d7293442eca473bea4e3f096c9fb1f5ebaf10be89c5bee82eb4c01c149239ca",
+    "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6"
+  },
+  "source_application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-apply-backup\\application.json",
+    "sha256": "bdfd800b557145239aa8ed26f4cb399aafb11e373988d9fef410d5854475834e"
+  },
+  "remote_route": {
+    "preflight_verified": true,
+    "current_config_sha256": "ade2e4ea8d37d60f3f3c0f047e202d84c2a474163f7961eb3bd4f50f6708b33c",
+    "repository_class": "RemoteCardAbilityRepository",
+    "card_revision": "dd52194d70895bdc5a845275c2d3413f049add44ed0840237ae90b4cd84f0d40",
+    "remote_authoring_writes": false,
+    "limits": "Separateprocesspreflight/configbefore-after is evidenceforthisrun, notuniversalTOCTOU-free/localfallback-safeclaim."
+  },
+  "root_syntax_evidence": {
+    "returncode": 0,
+    "stdout": "No syntax errors detected in FaBSim/GeneratedCode/GeneratedMacroCode.php\n",
+    "stderr": ""
+  },
+  "reused_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-canonical-source-independent-review-106.json",
+    "sha256": "a7d44a4d5d0fb09f17c3381664cd6421854dd50e87c71e42d5be7b69e0dfde77"
+  },
+  "reused_amendment": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-count-header-amendment-independent-review-106.json",
+    "sha256": "a1fc3eb71050d156eae9c6ce8ab18720c24d8d640eb5e8e1e3dc906d65654b25"
+  },
+  "findings": "ArchivedMacroPHP equalsverifiedbackup plusONLYGauntletarsenalbooltrue-tofalse andoneexistingtimestampheader. ArchivedCountJS equalsverifiedbackup plusONLYits existingtimestampheader; countvalues/JSbody/order/EOLbytesidentical. CurrentRbothoutputs equalactualarchivefullhashes. Fourappliedsourcehashes/backups/generatorguardverified. RootCLI+generatedPHPsyntaxreceipt0observed. ExistingMacroPHPmixedLF/CRLF ispreservedexactly, notmisrepresentedaspureCRLF; CountJSispureCRLFunchanged. Nogeneratedfileconstructed/written byreviewer.",
+  "hand_witness": {
+    "source": "card-regression-batch224-boulderhold-hand-correct-probe.json",
+    "input_sha256": "0720d26f11271a975713210416b1b770ba4eeb8fa8ad84cbb524fdb10e7c62a0",
+    "status": "ACTUAL_SAVED_SEMANTIC_REVIEW_SEPARATE"
+  },
+  "limits": [
+    "Source/outputgateonly; nativeHand/Cardcoverage/fixedissue status notinferredfromcompiler.",
+    "No newCLI/framework/globalparser/Core/remoteupstreammutation or genericcorpushash equivalence. Remoteauthoredbody remainswrong/localidempotentcompilecompatibilityfix.",
+    "Firstrejectedattempt+restorationreceiptsimmutable; onlysecondacceptedarchive reviewedhere.",
+    "NoPHP/generation/native/Rwrites/optionalpaper-simulation byreviewer."
+  ],
+  "php_execution": 0,
+  "generation_execution": 0,
+  "native_execution": 0,
+  "repository_writes": 0
+}

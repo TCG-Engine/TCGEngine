@@ -1,0 +1,7 @@
+{
+    "name": "arakni_solitary_confinement / real first Stealth attack grants go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T15:26:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungArakniSolitaryConfinementprinted19HP/3Dori20. ActualfirstStealthIsolateRed5Handcost0targetsadjacentP4, AP1->0/R0; nativeHero staticfirstStealthgrant tagsGO_AGAIN onactualplayedcard, no seededhistory/effect. Fouractualresponsesputphysical5Chainfirstattackbase3/GAtrue, noextraonhitability(IsolateprintedStealth/Dominateonly). Allfourmanualattack/defend/reactionresponsesunblockedactual3damageP4HP17, actor19unchanged/AP0duringDAMAGE. FouractualDAMAGEresponsesenterRESOLUTION andearnedGArestoresAP1; stopbeforechainclosure. Exactphysical5stillChainowned1/RoleATTACK/FromHand, allothernonHerozonesempty. NoHeroactivation/secondStealth/nonStealthnegative/turnreset/Dominatelegality/Isolateprimaryorvariantscredit; no fakeAP/playedflags. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARA001.webp https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,9 @@
+{
+  "provider": "ElevenLabs",
+  "model": "music_v1",
+  "songId": "SgO0PMEfMxyaT2YB7f5S",
+  "requestId": null,
+  "durationRequestedMs": 80000,
+  "generatedAt": "2026-10-25T19:13:14.961Z",
+  "bytes": 1281506
+}

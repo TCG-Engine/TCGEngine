@@ -1,0 +1,808 @@
+{
+  "status": "APPROVED_INDEPENDENT_EXACT_SAVED_REVIEW_COMPOSED_WITH_TWO_CURRENT_TARGETED_REPLAYS",
+  "reviewer": "/root/b105_semantic_review",
+  "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "source_spec": "card-regression-batch199.json",
+  "source_spec_sha256": "cf8e3d2a6e35b55c68acae51a52c9b5ffb50c5e9ab1c01fa70171b07331b241c",
+  "fixtures": [
+    {
+      "index": 0,
+      "slug": "card-arcanite-skullcap-four-live-sparse-actual-lower-life-conditional-defense-stable-damage",
+      "semantically_approved": true,
+      "fixture_sha256": "439f76fee973b5a7e2c93ef0262b1fe3561b1cb7d63f737372dbff87dd60acf1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd876ac7fab588ce9281d62a52464dac41921f4a9464d3b478897e431a726973",
+        "actions.json": "56e909297196ec665c2d9730260ba261ff62742a64b5e24f4d5325ccd6daac00",
+        "assertions.json": "df2173b387aabe34938202e4a6a0f88397efd687f6656d54148412a34d7bc2a8",
+        "expected_final_gamestate.txt": "aa044829910d48c956540627398e7ab41e12c76daf9c201ca3a7dce0523f8629",
+        "meta.json": "cd1b8cd8ea382b4c52792cb86925cc34bee1b403b5b878dd0295d1f28c3aaf99"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cd876ac7fab588ce9281d62a52464dac41921f4a9464d3b478897e431a726973",
+        "actions.json": "56e909297196ec665c2d9730260ba261ff62742a64b5e24f4d5325ccd6daac00",
+        "assertions.json": "df2173b387aabe34938202e4a6a0f88397efd687f6656d54148412a34d7bc2a8",
+        "expected_final_gamestate.txt": "aa044829910d48c956540627398e7ab41e12c76daf9c201ca3a7dce0523f8629",
+        "meta.json": "cd1b8cd8ea382b4c52792cb86925cc34bee1b403b5b878dd0295d1f28c3aaf99"
+      },
+      "actions": 20,
+      "native_assertions": 1130,
+      "manual_passes": 17,
+      "pass_actors": {
+        "1": 4,
+        "2": 4,
+        "3": 4,
+        "4": 5
+      },
+      "actual_manual_settings_per_seat": 12,
+      "initial_final_full_physical_profiles_match": true,
+      "all_supported_actions_and_native_oracles_exact": true,
+      "author_only_defense_checks": 1,
+      "final_window": "DAMAGE",
+      "final_combat_open": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "derived_yendurai_remaining_life": null,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "assertions": 114
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "declare_actual_adjacent_target_before_payment_and_responses",
+          "assertions": 35
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_zero_resource_attack_paid_one_action_point",
+          "assertions": 36
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "attack_layer_manual_response_1_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "attack_layer_manual_response_2_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "attack_layer_manual_response_3_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "attack_layer_fourth_manual_response_boundary",
+          "assertions": 43
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "attack_step_manual_response_1_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "attack_step_manual_response_2_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "attack_step_manual_response_3_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "attack_step_fourth_manual_response_boundary",
+          "assertions": 43
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_skullcap_defends_base_one_plus_live_lower_life_one",
+          "assertions": 45
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_defender_finishes_block_declaration",
+          "assertions": 45
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "defend_step_manual_response_1_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "defend_step_manual_response_2_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "defend_step_manual_response_3_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "defend_step_fourth_manual_response_boundary",
+          "assertions": 45
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "reaction_step_real_damage_manual_response_1_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "reaction_step_real_damage_manual_response_2_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "reaction_step_real_damage_manual_response_3_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "reaction_step_real_damage_fourth_manual_response_boundary",
+          "assertions": 45
+        },
+        {
+          "source_step": 41,
+          "action_step": 20,
+          "checkpoint": "real_post_prevention_damage_and_physical_effect",
+          "assertions": 47
+        },
+        {
+          "source_step": 42,
+          "action_step": 20,
+          "checkpoint": "final_full_four_live_actual_health_economy_identity_and_effect",
+          "assertions": 125
+        }
+      ],
+      "canonical_case_sha256": "bca11e5252cc26720c940ad32762a7df5978031b61a384b156ef50ea7778c68a",
+      "recorded_input_sha256": "1ae42b9ef2a77c925f0a901f95c6d757a3f1bbd0fcd0671b9f45d763dfc8e0cb",
+      "recorded_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "current_qualification_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "current_clean_replays": [
+        "card-regression-replay-sparse199-20261025-r1.json",
+        "card-regression-replay-sparse199-20261025-r2.json"
+      ]
+    },
+    {
+      "index": 1,
+      "slug": "card-pyroglyphic-protection-red-four-live-sparse-active-owned-aura-prevents-real-three-arcane",
+      "semantically_approved": true,
+      "fixture_sha256": "e869a755a765291644393da98bc6813b8752c2ccde7188824145a5956d08c0fc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5fc3a0f889f3e363ed4f20b640f37de9d2695d9c2089e2782468f0e240a2169a",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "faa1afaaa12a6befcef5d39d27432de140ac21e17fc3209e63a80d2451b6959e",
+        "expected_final_gamestate.txt": "01b85b920a915a85c40e032ef2dc74c971a2eb2905183a929a651f199c4d4389",
+        "meta.json": "f44cf40db404eb73bfa51d3612fb2d9207fe0a09aff2c6975b3a3c5bd02f2ef6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5fc3a0f889f3e363ed4f20b640f37de9d2695d9c2089e2782468f0e240a2169a",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "faa1afaaa12a6befcef5d39d27432de140ac21e17fc3209e63a80d2451b6959e",
+        "expected_final_gamestate.txt": "01b85b920a915a85c40e032ef2dc74c971a2eb2905183a929a651f199c4d4389",
+        "meta.json": "f44cf40db404eb73bfa51d3612fb2d9207fe0a09aff2c6975b3a3c5bd02f2ef6"
+      },
+      "actions": 6,
+      "native_assertions": 451,
+      "manual_passes": 4,
+      "pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "actual_manual_settings_per_seat": 12,
+      "initial_final_full_physical_profiles_match": true,
+      "all_supported_actions_and_native_oracles_exact": true,
+      "author_only_defense_checks": 0,
+      "final_window": "ACTION",
+      "final_combat_open": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "derived_yendurai_remaining_life": null,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "assertions": 114
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_zap_declares_target_before_assets_and_responses",
+          "assertions": 41
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_zero_cost_zap_paid_action_and_target_bound",
+          "assertions": 37
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "zap_arcane_source_manual_response_1_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "zap_arcane_source_manual_response_2_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "zap_arcane_source_manual_response_3_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "zap_arcane_source_fourth_manual_response_boundary",
+          "assertions": 35
+        },
+        {
+          "source_step": 13,
+          "action_step": 6,
+          "checkpoint": "final_real_three_arcane_fully_prevented_aura_retained",
+          "assertions": 116
+        }
+      ],
+      "canonical_case_sha256": "7c9f1165efe2c4ce24784f085c54a8fafe8edcc616045df41b0e573266a0d047",
+      "recorded_input_sha256": "1ae42b9ef2a77c925f0a901f95c6d757a3f1bbd0fcd0671b9f45d763dfc8e0cb",
+      "recorded_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "current_qualification_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "current_clean_replays": [
+        "card-regression-replay-sparse199-20261025-r1.json",
+        "card-regression-replay-sparse199-20261025-r2.json"
+      ]
+    },
+    {
+      "index": 2,
+      "slug": "card-enchanting-melody-red-four-live-sparse-active-owned-aura-consumed-preventing-real-four",
+      "semantically_approved": true,
+      "fixture_sha256": "66aca6404de59d98916c008f32941347b27cde93a60ac3b68ad685e88d91826c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b310bd078860cc1eeba703d1e4c2977e732e5a80d55c931f4a3770ab85cc455",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "49a2132746fc0c74c40b181e0e458be55df4fc6ee785691732111f79837133fe",
+        "expected_final_gamestate.txt": "abdac2717d338c9bb8dc7b8b46cad2f6364e185180bffa3ba3529880321442dd",
+        "meta.json": "ee88daa4f218f38895108f82ce9359033d71056e0b8bf3a340e0d4c0511ab16e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1b310bd078860cc1eeba703d1e4c2977e732e5a80d55c931f4a3770ab85cc455",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "49a2132746fc0c74c40b181e0e458be55df4fc6ee785691732111f79837133fe",
+        "expected_final_gamestate.txt": "abdac2717d338c9bb8dc7b8b46cad2f6364e185180bffa3ba3529880321442dd",
+        "meta.json": "ee88daa4f218f38895108f82ce9359033d71056e0b8bf3a340e0d4c0511ab16e"
+      },
+      "actions": 27,
+      "native_assertions": 1391,
+      "manual_passes": 25,
+      "pass_actors": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_manual_settings_per_seat": 12,
+      "initial_final_full_physical_profiles_match": true,
+      "all_supported_actions_and_native_oracles_exact": true,
+      "author_only_defense_checks": 0,
+      "final_window": "ACTION",
+      "final_combat_open": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "derived_yendurai_remaining_life": null,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "assertions": 114
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "declare_actual_adjacent_target_before_payment_and_responses",
+          "assertions": 35
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_zero_resource_attack_paid_one_action_point",
+          "assertions": 36
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "attack_layer_manual_response_1_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "attack_layer_manual_response_2_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "attack_layer_manual_response_3_of_four",
+          "assertions": 36
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "attack_layer_fourth_manual_response_boundary",
+          "assertions": 43
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "attack_step_manual_response_1_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "attack_step_manual_response_2_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "attack_step_manual_response_3_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "attack_step_fourth_manual_response_boundary",
+          "assertions": 43
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_defender_finishes_block_declaration",
+          "assertions": 43
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "defend_step_manual_response_1_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "defend_step_manual_response_2_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "defend_step_manual_response_3_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "defend_step_fourth_manual_response_boundary",
+          "assertions": 43
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "reaction_step_real_damage_manual_response_1_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "reaction_step_real_damage_manual_response_2_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "reaction_step_real_damage_manual_response_3_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "reaction_step_real_damage_fourth_manual_response_boundary",
+          "assertions": 43
+        },
+        {
+          "source_step": 39,
+          "action_step": 19,
+          "checkpoint": "real_post_prevention_damage_and_physical_effect",
+          "assertions": 45
+        },
+        {
+          "source_step": 41,
+          "action_step": 20,
+          "checkpoint": "damage_step_manual_response_1_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 43,
+          "action_step": 21,
+          "checkpoint": "damage_step_manual_response_2_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 45,
+          "action_step": 22,
+          "checkpoint": "damage_step_manual_response_3_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 47,
+          "action_step": 23,
+          "checkpoint": "damage_step_fourth_manual_response_boundary",
+          "assertions": 43
+        },
+        {
+          "source_step": 49,
+          "action_step": 24,
+          "checkpoint": "resolution_step_manual_response_1_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 51,
+          "action_step": 25,
+          "checkpoint": "resolution_step_manual_response_2_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 53,
+          "action_step": 26,
+          "checkpoint": "resolution_step_manual_response_3_of_four",
+          "assertions": 43
+        },
+        {
+          "source_step": 55,
+          "action_step": 27,
+          "checkpoint": "resolution_step_fourth_manual_response_boundary",
+          "assertions": 35
+        },
+        {
+          "source_step": 56,
+          "action_step": 27,
+          "checkpoint": "final_full_four_live_actual_health_economy_identity_and_effect",
+          "assertions": 115
+        }
+      ],
+      "canonical_case_sha256": "cfd19177cda1500ecf117c51f94ec016e51a5afc886cee83444ade922504b420",
+      "recorded_input_sha256": "1ae42b9ef2a77c925f0a901f95c6d757a3f1bbd0fcd0671b9f45d763dfc8e0cb",
+      "recorded_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "current_qualification_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "current_clean_replays": [
+        "card-regression-replay-sparse199-20261025-r1.json",
+        "card-regression-replay-sparse199-20261025-r2.json"
+      ]
+    },
+    {
+      "index": 3,
+      "slug": "card-yendurai-four-live-sparse-active-owned-dragon-endurance-prevents-three-of-real-four",
+      "semantically_approved": true,
+      "fixture_sha256": "c189f2f26419c02c35356fd26c1925d301f32dad688e353528f77c1f703bafa9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4f3e56c8010d6ce467c98f72826d5c103ea42a9d5ebaf4a5c7251a703e6c414",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "09a904604c2a66093c0dc076a5a6cceca60fb7eafddbeb92e19c796eabdd411f",
+        "expected_final_gamestate.txt": "13d280b5ec03cc1f7518d49ed7a856a8e60fbc71523fbdf451702fa8509243f5",
+        "meta.json": "2bccfd13015645206b1cf100c1b8abddd6e3676447176c26ddb41d799903996b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f4f3e56c8010d6ce467c98f72826d5c103ea42a9d5ebaf4a5c7251a703e6c414",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "09a904604c2a66093c0dc076a5a6cceca60fb7eafddbeb92e19c796eabdd411f",
+        "expected_final_gamestate.txt": "13d280b5ec03cc1f7518d49ed7a856a8e60fbc71523fbdf451702fa8509243f5",
+        "meta.json": "2bccfd13015645206b1cf100c1b8abddd6e3676447176c26ddb41d799903996b"
+      },
+      "canonical_case_sha256": "e9b91c4beefe5d95db5f72b7aca1149622d04fbd9e85b4613ef888169d2ea609",
+      "recorded_input_sha256": "cf8e3d2a6e35b55c68acae51a52c9b5ffb50c5e9ab1c01fa70171b07331b241c",
+      "actions": 27,
+      "native_assertions": 1451,
+      "manual_passes": 25,
+      "pass_actors": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_manual_settings_per_seat": 12,
+      "initial_final_full_physical_profiles_match": true,
+      "all_supported_actions_and_native_oracles_exact": true,
+      "author_only_defense_checks": 0,
+      "final_window": "ACTION",
+      "final_combat_open": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "derived_yendurai_remaining_life": 2,
+      "zero_endurance_key_absence_verified": true,
+      "immutable_recording_receipt": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch199-20261025T204149Z-6ade698da4c97.json",
+        "sha256": "41d6bcb9ee5b908907188220eec8e6a43ce109e69c9248ea7e68ee3ed5a2a19f"
+      },
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_owned_legal_four_live_initial_fixture",
+          "assertions": 116
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "declare_actual_adjacent_target_before_payment_and_responses",
+          "assertions": 37
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_zero_resource_attack_paid_one_action_point",
+          "assertions": 38
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "attack_layer_manual_response_1_of_four",
+          "assertions": 38
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "attack_layer_manual_response_2_of_four",
+          "assertions": 38
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "attack_layer_manual_response_3_of_four",
+          "assertions": 38
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "attack_layer_fourth_manual_response_boundary",
+          "assertions": 45
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "attack_step_manual_response_1_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "attack_step_manual_response_2_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "attack_step_manual_response_3_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "attack_step_fourth_manual_response_boundary",
+          "assertions": 45
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_defender_finishes_block_declaration",
+          "assertions": 45
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "defend_step_manual_response_1_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "defend_step_manual_response_2_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "defend_step_manual_response_3_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "defend_step_fourth_manual_response_boundary",
+          "assertions": 45
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "reaction_step_real_damage_manual_response_1_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "reaction_step_real_damage_manual_response_2_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "reaction_step_real_damage_manual_response_3_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "reaction_step_real_damage_fourth_manual_response_boundary",
+          "assertions": 45
+        },
+        {
+          "source_step": 39,
+          "action_step": 19,
+          "checkpoint": "real_post_prevention_damage_and_physical_effect",
+          "assertions": 47
+        },
+        {
+          "source_step": 41,
+          "action_step": 20,
+          "checkpoint": "damage_step_manual_response_1_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 43,
+          "action_step": 21,
+          "checkpoint": "damage_step_manual_response_2_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 45,
+          "action_step": 22,
+          "checkpoint": "damage_step_manual_response_3_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 47,
+          "action_step": 23,
+          "checkpoint": "damage_step_fourth_manual_response_boundary",
+          "assertions": 45
+        },
+        {
+          "source_step": 49,
+          "action_step": 24,
+          "checkpoint": "resolution_step_manual_response_1_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 51,
+          "action_step": 25,
+          "checkpoint": "resolution_step_manual_response_2_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 53,
+          "action_step": 26,
+          "checkpoint": "resolution_step_manual_response_3_of_four",
+          "assertions": 45
+        },
+        {
+          "source_step": 55,
+          "action_step": 27,
+          "checkpoint": "resolution_step_fourth_manual_response_boundary",
+          "assertions": 37
+        },
+        {
+          "source_step": 56,
+          "action_step": 27,
+          "checkpoint": "final_full_four_live_actual_health_economy_identity_and_effect",
+          "assertions": 117
+        }
+      ],
+      "recorded_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "current_qualification_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "current_clean_replays": [
+        "card-regression-replay-sparse199-20261025-r1.json",
+        "card-regression-replay-sparse199-20261025-r2.json"
+      ]
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "sparse199-all-four-actual-saved-independent-review.json",
+    "sha256": "eb14ce2ef65414565de9b730ed6a71493e46d75239f4a0967059ac1ce1591653",
+    "retention": "Historical full review outside repository; exact saved observations and limits retained here."
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse199-20261025-r1.json",
+      "sha256": "d6eb957ff11ff11428ef483c7d30eb28ec2232c5d200e92807ba2ec70393d397"
+    },
+    {
+      "path": "card-regression-replay-sparse199-20261025-r2.json",
+      "sha256": "541050bd15c8de1ad7fc8599940905bc29be4001328172b13902479bea59c3ad"
+    }
+  ],
+  "qualification": "One exact primary representative per previously uncovered group. Four live/manual seats. No sibling or full-card credit. Four native mechanism controls cover Skullcap/Pyroglyphic/Melody/Rain; Yendurai/Talishar/Induction have positive physical/economy evidence without isolated native counter mechanism faults. Stir/Briar retains true unchanged-correct-expectation before-fail/after-pass proof. Controlled contracts add no native branch coverage."
+}

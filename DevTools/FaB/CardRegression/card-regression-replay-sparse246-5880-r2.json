@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch246.json",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T12:59:30.931671+00:00",
+  "fixtures": [
+    {
+      "slug": "card-heart-of-vengeance-four-live-sparse-real-eligible-arakni-target-discounts-paid-attack-three-to-two",
+      "fixture_sha256": "feea0d92b9f79f0b3fc0d567221da50d5a60a6fa776621dcffe2510c4700d13d",
+      "passed": true,
+      "result": "[PASS] heart_of_vengeance / lean meaningful four-live representative"
+    },
+    {
+      "slug": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "fixture_sha256": "7d2ec096d71c4c81e96877864129c24b119783983ac536158c86c55a0125bc75",
+      "passed": true,
+      "result": "[PASS] blazing_aether_red / lean meaningful four-live representative"
+    },
+    {
+      "slug": "card-riled-up-red-four-live-sparse-real-six-power-discard-earned-plus-one-and-paid-eight-damage",
+      "fixture_sha256": "937ba0c44f6c690b8bba2ac072dd6b4afea789f6e9a37a0ad9a92e5a8d14d321",
+      "passed": true,
+      "result": "[PASS] riled_up_red / lean meaningful four-live representative"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-heart-of-vengeance-four-live-sparse-real-eligible-arakni-target-discounts-paid-attack-three-to-two",
+      "returncode": 0,
+      "stdout": "[PASS] heart_of_vengeance / lean meaningful four-live representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "returncode": 0,
+      "stdout": "[PASS] blazing_aether_red / lean meaningful four-live representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-riled-up-red-four-live-sparse-real-six-power-discard-earned-plus-one-and-paid-eight-damage",
+      "returncode": 0,
+      "stdout": "[PASS] riled_up_red / lean meaningful four-live representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

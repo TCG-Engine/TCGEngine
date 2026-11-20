@@ -1,0 +1,7 @@
+Create a seamless five-second ambient loop of this exact cartoon cedar grove for an adventure game.
+
+The trees are solid, rooted cedar trees. Preserve the exact shape, volume, layering and identity of every tree. Keep trunks, main limbs and the large masses of foliage rigid and stationary. Animate only a restrained breeze through the outer branch tips and small needle clusters, with about 2–4 pixels of tip movement at the supplied 576×384 image size. Different branches respond at slightly different times. A few complete small shrubs may gently rustle. The result should feel like light air through a forest, not trees dancing or bending as a group.
+
+No whole-crown rocking, synchronized side-to-side swaying, rubbery stretching, squash and stretch, melting foliage, changing tree size, texture crawling or sliding image layers. Do not expand or contract the tree silhouettes. The partial palms and market objects at the edges remain stationary. Rocks, roots, ground, paths, walls, shadows and exposure remain exactly fixed. Camera fully locked: no pan, zoom, shake or reframing. Preserve the original flat cartoon artwork, dark outlines and palette. No added objects, particles, text or audio.
+
+The supplied first and last keyframes are identical. Return precisely to the supplied scene for a clean continuous loop, without a sudden reset or frozen ending. Keep the motion restrained and localized throughout.

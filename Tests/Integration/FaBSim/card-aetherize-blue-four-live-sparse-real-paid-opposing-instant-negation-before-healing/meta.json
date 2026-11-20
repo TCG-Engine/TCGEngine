@@ -1,0 +1,7 @@
+{
+    "name": "aetherize_blue / real paid opposing Instant negation before healing",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T17:54:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoung20heroes(P1Dori/P2Dori/P3Dori/P4VerdanceWizard), APonlyP1=1. P1realSigilRed5GenericInstant0announcedStackbeforehealing/AP1retained. Threeactualresponses1/2/3giveP4prioritywhileSigilstillStack/HP20. P4realAetherizeBlue6Instant1announcedStack1; actualPreparetargetdeclaredBEFOREpayment, eligiblepublicInstantcardsStack0Sigilcost0andStack1Aetherizecost1. CurrentCR5.1.2announceslayerbeforetargets;1.8.5apublicStacktargetable;8.5.26aexplicitself-negationmeansselfofferNOTclassifiedbug. ChosenactualopposingSigilStack0, normalemptyDQPITCHthenrealBlue7Handclickpitches3/pays1->P4R2/AP0. Fourrealcounterresponses4/1/2/3resolveNegate: physicalSigil5clearedStacktoowner1publicGYWITHOUTresolvingheal, Aetherize6ownpublicGYowner4, bothqueuesemptyStack0. P1HP20(not23)andAP1, P4HP20R2AP0, Pitch7owned4. No fakehistory/AP/permissions; noHeroheal/Earthbanish/contract/attack. Self-negation/othercost/othercontroller/retarget/source-removal/negate-suppressionbranchesunexercised. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CRU164.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

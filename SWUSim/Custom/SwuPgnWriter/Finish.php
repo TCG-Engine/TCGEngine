@@ -3,6 +3,19 @@
 // player's own view) — each checked by our reader, behind the PII gate, plus one health line. Runs once per finish
 // (meta.finished); a bookmark that reopens the game clears it (Recorder.php SwuPgnRecRestore).
 
+// [WriterRevision] (§5.2): bump on EVERY change to what the writer writes that a reader can see (§22). 1 = the first
+// revision with the tag (the Homeworlds revision of 1.0, 2026-10-26). 2 = the 2026-10-28 text: INIT R0.S.0, ROUND_START active,
+// resources entering exhausted on their MOVE, §6.1 token names, STATS traits/blank/leaderUnit, keyframe owner/foreignResources/
+// upgradeControllers/traits, upgrade TAKE_CONTROL, SEARCH owner/seen, LOOK (scry), NAME, disclose REVEAL, combat-damage simul,
+// ability-made plays/attacks lettered, card ids zero-padded (SOR#095).
+// 3 — the 2026-11-01 Forge review: revealing search = SEARCH · REVEAL · MOVE of one copy, look-at-hand LOOK / hand REVEAL,
+// no `@` pictures or OK-only popups as CHOICEs, §9.1 numbering when a play/attack asks before it announces, Exploit
+// defeatedBy = the played copy and filed `for` its PLAY.
+// 4 — named Action abilities: a unit's ABILITY_ACTIVATE names the unit whose ability it is (a granted Action: the host,
+// grantedBy the upgrade / Satine), with `ability` (the id, plus the copy for a per-copy limit), `title` and `limit`;
+// keyframes carry each seat's `abilityUses`, and a limited card leaving the arenas writes an ABILITY_RESET (W-49).
+const SWUPGN_WRITER_REVISION = 4;
+
 // The engine's own words for the ending, in the spec's style (§5.1 Reason, e.g. "Base Destroyed").
 function _SwuPgnEndReason(): string {
     $r = strval(DecisionQueueController::GetVariable('GAMEOVER_REASON') ?? '');
@@ -15,7 +28,7 @@ function _SwuPgnEndReason(): string {
 
 function SwuPgnRecFinishIfOver(string $g): void {
     $w = SWUGetGameWinner();
-    if ($w <= 0) return;
+    if ($w === 0) return;   // not over; a draw (SWU_GAME_DRAW, -1) finishes with Result: Draw
     $meta = SwuPgnMetaRead($g);
     if ($meta === null || empty($meta['recording']) || !empty($meta['finished'])) return;
     SwuPgnRecFinish($g, $w, _SwuPgnEndReason());
@@ -46,10 +59,32 @@ function SwuPgnSeatUsernames(array $meta): array {
     return $out;
 }
 
-// True when a username (3+ characters, any case) appears in the file outside the CARDS index, card ids and card names
-// (a player named "Wampa" must not block a game with a Wampa in it).
+// Every word of the cards' own text — titles, subtitles, printed and deployed text, traits — and every set code (the
+// CardPool header, card refs like ASH#230), lowercased, once a request.
+function _SwuPgnGameVocabulary(): array {
+    static $vocab = null;
+    if ($vocab !== null) return $vocab;
+    $vocab = [];
+    foreach (array_keys((array)($GLOBALS['titleData'] ?? [])) as $id) if (preg_match('/^([A-Za-z0-9]+)_/', (string)$id, $m)) $vocab[strtolower($m[1])] = true;
+    foreach (['titleData', 'subtitleData', 'textData', 'deployTextData', 'traitData'] as $g) {
+        foreach ((array)($GLOBALS[$g] ?? []) as $s) {
+            foreach (preg_split('/[^\p{L}\p{N}]+/u', mb_strtolower((string)$s), -1, PREG_SPLIT_NO_EMPTY) as $w) $vocab[$w] = true;
+        }
+    }
+    return $vocab;
+}
+
+// True when a username (3+ characters, any case) appears in the file as a WHOLE WORD, outside the CARDS index, card
+// ids and card names (a player named "Wampa" must not block a game with a Wampa in it). A username made only of words
+// the cards themselves use ("Ash", "Deal", "Luke Skywalker") is not scanned: the game's own prompts and printed text
+// are full of those words, and finding one says nothing about who played.
 function SwuPgnPiiScan(string $text, array $usernames): bool {
-    $names = array_values(array_filter(array_map('strval', $usernames), fn($u) => mb_strlen(trim($u)) >= 3));
+    $vocab = _SwuPgnGameVocabulary();
+    $gameWordsOnly = function (string $u) use ($vocab): bool {
+        $words = preg_split('/[^\p{L}\p{N}]+/u', mb_strtolower($u), -1, PREG_SPLIT_NO_EMPTY);
+        return $words !== [] && count(array_filter($words, fn($w) => !isset($vocab[$w]))) === 0;
+    };
+    $names = array_values(array_filter(array_map(fn($u) => trim(strval($u)), $usernames), fn($u) => mb_strlen($u) >= 3 && !$gameWordsOnly($u)));
     if (!$names) return false;
     $cardNames = [];
     $section = '';
@@ -60,7 +95,11 @@ function SwuPgnPiiScan(string $text, array $usernames): bool {
     }
     usort($cardNames, fn($a, $b) => mb_strlen($b) <=> mb_strlen($a));
     $idKeys = array_flip(array_merge(SWUPGN_ID_FIELDS, SWUPGN_ID_LIST_FIELDS, ['id', 'name', 'leader', 'base', 'deck', 'sideboard',
-        'hand', 'discard', 'resources', 'upgrades', 'captured', 'p1DeckOrder', 'p2DeckOrder']));
+        'hand', 'discard', 'resources', 'upgrades', 'captured', 'p1DeckOrder', 'p2DeckOrder', 't', 'seq', 'for', 'simul']));
+    // Headers the writer fills from its own data — hashes, dates, counts, card refs. P1 / P2 (the seat labels), Reason and
+    // any header not listed here are scanned.
+    $fixedHeaders = array_flip(['Game', 'WriterRevision', 'GameId', 'Date', 'EndDate', 'Format', 'CardPool', 'Engine', 'Seed',
+        'P1Id', 'P2Id', 'P1Leader', 'P1Base', 'P2Leader', 'P2Base', 'Result', 'Rounds', 'Match', 'GameNumber', 'Undos', 'RecorderErrors']);
     $strings = [];
     $collect = function ($v, $key) use (&$collect, &$strings, $idKeys): void {
         if ($key !== null && isset($idKeys[$key])) return;
@@ -71,13 +110,14 @@ function SwuPgnPiiScan(string $text, array $usernames): bool {
     foreach ($lines as $line) {
         if (str_starts_with($line, '%%%')) { $section = strtoupper(trim(substr($line, 3))); continue; }
         if ($section === 'CARDS') continue;
+        if ($section === '' && preg_match('/^\[(\w+) "/', $line, $hm) && isset($fixedHeaders[$hm[1]])) continue;
         if ($section === '' || $section === 'STORY') { $strings[] = $line; continue; }
         $r = json_decode($line, true);
         if (is_array($r)) $collect($r, null); else $strings[] = $line;
     }
     foreach ($strings as $s) {
         foreach ($cardNames as $cn) $s = str_ireplace($cn, ' ', $s);
-        foreach ($names as $u) if (mb_stripos($s, $u) !== false) return true;
+        foreach ($names as $u) if (preg_match('/(?<![\p{L}\p{N}_])' . preg_quote($u, '/') . '(?![\p{L}\p{N}_])/iu', $s)) return true;
     }
     return false;
 }
@@ -105,7 +145,13 @@ function _SwuPgnCardsIndex(array $doc): array {
         if ($title === '') continue;
         $sub = strval(CardSubtitle($cardID) ?? '');
         $kind = _SwuPgnCardKind($cardID);
-        $out[] = ['id' => $id, 'name' => $sub !== '' ? "$title, $sub" : $title] + ($kind !== null ? ['kind' => $kind] : []);
+        $name = $sub !== '' ? "$title, $sub" : $title;
+        // A leader whose Leader Unit side is another card (Tarkin → The Death Star): the front is the name, the other side
+        // backSideName (§6.5).
+        $back = strval(CardLeaderUnitTitle($cardID) ?? '');
+        $backSub = strval(CardLeaderUnitSubtitle($cardID) ?? '');
+        if ($back !== '') $back = $backSub !== '' ? "$back, $backSub" : $back;
+        $out[] = ['id' => $id, 'name' => $name] + ($kind !== null ? ['kind' => $kind] : []) + ($back !== '' && $back !== $name ? ['backSideName' => $back] : []);
     }
     usort($out, fn($a, $b) => strcmp($a['id'], $b['id']));
     return $out;
@@ -135,7 +181,7 @@ function SwuPgnBuildDoc(string $g, array $meta, array $state, array $events, int
         $decks[] = $row;
     }
     $headers = [
-        'Game' => 'SWU-PGN/1.0', 'GameId' => $gameId, 'Date' => strval($meta['startedAt'] ?? gmdate('Y-m-d\TH:i:s\Z')),
+        'Game' => 'SWU-PGN/1.0', 'WriterRevision' => strval(SWUPGN_WRITER_REVISION), 'GameId' => $gameId, 'Date' => strval($meta['startedAt'] ?? gmdate('Y-m-d\TH:i:s\Z')),
         'EndDate' => gmdate('Y-m-d\TH:i:s\Z'), 'Format' => strval($meta['format'] ?? ''),
         'CardPool' => implode(',', $meta['cardPool'] ?? []), 'Engine' => SwuPgnEngineId(), 'Seed' => strval($meta['seed'] ?? ''),
         'P1Id' => $playerId(1), 'P2Id' => $playerId(2), 'P1' => 'Player 1', 'P2' => 'Player 2',
@@ -156,7 +202,7 @@ function SwuPgnBuildDoc(string $g, array $meta, array $state, array $events, int
     }
     if (intval($meta['undos'] ?? 0) > 0) $headers['Undos'] = strval(intval($meta['undos']));
     if (intval($meta['recorderErrors'] ?? 0) > 0) $headers['RecorderErrors'] = strval(intval($meta['recorderErrors']));
-    $setup = isset($meta['setup']) ? [['seq' => 'R1.S.0', 't' => 'INIT', 'p1DeckOrder' => $meta['setup']['p1DeckOrder'] ?? [],
+    $setup = isset($meta['setup']) ? [['seq' => 'R0.S.0', 't' => 'INIT', 'p1DeckOrder' => $meta['setup']['p1DeckOrder'] ?? [],
         'p2DeckOrder' => $meta['setup']['p2DeckOrder'] ?? []]] : [];
     $doc = ['headers' => $headers, 'story' => null, 'decks' => $decks, 'cards' => [], 'setup' => $setup, 'events' => $events];
     $doc['cards'] = _SwuPgnCardsIndex($doc);
@@ -207,6 +253,8 @@ function SwuPgnRecFinish(string $g, int $winner, string $reason): void {
         } else {
             $dir = SwuPgnRecDir($g) . '/out';
             foreach ($texts as $k => $t) _SwuPgnWriteAtomic("$dir/$k.swupgn", $t);
+            // SWU Forge wants the all-seeing file; the delivery itself is the worker's (SWUSim/SWUForgeDelivery.php).
+            if (function_exists('SWUForgeEnqueueGame')) SWUForgeEnqueueGame($g, $meta, $texts['all']);
         }
         $meta['finished'] = true;
         $meta['endedAt'] = gmdate('Y-m-d\TH:i:s\Z');

@@ -1,0 +1,44 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Great Grass Plains
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #4 of 485 (11-3-0), player tunicoberno
+#   https://melee.gg/Decklist/View/120d4787-4806-4641-8120-b4fa011bfbc6 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Director Krennic (LAW) Blue (Naboo) list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 51 (base minimum 50), sideboard 10.
+# Archetype: midrange — the owner's label from hmw-meta-2026-09/director-krennic_law_blue_naboo.txt
+# Style: midrange
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 HMW_020
+
+Deck
+3 ASH_116
+3 JTL_032
+3 HMW_110
+3 LAW_159
+3 ASH_048
+3 LAW_097
+3 ASH_079
+3 ASH_097
+3 ASH_053
+2 LAW_039
+2 LOF_059
+2 HMW_094
+3 ASH_052
+3 JTL_033
+3 JTL_119
+2 LAW_101
+3 JTL_043
+1 SEC_078
+3 LOF_091
+
+Sideboard
+2 JTL_112
+2 SEC_078
+2 ASH_133
+1 JTL_041
+1 ASH_102
+1 HMW_161
+1 LAW_044

@@ -1,0 +1,301 @@
+{
+  "status": "APPROVED_EXACT_SAVED_FIRST_PASS_REPRESENTATIVES_TWO_CURRENT_REPLAYS_SCOPED_FAULT_STATUS_EXPLICIT",
+  "reviewer": "/root/b105_semantic_review",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "source_spec": "card-regression-batch215.json",
+  "source_spec_sha256": "c9c9ad94b6d1309a8102fa60710ed12c4f69b9adbc399475299070bc9cc27084",
+  "fixtures": [
+    {
+      "index": 0,
+      "slug": "card-blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource",
+      "card_id": "blood_drop_brocade",
+      "source_spec": "card-regression-batch215.json",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PENDING_TARGETED_REPLAY_AND_FOCUSED_QUALIFICATION",
+      "fixture_sha256": "9a0610a34b43638112f10d4e4c95a88204d1494e8b220aef0f3163f1884dbc11",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fc35c3ccad7bd65f32bdf929ed82b321a650bbcb6f0b55672d5d95b331e5e8a2",
+        "actions.json": "4168158e71ba0ad11466499948519c776cf0e817532eebf0575b9558bbc0b0f4",
+        "assertions.json": "064611f250bded16d9f561d99fc3d3cf5a135403facadaf6d43b6121dfa42cb7",
+        "expected_final_gamestate.txt": "6957c122c112f05efa7732171eba6105f7e3cde2c8c70433dec2305b7a064ae0",
+        "meta.json": "b5d935f024fd2bb4854805f6a6aa2cfeabf6e7177c88b04f28c2ab82c5857ae9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fc35c3ccad7bd65f32bdf929ed82b321a650bbcb6f0b55672d5d95b331e5e8a2",
+        "actions.json": "4168158e71ba0ad11466499948519c776cf0e817532eebf0575b9558bbc0b0f4",
+        "assertions.json": "064611f250bded16d9f561d99fc3d3cf5a135403facadaf6d43b6121dfa42cb7",
+        "expected_final_gamestate.txt": "6957c122c112f05efa7732171eba6105f7e3cde2c8c70433dec2305b7a064ae0",
+        "meta.json": "b5d935f024fd2bb4854805f6a6aa2cfeabf6e7177c88b04f28c2ab82c5857ae9"
+      },
+      "actions": 32,
+      "native_assertions": 1965,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "full_physical_profiles_and_ownership_verified": true,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Generic_Brocade_and_real_zero_cost_four_power_attack_no_physical_history",
+          "native_assertions": 110
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_attack_target_declaration_before_zero_resource_Action_asset",
+          "native_assertions": 48
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_zero_cost_Wounding_Action_spends_AP_before_priority_no_damage_yet",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "attack_source_layer_actual_response_1_of_four",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "attack_source_layer_actual_response_2_of_four",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "attack_source_layer_actual_response_3_of_four",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "attack_source_layer_fourth_actual_response",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "attack_step_actual_response_1_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "attack_step_actual_response_2_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "attack_step_actual_response_3_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "attack_step_fourth_actual_response",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "P4_completes_actual_defending_declaration",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "defending_priority_actual_response_1_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "defending_priority_actual_response_2_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "defending_priority_actual_response_3_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "defending_priority_fourth_actual_response",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "reaction_step_actual_response_1_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "reaction_step_actual_response_2_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "reaction_step_actual_response_3_of_four",
+          "native_assertions": 56
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "reaction_step_fourth_actual_response",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "damage_step_actual_response_1_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "damage_step_actual_response_2_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "damage_step_actual_response_3_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "damage_step_fourth_actual_response",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "resolution_step_actual_response_1_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "resolution_step_actual_response_2_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "resolution_step_actual_response_3_of_four",
+          "native_assertions": 58
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "resolution_step_fourth_actual_response",
+          "native_assertions": 48
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "real_four_physical_damage_earns_Brocade_Instant_at_AP_zero_destroy_cost_paid_no_early_resource",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "actual_Brocade_Instant_four_live_responses_actual_response_1_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "actual_Brocade_Instant_four_live_responses_actual_response_2_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "actual_Brocade_Instant_four_live_responses_actual_response_3_of_four",
+          "native_assertions": 53
+        },
+        {
+          "source_step": 64,
+          "action_step": 32,
+          "checkpoint": "actual_Brocade_Instant_four_live_responses_fourth_actual_response",
+          "native_assertions": 46
+        },
+        {
+          "source_step": 65,
+          "action_step": 32,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 109
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "input_sha256": "c9c9ad94b6d1309a8102fa60710ed12c4f69b9adbc399475299070bc9cc27084",
+      "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "recorded_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "reviewer": "/root/b105_semantic_review",
+      "current_qualification_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "current_clean_replays": [
+        "card-regression-replay-sparse215-405-20261026-r1.json",
+        "card-regression-replay-sparse215-405-20261026-r2.json"
+      ],
+      "current_qualification_status": "INDEPENDENT_POSITIVE_REVIEW_TWO_CLEAN_REPLAYS_NO_ISOLATED_NATIVE_FAULT_CLAIM",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse215-brocade-actual-saved-independent-review.json",
+    "sha256": "4a7183c9790222578c79567c5170f285ea1dc075ed93bc28f8b5edf550a76545"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse215-405-20261026-r1.json",
+      "sha256": "94532858fea0887819d98e0af62b688880d0a3028a64f6d9d34c7828fb1364de"
+    },
+    {
+      "path": "card-regression-replay-sparse215-405-20261026-r2.json",
+      "sha256": "e50746b9466b376bcf5acf83d0c27d9ef7f072f8f4190852ed1e19554bc24bf2"
+    }
+  ],
+  "isolated_native_faults": {
+    "status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS",
+    "attempted": 0,
+    "detected": 0
+  },
+  "qualification": "Exact Brocade actualphysicaldamage-earned Instantresource branch only; positive-only independent saved review andtwo cleanreplays. No isolatednativefault attempted/claimed. No forced history/counter/private/source edits, sibling/support/full-card or fullsuite credit; printed independent branch limits retained."
+}

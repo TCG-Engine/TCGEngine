@@ -1,0 +1,258 @@
+{
+  "utc": "2026-10-26T11:14:59.854341+00:00",
+  "status": "NATIVE_CONFIRMED_OPEN_DEFENSE_REACTION_LEAVES_STACK_BEFORE_BODY_COMPLETES",
+  "issue": "FAB-REG-054",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "source_spec": "card-regression-batch242-take-cover-correct-probe.json",
+  "source_spec_sha256": "5883b7d0c5527809f6b4999104406cc3b095acbba0db82251eb7e0d439e9c7bd",
+  "initial_gamestate_sha256": "15c265a9b26d5aec15248e0c840239ca9f4703cfd7e34419aa10aefd7cf6284f",
+  "immutable_native_receipt": "recording-runs/card-regression-batch242-take-cover-correct-probe-20261026T110337Z-6adf3389c7554.json",
+  "immutable_native_receipt_sha256": "bdc282985e9d9e5d307d8a8f9f3d4117772a41eb9be56739fd406b89d1494a1c",
+  "actual_attempted_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected Stack count 1, got 0.",
+  "observed_state": {
+    "window": "REACTION",
+    "combatOpen": true,
+    "combatStep": "REACTION",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 7,
+    "handBlockUIDs": [
+      5
+    ],
+    "pendingPayment": null
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [
+      {
+        "Type": "MZMAYCHOOSE",
+        "Param": "p4Hand-0",
+        "Block": 1,
+        "Tooltip": "Reload_a_card_face_down",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "take_cover_red:0:ResolveCard-await|take_cover_red:0:ResolveCard#1|1|chosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      }
+    ]
+  },
+  "source_GameLogic_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+  "rules": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+  "rules_basis": "Independent currentCR5.3.4 effects/Reload finish before5.3.6b defense-reaction card is placed onchain. CorrectfirstphysicalStack1oracle is retained.",
+  "native_scope": "24 actual inputs with four live/manual seats, real attack and reaction/priorities. Reload choice is still pending for P4; Stack is already0. Reload answer, reaction completion and remaining damage follow-through were not executed.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "limits": "FirstfailedStackcount oracle stops before later physicalChain/property assertions. No separately captured physicalChain count or cached defenseValue truth claim; handBlockUIDs5 is state evidence only. No finalReload/defense4/damage3/HP17 outcome claimed. No wholecard/pitchsiblings/generalreaction-lifecycle qualification. Initial V1 early-movement oracle rejected before native/save; currentcorrectprobe confirms an engine issue, not the earlierbad expectation."
+}

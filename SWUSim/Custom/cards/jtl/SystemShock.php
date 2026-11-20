@@ -22,6 +22,6 @@ $whenPlayedAbilities["JTL_175:0"] = function($player, $mzID = '') {
 // System Shock — defeat a non-leader upgrade attached to a unit; if you do,
                           // deal 1 to that unit (thenHandler JTL_175 reads DefeatUpgHost).
             SWUQueueDefeatUpgrade(intval($player), "Defeat_a_non-leader_upgrade",
-                may: false, max: 1, filter: "leader=0", min: 1, thenHandler: "JTL_175#0");
+                may: false, max: 1, filter: "leader=0", min: 1, thenHandler: "JTL_175#0", unitHostsOnly: true);
             return;
 };

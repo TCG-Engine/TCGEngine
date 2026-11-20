@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-draco-fire-red-four-live-sparse-actual-next-draconic-cost-one-becomes-zero-and-printed-three-gets-two",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 994
+    },
+    {
+        "slug": "card-cloud-cover-red-four-live-sparse-actual-lightning-instant-prevents-three-of-real-four-physical-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 35,
+        "assertions": 1068
+    },
+    {
+        "slug": "card-electrify-red-four-live-sparse-actual-paid-arsenal-lightning-action-draws-one-real-physical-card-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 377
+    }
+]

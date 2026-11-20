@@ -2,15 +2,17 @@
 #// ASH_230 Improvised Identity (Upgrade) — grants the host: "Action: search the top 3 for a ground unit and
 #// discard it; then you may attack with this unit, gaining the discarded unit's abilities for this attack."
 #// COVERAGE: offer=GrantSaboteur_BypassesTheEnemySentinel (+ its auto-resolve CONTROL) +
-#//                 AttachGroundOnly_SpaceNotSelectable ·
+#//                 AttachGroundOnly_SpaceNotSelectable + AttachOffer_EnemyGroundUnitsToo +
+#//                 AttachToEnemyLobot_TheOnlyGroundUnit + TwinSuns_FarSeatGroundUnitIsOffered +
+#//                 TeamSuns_TeammateAndEnemyGroundUnitsAreOffered ·
 #//           decline=DeclineSearch_TakeNothing + DiscardThenDeclineAttack ·
 #//           boundary=NoGroundInTop3_NothingDiscarded + OncePerRound_NoSecondUse +
 #//                 GainedAbilitiesExpire_TheHostIsPlainOnItsNEXTAttack (this attack vs the next) +
 #//                 the PER-COPY once-each-round set: SecondCopyOnAnotherUnit_* (two hosts),
 #//                 TwoCopiesOnOneUnit_* (one host, exhausted vs readied between the two uses) and
 #//                 CopyRearmsInTheNextRound (the subcard budget refills at the round boundary) ·
-#//           control=N/A (the upgrade attaches to a FRIENDLY ground unit and the granted action is used by
-#//                 its controller; there is no owner-scoped zone and no take-control interaction) ·
+#//           control=OnAnEnemyHost_ItsControllerUsesTheAction ("Attach to a ground unit" — any side; the
+#//                 granted action belongs to the HOST's controller, who searches their own deck) ·
 #//           reqboundary=N/A (the grant lives on the combat's SUPPORT_GRANT carrier and is consumed inside
 #//                 the same attack)
 #// ⚠ SCOPE OF THE GRANT (measured 2026-08-18): keywords come from the printed-keyword arrays; triggered
@@ -1020,3 +1022,293 @@ WithP2Deck: [SOR_095 SOR_095]
 P2BASEDMG:4
 TURNPLAYER:2
 NOEXTRAACTION
+
+---
+
+# AttachOffer_EnemyGroundUnitsToo
+#// "Attach to a ground unit." — no "friendly" (CR: an unqualified upgrade attaches to any unit), so ENEMY
+#// ground units are legal hosts. Bug report 2026-10-29: the pool was friendly-only, and a player with no
+#// ground unit of their own got "no valid targets" against the bot's Lobot. Offered: P1's Marine and P2's
+#// Lobot; NOT P1's X-Wing (space). Left pending.
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: ASH_230
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_057:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# AttachToEnemyLobot_TheOnlyGroundUnit
+#// The reported board: P1 has no ground unit, P2 has Lobot (0/4). Lobot is the sole legal host, so the
+#// upgrade auto-attaches to it (+0/+3 → 7 HP) instead of reporting no valid targets.
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: ASH_230
+WithP2GroundArena: SEC_057:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:ASH_230
+P2GROUNDARENAUNIT:0:HP:7
+P1HANDCOUNT:0
+
+---
+
+# OnAnEnemyHost_ItsControllerUsesTheAction
+#// "Attached unit gains" the Action, so it is the HOST's controller's to use: P2 uses it on their Lobot (wearing
+#// P1's Improvised Identity), discards the Battlefield Marine from P2's deck and declines the attack.
+## GIVEN
+CommonSetup: yyk/bbw
+SkipPreGame: true
+WithP2GroundArena: SEC_057:1:0
+WithP2GroundArenaUpgrade: 0:ASH_230
+WithP2Deck: [SOR_095 SOR_237 SOR_237]
+## WHEN
+- P1>Pass
+- P2>UseUnitAbility:myGroundArena-0
+- P2>AnswerDecision:SOR_095
+- P2>AnswerDecision:NO
+## EXPECT
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:READY
+
+---
+
+# TwinSuns_FarSeatGroundUnitIsOffered
+#// Any ground unit at the table: P3's Marine is offered next to P1's own; space units are not.
+## GIVEN
+CommonSetup3P: yyk/bbw/bbw/{myResources:2}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: ASH_230
+WithP1GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+WithP3SpaceArena: SOR_237:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:3
+P1SELECTABLEEXACT:myGroundArena-0&p3GroundArena-0
+
+---
+
+# TeamSuns_TeammateAndEnemyGroundUnitsAreOffered
+#// Team Suns (P1+P3 vs P2+P4): every ground unit at the table is a legal host — P1's own, teammate P3's and both
+#// enemies'. ("their" alone would drop the teammate.)
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:2}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Hand: ASH_230
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+WithP4GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myGroundArena-0&p2GroundArena-0&p3GroundArena-0&p4GroundArena-0
+
+---
+
+# GrantConditionalRaid_ResourcefulWookieeHMW117_CountsExhaustedResources
+#// ASH_230 — HMW_117 Chewbacca's Raid is a CONDITIONAL keyword ("Raid 1 for each exhausted resource you
+#// control"), so it is not in the printed-keyword table the transplant reads. The host must still gain it:
+#// 3 of 5 resources exhausted -> Raid 3, so SOR_046 (3 power) deals 3 + 3 = 6. Reported live: no Raid at all.
+#// "You" is the HOST's controller, read off the host (the card body stays host-scoped).
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 2:SOR_095:1,3:SOR_095:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:6
+
+---
+
+# GrantConditionalOverwhelm_ResourcefulWookieeHMW117_AllResourcesExhausted
+#// ASH_230 — the second HMW_117 clause, "while each resource you control is exhausted, this unit gains
+#// Overwhelm". All 5 exhausted: the host swings for 3 + Raid 5 = 8 into a 3/3 Battlefield Marine and the
+#// excess 5 spills to the base. Without the lent Overwhelm the Marine dies and the base takes nothing.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 5:SOR_095:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:5
+
+---
+
+# CONTROL_GrantConditionalOverwhelm_OneResourceReady_NoSpill
+#// ASH_230 — the near-miss for the section above. One READY resource switches HMW_117's Overwhelm off, so the
+#// same attack (3 + Raid 4 = 7 into the 3/3 Marine) kills it with no spill. A lent Overwhelm that ignored the
+#// "each" condition would put 4 on the base here.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 1:SOR_095:1,4:SOR_095:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:0
+
+---
+
+# GrantConditionalRaid_ResourcefulWookieeOnHimself_Stacks
+#// ASH_230 on HMW_117 itself, discarding a second HMW_117: he now has the Raid clause twice, and Raid values
+#// add (CR 7.5.8.b), so 2 exhausted resources -> Raid 2 + Raid 2 = 4 on a 0-power attacker. Same
+#// "a lent copy of an ability you already have applies twice" reading as GainedStaticAbilityStacks_*.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 3:SOR_095:1,2:SOR_095:0
+WithP1GroundArena: HMW_117:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_117 SOR_063 SOR_063]
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_117
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:4
+
+---
+
+# GrantFromHunterSEC208_ExhaustedDefenderGetsMinusFour
+#// Discord report 2026-11-04: "Improvised Identity doesn't seem to be picking up Hunter SEC's -4/-0 on attack ability".
+#// SEC_208 Hunter (Extraordinary Tracker) — "Saboteur. On Attack: If the defender is exhausted, it gets -4/-0 for this
+#// attack." SOR_046 (wearing the upgrade) discards Hunter and attacks P2's EXHAUSTED SOR_095 (3/3): with the granted
+#// On Attack the defender deals 3 - 4 → 0 combat damage back, so the host takes none.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SEC_208 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:0:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SEC_208
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# CONTROL_GrantFromHunterSEC208_ReadyDefenderKeepsItsPower
+#// The other half of Hunter's condition: a READY defender is not affected, so it deals its full 3 back.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SEC_208 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SEC_208
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# GrantFromMandalorianIC27157_ExhaustedDefenderGetsMinusFour
+#// The same check as Hunter's, same gap: IC27_157 The Mandalorian (From the Shadows) prints SEC_208's On Attack word for
+#// word, and its synchronous -4/-0 read only the attacker's OWN CardID. Granted, it must apply the same way.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [IC27_157 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:0:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:IC27_157
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# GrantFromChainCodeCollectorSHD216_BountyDefenderGetsMinusFour
+#// Same gap: SHD_216 Chain Code Collector — "On Attack: If the defender has a Bounty, it gets -4/-0 for this attack."
+#// The Bounty unit SHD_095 (2/3) deals 2 - 4 → 0 back, so the host takes none.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SHD_216 SOR_063 SOR_063]
+WithP2GroundArena: SHD_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SHD_216
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# GrantFromHanSoloIBH010_DefenderGetsMinusTwo
+#// Same gap: IBH_010 Han Solo — "Raid 2. On Attack: The defender gets -2/-0 for this attack." The ready SOR_095 (3/3)
+#// deals 3 - 2 = 1 back.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [IBH_010 SOR_063 SOR_063]
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:IBH_010
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:1

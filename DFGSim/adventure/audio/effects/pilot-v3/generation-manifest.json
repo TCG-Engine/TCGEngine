@@ -1,0 +1,52 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.65,
+  "normalize": false,
+  "style": "Single isolated high-quality sound-design element. Immediate action and short decay. Clean dry close recording, no background ambience or music. ",
+  "sounds": [
+    {
+      "id": "card-motion",
+      "file": "card-motion-v3-master.mp3",
+      "duration": 0.8,
+      "prompt": "One fast polished card-game movement: a narrow textured air sweep with a dry papery edge, accelerating quickly then cutting cleanly. Close, crisp, restrained, with no landing impact. A physical card moving with confident weight. No shimmering, musical note, electronic sweep, or long tail."
+    },
+    {
+      "id": "card-land",
+      "file": "card-land-v3-master.mp3",
+      "duration": 0.5,
+      "prompt": "One compact card-game landing: a clean papery snap over a small dense leather-and-wood knock. Firm but not heavy, close and sharply damped. One immediate contact, then silence. No bass boom, magical sparkle, ring or springy toy sound."
+    },
+    {
+      "id": "reveal",
+      "file": "reveal-v3-master.mp3",
+      "duration": 0.7,
+      "prompt": "One crisp paired card reveal: two tightly synchronized dry papery flicks opening into a very short clean breath of air, with a tiny focused low-mid snap. Controlled tactile digital card-game feedback. No chimes, sci-fi synth, fluttering repetitions or echo."
+    },
+    {
+      "id": "hit-contact",
+      "file": "hit-contact-v3-master.mp3",
+      "duration": 0.5,
+      "prompt": "One sharply defined martial-arts strike contact: a punchy leather focus-pad crack, short cloth snap and tiny upper-mid slap, instantly damped. The sharp front edge of a satisfying stylized combat hit. One hit only. No voice, ring, gunshot or electronic effect."
+    },
+    {
+      "id": "hit-body",
+      "file": "hit-body-v3-master.mp3",
+      "duration": 0.6,
+      "prompt": "One short solid low-mid padded combat thud, like a powerful kick landing squarely on a thick tightly held training shield. Dense rounded body with fast attack and no flapping. This is the body layer beneath a sharper strike sound. No added sub-bass explosion, resonant tone, voice or reverberation."
+    },
+    {
+      "id": "block",
+      "file": "block-v3-master.mp3",
+      "duration": 0.7,
+      "prompt": "One forceful glancing martial-arts parry: a compact hard padded knock followed immediately by a short diagonal rough cloth-and-air scrape moving aside. Distinct from a landed body punch; taut deflection and resistance. One block only. No sword clang, bell, wooden stick, synth or sparkling tail."
+    },
+    {
+      "id": "burn",
+      "file": "burn-v3-master.mp3",
+      "duration": 0.9,
+      "prompt": "One purposeful stylized card burn: a tight dry ignition snap followed by a fast textured paper-and-flame sweep and a few small dying embers. Restrained, tactile, concise, immediately legible as consuming a card. No magical bells, electronic riser, explosion, musical tone or long reverb."
+    }
+  ]
+}

@@ -9,7 +9,7 @@ include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/../../../AppCore/SWU/Formats.php';
-include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUBotPracticeAllowed() — the Arenabot access gate
+include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUBotPracticeAllowed() — the Arenabot access gate; SWUHighGroundCreateAllowed()
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 require_once __DIR__ . '/../../../SWUSim/Custom/SetupPanels.php';   // the setup modals' REAL data
 require_once __DIR__ . '/../../../SWUSim/Custom/MenuLobbyStats.php'; // the mode cards' REAL counts
@@ -35,6 +35,9 @@ $swuSetupBotPre  = SWUSetupBotPreCons();
 // the account copy is authoritative when signed in, and the client falls back to localStorage
 // for guests. Verified before it is used to prefill anything (see LAST_DECK below).
 $swuLastDeck = $swuLoggedIn ? LoadLastDeck((int)$_SESSION['userid']) : null;
+
+// The Welcome panel's "News & tips" carousel: these items first, then the keyboard-shortcuts tip.
+$swuNews = require __DIR__ . '/News.php';
 
 // The PvP and Twin Suns cards' stat lines. Rendered server-side as well as refreshed on the 20s
 // poll, so the first paint is the truth rather than a fixture that the poll corrects a beat later.
@@ -87,6 +90,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       </p>
 <?php endif; ?>
 
+      <!-- Each tile's stat line (.mode__stat) is at most 24 characters: it shares one line with "Enter →".
+           Enforced by SWUSim/DevTools/tests/menu_stat_lines_test.php (also checks SWUMenuStatLabel's live lines). -->
       <ul class="modes__grid">
 
         <li class="slot lift-3">
@@ -131,6 +136,31 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </a>
         </li>
 
+        <?php /* Alternate Formats (owner, 2026-11-12): the fun private formats behind one tile — High Ground (the PvP setup
+                 in its High Ground mode, as its own tile used to open) and Dualing Suns (the Twin Suns setup in its Dualing Suns
+                 mode). #setup-highground still deep-links straight to High Ground. The art is a placeholder until the owner
+                 supplies one. */ ?>
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-alternate" style="--tint: var(--tint-hg);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-highground.webp" alt="" width="1200" height="1600" decoding="async">
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Private rooms</span>
+              <h3 class="mode__title">Fun Formats</h3>
+              <span class="mode__desc">Fun ways to play: King of the Hill and 1v1 Twin Suns.</span>
+              <span class="mode__foot">
+                <span class="mode__stat">2 formats · no queue</span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-arenabot" style="--tint: var(--tint-bot);">
             <span class="mode__art" aria-hidden="true">
@@ -142,6 +172,27 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               <span class="mode__desc">Practice against five bot archetypes, from Hyper Aggro to Hard Control.</span>
               <span class="mode__foot">
                 <span class="mode__stat">Beta · always available</span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-limited" style="--tint: var(--tint-lim);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-limited.webp" alt="" width="1200" height="1600" decoding="async">
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Private room</span>
+              <h3 class="mode__title">Limited</h3>
+              <span class="mode__desc">Open packs, build a deck from your pool, and play it out.</span>
+              <span class="mode__foot">
+                <span class="mode__stat">No deck needed</span>
                 <span class="mode__go">Enter
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M4 12h15M13 6l6 6-6 6"/>
@@ -192,14 +243,56 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
                     aria-selected="false" aria-controls="ga-info-panel-replays" tabindex="-1">Replays</button>
           </div>
 
-          <div class="tabpanel" id="ga-info-panel-welcome" role="tabpanel" aria-labelledby="ga-info-tab-welcome" tabindex="0">
-            <h3 class="welcome__title">Welcome to Petranaki Arena</h3>
-            <p class="welcome__note">Everything plays in the browser. No install, no account needed.</p>
-            <ul class="keys" id="hotkey-list">
-              <li class="keys__row"><kbd class="ch">u</kbd> Undo most recent action</li>
-              <li class="keys__row"><kbd class="ch">Space</kbd> Pass optional decision</li>
-              <li class="keys__row"><kbd class="ch">Esc</kbd> Cancel matchmaking</li>
-            </ul>
+          <div class="tabpanel" id="ga-info-panel-welcome" role="tabpanel" aria-labelledby="ga-info-tab-welcome" tabindex="0">            
+            <!-- News & tips: News.php's items, then the keyboard shortcuts. Moved by hand only — no auto-rotation, which
+                 is what got the old did-you-know rotator removed (WCAG 2.2.2). Every slide shares one grid cell, so the
+                 panel is as tall as the tallest slide and does not jump between them. -->
+            <?php $swuSlideCount = count($swuNews) + 1; ?>
+            <section class="news" id="swu-news" aria-roledescription="carousel" aria-labelledby="swu-news-h">
+              <div class="news__head">
+                <h4 class="news__heading" id="swu-news-h">News &amp; tips</h4>
+                <span class="news__count" id="swu-news-count" aria-hidden="true">1 / <?php echo $swuSlideCount; ?></span>
+              </div>
+              <div class="news__viewport" id="swu-news-viewport" aria-live="polite">
+                <?php foreach ($swuNews as $i => $item):
+                  $ts = strtotime($item['date']); ?>
+                <article class="news__slide" role="group" aria-roledescription="slide" aria-label="<?php echo ($i + 1) . ' of ' . $swuSlideCount; ?>"<?php if ($i > 0) echo ' aria-hidden="true" inert'; ?>>
+                  <p class="news__kind">News · <time datetime="<?php echo htmlspecialchars($item['date']); ?>"><?php echo date('M j, Y', $ts); ?></time></p>
+                  <h5 class="news__title"><?php echo htmlspecialchars($item['title']); ?></h5>
+                  <?php if (!empty($item['image'])): ?>
+                  <img class="news__img" src="<?php echo htmlspecialchars(_VersionAsset($item['image'])); ?>" alt="" width="1280" height="640" decoding="async">
+                  <?php endif; ?>
+                  <p class="news__body"><?php echo htmlspecialchars($item['body']); ?></p>
+                </article>
+                <?php endforeach; ?>
+                <article class="news__slide" role="group" aria-roledescription="slide" aria-label="<?php echo $swuSlideCount . ' of ' . $swuSlideCount; ?>"<?php if ($swuSlideCount > 1) echo ' aria-hidden="true" inert'; ?>>
+                  <p class="news__kind">Tip</p>
+                  <h5 class="news__title">Keyboard shortcuts</h5>
+                  <ul class="keys" id="hotkey-list">
+                    <li class="keys__row"><kbd class="ch">u</kbd> Undo most recent action</li>
+                    <li class="keys__row"><kbd class="ch">Space</kbd> Pass optional decision</li>
+                    <li class="keys__row"><kbd class="ch">Esc</kbd> Cancel matchmaking</li>
+                  </ul>
+                </article>
+              </div>
+              <?php if ($swuSlideCount > 1): ?>
+              <div class="news__foot">
+                <div class="news__dots">
+                  <?php for ($i = 0; $i < $swuSlideCount; $i++): ?>
+                  <button class="news__dot" type="button" data-slide="<?php echo $i; ?>" aria-label="Show slide <?php echo ($i + 1) . ' of ' . $swuSlideCount; ?>"<?php if ($i === 0) echo ' aria-current="true"'; ?>></button>
+                  <?php endfor; ?>
+                </div>
+                <div class="news__nav">
+                  <button class="swu2-btn swu2-btn--chip news__arrow ch" type="button" data-step="-1" aria-label="Previous">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+                  </button>
+                  <button class="swu2-btn swu2-btn--chip news__arrow ch" type="button" data-step="1" aria-label="Next">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+              <?php endif; ?>
+            </section>
           </div>
 
           <div class="tabpanel" id="ga-info-panel-replays" role="tabpanel" aria-labelledby="ga-info-tab-replays" tabindex="0" hidden>
@@ -347,7 +440,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             <div class="arow">
               <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
               <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
-              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+<?php if (SWUHighGroundCreateAllowed()): /* open to everyone since 2026-11-04 — JoinQueue.php enforces the same gate */ ?>
+              <button data-act="highground" class="swu2-btn ch" type="button">Create a High Ground Lobby</button>
+<?php endif; ?>              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
           </div>
@@ -456,9 +551,12 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </div>
         </fieldset>
             </div>
+            <?php /* Dualing Suns mode only (SWU_SET_TS_MODE shows it): the rules in one breath. */ ?>
+            <p class="note ds-blurb" style="display: none;">Two counters each round: Initiative and Plan, and taking one ends your round. Stealing the initiative costs 1 damage to your own base; keeping it is free. Dualing Suns games are not recorded.</p>
             <div class="arow">
               <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
               <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
+              <button data-act="dualingsuns" class="swu2-btn swu2-btn--primary ch" type="button" style="display: none;">Create a Dualing Suns Room</button>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
@@ -507,24 +605,34 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </div>
           <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
         </div>
+        <?php /* No group shown (owner 2026-11-09: every group hidden after the Premier banlist) → no Bot Pre-Cons
+                 block below, so nothing here may point at "a pre-con below". */
+              $_groups = SWUSetupBotPreConGroups($swuSetupBotPre); ?>
         <div>
           <?php echo SWUSetupDeckLabel('ab-bot-saved', $swuSSLinked, " for the bot's deck") . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+<?php if ($_groups): ?>
           <?php echo SWUSetupDeckSourcePicker('ab-bot-saved', $swuSetupSaved, $swuSSLinked,
                     'No saved decks yet — use a pre-con below',
                     '— Use one of your saved decks or use a pre-con below —'); ?>
           <p class="note note--under">One list, the same one as above &mdash; a saved deck here, or a pre-con below, never both.</p>
+<?php else: ?>
+          <?php echo SWUSetupDeckSourcePicker('ab-bot-saved', $swuSetupSaved, $swuSSLinked,
+                    'No saved decks yet',
+                    '— Use one of your saved decks —'); ?>
+          <p class="note note--under">One list &mdash; the link above or a saved deck here, never both.</p>
+<?php endif; ?>
         </div>
+<?php if ($_groups): ?>
             <?php /* GROUPED pre-cons (owner 2026-10-01): one block per group (regen-deck-labels.php,
                      SWU_PRECON_GROUPS); each opens its own picker dialog ON TOP of this one. The pickers are
                      NESTED inside #setup-arenabot on purpose: the radios stay where SETUP_DECK_FOR, the
                      one-deck-per-slot binder, the bot-style auto-pick and the harnesses already look for them
                      (`#setup-arenabot input[name="ab-precon"]`), and showModal() still lifts each picker into
                      the top layer above this modal. They carry NO [data-close] / [data-act]: this modal binds
-                     both on every descendant, and a picker's own Done must not close it. */
-                  $_groups = SWUSetupBotPreConGroups($swuSetupBotPre); ?>
+                     both on every descendant, and a picker's own Done must not close it. */ ?>
             <fieldset class="fs">
               <legend class="lg">Bot Pre-Cons</legend>
-              <p class="note note--over"><?php echo count($swuSetupBotPre); ?> tuned decks in <?php echo count($_groups); ?> groups. Pick a group to choose one.</p>
+              <p class="note note--over"><?php echo array_sum(array_map(fn($g) => count($g['decks']), $_groups)); ?> tuned decks in <?php echo count($_groups) . (count($_groups) === 1 ? ' group' : ' groups'); ?>. Pick a group to choose one.</p>
               <div class="pcgroups">
 <?php foreach ($_groups as $_g):
       $_gid = 'pcpick-' . preg_replace('/[^A-Za-z0-9_-]+/', '-', $_g['id'] !== '' ? $_g['id'] : 'all'); ?>
@@ -560,6 +668,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               </dialog>
 <?php endforeach; ?>
             </fieldset>
+<?php endif; ?>
             <div class="prow">
           <div>
             <label class="flabel" for="ab-style">Bot Style</label>
@@ -652,6 +761,86 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         </div>
       </dialog>
 
+      <?php /* Alternate Formats (owner, 2026-11-12): pick one, then Continue opens that format's own setup — High Ground the PvP
+               setup in its 'highground' mode, Dualing Suns the Twin Suns setup in its 'dualingsuns' mode (SETUP_OPEN_ID). */ ?>
+      <dialog class="setup lift" id="setup-alternate" aria-labelledby="setup-alternate-t" style="--tint: var(--tint-hg);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-highground.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Private rooms</p>
+          <h3 class="setup__title" id="setup-alternate-t">Fun Formats</h3>
+          <p class="setup__desc">Fun ways to play. Never rated, and Dualing Suns is not recorded.</p>
+        </div>
+      </div>
+          <div class="setup__body">
+        <fieldset class="fs">
+          <legend class="lg">Format</legend>
+          <div class="seg">
+              <input class="seg__in u-vh" type="radio" name="alt-fmt" id="alt-fmt-1" value="setup-highground" checked>
+              <label class="seg__opt ch" for="alt-fmt-1">High Ground</label>
+              <input class="seg__in u-vh" type="radio" name="alt-fmt" id="alt-fmt-2" value="setup-dualingsuns">
+              <label class="seg__opt ch" for="alt-fmt-2">Dualing Suns</label>
+          </div>
+        </fieldset>
+        <p class="note" data-alt-note="setup-highground">King of the hill: winner stays on, everyone else waits in line. Up to 16 players, any 1v1 card pool.</p>
+        <p class="note" data-alt-note="setup-dualingsuns" style="display: none;">1v1 Twin Suns against a friend or a bot. Two leaders and an 80-card singleton deck; each round you take Initiative or Plan, and stealing the initiative costs 1 damage to your own base.</p>
+            <div class="arow">
+              <button data-act="alternate" class="swu2-btn swu2-btn--primary ch" type="button">Continue</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </dialog>
+
+      <?php /* Limited (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-draft-design.md): a private room created with
+               NO deck — the host picks the packs in the room, everyone builds from what they open. Its own menu item (owner,
+               2026-11-05). Creation is behind SWULimitedCreateAllowed() (open to everyone since 2026-11-05); JoinQueue enforces it too. */ ?>
+      <dialog class="setup lift" id="setup-limited" aria-labelledby="setup-limited-t" style="--tint: var(--tint-lim);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-limited.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Private room</p>
+          <h3 class="setup__title" id="setup-limited-t">Limited</h3>
+          <p class="setup__desc">Open packs, build a deck from your pool, and play it out.</p>
+        </div>
+      </div>
+          <div class="setup__body">
+        <fieldset class="fs">
+          <legend class="lg">Mode</legend>
+          <div class="seg">
+              <input class="seg__in u-vh" type="radio" name="lt-mode" id="lt-mode-1" value="sealed" checked>
+              <label class="seg__opt ch" for="lt-mode-1">Sealed (2 players)</label>
+              <input class="seg__in u-vh" type="radio" name="lt-mode" id="lt-mode-2" value="draft">
+              <label class="seg__opt ch" for="lt-mode-2">Draft (3–8 players)</label>
+          </div>
+        </fieldset>
+        <p class="note">No deck needed. Create the room, send the invite link, then choose the packs: one set, a lineup of your
+          choice, or Chaos. <b>Sealed:</b> you and your opponent open your packs, build a 30-card deck from them, and play a Best
+          of 1 or Best of 3. <b>Draft:</b> 3 to 8 players draft leaders, then cards, passing packs around the table, and build
+          from their picks. Limited games are not recorded anywhere.</p>
+<?php if (!SWULimitedCreateAllowed()): ?>
+        <p class="note">Limited is being tested — creating a room is open to moderators for now. You can still join one from an invite link.</p>
+<?php endif; ?>
+            <div class="arow">
+              <button data-act="limited" class="swu2-btn swu2-btn--primary ch" type="button"<?= SWULimitedCreateAllowed() ? '' : ' disabled' ?>>Create a Limited Room</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </dialog>
+
     <!-- Legacy submission fields. getDeckSubmission() reads THESE ids; the modals write into
          them via SYNC_ACTIVE_SETUP() just before submitting, so the proven queue/game-start path
          is untouched. ⚠ #swu-format-select must keep its id and stay hidden: private-invite.js
@@ -694,11 +883,67 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
     container.innerHTML = html;
   }
 
+  // The Welcome panel's News & tips carousel. Arrows, dots, ←/→ while focus is inside it, and a horizontal swipe.
+  // Inactive slides stay in the layout (visibility, not display) so the panel keeps the tallest slide's height; they
+  // are inert so Tab and screen readers skip them.
+  function initNewsCarousel() {
+    var root = document.getElementById('swu-news');
+    if (!root) return;
+    var slides = root.querySelectorAll('.news__slide');
+    var dots = root.querySelectorAll('.news__dot');
+    var count = document.getElementById('swu-news-count');
+    if (slides.length < 2) { if (count) count.hidden = true; return; }
+    var current = 0;
+
+    function show(n) {
+      current = (n + slides.length) % slides.length;
+      slides.forEach(function (s, i) {
+        var on = i === current;
+        s.classList.toggle('is-active', on);
+        s.toggleAttribute('inert', !on);
+        if (on) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
+      });
+      dots.forEach(function (d, i) {
+        if (i === current) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+      });
+      if (count) count.textContent = (current + 1) + ' / ' + slides.length;
+    }
+
+    root.querySelectorAll('[data-step]').forEach(function (b) {
+      b.addEventListener('click', function () { show(current + parseInt(b.dataset.step, 10)); });
+    });
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () { show(parseInt(d.dataset.slide, 10)); });
+    });
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft')  { show(current - 1); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { show(current + 1); e.preventDefault(); }
+    });
+
+    // Swipe: horizontal travel of 40px+ that beats the vertical travel. touch-action: pan-y (CSS) leaves vertical
+    // scrolling to the page.
+    var viewport = document.getElementById('swu-news-viewport');
+    var startX = null, startY = 0;
+    viewport.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      startX = e.clientX; startY = e.clientY;
+    });
+    viewport.addEventListener('pointerup', function (e) {
+      if (startX === null) return;
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      startX = null;
+      if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1));
+    });
+    viewport.addEventListener('pointercancel', function () { startX = null; });
+
+    show(0);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     renderHotkeyList();
-    // Rotate tips every 8 seconds
+    initNewsCarousel();
     // Did-you-know rotator removed with the menu redesign (also a WCAG 2.2.2 failure:
-    // auto-rotating content with no pause control).
+    // auto-rotating content with no pause control). The News & tips carousel moves by hand only.
   });
 </script>
 
@@ -1106,6 +1351,34 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         });
       }
 
+      // A High Ground (king of the hill) room: a private room with the line, the hill and the Tonight table.
+      function createHighGroundRoom() {
+        submitQueueJoin({ createPrivate: true, highGround: true });
+      }
+
+      // A Limited (Sealed) room: created with NO deck — whatever pool and deck the PvP dialog shows are ignored, because
+      // each player builds a deck from the packs the room opens (docs/superpowers/specs/2026-11-04-swusim-limited-sealed-
+      // draft-design.md). Same hand-off to the waiting room as every private lobby: the seat key goes in localStorage.
+      function createLimitedRoom() {
+        clearQueueInlineError();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', swusimAppBase() + 'APIs/Lobbies/JoinQueue.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+          var response = null;
+          try { response = JSON.parse(xhr.responseText); } catch (e) {}
+          if (!response || !response.success) { showQueueInlineError((response && response.message) || 'Unable to create the Limited room.'); return; }
+          try {
+            localStorage.setItem('tcg:lobbyAuth:' + response.lobbyID, JSON.stringify({ authKey: response.authKey, ts: Date.now() }));
+          } catch (e) {}
+          window.location.href = swusimAppBase() + 'SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(response.lobbyID);
+        };
+        xhr.onerror = function () { showQueueInlineError('Could not reach the server. Check your connection.'); };
+        var picked = document.querySelector('#setup-limited input[name="lt-mode"]:checked');
+        var mode = picked && picked.value === 'draft' ? 'draft' : 'sealed';
+        xhr.send('rootName=SWUSim&createPrivate=1&format=limited&limitedMode=' + mode + '&queueType=bo1&deckLink=&preconstructedDeck=&game_type=');
+      }
+
       function joinPrivateInvite() {
         if (!_privateInviteCode) {
           showQueueInlineError('No private invite code found in this link.');
@@ -1247,6 +1520,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         if (submission.botStyle)        params += '&botStyle=' + encodeURIComponent(submission.botStyle);
         if (submission.cardPool)        params += '&cardPool=' + encodeURIComponent(submission.cardPool);
         if (options.createPrivate)      params += '&createPrivate=1';
+        if (options.highGround)         params += '&highGround=1';
         if (options.privateInviteCode)  params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
         xhr.send(params);
       }
@@ -1844,7 +2118,21 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         }
         initializePrivateInviteFromUrl();
         refreshOpenGames();
+        resumeQueueWait();
       });
+
+      // Requeue from a public match's end screen (GameLayoutShared SWUEndRequeue) joined the queue THERE, so a refusal
+      // could be shown on the end screen; this page then owns the wait — the same pop-up and poll doJoinQueue starts.
+      function resumeQueueWait() {
+        var raw = null, w = null;
+        try { raw = sessionStorage.getItem('swu:queueWait'); sessionStorage.removeItem('swu:queueWait'); } catch (e) {}
+        try { w = raw ? JSON.parse(raw) : null; } catch (e) {}
+        if (!w || !w.lobbyID || !w.authKey) return;
+        _lastJoin = { options: {}, submission: w.submission || {} };   // a Meta Premier re-pair re-sends this join
+        _lobby_id = w.lobbyID;
+        DisplayWaitingPopup('Waiting for opponent… (Esc to cancel)', w.playerID, w.authKey, '');
+        pollLobbyUpdates(w.playerID, w.authKey);
+      }
     
 // ── setup modals, rich listboxes and format detection ──────────────────────
 /* Progressive enhancement only: the Welcome tab is correct with JS off. */
@@ -1985,12 +2273,81 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
     });
   });
 
+  /* High Ground has no dialog of its own (owner, 2026-11-05: its own menu item): it is the PvP
+     setup in its 'highground' mode — the same pool and deck pickers, only its own button and
+     head. The tile, a deep link (#setup-highground) and the PvP tile (back to 'pvp') all go
+     through here. */
+  /* Dualing Suns (owner, 2026-11-12) is the same idea on the Twin Suns setup: its 'dualingsuns' mode keeps the deck
+     pickers and pre-cons and offers only Create a Dualing Suns Room. Both are reached from the Alternate Formats dialog. */
+  var SETUP_ALIAS = { 'setup-highground': ['setup-pvp', 'highground'], 'setup-dualingsuns': ['setup-twin-suns', 'dualingsuns'] };
+  var PVP_HEADS = {
+    pvp:        { kind: 'Live play', title: 'PvP', desc: 'Queue against a live opponent, or open a private room.', art: 'hmw-pvp.webp', tint: 'var(--tint-pvp)' },
+    highground: { kind: 'Private room', title: 'High Ground', desc: 'King of the hill: winner stays on, everyone else waits in line. Pick the card pool and your deck.', art: 'hmw-highground.webp', tint: 'var(--tint-hg)' }
+  };
+  window.SWU_SET_PVP_MODE = function (dlg, mode) {
+    var h = PVP_HEADS[mode] || PVP_HEADS.pvp;
+    dlg.setAttribute('data-mode', PVP_HEADS[mode] ? mode : 'pvp');
+    dlg.style.setProperty('--tint', h.tint);
+    var q = function (s) { return dlg.querySelector(s); };
+    if (q('.setup__kind'))  q('.setup__kind').textContent = h.kind;
+    if (q('.setup__title')) q('.setup__title').textContent = h.title;
+    if (q('.setup__desc'))  q('.setup__desc').textContent = h.desc;
+    if (q('.setup__tile img')) q('.setup__tile img').src = '/TCGEngine/SharedUI/Sites/SWUSim/assets/' + h.art;
+    if (typeof window.SWU_POOL_RULES_SYNC === 'function') window.SWU_POOL_RULES_SYNC(dlg);
+  };
+  var TS_HEADS = {
+    twinsuns:    { kind: 'Multiplayer', title: 'Twin Suns', desc: 'Two leaders each. Three or four players, free-for-all or in teams.' },
+    dualingsuns: { kind: 'Private room', title: 'Dualing Suns', desc: '1v1 Twin Suns against a friend or a bot. Pick your Twin Suns deck.' }
+  };
+  /* The Twin Suns setup's two modes. 'dualingsuns' hides the card pool (it is always the Twin Suns standard pool), the
+     arrangement, Join Queue and Create Private Room, and shows the rules blurb and Create a Dualing Suns Room. Buttons use
+     style.display, not [hidden]: .swu2-btn sets display and would win over the attribute. */
+  window.SWU_SET_TS_MODE = function (dlg, mode) {
+    var ds = mode === 'dualingsuns';
+    var h = TS_HEADS[ds ? 'dualingsuns' : 'twinsuns'];
+    dlg.setAttribute('data-mode', ds ? 'dualingsuns' : 'twinsuns');
+    var q = function (s) { return dlg.querySelector(s); };
+    if (q('.setup__kind'))  q('.setup__kind').textContent = h.kind;
+    if (q('.setup__title')) q('.setup__title').textContent = h.title;
+    if (q('.setup__desc'))  q('.setup__desc').textContent = h.desc;
+    ['.setup__tools', '.poolnote', '.prow', 'button[data-act="join"]', 'button[data-act="private"]'].forEach(function (s) {
+      var el = q(s); if (el) el.style.display = ds ? 'none' : '';
+    });
+    ['.ds-blurb', 'button[data-act="dualingsuns"]'].forEach(function (s) {
+      var el = q(s); if (el) el.style.display = ds ? '' : 'none';
+    });
+    if (typeof window.SWU_POOL_RULES_SYNC === 'function') window.SWU_POOL_RULES_SYNC(dlg);
+  };
+  function resolveSetup(id) {
+    var alias = SETUP_ALIAS[id];
+    var dlg = document.getElementById(alias ? alias[0] : id);
+    return { dlg: dlg, mode: alias ? alias[1] : (id === 'setup-pvp' ? 'pvp' : (id === 'setup-twin-suns' ? 'twinsuns' : '')) };
+  }
+  function openResolved(r, from) {
+    if (r.dlg.id === 'setup-pvp') window.SWU_SET_PVP_MODE(r.dlg, r.mode);
+    if (r.dlg.id === 'setup-twin-suns') window.SWU_SET_TS_MODE(r.dlg, r.mode);
+    openSetup(r.dlg, from);
+  }
+  /* Open a setup by its id or alias ('setup-highground', 'setup-dualingsuns') — the Alternate Formats dialog's Continue. */
+  window.SETUP_OPEN_ID = function (id, from) {
+    var r = resolveSetup(id);
+    if (r.dlg && r.dlg.tagName === 'DIALOG') openResolved(r, from);
+  };
+  /* The Alternate Formats dialog shows the note of the picked format only. */
+  var altDlg = document.getElementById('setup-alternate');
+  if (altDlg) altDlg.addEventListener('change', function (e) {
+    if (!e.target || e.target.name !== 'alt-fmt') return;
+    [].slice.call(altDlg.querySelectorAll('[data-alt-note]')).forEach(function (n) {
+      n.style.display = n.getAttribute('data-alt-note') === e.target.value ? '' : 'none';
+    });
+  });
+
   document.querySelectorAll('a.mode[href^="#setup-"]').forEach(function (a) {
-    var dlg = document.getElementById(a.getAttribute('href').slice(1));
-    if (!dlg || dlg.tagName !== 'DIALOG') return;
+    var r = resolveSetup(a.getAttribute('href').slice(1));
+    if (!r.dlg || r.dlg.tagName !== 'DIALOG') return;
     a.addEventListener('click', function (e) {
       e.preventDefault();
-      openSetup(dlg, a);
+      openResolved(r, a);
     });
   });
 
@@ -1998,10 +2355,10 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
      without leaving a fragment behind that the CSS would act on. */
   var hash = location.hash;
   if (/^#setup-[\w-]+$/.test(hash)) {
-    var deep = document.getElementById(hash.slice(1));
-    if (deep && deep.tagName === 'DIALOG') {
+    var deep = resolveSetup(hash.slice(1));
+    if (deep.dlg && deep.dlg.tagName === 'DIALOG') {
       history.replaceState(null, '', location.pathname + location.search);
-      openSetup(deep, null);
+      openResolved(deep, null);
     }
   }
 
@@ -2012,7 +2369,13 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
      the feature test: if this block bailed out above, SETUP_OPEN is
      undefined and detection stands down with it, because with no
      <dialog> there is nothing to switch. */
-  window.SETUP_OPEN = openSetup;
+  /* A format-detection switch INTO PvP is always plain PvP, even if the High Ground tile used the
+     same dialog earlier (it would otherwise keep the High Ground head and offer only its button). */
+  window.SETUP_OPEN = function (dlg, from) {
+    if (dlg && dlg.id === 'setup-pvp' && window.SWU_SET_PVP_MODE) window.SWU_SET_PVP_MODE(dlg, 'pvp');
+    if (dlg && dlg.id === 'setup-twin-suns' && window.SWU_SET_TS_MODE) window.SWU_SET_TS_MODE(dlg, 'twinsuns');
+    openSetup(dlg, from);
+  };
 })();
 
 /* ==================================================================
@@ -3367,22 +3730,36 @@ window.SWU_POOL_RULES_SYNC = function (dlg) {
     }
   }
 
+  // The PvP setup has two modes (owner, 2026-11-05: High Ground is its own menu item): 'pvp' offers Join Queue + Private
+  // Room; 'highground' (the High Ground tile, SWU_SET_PVP_MODE) offers only Create a High Ground Lobby — same pool and
+  // deck pickers, so nothing is duplicated.
+  var hgMode = dlg.getAttribute('data-mode') === 'highground';
+  // The Twin Suns setup's 'dualingsuns' mode (SWU_SET_TS_MODE) offers only Create a Dualing Suns Room.
+  var dsMode = dlg.getAttribute('data-mode') === 'dualingsuns';
   var priv = dlg.querySelector('button[data-act="private"]');
-  if (priv) priv.style.display = (opt && opt.hasAttribute('data-queue-only')) ? 'none' : '';
+  if (priv) priv.style.display = (hgMode || dsMode || (opt && opt.hasAttribute('data-queue-only'))) ? 'none' : '';
+  // High Ground: any 1v1 format that isn't rated (the option carries data-highground="0" otherwise).
+  var hg = dlg.querySelector('button[data-act="highground"]');
+  if (hg) hg.style.display = (!hgMode || (opt && (opt.getAttribute('data-highground') === '0' || opt.hasAttribute('data-queue-only')))) ? 'none' : '';
+  var joinBtn = dlg.querySelector('button[data-act="join"]');
+  if (joinBtn) joinBtn.style.display = (hgMode || dsMode) ? 'none' : '';
 
-  var needsLogin = !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
+  var needsLogin = !hgMode && !dsMode && !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
+  // High Ground mode on a pool that can't host it (rated / queue-only): say so, or the dialog has no action at all.
+  var hgBlocked = hgMode && !!hg && hg.style.display === 'none';
   var join = dlg.querySelector('button[data-act="join"]');
   if (join) join.disabled = needsLogin;
   var hint = dlg.querySelector('.mp-loginhint');
-  if (needsLogin && !hint) {
+  if ((needsLogin || hgBlocked) && !hint) {
     var row = join && join.closest('.arow');
     hint = document.createElement('p');
     hint.className = 'note mp-loginhint';
     if (row && row.parentNode) row.parentNode.insertBefore(hint, row);
   }
   if (hint) {
-    hint.textContent = needsLogin ? 'Log in to play ' + opt.text + '.' : '';
-    hint.style.display = needsLogin ? '' : 'none';
+    hint.textContent = needsLogin ? 'Log in to play ' + opt.text + '.'
+                     : (hgBlocked ? 'High Ground needs a 1v1 format that isn’t rated — pick another card pool.' : '');
+    hint.style.display = (needsLogin || hgBlocked) ? '' : 'none';
   }
 };
 [].slice.call(document.querySelectorAll('dialog.setup')).forEach(function (dlg) {
@@ -3432,6 +3809,9 @@ window.SYNC_ACTIVE_SETUP = function () {
   var poolSel = dlg.querySelector('select[id$="-pool"]');
   var poolFmt = poolSel ? String(poolSel.value || '').trim() : '';
   var fmt = (seg && seg.dataset.format) || poolFmt || modeFormat;
+  // Dualing Suns: the Twin Suns setup in its 'dualingsuns' mode. Its pool is the format itself (the pool picker is hidden).
+  var dualing = dlg.id === 'setup-twin-suns' && dlg.getAttribute('data-mode') === 'dualingsuns';
+  if (dualing) { fmt = 'dualingsuns'; poolFmt = 'dualingsuns'; }
   set('swu-format-select', fmt);
   // The card pool IS the format for the constructed modals. Arenabot's modal has no pool picker and
   // plays Open, so ANY list can be practised — Eternal, Twin Suns, a 1-leader deck vs a 2-leader bot
@@ -3461,6 +3841,14 @@ document.addEventListener('click', function (ev) {
   }
   // Save acts on the box BESIDE the button, so Arenabot's bot row saves the bot's deck. It is
   // not a submission, so it must not run SYNC first.
+  // Alternate Formats → Continue: open the picked format's own setup. Not a submission either.
+  if (act === 'alternate') {
+    var alt = btn.closest('dialog');
+    var pick = alt && alt.querySelector('input[name="alt-fmt"]:checked');
+    if (alt && alt.close) alt.close();
+    if (pick && window.SETUP_OPEN_ID) window.SETUP_OPEN_ID(pick.value, null);
+    return;
+  }
   if (act === 'save') {
     var dlg = btn.closest('dialog.setup, .setup');
     var links = dlg ? [].slice.call(dlg.querySelectorAll('input[data-detect]')) : [];
@@ -3488,6 +3876,10 @@ document.addEventListener('click', function (ev) {
 
   if (act === 'join'    && typeof joinQueue === 'function')         joinQueue();
   if (act === 'private' && typeof createPrivateGame === 'function') createPrivateGame();
+  // Dualing Suns: a private room through the same path; SYNC_ACTIVE_SETUP above set the format to dualingsuns.
+  if (act === 'dualingsuns' && typeof createPrivateGame === 'function') createPrivateGame();
+  if (act === 'highground' && typeof createHighGroundRoom === 'function') createHighGroundRoom();
+  if (act === 'limited' && typeof createLimitedRoom === 'function') createLimitedRoom();
   if (act === 'solo'    && typeof startSoloGame === 'function')     startSoloGame();
 });
 </script>

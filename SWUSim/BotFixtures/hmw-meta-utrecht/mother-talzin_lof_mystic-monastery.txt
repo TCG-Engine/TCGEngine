@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Mother Talzin, Power Through Magick - Mystic Monastery
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #1 of 789 (13-2-0), player BN_undefined
+#   https://melee.gg/Decklist/View/2b5946e6-518d-440e-96cc-b4f20159c54d — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Mother Talzin (LOF) Mystic Monastery list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: hyperaggro — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: hyperaggro
+
+Leader
+1 LOF_002
+
+Base
+1 LOF_022
+
+Deck
+3 SEC_082
+3 LOF_231
+3 HMW_103
+3 HMW_104
+3 LAW_037
+3 SEC_111
+3 LOF_031
+3 LOF_035
+3 SEC_028
+2 HMW_130
+2 LOF_061
+1 ASH_077
+3 LAW_135
+1 HMW_111
+3 LAW_039
+3 HMW_038
+3 LOF_091
+3 LAW_129
+2 HMW_252
+
+Sideboard
+3 ASH_090
+2 SEC_038
+2 LAW_127
+2 ASH_077
+1 HMW_111

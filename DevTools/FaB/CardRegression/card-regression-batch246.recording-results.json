@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-heart-of-vengeance-four-live-sparse-real-eligible-arakni-target-discounts-paid-attack-three-to-two",
+        "status": "recorded_semantically_checked",
+        "actions": 25,
+        "assertions": 629
+    },
+    {
+        "slug": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 564
+    },
+    {
+        "slug": "card-riled-up-red-four-live-sparse-real-six-power-discard-earned-plus-one-and-paid-eight-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 34,
+        "assertions": 796
+    }
+]

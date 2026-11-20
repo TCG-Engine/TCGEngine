@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T03:17:29+00:00",
+    "input_file": "card-regression-batch220.json",
+    "input_sha256": "6e3027686723bdc78571fe2bb10850ce33c5d89635342ed5f52f4a67aa4b5665",
+    "filter": "card-blade-beckoner-gauntlets-four-live-sparse-actual-weapon-block-continuous-one-defense-bonus-and-one-damage",
+    "results": [
+        {
+            "slug": "card-blade-beckoner-gauntlets-four-live-sparse-actual-weapon-block-continuous-one-defense-bonus-and-one-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 21,
+            "assertions": 1309
+        }
+    ]
+}

@@ -62,11 +62,21 @@ function FaBARCPitchChoices(int $player): string {
 }
 function FaBARCPitchForEffect(int $player,string $ref): bool {
     if(!in_array($ref,explode('&',FaBARCPitchChoices($player)),true))return false;
-    $id=FaBIdentityFromMZ($ref)['object']->CardID;
-    FaBMoveChoice($player,$ref,'Hand','Pitch');AddResources($player,intval(GetResources($player))+FaBEVRPitch($player,FaBMONPitchValue($player,$id),true),'PITCH');
-    FaBMSTPitch($player,$id,FaBMONPitchValue($player,$id));FaBWTRCardPitched($player,$id);
-    $pitch=FaBChoiceRefs($player,'Pitch');$last=end($pitch);
-    FaBRunSourceMacro('CardPitched',$player,$id,['mzID'=>$last]);FaBIARPitched($player,FaBPENUID($last));return true;
+    // Pitch callbacks receive the pitched card, but the enclosing resolving
+    // effect must keep its own source after those nested callbacks complete.
+    $variables = DecisionQueueController::DecodeVariablesPublic(GetDecisionQueueVariables());
+    $hadSourceMZ = array_key_exists('mzID', $variables);
+    $sourceMZ = $variables['mzID'] ?? null;
+    try {
+        $id=FaBIdentityFromMZ($ref)['object']->CardID;
+        FaBMoveChoice($player,$ref,'Hand','Pitch');AddResources($player,intval(GetResources($player))+FaBEVRPitch($player,FaBMONPitchValue($player,$id),true),'PITCH');
+        FaBMSTPitch($player,$id,FaBMONPitchValue($player,$id));FaBWTRCardPitched($player,$id);
+        $pitch=FaBChoiceRefs($player,'Pitch');$last=end($pitch);
+        FaBRunSourceMacro('CardPitched',$player,$id,['mzID'=>$last]);FaBIARPitched($player,FaBPENUID($last));return true;
+    } finally {
+        if ($hadSourceMZ) DecisionQueueController::StoreVariable('mzID', $sourceMZ);
+        else DecisionQueueController::ClearVariable('mzID');
+    }
 }
 function FaBARCDealArcane(int $player,int $target,int $amount,int $payment=0): int {
     if(!FaBSeatIsLive($target))return 0;

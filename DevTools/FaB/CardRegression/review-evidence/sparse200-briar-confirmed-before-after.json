@@ -1,0 +1,165 @@
+{
+  "status": "NATIVE_BRIAR_FIRST_AA_DAMAGE_TRIGGER_FIXED_WITH_UNCHANGED_EXPECTATIONS",
+  "before_facts": [
+    {
+      "slug": "card-stir-the-wildwood-red-four-live-correct-earned-arcane-plus-two-and-briar-responseable-trigger",
+      "error": "state window expected \"PRIORITY\" got \"DAMAGE\"",
+      "prefix_actions": 25,
+      "actual_snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-native-before\\actual_gamestate.txt",
+      "actual_sha256": "a43b0a5ff2113b73acc4269b0609d4737bcd94faefa1257f0a481744550713fc",
+      "window": "DAMAGE",
+      "combatOpen": true,
+      "stack": [],
+      "p1Hero": [
+        {
+          "CardID": "briar",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "1",
+          "TurnEffects": "-",
+          "Counters": "-"
+        }
+      ],
+      "p1Arena": [
+        {
+          "CardID": "embodiment_of_earth",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "9",
+          "TurnEffects": "-",
+          "Counters": "-"
+        }
+      ],
+      "p1CombatChain": [
+        {
+          "CardID": "stir_the_wildwood_red",
+          "Status": "2",
+          "Owner": "1",
+          "Controller": "1",
+          "Damage": "0",
+          "UniqueID": "5",
+          "TurnEffects": "-",
+          "Counters": "eyJGQUJfUExBWV9PUkRFUiI6MX0=",
+          "Role": "ATTACK",
+          "ChainLink": "1",
+          "FromZone": "Hand"
+        }
+      ],
+      "p1Resources": "1",
+      "p1ActionPoints": "0",
+      "p4Health": "12",
+      "saved_passing_fixture": false
+    }
+  ],
+  "before_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "after_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "before_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-native-before\\receipt.json",
+    "sha256": "861eab83faf08c2e4e592672770e26fbb66a8d1429e678656c10b61f718d9cc2"
+  },
+  "verified_source_backup": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-trigger-repair-backup\\receipt.json",
+    "sha256": "7d070462207e2b335f140715ab63ca71fa03af4d8d65958d626e63c50551efb9"
+  },
+  "independent_source_review": {
+    "status": "APPROVED_BOUNDED_TWO_FILE_SOURCE_REPAIR_PENDING_ROOT_COMPONENT_AND_NATIVE_QUALIFICATION",
+    "manifest": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-trigger-repair-proposed\\manifest.json",
+      "sha256": "f7ca89dae54d443ff24e72eec670d41b67dfa03a955e71b51f04f4e971eb077d"
+    },
+    "diff": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-trigger-repair-proposed\\review.diff",
+      "sha256": "a1beffbf619f0f8d39a720836de1567d5c7d9ff533dd57360a8bea2e2af53581"
+    },
+    "runtime_before_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+    "created_utc": "2026-10-25T20:44:47.104903+00:00",
+    "files": [
+      {
+        "path": "FaBSim/Custom/ELECards.php",
+        "before_sha256": "b7f947a84ad09e92f5e6e6fcb24da7bc0039faab53e81d38f063249674dc0509",
+        "virtual_after_sha256": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+        "unique_exact_anchor_count": 1
+      },
+      {
+        "path": "FaBSim/Custom/ROSCards.php",
+        "before_sha256": "e3c63c7355038dfc70746a3e44253bf0885a21c798e416c70fd89578621867b8",
+        "virtual_after_sha256": "5d31d7cd00ba813530ad79a7d3781a31b09b2553fa107b1aff875d5ca987db56",
+        "unique_exact_anchor_count": 1
+      }
+    ],
+    "findings": [
+      "Exactly two unique byte anchors; virtual CRLF application matches both proposed output hashes, no repository writes.",
+      "FaBELEDamaged positive-damage early return and existing attack-action/opposing-hero/active-Briar/first-marker eligibility predicate unchanged. Immediate once marker retained before queue, so further events before resolution cannot queue duplicates.",
+      "Existing ROS queue captures event-time Hero CardID/UniqueID and controller. No attack HasNoAbilities or hit-suppression guard added; this ability belongs to Hero and triggers on damage.",
+      "New ROS dispatcher branch recognizes exact Briar event+young/adult CardID, creates Earth only at resolution, and does not recheck source presence/active status after the trigger is earned.",
+      "Queue helper reads/writes current state and gives normal priority when no payment is pending. Current outer damage callback reloads state before setting hit result, preserving new queue/window. No fusion/second-NAA/static-defense branch changed."
+    ],
+    "printed_basis": {
+      "cache_path": "FaBSim/GeneratedCode/cardArrayCache.json",
+      "cache_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "young_id": "briar",
+      "adult_id": "briar_warden_of_thorns",
+      "current_text_basis": "First AA damage to an opposing hero each turn creates Earth; ordinal wording is a triggered effect.",
+      "official_errata": "https://fabtcg.com/articles/errata-bulletin-4/"
+    },
+    "rules": {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.4",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "basis": "Ordinal-event text creates a triggered layer before the next priority, then generates its ability on resolution. Source ability must exist at event; earned trigger independent afterward."
+    },
+    "limits": [
+      "Source-only approval; root alone applies, lints and executes controlled components plus actual four-live correct-expectation witness and new focused replays.",
+      "Existing ordinal marker while Hero was absent/blanked before first event and later recovers remains outside this narrow repair; no blanket Briar correctness claim.",
+      "Controller elimination, simultaneous triggers/APNAP and token prevention/replacement interactions not newly qualified.",
+      "No Core/generated/backend changes, native execution or repo mutation by reviewer."
+    ]
+  },
+  "after_saved_review": "review-evidence/sparse200-20261025-qualified-saved-review.json",
+  "unchanged_correct_source_spec": "card-regression-batch200.json",
+  "source_changes": [
+    {
+      "path": "FaBSim/Custom/ELECards.php",
+      "before_sha256": "b7f947a84ad09e92f5e6e6fcb24da7bc0039faab53e81d38f063249674dc0509",
+      "after_sha256": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-trigger-repair-backup\\FaBSim\\Custom\\ELECards.php",
+      "applied": true
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "e3c63c7355038dfc70746a3e44253bf0885a21c798e416c70fd89578621867b8",
+      "after_sha256": "5d31d7cd00ba813530ad79a7d3781a31b09b2553fa107b1aff875d5ca987db56",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-trigger-repair-backup\\FaBSim\\Custom\\ROSCards.php",
+      "applied": true
+    }
+  ],
+  "component_contracts": {
+    "path": "components/briar_first_damage_trigger_component.php",
+    "sha256": "d4591738626fc8d8ce8a30c2a9e01a22188612e4602c5b008921a7aa538d0e0b",
+    "passed": 13,
+    "result": {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\briar_first_damage_trigger_component.php",
+        "C:\\xampp\\htdocs\\TCGEngine",
+        "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+        "5d31d7cd00ba813530ad79a7d3781a31b09b2553fa107b1aff875d5ca987db56"
+      ],
+      "exit": 0,
+      "stdout": "{\n    \"status\": \"PASS\",\n    \"contracts\": 13,\n    \"passed\": [\n        \"positive AA damage queues one actual Hero source and no early Earth\",\n        \"zero damage cannot earn Briar trigger or first marker\",\n        \"Runechant Aura damage cannot earn AA damage trigger\",\n        \"damage to own hero cannot earn opposing hero trigger\",\n        \"Hero ability inactive at event cannot queue\",\n        \"blank attacking card does not suppress separate Hero ability\",\n        \"second damage before first trigger resolves does not queue twice\",\n        \"second damage after resolution cannot create another Earth\",\n        \"earned layer survives attacking source loss and later Hero ability loss\",\n        \"different Hero identity does not gain Briar effect\",\n        \"captured controller two owns later Earth creation\",\n        \"AA arcane damage event also qualifies independently of combat hit hook\",\n        \"adult Briar identity uses same first damage resolver\"\n    ],\n    \"extracted_function_sha256\": {\n        \"FaBELEDamaged\": \"d0dac1dc1854318bcc04ce4ff55740979eaeb332265e2851e57861b3087eec6f\",\n        \"FaBELECount\": \"e804fcd3ff4771301971475b589be1018056d32deccff930d0db928acae76585\",\n        \"FaBELEAdd\": \"fc15f98d1ef3694f9ea5b15d2540711578de2e1e669f420a167f2ea425a623a1\",\n        \"FaBROSQueue\": \"4fa2bca6c95aa05fbf4fd5069efec469d246626f4e76e3b162f057dc320452ac\",\n        \"FaBROSResolveTrigger\": \"997ae02c03266a23698827167d589e6738b43412087b9d859b586087235da816\"\n    },\n    \"limits\": [\n        \"Controlled dependencies, no engine includes/game actions/persistent writes.\",\n        \"Actual token ownership, UID allocation, physical damage, Hero suppression implementation, four-seat priority and recorder flow remain native/existing-source scope.\",\n        \"Preserves existing first-marker eligibility. Ordinal-before-ability-recovery behavior and second-NAA Lightning trigger are not certified.\"\n    ]\n}\n",
+      "stderr": "",
+      "component_sha256": "d4591738626fc8d8ce8a30c2a9e01a22188612e4602c5b008921a7aa538d0e0b"
+    }
+  },
+  "existing_dispatcher_contracts": 14,
+  "failed_case_saved_as_passing": false,
+  "limits": "First positive AA damage/Briar Earth timing only. Native witness uses unfused Stir. Second-NAA Lightning, fusion cost ordering, ordinal recovery from prior blanking and controller elimination remain outside this repair. Briar is a named repair witness, not a newly credited primary catalog identity."
+}

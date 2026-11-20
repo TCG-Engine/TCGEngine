@@ -1,0 +1,39 @@
+# Real-deck self-play fixture — Lando Calrissian, Full Sabacc - Great Grass Plains
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #10 of 789 (10-2-1), player CCN_Gonso
+#   https://melee.gg/Decklist/View/41788696-d8bf-43c5-b357-b4f2016681f3 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Lando Calrissian (LAW) Blue (Naboo) list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softcontrol — carried from the owner's label of the same leader + base colour (a different Homeworlds trait) — AWAITING THE OWNER'S CHECK
+# Style: softcontrol
+
+Leader
+1 LAW_018
+
+Base
+1 HMW_020
+
+Deck
+3 LOF_070
+3 SEC_051
+3 LAW_118
+3 SEC_046
+3 LAW_089
+3 ASH_079
+3 LOF_057
+3 HMW_078
+3 ASH_062
+2 ASH_053
+2 HMW_094
+2 HMW_056
+3 ASH_052
+3 SEC_078
+3 LAW_133
+3 HMW_100
+2 JTL_078
+3 HMW_081
+
+Sideboard
+3 SEC_204
+3 ASH_063
+2 ASH_077
+2 LAW_132

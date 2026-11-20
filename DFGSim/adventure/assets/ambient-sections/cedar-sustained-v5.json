@@ -1,0 +1,70 @@
+{
+  "status": "study_only_not_accepted",
+  "sections": [
+    {
+      "id": "cedar-grove",
+      "name": "Cedar grove",
+      "zone": "courtyard",
+      "source": "sumerian-overworld-v1.png",
+      "rect": [
+        0,
+        0,
+        576,
+        384
+      ],
+      "input": "cedar-grove-input-v1.png",
+      "excludeMapRects": [
+        [
+          0,
+          280,
+          150,
+          104
+        ],
+        [
+          0,
+          350,
+          576,
+          34
+        ],
+        [
+          530,
+          0,
+          46,
+          130
+        ],
+        [
+          515,
+          288,
+          61,
+          96
+        ]
+      ],
+      "version": 5,
+      "status": "study_only_not_accepted",
+      "model": "Kling 4.0",
+      "durationSeconds": 5,
+      "resolution": "720p",
+      "outputs": 1,
+      "playbackRate": 1,
+      "firstAndLastFrame": "cedar-grove-input-v1.png",
+      "displayedPriceCredits": 50,
+      "approvedCapCredits": 50,
+      "creditsSpent": null,
+      "prompt": "cedar-grove-sustained-wind-v5-prompt.txt",
+      "submissionRecordedAt": "2026-11-01T01:52:15.574240+00:00",
+      "purpose": "New actual Kling take with sustained, overlapping branch sway throughout; replaces rejected local-warp experiment in study only.",
+      "slotId": "945687067542700116",
+      "workId": "325469366528826",
+      "resultPage": "https://kling.ai/app/creations/grid?project=929951353903251461&slotId=945687067542700116&materialId=325469366528826",
+      "downloadMethod": "Official Kling Download button",
+      "sourceVideo": "cedar-grove-source-v5.mp4",
+      "registeredVideo": "cedar-grove-registered-v5.mp4",
+      "mask": "cedar-grove-mask-v5.png",
+      "review": "cedar-grove-review-v5.json",
+      "quotedCredits": 50,
+      "sha256": "0906cf9781cb19bdde0b383c651e2f0c3c8577e2ce654f70dea2c48c3984fd7a",
+      "reviewAssessment": "Still eases in and settles almost still near loop endpoints; does not fulfill sustained-motion goal. No local warp, retiming or crossfade applied. Live clip unchanged.",
+      "activityComparison": "cedar-v5-activity-comparison.json"
+    }
+  ]
+}

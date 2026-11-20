@@ -55,9 +55,12 @@ function SwuPgnViewerOpen(string $text, string $who = ''): array
     $s = SwuPgnSteps($doc, $perspective ? intval($perspective[1]) : null);
     if (!$s['steps']) return _SwuPgnViewerErr(400, 'That file has no actions to play back.');
     global $gameName;
-    $admit = SwuPgnViewerAdmit(SWUPGN_VIEWER_GAMES, $who, time(), function () use ($text): string {
-        $g = (string)GetGameCounter(SWUPGN_VIEWER_GAMES);
-        @mkdir(_SwuPgnViewerDir($g), 0777, true);
+    $admit = SwuPgnViewerAdmit(SWUPGN_VIEWER_GAMES, $who, time(), function () use ($text): ?string {
+        // The game counter first; when its next numbers are all taken (a reset counter among old folders), a random
+        // 14-digit name (numeric like every game name, below 2^53 for the client).
+        $g = SwuPgnViewerNewGameFolder(SWUPGN_VIEWER_GAMES, fn(int $try) => $try < 8 ? GetGameCounter(SWUPGN_VIEWER_GAMES, null, false)
+            : '8' . str_pad((string)random_int(0, 9999999999999), 13, '0', STR_PAD_LEFT), 24);
+        if ($g === null) return null;
         file_put_contents(_SwuPgnViewerDir($g) . '/Viewer.swupgn', $text);
         file_put_contents(_SwuPgnViewerDir($g) . '/Viewer.json', '{}');   // the viewer marker, before anything else can look
         return $g;

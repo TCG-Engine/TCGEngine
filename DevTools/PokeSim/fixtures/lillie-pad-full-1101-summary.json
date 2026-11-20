@@ -1,0 +1,219 @@
+{
+    "source": "lillie-pad-full-1101.json",
+    "policy": "92464900f73feb55",
+    "variants": {
+        "baseline": {
+            "games": 400,
+            "deck": [
+                {
+                    "id": "me02-019",
+                    "count": 4
+                },
+                {
+                    "id": "sv08-036",
+                    "count": 4
+                },
+                {
+                    "id": "me01-074",
+                    "count": 4
+                },
+                {
+                    "id": "me01-075",
+                    "count": 4
+                },
+                {
+                    "id": "sv06-145",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-192",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-183",
+                    "count": 1
+                },
+                {
+                    "id": "me01-131",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-196",
+                    "count": 2
+                },
+                {
+                    "id": "mee-002",
+                    "count": 10
+                },
+                {
+                    "id": "base1-97",
+                    "count": 11
+                },
+                {
+                    "id": "sv08.5-107",
+                    "count": 2
+                },
+                {
+                    "id": "sv08-164",
+                    "count": 1
+                },
+                {
+                    "id": "me01-116",
+                    "count": 4
+                },
+                {
+                    "id": "me03-081",
+                    "count": 1
+                }
+            ],
+            "counts": {
+                "win": 371,
+                "lunar": 309,
+                "attackBy2": 252,
+                "ready330By5": 204
+            },
+            "rates": {
+                "win": 0.9275,
+                "lunar": 0.7725,
+                "attackBy2": 0.63,
+                "ready330By5": 0.51
+            },
+            "order": {
+                "second": {
+                    "win": 0.915,
+                    "lunar": 0.845,
+                    "attackBy2": 0.685,
+                    "ready330By5": 0.585
+                },
+                "first": {
+                    "win": 0.94,
+                    "lunar": 0.7,
+                    "attackBy2": 0.575,
+                    "ready330By5": 0.435
+                }
+            },
+            "pairedDeltas": []
+        },
+        "deck-lillie-to-pad": {
+            "games": 400,
+            "deck": [
+                {
+                    "id": "me02-019",
+                    "count": 4
+                },
+                {
+                    "id": "sv08-036",
+                    "count": 4
+                },
+                {
+                    "id": "me01-074",
+                    "count": 4
+                },
+                {
+                    "id": "me01-075",
+                    "count": 4
+                },
+                {
+                    "id": "sv06-145",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-192",
+                    "count": 3
+                },
+                {
+                    "id": "me02.5-183",
+                    "count": 1
+                },
+                {
+                    "id": "me01-131",
+                    "count": 4
+                },
+                {
+                    "id": "me02.5-196",
+                    "count": 2
+                },
+                {
+                    "id": "mee-002",
+                    "count": 10
+                },
+                {
+                    "id": "base1-97",
+                    "count": 11
+                },
+                {
+                    "id": "sv08.5-107",
+                    "count": 2
+                },
+                {
+                    "id": "sv08-164",
+                    "count": 1
+                },
+                {
+                    "id": "me01-116",
+                    "count": 4
+                },
+                {
+                    "id": "me03-081",
+                    "count": 2
+                }
+            ],
+            "counts": {
+                "win": 352,
+                "lunar": 295,
+                "attackBy2": 249,
+                "ready330By5": 190
+            },
+            "rates": {
+                "win": 0.88,
+                "lunar": 0.7375,
+                "attackBy2": 0.6225,
+                "ready330By5": 0.475
+            },
+            "order": {
+                "second": {
+                    "win": 0.86,
+                    "lunar": 0.78,
+                    "attackBy2": 0.66,
+                    "ready330By5": 0.555
+                },
+                "first": {
+                    "win": 0.9,
+                    "lunar": 0.695,
+                    "attackBy2": 0.585,
+                    "ready330By5": 0.395
+                }
+            },
+            "pairedDeltas": {
+                "win": {
+                    "estimate": -0.0475,
+                    "approx95CI": [
+                        -0.08655043704193122,
+                        -0.008449562958068785
+                    ]
+                },
+                "lunar": {
+                    "estimate": -0.035,
+                    "approx95CI": [
+                        -0.07697642554467374,
+                        0.006976425544673724
+                    ]
+                },
+                "attackBy2": {
+                    "estimate": -0.0075,
+                    "approx95CI": [
+                        -0.059243759364447326,
+                        0.04424375936444733
+                    ]
+                },
+                "ready330By5": {
+                    "estimate": -0.035,
+                    "approx95CI": [
+                        -0.0933344214303879,
+                        0.0233344214303879
+                    ]
+                }
+            }
+        }
+    }
+}

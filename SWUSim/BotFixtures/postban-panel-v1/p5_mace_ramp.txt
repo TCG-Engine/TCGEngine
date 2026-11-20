@@ -1,0 +1,43 @@
+# Post-ban TEST PANEL v1 (owner 2026-11-12), slot 5. Fair midrange ramp
+# Deck: "The Noxious Kerfuffle"; source: swudb koMAIGbpYne
+# Author: HolmesDM
+# Style: midrange
+
+Leader
+1 IC27_004
+
+Base
+1 HMW_021
+
+Deck
+3 HMW_035
+3 LAW_039
+2 IC27_075
+1 IC27_081
+2 LOF_096
+3 SEC_094
+1 IC27_043
+1 IC27_042
+3 SEC_051
+2 HMW_074
+2 LAW_041
+3 LOF_100
+2 SEC_046
+1 ASH_065
+3 JTL_096
+3 ASH_056
+3 LOF_045
+1 IC27_077
+3 LAW_133
+2 IC27_035
+2 SEC_078
+3 HMW_151
+3 ASH_062
+
+Sideboard
+2 LAW_149
+1 IC27_075
+2 HMW_081
+1 SEC_046
+2 ASH_133
+1 SEC_078

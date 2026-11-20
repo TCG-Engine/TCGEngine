@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch212.json",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T00:41:25.108668+00:00",
+  "fixtures": [
+    {
+      "slug": "card-achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point",
+      "fixture_sha256": "f1ec5163bb52e22ddcf22c54c19b75dc3bb79f46449d1d4f1dd7746afdc10a61",
+      "passed": true,
+      "result": "[PASS] achilles_accelerator / four live distinctive effect"
+    },
+    {
+      "slug": "card-fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain",
+      "fixture_sha256": "4fba58fe8201e3775cfa31dfd7069f8a23b524ac9316d0ef05068ca7545e4acc",
+      "passed": true,
+      "result": "[PASS] fyendals_spring_tunic / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point",
+      "returncode": 0,
+      "stdout": "[PASS] achilles_accelerator / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain",
+      "returncode": 0,
+      "stdout": "[PASS] fyendals_spring_tunic / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,141 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T11:38:14.303149+00:00",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "source_spec": "card-regression-batch243.json",
+  "source_spec_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 28,
+  "native_assertions": 1263,
+  "manual_passes": 20,
+  "totals": {
+    "saved_registered_scenarios": 3493,
+    "duels": 3074,
+    "four_live": 419,
+    "recorded_primary_ids": 650,
+    "identity_denominator": 5196,
+    "recorded_groups": 524,
+    "group_denominator": 3324,
+    "four_live_groups": 415,
+    "phase_qualified_scenarios_at_actual_contexts": 130,
+    "phase_qualified_unique_groups": 128,
+    "creation_replay_passes": 260,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 4,
+  "scenarios": [
+    {
+      "card_id": "oscilio",
+      "group_id": "identity:oscilio",
+      "scenario_id": "card-oscilio-four-live-sparse-actual-discarded-instant-cost-draws-real-deck-card-with-eighteen-health",
+      "effect_branches": [
+        "actual-discarded-instant-cost-draws-real-deck-card-with-eighteen-health"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-oscilio-four-live-sparse-actual-discarded-instant-cost-draws-real-deck-card-with-eighteen-health",
+      "source_spec": "card-regression-batch243.json",
+      "source_spec_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+      "review_evidence": "review-evidence/sparse243-507e-qualified-saved-review.json",
+      "review_evidence_sha256": "8dc8d8dd91a802df667b32997ed84ab228561e5ec5e4bb9a72420dc9d7ffeb53",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "qualification_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse243-507e-r1.json",
+          "sha256": "1a1ab620af248e46f80fb2b87e8b274ff96ebf6c1c884b2db07714fbc6151981",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse243-507e-r2.json",
+          "sha256": "670cfa93e090ac33ed2edd3362fa9ce82c13d7a3f82d46613bd75cb1a4021446",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "ink_lined_cloak",
+      "group_id": "identity:ink_lined_cloak",
+      "scenario_id": "card-ink-lined-cloak-four-live-sparse-actual-sigil-aura-cast-earns-condition-then-destroy-instant-gains-one",
+      "effect_branches": [
+        "actual-sigil-aura-cast-earns-condition-then-destroy-instant-gains-one"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-ink-lined-cloak-four-live-sparse-actual-sigil-aura-cast-earns-condition-then-destroy-instant-gains-one",
+      "source_spec": "card-regression-batch243.json",
+      "source_spec_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+      "review_evidence": "review-evidence/sparse243-507e-qualified-saved-review.json",
+      "review_evidence_sha256": "8dc8d8dd91a802df667b32997ed84ab228561e5ec5e4bb9a72420dc9d7ffeb53",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "qualification_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse243-507e-r1.json",
+          "sha256": "1a1ab620af248e46f80fb2b87e8b274ff96ebf6c1c884b2db07714fbc6151981",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse243-507e-r2.json",
+          "sha256": "670cfa93e090ac33ed2edd3362fa9ce82c13d7a3f82d46613bd75cb1a4021446",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "aurora",
+      "group_id": "identity:aurora",
+      "scenario_id": "card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "effect_branches": [
+        "actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "source_spec": "card-regression-batch243.json",
+      "source_spec_sha256": "7c3f1cf63ed9ea861407a0612e4cd1c088b8f48c7a24fc4b3d77b50c01435c93",
+      "review_evidence": "review-evidence/sparse243-507e-qualified-saved-review.json",
+      "review_evidence_sha256": "8dc8d8dd91a802df667b32997ed84ab228561e5ec5e4bb9a72420dc9d7ffeb53",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "qualification_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse243-507e-r1.json",
+          "sha256": "1a1ab620af248e46f80fb2b87e8b274ff96ebf6c1c884b2db07714fbc6151981",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse243-507e-r2.json",
+          "sha256": "670cfa93e090ac33ed2edd3362fa9ce82c13d7a3f82d46613bd75cb1a4021446",
+          "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

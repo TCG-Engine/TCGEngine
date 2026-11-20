@@ -83,7 +83,7 @@ $kfL = SwuPgnTestKeyframe(['leader' => $leader]);
 $r = K([RS('R1.start', $kfL), ['t' => 'EXHAUST', 'card' => 'SOR#010'], RE('R1.end', $kfL)]);
 SwuPgnTestEq($r['mismatches'], [['seq' => 'R1.end', 'path' => 'players.1.leader.exhausted', 'expected' => false, 'got' => true]], '§14: leader fields compared');
 $r = K([RS('R1.start', SwuPgnTestKeyframe()), RE('R1.end', $kfL)]);
-SwuPgnTestEq($r['mismatches'], [['seq' => 'R1.end', 'path' => 'players.1.leader', 'expected' => $leader]], '§14: after the first keyframe a leader the fold lacks is a mismatch (no got)');
+SwuPgnTestEq($r['mismatches'], [], '§14 (10-28): the leader is compared only when both the keyframe and the fold have one for that seat');
 $kfF = SwuPgnTestKeyframe(['leader' => $leader + ['onStartingSide' => true]]);
 $r = K([RS('R1.start', $kfL), RE('R1.end', $kfF)]);
 SwuPgnTestEq($r['mismatches'], [['seq' => 'R1.end', 'path' => 'players.1.leader.onStartingSide', 'expected' => true]], '§14: onStartingSide compared when the keyframe states it; the fold\'s absent is NOT false');
@@ -147,5 +147,89 @@ $r = KL([RS('R1.start', $fresh), ['t' => 'CLAIM_INITIATIVE', 'p' => 1], RE('R1.e
 SwuPgnTestEq($r['mismatches'], [], '§12.2: the next ROUND_START keyframe (initiative available again) does not mismatch a claimed round');
 $r = KL([RS('R1.start', $fresh), ['t' => 'CLAIM_INITIATIVE', 'p' => 1], RE('R1.end', $fresh)]);
 SwuPgnTestEq(paths($r), ['initiativeTaken'], 'a ROUND_END keyframe that forgets the claim still mismatches');
+
+// ═══ 2026-10-28 text ════════════════════════════════════════════════════════════════════════════
+// "As a set" = multiset.
+$r = K([$m('A#1', 'deck', 'hand'), RS('R1.start', SwuPgnTestKeyframe(['handSize' => 1, 'hand' => ['A#1', 'A#1']]))]);
+SwuPgnTestEq(paths($r), ['players.1.hand'], '§14: "as a set" is a multiset — a doubled id is not the same list');
+$r = KL([RS('R1.start', SwuPgnTestKeyframe(['cards' => [$card(['keywords' => ['raid 1', 'raid 1']])]])), RE('R1.end', $kfC)]);
+SwuPgnTestEq(paths($r), ['players.1.cards[SOR#095].keywords'], '§14: keywords compared as a multiset');
+// statusTokens as a map, key order not significant.
+$r = KL([RS('R1.start', SwuPgnTestKeyframe(['cards' => [$card(['statusTokens' => ['advantage' => 1, 'weakness' => 2]])]])), RE('R1.end', SwuPgnTestKeyframe(['cards' => [$card(['statusTokens' => ['weakness' => 2, 'advantage' => 1]])]]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14: statusTokens compared as a map, key order not significant');
+
+// effects: as a set by id, one mismatch with path "effects"; an absent fold list counts as empty.
+$fx = function (string $id, array $x = []) { return array_merge(['id' => $id, 'src' => 'SOR#154', 'p' => 1, 'targets' => ['SOR#095', 'SOR#096'], 'duration' => 'phase'], $x); };
+$FX = function (string $id, array $x = []) use ($fx) { return ['t' => 'EFFECT_START'] + $fx($id, $x); };
+$r = K([$FX('fx@1'), $FX('fx@2'), RS('R1.start', SwuPgnTestKeyframe([], [], ['effects' => [$fx('fx@2'), $fx('fx@1', ['targets' => ['SOR#096', 'SOR#095']])]]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 effects: a set by id (order of effects and of targets not significant)');
+$r = K([RS('R1.start', SwuPgnTestKeyframe([], [], ['effects' => []]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 effects: the fold\'s absent list counts as empty');
+$r = K([RS('R1.start', SwuPgnTestKeyframe())]);
+SwuPgnTestEq($r['mismatches'], [], '§14 effects: a keyframe without effects does not compare them');
+foreach ([
+    'a missing effect' => [[$FX('fx@1')], []],
+    'an extra effect' => [[], [$fx('fx@1')]],
+    'src' => [[$FX('fx@1')], [$fx('fx@1', ['src' => 'SOR#155'])]],
+    'p' => [[$FX('fx@1')], [$fx('fx@1', ['p' => 2])]],
+    'duration' => [[$FX('fx@1')], [$fx('fx@1', ['duration' => 'round'])]],
+    'targets' => [[$FX('fx@1')], [$fx('fx@1', ['targets' => ['SOR#095']])]],
+    'seat' => [[$FX('fx@1', ['targets' => null, 'seat' => 1])], [['id' => 'fx@1', 'src' => 'SOR#154', 'p' => 1, 'seat' => 2, 'duration' => 'phase']]],
+] as $what => [$evs, $kfx]) {
+    $evs = array_map(fn($e) => array_filter($e, fn($v) => $v !== null), $evs);
+    $evs[] = $FX('fx@9'); $kfx[] = $fx('fx@9');
+    $r = K(array_merge($evs, [RS('R1.start', SwuPgnTestKeyframe([], [], ['effects' => $kfx]))]));
+    SwuPgnTestEq(paths($r), ['effects'], "§14 effects: $what differs → ONE mismatch with path \"effects\"");
+}
+
+// abilityUses: keyed by card + ability; count, per, max; once per seat; ROUND_START drops running phase/round entries.
+$AA = function (int $p, string $ab, string $per, int $max = 1) { return ['t' => 'ABILITY_ACTIVATE', 'p' => $p, 'card' => 'A#1', 'ability' => $ab, 'kind' => 'triggered', 'limit' => ['max' => $max, 'per' => $per]]; };
+$u = function (string $ab, string $per, int $count = 1, int $max = 1) { return ['card' => 'A#1', 'ability' => $ab, 'count' => $count, 'per' => $per, 'max' => $max]; };
+$r = K([$AA(1, 'x', 'game'), $AA(1, 'y', 'game'), $AA(1, 'y', 'game', 2), RE('R1.end', SwuPgnTestKeyframe(['abilityUses' => [$u('y', 'game', 2, 2), $u('x', 'game')]], ['abilityUses' => []]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 abilityUses: a set keyed by card+ability; an absent fold list counts as empty');
+$r = K([$AA(1, 'x', 'game'), $AA(1, 'x', 'game'), $AA(2, 'z', 'round', 2), RE('R1.end', SwuPgnTestKeyframe(['abilityUses' => [$u('x', 'game')]], ['abilityUses' => [$u('z', 'round', 1, 1), $u('q', 'game')]]))]);
+SwuPgnTestEq(paths($r), ['players.1.abilityUses', 'players.2.abilityUses'], '§14 abilityUses: count / max / a missing entry differ → ONE mismatch per seat, path players.N.abilityUses');
+$r = K([$AA(1, 'x', 'phase'), $AA(1, 'y', 'round'), $AA(1, 'g', 'game'), RS('R2.start', SwuPgnTestKeyframe(['abilityUses' => [$u('g', 'game')]]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 abilityUses: before a ROUND_START keyframe the running phase and round entries are removed');
+$r = K([$AA(1, 'x', 'phase'), RE('R1.end', SwuPgnTestKeyframe(['abilityUses' => []]))]);
+SwuPgnTestEq(paths($r), ['players.1.abilityUses'], '§14 abilityUses: a ROUND_END keyframe is compared as it is (the regroup phase\'s uses still count)');
+$r = K([$AA(1, 'x', 'game'), RE('R1.end', SwuPgnTestKeyframe(['abilityUses' => [$u('x', 'game'), $u('w', 'turn')]]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 abilityUses: an entry whose per the reader does not know is left out (both sides)');
+$r = K([$AA(1, 'x', 'game'), RE('R1.end', SwuPgnTestKeyframe())]);
+SwuPgnTestEq($r['mismatches'], [], '§14 abilityUses: a keyframe without abilityUses does not compare them');
+
+// foreignResources as a set.
+$r = K([['t' => 'TAKE_CONTROL', 'p' => 1, 'card' => 'B#1', 'zone' => 'resource', 'owner' => 2], ['t' => 'TAKE_CONTROL', 'p' => 1, 'card' => 'B#2', 'zone' => 'resource', 'owner' => 2],
+    RE('R1.end', SwuPgnTestKeyframe(['foreignResources' => ['B#2', 'B#1']], ['foreignResources' => []]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 foreignResources: a set; the fold\'s absent list counts as empty');
+$r = K([RE('R1.end', SwuPgnTestKeyframe(['foreignResources' => ['B#1']]))]);
+SwuPgnTestEq(paths($r), ['players.1.foreignResources'], '§14 foreignResources is compared whenever the keyframe carries it');
+
+// A card's other attributes — all compared when the keyframe card carries traits.
+$st = ['t' => 'STATS', 'card' => 'SOR#095', 'power' => 3, 'hp' => 3, 'keywords' => ['raid 1', 'sentinel'], 'traits' => ['rebel', 'trooper'], 'blank' => true, 'copyOf' => 'SOR#096', 'name' => 'X', 'cost' => 2, 'aspects' => ['command', 'heroism', 'command']];
+$withAll = $card(['traits' => ['trooper', 'rebel'], 'blank' => true, 'copyOf' => 'SOR#096', 'name' => 'X', 'cost' => 2, 'aspects' => ['heroism', 'command', 'command']]);
+$r = KL([RS('R1.start', $kfC), $st, RE('R1.end', SwuPgnTestKeyframe(['cards' => [$withAll]]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 attributes: traits as a set, aspects as a sorted multiset, blank/copyOf/name/cost equal');
+$r = KL([RS('R1.start', $kfC), $st, RE('R1.end', SwuPgnTestKeyframe(['cards' => [$card(['traits' => ['rebel', 'trooper']])]]))]);
+SwuPgnTestEq(paths($r), ['players.1.cards[SOR#095].blank', 'players.1.cards[SOR#095].copyOf', 'players.1.cards[SOR#095].name', 'players.1.cards[SOR#095].cost', 'players.1.cards[SOR#095].aspects'],
+    '§14 attributes: a keyframe card WITH traits compares them all (an absent blank / copy field means none)');
+$r = KL([RS('R1.start', $kfC), $st, RE('R1.end', SwuPgnTestKeyframe(['cards' => [$card(['name' => 'X'])]]))]);
+SwuPgnTestEq($r['mismatches'], [], '§14 attributes: a keyframe card WITHOUT traits compares only what it carries');
+$r = KL([RS('R1.start', $kfC), $st, RE('R1.end', SwuPgnTestKeyframe(['cards' => [$withAll + ['leaderUnit' => true]]]))]);
+SwuPgnTestEq($r['mismatches'], [['seq' => 'R1.end', 'path' => 'players.1.cards[SOR#095].leaderUnit', 'expected' => true, 'got' => false]], '§14 attributes: leaderUnit absent on the fold reads false');
+$r = KL([RS('R1.start', $kfC), $st, RE('R1.end', SwuPgnTestKeyframe(['cards' => [array_merge($withAll, ['traits' => ['rebel'], 'aspects' => ['command', 'heroism']])]]))]);
+SwuPgnTestEq(paths($r), ['players.1.cards[SOR#095].traits', 'players.1.cards[SOR#095].aspects'], '§14 attributes: traits and aspects differences caught (aspects as a multiset)');
+
+// owner / upgradeControllers — all compared when the keyframe's seat carries foreignResources.
+$kfO = SwuPgnTestKeyframe(['cards' => [$card(['upgrades' => ['U#1']])]], ['cards' => [SwuPgnTestCard('SOR#045')]]);
+$taken = [['t' => 'TAKE_CONTROL', 'p' => 2, 'card' => 'SOR#095', 'zone' => 'ground', 'from' => 1]];
+$r = KL(array_merge([RS('R1.start', $kfO)], $taken, [RE('R1.end', SwuPgnTestKeyframe([], ['foreignResources' => [], 'cards' => [SwuPgnTestCard('SOR#045'), $card(['upgrades' => ['U#1'], 'owner' => 1, 'upgradeControllers' => ['U#1' => 1]])]]))]));
+SwuPgnTestEq($r['mismatches'], [], '§14 owner/upgradeControllers: a stolen unit\'s owner and its upgrade\'s controller match');
+$r = KL(array_merge([RS('R1.start', $kfO)], $taken, [RE('R1.end', SwuPgnTestKeyframe([], ['foreignResources' => [], 'cards' => [SwuPgnTestCard('SOR#045'), $card(['upgrades' => ['U#1']])]]))]));
+SwuPgnTestEq(paths($r), ['players.2.cards[SOR#095].owner', 'players.2.cards[SOR#095].upgradeControllers'], '§14: with foreignResources on the seat, an absent owner / upgradeControllers means the seat owns / controls all');
+$r = KL(array_merge([RS('R1.start', $kfO)], $taken, [RE('R1.end', SwuPgnTestKeyframe([], ['cards' => [SwuPgnTestCard('SOR#045'), $card(['upgrades' => ['U#1']])]]))]));
+SwuPgnTestEq($r['mismatches'], [], '§14: on a seat without foreignResources only the owner / upgradeControllers a card carries are compared');
+$r = KL(array_merge([RS('R1.start', $kfO)], $taken, [RE('R1.end', SwuPgnTestKeyframe([], ['cards' => [SwuPgnTestCard('SOR#045'), $card(['upgrades' => ['U#1'], 'owner' => 2, 'upgradeControllers' => ['U#1' => 1]])]]))]));
+SwuPgnTestEq(paths($r), ['players.2.cards[SOR#095].owner'], '§14: … and a carried owner is compared');
 
 SwuPgnTestFinish();

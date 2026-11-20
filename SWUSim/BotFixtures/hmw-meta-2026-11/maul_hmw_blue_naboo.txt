@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Maul, Old Master - Great Grass Plains
+# Source: melee.gg 498211 (Sector Qualifier Baltimore Play Event - Saturday, 2026-11-08), #36 of 485 (8-4-0), player ToyotaMontoya
+#   https://melee.gg/Decklist/View/41923957-6f9b-4c9a-87f8-b4fb0036f612 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   November 2026 Meta (Pre-Meta Update) fixture (owner 2026-11-08): the best-placed Maul (HMW) Blue (Naboo) list across Utrecht 492213 + Baltimore 498211 — top 8.1% of each event (Utrecht top 64 of 789, Baltimore top 39 of 485), placing compared as rank / event size.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softcontrol — the owner's label from hmw-meta-2026-09/maul_hmw_blue_naboo.txt
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_016
+
+Base
+1 HMW_020
+
+Deck
+3 JTL_032
+3 SEC_186
+3 ASH_048
+3 HMW_202
+3 HMW_055
+3 ASH_053
+3 ASH_220
+3 HMW_198
+2 ASH_192
+2 ASH_079
+1 ASH_133
+3 ASH_052
+3 HMW_204
+3 LOF_213
+1 JTL_041
+3 LAW_217
+3 JTL_043
+3 HMW_100
+2 LAW_096
+
+Sideboard
+2 JTL_041
+2 HMW_205
+2 ASH_042
+2 LAW_133
+2 ASH_194

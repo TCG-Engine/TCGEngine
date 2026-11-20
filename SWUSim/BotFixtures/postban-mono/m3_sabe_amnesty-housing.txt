@@ -1,0 +1,29 @@
+# Single-colour stand-in (2026-11-19) for the Lando mill rules. Sabé, Queen's Shadow (SEC_017, Cunning) on Amnesty Housing (SEC_025, Cunning): mono-yellow hero tempo
+# Deck: "SABE 1.0"; source: https://sw-unlimited-db.com/decks/146234 (2026-04-26, pre-HMW; the newest public Sabé + Amnesty Housing list), exact leader + base, unchanged
+# Author: SWUfanatic
+# Style: softaggro
+
+Leader
+1 SEC_017
+
+Base
+1 SEC_025
+
+Deck
+3 LAW_237
+2 LAW_233
+3 SEC_205
+3 LOF_191
+3 LOF_204
+3 JTL_201
+3 JTL_210
+3 SEC_198
+3 LAW_241
+3 LAW_224
+3 SEC_207
+3 SEC_219
+3 LOF_192
+3 SEC_211
+3 SEC_233
+3 SEC_234
+3 SEC_256

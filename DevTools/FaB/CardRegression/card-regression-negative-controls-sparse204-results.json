@@ -1,0 +1,45 @@
+{
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "completed_utc": "2026-10-25T22:36:29.040967+00:00",
+  "plan_sha256": "0ad51da72b03dfae502c8fe3ed507ef716c52edb432ffcbb073e2f882716a857",
+  "independent_saved_proof_sha256": "261c555c483c96da87a8e7ad57466dbb5cf231f7cf7001d0c5faca45f1d7fc80",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch204-one-causal-control-final97-plan.json",
+    "0ad51da72b03dfae502c8fe3ed507ef716c52edb432ffcbb073e2f882716a857",
+    "card-regression-negative-controls-sparse204-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "mordred_actual_earned_rune_creation_modifier_omission",
+      "fixture": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "fixture_sha256": "10f43d905070128e6c85bc3e069adb37322ebab57f22d487d1c879ff05743ddb",
+      "source_raw5": {
+        "initial_gamestate.txt": "b7025dcc9c88b3b347d3c87cfcef58ca50dd3f6d3181d8d9ca8006a55f936871",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "8f65b651bc71507cb5618363846759b21485a7c0d3dda767df18d3a0e6699585",
+        "expected_final_gamestate.txt": "4da0ba757b633285c044c4c1a193e793f2f2eedc8ca6c26d0eb8815f693c53af",
+        "meta.json": "2215c992462644a6e975e2d141ea9547ea06c9f10e5c23677521cef4a2c49134"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "ARC_MORDRED"
+      },
+      "retained_assertions": 442,
+      "expected_failure_step": 5,
+      "expected_failure": "Expected p1Arena count 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] mordred_tide_red / four live distinctive effect: Step 5 assertion failed: Expected p1Arena count 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual zero-cost Mordred5 play and four manual responses have earned the replacement and its own GA, remove only globally unique ARC_MORDRED before real Read6 Action announcement. Same printed create-three event now creates exactly three actual Runechants instead of four. Preserve source/support public GY, actual AP/resources, all actors and every oracle; first owned Arena count4-to3 precedes fourth-token identity checks. This tests one event replacement, not expiry, stacking or arbitrary Rune amounts.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

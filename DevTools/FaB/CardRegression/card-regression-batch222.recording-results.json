@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-amulet-of-havencall-blue-four-live-sparse-real-empty-hand-defense-reaction-search-adds-physical-deck-defender",
+        "status": "recorded_semantically_checked",
+        "actions": 36,
+        "assertions": 2043
+    },
+    {
+        "slug": "card-crater-fist-four-live-sparse-actual-paid-destroy-boosts-real-paid-crush-attack-two-and-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 2642
+    },
+    {
+        "slug": "card-grimoire-of-the-haunt-four-live-sparse-actual-paid-instant-banishes-own-offhand-then-creates-owned-eloquence",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 477
+    }
+]

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch242-take-cover-correct-probe.json",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T11:59:23.885047+00:00",
+  "fixtures": [
+    {
+      "slug": "card-take-cover-red-four-live-correct-reload-effects-before-defense-reaction-leaves-stack",
+      "fixture_sha256": "6ccf0c2ac3b8d978e2f92f3b72bddede7aff64edc9148cac520fb6d0d0876d56",
+      "passed": true,
+      "result": "[PASS] Take Cover red / correct defense reaction resolution timing probe"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-take-cover-red-four-live-correct-reload-effects-before-defense-reaction-leaves-stack",
+      "returncode": 0,
+      "stdout": "[PASS] Take Cover red / correct defense reaction resolution timing probe\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

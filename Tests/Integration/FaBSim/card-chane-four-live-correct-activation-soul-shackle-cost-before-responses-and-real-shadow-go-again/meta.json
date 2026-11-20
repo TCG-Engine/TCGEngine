@@ -1,0 +1,7 @@
+{
+    "name": "Chane / correct token-as-effect-cost native probe",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T11:51:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CostisprintedBEFOREcolon. CorrectfirstnativeHeroAction0mustpayAP1->0 thencreateONEownedSoulShackle8 BEFOREfirstresponse; virtualABI7capturesHero1. Eachfirst3actualresponsesretainsAP0/physicaltoken8/source7/HandGhost5Blue6; fourthresolvesfutureShadow/RunebladeGApermissionandabilityownGArestoresAP1, WITHOUTsecondtoken. ThenactuallyplayGhost5ShadowAA1fromHand, legaldeclareP4/Blue6realpitch3pays1leavesR2/AP0. OnlyAFTERfourheroabilityresponsesweexercisebenefit: actualGhostStackgetsGO_AGAIN despiteprintedGhosthavingnone; realallseatattackflowcomputespower4/GAtrue andphysical4damageHP16. StopDAMAGEbeforelaterResolutionAPgrant. No inventedhistory/token/AP/buffs. CurrentlateSoulcreationmustfailfirstpostactivationArena1assertion(noSave). Thisprobeisnotpassingcoverageuntilreview+rootactualconfirmation/fixqualified. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON154.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

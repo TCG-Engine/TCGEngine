@@ -1,0 +1,53 @@
+{
+  "status": "FIXED_QUALIFIED_REGISTERED_NAMED_FOUR_LIVE_REPRESENTATIVE",
+  "utc": "2026-10-26T12:35:09.866465+00:00",
+  "issue": "FAB-REG-054",
+  "existing_root_group": "FAB-REG-008",
+  "new_distinct_root_cause": false,
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "source_paths": [
+    "FaBSim/Custom/GameLogic.php"
+  ],
+  "source_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+  "repository_Core_changed": false,
+  "generated_files_changed": false,
+  "before": {
+    "evidence": "review-evidence/take-cover-054-resolution-native-before.json",
+    "actual_inputs": 24,
+    "fixture_saved": false,
+    "first_failure": "Expected Stack count1 got0 while Reload pending; no later outcome inferred."
+  },
+  "after": {
+    "fixture": "Tests/Integration/FaBSim/card-take-cover-red-four-live-correct-reload-effects-before-defense-reaction-leaves-stack",
+    "source_spec": "card-regression-batch242-take-cover-correct-probe.json",
+    "actions": 29,
+    "native_assertions": 810,
+    "manual_passes": 24,
+    "result": "Physical reaction5 staysStack through realReload; answer movesArrow6 facedownArsenal; only completedDR entersChain defense4. Actual attack7 minus4 deals3/P4HP17.",
+    "review_evidence": "review-evidence/take-cover-054-qualified-saved-review.json"
+  },
+  "clean_targeted_replays": [
+    "card-regression-replay-takecover054-5880-r1.json",
+    "card-regression-replay-takecover054-5880-r2.json"
+  ],
+  "focused_compatibility": [
+    "card-regression-replay-takecover054-glint-ar-5880-compat.json",
+    "card-regression-replay-takecover054-two-dr-final-5880-compat.json"
+  ],
+  "actual_component": {
+    "path": "review-evidence/take-cover-054-component-results.json",
+    "contracts": 28,
+    "checks": 108,
+    "controlled_boundary_doubles": true,
+    "not_native_gameplay_control": true
+  },
+  "component_mutants": {
+    "path": "review-evidence/take-cover-054-component-controls.json",
+    "three_existing_mutants_detected": true,
+    "native_control_credit": 0
+  },
+  "legacy_snapshot_correction": "review-evidence/take-cover-054-legacy-snapshot-migration.json",
+  "full_suite_run": false,
+  "limits": "Only named positive young four-live TakeCover red Reload branch; no pitch sibling inheritance, elimination matrix, all DR, whole card or full-corpus requalification. Older source/runtime contexts retained.",
+  "registration_checkpoint": "card-regression-takecover054-5880-checkpoint.json"
+}

@@ -1,0 +1,35 @@
+{
+  "status": "FIXED_FOCUSED_QUALIFIED_REGISTERED_RED_ONLY",
+  "issue": "FAB-REG-057",
+  "classification": "existing021_family_extension_not_new_distinct_root_cause",
+  "before": "review-evidence/whisper-057-native-before.json",
+  "source_application": "review-evidence/whisper-057-source-application.json",
+  "independent_source_review": "review-evidence/whisper-057-source-review.json",
+  "actual_saved_review": "review-evidence/whisper-057-qualified-saved-review.json",
+  "actual_saved_review_sha256": "d914378b429c7347f640fc13aaa091f64e8833483ddc89475f4b1a2c6ccda07f",
+  "runtime_before_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "runtime_after_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "input_unchanged": true,
+  "input_sha256": "ffe8de56db8566ff706bb6ca37214659f247af5418f919eaea4574fd5057e802",
+  "after_actions": 6,
+  "after_assertions": 351,
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-whisper057-b3bd-r1.json",
+      "sha256": "657779b44d6a8fae9aeec72b838324d06110a3737fa6b29aee3de2cb83d04821",
+      "passed": true,
+      "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5"
+    },
+    {
+      "path": "card-regression-replay-whisper057-b3bd-r2.json",
+      "sha256": "23643e376254c052083538d54eca457b8ed79aa7e1f50ec7528d2148f490f38e",
+      "passed": true,
+      "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5"
+    }
+  ],
+  "component_and_syntax": "review-evidence/whisper-057-component-and-syntax-results.json",
+  "checkpoint": "card-regression-whisper057-b3bd-checkpoint.json",
+  "full_suite_run": false,
+  "new_isolated_helper_controls": 0,
+  "limits": "Exact Red positive path only; other pitch siblings admitted but untested. Earlier runtimes and recorded evidence preserved. Native-before AP value was not captured; no generic lifecycle migration or suppression/foreign-owner certification."
+}

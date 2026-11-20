@@ -60,16 +60,20 @@ const SWU_BOT_TAGS_V2 = ['removal', 'damage-enemy-unit', 'draw', 'buff', 'bounce
 // IBH_072 Avenger, LOF_170 Bendu, SHD_158 Wild Rancor, SEC_183 Topple the Summit, TWI_013 Mace Windu,
 // TWI_239 Execute Order 66, LOF_141 Death Field, LOF_042 Always Two) while v2 missed them too.
 // "each CHOSEN unit" is excluded for the same reason as "each of": the player named the targets.
-// ⚠ ALSO REQUIRES "units" on the defeat side: LOF_147's "Defeat any number of friendly CREDIT TOKENS" was a
-// `wipe` in v2 — a board answer that answers no board.
+// ⚠ The defeat side must END ON the unit it defeats, with no upgrade / token / Shield in between: LOF_147's "Defeat any number of
+// friendly CREDIT TOKENS" was a `wipe` in v2 — a board answer that answers no board — and "Defeat any number of upgrades on a unit"
+// (SOR_170 Power Failure), "Defeat all Shield tokens on a unit" (JTL_180) are not wipes either. Until 2026-11-19 this was done by
+// demanding plural "units", which also missed every SINGULAR sweep — "Defeat each unit that isn't upgraded" (JTL_080 Nebula Ignition),
+// "Defeat each unit that player controls" (TWI_078 Invasion of Christophsis), "defeat each non-Sith unit" (LOF_039 Darth Sidious).
 const SWU_BOT_WIPE_NOT = '(?!of\b|chosen\b)';
+const SWU_BOT_WIPE_GAP = '(?:(?!upgrade|token|shield)[^.])';
 const SWU_BOT_WIPE_PATTERNS = [
     'damage-wipe-enemy'    => '/deal \d+ damage to each ' . SWU_BOT_WIPE_NOT . '[^.]{0,26}?enemy[^.]{0,18}?units?/i',
     'damage-wipe-friendly' => '/deal \d+ damage to each ' . SWU_BOT_WIPE_NOT . '[^.]{0,26}?friendly[^.]{0,18}?units?/i',
     'damage-wipe-both'     => '/deal \d+ damage to each ' . SWU_BOT_WIPE_NOT . '[^.]{0,26}?units?/i',
-    'defeat-wipe-enemy'    => '/defeat (each|all|any number of) ' . SWU_BOT_WIPE_NOT . '[^.]{0,26}?enemy[^.]{0,18}?units/i',
-    'defeat-wipe-friendly' => '/defeat (each|all|any number of) ' . SWU_BOT_WIPE_NOT . '[^.]{0,26}?friendly[^.]{0,18}?units/i',
-    'defeat-wipe-both'     => '/defeat (each|all|any number of) ' . SWU_BOT_WIPE_NOT . '[^.]{0,26}?units/i',
+    'defeat-wipe-enemy'    => '/defeat (each|all|any number of) ' . SWU_BOT_WIPE_NOT . SWU_BOT_WIPE_GAP . '{0,26}?enemy' . SWU_BOT_WIPE_GAP . '{0,18}?units?\b/i',
+    'defeat-wipe-friendly' => '/defeat (each|all|any number of) ' . SWU_BOT_WIPE_NOT . SWU_BOT_WIPE_GAP . '{0,26}?friendly' . SWU_BOT_WIPE_GAP . '{0,18}?units?\b/i',
+    'defeat-wipe-both'     => '/defeat (each|all|any number of) ' . SWU_BOT_WIPE_NOT . SWU_BOT_WIPE_GAP . '{0,26}?units?\b/i',
 ];
 
 // SELF-HARM, matched and REMOVED before the ordinary damage patterns (owner rulings 2-4).

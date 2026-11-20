@@ -1,0 +1,228 @@
+{
+  "status": "APPROVED_EXACT_SAVED_POSITIVE_FIRST_PASS_WITH_TWO_CURRENT_REPLAYS_NO_ISOLATED_FAULT_CLAIM",
+  "reviewer": "/root/b106_semantic_review",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "source_spec": "card-regression-batch213.json",
+  "source_spec_sha256": "ce8a3848b8b9fef1b3b40d7f20eb88705f710cd85ae51dd047df85a25773e6c1",
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
+      "card_id": "talisman_of_dousing_yellow",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "recorded_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "fixture_sha256": "18ca85ac251ee38e76d8bbfcaac218fb35f74e9038513925d46eb11a94e5f67d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e82b2ede3f416432791965aec3015e7aadee5551d5d9a23f7446362b4995db12",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "3cc8672e58cf7e26944835c8833a1105b77ec9e1cf2f6023203f905726699976",
+        "expected_final_gamestate.txt": "c93cb093d3e0c9bf9084e70077a2319f8cced252009e449ac3dd22f2eb29deff",
+        "meta.json": "bbb0b1295b5a56d2d5fa1eb751942d23fe47b2e48127d3a6c6df8074677606f1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e82b2ede3f416432791965aec3015e7aadee5551d5d9a23f7446362b4995db12",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "3cc8672e58cf7e26944835c8833a1105b77ec9e1cf2f6023203f905726699976",
+        "expected_final_gamestate.txt": "c93cb093d3e0c9bf9084e70077a2319f8cced252009e449ac3dd22f2eb29deff",
+        "meta.json": "bbb0b1295b5a56d2d5fa1eb751942d23fe47b2e48127d3a6c6df8074677606f1"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch213.json",
+      "input_sha256": "ce8a3848b8b9fef1b3b40d7f20eb88705f710cd85ae51dd047df85a25773e6c1",
+      "actions": 7,
+      "native_assertions": 450,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_owned_legal_four_live_initial_active_item_fixture",
+          "step": 0,
+          "native_assertions": 114
+        },
+        {
+          "checkpoint": "actual_zap_adjacent_target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 41
+        },
+        {
+          "checkpoint": "actual_zero_resource_zap_and_one_Action_asset_paid_before_responses",
+          "step": 2,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_zap_all_four_responses_then_optional_spellvoid_manual_response_1_of_four",
+          "step": 3,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_zap_all_four_responses_then_optional_spellvoid_manual_response_2_of_four",
+          "step": 4,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_zap_all_four_responses_then_optional_spellvoid_manual_response_3_of_four",
+          "step": 5,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_zap_all_four_responses_then_optional_spellvoid_actual_resolution_choice",
+          "step": 6,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "final_actual_destroyed_spellvoid_prevents_one_of_three_arcane_and_caster_owns_source",
+          "step": 7,
+          "native_assertions": 118
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 450
+      },
+      "actual_endpoint": {
+        "p4_health": 18,
+        "p1_resources": 0,
+        "p1_action_points": 0,
+        "own_arena": [],
+        "opposing_p4_arena": [],
+        "own_graveyard": [
+          {
+            "CardID": "zap_red",
+            "UniqueID": "6",
+            "Owner": "1",
+            "Controller": "1",
+            "FaceDown": "0"
+          }
+        ],
+        "own_pitch": [],
+        "p4_resources": 0,
+        "opposing_p4_graveyard": [
+          {
+            "CardID": "talisman_of_dousing_yellow",
+            "UniqueID": "5",
+            "Owner": "4",
+            "Controller": "4",
+            "FaceDown": "0"
+          }
+        ],
+        "opposing_p4_pitch": [],
+        "opposing_p4_deck": [],
+        "own_banish": [],
+        "own_equipment": []
+      },
+      "limits": [
+        "Selected actual saved state/actions/oracles review; root clean replays and meaningful available causal controls remain separate gates.",
+        "One bounded representative per group; no full-card/support/hero/excluded-branch credit."
+      ],
+      "current_qualification_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "current_clean_replays": [
+        "card-regression-replay-sparse213-405-20261026-r1.json",
+        "card-regression-replay-sparse213-405-20261026-r2.json"
+      ],
+      "current_qualification_status": "INDEPENDENT_POSITIVE_SAVED_REVIEW_TWO_CLEAN_REPLAYS_NO_ISOLATED_NATIVE_FAULT_CLAIM"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch213-actual-saved-independent-review-106.json",
+    "sha256": "2488e82e2846d3edffc8e3d2dd46776d82802447193d92572772a8977aa2a89e"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse213-405-20261026-r1.json",
+      "sha256": "60da4ae80af22f2c18930f794a5315128ffc0d4d554a2286585bae14fae5a222"
+    },
+    {
+      "path": "card-regression-replay-sparse213-405-20261026-r2.json",
+      "sha256": "aaed44ebf2152bec3981d76fdadb094581e23da21f09e30c880d3ecce654e5a1"
+    }
+  ],
+  "isolated_native_faults": {
+    "status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS",
+    "attempted": 0,
+    "detected": 0,
+    "added_global_control_rows": 0
+  },
+  "qualification": "Only actualownedDousing Spellvoidchoice/destruction/preventone of realopposingZap, correctnoextraLayer and actualparentSpellsource context. No Itemcasting/otheramounts/counter/otherrecipient branch. All original native expectations/physical ownership/economy/manual-four-seat evidence retained. No forced isolated counter/history/source mutations or fault credit. No sibling/support/full-card/fullsuite or oldcorpus blanketqualification."
+}

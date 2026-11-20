@@ -1,0 +1,51 @@
+{
+  "status": "SOURCE_AND_TOOLING_APPLIED_POSTINSTALL_VALIDATION_PENDING",
+  "utc": "2026-10-26T17:32:29.881248+00:00",
+  "runtime_before_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "source_changes": [
+    {
+      "path": "FaBSim\\Custom\\CRUCards.php",
+      "before_sha256": "a7f823700eb3679c02d843cf8f4ff2c72aa5fcbcadbdb45bfacd2a285ba315b8",
+      "after_sha256": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+      "verified_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\wrapup058-runner-source-application\\CRUCards.php.before"
+    },
+    {
+      "path": "DevTools\\RunIntegrationTests.php",
+      "before_sha256": "21cc915ed3f041cc708349d7dd0ba05d0be6b4806ac76a3aba88d0ab2667d091",
+      "after_sha256": "44208f7c7b50e8123912c78904df1f745c24f1adca58770412885667c555867a",
+      "verified_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\wrapup058-runner-source-application\\RunIntegrationTests.php.before"
+    }
+  ],
+  "new_tooling": [
+    {
+      "path": "DevTools\\FaB\\CardRegression\\components\\trap_legality_component.php",
+      "sha256": "39c3637a14291ba6c7b5a6f2d1768a259583ce32b4b4a89977af62896779fe76"
+    },
+    {
+      "path": "DevTools\\FaB\\CardRegression\\components\\trap_explicit_play_text_cases.json",
+      "sha256": "6f9ac9ba83a38b9c5be822bf40ee7bec52061ad33abe9156375ac853ba266f81"
+    },
+    {
+      "path": "DevTools\\test-integration-runner-options.php",
+      "sha256": "de8c1b5700591540f5b1936e39e235532abb1aee0163273a255ffee32bca188d"
+    }
+  ],
+  "portable_tooling_changes": "Only four Trap component default paths and one runner harness scratch-directory default changed; tested logic/cases unchanged. Final installed tooling smoke tests pending.",
+  "source_approvals": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\trap058-independent-source-approval.json",
+      "sha256": "1b157825bfb4dd36e5dd0673f9ac9da1976a56a22bf652d402c073f15cf70b8d"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\runner-failure-limit-v3-source-and-cli-harness-independent-approval.json",
+      "sha256": "363a75db3a8f96733a70f70ddc75db32d502880179d076996f2bfb3b5751b205"
+    }
+  ],
+  "controlled_candidate_runner_contracts_passed": 32,
+  "candidate_trap_groups_passed": 12,
+  "candidate_trap_checks_passed": 15,
+  "candidate_trap_mutants_detected": 2,
+  "native_shock_after_run": false,
+  "bounded_suite_run": false,
+  "runtime_after_sha256": "77a0bdd8458aee8723f873fb3ba23619c51193932d354965ad1524be9468708c"
+}

@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch201.json",
+  "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T21:04:24.491005+00:00",
+  "fixtures": [
+    {
+      "slug": "card-channel-mount-heroic-red-four-live-sparse-active-owned-earth-aura-buffs-real-attack-by-three",
+      "fixture_sha256": "bc7c499f9f2074d868747444f07010769c383cd46eae1074243162c8def58317",
+      "passed": true,
+      "result": "[PASS] channel_mount_heroic_red / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-channel-lake-frigid-blue-four-live-sparse-opposing-owned-ice-aura-taxes-real-zero-cost-attack",
+      "fixture_sha256": "67e00c1495e046df0221e82ff60fbc92d319f0a7075376588f7d27274c9bbe44",
+      "passed": true,
+      "result": "[PASS] channel_lake_frigid_blue / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "fixture_sha256": "cb62311ccf9b83026751116bdb9efd1a1b1d9da564d55e94bdc502c355639efe",
+      "passed": true,
+      "result": "[PASS] bloodsheath_skeleta / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-plasma-purifier-red-four-live-sparse-actual-paid-item-recharge-creates-one-steam-and-go-again",
+      "fixture_sha256": "e391e9e05c3d390ce32999a51d2cffc19f58a7ffd31bdc6723776a9d74d0dfe8",
+      "passed": true,
+      "result": "[PASS] plasma_purifier_red / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-channel-mount-heroic-red-four-live-sparse-active-owned-earth-aura-buffs-real-attack-by-three",
+      "returncode": 0,
+      "stdout": "[PASS] channel_mount_heroic_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-channel-lake-frigid-blue-four-live-sparse-opposing-owned-ice-aura-taxes-real-zero-cost-attack",
+      "returncode": 0,
+      "stdout": "[PASS] channel_lake_frigid_blue / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "returncode": 0,
+      "stdout": "[PASS] bloodsheath_skeleta / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-plasma-purifier-red-four-live-sparse-actual-paid-item-recharge-creates-one-steam-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] plasma_purifier_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

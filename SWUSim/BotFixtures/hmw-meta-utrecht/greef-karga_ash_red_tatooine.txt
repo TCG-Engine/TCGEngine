@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Greef Karga, Gracious Magistrate - Jundland Wastes
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #50 of 789 (9-4-0), player NO_Rykyna
+#   https://melee.gg/Decklist/View/dbd149fa-fe00-4858-9503-b4f3017d2182 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Greef Karga (ASH) Red (Tatooine) list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softaggro — the classifier's read (label) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: softaggro
+
+Leader
+1 ASH_017
+
+Base
+1 HMW_028
+
+Deck
+3 JTL_203
+3 SEC_148
+3 ASH_208
+2 ASH_040
+2 ASH_161
+3 JTL_147
+3 SEC_204
+3 SEC_215
+3 ASH_171
+3 JTL_221
+3 ASH_222
+3 ASH_253
+2 ASH_159
+2 JTL_217
+2 LOF_192
+3 LAW_078
+3 SEC_179
+2 HMW_216
+2 SEC_176
+
+Sideboard
+2 LAW_191
+2 SEC_163
+2 HMW_234
+2 IBH_052
+1 JTL_235
+1 ASH_161

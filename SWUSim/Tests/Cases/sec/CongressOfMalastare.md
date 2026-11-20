@@ -115,3 +115,30 @@ WithP1Hand: [JTL_084 JTL_086]
 ## EXPECT
 P1RESAVAILABLE:6
 P1GROUNDARENAUNIT:2:UPGRADECOUNT:1
+
+---
+
+# FreeUpgradeIsTheFirstUpgrade_SecondPaysFull
+#// SEC_064 Congress of Malastare — "The first upgrade you play each phase costs 1 less." Jabba's free replay
+#// of ASH_230 is the first upgrade played this phase, so the second ASH_230 from hand pays full 2:
+#// 6 - 4 (Jabba) - 2 = 0. An unspent Congress slot leaves 1.
+
+## GIVEN
+CommonSetup: byk/byk/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: [SEC_064:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 1:ASH_230
+WithP1Hand: [ASH_042 ASH_230]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:myGroundArena-2
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:2:UPGRADECOUNT:1
+P1HANDCOUNT:0
+P1RESAVAILABLE:0

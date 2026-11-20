@@ -1,0 +1,30 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch241.json",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T10:53:12.835095+00:00",
+  "fixtures": [
+    {
+      "slug": "card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+      "fixture_sha256": "133d8db2e4e956360429b77e30da65e97804a82fc80e17963edfdaa4aa76f80b",
+      "passed": true,
+      "result": "[PASS] kavdaen_trader_of_skins / lean meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+      "returncode": 0,
+      "stdout": "[PASS] kavdaen_trader_of_skins / lean meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-plasma-barrel-shot-four-live-sparse-paid-charge-then-real-steam-cost-unboosted-gun-attack",
+    "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__.'/LopunnyBot.php';
 require_once __DIR__.'/FanRotomBot.php';
+require_once __DIR__.'/CeruledgeBot.php';
+require_once __DIR__.'/CeruledgeFightingBot.php';
 require_once __DIR__.'/MeowthBot.php';
 require_once __DIR__.'/PrizeLogic.php';
 require_once __DIR__.'/RelicanthBot.php';
@@ -277,6 +279,8 @@ function PokeBotDecision(array $ctx,array $d): string {
     return $choices[0]['value']??'-';
 }
 function PokeBotChoose(array $view): ?array {
+    if (($view['players'][$view['viewer']]['deckKey']??'')==='ceruledge-fighting') return PokeCeruledgeFightingChoose($view);
+    if (in_array($view['players'][$view['viewer']]['deckKey']??'',['ceruledge-ex','ceruledge-budew'],true)) return PokeCeruledgeChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='galarian-meowth') return PokeMeowthChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='relicanth-v3-meta-tune') return PokeRelicanthMetaTuneChoose($view);
     if (in_array($view['players'][$view['viewer']]['deckKey']??'', ['relicanth-v4-colress','relicanth-v5-bastiodon','relicanth-v6-explorers-guidance','relicanth-v7-lanas-aid'], true)) return PokeRelicanthColressChoose($view);
