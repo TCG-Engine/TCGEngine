@@ -23,8 +23,8 @@ WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 - P1>AnswerDecision:theirGroundArena-1
 - P2>Claim
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AttackGroundArena:0:0
 - P1>AttackGroundArena:0:0
 
@@ -84,8 +84,8 @@ WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 - P1>PlayHand:0
 - P2>Claim
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AttackGroundArena:0:0
 
 ## EXPECT

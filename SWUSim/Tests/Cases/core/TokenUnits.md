@@ -53,8 +53,8 @@ WithP2Deck: [SOR_128 SOR_128]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:0:0
 

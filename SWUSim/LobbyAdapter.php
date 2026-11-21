@@ -119,6 +119,7 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
     // docs/superpowers/specs/2026-10-18-twinsuns-house-rules-design.md
     public function houseRuleDefs(object $lobby): array {
         if (!$this->wantsWaitingRoom($lobby) || !SWUFormatIsRoomFormat(strval($lobby->format ?? ''))) return [];
+        if (SWUFormatAlwaysTwoMode(strval($lobby->format ?? '')) !== '') return [];   // 4P Always Two is a room, but not Twin Suns
         return SWUHouseRuleDefs();
     }
 
@@ -128,6 +129,10 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
         return [
             'maxPlayers' => $f !== null ? intval($f['maxPlayers']) : 2,
             'teams'      => ($f !== null && !empty($f['teams'])) ? ['red', 'blue'] : null,
+            // Decks each seat brings: 2 in 1v1 Always Two (one person, two boards — spec 2026-11-20-swusim-always-two), else 1.
+            'decksPerSeat' => SWUFormatDecksPerPlayer(strval($lobby->format ?? '')),
+            // The match lengths this format allows (1v1 Always Two: Bo1 only) — the waiting room draws the switch only for 2+.
+            'queueTypes'   => SWUFormatAllowedQueueTypes(strval($lobby->format ?? '')),
             // Carried so Spec 2's per-match queueType choice slots in without a payload change.
             'queueType'  => strval($lobby->queueType ?? 'bo1'),
         ];
@@ -262,6 +267,14 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
         // (SWUSim/Rooms.php — loaded at file scope by the lobby endpoints that need it).
         if (function_exists('SWURoomEndScreenNames')) {
             foreach (SWURoomEndScreenNames($lobby) as $name) $errors[] = $name . ' is still on the end-game screen.';
+        }
+        // 1v1 Always Two: every seat plays two boards, so Start waits for each seat's legal SECOND deck too.
+        if (SWUFormatDecksPerPlayer(strval($lobby->format ?? '')) === 2) {
+            foreach (($lobby->players ?? []) as $p) {
+                if (!($p instanceof Player) || $p->getDeckOk2()) continue;
+                $who = $p->getUsername() !== '' ? $p->getUsername() : ('Guest P' . intval($p->getSeat() ?? $p->getPlayerID()));
+                $errors[] = $who . ' needs a second deck.';
+            }
         }
         foreach (($lobby->players ?? []) as $p) {
             if ($p instanceof Player && $p->getBotProfile() !== '' && !isset($this->botProfiles($lobby)[$p->getBotProfile()])) {

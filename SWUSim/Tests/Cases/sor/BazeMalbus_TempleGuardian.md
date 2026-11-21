@@ -158,8 +158,8 @@ WithP2Deck: [SOR_095 SOR_095]
 ## WHEN
 - P1>Pass
 - P2>Claim
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AttackGroundArena:0:BASE
 
 ## EXPECT

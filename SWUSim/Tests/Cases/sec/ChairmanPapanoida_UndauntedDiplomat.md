@@ -109,8 +109,8 @@ WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
 WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 ## EXPECT
 P1GROUNDARENACOUNT:1

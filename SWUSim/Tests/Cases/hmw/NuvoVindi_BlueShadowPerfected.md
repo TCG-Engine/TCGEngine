@@ -230,8 +230,8 @@ WithP2Deck: [SOR_237 SOR_225 SOR_046 SEC_080]
 - P1>AnswerDecision:myGroundArena-0
 - P1>Pass
 - P2>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:1:0
 

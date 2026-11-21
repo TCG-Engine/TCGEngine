@@ -260,8 +260,8 @@ WithP1GroundArena: [IC27_126:1:0 SOR_095:1:0]
 - P1>AttackGroundArena:0:BASE
 - P1>AnswerDecision:myGroundArena-1
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 PHASE:MAIN

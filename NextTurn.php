@@ -5,6 +5,12 @@
 // which stripped the logged-in user's identity from the deck visibility dropdown
 // (the Team/Patreon options), since those need LoggedInUser() deep in InitialLayout.php.
 if (session_status() === PHP_SESSION_NONE) session_start();
+// SWUSim 1v1 Always Two: a seat that plays two boards gets a TABLE of two real board views instead of one board
+// (SWUSim/AlwaysTwoTable.php). Before any output; the halves come back here with swuEmbed set and render normally.
+if (($_GET['folderPath'] ?? '') === 'SWUSim' && !isset($_GET['swuEmbed'])) {
+  require_once __DIR__ . '/SWUSim/AlwaysTwoTable.php';
+  if (SWUAlwaysTwoServeTable()) exit;
+}
 ?>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -407,6 +413,19 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
     <script>
       function CalculateCardSizeByWidth() {
+<?php if ($folderPath === 'SWUSim') { ?>
+        // A half of the 1v1 Always Two table (SWUSim/AlwaysTwoTable.php): the two halves are ONE table, so both get the same card
+        // size, from the BOARD's width — not the frame's. The 'a2' half's frame also holds the 280px log/chat sidebar
+        // (GameLayoutShared.php pins it when the table is wide), which on a 1920 screen pushed that frame past 1000px into the desktop branch
+        // (68px cards beside the other half's 80px). Owner, 2026-11-20: "static like a real tabletop game".
+        var a2Embed = (/[?&]swuEmbed=(a2|a2side)(?:&|$)/.exec(location.search) || [])[1];
+        if (a2Embed) {
+          // The sidebar is beside the board only when the TABLE is wide (> 900px — the same test GameLayoutShared.php uses for 'a2-wide').
+          var a2TableW; try { a2TableW = (window.top || window).innerWidth; } catch (e) { a2TableW = window.innerWidth; }
+          var a2BoardW = window.innerWidth - ((a2Embed === 'a2' && a2TableW > 900) ? 280 : 0);
+          return Math.max(36, Math.min(80, Math.floor((a2BoardW - 24 - 7 * 4) / 7)));
+        }
+<?php } ?>
         if (window.innerWidth <= 1000) {
           var viewportWidth = (window.visualViewport && window.visualViewport.width) ? window.visualViewport.width : window.innerWidth;
           // Phone-specific layouts can show fewer, larger cards. Gate on the same

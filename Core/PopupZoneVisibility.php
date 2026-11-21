@@ -71,6 +71,8 @@ function PopupMayShowZone(string $rootName, string $popupType, array $viewerInfo
   if ($vis !== 'Self') return false;
   if ($owner === null) return !$isSpectator;
   if ($viewerSeat === $owner) return true;
+  // A sim whose seat plays several boards (SWUSim 1v1 Always Two: seat 1 = boards 1+3) — the viewer's other board is its own too.
+  if ($viewerSeat > 0 && function_exists('SWUViewerControlsBoard') && SWUViewerControlsBoard($viewerSeat, intval($owner))) return true;
   if ($zone === 'Hand' && $spectatorCanSeeHands) return true;
   return in_array($zone, ['Hand', 'Resources'], true) && _PopupViewerRevealsZone($viewerSeat, $owner, $zone);
 }

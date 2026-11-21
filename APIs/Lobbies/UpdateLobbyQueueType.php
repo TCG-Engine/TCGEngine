@@ -34,6 +34,10 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($rootName, $authKey, $queu
   // A public lobby's length is the queue it waits in — changing it would move it to another queue.
   if (empty($lobby->isPrivate)) { $err = 'Match length is chosen in private rooms only.'; return false; }
   if (!empty($lobby->gameName)) { $err = 'The match has already started.'; $code = 409; return false; }
+  // A format may allow only some lengths (SWUSim 1v1 Always Two is Bo1 only).
+  if (function_exists('SWUFormatAllowsQueueType') && !SWUFormatAllowsQueueType(strval($lobby->format ?? ''), $queueType)) {
+    $err = 'This format plays ' . ($queueType === 'bo3' ? 'Best of 1' : 'Best of 3') . ' only.'; return false;
+  }
   $host = null;
   foreach (($lobby->players ?? []) as $p) {
     if (($p instanceof Player) && intval($p->getPlayerID()) === intval($lobby->hostPlayerID ?? 1)) { $host = $p; break; }

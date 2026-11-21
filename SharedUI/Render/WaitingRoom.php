@@ -349,6 +349,16 @@ function _WaitingRoomMarkup(array $cfg): string {
           <span id="wr-ready-slot"></span>
         </div>
         <div id="wr-deck-msg" style="font-size:12px;margin-top:6px;"></div>
+        <!-- A room whose adapter asks for TWO decks per seat (seatModel.decksPerSeat = 2 — SWUSim's 1v1 Always Two, one person
+             playing two boards). Hidden in every other room. -->
+        <div id="wr-deck2" style="display:none;margin-top:10px;">
+          <div class="wr-deckbar">
+            <textarea id="wr-deck2-input" rows="1" spellcheck="false"
+                      placeholder="Second deck: paste a deck link or deck list (may be the same deck)"></textarea>
+            <button id="wr-deck2-btn" type="button" class="btn">Use as second deck</button>
+          </div>
+          <div id="wr-deck2-msg" style="font-size:12px;margin-top:6px;"></div>
+        </div>
       </div>
           <div id="wr-actions-left"></div>
         </div>
@@ -464,6 +474,7 @@ function _WaitingRoomScript(array $cfg): string {
     return '<div class="wr-strip">' + cards.map(thumb).join('') + '</div>';
   }
   var botProfiles = {};
+  var decksPerSeat = 1;   // seatModel.decksPerSeat, refreshed each render: 2 in a two-deck room (SWUSim 1v1 Always Two)
   function seatBody(entry, seatNo) {
     // No "(you)" here — the green ring on your own tile already says it, and repeating it in text
     // was two signals for one fact. It IS kept in the unassigned holding line below, where there is
@@ -489,6 +500,7 @@ function _WaitingRoomScript(array $cfg): string {
     // player. Away NEVER blocks Start — it is what the host reads before deciding to Remove.
     var pill = entry.onEndScreen ? '<span class="wr-pill wr-pill-endscreen">ON END-GAME SCREEN</span>'
              : !entry.deckOk ? '<span class="wr-pill wr-pill-baddeck">NO DECK</span>'
+             : (decksPerSeat > 1 && !entry.botProfile && !entry.deckOk2) ? '<span class="wr-pill wr-pill-baddeck">NO SECOND DECK</span>'
              : entry.ready   ? '<span class="wr-pill wr-pill-ready">READY</span>'
                              : '<span class="wr-pill wr-pill-notready">NOT READY</span>';
     var away = entry.away ? '<span class="wr-pill wr-pill-away">AWAY</span>' : '';
@@ -502,6 +514,7 @@ function _WaitingRoomScript(array $cfg): string {
     if (entry.botProfile) deck = '<span style="font-size:12px;">' + esc((botProfiles[entry.botProfile] || {}).description || '') + '</span>';
     return '<div class="wr-seat-label">Seat ' + seatNo + '</div>' +
            '<div class="wr-seat-who">' + esc(who) + kick + '</div>' + strip(entry) +
+           (decksPerSeat > 1 ? strip({ identity: entry.identity2 }) : '') +
            '<div class="wr-seat-foot">' + pill + away + deck + '</div>';
   }
   function emptySeat(sn, inner) {
@@ -510,6 +523,7 @@ function _WaitingRoomScript(array $cfg): string {
 
   function renderRoster(d) {
     botProfiles = d.botProfiles || {};
+    decksPerSeat = (d.seatModel && parseInt(d.seatModel.decksPerSeat, 10)) || 1;
     var host = el('wr-roster'); if (!host) return;
     var roster = d.roster || [];
     var model = d.seatModel || { maxPlayers: d.maxPlayers || 2, teams: null };
@@ -892,6 +906,8 @@ function _WaitingRoomScript(array $cfg): string {
   // menu's options toggle (.seg — swusim-menu-2.css styles it site-wide), everyone else reads the current value.
   function bestOfControl(d, isHost) {
     if (ROOT !== 'SWUSim' || seatCount(d) !== 2) return '';
+    // A format that allows one length only (SWUSim 1v1 Always Two: Bo1) has nothing to choose.
+    if (d.seatModel && Array.isArray(d.seatModel.queueTypes) && d.seatModel.queueTypes.length < 2) return '';
     var qt = (d.seatModel && d.seatModel.queueType) === 'bo3' ? 'bo3' : 'bo1';
     if (!isHost) return '<span class="wr-bestof"><span class="wr-bestof-lbl">Match</span><span id="wr-bestof-text">' +
                        (qt === 'bo3' ? 'Best of 3' : 'Best of 1') + '</span></span>';
@@ -1332,6 +1348,8 @@ function _WaitingRoomScript(array $cfg): string {
                                    ((d.seatModel && d.seatModel.maxPlayers) || d.maxPlayers || 2);
     // The deck panel stays available while seated — changing decks in the lobby is the point.
     el('wr-deck').style.display = '';
+    var d2 = el('wr-deck2');
+    if (d2) d2.style.display = (seated && d.seatModel && parseInt(d.seatModel.decksPerSeat, 10) > 1) ? '' : 'none';
     var db = el('wr-deck-btn');
     if (db) {
       db.textContent = seated ? 'Change deck' : 'Join with this deck';
@@ -1671,6 +1689,22 @@ function _WaitingRoomScript(array $cfg): string {
     });
   }
 
+  // The second deck of a two-deck room: the same endpoint, slot 2.
+  function doChangeDeck2() {
+    var inp = el('wr-deck2-input');
+    var deck = inp ? inp.value.trim() : '';
+    if (!deck) return;
+    post('APIs/Lobbies/UpdateLobbyDeck.php',
+      'lobbyID=' + encodeURIComponent(lobbyID) + '&playerID=' + encodeURIComponent(myPlayerID) +
+      '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&deckLink=' + encodeURIComponent(deck) + '&deckSlot=2',
+      function (r) {
+        var m = el('wr-deck2-msg');
+        m.style.color = r.deckOk ? '#9ed9b4' : '#ff6b6b';
+        m.textContent = r.deckOk ? 'Second deck accepted.' : (r.message || 'Second deck rejected.');
+        lastSig = '';
+      });
+  }
+
   function doChangeDeck() {
     var deck = chosenDeck();
     if (!deck) return;
@@ -1802,6 +1836,8 @@ function _WaitingRoomScript(array $cfg): string {
     }
     var btn = el('wr-deck-btn');
     if (btn) btn.onclick = function () { if (el('wr-root').getAttribute('data-state') === 'seated') doChangeDeck(); else doJoin(); };
+    var btn2 = el('wr-deck2-btn');
+    if (btn2) btn2.onclick = doChangeDeck2;
     if (lobbyID) rewriteUrl();
     // A hidden tab's timers are throttled to about once a minute (and a locked phone's stop dead),
     // so the first thing to do on returning is re-register rather than wait out the throttled timer.

@@ -281,8 +281,8 @@ WithP1Deck: [SOR_063 SOR_063 SOR_063 SOR_063]
 - P1>PlayHand:0
 - P1>Pass
 - P2>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>UseLeaderAbility
 ## EXPECT
 P1GROUNDARENACOUNT:2

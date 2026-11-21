@@ -957,10 +957,14 @@ function SWUParseGameLogEntry(string $entry): array {
 function SWUFilterGameLogForViewer($rawLog, $viewerSeat, $isSpectator) {
     $out = [];
     $vSeatTag = 'P' . intval($viewerSeat);
+    // 1v1 Always Two: a seat plays two boards, so it reads the private lines of both (SWUBoardsOfSeat; [seat] everywhere else). The
+    // viewer may be EITHER board of the seat — the 2×2 table's log lives in the board seat+2 half — so map board → seat first.
+    $vTags = [$vSeatTag];
+    if (function_exists('SWUBoardsOfSeat')) $vTags = array_map(fn($b) => 'P' . intval($b), SWUBoardsOfSeat(SWUSeatOfBoard(intval($viewerSeat))));
     foreach (explode('<NL>', strval($rawLog)) as $entry) {
         if ($entry === '') continue;
         $logVis = explode('|', $entry, 3)[1] ?? 'ALL';
-        if ($logVis === 'ALL' || (!$isSpectator && in_array($vSeatTag, array_map('trim', explode(',', $logVis)), true))) {
+        if ($logVis === 'ALL' || (!$isSpectator && array_intersect($vTags, array_map('trim', explode(',', $logVis))))) {
             $out[] = $entry;
         }
     }

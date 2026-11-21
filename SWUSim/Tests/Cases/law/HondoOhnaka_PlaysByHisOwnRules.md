@@ -178,8 +178,8 @@ WithP2Deck: [SOR_095 SOR_095]
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>UseUnitAbility:myGroundArena-0
 

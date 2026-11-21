@@ -49,8 +49,8 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080]
 - P1>AttackGroundArena:0:BASE
 - P1>AnswerDecision:YES
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED
@@ -94,14 +94,15 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080 SEC_080 SEC_080]
 ## WHEN
 - P1>AttackGroundArena:0:BASE
 - P1>AnswerDecision:YES
+#// P2 holds the initiative both rounds (P1OnlyActions = P2 claimed it), so P2 resources first each regroup
+#// (CR 5.4.c) and is the first to act in round 2.
 - P1>Pass
-- P2>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
+- P2>Pass
 - P1>Pass
-- P2>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:READY

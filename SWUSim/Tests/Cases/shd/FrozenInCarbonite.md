@@ -11,8 +11,8 @@ WithP1GroundArena: SEC_080:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED

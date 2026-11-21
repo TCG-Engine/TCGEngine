@@ -53,8 +53,8 @@ WithP2Deck: [SEC_080 SEC_080]
 - P1>AttackGroundArena:0:0
 - P1>PlayHand:0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:4

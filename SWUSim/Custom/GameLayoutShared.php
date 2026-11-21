@@ -1689,6 +1689,86 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // "when viewing as P1, they still see P1 in the home panels"). Only the views use it. Turn ownership,
     // undo and elimination still read MY_PLAYER_ID, so a spectator never gets a seated player's controls.
     var BOARD_SEAT = MY_PLAYER_ID || PERSPECTIVE_SEAT || 0;
+    // Always Two (spec 2026-11-20): the turn belongs to a TEAM — either board of it may act. The board view asks this instead of
+    // "turn player === me" (and so does Core's highlight / turn-overlay code, through window.SimViewerOwnsTurn). Outside Always Two
+    // it is exactly that equality.
+    window.SWUIsAlwaysTwo = <?php echo (function_exists('SWUIsAlwaysTwo') && SWUIsAlwaysTwo()) ? 'true' : 'false'; ?>;
+    // A half of the 1v1 Always Two table (SWUSim/AlwaysTwoTable.php): 'a2' = the seat's first board, 'a2side' = its second, '' = the
+    // ordinary board. Both halves hide the teammate's panel (it is the other half); the second also hides round / undo / log / chat
+    // and stays silent (no chime, no game-over overlay) so the table shows each once.
+    window.SWUEmbed = <?php $swuEmbedMode = strval($_GET['swuEmbed'] ?? ''); echo json_encode(in_array($swuEmbedMode, ['a2', 'a2side'], true) ? $swuEmbedMode : ''); ?>;
+    // …and the opponent board this half FACES on the 2×2 table (spec "The 2×2 table"): it opens on that matchup view instead of Home
+    // (swuInitPairSwitcher). 0 = not embedded / not given — every other board is unchanged.
+    window.SWUEmbedFace = <?php $swuFaceSeat = intval($_GET['swuFace'] ?? 0); echo ($swuEmbedMode !== '' && in_array($swuEmbedMode, ['a2', 'a2side'], true) && $swuFaceSeat >= 1 && $swuFaceSeat <= 4) ? $swuFaceSeat : 0; ?>;
+    if (window.SWUEmbed) {
+        (function () {
+            // The 2×2 table: each half is a matchup ("your board vs the opponent above it"), so the Home summary rows and the matchup
+            // carousel (◀ ▶, Go back) have no place here — the other boards are on the table itself.
+            // WIDE = the TABLE shows its columns side by side (AlwaysTwoTable.php stacks them at <= 900px). Decided by the WHOLE window,
+            // not this frame: at 1600px a column frame is only ~660px wide, and a frame-width query would call it a phone.
+            var syncWide = function () {
+                var w; try { w = (window.top || window).innerWidth; } catch (e) { w = window.innerWidth; }
+                document.documentElement.classList.toggle('a2-wide', w > 900);
+            };
+            syncWide(); window.addEventListener('resize', syncWide);
+            // Inside corner (owner, 2026-11-20): the LEFT column's bases sit on its right edge, the RIGHT column's on its left edge, so
+            // the four bases meet in the middle of the table. Centre cells in DOM order: my leader, my base, their base, their leader.
+            var o = (window.SWUEmbed === 'a2side') ? { ml: 3, mb: 4, tb: 2, tl: 1 } : { ml: 4, mb: 3, tb: 1, tl: 2 };
+            var W = 'html.a2-wide ';
+            var css = '#swuHomeStrips,#swuPairPrev,#swuPairNext,#swuGoBack{display:none!important}'
+                    // STATIC like a real tabletop (owner, 2026-11-20): every row has a FIXED height except the two arenas, which share what is
+                    // left — so nothing that changes mid-game (art loading, a hand overflowing, a button appearing, a go-wide arena) moves a
+                    // row, and both columns line up row for row. Full arenas scroll inside, as on the phone.
+                    + '#swuMobileRoot > *{flex:none}'
+                    + '#swuMobileRoot > .swu-m-arena-row{flex:1 1 0!important;min-height:0!important}'
+                    + '#swuMobileRoot > .swu-m-arena-row > .swu-m-arena-col{display:flex;flex-direction:column;min-height:0}'
+                    + '#swuMobileRoot > .swu-m-arena-row .swu-m-scroll{flex:1 1 auto;height:auto!important;min-height:0!important}'
+                    + '#swuMobileRoot > .swu-m-centers-row{box-sizing:border-box;height:97px;margin-top:0!important}'
+                    + '#swuMobileRoot #myHandSlot{box-sizing:border-box;height:calc(var(--swu-cardsize, 80px) + 16px);min-height:0!important}'
+                    // The controls: a fixed slot; anything taller grows UP over the hand edge rather than moving the board.
+                    + '#swuMobileRoot .swu-m-footer-stack{position:static!important;margin-top:0!important;height:62px;justify-content:flex-end}'
+                    // The 2×2 (wide only): the leader/base row becomes TWO lines — the opponent's pair above yours, the centre line between —
+                    // with the bases on the inner side. A 390px phone column keeps the single row (yours · theirs, bases meeting mid).
+                    + W + '#swuMobileRoot > .swu-m-centers-row{height:194px;flex-wrap:wrap;row-gap:0;padding:0 30px!important;background:none!important}'
+                    + W + '.swu-m-centers-row > .swu-m-center{flex:0 0 calc(50% - 2px)!important;height:97px;box-sizing:border-box;align-items:center}'
+                    + W + '.swu-m-centers-row > .swu-m-center.is-theirs{background:rgba(var(--turn-theirs-rgb),0.05);box-shadow:inset 0 -2px 0 rgba(226,177,60,.55)}'
+                    + W + '.swu-m-centers-row > .swu-m-center.is-mine{background:rgba(var(--turn-mine-rgb),0.06)}'
+                    + W + '.swu-m-centers-row > .swu-m-center:nth-child(1){order:' + o.ml + '}'
+                    + W + '.swu-m-centers-row > .swu-m-center:nth-child(2){order:' + o.mb + '}'
+                    + W + '.swu-m-centers-row > .swu-m-center:nth-child(3){order:' + o.tb + '}'
+                    + W + '.swu-m-centers-row > .swu-m-center:nth-child(4){order:' + o.tl + '}'
+                    // Crossing the table: a card here that answers the OTHER half's open choice (marked by AlwaysTwoTable.php). Same look as
+                    // the board's own .selectable-card glow; a unit carrying an offered upgrade gets a dashed edge; a picked one ("up to N") gold.
+                    + '.a2-cross-target,.a2-cross-subhost{display:inline-block;position:relative;border-radius:8px;cursor:pointer;transition:transform 160ms cubic-bezier(.2,.9,.2,1)}'
+                    + '.a2-cross-target:hover,.a2-cross-subhost:hover{transform:translateY(-4px) scale(1.04)}'
+                    + '.a2-cross-target img:not(.counter-image-icon){border-radius:6px;border:2px solid rgba(100,250,0,.5);box-shadow:0 0 12px rgba(100,250,0,.5),0 0 6px rgba(100,250,0,.5)}'
+                    + '.a2-cross-subhost img:not(.counter-image-icon){border-radius:6px;border:2px dashed rgba(100,250,0,.85);box-shadow:0 0 10px rgba(100,250,0,.35)}'
+                    + '.a2-cross-picked img:not(.counter-image-icon){border-color:rgba(255,198,46,1);box-shadow:0 0 14px rgba(255,198,46,.9)}'
+                    + (window.SWUEmbed === 'a2side'
+                        ? '#swuSidebar{display:none!important}'
+                        // The RIGHT half carries the table's log / chat / undo: a full-height column on the right when the table is wide; on a
+                        // phone it stays at the bottom, ending the page. 280px = AlwaysTwoTable.php's --a2-sb.
+                        : W + '#swuSidebar{position:fixed!important;top:0!important;right:0!important;bottom:0!important;'
+                          + 'width:280px!important;height:auto!important;overflow:hidden!important;z-index:20;box-sizing:border-box;padding:10px 12px!important;'
+                          + 'display:flex!important;flex-direction:column!important;'
+                          // Opaque: the phone drawer's 85% fill let the board layer behind it show through as a seam halfway down.
+                          + 'background:rgb(8,12,18)!important}'
+                          // As in regular games: the log fills the column and scrolls on its own; Message | Send pinned at the bottom.
+                          + W + '#swuSidebar > *{flex:none;max-width:100%;box-sizing:border-box}'
+                          + W + '#swuSidebar #swuLogPanel{flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important}'
+                          + W + '#swuSidebarHeader{flex-wrap:wrap!important;gap:6px;width:auto!important}'
+                          + W + '#swuMobileRoot,' + W + '#swuHomeStrips,' + W + '#turn-miasma-overlay{right:280px!important;width:auto!important}');
+            var st = document.createElement('style'); st.id = 'swuEmbedStyle'; st.textContent = css;
+            (document.head || document.documentElement).appendChild(st);
+        })();
+    }
+    window.SimViewerOwnsTurn = function (turnSeat, viewerSeat) {
+        turnSeat = parseInt(turnSeat, 10); viewerSeat = parseInt(viewerSeat, 10);
+        if (isNaN(turnSeat) || isNaN(viewerSeat)) return false;
+        if (turnSeat === viewerSeat) return true;
+        return !!window.SWUIsAlwaysTwo && (turnSeat % 2) === (viewerSeat % 2);
+    };
+    window.swuMyTurn = function () { return window.SimViewerOwnsTurn(String(window.TurnPlayerData || '').trim(), MY_PLAYER_ID); };
 
     // ── Phase track ────────────────────────────────────────────────────────────
     var PHASE_ALIASES = {
@@ -1808,7 +1888,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         ctrl.classList.toggle('is-mine',   hasSide && sideIsMe);
         ctrl.classList.toggle('is-theirs', hasSide && !sideIsMe);
 
-        var isMyTurn    = (String(window.TurnPlayerData||'').trim() === String(MY_PLAYER_ID));
+        var isMyTurn    = window.swuMyTurn();
         var isMainPhase = (String(window.CurrentPhaseData||'').trim() === 'MAIN');
         var canAct      = isMyTurn && isMainPhase;
         var canTake     = canAct && !claimed;                 // "Take the Initiative" action legal
@@ -2235,38 +2315,6 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var l=parseFloat(slot.style.left),t=parseFloat(slot.style.top);
             if(isFinite(l)&&isFinite(t)) applyPos(l,t); }});
         loadPos();
-    }
-
-    // ── Hand collapse ─────────────────────────────────────────────────────────
-    function setupHandCollapse() {
-        var my=document.getElementById('myHandSlot');
-        var their=document.getElementById('theirHandSlot');
-        if(!my) return;
-        var KEY='swu-hand-collapsed-v1';
-        var collapsed=false;
-        try{collapsed=localStorage.getItem(KEY)==='1';}catch(e){}
-
-        function makeBtn(){
-            var b=document.createElement('button'); b.className='swu-hand-collapse-btn';
-            b.type='button'; b.title='Collapse / expand hand';
-            b.textContent=collapsed?'▲':'▼';
-            b.addEventListener('click',function(ev){ev.stopPropagation(); setCollapsed(!my.classList.contains('is-collapsed'));});
-            return b;
-        }
-        function ensureBtn(){ if(!my.querySelector('.swu-hand-collapse-btn')) my.insertBefore(makeBtn(),my.firstChild); }
-        function setCollapsed(c){
-            collapsed=c; my.classList.toggle('is-collapsed',c);
-            if(their) their.classList.toggle('is-collapsed',c);
-            var b=my.querySelector('.swu-hand-collapse-btn'); if(b) b.textContent=c?'▲':'▼';
-            try{localStorage.setItem(KEY,c?'1':'0');}catch(e){}
-        }
-        window.SWUHandCollapse={
-            toggle:function(){setCollapsed(!my.classList.contains('is-collapsed'));},
-            collapse:function(){setCollapsed(true);}, expand:function(){setCollapsed(false);}
-        };
-        new MutationObserver(ensureBtn).observe(my,{childList:true});
-        ensureBtn();
-        if(collapsed){my.classList.add('is-collapsed'); if(their) their.classList.add('is-collapsed');}
     }
 
     // ── Mount the chat COMPOSER in the sidebar ────────────────────────────────
@@ -3046,7 +3094,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // Intercept resource card clicks to trigger Smuggle when conditions are met.
     // Uses capture phase so it fires before the framework FSM onclick on the card.
     function handleResourceClick(e) {
-        var isMyTurn    = (String(window.TurnPlayerData   || '').trim() === String(MY_PLAYER_ID));
+        var isMyTurn    = window.swuMyTurn();
         var isMainPhase = (String(window.CurrentPhaseData || '').trim() === 'MAIN');
         if (!isMyTurn || !isMainPhase) return;
         // Don't intercept when selection mode is active (MZCHOOSE picking a resource target).
@@ -3076,7 +3124,6 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         mountChat();
         watchGlobalData();
         setupEffectStackDrag();
-        setupHandCollapse();
         watchResZone('myResourcesSlot',    'swuMyResCount',    'myResourcesData');
         watchResZone('theirResourcesSlot', 'swuTheirResCount', 'theirResourcesData');
         watchDeckCount('myDeckSlot',    'myDeckData');
@@ -3086,7 +3133,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         //  in the player's own controls, wired via inline onclick → window.swuTakeInitiative.)
         var passBtn = document.getElementById('swuPassBtn');
         if (passBtn) passBtn.addEventListener('click', function () {
-            var isMyTurn    = (String(window.TurnPlayerData||'').trim() === String(MY_PLAYER_ID));
+            var isMyTurn    = window.swuMyTurn();
             var isMainPhase = (String(window.CurrentPhaseData||'').trim() === 'MAIN');
             if (window.swuMustTakeCounter()) return;   // Twin Suns: must take a counter before passing
             if (isMyTurn && isMainPhase) window.swuPassAction();
@@ -3114,7 +3161,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 }
             }
             // Otherwise: the MAIN-phase action pass.
-            var isMyTurn    = (String(window.TurnPlayerData||'').trim() === String(MY_PLAYER_ID));
+            var isMyTurn    = window.swuMyTurn();
             var isMainPhase = (String(window.CurrentPhaseData||'').trim() === 'MAIN');
             if (window.swuMustTakeCounter()) return;   // Twin Suns: must take a counter before passing
             if (isMyTurn && isMainPhase) window.swuPassAction();
@@ -3847,6 +3894,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         sm.callback(m ? m[1] : mz, mz, sm.decisionIndex);
     }
 
+    // The 1v1 Always Two table (SWUSim/AlwaysTwoTable.php) answers this half's open choice with a card drawn in the OTHER half — the
+    // same seat-tagged submit the preview tiles use (single picks submit, "up to N" picks accumulate).
+    window.swuSubmitPreviewTarget = swuSubmitPreviewTarget;
+
     // ── Attached-card panel: subcard picking (bug #1068) ────────────────────────────────────────
     // The panel (showLineageOverflowPopup) renders one entry per attached card. When its payload
     // carries `mzids`, Core asks these two hooks whether an entry is a legal target and what to do
@@ -3933,9 +3984,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             document.body.classList.remove('swu-home');
             return;
         }
-        if (!window.swuView) window.swuView = { viewSeat: window.swuViews[0].viewSeat,
-            oppSeat: window.swuViews[0].oppSeat, mode: window.swuViews[0].mode, opps: window.swuViews[0].opps,
-            tiles: window.swuViews[0].tiles, defeated: !!window.swuViews[0].defeated, index: 0 };
+        if (!window.swuView) {
+            // A half of the 1v1 Always Two 2×2 table opens on the matchup against the board it faces (window.SWUEmbedFace), not on
+            // Home. Same view object swuSetView builds; the repaint below draws it. Falls back to Home if that matchup is missing.
+            var _v0 = 0;
+            if (window.SWUEmbedFace) {
+                for (var _vi = 0; _vi < window.swuViews.length; _vi++) {
+                    if (window.swuViews[_vi].mode === 'matchup' && +window.swuViews[_vi].oppSeat === +window.SWUEmbedFace) { _v0 = _vi; break; }
+                }
+            }
+            var _v = window.swuViews[_v0];
+            window.swuView = { viewSeat: _v.viewSeat, oppSeat: _v.oppSeat, mode: _v.mode, opps: _v.opps,
+                tiles: _v.tiles, defeated: !!_v.defeated, index: _v0 };
+        }
         swuApplySpectate();
         // ⚠ ESTABLISHING A VIEW HAS TO REPAINT. This function runs from pollGlobals (on data change),
         // which is AFTER the render that just drew the board — so adopting a view here changed
@@ -5198,6 +5259,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     //     automatically (it picked up the Petranaki icon with no extra work).
 
     function swuIsMyTurnValue(v) {
+        // Always Two: your TEAM's turn (either board) — the same rule the board's controls use. Elsewhere: turn player === me.
+        if (typeof window.SimViewerOwnsTurn === 'function') return window.SimViewerOwnsTurn(String(v == null ? '' : v).trim(), MY_PLAYER_ID);
         return String(v == null ? '' : v).trim() === String(MY_PLAYER_ID);
     }
 
@@ -5330,8 +5393,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // the source image is same-origin, so the canvas stays untainted and toDataURL works.
     var _swuFavBase = null, _swuFavDotted = null, _swuFavCurrent = null;
     function swuFaviconLink() {
-        var l = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
-        if (!l) { l = document.createElement('link'); l.rel = 'icon'; document.head.appendChild(l); }
+        // The Always Two table (SWUSim/AlwaysTwoTable.php): its first half owns the TAB — the table page's favicon, not its own frame's.
+        var doc = document;
+        if (window.SWUEmbed === 'a2') { try { if (window.top && window.top !== window && window.top.document) doc = window.top.document; } catch (e) {} }
+        var l = doc.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+        if (!l) { l = doc.createElement('link'); l.rel = 'icon'; doc.head.appendChild(l); }
         return l;
     }
     function swuBuildDottedFavicon(cb) {
@@ -5367,6 +5433,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         img.src = src;
     }
     function swuSetFaviconTurnDot(on) {
+        if (window.SWUEmbed === 'a2side') return;   // the table's tab is the first half's to mark
         if (on === _swuFavCurrent) return;                 // idempotent: the poller calls this a lot
         if (on) {
             swuBuildDottedFavicon(function (url) {
@@ -5381,6 +5448,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
 
     function swuPlayTurnChime() {
+        if (window.SWUEmbed === 'a2side') return;   // the Always Two table chimes once, from its first half
         if (swuSoundsMuted()) return;
         try {
             var a = document.getElementById('yourTurnSound');

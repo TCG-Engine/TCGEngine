@@ -77,8 +77,8 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080]
 - P1>AttackSpaceArena:0:BASE
 - P1>AnswerDecision:theirGroundArena-0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:SEC_185

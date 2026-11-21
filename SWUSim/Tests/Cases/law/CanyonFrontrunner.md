@@ -81,8 +81,8 @@ WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 ## WHEN
 - P1>AttackGroundArena:1:BASE
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:0:BASE
 - P1>AnswerDecision:theirGroundArena-0
@@ -200,8 +200,8 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:theirGroundArena-1
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:0:BASE
 

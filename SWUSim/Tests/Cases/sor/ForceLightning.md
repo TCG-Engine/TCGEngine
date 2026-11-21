@@ -98,8 +98,8 @@ WithP2Deck: [SOR_095 SOR_095]
 - P1>AnswerDecision:theirSpaceArena-0
 - P1>AnswerDecision:1
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 PHASE:MAIN
@@ -196,8 +196,8 @@ WithP2Deck: [SOR_095 SOR_095]
 - P1>PlayHand:0
 - P1>AnswerDecision:mySpaceArena-0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 PHASE:MAIN

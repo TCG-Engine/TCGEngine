@@ -261,6 +261,9 @@ while (true) {
         // with art URLs already resolved server-side, so the page needs no card dictionary and no
         // per-sim JavaScript. 'leaders' stays because the team leader-conflict check reads it.
         'identity' => ['cards' => $p->getIdentityCards()],
+        // ADDITIVE: a two-deck room's second deck (seatModel.decksPerSeat = 2 — SWUSim 1v1 Always Two). false / [] elsewhere.
+        'deckOk2'   => $p->getDeckOk2(),
+        'identity2' => ['cards' => $p->getIdentityCards2()],
         'leaders'  => $p->getLeaders(),
         'base'     => $p->getBase(),
         'isHost'   => $p->getPlayerID() === intval($lobby->hostPlayerID ?? 1),

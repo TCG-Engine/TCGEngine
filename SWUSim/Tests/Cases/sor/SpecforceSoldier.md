@@ -173,8 +173,8 @@ WithP2Deck: [SOR_095 SOR_095]
 - P1>PlayHand:0
 - P2>Claim
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 PHASE:MAIN

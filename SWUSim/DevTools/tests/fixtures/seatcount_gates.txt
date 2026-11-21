@@ -1,0 +1,63 @@
+# Classified SeatCountForGame() gates — read by alwaystwo_seatcount_gates_test.php (spec 2026-11-20-swusim-always-two).
+# <path> | <trimmed line> | <occurrence n> | plumbing|shared|rule|pending-<task>
+# Bot / lever / SWU-PGN gates are plumbing: no bots and no PGN in Always Two v1 (spec non-goals).
+SWUSim/Custom/BotEvaluator.php | if (function_exists('SeatCountForGame') && SeatCountForGame() > 2 && function_exists('OpponentsOf')) { | 1 | plumbing
+SWUSim/Custom/BotFallback.php | return SeatCountForGame() > 2 && !(function_exists('SWUIsTeamGame') && SWUIsTeamGame()); | 1 | plumbing
+SWUSim/Custom/BotFallback.php | $bv = SWUBotTargetValue($att, null, $W) + (SeatCountForGame() > 2 ? 1e-4 * SWUBotFocusHp(SWUMzOwner($c, $seat)) : 0.0); | 1 | plumbing
+SWUSim/Custom/BotFallback.php | if ($onBoard && SeatCountForGame() > 2 && in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE'], true)) { | 1 | plumbing
+SWUSim/Custom/BotFallback.php | if (SeatCountForGame() > 2) { foreach (ZoneSearch($z, AnyUnitFilter) as $mz) $mzs[] = strval($mz); continue; } | 1 | plumbing
+SWUSim/Custom/BotFallback.php | if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) return false;   // 2-player only (spec) | 1 | plumbing
+SWUSim/Custom/BotRules.php | if (SeatCountForGame() > 2) return SWUBotRuleTwinSunsLethal($ctx); | 1 | plumbing
+SWUSim/Custom/BotRules.php | if (SeatCountForGame() <= 2 || ($ctx['tooltip'] ?? '') !== 'Choose_an_attack_target') return null; | 1 | plumbing
+SWUSim/Custom/BotRules.php | if (SeatCountForGame() <= 2) return []; | 1 | plumbing
+SWUSim/Custom/BotTempo.php | if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) return false; | 1 | plumbing
+SWUSim/Custom/BotTempo.php | if (!function_exists('SWUBotMetaCopiesByTitle') || (function_exists('SeatCountForGame') && SeatCountForGame() > 2)) return false; | 1 | plumbing
+SWUSim/Custom/CardDQHandlers.php | if (SeatCountForGame() > 2) { | 1 | plumbing
+SWUSim/Custom/CardDQHandlers.php | if (SeatCountForGame() > 2) { | 2 | plumbing
+SWUSim/Custom/CombatLogic.php | if (SeatCountForGame() <= 2) { | 1 | plumbing
+SWUSim/Custom/CombatLogic.php | if (SeatCountForGame() <= 2) { | 2 | plumbing
+SWUSim/Custom/CombatLogic.php | if (SeatCountForGame() <= 2) { | 3 | plumbing
+SWUSim/Custom/GameLayoutShared.php | if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) { | 1 | plumbing
+SWUSim/Custom/GameLogic.php | $prefix  = (SeatCountForGame() > 2) ? "p{$opp}Hand" : 'theirHand'; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() <= 2) { AddGameLogEntry('REVEAL', $msg, 'ALL'); return; } | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() <= 2) return true; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() <= 2) return OtherPlayer($defeatedController); | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() <= 2) return "You&Opponent"; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() <= 2) { | 1 | plumbing
+SWUSim/Custom/GameLogic.php | return SeatCountForGame() > 2 || SWUIsDualingSuns(); | 1 | shared
+SWUSim/Custom/GameLogic.php | return SeatCountForGame() > 2 && !SWUIsAlwaysTwo(); | 1 | rule
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() > 2) { | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() > 2) return; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() <= 2 || SWUGetGameWinner() !== 0) return false; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (SeatCountForGame() > 2) { | 2 | plumbing
+SWUSim/Custom/GameLogic.php | return (SeatCountForGame() > 2 && $ownerSeat > 0) ? "p{$ownerSeat}{$zone}" : "their{$zone}"; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | return (SeatCountForGame() > 2 && $ownerSeat > 0 && $ownerSeat !== $player) | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if ($grantee === null || SeatCountForGame() <= 2) return $kind; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | $twinAP = SeatCountForGame() > 2; | 1 | plumbing
+SWUSim/Custom/GameLogic.php | if (!$flip && SeatCountForGame() > 2 && substr($searchZone, 0, 5) === 'their') { | 1 | plumbing
+SWUSim/Custom/InactivityClock.php | return (SeatCountForGame() > 2) ? SWU_CLOCK_SECONDS_MULTI : SWU_CLOCK_SECONDS_2P; | 1 | plumbing
+SWUSim/Custom/InactivityClock.php | if (SeatCountForGame() <= 2) { | 1 | plumbing
+SWUSim/Custom/SwuPgnWriter/Recorder.php | return SWUGameMode() === '' && !SWUHasBotSeats() && SeatCountForGame() === 2 | 1 | plumbing
+SWUSim/Custom/SwuPgnWriter/Shadow.php | if (SeatCountForGame() > 2) { $GLOBALS['SWU_PGN_SHADOW']['skipped'] = 'multi-seat'; return; } | 1 | plumbing
+SWUSim/Custom/cards/hmw/BabwaVenomor_BurningKashyyyk.php | if (SeatCountForGame() > 2) { | 1 | plumbing
+SWUSim/Custom/cards/hmw/ThermScissorpunch_BoastfulGambler.php | if (SeatCountForGame() > 2) { | 1 | plumbing
+SWUSim/Custom/cards/jtl/StolenAtHauler.php | if (SeatCountForGame() <= 2) return; | 1 | plumbing
+SWUSim/Custom/cards/jtl/SuperheavyIonCannon.php | $targets = (SeatCountForGame() > 2) | 1 | plumbing
+SWUSim/Custom/cards/jtl/TheyHateThatShip.php | if (SeatCountForGame() > 2) {   // Twin Suns: pick which opponent gets the 2 TIEs | 1 | plumbing
+SWUSim/Custom/cards/jtl/TimelyReinforcements.php | if (SeatCountForGame() > 2) {   // Twin Suns: pick which opponent's resources to count | 1 | plumbing
+SWUSim/Custom/cards/law/TearThisShipApart.php | $allRes = (SeatCountForGame() > 2) | 1 | plumbing
+SWUSim/Custom/cards/sec/TradeRouteTaxation.php | if (SeatCountForGame() > 2) {   // Twin Suns: pick which opponent to tax | 1 | plumbing
+SWUSim/Custom/cards/sor/GrandAdmiralThrawn_PatientAndInsightful.php | if (SeatCountForGame() > 2) { | 1 | plumbing
+SWUSim/Custom/cards/sor/K2so_CassiansCounterpart.php | $multi = SeatCountForGame() > 2; | 1 | plumbing
+SWUSim/Custom/cards/sor/RuthlessRaider.php | if (SeatCountForGame() > 2) { | 1 | plumbing
+SWUSim/Custom/cards/sor/Yoda_OldMaster.php | if (SeatCountForGame() <= 2) { | 1 | plumbing
+SWUSim/Custom/cards/twi/TheInvasionOfChristophsis.php | if (SeatCountForGame() <= 2) { | 1 | plumbing
+SWUSim/Custom/cards/twi/ZiroTheHutt_ColorfulSchemer.php | if (SeatCountForGame() <= 2) { | 1 | plumbing
+SWUSim/Custom/cards/twi/ZiroTheHutt_ColorfulSchemer.php | $multi = SeatCountForGame() > 2; | 1 | plumbing
+SWUSim/Custom/levers/attrition_gangkill.php | if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) return null; | 1 | plumbing
+SWUSim/Custom/levers/attrition_wipefirst.php | if (!function_exists('_SWUBotLvWideWipeShape') || (function_exists('SeatCountForGame') && SeatCountForGame() > 2)) return null; | 1 | plumbing
+SWUSim/Custom/levers/plan_nuvochain.php | if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) return null;   // 2-player only (spec) | 1 | plumbing
+SWUSim/Custom/levers/plan_util.php | if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) return '';   // 2-player only (spec): every Talzin plan is inert in Twin Suns | 1 | plumbing
+SWUSim/Custom/levers/teamread_doomedhost.php | if (SeatCountForGame() > 2 || !str_starts_with($c, 'my') || !preg_match('/Arena-\d+$/', $c)) return null; | 1 | plumbing
+SWUSim/Custom/levers/teamread_doomedhost.php | if ($v <= -0.4 || SeatCountForGame() > 2 || !str_contains(strval(CardType($cid)), 'Upgrade')) return null; | 1 | plumbing
+SWUSim/Custom/levers/teamread_stealbait.php | if (SeatCountForGame() > 2 || !str_starts_with($c, 'my') || !preg_match('/Arena-\d+$/', $c)) return null; | 1 | plumbing

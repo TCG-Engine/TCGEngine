@@ -9,25 +9,31 @@
 # the mirror would replay that slot's games exactly, so it is skipped (800 games). Results go to .claude/tmp/postban-panel/runs/<run-name>/
 # (gitignored); read with: python3 SWUSim/DevTools/postban-panel/paired.py .claude/tmp/postban-panel/runs/<run-name>
 cd /var/www/html/TCGEngine
-PANEL=SWUSim/BotFixtures/postban-panel-v1
+# Env overrides (defaults = the original v1 behaviour, byte-for-byte the same jobs):
+#   PANEL=SWUSim/BotFixtures/postban-panel-v2   which frozen panel (owner 2026-11-20: v2 = p4 refreshed to Ninin's current list)
+#   OPPS="p4"                                   TARGETED run: only these panel slots (space-separated prefixes); no mirror
+#   SEEDS=300                                   seeds per opponent per seat (pv001..; default 50 = pv001-pv050)
+PANEL=${PANEL:-SWUSim/BotFixtures/postban-panel-v1}
+SEEDS=${SEEDS:-50}
 NAME=$1 OURFX=$2 OURSTYLE=$3 CTL=$4 ON=$5
 O=.claude/tmp/postban-panel/runs/$NAME
 L=$O/progress.log
 mkdir -p $O/fx /tmp/swusim-opcache
-cp $PANEL/p*.txt $O/fx/
+if [ -n "$OPPS" ]; then for p in $OPPS; do cp $PANEL/${p}_*.txt $O/fx/; done; else cp $PANEL/p*.txt $O/fx/; fi
 cards() { grep -E '^[0-9]+ [A-Z0-9]+_[0-9]+' "$1" | sort; }
 cp "$OURFX" $O/fx/ours.txt
 inpanel=""; for p in $PANEL/p*.txt; do [ "$(cards "$p")" = "$(cards "$OURFX")" ] && inpanel=$(basename $p .txt); done
+[ -n "$OPPS" ] && inpanel=${inpanel:-none}
 [ -z "$inpanel" ] && cp "$OURFX" $O/fx/mirror.txt
 sed -i "s/^# Style:.*/# Style: $OURSTYLE/" $O/fx/ours.txt $( [ -z "$inpanel" ] && echo $O/fx/mirror.txt )
-printf 'name=%s\nours=%s\nstyle=%s\ncontrol=%s\non=%s\npanel=v1\nmirror_of=%s\n' "$NAME" "$OURFX" "$OURSTYLE" "$CTL" "$ON" "${inpanel:-mirror}" > $O/meta.txt
+printf 'name=%s\nours=%s\nstyle=%s\ncontrol=%s\non=%s\npanel=%s\nmirror_of=%s\nopps=%s\nseeds=%s\n' "$NAME" "$OURFX" "$OURSTYLE" "$CTL" "$ON" "$(basename $PANEL | sed 's/^postban-panel-//')" "${inpanel:-mirror}" "${OPPS:-all}" "$SEEDS" > $O/meta.txt
 arm() {
   local OUT=$O/$1 VAR=$2
   echo "$(date -u +%FT%TZ) start $1 [$VAR]" >> $L
   mkdir -p $OUT/res
   : > $OUT/jobs.txt
   for o in $(cd $O/fx && ls p*.txt mirror.txt 2>/dev/null | sed 's/\.txt$//'); do
-    for i in $(seq -w 1 50); do echo "ours $o pv0$i" >> $OUT/jobs.txt; echo "$o ours pv0$i" >> $OUT/jobs.txt; done
+    for i in $(seq -f '%03g' 1 $SEEDS); do echo "ours $o pv$i" >> $OUT/jobs.txt; echo "$o ours pv$i" >> $OUT/jobs.txt; done
   done
   run_one() {
     local a=$1 b=$2 s=$3 key="$1.$2.$3"
@@ -42,7 +48,7 @@ arm() {
     printf '%s\t%s\t%s\t%s\t%s\n' "$a" "$b" "$s" "$g" "$m" > "$OUT/res/$key.txt"
     [[ "$g" =~ ^[0-9]+$ ]] && [ -n "$m" ] && rm -rf "SWUSim/Games/$g"
   }
-  export -f run_one; export OUT VAR O
+  export -f run_one; export OUT VAR O SEEDS
   xargs -P 10 -L 1 bash -c 'run_one "$@"' _ < $OUT/jobs.txt
   cat $OUT/res/*.txt > $OUT/results.tsv
   echo DONE > $OUT/DONE

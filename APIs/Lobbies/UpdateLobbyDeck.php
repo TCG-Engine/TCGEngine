@@ -24,6 +24,8 @@ $lobbyID  = $_POST['lobbyID'] ?? '';
 $playerID = intval($_POST['playerID'] ?? 0);
 $authKey  = $_POST['authKey'] ?? '';
 $deckLink = $_POST['deckLink'] ?? '';
+// Which deck: 1 (default — every room) or 2 (a room whose adapter asks for two decks per seat: SWUSim's 1v1 Always Two).
+$deckSlot = intval($_POST['deckSlot'] ?? 1) === 2 ? 2 : 1;
 
 // READ-ONLY first pass. We need the room's format to validate against and the caller's identity to
 // reject early, and both are stable for the life of the room — so this snapshot is safe to reason
@@ -37,6 +39,8 @@ if (SWURoomFindPlayerByAuthKey($snapshot, $authKey) === null) _updateDeckFail($r
 
 $adapter = LobbyAdapterFor(strval($snapshot->rootName ?? ''));
 if ($adapter === null) _updateDeckFail($response, 'Deck changes are not supported in this lobby.');
+$decksPerSeat = max(1, intval($adapter->seatModel($snapshot)['decksPerSeat'] ?? 1));
+if ($deckSlot > $decksPerSeat) _updateDeckFail($response, 'This room takes one deck per seat.');
 
 // ⚠ THE NETWORK CALL HAPPENS HERE, OUTSIDE THE LOCK. This used to sit between the fetch and the
 // store: swudb takes 0.4s cold and 3.2-4.2s once it throttles, and for all of that time this request
@@ -58,19 +62,27 @@ foreach ($cards as $c) {
 }
 
 $err = null;
-$applied = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $v, $cards, $leaders, $base, $deckLink, &$err) {
+$applied = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $v, $cards, $leaders, $base, $deckLink, $deckSlot, $decksPerSeat, &$err) {
   // Re-checked under the lock: the room may have started, or this seat may have been removed, while
   // the deck was resolving.
   if (!empty($lobby->gameName) || ($lobby->state ?? '') === 'started') { $err = 'Game already started.'; return false; }
   $me = SWURoomFindPlayerByAuthKey($lobby, $authKey);
   if ($me === null) { $err = 'Authentication failed.'; return false; }
+  // Slot 2 (two-deck rooms): its own legality and identity strip; readiness needs EVERY deck the room asks for.
+  if ($deckSlot === 2) {
+    $me->setDeckOk2($v['ok']);
+    $me->setIdentityCards2($cards);
+    $me->setReady($v['ok'] && $me->getDeckOk());
+    if ($v['ok']) $me->setDeckLink2($deckLink);
+    return true;
+  }
   $me->setDeckOk($v['ok']);
   $me->setDeckIdentity($leaders, $base, $cards);
   // Loading a deck AUTO-READIES you — bringing a legal deck is the normal way to say "I'm good to
   // go", and making everyone press a second button to confirm what they just did is friction for
   // nothing. A deck the server REJECTED never readies: you cannot be ready with a deck that cannot
   // be played. Unready stays available as the explicit "hold on, I'm still tinkering" signal.
-  $me->setReady($v['ok']);
+  $me->setReady($v['ok'] && ($decksPerSeat < 2 || $me->getDeckOk2()));
   if ($v['ok']) $me->setDeckLink($deckLink);
   return true;
 });

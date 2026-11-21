@@ -163,8 +163,8 @@ WithP2GroundArena: SOR_046:1:0
 - P1>AnswerDecision:NO
 - P1>Pass
 - P2>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>PlayHand:0
 - P1>AnswerDecision:YES

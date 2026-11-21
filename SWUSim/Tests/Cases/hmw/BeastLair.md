@@ -47,8 +47,8 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 - P1>AnswerDecision:myHand-0
 
@@ -73,8 +73,8 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 - P1>AnswerDecision:-
 
@@ -100,8 +100,8 @@ WithP1BaseUpgrade: HMW_147
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -126,8 +126,8 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 - P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:myHand-0
@@ -183,8 +183,8 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 ## WHEN
 - P1>PlayHand:0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 - P1>AnswerDecision:myHand-0
 
@@ -210,8 +210,8 @@ WithP1Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 - P1>SimulateRequestBoundary
 - P1>AnswerDecision:myHand-0

@@ -1163,7 +1163,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       }
       if ($fpBefore !== null && $fpBefore !== $fpAfter) {
         if ($seat >= 1 && !SWUSeatOwesDecision($seat)) {
-          PresenceStampAction(strval($gameName), $seat, time(), SWUSeatsOnTheClock());
+          // A sim whose seat plays several boards (SWUSim 1v1 Always Two) stamps the PERSON, not the board that acted.
+          $stampSeat = function_exists('SWUSeatOfBoard') ? SWUSeatOfBoard($seat) : $seat;
+          PresenceStampAction(strval($gameName), $stampSeat, time(), SWUSeatsOnTheClock());
         }
       }
     }

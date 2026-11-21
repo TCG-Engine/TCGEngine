@@ -135,9 +135,11 @@ function SWUBaseActionEntries(int $player): array {
         $cost = preg_match('/^(?:Epic )?Action \[([^\]]*)\]/', $clause, $cm) ? $cm[1] : '';
         $ok = true; $why = '';
         if (isset($baseActionRepeatable[$cid])) {
-            $ok = false;   // LOF_028 Tomb of Eilram: "[exhaust a friendly unit]"
-            foreach (array_merge(GetGroundArena($player), GetSpaceArena($player)) as $ru) {
-                if (!SWUObjGone($ru) && intval($ru->Status ?? 0) === 1) { $ok = true; break; }
+            $ok = false;   // LOF_028 Tomb of Eilram: "[exhaust a friendly unit]" — own board; Always Two: the team's
+            foreach (SWUCostBoards($player) as $cb) {
+                foreach (array_merge(GetGroundArena($cb), GetSpaceArena($cb)) as $ru) {
+                    if (!SWUObjGone($ru) && intval($ru->Status ?? 0) === 1) { $ok = true; break 2; }
+                }
             }
             $why = "Can't be used now";
         } elseif (isset($baseActionNumUses[$cid])) {

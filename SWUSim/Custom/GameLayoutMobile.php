@@ -97,11 +97,6 @@
         justify-content: safe center !important; align-items: center !important;
         gap: 4px; height: 100%; min-width: 100%;
     }
-    /* No hand-collapse affordance on mobile — hide the shared ▼ button that
-       setupHandCollapse() injects as #myHandSlot's first child. It also stole flex
-       space at the row's left edge, overflowing the slot so `safe center` fell back to
-       left-aligned — hiding it lets the hand actually center. */
-    #swuMobileRoot .swu-hand-collapse-btn { display: none !important; }
     /* The engine wraps hand cards in a shrink-to-fit #myHandWrapper (NextTurnRender.php),
        which is a flex child pinned to the slot's left edge — so centering #myHand alone
        isn't enough. Center the wrapper at the SLOT level; `safe` falls back to start when

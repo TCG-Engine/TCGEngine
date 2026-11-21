@@ -305,8 +305,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 - P1>UseUnitAbility:myGroundArena-1
 - P1>AnswerDecision:myGroundArena-0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>UseUnitAbility:myGroundArena-1
 - P1>AnswerDecision:myGroundArena-0

@@ -118,8 +118,8 @@ P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:myGroundArena-0
 
@@ -165,8 +165,8 @@ P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:-
 
@@ -402,8 +402,8 @@ P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-1&myGroundArena-2
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0

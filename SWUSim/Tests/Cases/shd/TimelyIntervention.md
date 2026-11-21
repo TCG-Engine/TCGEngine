@@ -202,8 +202,8 @@ WithP2GroundArena: SEC_080:1:0
 - P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:NO
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1GROUNDARENACOUNT:1

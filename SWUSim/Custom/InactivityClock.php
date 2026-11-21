@@ -49,9 +49,10 @@ function SWUSeatsOnTheClock(): array
     foreach ($live as $seat) {
         if (SWUSeatOwesDecision($seat)) $owing[] = $seat;
     }
-    if (!empty($owing)) return $owing;
+    // 1v1 Always Two: the clock belongs to the PERSON — a board's decision runs the seat that plays it (SWUSeatOfBoard).
+    if (!empty($owing)) return array_values(array_unique(array_map('SWUSeatOfBoard', $owing)));
     $turn = intval(GetTurnPlayer());
-    return in_array($turn, $live, true) ? [$turn] : [];
+    return in_array($turn, $live, true) ? [SWUSeatOfBoard($turn)] : [];
 }
 
 // ── The progress fingerprint ──────────────────────────────────────────────────────────────────────
@@ -146,7 +147,8 @@ function SWUApplyKick(int $target): void
 function SWUClockFacts(): array
 {
     return [
-        'seats'   => array_map('intval', GetLiveSeatsArray()),
+        // The PEOPLE at the table: 1v1 Always Two's four live boards are two seats (nobody polls as board 3 or 4).
+        'seats'   => array_values(array_unique(array_map('SWUSeatOfBoard', array_map('intval', GetLiveSeatsArray())))),
         'onClock' => SWUSeatsOnTheClock(),
         'timeout' => SWUClockTimeout(),
         'active'  => SWUClockIsActive(),

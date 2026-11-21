@@ -597,12 +597,9 @@ function Ash005DeployedTrigger($player, $mzID): void {
 $leaderAbilities["ASH_002"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $ready = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        $arr = GetZone($z);
-        for ($i = 0; $i < count($arr); $i++) {
-            $u = $arr[$i];
-            if ($u !== null && empty($u->removed) && intval($u->Status) === 1) $ready[] = "{$z}-{$i}";
-        }
+    foreach (SWUCostUnits() as $mz) {   // a COST — own board; Always Two: the team's
+        $u = GetZoneObject($mz);
+        if ($u !== null && empty($u->removed) && intval($u->Status) === 1) $ready[] = $mz;
     }
     if (empty($ready)) { SWUAfterAction($player); return; }   // unreachable: both affordability gates require a ready unit
     SWUQueueChooseTarget($player, $ready, "Exhaust_a_friendly_unit_(cost)", "ASH_002#0");

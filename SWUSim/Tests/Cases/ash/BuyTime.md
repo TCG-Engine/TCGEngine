@@ -27,8 +27,8 @@ P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 ## EXPECT
 PHASE:MAIN
 P1GROUNDARENAUNIT:0:CARDID:ASH_T01

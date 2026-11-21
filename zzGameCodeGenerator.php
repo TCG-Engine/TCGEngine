@@ -2274,6 +2274,12 @@ SWUREVEAL;
   foreach (explode("\n", $revealScanner) as $_rl) {
     fwrite($handler, $_rl . "\r\n");
   }
+  // SWUSim 1v1 Always Two: one seat plays two boards (seat 1 = boards 1+3), so a viewer's OWN boards are every board its seat controls
+  // (SWUViewerControlsBoard, SWUSim/Custom/GameLogic.php — "the viewer's own seat" in every other game). Widened HERE, after
+  // ParseGamestate, because the seat→board map is read from the game's flags; the early per-seat line above runs before the parse.
+  for ($cspSeat = 1; $cspSeat <= $maxSeats; ++$cspSeat) {
+    fwrite($handler, "if (!\$canSeePrivatePlayer{$cspSeat} && !\$viewerInfo[\"isSpectator\"] && function_exists('SWUViewerControlsBoard') && SWUViewerControlsBoard(intval(\$viewerInfo[\"viewerSeat\"] ?? 0), {$cspSeat})) \$canSeePrivatePlayer{$cspSeat} = true;\r\n");
+  }
   for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
     fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands || !empty(\$viewerLooksAtHandSeats[{$cshSeat}]);\r\n");
   }

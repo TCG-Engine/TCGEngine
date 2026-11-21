@@ -342,7 +342,7 @@ class SchemaTestRunner {
             'WithActivePlayer', 'WithInitiativePlayer', 'WithInitiativeClaimed', 'WithGamePhase',
             'WithSeatOrder', 'WithLiveSeats', 'WithEliminatedSeats', 'WithDefeatedPlayer',
             'WithPrivateGame', 'WithRound',
-            'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
+            'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams', 'WithAlwaysTwo',
             'WithGameLog', 'WithChat', 'WithHouseRules', 'WithCardPool',
         ];
         static $perSeat = [
@@ -717,6 +717,21 @@ class SchemaTestRunner {
         // Parsed BEFORE seat order below so it can supply the 4-seat defaults when they are omitted.
         $teamSpec = isset($given['WithTeams']) ? trim($given['WithTeams']) : '';
         if ($teamSpec !== '') self::_assertValidTeamSpec($teamSpec);   // validate FIRST, so a typo cannot pass as "off"
+        // WithAlwaysTwo: 1v1|4p — Doubles (docs/superpowers/specs/2026-11-20-swusim-always-two-design.md). Four boards in
+        // two teams, so it IMPLIES WithTeams; then the Always Two flags CreateGame sets: SWU_MODE_ALWAYSTWO, plus
+        // SWU_ALWAYSTWO_SHARED_SEAT (1v1: one seat plays boards 1+3, the other 2+4) or SWU_ALWAYSTWO_VOTE (4p: partner vote).
+        $a2Spec = isset($given['WithAlwaysTwo']) ? strtolower(trim($given['WithAlwaysTwo'])) : '';
+        if ($a2Spec !== '') {
+            if (!in_array($a2Spec, ['1v1', '4p'], true)) {
+                throw new RuntimeException("WithAlwaysTwo: '{$given['WithAlwaysTwo']}' — the only accepted values are '1v1' and '4p'.");
+            }
+            if ($teamSpec !== '' && strtolower($teamSpec) !== 'true') {
+                throw new RuntimeException("WithAlwaysTwo implies WithTeams: true — drop 'WithTeams: {$teamSpec}'.");
+            }
+            $teamSpec = 'true';
+            $b->WithGlobalEffectForPlayer(1, 'SWU_MODE_ALWAYSTWO');
+            $b->WithGlobalEffectForPlayer(1, $a2Spec === '1v1' ? 'SWU_ALWAYSTWO_SHARED_SEAT' : 'SWU_ALWAYSTWO_VOTE');
+        }
         if (strtolower($teamSpec) === 'true') {
             if (!isset($given['WithSeatOrder'])) $b->WithSeatOrder('1234');
             if (!isset($given['WithLiveSeats'])) $b->WithLiveSeats('1234');
@@ -1742,6 +1757,14 @@ class SchemaTestRunner {
                 $avail = !empty($ad[$key]) ? '1' : '0';
                 if ($avail !== $m[3])
                     $failures[] = "{$line}: expected {$m[3]}, got {$avail}";
+
+            } elseif (preg_match('/^P(\d+)ATTACKERCOUNT:(\d+)$/', $line, $m)) {
+                // How many units seat N's board is offered to attack with right now — SWUComputeActionsData()['attackers'],
+                // the list the client draws its attack highlights from. 0 off-turn. (Always Two: either board of the turn team.)
+                $ad = SWUComputeActionsData(intval($m[1]));
+                $n = count((array)($ad['attackers'] ?? []));
+                if ($n !== intval($m[2]))
+                    $failures[] = "{$line}: expected {$m[2]}, got {$n}";
 
             } elseif (preg_match('/^P(\d+)(BLAST|PLAN)AVAIL:(0|1)$/', $line, $m)) {
                 // Twin Suns UI: does seat N's actions data report the counter as available to take?

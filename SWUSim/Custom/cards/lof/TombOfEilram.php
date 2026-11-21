@@ -19,7 +19,7 @@ $baseActionRepeatable["LOF_028"] = true;
 
 $baseAbilities["LOF_028"] = function($player) {
     $targets = [];
-    foreach (SWUAllUnits('my') as $mz) {
+    foreach (SWUCostUnits() as $mz) {   // a COST — Always Two may use the teammate's units
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (intval($o->Status ?? 0) === 1) $targets[] = $mz; // ready only — can't exhaust an exhausted unit

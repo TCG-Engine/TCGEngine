@@ -16,6 +16,12 @@
     // An unserialized lobby from before this field existed simply has '' here.
     private $username = ''; // account name for the seat tile; '' for a guest (the page writes "Guest PN")
     private $deckOk = false; // Twin Suns room roster: whether this seat's current deck passed format legality
+    // A SECOND deck, for a room whose adapter asks for two per seat (seatModel 'decksPerSeat' = 2 — SWUSim's 1v1 Always Two,
+    // where one person plays two boards). Unused ('' / false / []) everywhere else. Deliberately NOT in jsonSerialize(): that
+    // shape is the lobby's wire format and stays as it was; the waiting room reads these through PollLobbyUpdates' roster.
+    private $deckLink2 = '';
+    private $deckOk2 = false;
+    private $identityCards2 = [];
     private $seat = null;  // Table position 1..4. NULL until a team is picked. Team Suns reassigns
                            // this freely; $playerID must NOT move, because endpoints authenticate on it.
     private $team = null;  // 'red' | 'blue' | null (unassigned)
@@ -142,6 +148,14 @@
 
     public function getIdentityCards() { return is_array($this->identityCards) ? $this->identityCards : []; }
 
+    // The second deck (see the field note). Its identity strip goes through the same whitelist as the first.
+    public function getDeckLink2(): string { return is_string($this->deckLink2 ?? null) ? $this->deckLink2 : ''; }
+    public function setDeckLink2($deckLink): void { $this->deckLink2 = ($deckLink === null) ? '' : strval($deckLink); }
+    public function getDeckOk2(): bool { return !empty($this->deckOk2); }
+    public function setDeckOk2($ok): void { $this->deckOk2 = (bool)$ok; }
+    public function getIdentityCards2() { return is_array($this->identityCards2 ?? null) ? $this->identityCards2 : []; }
+    public function setIdentityCards2(array $cards): void { $this->identityCards2 = self::_cleanIdentityCards($cards); }
+
     // "I am happy with my deck and this matchup." Distinct from deckOk, which only says the deck is
     // LEGAL — a legal deck you are still swapping is not a deck you are ready to play.
     public function getLastSeen() { return intval($this->lastSeen); }
@@ -161,6 +175,10 @@
     public function setDeckIdentity($leaders, $base, array $cards = []): void {
         $this->setLeaders($leaders);
         $this->setBase($base);
+        $this->identityCards = self::_cleanIdentityCards($cards);
+    }
+
+    private static function _cleanIdentityCards(array $cards): array {
         // Drop malformed rows rather than letting them reach the client as broken <img> tags. A row
         // needs an id and a url to render at all; the name falls back to the id.
         $clean = [];
@@ -188,7 +206,7 @@
                 'colors' => $colors,
             ];
         }
-        $this->identityCards = $clean;
+        return $clean;
     }
 
     #[\ReturnTypeWillChange]

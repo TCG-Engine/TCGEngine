@@ -1031,7 +1031,10 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
       function IsViewerTurnPlayer() {
         const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
         const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
-        return !isNaN(turnVal) && !isNaN(viewerVal) && viewerVal === turnVal;
+        if (isNaN(turnVal) || isNaN(viewerVal)) return false;
+        // A sim may widen "whose turn is it" (SWUSim Always Two: either board of the turn TEAM may act). Opt-in; absent = seat equality.
+        if (typeof window.SimViewerOwnsTurn === 'function') return !!window.SimViewerOwnsTurn(turnVal, viewerVal);
+        return viewerVal === turnVal;
       }
 
       // Returns true if the viewer is the active player — either the turn player during normal
@@ -8201,7 +8204,7 @@ function UpdateTurnPlayerMiasma() {
 
     // If viewer value available, derive state from who is actually deciding
     if (!isNaN(viewerVal)) {
-      const viewerIsTurn = viewerVal === turnVal;
+      const viewerIsTurn = (typeof window.SimViewerOwnsTurn === 'function') ? !!window.SimViewerOwnsTurn(turnVal, viewerVal) : viewerVal === turnVal;
       const shouldShowMessage = settings.showWaitingMessage && _shouldShowOpponentWaitingMessage(viewerIsTurn);
       // Use 'their-turn' CSS state whenever we're waiting for the opponent (covers the case
       // where it's technically the viewer's turn but the opponent has a pending decision).
@@ -8244,6 +8247,8 @@ function UpdateTurnPlayerMiasma() {
  *   Plain text (not HTML) — usernames are user-supplied.
  */
 function ShowGameOver(didWin, menuUrl, statsHtml, buttons, subtitle) {
+  // A sim may embed a second view of the same game (SWUSim's Always Two table); that view stays quiet so the result shows once.
+  if (window.SWUEmbed === 'a2side') return;
   if (document.getElementById('game-over-overlay')) return; // already shown
 
   var overlay = document.createElement('div');

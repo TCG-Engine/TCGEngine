@@ -41,6 +41,8 @@ $expectPrivate = [
     'limited' => true,
     // Dualing Suns: a private 2-seat room, against a friend or a room bot (spec 2026-11-12-swusim-dualing-suns).
     'dualingsuns' => true,
+    // Always Two (spec 2026-11-20-swusim-always-two): private rooms only — 1v1 (2 seats, 2 decks each) and 4P (exactly 4).
+    'at1v1-premier' => true, 'at1v1-eternal' => true, 'at4p-premier' => true, 'at4p-eternal' => true,
     'goldfish' => false,   // solo
     'hotseat'  => false,   // one human driving both seats
     // Bot Practice: one human at seat 1, Core/BotController.php at seat 2. No remote opponent ever

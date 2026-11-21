@@ -1,0 +1,38 @@
+# Post-ban TEST PANEL v2 (owner 2026-11-20), slot 4. Indirect damage + Topple
+# Deck: "Boba Blue Burn"; source: SWU Forge export cmwa78xln1sbg01pleo1fy72d main/v1 (Ninin), = as-played 3a2b1058 (30 games 11-17..11-21)
+# Author: Ninin
+# Style: midrange
+
+Leader
+1 JTL_009
+
+Base
+1 JTL_020
+
+Deck
+3 ASH_030
+3 ASH_032
+2 ASH_148
+3 HMW_039
+2 HMW_159
+3 HMW_177
+2 JTL_140
+3 JTL_143
+3 JTL_162
+2 JTL_175
+2 JTL_181
+3 JTL_237
+3 JTL_240
+3 LAW_044
+3 LAW_173
+2 LOF_130
+3 SEC_171
+3 SEC_172
+3 SEC_183
+
+Sideboard
+3 ASH_048
+1 JTL_181
+3 LAW_191
+1 LOF_130
+2 SEC_163

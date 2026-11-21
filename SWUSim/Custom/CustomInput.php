@@ -14,7 +14,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
     if (preg_match('/^(their|p\d+)(GroundArena|SpaceArena)$/', $zone)) $zone = 'opponentArena';
     switch ($zone) {
       case "myHealth": // Pass button (SWU: consecutive-pass tracking in SWUPassAction)
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can pass.");
             break;
         }
@@ -43,11 +43,11 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         }
         $currentPhase = GetCurrentPhase();
         if ($currentPhase === "MAIN") {
-            SWUPassAction(intval($playerID));
+            SWUClaimTeamTurn(intval($playerID)); SWUPassAction(intval($playerID));
         }
         break;
       case "InitiativeCounter": // Player clicks the initiative counter to claim it
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can take the initiative.");
             break;
         }
@@ -57,7 +57,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             break;
         }
         if (GetCurrentPhase() !== "MAIN") break;
-        SaveUndoVersion($playerID);
+        SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUTakeInitiative(intval($playerID));
         break;
       case "BlastCounter":
@@ -65,7 +65,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         // Twin Suns (Phase 4): take the blast/plan counter (CR §12.5). Same active-player + empty-queue
         // guards as initiative. SWUTakeCounter enforces one-counter-per-round + AVAILABLE + "taking = pass".
         if (!SWUCounterRulesActive()) break;   // premier: no counters (Dualing Suns: SWUTakeCounter refuses its Blast)
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can take a counter.");
             break;
         }
@@ -75,14 +75,14 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             break;
         }
         if (GetCurrentPhase() !== "MAIN") break;
-        SaveUndoVersion($playerID);
+        SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUTakeCounter(intval($playerID), $zone === "BlastCounter" ? 'blast' : 'plan');
         break;
       case "FourthCounter":
         // Twin Suns house rules: the 4th counter (Take Credit / Take Restore). Same guards as Blast/Plan; the kind is the
         // game's, never the client's, so a stale button cannot take the other one.
-        if (SeatCountForGame() <= 2 || SWUFourthCounterKind() === '') break;
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUTwinSunsRulesActive() || SWUFourthCounterKind() === '') break;
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can take a counter.");
             break;
         }
@@ -92,12 +92,12 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             break;
         }
         if (GetCurrentPhase() !== "MAIN") break;
-        SaveUndoVersion($playerID);
+        SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUTakeCounter(intval($playerID), SWUFourthCounterKind());
         break;
       case "myField":
       case "myIntent":
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can act.");
             break;
         }
@@ -132,13 +132,13 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             }
             break;
         }
-        SaveUndoVersion($playerID);
+        SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         ActivateAbility($playerID, $actionCard, $abilityIndex);
         break;
       case "myGroundArena":
       case "mySpaceArena":
         // SWU unit activated ability ("Action [...]") — $actionCard is the unit mzID.
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can act.");
             break;
         }
@@ -155,7 +155,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
                 if ($abilityId === '' && SWUActionEnabledCount(intval($playerID), $actionCard) >= 2) SetFlashMessage("Choose which Action to use.");
                 break;
             }
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWUUnitAction($playerID, $actionCard, $abilityId);
             // Drain auto-decisions (PASSPARAMETER → effect → SWU_AFTER_ACTION); stops at any
             // MZCHOOSE/YESNO, which the player answers via the normal decision pipeline.
@@ -168,7 +168,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         // offer list (SWUComputeActionsData) and the tests, which call SWUUnitAction() directly, were both green.
         // ⚠ The $anyPlayerUnitActions check is the gate: SWUUnitAction() has no controller check, so without it a click
         //   would fire an opponent's OWN Action (SEC_093's bounce cost included). Same active / empty-queue guards as mine.
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can act.");
             break;
         }
@@ -183,14 +183,14 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             // control; the explicit source check stays as the gate SWUUnitAction itself never had.
             $entry = SWUUnitActionPick(intval($playerID), $actionCard, $abilityId);
             if ($entry !== null && !empty($anyPlayerUnitActions[$entry['source']])) {
-                SaveUndoVersion($playerID);
+                SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
                 SWUUnitAction($playerID, $actionCard, $entry['id']);
                 (new DecisionQueueController())->ExecuteStaticMethods($playerID, "-");
             }
         }
         break;
       case "myHand":
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can act.");
             break;
         }
@@ -203,12 +203,12 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             $actionParts = explode(':', $action);
             $abilityIndex = intval($actionParts[1]);
         }
-        SaveUndoVersion($playerID);
+        SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         HandActivatedAbility($playerID, $actionCard, $abilityIndex);
         break;
       case "myLeader":
         // Actions: "LeaderAbility", "DeployLeader", "DeployLeader:Unit", "DeployLeader:Pilot"
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can use their leader.");
             break;
         }
@@ -237,15 +237,15 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             // — greyed, stale, or not a leader-ability entry — takes no undo point.
             $leaderAbilityId = ($actionMain !== $action) ? $deployMode : '';
             if (SWUActionPick(intval($playerID), "myLeader-$leaderIndex", $leaderAbilityId) === null) break;
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWULeaderAction(intval($playerID), $leaderObj->CardID, $leaderIndex, $leaderAbilityId);
         } elseif ($actionMain === 'DeployLeader') {
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWUDeployLeader(intval($playerID), $deployMode, '', $leaderIndex);
         }
         break;
       case "myBase":
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can use their base.");
             break;
         }
@@ -262,18 +262,18 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             if ($baseAbilityId === '' && SWUActionEnabledCount(intval($playerID), 'myBase-0') >= 2) SetFlashMessage("Choose which Action to use.");
             break;
         }
-        SaveUndoVersion($playerID);
+        SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUBaseAction(intval($playerID), $baseAbilityId);
         break;
       case "myResources":
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Only the active player can act.");
             break;
         }
         $dqChk = new DecisionQueueController();
         if (!$dqChk->AllQueuesEmpty()) break;
         if (GetCurrentPhase() !== "MAIN") break;
-        SaveUndoVersion($playerID);
+        SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUSmuggleResource(intval($playerID), intval($cardArr[1]));
         break;
         case 'PlayFromDiscard': {
@@ -284,12 +284,12 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
                 if ($discardAbilityId === '' && SWUActionEnabledCount(intval($playerID), 'myDiscard-' . intval($cardArr[1])) >= 2) SetFlashMessage("Choose which way to play it.");
                 break;
             }
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWUPlayFromDiscard(intval($playerID), intval($cardArr[1]), $discardAbilityId);
             break;
         }
         case 'PlayFromOpponentDiscard':
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             // Twin Suns: "PlayFromOpponentDiscard-<seat>-<idx>" names WHOSE pile. The 2-player form
             // "PlayFromOpponentDiscard-<idx>" is still accepted verbatim (I1) and resolves to the one
             // opponent. Without the seat, a permission on a far seat's pile was unreachable by anyone.
@@ -308,7 +308,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             SetFlashMessage("Practice actions are only available in Goldfish mode.");
             break;
         }
-        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+        if (!SWUMayTakeTurnAction(intval($playerID))) {
             SetFlashMessage("Practice actions are only usable on your turn.");
             break;
         }
@@ -332,25 +332,25 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
 
         if ($gfAction === 'BaseDamage') {
             if ($gfArg <= 0) break;
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWUDealDamageToBase($gfArg, 1);
         } elseif ($gfAction === 'DamageUnits') {
             if ($gfArg <= 0) break;
             if (empty($gfMyUnits)) { SetFlashMessage("You have no units to damage."); break; }
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             DecisionQueueController::AddDecision(1, "MZSPLITASSIGN",
                 $gfArg . "|" . implode('&', $gfMyUnits) . "|UPTO", 1,
                 tooltip: "Assign_up_to_{$gfArg}_damage_among_your_units");
             DecisionQueueController::AddDecision(1, "CUSTOM", "SPLIT_DAMAGE", 1);
         } elseif ($gfAction === 'DefeatUnit') {
             if (empty($gfMyUnits)) { SetFlashMessage("You have no units to defeat."); break; }
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             DecisionQueueController::AddDecision(1, "MZCHOOSE", implode('&', $gfMyUnits), 1,
                 tooltip: "Choose_one_of_your_units_to_defeat");
             DecisionQueueController::AddDecision(1, "CUSTOM", "GfDefeat", 1);
         } elseif ($gfAction === 'BounceUnit') {
             if (empty($gfMyUnits)) { SetFlashMessage("You have no units to return."); break; }
-            SaveUndoVersion($playerID);
+            SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             DecisionQueueController::AddDecision(1, "MZCHOOSE", implode('&', $gfMyUnits), 1,
                 tooltip: "Choose_one_of_your_units_to_return_to_hand");
             DecisionQueueController::AddDecision(1, "CUSTOM", "GfBounce", 1);

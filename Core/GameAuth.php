@@ -226,6 +226,13 @@ function SimGameBuildAuthKeysFromLobby($lobby)
     $authKeys['p2'] = $authKeys['p1'];
   }
 
+  // A sim that gives each seat TWO boards (SWUSim's 1v1 Always Two sets boardsPerSeat = 2 at game setup): seat 1's key also opens
+  // board 3, seat 2's board 4 — one person, one key, two boards.
+  if (is_object($lobby) && intval($lobby->boardsPerSeat ?? 1) === 2) {
+    $authKeys['p3'] = $authKeys['p1'];
+    $authKeys['p4'] = $authKeys['p2'];
+  }
+
   if (!empty($authKeys['isPrivate'])) {
     // A lobby may supply the key: a SWUSim High Ground room hands every game of a hill match the room's watch key, so
     // its members can watch game 2 and 3 of a Bo3 too. Absent (every other lobby): a fresh random key, as before.

@@ -101,8 +101,8 @@ WithP2GroundArena: SOR_046:1:2
 ## WHEN
 - P1>UseBaseAbility
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 
 ## EXPECT
