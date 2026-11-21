@@ -524,6 +524,22 @@ class GameTestAdapter {
         $playerID = $saved;
     }
 
+    /**
+     * Send exactly what a client widget click sends: mode 10001's "<actionCard>!CustomInput!<action>" → CustomWidgetInput, with
+     * its turn gates (and 4P Always Two's partner vote, SWUSim/Custom/AlwaysTwoVote.php). The direct-call steps above
+     * (passAction, takeInitiative, useBaseAbility, deployLeader …) skip that layer on purpose; this one is the production path.
+     */
+    public function widgetInput(int $player, string $actionCard, string $action = ''): void {
+        global $playerID;
+        $saved = $playerID;
+        $playerID = $player;
+        ob_start();
+        CustomWidgetInput($player, $actionCard, $action);
+        $this->_drainDQ($player);
+        ob_end_clean();
+        $playerID = $saved;
+    }
+
     /** Deploy a leader to the ground arena via Epic Action. */
     public function deployLeader(int $player, int $leaderIndex = 0): void {
         global $playerID;

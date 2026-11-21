@@ -454,6 +454,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
 <?php if (SWUHighGroundCreateAllowed()): /* open to everyone since 2026-11-04 — JoinQueue.php enforces the same gate */ ?>
               <button data-act="highground" class="swu2-btn ch" type="button">Create a High Ground Lobby</button>
 <?php endif; ?>              <button data-act="alwaystwo" class="swu2-btn swu2-btn--primary ch" type="button" style="display: none;">Create a 1v1 Always Two Room</button>
+              <button data-act="alwaystwo4p" class="swu2-btn swu2-btn--primary ch" type="button" style="display: none;">Create a 4P Always Two Room</button>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
@@ -801,10 +802,15 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               <input class="seg__in u-vh" type="radio" name="alt-fmt" id="alt-fmt-3" value="setup-alwaystwo">
               <label class="seg__opt ch" for="alt-fmt-3">1v1 Always Two</label>
 <?php endif; ?>
+<?php if (!empty(SWUGetFormat('at4p-premier')['enabled'])): /* 4P Always Two — shown once the format is enabled (Formats.php) */ ?>
+              <input class="seg__in u-vh" type="radio" name="alt-fmt" id="alt-fmt-4" value="setup-alwaystwo4p">
+              <label class="seg__opt ch" for="alt-fmt-4">4P Always Two</label>
+<?php endif; ?>
           </div>
         </fieldset>
         <p class="note" data-alt-note="setup-highground">King of the hill: winner stays on, everyone else waits in line. Up to 16 players, any 1v1 card pool.</p>
         <p class="note" data-alt-note="setup-alwaystwo" style="display: none;">Doubles, one player per team: you play two decks side by side against a friend. Your team takes one action per turn with either board; the initiative locks both; a base at 0 stays in the game — lose both bases and you lose. Premier or Eternal decks.</p>
+        <p class="note" data-alt-note="setup-alwaystwo4p" style="display: none;">Doubles, two players per team: four people, one deck each. Your team takes one action per turn — your partner accepts every action before it happens. A base at 0 stays in the game; lose both bases and your team loses. Premier or Eternal decks.</p>
         <p class="note" data-alt-note="setup-dualingsuns" style="display: none;">1v1 Twin Suns against a friend or a bot. Two leaders and an 80-card singleton deck; each round you take Initiative or Plan, and stealing the initiative costs 1 damage to your own base.</p>
             <div class="arow">
               <button data-act="alternate" class="swu2-btn swu2-btn--primary ch" type="button">Continue</button>
@@ -2297,11 +2303,12 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
   /* Dualing Suns (owner, 2026-11-12) is the same idea on the Twin Suns setup: its 'dualingsuns' mode keeps the deck
      pickers and pre-cons and offers only Create a Dualing Suns Room. Both are reached from the Alternate Formats dialog. */
   var SETUP_ALIAS = { 'setup-highground': ['setup-pvp', 'highground'], 'setup-dualingsuns': ['setup-twin-suns', 'dualingsuns'],
-                      'setup-alwaystwo': ['setup-pvp', 'alwaystwo'] };
+                      'setup-alwaystwo': ['setup-pvp', 'alwaystwo'], 'setup-alwaystwo4p': ['setup-pvp', 'alwaystwo4p'] };
   var PVP_HEADS = {
     pvp:        { kind: 'Live play', title: 'PvP', desc: 'Queue against a live opponent, or open a private room.', art: 'hmw-pvp.webp', tint: 'var(--tint-pvp)' },
     highground: { kind: 'Private room', title: 'High Ground', desc: 'King of the hill: winner stays on, everyone else waits in line. Pick the card pool and your deck.', art: 'hmw-highground.webp', tint: 'var(--tint-hg)' },
-    alwaystwo:  { kind: 'Private room', title: '1v1 Always Two', desc: 'Play two decks as a team against a friend. Your team takes one action per turn; lose both bases and you lose. Premier or Eternal.', art: 'hmw-pvp.webp', tint: 'var(--tint-hg)' }
+    alwaystwo:  { kind: 'Private room', title: '1v1 Always Two', desc: 'Play two decks as a team against a friend. Your team takes one action per turn; lose both bases and you lose. Premier or Eternal.', art: 'hmw-pvp.webp', tint: 'var(--tint-hg)' },
+    alwaystwo4p: { kind: 'Private room', title: '4P Always Two', desc: 'Four people, two teams, one deck each. Your partner accepts every action your team takes. Premier or Eternal.', art: 'hmw-pvp.webp', tint: 'var(--tint-hg)' }
   };
   // 1v1 Always Two's pools: its format is at1v1-<pool> (AppCore/SWU/Formats.php); every other pool is hidden in that mode.
   var A2_POOLS = ['premier', 'eternal'];
@@ -2316,17 +2323,19 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
     if (q('.setup__tile img')) q('.setup__tile img').src = '/TCGEngine/SharedUI/Sites/SWUSim/assets/' + h.art;
     // 1v1 Always Two: a second deck row, its own Create button, Premier / Eternal only, Bo1 (no match-type row). Every other mode
     // gets the PvP dialog exactly as before. Buttons use style.display, not [hidden] (.swu2-btn sets display).
-    var a2 = mode === 'alwaystwo';
+    // 4P Always Two ('alwaystwo4p'): the same, with ONE deck and its own Create button.
+    var a2 = mode === 'alwaystwo', a24 = mode === 'alwaystwo4p', anyA2 = a2 || a24;
     ['button[data-act="join"]', 'button[data-act="private"]', 'button[data-act="highground"]', '.prow'].forEach(function (s) {
-      var el = q(s); if (el) el.style.display = a2 ? 'none' : '';
+      var el = q(s); if (el) el.style.display = anyA2 ? 'none' : '';
     });
     ['.a2-deck2', 'button[data-act="alwaystwo"]'].forEach(function (s) {
       var el = q(s); if (el) el.style.display = a2 ? '' : 'none';
     });
+    var b24 = q('button[data-act="alwaystwo4p"]'); if (b24) b24.style.display = a24 ? '' : 'none';
     var pool = q('#pvp-pool');
     if (pool) {
-      [].slice.call(pool.options).forEach(function (o) { o.hidden = a2 && A2_POOLS.indexOf(o.value) < 0; o.disabled = o.hidden; });
-      if (a2 && A2_POOLS.indexOf(pool.value) < 0) pool.value = 'premier';
+      [].slice.call(pool.options).forEach(function (o) { o.hidden = anyA2 && A2_POOLS.indexOf(o.value) < 0; o.disabled = o.hidden; });
+      if (anyA2 && A2_POOLS.indexOf(pool.value) < 0) pool.value = 'premier';
     }
     if (typeof window.SWU_POOL_RULES_SYNC === 'function') window.SWU_POOL_RULES_SYNC(dlg);
   };
@@ -3748,7 +3757,7 @@ window.SWU_POOL_RULES_SYNC = function (dlg) {
   var pool = dlg && dlg.querySelector('.poolpick select');
   if (!pool) return;
   // 1v1 Always Two plays Premier or Eternal only. Deck detection may pick another pool (e.g. Open) — keep the picker honest.
-  if (dlg.getAttribute('data-mode') === 'alwaystwo' && ['premier', 'eternal'].indexOf(pool.value) < 0) pool.value = 'premier';
+  if (/^alwaystwo(4p)?$/.test(dlg.getAttribute('data-mode') || '') && ['premier', 'eternal'].indexOf(pool.value) < 0) pool.value = 'premier';
   var opt = pool.options[pool.selectedIndex] || null;
   var allowed = (opt && opt.getAttribute('data-queuetypes')) ? opt.getAttribute('data-queuetypes').split(',') : null;
   var qtOf = function (text) { return /3/.test(text) ? 'bo3' : 'bo1'; };
@@ -3774,7 +3783,7 @@ window.SWU_POOL_RULES_SYNC = function (dlg) {
   // The Twin Suns setup's 'dualingsuns' mode (SWU_SET_TS_MODE) offers only Create a Dualing Suns Room.
   var dsMode = dlg.getAttribute('data-mode') === 'dualingsuns';
   // The PvP setup's 'alwaystwo' mode (1v1 Always Two) offers only Create a 1v1 Always Two Room.
-  var a2Mode = dlg.getAttribute('data-mode') === 'alwaystwo';
+  var a2Mode = /^alwaystwo(4p)?$/.test(dlg.getAttribute('data-mode') || '');   // 1v1 or 4P Always Two
   var priv = dlg.querySelector('button[data-act="private"]');
   if (priv) priv.style.display = (hgMode || dsMode || a2Mode || (opt && opt.hasAttribute('data-queue-only'))) ? 'none' : '';
   // High Ground: any 1v1 format that isn't rated (the option carries data-highground="0" otherwise).
@@ -3854,6 +3863,9 @@ window.SYNC_ACTIVE_SETUP = function () {
   // 1v1 Always Two: the PvP setup in its 'alwaystwo' mode — the format is at1v1-<pool> (Premier or Eternal), always Bo1.
   var alwaysTwo = dlg.id === 'setup-pvp' && dlg.getAttribute('data-mode') === 'alwaystwo';
   if (alwaysTwo) { fmt = 'at1v1-' + (poolFmt === 'eternal' ? 'eternal' : 'premier'); poolFmt = fmt; }
+  // 4P Always Two: the PvP setup in its 'alwaystwo4p' mode — the format is at4p-<pool>, one deck, Bo1.
+  var alwaysTwo4p = dlg.id === 'setup-pvp' && dlg.getAttribute('data-mode') === 'alwaystwo4p';
+  if (alwaysTwo4p) { fmt = 'at4p-' + (poolFmt === 'eternal' ? 'eternal' : 'premier'); poolFmt = fmt; }
   set('swu-format-select', fmt);
   // The card pool IS the format for the constructed modals. Arenabot's modal has no pool picker and
   // plays Open, so ANY list can be practised — Eternal, Twin Suns, a 1-leader deck vs a 2-leader bot
@@ -3923,6 +3935,8 @@ document.addEventListener('click', function (ev) {
   if (act === 'dualingsuns' && typeof createPrivateGame === 'function') createPrivateGame();
   // 1v1 Always Two: a private room through the same path; SYNC_ACTIVE_SETUP above set the at1v1-* format and both decks.
   if (act === 'alwaystwo' && typeof createPrivateGame === 'function') createPrivateGame();
+  // 4P Always Two: a 4-seat team room through the same path; SYNC_ACTIVE_SETUP above set the at4p-* format.
+  if (act === 'alwaystwo4p' && typeof createPrivateGame === 'function') createPrivateGame();
   if (act === 'highground' && typeof createHighGroundRoom === 'function') createHighGroundRoom();
   if (act === 'limited' && typeof createLimitedRoom === 'function') createLimitedRoom();
   if (act === 'solo'    && typeof startSoloGame === 'function')     startSoloGame();

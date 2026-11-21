@@ -5,6 +5,9 @@
 #// P2 has 0 resources — they can still play JTL_221 from P1's discard for free (OTPF).
 #// After playing, P2's space arena has JTL_221 and P1's discard is empty.
 
+#// 2026-11-21: no action while an effect is still resolving (owner rule, SWURefuseUnlessIdle). The defeated unit's trigger is still
+#// queued after the attack step (this harness does not run production's post-action drain), so the Drain steps resolve it first.
+
 ## GIVEN
 CommonSetup: grw/grw
 WithP1SpaceArena: JTL_221:1:3
@@ -13,6 +16,8 @@ WithP2SpaceArena: SOR_237:1:0
 ## WHEN
 - P1>Pass
 - P2>AttackSpaceArena:0:0
+- P1>Drain
+- P2>Drain
 - P2>PlayFromOpponentDiscard:0
 
 ## EXPECT
@@ -238,6 +243,9 @@ P1DISCARDUNIT:0:MODIFIER:
 #// OpponentPlaysForFree with the boundary inserted between the defeating attack and the free play: the
 #// OTPF modifier on P1's discard entry must survive serialization so P2 (0 resources) can still play it.
 
+#// 2026-11-21: no action while an effect is still resolving (owner rule, SWURefuseUnlessIdle). The defeated unit's trigger is still
+#// queued after the attack step (this harness does not run production's post-action drain), so the Drain steps resolve it first.
+
 ## GIVEN
 CommonSetup: grw/grw
 WithP1SpaceArena: JTL_221:1:3
@@ -247,6 +255,8 @@ WithP2SpaceArena: SOR_237:1:0
 - P1>Pass
 - P2>AttackSpaceArena:0:0
 - P2>SimulateRequestBoundary
+- P1>Drain
+- P2>Drain
 - P2>PlayFromOpponentDiscard:0
 
 ## EXPECT
@@ -280,6 +290,11 @@ P2RESAVAILABLE:0
 #// Mutation check: drop $ownerSeat, or revert SWUForeignDiscardMzID to the bare "theirDiscard-N", and
 #// this reds; all nine 2-player sections stay green either way.
 
+#// 2026-11-21: no action while an effect is still resolving (owner rule, SWURefuseUnlessIdle). The defeated unit's trigger is still
+#// queued after the attack step (this harness does not run production's post-action drain), so the Drain steps resolve it first.
+
+#// …and seat 3 answers the AT-Hauler's "choose an opponent" (P1&P2&P4) with seat 1, the grantee this section is about, before
+#// seat 1 may play.
 ## GIVEN
 CommonSetup: grw/grw/{}
 SkipPreGame: true
@@ -294,6 +309,11 @@ WithP4Base: SOR_021:0
 
 ## WHEN
 - P2>AttackSpaceArena:0:P3S0
+- P1>Drain
+- P2>Drain
+- P3>Drain
+- P4>Drain
+- P3>AnswerDecision:P1
 - P1>PlayFromOpponentDiscard:P3:0
 
 ## EXPECT

@@ -39,8 +39,9 @@ foreach ($ids as $id => $want) {
     $check(!in_array($id, SWUStatsFormats(false), true), "$id is not a stats format");
     $check(!SWUFormatAllowsPublicQueue($id, true), "$id is never in a public queue");
     $check(!SWUFormatIsRated($id), "$id is never rated");
-    // 1v1 shipped 2026-11-20 (plan Task 13); 4P waits for the partner vote (plan Phase 5).
-    $check(!empty($f['enabled']) === ($want['mode'] === '1v1'), "$id is " . ($want['mode'] === '1v1' ? 'enabled' : 'still disabled'));
+    // 1v1 shipped 2026-11-20 (plan Task 13); 4P with the partner vote 2026-11-21 (plan 2026-11-21-swusim-always-two-4p Task 6).
+    $check(!empty($f['enabled']), "$id is enabled");
+    $check(SWUFormatAllowedQueueTypes($id) === ['bo1'], "$id is Bo1 only");
     if ($want['mode'] === '4p') {
         $check(SWUFormatSeatRange($id) === [4, 4], "$id is exactly four seats (no 3P)");
         $check(SWUFormatIsTeamFormat($id), "$id is a team format (red/blue room)");

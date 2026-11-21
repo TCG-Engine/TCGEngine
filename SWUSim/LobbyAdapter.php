@@ -19,8 +19,10 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
     // Twin Suns rooms, free-for-all AND Team Suns (owner 2026-10-12). In a team room the host fills a slot on a chosen
     // team (LobbyAddBot's $team), and the bot never harms its teammate (SWUBotIsTeammateMz, Custom/BotEvaluator.php).
     // A private Dualing Suns room too (2 seats, Twin Suns decks): played against a friend or a room bot (spec 2026-11-12).
+    // 4P Always Two: exactly four HUMANS, no room bots (owner, 2026-11-20: "it does have to 4P" — spec "## 4P Always Two" → Room).
     private function _offersBots(object $lobby): bool {
         $fmt = strval($lobby->format ?? '');
+        if (function_exists('SWUFormatAlwaysTwoMode') && SWUFormatAlwaysTwoMode($fmt) === '4p') return false;
         return $this->wantsWaitingRoom($lobby)
             && (SWUFormatIsRoomFormat($fmt) || (!empty($lobby->isPrivate) && SWUFormatIsDualingSuns($fmt)));
     }

@@ -42,6 +42,9 @@ P1GROUNDARENAUNIT:1:HP:1
 #//                 → adds YESNO "Ambush_attack?" to DQ and stops.
 #//   Step 2 "YES": pops YESNO, answers Ambush = YES. Single target → ExecuteSWUAttack auto-fires.
 
+#// 2026-11-21: no action while an effect is still resolving (owner rule, SWURefuseUnlessIdle). The defeated unit's trigger is still
+#// queued after the attack step (this harness does not run production's post-action drain), so the Drain steps resolve it first.
+
 ## GIVEN
 CommonSetup: grw/grw
 WithP1SpaceArena: JTL_221:2:3
@@ -52,6 +55,8 @@ WithP2GroundArena: SOR_100:2:0
 ## WHEN
 - P1>Pass
 - P2>AttackSpaceArena:0:0
+- P1>Drain
+- P2>Drain
 - P2>PlayFromOpponentDiscard:0
 - P2>AnswerDecision:YES
 - P2>AnswerDecision:YES

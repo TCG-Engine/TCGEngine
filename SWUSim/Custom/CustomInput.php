@@ -12,6 +12,8 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
     // Home panel tiles carry). Only an any-player Action is ever used there (TS26_15 C-3P0, LAW_156, SHD_256), so it gets its
     // own route below instead of the generic one.
     if (preg_match('/^(their|p\d+)(GroundArena|SpaceArena)$/', $zone)) $zone = 'opponentArena';
+    // 4P Always Two: while the team's proposal waits for the partner, either teammate's click is refused (SWUSim/Custom/AlwaysTwoVote.php).
+    if (SWUVoteRefuseIfPending(intval($playerID))) return;
     switch ($zone) {
       case "myHealth": // Pass button (SWU: consecutive-pass tracking in SWUPassAction)
         if (!SWUMayTakeTurnAction(intval($playerID))) {
@@ -43,6 +45,8 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         }
         $currentPhase = GetCurrentPhase();
         if ($currentPhase === "MAIN") {
+            if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+            if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
             SWUClaimTeamTurn(intval($playerID)); SWUPassAction(intval($playerID));
         }
         break;
@@ -57,6 +61,8 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             break;
         }
         if (GetCurrentPhase() !== "MAIN") break;
+        if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+        if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
         SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUTakeInitiative(intval($playerID));
         break;
@@ -155,6 +161,8 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
                 if ($abilityId === '' && SWUActionEnabledCount(intval($playerID), $actionCard) >= 2) SetFlashMessage("Choose which Action to use.");
                 break;
             }
+            if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+            if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
             SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWUUnitAction($playerID, $actionCard, $abilityId);
             // Drain auto-decisions (PASSPARAMETER → effect → SWU_AFTER_ACTION); stops at any
@@ -183,6 +191,8 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             // control; the explicit source check stays as the gate SWUUnitAction itself never had.
             $entry = SWUUnitActionPick(intval($playerID), $actionCard, $abilityId);
             if ($entry !== null && !empty($anyPlayerUnitActions[$entry['source']])) {
+                if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+                if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
                 SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
                 SWUUnitAction($playerID, $actionCard, $entry['id']);
                 (new DecisionQueueController())->ExecuteStaticMethods($playerID, "-");
@@ -203,6 +213,8 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             $actionParts = explode(':', $action);
             $abilityIndex = intval($actionParts[1]);
         }
+        if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+        if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
         SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         HandActivatedAbility($playerID, $actionCard, $abilityIndex);
         break;
@@ -237,9 +249,13 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             // — greyed, stale, or not a leader-ability entry — takes no undo point.
             $leaderAbilityId = ($actionMain !== $action) ? $deployMode : '';
             if (SWUActionPick(intval($playerID), "myLeader-$leaderIndex", $leaderAbilityId) === null) break;
+            if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+            if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
             SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWULeaderAction(intval($playerID), $leaderObj->CardID, $leaderIndex, $leaderAbilityId);
         } elseif ($actionMain === 'DeployLeader') {
+            if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+            if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
             SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWUDeployLeader(intval($playerID), $deployMode, '', $leaderIndex);
         }
@@ -262,6 +278,8 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             if ($baseAbilityId === '' && SWUActionEnabledCount(intval($playerID), 'myBase-0') >= 2) SetFlashMessage("Choose which Action to use.");
             break;
         }
+        if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+        if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
         SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUBaseAction(intval($playerID), $baseAbilityId);
         break;
@@ -273,10 +291,15 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         $dqChk = new DecisionQueueController();
         if (!$dqChk->AllQueuesEmpty()) break;
         if (GetCurrentPhase() !== "MAIN") break;
+        if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+        if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
         SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
         SWUSmuggleResource(intval($playerID), intval($cardArr[1]));
         break;
         case 'PlayFromDiscard': {
+            // Always Two: a play from a discard pile is the team's turn action — the same turn gate every other action has (it had
+            // none: only SWUClaimTeamTurn's re-check stood in front of it, after the undo point was already taken).
+            if (SWUIsAlwaysTwo() && !SWUMayTakeTurnAction(intval($playerID))) { SetFlashMessage("It is not your turn."); break; }
             // Named Action abilities: "Play:<abilityId>" names which way to play it (spec §9). A refusal — greyed,
             // stale, or two ways and no id — takes no undo point.
             $discardAbilityId = str_starts_with((string)$action, 'Play:') ? substr((string)$action, 5) : '';
@@ -284,11 +307,16 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
                 if ($discardAbilityId === '' && SWUActionEnabledCount(intval($playerID), 'myDiscard-' . intval($cardArr[1])) >= 2) SetFlashMessage("Choose which way to play it.");
                 break;
             }
+            if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+            if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
             SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             SWUPlayFromDiscard(intval($playerID), intval($cardArr[1]), $discardAbilityId);
             break;
         }
         case 'PlayFromOpponentDiscard':
+            if (SWUIsAlwaysTwo() && !SWUMayTakeTurnAction(intval($playerID))) { SetFlashMessage("It is not your turn."); break; }
+            if (SWURefuseUnlessIdle()) break;   // never while effects resolve (owner, 2026-11-21)
+            if (SWUVoteGate(intval($playerID), 'widget', $actionCard, strval($action))) break;   // 4P Always Two: the partner accepts first
             SWUClaimTeamTurn(intval($playerID)); SaveUndoVersion($playerID);
             // Twin Suns: "PlayFromOpponentDiscard-<seat>-<idx>" names WHOSE pile. The 2-player form
             // "PlayFromOpponentDiscard-<idx>" is still accepted verbatim (I1) and resolves to the one

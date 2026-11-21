@@ -2282,6 +2282,9 @@ SWUREVEAL;
   }
   for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
     fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands || !empty(\$viewerLooksAtHandSeats[{$cshSeat}]);\r\n");
+    // 4P Always Two: teammates see each other's HAND (only the hand — resources and deck stay private), never playable (plan
+    // 2026-11-21-swusim-always-two-4p Task 5). Team = seat parity (SWUTeamOf).
+    fwrite($handler, "if (!\$canSeeHandPlayer{$cshSeat} && !\$viewerInfo[\"isSpectator\"] && function_exists('SWUAlwaysTwoVoteOn') && SWUAlwaysTwoVoteOn() && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) >= 1 && SWUTeamOf(intval(\$viewerInfo[\"viewerSeat\"] ?? 0)) === SWUTeamOf({$cshSeat})) \$canSeeHandPlayer{$cshSeat} = true;\r\n");
   }
   // "You may look at the top card of your deck at any time" (LAW_094 Hondo Ohnaka, HMW_205 Intelligence
   // Agency). Unlike the reveals above this is NOT decision-scoped — it is a standing permission
@@ -2868,6 +2871,13 @@ function AddGetNextTurnForPlayer($player) {
           // from the poll. Echoing them leaked hidden information to every viewer mid-game. The
           // position stays (the remote-frontend guide documents it), carrying the empty value.
           $getNextTurn .= "  echo('-');\r\n";
+        } else if ($zone->Name === 'DecisionQueueVariables') {
+          // Game variables reach EVERY viewer. A key starting SWU_PRIVATE_ is server-only state (4P Always Two's pending proposal and
+          // blind start votes — SWUSim/Custom/AlwaysTwoVote.php) and is stripped here. Byte-identical whenever no such key exists.
+          $getNextTurn .= "  if (strpos(strval(\$gDecisionQueueVariables), 'SWU_PRIVATE_') !== false && is_array(\$__dqv = json_decode(\$gDecisionQueueVariables, true))) {\r\n";
+          $getNextTurn .= "    foreach (array_keys(\$__dqv) as \$__k) if (strpos(strval(\$__k), 'SWU_PRIVATE_') === 0) unset(\$__dqv[\$__k]);\r\n";
+          $getNextTurn .= "    echo(json_encode(empty(\$__dqv) ? new stdClass() : \$__dqv));\r\n";
+          $getNextTurn .= "  } else echo(\$gDecisionQueueVariables);\r\n";
         } else {
           $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
         }

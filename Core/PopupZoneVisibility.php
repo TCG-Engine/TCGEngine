@@ -74,5 +74,8 @@ function PopupMayShowZone(string $rootName, string $popupType, array $viewerInfo
   // A sim whose seat plays several boards (SWUSim 1v1 Always Two: seat 1 = boards 1+3) — the viewer's other board is its own too.
   if ($viewerSeat > 0 && function_exists('SWUViewerControlsBoard') && SWUViewerControlsBoard($viewerSeat, intval($owner))) return true;
   if ($zone === 'Hand' && $spectatorCanSeeHands) return true;
+  // SWUSim 4P Always Two: teammates see each other's HAND (only the hand), as the poll does (zzGameCodeGenerator.php $canSeeHandPlayer).
+  if ($zone === 'Hand' && $viewerSeat > 0 && function_exists('SWUAlwaysTwoVoteOn') && SWUAlwaysTwoVoteOn()
+      && SWUTeamOf($viewerSeat) === SWUTeamOf(intval($owner))) return true;
   return in_array($zone, ['Hand', 'Resources'], true) && _PopupViewerRevealsZone($viewerSeat, $owner, $zone);
 }

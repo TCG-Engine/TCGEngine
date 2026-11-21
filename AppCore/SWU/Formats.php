@@ -313,7 +313,8 @@ function SWUFormatDefinitions() {
             'maxPlayers'  => 4,
             'teams'       => 2,
             'publicQueue' => false,
-            'enabled'     => false,   // ships with the partner vote (plan Phase 5)
+            'queueTypes'  => ['bo1' => true, 'bo3' => false],   // Bo1 only (spec "## 4P Always Two" → Room)
+            'enabled'     => true,    // shipped with the partner vote (plan 2026-11-21-swusim-always-two-4p Task 6)
         ],
         'at4p-eternal' => [
             'displayName' => '4P Always Two (Eternal)',
@@ -324,7 +325,8 @@ function SWUFormatDefinitions() {
             'maxPlayers'  => 4,
             'teams'       => 2,
             'publicQueue' => false,
-            'enabled'     => false,
+            'queueTypes'  => ['bo1' => true, 'bo3' => false],
+            'enabled'     => true,
         ],
     ];
 }

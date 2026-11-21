@@ -52,6 +52,13 @@ function SWUSeatsOnTheClock(): array
     // 1v1 Always Two: the clock belongs to the PERSON — a board's decision runs the seat that plays it (SWUSeatOfBoard).
     if (!empty($owing)) return array_values(array_unique(array_map('SWUSeatOfBoard', $owing)));
     $turn = intval(GetTurnPlayer());
+    // 4P Always Two: the turn belongs to the TEAM and either teammate may propose its action, so both are on the clock until one does
+    // (then the partner owes the answer — the branch above). Plan 2026-11-21-swusim-always-two-4p Task 4.
+    if (function_exists('SWUAlwaysTwoVoteOn') && SWUAlwaysTwoVoteOn() && in_array($turn, $live, true)) {
+        $team = array_values(array_filter(array_map('intval', SWUTeamBoards($turn)), fn($b) => in_array($b, $live, true)));
+        sort($team);
+        return $team;
+    }
     return in_array($turn, $live, true) ? [SWUSeatOfBoard($turn)] : [];
 }
 

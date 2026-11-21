@@ -1364,6 +1364,14 @@ class SchemaTestRunner {
                 $g->answerDecision($player, $args);
                 break;
 
+            case 'Input': {
+                // PN>Input:<actionCard>|<action> — exactly a client widget click (mode 10001 → CustomWidgetInput), e.g.
+                // P1>Input:InitiativeCounter-0|TakeInitiative, P1>Input:myHealth-0|Pass, P1>Input:myBase-0|EpicAction.
+                [$card, $act] = array_pad(explode('|', (string)$args, 2), 2, '');
+                $g->widgetInput($player, trim($card), trim($act));
+                break;
+            }
+
             case 'Drain':
                 // Run pending STATIC entries on $player's queue (cross-player reaction drain —
                 // mirrors production's post-action ProcessGoldfishAutomation). No args.
