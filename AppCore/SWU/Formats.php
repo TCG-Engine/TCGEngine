@@ -8,9 +8,12 @@
 require_once __DIR__ . '/BoosterSets.php';
 
 function SWUFormatDefinitions() {
-    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW',];   // HMW released 2026-09-16 (owner)
-    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH', 'HMW',];
-    $previewSets = ['IC27',];  // the next set to release (or a future set's preview window)
+    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW', 'IC27',];   // HMW released 2026-09-16, IC27 2026-11-21 (owner)
+    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH', 'HMW', 'IC27',];
+    // The next set to release (or a future set's preview window). EMPTY between windows (owner, 2026-11-21: "Preview season is
+    // over since IC27 was officially released") — keep it in step with PreviewSets.php, and flip the preview pools below back on
+    // ('enabled' => true) when the next window opens.
+    $previewSets = [];
     $premierBans = ['ASH_011', 'ASH_248', 'ASH_052', 'ASH_079', 'SEC_179'];   // 2026-11-09: Neel, Chimaera (ASH), Koska Reeves (ASH), Aggressive Negotiations
     $eternalBans = ['JTL_140', 'JTL_170'];
     return [
@@ -180,7 +183,7 @@ function SWUFormatDefinitions() {
             'legalSets'     => array_merge($eternalSets, $previewSets),
             'banned'        => [],
             'legalRarities' => ['Common'],
-            'enabled'       => true,
+            'enabled'       => false,   // OFF between preview windows (owner, 2026-11-21: IC27 released). Still resolvable in flight.
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
 
@@ -192,7 +195,7 @@ function SWUFormatDefinitions() {
             'displayName' => 'Premier Preview (IC27)',
             'legalSets'   => array_merge($premierSets, $previewSets),
             'banned'      => $premierBans,
-            'enabled'     => true,
+            'enabled'     => false,   // OFF between preview windows (owner, 2026-11-21: IC27 released). Still resolvable in flight.
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         'twinsuns-preview' => [
@@ -241,7 +244,7 @@ function SWUFormatDefinitions() {
             'displayName' => 'Eternal Preview',
             'legalSets'   => array_merge($eternalSets, $previewSets),
             'banned'      => $eternalBans,
-            'enabled'     => true,
+            'enabled'     => false,   // OFF between preview windows (owner, 2026-11-21: IC27 released). Still resolvable in flight.
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         // Limited — Sealed (and later Draft) in a private room only, decks built from packs opened in the room

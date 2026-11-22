@@ -8,16 +8,16 @@ require_once './SWUSim/Custom/DeckImport.php';   // Formats + DeckValidation + d
 $checks = [];
 foreach (['premier', 'eternal', 'padawan', 'twinsuns', 'teamsuns'] as $f) {
     $checks["$f includes HMW"] = in_array('HMW', SWUFormatLegalSets($f), true);
-    // Twin Suns / Team Suns carry IC27 in their own pool since 2026-11-04 (owner); the rest keep it out.
-    $carries = in_array($f, ['twinsuns', 'teamsuns'], true);
-    $checks[$carries ? "$f includes IC27" : "$f excludes IC27"] = in_array('IC27', SWUFormatLegalSets($f), true) === $carries;
-    $checks[$carries ? "$f is a preview format by pool" : "$f is not a preview format"] = SWUFormatIsPreview($f) === $carries;
+    // Amended 2026-11-21: IC27 released into Premier / Eternal (owner), so every pool here carries it and none is a preview
+    // format. IC27's own release is pinned in test_swusim_ic27_release.php; this test keeps HMW's.
+    $checks["$f includes IC27 (released 2026-11-21)"] = in_array('IC27', SWUFormatLegalSets($f), true);
+    $checks["$f is not a preview format"] = SWUFormatIsPreview($f) === false;
 }
 $preview = require './AppCore/SWU/PreviewSets.php';
-$checks['the preview set list is exactly IC27'] = $preview === ['IC27'];
+$checks['nothing previews (was exactly IC27 until 2026-11-21)'] = $preview === [];
 foreach (['preview' => 'premier', 'eternal-preview' => 'eternal', 'padawan-preview' => 'padawan'] as $pf => $bf) {
-    $checks["$pf = $bf + IC27"] = array_values(array_diff(SWUFormatLegalSets($pf), SWUFormatLegalSets($bf))) === ['IC27'];
-    $checks["$pf is still a preview format"] = SWUFormatIsPreview($pf) === true;
+    $checks["$pf adds nothing to $bf between windows"] = array_values(array_diff(SWUFormatLegalSets($pf), SWUFormatLegalSets($bf))) === [];
+    $checks["$pf is off between windows"] = SWUFormatIsPreview($pf) === false && empty(SWUGetFormat($pf)['enabled']);
 }
 // The Twin Suns / Team Suns preview formats: off, and their pool is now the base's own (owner, 2026-11-04).
 foreach (['twinsuns-preview' => 'twinsuns', 'teamsuns-preview' => 'teamsuns'] as $pf => $bf) {
@@ -57,7 +57,7 @@ $checks['fixture resolves'] = !empty($r['success']);
 $withHmw = $r['mainDeck']; $withHmw[0] = 'HMW_059';
 $checks['premier accepts an HMW card'] = SWUCheckFormat('premier', $r['leader'], $r['base'], $withHmw, []) === [];
 $withIc27 = $r['mainDeck']; $withIc27[0] = 'IC27_022';
-$checks['premier refuses an IC27 card'] = !empty(SWUCheckFormat('premier', $r['leader'], $r['base'], $withIc27, []));
+$checks['premier accepts an IC27 card (released 2026-11-21; was refused)'] = SWUCheckFormat('premier', $r['leader'], $r['base'], $withIc27, []) === [];
 $checks['preview accepts an IC27 card'] = SWUCheckFormat('preview', $r['leader'], $r['base'], $withIc27, []) === [];
 $checks['open accepts an IC27 card'] = SWUCheckFormat('open', $r['leader'], $r['base'], $withIc27, []) === [];
 

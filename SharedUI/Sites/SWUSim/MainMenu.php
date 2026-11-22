@@ -148,9 +148,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             <span class="mode__body">
               <span class="mode__kind">Private rooms</span>
               <h3 class="mode__title">Fun Formats</h3>
-              <span class="mode__desc">Fun ways to play: King of the Hill, 1v1 Twin Suns and 1v1 Always Two.</span>
+              <span class="mode__desc">Fun ways to play: King of the Hill, 1v1 Twin Suns, and Always Two (1v1 or 4P).</span>
               <span class="mode__foot">
-                <span class="mode__stat">3 formats · no queue</span>
+                <span class="mode__stat">4 formats · no queue</span>
                 <span class="mode__go">Enter
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M4 12h15M13 6l6 6-6 6"/>
