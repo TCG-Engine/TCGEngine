@@ -2228,6 +2228,14 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     if (!empty($combatCtx['ash184GiveAdv'])) {
         AddTrigger($activePlayer, 'ASH_184', 'ASH_184', '');
     }
+    // HMW_035 Hunter (Everyone Get to Cover!) — "Choose two": when the first mode is an attack, the second is chosen only once
+    // that attack has COMPLETED (bug report P-37). Armed by HMW_035#2 with the attacker's UID; matched here by UID because
+    // this runs on the fizzle path too (a $fizzCtx carries no turn-effect markers) and a dead attacker's slot is reused.
+    $hmw035Uid = intval(GetSWUVar('SWU_HMW035_NEXT_PICK', '0'));
+    if ($hmw035Uid > 0 && $hmw035Uid === intval($combatCtx['attackerUID'] ?? 0)) {
+        SetSWUVar('SWU_HMW035_NEXT_PICK', '0');
+        AddTrigger($activePlayer, 'HMW_035_NEXT', 'HMW_035', '');
+    }
     // IC27_007 Asajj Ventress (leader front) — "After completing this attack, if the attacker survived, you may ready
     // a resource." Unlike Follow Me this one needs the attacker alive: looked up by its captured UID, since a dead
     // attacker's arena slot is reused by whichever unit reindexes into it.

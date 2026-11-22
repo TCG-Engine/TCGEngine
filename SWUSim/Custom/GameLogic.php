@@ -12427,6 +12427,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SOR_150': HeroicSacrificeDefeatTrigger($player, $mzID); break;
         case 'LAW_205': HeroicSacrificeDefeatTrigger($player, $mzID); break;   // Flash the Vents self-defeat
         case 'ASH_184': Ash184GiveAdvTrigger($player); break;   // Follow Me — give 3 Advantage tokens to a unit
+        case 'HMW_035_NEXT': _SWUHmw035AfterAttack(intval($player)); break;   // Hunter — the second mode, once the first (an attack) completed
         case 'IC27_007': Ic27007OfferReadyResource($player); break;   // Asajj Ventress — the surviving attacker's "may ready a resource"
         case 'LAW_033': Law033Trigger($player, $mzID); break;   // Hound's Tooth — may defeat a lower-power unit
         case 'LAW_034': Law034Trigger($player, $mzID); break;   // Chewbacca — Exp + heal 3 self

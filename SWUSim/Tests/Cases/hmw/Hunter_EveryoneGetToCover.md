@@ -394,3 +394,126 @@ P1GROUNDARENAUNIT:2:SHIELDCOUNT:1
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2BASEDMG:0
 P1NODECISION
+
+---
+
+# AttackTwice_AttackerWithAnOnAttackChoice_FirstAttackFinishesBeforeTheSecondPick
+#// Bug report P-37 (game 8008): "Hunter HMW not registering one of the attacks". The modes resolve IN ORDER, so the first attack
+#// must COMPLETE before the second mode is chosen. Deployed Admiral Holdo (JTL_007, 3/8) has "On Attack: You may give another
+#// Resistance unit … +2/+2" — a decision INSIDE her attack. The next mode picker used to be queued ahead of the attack's combat
+#// step, so it came up while the first attack was still waiting on Holdo's choice; picking Attack again started a second attack
+#// inside the first and the first one's combat damage was lost (game 8008: the first target kept its damage unchanged).
+#// Holdo swings at two Consular Security Forces (3/7): each takes 3, Holdo takes 3 + 3 = 6 and survives on 8 HP. (10 resources:
+#// Hunter is Command/Vigilance/Heroism and Holdo brings no Vigilance, so the aspect penalty makes it cost 8.)
+## GIVEN
+CommonSetup: gbw/rrk/{myResources:10;myLeader:JTL_007:1:1:1}
+P1OnlyActions: true
+WithP1Hand: HMW_035
+WithP1SpaceArena: ASH_174:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Attack
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:mySpaceArena-0
+#// The first attack is over before the second pick: its target already carries the damage.
+- P1>AnswerDecision:Attack
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-1
+- P1>AnswerDecision:mySpaceArena-0
+## EXPECT
+P1NODECISION
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:JTL_007
+P1GROUNDARENAUNIT:0:DAMAGE:6
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENAUNIT:1:DAMAGE:3
+P2BASEDMG:0
+
+---
+
+# AttackFizzles_DefenderDiesToAnOnAttack_SecondPickStillComes
+#// The next pick waits for the attack to COMPLETE (P-37) — and an attack can complete without combat: Punishing One (SEC_171)
+#// "On Attack: You may deal 1 damage to a unit" kills the 2/1 TIE/ln Fighter it is attacking before combat damage. That ends
+#// the attack on the fizzle path, which must still hand over the second pick, or the ability is stranded half-done.
+## GIVEN
+CommonSetup: gbw/rrk/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: HMW_035
+WithP1SpaceArena: SEC_171:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Attack
+- P1>AnswerDecision:mySpaceArena-0
+#// The TIE is the only target (auto-chosen); this answers Punishing One's On Attack, killing it before combat.
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:Shield
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1NODECISION
+P2SPACEARENACOUNT:0
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:CARDID:HMW_035
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# FirstAttackerDies_SecondPickStillComes
+#// The attacker of the first mode dies in its own attack (a 3/1 Death Star Stormtrooper into a 3/3 Dark Trooper; both die). The armed
+#// next pick is matched by the attacker's UID captured BEFORE damage, so its death must not strand the second pick.
+## GIVEN
+CommonSetup: gbw/rrk/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: HMW_035
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Attack
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:Shield
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:HMW_035
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENACOUNT:0
+
+---
+
+# AttackTwice_OnAttackChoice_TheActionClosesExactlyOnce
+#// The P-37 fix moves the second pick behind the first attack (a post-attack trigger). Without P1OnlyActions: the whole
+#// Hunter play is ONE action — the turn passes to P2 exactly once, never early (mid-ability) and never twice.
+## GIVEN
+CommonSetup: gbw/rrk/{myResources:10;myLeader:JTL_007:1:1:1}
+WithP1Hand: HMW_035
+WithP1SpaceArena: ASH_174:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Attack
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:mySpaceArena-0
+#// The first attack is over before the second pick: its target already carries the damage.
+- P1>AnswerDecision:Attack
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-1
+- P1>AnswerDecision:mySpaceArena-0
+## EXPECT
+P1NODECISION
+TURNPLAYER:2
+NOEXTRAACTION
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:JTL_007
+P1GROUNDARENAUNIT:0:DAMAGE:6
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENAUNIT:1:DAMAGE:3
+P2BASEDMG:0
