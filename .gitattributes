@@ -37,3 +37,6 @@ Tests/Integration/**/*.json  text eol=lf
 *.ttf   binary
 *.otf   binary
 *.zip   binary
+
+# FaB guarded authoring prefixes contain literal newlines; preserve their source bytes.
+FaBSim/Custom/CodeGeneration.php text eol=lf
