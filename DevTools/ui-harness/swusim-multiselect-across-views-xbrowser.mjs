@@ -32,7 +32,7 @@ async function makeGame() {
   if (!j.gameName) throw new Error('TestSchemaSetup failed: ' + JSON.stringify(j));
   return String(j.gameName);
 }
-const url = (gn, layout) => `${BASE}NextTurn.php?folderPath=SWUSim&gameName=${gn}&playerID=1&authKey=testschema&swuLayout=${layout}`;
+const url = (gn, layout) => `${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${gn}&playerID=1&authKey=testschema&swuLayout=${layout}`;
 function contextOptions(engine, layout) {
   if (layout === 'desktop') return { viewport: { width: 1700, height: 1050 } };
   const phone = devices['iPhone 13'];

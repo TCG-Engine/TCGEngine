@@ -42,7 +42,7 @@ for (const engine of engines) {
     const tag = `${engine}@${width}x${height}`;
     const page = await (await browser.newContext({ viewport: { width, height } })).newPage();
     page.on('pageerror', e => { fails++; console.log(`FAIL ${tag} pageerror ${e.message}`); });
-    await page.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${game}&playerID=1&authKey=testschema`, { waitUntil: 'load' });
+    await page.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${game}&playerID=1&authKey=testschema`, { waitUntil: 'load' });
     try { await page.waitForSelector('#swuHomeStrips .swu-mb-row > *', { timeout: 15000 }); }
     catch { console.log(`ENVIRONMENT NOT READY: ${tag} no home-tile arena units`); process.exit(2); }
     await page.waitForTimeout(800);

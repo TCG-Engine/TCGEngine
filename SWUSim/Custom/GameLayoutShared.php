@@ -283,7 +283,8 @@ body.swu-opp-defeated #theirSpaceArenaSlot > * { display: none !important; }
    opponent side by construction (ApplyCosmeticPlaymats paints it from the current view's oppSeat), so
    this follows the view automatically and never touches the viewer's own mat. */
 body.swu-opp-defeated .swu-playmat-top,
-body.swu-opp-defeated .swu-m-arena-row.is-theirs { filter: grayscale(1); }
+body.swu-opp-defeated .swu-m-arena-row.is-theirs:not(#swuTableRight .swu-m-arena-row) { filter: grayscale(1); }
+/* The multiplayer table's right column greys per SEAT (.swu-tbl-defeated, swuTableAfterSeatPair), never by "their"/"mine". */
 
 /* THE VIEWER'S OWN half, when THEY are the one who is out (owner ruling 2026-09-25: "keep them in the
    home panels page. with themselves greyed out"). Mirror image of the block above — same treatment, `my`
@@ -297,7 +298,7 @@ body.swu-self-defeated #myHandSlot { filter: grayscale(1) brightness(0.5); }
 body.swu-self-defeated #myGroundArenaSlot > *,
 body.swu-self-defeated #mySpaceArenaSlot > * { display: none !important; }
 body.swu-self-defeated .swu-playmat-bot,
-body.swu-self-defeated .swu-m-arena-row.is-mine { filter: grayscale(1); }
+body.swu-self-defeated .swu-m-arena-row.is-mine:not(#swuTableRight .swu-m-arena-row) { filter: grayscale(1); }
 
 .swu-home-strip.is-active-turn {
     border-color: rgba(240,192,64,0.55);
@@ -964,6 +965,44 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #theirBaseWrapper .exhausted-status-overlay-layer {
     inset: -3px !important; width: auto !important; height: auto !important;
     border-radius: 7px !important;
+}
+/* ── The multiplayer table's second column (#swuTableRight, TableRightColumn.php) ─────────────────────────────────────────
+   Its leader / base wrappers are named by seat (#p3LeaderWrapper, #p4BaseWrapper), so none of the id rules above reached them and
+   the other players' leaders and bases came out a different size and shape from yours (owner, 2026-11-22: "the card sizes of the
+   leaders and base on desktop for the other players are still wonky"). The same rules, by suffix, for that column only.
+   swusim-table-bases-arenas-xbrowser.mjs */
+#swuTableRight [id$="LeaderWrapper"], #swuTableRight [id$="BaseWrapper"] { overflow: visible !important; }
+#swuTableRight [id$="LeaderWrapper"] [data-mzid], #swuTableRight [id$="BaseWrapper"] [data-mzid] {
+    display: block !important; width: 100% !important;
+    overflow: hidden !important; border-radius: 7px;
+}
+#swuTableRight [id$="LeaderWrapper"] img[data-orientation='landscape'],
+#swuTableRight [id$="BaseWrapper"] img[data-orientation='landscape'] {
+    width: 100% !important; height: auto !important; display: block !important;
+    object-fit: cover !important; object-position: 50% 38% !important;
+    --border-trim: 1.10; transform: scale(var(--border-trim)); transform-origin: center;
+    --bottom-chop: 8px; margin-bottom: calc(-1 * var(--bottom-chop)) !important;
+}
+#swuTableRight [id$="LeaderWrapper"]:has([data-mzid$="Leader-1"]) { display: flex !important; }
+#swuTableRight [id$="LeaderWrapper"]:has([data-mzid$="Leader-1"]) > span {
+    display: flex !important; flex-wrap: nowrap !important; gap: 4px; width: 100%;
+}
+#swuTableRight [id$="LeaderWrapper"]:has([data-mzid$="Leader-1"]) [data-mzid] {
+    width: 50% !important; flex: 1 1 0 !important; min-width: 0 !important;
+}
+#swuTableRight [id$="LeaderWrapper"]:has([data-mzid$="Leader-1"]) [data-mzid] img[data-orientation='landscape'] {
+    width: 100% !important; height: auto !important; object-fit: cover !important;
+}
+#swuTableRight [id$="LeaderWrapper"] .exhausted-status-overlay-layer,
+#swuTableRight [id$="BaseWrapper"] .exhausted-status-overlay-layer {
+    inset: -3px !important; width: auto !important; height: auto !important; border-radius: 7px !important;
+}
+/* The span above clips, which would eat a lit target's glow (drawn on the <img>): re-draw it on the span, as .selectable-card is. */
+#swuTableRight [id$="LeaderWrapper"] [data-mzid].swu-table-target, #swuTableRight [id$="BaseWrapper"] [data-mzid].swu-table-target {
+    box-shadow: 0 0 12px 2px rgba(100,250,0,.5), inset 0 0 0 2px rgba(100,250,0,.85) !important;
+}
+#swuTableRight [id$="LeaderWrapper"] [data-mzid].swu-table-picked, #swuTableRight [id$="BaseWrapper"] [data-mzid].swu-table-picked {
+    box-shadow: 0 0 14px 2px rgba(255,198,46,.9), inset 0 0 0 2px rgba(255,198,46,1) !important;
 }
 
 /* ── SWUSim decision-button sweep REMOVED (Tier 2 / Phase 2) ────────────────────
@@ -1762,6 +1801,310 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             (document.head || document.documentElement).appendChild(st);
         })();
     }
+    // ── The multiplayer TABLE (docs/superpowers/specs/2026-11-21-swusim-multiplayer-table-design.md) ─────────────────────────────
+    // Every 4-seat game on one page: two columns of the phone layout's rows (#swuTableLeft = you vs the seat above you, the ordinary
+    // my/their pair; #swuTableRight = the other pair, SWUSim/Custom/TableRightColumn.php), in the 1v1 Always Two table's look — the
+    // rules below are the embed block's above, written for a column instead of a frame.
+    if (window.SWUTableLayout && window.SWUTableLayout.kind) {
+        (function () {
+            // WIDE = the columns side by side with the sidebar beside them; below 900px they stack and the page scrolls (as the 1v1
+            // table). Decided by the window — the table IS the page here.
+            var syncWide = function () { document.documentElement.classList.toggle('swu-table-wide', window.innerWidth > 900); };
+            syncWide(); window.addEventListener('resize', syncWide);
+            // NextTurn.php recomputes window.cardSize on resize but nothing redraws, so the cards kept the old size until the next poll —
+            // across the 900px line that is a 40px card in an 80px layout. Redraw from the cached update when the size actually moved.
+            var drawnSize = window.cardSize, resizeT = null;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeT);
+                resizeT = setTimeout(function () {
+                    if (window.cardSize === drawnSize || !window.swuLastResponseArr || typeof RenderUpdate !== 'function') return;
+                    drawnSize = window.cardSize;
+                    RenderUpdate(window.swuLastResponseArr, window.__lastRenderedGameUpdate || 0);
+                }, 120);
+            });
+            var W = 'html.swu-table-wide ';
+            var SB = (window.SWUTableLayout.sidebarW || 280) + 'px';   // the log/chat column's width (TableLayout.php SWUTableSidebarWidth)
+            // Inside corners: left column bases on its RIGHT edge, right column bases on its LEFT edge. Centre cells in DOM order (both
+            // columns): bottom leader, bottom base, top base, top leader — the top pair is the first line.
+            var ord = function (col, o) {
+                return [1, 2, 3, 4].map(function (n) { return W + '#' + col + ' > .swu-m-centers-row > .swu-m-center:nth-child(' + n + '){order:' + o[n - 1] + '}'; }).join('');
+            };
+            var css = '#swuHomeStrips,#swuPairNav,#swuPairPrev,#swuPairNext,#swuGoBack{display:none!important}'
+                    + '.swu-tbl-hidden-hand,.swu-tbl-res{display:none!important}'
+                    // STATIC rows (owner, 2026-11-20): fixed heights except the two arenas, which share what is left and scroll inside.
+                    + '.swu-tcol{display:flex;flex-direction:column;min-width:0;box-sizing:border-box}'
+                    + '.swu-tcol > *{flex:none}'
+                    + '.swu-tcol > .swu-m-arena-row{flex:1 1 0!important;min-height:0!important}'
+                    + '.swu-tcol > .swu-m-arena-row > .swu-m-arena-col{display:flex;flex-direction:column;min-height:0;min-width:0}'
+                    + '.swu-tcol > .swu-m-arena-row .swu-m-scroll{flex:1 1 auto;height:auto!important;min-height:0!important}'
+                    // Every arena is a VERTICAL scroll box, as the left column's are (GameLayoutMobile.php styles those by id: #my/#their…
+                    // ArenaSlot). The right column's #p{n}…ArenaSlot only had the phone ROW class (.swu-m-scroll: overflow-y hidden), so on
+                    // a shorter screen P3/P4's extra units were cut off with no way to scroll (owner, 2026-11-22).
+                    + '.swu-tcol > .swu-m-arena-row [id$="ArenaSlot"]{display:block!important;overflow-x:hidden!important;overflow-y:auto!important}'
+                    + '.swu-tcol > [data-trow="band"]{box-sizing:border-box;height:56px!important;min-height:0!important;margin:0!important}'
+                    + '.swu-tcol > .swu-m-centers-row{box-sizing:border-box;height:97px;margin-top:0!important}'
+                    + '.swu-tcol > [data-trow="hand"]{box-sizing:border-box;height:calc(var(--swu-cardsize, 80px) + 24px);padding-top:4px!important;padding-bottom:4px!important}'
+                    + '.swu-tcol > [data-trow="hand"] .swu-m-scroll{box-sizing:border-box;height:calc(var(--swu-cardsize, 80px) + 16px);min-height:0!important}'
+                    + '.swu-tcol > .swu-m-footer-stack{position:static!important;margin-top:0!important;height:62px;justify-content:flex-end;box-sizing:border-box}'
+                    + '#swuTableRight .swu-tbar{width:100%}'
+                    + '.swu-tbl-name{font:600 12px var(--swu-font-label, system-ui),sans-serif;color:rgba(240,230,200,.9);letter-spacing:.03em;white-space:nowrap;'
+                    + 'overflow:hidden;text-overflow:ellipsis;max-width:30%;align-self:center;margin:0 6px}'
+                    // On a narrow footer the Twin Suns counters (Take/Keep + Blast + Plan, wrapped in two lines) need the room the
+                    // seat name takes — which there is squeezed to a lone "P" anyway. Your own name in your own bar says nothing the
+                    // bar doesn't, so it steps aside while counters are on offer (swusim-pass-cluster-fit-xbrowser.mjs).
+                    + 'html:not(.swu-table-wide) #swuMyControlBand:has(.swu-take-counter:not([hidden])) .swu-tbl-name{display:none}'
+                    + '#swuMyControlBand.is-turn,#swuTheirControlBand.is-turn,#swuTableRight .swu-tbar.is-turn{box-shadow:inset 0 0 0 2px rgba(240,192,64,.75),inset 0 0 14px rgba(240,192,64,.25)}'
+                    + '#swuTableRight .swu-tbl-defeated{filter:grayscale(1) brightness(.6)}'
+                    // Base tabs (Fortified / Arrested) as compact chips just RIGHT of the base card, on every board (owner, 2026-11-22:
+                    // "move the 'Fortified' and 'Arrested' chips to be on the right of each base card. and make them smaller to fit the
+                    // space") — the phone markup has no tab styling of its own (desktop's lives in GameLayout.php, not loaded here).
+                    // ⚠ The phone CSS gives EVERY child of a centre cell width:100% (.swu-m-center > div): the base SLOT is shrunk to its
+                    // card so the chips sit against the card, not past an empty half-cell; the tabs take only their own width. The health
+                    // bar follows the card by script (inline left/width), so it moves with it. swusim-table-bases-arenas-xbrowser.mjs
+                    + '.swu-tcol .swu-m-center > [id$="BaseSlot"]{flex:0 0 auto;width:auto!important;max-width:100%}'
+                    + '.swu-tcol .swu-m-center > .swu-base-tabs{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:3px;margin:0 0 0 4px;flex:none;width:auto!important}'
+                    + '.swu-tcol .swu-m-center > .swu-base-tabs:empty{display:none}'
+                    + '.swu-tcol .swu-base-tab{display:inline-flex;align-items:baseline;gap:3px;padding:1px 4px;border-radius:3px;cursor:pointer;'
+                    + 'font:700 7px/1.2 var(--swu-font-label, sans-serif);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}'
+                    + '.swu-tcol .swu-base-tab-fort{background:rgba(190,196,206,.28);color:rgba(222,228,238,.95);box-shadow:inset 0 0 0 1px rgba(190,196,206,.6)}'
+                    + '.swu-tcol .swu-base-tab-arrest{background:rgba(218,165,32,.25);color:rgba(245,205,110,.98);box-shadow:inset 0 0 0 1px rgba(218,165,32,.7)}'
+                    + '.swu-tcol .swu-base-tab-n{font-size:8px;font-weight:900}'
+                    // Phone / narrow (plan Task 5): the columns STACK — yours first — and the page scrolls. Each column is one screen tall so
+                    // its arenas have room to fill (as each frame of the 1v1 table on a phone). dvh where supported: the browser bar.
+                    // The phone root is the page's SCROLLER (a fixed, screen-tall box that scrolls) and a flex column: stacked columns must not be
+                    // squeezed into one screen, so it lays them out as blocks — and keeps scrolling, which is how you reach the other column.
+                    + 'html:not(.swu-table-wide) #swuMobileRoot.swu-table{display:block!important;overflow-x:hidden!important;overflow-y:auto!important}'
+                    + 'html:not(.swu-table-wide) #swuMobileRoot.swu-table > .swu-tcol{height:100vh;height:100dvh}'
+                    + 'html:not(.swu-table-wide) #swuTableRight{border-top:2px solid rgba(226,177,60,.45)}'
+                    + '#swuTblChip{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);z-index:1200;display:none;'
+                    + 'padding:8px 14px;border-radius:999px;border:1px solid rgba(100,250,0,.7);background:rgba(10,24,10,.94);color:#e8ffe0;'
+                    + 'font:600 13px system-ui,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.55);cursor:pointer;white-space:nowrap}'
+                    // Wide: the two columns side by side, the full-height sidebar on the right.
+                    + W + 'body{overflow:hidden}'
+                    + W + '#swuMobileRoot.swu-table{position:fixed!important;top:0!important;left:0!important;bottom:0!important;right:' + SB + '!important;'
+                    + 'width:auto!important;height:auto!important;min-height:0!important;display:flex!important;flex-direction:row!important;padding:0!important;margin:0!important;overflow:hidden!important}'
+                    + W + '#swuMobileRoot.swu-table > .swu-tcol{flex:1 1 0;height:100%;overflow:hidden}'
+                    + W + '#swuTableRight{border-left:1px solid rgba(226,177,60,.35)}'
+                    // The leader/base row becomes TWO lines — the top board's pair above the bottom board's, the centre line between.
+                    + W + '.swu-tcol > .swu-m-centers-row{height:194px;flex-wrap:wrap;row-gap:0;padding:0 30px!important;background:none!important}'
+                    + W + '.swu-tcol > .swu-m-centers-row > .swu-m-center{flex:0 0 calc(50% - 2px)!important;height:97px;box-sizing:border-box;align-items:center}'
+                    + W + '.swu-tcol > .swu-m-centers-row > .swu-m-center:nth-child(n+3){background:rgba(var(--turn-theirs-rgb),0.05);box-shadow:inset 0 -2px 0 rgba(226,177,60,.55)}'
+                    + ord('swuTableLeft', [3, 4, 2, 1]) + ord('swuTableRight', [4, 3, 1, 2])
+                    + W + '#swuSidebar{position:fixed!important;top:0!important;right:0!important;bottom:0!important;'
+                    + 'width:' + SB + '!important;height:auto!important;overflow:hidden!important;z-index:20;box-sizing:border-box;padding:10px 6px 10px 12px!important;'
+                    + 'display:flex!important;flex-direction:column!important;background:rgb(8,12,18)!important}'
+                    + W + '#swuSidebar > *{flex:none;max-width:100%;box-sizing:border-box}'
+                    + W + '#swuSidebar #swuLogPanel{flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important}'
+                    + W + '#swuSidebarHeader{flex-wrap:wrap!important;gap:6px;width:auto!important}'
+                    + W + '#turn-miasma-overlay{right:' + SB + '!important;width:auto!important}'
+                    + W.trim() + '{--swu-sidebar-w:' + SB + '}';   // the Effect Stack's drag clamp reads it
+            var st = document.createElement('style'); st.id = 'swuTableStyle'; st.textContent = css;
+            (document.head || document.documentElement).appendChild(st);
+            // The right column's bars: resources (ready/total + Credits, the same counter the opponent badge uses) and hand size.
+            // Written ONLY when a value changed: the column's MutationObserver calls this, and a write of the same text still counts
+            // as a mutation — writing unconditionally re-triggered it every frame for the whole game (final review, 960 writes / 2s).
+            var tblResRaw = {};
+            window.swuTableRefreshBars = function () {
+                var s = window.SWUTableLayout.seating; if (!s) return;
+                [s.right.top, s.right.bottom].forEach(function (n) {
+                    var raw = String(window['p' + n + 'ResourcesData'] || '');
+                    if (tblResRaw[n] !== raw && typeof updateResCounterFromData === 'function') {
+                        tblResRaw[n] = raw; updateResCounterFromData('p' + n + 'ResourcesData', 'swuTblRes' + n);
+                    }
+                    var hc = document.getElementById('swuTblHand' + n), hs = document.getElementById('p' + n + 'HandSlot');
+                    var cnt = hs ? String(hs.querySelectorAll('[id^="p' + n + 'Hand-"]').length) : '';
+                    if (hc && hc.textContent !== cnt) hc.textContent = cnt;
+                });
+                tblSeatState();
+            };
+            // Per SEAT, on every board of the table: whose turn it is (.is-turn on its bar), who is out (.swu-tbl-defeated, right column
+            // — the left column keeps the board's own swu-opp-/swu-self-defeated), and each board's name. Class toggles and text writes
+            // happen only on change.
+            var tblSeatState = function () {
+                var s = window.SWUTableLayout.seating; if (!s) return;
+                var my = document.getElementById('swuMyControlBand'), their = document.getElementById('swuTheirControlBand');
+                if (my && !my.hasAttribute('data-seat')) my.setAttribute('data-seat', String(s.left.bottom));
+                if (their && !their.hasAttribute('data-seat')) their.setAttribute('data-seat', String(s.left.top));
+                [my, their].forEach(function (band) {
+                    if (!band || band.querySelector('.swu-tbl-name')) return;
+                    var nm = document.createElement('span'); nm.className = 'swu-tbl-name'; nm.setAttribute('data-seat', band.getAttribute('data-seat'));
+                    band.appendChild(nm);
+                });
+                document.querySelectorAll('.swu-tbl-name[data-seat]').forEach(function (nm) {
+                    var n = +nm.getAttribute('data-seat');
+                    var label = (typeof swuSeatName === 'function') ? swuSeatName(n) : ('P' + n);
+                    if (nm.textContent !== label) nm.textContent = label;
+                });
+                var turn = parseInt(String(window.TurnPlayerData || '').trim(), 10);
+                document.querySelectorAll('#swuMyControlBand, #swuTheirControlBand, #swuTableRight .swu-tbar').forEach(function (bar) {
+                    bar.classList.toggle('is-turn', +bar.getAttribute('data-seat') === turn);
+                });
+                var live = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
+                document.querySelectorAll('#swuTableRight [data-seat]').forEach(function (el) {
+                    el.classList.toggle('swu-tbl-defeated', live !== '' && live.indexOf(el.getAttribute('data-seat')) === -1);
+                });
+            };
+            // Called by the generated render right after it draws the right column (SWURenderSeatPair). That column is DISPLAY-ONLY:
+            // the shared card renderer marks a card playable from the server's metadata — in 4P Always Two your partner's hand comes
+            // face-up AND glowing, because the team may act through either board — but you only ever act for your own board. So its
+            // play state and click handlers are stripped here, every render; a choice's targets are lit separately (swuTableMarkTargets).
+            window.swuTableAfterSeatPair = function () {
+                var col = document.getElementById('swuTableRight'); if (!col) return;
+                col.querySelectorAll('[onclick]').forEach(function (el) { el.removeAttribute('onclick'); });
+                col.querySelectorAll('.selectable-card').forEach(function (el) { el.classList.remove('selectable-card'); });
+                // What the left column shows for its bases, per right-column seat: tabs, health bar, the Extra Base HP pip.
+                var s = window.SWUTableLayout.seating;
+                [s.right.top, s.right.bottom].forEach(function (n) {
+                    if (window.swuRenderBaseTabs) window.swuRenderBaseTabs('p' + n);
+                    if (window.swuRenderBaseHealth) window.swuRenderBaseHealth('p' + n);
+                    if (window.swuRenderBaseMaxHpPip) window.swuRenderBaseMaxHpPip('p' + n);
+                });
+                // An opponent's any-player Action (C-3P0) drawn here stays usable (it is acting as yourself, not for their board).
+                if (window.swuRefreshUnitActionGlows) window.swuRefreshUnitActionGlows();
+                window.swuTableRefreshBars();
+                if (typeof window.swuTableMarkTargets === 'function') window.swuTableMarkTargets();
+            };
+            // ── Targeting across the table (plan Task 4) ───────────────────────────────────────────────────────────────────────
+            // A choice names its cards by seat (SelectionMode._twAllSpecs, e.g. p3GroundArena-0), and the right column's cards carry
+            // exactly those ids — so a legal one is lit and a click submits it through swuSubmitPreviewTarget (the path the Home tiles
+            // use: single picks submit, "up to N" picks accumulate). A spec on a subcard (…-i.u<k>) lights its host with a dashed edge
+            // and opens a small picker. Your own column keeps the board's ordinary selection.
+            var tblLegal = function () {
+                var sm = window.SelectionMode, v = window.swuView || {}, legal = {}, sub = {};
+                if (!(sm && sm.active && Array.isArray(sm._twAllSpecs))) return null;
+                sm._twAllSpecs.forEach(function (sp) {
+                    if (!sp || !sp.zone || sp.actionPayload) return;
+                    var z = String(sp.zone), m = /^p(\d+)(.+)$/.exec(z), seat = 0, suffix = '';
+                    if (m) { seat = +m[1]; suffix = m[2]; }
+                    else if (z.indexOf('my') === 0) { seat = +v.viewSeat; suffix = z.slice(2); }
+                    else if (z.indexOf('their') === 0) { seat = +v.oppSeat; suffix = z.slice(5); }
+                    if (!seat) return;
+                    var key = 'p' + seat + suffix;
+                    if (sp.subIndex !== null && sp.subIndex !== undefined) {
+                        if (sp.isSpecificCard) { var h = key + '-' + sp.specificIndex; (sub[h] = sub[h] || []).push(h + '.u' + sp.subIndex); }
+                        return;
+                    }
+                    legal[key + '-' + (sp.isSpecificCard ? sp.specificIndex : '*')] = true;
+                });
+                return { legal: legal, sub: sub, picked: Array.isArray(sm.multiSelected) ? sm.multiSelected : [] };
+            };
+            window.swuTableMarkTargets = function () {
+                var col = document.getElementById('swuTableRight'); if (!col) return;
+                var L = tblLegal(), first = null;
+                col.querySelectorAll('[id^="p"]').forEach(function (el) {
+                    var m = /^(p\d[A-Za-z]+)-(\d+)$/.exec(el.id); if (!m) return;   // card elements only (not slots/wrappers)
+                    var hit = !!(L && (L.legal[el.id] || L.legal[m[1] + '-*'])), subHit = !hit && !!(L && L.sub[el.id]);
+                    el.classList.toggle('swu-table-target', hit);
+                    el.classList.toggle('swu-table-subhost', subHit);
+                    el.classList.toggle('swu-table-picked', hit && L.picked.indexOf(el.id) >= 0);
+                    el._swuTblSubs = subHit ? L.sub[el.id] : null;
+                    if ((hit || subHit) && !first) first = el;
+                });
+                // A NEW choice with targets here: bring the first one into view inside its (scrolling) arena.
+                var sm = window.SelectionMode;
+                var key = L ? (String(sm.decisionIndex) + '|' + Object.keys(L.legal).concat(Object.keys(L.sub)).sort().join(',')) : '';
+                // Only the ARENA scrolls (it scrolls inside its fixed box) — never the page: on a phone the chip below says where the
+                // targets are, and jumping the whole page to the other column unasked would lose the player's place.
+                if (key && key !== window.__swuTableChoiceKey && first) {
+                    var box = first.closest('.swu-m-scroll');
+                    if (box) {
+                        var fr = first.getBoundingClientRect(), br = box.getBoundingClientRect();
+                        if (fr.top < br.top || fr.bottom > br.bottom) box.scrollTop += (fr.top - br.top) - Math.max(0, (box.clientHeight - fr.height) / 2);
+                        if (fr.left < br.left || fr.right > br.right) box.scrollLeft += (fr.left - br.left) - Math.max(0, (box.clientWidth - fr.width) / 2);
+                    }
+                }
+                window.__swuTableChoiceKey = key;
+                tblChip(sm && sm.active);
+            };
+            // Phone: when the open choice's targets are all off-screen (typically in the other column), a chip says where and scrolls
+            // there on tap. Wide tables show everything at once and never need it.
+            var tblChip = function (choosing) {
+                var chip = document.getElementById('swuTblChip');
+                var wide = document.documentElement.classList.contains('swu-table-wide');
+                var lit = choosing && !wide ? [].slice.call(document.querySelectorAll('#swuTableRight .swu-table-target, #swuTableRight .swu-table-subhost, #swuTableLeft .selectable-card')) : [];
+                var H = window.innerHeight;
+                var visible = lit.some(function (el) { var r = el.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < H; });
+                if (!lit.length || visible) { if (chip) chip.style.display = 'none'; return; }
+                if (!chip) {
+                    chip = document.createElement('button'); chip.type = 'button'; chip.id = 'swuTblChip'; document.body.appendChild(chip);
+                    chip.addEventListener('click', function () {
+                        // By id: every render replaces the column's cards, so a held element would be a detached copy.
+                        var t = chip._swuTargetId ? document.getElementById(chip._swuTargetId) : null;
+                        if (t && t.scrollIntoView) t.scrollIntoView({ block: 'center' });
+                        chip.style.display = 'none';
+                    });
+                }
+                var first = lit[0], r = first.getBoundingClientRect();
+                var seat = +((/^p(\d)/.exec(first.id) || [])[1] || 0);
+                var who = seat ? ("P" + seat + "'s board") : 'your board';
+                chip.textContent = 'Targets on ' + who + ' ' + (r.top >= H ? '\u2193' : '\u2191');
+                chip._swuTargetId = first.id;
+                chip.style.display = 'block';
+            };
+            var tblPickSubcard = function (list) {
+                if (!list || !list.length) return;
+                if (list.length === 1) { window.swuSubmitPreviewTarget(list[0]); return; }
+                var box = document.getElementById('swuTblSubPick');
+                if (!box) { box = document.createElement('div'); box.id = 'swuTblSubPick'; document.body.appendChild(box); }
+                box.innerHTML = '<div class="swu-tbl-sub-title">Choose an upgrade</div>';
+                list.forEach(function (mz, i) {
+                    var b = document.createElement('button'); b.type = 'button'; b.textContent = 'Upgrade ' + (i + 1);
+                    b.onclick = function () { box.style.display = 'none'; window.swuSubmitPreviewTarget(mz); };
+                    box.appendChild(b);
+                });
+                var c = document.createElement('button'); c.type = 'button'; c.textContent = 'Cancel'; c.className = 'swu-tbl-sub-cancel';
+                c.onclick = function () { box.style.display = 'none'; }; box.appendChild(c);
+                box.style.display = 'flex';
+            };
+            var tst = document.createElement('style'); tst.id = 'swuTableTargetStyle';
+            tst.textContent = '.swu-table-target,.swu-table-subhost{display:inline-block;position:relative;border-radius:8px;cursor:pointer;transition:transform 160ms cubic-bezier(.2,.9,.2,1)}'
+                + '.swu-table-target:hover,.swu-table-subhost:hover{transform:translateY(-4px) scale(1.04)}'
+                + '.swu-table-target img:not(.counter-image-icon){border-radius:6px;border:2px solid rgba(100,250,0,.5);box-shadow:0 0 12px rgba(100,250,0,.5),0 0 6px rgba(100,250,0,.5)}'
+                + '.swu-table-subhost img:not(.counter-image-icon){border-radius:6px;border:2px dashed rgba(100,250,0,.85);box-shadow:0 0 10px rgba(100,250,0,.35)}'
+                + '.swu-table-picked img:not(.counter-image-icon){border-color:rgba(255,198,46,1);box-shadow:0 0 14px rgba(255,198,46,.9)}'
+                + '#swuTblSubPick{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1000;display:none;flex-direction:column;gap:6px;'
+                + 'padding:12px;border-radius:10px;background:rgba(10,16,24,.97);border:1px solid rgba(226,177,60,.6);box-shadow:0 8px 24px rgba(0,0,0,.6)}'
+                + '#swuTblSubPick button{font:600 13px system-ui,sans-serif;padding:6px 14px;border-radius:6px;border:1px solid rgba(100,250,0,.6);background:rgba(20,40,20,.9);color:#e8ffe0;cursor:pointer}'
+                + '#swuTblSubPick .swu-tbl-sub-cancel{border-color:rgba(255,255,255,.25);background:rgba(40,40,40,.9);color:#ddd}'
+                + '.swu-tbl-sub-title{color:#f0e6c8;font:600 13px system-ui,sans-serif;margin-bottom:2px}';
+            (document.head || document.documentElement).appendChild(tst);
+            var armBars = function () {
+                var col = document.getElementById('swuTableRight'); if (!col) return;
+                var queued = false;
+                new MutationObserver(function () {
+                    if (queued) return; queued = true;
+                    requestAnimationFrame(function () { queued = false; window.swuTableRefreshBars(); window.swuTableMarkTargets(); });
+                }).observe(col, { childList: true, subtree: true });
+                // A lit card's click answers the CHOICE (capture phase: it never reaches the card's own handlers).
+                col.addEventListener('click', function (e) {
+                    var el = e.target && e.target.closest ? e.target.closest('.swu-table-target, .swu-table-subhost') : null;
+                    var choosing = !!(window.SelectionMode && window.SelectionMode.active);
+                    if (!el && !choosing && e.target && e.target.closest) {
+                        // No open choice: an any-player Action opens its menu; a discard pile opens (public information).
+                        var act = e.target.closest('.unit-has-actions[data-swu-act-mz]');
+                        if (act && col.contains(act) && window.swuShowUnitActionMenu) {
+                            e.preventDefault(); e.stopPropagation();
+                            window.swuShowUnitActionMenu(act.getAttribute('data-swu-act-mz'), act, true); return;
+                        }
+                        var pile = e.target.closest('[id$="DiscardSlot"]'), pm = pile && /^p(\d)DiscardSlot$/.exec(pile.id);
+                        if (pm && col.contains(pile) && typeof ShowZonePopup === 'function') {
+                            e.preventDefault(); e.stopPropagation(); ShowZonePopup('p' + pm[1] + 'Discard'); return;
+                        }
+                    }
+                    if (!el || !col.contains(el)) return;
+                    e.preventDefault(); e.stopPropagation();
+                    if (el.classList.contains('swu-table-subhost')) tblPickSubcard(el._swuTblSubs);
+                    else if (typeof window.swuSubmitPreviewTarget === 'function') window.swuSubmitPreviewTarget(el.id);
+                    setTimeout(window.swuTableMarkTargets, 30);
+                }, true);
+                // The decision UI establishes SelectionMode after the board is drawn, and a multi-pick changes without a repaint, so the
+                // marks are also refreshed on a short tick (a handful of elements; cheap).
+                setInterval(function () { window.swuTableMarkTargets(); tblSeatState(); }, 250);
+                window.swuTableRefreshBars();
+            };
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', armBars); else armBars();
+        })();
+    }
     window.SimViewerOwnsTurn = function (turnSeat, viewerSeat) {
         turnSeat = parseInt(turnSeat, 10); viewerSeat = parseInt(viewerSeat, 10);
         if (isNaN(turnSeat) || isNaN(viewerSeat)) return false;
@@ -1896,6 +2239,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // The word is static ("Initiative", in the markup); state is shown by the fill
         // (claimed = cyan, rising bottom→top) and a fade when initiative changes sides.
         var targetBand = document.getElementById(sideIsMe ? 'swuMyControlBand' : 'swuTheirControlBand');
+        // The multiplayer table: the token sits on the HOLDER's own board — a right-column seat's bar when it is one of those.
+        if (!sideIsMe && hasSide && window.SWUTableLayout && window.SWUTableLayout.kind) {
+            var tblBar = document.querySelector('#swuTableRight .swu-tbar[data-seat="' + pn + '"]');
+            if (tblBar) targetBand = tblBar;
+        }
         var prevState  = ctrl.dataset.initState || '';
         var firstRun   = (prevState === '');
         ctrl.dataset.initState = state;
@@ -1905,7 +2253,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             ctrl.classList.toggle('is-takeable', canTake);
         }
 
-        var inBand    = ctrl.parentNode && (ctrl.parentNode.id === 'swuMyControlBand' || ctrl.parentNode.id === 'swuTheirControlBand');
+        var inBand    = ctrl.parentNode && (ctrl.parentNode.id === 'swuMyControlBand' || ctrl.parentNode.id === 'swuTheirControlBand'
+                        || (ctrl.parentNode.classList && ctrl.parentNode.classList.contains('swu-tbar')));
         var sideMoved = !firstRun && inBand && ctrl.parentNode !== targetBand;
 
         if (sideMoved && targetBand && ctrl.dataset.initAnimating !== '1') {
@@ -3041,6 +3390,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             el = el.parentElement;
         }
     }
+    window.swuRefreshUnitActionGlows = function () { refreshUnitActionGlows(); };
+    window.swuShowUnitActionMenu = function (mz, el, abilityOnly) { showUnitActionMenu(mz, el, abilityOnly); };
     function setupUnitActionClick() {
         // The opponent's arenas too: an any-player Action (C-3P0, Hunter For Hire, Mercenary Gunship) sits on THEIR board.
         // Only a glowing .unit-action element is intercepted, so every other click on their units is untouched.
@@ -3074,6 +3425,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (pm) {
                 var tile = document.querySelector('#swuHomeStrips .swu-mb-card[data-mz="' + mz + '"]');
                 if (tile) { tile.classList.add(cls); tile.setAttribute('data-swu-act-mz', mz); }
+                // The multiplayer table's right column draws the other two seats with their own seat ids — an any-player Action
+                // there must be usable too ("usable from every surface it is drawn on", Discord fix 2026-10-22).
+                var tcard = document.querySelector('#swuTableRight [data-mzid="' + mz + '"]');
+                if (tcard) { tcard.classList.add(cls); tcard.setAttribute('data-swu-act-mz', mz); }
             }
         };
         // Every unit with an Action (usable or greyed) opens the menu on click; the cyan glow is only for a unit with
@@ -3988,9 +4343,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // A half of the 1v1 Always Two 2×2 table opens on the matchup against the board it faces (window.SWUEmbedFace), not on
             // Home. Same view object swuSetView builds; the repaint below draws it. Falls back to Home if that matchup is missing.
             var _v0 = 0;
-            if (window.SWUEmbedFace) {
+            // The multiplayer TABLE likewise: its left column is you facing the seat above you (SWUTableLayout.seating.left.top).
+            var _face = window.SWUEmbedFace
+                || (window.SWUTableLayout && window.SWUTableLayout.kind && window.SWUTableLayout.seating ? window.SWUTableLayout.seating.left.top : 0);
+            if (_face) {
                 for (var _vi = 0; _vi < window.swuViews.length; _vi++) {
-                    if (window.swuViews[_vi].mode === 'matchup' && +window.swuViews[_vi].oppSeat === +window.SWUEmbedFace) { _v0 = _vi; break; }
+                    if (window.swuViews[_vi].mode === 'matchup' && +window.swuViews[_vi].oppSeat === +_face) { _v0 = _vi; break; }
                 }
             }
             var _v = window.swuViews[_v0];
@@ -5035,6 +5393,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         swuHbPlace(box, which, card);   // loaded, or failed (complete with no naturalWidth): place from the card
     }
     window.swuRenderBaseHealth = swuRenderBaseHealth;
+    window.swuRenderBaseTabs = function (which) { swuRenderBaseTabs(which); };
+    window.swuRenderBaseMaxHpPip = function (which) { swuRenderBaseMaxHpPip(which); };
     // Twin Suns house rule "Extra Base HP": the full-size base card's art prints its ORIGINAL HP (27), but the base
     // really has 37. The same blue HP pip the Home Panel tiles use goes over that printed corner, showing the max
     // (PrintedHP is already printed + bonus). Only while the rule is on — otherwise the printed number is right and
@@ -6989,8 +7349,9 @@ window.RenderCardHTML = function(cardNumber, folder, maxHeight, action, showHove
     lifeCounters, defCounters, atkCounters, controller, restriction,
     isBroken, onChain, isFrozen, gem, landscape, epicActionUsed,
     heatmapFunction, heatmapColorMap, mzId, overlayTypes, overlayDescriptorsJSON, hasForce) {
-    // Force landscape ratio for leader and base zone cards
-    if (mzId && /^(my|their)(Leader|Base)-/.test(mzId)) {
+    // Force landscape ratio for leader and base zone cards. p1..p4 = the multiplayer table's second column (SWURenderSeatPair names
+    // its zones by seat: p3Leader-0) — without it those leaders and bases came out as small portrait cards (owner, 2026-11-22).
+    if (mzId && /^(my|their|p[1-4])(Leader|Base)-/.test(mzId)) {
         landscape = 1;
     }
     var html = Card(cardNumber, folder, maxHeight, action, showHover,
@@ -7005,7 +7366,9 @@ window.RenderCardHTML = function(cardNumber, folder, maxHeight, action, showHove
     // data-cos-back is the swap's own idempotency mark, so the fallback sweep leaves these alone.
     if (cardNumber === 'CardBack' && mzId && typeof SwuCosmeticCardBackFor === 'function') {
         var backOwner = /^my/.test(mzId) ? 'my' : (/^their/.test(mzId) ? 'their' : '');
-        var back = backOwner ? SwuCosmeticCardBackFor(backOwner) : '';
+        // The multiplayer table's second column names its zones by seat (p3Hand-0): that seat's back.
+        var backSeat = backOwner ? 0 : +((/^p(\d)/.exec(mzId) || [])[1] || 0);
+        var back = backOwner ? SwuCosmeticCardBackFor(backOwner) : (backSeat ? SwuCosmeticCardBackForSeat(backSeat) : '');
         if (back) {
             back = String(back).replace(/'/g, '%27');
             html = html.replace(/src='[^']*CardBack\.webp'/, "src='" + back + "' data-cos-back='" + back + "'");
@@ -7041,6 +7404,15 @@ function SwuCosmeticCardBackFor(owner) {
   }
   return (owner === 'my' ? myBack : (owner === 'their' ? theirBack : '')) || '';
 }
+// The back for a SEAT (the multiplayer table's second column names its zones p{n}…): that seat's own back when the game carries
+// per-seat cosmetics, else the viewer's back for the viewer's seat and the opponent back for everyone else.
+function SwuCosmeticCardBackForSeat(seat) {
+  var c = window.SWU_COSMETICS; if (!c) return '';
+  var own = c.seats && c.seats[seat] && c.seats[seat].cardback;
+  if (own) return own;
+  var me = window.swuView ? window.swuView.viewSeat : 0;
+  return (+seat === +me ? c.myCardBack : c.theirCardBack) || '';
+}
 
 // Card backs: rewrite each face-down CardBack image to its OWNING side's back.
 // RenderCardHTML already paints board card backs with the cosmetic back (see there); this sweep is the
@@ -7051,8 +7423,10 @@ function ApplyCosmeticCardBacks() {
   for (var i = 0; i < imgs.length; i++) {
     var img = imgs[i];
     var owner = img.closest("[id^='my']") ? 'my' : (img.closest("[id^='their']") ? 'their' : null);
-    if (!owner) continue;
-    var back = SwuCosmeticCardBackFor(owner);
+    var seatEl = owner ? null : img.closest("[id^='p']");
+    var seat = seatEl ? +((/^p(\d)[A-Z]/.exec(seatEl.id) || [])[1] || 0) : 0;
+    if (!owner && !seat) continue;
+    var back = owner ? SwuCosmeticCardBackFor(owner) : SwuCosmeticCardBackForSeat(seat);
     if (back && img.getAttribute('data-cos-back') !== back) {
       img.src = back;
       img.setAttribute('data-cos-back', back);   // idempotent guard (prevents observer loops)

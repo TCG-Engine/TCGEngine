@@ -3003,6 +3003,13 @@ function AddNextTurn() {
     $renderCall = "if (typeof RenderFaBMultiplayer === 'function') RenderFaBMultiplayer(responseArr, " . count($zones) . ", " . json_encode($renderZones) . ", cardSize, currentPlayerIndex);";
     $footer .= 'echo(' . var_export($renderCall, true) . ");\r\n";
   }
+  if ($rootName === 'SWUSim') {
+    // The multiplayer TABLE's second column (docs/superpowers/specs/2026-11-21-swusim-multiplayer-table-design.md): the pair the
+    // page does NOT render as my/their is drawn into seat-named slots (#p{n}<Slot>) with seat-named zones, so its cards carry the
+    // engine's own target ids (p{n}<Zone>-{i}). Board only — no selection, sounds or animations; the main render owns those.
+    // Called only when the layout published window.SWUTableLayout (SWUSim/Custom/TableLayout.php); every other page is unchanged.
+    $footer .= 'echo(' . var_export(SWUGenSeatPairRenderer($zones, $startPiece), true) . ");\r\n";
+  }
   if ($hasDecisionQueue) {
     // Selection state is prepared before zone HTML is built. Mount prompts and DOM-dependent
     // controls only after all zones exist, while still inside the same synchronous render update.
@@ -3082,6 +3089,38 @@ function AddNextTurn() {
     $setData .= "echo(\"if(window.FlashMessageData && window.FlashMessageData != '') { showFlashMessage(window.FlashMessageData); window.FlashMessageData = ''; }\");\r\n";
   }
   return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $globalStaticStuff . $footer;
+}
+
+// SWUSim table: JS that draws two seats' slot-bound zones into #p{n}<BindTo> as zones p{n}<Name>. Mirrors GeneratedZoneElement's
+// BindTo branch (wrapper id + overflow, the Twin Suns runtime leader folder), with the seat as a runtime value instead of my/their.
+function SWUGenSeatPairRenderer($zones, $startPiece) {
+  $n = count($zones);
+  $js = "function SWURenderSeatPair(responseArr, bottomSeat, topSeat) { [bottomSeat, topSeat].forEach(function (_s) { if (!_s) return; var _base = (_s - 1) * " . $n . "; var _el;";
+  foreach ($zones as $i => $zone) {
+    if (strtolower($zone->Scope ?? 'Player') === 'global' || empty($zone->BindTo)) continue;
+    if ($zone->Visibility === 'None' || in_array($zone->DisplayMode, ['Pane', 'None'], true)) continue;
+    $index = $i + $startPiece;
+    $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
+    $hasVisualStack = $zone->DisplayMode === "Single" && ZoneHasDisplayParameter($zone, "Stacked");
+    $needsVisibleOverflow = $hasRotations || $hasVisualStack || $zone->Name === "Field" || $zone->Name === "Intent";
+    $wrapperStyle = $hasVisualStack ? " overflow:visible;" : ($needsVisibleOverflow ? " overflow-y:visible;" : " overflow-y:auto;");
+    if ($zone->Width > -1) $wrapperStyle .= " width:" . $zone->Width . ";";
+    if ($zone->Name === 'Leader') {
+      // One leader → the landscape WebpImages crop; two (Twin Suns) → square concat crops side by side (as the main render).
+      $folder = "(function(){ var _d = responseArr[" . $index . " + _base]; var _c = (_d && String(_d).trim().length) ? String(_d).trim().split('<|>').length : 0; return _c >= 2 ? '" . GenImageRoot() . "' : '" . GenImageRoot($zone) . "'; })()";
+    } else {
+      $folder = "'" . GenImageRoot($zone) . "'";
+    }
+    $z = "'p' + _s + '" . $zone->Name . "'";
+    $js .= " _el = document.getElementById('p' + _s + '" . $zone->BindTo . "');"
+         . " if (_el) { _el.onclick = (function (z) { return function () { ZoneClickHandler(z); }; })(" . $z . ");"
+         . " _el.innerHTML = '<div id=\"' + " . $z . " + 'Wrapper\" style=\"" . $wrapperStyle . "\">' + PopulateZone(" . $z . ", responseArr[" . $index . " + _base], cardSize, " . $folder . ", '0', '" . $zone->DisplayMode . "') + '</div>'; }";
+  }
+  $js .= " }); } /* end SWURenderSeatPair */"
+       . " if (window.SWUTableLayout && window.SWUTableLayout.kind) SWURenderSeatPair(responseArr, window.SWUTableLayout.seating.right.bottom, window.SWUTableLayout.seating.right.top);"
+       // The page's hook, defined only on a table page (GameLayoutShared.php): makes the column display-only and lights a choice's targets.
+       . " if (typeof window.swuTableAfterSeatPair === 'function') window.swuTableAfterSeatPair();";
+  return $js;
 }
 
 function ZoneHasDisplayParameter($zone, $expectedParameter) {

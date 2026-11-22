@@ -6,7 +6,9 @@
 // Phones are routed to the vertical-stack layout in GameLayoutMobile.php. Shared
 // behaviour lives in GameLayoutShared.php and targets slot IDs, so both reuse it.
 require_once __DIR__ . '/GameLayoutDevice.php';
-if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
+// The multiplayer TABLE (Custom/TableLayout.php) is built on the phone layout's flowing rows — two columns of them, laid side by
+// side when the window is wide — exactly as the 1v1 Always Two table's halves are, so desktop routes there too.
+if (SWUSimIsMobileRequest() || (function_exists('SWUTableLayoutKind') && SWUTableLayoutKind() !== '')) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
     :root {

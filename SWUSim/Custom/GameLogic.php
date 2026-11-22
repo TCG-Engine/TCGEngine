@@ -26,6 +26,7 @@ include_once __DIR__ . '/SwuPgnWriter/_include.php';  // SWU-PGN writer (records
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
 include_once __DIR__ . '/AlwaysTwoVote.php';  // 4P Always Two: the partner vote (SWUVoteGate)
+include_once __DIR__ . '/TableLayout.php';     // the multiplayer table: which games get it, who sits where
 include_once __DIR__ . '/CardDQHandlers.php';
 include_once __DIR__ . '/LeaderAbilities.php';
 include_once __DIR__ . '/BaseAbilities.php';

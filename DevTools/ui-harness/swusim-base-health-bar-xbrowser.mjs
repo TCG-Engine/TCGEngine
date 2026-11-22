@@ -444,7 +444,7 @@ for (const [engine, launcher] of [['chromium', chromium], ['firefox', firefox], 
     const name = `${engine}/${s.label}`;
     const p = await b.newPage({ viewport: s.viewport });
     const errs = []; p.on('pageerror', e => errs.push(e.message));
-    await p.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${games[s.board]}&playerID=1&authKey=testschema${s.query}`,
+    await p.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${games[s.board]}&playerID=1&authKey=testschema${s.query}`,
                  { waitUntil: 'domcontentloaded' });
     try { await p.waitForSelector('#myBaseSlot img', { timeout: 20000 }); }
     catch { bad(name, 'the board did not render'); await p.close(); continue; }

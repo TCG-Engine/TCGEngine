@@ -412,7 +412,22 @@ if (($_GET['folderPath'] ?? '') === 'SWUSim' && !isset($_GET['swuEmbed'])) {
     </head>
 
     <script>
+<?php if ($folderPath === 'SWUSim') { ?>
+      // The multiplayer TABLE (SWUSim/Custom/TableLayout.php): which games get it and who sits where, for this viewer (a spectator
+      // gets the seat they picked). {kind:''} on every other page. Published before the first render and before the card size.
+      window.SWUTableLayout = <?php echo json_encode(function_exists('SWUTableClientConfig') ? SWUTableClientConfig(intval($viewerPerspective)) : ['kind' => '']); ?>;
+<?php } ?>
       function CalculateCardSizeByWidth() {
+<?php if ($folderPath === 'SWUSim') { ?>
+        // The table: two columns side by side when the window is wide (> 900px), the log/chat sidebar beside them (its width is
+        // SWUTableLayout.sidebarW — TableLayout.php); card size from ONE column's width, the same in both (as the 1v1 Always Two
+        // table). A narrow window stacks the columns: the window's own width.
+        if (window.SWUTableLayout && window.SWUTableLayout.kind) {
+          var tblSb = window.SWUTableLayout.sidebarW || 280;
+          var tblW = window.innerWidth > 900 ? (window.innerWidth - tblSb) / 2 : window.innerWidth;
+          return Math.max(36, Math.min(80, Math.floor((tblW - 24 - 7 * 4) / 7)));
+        }
+<?php } ?>
 <?php if ($folderPath === 'SWUSim') { ?>
         // A half of the 1v1 Always Two table (SWUSim/AlwaysTwoTable.php): the two halves are ONE table, so both get the same card
         // size, from the BOARD's width — not the frame's. The 'a2' half's frame also holds the 280px log/chat sidebar
@@ -467,7 +482,8 @@ if (($_GET['folderPath'] ?? '') === 'SWUSim' && !isset($_GET['swuEmbed'])) {
         var size = CalculateCardSizeByWidth();
 <?php if ($folderPath === 'SWUSim') {
         require_once __DIR__ . '/SWUSim/Custom/GameLayoutDevice.php';   // SWUSimIsMobileRequest
-        if (!SWUSimIsMobileRequest()) { ?>
+        // The multiplayer table is built on the phone layout's rows, so it takes no desktop height boost: its size is the column rule.
+        if (!SWUSimIsMobileRequest() && !(function_exists('SWUTableLayoutKind') && SWUTableLayoutKind() !== '')) { ?>
         // SWUSim's wide board is constrained by HEIGHT before width: it stacks two hand
         // bands plus a leader+base centre column per side. Measured, in units of cardSize:
         // hands 2 x 1.475, leader+base 4 x ~1.2, plus fixed gaps/padding/arena margins —

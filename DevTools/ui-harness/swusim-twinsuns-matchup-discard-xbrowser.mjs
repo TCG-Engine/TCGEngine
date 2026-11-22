@@ -62,7 +62,7 @@ for (const engine of engines) {
     const tag = `${engine}@${layout}`;
     const page = await (await browser.newContext({ viewport: { width, height } })).newPage();
     page.on('pageerror', e => { fails++; console.log(`FAIL ${tag} pageerror ${e.message}`); });
-    await page.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${game}&playerID=1&authKey=testschema`
+    await page.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${game}&playerID=1&authKey=testschema`
       + (layout === 'mobile' ? '&swuLayout=mobile' : ''), { waitUntil: 'load' });
     try { await page.waitForSelector('#swuHomeStrips [data-zone="p3Discard"]', { timeout: 15000 }); }
     catch { console.log(`ENVIRONMENT NOT READY: ${tag} home tiles never rendered`); process.exit(2); }

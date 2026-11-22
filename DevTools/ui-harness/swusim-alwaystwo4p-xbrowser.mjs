@@ -29,7 +29,7 @@ const SURFACES = [
   { label: 'desktop', viewport: { width: 1600, height: 1000 } },
   { label: 'phone',   viewport: { width: 390,  height: 844  } },
 ];
-const url = (g, seat) => `${BASE}NextTurn.php?folderPath=SWUSim&gameName=${g}&playerID=${seat}&authKey=testschema`;
+const url = (g, seat) => `${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${g}&playerID=${seat}&authKey=testschema`;
 const shown = (page, sel) => page.evaluate((s) => { const el = document.querySelector(s);
   return !!el && !el.hidden && getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().width > 0; }, sel);
 const ready = (p) => p.waitForFunction(() => document.querySelectorAll('#myHand > span').length > 0, null, { timeout: 90000 }).catch(() => {});

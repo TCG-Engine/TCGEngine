@@ -68,7 +68,7 @@ for (const [engine, driver] of Object.entries(ENGINES)) {
     const page = await ctx.newPage();
 
     for (const seat of [1, 2, 3, 4]) {
-      await page.goto(`${BASE}NextTurn.php?gameName=${game}&playerID=${seat}&folderPath=SWUSim`, { waitUntil: 'load' });
+      await page.goto(`${BASE}NextTurn.php?swuTable=off&gameName=${game}&playerID=${seat}&folderPath=SWUSim`, { waitUntil: 'load' });
       await page.waitForTimeout(4000);
       const s = await page.evaluate(probe);
       if (seat === 1 && s.seats !== '1234') {

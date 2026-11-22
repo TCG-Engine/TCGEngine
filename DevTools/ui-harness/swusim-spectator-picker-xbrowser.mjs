@@ -22,7 +22,7 @@ import { chromium, firefox, webkit } from 'playwright';
 const BASE = process.env.BASE_URL || 'http://localhost:3400/TCGEngine/';
 const GAME = process.env.GAME || '9932777';
 // ⚠ not `URL` — that shadows the global URL constructor used below.
-const PAGE = BASE + 'NextTurn.php?folderPath=SWUSim&gameName=' + GAME + '&playerID=S';
+const PAGE = BASE + 'NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=' + GAME + '&playerID=S';
 let fails = 0, checks = 0;
 const bad = (n, m) => { fails++; checks++; console.log(`FAIL ${n} :: ${m}`); };
 const ok  = () => { checks++; };
@@ -95,7 +95,7 @@ for (const [name, launcher] of [['chromium', chromium], ['firefox', firefox], ['
     const sp = await b.newPage({ viewport: { width: 1440, height: 1000 } });
     const pl = await b.newPage({ viewport: { width: 1440, height: 1000 } });
     await sp.goto(PAGE + '&viewerPerspective=' + seat, { waitUntil: 'domcontentloaded' });
-    await pl.goto(BASE + 'NextTurn.php?folderPath=SWUSim&gameName=' + GAME + '&playerID=' + seat, { waitUntil: 'domcontentloaded' });
+    await pl.goto(BASE + 'NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=' + GAME + '&playerID=' + seat, { waitUntil: 'domcontentloaded' });
     await settle(sp); await settle(pl);
     const s = await readViews(sp), q = await readViews(pl);
     if (!q.views || !q.tiles) bad(name, `fixture: player ${seat}'s page built no views/tiles`);

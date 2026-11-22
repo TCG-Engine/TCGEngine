@@ -131,7 +131,8 @@
        0.64, is untouched — both share the counter field name "Damage", so the slot is what separates
        them. Kept as a mobile zoom rather than a bigger schema Size=, which would also move desktop. */
     #swuMobileRoot #myBaseSlot    [data-counter-field="Damage"],
-    #swuMobileRoot #theirBaseSlot [data-counter-field="Damage"] { zoom: 0.78; }
+    #swuMobileRoot #theirBaseSlot [data-counter-field="Damage"],
+    #swuMobileRoot #swuTableRight [id$="BaseSlot"] [data-counter-field="Damage"] { zoom: 0.78; }   /* the table's 2nd column: p{n}BaseSlot */
     #swuMobileRoot img.counter-image-icon[title="Shield"] { zoom: 0.64; }
 
     /* ── Side-by-side arena row (Space | Ground) ─────────────────────────────── */
@@ -537,6 +538,16 @@
     /* Active: accent-tinted themed fill (was hardcoded navy). */
     .swu-init-pass-btn:active::before { background: linear-gradient(rgba(var(--accent-rgb),0.60), rgba(var(--accent-rgb),0.60)), var(--btn-fill); }
     .swu-init-pass.is-idle .swu-init-pass-btn { opacity: 0.35; pointer-events: none; }
+    /* Twin Suns: with counters on offer the cluster holds up to four buttons (Take/Keep + Blast + Plan + the house-rule
+       Credit/Restore), and one column of them hung below the 54px footer (owner screenshot 2026-11-22, 4P table). Lay them out
+       in a ROW instead — one line on a wide footer; on a narrow one the cluster shrinks to the room left and wraps, Take/Keep
+       on the first line and the counters sharing the next. The two-player Take/Keep-over-Pass stack above is untouched.
+       Harness: DevTools/ui-harness/swusim-pass-cluster-fit-xbrowser.mjs. */
+    .swu-init-pass:has(.swu-take-counter:not([hidden])) {
+        flex: 0 1 auto; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+    .swu-init-pass:has(.swu-take-counter:not([hidden])) > :not([hidden]) { flex: 1 0 auto; }
+    .swu-init-pass:has(.swu-take-counter:not([hidden])) .swu-init-pass-btn,
+    .swu-init-pass:has(.swu-take-counter:not([hidden])) .swu-m-takeinit-btn { padding-left: 10px; padding-right: 10px; }
 
     /* ── Resource panel (slide-up overlay; reuses .is-open from shared JS) ────── */
     .swu-resource-panel {
@@ -769,6 +780,10 @@
         position: static !important; left: auto !important; right: auto !important;
         top: auto !important; bottom: auto !important;
         width: 100% !important; flex: none !important; min-height: 0 !important;
+        /* NextTurn.php's inline max-width:calc(100vw - 156px) is for the FLOATING desktop widget; left in place it capped the
+           Message | Send line at 234px on a 390px phone (owner 2026-11-22: "the message/send line should take up the whole
+           width"). swusim-chat-sidebar-fit-xbrowser.mjs */
+        max-width: none !important;
         display: flex !important; flex-direction: column !important;
         align-items: stretch !important; background: transparent !important;
         z-index: auto !important; padding: 0 !important;
@@ -800,7 +815,17 @@
   window.SWU_MOBILE_LAYOUT = true;
   document.body.classList.add('swu-m');
 </script>
-<div id="swuMobileRoot">
+<?php
+// The multiplayer TABLE (Custom/TableLayout.php): these rows become the LEFT column (you facing the seat above you — the ordinary
+// my/their pair, on the matchup view for that seat) and a second column of the same rows is drawn beside it for the other pair,
+// into seat-named slots (#p{n}<Zone>Slot, filled by the generated SWURenderSeatPair). Every other page renders exactly as before.
+$swuTbl = (function_exists('SWUTableLayoutKind') && SWUTableLayoutKind() !== '')
+    ? SWUTableClientConfig(intval($viewerPerspective ?? ($playerID ?? 0))) : ['kind' => ''];
+$swuTblOn = $swuTbl['kind'] !== '';
+$tr = function (string $row) use ($swuTblOn) { return $swuTblOn ? ' data-trow="' . $row . '"' : ''; };
+?>
+<div id="swuMobileRoot"<?php echo $swuTblOn ? ' class="swu-table"' : ''; ?>>
+<?php if ($swuTblOn) { ?><div class="swu-tcol" id="swuTableLeft" data-top="<?php echo intval($swuTbl['seating']['left']['top']); ?>" data-bottom="<?php echo intval($swuTbl['seating']['left']['bottom']); ?>"><?php } ?>
 
     <!-- ════════ THEIR control band: init (when they hold it) · resources · collapsed hand · piles ═══
          Layout: [init][resources][hand pile+count] ......... [deck][discard]  (user request 2026-09-03)
@@ -811,7 +836,7 @@
          server/schema plumbing: Hand's schema Display (Mode=All) is shared between "my" and "their"
          bindings, so it cannot be made Single(Stacked) for the opponent only without also collapsing
          the player's OWN hand — this stays entirely presentation-layer instead. ═══ -->
-    <div id="swuTheirControlBand" class="swu-m-band is-theirs">
+    <div id="swuTheirControlBand" class="swu-m-band is-theirs"<?php echo $tr('band'); ?>>
         <!-- Reserved init-token slot; collapses when they actually hold the token -->
         <div class="swu-init-placeholder" aria-hidden="true"></div>
         <div id="swuTheirResBadge" class="swu-res-badge" data-motion-anchor="theirResources-0">
@@ -842,7 +867,7 @@
          zero visual footprint, read by the observer that drives the pile badge above. -->
     <div class="swu-m-section is-theirs" id="theirHandSection"><div class="swu-m-label">Their Hand</div>
         <div id="theirHandSlot" class="swu-m-scroll"></div></div>
-    <div class="swu-m-arena-row is-theirs">
+    <div class="swu-m-arena-row is-theirs"<?php echo $tr('arena-top'); ?>>
         <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">Their Space</div>
             <div id="theirSpaceArenaSlot" class="swu-m-scroll"></div></div>
         <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">Their Ground</div>
@@ -850,25 +875,25 @@
     </div>
 
     <!-- ════════ Leader/Base — one row: my leader·base | their base·leader (bases meet mid) ════════ -->
-    <div class="swu-m-centers swu-m-centers-row">
+    <div class="swu-m-centers swu-m-centers-row"<?php echo $tr('centers'); ?>>
         <div class="swu-m-center is-mine"><div id="myLeaderSlot"></div></div>
-        <div class="swu-m-center is-mine"><div id="myBaseHealth" class="swu-base-health"></div><div id="myBaseSlot"></div></div>
-        <div class="swu-m-center is-theirs"><div id="theirBaseHealth" class="swu-base-health"></div><div id="theirBaseSlot"></div></div>
+        <div class="swu-m-center is-mine"><div id="myBaseHealth" class="swu-base-health"></div><div id="myBaseSlot"></div><?php if ($swuTblOn) { ?><div id="myBaseTabs" class="swu-base-tabs"></div><?php } ?></div>
+        <div class="swu-m-center is-theirs"><div id="theirBaseHealth" class="swu-base-health"></div><div id="theirBaseSlot"></div><?php if ($swuTblOn) { ?><div id="theirBaseTabs" class="swu-base-tabs"></div><?php } ?></div>
         <div class="swu-m-center is-theirs"><div id="theirLeaderSlot"></div></div>
     </div>
 
     <!-- ════════ MY arenas / hand ════════ -->
-    <div class="swu-m-arena-row is-mine">
+    <div class="swu-m-arena-row is-mine"<?php echo $tr('arena-bot'); ?>>
         <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">My Space</div>
             <div id="mySpaceArenaSlot" class="swu-m-scroll"></div></div>
         <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">My Ground</div>
             <div id="myGroundArenaSlot" class="swu-m-scroll"></div></div>
     </div>
-    <div class="swu-m-section is-mine"><div class="swu-m-label">My Hand</div>
+    <div class="swu-m-section is-mine"<?php echo $tr('hand'); ?>><div class="swu-m-label">My Hand</div>
         <div id="myHandSlot" class="swu-m-scroll"></div></div>
 
     <!-- ════════ MY footer stack: Take/Keep prompt (when legal) sits above the control band ═══ -->
-    <div class="swu-m-footer-stack">
+    <div class="swu-m-footer-stack"<?php echo $tr('footer'); ?>>
     <!-- ════════ MY control band: init (default home) · resources · piles · pass ════════ -->
     <div id="swuMyControlBand" class="swu-m-band is-mine">
         <!-- Initiative hex default home; updateInitiative() moves it to the controlling side -->
@@ -906,6 +931,7 @@
         </div>
     </div>
     </div><!-- /swu-m-footer-stack -->
+<?php if ($swuTblOn) { echo "</div><!-- /swuTableLeft -->\n"; include __DIR__ . '/TableRightColumn.php'; } ?>
 
     <!-- ════════ Overlays / engine-managed zones ════════ -->
     <!-- Twin Suns pair-switcher — carousel side arrows (hidden ≤2 seats) -->

@@ -50,7 +50,7 @@ async function login(ctx) {
 }
 async function boardState(ctx, game) {
   const p = await ctx.newPage();
-  await p.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${game}&playerID=1&authKey=testschema`, { waitUntil: 'domcontentloaded' });
+  await p.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${game}&playerID=1&authKey=testschema`, { waitUntil: 'domcontentloaded' });
   await p.waitForSelector('#myBaseSlot img', { timeout: 20000 }); await p.waitForTimeout(2000);
   const st = await p.evaluate(() => {
     const vis = e => !!(e && e.getClientRects().length);
