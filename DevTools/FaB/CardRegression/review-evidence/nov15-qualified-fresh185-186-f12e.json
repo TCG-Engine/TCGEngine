@@ -1,0 +1,206 @@
+{
+  "status": "QUALIFIED_TWO_NAMED_FOUR_LIVE_PRODUCER_REPAIRS_FOCUSED_EVIDENCE",
+  "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "source_files": [
+    "FaBSim/Custom/EVORuntime.php",
+    "FaBSim/Custom/ROSCards.php",
+    "FaBSim/Custom/SEACards.php",
+    "FaBSim/Custom/WTRCards.php",
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/CardChoices.php",
+    "FaBSim/Custom/HVYRuntime.php"
+  ],
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-fresh185-186-source-application\\receipt.json",
+    "sha256": "3287afa9e5a23a7c7b9d2bc1aa7e45a7e0bfedecb632b617abacc6754e8cd831",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "fresh_seven_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-phantom185-sea186-independent-seven-file-source-application-review.json",
+    "sha256": "f628d157218d43ebb7632a6b8bfe6e5e8643feced7b86653b6f4e04a4934939e",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "actual_installed_scope": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-fresh185186-independent-actual-installed-scope-review.json",
+    "sha256": "c4dc761a4b9da8027c3b2b1465dfaa9de269efef81113f91004cb22038f0f2fc",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "isolated_component_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-phantom185-sea186-seven-file-unapplied-proposal\\root-isolated-component-results.json",
+    "sha256": "2dbcb6576d72a3bc17a86e5dcfcfe94b80cae6f8645279275345c9aa66e39aab",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "isolated_component_checks": {
+    "Phantom": 38,
+    "SEA": 53
+  },
+  "baseline_expected_failures": {
+    "Phantom": 11,
+    "SEA": 25
+  },
+  "qualified": [
+    {
+      "issue": "FAB-REG-185",
+      "card_id": "phantom_tidemaw_blue",
+      "slug": "card-phantom-tidemaw-blue-four-live-shield-ward-earned-destroyed-counter",
+      "actions": 40,
+      "assertions": 4730,
+      "manual_passes": 36,
+      "native_before": {
+        "path": "review-evidence/phantom185-destroyed-counter-native-before-a11.json",
+        "sha256": "d3326914cc32d194f67d2a1a878c00d741edfb4e5b92af7e752bbb3031bf77d4"
+      },
+      "full_no_save": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b832-phantom-full-original-correct-unsaved-after-f12e\\receipt.json",
+        "sha256": "f2377a1ad9e0dfca13baa5dde62a84335ae6e69e07979e25edb4a00b8b81e4ad",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "independent_no_save": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-after-f12e-independent-actual-no-save-pass-review.json",
+        "sha256": "76072e14da4871192d4552e8255d289faf8b80a644ab744b86d7cdde4266d18c",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "explicit_promotion": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b832-phantom-explicit-positive-promotion-after-f12e.json",
+        "sha256": "05912bc5dfb4f2bd23ddbff5aac3c3a3c75593eae77ce15261f35ee471dfd06a",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "positive_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-f12e-independent-normal-positive-source-review.json",
+        "sha256": "4752270c3f206cd438bcac105fce5b26156ea094c025b25bea2b70413183eeeb",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "source": {
+        "path": "card-regression-batch832-phantom-positive-f12e.json",
+        "sha256": "d93d11e71fe765be099a716d83040b9554320c9d47bc7dc28615d4c815407ee7"
+      },
+      "normal_save": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b832-phantom-positive-native-save-f12e\\receipt.json",
+        "sha256": "169c035de280bb47c9bb6e63fd91001cea9d4ab065f8af813d968d3081c3081a",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "Saved_review": {
+        "path": "review-evidence/sparse832-phantom-independent-saved-f12e.json",
+        "sha256": "4a382f9bd1af0ebf1552b366d777b970fac6e973722783c6f11e04b83436b1e9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04a16005e2b3eab64c78bd50050020e9e40bdadf63fecaef0620f3ebacb5c622",
+        "actions.json": "29befc277732e01ae33b830da64bde7ea163b941eb495faebc0b4e028009477f",
+        "assertions.json": "08fc3752cdb7d667aa4e3abfd02879098431caeffbca3b12d5642bef73733f70",
+        "expected_final_gamestate.txt": "6ce1b978fbc6482dc727d91f4f1584246a7ad8123edaa0c921d8b53fb8e6113d",
+        "meta.json": "86967b3b27d235d45c1d98b0c603c34c73607104893598686f21f8146af76215"
+      },
+      "fixture_sha256": "af5b2fc30015badae9e3e9ac12fc9b9ee4b22d09a69294fd39b537aec720b834",
+      "two_targeted_clean_replays": [
+        {
+          "path": "card-regression-replay-nov15-b832-phantom-f12e-clean1.json",
+          "sha256": "ce91a0cf85fba20b7acb73e4ce9a7018fe331d0e01bae5f85f27c3e56cd2feda"
+        },
+        {
+          "path": "card-regression-replay-nov15-b832-phantom-f12e-clean2.json",
+          "sha256": "5910d586f8b7ca8135aed347de147c694e33664cbacf7525d8a900923b7652e7"
+        }
+      ]
+    },
+    {
+      "issue": "FAB-REG-186",
+      "card_id": "sea_legs_yellow",
+      "slug": "card-sea-legs-yellow-four-live-skullhorn-real-discard-earned-rum",
+      "actions": 9,
+      "assertions": 1185,
+      "manual_passes": 8,
+      "native_before": {
+        "path": "review-evidence/sea186-discard-token-native-before-a11.json",
+        "sha256": "c19926eea3aa9d1ea0ab1d264c64a7cbd6dece4b61ef61d19ce1209c06573f86"
+      },
+      "full_no_save": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b833-sea-legs-full-original-correct-unsaved-after-f12e\\receipt.json",
+        "sha256": "5b3ed1790a667587e63b90bf4ad604bf661c8ee7accb6d4f6bfd9d1a676103d9",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "independent_no_save": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-after-f12e-independent-actual-no-save-pass-review.json",
+        "sha256": "45c65e00bb8c55c06822cb84e3966b8bd6a29aa7d9677671eff2a372d0dd2580",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "explicit_promotion": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b833-sea-legs-explicit-positive-promotion-after-f12e.json",
+        "sha256": "f4b3eadd0c2595afb7d53e40930a04a9b12e4ee3578a9e12613d3d91a25deb25",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "positive_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-f12e-independent-normal-positive-source-review.json",
+        "sha256": "b859735e042f501c0699d808bdeb8eadd76ec9b8694cc741b4bb02e1d08bd539",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "source": {
+        "path": "card-regression-batch833-sea-legs-positive-f12e.json",
+        "sha256": "7658105ce9e53b8c8fcfd193d7db1c11cf0ad1d1f513b13b464b961cc05119f7"
+      },
+      "normal_save": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b833-sea-legs-positive-native-save-f12e\\receipt.json",
+        "sha256": "728283f4d4ad3768affbdf14a65774badc189e029af277deb22743dfb9e8232c",
+        "retained_outside_repository": true,
+        "required_for_replay": false
+      },
+      "Saved_review": {
+        "path": "review-evidence/sparse833-sea-legs-independent-saved-f12e.json",
+        "sha256": "248a5c70a155dc3b1450a4da7820c5e30d6b996062e9d9560f6fd5a02e0cb7f9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "62c49e4070727885ee8bfec0d8daeb16f831711be48065b789bdaf85b1ec35fd",
+        "actions.json": "d464a929c2a54a194cf67b7986a9a552c17680e164cd8e6ffbf3c935e005a646",
+        "assertions.json": "5630a68620d2a960a6f59d1534a7da8fecf76fcb8f74c37946e307491436278a",
+        "expected_final_gamestate.txt": "a3087e2745239de5e82df99eb0d6e97fde33f1bc1b58c65184b0860a450dee4e",
+        "meta.json": "2931013eec59b9d226ac17d83fc27f6f74d23c12e40bdd90b7dc5c43119d40d8"
+      },
+      "fixture_sha256": "026515f4da3feaf373d704cdfa809f60f3c100341a87a320d943351aa812c033",
+      "two_targeted_clean_replays": [
+        {
+          "path": "card-regression-replay-nov15-b833-sea-legs-f12e-clean1.json",
+          "sha256": "fc6aff286e44c2e1ffb23a95633422b1972caa4ffccd16ebb10964980607d4eb"
+        },
+        {
+          "path": "card-regression-replay-nov15-b833-sea-legs-f12e-clean2.json",
+          "sha256": "b5d0b4d9b007aed8c1f17a9e122f822e9b976b2c880592d369662909307031b7"
+        }
+      ]
+    }
+  ],
+  "two_directly_affected_compatibility_replays": [
+    {
+      "path": "card-regression-replay-nov15-b832833-ebbing-f12e-compat.json",
+      "sha256": "1c15edb0c73537b82ac3ebae5501361213ed41012087b05316dd577c362a7f96"
+    },
+    {
+      "path": "card-regression-replay-nov15-b832833-agile-windup-f12e-compat.json",
+      "sha256": "0498916d8482a2517ae3dd6d71ec9b66744122c1f5f4348398ae66550e27e824"
+    }
+  ],
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "repository_Core_changes": false,
+  "generated_changes": false,
+  "global_distinct_root_allocation": "unchanged/unallocated; no new global distinct-root credit",
+  "native_fault_credit": 0,
+  "held184_B787_untouched": true,
+  "limits": [
+    "Only named Phantom Shield-destroyed counter and Sea Legs singleton Skullhorn discard/Rum routes receive exact Native coverage. No sibling/support/Fools Gold Native qualification.",
+    "Self/LKI/blanking/control/reentry and chosen/HVY discard forwarding have isolated/source evidence only. Historical runtimes and original failures are preserved.",
+    "Old184/B787 denials remain held; global distinct-root allocation is unchanged. Broader suite remains user-owned."
+  ]
+}

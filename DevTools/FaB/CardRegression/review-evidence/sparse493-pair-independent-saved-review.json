@@ -1,0 +1,490 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B493_TWO_NEW_FOUR_LIVE_REPRESENTATIVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T17:37:33.237452+00:00",
+  "source_spec": "card-regression-batch493.json",
+  "input_sha256": "24170eb239fd4fad8446dff940dd322913717b34f623bb3173eb92630dcbb406",
+  "manifest_sha256": "4bccdc9193a0ed4eba1860267588069a200d61aea30e401d1c21a5e8e66c2029",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch493-independent-source-review.json",
+    "sha256": "0a907fe6cb2adbd849987d46d28646661d1ddc672337382edeb3596024300656",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch493-20261105T173155Z-6aecbd8b45a20.json",
+    "sha256": "d02b2c03eb3a5cdb5b1df82605e8843666d2fd7500ac7b1a1826b49b198bffc8"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch493.recording-results.json",
+    "sha256": "76d8bdf526d4b7a59baa207788b1729db3933a087cd3833cfdec9a422b707ac2"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch493-native-r1-9e984\\receipt.json",
+    "sha256": "0cd75c6d4800554b869d9a856e87c6622bd6f6d4b591c1d0a2e5d46878c4722f"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch493_saved_readonly.py",
+    "sha256": "fa68f76777f438bf3ebbc7c5c7f13d557ea0c332156a00fc88701ba315195f93"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "cut_through_the_facade_red",
+      "group_id": "identity:cut_through_the_facade_red",
+      "slug": "card-cut-through-the-facade-red-four-live-real-otherwise-legal-aura-hand-block-rejected-three-nonaura-fullblock",
+      "source_spec": "card-regression-batch493.json",
+      "input_sha256": "24170eb239fd4fad8446dff940dd322913717b34f623bb3173eb92630dcbb406",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-cut-through-the-facade-red-four-live-real-otherwise-legal-aura-hand-block-rejected-three-nonaura-fullblock",
+      "fixture_sha256": "d6748e032470694c8eeaadeb218be3be28eee820d2b201a2b81fd67fbbc1446b",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c3958d15e4e5d4237f9f1118a0cf7c85a0c455c6e599972adb0c3b31919f033f",
+        "actions.json": "44db89166e69213dc135d53e801eb071e5f5002ee04a02c056d4de4a355c00cf",
+        "assertions.json": "694ec59337a70cb1ea1ed2a0cec8e621e0f788ef7a2ebe0bdc5fec034b3f4239",
+        "expected_final_gamestate.txt": "8ac1dcd940f2024203ace2d43db82c8777c172c4b1eff857e5e973346e2e7a64"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3958d15e4e5d4237f9f1118a0cf7c85a0c455c6e599972adb0c3b31919f033f",
+        "actions.json": "44db89166e69213dc135d53e801eb071e5f5002ee04a02c056d4de4a355c00cf",
+        "assertions.json": "694ec59337a70cb1ea1ed2a0cec8e621e0f788ef7a2ebe0bdc5fec034b3f4239",
+        "expected_final_gamestate.txt": "8ac1dcd940f2024203ace2d43db82c8777c172c4b1eff857e5e973346e2e7a64",
+        "meta.json": "590ced0befd20c05c761de89aabe882f1529fa6d2c3997589806c42cee435f06"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c3958d15e4e5d4237f9f1118a0cf7c85a0c455c6e599972adb0c3b31919f033f",
+        "actions.json": "44db89166e69213dc135d53e801eb071e5f5002ee04a02c056d4de4a355c00cf",
+        "assertions.json": "694ec59337a70cb1ea1ed2a0cec8e621e0f788ef7a2ebe0bdc5fec034b3f4239",
+        "expected_final_gamestate.txt": "8ac1dcd940f2024203ace2d43db82c8777c172c4b1eff857e5e973346e2e7a64",
+        "meta.json": "590ced0befd20c05c761de89aabe882f1529fa6d2c3997589806c42cee435f06"
+      },
+      "actions": 32,
+      "native_assertions": 3248,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 1265,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 135,
+        "32": 214
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "cut_through_the_facade_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dromai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "passing_mirage_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "cut_through_the_facade_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dromai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "passing_mirage_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 10,
+      "final_RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "a6b04fcd0f45d50a63d6d5d8fb9588aea407bda8ae76d505f8d596b0f93345fa",
+      "native_action_mapping_sha256": "bc0cfb994e1244e46dee5371f5c690b31b3155b0288cdbe96f7cb0ffc2ec538d",
+      "native_assertion_mapping_sha256": "8eaf0a9037ae262fe85ecc2927d4f1b653498bcedbca33e8793f341197b15990"
+    },
+    {
+      "index": 1,
+      "card_id": "appalling_bearers",
+      "group_id": "identity:appalling_bearers",
+      "slug": "card-appalling-bearers-four-live-real-zombie-discard-and-arms-destroy-instant-prevents-two-of-opposing-zap",
+      "source_spec": "card-regression-batch493.json",
+      "input_sha256": "24170eb239fd4fad8446dff940dd322913717b34f623bb3173eb92630dcbb406",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-appalling-bearers-four-live-real-zombie-discard-and-arms-destroy-instant-prevents-two-of-opposing-zap",
+      "fixture_sha256": "ffd8d53495d3042f3f47323ac2f100dd14cfd750d71854e6c104d0ab1a195157",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "291cdac7b9828936eb428a59b050a89bfa2b94d0027185e00020880ddae60b47",
+        "actions.json": "be7d93bd5430db6520c8a8286cc208817767b773782201fe5296233451278e81",
+        "assertions.json": "23ccfa6d4a8227fc6c0466fa58d77077e616d4405f07c0a65031647dd73323a7",
+        "expected_final_gamestate.txt": "3ccfd0cc8f721174bf2d343eab5b310422129c28f8b65b82b1e31f90ad74795e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "291cdac7b9828936eb428a59b050a89bfa2b94d0027185e00020880ddae60b47",
+        "actions.json": "be7d93bd5430db6520c8a8286cc208817767b773782201fe5296233451278e81",
+        "assertions.json": "23ccfa6d4a8227fc6c0466fa58d77077e616d4405f07c0a65031647dd73323a7",
+        "expected_final_gamestate.txt": "3ccfd0cc8f721174bf2d343eab5b310422129c28f8b65b82b1e31f90ad74795e",
+        "meta.json": "7e2c39288d5b577aea2c703135a4a4a5bee5b74ad846ca0e244419e4838115e3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "291cdac7b9828936eb428a59b050a89bfa2b94d0027185e00020880ddae60b47",
+        "actions.json": "be7d93bd5430db6520c8a8286cc208817767b773782201fe5296233451278e81",
+        "assertions.json": "23ccfa6d4a8227fc6c0466fa58d77077e616d4405f07c0a65031647dd73323a7",
+        "expected_final_gamestate.txt": "3ccfd0cc8f721174bf2d343eab5b310422129c28f8b65b82b1e31f90ad74795e",
+        "meta.json": "7e2c39288d5b577aea2c703135a4a4a5bee5b74ad846ca0e244419e4838115e3"
+      },
+      "actions": 15,
+      "native_assertions": 1301,
+      "actual_manual_passes": 11,
+      "actual_priority_response_passes": 11,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 2
+      },
+      "schema_property_assertions": 376,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 125,
+        "15": 190
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "malice",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "restless_cleric_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "appalling_bearers",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "malice",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "restless_cleric_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "appalling_bearers",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 8,
+      "final_RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "7ac55c97d03fcbae94ae8fd15da88a96ef45df6c9f60d35ddeb2a26a8aebda77",
+      "native_action_mapping_sha256": "36177672ddab9aa2b0bdaed79b1d79914a7aa51a9ab38a25311839e8bf19d0af",
+      "native_assertion_mapping_sha256": "73550ca2ddac428935859b1fa3f70f342aaffc44c0aced103d9896c2b9cf8a69"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 47,
+  "total_native_assertions": 4549,
+  "total_manual_passes": 36,
+  "total_priority_response_passes": 35,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 1641,
+  "material_findings": [
+    "Both actual raw5 bundles/all47 action envelopes and4549 ordered assertions exactly match the independently approved source; initial/final snapshots fully schema-parsed, all48 manual endpoint preferences per case and all physical UIDs conserved at runtime9.",
+    "Cut normal P4 Hand Aura7 defense attempt is strict unchanged86-check before/after at correct DEFEND_DECLARE. Three actual non-Aura8/9/10 DEF3 defend; fresh primary7/noGA with actualDEF9/damage0/attackHitfalse. SameAura7 remains ownedHand, primary5GY1/three blockersGY4/Blue6Pitch1/fullcleanup. Printed hero-hit Aura destruction is unearned.",
+    "Bearers actual P4 Zombie6 Hand discard and sameArms5 destruction are paid before first fresh4/1/2/3 response, capturedABI8/source5 held above actualZap7. No fake Zombie-dies event/CorruptedCorpse: both costs final ownedpublicGY4, noP4Banish/Arena. Source8 ceases after its fourth response; Zap gets fresh1/2/3/4, actual3\u22122 arcane damage1/HP19, fully consumed shielding, Zap7ownGY1/fullcleanup. Historical DQV scalar caches are not pending work."
+  ],
+  "limits": [
+    "Source/rule review reused, no repeated catalog/source audit. Exact native ledger and parsed endpoints prove only selected static Aura restriction and positive Zombie discard/destroy/next2 vs3 arcane branches.",
+    "Cut hero-hit Aura destroy/Spectra/Dromai/other defender/fullcard/sibling/support-primary branches unearned. Bearers Zombie-absent rejection/physical or unpreventable damage/remainder packets/expiry/Malice activation or Zombie death/Cleric ability/fullcard/support-primary branches unearned.",
+    "No additional per-input raw snapshots claimed. Root two focused clean replay rounds and registration are separate. Reviewer executed no PHP/native/replay/R/source/generator/service/fullsuite/remote/git/denied-repair action."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

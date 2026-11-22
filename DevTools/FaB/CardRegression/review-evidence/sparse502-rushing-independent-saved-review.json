@@ -1,0 +1,392 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B502_RUSHING_REAL_COMBO_AND_GO_AGAIN",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T18:54:09.078036+00:00",
+  "source_spec": "card-regression-batch502.json",
+  "input_sha256": "1a50d3f69f915665f8e7947344e9ec2932b29723d99294f26fca9bceb7d432d5",
+  "manifest_sha256": "403d650c423e5f3188018076b60968c10ee738888e70024d36e3f178639fcc98",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch502-independent-source-review.json",
+    "sha256": "ca4fb3c8b7114e42b0189cc69671c366e3d1b0248a03673e1a0b152f885aa7a2",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch502-20261105T184928Z-6aeccfb801a0a.json",
+    "sha256": "ccc65cfc5c40c1dead38a45e85a484594fe7b495688bad3c0abe5847f31b6364"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch502.recording-results.json",
+    "sha256": "8706d57f151e4330b4aae89841239e5a06e147766a1ac90b161185fdc5ead0eb"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch502-native-r1-9e984\\receipt.json",
+    "sha256": "a7133cd47421086bdda87ed24baa3e9af2b2b866ab91d1f177b9fcb163733327"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rushing_river_red",
+      "group_id": "pitch-cycle:rushing_river",
+      "slug": "card-rushing-river-red-four-live-real-timesnap-and-blocked-torrent-earns-combo-four-power-and-go-again-refund",
+      "source_spec": "card-regression-batch502.json",
+      "input_sha256": "1a50d3f69f915665f8e7947344e9ec2932b29723d99294f26fca9bceb7d432d5",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_POSITIVE_COMBO_POWER_AND_EARNED_GO_AGAIN",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rushing-river-red-four-live-real-timesnap-and-blocked-torrent-earns-combo-four-power-and-go-again-refund",
+      "fixture_sha256": "83b299dd9d7059780812825cf869bf51eaa52451b59201ed09b6c3e45d1a9dd3",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f3a8760a544711820b4db74ac5a5047e982fe5ec13807053f949132fb0d27de6",
+        "actions.json": "1ea795f3a1d03e49683317276897003143599ab50412eb1eee0bdc58df3fd2fd",
+        "assertions.json": "81beba74bdde60c6bd6efdd19ad6f213633f8d578f04415732c4924ad5f36cd6",
+        "expected_final_gamestate.txt": "0c355296bf1d8f5bc346061ddf3291a75934b1805d593b1dc21f7538ce308de5"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3a8760a544711820b4db74ac5a5047e982fe5ec13807053f949132fb0d27de6",
+        "actions.json": "1ea795f3a1d03e49683317276897003143599ab50412eb1eee0bdc58df3fd2fd",
+        "assertions.json": "81beba74bdde60c6bd6efdd19ad6f213633f8d578f04415732c4924ad5f36cd6",
+        "expected_final_gamestate.txt": "0c355296bf1d8f5bc346061ddf3291a75934b1805d593b1dc21f7538ce308de5",
+        "meta.json": "d50a01cf43aa7d4064c912e3d404c8005b8d7feca4dc5f20b55fffa55bfa9e18"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f3a8760a544711820b4db74ac5a5047e982fe5ec13807053f949132fb0d27de6",
+        "actions.json": "1ea795f3a1d03e49683317276897003143599ab50412eb1eee0bdc58df3fd2fd",
+        "assertions.json": "81beba74bdde60c6bd6efdd19ad6f213633f8d578f04415732c4924ad5f36cd6",
+        "expected_final_gamestate.txt": "0c355296bf1d8f5bc346061ddf3291a75934b1805d593b1dc21f7538ce308de5",
+        "meta.json": "d50a01cf43aa7d4064c912e3d404c8005b8d7feca4dc5f20b55fffa55bfa9e18"
+      },
+      "actions": 59,
+      "native_assertions": 6356,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "schema_property_assertions": 2895,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rushing_river_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "torrent_of_tempo_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "come_to_fight_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "come_to_fight_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "torrent_of_tempo_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rushing_river_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "come_to_fight_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "come_to_fight_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "final_UniqueIDCounter": 13,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "813225c705d94ce6ad590f5fc6c144336c21e7a35337bb8fa0e7886ddfdcfb82",
+      "native_action_mapping_sha256": "a4ab6234b4755e9b02dea90ad9daa7862170e48452a15d7b577857da57d061c0",
+      "native_assertion_mapping_sha256": "b69c7d71e9e76cc476549c839369d81a52e9f5a85a7fef43f9278b6ac13a7c1f"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 59,
+  "total_native_assertions": 6356,
+  "total_manual_passes": 50,
+  "total_priority_response_passes": 48,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 2895,
+  "material_findings": [
+    "Exactfive saved files/all59nativeactions/6356orderedpersistedchecks/2895schemaprops/50manualinputs(48responses+2finish), fourlivingmanualseats and48rawpreferencevaluesateachendpoint/69sourceguards actual9 independently verified against unchangedapproved1a50source. No new game or source/helper execution.",
+    "ActualTimesnap8destroy cost/GY andAP1to0 before capturedABI13fresh1,2,3,4; onlyfourth gains2AP. Torrent6 actualtargetP4/Blue7pitch3cost1/R2AP1, computed5/noGA, twoactualBlueDEF3defenders9/10 currentlink1 giveDEF6/zeroDamage/noHit. RemainingAP1 is preserved on firstResolution; no unearned Torrent hitGA refund.",
+    "Actualsame-chain primary5 spendsremainingAP1to0/cost0/R2 while6remainsphysicalfirstlink, resolves5secondlink/index1 withcomputed3+1=4 andGAtrue. ActualYellowDEF3defenders11/12 belonglink2; old9/10 staylink1 and are not countedagain. CurrentDEF6/zeroDamage/noHit; actualprimaryGA grantsoneAP onlyatbeginningResolution/AP1. No hitDraw-return earned or hiddenchooser omitted.",
+    "Exactfinal originalphysicalUID1..12: ownpublicGY1{8Timesnap,6Torrent,5Rushing}; GY4{9,10BlueNAA,11,12YellowNAA}; Pitch7 whole rawunchanged; onlyvirtual13ceased/Counter13/noRNG. FourHeroeswholeunchanged/allHP20/P1R2AP1/allotherRAPChi0. StackChainsDQsawaitpayment/combatclean. Opaque undoVersionshashboundbutexcludedfromcurrentphysicalinventory."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/607/",
+      "finding": "CurrentRed0/base3: previousTorrent gives+1/GA and granted hitDraw-return; only static+1/GA branchselected."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/616/",
+      "finding": "CurrentRed1/base5: GA only earned by hit, not unconditional."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/285/",
+      "finding": "RealActiondestroy/Gain2AP/noGA."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.4.1",
+        "8.3.5b"
+      ],
+      "finding": "Combo is static named-prior-attack condition; AA GA givesAP atbeginningResolution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "finding": "Currentlinkdefenders and actualzeroDamage do not hit; continuechain using realremainingAP."
+    }
+  ],
+  "adjacent_unattempted_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch502-rushing-river-first-ready-author\\blade-flash-unattempted-dispatch-unestablished.json",
+    "sha256": "d8f289ad0f4e2db613ecc62c54f89e10d0d26e8ba291689be2f98838fa8dd06c",
+    "card_id": "blade_flash_blue",
+    "scope": "Only selected target/effect dispatch route unestablished; not proof of no implementation/nativebug. No executablecase/coverage/sourcefix.",
+    "native_attempted": false,
+    "fixture_saved": false,
+    "confirmed_bug": false,
+    "coverage_credit": false
+  },
+  "limits": [
+    "ONEhealthyfirstreadygroup; requestedsecondcandidate not forced into unsupported/held seam. BladeFlash source-only route not established, not proved unimplemented/bug; no executable case/native/fixture/credit.",
+    "MainrealCombo+1/GA and assetrefund fully exercised; bothactuallyblockedhitWHENs unearned/unqualified. No futurePotion/hero/supportprimary/siblings/fullcard credit.",
+    "Actualcurrent9/all69guards; all48rawmanualprefs/typeUIDs/finalmanagercleanup remainRootSavedgates. No native/passingcoverage claim.",
+    "NoR/PHP/native/sourcefix/gen/service/fullsuite/git/remote/deniedretry/integration; originaluserbytes/sharedhelpers untouched.",
+    "Fullblock damage0/HP20 does not by itself distinguish +1power fromno+1; actual fresh computedpower4 is the direct power witness, and realAP0to1 is separatematerialGAasset witness. No false unique damage-isolation claim.",
+    "Correctprefix/fullblock scope excludes Rushing grantedhitDraw/return/await-lifetime and Torrent hitGA responseability/currentcanonical directHit implementation. No negativeCombo/otherprefix/thirdlink/hero/supportprimary/siblings/fullcard/nativecontrols credit.",
+    "NoPHP/native/replay/R/source/service/gen/fullsuite/git/remote/deniedrepairretry byreviewer.",
+    "Exact completed native freshpower4 is direct+1 witness; fullblock damage0/HP20 alone cannot distinguishbonus magnitude. ActualAPrefund1 is a separate materialearnedGA consequence. NoHitdraw/return/lifetime/TorrentHitGA/fullcard/siblings/supportprimary/negativeCombo/thirdlink/heroability/BladeFlashcredit.",
+    "Root targeted replays/registration are separate, not claimed here. No reviewerPHP/native/replay/R/source/service/gen/fullsuite/git/remote/deniedretry."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch502_saved_readonly.py",
+    "sha256": "0e57b0aa357b8b65b0569a76af77600b5f09d7f47f80d5a5845e4cbd8101a0d7"
+  }
+}

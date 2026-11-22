@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch670-agility.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T01:02:50.134180+00:00",
+  "fixtures": [
+    {
+      "slug": "card-agility-stance-yellow-four-live-real-next-start-dagger-go-again-and-paid-consumer",
+      "fixture_sha256": "af48b6e451e4bada07cbbb8ed77cb6e58ee8cea7b5ee7155135e25f7c3bb3259",
+      "passed": true,
+      "result": "[PASS] agility_stance_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-agility-stance-yellow-four-live-real-next-start-dagger-go-again-and-paid-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] agility_stance_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

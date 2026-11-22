@@ -1,0 +1,199 @@
+{
+  "status": "HOLD_NATIVE_FINAL_STATE_ONGOING_GRANT_LOST",
+  "approved": false,
+  "source_approved": false,
+  "semantically_approved": false,
+  "qualification_approved": false,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T08:12:44.551153+00:00",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "input_sha256": "1ef729bfb899dd520a0599f872f22cd685bb47f1a8487a14890074258598f9f7",
+  "source_spec": "card-regression-batch589-command.json",
+  "source_guards_verified": 70,
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-independent-source-review.json",
+    "sha256": "85e9a0450adb65da73b748dbf02fc52de9fafd001ea5cd7125368ad3d5476869"
+  },
+  "historical_saved_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-independent-saved-review.json",
+    "sha256": "3cf7a87e1099949558c53bd72678294fec2b550ffb73afb3c4b15c79fc5a743a",
+    "preserved_unchanged": true,
+    "superseded_for_qualification": true,
+    "correction": "Earlier approval incorrectly treated loss of an ongoing until-EOT effect as only an untested future-use limitation. The native final state already discards its sole selected effect carrier. Mechanical comparisons remain true; semantic qualification is withdrawn."
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-native-r1-9fbaa\\receipt.json",
+    "sha256": "b0b2512b10e2ec445e3ab8dfa2395f73eb731f1e3a10a466c14386bb0fb1895c"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch589-command.recording-results.json",
+    "sha256": "dcee6e664595b6d92c1c96c8650dc9d13755c999b2ecd57cd91ce5b6f3558e30"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch589-command-20261106T075922Z-6aed88da214d5.json",
+    "sha256": "a8ad30551410947ceaddf4596c70cd6d5ff07e33e451f0638f09b5972d341acf"
+  },
+  "fixture_saved": true,
+  "fixture_qualified": false,
+  "fixture_path": "Tests\\Integration\\FaBSim\\card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "4855d0e13442750e0b90e113cefd787581830857e4468a6c8133565f4c21098d",
+    "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+    "assertions.json": "57e258f85029d4eb724b22a720547cc6ddf82a2efe22fb1d15b752a045935523",
+    "expected_final_gamestate.txt": "43d17eec89aa826f574450d86a7458db4866080bff259c86ce7aa19a18465ced",
+    "meta.json": "5b37174c8e1b81bd5ebc7e6fcec4ad07fc14987def85f5010d6a1464af7587b2"
+  },
+  "fixture_sha256": "34db01885e4e1ca9c35fa1e77a7c3083be9a7b554d181ed060836e3efff0bd98",
+  "native_exit_code": 0,
+  "native_stderr_bytes": 0,
+  "all33_inputs_accepted": true,
+  "all4435_authored_assertions_passed": true,
+  "actual_manual_passes": 29,
+  "authored_grant_state_assertions": 0,
+  "authored_assertion_of_iar_absence": false,
+  "first_failure": {
+    "kind": "UNASSERTED_SEMANTIC_FINAL_STATE_ERROR",
+    "native_assertion_failure": false,
+    "failed_assertion_ordinal": null,
+    "earliest_direct_observation": "Final expected_final_gamestate after accepted input33 (P4 fourth Resolution pass). Same TurnPlayer1/TurnNumber2/MAIN, token6alive, no iar.",
+    "first_source_cause": "FaBCloseCombatChain calls FaBResetWindowState; reset defaults/preservation omit state.iar.",
+    "required": "Resolved until-end-of-turn attack/GA grant must remain through the same Action Phase after chainclose.",
+    "actual": "Sole carrier absent. Both current engine consumers therefore read default0; no once-use clause authorizes consumption."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 33,
+    "ordered_assertions_passed": 4435,
+    "direct_facts": [
+      "Real Command cost1/Blue3/R2/APpayment, first primaryGArefund, token6 actual tap/Action cost, proxy16 sixdamage/P4HP14 and grantedGArefund AP1 all passed.",
+      "Final raw same-turn MAIN has live token6TappedDamage0/usagecounters only, no tokenTurnEffects grant, no state.iar; saved snapshot captures that state."
+    ],
+    "source_inference": [
+      "Selected canonical/emitted body writes only IAR current-turn count; both actual grant consumers use it; explicit Close reset drops it before turn ends.",
+      "Absent carrier means ongoing grant is lost already, regardless of token currently being tapped. A future failed attempt is not needed to recognize the incorrect final effect state."
+    ],
+    "unrun": [
+      "No second token activation/untap/newtoken/anothergrant or post-close functional gameplay witness executed.",
+      "No future End/BloodDebt/upkeep/permission/producer execution or new native failure ordinal is claimed."
+    ]
+  },
+  "classification": "Confirmed native final-state loss of selected ongoing until-EOT grant, with exact current source cause. No issue/globalroot/Core allocation by reviewer.",
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR036.webp",
+      "local_path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\consuming_command_blue.webp",
+      "sha256": "2d4cb823e932c3302de3c3e684f555e8684b0a38556f9e71737c1ba26993b2f5",
+      "actually_viewed": true,
+      "finding": "Until end of turn grant, no next-use or once-use clause."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "actually_retrieved": true,
+      "rules": [
+        "4.4.4"
+      ],
+      "finding": "Until-end-of-turn effects end when turn ends; current final snapshot remains same Action Phase."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "finding": "Granted ability remains an ongoing object property for the printed duration; being tapped does not end the granting effect."
+    }
+  ],
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+      "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+      "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+      "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "writer_body_sha256": "5c0c019a0c6355f3b76aba852ab2dc29b427ce3520c598519b669aeb55b5b90d",
+    "reset_function_sha256": "732d06e83e84d2343d8dc3d54e76ea4558b94160d4ded0bad3493d4784a6a64a",
+    "count_reader_sha256": "ed162f603577927e38677eca20e3b7268bb2a59415014d8a6ca85dc1621bb883",
+    "selected_symbol_reader_occurrences": [
+      {
+        "path": "FaBSim/Custom/IARRuntime.php",
+        "line": 264,
+        "text": "if(in_array($o->CardID,['corrupted_corpse','wind_slicer_blue'],true)||($o->CardID==='blasmophet_the_insatiable_hunger'&&FaBIARCount($p,'BLASMOPHET_ATTACK')))FaBWTRTag($o,'GO_AGAIN');"
+      },
+      {
+        "path": "FaBSim/Custom/MONAbilities.php",
+        "line": 54,
+        "text": "if($o->CardID==='blasmophet_the_insatiable_hunger'&&!FaBIARCount($p,'BLASMOPHET_ATTACK'))return null;"
+      }
+    ],
+    "no_alternative_selected_carrier_established": true
+  },
+  "preserved_evidence": [
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch589-command.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\original-input.json",
+      "sha256": "1ef729bfb899dd520a0599f872f22cd685bb47f1a8487a14890074258598f9f7"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-independent-source-review.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\original-source-review.json",
+      "sha256": "85e9a0450adb65da73b748dbf02fc52de9fafd001ea5cd7125368ad3d5476869"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-independent-saved-review.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\historical-saved-approval.json",
+      "sha256": "3cf7a87e1099949558c53bd72678294fec2b550ffb73afb3c4b15c79fc5a743a"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-native-r1-9fbaa\\receipt.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\root-native-receipt.json",
+      "sha256": "b0b2512b10e2ec445e3ab8dfa2395f73eb731f1e3a10a466c14386bb0fb1895c"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch589-command.recording-results.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\native-recording-results.json",
+      "sha256": "dcee6e664595b6d92c1c96c8650dc9d13755c999b2ecd57cd91ce5b6f3558e30"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch589-command-20261106T075922Z-6aed88da214d5.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\immutable-recording-archive.json",
+      "sha256": "a8ad30551410947ceaddf4596c70cd6d5ff07e33e451f0638f09b5972d341acf"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund\\initial_gamestate.txt",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\fixture\\initial_gamestate.txt",
+      "sha256": "4855d0e13442750e0b90e113cefd787581830857e4468a6c8133565f4c21098d"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund\\actions.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\fixture\\actions.json",
+      "sha256": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund\\assertions.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\fixture\\assertions.json",
+      "sha256": "57e258f85029d4eb724b22a720547cc6ddf82a2efe22fb1d15b752a045935523"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund\\expected_final_gamestate.txt",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\fixture\\expected_final_gamestate.txt",
+      "sha256": "43d17eec89aa826f574450d86a7458db4866080bff259c86ce7aa19a18465ced"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund\\meta.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\fixture\\meta.json",
+      "sha256": "5b37174c8e1b81bd5ebc7e6fcec4ad07fc14987def85f5010d6a1464af7587b2"
+    }
+  ],
+  "coverage_credit": false,
+  "new_issue_allocated": false,
+  "global_distinct_root_allocated": false,
+  "source_fix_or_retry_authorized": false,
+  "limits": [
+    "Native completed its authored assertions; semantic final-state requirement was unasserted, so there is no failing engine query ordinal. Do not describe this as an exception or no savedfixture.",
+    "Original input/fullrecording/raw5/historical approval preserved unchanged. No trimming/suffix removal/changed expectedoutput/green replacement, native rerun, source repair or alternate body hunt.",
+    "Native final-state loss and source cause confirmed; later functional gameplay failure is unrun. No blanket IAR/Core/corpus/global-root count or newissue allocation.",
+    "No reviewer R/PHP/native/source/fullsuite/remote/denied operation."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch589_command_duration_hold_readonly.py",
+    "sha256": "8570df8982a0b2242b670bf4b9c842e7574e5ef301fbf9ccfce4a6d05320a4c3"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch484.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T16:16:44.046281+00:00",
+  "fixtures": [
+    {
+      "slug": "card-consuming-lash-yellow-four-live-real-hand-instant-banish-grants-first-attack-go-again-funds-second-without-repeat",
+      "fixture_sha256": "b2c214d68164f5966714c491864c940ac4e867b6004f1297fd06d139368d651e",
+      "passed": true,
+      "result": "[PASS] consuming_lash_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-clamp-press-blue-four-live-real-controlled-item-buffs-actual-heart-wrencher-attack-five-damage-no-boost",
+      "fixture_sha256": "be7bf65f55af47ba78b5cc9fce742784e3552ec164e77f281551637a26e27537",
+      "passed": true,
+      "result": "[PASS] clamp_press_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-consuming-lash-yellow-four-live-real-hand-instant-banish-grants-first-attack-go-again-funds-second-without-repeat",
+      "returncode": 0,
+      "stdout": "[PASS] consuming_lash_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-clamp-press-blue-four-live-real-controlled-item-buffs-actual-heart-wrencher-attack-five-damage-no-boost",
+      "returncode": 0,
+      "stdout": "[PASS] clamp_press_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

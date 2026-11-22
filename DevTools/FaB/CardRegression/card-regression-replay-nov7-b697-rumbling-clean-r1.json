@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch697-rumbling.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T04:17:15.920413+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rumbling-of-iarathael-red-four-live-real-banish-overpower-second-action-rejection-and-three-damage",
+      "fixture_sha256": "51585bd3bf9bca31d4080739f28b52dafcfb54b6098f859bf837b4742ca32c20",
+      "passed": true,
+      "result": "[PASS] rumbling_of_iarathael_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rumbling-of-iarathael-red-four-live-real-banish-overpower-second-action-rejection-and-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] rumbling_of_iarathael_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

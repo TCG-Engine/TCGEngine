@@ -1,0 +1,7 @@
+{
+    "name": "Oysten / actual Ally lethal earns Gold and Watery layers",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-17T03:42:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "OriginalcorrectSTRICTdiagnostic/noSaveevenPASS. FourmanualYoungRhinar1/Betsy2&3/GravyBones4/all20; legitimatepreexistingphysicalOysten7Arena4/printedlife1/noGold/death/historyseed. RealSmashRed5cost2/formaladjacentAlly7target andBlue6pitch3/R1/AP0; allfourSource/Attack/nativezeroDEFENDfinalization/DefendPriority/Reaction. Actual7damage toAlly\u2014notHero\u2014lethallydestroys7; allHeroHP20, ownedGYsame7FaceUp andGold0 beforeTWOfreshcapturedABI(source7/controller4/kind only). Firstfourresponses then ONEremaininglayer; order-dependentGold/FaceDown values intentionallyunclaimedbetweenrounds; secondfour mustfinishBOTH actualownedGold1 andsameOysten7GYFaceDown1. No guessedtriggerorderUI/event/virtualUID; no particularorder/which-intermediate-effecttimingcertificate. FullDamage/Resolution/nativeparentSmash5GY1/Blue6Pitch1/R1/APall0/Stackqueuesclear. AllnativeWards/otherdeaths/owncast/attackability/Gravyactivation/support/siblings/fullcard/orderpermutationsuncredited. AnyPASSstillrequiresindependentactualreview/explicitpromotion/freshnormalSource/orderscopeassessment; no outputfitting. Sources: https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

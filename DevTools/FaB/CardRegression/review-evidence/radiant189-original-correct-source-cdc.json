@@ -1,0 +1,156 @@
+{
+  "status": "SOURCE_APPROVED_STRICT_ORIGINAL_CORRECT_RADIANT_ONE_SOUL_STATE_TRIGGER_DIAGNOSTIC_ONLY",
+  "phase": "SOURCE",
+  "batch": 845,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch845-radiant-one-soul-correct-state-trigger-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-one-soul-correct-state-trigger-probe-author\\radiant-one-soul-correct-state-trigger-full-probe.json",
+    "sha256": "954a03e344be564f7d8d5c461470dbca7144139c9e6151fd255195d6c52997f2"
+  },
+  "input_sha256": "954a03e344be564f7d8d5c461470dbca7144139c9e6151fd255195d6c52997f2",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-one-soul-correct-state-trigger-probe-author\\manifest.json",
+    "sha256": "f26b9f51eb732f9733f1bcda0241fb78b40ea196f24e4973cabce7f74daac756"
+  },
+  "manifest_sha256": "f26b9f51eb732f9733f1bcda0241fb78b40ea196f24e4973cabce7f74daac756",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-firm-reservation.json",
+    "sha256": "261cdf5ded8d4a3aef3eac35fcb8b7c0af878380b0d1959d23dacdd226e9576b"
+  },
+  "root_normative_route_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-root-radiant-one-soul-rule-correction.json",
+    "sha256": "f7734aaf181950fec731ea3415c1c4ec1921825c1d31790bccf8b4d713932f4a"
+  },
+  "independent_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-independent-selected-rule-preflight.json",
+    "sha256": "f554f6d6995fe1d79e3160f4e246af119389c6ee2a06078ade10c28806fe6331"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-one-soul-correct-state-trigger-probe-author\\preflight.json",
+    "sha256": "c36a3e8fd68ca7f90eff098e6c649ee7eea4a012d98575a7eefd85333f2f69eb"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-one-soul-correct-state-trigger-probe-author\\frozen-author-QA.json",
+    "sha256": "f79dda83f3aa674f603a30114928debb549378738118d09792db6ccc73acbc53"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-one-soul-correct-state-trigger-probe-author\\ordered-control-query-model.json",
+    "sha256": "f786b26f4a7a3d142b9f9c61fe9d9d2e0c6b6375b21d0c611aa93b81743231a4"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 18,
+  "all_current_guards_independently_matched": true,
+  "actions": 40,
+  "declarative_controls": 40,
+  "assertions": 4594,
+  "native_assertions": 4594,
+  "planned_native_assertions": 4594,
+  "recorded_persisted_assertions": 4594,
+  "manual_passes": 36,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 9,
+    "2": 9,
+    "3": 9,
+    "4": 9
+  },
+  "expected_priority_response_passes": 35,
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 42,
+  "schema_property_checks": 880,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "26298f97f7b74117f6faf133e6cf6f883e41b95d0f527f46c7d3487605d56075",
+  "expected_native_query_mapping_sha256": "b14c912f1ba6d95bb234fb132ecd64b2c75226bb0099c3c543457f65fc17df77",
+  "checkpoint_mapping_sha256": "d0187f8075f828857eb54599bd6a1a9cd8b524fbf1fd8f4e0d0e4e25392d3a2e",
+  "independent_semantic_findings": [
+    "All40 controls/4594 normalized ordered queries/880 typed schema properties match frozen full model.72+10+18 current guards match; all four strict flags and probe-slug are present in case/manifest.36 manual inputs9each, genuine four live Young/UPF/no passive seats; both fresh raw48 manual profiles are later evidence gates, not invented current Saved data.",
+    "Use exactlyONE legal initial Soul card7. CR6.4.5 limits each replacement to once per original event; no two-Soul consumption or additional damage-event expansion. Soul schema onlyCardID/UniqueID; no invented Owner/Controller properties. Actual ordinary Banish destination must establish7FaceDown0/Owner4/Controller4.",
+    "RealWoundingRed5 targets4/cost0/APdebit, all combat/manual rounds; P4 legaloffturn/AP0 Radiant6Instant0 plus fourSource responses enters Aura with Soul7present. No empty-entry branch, direct damage/prevention or seeded modifier. BoltynLightWarriorYoung legal; charge/attackReaction/attackerBetsyWager unused.",
+    "Mandatory actual MZChoose p4Soul-0 before damage; no min/max prefix or extra responsepriority during atomic replacement. LastSoul7publicBanish prevents1 of actual4; full remaining3damage yields HP4=17. Firstpostanswer queries pin Banish/Soul/HP before required Aura6STILLArena/earnedLayer source6/controller4/kindABILITY; no guessed virtual UID/eventlabel/window string.",
+    "CR6.6.1c/6.6.5c makes emptySoul a state-based trigger;6.6.6 adds its layer before nextpriority, destruction waits for resolution after allfour actualresponses. Fullsuffix then physicalAura6GY4/Attack5GY1/Soul7Banish4,allHP/economy,Damage/Resolution/Stack/queue/chain cleanup.",
+    "Fresh source concern is DTDRuntime13 direct MONDestroy during Soul movement in replacement; no exact retained Forcefield producer, Mirage090 related but not exact. No Native-confirmed defect/issue/root allocation or source fix is inferred from this Source review."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.4.1a",
+        "6.4.5",
+        "6.6.1c",
+        "6.6.5c",
+        "6.6.6"
+      ],
+      "official_read_only_web_read": true
+    }
+  ],
+  "release_note_fetch_limit": "Legacy official Dusk Till Dawn release-note URL returned502 in reviewer read; no claim independently reading that page. Current official CR and exact printed metadata suffice for this unchanged one-Soul/responseable-state-trigger oracle.",
+  "required_remaining_gates": [
+    "Root must execute complete unchanged correct route with --probe-only; no fixture Save even on PASS.",
+    "Independent actual fulltrace or firstfail-prefix review; preserve actual suffix boundaries and original expectations.",
+    "Only after complete actualPASS review may Root consider explicit promotion and fresh normal-positive Source; Saved/raw5/both48/two ownreplays remain separate."
+  ],
+  "limits": [
+    "Only oneSoul/oneincoming4/prevent1/emptySoul trigger route. Unpreventable/multipleAuras/multipleSoul/repeateddamage/refill/suppression/otherbranches/support/fullcard untested.",
+    "No expected failure treated as success, softened timing, quiet prevention-only fallback, automaticpromotion or nativecoverage. No PHP/native/R/source/Git/remote/fullsuite/denied188184B787 retry by reviewer."
+  ],
+  "created_utc": "2026-11-16T04:32:49.160161+00:00"
+}

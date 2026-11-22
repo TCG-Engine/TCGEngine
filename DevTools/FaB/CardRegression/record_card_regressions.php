@@ -9,10 +9,20 @@ require_once $repo.'/Core/EngineActionRunner.php';
 EngineLoadRootRuntime('FaBSim');
 require_once __DIR__.'/initial_snapshot_guard.php';
 set_error_handler(function($level,$message,$file,$line){throw new ErrorException($message,0,$level,$file,$line);});
-$input = $argv[1] ?? __DIR__.'/card-regression-scenarios.json';
+$probeOnly=in_array('--probe-only',$argv,true);
+$positionals=array_values(array_filter(array_slice($argv,1),fn($arg)=>$arg!=='--probe-only'));
+$input = $positionals[0] ?? __DIR__.'/card-regression-scenarios.json';
 $cases = json_decode(file_get_contents($input),true,512,JSON_THROW_ON_ERROR);
-$filter = $argv[2] ?? '';
+$filter = $positionals[1] ?? '';
 $replaceOwn=in_array('--rerecord-authored',$argv,true);
+// A marked diagnostic may never reach game setup or Save without explicit no-save mode.
+if(!$probeOnly)foreach($cases as $preflightCase){
+    $preflightSlug=$preflightCase['slug'];
+    if($filter!==''&&!str_contains($preflightSlug,$filter))continue;
+    if(($preflightCase['diagnostic_only']??false)===true){
+        fwrite(STDERR,'[DIAGNOSTIC ONLY] '.$preflightSlug." requires --probe-only; no game started.\n");exit(2);
+    }
+}
 $out=[];
 function FCRAction(int $seat,int $mode,string $card='',string $text=''):void {
     $result=EngineRunAction(['playerID'=>$seat,'mode'=>$mode,'cardID'=>$card,'inputText'=>$text],'FaBSim',$GLOBALS['gameName'],['updateCache'=>false,'createdBy'=>'FaBSim card regression authoring']);
@@ -197,6 +207,12 @@ function FCRHandRefs(array $seats): array {
 }
 
 /** Capture only the actual owned initial file, after native recording starts. */
+/** Diagnostic collection must never replace the original failed action/setup error. */
+function FCRFailureObservation(callable $read, string $name, array &$errors) {
+    try { return $read(); }
+    catch (Throwable $diagnosticError) { $errors[$name] = $diagnosticError->getMessage(); return null; }
+}
+
 function FCRFailureInitialSnapshot(bool $fourLive, string $gameName): ?array {
     if (!$fourLive) return null;
     $path = RegressionRecordingInitialStatePath('FaBSim', $gameName);
@@ -221,7 +237,7 @@ function FCRReady(array $until):bool {
 $failed=0;
 foreach($cases as $case){
     $slug=$case['slug'];if($filter!==''&&!str_contains($slug,$filter))continue;
-    $gameDir=null; $activeSeats=[1,2]; $failureInitial=null;
+    $gameDir=null; $activeSeats=[1,2]; $failureInitial=null; $caseInitialized=false; $caseGameName=null;
     try{
         $fixtureDir=RegressionFixtureDir('FaBSim',$slug);
         if(is_dir($fixtureDir)){
@@ -231,6 +247,7 @@ foreach($cases as $case){
         $setup=FCRCaseSetup($case);$activeSeats=$setup['seats'];
         InitializeGamestate();$GLOBALS['playerID']=1;$GLOBALS['currentPlayer']=1;$GLOBALS['updateNumber']=0;
         $GLOBALS['gameName']='regression_fab_author_'.uniqid();
+        $caseGameName=$GLOBALS['gameName']; $caseInitialized=true;
         SetSeatOrder($setup['seatOrder']);SetLiveSeats($setup['seatOrder']);SetTurnPlayer($setup['turnPlayer']);SetTurnNumber(2);SetCurrentPhase('MAIN');SetPriorityPlayer($setup['priority']);
         FaBSetState(array_replace(FaBStateDefaults(),$setup['state']));
         foreach($activeSeats as $seat){
@@ -277,13 +294,35 @@ foreach($cases as $case){
         FCRAction(1,11001);
         $recording=RegressionReadRecording('FaBSim',$GLOBALS['gameName']);
         if(empty($recording['actions']))throw new RuntimeException('No recorded game actions');
+        if($probeOnly){
+            $diagnostic=['slug'=>$slug,'status'=>'diagnostic_assertions_passed_unsaved','probe_only'=>true,'fixture_saved'=>false,
+                'actions'=>count($recording['actions']),'assertions'=>count($recording['assertions']),'recording'=>$recording,
+                'observed_state'=>FaBGetState(),'observed_decisions'=>FCRDecisionQueues($activeSeats),'observed_hand_refs'=>FCRHandRefs($activeSeats)];
+            if($failureInitial!==null)$diagnostic+=$failureInitial;
+            $out[]=$diagnostic;
+            echo '[DIAGNOSTIC UNSAVED] '.$slug.' actions='.count($recording['actions'])."\n";
+        }else{
         FCRAction(1,11003,'',json_encode(['slug'=>$slug,'name'=>$case['name'],'notes'=>$case['oracle'].' Sources: '.implode(' ',$case['sources']??[])],JSON_THROW_ON_ERROR));
         $out[]=['slug'=>$slug,'status'=>'recorded_semantically_checked','actions'=>count($recording['actions']),'assertions'=>count($recording['assertions'])];
         echo '[RECORDED] '.$slug.' actions='.count($recording['actions'])."\n";
+        }
     }catch(Throwable $error){
-        ++$failed;$recording=isset($GLOBALS['gameName'])?RegressionReadRecording('FaBSim',$GLOBALS['gameName']):null;
-        $failure=['slug'=>$slug,'status'=>'blocked_or_incorrect','error'=>$error->getMessage(),'attempted_actions'=>$recording['actions']??[],'observed_state'=>FaBGetState(),'observed_decisions'=>FCRDecisionQueues($activeSeats),'observed_hand_refs'=>FCRHandRefs($activeSeats)];
+        ++$failed; $diagnosticErrors=[];
+        $recording=$caseGameName===null?null:FCRFailureObservation(
+            fn()=>RegressionReadRecording('FaBSim',$caseGameName),'recording',$diagnosticErrors);
+        $failure=['slug'=>$slug,'status'=>'blocked_or_incorrect','error'=>$error->getMessage(),
+            'attempted_actions'=>$recording['actions']??[],'setup_completed'=>$caseInitialized,
+            'observed_state'=>null,'observed_decisions'=>null,'observed_hand_refs'=>null];
+        if($caseInitialized){
+            foreach(['observed_state'=>fn()=>FaBGetState(),
+                'observed_decisions'=>fn()=>FCRDecisionQueues($activeSeats),
+                'observed_hand_refs'=>fn()=>FCRHandRefs($activeSeats)] as $name=>$read){
+                $failure[$name]=FCRFailureObservation($read,$name,$diagnosticErrors);
+            }
+        }
+        if($diagnosticErrors)$failure['diagnostic_errors']=$diagnosticErrors;
         if($failureInitial!==null)$failure+=$failureInitial;
+        if($probeOnly){$failure['probe_only']=true;$failure['recording']=$recording;$failure['fixture_saved']=false;}
         $out[]=$failure;
         echo '[BLOCKED] '.$slug.': '.$error->getMessage()."\n";
     }finally{
@@ -299,6 +338,7 @@ RegressionEnsureDir($archiveDir);
 $archivePath=$archiveDir.'/'.pathinfo($input,PATHINFO_FILENAME).'-'.gmdate('Ymd\THis\Z').'-'.uniqid().'.json';
 $archive=['completed_at_utc'=>gmdate('c'),'input_file'=>basename($input),
     'input_sha256'=>hash_file('sha256',$input),'filter'=>$filter,'results'=>$out];
+if($probeOnly)$archive['probe_only']=true;
 file_put_contents($archivePath,json_encode($archive,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n",LOCK_EX);
 file_put_contents(dirname($input).'/last-recording-results.json',json_encode($out,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");
 file_put_contents(preg_replace('/\.json$/','',$input).'.recording-results.json',json_encode($out,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");

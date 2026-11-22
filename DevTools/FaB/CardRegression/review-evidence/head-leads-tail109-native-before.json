@@ -1,0 +1,119 @@
+{
+  "id": "FAB-REG-109",
+  "status": "CONFIRMED_NATIVE_EARLY_HEAD_LEADS_THE_TAIL_WHEN_ATTACK_NAMING_NO_FIX_APPLIED",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "independent_review_sha256": "d5b0ad7cbd193ef4c3f24a768cdd3b779a8b21c59db8d1d0906a9116bb1b723e",
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-head436-independent-native-before-classification.json",
+  "source_spec": "card-regression-batch436.json",
+  "input_sha256": "598db75ae67930c7c6b32828dc50ecc210ca34537842634621ff5777fc61d5b5",
+  "scenario_id": "card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+  "earliest_failure": {
+    "error": "Expected decision queue for player 1 to be empty.",
+    "accepted_inputs": 7,
+    "first_failed_native_check_ordinal_1based": 535,
+    "preceding_checks_passed": 534,
+    "prior_boundary_checks_passed": 528,
+    "same_boundary_checks_passed": 6,
+    "source_step_index": 14,
+    "source_check_index": 6,
+    "assertion": {
+      "step": 7,
+      "source_step": 14,
+      "source_check_index": 6,
+      "type": "decision_queue_empty",
+      "player": "1",
+      "viewerPlayerID": 1
+    },
+    "unchanged_complete_actions": 55,
+    "unchanged_complete_assertions": 4402
+  },
+  "actual_prefix": {
+    "actions_sha256": "9131da3461585160f148aa12ca72bb7fef1acb9ed5364ef3356c96bb6ca66ea6",
+    "manual_pass_inputs": 4,
+    "manual_pass_actors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "last_input": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "same_boundary_direct_passed": {
+      "PriorityPlayer": 1,
+      "ConsecutivePasses": 0,
+      "combatOpen": true,
+      "P1Health": 20,
+      "P1Resources": 2,
+      "P1AP": 0
+    },
+    "last_fully_checked_boundary": 6
+  },
+  "classification": {
+    "category": "NATIVE_CONFIRMED_MISSING_RESPONSEABLE_WHEN_ATTACK_BOUNDARY_EARLY_NAMING",
+    "confirmed_gameplay_defect": true,
+    "oracle_error": false,
+    "protocol_error": false,
+    "mechanism": "After fourth primary attack-source response, current OnAttackDeclared directly runs generated AttackDeclared; it immediately begins its await frame and enqueues effect-resolution NAMECARD. No fresh earned-trigger response inputs occurred before the naming prompt. Current printedWHEN requires a triggered layer, followed by responses, before resolving that instruction.",
+    "expected": "At action7 physicalprimary5 becomes attacking and its WHEN earns a separate responseable layer with controller1/source5. P1 priority/no NameCard until fresh1,2,3,4; fourth reaches NAMECARD while ABI retained, then answer completes named-chain bonus. Full original correct suffix is preserved.",
+    "existing_family": "Existing043 missing_responseable_trigger_named_producer, same attack-event family as081 and analogous direct-hit timing relatives084/089/097. No global/Core root count or issue allocated here.",
+    "distinction_from_094": "094 is already-earned genericROS ResolveAbility virtual completion removed while a choice remains pending. This observed fault is earlier: direct AttackDeclared starts naming before responseability. Actual callback kind is AttackDeclared-await, not ResolveAbility-await; denied094 does not automatically admit or repair this callback. Future source/controller capture/completion would require separate review; no patch/integration proposed."
+  },
+  "source_findings": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+      "FaBSim\\Custom\\OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+      "DevTools\\FaB\\out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+      "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "canonical_macro": "head_leads_the_tail_red:0:AttackDeclared",
+    "compiled_helper": "__RunAwait_10aa686bd47788e31746",
+    "compiled_helper_slice_sha256": "c803baeef95dfa9c58065262e8594d3a6e5903c0d7f775c3023f4e35068a6643",
+    "compiled_helper_slice_bound": "Exact current function declaration through immediately before its named CUSTOM handler registration; includes only intervening whitespace.",
+    "current_caller": "GameLogic sourceattackresolution -> OnAttackDeclared -> FaBRunSourceMacro(AttackDeclared) -> generated BeginAwaitFrame/NAMECARD/CUSTOM. Canonical body has no separate responseable producer.",
+    "new_source_or_generated_changes": false
+  },
+  "native_recording_results": {
+    "path": "card-regression-batch436.recording-results.json",
+    "sha256": "703ec2d2cd49674b085ced86d0951b91f310e0bc5f4d7310c73132e786fe6e25"
+  },
+  "immutable_archive": {
+    "path": "recording-runs\\card-regression-batch436-20261105T093331Z-6aec4d6b5f9db.json",
+    "sha256": "272d40d298dfcfc88116c67fb57d2dc8a451c18e8e556af16afb9a3002e86ec8"
+  },
+  "primary_sources": [
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/outsiders/",
+      "finding": "OfficialindexedreleaseexcerptconfirmsWHENattacks/nameanother; fullpage403, notclaimedfullyread."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "finding": "6.6.1/6.6.5/6.6.6: attackeventcreatestriggeredlayerbeforepriority; nameinstructionisresolutioneffect, nottarget/mode."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "finding": "7.2.2/7.2.3/7.2.4attackthenWHENthenpriority; 7.0.1a permitsnextAAinResolution; samechainnotclosedwhileplayingconsumer."
+    }
+  ],
+  "unexecuted_suffix_limits": [
+    "Fresh WHEN responses8..11 and NAMECARD Head_Jab answer12 were not submitted. No namechosen/OUT_HEAD_NAMEgrant/virtualABIend evidence.",
+    "No firstattack3damage/HP17/APrefund, samechainHeadJabplay/link2/computed4/HP13/secondrefund/fullclose/chain-effectexpiration/native48finalprefs claims.",
+    "All55originalactions4402expectations remain byte-unchanged; no current-outputfit/oraclerelaxation/companionrun/patch.",
+    "NoPHP/native/additionalcapture/R/source/gen/service/remote/fullsuite/denied094096089090retry/reroute/integration."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "root_attribution": "Extension of existing043 named-producer family; no new global/Core root allocation.",
+  "created_utc": "2026-11-05T09:44:38.436996+00:00"
+}

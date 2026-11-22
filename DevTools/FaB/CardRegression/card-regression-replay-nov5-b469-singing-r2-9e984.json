@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch469-v2.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T13:36:39.670538+00:00",
+  "fixtures": [
+    {
+      "slug": "card-singing-steelblade-yellow-four-live-real-reprise-banish-and-same-link-attack-reaction-play",
+      "fixture_sha256": "918e8d855f633ce94c5c00e8c5433e4d5fd026e81e7f97bc69ec8ec34eec018e",
+      "passed": true,
+      "result": "[PASS] singing_steelblade_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-singing-steelblade-yellow-four-live-real-reprise-banish-and-same-link-attack-reaction-play",
+      "returncode": 0,
+      "stdout": "[PASS] singing_steelblade_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

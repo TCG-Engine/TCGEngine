@@ -1,0 +1,127 @@
+{
+  "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_HERO_TOKEN_COST_ORDER_LIMIT",
+  "planning_limits_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-08T20:42:11.925424+00:00",
+  "card_id": "puffin",
+  "primary_id": "puffin",
+  "group_id": "identity:puffin",
+  "kind": "selected_positive_hero_token_effect_cost_before_asset_payment_limit",
+  "author_model_error": false,
+  "engine_source_concern": true,
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch743-two-hero-positive-token-cost-order-limits\\puffin-selected-positive-token-cost-order-limit.json",
+  "input_sha256": "3adfe58a19d61f6273640c1570c535cd453b439ecdbe3a48e1cce7580f3aec0f",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch743-two-hero-positive-token-cost-order-limits\\puffin-selected-positive-token-cost-order-limit.json",
+    "sha256": "3adfe58a19d61f6273640c1570c535cd453b439ecdbe3a48e1cce7580f3aec0f"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch743-two-hero-positive-token-cost-order-limits\\manifest.json",
+    "sha256": "a20740d2b2ca1f73d0176a67d317e5e6bb96a7e78aaf74269814c93e80de09c0"
+  },
+  "manifest_sha256": "a20740d2b2ca1f73d0176a67d317e5e6bb96a7e78aaf74269814c93e80de09c0",
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch743-two-hero-positive-token-cost-order-limits\\frozen-author-QA.json",
+    "sha256": "15ead37f9f3ed545b78f6857c736b04aab6396388ac4aaf4f2c172e6fbdc3950"
+  },
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "source_only": true,
+  "planning_only": true,
+  "limits_only": true,
+  "native_confirmed": false,
+  "findings": [
+    "Puffin Action0 still owes the ActionAP1 asset. Its emitted PC1 destroys real chosen owned Gold before Finish and later AP debit. Hero tap hook/Cog payload exist; Cog entry/Crank continuations and second-Crank draw remain unattempted.",
+    "Fresh CR5.2.2b imports 5.1.7 asset payment before 5.1.9 effect costs. Early selection of a cost identity is permissible; the selected physical destruction before asset payment is the sole retained boundary. No relative tap-versus-destroy effect-cost ordering allegation.",
+    "Actual admission/captured ABI/source dispatch/token creation bodies exist. Selected ARC154/155 invokes Prepare before generic payment, with no selected declared-cost interception in ARC97-160 or RunSourceMacro. Named deferred mechanisms exist but default MayComplete/BeginAssets do not defer these physical token destructions.",
+    "Only these fixed positive Hero routes were inspected. No floating assets, seeded completed history/ability, omitted token cost, replacement, effect-only passing recipe, native failure/global absence or existing corpus invalidation claim."
+  ],
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\puffin.webp",
+      "sha256": "6b668dddcd6aa03c036fce880516ba1e9ff374a1baec7ec82e34e8a9199339fe",
+      "printing": "SEA002",
+      "actually_viewed": true
+    }
+  ],
+  "normative_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "independently_retrieved": true,
+      "clauses": [
+        "5.2.2b",
+        "5.1.3e",
+        "5.1.7",
+        "5.1.9"
+      ]
+    }
+  ],
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+      "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+      "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+      "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+      "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+      "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+      "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d"
+    },
+    "completed_selected_preflight_reused": true,
+    "source_body_exists": true,
+    "source_executed": false,
+    "actual_emitted_destroy_before_Finish_verified": true
+  },
+  "limits": [
+    "The selected positive ability physically destroys its chosen controlled token while asset payment is still pending, before the later resource/AP debit. Freeze executable approval at this first effect-cost ordering boundary. Early choice of a token identity is not itself the concern. Do not make an effect-only passing recipe, float initial assets to conceal ordering, omit the token cost, seed a completed current ability or replace the primary.",
+    "No native input/probe/replay/fixture was executed. No actual payment, token destruction, Hero tap, four-seat response quorum or creation endpoint has a gameplay certificate.",
+    "The real activation/admission, non-target cost choice, captured ABI, source dispatch and token creation bodies exist. This is not a missing-body, formal-target timing or ordinary resolving-source-lifetime finding.",
+    "Relative tap-versus-destroy effect-cost order, token-entry continuations/Crank choices, future upkeep/expiry/token consumer, Hero optional conditions and other family paths are unattempted and unqualified.",
+    "No confirmed native/gameplay bug, issue allocation, code fix, denied retry, existing-corpus invalidation or sibling/full-card coverage claim.",
+    "Planning approval authorizes retention of this exact note only. Zero recipes/actions/assertions/native execution/fixtures/coverage; no confirmed gameplay bug, issue/family/Core allocation, source fix or retry.",
+    "Initial owned tokens are legal public-board concepts only; prior producers, Hero tap/payment/response quorum/creation/Crank/expiry/future token functions and fullcard/sibling/support credit remain unqualified. Other six cohort bodies unread; no alternative selection.",
+    "No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch743_hero_cost_order_planning_readonly.py",
+    "sha256": "af183940c6a68cced394283baabf7a76af294e3baf26d312ee6d2c5f192408ae"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "installable_approved": false,
+  "native_approved": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "fixture_approved": false,
+  "fixture_saved": false,
+  "coverage_approved": false,
+  "coverage_credit": false,
+  "coverage_qualified": false,
+  "confirmed_bug_approved": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "new_gameplay_bug_claim": false,
+  "issue_allocated": false,
+  "source_fix": false,
+  "source_fix_applied": false,
+  "prototype_created": false,
+  "executable_cases": 0,
+  "executable_case_count": 0,
+  "prototype_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0
+}

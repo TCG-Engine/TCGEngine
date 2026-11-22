@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-wind198-earned-hit-delayed-phase.json",
+  "runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T03:13:30.031495+00:00",
+  "fixtures": [
+    {
+      "slug": "probe-wind-slicer-blue-four-live-real-item-hit-earned-next-ira-two-kodachi",
+      "fixture_sha256": "9cbf56bff8048c954fd2c18f9d38d5a60802ca5d46d4edd7bf35b9e50768f92b",
+      "passed": true,
+      "result": "[PASS] Wind Slicer / real Item hit earns next-Ira-phase suppression and two Kodachi damage"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=probe-wind-slicer-blue-four-live-real-item-hit-earned-next-ira-two-kodachi",
+      "returncode": 0,
+      "stdout": "[PASS] Wind Slicer / real Item hit earns next-Ira-phase suppression and two Kodachi damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

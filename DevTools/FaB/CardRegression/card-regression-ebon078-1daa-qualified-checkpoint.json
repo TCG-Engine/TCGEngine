@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T16:35:22.631899+00:00",
+  "runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+  "source_spec": "card-regression-batch330-correct-cost-probe.json",
+  "source_spec_sha256": "7f9d86dc7471abbd0a515007b91267ea1150e014648ace0990b0dc98f8206581",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 7,
+  "native_assertions": 747,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 4177,
+    "duels": 3074,
+    "four_live": 1103,
+    "recorded_primary_ids": 1329,
+    "identity_denominator": 5196,
+    "recorded_groups": 1203,
+    "group_denominator": 3324,
+    "four_live_groups": 1095,
+    "phase_qualified_scenarios_at_actual_contexts": 814,
+    "phase_qualified_unique_groups": 808,
+    "creation_replay_passes": 1555,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "ebon_fold",
+      "group_id": "identity:ebon_fold",
+      "scenario_id": "card-ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe",
+      "effect_branches": [
+        "ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe",
+      "source_spec": "card-regression-batch330-correct-cost-probe.json",
+      "source_spec_sha256": "7f9d86dc7471abbd0a515007b91267ea1150e014648ace0990b0dc98f8206581",
+      "review_evidence": "review-evidence/ebon078-1daa-qualified-saved.json",
+      "review_evidence_sha256": "c19601f537d3d83978fdfcb6c71fb6ebcaf478f4b69a3bf3a05252d35d56507d",
+      "recorded_runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+      "qualification_runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov20-ebon078-1daa-replay.json",
+          "sha256": "132cdcc0ca2af65dd5079d77935c634f62d8d57d1df4dffd0a42f42e669f9c5f",
+          "runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

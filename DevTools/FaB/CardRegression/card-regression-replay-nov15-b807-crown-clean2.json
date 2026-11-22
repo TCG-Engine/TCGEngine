@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch807-crown_of_dominion.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T01:20:10.292909+00:00",
+  "fixtures": [
+    {
+      "slug": "card-crown-continuous-royal-real-ledger-cost-gold-paid-draw-red-consumer",
+      "fixture_sha256": "3c00f91ae311347eff36c6ca85a161da0e9a14f359f6253ad3978d1f76eeeb70",
+      "passed": true,
+      "result": "[PASS] Crown of Dominion / continuous Royal produces real Ledger Gold for paid draw and combat"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-crown-continuous-royal-real-ledger-cost-gold-paid-draw-red-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Crown of Dominion / continuous Royal produces real Ledger Gold for paid draw and combat\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

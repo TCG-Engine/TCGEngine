@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-tome193-after6e5.json",
+  "runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T17:40:21.722761+00:00",
+  "fixtures": [
+    {
+      "slug": "card-tome-of-aeo-blue-four-live-real-next-action-earned-destroy-draw-repair",
+      "fixture_sha256": "c06b28a8e8fff9eee26b0b7492b161b8d633d979bc9b8a812c351c7402207226",
+      "passed": true,
+      "result": "[PASS] Tome of Aeo / real next Action phase earned destroy and draw"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tome-of-aeo-blue-four-live-real-next-action-earned-destroy-draw-repair",
+      "returncode": 0,
+      "stdout": "[PASS] Tome of Aeo / real next Action phase earned destroy and draw\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

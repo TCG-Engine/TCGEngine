@@ -1,0 +1,182 @@
+{
+  "id": "FAB-REG-132",
+  "status": "CONFIRMED_NATIVE_STEADFAST_PHYSICAL_SOURCE_CLEARED_BEFORE_RESOLVING_CHOICE_NO_FIX",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-steadfast132-independent-native-before-classification.json",
+  "independent_review_sha256": "cd663a969d9bb6b0ca3eecaa75a2b3bc912051dd59faf4a46eefd1df3f4bc878",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch492.json",
+  "input_sha256": "2b1f5bcffd36550190e48fd1295205b4ed2e2e7832353cf90a25ae61b11a9ad6",
+  "scenario_id": "card-steadfast-red-four-live-correct-paid-source-choice-prevents-six-of-real-seven",
+  "first_failure": {
+    "error": "Expected Stack count 1, got 0.",
+    "native_input_ordinal": 25,
+    "source_step_index": 50,
+    "checkpoint": "fourth_responder3_correct_unresolved_source_choice_holds_same5Stack_GY4empty_HP20_AP0_until_choose_real_damage_source6",
+    "actor": 3,
+    "action": "fourthfreshSteadfastsourcepassafteractors4,1,2",
+    "check_in_boundary_1_based": 20,
+    "global_assertion_ordinal_1_based": 1999,
+    "assertions_passed_before_failure": 1998,
+    "prior_complete_checkpoint_assertions": 1979,
+    "same_boundary_checks_passed_before_failure": 19,
+    "failed_check": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "actual_Stack_count": 0,
+    "no_fixture": true
+  },
+  "actual_native_prefix": {
+    "attempted_and_recorded_inputs": 25,
+    "exact_match_to_authored_prefix": true,
+    "manual_passes": 20,
+    "manual_actor_counts": {
+      "1": 5,
+      "2": 5,
+      "3": 5,
+      "4": 5
+    },
+    "nonpass_inputs": 5,
+    "planned_selected_full_inputs": 38,
+    "planned_selected_full_assertions": 3220,
+    "planned_selected_full_manual": 32,
+    "last_complete_input": 24,
+    "last_complete_checkpoint": {
+      "native_input_count": 24,
+      "source_step_index": 48,
+      "checkpoint": "actual_Steadfast_fresh_response_3_actors4_1_2_retains_physical5_source_and_real_Raging6",
+      "normalized_checks": 81,
+      "cumulative_passed": 1979
+    },
+    "actual_material_costs": "Lastcomplete24 provesactualP1Blue7Pitch/Raging6Chain/fresh7power/noGA; P4BravoactualSteadfast5INSTANT3paidbyactualBlue8Pitch/R0AP0, same5OwnerController4SourceHand5physicalStackthroughfirstthreefreshresponses4,1,2. Actualfourthactor3thenfailsStackcount. NoAPresource/preventionseed.",
+    "current_direct_passed_facts": "19sameboundarychecksprovecombatOpen/allHP20/allRAP0/otherthreequeuesempty/p1DeckTempEquipmentempty beforedirectStackexpected1actual0. CurrentRAPall0/paymentnone/sourcephaseREACTION corroboratedbyrawstate. CardpropertiesafterStackandP4queueTypeParamnativechecksUNREACHED.",
+    "observed_state_selected": {
+      "window": "REACTION",
+      "combatStep": "REACTION",
+      "combatOpen": true,
+      "chainLink": 1,
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 6,
+      "attackTarget": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "pendingPayment": null,
+      "handBlockUIDs": [],
+      "declaredBlockUIDs": [],
+      "damageDealt": 0,
+      "attackHit": false
+    },
+    "observed_current_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [
+        {
+          "Type": "MZCHOOSE",
+          "Param": "p1Hero-0&p1CombatChain-0&p2Hero-0&p3Hero-0&p4Hero-0",
+          "Block": 1,
+          "Tooltip": "Choose_damage_source",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 4,
+          "mzIndex": 0,
+          "_sourceZone": null
+        },
+        {
+          "Type": "CUSTOM",
+          "Param": "steadfast_red:0:ResolveCard-await|steadfast_red:0:ResolveCard#1|2|chosen",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 4,
+          "mzIndex": 1,
+          "_sourceZone": null
+        }
+      ]
+    },
+    "actual_resolving_choice": {
+      "player": 4,
+      "type": "MZCHOOSE",
+      "param": "p1Hero-0&p1CombatChain-0&p2Hero-0&p3Hero-0&p4Hero-0",
+      "tooltip": "Choose_damage_source",
+      "actual_Raging_source_ref_offered": "p1CombatChain-0",
+      "CUSTOM_callback_kind": "steadfast_red:0:ResolveCard-await",
+      "frame_reference": "steadfast_red:0:ResolveCard#1",
+      "continuation_pc": 2,
+      "result_variable": "chosen"
+    },
+    "physical_observation_limits": "No fullpostfailurephysicalgamestateorDecisionQueueVariablesframedatadump. DirectStack0plusactualMZCHOOSE/CUSTOMreferencesareobserved. Lastcomplete24proves5Stack/GY4empty, but exactpostfailure5GYlocationissource-inferredfromGL1781pre-move, NOTdirectpostfailurephysicalquery. ActualCUSTOMstringprovescapturedcallback/frameREFERENCE, notfullserializedframecontents. RawattackPower0cacheisnotfreshpowerfailure."
+  },
+  "classification": {
+    "kind": "GAMEPLAY_UNMANAGED_ORDINARY_INSTANT_SOURCE_LIFETIME_WHILE_RESOLVING_CHOICE",
+    "oracle_or_protocol_error": false,
+    "reason": "CurrentprintedSteadfastchoosesdamageSOURCEduringresolution(noTargetword), so physical5mustnotleaveStackbeforechoice/effectcompletion perCR5.3.4/5.3.6/5.3.7. ThecorrectsupporteddecisionstopreachedactualP4MZCHOOSEandResolveCard-await, yetdirectnativeStackcount0 afterfreshfour. Thisconfirmsphysicalsourceclearedtooearly, notmissedchoice/insufficientcost/oracleAPIerror.",
+    "source_cause_scope": "CurrentGL1763..1782unmanagedordinaryspellpathpremovesnonpersistentcardtoGYbeforeResolveRules. SelectedcanonicalawaitsMZCHOOSEthenaddsEVR_STEADFAST6withactualsourceUID; currentmanagedclassifierdoesnotestablishSteadfastcohort. SourcecausecorroboratedbutcurrentexactGYphysicallocationnotpromoted.",
+    "related_existing_family": "Existingboundedunmanagedplain-spell/ordinaryInstantawaitlifetimefamily; no newglobalCore/rootallocation. CallbackisResolveCard-await, notgenericROSResolveAbility-await; denied094doesnotautomaticallycoverit.",
+    "issue_allocation": "Parent reserved132; reviewer allocatesnone",
+    "not_total_absence": true
+  },
+  "expected": "Steadfast chooses its damage source during resolution, with physical spell5 retained on Stack until the choice and prevention effect finish; the source choice is not a printed Target.",
+  "observed": "After25 inputs/20 manual passes,1998 checks passed then Stack1 expected but actual0 while actual P4 MZCHOOSE plus ResolveCard-await remained pending. Actual paid source5 Stack was queried through input24. Postfailure GY5 is source-inferred only; no answer, prevention6, damage1/HP19 or cleanup suffix was executed.",
+  "source_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-steadfast132-native-before-independent-preserved\\source-evidence.json",
+    "sha256": "b1409223cf3f548472b1e692ea8fb59031121082baa0651ec2471dd0bfef5240",
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e"
+    },
+    "actual_selected_canonical_body": "$targets = FaBEVRSources();\n $chosen = 'PASS';\n $targets = $targets;\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Choose_damage_source\");\n \n}\n if ($chosen !== 'PASS') {\n FaBWTRAddEffect($player, 'EVR_STEADFAST', 6, ['sourceUID'=>intval(FaBIdentityFromMZ($chosen)['object']->UniqueID)]);\n \n}\n",
+    "positive_prevention_consumer_limit": "EVRCards134..138containsmatchingUID6preventionconsumer, butchoiceanswerneverexecuted/noEVR_STEADFASTrowinactualrawstate. No grant/prevention/damageconsumer successorfailureclaim."
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch492.recording-results.json",
+      "sha256": "1ab3b71e643187f31b6d3d8e746cf2958faf5bc5697a2322009786605064a0de"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch492-20261105T171107Z-6aecb8abe51bd.json",
+      "sha256": "2eac00a8e994fa96225b6b0d46e52ab0c825d8eeef073492d485baa5093d58b7"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch492-independent-source-review.json",
+    "sha256": "057d2b8f029c2d9b7b6eae85a457996d44c21dd07150a6cdf79d5665f38f9a83"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1309/",
+      "role": "CurrentGuardianInstant3/preventnext6fromsourceofchoice, noTargetword."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "role": "CR5.3.4a parameterchoicewhen effectgenerated;5.3.6/5.3.7leaveStackafterresolutioncomplete."
+    }
+  ],
+  "limits": [
+    "SelectedRedonly/original38actions3220checks32manualcorrectStack1modelunchanged; no adaptationtoGY/earlyclear.",
+    "Only25inputs/1998passedchecks+failed1999; actualanswerinput26UNRUN, nochosen6/prevention6/actual1damageHP19/damagephase/APrefund/finalUIDcleanupqueriesexecuted.",
+    "ActualrawnoEVR_STEADFASTrowbeforeanswerisconsistentwithpendingeffect; no totalmissingpreventionimplementationclaim. NoShortSharpcase/trigger/sibling/support/fullcardcredit.",
+    "No sourcefix/proposal/newglobalCorecount/fixture/coverage/PHP/native/replay/R/source/gen/service/fullsuite/deniedretrybyreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T17:15:55.002520+00:00"
+}

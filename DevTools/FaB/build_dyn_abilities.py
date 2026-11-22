@@ -108,7 +108,7 @@ for c in cards:
  if b=='looming_doom':
   add('ResolveCard',UID+"FaBDYNLoom($player, $uid);")
   add('ResolveAbility',UID+"if (FaBDYNTickDoom($uid)) { "+pick('FaBDYNAnyTargets($player)','Choose_arcane_target',False)+"$targetUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID ?? 0); "+deal(2)+" }")
- if b=='bios_update':add('ResolveCard',"FaBDYNAdd($player, 'BIOS_POWER'); FaBDYNAdd($player, 'BIOS_ITEM');")
+ if b=='bios_update':add('ResolveCard',"FaBDYNAdd($player, 'BIOS_POWER'); FaBDYNArmBIOSItem($player, $mzID);")
  if b=='crankshaft':add('ResolveAbility',pick("implode('&', FaBChoiceRefs($player, 'Arena', ['base'=>'hyper_driver']))",'Add_steam_to_Hyper_Driver',False)+"FaBDYNDriverSteam($chosen);")
  if b=='urgent_delivery':add('Hit',"$maximum = FaBCRUCount($player, 'CHAIN_BOOST'); "+pick("FaBARCSelect($player, 'Hand', 'Mechanologist', 'Item', $maximum)",'Put_item_into_arena')+"FaBDYNMoveSelected($player, $chosen, 'Arena');")
  if b=='pulsewave_harpoon':add('AttackDeclared',"if (FaBFaiHeroHit()) { $victim = intval(FaBGetState()['defender']); $maximum = min(FaBCRUCount($player, 'CHAIN_BOOST'), FaBHandCount($victim)); if ($maximum > 0) { $refs = implode('&', FaBChoiceRefs($victim, 'Hand')); $shown = await $victim.MZMultiChoose($refs, $maximum, $maximum, \"Reveal_cards_for_Harpoon\"); FaBRevealChoices($victim, $shown); $refs = FaBDYNHarpoonTargets($shown, FaBCRUCount($player, 'CHAIN_BOOST')); if ($refs !== '') { $chosen = await $player.MZChoose($refs, \"Choose_defending_action\"); FaBDYNHarpoon($victim, $chosen); } } }")

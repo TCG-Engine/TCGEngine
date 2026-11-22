@@ -1,0 +1,36 @@
+{
+  "status": "READ_ONLY_DEPENDENCY_HOLD_NO_PATCH",
+  "issue": "FAB-REG-125",
+  "original": {
+    "path": "DevTools/FaB/CardRegression/card-regression-batch481.json",
+    "sha256": "da8fd73580a433ae9173753724c6d249629fd2b5a6948bcc73d99e6464fc07e3",
+    "case_index": 1,
+    "controls": 36,
+    "queries": 3354
+  },
+  "native_before": {
+    "path": "review-evidence/burn125-native-before.json",
+    "sha256": "dec56d89331241ac8996894c3d091cc654d48cd23edc9b4b738a56233b73d954",
+    "actual_inputs": 11,
+    "passed_queries": 922,
+    "first_failure": "P2 health expected20 actual19 before earned trigger responses",
+    "unrun_queries_after_failure": 2431,
+    "stack_query_unrun": true
+  },
+  "current_cause": "UPRCards.php FaBUPRAttack line111 still sets Aura UPR_TURN then immediately calls Burn ResolveAbility with the attacking Dragon proxy mzID.",
+  "dependency": [
+    "Burn ResolveAbility is an existing compiled await body: Barrier/Alluvion, resource pitch, Spellvoid, Quell and current replacement-prevention awaits. It cannot be safely represented by a synchronous deal-one loop or by omitting prevention.",
+    "Generic ROS abilities are removed by DoResolveCard before FaBROSResolveTrigger invokes the body; FaBManagedVirtualResolutionClass still admits ARC_ABILITY, Runechant and exact MON_ARCANIC_TRIGGER, not generic ROS. A full queued existing-body repair consequently needs the still-pending denied094 virtual-resolution lifecycle goal or a separately reviewed genuine shared capability; no such change was prepared here.",
+    "Existing MON_ARCANIC_TRIGGER is card-scoped target-declaration/CombatChain machinery, not an admission path for Burn aura; relabeling Burn to enter it would evade its contract.",
+    "Capture must distinguish Aura UID/controller (earned trigger source) from the current Dragon-derived packet UID used by the old authored body. A simple sourceUID substitution would change source-sensitive arcane/prevention semantics; this needs explicit rules/source attribution review before a future proposal."
+  ],
+  "permission_status": "125 itself has no repair application attempted. Specific094 operation remains pending approval/held; no retry, widening or generated/body rewrite attempted.",
+  "source_sha256": {
+    "FaBSim/Custom/UPRCards.php": "7f0e3b9e5127dc2cb0203f0aa8bdd46d3ff114a07768e0ed6836fb88791463ce",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/GameLogic.php": "dab09901d195dc6b77193428d4b955c7218af55d283b561bd25b362cb2b55d49",
+    "FaBSim/Custom/ROSCards.php": "e128ae27f79733982660988d3d3febcf8a15d0e25eb5090e498b0229760038f6",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6dd30ecff8877f4f3e7c8468d5bf0f0e979ffe66567897c91a6fc9577b5f9254"
+  },
+  "limits": "Read-only feasibility only. No PHP, game, source changes, generation, network, new probe or coverage. Original positive route and all unrun suffix expectations unchanged."
+}

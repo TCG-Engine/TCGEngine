@@ -1,0 +1,111 @@
+{
+  "status": "NATIVE_CONFIRMED_STALE_PREPARED_CHOOSER_POSITIONAL_REFERENCES_NOT_ORACLE_CORRECTION",
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T19:29:06.804760+00:00",
+  "input_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+  "source_spec": "card-regression-batch381.json",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch381-20261104T191859Z-6aeb8523e847c.json",
+    "sha256": "3432565656a3551d9c66a80cf85ad437e6aea623de18ed4537cbe24ef3ae9cd1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b381-native-a06-r1\\receipt.json",
+    "sha256": "9751c49737d8ee6d41fa87da228c60a880acc65eac662ecb134c3e05201289de"
+  },
+  "card_id": "blood_dripping_frenzy_blue",
+  "slug": "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer",
+  "fixture_saved": false,
+  "semantically_approved": false,
+  "source_expectation_preserved": true,
+  "initial_gamestate_sha256": "52e8715c5d66c0b561f49c613b050dd6354c647e0700085ab0a8484713a79b9f",
+  "attempted_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": {
+    "native_accepted_inputs": 1,
+    "source_step_index": 2,
+    "native_action_step": 1,
+    "checkpoint_check_index_zero_based": 62,
+    "original_case_assertion_index_zero_based": 198,
+    "type": "card_property_equals",
+    "mzId": "p1DecisionQueue-0",
+    "property": "Param",
+    "expected": "p1Hand-0&p1Hand-1",
+    "actual": "p1Hand-1&p1Hand-2",
+    "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0&p1Hand-1', got 'p1Hand-1&p1Hand-2'."
+  },
+  "observed": {
+    "window": "PITCH",
+    "pendingPayment": {
+      "player": 1,
+      "uid": 5,
+      "cost": 2,
+      "fromZone": "Hand",
+      "kind": "ACTION",
+      "returnWindow": "ACTION",
+      "returnCombatStep": "NONE"
+    },
+    "hand_refs": [
+      "p1Hand-0",
+      "p1Hand-1"
+    ],
+    "prepared_continuation": "blood_dripping_frenzy_blue:0:PrepareCard-await|blood_dripping_frenzy_blue:0:PrepareCard#1|5|chosen",
+    "earlier_passed_hand_UIDs": {
+      "p1Hand-0": 6,
+      "p1Hand-1": 7
+    },
+    "earlier_passed_hand_cards": {
+      "p1Hand-0": "wounding_blow_blue",
+      "p1Hand-1": "dread_screamer_red"
+    },
+    "earlier_passed_resources": 0,
+    "earlier_passed_AP": 1,
+    "earlier_passed_Pitch_count": 0,
+    "earlier_passed_Deck_UIDorder": [
+      9,
+      10
+    ]
+  },
+  "source_reasoning": [
+    "Primary5 leaves original Hand index0 for Stack. Actual FaBChoiceRefs skips removed objects but builds positional refs with their current un-compacted array indices, so the Prepare chooser initially names oldindices1,2 for Blue6/Dread7.",
+    "Observed persistence path: GamestateParser220-229 invokes existing EngineRemapZoneForSave on a transformed COPY; its232-235 serializer omits removed Hand tombstones. The next EngineRunAction reparses compact surviving rows (EngineActionRunner1215-1220). WTRCards329+ save hook chains named existing remappers but not this Frenzy Prepare chooser. Core CleanupRemovedCards is a distinct live-splice path; this receipt does not prove it ran, and no such execution is claimed.",
+    "Native archive itself proves persisted chooserrefs1,2 coexist with compact reparsedHand0,1. Earlier passing native CardID/UID assertions pin Blue6 at0 and Dread7 at1 before the failing Param assertion. Actual GetZoneObject resolves current zone/index directly; MZResolveObject delegates plain refs to it. No stable UID mapping is encoded in this positional Param.",
+    "Therefore actualoffered1 now addresses Dread7 rather than intendedBlue6, and2 is outside the two-card currentHand. Correct expected0,1 is retained; changing it to1,2 would bless a stale selector. No post-choice native effect or rejected-answer result is claimed."
+  ],
+  "source_guards": {
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/CoreZoneModifiers.php": "7dc73c322ccfed1a87e8f2eb6cdcdc847a458f76841b7d609e400c7682e4c1ef",
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/Custom/WTRCards.php": "10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec"
+  },
+  "source_anchors": [
+    "CardChoices123-140 FaBChoiceRefs",
+    "DTDCards171-176 FaBDTDCostPitchChoices",
+    "dtd canonical Frenzy Prepare/GeneratedMacro119149ff",
+    "CoreDecisionQueueController518-565 CleanupRemovedCards (separate unobserved live-splice path)",
+    "FaBSimGamestateParser220-239 COPY-remap hook/nonremoved serialization",
+    "WTRCards329ff existing EngineRemapZoneForSave named helpers",
+    "CoreEngineActionRunner1215-1220 reparse per native action",
+    "ZoneAccessors960ff GetZoneObject; CoreZoneModifiers92-94 MZResolveObject"
+  ],
+  "classification_scope": "Native-confirmed stale positional chooser boundary. Distinct/new root-cause or issue-number assignment is not assessed here; no repair proposed/applied.",
+  "limits": [
+    "No pitch answer, physical banish, asset debit, captured dtdDraw/dtdPower, primary resolution, draw, consumer attack, finaldamage or replay was executed for Frenzy.",
+    "Frenzy source-only asset/effect-cost ordering and synchronous lifetime concerns in source gate remain separate and unchanged.",
+    "No runtime source edits/native/PHP/replay/service/generation/fullsuite by reviewer."
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_HELM_EARNED_WEAPON_GATE_PAID_BANISH_SAME_CARD_SAME_CHAIN_USE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T10:54:18.505949+00:00",
+  "source_spec": "card-regression-batch322.json",
+  "input_sha256": "689fac2f076a9ca98586007990f49411b5a857e2ff5b3cf790b195ccd4be41bd",
+  "manifest_sha256": "b9027e760894af473e3b2a26dc12e89cfd826726f89912acb87ea396587c7ba2",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_guards_verified": 19,
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch322-independent-source-review\\review.json",
+    "sha256": "6aee55b01dc976f3452fbfee6a31aebaaab44227470393426274177220df1a73"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch322-20261103T104708Z-6ae9bbacdc89b.json",
+    "sha256": "cbe9e30b0578e46b1d1e651a40893b3df5b9a33c12bc1177636adf8bafc2e34a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch322-native-r1\\receipt.json",
+    "sha256": "7b424d950fc50f360d0ddd2b3111a3e6ff4415bc249ef46a7994c35a95eea083"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch322-independent-saved-review\\audit_saved.py",
+    "sha256": "8e715c9d83fee151fbac2b02bf2d5ec1dd4b1de66530a19743ebe19bd53100d9"
+  },
+  "review_method": "Reused independent printed/source model. All61actualinputs5775assertions exact with54manualactors; secondattack computed fields normalized toactual p1CombatChain-1. Complete strictschema endpoints/physicalownership/counters/economy/48manualpreferences each, allterminalassertions evaluated, exactmeta/rawfive/runtime stable. No authorbuilder/native/PHP/Rwork oroldfixtureaudit.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "helm_of_sharp_eye",
+      "slug": "card-helm-of-sharp-eye-four-live-sparse-earned-five-power-sword-real-paid-banish-and-same-chain-card-use",
+      "source_spec": "card-regression-batch322.json",
+      "input_sha256": "689fac2f076a9ca98586007990f49411b5a857e2ff5b3cf790b195ccd4be41bd",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-helm-of-sharp-eye-four-live-sparse-earned-five-power-sword-real-paid-banish-and-same-chain-card-use",
+      "fixture_sha256": "ac21b8715a902d306538dba0ddfa2137235262610a7649433d10b3090e951326",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c5b7f354010043b0af02f515e2d14a189a63ef9ddfd3dc5a04398f27bb07649f",
+        "actions.json": "a1fe660b6699ef1801fdbbe4d38180d960f3ecb131404da01109cfbbea7a24dc",
+        "assertions.json": "aaa9c82a4e0daa1a689a13a6ebd35da2df5437a3f4d2d80c8706648125e38c54",
+        "expected_final_gamestate.txt": "9ca2306d271184f93d62ebe00f84a860542bcb9d75438cc00fbaa38c0e72f4de"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c5b7f354010043b0af02f515e2d14a189a63ef9ddfd3dc5a04398f27bb07649f",
+        "actions.json": "a1fe660b6699ef1801fdbbe4d38180d960f3ecb131404da01109cfbbea7a24dc",
+        "assertions.json": "aaa9c82a4e0daa1a689a13a6ebd35da2df5437a3f4d2d80c8706648125e38c54",
+        "expected_final_gamestate.txt": "9ca2306d271184f93d62ebe00f84a860542bcb9d75438cc00fbaa38c0e72f4de",
+        "meta.json": "b7cc6e0e80440d0df727d4e868b520fbd88fb33f7c6460378ecd94daacc3dcb4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c5b7f354010043b0af02f515e2d14a189a63ef9ddfd3dc5a04398f27bb07649f",
+        "actions.json": "a1fe660b6699ef1801fdbbe4d38180d960f3ecb131404da01109cfbbea7a24dc",
+        "assertions.json": "aaa9c82a4e0daa1a689a13a6ebd35da2df5437a3f4d2d80c8706648125e38c54",
+        "expected_final_gamestate.txt": "9ca2306d271184f93d62ebe00f84a860542bcb9d75438cc00fbaa38c0e72f4de",
+        "meta.json": "b7cc6e0e80440d0df727d4e868b520fbd88fb33f7c6460378ecd94daacc3dcb4"
+      },
+      "actions": 61,
+      "native_assertions": 5775,
+      "actual_manual_passes": 54,
+      "actual_priority_response_passes": 52,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "kassai_cintari_sellsword",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "driving_blade_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "helm_of_sharp_eye",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "cintari_saber",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "kassai_cintari_sellsword",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "cintari_saber",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "driving_blade_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "helm_of_sharp_eye",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "ceased_virtual_uids": [
+        11,
+        12
+      ],
+      "checkpoint_count": 63,
+      "checkpoint_assertion_mapping_sha256": "7aa2488cf4e5589ac00a04cb1c93f462b7bf856ab9346e14afe3f08c9e8fa589",
+      "native_action_mapping_sha256": "2bcf2390f1e777c5707df7dc9ada7427b4d1808a06058f8a5c319e1940f2a8f5",
+      "native_assertion_mapping_sha256": "45dbb5650954d937ffa3f1df1ac8419db1646e012794597f2e7554a2db752c8c"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 61,
+  "total_native_assertions": 5775,
+  "total_manual_passes": 54,
+  "total_priority_response_passes": 52,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "ActuallegaloldyoungKassaiCintariSellsword20/threeDorintheas20/manualUPF; no initialasset/power/GA/permission/historyseeds. RealDriving7cost2/Blue8 leavesR1, sourcefour thennextweapon3+GA/ownGAAP1. ActualfirstSword1 usesR1/AP1, same6used/oncecount1, realproxy11power2+3=5/GA; printedHelmgate5>4 earned.",
+    "ActualHead5AR1 waitsBlue9 while5stillEquipment; realBlue9pitch3 pays1/R2, same5destroycostownedpublicGYbeforefour source responses. Onlyfourth actualDeckUID10publicownedBanish/Playable1 andthis-chainpermission, virtual12clears. CapturedHelmsource5/weapon11 remain in native variables.",
+    "Actualfirst5damageHP15, fourDamage onlyfourth grantsSwordGA/AP1 withchainopen; actual sameBanish10clickcost0spendsAP1. Newsourcefour puts same10secondlink/FromBanish whileproxy11firstlinkretained; explicitcomputedpower4/noGA checks usep1CombatChain-1. Actual4more damage givesHP11, noAArefund.",
+    "Fullrawparsed endpoint exactownGYUIDset5,7,10/Pitch8,9/usedSword6 retained, alloriginalphysical1-10conserved/proxy11andHelmvirtual12ceased, R2/AP0/allheroesready-live/DeckBanishStackChainsqueuespaymentawaitclear. Oneweaponattack only/noEndPhase/noAAblockers; no omittedCopper/secondSworddiscount/Saberdefended trigger earned."
+  ],
+  "limits": [
+    "OnlyearnedHelmpowergate/resource1/destroy/top10Banish/actualsamechainpermissionuse. No failedgate/Battleworn/otherDeck/permissionexpiryafterclose/negativeactivation/weaponblock/secondSword/EndPhase/Copper/hero/supportprimary/fullcard/controlcredit.",
+    "Intermediate evidence is complete nativeaction/assertion ledger; endpoint files are not additional percheckpoint snapshots. Rootreplay/registration gates remain separate.",
+    "No R/native/PHP/sourcefix/gen/service/fullsuite/oldreplay or authorizationretry."
+  ]
+}

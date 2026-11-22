@@ -1,0 +1,125 @@
+{
+  "status": "APPROVED_BOUNDED_CULL088_MANAGED_PLAIN_SPELL_SOURCE_RETENTION_COMPONENT_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-04T19:35:55.765546+00:00",
+  "runtime_before_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "projected_source_only_runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "proposal": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull382-managed-source-lifetime-proposed\\proposal.json",
+    "sha256": "43dada2ba58320a4a1e7a8a1a30e6bc8b5579c08e0ea4e0ad3392523d827921a"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull382-managed-source-lifetime-proposed\\proposal.json",
+    "sha256": "43dada2ba58320a4a1e7a8a1a30e6bc8b5579c08e0ea4e0ad3392523d827921a"
+  },
+  "patch": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull382-managed-source-lifetime-proposed\\cull-managed-source-lifetime.patch",
+    "sha256": "a1ab0d55b50bc9806ae318142322dd74ac40998077a15a8738e3baf4d37c9831"
+  },
+  "candidates": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull382-managed-source-lifetime-proposed\\GameLogic.php",
+      "before_sha256": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+      "after_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43"
+    }
+  ],
+  "source_guards": {
+    "FaBSim/Custom/GameLogic.php": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "f1db3603aa11cba94afc1fec49609f217a1fcea27e57c66b010a54fd58fb0d4f",
+    "DevTools/FaB/CardRegression/runtime_fingerprint.py": "db68bf9a4d57385479fe501791c19e2285790293b0f074425df5e7d1baa8cc61"
+  },
+  "source_guards_verified": 11,
+  "source_spec": "card-regression-batch382.json",
+  "input_sha256": "539a982c2d6de6687fac660917d15f1be0492c87dc44e803d5dbc42e1c01c304",
+  "original_correct_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch382-independent-source-review.json",
+    "sha256": "1844334ec0273852e22513f1770c8004a2f01ef704283c74027ed4b64bcb51bd"
+  },
+  "actual_native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch382-cull-native-lifetime-boundary-classification.json",
+    "sha256": "380a2503c0081cc902bcf7f7f8f559efa28eb609a754fcddd2b66affde3ebd19",
+    "accepted_native_inputs": 5,
+    "Stack_count": 0,
+    "pending_chooser": 1,
+    "fixture_saved": false
+  },
+  "exact_inverse_reconstruction": true,
+  "all_other_source_bytes_preserved": true,
+  "added_bytes": 11,
+  "changed_source_lines": 1,
+  "canonical_generated_unchanged": true,
+  "generation_required": false,
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_cull088_source_readonly.py",
+    "sha256": "53c4ec3db586065a235a22464eee15b2cd8ae7231775d68614a3da4e9bb9fb5f"
+  },
+  "official_evidence": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3514/",
+      "finding": "Current official text matches viewed local HNT259: ordinary Shadow Runeblade Action0, public Banish play permission, conditional Instant timing, each hero banishes own Hand card, Blood Debt; no own go again."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.1",
+        "5.3.4",
+        "5.3.5",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Resolution effects precede go again and leaving/clearing Stack. No printed self-moving source effect here; incomplete owned Hand choices keep source as resolving layer."
+    }
+  ],
+  "viewed_face": {
+    "path": "FaBSim/WebpImages/cull_red.webp",
+    "sha256": "ecea87f4019253365317234b46e92dba1a50e74c786ac89db5a9276f54305240",
+    "actual_local_official_face_viewed": true
+  },
+  "independent_semantic_findings": [
+    "Exactly one eleven-byte cohort addition; all 29 preexisting IDs/order and all other GameLogic bytes unchanged. The existing predicate still accepts only ACTION/INSTANT, preserves positive foreign-owner exclusion and Tome exception, and does not grant play permission, alter costs or convert other roles.",
+    "Actual DoResolveCard nonpersistent branch records sourceUID/cardID/owner/controller/sourceMZ, completion source and baseline await keys before invoking ResolveRules on still-live source. Existing depth guard protects initial callback; canonical/compiled Cull scalar/array loop yields MZCHOOSE plus CUSTOM on each live seat queue and eventually finishes the same frame. It never moves its own source or creates a permanent.",
+    "Existing work predicate checks every seat queue including static continuation rows, then every live await frame. Finalizer is reached after actual engine actions, cannot finish with such work outstanding, removes pending marker under depth guard before go-again/movement hooks, re-finds UID and moves only if still Stack. Thus selected source5 remains through four Hand choices and is cleared once afterward without source resurrection.",
+    "Second real known-list caller is suppression guard in plain-spell go-again completion. Selected printed Cull has no ownGA and no grantedGA or ability-loss seed, so expected AP0 is unchanged. Instant route is structurally eligible because Cull can legally acquire Instant timing; predicate itself is not an Instant play-legality proof. Other Kind roles never enter this ordinary cohort.",
+    "Actual native-before evidence is five accepted inputs, Stack0 while first P1 choice remains pending. GY destination is source-derived; no uncaptured physical final state claimed. Correct strict Stack1 original539a982 input is unchanged and must pass fresh after-source native before qualification."
+  ],
+  "component_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-predicate-component.php",
+    "sha256": "9921d942a95aba6ac060211f17e26d2aa4be8311ee9ebada6b6fd656385be0ab",
+    "actual_function_extraction": true,
+    "planned_predicate_assertions": 15,
+    "executed_by_reviewer": false,
+    "limitations": "Two pure actual extracted routing predicates on controlled object inputs; no game setup/permission/resolution/await integration/native evidence."
+  },
+  "remaining_gates": [
+    "Root actual predicate components and real candidate syntax checks, independently guarded source application; no generator required.",
+    "Original unchanged nine-input Cull strict source/physical choices/fullcleanup native, independent exact saved review and two focused replays; bounded existing managed-await compatibility separately as Root selects."
+  ],
+  "limits": [
+    "Approval is the selected owned ordinary Action source-retention repair, not broad NAA/foreign-owner/eliminated chooser/controller/empty-Hand/general await certification. Existing unsupported dead-chooser handling is untouched.",
+    "Named-list membership also reaches existing HasNoAbilities go-again early-return. Granted-GA combined with suppression remains unattempted/unqualified; this source gate makes no claim for that combination or unrelated cohort suppression rules.",
+    "Canonical callback actor/other triggered banish interactions are unchanged; selected quiet original scenario has no such branch. No per-pitch/sibling/Instant-native/fullcard/control credit.",
+    "No global/Core/new-root attribution or pass credit from source review; proposal/classification remains separate from Root issue bookkeeping.",
+    "No PHP/native/replay/R/source/service/generation/full-suite execution by reviewer; ten old holds and Smashing Item branch preserved."
+  ],
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "R_writes": false,
+    "source_application": false,
+    "generator": false
+  },
+  "holds": []
+}

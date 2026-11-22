@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch302.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T07:16:43.796182+00:00",
+  "fixtures": [
+    {
+      "slug": "card-quick-clicks-four-live-sparse-real-nimblism-earns-destroy-action-next-attack-go-again",
+      "fixture_sha256": "53985e3b427f1dacb174196a53de6be604c9aa612998142de052ba9f849ce662",
+      "passed": true,
+      "result": "[PASS] quick_clicks / four live distinctive effect"
+    },
+    {
+      "slug": "card-mandible-claw-four-live-sparse-real-six-power-discard-paid-two-resource-weapon-eight-damage-go-again",
+      "fixture_sha256": "a2b983735c611d3117c85fd823ced1cbfd801d0e062586dd6d421d37e81e9676",
+      "passed": true,
+      "result": "[PASS] mandible_claw / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-quick-clicks-four-live-sparse-real-nimblism-earns-destroy-action-next-attack-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] quick_clicks / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mandible-claw-four-live-sparse-real-six-power-discard-paid-two-resource-weapon-eight-damage-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] mandible_claw / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

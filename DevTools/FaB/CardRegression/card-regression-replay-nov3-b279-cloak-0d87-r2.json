@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch279.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T03:16:37.814053+00:00",
+  "fixtures": [
+    {
+      "slug": "card-spell-fray-cloak-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "fixture_sha256": "55743024d5747b80f19a150fff31a7760d740367fe3aed2719ddcce961a7a5fb",
+      "passed": true,
+      "result": "[PASS] spell_fray_cloak / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spell-fray-cloak-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] spell_fray_cloak / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

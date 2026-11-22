@@ -1,0 +1,39 @@
+{
+  "status": "PASS_NATIVE_ORDINARY_FUNDED_ATTACK_NO_SAVE",
+  "runtime_sha256": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+  "source": "card-regression-repair-tip179-ordinary-funded-attack-probe.json",
+  "source_sha256": "8f851bf982c3a0b506b86744593f27b3d13d276eba17f9a761eb010e80122920",
+  "recorder_flag": "--probe-only",
+  "returncode": 0,
+  "actions": 7,
+  "assertions": 140,
+  "fixture_saved": false,
+  "fixture_count_before": 4180,
+  "fixture_count_after": 4180,
+  "coverage_credit": false,
+  "basis": "Already-funded ordinarymenuPLAY0 plusP4Hero declaration paysR1/AP1 normally, thenfreshfourresponses produceactualTip5attackonchain power3, notheldPITCH; noHeroMark/allHP20 andHandBlue6 retained. StopsatATTACK, no damage/full-card credit.",
+  "oracle_correction": {
+    "classification": "NEW_PROBE_ORACLE_ERROR_NOT_ENGINE_DEFECT",
+    "failed_expected_power": 1,
+    "correct_printed_power": 3,
+    "printed_cost": 1,
+    "old_spec_sha256": "457c6d4d850b6471961531edc93c81fb7aa4f5aef801d46e86afaeb53eccbe21",
+    "normative_delta": "Only /0/steps/14/checks/13/value 1\u21923; accompanying oracletext distinguishescost/power. Originalfailurewitnesses/main498queries unchanged.",
+    "independent_review": {
+      "workspace_path": "nov20-tip179-compat-print3-independent-review-approved.json",
+      "sha256": "c17c7eafeecbbeea44213651b718f61cac70656a8815d07e46c839dd9e49deaf"
+    },
+    "failed_receipt": {
+      "workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-tip179-funded-attack-native-no-save\\receipt.json",
+      "sha256": "d40c2f21f74c3f62e988894dd6ab807fde4bd54c4c1d28e4141927e437aa5b29",
+      "native_actions": 7,
+      "error": "power  expected 1 got 3",
+      "fixture_saved": false
+    }
+  },
+  "raw_pass_receipt": {
+    "workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-tip179-funded-attack-print3-native-no-save\\receipt.json",
+    "sha256": "abeb7aa8133ea93161265aebb149c245ba1a410085e0dcf60e7c8dffbab0573b"
+  },
+  "full_suite_run": false
+}

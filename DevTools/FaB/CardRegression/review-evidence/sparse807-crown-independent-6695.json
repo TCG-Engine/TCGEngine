@@ -1,0 +1,299 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B807_CROWN",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T01:21:27.356300+00:00",
+  "source_spec": "card-regression-batch807-crown_of_dominion.json",
+  "input_sha256": "ff91859d65fcc36723bc9e256d33719799e001ae97bfdf21da6e182591c639a8",
+  "manifest_sha256": "831e6a2b1aebf4ad5bf863af91a8467eab5efcf466d102327cf0d182ef4500c5",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch807-crown-continuous-royal-real-ledger-cost-gold-paid-draw-red-consumer-author\\manifest.json",
+    "sha256": "831e6a2b1aebf4ad5bf863af91a8467eab5efcf466d102327cf0d182ef4500c5"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch807-crown-independent-correct-positive-source-review.json",
+    "sha256": "499bcd0998c334f802362edf81454a5f7be62c980e5f47a85a92292e9050b3bd"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b807-crown-native-continuous-royal-ledger-gold\\receipt.json",
+    "sha256": "389779f5edec5fafd7b6c21fa4d625f9a6df95636c699df4e2eed0dcb00c652c"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch807-crown_of_dominion-20261115T011814Z-6af908564223d.json",
+    "sha256": "c6718a7b9f8b216b797274d089ab7e4ce9e9c5b2596f72a6abcc7099f7fcf7d0"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch807-crown_of_dominion.recording-results.json",
+    "sha256": "1f2ecd35b05def9e8fad3b45d0ed9c5416652798158890acedb83469606a4f29"
+  },
+  "fixtures": [
+    {
+      "slug": "card-crown-continuous-royal-real-ledger-cost-gold-paid-draw-red-consumer",
+      "card_id": "crown_of_dominion",
+      "group_id": "identity:crown_of_dominion",
+      "source_spec": "card-regression-batch807-crown_of_dominion.json",
+      "input_sha256": "ff91859d65fcc36723bc9e256d33719799e001ae97bfdf21da6e182591c639a8",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-crown-continuous-royal-real-ledger-cost-gold-paid-draw-red-consumer",
+      "fixture_sha256": "3c00f91ae311347eff36c6ca85a161da0e9a14f359f6253ad3978d1f76eeeb70",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "033a1ac49ccd3c3d1cf9e7c565feac462168ebda5c071ae70e333d546394d830",
+        "actions.json": "7823cf1006506ce5707e18c993464568ef3697bee355c2b6d8fd45be7b6f6552",
+        "assertions.json": "9df74e18373a4a3e9b557f982680c7c48ec83f529a853e8c4dafc51da245255b",
+        "expected_final_gamestate.txt": "a3fe751d7aaae28b6a646ddda548992c12e8e89da8773a2818d2f9f440672640",
+        "meta.json": "a9156f7af52f67b667764e020bb09eab8e1bb7f389962dafff2e02c72544794b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "033a1ac49ccd3c3d1cf9e7c565feac462168ebda5c071ae70e333d546394d830",
+        "actions.json": "7823cf1006506ce5707e18c993464568ef3697bee355c2b6d8fd45be7b6f6552",
+        "assertions.json": "9df74e18373a4a3e9b557f982680c7c48ec83f529a853e8c4dafc51da245255b",
+        "expected_final_gamestate.txt": "a3fe751d7aaae28b6a646ddda548992c12e8e89da8773a2818d2f9f440672640",
+        "meta.json": "a9156f7af52f67b667764e020bb09eab8e1bb7f389962dafff2e02c72544794b"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "033a1ac49ccd3c3d1cf9e7c565feac462168ebda5c071ae70e333d546394d830",
+        "actions.json": "7823cf1006506ce5707e18c993464568ef3697bee355c2b6d8fd45be7b6f6552",
+        "assertions.json": "9df74e18373a4a3e9b557f982680c7c48ec83f529a853e8c4dafc51da245255b",
+        "expected_final_gamestate.txt": "a3fe751d7aaae28b6a646ddda548992c12e8e89da8773a2818d2f9f440672640"
+      },
+      "actions": 43,
+      "native_assertions": 2936,
+      "manual_passes": 37,
+      "actual_manual_passes": 37,
+      "actual_priority_response_passes": 36,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 789,
+      "checkpoint_count": 45,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 147,
+        "43": 211
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "crown_of_dominion",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "imperial_ledger_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "imperial_ledger_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "crown_of_dominion",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "51cc0c3fa124d58e5a4e23021f282ecb88ead877acc837809384cf909bff5a04",
+      "native_assertion_mapping_sha256": "9866e25ca4e6813e59593e80312ad436ff04e68880e887bb51f08a5b1b0af0c0",
+      "checkpoint_assertion_mapping_sha256": "e6b8eec1b8083ba8a0d2f4e4e3285a4fd6fc3a3d01159bd6b7ee1d7c5fd5ec33",
+      "actual_temporary_Gold_UID": 12,
+      "actual_same_Ledger_UID": 6,
+      "virtual_ability_owner_rules_asserted": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 21,
+  "all_current_guards_matched": true,
+  "total_actions": 43,
+  "total_native_assertions": 2936,
+  "total_manual_passes": 37,
+  "total_schema_property_assertions": 789,
+  "total_checkpoints": 45,
+  "total_endpoint_assertions_evaluated": 358,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    16
+  ],
+  "material_findings": [
+    "All43actualnativeenvelopes/2936successfulqueries/37manualactors9,9,9,10exactSource. All358rawendpointqueriesand48manualpreferenceseachindependentlyevaluated.",
+    "ActualinitialnonRoyalprintedBetsy/Crown5EQ/Ledger6Timesnap7Arena/Blue8Red9Hand/EMPTYDeck/noGoldCopperRoyalflag/effectseed. SameCrownretainedthroughallaffectedtransitions; CrownWHENequippednotexecutedorcredited.",
+    "ActualTimesnap7costdestroy/AP0thenfourresponsesAP2; Ledger6costArena->EMPTYDecknowexactoneLedger/AP1beforepriority. CoreEngineShufflezeroiterationsfollowsactualonecardcardinalityandunchangedcode; RandomCounter0corroboratesbutaloneisnotproofstrongentropyabsence. PotionLuck2multicardheldpathnotexercised.",
+    "LedgerfourthresponsecreatesactualGold12INSTEADCopperbecauseCrowncontinuousRoyal. ActualGold2Blue8pitch3/R1/AP0destroyGold12; onlyfourthGoldresponsedrawsSAMEownLedger6/GAAP1. RealRed9earlyHero4targetspendsAP0/printed4noGA/physicalHP4_16.",
+    "TrueCloseCrown5EQ/Ledger6Hand/Timesnap7Red9GY1/Blue8Pitch1/Goldceased/R1AP0/allfourlive/fullStackChainDQTargetPaymentManagerAwaitcleanup. Originalphysical1to9conserved, allocationcounter13containsnotokenorvirtualownerinference."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_action_source_effect_ordering_certified": false,
+  "general_activated_ability_lifecycle_certified": false,
+  "general_Royal_or_shuffle_certified": false,
+  "Crown_When_equipped_branch_certified": false,
+  "limits": [
+    "OnecontinuousRoyalCrownpositiveonly; noOnEquip/startgameGold/re-equip/inventory/negativeRoyal/generalRoyal/generalcreator/multicardglobalshuffle/fullcard/siblingcertificate.",
+    "NoRoyaltype-onlyorGoldseedfallback. Quietsource-independentabilityendpoints only; withinatomicvirtualsource/effectordering/generalmanagedabilityhealthuncertified.",
+    "Roottwonew-onlyfocusedreplaysandregistrationremain. ReviewernoPHP/native/replay/R/source/Git/repair/B787action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch807_crown_saved.py",
+    "sha256": "de94406a2f197db62dcb34bebb9a78de6c435720c56957083acae7961fa6ac74"
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "status": "FOCUSED_AETHERSLING_TARGET_AND_LIFETIME_REPAIRS_QUALIFIED",
+  "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+  "issue": "FAB-REG-168",
+  "qualified_branch": "Owned Action, real adjacent Hero4 target, actual resource1 payment, four manual responses, arcane4, ready hero tap, go again, real cost0/power4 consumer and cleanup.",
+  "source_changes": {
+    "shared_FaB": [
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/Custom/OMNCards.php",
+      "FaBSim/Custom/CodeGeneration.php"
+    ],
+    "card_canonical": [
+      "DevTools/FaB/omn_abilities.json",
+      "DevTools/FaB/build_omn_abilities.py"
+    ],
+    "emitted": [
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "FaBSim/GeneratedCode/GeneratedMacroCount.js"
+    ],
+    "Core_changed": false
+  },
+  "target_application": {
+    "runtime_before": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+    "runtime_after": "9f8d28005cca0eb200f3cf27498d2297686174da4f96b4d61e77e8b3ea0329b6",
+    "source_files": [
+      {
+        "path": "FaBSim/Custom/OMNCards.php",
+        "before_sha256": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+        "after_sha256": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510",
+        "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\before\\FaBSim\\Custom\\OMNCards.php"
+      },
+      {
+        "path": "DevTools/FaB/omn_abilities.json",
+        "before_sha256": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+        "after_sha256": "eaaceedb02d99ba22d911d5c00ce63eea7dd491909e3278761c5278c8063209b",
+        "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\before\\DevTools\\FaB\\omn_abilities.json"
+      },
+      {
+        "path": "DevTools/FaB/build_omn_abilities.py",
+        "before_sha256": "b96c38210ee8004fe97e1ff8ab096fcd2c3637e5b68aa084631151631d4f10c8",
+        "after_sha256": "cfd519c3e4039e618e52e1e5e3e743b7b21498ba22c88d6f811ce470b38efd8a",
+        "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\before\\DevTools\\FaB\\build_omn_abilities.py"
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "before_sha256": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+        "after_sha256": "5eedfe6f5b850049223210ee7298fab4802b5c04b1d7e009285f7026f18e1164",
+        "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\before\\FaBSim\\Custom\\GameLogic.php"
+      },
+      {
+        "path": "FaBSim/Custom/CodeGeneration.php",
+        "before_sha256": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+        "after_sha256": "48a14a2f86f0d49b7bdf58af0c2a64868e9f7f94a13c2de61a5cce483e41150f",
+        "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\before\\FaBSim\\Custom\\CodeGeneration.php"
+      }
+    ],
+    "generated_outputs": [
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "sha256": "306678f46c2fff96a66fe293ec4675903ae446850f8cd3a7cfa59953e986ebe3",
+        "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+        "sha256": "40b9cc593a53aba5bdd6df2c382cb73c1faa3931b11b74008f9317d6cf311858",
+        "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+      }
+    ],
+    "emitter_invocations": 1,
+    "external_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\receipt.json",
+      "sha256": "e866e0a796b2a4d5c9f53ba90b113c577d6127367433e38b6a17dcdf353bb9e1",
+      "role": "External historical preparation/recovery detail; not a runner input"
+    }
+  },
+  "lifetime_application": {
+    "status": "APPLIED_UNQUALIFIED_PENDING_NATIVE_AFTER",
+    "target": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+    "before_sha256": "5eedfe6f5b850049223210ee7298fab4802b5c04b1d7e009285f7026f18e1164",
+    "proposed_sha256": "95983583785fc0bf713e2a34d4b2ecba947869224e09d165dd0b5176454f539a",
+    "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-one-id-managed-lifetime-admission-proposal\\GameLogic.before.php",
+    "proposal_sha256": "0e74eecc91ad8dad272c9088a47b431ca878432a74f95aad29c1810c0bd83f45",
+    "independent_review_sha256": "423334e7138af1188bc8399dd8ff854e224bdfb40fed4d6a1b4c705694b3a1f3",
+    "component_sha256": "af42e1b21c4cef701dc15e9d8180223b9da8ffcbf0d7500e710ad8fd74b8007f",
+    "runtime_before": "9f8d28005cca0eb200f3cf27498d2297686174da4f96b4d61e77e8b3ea0329b6",
+    "added_card_ids": [
+      "aethersling_red"
+    ],
+    "utc": "2026-11-14T01:27:23.064177+00:00",
+    "qualification": false,
+    "runtime_after": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+    "applied_utc": "2026-11-14T01:27:23.478818+00:00"
+  },
+  "independent_source_reviews": [
+    {
+      "name": "nov14-aethersling-local-route-r3-independent-source-review.json",
+      "sha256": "f1946b73bb208114f5db35d24fc5f9986fbd6679da98f7a6d44c1d8778997836",
+      "status": "APPROVED_FOR_ROOT_SYNTAX_COMPONENTS_AND_GUARDED_LOCAL_EMISSION",
+      "external_detail": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-local-route-r3-independent-source-review.json"
+    },
+    {
+      "name": "nov14-aethersling-r3-independent-actual-emitted-body-review-v2.json",
+      "sha256": "27e760c38c8759163ee3d51ebd34a29875320ac507bcd07fe036e548ec79f14d",
+      "status": "ACTUAL_EMITTED_BODY_APPROVED_MATCHES_INDEPENDENT_SOURCE_R3",
+      "external_detail": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-independent-actual-emitted-body-review-v2.json"
+    },
+    {
+      "name": "nov14-aethersling-one-id-managed-lifetime-independent-source-review.json",
+      "sha256": "423334e7138af1188bc8399dd8ff854e224bdfb40fed4d6a1b4c705694b3a1f3",
+      "status": "SOURCE_PATCH_APPROVED_PENDING_ROOT_COMPONENT_SYNTAX_APPLICATION_AND_STRICT_NATIVE",
+      "external_detail": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-one-id-managed-lifetime-independent-source-review.json"
+    },
+    {
+      "name": "nov14-aethersling-full-native-before-lifetime-independent-review.json",
+      "sha256": "b3b420dbf33713d6c08767a24f4f4a2ab31f244c1c04d52eccb68f0f5afd9b3d",
+      "status": "NATIVE_CONFIRMED_AETHERSLING_SOURCE_LEFT_STACK_BEFORE_REAL_TAP_CHOICE",
+      "external_detail": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-full-native-before-lifetime-independent-review.json"
+    }
+  ],
+  "component_results": {
+    "syntax_checks_reused": 3,
+    "helper_stub_assertions": 57,
+    "source_transform_assertions": 6,
+    "pure_predicate_comparisons": 62352,
+    "only_added_card_id": "aethersling_red",
+    "native_fault_credit": 0,
+    "failed_harness_receipts_preserved": true
+  },
+  "small_existing_component_check": {
+    "argv": [
+      "C:\\xampp\\php\\php.exe",
+      "DevTools/FaB/wtr_test.php"
+    ],
+    "returncode": 0,
+    "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\n",
+    "runtime_sha256": "9f8d28005cca0eb200f3cf27498d2297686174da4f96b4d61e77e8b3ea0329b6",
+    "limitation": "Run after target/emitter repair. Not repeated after sole Aethersling classifier admission: pure predicate comparison verifies all other IDs/kind/owner behavior unchanged. Not a full suite."
+  },
+  "original_failed_declaration_source": {
+    "path": "card-regression-batch776-aethersling-target-probe.json",
+    "sha256": "54755c22abbcf9f966d053506e552e6a6098f1b4f0247f016843c3bcffa8060e"
+  },
+  "original_failed_declaration_result": {
+    "path": "card-regression-batch776-aethersling-target-probe.recording-results.json",
+    "sha256": "a82dd6a85178312d582bb9f3eb73311f314b4c2c39f774a8009227b5c0a29b43"
+  },
+  "failed_lifetime_source": {
+    "path": "card-regression-batch776-aethersling-full.json",
+    "sha256": "4843ced53d7cf54581af920eff7ec55c8f00b04b9b151216c75af660e9063799"
+  },
+  "failed_lifetime_result": {
+    "path": "card-regression-batch776-aethersling-full.recording-results.json",
+    "sha256": "5b6a8c6040325cabc77b9cd8ffde72f4765ab0a69df7212ceb0e75fd8df00f1b"
+  },
+  "qualified_source": {
+    "path": "card-regression-batch776-aethersling-full-managed.json",
+    "sha256": "4843ced53d7cf54581af920eff7ec55c8f00b04b9b151216c75af660e9063799"
+  },
+  "native_after": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b776-aethersling-managed-full-native-after\\receipt.json",
+    "sha256": "45c07de1afe6a06062e542850e4853c990c28a3251123abd6bea071659f9a060",
+    "role": "External historical preparation/recovery detail; not a runner input"
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse776-aethersling-full-managed-independent-50bd.json",
+    "sha256": "716874c66601ee7e4b14b92ae24a3fbdc7baaeb8a267d5ae32004654118c087f"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov14-b776-aethersling-clean1.json",
+      "sha256": "226f9ec1267945e43a553c057b5b0e3fa3cd8ca9cabf1fb9f864557df7166ef4"
+    },
+    {
+      "path": "card-regression-replay-nov14-b776-aethersling-clean2.json",
+      "sha256": "a4b651461e6030872cbfa908ae3f503a0b5b59e7ebb6e9e439d3b2ead6c192de"
+    }
+  ],
+  "gameplay_expectations_changed": false,
+  "full_suite_run": false,
+  "historical_rows_retagged": false,
+  "global_root_attribution": "Unallocated named local repair record; no new globally deduplicated root total claimed.",
+  "limits": [
+    "Only this positive Hero4/owned Action/tap/actual consumer branch is native-qualified. Other targets, as-Instant, prevention, invalid native declarations, decline/tapped-hero and retarget branches are not new coverage.",
+    "Before-target test stopped at1input; before-lifetime test stopped at7inputs/query590. The589 preceding checks are fail-fast inferences, and early Graveyard location is source-derived; the empty Stack and pending tap choice are directly observed.",
+    "Pure/stub components are not native gameplay coverage. No old corpus or full-suite replay, old held repair retry, remote authoring, staging, commit, push or deployment.",
+    "Input4843 is unchanged; its9f8/unconfirmed authoring prose is historical, overridden by current manifest, exact Saved proof and this qualification record.",
+    "External W paths retain recoverable source preimages/emitted captures and detailed review preparations; tests depend on repository-native fixture files, source, runner and retained canonical metadata."
+  ]
+}

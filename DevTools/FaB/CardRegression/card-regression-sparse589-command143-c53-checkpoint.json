@@ -1,0 +1,136 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-06T10:29:07.397464+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch589-command-after143-r3.json",
+  "source_spec_sha256": "762f680f2bd18322984a3b8d30515bebd044f2515e74c9130fc7a82a219a4aed",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 4442,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 3884,
+    "duels": 3074,
+    "four_live": 810,
+    "recorded_primary_ids": 1038,
+    "identity_denominator": 5196,
+    "recorded_groups": 912,
+    "group_denominator": 3324,
+    "four_live_groups": 803,
+    "phase_qualified_scenarios_at_actual_contexts": 521,
+    "phase_qualified_unique_groups": 516,
+    "creation_replay_passes": 1042,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "consuming_command_blue",
+      "group_id": "identity:consuming_command_blue",
+      "scenario_id": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "effect_branches": [
+        "consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "source_spec": "card-regression-batch589-command-after143-r3.json",
+      "source_spec_sha256": "762f680f2bd18322984a3b8d30515bebd044f2515e74c9130fc7a82a219a4aed",
+      "review_evidence": "review-evidence/sparse589-command143-c53.json",
+      "review_evidence_sha256": "8b536c67b0406f843f5563bdc26319822aac451329e751de50ef515745f22ea1",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "qualification_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse589-after143-r1-c53.json",
+          "sha256": "6e72371b39620292c7c7183e2280d93f0543939451f7de2c406dc02b0e183190",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse589-after143-r2-c53.json",
+          "sha256": "887956cff3c9dbb78edf632672c992d24718f05a83b750fd884ef5502f29f704",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "qualified_named_repair": {
+    "issue": "FAB-REG-143",
+    "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+    "source_application": {
+      "path": "review-evidence/command143-c53-source-application.json",
+      "sha256": "2d06ca51f579e017f3e845c718c861ad42e3847b04e562c9b111611923eef433"
+    },
+    "independent_source_review": {
+      "path": "review-evidence/command143-c53-independent-source-review.json",
+      "sha256": "7464947dcfa2f0a214f69318534615300998e5196a01f04bd82f3ad00917d26c"
+    },
+    "actual_source_binding": {
+      "path": "review-evidence/command143-v3-actual-source-binding-review.json",
+      "sha256": "16107292ac7d74fe59c6bbf8eefa02409b185fa52289c616c333e4aba9d012ff"
+    },
+    "independent_saved_review": {
+      "path": "review-evidence/sparse589-command143-c53.json",
+      "sha256": "8b536c67b0406f843f5563bdc26319822aac451329e751de50ef515745f22ea1"
+    },
+    "original_semantic_hold": {
+      "path": "review-evidence/command-duration-native-hold-9fbaa.json",
+      "sha256": "d55ca1e2d38d3aa80fecf37121da8437753bab13959ed70b25183d29dbaea133"
+    },
+    "strict_native_before": {
+      "path": "review-evidence/command143-strict-native-before-review.json",
+      "sha256": "eec816d51597adac62c922cf385962129488e023d024d9260e11cfba83d35ed2"
+    },
+    "archived_wrong_fixture": "held-incorrect-gameplay/b589-command-until-eot-duration-9fbaa",
+    "isolated_components": {
+      "path": "review-evidence/command143-v3-focused-components.json",
+      "sha256": "0488699a1318958a21570b23ba618d7c35e32598d8840be60197d20545864b90"
+    },
+    "component_preparation_review": {
+      "path": "review-evidence/command143-v3-component-preparation-review.json",
+      "sha256": "86f351c83c12efaa5570bc77cbf7ff161b712e13dd6f47ae472f0624126e95c9"
+    },
+    "before_probe_sha256": "36ffd0f5930b1ef65cbb059442d84a84f71b9a302f4a6de18e18caac4e3e7bf5",
+    "qualified_probe_sha256": "762f680f2bd18322984a3b8d30515bebd044f2515e74c9130fc7a82a219a4aed",
+    "assertion_lineage": "All33 original actions and4435 assertions unchanged; seven add-only assertions check the legitimate typed carrier at its correct row. Legacy-before probe and failure remain immutable, not forced green. No damage/cost/response expectation was weakened.",
+    "replay_evidence": [
+      {
+        "path": "card-regression-replay-sparse589-after143-r1-c53.json",
+        "sha256": "6e72371b39620292c7c7183e2280d93f0543939451f7de2c406dc02b0e183190"
+      },
+      {
+        "path": "card-regression-replay-sparse589-after143-r2-c53.json",
+        "sha256": "887956cff3c9dbb78edf632672c992d24718f05a83b750fd884ef5502f29f704"
+      }
+    ],
+    "focused_compatibility": [
+      {
+        "path": "card-regression-replay-command143-cogwerx-after-c53.json",
+        "sha256": "6e6aa2083eab4cc23b7a6e78aba20684cec6b25b8c1fa1046d528cfa0782395a"
+      }
+    ],
+    "scope": "Actual first granted six-damage attack, costs, responses, AP refunds and same-turn permission after full chain close. End-of-current-turn expiry for all owners is isolated production-filter evidence only. No native future untap/second use, Consuming Appetite branch, Imperial Edict120 repair, global IAR migration or whole-card completion.",
+    "isolated_checks": 64,
+    "isolated_baseline_controls": 1,
+    "isolated_fault_controls": 1,
+    "native_helper_control_credit": 0,
+    "new_global_core_or_root_count_credit": false,
+    "full_suite_run": false
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "utc": "2026-11-03T18:27:13.867914+00:00",
+  "executor": "/root",
+  "manifest_sha256": "c16f380055a4066184a6eb06c6c724e438495ecdfc95e24894c632a08c0a785c",
+  "runtime_before": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "runtime_after": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "candidate_lints": 2,
+  "harness_lint": 1,
+  "isolated_component_contracts": {
+    "status": "PASS",
+    "tests": 13,
+    "assertions": 22,
+    "contracts": [
+      "BEFORE_INLINE_DRAW_CHARACTERIZATION",
+      "AFTER_QUEUED_SOURCE_CAPTURE_NO_EARLY_DRAW",
+      "EARNED_TRIGGER_INDEPENDENT_OF_REMOVED_OR_SUPPRESSED_SOURCE",
+      "QUEUE_TIME_ABILITY_SUPPRESSION",
+      "UNTAGGED_NEIGHBOR",
+      "OTHER_TAG_NEGATIVE",
+      "UNCHANGED_QUEUE_LIVE_SEAT_GATE",
+      "UNCHANGED_QUEUE_PAYMENT_WINDOW_CONTRACT",
+      "PRESENT_TAG_OCCURRENCE_LOOP_PRESERVED",
+      "UNKNOWN_EVENT_FALLBACK_PRESERVED",
+      "INVIGORATING_DISPATCH_PRESERVED",
+      "SMASHING_DISPATCH_PRESERVED",
+      "BRIAR_DISPATCH_PRESERVED"
+    ],
+    "qualification": "Pure extracted-function contracts only, no native/card coverage; before inline draw characterized as wrong timing."
+  },
+  "runs": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\MSTCards.php"
+      ],
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\MSTCards.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php"
+      ],
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\components\\first-tenet081-extracted-contracts.php"
+      ],
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\components\\first-tenet081-extracted-contracts.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\components\\first-tenet081-extracted-contracts.php"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n    \"status\": \"PASS\",\n    \"tests\": 13,\n    \"assertions\": 22,\n    \"contracts\": [\n        \"BEFORE_INLINE_DRAW_CHARACTERIZATION\",\n        \"AFTER_QUEUED_SOURCE_CAPTURE_NO_EARLY_DRAW\",\n        \"EARNED_TRIGGER_INDEPENDENT_OF_REMOVED_OR_SUPPRESSED_SOURCE\",\n        \"QUEUE_TIME_ABILITY_SUPPRESSION\",\n        \"UNTAGGED_NEIGHBOR\",\n        \"OTHER_TAG_NEGATIVE\",\n        \"UNCHANGED_QUEUE_LIVE_SEAT_GATE\",\n        \"UNCHANGED_QUEUE_PAYMENT_WINDOW_CONTRACT\",\n        \"PRESENT_TAG_OCCURRENCE_LOOP_PRESERVED\",\n        \"UNKNOWN_EVENT_FALLBACK_PRESERVED\",\n        \"INVIGORATING_DISPATCH_PRESERVED\",\n        \"SMASHING_DISPATCH_PRESERVED\",\n        \"BRIAR_DISPATCH_PRESERVED\"\n    ],\n    \"qualification\": \"Pure extracted-function contracts only, no native\\/card coverage; before inline draw characterized as wrong timing.\"\n}\n",
+      "stderr": ""
+    }
+  ],
+  "repository_source_writes": false,
+  "native_or_card_coverage_credit": false
+}

@@ -1,0 +1,543 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B608_TWO_CONDITIONAL_WEAPON_BRANCHES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T13:09:19.081498+00:00",
+  "source_spec": "card-regression-batch608.json",
+  "input_sha256": "5ad084dbe29a3b7622a9e909f1e60b515e708b80bff26388e2e5967fdb561a1d",
+  "manifest_sha256": "6cc3ab8ca1b50eb9c409668fb3455366dfe33a3c572b2279d992eb4c27f9d309",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch608-independent-source-review.json",
+    "sha256": "76cd9145a91292120a0c6595a7b36346d74a84116e217f73cadab57df711c207",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch608-20261106T130631Z-6aedd0d732027.json",
+    "sha256": "fdfcfaa80398e6bce0f1f6130f2e0de656f7610fdc07c4905701adf6953cb92c"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch608.recording-results.json",
+    "sha256": "8628cc6e397573335175e38c81cab1851b2cffb0643b18d328958a538d0ee47d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch608-native-c53\\receipt.json",
+    "sha256": "c8cd7ea668842770eb6cdaf8e0ae67e74f05f1c2d10270c48f9446d1862fcddd"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "savage_claw",
+      "group_id": "identity:savage_claw",
+      "slug": "card-savage-claw-four-live-real-six-power-pitch-earns-four-damage",
+      "source_spec": "card-regression-batch608.json",
+      "input_sha256": "5ad084dbe29a3b7622a9e909f1e60b515e708b80bff26388e2e5967fdb561a1d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_POSITIVE_CONDITIONAL_WEAPON_BRANCH",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-savage-claw-four-live-real-six-power-pitch-earns-four-damage",
+      "fixture_sha256": "4b170ff9b377d28315f6197a07b598327dae59a2ee565c56230c85ed0e128d08",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "35708b351c3ab4ed970a6d22fc51a65cf8bd64ca4641a7d078579d709d4d779f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "13f0b429f1e76bf42ffa1b4b506025536a611f0387680ad4fd485b8a7225a2e0",
+        "expected_final_gamestate.txt": "0f9d664f5e0ab3bcda04b6546cf954aacc0bc6cb06c0bd5c4221d42da89058b1"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "35708b351c3ab4ed970a6d22fc51a65cf8bd64ca4641a7d078579d709d4d779f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "13f0b429f1e76bf42ffa1b4b506025536a611f0387680ad4fd485b8a7225a2e0",
+        "expected_final_gamestate.txt": "0f9d664f5e0ab3bcda04b6546cf954aacc0bc6cb06c0bd5c4221d42da89058b1",
+        "meta.json": "697eb15af17ef8d40aa95130abb893c62dd01734872aa13afa179be955aa410e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "35708b351c3ab4ed970a6d22fc51a65cf8bd64ca4641a7d078579d709d4d779f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "13f0b429f1e76bf42ffa1b4b506025536a611f0387680ad4fd485b8a7225a2e0",
+        "expected_final_gamestate.txt": "0f9d664f5e0ab3bcda04b6546cf954aacc0bc6cb06c0bd5c4221d42da89058b1",
+        "meta.json": "697eb15af17ef8d40aa95130abb893c62dd01734872aa13afa179be955aa410e"
+      },
+      "actions": 28,
+      "native_assertions": 2357,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 628,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "rhinar",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wrecker_romp_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "savage_claw",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "rhinar",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "savage_claw",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wrecker_romp_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "actual_attack_power": 4,
+      "actual_defense": 0,
+      "actual_damage": 4,
+      "actual_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_weapon_UID": 5,
+      "proxy_ceased_UID": 7,
+      "final_GY1_exact_UIDs": [],
+      "final_Pitch1_exact_UIDs": [
+        6
+      ],
+      "retained_Aura6_counters": null,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "52641f0a316a73fa9d413e4c03a54ee4fba128d1048edf7f538eaddbf45102bc",
+      "native_assertion_mapping_sha256": "b79c6cf92d429d36b6f40ed1c6244792b47f324a7f9d8db6f256c98a9b808ac9"
+    },
+    {
+      "index": 1,
+      "card_id": "rotwood_reaper",
+      "group_id": "identity:rotwood_reaper",
+      "slug": "card-rotwood-reaper-four-live-real-paid-aura-earns-four-damage",
+      "source_spec": "card-regression-batch608.json",
+      "input_sha256": "5ad084dbe29a3b7622a9e909f1e60b515e708b80bff26388e2e5967fdb561a1d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_POSITIVE_CONDITIONAL_WEAPON_BRANCH",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rotwood-reaper-four-live-real-paid-aura-earns-four-damage",
+      "fixture_sha256": "1f43cbf55643e6b0d3493ce5e465641fc8522881433b949facc45735dedc5a3a",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e76d8394eb14a7c1e342f73c43da17dd6be443a60bcbae98b3165f63f5adb278",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "b25c7521e62f33c992e662167e2c6c0d1a146c4a995a452b9570b6d7946f45f0",
+        "expected_final_gamestate.txt": "a45bc1503c6826e1f434ae5b1ffb4966de9a07a4219a4b0df34ad41d2e4b45cc"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e76d8394eb14a7c1e342f73c43da17dd6be443a60bcbae98b3165f63f5adb278",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "b25c7521e62f33c992e662167e2c6c0d1a146c4a995a452b9570b6d7946f45f0",
+        "expected_final_gamestate.txt": "a45bc1503c6826e1f434ae5b1ffb4966de9a07a4219a4b0df34ad41d2e4b45cc",
+        "meta.json": "507a69f3ecddadc81b9cadd43bcca1b00d654efc8a9258c327f34a77bcc1f117"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e76d8394eb14a7c1e342f73c43da17dd6be443a60bcbae98b3165f63f5adb278",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "b25c7521e62f33c992e662167e2c6c0d1a146c4a995a452b9570b6d7946f45f0",
+        "expected_final_gamestate.txt": "a45bc1503c6826e1f434ae5b1ffb4966de9a07a4219a4b0df34ad41d2e4b45cc",
+        "meta.json": "507a69f3ecddadc81b9cadd43bcca1b00d654efc8a9258c327f34a77bcc1f117"
+      },
+      "actions": 33,
+      "native_assertions": 2901,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 929,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "florian",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "runeblood_incantation_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rotwood_reaper",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "florian",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "rotwood_reaper",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "runeblood_incantation_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "actual_attack_power": 4,
+      "actual_defense": 0,
+      "actual_damage": 4,
+      "actual_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_weapon_UID": 5,
+      "proxy_ceased_UID": 8,
+      "final_GY1_exact_UIDs": [],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "retained_Aura6_counters": {
+        "FAB_PLAY_ORDER": 1,
+        "VERSE": 3
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "e23aef5ec0fe576c31ae393ffbe2492c07b553e5f0059324017235941b5ec442",
+      "native_assertion_mapping_sha256": "6370f5949d0cdb811b71e1e851fda333bc027d1c352f8e3e478dd973edd269f9"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 61,
+  "total_native_assertions": 5258,
+  "total_manual_passes": 54,
+  "total_priority_response_passes": 52,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 1557,
+  "material_findings": [
+    "Actual COMPLETE0/stderr0/two saved at unchangedc53. All raw10/61nativeenvelopes/5258orderedchecks/54actualmanualinputs/48preferences per endpoint/70sourceguards match independently approved completeledger.",
+    "Savage actual six-powerWreckerBlue6pitch3paysweapon2+AP1 beforefour, leavingR1AP0/physical5tap. Sameproxy7freshconditional3+1=4/noGA causesphysical4HP16. No play/discard ofWrecker or Rhinar Intimidate; RNG0. Per-proxy historicalpenPaidSix evidence remains, not a liveobject requirement.",
+    "Rotwood actual Runeblood6cost1/Blue7pitch3 leavesR2AP0, freshfour→sameAura6readyFAB1VERSE3+ownGAAP1; actualweapon2 spendsfloatingR2+AP1 beforefour. Sameproxy8fresh2+2=4/noGA causesphysical4HP16. Aura and positiveROS_AURA carrier persistthroughClose; no futureRunechant/Florian event omitted.",
+    "Both physicalweapons5 remainownedused/Damage0, actualpitches retained, originalphysicalUIDs1..6/1..7 conserved, virtualattackproxy ceased ratherthanGY, completephysicalemptyzones/payment/Stack/chains/DQ/await quiet. Engineweaponactivationbookkeeping is not a claim weapon was played as a card or pitchcard wasplayed.",
+    "Root cleanreplays remain a separate gate; reviewer did not executePHP/native/replay/source or re-auditunchangedsource."
+  ],
+  "primary_sources": [
+    {
+      "kind": "viewed_local_issuer_faces",
+      "faces": {
+        "savage_claw": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\savage_claw.webp",
+          "sha256": "cde1a8012f390144690394870e0b0f0265e416862c4ca5d188fb949d6f062bc8",
+          "independently_viewed": true
+        },
+        "rotwood_reaper": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rotwood_reaper.webp",
+          "sha256": "85be43ceba09802f9a58a26a36ec69b509fbc7bb89d1da194b578111824949d4",
+          "independently_viewed": true
+        },
+        "wrecker_romp_blue": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\wrecker_romp_blue.webp",
+          "sha256": "a9d6f03a372d1cbf2f2191796a0e6915e47f1a20a7c3a39c1474d8dd956c8ae2",
+          "independently_viewed": true
+        },
+        "florian": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\florian.webp",
+          "sha256": "f60d6da73eccb5292ccc74337675f51881d47b0f19170232f5559e05161dd9a6",
+          "independently_viewed": true
+        },
+        "runeblood_incantation_red": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\runeblood_incantation_red.webp",
+          "sha256": "26ba31d4c31e24d6998a2492a32818b326c205ca37a94d6a6a43a1f238f99d28",
+          "independently_viewed": true
+        }
+      }
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/compendium-of-rathe/",
+      "access": "Official indexed search result supports conditional continuous activation-payment scope; direct fetch403, fullpage not claimed."
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/rosetta-1st-strike/",
+      "access": "Author identified official route; reviewer direct fetch502, not claimed retrieved. Viewed ROS003/currentcatalog independently establish exact printed text."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Costs paid before priority; pitching differs from playing/discarding; source responses precede effects."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/9.3",
+      "finding": "Normal selectedHero4 adjacent toP1 in four-seatUPF."
+    }
+  ],
+  "limits": [
+    "One positive conditionalbranch per identity. Savage non6/priorpitch/repeat/untap/End/secondweapon/Intimidate/Wreckerplay excluded.",
+    "Rotwood created-only/previous-turnAura/suppression/secondactivation/turnreset/futureRunebloodActionstart/Runechant/Florianreplacement excluded. No support/sibling/Hero/fullcard credit.",
+    "Exact ordered persistedchecks plus actualinitial/final snapshots; no inventedper-inputsnapshotclaim. Opaque undo data hash-bound and excludedfromcurrentphysicalinventory. GenericRotwoodusedStatus notanunprintedtapcost.",
+    "No otherruntime retagging, fullsuite, newbug/root/Core allocation or repair qualification. Sourcec53unchanged; futureQuantumproposal notassumed."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch608_saved_readonly.py",
+    "sha256": "c9b7f1e6356e0329c296fc084584d5a0da2cbfa26f474e1498c6107bc3a2aa10"
+  }
+}

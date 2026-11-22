@@ -1,0 +1,104 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_KIMONO_SELF_WARD_EARNED_RESOURCE",
+  "phase": "SAVED",
+  "batch": 836,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_spec": "card-regression-batch836-kimono-positive-cdc.json",
+  "input_sha256": "77b1a7bc92998e25e7e26236999647d3a8ce79da32fabae2ce54d4a8f95011dc",
+  "manifest_sha256": "12c1d72425835a39172ed5b704d6e33e8fd07c0b6d6d9176189f7e66d00c5cf7",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch836-kimono-cdc-independent-normal-positive-source-review.json",
+    "sha256": "6fa561550a229321f74afe7ab91dc9a28c6e8bc09e0b8e59eada89af4c05512f"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b836-kimono-positive-native-save-cdc\\receipt.json",
+    "sha256": "ab50c59c0d8b5d76f6e7cc9192b55142319931743eb376c412f4b21ec8079ee2"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch836-kimono-positive-cdc.recording-results.json",
+    "sha256": "f6a21e1773500591e803e020c560c03e2a502c9a5fbbf1c94b32e779d5414fe0"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch836-kimono-positive-cdc-20261116T002636Z-6afa4dbceeae3.json",
+    "sha256": "00db97549b9398285a05de21e9a918834c698456a2cde84f63db14c958e86336"
+  },
+  "actual_frozen_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b836-kimono-positive-native-save-cdc\\actual-result.json",
+    "sha256": "f6a21e1773500591e803e020c560c03e2a502c9a5fbbf1c94b32e779d5414fe0"
+  },
+  "fixtures": [
+    {
+      "card_id": "celestial_kimono",
+      "slug": "card-celestial-kimono-four-live-real-self-ward-earned-resource",
+      "actions": 32,
+      "native_assertions": 3634,
+      "manual_passes": 29,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49c0a35bb678599115d66c7b211315eba3c5da32f5452abee167d1a783ab0d07",
+        "actions.json": "a7ee642e1f573c9c4dcc034bb7fa1bc5b85fb84cfe75ccd2e413f3c2a962560b",
+        "assertions.json": "bc43b0a0716754ad99c760cb6821c9dd822b93815b726e38a39e812b2339c9ae",
+        "expected_final_gamestate.txt": "336dfa7be5d19318f015a3cd69d830969b7693ed7d3bafa463aa31eb95d2e13e",
+        "meta.json": "b030c8389ad58fc437c56e19b1a9425eca525de80d5990b37a6017291261db60"
+      },
+      "fixture_sha256": "61684a4ba2673c14086ac371b6932de8b072e97a0d492afe3616cc6aebb250f7",
+      "input_sha256": "77b1a7bc92998e25e7e26236999647d3a8ce79da32fabae2ce54d4a8f95011dc",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "initial_queries_independently_evaluated": 125,
+      "terminal_queries_independently_evaluated": 222,
+      "scope": "Real self-Ward destruction/prevention, separately earned resource after four responses, full HeadJab go-again and physical cleanup. Other-source/second-once/suppression/control/reentry/support/siblings not Native-covered."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_3634_native_queries_reviewed_against_approved_Source": true,
+  "all_32_saved_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 34,
+  "typed_property_queries": 632,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "qualification": false,
+  "coverage_credit": false,
+  "semantic_witnesses": [
+    "All32 actual saved envelopes and3634 ordered successful native queries match approved positive Source;29 manual actors7/7/7/8 persist across four living manual Young seats.",
+    "Same physical Kimono6 Ward destroys to owner/controller4 Graveyard and prevents HeadJab1, allHP20. Controller4/source6 ABI is on Stack with R4zero through firstthree earned responses; fourth actual response changes R4to1.",
+    "Full printed HeadJab go-again/cleanup executes. Fresh rawfinal has P1AP1/P4R1/allHP20, physical5GY1 and6GY4 with no duplicate/extra object, allHeroUnused, empty Stack/queues/await/chains and closed combat.",
+    "Fresh initial and final raw48 manual profiles were inspected, and all125 initial plus222 final-state native queries independently re-evaluated. No final raw certificate is borrowed from NoSave."
+  ],
+  "limitations": [
+    "Saved review is not replay qualification. Two own focused clean replays and explicit registration remain separate; reviewer did not execute PHP or games.",
+    "Self branch only. Other non-token permanent, effective-Ward weapon, second-once, suppression, ownership/control/reentry and siblings/support are not Native coverage.",
+    "Schema-specific empty TurnEffects/Counters wire decoding reuses established reader; no query/fixture/runtime changes or global dash normalization.",
+    "Originalf12 failure/cdc no-save/promotion/positive Source evidence remains separately labeled. Denied184/B787 untouched; Flutter188 remains distinct."
+  ],
+  "corpus_before": 4093,
+  "saved_corpus_after": 4094,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch836_kimono_actual_saved.py",
+    "sha256": "6d13a36f63ce7f5ebc868cd2f2fd0da87b973c1b29d2bdc8913979e459dc9069"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "created_utc": "2026-11-16T00:31:46.129503+00:00"
+}

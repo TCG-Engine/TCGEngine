@@ -1,0 +1,531 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B394_TWO_NEW_FOUR_LIVE_REPRESENTATIVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T22:20:03.294870+00:00",
+  "source_spec": "card-regression-batch394.json",
+  "input_sha256": "c4d00f7b04a2b7a353a64dc6d93d6ae28fc8c075e7cad31701d9559d8d302697",
+  "manifest_sha256": "9d29238622edbe70c7ff6cef02c38fed0f67f80fd63888ee136bbdd97e435eff",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 44,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch394-independent-source-review.json",
+    "sha256": "4961061bdcfdddfd4bb2c7a143f57fa20e22e450bb78a61f52b2e5a0834bada4",
+    "reviewer": "/root/b106_semantic_review",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch394-20261104T221726Z-6aebaef6a4840.json",
+    "sha256": "aabed6b3948e970191a4f5fe06184f71d244860d2b79562dc668736126ec7778"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b394-native-527c-r1\\receipt.json",
+    "sha256": "c9c9b5053a18891c959e647671f342d3915f87597b501b32675b7dc4a2b93231"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch394_saved_readonly.py",
+    "sha256": "ff3560b087d8d0e0ae34aa5b83d96cd76c3559b72309ccfb7e42b455cfd45dd7"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Reviewer authored neither B394 recipes/source implementation nor native recording; own prior independent manual official/source gate reused.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "runeblood_barrier_yellow",
+      "group_id": "identity:runeblood_barrier_yellow",
+      "slug": "card-runeblood-barrier-yellow-four-live-sparse-real-seven-damage-destroys-four-owned-runechants-prevents-four",
+      "source_spec": "card-regression-batch394.json",
+      "input_sha256": "c4d00f7b04a2b7a353a64dc6d93d6ae28fc8c075e7cad31701d9559d8d302697",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-runeblood-barrier-yellow-four-live-sparse-real-seven-damage-destroys-four-owned-runechants-prevents-four",
+      "fixture_sha256": "b9f8227e4ca8c98ea3219173c216b2a3a9f30b7562c7b9bb846f39f8c6f70856",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "0359ddb4d7bf9aa0a6405bb30c12eff5a83329d381b457a31a10c3c2fd8f5551",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f86a9d5bff3c88d6c2a463abae301c4501bb7a282f7fd4fa5e1bfc0835e83e7e",
+        "expected_final_gamestate.txt": "64a1fe2033cc53573ae8b1059fe6b302273583ac44588278b8a252c6573209a8"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0359ddb4d7bf9aa0a6405bb30c12eff5a83329d381b457a31a10c3c2fd8f5551",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f86a9d5bff3c88d6c2a463abae301c4501bb7a282f7fd4fa5e1bfc0835e83e7e",
+        "expected_final_gamestate.txt": "64a1fe2033cc53573ae8b1059fe6b302273583ac44588278b8a252c6573209a8",
+        "meta.json": "1d56acf1d87a5a84955b7b0d3f3d426dec0baeeaf3164b5f750ed66c699afadf"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0359ddb4d7bf9aa0a6405bb30c12eff5a83329d381b457a31a10c3c2fd8f5551",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f86a9d5bff3c88d6c2a463abae301c4501bb7a282f7fd4fa5e1bfc0835e83e7e",
+        "expected_final_gamestate.txt": "64a1fe2033cc53573ae8b1059fe6b302273583ac44588278b8a252c6573209a8",
+        "meta.json": "1d56acf1d87a5a84955b7b0d3f3d426dec0baeeaf3164b5f750ed66c699afadf"
+      },
+      "actions": 28,
+      "native_assertions": 2718,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "runeblood_barrier_yellow",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "runechant",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "runechant",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "runechant",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "runechant",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "runeblood_barrier_yellow",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_initial_physical_counters": {
+        "5": {},
+        "6": {},
+        "7": {},
+        "8": {},
+        "9": {}
+      },
+      "actual_final_physical_counters": {
+        "5": {}
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11
+      ],
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "actual_arcaneDealt": [],
+      "checkpoint_assertion_mapping_sha256": "d0f3b0657e1a8785c211d289624ac31d9f2bb1036ce37f0b9e7b83054e6c9b4a",
+      "native_action_mapping_sha256": "10106b3cff7bf54b5859648be80acf1921358723f8fd8a3df37986bef665b913",
+      "native_assertion_mapping_sha256": "2182eff6835a7180359900a7f67294d1da90bb2ab29b5aae5b0cd3534a39b349"
+    },
+    {
+      "index": 1,
+      "card_id": "imperial_seal_of_command_red",
+      "group_id": "identity:imperial_seal_of_command_red",
+      "slug": "card-imperial-seal-of-command-red-four-live-sparse-real-destroy-action-forbids-opponent-defense-reaction",
+      "source_spec": "card-regression-batch394.json",
+      "input_sha256": "c4d00f7b04a2b7a353a64dc6d93d6ae28fc8c075e7cad31701d9559d8d302697",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-imperial-seal-of-command-red-four-live-sparse-real-destroy-action-forbids-opponent-defense-reaction",
+      "fixture_sha256": "73464ed8bde0e2c60eadedfc9a3caa88d2b9941a11d34e181b285d7a8e67a74d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4216d7ac9d8abd7f8456eb0a2b9b7e397be4da751cead0ceb25fb961f1abb499",
+        "actions.json": "9f565003803eb2345ca02d0950567639d573c1755c0a6e614f929781eef9e742",
+        "assertions.json": "748a6523c114c00ba50741e45041bcd4e39246afb4bd65b8f7f2fc4b27a5de13",
+        "expected_final_gamestate.txt": "3aea0525da5be68e2e3d300ba0f592dcc37aec5caf9035497203f97fa8fb9eb3"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4216d7ac9d8abd7f8456eb0a2b9b7e397be4da751cead0ceb25fb961f1abb499",
+        "actions.json": "9f565003803eb2345ca02d0950567639d573c1755c0a6e614f929781eef9e742",
+        "assertions.json": "748a6523c114c00ba50741e45041bcd4e39246afb4bd65b8f7f2fc4b27a5de13",
+        "expected_final_gamestate.txt": "3aea0525da5be68e2e3d300ba0f592dcc37aec5caf9035497203f97fa8fb9eb3",
+        "meta.json": "d851cb8db267f84b7df574a210dd5e5b9b979a569815757ce6d8730afa01e9e1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4216d7ac9d8abd7f8456eb0a2b9b7e397be4da751cead0ceb25fb961f1abb499",
+        "actions.json": "9f565003803eb2345ca02d0950567639d573c1755c0a6e614f929781eef9e742",
+        "assertions.json": "748a6523c114c00ba50741e45041bcd4e39246afb4bd65b8f7f2fc4b27a5de13",
+        "expected_final_gamestate.txt": "3aea0525da5be68e2e3d300ba0f592dcc37aec5caf9035497203f97fa8fb9eb3",
+        "meta.json": "d851cb8db267f84b7df574a210dd5e5b9b979a569815757ce6d8730afa01e9e1"
+      },
+      "actions": 33,
+      "native_assertions": 2674,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "imperial_seal_of_command_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "sink_below_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "imperial_seal_of_command_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "sink_below_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_initial_physical_counters": {
+        "5": {}
+      },
+      "actual_final_physical_counters": {},
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "actual_arcaneDealt": [],
+      "checkpoint_assertion_mapping_sha256": "b9a3bdcfec4189e4f380969294e985685141a56069f16be4bda72e8b481f7199",
+      "native_action_mapping_sha256": "4db1b921584a9d02a13bd284f4dafa93626021baca8e3a8db3cfbf2f802a584a",
+      "native_assertion_mapping_sha256": "2da75e3964b67345845487138189f3761f4f53543dc38699b118f1cac6d236ae"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 61,
+  "total_native_assertions": 5392,
+  "total_manual_passes": 54,
+  "total_priority_response_passes": 52,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "Barrier: actual ownedP4Chane priorAura5 and Runechants6..9, no seeded history/entry execution. Real P1Raging10cost3 funded by Blue11pitch3/AP1\u2192R0AP0, actual targetP4, printed7/noGA and four live combat windows. All four Runes remain through Reactionthree; fourth begins real packet and allfour cease, actual damage3/P4HP17/Barrier5retained, no GY4/Banish/Soul token remnants. Final Raging10GY/Blue11Pitch/Counter11/RNG0/allRAP0/fullclose; actual CRU_DAMAGED3/onehit corroborates physical HP difference.",
+    "Seal: actual Action0 spendsAP and destroys physical5 into ownedpublicGY before fourresponses; sourcebound ABI8 remains pending throughthree then resolves restriction/ownGA toAP1. RealWounding6Action0 consumes that AP and attacksP4for4/noGA. Actualthree Reactionresponders1/2/3 leaveP4priority4/passes3. ActualSink7click is accepted transport; all75 before/after gameplay assertions identical, sameHand7/Stack0/AP0/R0/P4priority4/passes3. ONE nextP4pass is existingfourth and deals actual4/HP16; no play/move/pitch/defense/priorityreset. Final rawHNT_NO_DR1/noHNT_SEAL, same5+6ownGY/7P4Hand/virtual8ceased/allRAP0/Counter8/fullcleanup.",
+    "All61 actual envelopes/5392 ordered persisted oracles/raw10 hashed and compared with exact input,54manual inputs distinguish52priorityresponses andtwoP4declaration finishes. Full parsed initial/final physical UID/card/owner/controller/economy,48actual manual settings each endpoint/case,allready living heroes/queues/Stack/chain/payment/await cleanup checked atunchanged527c/44guards."
+  ],
+  "limits": [
+    "Two standalone identities only; no siblings/support-primary/fullcard/new native controls.",
+    "Barrier prior-board four-token prevention againstonephysical7 only; no entry-WHEN/casting/creation/startphaseexpiry/other packets/arcane/unpreventable/suppression/choice or destroyed-listener credit.",
+    "Seal only actualDestroyAction/global opposing HandDR restriction/ownGA/nonRoyal. No ordinaryItemcast/Royalarsenalhit/ownDR/otherseats/DRactivatedlayers/expiry/suppression/unresolved layer branch. Entire native before/after gameplay-oracle sets match; no claim of a complete intermediate raw snapshot or every private-history byte unchanged.",
+    "Intermediate evidence is exact passed sequential native assertions linked to Root completed record. Only initial/final are full raw snapshots. Root focused replays/registration separate; reviewer did not execute them.",
+    "No PHP/native/R/source/service/gen/fullsuite/optional paper-model action by reviewer. Denied Illuminate089 source application not retried/rerouted; holds unchanged."
+  ]
+}

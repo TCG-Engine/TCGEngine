@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch493.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T17:36:44.489710+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cut-through-the-facade-red-four-live-real-otherwise-legal-aura-hand-block-rejected-three-nonaura-fullblock",
+      "fixture_sha256": "d6748e032470694c8eeaadeb218be3be28eee820d2b201a2b81fd67fbbc1446b",
+      "passed": true,
+      "result": "[PASS] cut_through_the_facade_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-appalling-bearers-four-live-real-zombie-discard-and-arms-destroy-instant-prevents-two-of-opposing-zap",
+      "fixture_sha256": "ffd8d53495d3042f3f47323ac2f100dd14cfd750d71854e6c104d0ab1a195157",
+      "passed": true,
+      "result": "[PASS] appalling_bearers / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cut-through-the-facade-red-four-live-real-otherwise-legal-aura-hand-block-rejected-three-nonaura-fullblock",
+      "returncode": 0,
+      "stdout": "[PASS] cut_through_the_facade_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-appalling-bearers-four-live-real-zombie-discard-and-arms-destroy-instant-prevents-two-of-opposing-zap",
+      "returncode": 0,
+      "stdout": "[PASS] appalling_bearers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

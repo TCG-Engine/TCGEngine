@@ -1,0 +1,100 @@
+{
+  "status": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+  "batch": 799,
+  "approved": true,
+  "planning_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T22:39:23.202340+00:00",
+  "card_id": "ravenous_meataxe",
+  "group_id": "identity:ravenous_meataxe",
+  "author_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch799-ravenous-known-attack-when-draw-discard-contract-unattempted-planning-hold.json",
+    "sha256": "c1429b60697c5542f05a09a5dad6e80007bb56f0311fb19bad44459eaaafaef8"
+  },
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch799-firm-reservation.json",
+    "sha256": "840299f5785c2e992f84e74683e3fe5dc39709c90f9f98882831561683aefb0f"
+  },
+  "support_dependency_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch799-selected-helper-preflight-r2-holds244.json",
+    "sha256": "0f0662aac38ea1027ebdc5f1f13357c5d2b3706151dd8cc5a5f2c0e5e3e396b7"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "reused_current_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch799-stadium-independent-correct-positive-source-review.json",
+    "sha256": "8802eb2fbe5859ba7c8515f04269a416eb4b09673cc2c0c956b4bd053522f18a"
+  },
+  "selected_preimage_count": 10,
+  "selected_preimage_map_sha256": "d9022702557a12bfb1771cf5245f2b09e2a14c45064d77c20059acd5989f970e",
+  "all_selected_preimages_independently_matched": true,
+  "actual_viewed_primary_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ravenous_meataxe.webp",
+    "sha256": "39f1e28c21d327f104ad1e0c390296b647c7542ef556edfbe72faaaa72f97e68"
+  },
+  "actual_implemented_body_sha256": "e0c07cfba9d774ff69c946b7cf2d3291fb0f0ee7ca483363b6662c59fc56ce99",
+  "known_contract_rows": {
+    "MiniMeataxe_hold190": "09d0ca2d5994fc02ceb43db9efdbe63893ca98ef9e97c0453418618f8436731a",
+    "Pulping_issue076": "d6005d3f7f9df748529d9b17109b748f1674c0439a6a954c012a92af02a49101"
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.1d",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "retrieval": "Current official page independently read.",
+      "interpretation": "An attack event creates the printed trigger layer before priority; draw/discard are its resolution effects."
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/monarch/",
+      "retrieval": "Official indexed Ravenous section retrieved; direct full-page open returned502, not claimed fetched.",
+      "interpretation": "There is no response window between drawing and discarding during resolution. That does not remove the earlier responseable attack trigger."
+    }
+  ],
+  "bounded_actual_trace": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1742-1760;1205-1217;1269-1326",
+      "finding": "Actual attack moves Stack source to Chain, establishes attack state and calls OnAttackDeclared. Selected ordinary AttackDeclared dispatch invokes generated primary closure directly; named ResolveCard/Defended/Hit bridges do not wrap Ravenous."
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "lines": "643-655",
+      "finding": "Flock has its own named captured path. Ravenous is not Flock/combo and no granted weapon effect is set by this fixed route."
+    },
+    {
+      "path": "FaBSim/Custom/MONCards.php",
+      "lines": "282-289;315",
+      "finding": "MONAttack has no selected Ravenous capture. Actual DrawDiscard calls DoDrawCard then FaBDiscardRandom immediately and checks discarded base power."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "23067-23082",
+      "finding": "Actual Ravenous AttackDeclared calls FaBMONDrawDiscard at23073 before any separately captured Ravenous layer, then applies underlying-weapon WTR_POWER:2 on six. Canonical body exists and matches selected compiled behavior."
+    }
+  ],
+  "independent_conclusion": "Exact selected direct normal-weapon ATTACKS-WHEN draw/discard contract shares held Mini190 and Pulping076 caller/helper timing. Existing body/normal admission are present. Stop before executable or native; this is a source-derived known-dependency planning limit only.",
+  "planned_route_limit": "Sole Blue Hand payment and sole six-power Yellow Deck card remain authored intentions. No RNG, draw, discard, bonus, HP15, attack damage or cleanup was executed or observed. No quiet Levia Banish/BloodDebt, Rhinar/Kayo, alternate support or blank-baseline certificate.",
+  "planning_only": true,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "qualification_permitted": false,
+  "B787_denied_operation_untouched": true,
+  "metadata_snapshot": "r2 preflight4063/244holds is historical snapshot, not a fresh count assertion after Root qualification.",
+  "limits": [
+    "Selected actual Ravenous path only; no broad callback/body absence audit or full-card certificate.",
+    "Historical Mini/Pulping runtime/native evidence remains attached to those cards; it is not Ravenous native evidence or repair authorization.",
+    "Reviewer performed only reads and W proof write; no PHP/native/replay/R/source/Git or denied-operation action."
+  ]
+}

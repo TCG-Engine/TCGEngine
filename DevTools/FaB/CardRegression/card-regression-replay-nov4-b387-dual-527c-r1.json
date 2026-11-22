@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch387.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T20:37:10.523921+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+      "fixture_sha256": "93ff8b205a0979f66a572d881e538400298032bddaa60343d5bf893d00f0087f",
+      "passed": true,
+      "result": "[PASS] dual_threat_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+      "returncode": 0,
+      "stdout": "[PASS] dual_threat_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,271 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_CONSTELLA_TIARA_PAID_PREVENTION_SAME_EVENT_OWNED_PONDER_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T06:32:05.924592+00:00",
+  "source_spec": "card-regression-batch298.json",
+  "input_sha256": "dd6d7a0cd2713f6f6d73e06fe3856500f7003b441abedf42c56f5da62be4193d",
+  "manifest_sha256": "83f0dcd6f0e1ae924a8517004398bfba7f0bfb374c5c6fbb5e00e31621725b17",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch298-independent-source-review.json",
+    "sha256": "94e07b01ad0d26a73f70421e3a6af9dc30c6e0e3b211f3968d24922fc894d6f9"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch298-20261103T062839Z-6ae97f17b542e.json",
+    "sha256": "8b5457e80de309165043e46c74c9c87f2c6217abd4ef744d1d0dd43fafa1937d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch298-native-r1\\receipt.json",
+    "sha256": "35cc80cc8711b9931cba4df64e11a9381dc720101e2f46aa350e251b1975c41d"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch298-independent-saved-review\\audit_saved.py",
+    "sha256": "891b08154d3866a872bdf9ae8fd71416762d7e3f780b9a00eb31a5ce16ee1b39"
+  },
+  "review_method": "Reuseindependentpeerprinted/primaryCR6.4.10Ifpreventmodificationreview, withoutreopeningoraddingtriggerround. Every37actualinput/2996assertion exactlymapped/independent32Passschedule; fullstrictschemaendpointprofiles/allphysicalUIDowners/economy/manual48each, terminalassertionsevaluated/raw4raw5stability. NoPHP/native/replay/R/backend/sourcework.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "constella_tiara",
+      "slug": "card-constella-tiara-four-live-sparse-real-two-resource-destroy-prevents-one-and-creates-owned-ponder",
+      "source_spec": "card-regression-batch298.json",
+      "input_sha256": "dd6d7a0cd2713f6f6d73e06fe3856500f7003b441abedf42c56f5da62be4193d",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-constella-tiara-four-live-sparse-real-two-resource-destroy-prevents-one-and-creates-owned-ponder",
+      "fixture_sha256": "59e85926c379db4f676ef0e60a1d7c33bc68bdaa18da0111db20371ecac69571",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6bad22ed276d8191482ea4f042986845607a780678110458442b7b134dc76412",
+        "actions.json": "e2fadd503708cce96ba083ca10fe2db8de910175869d050db15f5e2b98d88e1e",
+        "assertions.json": "2b27c6c2fb20d31691442d5701217b0b3d4be022e3d44cc69ab26002ee780e05",
+        "expected_final_gamestate.txt": "d9f5f8fe7c2bed18cafdae2ff40dee8654794fa2f007de8f79784af244df4e54"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6bad22ed276d8191482ea4f042986845607a780678110458442b7b134dc76412",
+        "actions.json": "e2fadd503708cce96ba083ca10fe2db8de910175869d050db15f5e2b98d88e1e",
+        "assertions.json": "2b27c6c2fb20d31691442d5701217b0b3d4be022e3d44cc69ab26002ee780e05",
+        "expected_final_gamestate.txt": "d9f5f8fe7c2bed18cafdae2ff40dee8654794fa2f007de8f79784af244df4e54",
+        "meta.json": "5e4e6fa1455ce6d2ef220c99ebf81f73dc16bbcfbefe0c848e7f42f13d1740bc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6bad22ed276d8191482ea4f042986845607a780678110458442b7b134dc76412",
+        "actions.json": "e2fadd503708cce96ba083ca10fe2db8de910175869d050db15f5e2b98d88e1e",
+        "assertions.json": "2b27c6c2fb20d31691442d5701217b0b3d4be022e3d44cc69ab26002ee780e05",
+        "expected_final_gamestate.txt": "d9f5f8fe7c2bed18cafdae2ff40dee8654794fa2f007de8f79784af244df4e54",
+        "meta.json": "5e4e6fa1455ce6d2ef220c99ebf81f73dc16bbcfbefe0c848e7f42f13d1740bc"
+      },
+      "actions": 37,
+      "native_assertions": 2996,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "aurora",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "constella_tiara",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "aurora",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "ponder",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "constella_tiara",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "actual_inline_prevention_Ponder_UID10_owner_controller4_same_checkpoint": true,
+      "no_extra_trigger_round": true,
+      "checkpoint_count": 39,
+      "checkpoint_assertion_mapping_sha256": "da6fe8df26f00e83df84454fa994716c453f87efecb4144c5ef1031f3a01e3a0",
+      "native_action_mapping_sha256": "26e25b984d6a742417769dc545583e6873eea6630fcd96862c9936a59422db17",
+      "native_assertion_mapping_sha256": "2a4afcadfac6d6dbe50a71d73cbbf76fc0a24727027abfb326771edb54090235"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 37,
+  "total_native_assertions": 2996,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualyoungAurora4/20legalLightningHead5, threeDori20/fourmanualUPF/nopreventionPonderhistoryseed. ActualRaging6cost3/Blue7pitch3/AP1->0; allfourattack/defendingrounds thenrealP4Instantpriority. ActualTiara5resource2pendingretainsphysicalHead5/Blue8Hand; actualBlue8pitch3pays2leavesP4R1/AP0 thenSAME5destroycostpublicP4GYbeforefreshresponses4,1,2,3. Capturedability9SourceEquipment5retainedthroughfirstthree.",
+    "ActualfourthTiararesponseinstallsnext1prevention/clearsvirtualsource, stillHP20/Arena0. FreshReaction1,2,3,4 reaches7packet; atSAMEaction29checkpoint prevention1 gives6damage/P4HP14ANDactualPonder10ownedcontrolled4/Status2/Arena withStack0/allfourqueuesempty. Noextraresponseabletriggerround; attackcomputedpowerremains7/noGA, so reductionisprevention.",
+    "StrictcompletefinalphysicalUID1-8allretainunique plusnewPonder10: same5publicP4GY, same6publicP1GY/Pitch7P1/Pitch8P4/Ponder10P4ArenaOwnerController4ready. Capturedvirtual9ceased/allR0exceptP4R1/allAP0/HP14others20/allHeroesready/live/StackChainsqueuespaymentawaitmanagerclear. Correctedsource+metaexact, raw4raw5stable."
+  ],
+  "limits": [
+    "Onlypositiveactual2resource+destroy/next1of7shielding/inlineconditionalownedPonder/currentturnfullclose. NoPonderendphase/draw/Auroraactivation/otherElement/arcane/unpreventable/multipacket/foreignowner/control/supportprimary/fullcard/siblingcredit.",
+    "PeerprimaryCR6.4.10classificationreused: printedIf clausebelongsinsamepreventionmodification, notanewtrigger. Sourceauthoringoraclecorrectionisnotanenginebug/repair. Intermediateevents supportedbycompletednativeassertions/exactledgers, endpointfilesalone donotsnapshoteveryprivateintermediate.",
+    "Roottwofocusednewcasecleanreplays/registrationseparate; notrunhere. NoR/native/PHP/backend/sourcefix/generation/service/remote/fullsuite/broadreview orpendingauthorizationretry."
+  ]
+}

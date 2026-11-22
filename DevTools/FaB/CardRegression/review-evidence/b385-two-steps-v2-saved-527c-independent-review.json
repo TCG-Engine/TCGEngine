@@ -1,0 +1,370 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B385V2_TWO_STEPS_FORWARD_TWO_HITS_COST_AND_AGILITY",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T20:25:25.597754+00:00",
+  "source_spec": "card-regression-batch385-two-steps-count-v2.json",
+  "input_sha256": "67aae0dee5d09785e1fc32d6ddbe42c054c1f42479ef1501406568f6d95f73f6",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch385-two-steps-prehit-null-v2\\manifest.json",
+  "manifest_sha256": "174f9233b5f29b9907c2ab2a0ace292a202f4c571ab67fd4cb65bae597580a76",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 37,
+  "prior_independent_material_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch385-independent-source-review.json",
+    "sha256": "7d4fb10be2aecdc9dc1c37c8b2858cebe36d9a614454af194401f81ba763589a",
+    "reviewer": "/root/nov2_metadata_review",
+    "reused_unchanged_material_semantics": true
+  },
+  "prior_independent_oracle_delta_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch385-two-steps-v2-independent-delta-review.json",
+    "sha256": "588695bf1b65aa22bd48178fd64ee46b4c1eaabb848fddbca485282d227a22bb",
+    "exact13prehit0_to_missing_or_null": true,
+    "no_engine_fix_or_new_bug_credit": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch385-two-steps-count-v2-20261104T201742Z-6aeb92e6b5c2f.json",
+    "sha256": "724fef85e6dbfdba1109b2c8a71819c8c468932450d1707f3352a9bde9eae05e"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b385-two-steps-v2-native-527c-r1\\receipt.json",
+    "sha256": "278c7b6803f4ddb07aab5d66a7c0ad60a027f9b51c606b754ab8d4a6c983a282"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_two_steps385_v2_saved_readonly.py",
+    "sha256": "245176d042e9ba00b766a3f675c89561d34bb3665b10d6fd675924729b3e98b8"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "two_steps_forward",
+      "group_id": "identity:two_steps_forward",
+      "slug": "card-two-steps-forward-four-live-sparse-real-two-kodachi-hits-same-chain-earns-destroy-agility",
+      "source_spec": "card-regression-batch385-two-steps-count-v2.json",
+      "input_sha256": "67aae0dee5d09785e1fc32d6ddbe42c054c1f42479ef1501406568f6d95f73f6",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TWO_REAL_SAME_CHAIN_KODACHI_HITS_THEN_LEGS_COST_AND_DELAYED_AGILITY",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-two-steps-forward-four-live-sparse-real-two-kodachi-hits-same-chain-earns-destroy-agility",
+      "fixture_sha256": "8f5385fe197c554feabd0016d5ae77143af61764bdde04811d0dcad923daab51",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6e3e3436e92d1e3bb7a95a363b297fd3cdb14842b448fdedd349b56d5d6ed295",
+        "actions.json": "602c7f4d3c887c2eab37cf21e36f1aee80e97576daa114ca4d50bceeb44970e8",
+        "assertions.json": "c2b95a03454a444caf47d5ff6f3a1595ceaf052a65fbdebc4e07adef8ac3a56e",
+        "expected_final_gamestate.txt": "e6d61f22dcc6db61fb387bd5872dc13ae672159197c1a79aa2b6ed6af61c0873"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e3e3436e92d1e3bb7a95a363b297fd3cdb14842b448fdedd349b56d5d6ed295",
+        "actions.json": "602c7f4d3c887c2eab37cf21e36f1aee80e97576daa114ca4d50bceeb44970e8",
+        "assertions.json": "c2b95a03454a444caf47d5ff6f3a1595ceaf052a65fbdebc4e07adef8ac3a56e",
+        "expected_final_gamestate.txt": "e6d61f22dcc6db61fb387bd5872dc13ae672159197c1a79aa2b6ed6af61c0873",
+        "meta.json": "95676fa8aaa0801d929cdf69a5c8b5ce6d30d88f58aae47a8dc4dfcb2b1998cc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6e3e3436e92d1e3bb7a95a363b297fd3cdb14842b448fdedd349b56d5d6ed295",
+        "actions.json": "602c7f4d3c887c2eab37cf21e36f1aee80e97576daa114ca4d50bceeb44970e8",
+        "assertions.json": "c2b95a03454a444caf47d5ff6f3a1595ceaf052a65fbdebc4e07adef8ac3a56e",
+        "expected_final_gamestate.txt": "e6d61f22dcc6db61fb387bd5872dc13ae672159197c1a79aa2b6ed6af61c0873",
+        "meta.json": "95676fa8aaa0801d929cdf69a5c8b5ce6d30d88f58aae47a8dc4dfcb2b1998cc"
+      },
+      "actions": 55,
+      "native_assertions": 5337,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "schema_property_assertions": 2014,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "two_steps_forward",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        },
+        "6": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        },
+        "7": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 1,
+          "damage": 0,
+          "counters": {
+            "WEAPON_ATTACK_TURN": 2,
+            "WEAPON_ATTACKS": 1
+          }
+        },
+        "7": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 1,
+          "damage": 0,
+          "counters": {
+            "WEAPON_ATTACK_TURN": 2,
+            "WEAPON_ATTACKS": 1
+          }
+        },
+        "12": {
+          "card_id": "agility",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        },
+        "5": {
+          "card_id": "two_steps_forward",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12
+      ],
+      "final_UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "actual_hit_checkpoints": [
+        {
+          "step": 20,
+          "proxy_uid": 9,
+          "physical_weapon_uid": 6,
+          "damage": 1,
+          "hero4health": 19,
+          "chainHits": 1
+        },
+        {
+          "step": 42,
+          "proxy_uid": 10,
+          "physical_weapon_uid": 7,
+          "damage": 1,
+          "hero4health": 18,
+          "chainHits": 2
+        }
+      ],
+      "actual_primary_cost_and_effect": {
+        "activation_step": 43,
+        "source_uid": 5,
+        "ability_proxy_uid": 11,
+        "source_zone_after_cost": "p1Graveyard",
+        "fourth_response_step": 47,
+        "new_token_uid": 12,
+        "new_token_card_id": "agility",
+        "owner": 1,
+        "controller": 1,
+        "AP_after_effect": 0,
+        "weapon_go_again_refund_step": 51,
+        "AP_after_weapon_go_again": 1
+      },
+      "checkpoint_assertion_mapping_sha256": "80a6f0f8f47758d890d3bb26370a351c6c544114ac35eae13a033d4bfd79ebce",
+      "native_action_mapping_sha256": "bff5d578cfd0274cfd16bcddefa07b07f6f610a4254ff6a02188309a912c4989",
+      "native_assertion_mapping_sha256": "b49c2cbc051ac0fafa4f115042fde93213ebeee6f4d29fc62938e5b91f7a18e9"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 55,
+  "total_native_assertions": 5337,
+  "total_manual_passes": 50,
+  "total_priority_response_passes": 48,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_administrative_end_phase_inputs": 0,
+  "material_findings": [
+    "Actual Blue8 pitches3; printed cost0 supplies both Kodachis conditional go again. Physical weapons6 and7 each pay1, generate distinct proxies9 and10, and each deal real1 to the same P4 during one retained combat chain. Strict native chainHits1 then2 and physical HP19 then18 remain unchanged.",
+    "Legs5 activation occurs only after actual second hit. Physical5 is public own Graveyard as cost at43, virtual11 captures Equipment5/controller1, no Agility through first3 fresh responses; only fourth47 creates exactly one owned/controlled ready undamaged Agility12. Primary does not grant AP; AP0 remains until separate fourth ordinary Damage response51 earns weapon go again/AP1.",
+    "All 55 native envelopes, 5337 persisted ordered native assertions, 50 actual manual actors, all initial/final physical UID/card/ownership/economy and48 manual settings per endpoint checked. Full close removes proxies9,10,11; weapons6/7 remain used, Legs5 public GY, Blue8 Pitch, Agility12 Arena; final R1/AP1/P4HP18. Intermediate states are validated by passed native assertions, not separately captured full snapshots."
+  ],
+  "limits": [
+    "One selected two-hit prerequisite/destroy-cost/Agility-creation positive branch only; no Agility next-turn/next-attack consumer, Battleworn, false-condition rejection, alternate hero/support-primary/sibling/full-card/native-control credit.",
+    "V2 changes only13 pre-first-hit missing/null counter representations, an author oracle correction; no engine change or new gameplay bug credit. Strict later1/2 hit checks preserved. Post-close/reset counter semantics deliberately unclaimed.",
+    "Templar Spellbane remains registered under original source and is not reread, retagged or included in this one-case proof.",
+    "Raw version-history entries and DQ variables are historical context, not active live objects or full empty-map requirements. Root focused replay/registration receipts are separate gates. No reviewer PHP/native/R/service/generation/full-suite/optional-model execution."
+  ]
+}

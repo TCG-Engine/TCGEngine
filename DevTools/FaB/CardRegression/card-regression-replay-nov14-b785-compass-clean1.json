@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch785-compass.json",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T05:59:57.725561+00:00",
+  "fixtures": [
+    {
+      "slug": "card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+      "fixture_sha256": "16eea2e3c358675bf470a408ade0b17cc6ef764d47d5bbdaf3675ca567c22dcb",
+      "passed": true,
+      "result": "[PASS] Compass / actual owner look and paid Tome draws restored top two"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+      "returncode": 0,
+      "stdout": "[PASS] Compass / actual owner look and paid Tome draws restored top two\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

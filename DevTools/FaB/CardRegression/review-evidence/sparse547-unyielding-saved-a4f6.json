@@ -1,0 +1,304 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B547_EMPTY_HAND_CONDITIONAL_DEFENSE_AND_BLADE_BREAK_CLOSE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T00:51:05.718191+00:00",
+  "source_spec": "card-regression-batch547.json",
+  "input_sha256": "cd664863688edd590694c8e37c917e829a84e125e86132e61bd86e0e0fd2ddae",
+  "manifest_sha256": "3159b3600e331f1f972c185f3615433e2a84de6c63ed8c5b5ea8bfda4ae395e0",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch547-independent-source-review.json",
+    "sha256": "6d7a32109ddf1db8d4b6f8941f30ba1ef2bf8b3b99cf72c0bf29d9207dc4ee46",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch547-20261106T004844Z-6aed23ecbd826.json",
+    "sha256": "0d96132869410f639a71183d723f6c4c9662a2df23f82deb3198f134269fd4ee"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch547.recording-results.json",
+    "sha256": "0aa36f1c48a85f4d37f39ebd9b0ff85a2a2f28126eb3260cd1774cccf3b25e6f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch547-native-r1-a4f6\\receipt.json",
+    "sha256": "8de03f52141b1533304e76ecdce665997151b300856d92b885da1ec9a8c90d14"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "unyielding_grip",
+      "group_id": "identity:unyielding_grip",
+      "slug": "card-unyielding-grip-four-live-real-empty-hand-adds-three-defense-and-blade-break-close",
+      "source_spec": "card-regression-batch547.json",
+      "input_sha256": "cd664863688edd590694c8e37c917e829a84e125e86132e61bd86e0e0fd2ddae",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_EMPTY_HAND_DEFENSE3_DAMAGE1_AND_AUTOMATIC_BLADE_BREAK_DESTRUCTION",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-unyielding-grip-four-live-real-empty-hand-adds-three-defense-and-blade-break-close",
+      "fixture_sha256": "5388bb4685ed4725d66afc377e7acf8e3ddfb6f0dbf46f8672089bdd894e1de7",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4381e472d84b41fd8718dc6543eabc3a3c4345cc3d3a88f4b1ee382eb8821d58",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "4f43e82e5648ff43295f0bfe3fcf4989c7711ea9a93993f5057597a7b928cdaf",
+        "expected_final_gamestate.txt": "16bf3b323c91daf246a83197534031da3642383949b1c3e7067d1bb15ac415c8"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4381e472d84b41fd8718dc6543eabc3a3c4345cc3d3a88f4b1ee382eb8821d58",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "4f43e82e5648ff43295f0bfe3fcf4989c7711ea9a93993f5057597a7b928cdaf",
+        "expected_final_gamestate.txt": "16bf3b323c91daf246a83197534031da3642383949b1c3e7067d1bb15ac415c8",
+        "meta.json": "25425d478c7537be1ee2565828f1f4608c416cd500274e7919ded280840565b4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4381e472d84b41fd8718dc6543eabc3a3c4345cc3d3a88f4b1ee382eb8821d58",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "4f43e82e5648ff43295f0bfe3fcf4989c7711ea9a93993f5057597a7b928cdaf",
+        "expected_final_gamestate.txt": "16bf3b323c91daf246a83197534031da3642383949b1c3e7067d1bb15ac415c8",
+        "meta.json": "25425d478c7537be1ee2565828f1f4608c416cd500274e7919ded280840565b4"
+      },
+      "actions": 28,
+      "native_assertions": 2279,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 549,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "unyielding_grip",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "unyielding_grip",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        5
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_defense": 3,
+      "actual_damage": 1,
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "computed_defense_getter_claim": false,
+      "internal_Close_trigger_stack_order_certificate": false,
+      "checkpoint_assertion_mapping_sha256": "c8c6796e99d1a78e49c95be1604e87e27d6e66a5a1617bb13388769c19606952",
+      "native_action_mapping_sha256": "e5482a60d858e876286c1cdff4d188b6209ea09e21880ada18bde9f9969d6be9",
+      "native_assertion_mapping_sha256": "bb537c1c121157ab9064fd1fdc30e95e43f4abd0e3f659f668fea2059c767191"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2279,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 549,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one new fixture at a4f6. Exact raw5/all28 native inputs and2279orderedchecks/25manual(24four-seatresponses+P4declarationfinish)/549properties match retained independent source model. All69 currentguards and48rawmanualpreferences per endpoint verified.",
+    "P4Hand is actually empty throughout the asserted ledger. Real physical Arms5 blocks normalHero-target AA6, remaining same5DEFENSE/FromEquipment/link1 through Resolution; actual printed0plusconditional3 yields defenseValue3, damageDealt1 and physicalP4HP19 against realpower4/noGA. No unsupported computed-defense hook, seeded current DEF tag or armor activation/cardplay is claimed.",
+    "First three Resolution responses retain same5defending; fourth closes chain. Final raw same5 is ownpublicGY4, same6ownpublicGY1, exactoriginalUID1..6/counter6/RNG0/RAPChi0, allquietHeroobjectsunchanged, fullStackChainDQawaitpaymentcombatcleanup. AutomaticClose/noextra manualpriority is reused from current primary rules; endpoint destruction does not certify internal trigger-stack ordering.",
+    "Only positive current-emptyHand conditional defense/damage and BladeBreak destruction branch qualifies. No handsizechange/nonemptyHand/suppression/multipledefenders/otherattacktypes/otherwear/priorHand-emptyproducer/Hero/support-primary/sibling/full-card/nativecontrol credit. UndoVersions remain hash-bound but excluded from current physical inventory. Root two focused replays/registration are separate."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN317.webp",
+      "finding": "Current publisher face independently viewed locally; emptyHand+3DEF and BladeBreak."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/compendium-of-rathe/",
+      "finding": "Search-indexed selected ruling: conditional continuous effect always checks current hand.",
+      "full_page_read_claim": false
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.3"
+      ],
+      "finding": "BladeBreak destroys on combat-chain close after defending."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2b",
+        "7.6.4",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4",
+        "7.7.5"
+      ],
+      "finding": "Numeric zero-defense equipment eligibility, chain-close timing, automatic resolution/no extra manual priority."
+    }
+  ],
+  "limits": [
+    "ONEpositiveemptyHand/currentDEF0+3/realdamage4-3=1/automaticBladeBreakdestroy branch. No handsizechange/nonemptyHand/suppression/multipledefenders/otherarmorwear/internaltrigger-order or broadkeywordcertification.",
+    "InitialequippedGenericArmsandemptyHand arelegalpublicstate/currentstaticcondition, not seededcurrentevent or credited priorproducer. NoHero/supportprimary/sibling/fullcardcredit.",
+    "CurrentClose hasNOpriorityperCR7.7.1/3/4; noinventedmanualBladeBreakround. Authorstaticonly, OTHERpeer/native/Saved/replayspending; noR/PHP/native/source/fullsuite/remote/git/deniedretry.",
+    "One current-emptyHand positive defense/damage and BladeBreak destruction endpoint only. No handsizechange/false condition/suppression/other DEFmodifiers/secondblock/other armorwear/internal trigger ordering/support-primary/sibling/full-card/native-control credit.",
+    "No unsupported computed-defense query or invented Close priority. Root native/exactSaved/twofocusedreplays remain separate. No reviewer PHP/native/R/source/fullsuite/other denied repair action.",
+    "Exact native ledger and parsed initial/final endpoints only; no invented per-input snapshots or internal Close ordering certificate.",
+    "No reviewer PHP/native/replay/R/source/fix/fullsuite/other denied operation; Root replay gates remain unclaimed here."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch547_saved_readonly.py",
+    "sha256": "15fb1754bc3d8ea1d8ab29a07818935ca2d93c8d0b17de41b83d1dde7ca2ab71"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch547_source_readonly.py",
+    "sha256": "2f4bcd0e812500f2b73ce013ae3b5df489b1ebf68128e453135c42fdb04be9b3",
+    "portion": "schema/action/assertion model block only; no engine/source-algorithm or author model execution"
+  }
+}

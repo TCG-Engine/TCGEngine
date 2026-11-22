@@ -1,0 +1,87 @@
+{
+  "status": "QUALIFIED_FOCUSED_SAND_DECLARED_ASH_TARGET_REAL_WARD_TWO",
+  "issue": "FAB-REG-175",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_files": [
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/UPRCards.php"
+  ],
+  "change": "Exact three Sand IDs declare a still-legal offered Ash identity during normal preparation before costs/priority, then apply printed Ward to that identity at resolution without a late chooser or retarget. Existing cohorts and Smoke behavior remain preserved.",
+  "before_native": {
+    "path": "review-evidence/sand175-early-ash-target-native-before-8415.json",
+    "sha256": "b25e25d417e8f731b3e3b23614169af44aef7ad5fce64c789d822f34a8246b1c"
+  },
+  "independent_actual_before": {
+    "path": "review-evidence/sparse786-independent-native-before-8415.json",
+    "sha256": "5fd74d635ad59c05a596d9c26c1f492cdbd3ee7374255b2b0692dddf7a5a749d"
+  },
+  "source_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-sand175-guarded-application\\receipt.json",
+    "sha256": "1a8695381eb11a589eb8c85891fd43e561ee0164aad0f60370497929b5fb2ad6",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "independent_patch_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-sand-declared-target-independent-source-review.json",
+    "sha256": "cc89c6c7d1dbe8d97deada5dcdfba85cf35b35c71bb8c3fc230adf252964ac23",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "full_correct_draft_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-sand-full-independent-correct-draft-source-review.json",
+    "sha256": "bff0f7e28c07ad31dd42b365a3e95683133c336794e5da7739e6f603cecd466a",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "runtime_bound_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-sand-bound-6695-independent-runtime-source-review.json",
+    "sha256": "2f37333a109ea3926ec5292046514a639c7f7c16eebd123648edfe490e4e2924",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "actual_component_and_syntax": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-sand-root-component-and-syntax\\receipt.json",
+    "sha256": "d24668df250de46b24b4f342c78c43bfdfd0e28902de6d9f7c57cbdd59d3a678",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "pure_stub_checks": 51,
+  "catalog_membership_comparisons": 5196,
+  "syntax_passes": 2,
+  "native_after": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b786-sand-full-native-after-6695\\receipt.json",
+    "sha256": "f19f07f0f34535de827b9cf5ac7914ec51e48b671bd425a5d2861ba272ec0eb2",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "native_inputs": 36,
+  "native_assertions": 2637,
+  "manual_passes": 32,
+  "source_spec": {
+    "path": "card-regression-batch786-sand-full.json",
+    "sha256": "65ba55e8d700b979597706bf752656e92687594c22995bd210f4cb7f65f75722"
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse786-sand-independent-6695.json",
+    "sha256": "85c2d775018e1a43af05592855802f8009b312499221e3ef36c32d0dec608f8c"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov14-b786-sand-clean1.json",
+      "sha256": "1b0e3d1251de0007cdafee75925374744ea46783e77167a5a1bd358e95a73e11"
+    },
+    {
+      "path": "card-regression-replay-nov14-b786-sand-clean2.json",
+      "sha256": "37c874c8e370384dcb010bfaf04cfde98f8423a9f82a3d04751c5ac86badc752"
+    }
+  ],
+  "isolated_native_fault_credit": 0,
+  "assertions_weakened": false,
+  "repository_Core_changed": false,
+  "generated_code_changed": false,
+  "remote_authoring": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "historical_rows_retagged": false,
+  "root_attribution": "UNALLOCATED_NAMED_LOCAL_REPAIR",
+  "limits": [
+    "Only Blue: actualearlyAsh7 selection beforefourSandresponses, noearlyWard, real4damage packet prevents2/destroys7/HP18/unchosenAsh8retained andfullcleanup qualified.",
+    "No native RGBsiblings/invalid-target/no-target/serialized-rollback/stale-target/copy/alternative Ward or end-turn-expiry certification; related cost/identity guards are stubs only.",
+    "Before firstp4DQ.Type query failed empty after19inputs; actualREACTION/allfourDQempty exported. LaterStack/Ash queries and72suffixchecks never ran; no finalrawzone claim.",
+    "Smoke174 remains qualified at its actualda6a context; no historical case replay or runtime retag is claimed."
+  ]
+}

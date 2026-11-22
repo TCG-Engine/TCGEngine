@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch376.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T18:33:04.942273+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cut-from-the-same-cloth-red-four-live-sparse-real-reaction-reveal-marks-and-buffs-paid-dagger",
+      "fixture_sha256": "4736b5b19b6ef1e6fd8b8395c38e30e47afa7bfc0401509db0251b079ef039c5",
+      "passed": true,
+      "result": "[PASS] cut_from_the_same_cloth_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-big-blue-sky-blue-four-live-sparse-real-paid-blue-pitch-adds-one-defense-to-physical-reaction",
+      "fixture_sha256": "9a320c54a3a41aabed49b890016c5eb41797179623dfd26d7018e4d68ccb060d",
+      "passed": true,
+      "result": "[PASS] big_blue_sky_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cut-from-the-same-cloth-red-four-live-sparse-real-reaction-reveal-marks-and-buffs-paid-dagger",
+      "returncode": 0,
+      "stdout": "[PASS] cut_from_the_same_cloth_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-big-blue-sky-blue-four-live-sparse-real-paid-blue-pitch-adds-one-defense-to-physical-reaction",
+      "returncode": 0,
+      "stdout": "[PASS] big_blue_sky_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

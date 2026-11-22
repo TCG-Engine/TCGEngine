@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch675-pedal.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T01:14:28.329271+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pedal-to-the-metal-blue-four-live-paid-boost-full-block-and-paid-five-damage-consumer",
+      "fixture_sha256": "73b4dcf3fdd3e7e7e965817286fb540de25be4e2157ddc62cd9c32c24f77e738",
+      "passed": true,
+      "result": "[PASS] pedal_to_the_metal_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pedal-to-the-metal-blue-four-live-paid-boost-full-block-and-paid-five-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] pedal_to_the_metal_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

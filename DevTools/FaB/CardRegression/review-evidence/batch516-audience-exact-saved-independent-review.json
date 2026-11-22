@@ -1,0 +1,407 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B516_ALL_OTHER_HERO_LIFE_AND_DYNAMIC_SUSPENSE_POWER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T20:10:09.685109+00:00",
+  "source_spec": "card-regression-batch516.json",
+  "input_sha256": "d687bfe81e61c32e00fc99fce0544573ec8e32277000f085ba1654eb9bf4ed67",
+  "manifest_sha256": "108a8df37c44fde47e5ee6f610d78ed24544854b6734f155e3b71efcc645cb80",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch516-independent-source-review.json",
+    "sha256": "110a4741175962f77e39ad2df8c99302883d0d4f0614f4ae2c8622210401412a",
+    "unchanged_resolvedLife_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch516-20261105T200754Z-6aece21a6138b.json",
+    "sha256": "c6f4011cf61b50a85dd8303f43b1182e5cf1d4c6317137b9c2119508bcf8d149"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch516.recording-results.json",
+    "sha256": "e1bb157da4731ffc7a616e90d2b41ce7c60aa42b58d24923e5f55d24df21219e"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch516-native-r1-9e984\\receipt.json",
+    "sha256": "22afbda1a76a91cd91aa9c0b97a38035e985ebb5d2141cf6f8ea4558ec8743c6"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "energy_of_the_audience_yellow",
+      "group_id": "identity:energy_of_the_audience_yellow",
+      "slug": "card-energy-of-the-audience-yellow-four-live-real-all-other-heroes-heal-earns-suspense-power-four-damage",
+      "source_spec": "card-regression-batch516.json",
+      "input_sha256": "d687bfe81e61c32e00fc99fce0544573ec8e32277000f085ba1654eb9bf4ed67",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_THREE_REAL_OPPONENT_HEALS_AND_DYNAMIC_SUSPENSE_POWER",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-energy-of-the-audience-yellow-four-live-real-all-other-heroes-heal-earns-suspense-power-four-damage",
+      "fixture_sha256": "1208edf95702c84b16c4131efffe2ce6cdf47644f6393d4104e233019f41c9ae",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "b0c16593eaebe90c2e55b55dabf945a8bfea0a89724296cc24c0b020cb5e32f5",
+        "actions.json": "56a9d4ec4d77c7b47dba774d765d2b359c668e379dd1f98db34b0604a1b5ee25",
+        "assertions.json": "4f06ecd385454e1f4fca73b512f0759c73f3a2478ce74349ceade046f9208083",
+        "expected_final_gamestate.txt": "624d99f4284af7d7683b182321bd32577f25c36cf062d5696dbb06689967e656"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b0c16593eaebe90c2e55b55dabf945a8bfea0a89724296cc24c0b020cb5e32f5",
+        "actions.json": "56a9d4ec4d77c7b47dba774d765d2b359c668e379dd1f98db34b0604a1b5ee25",
+        "assertions.json": "4f06ecd385454e1f4fca73b512f0759c73f3a2478ce74349ceade046f9208083",
+        "expected_final_gamestate.txt": "624d99f4284af7d7683b182321bd32577f25c36cf062d5696dbb06689967e656",
+        "meta.json": "8feaa96aeea1628f80686e440524b4288467d6ba7b4b9a7fb7e85c0e42a3e729"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b0c16593eaebe90c2e55b55dabf945a8bfea0a89724296cc24c0b020cb5e32f5",
+        "actions.json": "56a9d4ec4d77c7b47dba774d765d2b359c668e379dd1f98db34b0604a1b5ee25",
+        "assertions.json": "4f06ecd385454e1f4fca73b512f0759c73f3a2478ce74349ceade046f9208083",
+        "expected_final_gamestate.txt": "624d99f4284af7d7683b182321bd32577f25c36cf062d5696dbb06689967e656",
+        "meta.json": "8feaa96aeea1628f80686e440524b4288467d6ba7b4b9a7fb7e85c0e42a3e729"
+      },
+      "actions": 50,
+      "native_assertions": 5146,
+      "actual_manual_passes": 43,
+      "actual_priority_response_passes": 42,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 11,
+        "3": 10,
+        "4": 10
+      },
+      "schema_property_assertions": 2134,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "energy_of_the_audience_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "act_of_glory_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "8": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p2Hand",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "9": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p3Hand",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "act_of_glory_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "energy_of_the_audience_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "8": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p2Graveyard",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "9": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p3Graveyard",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        21,
+        21,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "actual_preDamage_current_power": 7,
+      "actual_postDamage_current_power": 6,
+      "actual_damage": 4,
+      "actual_defense": 3,
+      "exact_final_P4_GY_UIDset": [
+        10,
+        11
+      ],
+      "Aura6_raw_unchanged": true,
+      "Aura6_Counters": {
+        "SUSPENSE": 1
+      },
+      "checkpoint_assertion_mapping_sha256": "e98cf8f734e54ed777f12134567802dbde614bddbc3092eb180b37972686fdb8",
+      "native_action_mapping_sha256": "30fb6d2385b7cf6db3460ebf780365f4f9040ec433e2f2c2b7f1a2bd2f5ed7b1",
+      "native_assertion_mapping_sha256": "980fb9c197164a95a367c68aee8b62add611a63b4f500ccba5cd145c8cc6fd3c"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 50,
+  "total_native_assertions": 5146,
+  "total_manual_passes": 43,
+  "total_priority_response_passes": 42,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 2134,
+  "material_findings": [
+    "Allraw5/50native envelopes/5146orderedpersistedchecks/2134schema properties/43manual(42responses+1finish) equal source-approved exactd687 recipe at actual9/all69guards. Both endpoint48manual preference values and complete originalphysicalUID1..11 owners/zones inspected independently.",
+    "ActualP2Sigil8/P3Sigil9/P4Sigil10 use otherwise-legal Instant0 at their actualACTIONpriority, fresh rotated fours hold each source until ownGY and heal the respectiveHero20to21. P1AP1 survives, allothersAP0; no four empty ACTIONpasses advance to EndPhase. These are actual three opponents, not substituted duelHP or seeded history.",
+    "Actual primary5 targetP4/pending3/Blue7pitch3 pays3+AP1\u2192R0AP0. One actual retained ownAura6 withSUSPENSE1 qualifies positivecurrentpower6+1=7/noGA. ActualWounding11HandDEF3, actual4physicaldamage takesP4HP21to17. Same active primary freshcomputedpower then6 because condition20<17 fails; no retroactive damage3/cachedpower substitution.",
+    "Final wholeAura6raw exactly unchanged/readySUSPENSE1, so its separate leave+4 remainsunearned. Physicalprimary5GY1/Blue7Pitch1/Sigil8GY2/Sigil9GY3/P4GY EXACT UID/cardset{10:SigilBlue,11:WoundingRed}, OwnerController4/public, independently beyond authoredunorderedcardpresence. AllHeroHP20,21,21,17/RAPChi0/Counter11/RNG0/quietStackChainsDQsawaitpaymentcleanup. OpaqueundoVersions hash-bound but excluded from currentphysicalinventory.",
+    "Source-stage Life glyph resolution is reused honestly: independently viewed GEM159 and DVR025 match; officialSigil288+CRLife support Life. JudgeHub4494 literal{g} discrepancy retained; no downloaded PNG pixels/CardVault/full release fetch claimed, and sourceAllLife not used as normative oracle."
+  ],
+  "glyph_resolution": {
+    "verdict": "LIFE_INDEPENDENTLY_RESOLVED_FROM_ISSUER_FACES_AND_PRIMARY_LIFE_REFERENCE",
+    "judge4494_literal": "{g}",
+    "catalog_literal": "{h}",
+    "energy_face": "GEM159",
+    "comparison_face": "DVR025",
+    "both_faces_independently_viewed": true,
+    "matching_green_life_glyph": true,
+    "official_Sigil288": "Gain1{h}",
+    "CR": "2.5.2/2.5.3/2.5.3d",
+    "source_AllLife_used_as_oracle": false,
+    "optional_PNG_download_not_retried": true,
+    "downloaded_PNG_pixels_viewed": false,
+    "CardVault_or_full_release_read_claimed": false
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4494/",
+      "finding": "Current cost3/base6/one per Aura and all-other-hero condition; literal{g} discrepancy explicitly retained."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/288/",
+      "finding": "BlueSigil0 identifies matching printed glyph as Gain1Life."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4116/",
+      "finding": "ActGloryBlue GuardianInstantAura4/Suspense/leave-trigger+4; leave unearned."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/02-object-properties/",
+      "rules": [
+        "2.5.2",
+        "2.5.3",
+        "2.5.3d",
+        "2.9.1",
+        "2.9.3"
+      ],
+      "finding": "Life symbol/currentlife/overbaselegal; modifiedpower used for damage."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.42"
+      ],
+      "finding": "Suspense enters2/startremove1/zero destroy; legal prior1 without leave."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/GEM159.webp",
+      "finding": "Actual publisher primaryface independently viewed locally."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DVR025.webp",
+      "finding": "Actual publisher Sigilface independently viewed locally for glyph comparison."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/APS022.webp",
+      "finding": "Actual publisher priorAuraface independently viewed locally."
+    }
+  ],
+  "limits": [
+    "PROPOSEDLifeinterpretation independentlypeer-gated: actualbothissuerfaces+SigilofficialLife+CRLife definebasis;4494{g}discrepancypreserved; no downloadedLifePNGpixelclaim.",
+    "ONEall3otherHeroactualhealcondition/oneAura+1/physical4damage/dynamicpostdamage6; nolifeothercases/Aura-entry-start-leave/supportprimary/Pleiades/othercounts/sibling/fullcardcredit.",
+    "PriorActGlory2entered/currentturnstartremove1completed\u2192physicalSUSPENSE1, no currenthistory/buff/permission/assetsseed.",
+    "No authorPHP/native/R/source/gen/service/fullsuite/git/remote/deniedretry; OTHERpeer/Rootnative/Saved/replays pending.",
+    "Life glyph was independently resolved; no assertion that the JudgeHub markup itself has been corrected. Positive oneAura/all3opponentsheal plus postdamageconditionloss only; no ties/othercounts/elimination/suppression/Auraentry-upkeep-leave+4/Heroability/cheer/supportprimary/siblings/fullcard/nativecontrol credit.",
+    "NoPHP/native/replay/R/source/service/gen/fullsuite/git/remote/denied retry. Native/Saved/twofocusedreplays remain separate Root gates.",
+    "Only one retainedAura/allthree real opponenthealcondition/actual4damage/current7to6 crossing. No other life tie/count/opponentelimination/suppression/expiry/Auraentry-start-leave+4/Pleiadesability/cheer/Confidence/Sigilprimary/supportprimary/sibling/full-card/native-control credit.",
+    "Completed native ledger and independently parsed endpoints, no extra per-input raw capture/callback instrumentation or sourcealgorithm certification. Root focusedreplays/registration separate, not claimed."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch516_saved_readonly.py",
+    "sha256": "bcf09513771b302a16c53a45e6403ca453fd7cbbee5ef7cea80eb1f5c8371385"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch610.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T13:40:15.413420+00:00",
+  "fixtures": [
+    {
+      "slug": "card-swabbie-yellow-four-live-real-paid-ally-seven-damage-and-physical-cleanup",
+      "fixture_sha256": "14a51d08fbb8cd7fd3e336dc639cd3aee2decb1ff1cc36a9707de4a1ac57fb4e",
+      "passed": true,
+      "result": "[PASS] swabbie_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-ursur-the-soul-reaper-four-live-real-soul-target-go-again-funds-four-damage-consumer",
+      "fixture_sha256": "1faf30aa21f563312b684fed52f45244e79c5e0b69d0b91384e3db674353bfea",
+      "passed": true,
+      "result": "[PASS] ursur_the_soul_reaper / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-swabbie-yellow-four-live-real-paid-ally-seven-damage-and-physical-cleanup",
+      "returncode": 0,
+      "stdout": "[PASS] swabbie_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ursur-the-soul-reaper-four-live-real-soul-target-go-again-funds-four-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] ursur_the_soul_reaper / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

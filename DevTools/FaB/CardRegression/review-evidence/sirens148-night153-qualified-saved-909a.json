@@ -1,0 +1,67 @@
+{
+  "status": "SIRENS34_2654_NIGHT32_2391_SINGLE_CLEAN_REPLAY_EACH_PASS",
+  "reviewer": "Root independent from Ebbing Source author; actual original Source/Saved/effect review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+  "input_sha256": "4a176a118f11955f6625ed2e34fb764b21b7ee77c7d7b0d1bafa20ddb46cd403",
+  "source_spec": "card-regression-repair-sirens148-night153-after-targetless-ar.json",
+  "fixtures": [
+    {
+      "slug": "card-sirens-call-red-four-live-real-blue-hand-defender-draw-and-one-damage",
+      "card_id": "sirens_call_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "39a1d4fcc642fde3ecf478355fd414d56944528973861bec6b07c2e7f0b78b32",
+        "actions.json": "d0e68793396105d7879f273c48a902fabd790ca352340e900f2dd4046d420044",
+        "assertions.json": "20568408a6a60cb121fcac7939b1e45d0f9b60961bd53291e60bc091a4fc02e3",
+        "expected_final_gamestate.txt": "67e932b1a4d6dd1263fe8021001d56880ce54be6daab4a9dc05b1aa80d09211e",
+        "meta.json": "ecd9ff74f2a7806f69249901c38dbcc3db50e3e0aec105a6e9cfd9efb621c1b8"
+      },
+      "fixture_sha256": "a185d54891acec63dbdf3cd6fc4eb30a554cd5479ddb78aee92a090c5db03dad",
+      "actions": 34,
+      "native_assertions": 2654,
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "source_spec": "card-regression-repair-sirens148-night153-after-targetless-ar.json",
+      "input_sha256": "4a176a118f11955f6625ed2e34fb764b21b7ee77c7d7b0d1bafa20ddb46cd403"
+    },
+    {
+      "slug": "card-nights-embrace-blue-four-live-original-correct-stealth-plus-one-physical-damage-diagnostic",
+      "card_id": "nights_embrace_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "58b87af788e8d80cbd1f6a45daaa17d21c384e67522a5c8ed73ef649270397b4",
+        "actions.json": "afc230112eafe2f11d50406acd2f79b94991a01e7608bc5eaa09f230697e62b8",
+        "assertions.json": "fda47c7d365040fb87808f8ae7b35134598d39b8045f4157b8418b374b26dd96",
+        "expected_final_gamestate.txt": "66ca2c92c553653b69ffe066d30aaec1e1f0c6d30787ea2db364cbee0a3d896c",
+        "meta.json": "0755ca6e5106976f75ec7baeaee87383c2b8babbd212042d9be09ba72123742a"
+      },
+      "fixture_sha256": "b98049ef0d99c669cff00490baf7edc998a4c0dca74613fe5a9c319b8b0d01fe",
+      "actions": 32,
+      "native_assertions": 2391,
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "source_spec": "card-regression-repair-sirens148-night153-after-targetless-ar.json",
+      "input_sha256": "4a176a118f11955f6625ed2e34fb764b21b7ee77c7d7b0d1bafa20ddb46cd403"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-sirens148-night153-replay.json",
+    "sha256": "790763a4eadf8d0c9cadc89ed972cbc750ba3fe3588a3b8ee602ab1a8fa882ba",
+    "passed": true
+  },
+  "source_review_sha256": "eaec7317d6696c8300769fa23839fde9fdae613d5a41183ec6b2f20ff05c187a",
+  "components": 71,
+  "basis": "Exact original actions/queries, separate seven-label Siren response-window erratum only. Both manual4live/no shortcuts at endpoints and actual passes from all seats. Siren sameopposingBlue8 entersChain fromHand, sameDeck9draw afteraddition, Source5retainedthroughchoice thenownerGY, printed1resource paid withBlue7 leavesR2, actual1damageHP4=19. Night realzero-cost source5resolves and sameStealthIsolate6 base1+1 deals2actualdamageHP4=18; allRAP0, cleanup and identities preserved.",
+  "limits": [
+    "Only original positive branches, no noBlue/choicefailure/alternatevictim or extraNativeeffectbranch.",
+    "Nightthis-turn expiry/source-independent futureattack behavior has Source+component evidence only, not Nativefullturn coverage.",
+    "Before24component failures include isolated stale-state assurances and downstream source-only Night effect, not24Nativebugs.",
+    "Night original diagnostic preserved; only new repair successor enables saving after semanticgates. No wrong fixture admitted.",
+    "No fullsuite, historicalcorpus, denied lifecycle goal, generation, remoteauthoring or untestedpitchsiblingcredit."
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "status": "FLURRY112_ORIGINAL36_3166_AND_SINGLE_REPLAY_PASS",
+  "reviewer": "Root exact originalSource/Saved/physicaloutcomes inspection with separate independentR2SourceGO",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "5cee40953e7fa6beb0cdf199d5436dbb5c85a971a897d1a55f278367dc5f63e9",
+  "input_sha256": "ff629c71f4a36aaeaddf4e7cb9aac272977827182792e4fac044a8939e9478c7",
+  "source_spec": "card-regression-repair-flurry112-after-native-helper.json",
+  "fixtures": [
+    {
+      "slug": "card-flurry-foot-dance-yellow-four-live-real-persistent-flurry-earns-four-defense-and-three-damage",
+      "card_id": "flurry_foot_dance_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bcde8e8f566a7f7436d0dd833117aec5f6d83af2da3ab481663f45e4a7d79f2f",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "0bb24d214381ec94840ee0991a772d09add1ef542470aa26b791adf506b71638",
+        "expected_final_gamestate.txt": "603f977afaa41387cd87436d000e0f821cbf5e9ff41ef52448a9f7c9e6a16ad7",
+        "meta.json": "d963b22de7563c0267438da36d114d760454ab2dc07b853fb9a3d7eb62f3e4b9"
+      },
+      "fixture_sha256": "e41129d64c7a352e029df1f736c2949f97150cb45f61c1c51adf0658333b0950",
+      "actions": 36,
+      "native_assertions": 3166,
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "5cee40953e7fa6beb0cdf199d5436dbb5c85a971a897d1a55f278367dc5f63e9",
+      "runtime_sha256": "5cee40953e7fa6beb0cdf199d5436dbb5c85a971a897d1a55f278367dc5f63e9",
+      "source_spec": "card-regression-repair-flurry112-after-native-helper.json",
+      "input_sha256": "ff629c71f4a36aaeaddf4e7cb9aac272977827182792e4fac044a8939e9478c7"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-flurry112-r2-replay.json",
+    "sha256": "2926286bdcf90d1c2e418b91c692d557c99319dbf06e3b9c7fcd049827a534af",
+    "passed": true
+  },
+  "basis": "All original36actions/3166queries unchanged and exactSaved mapping. Fourlive manualendpoint profiles. ControlledFlurry6 preserved; actualdefendingprimary5 gains2toDEF4, realRaging7deals3/Hero4HP17, card5GY4 and economy/queues clean. R2onlywhiledefending; no broaderNativebranchclaim.",
+  "source_review_sha256": "1aa5f0fc2914422fe912246e32eb1f7d1b76c7ad077067aa106db00efff1b0df",
+  "isolated_components": 48,
+  "before_expected_component_failures": 8,
+  "limits": [
+    "NamedYellow/controlledpersistentFlurry branch only; initialtokencreation/othercolors/no-token/controlchanges are not native-qualified.",
+    "OriginalV1unapplieddefending-gate error caught bySourcepeerreview. Historicalmissing-hookdiagnosis corrected: currenthookalreadyexists; selectedenrollment wasmissing.",
+    "Silverstride andoldlink/nondefending/blanked/foreign-controller compatibility are isolatedhelpercontrols only. No fullsuite, deniedgoal,Core/generatedornewbreadth."
+  ]
+}

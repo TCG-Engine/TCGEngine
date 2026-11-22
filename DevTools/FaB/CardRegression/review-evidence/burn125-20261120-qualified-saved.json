@@ -1,0 +1,67 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/pox_snapshot_repair_review actual saved semantic review; Root native execution, raw5 review and clean replays",
+  "runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+  "source_spec": "card-regression-burn125-departure-repair-20261120.json",
+  "input_sha256": "82d3ee741c2e7d462eabcd9f476278914fefd6e9c49cb56345a0ceedac66b64e",
+  "fixtures": [
+    {
+      "slug": "repair-burn125-four-live-real-shock-departed-dragon-earned-arcane",
+      "card_id": "burn_them_all_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9070f05d2820be58d704e43b061703ea7b0eeedf416494b956428c84afbdddb5",
+        "actions.json": "e9e7d9e578768fc4a8972e98de24a073f7e57f3ebd67a718e4c9b4b94c563793",
+        "assertions.json": "fca4dc189c0afe450712cc2b05de938a9d7f7167dcdef15711489eb6f9526b7f",
+        "expected_final_gamestate.txt": "ae1f2f4aa0f7602ba67ec999e11150387684892619bb0eb381ca14f88e8dd8da",
+        "meta.json": "11abb169615b4becf61b51e7e03db9f8a115c61ac7bbd697e67c0b89ec79436a"
+      },
+      "fixture_sha256": "cf6e43f08c655ad8314aa703d5c8a1d12a21c41cc26360656b9da08cb56a0c87",
+      "actions": 25,
+      "native_assertions": 438,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 19,
+      "recorded_runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+      "runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+      "source_spec": "card-regression-burn125-departure-repair-20261120.json",
+      "input_sha256": "82d3ee741c2e7d462eabcd9f476278914fefd6e9c49cb56345a0ceedac66b64e"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-burn125-departure-repair-20261120-replay.json",
+    "sha256": "9868ae4a0b578713ebff2757f4f1d6c636276a2a2519468f644d80ef76801586"
+  },
+  "independent_review_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-saved-independent-review.json",
+    "sha256": "397468e41d7590bc8a60d8fab151210e8c45a80ff4a70f89765a501250fa58f7"
+  },
+  "source_review_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox147-burn125-v3-source-recommendation.json",
+    "sha256": "67140ae823a90d709b180258029fcf9c9c9730472b6c086f505d80b9e108b934"
+  },
+  "source_application_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\approved125147-offline-application\\receipt.json",
+    "sha256": "c53fce47340362becb8037b5375269b4b25a361484a1719dce74e1fb3df208b8"
+  },
+  "attack_proxy_review_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-orphaned-attack-v2-independent-source-review.json",
+    "sha256": "4cbd7741f703c73d72acfc810076a8dbc6bf99fd16ef7e64b900bde2566c70f0"
+  },
+  "attack_proxy_application_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-orphaned-attack-prepared-v2\\application.json",
+    "sha256": "e83ac96388f0220f249a32dcd062835759e80a67fb6e4b554c0e0e953803ceda"
+  },
+  "basis": "Owned Burn trigger survives an actual opposing Shock that kills physical Dragon6. Native25actions/438persisted assertions verify ceased token/attack, no physical damage or go-again refund, physical source6 prevention givesHP20/20/19/19, preservedAura5/Weapon7 and quietAction. Independent actual saved review and one clean replay; both prior36action/3354assertion live-source cases replayed with minimal reviewed bookkeeping-only final/undo corrections. Captured immutable source queries reuse existing damage/prevention awaits; no ghost Arena objects or UID rebinding.",
+  "limits": [
+    "No new unrelated breadth; existing Burn identity/group already qualified. Support Shock/Briar not awarded standalone coverage.",
+    "Later Dragon ability loss, controller change, source generation/one-shot bonus and Consecrate are actual isolated source controls only, not additional native branches.",
+    "Token-source attack cleanup is qualified only in ATTACK before defenders; DEFEND/REACTION source death unchanged and unqualified to avoid unreviewed equipment wear/resolution effects.",
+    "Whole card/end-phase raze behavior, pitch siblings and exhaustive damage-prevention combinations not claimed.",
+    "Flow-oracle correction changed only Shock pass targets to rules-requiredP4/P1/P2/P3 plus four explicit priority checks; original failed probe remains unsaved.",
+    "Legacy fixture corrections preserve all actions/initial states/meta/3354assertions each; only final/undo source epoch and obsolete flat context fields corrected.",
+    "Unrelated fixtures keep actual historical runtimes; full suite not run."
+  ],
+  "full_suite_run": false
+}

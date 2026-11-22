@@ -1,0 +1,129 @@
+{
+  "id": "FAB-REG-128",
+  "status": "native_confirmed_unfixed_Rift_Bind_Banish_play_responseable_WHEN_missing",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch486-v2-rift-independent-native-before-classification.json",
+  "independent_review_sha256": "bb6c1aab0ff13518a841a8774e01e978cfefe54a6b36d7ab0ea2fdcff23227b9",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch486-v2.json",
+  "input_sha256": "98411855622dac5c2bec12dcb3bbd1504b01f9de994bebf7f875f411a5fb45cc",
+  "scenario_id": "card-rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage",
+  "first_failure": {
+    "source_case_index": 1,
+    "source_step_index": 16,
+    "native_input_count": 8,
+    "last_accepted_action": {
+      "playerID": 1,
+      "mode": 10002,
+      "cardID": "p1Hand-0!FSM",
+      "buttonInput": "",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "check_ordinal_in_checkpoint": 24,
+    "ordered_source_check_ordinal": 641,
+    "preceding_successful_source_check_count_from_failfast_order": 640,
+    "check": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 2
+    },
+    "expected": 2,
+    "actual": 1,
+    "error": "Expected Stack count 2, got 1."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 8,
+    "actual_manual_passes": 4,
+    "manual_pass_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "original_input_preserved": true,
+    "already_passed": "Initial physical Rift5 public Banish/flag0, NimblismBlue6+Blue7 Hand, all20HP/R0/AP1/no currenthistory seed. Actual Nimblism6 play and four actors1,2,3,4 complete; step10 proves same6 own publicGY/AP1. Actual intrinsic Rift5 Banish click selects declaredP4 before costs; step14 proves physical5 ATTACK Stack/SourceBanish5/pendingcost1/AP1R0. Then accepted Blue7 Hand0 funding. First23 checks atstep16 prove allHP20/P1R2AP0/otherRAP0/allDQsEmpty/noPayment/noCombat and emptyP1DeckTempEquipment. Next Stack2 fails actual1.",
+    "raw_corroboration": "PRIORITY/noCombat/NONE/chain0/attackUID0/targetNone/Damage0/nohits; cardsPlayedThisTurn NimblismBlue,RiftRed, arcCards5 originBanish/monFromBanish true. Raw emptyHands and noPayment corroborate payment completed. Raw attackPower0 is not fresh final power. No actual post-payment Stack-object tuple was serialized in observed_state.",
+    "unexecuted_at_first_checkpoint": "After failing Stack count, Stack0 physical5 tuple, Stack1 captured WHEN tuple, postpayment Pitch7/GY6/Banish counts/counter8 assertions were not run. Earlier5Stack and6GY tuple facts are prepayment observations, not assumed full postfailure snapshot."
+  },
+  "classification": {
+    "verdict": "CONFIRMED_NATIVE_MISSING_RESPONSEABLE_RIFT_BIND_BANISH_PLAY_WHEN",
+    "material_rule_failure": true,
+    "oracle_or_protocol_error": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "normative_basis": "Current official RiftBind904 permits Banish play and has WHEN played from Banish +X for actualNAAcount. Real NimblismBLUE NAA was played and resolved; after actual Rift cost payment the current WHEN must produce a triggered layer above unresolved ATTACK before priority (CR5.1.10,6.6.1/5/6). Stack must therefore contain2. Actual1 atPRIORITY confirms missing fresh responseable layer, not an impossible cost/target/protocol or inherited FromZone issue; V2 corrected metadata lies later/unreached.",
+    "bounded_source_cause": "MONBanishPlayable46-51 admits actual faceupRift without PlayableFromBanish flag, GL896 uses that intrinsic admission. Selected MONPlayed142 applies WTR_POWER=count(FaBARCPlayed(p,true)) immediately on fromBanish; it does not queue a responseable layer in this branch. Existing ROSQueue24 demonstrates supported captured Ability path. Actual missing layer matches selected inline implementation. This bounded producer evidence does not assert absence of every hook/catalogue route, nor any global/Core root allocation.",
+    "unexecuted_scope": "No fresh trigger response was taken/earnedlayerobserved thenremoved. No actual postfail fresh power5 or4, physical5damage/HP15, sourceentryChain, GA/APrefund, finalGY/Banish/Pitch/counter8/cleanup facts claimed. Remaining49 checkpointchecks plus29laterinputs/2349checksafterfailedoracle unexecuted; whole37/2990 strict suffix unchanged."
+  },
+  "expected": "Current official RiftBind904 permits Banish play and has WHEN played from Banish +X for actualNAAcount. Real NimblismBLUE NAA was played and resolved; after actual Rift cost payment the current WHEN must produce a triggered layer above unresolved ATTACK before priority (CR5.1.10,6.6.1/5/6). Stack must therefore contain2. Actual1 atPRIORITY confirms missing fresh responseable layer, not an impossible cost/target/protocol or inherited FromZone issue; V2 corrected metadata lies later/unreached.",
+  "observed": "After real Nimblism play and real Banish attack cost payment, 640 checks passed then Stack2 was expected but actual1. No earned trigger was observed then removed. Post-failure Stack tuples, fresh power, damage and cleanup were not queried.",
+  "selected_source_file_sha256": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch486-v2.recording-results.json",
+      "sha256": "74b0037dda20dab3058511f2cf906049da940bb14b4909561a7e8a5152a3a539"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs/card-regression-batch486-v2-20261105T164258Z-6aecb212c98ef.json",
+      "sha256": "a7ab0c048e3fda9bf8009d8af294375315accc77cb2681d22e8a677eec5d576a"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch486-v2-independent-source-review.json",
+    "sha256": "cb2d7430784e28dc74f496a3e8328a6eca88c17d9700d8b273b3d04cd4db1bab",
+    "manifest_sha256": "25dc00f44ff0beccd8d80c040cde324788a0ef526769a9079e3d44ac1419eaef"
+  },
+  "primary_sources": {
+    "current_official_actually_read": [
+      "https://judge.fabtcg.com/cards/detail/4519/",
+      "https://judge.fabtcg.com/cards/detail/904/"
+    ],
+    "current_rules_actually_read": [
+      "https://rules.fabtcg.com/en/cr/06-effects/",
+      "https://rules.fabtcg.com/en/cr/07-combat/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "local_faces_actually_viewed": {
+      "gentle_breeze_red": {
+        "path": "FaBSim/WebpImages/gentle_breeze_red.webp",
+        "sha256": "2bb373b70d84ca1253d1debcf4d368ce8e00495cfc1c42cc37c889ea31fec48a",
+        "current_catalog_text": "Your other attacks have 1 base {p}.\nGo again"
+      },
+      "rift_bind_red": {
+        "path": "FaBSim/WebpImages/rift_bind_red.webp",
+        "sha256": "261eb8adf39caae25f7726045d6f69d61e0d5631510fb70f6417f245b2618b99",
+        "current_catalog_text": "You may play this from your banished zone.\nWhen this is played from your banished zone, it gets +X{p}, where X is the number of non-attack action cards you've played this turn.\nBlood Debt"
+      },
+      "nimblism_blue": {
+        "path": "FaBSim/WebpImages/nimblism_blue.webp",
+        "sha256": "911c8b72538d8327dd09434374c7527cc06d9238af24fee5f948af0449b45d72",
+        "current_catalog_text": "The next attack action card with cost 1 or less you play this turn gets +1{p}.\nGo again"
+      }
+    },
+    "findings": "Gentle: own3/otherBASE1; current CR6.2.3+6.3.2 stage7 continuous numeric-base modification while actual source remains on same open chain; CR7.6.2-3a own GA refund and next attack from RESOLUTION before all pass/close. Rift current official is WHEN played from Banish, intrinsic permission independent of PlayableFromBanish flag; CR5.1.4 target before assets,5.1.10 played after costs,6.6.1/5/6 responseable trigger before priority. Trigger resolves before underlying ATTACK; NimblismBlue nextcost<=1 +1 is separately earned.",
+    "printing_limit": "Viewed Rift local MON174 carries older IF wording. Current official904 WHEN is the timing authority; no updated live card-image verification claimed."
+  },
+  "limits": [
+    "No fixture/passingcoverage/triggerresponses/freshpower/finaldamage/APrefund/cleanup credit for Rift. Root reserves128 and handles issue/global/root/Core attribution separately.",
+    "Only selected paidBanish WHEN failure after actual oneNAA; no zero/multiNAA/othercolors/Handplay/BloodDebt/Chane/support/sibling/fullcard claims.",
+    "No PHP/native/replay/R/source/fullsuite/heldrepair operation or retry by reviewer.",
+    "No fresh trigger response was taken/earnedlayerobserved thenremoved. No actual postfail fresh power5 or4, physical5damage/HP15, sourceentryChain, GA/APrefund, finalGY/Banish/Pitch/counter8/cleanup facts claimed. Remaining49 checkpointchecks plus29laterinputs/2349checksafterfailedoracle unexecuted; whole37/2990 strict suffix unchanged."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T16:48:26.272833+00:00"
+}

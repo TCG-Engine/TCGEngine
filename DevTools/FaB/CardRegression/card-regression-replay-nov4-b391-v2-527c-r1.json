@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch391.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T21:54:31.590477+00:00",
+  "fixtures": [
+    {
+      "slug": "card-machinations-of-dominion-blue-four-live-sparse-real-overpower-rejects-second-action-allows-paid-defense-reaction",
+      "fixture_sha256": "a865d1c3959f76bb1a2551c4bda58b849f06ca0193a96b82d0f9c6f9a5f01aa3",
+      "passed": true,
+      "result": "[PASS] machinations_of_dominion_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-time-flies-when-youre-having-fun-red-four-live-sparse-real-arsenal-bonus-kills-six-life-ally-without-hero-hit",
+      "fixture_sha256": "5c9b5ea436cec543f86cbbbd2b9fb0571e676abf9fd69e285972ed3a61cee4cc",
+      "passed": true,
+      "result": "[PASS] time_flies_when_youre_having_fun_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-machinations-of-dominion-blue-four-live-sparse-real-overpower-rejects-second-action-allows-paid-defense-reaction",
+      "returncode": 0,
+      "stdout": "[PASS] machinations_of_dominion_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-time-flies-when-youre-having-fun-red-four-live-sparse-real-arsenal-bonus-kills-six-life-ally-without-hero-hit",
+      "returncode": 0,
+      "stdout": "[PASS] time_flies_when_youre_having_fun_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

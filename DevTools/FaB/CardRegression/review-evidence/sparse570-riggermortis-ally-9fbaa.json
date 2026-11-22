@@ -1,0 +1,321 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B570_PAID_TAPPED_ALLY_ATTACK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T05:17:31.051841+00:00",
+  "source_spec": "card-regression-batch570.json",
+  "input_sha256": "f5dd25abf41932b4df052e83c396da26a264f33f96b1dd4e265e1d24853e05c0",
+  "manifest_sha256": "2027a92df2ae87d79af552d8e60ec272cdb9f21a8bc42bc3ea44318494fb1bb3",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch570-independent-source-review.json",
+    "sha256": "f811849cbfeb3a5dd601853f8c9b96f9c1469327736967b3ae2392557aa0254a"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch570-20261106T051221Z-6aed61b55feec.json",
+    "sha256": "9dc1eca66e1c31dc2fb64261493a086fdff8c7ac06f99ed9036204ca1cd12576"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch570.recording-results.json",
+    "sha256": "42bc875eece657d1555aca86eca1403fb9b989909d3c57b694fc17e21658b66a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch570-native-r1-9fbaa\\receipt.json",
+    "sha256": "d66b0f046275e63e744959b3f7a3b315419bf2a65150641db1fe189d144dd5f0"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "riggermortis_yellow",
+      "group_id": "identity:riggermortis_yellow",
+      "slug": "card-riggermortis-yellow-four-live-real-paid-tapped-ally-six-damage-and-proxy-cleanup",
+      "source_spec": "card-regression-batch570.json",
+      "input_sha256": "f5dd25abf41932b4df052e83c396da26a264f33f96b1dd4e265e1d24853e05c0",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_TAPPED_ALLY_SIX_DAMAGE",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-riggermortis-yellow-four-live-real-paid-tapped-ally-six-damage-and-proxy-cleanup",
+      "fixture_sha256": "67a8597ff32488c7977a7afd1b0fcca9d82d38c9a80dbbdb5e9c8dd65b133733",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7a3aa1182a4c7738835db25a53f1186dda58cd0091088eb9a09aa11fb1d8ef43",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "3ac4e8324cae509e0cb27f46543b86fec36b0972c9b10429e20098fccc183da2",
+        "expected_final_gamestate.txt": "73bcd60d487b814daaaa7fa47209af5b12cd5336e211d4418f79ba9209120fd9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a3aa1182a4c7738835db25a53f1186dda58cd0091088eb9a09aa11fb1d8ef43",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "3ac4e8324cae509e0cb27f46543b86fec36b0972c9b10429e20098fccc183da2",
+        "expected_final_gamestate.txt": "73bcd60d487b814daaaa7fa47209af5b12cd5336e211d4418f79ba9209120fd9",
+        "meta.json": "412caddeea2931b47fe9b6e268881dec9036a5c25ee91b7cf80456877951e911"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7a3aa1182a4c7738835db25a53f1186dda58cd0091088eb9a09aa11fb1d8ef43",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "3ac4e8324cae509e0cb27f46543b86fec36b0972c9b10429e20098fccc183da2",
+        "expected_final_gamestate.txt": "73bcd60d487b814daaaa7fa47209af5b12cd5336e211d4418f79ba9209120fd9",
+        "meta.json": "412caddeea2931b47fe9b6e268881dec9036a5c25ee91b7cf80456877951e911"
+      },
+      "actions": 28,
+      "native_assertions": 2414,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 684,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "riggermortis_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "riggermortis_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "original_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_source_UID": 5,
+      "actual_source_status_after_payment": 1,
+      "actual_source_Damage": 0,
+      "actual_attack_proxy_UID": 7,
+      "ceased_virtual_UIDs": [
+        7
+      ],
+      "actual_real_pitch_UID": 6,
+      "actual_attack_resource_cost": 1,
+      "actual_AP_cost": 1,
+      "actual_attack_power": 6,
+      "actual_physical_damage": 6,
+      "actual_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Arena1_exact_UIDs": [
+        5
+      ],
+      "final_Pitch1_exact_UIDs": [
+        6
+      ],
+      "all_final_GY_empty": true,
+      "source_use_counter_map": {
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "388316036b8c87e27b09417751daf5bdc43f282372dab061bc6a0403b5f049fd",
+      "native_action_mapping_sha256": "3d44f65de2fc6fafe3d4da4a41d93f22938e8904cd78832f758fcddf5f254dad",
+      "native_assertion_mapping_sha256": "a5a162c581bf96e378d79f4a4e24768715ce7f1d3f5609b9ff0434517d4d8520"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2414,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 684,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/newfixture1 current9fbaa. All rawfive/28 native envelopes/2414 ordered checks/684 properties,25 actual manual inputs(6/6/6/7),70 source guards and48 manual preferences at each endpoint match the independently approved case.",
+    "Real controlledreadyAlly5 activation announces adjacentHero4 before assets. Printedattackcost1 is pending while resources0/AP1 and source ready. RealBlue6pitches3, pays1/AP1 and taps same5/usecounter map before first of four responders, leavingR2/AP0. No seeded current history/permission or AP/resource substitute.",
+    "A separate ATTACK proxy7 identifies physicalsourceArena5; allfour real responses resolve it onto the chain. Actual printed6/noGA versusDEF0 deals6physical/HP14, with no Resolution refund. Physicalsource5 stays ownedcontrolled1/Arena/tapped/Damage0 throughout and survives full close.",
+    "Final exactphysicalUID1..6 remain (Ally5Arena, Blue6Pitch, all four originalHeroes), no physicalgraveyard cards, and proxy7ceases. Counter7/RNG0/allRAPChi economy and Stack/chain/DQ/payment/await/combat cleanup are exact. AllHero rawobjects unchanged; source wholeobject changes onlytap/use bookkeeping.",
+    "Shared current Ally route is reused from B105 source proof, not re-audited. Riggermortis printed6/noGA and its paid1 effect are individually checked here; laterLimpit2/GA consumer requires its own saved evidence. Native WEAPON-named use counters are implementation bookkeeping, not a printed once-per-turn limit or general Ally effective-zone certification.",
+    "PriorAlly casting/readiness is legal setup provenance only. Currentattackneitherplays nor sends physicalAlly tograveyard: WateryGrave/GravyBluegraveyard permission/Heroactivation/priorproducer/death/support/fullcard credit is unearned. Root two focused replays remain separate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AGB018.webp",
+      "scope": "Issuer printing independently viewed from hash-bound local face; direct current image fetch unavailable through web tool, not a fresh live-image retrieval claim."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AGB002-RF.webp",
+      "scope": "Gravy independently viewed AGB002 local publisher face; optional hero/blue-graveyard conditions unearned here."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.2.2",
+        "5.2.2b",
+        "5.1.7-5.1.9"
+      ],
+      "scope": "Activate own functional source with priority; target, asset then effect cost."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.8",
+        "8.3.1",
+        "8.3.5b",
+        "8.3.41"
+      ],
+      "scope": "Ally/attack proxy, attack go-again refund and unearned Watery Grave."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.6.2",
+        "7.6.3a",
+        "7.7"
+      ],
+      "scope": "Resolution refund/timing, same-chain continuation and full close."
+    }
+  ],
+  "shared_current_Ally_route_reused": true,
+  "limits": [
+    "One selected paid/tapped Ally attack branch only; no Ally cast/entry/death/damage-as-target/Watery Grave/face-down graveyard/Gravy ability or permission/endphase/refill/retap/repeated attack/blanking/suppression/other targets/pitches/defenders/support/sibling/full-card credit.",
+    "Printed no-GA versus GA distinction is independently verified; native bookkeeping is checked as representation, not a new game rule or arbitrary source-zone/activation-family certification.",
+    "Actualphysicaloriginals are UID1..6; temporaryattackproxy7 is allocated then ceases, not a seventh retainedphysicalcard.",
+    "Per-input facts come from actual ordered persisted assertions; only fullinitial/final raw snapshots exist. RawundoVersions are hash-bound but excluded from current physical inventory.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/denied operation; no fixture/coverage qualification beyond this exact Saved gate."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch570_saved_readonly.py",
+    "sha256": "88c5929bbb388eef0a3e38e8200bf2d7d02299f9636e115b7477b90f6197b014"
+  }
+}

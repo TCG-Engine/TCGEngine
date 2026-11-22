@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch353.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:23:14.575821+00:00",
+  "fixtures": [
+    {
+      "slug": "card-condemn-to-slaughter-red-four-live-sparse-real-paid-next-runeblade-weapon-plus-three-no-auras",
+      "fixture_sha256": "08a4063f2084a1de2fc4edaac25b3151891187f4664a3211ec0412b3f6077268",
+      "passed": true,
+      "result": "[PASS] condemn_to_slaughter_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-condemn-to-slaughter-red-four-live-sparse-real-paid-next-runeblade-weapon-plus-three-no-auras",
+      "returncode": 0,
+      "stdout": "[PASS] condemn_to_slaughter_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

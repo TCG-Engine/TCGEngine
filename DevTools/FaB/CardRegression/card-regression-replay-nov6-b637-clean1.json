@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch637.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T19:30:04.793872+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dead-threads-four-live-real-ally-graveyard-entry-and-resource-funded-five-damage",
+      "fixture_sha256": "6fefd1dfeecbaa7412f9ed3ac31f3abf8373b6198cb71c2041d172baf04349e9",
+      "passed": true,
+      "result": "[PASS] dead_threads / four live distinctive effect"
+    },
+    {
+      "slug": "card-starflow-robes-four-live-real-paid-destruction-prevents-one-and-creates-lightning-flow",
+      "fixture_sha256": "3429cbc28b986cc8256c4b69b8e3450e6e52fafed176d4d0aef810def2ae8c97",
+      "passed": true,
+      "result": "[PASS] starflow_robes / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dead-threads-four-live-real-ally-graveyard-entry-and-resource-funded-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] dead_threads / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-starflow-robes-four-live-real-paid-destruction-prevents-one-and-creates-lightning-flow",
+      "returncode": 0,
+      "stdout": "[PASS] starflow_robes / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

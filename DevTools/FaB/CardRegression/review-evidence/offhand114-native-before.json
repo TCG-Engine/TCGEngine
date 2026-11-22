@@ -1,0 +1,143 @@
+{
+  "id": "FAB-REG-114",
+  "status": "NATIVE_CONFIRMED_LEGAL_OFF_HAND_EQUIPMENT_DEFENSE_REJECTED_FROM_WEAPONS",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_sha256": "f0f3e07c828359262a669481fc8e8e4af640282185fbc4495829fab3262ae800",
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-offhand458-v2-independent-native-before-classification.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch458-offhand-weapons-v2.json",
+  "input_sha256": "098143b3375bab14c2f9e1aaf018cc505da2d8c42d1f46d98ae9240114e9e274",
+  "scenario_id": "card-shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper",
+  "primary_card_id": "shield_bash_red",
+  "failed_support_card_id": "steelbraid_buckler",
+  "first_failure": {
+    "error": "Expected p4Weapons count 0, got 1.",
+    "native_action_boundary": 13,
+    "source_step_index": 26,
+    "source_check_index": 56,
+    "ordered_authored_check_ordinal_1based": 1214,
+    "preceding_ordered_authored_checks_passed": 1213,
+    "completed_prior_boundary_checks": 1157,
+    "same_boundary_checks_before_failure": 56,
+    "raw_source_check": {
+      "type": "zone_count",
+      "zone": "p4Weapons",
+      "value": 0
+    },
+    "expected_P4_Weapons_count": 0,
+    "actual_P4_Weapons_count": 1,
+    "query": "Live p4Weapons cardinality after supported actor4 normal defense click. Physical identity6 was queried immediately before click at boundary12; this failed cardinality query occurs before any boundary13 postblock identity/chain property checks."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 13,
+    "last_input": {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Weapons-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "action_prefix_sha256": "9906cbd6c2f93575b0060a21afba2f19c0792846ea356d22e1fed41524904f0a",
+    "manual_inputs": 8,
+    "priority_response_inputs": 8,
+    "defender_declaration_finish_inputs": 0,
+    "manual_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2
+    },
+    "initial_manual_settings_verified": 48,
+    "initial_gamestate_sha256": "aade3a9223b19d4c63637b81b823285895fb224bfa82591102bd19e2d689d677",
+    "proved_attack": "Real Thunder7 Handplay/adjacentP4 target; actual Blue8+9 pitch3 each fund printed6, firstR3/AP1 insufficient then R0/AP0/emptyHand; fresh four resolve7 to attack link1/base10/noGA. No Heave/Bravo activation/outcome seed.",
+    "proved_off_hand_eligibility": "Immediately before input13, current priority4/windowDEFEND_DECLARE/defenderHero4, sole physical6 SteelbraidBuckler in owned controlled Weapons4 ready/Damage0, no other weapon/equipment occupancy. Guarded current card is GuardianEquipmentOffHand/numericDEF2/Temper, legal with P4BravoGuardianYoung20.",
+    "proved_no_op_boundary": "Actor4 mode10002 p4Weapons-0!FSM accepted by runner; live Weapons count stays1 rather than moving to Chain. Observed state remains DEFEND_DECLARE with declaredBlockUIDs[]/handBlockUIDs[], no menu/payment/target decision and no new played card. Sameboundary checks before failure prove allHP20/RAP0 and ShieldBash5 still ownedHand4 alongside unusedBlue10."
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_EQUIPMENT_DEFENSE_LEGALITY_REJECTED_BY_WEAPONS_ZONE_ALLOWLIST",
+    "protocol_or_oracle_error_at_first_failure": false,
+    "native_confirmed": "A legally equipped Off-Hand remains Equipment and can be declared as a defending card. Normal defender input fails to move the sole Buckler from its required Weapons zone. The corrected setup and expected block are normative; restoring illegal Equipment storage would hide the failure rather than correct an oracle.",
+    "bounded_source_explanation": "Actual EngineActionRunner mode10002/FSM dispatches ActionMap. ActionMap adds BLOCK only if FaBCanBlock accepts the selected card, otherwise no legal action is generated (or other modes are considered). Current FaBCanBlock zone gate permits Weapons only for literal parry_blade, while allowing Hand/Equipment/Hero and selected Arsenal exceptions. Buckler in required Weapons does not satisfy this gate regardless of its valid Equipment type/DEF2. Normal FaBDeclareBlock repeats the gate before moving physical UID into current chain. This is consistent with native no-op/empty decisions, not an omitted PLAY-vs-ability answer or insufficient defense cost. No actual callback instrumentation/trace is claimed.",
+    "direct_vs_source_derived_identity": "Direct native count query is1 after input13; direct named UID6/CardID/ownership/ready identity queries passed at boundary12. There is no complete postfailure raw-zone capture, and boundary13 Buckler/chain identity queries after the failed count did not execute. The prior sole-card identity plus bounded no-op eligibility source explains unchanged placement; no invented full after-snapshot is used.",
+    "attribution": "Confirmed failing branch is support Steelbraid/shared FaBCanBlock Weapons eligibility; primary ShieldBash was never played. Root113/other issues/global distinct-family/Core allocation are not changed by this proof. Root reserved114 remains Root responsibility."
+  },
+  "source_evidence": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "Core\\EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+      "FaBSim\\Custom\\BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+      "FaBSim\\GeneratedCode\\cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "anchors": [
+      "EngineActionRunner case10002/FSM -> ActionMap(actionCard)",
+      "ActionMap FaBCanBlock -> BLOCK -> FaBDeclareBlock",
+      "FaBCanBlock DEFEND_DECLARE/defenderHero plus Weapons-only-parry_blade zone gate",
+      "FaBDeclareBlock repeats CanBlock before physical move",
+      "current printed Steelbraid Guardian Equipment Off-Hand/DEF2/Temper"
+    ]
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch458-offhand-weapons-v2.recording-results.json",
+      "sha256": "ef4920d9f79f3b13c435a905c48b15b84b9f949500e813a709627b9d5d21fac7"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs\\card-regression-batch458-offhand-weapons-v2-20261105T120827Z-6aec71bb439ad.json",
+      "sha256": "0e7ee7f10449d5e4231281cc75b0e96936ca45db55e239c56a936828ec43333d"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1750/",
+      "finding": "Fresh official ShieldBash3/DEF6/defending Guardian Off-Hand condition/unless discard."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1300/",
+      "finding": "Fresh official Thunder6/base10/Heave3, unused Heave branch."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.10a",
+        "8.1.4b",
+        "8.3.10"
+      ],
+      "finding": "Fresh Off-Hand weapon-zone equip requirement; Equipment may defend; Temper wear at close."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4",
+        "7.7.5"
+      ],
+      "finding": "Legal Equipment defense and automatic Close resolution without priority before return to respective equipped zone."
+    }
+  ],
+  "unreached_suffix_and_limits": [
+    "PrimaryShieldBash5 is stillHand4 at failed boundary; actualBlue10 remainsHand4. No DR play/payment/choice/resolution occurred. Unless-discard effect/one damage to P1, ShieldBashDEF6+shield2=DEF8, incoming2/P4HP18 and subsequent cleanup are completely unexecuted. No ShieldBash game-effect failure is established.",
+    "Temper FromEquipment source restriction remains SOURCE_ONLY/UNATTEMPTED/UNCONFIRMED; neither successful Buckler defense nor chain close occurred. No final counter1/currentDEF1/survival/destroy/return claim or second native defect from that source concern.",
+    "Observed cachedattackPower0/defenseValue0 at DEFEND_DECLARE are not fresh-power or defense-result failures. Fresh attack10/noGA queries passed at prior boundary12; no physical damage occurred (allHP20 passed, observed damageDealt0).",
+    "Original39actions/3850strictchecks/normalWeapons block/primarydamage/DEF8/incoming2/HP19,18/mandatoryTemper1 preserved. Original illegalEquipment prototype remained W-only/uninstalled/unrun. No workaround/companion/rerun/sourcefix/repair authorization.",
+    "Only initial rawgamestate is complete. All48 initial manual settings and four live profiles verified; finalpreferences/UIDcleanup/all laterpostfailureproperties remain unobserved. No coverage/nativecontrol/fullcard/support-primary/sibling/globalCore conclusions.",
+    "Reviewer executed no PHP/native/replay/R/source/service/generation/fullsuite/remote or denied repair retry/reroute."
+  ],
+  "original_prototype_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch458-original-independent-source-hold.json",
+    "sha256": "e5a7b7b6a8f65c5e751c937aa4c58064a15d970d3c70eb99c5ac4ff1b5cf3254",
+    "input_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch458-shield-bash-final\\batch458-shield-bash-one-real-offhand-and-unless-damage-group.json",
+    "input_sha256": "0df4edb4b6171078878b0152f2894d7347f20ff4c703fcd0f894485941872a71",
+    "never_installed_or_native_attempted": true
+  },
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "root_attribution": "FaB-specific shared block eligibility at FaBCanBlock, not repository Core; only Steelbraid reproduced. Global distinct-root allocation remains unallocated.",
+  "created_utc": "2026-11-05T12:19:46.160104+00:00"
+}

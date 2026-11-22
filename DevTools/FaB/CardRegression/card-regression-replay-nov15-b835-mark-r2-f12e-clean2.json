@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch835-mark-controlled-foreign-owned-ally-positive-r2.json",
+  "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T23:21:04.293618+00:00",
+  "fixtures": [
+    {
+      "slug": "card-mark-of-pathstone-blue-four-live-controlled-foreign-owned-ally-hit-heals-controller",
+      "fixture_sha256": "31b9e18e795ff9f1c9c2ecad2b65a0bcbf42e0a62295f455544da67960010c80",
+      "passed": true,
+      "result": "[PASS] Mark of Pathstone Blue / controlled foreign-owned ally hit heals controller"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mark-of-pathstone-blue-four-live-controlled-foreign-owned-ally-hit-heals-controller",
+      "returncode": 0,
+      "stdout": "[PASS] Mark of Pathstone Blue / controlled foreign-owned ally hit heals controller\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

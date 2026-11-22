@@ -143,12 +143,12 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nFaBMONDestroy($uid);\n$paid = false;\n if (FaBAvailablePitch($player) >= 3) {\n $mode = await $player.Modal(1, 1, \"Decline&Pay_three_to_avoid_damage\", \"Optional_payment\");\n if ($mode === '1') {\n while (intval(GetResources($player)) < 3) {\n $refs = FaBARCPitchChoices($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Pitch_to_pay\");\n \n}\nFaBARCPitchForEffect($player, $chosen);\n \n}\n AddResources($player, intval(GetResources($player)) - 3);\n $paid = true;\n \n}\n \n}\nif (!$paid) {\n DoDamage($player, '', $player, 2, 'PHYSICAL');\n \n}\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$poxDamageSource = FaBCaptureDamageSourceRecord($uid, 'pox', $player);\nFaBMONDestroy($uid);\n$poxDamageSource['departed'] = FaBFindUID($uid) === null;\n$paid = false;\n if (FaBAvailablePitch($player) >= 3) {\n $mode = await $player.Modal(1, 1, \"Decline&Pay_three_to_avoid_damage\", \"Optional_payment\");\n if ($mode === '1') {\n while (intval(GetResources($player)) < 3) {\n $refs = FaBARCPitchChoices($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Pitch_to_pay\");\n \n}\nFaBARCPitchForEffect($player, $chosen);\n \n}\n AddResources($player, intval(GetResources($player)) - 3);\n $paid = true;\n \n}\n \n}\nif (!$paid) {\n FaBCapturedPoxDamage($player, $poxDamageSource, $player, 2, 'GENERIC');\n \n}\n",
         "isImplemented": true
       },
       {
         "macroName": "EndTurn",
-        "abilityCode": "$refs = FaBOUTEndTargets($player);\n while ($refs !== '') {\n $refs = FaBOUTEndTargets($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_end_phase_trigger\");\n \n}\n$uid = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID);\n $token = FaBIdentityFromMZ($chosen)['object']->CardID;\n FaBMONDestroy($uid);\n if ($token === 'ponder') {\n DoDrawCard($player, 1);\n \n}\n if ($token === 'bloodrot_pox') {\n $paid = false;\n if (FaBAvailablePitch($player) >= 3) {\n $mode = await $player.Modal(1, 1, \"Decline&Pay_three_to_avoid_damage\", \"Optional_payment\");\n if ($mode === '1') {\n while (intval(GetResources($player)) < 3) {\n $refs = FaBARCPitchChoices($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Pitch_to_pay\");\n \n}\nFaBARCPitchForEffect($player, $chosen);\n \n}\n AddResources($player, intval(GetResources($player)) - 3);\n $paid = true;\n \n}\n \n}\nif (!$paid) {\n DoDamage($player, '', $player, 2, 'PHYSICAL');\n \n}\n \n}\n if ($token === 'inertia') {\n $uids = FaBOUTInertiaStage($player);\n if (count($uids) > 0) {\n $param = FaBARCOrderParam($uids, 'Bottom');\n $order = await $player.Rearrange($param);\n FaBARCFinishOrder($player, $uids, $order);\n \n}\n \n}\n $refs = FaBOUTEndTargets($player);\n \n}\n",
+        "abilityCode": "$refs = FaBOUTEndTargets($player);\n while ($refs !== '') {\n $refs = FaBOUTEndTargets($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_end_phase_trigger\");\n \n}\n$uid = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID);\n $token = FaBIdentityFromMZ($chosen)['object']->CardID;\n $poxDamageSource = FaBCaptureDamageSourceRecord($uid, 'pox', $player);\nFaBMONDestroy($uid);\n$poxDamageSource['departed'] = FaBFindUID($uid) === null;\n if ($token === 'ponder') {\n DoDrawCard($player, 1);\n \n}\n if ($token === 'bloodrot_pox') {\n $paid = false;\n if (FaBAvailablePitch($player) >= 3) {\n $mode = await $player.Modal(1, 1, \"Decline&Pay_three_to_avoid_damage\", \"Optional_payment\");\n if ($mode === '1') {\n while (intval(GetResources($player)) < 3) {\n $refs = FaBARCPitchChoices($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Pitch_to_pay\");\n \n}\nFaBARCPitchForEffect($player, $chosen);\n \n}\n AddResources($player, intval(GetResources($player)) - 3);\n $paid = true;\n \n}\n \n}\nif (!$paid) {\n FaBCapturedPoxDamage($player, $poxDamageSource, $player, 2, 'GENERIC');\n \n}\n \n}\n if ($token === 'inertia') {\n $uids = FaBOUTInertiaStage($player);\n if (count($uids) > 0) {\n $param = FaBARCOrderParam($uids, 'Bottom');\n $order = await $player.Rearrange($param);\n FaBARCFinishOrder($player, $uids, $order);\n \n}\n \n}\n $refs = FaBOUTEndTargets($player);\n \n}\n",
         "isImplemented": true
       }
     ]
@@ -1705,8 +1705,9 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$victim = intval(FaBGetState()['defender']);\n$n = count(FaBOUTDefenders());\n FaBOUTToken($victim, 'bloodrot_pox', $n);\n",
-        "isImplemented": true
+        "abilityCode": "$victim = intval(FaBGetState()['defender']);\n$n = count(FaBOUTDefenders());\n FaBHVYToken($victim, 'bloodrot_pox', $n, null, null, false, $player);\n",
+        "isImplemented": true,
+        "previousCodeHash": "622763af972387ea5a23c63c339cea78d33d0f2402b5be3cf0886bdb1b17fc36"
       }
     ]
   },

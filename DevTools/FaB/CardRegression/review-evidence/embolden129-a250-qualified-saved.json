@@ -1,0 +1,52 @@
+{
+  "status": "EMBOLDEN129_ORIGINAL_RED11_1211_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 source patch/checker author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "a250b39ad6290e18738239bb54829d9d24cd3c96b713d744c511cc084cceaa3d",
+  "input_sha256": "222edfeaa5199f0e907c0e29f4c1c7f298440ac5403636e0b94a4d572b9208db",
+  "source_spec": "card-regression-repair-embolden129-entry-draw.json",
+  "fixtures": [
+    {
+      "slug": "card-embolden-red-four-live-original-correct-responseable-entry-draw-with-retained-deck-tail",
+      "card_id": "embolden_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b6e6da3926c4cc6758a657b5c691ad4a210edbf95ee1b8c903fec2eed30c1213",
+        "actions.json": "af1d75dd810ce45b784cfc5384894115d08c9966d6dd2c89a08d1ae71225f9de",
+        "assertions.json": "db10efbcee8569a9fd4302505037c866e0bcdadeb1d491a551405e1d2c492c15",
+        "expected_final_gamestate.txt": "fdd25b84a27509c7ae9f79ac0ae06ccf4069eac7bba4c7da415053fbedaa02a8",
+        "meta.json": "d2404baef443362922c132b10f66abddd7d5aa7681562ea62e39f3211f86a08b"
+      },
+      "fixture_sha256": "de5038993029f5c8268c6d69b0b4a032a31d891da68887979705f059627ae8ab",
+      "actions": 11,
+      "native_assertions": 1211,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "a250b39ad6290e18738239bb54829d9d24cd3c96b713d744c511cc084cceaa3d",
+      "runtime_sha256": "a250b39ad6290e18738239bb54829d9d24cd3c96b713d744c511cc084cceaa3d",
+      "source_spec": "card-regression-repair-embolden129-entry-draw.json",
+      "input_sha256": "222edfeaa5199f0e907c0e29f4c1c7f298440ac5403636e0b94a4d572b9208db"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-embolden129-replay.json",
+    "sha256": "6d96ed91e9241898db9d0610cf5b65c3da353471f8dc09a5e75ddca05f3d1854",
+    "passed": true
+  },
+  "source_review_sha256": "7a090390dff0c43d5876308db816f16ac4d20d8c593ea23b08fdb573ad06786f",
+  "components": 26,
+  "component_receipt_sha256": "48d58c366305a1c3170350990f9226c769c2543dcd48b142b1caf7cb3b821b4e",
+  "basis": "All original selectedRed11actions1211queries/setup unchanged. ActualEmbolden5cost4paidbyBlue6/7 pitches,R2/AP0; realArenaentry alongside controllednonTokenChannel8 earns separate childbefore draw, and printedownGA restoresAP1. BothDeck9/10retainedthroughallfourtriggerresponses, thenactualRaging9HandandoriginaltailWounding10Deck. SamephysicalEmbolden5andChannel8ownedcontrolled1Arena, 6/7Pitch,R2AP1/allHP20; full raw5,48manualsettings,Stack/DQ/await/payment/combatcleanup verified. No incorrect inline draw blessed.",
+  "official_sources": [
+    "https://judge.fabtcg.com/cards/detail/1246/",
+    "https://rules.fabtcg.com/en/cr/06-effects/"
+  ],
+  "limits": [
+    "Native qualification ONLY Red entry draw. Yellow/Blue share independently source-verified identical entry implementation and isolated controls; they receive no individual Native/identity coverage. Later beginningAction +5/+4/+3 and fullcard remain unqualified.",
+    "26 isolated actual-function checks cover resolution-time condition changes, Token/foreignController negatives and earned-source/entryidentity. These are not Native alternate-branch credit.",
+    "Original isolation harness failed at zero checks on two missing pure dispatch predicates; corrected derivative installs actual hash-checked functions. Failed setup receipt retained, not counted as gameplay failure or pass. R2 source unchanged.",
+    "No094/generation/Core/schema/service/fullsuite/historical corpus replay. Graveling first packet case excluded; no redundant coverage."
+  ]
+}

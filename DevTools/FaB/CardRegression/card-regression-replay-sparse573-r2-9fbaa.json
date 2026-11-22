@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch573.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T05:30:43.225181+00:00",
+  "fixtures": [
+    {
+      "slug": "card-emboldened-by-the-crowd-yellow-four-live-real-cheer-cost-three-to-zero-and-six-defense",
+      "fixture_sha256": "041e9585f70908e43e157a3cd265b43ddbdcee247467e07386e186f52f13ac9f",
+      "passed": true,
+      "result": "[PASS] emboldened_by_the_crowd_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-emboldened-by-the-crowd-yellow-four-live-real-cheer-cost-three-to-zero-and-six-defense",
+      "returncode": 0,
+      "stdout": "[PASS] emboldened_by_the_crowd_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,286 @@
+{
+  "status": "HOLD",
+  "approved": false,
+  "source_approved": false,
+  "semantically_approved": false,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-05T23:09:41.826213+00:00",
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-valiant-thrust-real-charge-author\\batch537-valiant-thrust-one-real-charged-soul-and-paid-plus-three-damage-group.json",
+  "source_spec": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-valiant-thrust-real-charge-author\\batch537-valiant-thrust-one-real-charged-soul-and-paid-plus-three-damage-group.json",
+  "input_sha256": "a8621a99135256a46d4f2e295ef2b69a47d2ced2950f7541ff655709c9ebf930",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-valiant-thrust-real-charge-author\\manifest.json",
+  "manifest_sha256": "1de6fccc55d1ff4d3e4da9bbbfee5ea6260d7cc75a2d10023f2d78dfc1ca36e0",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-valiant-thrust-real-charge-author\\frozen-author-QA.json",
+    "sha256": "af181c6826a542fbdd276c4e59ef1b840708f4a5dbe672363ff470ca3c8f9e6b"
+  },
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+  },
+  "source_guard_count": 71,
+  "source_guards_verified": true,
+  "cases": [
+    {
+      "slug": "card-valiant-thrust-blue-four-live-real-charged-soul-paid-attack-plus-three-and-five-damage",
+      "card_id": "valiant_thrust_blue",
+      "group_id": "pitch-cycle:valiant_thrust",
+      "source_approved": false,
+      "declared_actions": 51,
+      "declared_native_assertions": 4286,
+      "declared_manual_passes": 46,
+      "full_semantic_ledger_review_completed": false,
+      "reason": "Explicit support Charge effect-cost is physically paid before resource/action asset costs; this frozen intermediate oracle is not current-rule-correct."
+    }
+  ],
+  "blocker": {
+    "kind": "Normatively incorrect proposed support cost-stage oracle, no native failure",
+    "source_action_step_index0": 5,
+    "source_checkpoint_step_index0": 6,
+    "next_asset_payment_action_step_index0": 7,
+    "material_assertions": [
+      {
+        "check_index0": 5,
+        "check": {
+          "type": "scalar_zone_equals",
+          "zone": "p1Resources",
+          "value": 0
+        }
+      },
+      {
+        "check_index0": 6,
+        "check": {
+          "type": "scalar_zone_equals",
+          "zone": "p1ActionPoints",
+          "value": 1
+        }
+      },
+      {
+        "check_index0": 20,
+        "check": {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment",
+            "player"
+          ],
+          "comparison": "equals",
+          "valueJson": "1"
+        }
+      },
+      {
+        "check_index0": 21,
+        "check": {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment",
+            "uid"
+          ],
+          "comparison": "equals",
+          "valueJson": "8"
+        }
+      },
+      {
+        "check_index0": 22,
+        "check": {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment",
+            "cost"
+          ],
+          "comparison": "equals",
+          "valueJson": "1"
+        }
+      },
+      {
+        "check_index0": 23,
+        "check": {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment",
+            "kind"
+          ],
+          "comparison": "equals",
+          "valueJson": "\"ATTACK\""
+        }
+      },
+      {
+        "check_index0": 24,
+        "check": {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment",
+            "fromZone"
+          ],
+          "comparison": "equals",
+          "valueJson": "\"Hand\""
+        }
+      },
+      {
+        "check_index0": 57,
+        "check": {
+          "type": "zone_count",
+          "zone": "p1Soul",
+          "value": 1
+        }
+      },
+      {
+        "check_index0": 58,
+        "check": {
+          "type": "card_property_equals",
+          "mzId": "p1Soul-0",
+          "property": "CardID",
+          "value": "wounding_blow_red"
+        }
+      },
+      {
+        "check_index0": 59,
+        "check": {
+          "type": "card_property_equals",
+          "mzId": "p1Soul-0",
+          "property": "UniqueID",
+          "value": "7"
+        }
+      }
+    ],
+    "finding": "Step5 answers Charge with real GenericRed7. Step6 requires UID7 already in p1Soul while p1AP=1/p1R=0/pendingPayment cost1 for TakeFlight8. Only subsequent step7 pitches Blue6 and pays resource/AP assets. Current CR5.1.7 requires paying assets before effect-costs5.1.8-9; Charge is discrete physicalHand-to-Soul movement under8.5.29. Choosing/declaring optional Charge early under5.1.3b is distinct from paying it. Explicit physical Soul/AP/payment assertions certify the wrong order, so they cannot be ignored as implementation detail.",
+    "last_hand_note_assessment": "Note0e289 only limits source/selected-card index compaction. It does not supply a rule exception permitting Charge payment before assets. No arbitrary-order chooser failure is alleged here.",
+    "correct_primary_math": "Current ValiantBlue cost1/base2 receives+3 after a legal actual charge; current TakeFlightBlue cost1/base2 gets conditional go again. Their intended2then5/HP13 result is plausible, but cannot justify approving this incorrect support prefix."
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/771/",
+      "finding": "Current Blue Valiant1/base2, charged-turn conditional+3."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/786/",
+      "finding": "Current Blue TakeFlight1/base2; optional additional Charge cost and charged-turn go again."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.1",
+        "5.1.3b",
+        "5.1.7",
+        "5.1.8",
+        "5.1.9"
+      ],
+      "finding": "Optional additional costs are declared first; resource/action asset costs are paid before effect-costs. No asset/effect free-order exception appears in selected play procedure."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.29",
+        "8.5.29a-b"
+      ],
+      "finding": "Charge is a discrete physical movement from Hand to heroSoul, not merely a parameter declaration."
+    }
+  ],
+  "source_evidence": [
+    {
+      "path": "DevTools/FaB/mon_abilities.json",
+      "sha256": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+      "card_id": "take_flight_blue",
+      "finding": "Selected PrepareCard awaits optional MZMayChoose, immediately calls FaBMONCharge, then FaBFinishPreparedCard. This explains proposed early physical movement; current implementation is not a normative oracle."
+    },
+    {
+      "path": "FaBSim/Custom/MONCards.php",
+      "sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "lines": "16-20",
+      "finding": "FaBMONCharge immediately moves chosen live Hand UID to Soul and records CHARGED. No resource/action asset payment in this helper."
+    }
+  ],
+  "selected_ordering_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-valiant-thrust-real-charge-author\\SELECTED_CHARGE_ORDERING_LIMIT.json",
+    "sha256": "0e289821269f4419b43098b063c074ad4159dcbc4db056f97b0bbcdfbae066a2",
+    "reference_stability_limit_acknowledged": true,
+    "cost_ordering_not_certified": true
+  },
+  "required_resolution": "Preserve frozen packet unrun/uninstalled and existing holds. Do not approve the explicit early-Soul/AP-unpaid oracle or alter expectations merely to fit output. A normatively correct cost-sequence recipe/probe would need separate review; otherwise retain this selected support route as source-only unattempted hold. No repair or replacement hunt requested by this proof.",
+  "limits": [
+    "Review stopped at this concrete material normative blocker; all51/4286 remaining semantic/action/checkpoint ledgers and source guard completeness beyond actual71 hashes are not represented as approved.",
+    "No native game/probe/fixture/coverage/bug confirmation or issue/root/Core allocation. No claim of observed other-order Hand compaction failure.",
+    "Only W review proof written; no R/PHP/native/sourcefix/service/generation/fullsuite/denied repair retry. Held repairs remain untouched."
+  ],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "fixture_saved": false,
+  "native_bug_confirmed": false,
+  "passing_coverage_or_bug_credit": false
+}

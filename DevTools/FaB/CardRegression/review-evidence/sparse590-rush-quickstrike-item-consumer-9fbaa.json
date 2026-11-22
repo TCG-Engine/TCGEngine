@@ -1,0 +1,351 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B590_RUSH_QUICKSTRIKE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T07:59:41.883065+00:00",
+  "source_spec": "card-regression-batch590-rush.json",
+  "input_sha256": "113b68a24ae5a7271e82e1b145cd25e5a05517d385d7fa8f4f5d927d2354cfbc",
+  "manifest_sha256": "feeea7e9c5c87dd8ecb1dd315a769bc878386287b3b90e5a3ec550b6142945bb",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 72,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch590-independent-source-review.json",
+    "sha256": "c686b7e3cb3f7937bb2cbd91359bc26661e74d1f53f65a40e061866ad5c60a5e",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch590-rush-20261106T075229Z-6aed873d94aa5.json",
+    "sha256": "a3b7fbe304d622fe4c7a451e292692a3de98f7d1874c8e4d53a0e4efed8de79c"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch590-rush.recording-results.json",
+    "sha256": "8cfa5431e7590f69f8145cf78bc0395c88034346e2bc227ed65b6b5af4b761a7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch590-rush-native-r1-9fbaa\\receipt.json",
+    "sha256": "9243ab055a5c7d97fdca4a6403700d29914786753eb568739ce21b54def99121"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rush_of_power_blue",
+      "group_id": "pitch-cycle:rush_of_power",
+      "slug": "card-rush-of-power-blue-four-live-real-embodiment-earned-quickstrike-full-block-and-item-consumer",
+      "source_spec": "card-regression-batch590-rush.json",
+      "input_sha256": "113b68a24ae5a7271e82e1b145cd25e5a05517d385d7fa8f4f5d927d2354cfbc",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_EARNED_QUICKSTRIKE_AND_REAL_AP_CONSUMER",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rush-of-power-blue-four-live-real-embodiment-earned-quickstrike-full-block-and-item-consumer",
+      "fixture_sha256": "7e12c62050bc5eda12520f5f2dfb4d17fc1a66a4db5f3f78dc5d8ca2e429db9b",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "15139164e1bbb5b1434bb2d28bd5cd1139ba9164f5e1120e726a2b96470082a2",
+        "actions.json": "e851940f684256ca0c59fda4e0d2c65f784770f05311645ee8fdf612a8efc485",
+        "assertions.json": "5cce1a75a1844001a22d814b774f78281619e0a5a9821a0110c6cc21330745d1",
+        "expected_final_gamestate.txt": "8164545ebc5b22b90c51285b11d33e2977c3294c15379e66f1caeda404f1f3b3"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "15139164e1bbb5b1434bb2d28bd5cd1139ba9164f5e1120e726a2b96470082a2",
+        "actions.json": "e851940f684256ca0c59fda4e0d2c65f784770f05311645ee8fdf612a8efc485",
+        "assertions.json": "5cce1a75a1844001a22d814b774f78281619e0a5a9821a0110c6cc21330745d1",
+        "expected_final_gamestate.txt": "8164545ebc5b22b90c51285b11d33e2977c3294c15379e66f1caeda404f1f3b3",
+        "meta.json": "8dc6a9fb28300fea51d8c947eafd7476bf3bb8fac56a3f5c2d39d6553d20e355"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "15139164e1bbb5b1434bb2d28bd5cd1139ba9164f5e1120e726a2b96470082a2",
+        "actions.json": "e851940f684256ca0c59fda4e0d2c65f784770f05311645ee8fdf612a8efc485",
+        "assertions.json": "5cce1a75a1844001a22d814b774f78281619e0a5a9821a0110c6cc21330745d1",
+        "expected_final_gamestate.txt": "8164545ebc5b22b90c51285b11d33e2977c3294c15379e66f1caeda404f1f3b3",
+        "meta.json": "8dc6a9fb28300fea51d8c947eafd7476bf3bb8fac56a3f5c2d39d6553d20e355"
+      },
+      "actions": 37,
+      "native_assertions": 3335,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "schema_property_assertions": 1101,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "briar",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "rush_of_power_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "potion_of_luck_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "embodiment_of_lightning",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "nimblism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "nimblism_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "briar",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "9": {
+          "card_id": "potion_of_luck_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "nimblism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "nimblism_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rush_of_power_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_primary_power": 2,
+      "actual_primary_go_again": true,
+      "actual_primary_damage": 0,
+      "physical_plus1_HP_damage_witness": false,
+      "actual_full_block_defense": 3,
+      "actual_Item_consumer_UID": 9,
+      "final_GY1_exact_UIDs": [
+        5,
+        7,
+        8
+      ],
+      "final_GY4_exact_UIDs": [
+        10
+      ],
+      "ceased_UIDs": [
+        6,
+        11
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "7197c0fa7baa86bd6e502b5f0e736e48f31cb5a5efc2880377fe4f80f1c13fe7",
+      "native_action_mapping_sha256": "fc1fb73d397381d68278c34e4b1428bc6fb0a068fbd89c446260762faa6c43e8",
+      "native_assertion_mapping_sha256": "3b550ed55db7014a0c1a7bb7a7c387edc100f3eb673ded930bb0f47fb74c1df0"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 37,
+  "total_native_assertions": 3335,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 1101,
+  "material_findings": [
+    "Actual COMPLETE0/stderr0/new1 at9fbaa. All37 input envelopes/3335 ordered assertions exactly equal independently approved model;33 manual actors8/8/8/9,72 actual guards and48 preferences per endpoint verified.",
+    "Actual primary5play earns captured Embod6 layer above same5; freshfour destroys6 and grants pending5GA, separate sourcefour joins liveQuickstrike2/GA. Actual physical DEF3 fullblocks2, nohit/HPall20. HitArcane and Briar damageWHEN are genuinely unearned; no +1HP-damage claim.",
+    "Actual Resolution refunds1AP; fullclose retainsAP1 and then real Potion9 Item0 spends it to0, same9ArenaReady/no extra refund. Exact unordered ownGY UIDset{5,7,8} independently bound to Rush/NimRed/NimYellow; defender10ownGY4, token6 and virtual11ceased.",
+    "All originalphysical deckcards/Heroes conserved, no new token/incorrect Hero trigger, allHP20/RAPChi0/UIDcounter11/RNG0/fullquiet cleanup. Prior producer/Briar/Nimblism/Item ability/support/sibling/fullcard not certified; Submerge separate unattempted planning-only. Root replay gates separate and unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4976/",
+      "actually_retrieved": true,
+      "finding": "Current Quickstrike and hit-Hero text; primary face OMN070 actually viewed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "finding": "Go again refunds only on resolution; Quickstrike static condition; actual fullblock leaves hit effect unearned."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-events-and-chain/",
+      "finding": "Captured mandatory triggered ability resolves separately before pending physical source; fresh manual priority rounds."
+    },
+    {
+      "kind": "prior_public_fixture_provenance",
+      "finding": "Briar second NAA from prior NimblismRed/Yellow with own GA; no later attack consumed Embodiment and no token expiry. Prior producer execution is uncredited."
+    }
+  ],
+  "limits": [
+    "Only positive real Quickstrike+1 livepower2, earnedGA/fullblock/AP-funded Item consumer. No physical +1HPdamage witness, primary hitArcane/Briar damage WHEN, failedcondition/alternateGA/producer/Hero/support/sibling/fullcard credit.",
+    "Prior two NAA/token creation legal provenance only, old buffs expired; no token-production/Itemactivation proof. Submerge selected cost-order dependency unattempted, no native classification.",
+    "Persisted orderedledger and rawinitial/final only; opaqueundoVersions hash-bound but not currentinventory. Reviewer no PHP/native/replay/R/source/fullsuite/remote/deniedoperation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch590_saved_readonly.py",
+    "sha256": "4010f7602cbe4f1803fae4b30ecb144da311f78ac3cfcbaebe9e748a2fb7409b"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch590_source_readonly.py",
+    "sha256": "544c5847669b2e4543bcfab677063a4a390104b08d3b8c0ff7e63db128a92076",
+    "portion": "Complete declarative Rush schema/action/checkpoint model only; no unchanged source/rules audit"
+  }
+}

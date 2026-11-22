@@ -1,0 +1,300 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B542_DESTROYED_HEAD_OWN_ARSENAL_RETURN_AND_REAL_HAND_ATTACK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T00:27:19.657635+00:00",
+  "source_spec": "card-regression-batch542.json",
+  "input_sha256": "deae5b2980429cd0c0d64d041df5d7ba2f3899423627812f3eaa62f4d53192be",
+  "manifest_sha256": "f389d85234e87d1e6f10962c17d99cb08199b5bc26909f3dcc7fc0c969aef40c",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch542-independent-source-review.json",
+    "sha256": "39bda6587d181175e49b2b5a3588a95b9160550a1f21413a150be5f298aa40a5",
+    "unchanged_normative_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch542-20261106T002115Z-6aed1d7b0c533.json",
+    "sha256": "ce4e2d13168422e30ec7a5302d229a062f1726360bf55733d791973a649220b9"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch542.recording-results.json",
+    "sha256": "f7bdfd719f97af6c6b38e0c2d5c5433c5f855344e2d5e1e512056cf09ec0f4c6"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch542-native-r1-a4f6\\receipt.json",
+    "sha256": "79290c6c58f4c96a174ba56fa9dc2d73f79f61c905523246b8705f9ce4bba66e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "patch_the_hole",
+      "group_id": "identity:patch_the_hole",
+      "slug": "card-patch-the-hole-four-live-real-destroy-instant-returns-owned-arsenal-card-for-four-damage",
+      "source_spec": "card-regression-batch542.json",
+      "input_sha256": "deae5b2980429cd0c0d64d041df5d7ba2f3899423627812f3eaa62f4d53192be",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_DESTROY_COST_RESOLVING_RETURN_AND_RETURNED_CARD_DAMAGE",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-patch-the-hole-four-live-real-destroy-instant-returns-owned-arsenal-card-for-four-damage",
+      "fixture_sha256": "cc9c2721e302ad69a06cc760b18b30e5f8d25c4a4db5c1a36341ff5ee27aa3db",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7763ee746841e3b82041045120e644baff154a528826ef78ce04de78578a5477",
+        "actions.json": "5c5098784c60dffc6acf32c6dfff683d71375ac06badb16ec50faac495870aaa",
+        "assertions.json": "208a04e3af431d0f53e4f32550cffe8ffdf967434e53cf0d9918912b18f1b49d",
+        "expected_final_gamestate.txt": "555563311894d47659c6991793ba1fd9cf8bf2578ecbb15006a727302c1502b0"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7763ee746841e3b82041045120e644baff154a528826ef78ce04de78578a5477",
+        "actions.json": "5c5098784c60dffc6acf32c6dfff683d71375ac06badb16ec50faac495870aaa",
+        "assertions.json": "208a04e3af431d0f53e4f32550cffe8ffdf967434e53cf0d9918912b18f1b49d",
+        "expected_final_gamestate.txt": "555563311894d47659c6991793ba1fd9cf8bf2578ecbb15006a727302c1502b0",
+        "meta.json": "2c940e7b4c9ef1761983b9c668505150a09f6b597d568790792bc62a2be684ed"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7763ee746841e3b82041045120e644baff154a528826ef78ce04de78578a5477",
+        "actions.json": "5c5098784c60dffc6acf32c6dfff683d71375ac06badb16ec50faac495870aaa",
+        "assertions.json": "208a04e3af431d0f53e4f32550cffe8ffdf967434e53cf0d9918912b18f1b49d",
+        "expected_final_gamestate.txt": "555563311894d47659c6991793ba1fd9cf8bf2578ecbb15006a727302c1502b0",
+        "meta.json": "2c940e7b4c9ef1761983b9c668505150a09f6b597d568790792bc62a2be684ed"
+      },
+      "actions": 33,
+      "native_assertions": 2558,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 592,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "patch_the_hole",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "patch_the_hole",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UID_CardID": {
+        "5": "patch_the_hole",
+        "6": "wounding_blow_red"
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "resolving_choice_priority_claim": false,
+      "checkpoint_assertion_mapping_sha256": "8c413dd6f037f5f99da6d187515932b3667227fbca7738fa34634355e7e28402",
+      "native_action_mapping_sha256": "9f74fc50d8eecdf0ff74beb2d3c5ddb3a1ff2b7190eb46e64ee116fb05739c1b",
+      "native_assertion_mapping_sha256": "4a0114fcf9a7e7a413cb7179d78ba16226aa805d5046b53266393f62f8bdfc3e"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2558,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 592,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one fixture at a4f6. Every33 native action envelopes and2558ordered assertions equal the original correct source packet and independent ledger hashes. Raw5/69guards,29manual inputs including28responses+P4finish and48actualpreferences per endpoint verified.",
+    "Real owned Head5 is destroyed as Instant cost before four responses, remains public ownGY, and captures sourceEquipment5/controller1 in managed ABI7. Same owned FDArsenal6 stays unreturned through first three responses; fourth begins actual MZCHOOSE while ABI remains Stack and6 remains FDArsenal. Recipe stops at supported resolving decision, without a priority/window-reset assertion during that choice.",
+    "Actual p1Arsenal0 answer moves same physical6 to Hand and only then ABI clears. Real returned Hand6 is legally announced against adjacentHero4 before zero cost/AP1to0, sourcefour gives fresh4/noGA, and empty actual defense/combat causes physical4/P4HP16. No Arrow/Bow/Aim permission, heal, GA refund or Hero ability was used.",
+    "Full parsed endpoints independently prove exact originalUID1..6, final public ownGY exactUIDCardIDset{5:Patch,6:Wounding}, no other physical object, counter7/RNG0/APRChi0, unchanged quiet Hero rawobjects and completeStack/Chain/DQ/ownedawait/payment/combatcleanup. Cached last-choice/source metadata is not an active resolving layer. Opaque undoVersions remain hash-bound and excluded from current object inventory."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA096.webp",
+      "finding": "Actual publisher face independently viewed locally; exact printed cost/effect and Ranger Head DEF0."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/high-seas/",
+      "finding": "Search-indexed selected ruling: eligible own Arsenal card may be face-up or face-down.",
+      "full_page_fetch": "403; not read"
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "rules": [
+        "4.1.4a",
+        "4.4.3b"
+      ],
+      "finding": "Legal equipped Head and earlier own face-down Arsenal placement."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.2.1c",
+        "5.2.1d",
+        "5.2.2",
+        "5.3.4",
+        "5.3.4a",
+        "5.3.7"
+      ],
+      "finding": "Effect-cost before priority; resolving choice/effect before activated-layer clear."
+    }
+  ],
+  "limits": [
+    "ONE actualInstant0/destroy/positiveownedfaceDOWNArsenalreturn/returnedGenericAAcost0and4damage branch. No emptyArsenal/faceUP/multiplecards/counters/continuouseffect-removal/generalchooser certification.",
+    "No Headdefense/wear/Azaleaactivation/BowArrowAim/supportprimary/sibling/fullcardcredit. Legal priorArsenal placement described, not executed or credited; no currenthistory/privatepermission seed.",
+    "New a4f6 actualguards only; old checks not rerun/retagged. No authorapproval/native/fixture/coverage. OTHERpeer/Rootnative/Saved/replays pending; denied operations untouched.",
+    "No empty/face-up/multiple Arsenal selection or Head defense, counter/continuous-effect zone-change retention, Hero activation, Bow/Arrow/Aim/support-primary/sibling/full-card credit. Prior Arsenal placement is legal provenance only, not executed producer history.",
+    "Correct expectations/source/protocol approval only; Root native, exact Saved and focused replays remain separate. No reviewer PHP/native/R/source/fullsuite/other denied repair operation.",
+    "No face-up/empty/multiple Arsenal return, retained-counter or continuous-effect zone-change certification, Head defense/wear, Arrow/Bow/Aim, Azalea activation, support-primary/sibling/full-card credit. Prior end-phase placement is legal provenance only.",
+    "Actual resolving choice boundary is a decision, not a claimed priority opportunity. Only complete initial/final snapshots plus passed native assertions are used; no invented per-input snapshots.",
+    "Root two focused replays/registration remain separate; no reviewer PHP/native/replay/R/source/fix/fullsuite/other denied repair operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch542_saved_readonly.py",
+    "sha256": "d96cf4ec23671431c6b491b1c2573822218e8f5d20a0109ebc696f131f41b685"
+  }
+}

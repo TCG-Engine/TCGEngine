@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch512.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T19:40:01.842624+00:00",
+  "fixtures": [
+    {
+      "slug": "card-power-of-make-believe-blue-four-live-real-seven-power-defender-earns-six-power-three-damage",
+      "fixture_sha256": "847753f49efa88c2cd440f6c6706e128be215769e650473eda45c1b8660eabda",
+      "passed": true,
+      "result": "[PASS] power_of_make_believe_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-power-of-make-believe-blue-four-live-real-seven-power-defender-earns-six-power-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] power_of_make_believe_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

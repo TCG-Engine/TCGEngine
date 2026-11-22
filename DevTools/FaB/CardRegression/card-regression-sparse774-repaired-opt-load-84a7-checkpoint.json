@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-13T23:12:05.148611+00:00",
+  "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+  "source_spec": "card-regression-batch774.json",
+  "source_spec_sha256": "708f254482e6b1444dc4249e9a267548a05e36db3b0e9f75644f0d7d5dc53560",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 47,
+  "native_assertions": 4342,
+  "manual_passes": 37,
+  "totals": {
+    "saved_registered_scenarios": 4033,
+    "duels": 3074,
+    "four_live": 959,
+    "recorded_primary_ids": 1187,
+    "identity_denominator": 5196,
+    "recorded_groups": 1061,
+    "group_denominator": 3324,
+    "four_live_groups": 952,
+    "phase_qualified_scenarios_at_actual_contexts": 670,
+    "phase_qualified_unique_groups": 665,
+    "creation_replay_passes": 1340,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "dimenxxional_gateway_blue",
+      "group_id": "pitch-cycle:dimenxxional_gateway",
+      "scenario_id": "card-dimenxxional-gateway-blue-four-live-opt-reveal-all-opponents-arcane-shadow-banish",
+      "effect_branches": [
+        "dimenxxional-gateway-blue-four-live-lawful-opt-reveal-three-arcane-and-shadow-banish-model"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dimenxxional-gateway-blue-four-live-opt-reveal-all-opponents-arcane-shadow-banish",
+      "source_spec": "card-regression-batch774.json",
+      "source_spec_sha256": "708f254482e6b1444dc4249e9a267548a05e36db3b0e9f75644f0d7d5dc53560",
+      "review_evidence": "review-evidence/sparse774-repaired-opt-load-native-saved-independent-84a7.json",
+      "review_evidence_sha256": "967bc559c3c9d851e5199c849112dcebe5b22de760e227e42cdc64c16d7360b9",
+      "recorded_runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+      "qualification_runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov13-b774-spells-clean1.json",
+          "sha256": "64ce1e8f3ca0257c5807cc3e49d41ae23593cffdd7b12d08b39257d6ab1ea774",
+          "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov13-b774-spells-clean2.json",
+          "sha256": "550ca5b6347916b07effe7ff26f85147af84b875c8dba2472dbeb16ebf6918b7",
+          "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "silver_the_tip_blue",
+      "group_id": "pitch-cycle:silver_the_tip",
+      "scenario_id": "card-silver-the-tip-blue-four-live-arsenal-load-remaining-bottom-head-shot-damage",
+      "effect_branches": [
+        "silver-the-tip-blue-four-live-lawful-real-loaded-head-shot-followthrough-model"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-silver-the-tip-blue-four-live-arsenal-load-remaining-bottom-head-shot-damage",
+      "source_spec": "card-regression-batch774.json",
+      "source_spec_sha256": "708f254482e6b1444dc4249e9a267548a05e36db3b0e9f75644f0d7d5dc53560",
+      "review_evidence": "review-evidence/sparse774-repaired-opt-load-native-saved-independent-84a7.json",
+      "review_evidence_sha256": "967bc559c3c9d851e5199c849112dcebe5b22de760e227e42cdc64c16d7360b9",
+      "recorded_runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+      "qualification_runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov13-b774-spells-clean1.json",
+          "sha256": "64ce1e8f3ca0257c5807cc3e49d41ae23593cffdd7b12d08b39257d6ab1ea774",
+          "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov13-b774-spells-clean2.json",
+          "sha256": "550ca5b6347916b07effe7ff26f85147af84b875c8dba2472dbeb16ebf6918b7",
+          "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

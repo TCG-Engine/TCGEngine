@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch683-engine-r2.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T02:32:59.054091+00:00",
+  "fixtures": [
+    {
+      "slug": "card-annihilator-engine-red-four-live-real-two-evo-discount-paid-three-and-full-block",
+      "fixture_sha256": "0d15a7d6d8b05b4309264bd88cbc75fb6f6289b6882deef1c9c9eda6e588e1e8",
+      "passed": true,
+      "result": "[PASS] annihilator_engine_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-annihilator-engine-red-four-live-real-two-evo-discount-paid-three-and-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] annihilator_engine_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

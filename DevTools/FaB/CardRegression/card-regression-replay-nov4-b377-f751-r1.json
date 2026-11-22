@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch377.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T18:23:16.362767+00:00",
+  "fixtures": [
+    {
+      "slug": "card-hack-to-reality-yellow-four-live-sparse-real-paid-action-buff-consumed-by-fully-blocked-six-power-attack",
+      "fixture_sha256": "b6cd797278f4b6c20ffd4851fef02425622224503033bccbcd33ed1479107677",
+      "passed": true,
+      "result": "[PASS] hack_to_reality_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-shelter-from-the-storm-red-four-live-sparse-real-hand-discard-instant-prevents-one-of-next-seven-damage",
+      "fixture_sha256": "84850239505e134e80c54b176b2622d6f489a6a1c54a1dbb0e9552fdf520c28f",
+      "passed": true,
+      "result": "[PASS] shelter_from_the_storm_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hack-to-reality-yellow-four-live-sparse-real-paid-action-buff-consumed-by-fully-blocked-six-power-attack",
+      "returncode": 0,
+      "stdout": "[PASS] hack_to_reality_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shelter-from-the-storm-red-four-live-sparse-real-hand-discard-instant-prevents-one-of-next-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] shelter_from_the_storm_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

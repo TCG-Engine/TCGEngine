@@ -1,0 +1,340 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B730_DESCEND_INTO_MADNESS",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T18:25:46.136494+00:00",
+  "source_spec": "card-regression-batch730.json",
+  "input_sha256": "9773012f249d2cd115c5a9a049c0fc75f0f29ccfa9818c601334f15ae1e9b9d5",
+  "manifest_sha256": "92fdb82a379c1589e3f211f2ee103cb7dcb7b51484332bfb08d287f9df362e3e",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch730-descend-independent-source-review.json",
+    "sha256": "2188fdcfe9b362fbeac6397e5096e92e462373d770b255abaf466389deaaa07f",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch730-20261108T182209Z-6af0bdd1965cb.json",
+    "sha256": "a9e981a9830a2c4396bb9b3bdae4f2f6a2d7bcb40c2fb2ee46067a6ab9cd0134"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch730.recording-results.json",
+    "sha256": "109a266ceaf72e02eb4e6e511876149f53a192bf585d5a8692ec32cec4e23956"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b730-descend-native-recording\\receipt.json",
+    "sha256": "63b4b2a0a83804e455d18a4ea1b07014ff051cf0bb3b897b6a9e27fb8e336c9e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "descend_into_madness_blue",
+      "group_id": "identity:descend_into_madness_blue",
+      "slug": "card-descend-into-madness-blue-four-live-real-hand-banish-and-physical-draw",
+      "source_spec": "card-regression-batch730.json",
+      "input_sha256": "9773012f249d2cd115c5a9a049c0fc75f0f29ccfa9818c601334f15ae1e9b9d5",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_HAND_BANISH_AND_PHYSICAL_DRAW",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-descend-into-madness-blue-four-live-real-hand-banish-and-physical-draw",
+      "fixture_sha256": "a8748255ac5dbdb98a54e28cc719480861753d295d1dc79e2655a903e5054121",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3d540af5f012203c50215dbb2ebe80b06e2541785757de7b481a5720980d4963",
+        "actions.json": "beafd2380cac0abd73dc398e67570eb07c7b4533d61cefa9a8b379ba06fc1376",
+        "assertions.json": "e344f43135feb9721d26cce468a51824711d4835b47ccb84e9c852cddd0c169e",
+        "expected_final_gamestate.txt": "1abe2d9d3d3e1c20083e9d2f592bd56b6a0b108f6e82f21c8f619c92511ff74f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3d540af5f012203c50215dbb2ebe80b06e2541785757de7b481a5720980d4963",
+        "actions.json": "beafd2380cac0abd73dc398e67570eb07c7b4533d61cefa9a8b379ba06fc1376",
+        "assertions.json": "e344f43135feb9721d26cce468a51824711d4835b47ccb84e9c852cddd0c169e",
+        "expected_final_gamestate.txt": "1abe2d9d3d3e1c20083e9d2f592bd56b6a0b108f6e82f21c8f619c92511ff74f",
+        "meta.json": "a3d93f10c16e1095b40c1a9a47d18dd9e00ebbb94c9b8d1db46ebe191a686319"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3d540af5f012203c50215dbb2ebe80b06e2541785757de7b481a5720980d4963",
+        "actions.json": "beafd2380cac0abd73dc398e67570eb07c7b4533d61cefa9a8b379ba06fc1376",
+        "assertions.json": "e344f43135feb9721d26cce468a51824711d4835b47ccb84e9c852cddd0c169e",
+        "expected_final_gamestate.txt": "1abe2d9d3d3e1c20083e9d2f592bd56b6a0b108f6e82f21c8f619c92511ff74f",
+        "meta.json": "a3d93f10c16e1095b40c1a9a47d18dd9e00ebbb94c9b8d1db46ebe191a686319"
+      },
+      "actions": 35,
+      "native_assertions": 3846,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1675,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni_web_of_deceit",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "descend_into_madness_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "spiders_bite",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni_web_of_deceit",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "spiders_bite",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "descend_into_madness_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_resources_paid": 2,
+      "actual_AP_paid": 1,
+      "actual_primary_AR_cost": 0,
+      "actual_banished_UID": 8,
+      "actual_drawn_UID": 9,
+      "actual_AR_source_UID": 5,
+      "actual_attack_power": 2,
+      "actual_defense": 2,
+      "actual_damage": 0,
+      "actual_weapon_GA_refund": 1,
+      "actual_BladeBreak_destroyed_UIDs": [
+        10,
+        11
+      ],
+      "ceased_proxy_UID": 12,
+      "final_UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "316f989a40ff4544052b6365a9d778ad61d134140f6e1353d86a002cf633a7a5",
+      "native_assertion_mapping_sha256": "9c257ea771d040c34e36e89c5ce05733f332f4ad15b12f0ed543255cbda08994"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 35,
+  "total_native_assertions": 3846,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 1675,
+  "material_findings": [
+    "Exactrawfive/behavior/all35controls3846persistedqueries29manual7/7/7/8/48preferencesbothendsmatchSource2188; COMPLETE0/stderr0/receipt-results-archive/current70c53ab33bound. Fullphysicalendpoints/initial-finalqueriesindependentlyparsed.",
+    "ActualBlue7paysweapon2/AP1→R1AP0; actualAR5heldREACTIONfirstthreewithHand8/Deck9unchanged. Fourthresultsstrictsame8publicBanishandactual9Hand/Deckempty/5GY. RNG0matchesactualequal-boundhelper/noseed, no multi-carddistributionclaim.",
+    "SpiderPiercingonce2/fullDEF2/noHit/allHero20; GArefundAP1. NormalCloseBladeBreak10/11GY4/proxy12ceased/originalUID1..11conserved/weapon6used/Pitch7/primary5GY1/Banish8/Hand9/R1AP1/Chi0/StackChainDQpaymentawaitquiet. StandardDTD_HAND_BANISH2bookkeepingisnotgenericpermissionorothercardcredit."
+  ],
+  "limits": [
+    "One nonemptyHand/Deck positive primary banish-then-draw; no emptyeffectfallback or multi-cardrandomdistribution certificate.",
+    "No seededhistory/randomness/expectedface adaptation/retry; real soleeligible nativeRNG call returns bound before counteradvance.",
+    "Weapon/Piercing/GA/armor/Hero/support/sibling/fullcarduncredited; fullblockonly suppresses unrelated earnedHitWHEN.",
+    "PrimaryARsource/freshfour and actualUID8Banish/UID9Hand strict; all48preferences/native/Saved/twocleanreplaysseparate.",
+    "RawweaponproxyOwner0whileStack is unset-storage representation fromAddStack; physicalweapon6andplayedproxyChain areOwnerCtl1. No globalownershipcertificate. Rawwindow/combatOpen staging is existingnativeprotocol, not independentnormativechain-opening/phaseprioritycertification.",
+    "Firstthreeholds/fourthpayload and all physical UID transitions are strictproposedassertions, not instrumentedsubinputnativepauses. No multihandrandomdistribution/emptyHandDeck/markedHero/Stealth/End/Hitrider/secondarysupport/sibling/fullcardcredit. Native/Saved/raw5/48preferences/replays/registrationremainseparategates. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "OneactualsoleHand/Deckpositivebanish-drawbranch; noemptyfallback/multi-carddistribution/alternativeHero/extraHitWHEN/sibling/support/fullcardcredit.",
+    "Rootfocusedreplays/registration/index/promotionremainseparate; noqualificationcreditbeforeregistration. RawVersionshash-bound/excludedfromphysicalinventory. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch730_descend_saved_readonly.py",
+    "sha256": "54c67453430b7f1f6f0946d8ee8bcc6158b5eaa299321ae634e17f1adfc2c4f7"
+  }
+}

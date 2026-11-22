@@ -1,0 +1,112 @@
+{
+  "status": "SMASHING067068_MAIN_NAMED_RED_ARSENAL_AND_NO_ITEMS_HIT_RESPONSE_QUALIFIED",
+  "created_utc": "2026-11-03T15:54:17.887658+00:00",
+  "issues": [
+    "FAB-REG-067",
+    "FAB-REG-068"
+  ],
+  "qualification_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "passing_fixture": "card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+  "source_spec": {
+    "path": "card-regression-batch278-trigger-probes.json",
+    "sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47"
+  },
+  "fixture_behavior_sha256": "2a68c4af89093eec471ce81acdd490b6dc967bb01a911363b97fe0e7dcf7e260",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "00e2f4b5d11a9ef8e616759dc390b7ca6c75f6951e85c55c8664c8d1515ec111",
+    "actions.json": "1041a29da75afe026390be1a8036cd72819c1b17eafbcef27c95563e9ad728c7",
+    "assertions.json": "1cf20e256bb14e71564d6ca9ea336873b0f6c5c758253420fb96983986f88ca8",
+    "expected_final_gamestate.txt": "ad40f76b35b863507e5684cce34a4271d26814d18b6f9c61c2c6027cf73f13ab",
+    "meta.json": "655fbb93de39964d930badfe285db4818198594650fb6fe822966ffc9c8cb7f9"
+  },
+  "exact_saved_review": {
+    "path": "review-evidence/smashing067068-saved-1f51-independent-review.json",
+    "sha256": "c021f3b6437b6cf4c31b0fbfb2bbd551a80ba897e15e83d32c5d0c99ffb9748f"
+  },
+  "native_archive": {
+    "path": "recording-runs/card-regression-batch278-trigger-probes-20261103T152423Z-6ae9fca719f56.json",
+    "sha256": "e1d516c5086941168c0de022a161b2c701620b8d5017028daa62509f6470175b"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov3-smashing067068-1f51-r1.json",
+      "sha256": "2d89d632a7ba67a2e14afb75f2ce4ebdf107ded7c2edddd4d2195908ca5a30e8"
+    },
+    {
+      "path": "card-regression-replay-nov3-smashing067068-1f51-r2.json",
+      "sha256": "d2b7db67367de60e08e77a086295488d5aeb071f913df2b245a9b2cd633072df"
+    }
+  ],
+  "registered_checkpoint": {
+    "path": "card-regression-sparse278-smashing067068-1f51-checkpoint.json",
+    "sha256": "e13df3e34a57f2d37920773411914f4752481fb295243e2a1dea256ae168b3c8"
+  },
+  "already_registered_utc": "2026-11-03T15:42:09.856754+00:00",
+  "native_actions": 36,
+  "native_assertions": 2421,
+  "actual_manual_passes": 33,
+  "priority_response_passes": 32,
+  "defender_finish_inputs": 1,
+  "source_process": {
+    "path": "review-evidence/smashing067068-v2-source-application.json",
+    "sha256": "7a7b3960ec8b5597be48d43298594fcaaad380659b7aabd5b03682f752915100"
+  },
+  "independent_source_semantics": {
+    "path": "review-evidence/smashing067068-v2-independent-source-review.json",
+    "sha256": "2730e404303a147d8eac9c337c793bce2c0317fdfda0dabc014a19654909ebaf"
+  },
+  "actual_generated_limited_review": {
+    "path": "review-evidence/smashing067068-v2-actual-generated-independent-review.json",
+    "sha256": "85440c858ce3f508c8bb5f845e8fc8efa3a3b23ff75a2310d4b5906e80272467"
+  },
+  "qualified_behavior": [
+    "Actual originalArsenal5 Action0/AP1 spent, four manual responses retain physical source then ownGY/printedGA returnsAP1. ActualHandAA6 cost0 spends returnedAP, four responses yield printed4+3=7/noGA.",
+    "Actual7 physical damage/P4HP13 earns a fresh source-bound SmashingABILITY, even with no Items. It retains CardIDSmashing/Controller1/SourceUID5 through three actual respondents; fourth completes no-choice/no-destroy body while sameAA6 stays Chain. Fullclose leaves ownGY5,6/R0/AP0, virtual ceased, all four live/manual and all queues/frames clear."
+  ],
+  "evidence_limit": "Intermediate native assertions pin Stack count/CardID/Controller/Kind/SourceUID5, not private triggerUniqueID. Final Counter7/source allocation explain virtual7; no invented native privateUID or additional control.",
+  "preserved_before": {
+    "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "compact_proof": {
+      "path": "review-evidence/nov3-066069-native-before.json",
+      "sha256": "36a2edb90ab7bc7f6c5d98f9cd4657d26ca37d673408efab2d957a9ccee4b357"
+    },
+    "original_archive": {
+      "path": "recording-runs/card-regression-batch278-trigger-probes-20261103T025547Z-6ae94d33616cf.json",
+      "sha256": "3ddeb50f2ca4e8c1b5c589b3b415723d210e06ef2bec1bbdaefe2f24c7eb72aa"
+    },
+    "issue067": "Original11 inputs actualAA6 power4 instead7.",
+    "issue068": "Original diagnostic24 inputs actual4 damage/HP16 but no earned responseable hit layer; diagnostic context preserved, not a passing fixture."
+  },
+  "one_emitter_process": {
+    "invocations": 1,
+    "emitter_exit_code": 0,
+    "original_attempt_receipt_sha256": "511c94388cb486eaa5e9384d4efdaf3891a8cd12e82e4340d4145bfa027ee076",
+    "operational_mistake": "Root wrapper incorrectly required all outer wrappers to change. Actual threeResolveCard bodies and three owned await helpers changed; outerAbility wrappers/callbacks legitimately stayed identical.",
+    "recovery": "Five approved source files were restored while exact emitter output was retained. After independent body/scope review, Root guardedly re-paired ONLY the same five approved source bytes with the SAME emission.",
+    "completion_receipt_sha256": "4020a7271d11e790dca8525f8dd089b5b6ade6863f18789f0e9eb7b09b0c9c52",
+    "generator_rerun": false,
+    "manual_generated_edit": false,
+    "generated_output_sha256": {
+      "GeneratedMacroCode.php": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df",
+      "GeneratedMacroCount.js": "7576a12c264373f0df180cb103010797419d071f412884d283d31d135a9514cc"
+    }
+  },
+  "unattempted_limit": {
+    "status": "SOURCE_ONLY_UNATTEMPTED_NOT_NEW_CONFIRMED_ISSUE",
+    "path": "ROS captured ability proxy during optional Item-choice await",
+    "reason": "Selected noItems route completes synchronously; generic ROS path may clear its virtual proxy before an async Item chooser. No Item exists here and that branch was not executed.",
+    "native_confirmation": false,
+    "new_issue_or_root_count": 0,
+    "qualification_credit": false
+  },
+  "future_weapon_witness": {
+    "status": "NOT_INCLUDED_NATIVE_SAVED_REPLAYS_AND_SEPARATE_EVIDENCE_REQUIRED",
+    "new_primary_or_group_credit": 0,
+    "qualified_status_does_not_depend_on_future_case": true
+  },
+  "limits": [
+    "Named owned Red realArsenal +3 and noItems earned-hit response branch only. No sibling pitch, Item chooser/destruction/await lifetime, foreign owner, suppression, elimination, stacking, full-card, support primary or isolated fault-control credit.",
+    "Original source/before/runtime contexts and existing Invigorating c08 remain historical. No unqualified runtime4006 gameplay evidence or all-siblings credit from generated reviews.",
+    "This metadata update promotes two original records, creates no scenario/group or new confirmed bug/root count, and overwrites no global counters/index/review. Other77 issue objects unchanged. Fullsuite0/remote authoring0."
+  ]
+}

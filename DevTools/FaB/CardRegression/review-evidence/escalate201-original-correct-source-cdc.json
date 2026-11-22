@@ -1,0 +1,154 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_ESCALATE_PREFIRMED_GLOBAL_OPPONENT_ACTION_DRAW_EARNED_LIFE_LOSS",
+  "phase": "SOURCE",
+  "batch": 867,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch867-escalate-opponent-draw-life-loss-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-opponent-native-draw-earned-life-loss-strict-probe-author\\escalate-opponent-real-draw-earned-life-loss-full-probe.json",
+    "sha256": "4ad51e5c692d858ff67097afb96f96a1931de4a4ba565f4ea81c60a4b28e729f"
+  },
+  "input_sha256": "4ad51e5c692d858ff67097afb96f96a1931de4a4ba565f4ea81c60a4b28e729f",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-opponent-native-draw-earned-life-loss-strict-probe-author\\manifest.json",
+    "sha256": "10529acc37f569db410e531d77af09afe33d240801099eabf4820ea57b3013ae"
+  },
+  "manifest_sha256": "10529acc37f569db410e531d77af09afe33d240801099eabf4820ea57b3013ae",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-firm-reservation.json",
+    "sha256": "ce5979da9fac7e0147ecdab8715e6e67fc0530c65d25d41e1ed10ea39591ba84"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-firm-reservation-support-admission.json",
+    "sha256": "cc8298284da4c1d2f3a202d53a14114112af0f6ce92d5ba5e3bc138e54f8d26d"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-opponent-native-draw-earned-life-loss-strict-probe-author\\preflight.json",
+    "sha256": "e39310ed2bd0b0d9876d8efb71e897b919051fcf7ff4e616e9ecc9b454026f97"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-opponent-native-draw-earned-life-loss-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "0f3018670fc4c4455ea60910eb81d9c4759d2f2f030fcb08450f0dfcd9fbe386"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-opponent-native-draw-earned-life-loss-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "e8de93a4aefd0e684040ca678ed69704a63b543bd7f443b281e1f1dfd16a092f"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 20,
+  "all_current_guards_independently_matched": true,
+  "actions": 9,
+  "declarative_controls": 9,
+  "planned_native_inputs": 9,
+  "assertions": 1247,
+  "native_assertions": 1247,
+  "planned_native_assertions": 1247,
+  "manual_passes": 8,
+  "pass_control_count": 8,
+  "legal_priority_response_controls": 8,
+  "expected_formal_defense_finish_inputs": 0,
+  "nonpriority_END_transport_controls": 0,
+  "expected_manual_pass_actors": [
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3
+  ],
+  "expected_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "schema_property_checks": 282,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "unsupported_computed_life_getter_absent": true,
+  "expected_native_query_mapping_sha256": "110426421dbf11339e25a086b68347ce0607710c305f40a911518fecabf2c671",
+  "checkpoint_mapping_sha256": "f0fcebadd8893b1bc25a4779dcedc716c2994416c8cccb4aea7024b1b8039714",
+  "post_parent_first_physical_frontier": {
+    "source_step_index": 10,
+    "source_check_index": 0,
+    "after_control": 5,
+    "global_query_ordinal": 572,
+    "query": {
+      "type": "zone_count",
+      "zone": "p4Graveyard",
+      "value": 2,
+      "viewerPlayerID": 1
+    }
+  },
+  "post_parent_Hero_health_frontier": {
+    "source_step_index": 10,
+    "source_check_index": 13,
+    "after_control": 5,
+    "global_query_ordinal": 585,
+    "query": {
+      "type": "scalar_zone_equals",
+      "zone": "p4Health",
+      "value": 20,
+      "viewerPlayerID": 1
+    }
+  },
+  "independent_semantic_findings": [
+    "The global ACTION-draw branch was fixed before bodies. Four actual Young Dori1/Betsy2/3/Rhinar4 are20; Dori legally controls Warrior Aura5, Rhinar admits real Skullhorn6. Current actor4 already has ACTION/AP1; preexisting Aura can have been cast during this Action phase before recording. Prior casting/beginningAction draw/end weapon-check destruction are outside this bounded representative, not asserted absent in prior history.",
+    "Actual ARCAbilities18 Skullhorn ACTION spec/WTR82->ARC162..174 pays the real destroy-cost and AP before priority. Existing managed ARC virtual ABI classification/continuation retains that ability through full canonical Draw1->FaBDiscardRandom1 and printed GoAgain AP1. The physical equipment is supposed to be GY as cost while its earned activation resolves; no physical ordinary-spell218 lifetime waiver is introduced.",
+    "Hand4 is empty and only BlueWoundUID7 starts Deck4. Real draw moves that physical card to Hand; actual RandomHandUID invokes native RNG on its sole eligible Hand card and discards the same UID publicly, without seed/cursor manipulation, forced RNG result, or claimed cursor advancement. Blue printed power2 avoids Rhinar>=6 Intimidate and higher-power discard producers.",
+    "Whole parent completion must leave Skull6+drawn/discardedBlue7 GY4, Hand/Deck0 and AP4=1 before first priority for the separate Escalate effect. Supported physical roster checks572 onward then AP1 precede public Hero4-health20 at query585; only afterward are layer/window fields queried. No response or trigger effect is invented between parent draw and discard/GoAgain.",
+    "Printed whenever-a-Hero-draws-duringAction is an earned triggered effect owned by Aura controller1 affecting actual drawer4. Correct first three fresh responses leave4 at20, fourth resolves actual lose1 to19; other Heroes20. Life loss uses ARC289..292 health subtraction/MONLifeLost, not damage or prevention. Actual Hero health assertions are supported scalar zones, not unsupported computed-life getters.",
+    "Fresh literal GLDoDraw2437..2452 moves the real card and invokes SEADrew80..82, whose exact Escalate Arena scan immediately FaBARCLoseLife(drawer,n,AuraOwner) rather than capturing that earned Aura/controller/drawer layer. No exact earlier causal card/statement contract was identified in the bounded ledger check; proper beginAction queue138 and end101 bodies are separate unentered clauses. This is Source concern only until actual Native evidence, with no new defect/root/Core allocation.",
+    "All9 exact controls/1247 ordered supported queries/282 schema properties/current72+10+20guards independently match the frozen model and source. SourceAura5/controller1/KindABILITY/actual consumer health and full economy/physical/Stack/DQ cleanup are required, without guessed virtualUID/private event values or merely a marker-only oracle. Initial and final actual raw48/manual profiles are future actual/Saved gates, not claimed now."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3"
+      ]
+    }
+  ],
+  "remaining_gates": "Root one full --probe-only/noSaveevenPASS run and independent actual review. No automatic Save/promotion; any later normal Source/Saved raw5/both endpoints/two own replays require separate gates. No old-runtime coverage is borrowed.",
+  "limits": [
+    "Only the pre-firmed global opponent-draw Action branch is under diagnosis. BeginningAction draw/end destruction/prior Aura cast/other drawers/multiple draws/Hero abilities/ArcaneBarrier/support/fullcard remain unentered or uncredited.",
+    "No PHP/Native/Rwrites/replay/newagents/repair/deniedReincarnate199 or older write retry by reviewer."
+  ],
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false
+}

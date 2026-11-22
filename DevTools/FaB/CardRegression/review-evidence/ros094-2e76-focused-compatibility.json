@@ -1,0 +1,146 @@
+{
+  "status": "PASS_FIVE_DIRECT_EXISTING_COMPATIBILITY_REPLAYS_AND_SMALL_WTR",
+  "runtime_sha256": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+  "cases": [
+    {
+      "route": "ARC_awaited_equipment",
+      "slug": "card-ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\ARC_awaited_equipment.complete.log"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\ARC_awaited_equipment.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1fc3fd4b266dc234241fe4194a3ce50da43188a29d166bd45d3f8cebf940b670",
+        "actions.json": "1c354f3e71561d50ec6cea8ff2ea4d47711298cf4a354e45e33903761b68d5f8",
+        "assertions.json": "cee7176e540cfe1b0065bf1d854d56c209165242195f54ed800f874062ad7170",
+        "expected_final_gamestate.txt": "cc18cacc6e8952e73649b28c3bf6ef3716c840110e09d40caee687d7b1b0bc10",
+        "meta.json": "591f7eb62d64936b7601039c0155f846a01864f3f265a74a9423499725e9d0a4"
+      }
+    },
+    {
+      "route": "RUNECHANT_prevention_continuation",
+      "slug": "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\RUNECHANT_prevention_continuation.complete.log"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\RUNECHANT_prevention_continuation.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48a9bb6558b2f6ffd8679da7c368d3d8e08a159fdb0cdec2ef02bea3f3e3f77f",
+        "actions.json": "0df61698b074991979bed97d2236fd0382091c463e5bec621dfe03fbbb87b217",
+        "assertions.json": "657b4cca20859cbedb19c7e83932bc1d297efe07a92f6ff3351985213dd07ca1",
+        "expected_final_gamestate.txt": "03a69a60defd0d6c3090d6558f22e57fe52883fc4a91c1ab0b07cd793d142c38",
+        "meta.json": "2f486eb0b4622a10888e9318997813581dd626e3fbfd6b7629ba5d1d5dcdf9d1"
+      }
+    },
+    {
+      "route": "MON_ARCANIC_trigger",
+      "slug": "card-arcanic-crackle-blue-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcanic-crackle-blue-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\MON_ARCANIC_trigger.complete.log"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\MON_ARCANIC_trigger.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "88ae3a7ba5771cba5c930d226d83c32ba1c2f19dafd190f59bac8dec7a635c24",
+        "actions.json": "f9755c7d7983c5b4378f9aa497750714392772b7637a2db4240926469c5b9051",
+        "assertions.json": "f2e41b7ade383daf2943fc23f16f6cf11db74e44105da4f245963213cb75526a",
+        "expected_final_gamestate.txt": "f87319a304859fcb1816fe8ddc2eb6c91e713be1de4b0e3f0520e17c14862d3f",
+        "meta.json": "19bfb34ba8053f8d86301cadb26721ff476efcac26d504c2cbaac0c2c32698d2"
+      }
+    },
+    {
+      "route": "named_ROS_entry",
+      "slug": "card-surface-shaking-blue-four-live-correct-probe-real-aura-entry-trigger-before-three-seismic-tokens",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-surface-shaking-blue-four-live-correct-probe-real-aura-entry-trigger-before-three-seismic-tokens",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\named_ROS_entry.complete.log"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\named_ROS_entry.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ec9728c8ea5f1f6175b953e465c2af94a357e9c345b816ad1a31deb5f70d4e71",
+        "actions.json": "08b7c88dd560dd892dd1da00b1d8e0d9b8e5d04bddb0c383507c568ace9cd4b9",
+        "assertions.json": "fd7c6bf7887456ca7c033f835e22298e58e04a9b38f088f18aa43bafda01256f",
+        "expected_final_gamestate.txt": "3251967e1811128823e2f9c352e5f86090eb0a9f218b5f0e47354f68c5d6e68a",
+        "meta.json": "69751d8702c786e2119e7761543795c7cbf3cceba82997cdb60ac9f051189e56"
+      }
+    },
+    {
+      "route": "physical_plain_spell_await",
+      "slug": "card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\physical_plain_spell_await.complete.log"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\physical_plain_spell_await.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a4794c062fce4550e5bc9baef5bee19602724f0fdfeb71a03276d9666e9067c",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "78d586050af6547750d0dd10ade939efae975b0b6e6ff88ef4d425a14f3166bb",
+        "expected_final_gamestate.txt": "ea4fc0d6e396e79371c50bff4cb7f9e7aa8fc387d64214314025441030fbad79",
+        "meta.json": "e6703968ee01016dda8b63ff2be91dd75f823f456caa81d43adf92d7ac57c2a8"
+      }
+    }
+  ],
+  "wtr_component": {
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "DevTools/FaB/wtr_test.php"
+    ],
+    "returncode": 0,
+    "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\n",
+    "stderr": ""
+  },
+  "selected_raw5_unchanged": true,
+  "raw_workspace_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\receipt.json",
+    "sha256": "1625cbb65981f1c03a5b77c8c2c54b601350a4fed177eecb376879455f43d0e5"
+  },
+  "synchronous_generic_ROS": "Current actual-functions components only; no native synchronous-card or additional coverage credit.",
+  "limits": [
+    "ARC awaited Ebon, managed Runechant/prevention, MON arcanic, named Surface entry and physical Remembrance await passed; not all cards/routes.",
+    "Existing review records keep their original runtimes and are not requalified or retagged. No full suite."
+  ],
+  "full_suite_run": false
+}

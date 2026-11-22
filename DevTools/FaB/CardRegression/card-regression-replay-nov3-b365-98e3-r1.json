@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch365.json",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T19:41:15.702130+00:00",
+  "fixtures": [
+    {
+      "slug": "card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+      "fixture_sha256": "5772edd87ed1adfdfbc0f8660f6e2c667960f1bfe88c0c7785916885cb4ce104",
+      "passed": true,
+      "result": "[PASS] void_wraith_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-enigma-chimera-red-four-live-sparse-real-six-power-blocker-phantasm-destroys-paid-eight-power-attack",
+      "fixture_sha256": "1a62ad68a112f9b88109e23710f5483269d4c0840710aefa3a3c839d9b3f4e70",
+      "passed": true,
+      "result": "[PASS] enigma_chimera_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+      "returncode": 0,
+      "stdout": "[PASS] void_wraith_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-enigma-chimera-red-four-live-sparse-real-six-power-blocker-phantasm-destroys-paid-eight-power-attack",
+      "returncode": 0,
+      "stdout": "[PASS] enigma_chimera_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

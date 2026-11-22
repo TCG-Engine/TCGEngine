@@ -1,0 +1,441 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B724_GOON_BEATDOWN_BLUE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T17:32:35.561044+00:00",
+  "source_spec": "card-regression-batch724.json",
+  "input_sha256": "64f4752b5edfe84d15efc0c715d45f05715c0cd396e15845af84f1ef61a1011e",
+  "manifest_sha256": "bbfec490060878c16a0b849485a135505a9a2a8b093ef240c2498a9246a20e85",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch724-goon-beatdown-independent-source-review.json",
+    "sha256": "04b968026445bf45d199b30e99e4fdfcd2ac911d50e2028ad71258e3cb7eca4e",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch724-20261108T172835Z-6af0b1433906c.json",
+    "sha256": "e2b09169890a92550c08c6c791dbf86ec432eccedd174fcfa1abc26e88cdd8b2"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch724.recording-results.json",
+    "sha256": "beef1e2a40b45b4db3193fc19c705990ab90209339c6c8d72a0e08873c1f5aa7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b724-goon-beatdown-native-recording\\receipt.json",
+    "sha256": "9a9aa9c07ef26e70c2f50ca7529ce7e18421be6cb3d6d758633d7abb7eb9fa66"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "goon_beatdown_blue",
+      "group_id": "identity:goon_beatdown_blue",
+      "slug": "card-goon-beatdown-blue-four-live-real-three-auras-static-plus-three-and-five-ally-damage",
+      "source_spec": "card-regression-batch724.json",
+      "input_sha256": "64f4752b5edfe84d15efc0c715d45f05715c0cd396e15845af84f1ef61a1011e",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_EARNED_THREE_AURAS_STATIC_BONUS_AND_FIVE_ALLY_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-goon-beatdown-blue-four-live-real-three-auras-static-plus-three-and-five-ally-damage",
+      "fixture_sha256": "15c6a3ab9236d6c8ee3d201483c2427d982e4bb184af721995dcdc723f4e9e20",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "764e0b831dfeb74b08c1caba74dcc66bf5fc70a249cc688c0475dd19ddb08102",
+        "actions.json": "111d2297183409e09497fd63dfd09793e715f44818a344328bbe5d3a2e776f2f",
+        "assertions.json": "d2b8bd2a65fd7385e1b68b3cbb2dbc70cfe109bad7a4b67f29c68c7b1d5d66e3",
+        "expected_final_gamestate.txt": "dd5ba412ca875247b86bd7cef6944016554f4c4f71e7a040fbedfe60796d7c4e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "764e0b831dfeb74b08c1caba74dcc66bf5fc70a249cc688c0475dd19ddb08102",
+        "actions.json": "111d2297183409e09497fd63dfd09793e715f44818a344328bbe5d3a2e776f2f",
+        "assertions.json": "d2b8bd2a65fd7385e1b68b3cbb2dbc70cfe109bad7a4b67f29c68c7b1d5d66e3",
+        "expected_final_gamestate.txt": "dd5ba412ca875247b86bd7cef6944016554f4c4f71e7a040fbedfe60796d7c4e",
+        "meta.json": "120805178d61c0db08ea7d0548dc84698a230ed9a3e0dd957f79a4607462a613"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "764e0b831dfeb74b08c1caba74dcc66bf5fc70a249cc688c0475dd19ddb08102",
+        "actions.json": "111d2297183409e09497fd63dfd09793e715f44818a344328bbe5d3a2e776f2f",
+        "assertions.json": "d2b8bd2a65fd7385e1b68b3cbb2dbc70cfe109bad7a4b67f29c68c7b1d5d66e3",
+        "expected_final_gamestate.txt": "dd5ba412ca875247b86bd7cef6944016554f4c4f71e7a040fbedfe60796d7c4e",
+        "meta.json": "120805178d61c0db08ea7d0548dc84698a230ed9a3e0dd957f79a4607462a613"
+      },
+      "actions": 39,
+      "native_assertions": 3602,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "schema_property_assertions": 1300,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "kayo_strong_arm",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "goon_beatdown_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "overbearing_presence",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "16": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "17": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "kayo_strong_arm",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "19": {
+          "card_id": "vigor",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "20": {
+          "card_id": "vigor",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "21": {
+          "card_id": "vigor",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "overbearing_presence",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "goon_beatdown_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "16": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "17": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21
+      ],
+      "virtual_ability_uid_ceased": 18,
+      "created_vigor_uids": [
+        19,
+        20,
+        21
+      ],
+      "actual_primary_power": 5,
+      "actual_ally_damage": 5,
+      "target_ally_uid": 10,
+      "target_ally_survived": true,
+      "hero_hit_condition_earned": false,
+      "final_UniqueIDCounter": 21,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "prior_producer_executed": false,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "c4d72315f203e98d51dae2ba9d1caffd08b7837e1fa64282d73d4443996e0b27",
+      "native_assertion_mapping_sha256": "5c8954bd0f74f7fe835fda243827cbafe05e1a3587e0167e1c498bfb1018e4d2"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 39,
+  "total_native_assertions": 3602,
+  "total_manual_passes": 33,
+  "total_schema_property_assertions": 1300,
+  "material_findings": [
+    "Exact rawfive/behavior hashes,39 native controls3602 ordered persisted queries33manual8/8/8/9 and48preferences each endpoint match Source04b9. Actual COMPLETE0/stderr0 receipt/results/archive and current70c53/ab33 bound; full physical endpoints and terminal assertions independently parsed.",
+    "Actual Yellow8 pitch2 funds CF7pay1/GA leavingR1; actual Blue9pitch3 pays Chest3/oneAP. Physical Chest6 is preserved at the pending-cost pause, then destroyed after assets; ABI18 remains through fresh four responses. Its fourth response creates exactly owned Vigor19/20/21 and refunds AP1; those real Auras earn primary threshold+3.",
+    "Actual Ally10 target/main0 AP payment and earned CF+1 give live primary1+1+3=5. Physical Ursur10 remains ready with Damage5/life6 while every Hero staysHP20/Status2, so own Hero-hit Boo WHEN and Kayo Boo WHEN are genuinely unearned. Main5 ends publicGY1 after7/6; Pitch8/9, all priorGY4, Ursur10 and Vigor19..21 retained; ABI18 ceased, counter21/RNG0/R1/AP0/fullquiet."
+  ],
+  "limits": [
+    "Onepositive3Aura/+3/actualAllydamage5 branch, mainconditionearnedbyrealnativeproducer; notHero-hit Boo/othercounts/fullcard/siblings.",
+    "Allsupport/Hero/producercoverageexcluded; priorEclipsepublicstate rulesonly, noactualproducer/permission/historyseedcredit.",
+    "AuraCarriersstaythree so livepower5remainscorrect; no rawcachedpowerorprivateFABassertion.",
+    "Optionalhistorydefaultsnotforcedempty andnofulleffect-bankassertions; wholeobjectmaps useJSON.",
+    "Source/native/Saved/twofocusedreplays+48rawpreferences remainseparateRoot/peergates, nofuturePASS.",
+    "Only selected Blue identity/positive three-Aura static and Ally-damage branch is approved. No Hero-hit Boo, Kayo Boo WHEN, other Aura counts, future Vigor/Ursur/Item/setup-producer/support/Hero/whole-card or sibling credit. Prior public-state producers remain unexecuted rules premises.",
+    "Source approval is not a native/Saved/replay/fixture/coverage result. Root native, independent exact Saved, two focused replays and registration are separate. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/denied retry.",
+    "Prior Eclipse/six-Fasting/Ursur and equipped chest are legal setup premises, not executed producer/setup credit. No entire effect-bank/history certificate, support/Hero/producer coverage, future Vigor Start/expiry/resource, Hero-hit Boo/Kayo Boo WHEN, changed counts, siblings or whole-card credit.",
+    "Root targeted replays/registration/index/promotion remain separate; no qualification credit before registration. RawVersions hash-bound/excluded from physical inventory. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/denied retry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch724_goon_beatdown_saved_readonly.py",
+    "sha256": "9de839c641358bbe64efc447095bd0e1b10f02004c0b238190610e444cbbf53e"
+  }
+}

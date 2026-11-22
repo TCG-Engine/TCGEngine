@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch402.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T00:30:57.180013+00:00",
+  "fixtures": [
+    {
+      "slug": "card-thistle-bloom-life-yellow-four-live-sparse-real-three-life-gain-earns-left-half-three-runechants",
+      "fixture_sha256": "7aa744fba5a7643613ef1d9356a3d3156c5411788f556ba716b68b8088882f22",
+      "passed": true,
+      "result": "[PASS] thistle_bloom_life_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-well-grounded-four-live-sparse-four-physical-earth-banish-enables-real-destroy-prevent-two-of-seven",
+      "fixture_sha256": "7283c69d840d1d0a63942bdd25eca63c0309724b2832afcd6b245c9815415489",
+      "passed": true,
+      "result": "[PASS] well_grounded / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-thistle-bloom-life-yellow-four-live-sparse-real-three-life-gain-earns-left-half-three-runechants",
+      "returncode": 0,
+      "stdout": "[PASS] thistle_bloom_life_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-well-grounded-four-live-sparse-four-physical-earth-banish-enables-real-destroy-prevent-two-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] well_grounded / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

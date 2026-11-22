@@ -1,0 +1,430 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B518_SIX_REAL_BLOOD_DEBT_PLAYS_AND_ECLIPSE_URSUR_CREATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T20:37:10.274840+00:00",
+  "source_spec": "card-regression-batch518.json",
+  "input_sha256": "ee2571b29b3f601338188aef9b59fae7e2901d1986a36fbc95828c6998e6a5c3",
+  "manifest_sha256": "271ff7cc0e675ecab59f5238ab1d501acadf2f47ac35f5a9ebd53dc9e694b1b6",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch518-independent-source-review.json",
+    "sha256": "3c2b06b14264633b50ac3863bb1c7e8c242b68f68843119c1a1095b055fabb24",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch518-20261105T203250Z-6aece7f29269a.json",
+    "sha256": "20dfb5d73d59aad618de3978afdb56f5e8b05be23f3573cfb093c4bad1ccfef8"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch518-native-r1-9e984\\receipt.json",
+    "sha256": "597a60b8181bc5febbf8db1f0f93e62c2fa6859efc85adc3612efc4abaf0832c"
+  },
+  "native_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch518.recording-results.json",
+    "sha256": "7dc7aa260a8b9f94f443fdf0412f7cf56b6f718bbda9eeed63f05fd62aca673c"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch518_saved_readonly.py",
+    "sha256": "98b1c1d8dd059b9e5f1a8526ad03a7777a3e5c859ba98e24be5cf5f96e8a9dca"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Independent approved source/model reviewer, neither author nor recorder. Reused exact3c2b semantics; no legacy fixture review, game or replay.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "eclipse_blue",
+      "group_id": "identity:eclipse_blue",
+      "slug": "card-eclipse-blue-four-live-six-real-blood-debt-plays-create-owned-ursur",
+      "source_spec": "card-regression-batch518.json",
+      "input_sha256": "ee2571b29b3f601338188aef9b59fae7e2901d1986a36fbc95828c6998e6a5c3",
+      "reviewer": "/root/nov2_next_author",
+      "reviewer_independent": true,
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-eclipse-blue-four-live-six-real-blood-debt-plays-create-owned-ursur",
+      "fixture_sha256": "63c96004c35468af38d05f15ade837057ff32a60598353b26d1f16144674e323",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7a78dcacd3d86398196b7a239da6698631d013204470a9a47e9649706fdd78ed",
+        "actions.json": "9191e7cb0fdea24f31d89db05393329c141492f4d39dabb253cf086a8580bcec",
+        "assertions.json": "46cf2257f80858369e2e5e808b51babb470685604fb840bd4aaf84a9853b069b",
+        "expected_final_gamestate.txt": "e765fd3a3532bd9b22050d07b0b875654841315c28a6e8f100817f486a3feeb4"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a78dcacd3d86398196b7a239da6698631d013204470a9a47e9649706fdd78ed",
+        "actions.json": "9191e7cb0fdea24f31d89db05393329c141492f4d39dabb253cf086a8580bcec",
+        "assertions.json": "46cf2257f80858369e2e5e808b51babb470685604fb840bd4aaf84a9853b069b",
+        "expected_final_gamestate.txt": "e765fd3a3532bd9b22050d07b0b875654841315c28a6e8f100817f486a3feeb4",
+        "meta.json": "935efb585310f0c4400a727bdf0f269c6345c3078ad5779d196d6bc6ea86ff9e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7a78dcacd3d86398196b7a239da6698631d013204470a9a47e9649706fdd78ed",
+        "actions.json": "9191e7cb0fdea24f31d89db05393329c141492f4d39dabb253cf086a8580bcec",
+        "assertions.json": "46cf2257f80858369e2e5e808b51babb470685604fb840bd4aaf84a9853b069b",
+        "expected_final_gamestate.txt": "e765fd3a3532bd9b22050d07b0b875654841315c28a6e8f100817f486a3feeb4",
+        "meta.json": "935efb585310f0c4400a727bdf0f269c6345c3078ad5779d196d6bc6ea86ff9e"
+      },
+      "actions": 35,
+      "native_assertions": 3163,
+      "actual_manual_passes": 28,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "schema_property_assertions": 1203,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "eclipse_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "12": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "eclipse_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "initial_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "initial_UniqueIDCounter": 11,
+      "final_UniqueIDCounter": 12,
+      "new_actual_UID": 12,
+      "RandomCounter": 0,
+      "actual_final_MON_DEBT_PLAYED": [
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "actual_final_PEN_effects_by_type": {
+        "PEN_CREATED": [
+          {
+            "type": "PEN_CREATED",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "PEN_INSTANT_CHAIN": [
+          {
+            "type": "PEN_INSTANT_CHAIN",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "PEN_NEXT_COLOR_GO": [
+          {
+            "type": "PEN_NEXT_COLOR_GO",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "PEN_NEXT_COLOR_GO",
+            "amount": 2,
+            "uses": 1
+          },
+          {
+            "type": "PEN_NEXT_COLOR_GO",
+            "amount": 3,
+            "uses": 1
+          }
+        ]
+      },
+      "no_effect_array_index_contract": true,
+      "checkpoint_assertion_mapping_sha256": "b3dfb3c6fb64028fde7e7f47716c240cc47cdfcbb1f5568ea1be40229de6184d",
+      "native_action_mapping_sha256": "28a6e27e898a3e9083210bce1d62f1153338e823d641c964bbcf3cb8e5d3a71c",
+      "native_assertion_mapping_sha256": "6ac3067286a7be153c7305fdd9c1c09196e77206ccb8f2092830cbbc44f9e770"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 35,
+  "total_native_assertions": 3163,
+  "total_manual_passes": 28,
+  "total_priority_response_passes": 28,
+  "total_schema_property_assertions": 1203,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_administrative_END_PHASE_passes": 0,
+  "material_findings": [
+    "All35 actual ordered native inputs and3163 persisted assertions match original approved recipe; each of seven spells has fresh four manual responses1,2,3,4. No target, cost, mode or decision input invented.",
+    "Actual six physical Fasting UIDs6..11 paid normal Action0/AP1->0 and each intrinsic GA restored onlyAP1 on fourth response; exact final cardsPlayed list, arcActions6 and six MON_DEBT_PLAYED1 entries corroborate real unseeded prerequisite.",
+    "Actual Eclipse same5 is INSTANT0 from Hand, AP1 unchanged through its fresh four and no second refund. Only fourth completes: ownGY5 plus real owned/controlled ready undamaged Ursur12. OriginalUID1..11 conserved, onlynew12/counter12/RNG0/fullcleanup/allHP20/RChi0/P1AP1.",
+    "Actual complete residual PEN maps inspected BY TYPE: PEN_NEXT_COLOR_GO has one red1, yellow2, blue3 eachuses1; one PEN_INSTANT_CHAIN1 and one PEN_CREATED1. Eclipse Instant does not consume Action-only next-color grant. No private index or expiry/reset claim.",
+    "All48 raw endpoint manual preferences checked at both ends; emptyStack/allseatDQs/noawait/payment/combat. Stale scalar decision variables do not imply pending work."
+  ],
+  "limits": [
+    "ONE positive Eclipse Hand-play after six actual Blood Debt support plays and real Ursur token creation. No below-six rejection, Banish permission, Chane activation/Shackle, Ursur attack/Soul condition, future turn, endphase BloodDebt, negative/foreigncontrol/supportprimary/pitchsibling/fullcard credit.",
+    "Initial Hand7 is lawful retained MIDGAME provenance after earlier-round TRoM draws and an extra quiet round until all casters next starts expire their attack-minus1 effects. Those prior draws/waited turns/expiry are NOT recorded events or coverage; fixed recorderTurn2 is a fixture marker, not historical trace.",
+    "PEN color grants and play/history effects persist legitimately at this same-turn endpoint; actual maps checked byTYPE, no arrayposition/expiry/consumption/reset certification.",
+    "Exact native Saved review only; Root two focused clean replays/registration are separate gates, not run here.",
+    "No PHP/native/replay/R/source/gen/service/fullsuite/git/remote/denied retry; original input and expectations remain unchanged."
+  ],
+  "native_executed_by_reviewer": false,
+  "replay_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

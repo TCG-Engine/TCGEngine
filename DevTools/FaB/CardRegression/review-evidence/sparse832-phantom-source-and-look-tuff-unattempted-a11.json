@@ -1,0 +1,213 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_PHANTOM_ORIGINAL_CORRECT_SHIELD_DESTROYED_COUNTER",
+  "phase": "SOURCE",
+  "batch": 832,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T21:25:56.789265+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch832-phantom-original-correct-shield-destroyed-counter-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-original-correct-shield-destroyed-counter-probe-author\\phantom-original-correct-shield-ward-then-earned-destroyed-counter-probe.json",
+    "sha256": "4b97ef54d0cbb77bedead6593351e99aa37f9cd29c8c189b164eb3b6eee1b99c"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-original-correct-shield-destroyed-counter-probe-author\\manifest.json",
+    "sha256": "ee67aca5a2d9eb10ec039306a0a5d4c3bd3838e676f82d4501088e05d138c8aa"
+  },
+  "input_sha256": "4b97ef54d0cbb77bedead6593351e99aa37f9cd29c8c189b164eb3b6eee1b99c",
+  "manifest_sha256": "ee67aca5a2d9eb10ec039306a0a5d4c3bd3838e676f82d4501088e05d138c8aa",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-firm-reservation.json",
+    "sha256": "f766fc729ce12d008717ae6b950f3c5390c5d579beb7d3ba90ddb11710a85dee"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-look-known-phantom-fresh-destroyed-counter-preflight.json",
+    "sha256": "4bd8310b10aa6718f8f036331b7e8781173417d43331cad3811f3f12f6e102f6"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 38,
+  "selected_support_guard_map_sha256": "e604a73fba538bf9865fbc90c4b3e5bda8abce3bed550e739356e724afcc09a6",
+  "all_current_guards_independently_matched": true,
+  "actions": 40,
+  "declarative_controls": 40,
+  "native_assertions": 4730,
+  "assertions": 4730,
+  "recorded_persisted_assertions": 4730,
+  "manual_passes": 36,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "actual_expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 9,
+    "2": 9,
+    "3": 9,
+    "4": 9
+  },
+  "expected_priority_response_passes": 35,
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 42,
+  "schema_property_checks": 1040,
+  "control_mapping_sha256": "5a921ab801ee6d9f058bdd645b4f8b3135294557efccc32615bb522b95a194a2",
+  "native_expected_envelope_mapping_sha256": "f83547c651cbfdf62bea207813df6d5992d92477caaae6a0581a6ec4e91da622",
+  "expected_native_query_mapping_sha256": "6b1795acbe231a2b830a64b8814a90bf650f7c68eb330b224259011aa5c832ff",
+  "checkpoint_mapping_sha256": "a36e335d50165edd54e236aff5fe384add804d63f8c3e62e0f5699f8f5b6508e",
+  "fixture_saved": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "independent_actual_no_save_review_required": true,
+  "explicit_Root_promotion_and_fresh_positive_Source_required_even_if_pass": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "independent_semantic_findings": [
+    {
+      "rules": [
+        "https://rules.fabtcg.com/en/cr/08-keywords/ CR8.1.8a,8.3.20,8.5.4",
+        "https://rules.fabtcg.com/en/cr/06-effects/ CR6.4.1a,6.6.5-6",
+        "https://rules.fabtcg.com/en/cr/07-combat/ CR7.5.5b,7.6.2"
+      ],
+      "finding": "Spectral Shield is an Illusionist token Aura with Ward1. Destroying it for prevention is a real destruction event even though token leaves game rather than persisting inGY. Phantom printed trigger is any controlled Illusionist CARD destroyed, not justAura. Ward prevention/destruction is atomic; separately earned Phantom layer must get four responses before +1POWER. PrintedHeadJabGA refunds1AP atresolution without a hit; allprevented1damage leavesHP20 and noKatsuHeroHit."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/DTDCards.php:141-151",
+        "FaBSim/Custom/MONCards.php:234-244",
+        "FaBSim/Custom/GameLogic.php:785-799",
+        "FaBSim/Custom/EVORuntime.php:78-80"
+      ],
+      "finding": "Fresh selected producer concern: nativeWard chooser offers actualShield6andPhantom7; choosingShield destroys snapshotIllusionist6, skips tokenGYretention, then EVODestroyed directly increments survivingPhantomPOWER during replacement. Known184OMNleave producer is a different path; no exact prior selected EVOcounter producer hold/nativefailure was established. Correct original no-save route must independently test it."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/GameLogic.php:FaBGetState,960-967",
+        "FaBSim/Custom/GameLogic.php:FaBMoveStackUID"
+      ],
+      "finding": "FAB_PLAY_ORDER1 wire value is independently source-derived, not borrowed from earlierP4card: FaBGetState arrays return byvalue;963 increments local global-stylecombatPlaySequence,965 copies1toStackcounter,967 rereadsState without a SetState commit. With legitimate initialsequenceabsent, priorP1HeadJab doesnotpersistincrement and respondingP4also gets1. This is not actor-local counting or a global-order correctness certificate; possible sequence persistence concern remains source-only/outside this card probe."
+    },
+    {
+      "finding": "Legal YoungKatsu1/Prism4, only declaredpre-existingShield6 and actualPhantom7Hand, no earnedcounter/outcome seed. Nativezero-cost play/allfourSource responses precede physical7Arena. MandatoryWard selection amongbothsources precedes tokenremoval, noPOWER atfirstpostdamagepriority, then fourresponses and POWER1onsame7. ExpectedABI properties are only actualsource7/controller4/cardID/kind, never inventedvirtualUID/event/window. All40inputs4730queries and physicalcleanup remain required."
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "look_tuff_red",
+      "group_id": "identity:look_tuff_red",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_ATTACK_WHEN_PAY_ONE_CONTRACT",
+      "classification": "KNOWN_DIRECT_ATTACK_DECLARED_WHEN_PAY_ONE_CONTRACT",
+      "reason": "Actual SUP AttackDeclared canonical/emitted pay-one Modal and real pitch loop exists. Current GameLogic OnAttackDeclared1216 invokes its generated frame directly without first creating the separately responseable earned Look Tuff WHEN. Same known Bluster/Chest pay-one trigger contract, not absent body/new native defect/root.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-look-tuff-known-attack-payment-when-unattempted-note.json",
+        "sha256": "f90df45b1865613343b712316a511c8ca7ea595170d8731cfa58d9dbebd372c3"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "LookTuff exact known directAttackDeclared optionalpay-await WHEN seam. Printed3cost and separatelaterpay1 are distinguished; no executable/decline/basic8damage fallback/newNativebug orcoverage."
+    }
+  ],
+  "limits": [
+    "Diagnostic approval only. Existing Root no-save helper and --probe-only mandatory even on complete PASS. No passing fixture or registry credit.",
+    "A failure limits conclusions to actual passed prefix and first failure. Source prediction alone is not nativeCounter/Stack/source-object proof; independently inspect actual trace.",
+    "CompletePASS still needs independent actualreview, explicitRootpromotion, freshpositiveSource/newSave/independentSaved/rawendpoints/twofocusedreplays before qualification.",
+    "Only otherShield-destruction branch. OwnPhantomWard/Phantasm/Auraattack/counterconsumer/multiples/control/suppression/otherIllusionistcards/heroactivation/siblings/supportfullcard/general-layer-order/globalplayorder remain untested.",
+    "Denied Elliptical184/B787 repairs stay untouched; no related codeapplication/retry, fullsuite or historical replay."
+  ]
+}

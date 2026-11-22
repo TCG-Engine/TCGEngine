@@ -1,0 +1,290 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B435_STORMWIND_ONE_REAL_FOUR_LIVE_GROUP",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T09:22:26.732941+00:00",
+  "source_spec": "card-regression-batch435.json",
+  "input_sha256": "7d990113f849647cb02e598919f000412b0bbcb4b8fcaffec6330f544848f297",
+  "manifest_sha256": "c09777983ea770ffb2f2bb034de2ccc50c8f35c019528e5db46b9340e572de3d",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch435-independent-source-review.json",
+    "sha256": "34dc0b4070d97533a5ed3027867ec853f9fa7c89de23762d90e69f58d49f1272",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch435-20261105T090651Z-6aec472b6dc9c.json",
+    "sha256": "1ee73ee5dcce435c787bad58d8e55a07bec24230ea60aa9d87f09dd76b54c021"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch435.recording-results.json",
+    "sha256": "f6259baae7b748082ab41b272fd0d5d12182c6398fddc9386905e65e630b6ed7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch435-native-r1-9e984\\receipt.json",
+    "sha256": "d80f855f63e2314dcea563ed65f7588df8c7d751aec648df2c553a17b3d4e933"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "stormwind_sheath_red",
+      "group_id": "identity:stormwind_sheath_red",
+      "slug": "card-stormwind-sheath-red-four-live-real-lightning-pitch-earns-owned-embodiment-and-five-defense",
+      "source_spec": "card-regression-batch435.json",
+      "input_sha256": "7d990113f849647cb02e598919f000412b0bbcb4b8fcaffec6330f544848f297",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-stormwind-sheath-red-four-live-real-lightning-pitch-earns-owned-embodiment-and-five-defense",
+      "fixture_sha256": "f232c4ae1c785cabc32e269b7a9672d54a0cd2530e6c2326ec1fa1f93d822656",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3fd84725bbe4434f796721cc565fecd99b4d3c1cc3c4d97462d132cf33a3af1b",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "271baba410f6f44ab45bcfbf620c40f978a534828f29f1e02b7daa8fe55fd0a8",
+        "expected_final_gamestate.txt": "609aba21aeb124020d4a7d0e073193f6a7979ece37b5057d5ae071e608a8256e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3fd84725bbe4434f796721cc565fecd99b4d3c1cc3c4d97462d132cf33a3af1b",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "271baba410f6f44ab45bcfbf620c40f978a534828f29f1e02b7daa8fe55fd0a8",
+        "expected_final_gamestate.txt": "609aba21aeb124020d4a7d0e073193f6a7979ece37b5057d5ae071e608a8256e",
+        "meta.json": "4a9377815c1c5b30b9f6e68ca1fbd684fe82177d3cafc844c15a46a21eb29ba6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3fd84725bbe4434f796721cc565fecd99b4d3c1cc3c4d97462d132cf33a3af1b",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "271baba410f6f44ab45bcfbf620c40f978a534828f29f1e02b7daa8fe55fd0a8",
+        "expected_final_gamestate.txt": "609aba21aeb124020d4a7d0e073193f6a7979ece37b5057d5ae071e608a8256e",
+        "meta.json": "4a9377815c1c5b30b9f6e68ca1fbd684fe82177d3cafc844c15a46a21eb29ba6"
+      },
+      "actions": 37,
+      "native_assertions": 3259,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 1058,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "aurora",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "stormwind_sheath_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "lightning_surge_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "aurora",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "embodiment_of_lightning",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "stormwind_sheath_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "lightning_surge_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "d89f3aacbfe92dfc99842ffcf60437b077cbf5961ef5f5a5e791763bffb1b96d",
+      "native_action_mapping_sha256": "f21754d8181366d20212172fb3a954a6ee32eeffe216df51867586b56768903e",
+      "native_assertion_mapping_sha256": "341151309337fde75e5ad7c11c3f877761fd1c94975bc6f6215357927ce232f8"
+    }
+  ],
+  "total_actions": 37,
+  "total_native_assertions": 3259,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 1058,
+  "material_findings": [
+    "Exactrawfivefiles/all37nativeenvelopes/3259orderedchecks/1058properties match unchangedapprovedinput.32manualinputs=31priorityresponses+1defenderfinish; eachactualactor8,48manualsettingsverifiedatbothendpoints andactual9/all69guards stable.",
+    "ActualP1Raging6targetP4beforeassets; Blue7pays3/R0AP0/realpower7noGA. ActualP4Stormwind5paid1byLightning8pitch3/R2AP0, same5heldStackthroughfresh4/1/2/3responses; noearlyEmbodiment. Per-source5recordedLightningpitchtypesandflag retainedfromactualpayment.",
+    "FourthDRresponse resolvesIFBond: same5joinsdefensivechain; exactlyownedreadyEmbodiment9Owner4Controller4createdP4Arena. Samecreator/recipientonly, no cross-playerownershipvalidation. NoP4AAplayedaftercreation, so futuretokenWHEN remainsunearned.",
+    "Actual5DEFdefends7yielding2damage/P4HP18, noGA/APrefund. Fullfinalphysicaloriginal1..8plusnew9only: same5publicGY4/6GY1, samewholeBlue7Pitch1/Lightning8Pitch4, same9readyArena4; allothercardzones/Stack/chain/queues/payment/await/combatclear/counter9/RNG0. RawHeroobjectsunchanged; P4R2/allotherRAPChi0."
+  ],
+  "limits": [
+    "OnlyRedpositiveLightningBond/physicalDEF5/payment/creation/fullcleanup branch. No falseBond/otherpitches/siblings/supportprimary/fullcard/Heroactivation/tokenfutureWHEN/use/removal/upkeep/cross-playerownership/nativecontrol credit. No Frosthaven retest or excludedroute.",
+    "Intermediatefacts are completednativeassertions/exactactionsequence; onlyinitial/finalrawsnapshotscomplete. HistoricalDecisionQueueVariables mzID aftercleanup is not a liveobject or a newlycertified privatecontext invariant; opaqueVersions excludedfromcurrentinventory.",
+    "Roottargetedreplays/registration are separateevidence, not claimedhere. Reviewer didnoPHP/native/replay/R/source/service/gen/fullsuite or deniedrepairretry/integration."
+  ],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch435_saved_readonly.py",
+    "sha256": "a3999cdfb34231a75d04a6c6bf4b0da0dea662da696584fea031b711f6b24a0d"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

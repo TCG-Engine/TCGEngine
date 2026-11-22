@@ -1,0 +1,72 @@
+{
+  "status": "STEEL113_ORIGINAL37_3411_OFFHAND114_ORIGINAL39_3850_SINGLE_REPLAY_EACH_PASS",
+  "reviewer": "Root exact original Source/Saved/physical results, separate cross-author source reviews retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+  "input_sha256": "00894017d6aef8a920a09a648e5cffd48438ad7a4ac3f548e945675c8f05530e",
+  "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+  "fixtures": [
+    {
+      "slug": "card-steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage",
+      "card_id": "steel_on_steel_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "93cf30887c1196493b299a61582b724608d689720a7ab0452d673ef27400bb00",
+        "actions.json": "9dea0ac46c9fc14340c7a6f0f0f51b93a41f2fed69860ccf78e7a0bf62e13406",
+        "assertions.json": "9342e5afce484e8f5b444f384ab0581b0a72f795321d41875278a259ea41f702",
+        "expected_final_gamestate.txt": "6f3ec428c6b1ad086ce62dad67ea3108f1f89bdbe2e4ca24d5aa5dac888c8268",
+        "meta.json": "12afd07eedd6eafd61196c827d53c3aa1d62fc34d43ab7f7816a5c5cf2c460ab"
+      },
+      "fixture_sha256": "40da9eb6e625c8170bc6e5011c7010ceb853527bc34259c4b21182668927920c",
+      "actions": 37,
+      "native_assertions": 3411,
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+      "input_sha256": "00894017d6aef8a920a09a648e5cffd48438ad7a4ac3f548e945675c8f05530e"
+    },
+    {
+      "slug": "card-shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper",
+      "card_id": "shield_bash_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "aade3a9223b19d4c63637b81b823285895fb224bfa82591102bd19e2d689d677",
+        "actions.json": "da177834bbb0cbd060a3a36f8e3cccf3e2f1f56d3414dd7d700e5cbdd3b1ab72",
+        "assertions.json": "1dfd7e99d7290dda63491b9b57a63cf5efb6accf405cc4e0ebfdc718811ab5c1",
+        "expected_final_gamestate.txt": "aca63bbc6a2592c4b40e603a7742ed8d969ddd6fd6ce0e86ab846d501270dccc",
+        "meta.json": "76e215e2e8f5a358d05efb3d8c58e8f57fe2de48d3d8d44f1a9c99ca9dc01e75"
+      },
+      "fixture_sha256": "11deb1ead56e6e03195c9804b3e9fbe200171ecd3eadb7425a64b0cb91c0ed68",
+      "actions": 39,
+      "native_assertions": 3850,
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+      "input_sha256": "00894017d6aef8a920a09a648e5cffd48438ad7a4ac3f548e945675c8f05530e"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-steel113-offhand114-replay.json",
+    "sha256": "6ba54e2d671cbb4a6d0cf31f778ea79a14a006aefdab3f314eaf3f04c29d1bf5",
+    "passed": true
+  },
+  "basis": "All original76nativeinputs/7261queries unchanged. ExactSaved query/action mapping plus48manualbooleans at both endpoints. Steel actualsame-linkAnothos6 vsDefense4 gives2damageHP4=18. ShieldBash actualBuckler6normalblock, emptyattackerHand yields1damageHP1=19; Thunder10 vsBuckler2+DR6 gives2damageHP4=18, earnedautomaticTemperDEFENSE1 andsameownedBuckler6readyWeapons return. Fullcleanup/ownership/economy retained.",
+  "source_reviews": [
+    "9bdcff0146b1e67d7376b8cd3507ced0280b1f6c6f2db6cbd9f52160e005e737",
+    "4ebded829e65b182c9a453f7ddd61bea3118e70d4b0b26b23d2f0e4a98b10009"
+  ],
+  "isolated_components": {
+    "Steel": 58,
+    "Offhand": 44
+  },
+  "limits": [
+    "NativeSteelRed currentweapon branch only; oldlink/LKI/ambiguity/suppression and modifiercomposition are helpercontrols, not Nativebranchcredit.",
+    "114confirmedBefore is secondaryBuckler blockrejection. AdditionalTemperorigin mismatch was source-identified withinsame fullroute, not anotherNative-before defect/root. ShieldBashRed primarygetscoverage; Buckler receives supportbehavior evidence, not newprimaryidentitycredit.",
+    "Discardalternative/zero-shield/otherGuardianShield/otherAirships or siblingvariants not Native-qualified.",
+    "No fullsuite/historicalreplay, Core/generated change, deniedgoal, newbreadth or newdistinctrootclaim."
+  ]
+}

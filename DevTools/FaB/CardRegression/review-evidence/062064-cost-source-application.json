@@ -1,0 +1,260 @@
+{
+  "status": "APPLIED_GENERATED_INDEPENDENTLY_REVIEWED_NATIVE_QUALIFICATION_PENDING",
+  "utc": "2026-11-03T01:30:03.126529+00:00",
+  "issues": [
+    "FAB-REG-062",
+    "FAB-REG-064"
+  ],
+  "base_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "actual_runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "source_manifest_sha256": "4b977ab120d7c9c04554a0c2268332cd9d2e24a9b17e202cdfffcd5181d29aec",
+  "source_review_sha256": "30aada52400a7db92a118e6078a17317d1a67242513a46e58d34f5c5f4a919de",
+  "actual_generated_independent_review_sha256": "b00b4d2fd3dd34a2903e812ea5da8e1d719650f60e98b663c6f9af13e3e83fb0",
+  "scope_guard_review_sha256": "fcac54f82bbcf048543533dc0322e852dfd8cea4d54123bce24ef968b57553a2",
+  "application_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-062064-guarded-generation-attempt1\\receipt.json",
+  "application_receipt_sha256": "644e98b848f51697b0657ce592a1ca870f5c66ccae118e1c0c44e067cef9b566",
+  "verified_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-062064-guarded-generation-attempt1\\backup",
+  "source_files": [
+    {
+      "path": "DevTools/FaB/wtr_abilities.json",
+      "before_sha256": "ad0ca0e4ba2c1ad12f891f998554ad5f12977a77fd6845ab5cafc550b6171226",
+      "after_sha256": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b"
+    },
+    {
+      "path": "DevTools/FaB/mst_abilities.json",
+      "before_sha256": "59a5ba6a1a8f5675cfaff2046994f93f4168d5ced0ecb55886dd61c6f427e0b8",
+      "after_sha256": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "255dd2159c666828d78c6e5b5f63f03658a31e4dfc539eaffa92a33067387b53",
+      "after_sha256": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8"
+    },
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "before_sha256": "fc3fd40fefb50afa1879b4f9d99383debcff5535f604deb3a20e55b4d4b8889a",
+      "after_sha256": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975"
+    },
+    {
+      "path": "DevTools/FaB/mon_abilities.json",
+      "before_sha256": "77c6d33e588f86ceec5bcd0aaa087c9cd6991a041b63372a94269558c579d483",
+      "after_sha256": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b"
+    },
+    {
+      "path": "DevTools/FaB/build_mon_abilities.py",
+      "before_sha256": "c1ecfbf8de4a075cd526996958e384071854beb919caffc0a4e4f7c04e31f987",
+      "after_sha256": "a98a3d94eac8abfc3600212e98b76ffed7ed32c0ab064063378da3d8fbd4e7ad"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "5d3c25a7ada34f323555cf0eba20e4a2660b7ed909c977790314fc0876fea4de",
+      "after_sha256": "8ceef24c7fe2f311bc7bda5f039dcec4bda57fb8e1866f382855ae37c119229a"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "before_sha256": "637a789710b861a5562ee7e4838604e499806ff1e6d265757d69f56cf7d3d6d5"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "before_sha256": "b6328958196d666be448f8c047879e20bbabd31b36094ff80ca1018a7ce5fe47"
+    }
+  ],
+  "after_sha256": {
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/build_mon_abilities.py": "a98a3d94eac8abfc3600212e98b76ffed7ed32c0ab064063378da3d8fbd4e7ad",
+    "FaBSim/Custom/CodeGeneration.php": "8ceef24c7fe2f311bc7bda5f039dcec4bda57fb8e1866f382855ae37c119229a",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "2f9d5b52ba9eabf61646de651cce1f30fae9a7bca5654b05aa761f3e573a38ab"
+  },
+  "generator_command": [
+    "C:\\xampp\\php\\php.exe",
+    "zzGameCodeGenerator.php",
+    "rootName=FaBSim",
+    "only=MacroCode",
+    "expectedSHA=637a789710b861a5562ee7e4838604e499806ff1e6d265757d69f56cf7d3d6d5",
+    "expectedCountSHA=b6328958196d666be448f8c047879e20bbabd31b36094ff80ca1018a7ce5fe47"
+  ],
+  "generator_runs": 1,
+  "exit_code": 0,
+  "stderr_bytes": 0,
+  "generated_scope": {
+    "unrelated_php_bytes_preserved": true,
+    "count_substance_preserved": true,
+    "selected_before": [
+      {
+        "kind": "prepareCardAbilities",
+        "key": "celestial_cataclysm_yellow:0",
+        "sha256": "4974f757096b410070a5cf5cbdb3b7267ece0f626d71533019f769e3b65aa619"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "nimble_strike_blue:0",
+        "sha256": "30ce8e6db4d083956bf794320ad2b30f4d2c10b1ac43693fd435facb4b4a8018"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "nimble_strike_red:0",
+        "sha256": "da4596e4b3bff4a937b2d78d1d8b8ee45846be42b774faeb63269c3952afe80f"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "nimble_strike_yellow:0",
+        "sha256": "2d839a7ac331198bb6a9a7b6ebb260c74f6c1f2ac365304cc9808c6cd8baea00"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "celestial_cataclysm_yellow:0:PrepareCard-await",
+        "sha256": "a5d410d9b7c5b80551ad47e54c50bdbdb59b1a9261c9cc145b6348c12702bbcf"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "nimble_strike_blue:0:PrepareCard-await",
+        "sha256": "8d3964240d1a63bcafed2c3e4afb077955d66ccf5671760788157f4b4fe00e30"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "nimble_strike_red:0:PrepareCard-await",
+        "sha256": "7dd2a3ad25f355e82f8004ffefab0a5f8239f67657bd4d9fa530338c3fa93df3"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "nimble_strike_yellow:0:PrepareCard-await",
+        "sha256": "c5c37a895550317ad846d71744fabee46431196ee0e88c9a43bd89184acd4980"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_36ff778fa2256ec627ed",
+        "card_id": "celestial_cataclysm_yellow",
+        "sha256": "d5a4a3d784a601bcd2a8df9514716269065f55f8b26857738d934df78ce8a2a9"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_7780069cc577ec7e5a36",
+        "card_id": "nimble_strike_blue",
+        "sha256": "80d290f7d6fc8c582217caaaf97b04e31b8eace7a801ff1b6819080c96c2e75f"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_f274828ec89a3c0c92c4",
+        "card_id": "nimble_strike_red",
+        "sha256": "b9cbc52f4e85e1db6317d61b7561da47e0bfedb46a8e286d75292ddf19cdf9a9"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_48df18ade8ed20ada037",
+        "card_id": "nimble_strike_yellow",
+        "sha256": "a6de13cf42adff80211dc0c350831bb7c439baf4974ec42c9e644188658c816a"
+      }
+    ],
+    "selected_after": [
+      {
+        "kind": "prepareCardAbilities",
+        "key": "celestial_cataclysm_yellow:0",
+        "sha256": "2f99684655d1ca1732663fcf87e5458c7ae1ec457afb839846642534819eca3d"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "nimble_strike_blue:0",
+        "sha256": "77d2a53b902aab623e37b98d125e7116b4d89d4c0b53d03dadab49ad90e7520a"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "nimble_strike_red:0",
+        "sha256": "d5cdf786d835a5acdb2458fd5a1126cf01b7519c4dc83ac7c412376916edcb91"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "nimble_strike_yellow:0",
+        "sha256": "271c4794defc65ba1f3541312462cdb3af2c4ea2f542fc1a81e7328024b4941c"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "celestial_cataclysm_yellow:0:PrepareCard-await",
+        "sha256": "a5d410d9b7c5b80551ad47e54c50bdbdb59b1a9261c9cc145b6348c12702bbcf"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "nimble_strike_blue:0:PrepareCard-await",
+        "sha256": "8d3964240d1a63bcafed2c3e4afb077955d66ccf5671760788157f4b4fe00e30"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "nimble_strike_red:0:PrepareCard-await",
+        "sha256": "7dd2a3ad25f355e82f8004ffefab0a5f8239f67657bd4d9fa530338c3fa93df3"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "nimble_strike_yellow:0:PrepareCard-await",
+        "sha256": "c5c37a895550317ad846d71744fabee46431196ee0e88c9a43bd89184acd4980"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_36ff778fa2256ec627ed",
+        "card_id": "celestial_cataclysm_yellow",
+        "sha256": "c8822fb9d542546dca18baa68310f459e5a9164f77a2bee41bfe7c6f515064e2"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_7780069cc577ec7e5a36",
+        "card_id": "nimble_strike_blue",
+        "sha256": "581057bec849ca6f8f92b95ac46b7cabfb25a23b03418970561e0e89a0f9f546"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_f274828ec89a3c0c92c4",
+        "card_id": "nimble_strike_red",
+        "sha256": "d716942e638a67fe5efef44f454d1a922772e65b8d9dec63cf2a244607ec4210"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_48df18ade8ed20ada037",
+        "card_id": "nimble_strike_yellow",
+        "sha256": "188401bf4d31843daf371fb66f2deede0c3b917828348d6647549a368496dca4"
+      }
+    ],
+    "unrelated_php_sha256": "843f50c00dcc098a99ce546831d3ea84268e2d7147c6de7083848f43f4b88d5a"
+  },
+  "syntax": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CodeGeneration.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php\n",
+      "stderr": ""
+    }
+  ],
+  "existing_fixture_files_preserved": 17785,
+  "fixture_preservation_method": "Existing file size+mtime_ns inventory before/after generation; no fixture write operation; later new native recordings counted separately.",
+  "selected_cards": [
+    "nimble_strike_red",
+    "nimble_strike_yellow",
+    "nimble_strike_blue",
+    "celestial_cataclysm_yellow"
+  ],
+  "coverage_credit_for_untested_variants": false,
+  "remote_authoring_writes": false,
+  "full_suite_run": false,
+  "flic063_applied": false,
+  "limits": "Active implementation/source-generation review only. No fixed/qualified verdict until original native probes, exactsaved review and two focused clean replays pass. Existing contexts preserved, no Core edits."
+}

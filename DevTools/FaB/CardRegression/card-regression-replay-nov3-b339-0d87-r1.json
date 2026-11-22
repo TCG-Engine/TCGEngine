@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch339.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T13:34:12.468257+00:00",
+  "fixtures": [
+    {
+      "slug": "card-nuu-young-four-live-sparse-real-chi-ability-blue-deck-banish-earns-foreign-three-cost-attack-for-zero",
+      "fixture_sha256": "8a4d08bd515fa0198d110ff0860162c5286ac5fc152882dc51b35f3e14af43c3",
+      "passed": true,
+      "result": "[PASS] nuu / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nuu-young-four-live-sparse-real-chi-ability-blue-deck-banish-earns-foreign-three-cost-attack-for-zero",
+      "returncode": 0,
+      "stdout": "[PASS] nuu / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

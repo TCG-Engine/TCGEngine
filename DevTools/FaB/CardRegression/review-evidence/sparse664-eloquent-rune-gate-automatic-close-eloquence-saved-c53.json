@@ -1,0 +1,334 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B664_ELOQUENT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T23:41:01.833849+00:00",
+  "source_spec": "card-regression-batch664.json",
+  "input_sha256": "7c0624b80bd08352df5286ce427a077e05c131f0a07fbf7bd3a3eb9810828229",
+  "manifest_sha256": "de707de7cbf403ce7661464ddce921432663d18c65f0db05c09470ccf96d995f",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 72,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch664-eloquent-independent-source-review.json",
+    "sha256": "7324a605ab078ec349e4aa0c2d4f6f593103544f5e5d4d57fe9caf387b311708",
+    "unchanged_semantics_reused": true
+  },
+  "shared_qualified_model": {
+    "source_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch662-vantom-independent-source-review.json",
+      "sha256": "2748fb45676a4912e201c9abe3f7482012e1713ebda5592cf316dcb473346e88"
+    },
+    "Saved_review": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse662-vantom-rune-gate-three-captured-runechants-saved-c53.json",
+      "sha256": "7770ca4e1ce92be032f8e6374ef6362c96c32c854dbb553cb935e094027bc664"
+    },
+    "checkpoint": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse662-vantom-rune-gate-three-captured-runechants-c53-checkpoint.json",
+      "sha256": "0b8d093628b2884ca0fc37e9afc5dceb7cd72eeb01e736668bafad5a205c8781"
+    },
+    "source_spec_sha256": "fbc46c283c6627d2971d9a8e714ec037c48d0795dcdb443d2bfee31c51383cc2",
+    "scope": "Physical prior3Runes/Chane/publicBanish/target/payment/capturedRunechant/quorum scaffold only; no inherited Eulogy result"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch664-20261106T233329Z-6aee63c964227.json",
+    "sha256": "b5361c6ca055c29f83f95aa7ae2f51d6ece0db75685e196ec81c1229dd60919d"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch664.recording-results.json",
+    "sha256": "798ceb0a89dfb23dfc4755abfdb2842cd20324d14af32fee6223c1da2fbaa3cb"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-b664-eloquent-native-recording\\receipt.json",
+    "sha256": "54614b14dc2934df4d0d9774a492ca18abec98c1687a86b151d8d5d371fea9b3"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "eloquent_eulogy_red",
+      "group_id": "identity:eloquent_eulogy_red",
+      "slug": "card-eloquent-eulogy-red-four-live-real-rune-gate-and-automatic-close-eloquence",
+      "source_spec": "card-regression-batch664.json",
+      "input_sha256": "7c0624b80bd08352df5286ce427a077e05c131f0a07fbf7bd3a3eb9810828229",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_RUNE_GATE_ONE_COST_AND_AUTOMATIC_CLOSE_ELOQUENCE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-eloquent-eulogy-red-four-live-real-rune-gate-and-automatic-close-eloquence",
+      "fixture_sha256": "62cc1ea74e5411622d597595e64fa9d25c82046d2bdabe86afb349768161432e",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "a7848dfd5d1dafc7541a86384f1d9150398ab0b78363860318619840a9a0820a",
+        "actions.json": "c43ef4242122600e6f14131917707445dcf67e3d0f0cb3c10f7dee40d10a5e9d",
+        "assertions.json": "5caa53f497853c98a85f4734780f9be9bcea62399004858933ea7fc5911d9e4d",
+        "expected_final_gamestate.txt": "25c64b9545a9888b07d7481b9c21e96391deeece0c51439a268b0ce208c30ed4"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7848dfd5d1dafc7541a86384f1d9150398ab0b78363860318619840a9a0820a",
+        "actions.json": "c43ef4242122600e6f14131917707445dcf67e3d0f0cb3c10f7dee40d10a5e9d",
+        "assertions.json": "5caa53f497853c98a85f4734780f9be9bcea62399004858933ea7fc5911d9e4d",
+        "expected_final_gamestate.txt": "25c64b9545a9888b07d7481b9c21e96391deeece0c51439a268b0ce208c30ed4",
+        "meta.json": "c22c1385e604f98b5ae08ad2c4090c4335ec27ccb3acd00e1a8f4c68a4a4d337"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a7848dfd5d1dafc7541a86384f1d9150398ab0b78363860318619840a9a0820a",
+        "actions.json": "c43ef4242122600e6f14131917707445dcf67e3d0f0cb3c10f7dee40d10a5e9d",
+        "assertions.json": "5caa53f497853c98a85f4734780f9be9bcea62399004858933ea7fc5911d9e4d",
+        "expected_final_gamestate.txt": "25c64b9545a9888b07d7481b9c21e96391deeece0c51439a268b0ce208c30ed4",
+        "meta.json": "c22c1385e604f98b5ae08ad2c4090c4335ec27ccb3acd00e1a8f4c68a4a4d337"
+      },
+      "actions": 42,
+      "native_assertions": 3397,
+      "actual_manual_passes": 37,
+      "actual_priority_response_passes": 36,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "schema_property_assertions": 1164,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "soul_shackle",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "read_the_runes_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "eloquent_eulogy_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "soul_shackle",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "15": {
+          "card_id": "eloquence",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "read_the_runes_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "eloquent_eulogy_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        15
+      ],
+      "final_UniqueIDCounter": 15,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        18,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "ONE_owned_Eloquence15": true,
+      "no_Close_priority_round_invented": true,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "c98adc164af58d6a7d65c57d09e06becfb8581c5ce276e63830ca938d54b540d",
+      "native_assertion_mapping_sha256": "ade577f296cf8b7508a856d5441386ad4040c291dfdef610bb79babda6147ac4"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 42,
+  "total_native_assertions": 3397,
+  "total_manual_passes": 37,
+  "total_priority_response_passes": 36,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 1164,
+  "material_findings": [
+    "Actual rawfive/all42 envelopes3397 ordered assertions37 manual actors/current72c53+ab33 and48preferences at each endpoint exactly match Source7324. Parsed original/final whole physical UID/card/owner/controller inventories and terminal assertions independently reconcile; approved shared RuneGate model and new source semantics reused without old source/fixture audit.",
+    "Three actual physical Runechants enable printed cost1 resource waiver; R0/Hand0/Pitch0 throughout and actualAP1to0 paid. Same5 sourceBanishStack remains under captured12/13/14 with physical9/10/11, actual target2/4/2, LIFO response cycles deal2arcaneP2 and1P4, all9..14cease; primary sourcefour resolvesbase4/noGA and real4physicalP4HP15. FinalHP20,18,20,15/APRChi0.",
+    "NoEloquence at Resolution; its existing fourth response enters automatic Close and directly reaches ONE owned/controlledP1 ready Eloquence15/Arena with emptyCounters, while sameSoul8 remains and primary5clears afterRead6/Sigil7GY. No invented Close response cycle, no duplicated token or unfinished choice/payment/source. Actual DTD_LOST2/5 and hit5 substantiate the earned positive condition."
+  ],
+  "limits": [
+    "One EulogyRed positive RuneGate1 using excess3physicalRunes/real damage/automatic Close token. No threshold4 substitution/falsecondition/matrix/sibling/fullcard credit. Deep/Widespread separate source-only limits remain unattempted/uncredited.",
+    "Prior shared Chane/Read/Sigil/BloodDebt/emptyDeckStart provenance unexecuted/uncredited here. Eloquence futureNAA/GAconsumption/expiry, SoulShackle futureStart and BloodDebt futureEnd unrun; no intra-Close native pause or separate layer/priority certificate.",
+    "Actual recording ledger and parsed endpoints only; no reviewer PHP/native/replay/R/source/fullsuite/Git/remote/denied retry. Root targeted replays/registration/qualification separate. Raw Versions hash-bound and excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch664_eloquent_saved_readonly.py",
+    "sha256": "9f4f0a81dbdcef825ac4d0bba2e72bb1f4b311aaf067322f11573dcf2c354c8d"
+  }
+}

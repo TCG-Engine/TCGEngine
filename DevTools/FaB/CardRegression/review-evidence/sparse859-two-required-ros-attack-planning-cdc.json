@@ -1,0 +1,129 @@
+{
+  "status": "INDEPENDENT_APPROVED_TWO_SOURCE_ONLY_UNATTEMPTED_SHARED_BEGINNING_ACTION_AND_OWN_ATTACK_WHEN_NOTES",
+  "phase": "PLANNING",
+  "batch": 859,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch859-two-required-contract-notes-manifest.json",
+    "sha256": "7e44c7b01f3dae99c71ccdb08c2d33be9e005347e012abd36443ba403ad950ca"
+  },
+  "manifest_sha256": "7e44c7b01f3dae99c71ccdb08c2d33be9e005347e012abd36443ba403ad950ca",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch859-firm-reservation.json",
+    "sha256": "884f6da2565b9fd4433fccdd60cde7a15945add5904d7799fa5ea726faf895e8"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 16,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "sigil_of_temporal_manipulation_blue",
+      "group_id": "identity:sigil_of_temporal_manipulation_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "EXACT_ROSStart32_BEGINNING_ACTION_DESTRUCTION_BRANCH_KNOWN194_NOT_NEW_NATIVE",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch859-sigil-required-shared-ros-start194-unattempted-note.json",
+        "sha256": "b419fb7186741c05a085cab1b6dfa93dee4cb3f56965208432ab5b8f1f8bb662"
+      },
+      "known_required_contract": {
+        "issue_id": "FAB-REG-194",
+        "individually_reproduced_card": "harvest_season_blue",
+        "native_retained_proof": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\harvest194-independent-native-before-cdc.json",
+          "sha256": "88a2214cd47e446832ecdce3e94646fb939d4f911c0b9259a66c395258dcd23f"
+        },
+        "shared_current_literal_producer": "ROSRuntime32 FaBROSStart listsBOTHharvest_season andsigil_of_temporal_manipulation inSAMEin_arrayconditional; sameFaBMONDestroyUID executesduringGL2487beforeFaBDTDBeginActionPhase2490. Thisisexactsharedproducer/requiredBEGINNINGACTIONdestroyorder, notmerefile/bodyfamilyorprintedSTARTBlessinganalogy."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "gravekeeping_blue",
+      "group_id": "pitch-cycle:gravekeeping",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_ATTACK_WHEN_POSITIVE_GY_CHOICE_BEFORE_CAPTURED_RESPONSES_269_282",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch859-gravekeeping-required-onattack269-unattempted-note.json",
+        "sha256": "c8b0d1e1b98f49033748d9149e5c623f5181684eb4e5d1ad5d1c47db3cd6f010"
+      },
+      "known_required_contract": {
+        "human_row": 269,
+        "card_id": "chest_puff_red",
+        "retained_independent_proof": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse822-chest-pay-one-attack-when-unattempted-429a.json",
+          "sha256": "e062e6f972ce57974eab8964aa721e303526832fb6950446270d7d12f8aaa8a7"
+        },
+        "also_related_human_row": 282,
+        "current_callsite": "GameLogic1233 directlyrunsFaBRunSourceMacroAttackDeclared; canonicalMSTGravekeepingpositiveMZMultiChoosebeforeseparateearnedresponseablelayer. SameordinaryownAttackDeclaredcapturingcontract, notmissingbody/optionalbranchabsence/DefendedorHitblankethold."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Sigil is printed beginning-of-action, not automatic printed Start. CR4.3.1 creates its triggered layer, then AP1 and ordinary priority under4.3.2/3; four legal responses must precede destruction. Current ROSRuntime32 lists Harvest and Sigil in the SAME in_array branch and executes the SAME immediate FaBMONDestroy during GL2487 before2490 actual beginAction dispatcher. This exact required shared destruction statement matches retained Harvest194; not a blanket Tome193/file-family or218 claim. Sigil itself has not been individually reproduced.",
+    "Sigil downstream implementations exist: ROSCards80 queues the Arena-leave ability with physical source/controller; canonical ResolveAbility calls Temporal162 to banish actual Decktop and grant NonAttackAction play-as-instant permission. VolticBlue is explicitly in GL1692 managed plain-spell cohort, so no218 waiver or source-body absence is alleged. These later effects remain unrun behind the earlier shared194 boundary.",
+    "Full future Sigil route retains legal Young Verdance20 with no lifegain/Earth branch, P4 empty turn to first P1 Action/AP1, first four responses before selfdestroy, then separate leave-layer four responses before real Voltic banish. Functional permission must be consumed during the OWN pending Generic AA Source PRIORITY window at AP0, with real Blue3 pays2/R1, actual3 arcane and parent held before actual4 physical/HP4=13/full physical cleanup. No private-flag or normal-action fallback, seeded permission or extra phase response is accepted. All of that remains unrun.",
+    "Gravekeeping has implemented canonical/emitted AttackDeclared, not a missing body. GL1233 immediately runs attackDeclaredAbilities gravekeeping_blue:0, whose __RunAwait_163b65671fc7d502004a case5 tests hero target,case4 gathers real defender GY,case2 directly opens positive MZMULTICHOOSE0|1|refs before separately responseable earned WHEN. This is exact retained Chest269/LookTuff282 ordinary own-AttackDeclared resolving-choice contract. FaiCards68 FaBFaiHeroHit merely tests attackTarget.type HERO; prior damage is not required. The optional positive choice belongs at trigger resolution and is not a formal target at play.",
+    "Full future Gravekeeping preserves actual cost1/Blue3/R2/AP0/native3 attack against adjacentHero4, four earned responses before positive actual opponentGY selection, same physical owner/controller4 public-faceup Banish4 and unchosenGY unchanged, actual3 damageHP17/full source/Pitch/Stack/DQ cleanup. Actual DYNCards30 banish body exists. No empty-GY/decline/no-trigger or primary/support swap is admitted. Full effects remain unrun.",
+    "Exact two notes, all16 current source guards, selected printed primary/support metadata and canonical rows, both named retained proof hashes and unchanged CDC runtime were independently bound. This approves planning-note retention only; zero executable cases, Native/save/coverage/new issue or repair approval."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.3.1",
+        "4.3.2",
+        "4.3.3"
+      ],
+      "official_page_rechecked": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "official_page_rechecked": true
+    }
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "sigil_of_temporal_manipulation_blue",
+      "action": "Execute full selected two-layer permission and actual instant-window consumer route",
+      "reason": "Exact shared ROSStart32 premature beginning-Action destruction contract194",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "gravekeeping_blue",
+      "action": "Execute full selected positive opponent-graveyard banishment attack route",
+      "reason": "Required ordinary own-AttackDeclared choice before earned response layer269/282",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Planning accuracy and retention only; both complete positive routes are unrun, no primary/support/sibling/fullcard certification or fresh native defect/root attribution.",
+    "No executable Source approval, shortened or quiet fallback, PHP/Native/R writes/source fix/fullsuite/Git/remote/deferred Radiant or denied188/184/B787 retry.",
+    "B860 has no selected body or gameplay review in this proof."
+  ],
+  "created_utc": "2026-11-16T09:52:56.098303+00:00"
+}

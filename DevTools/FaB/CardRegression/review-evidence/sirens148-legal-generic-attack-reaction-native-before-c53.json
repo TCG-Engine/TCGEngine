@@ -1,0 +1,636 @@
+{
+  "status": "CONFIRMED_NATIVE_BEFORE_SIRENS_LEGAL_NONWEAPON_ATTACK_REACTION_REJECTED",
+  "native_confirmed": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-06T17:15:23.204710+00:00",
+  "issue_id": null,
+  "card_id": "sirens_call_red",
+  "group_id": "identity:sirens_call_red",
+  "slug": "card-sirens-call-red-four-live-real-blue-hand-defender-draw-and-one-damage",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "input_sha256": "bab450c5736b91246eca8214b1e2ef29ced6454602c645c8e13aaeb3f903ec9f",
+  "manifest_sha256": "7741afa2b17ebeaf001cb17b785ee58c5bb01c2ef6b01068c7595f5cdfe5cec1",
+  "fixture_saved": false,
+  "fixture_exists": false,
+  "semantically_approved": false,
+  "coverage_credit": false,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+  },
+  "source_guards_verified": 70,
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-source-review.json",
+    "sha256": "776e9942d8828075abdeed7a72222929b41f9897beef98d821305df89b7b5cd2",
+    "correct_expectations_retained": true
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-native-c53\\receipt.json",
+    "sha256": "f5052a38e8b3486d504d512009d83c6252eaab5a40e5ec7992574cefb48e9811"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-sirens.recording-results.json",
+    "sha256": "88f6661692772bf32c662d44358c47880391de3b246bccebc0e9ca8acd1f3778"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch622-sirens-20261106T170424Z-6aee08985761f.json",
+    "sha256": "c7222c0eafafb9a15111e3d455341ea52f569af0617d21d5f35941ca5a1e151f"
+  },
+  "first_failure": {
+    "source_step": 32,
+    "check_index": 29,
+    "native_assertion_ordinal_1_based": 1176,
+    "prior_assertions_passed": 1175,
+    "after_input": 16,
+    "total_expected_assertions": 2654,
+    "remaining_unrun_assertions": 1478,
+    "error": "state window expected \"PITCH\" got \"REACTION\"",
+    "expected": "PITCH",
+    "actual": "REACTION",
+    "last_source_step": 31,
+    "last_input": {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  },
+  "actual_native_prefix": {
+    "submitted_native_input_count": 16,
+    "submitted_native_inputs": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-1!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p4Hero-0",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "accepted_prior_gameplay": "Wounding6 played/targetHero4/entered actual chain; empty defender declaration finished; legal P1 REACTION priority reached.",
+    "accepted_primary_gameplay_play": false,
+    "manual_input_count": 13,
+    "manual_priority_response_count": 12,
+    "defender_declaration_finish_count": 1,
+    "manual_actors": [
+      1,
+      2,
+      3,
+      4,
+      1,
+      2,
+      3,
+      4,
+      4,
+      1,
+      2,
+      3,
+      4
+    ],
+    "manual_actor_counts": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 4
+    },
+    "initial_manual_preference_values": 48,
+    "initial_raw_sha256": "39a1d4fcc642fde3ecf478355fd414d56944528973861bec6b07c2e7f0b78b32",
+    "initial_physical_uid_locations": {
+      "1": {
+        "card_id": "nuu",
+        "zone": "p1Hero",
+        "owner": 1,
+        "controller": 1
+      },
+      "5": {
+        "card_id": "sirens_call_red",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "6": {
+        "card_id": "wounding_blow_red",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "7": {
+        "card_id": "wounding_blow_blue",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "9": {
+        "card_id": "wounding_blow_blue",
+        "zone": "p1Deck",
+        "owner": 1,
+        "controller": 1
+      },
+      "2": {
+        "card_id": "dorinthea",
+        "zone": "p2Hero",
+        "owner": 2,
+        "controller": 2
+      },
+      "3": {
+        "card_id": "dorinthea",
+        "zone": "p3Hero",
+        "owner": 3,
+        "controller": 3
+      },
+      "4": {
+        "card_id": "dorinthea",
+        "zone": "p4Hero",
+        "owner": 4,
+        "controller": 4
+      },
+      "8": {
+        "card_id": "driving_blade_blue",
+        "zone": "p4Hand",
+        "owner": 4,
+        "controller": 4
+      }
+    },
+    "passed_prefix_sha256": "8356e761e54564c4a5ee93b1bf3b784c88e0d6985ab954df327b33bfe9af5aa5",
+    "observed_state": {
+      "window": "REACTION",
+      "combatOpen": true,
+      "combatStep": "REACTION",
+      "chainLink": 1,
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 6,
+      "attackTarget": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "pendingAttackTarget": null,
+      "previousAttackCardID": "",
+      "handBlockUIDs": [],
+      "intimidated": [],
+      "pendingPayment": null,
+      "lastAttackName": "Wounding Blow",
+      "attackHit": false,
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "declaredBlockUIDs": [],
+      "passiveSeats": [],
+      "gameMode": "UPF",
+      "turnEffects": {
+        "1": [
+          {
+            "type": "CRU_ATTACKS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_PLAYED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "HNT_ATTACKS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "HNT_AA_ATTACK",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "HNT_ATTACKED_4",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "SEA_ATTACKED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "SUP_ATTACKS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "MON_LAST_wounding_blow",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ELE_AA_COMBAT",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          {
+            "type": "SEA_ATTACKED_HERO",
+            "amount": 1,
+            "uses": 1
+          }
+        ]
+      },
+      "nextTurnEffects": [],
+      "hitsThisTurn": [],
+      "cardsPlayedThisTurn": {
+        "1": [
+          "wounding_blow_red"
+        ]
+      },
+      "arcCards": {
+        "6": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false,
+          "omnFirstDamage": false,
+          "iarPlayedFrom": "Hand",
+          "outPreviousNames": [],
+          "mstFree": false,
+          "mstPreviousPitch": 0,
+          "mstPreviousAA": false,
+          "rosLastLightning": false,
+          "iarPermission": [],
+          "mstReactions": 0,
+          "mstBanished": [],
+          "supFirst": true
+        }
+      },
+      "arcActions": {
+        "1": 1
+      },
+      "outPreviousNames": {
+        "1": []
+      },
+      "lastAttackCardID": "wounding_blow_red",
+      "attackTargets": [
+        {
+          "type": "HERO",
+          "player": 4,
+          "uid": 4,
+          "zone": "Hero"
+        }
+      ],
+      "defendIndex": 0,
+      "attackGoAgain": false
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [
+        "p1Hand-0",
+        "p1Hand-1"
+      ],
+      "2": [],
+      "3": [],
+      "4": [
+        "p4Hand-0"
+      ]
+    },
+    "queried_passed_facts": [
+      "1146 assertions passed through source step30 after input15: same physical attack6 WoundingRed on chain/Controller1/FromHand/link1, computed power4/noGA, targetHero4, emptyStack/DQs/payment, P1Priority1/REACTION. Sirens5 and Blue7 in Hand1, defendingBlue8 Hand4, drawBlue9 Deck1 were directly queried before the Sirens click.",
+      "After input16, the first29 assertions still pass: fourlive/manual UPF/combatOpen, allHP20/RAPChi0, counter9/RNG0, Priority1/pass0. Then window fails; this block did not reach its payment/Stack/physicalCard queries.",
+      "Direct failure observation independently reports allDQs empty, no pendingPayment/target/resolvingReaction, stillREACTION/combatStepREACTION/attackUID6, only Wounding in cardsPlayedThisTurn/arcCards, and two Hand1 addresses."
+    ],
+    "source_inferred_not_native_queried": [
+      "ActionMap does not offer PLAY when FaBWTRCanPlay returns false. Sirens falls through that AR gate to testing the current attack as Weapon; Wounding is Generic Action Attack, not Weapon. This explains the no-op before DoPlay creates a source Stack/payment.",
+      "Actual dictionary CardCost(sirens_call_red) is1, Blue7 pitch is3 and no current discount/grant was seeded. Cost1 is the correct printed oracle. No native pendingPayment.cost or runtime computed-cost getter was reached, so failure is not evidence that cost became0/free.",
+      "Observed raw state attackPower=0 is a cached field; the computed power4 query already passed. No actual damage has occurred."
+    ],
+    "unrun": [
+      "Step32 checks30..78 (49 checks), including pendingPayment cost1/sourceUID5/kindATTACK_REACTION, Stack source identity and afterclick physical zones; all later source steps33 onward.",
+      "18 later authored inputs and1478 assertions: real Blue payment/R2, source freshfour, private Temp10/original8 choice, actual defending-card addition/draw9, reaction/damage/HP19, Nuu no-Stealth cleanup and fullClose. No primary response round/preview/draw/defender addition/damage/cleanup certified."
+    ]
+  },
+  "classification": {
+    "kind": "GAMEPLAY_ATTACK_REACTION_ADMISSION_INCORRECT_WEAPON_ONLY_FALLBACK",
+    "oracle_or_protocol_error": false,
+    "printed_setup_legal": true,
+    "reason": "Current Sirens official text and independently viewed MST009 impose no Stealth/Assassin-attack/Weapon prerequisite. Nuu is a legal Mystic Assassin and owns the reaction. P1 controls the real attack and has actual priority in the Reaction Step (CR7.4.2a), with a defendingHero4/oneBlueHandcard and an affordable printed1cost from Blue3. The correct normal Hand click is rejected before payment; changing to a weapon/Stealth support would hide this legal-branch failure.",
+    "source_cause": "GameLogic914 delegates to WTRCards446..487. Its general AttackReaction block recognizes named exceptions, but Sirens is absent and default487 requires FaBWTRIsWeapon(currentAttack). WTRCards66 queries actual Weapon type. GenericWounding fails, so ActionMap2268 has noPLAY and DoPlay925 never reaches source creation/payment968..975.",
+    "relationship_to_other_diagnostic": "Fresh diagnostic peer reports actual admission/cardplay on a Dagger attack and a different REACTION-vs-PRIORITY oracle question. No shared native-root or duplicate issue allocation inferred from similar error text."
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+      "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+      "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+      "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35"
+    },
+    "actual_recorder": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+      "sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+    },
+    "selected_anchors": [
+      "WTRCards66,464..487: AR admission and weapon fallback.",
+      "GameLogic884..920,923..975,1173..1188,2263..2293: actual priority, admission, normalclick and payment pipeline.",
+      "MSTCards179..185 has no Sirens restriction; MSTRuntime59 Nuu rider requires Stealth.",
+      "Generated costData Sirens1; pitchData WoundingBlue3; typesData SirensMysticAssassinAttackReaction/WoundingGenericActionAttack."
+    ],
+    "correct_cost_1_and_complete_strict_suffix_retained": true,
+    "no_source_fix_or_proposal": true
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3132/",
+      "independently_retrieved": true,
+      "finding": "Current Sirens1cost MysticAssassinAttackReaction; positive defendingHeroBlue addition and conditional draw; no Stealth/Weapon attack restriction."
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sirens_call_red.webp",
+      "sha256": "1cc02ab1040abbf76ca1d089903e68374f914274522d38feca732bb09982e9fb",
+      "printing": "MST009",
+      "independently_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "independently_retrieved": true,
+      "rules": [
+        "7.4.2",
+        "7.4.2a"
+      ],
+      "finding": "Turn player gains Reaction Step priority; controller of attack may play attack reactions with priority. No weapon prerequisite."
+    }
+  ],
+  "durable_evidence": {
+    "strict-input.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\strict-input.json",
+      "sha256": "bab450c5736b91246eca8214b1e2ef29ced6454602c645c8e13aaeb3f903ec9f",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-sirens.json"
+    },
+    "normative-source-review.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\normative-source-review.json",
+      "sha256": "776e9942d8828075abdeed7a72222929b41f9897beef98d821305df89b7b5cd2",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-source-review.json"
+    },
+    "manifest.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\manifest.json",
+      "sha256": "7741afa2b17ebeaf001cb17b785ee58c5bb01c2ef6b01068c7595f5cdfe5cec1",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-first-ready-author\\manifest.json"
+    },
+    "root-receipt.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\root-receipt.json",
+      "sha256": "f5052a38e8b3486d504d512009d83c6252eaab5a40e5ec7992574cefb48e9811",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-native-c53\\receipt.json"
+    },
+    "recording-results.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\recording-results.json",
+      "sha256": "88f6661692772bf32c662d44358c47880391de3b246bccebc0e9ca8acd1f3778",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-sirens.recording-results.json"
+    },
+    "immutable-archive.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\immutable-archive.json",
+      "sha256": "c7222c0eafafb9a15111e3d455341ea52f569af0617d21d5f35941ca5a1e151f",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch622-sirens-20261106T170424Z-6aee08985761f.json"
+    },
+    "stdout.log": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\stdout.log",
+      "sha256": "5814cc4e9d40249bcf7ff934999fec880686c575f1043b5d579df4c95b10d0c7",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-native-c53\\stdout.log"
+    },
+    "stderr.log": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-native-c53\\stderr.log"
+    },
+    "first_classification_emission": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-sirens-independent-native-before-evidence\\first-classification-before-unrun-label-caveat.json",
+      "sha256": "e26727a9eabf78cd75f712ea218794acedd949cf0d68d366e1625864d11d24d5",
+      "reason": "Preserved before adding the independently identified unrun label caveat; original native/rules conclusion unchanged."
+    }
+  },
+  "limits": [
+    "Confirmed selected Sirens legal non-Weapon attack admission rejection only; no fixture/coverage or primary payment/response/resolution/draw/damage/cleanup credit.",
+    "No actual runtime cost0/cost1 getter or Stack query after the rejected click; independent printed/dictionary cost1 distinguished from observed no pending payment.",
+    "No full-card/sibling/global reaction/Core root or issue number allocated; Fresh diagnosis remains separate. No repair proposal/control execution.",
+    "Original strict source/results/archive preserved. No PHP/native/replay/R/source/fullsuite/remote/denied retry by reviewer. Current70 guards/c53 and recorderab33 remain unchanged.",
+    "Original source gate is reused for printed legality/physical model; its unexecuted7 AR window-label predicates are separately flagged and not freshly approved. Preserve them historically pending a separately reviewed immutable control correction."
+  ],
+  "unrun_oracle_caution": {
+    "status": "SEPARATE_UNEXECUTED_AR_WINDOW_LABEL_PREDICATES_REQUIRE_RECONCILIATION",
+    "native_observed": false,
+    "first_failure_1176_unchanged": true,
+    "paths": [
+      "/0/steps/34/checks/29/value",
+      "/0/steps/36/checks/29/value",
+      "/0/steps/38/checks/29/value",
+      "/0/steps/40/checks/29/value",
+      "/0/steps/35/until/window",
+      "/0/steps/37/until/window",
+      "/0/steps/39/until/window"
+    ],
+    "original_value": "PRIORITY",
+    "source_supported_value": "REACTION",
+    "finding": "GameLogic968..969 captures current REACTION as returnWindow for Sirens; TryCompletePayment1130..1138 restores REACTION after assets. This remains a response opportunity with source on Stack, not inline resolution. The7 later window-label predicates were not reached in this native run. They are a separate transport/oracle issue, not another native gameplay failure and not a reason to weaken the correct earlier printed1/PITCH expectation.",
+    "original_input_unchanged": true,
+    "new_input_authored": false,
+    "no_native_suffix_claim": true
+  }
+}

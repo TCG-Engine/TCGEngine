@@ -1,0 +1,128 @@
+{
+  "status": "CONFIRMED_BOUNDED_NATIVE_CASTER_REWARD_MISATTRIBUTION_EXISTING_FAMILY_EXTENSION_NO_REPAIR",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T05:40:24.048108+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_sha256": "7c0185395a4f82442f3f42f3e3142b4c5a02a6aa7928e49adddbe6bf1caff313",
+  "manifest_sha256": "4e37824ffe80926a62e9aaa7263af161acdaf99eef58a4938f62b8c41bee8561",
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch292-original-correct-probe-independent-source-review.json",
+    "sha256": "580ffe35721be69dcf43eb9ee3f517d22af088aa4da7e59b9fb120d196ac3529"
+  },
+  "native_before_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch292-correct-multiplayer-probe-20261103T053327Z-6ae9722730178.json",
+    "sha256": "8024dbb4f5f96db1a3cb6d9329b632e7aa0c66c923f8f94d98cc90a62f00af6e",
+    "accepted_inputs": 7,
+    "error": "Expected p1Arena count 1, got 0."
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch292-correct-probe-native-r1\\receipt.json",
+    "sha256": "24325673aa06add2b1f2599f70a59605d2de7ca6b0cf95e2ec1f75b5b06df8b1",
+    "stdout_sha256": "4007ca18789c9a873d0a3b0fec6a13a0e804cad3f533b960df402b844b2bbc0f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1,
+    "stderr_bytes": 0
+  },
+  "diagnostic_prefix": {
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-genis292-failed-prefix\\receipt.json",
+    "receipt_sha256": "d2eca4c85f057bfe27d1809086235bf6f94616cec712c52ce4c8897519ef7741",
+    "config": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-genis292-failed-prefix\\prefix-only.json",
+    "config_sha256": "dc1ef65ee071522ef44aefaf1ae33848c31f3a835322b03bf799129860367065",
+    "snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-genis292-failed-prefix\\initial_gamestate.txt",
+    "snapshot_sha256": "ba338b543319c8c820789c099b495c3d7d31257c82e5f125e7edece8b094351e",
+    "actions_sha256": "a9b994d4bbe3beb3b6ac565d87255c40e2b1f840e33ee010abe64f46b76ab761",
+    "prefix_inputs": 7,
+    "mutations": [],
+    "private_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "status": "OBSERVED_PREFIX_NOT_A_PASSING_REGRESSION"
+  },
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "bug_confirmed": true,
+  "new_distinct_infrastructure_root": false,
+  "repair_proposed": false,
+  "repair_applied": false,
+  "classification": {
+    "primary": "EXISTING_CROSS_SEAT_AWAIT_CASTER_ATTRIBUTION_FAMILY_CALLER_EXTENSION",
+    "primary_related_issue": "FAB-REG-041",
+    "secondary_symptom_family": "CREATOR_OWNER_CALLER_ATTRIBUTION",
+    "secondary_related_issue": "FAB-REG-059",
+    "rationale": "041 already records callback credited to opposing chooser instead of original caster after await. Here preservedHero1/source13/controller1 remainscorrect, but acceptedP2callback createsphysicalSilver14 forchooser2. 059 is relatedwrongcreator-owner symptom/callerextension; it doesnotestablishanewglobalfactoryroot. This singleGeniswitness is an additionalaffectedcaller inexistingattribution family, not newlyinventedsharedinfrastructure defect.",
+    "ledger_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "ledger_sha256_at_read": "55349c6958c1db833fdb8bb8b4e4041196501ed158dd12caaa3c5daf7aa3a3b7",
+    "related_row_sha256": {
+      "FAB-REG-041": "94d17415df4179f4658e6124fa58b4495ba251182fc8bc9cb30979e087cb61ab",
+      "FAB-REG-059": "94cc5ebe1e912d8e41f7ede7ef33682f6e313d932a8021149f81f5c5e57d08fc"
+    }
+  },
+  "actual": {
+    "source_hero_uid": 1,
+    "retained_virtual_uid": 13,
+    "retained_source_owner_controller": 1,
+    "retained_source_zone": "Hero",
+    "p1_resources": 1,
+    "p1_action_points": 0,
+    "p1_pitch_uidset": [
+      5
+    ],
+    "p1_deck_uidset": [
+      6
+    ],
+    "p1_arena_uidset": [],
+    "p2_hand_uidset": [
+      8
+    ],
+    "p2_deck_uidset": [
+      7
+    ],
+    "p2_silver_uid": 14,
+    "p2_silver_owner": 2,
+    "p2_silver_controller": 2,
+    "p3_hand_uidset": [
+      9
+    ],
+    "p3_deck_uidset": [
+      10
+    ],
+    "p3_choice_pending": true,
+    "p4_hand_uidset": [
+      11
+    ],
+    "p4_deck_uidset": [
+      12
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ]
+  },
+  "expected": {
+    "after_P2_accept": "ActualP2bottom7/draw8, caster1createsSilver14inP1ArenaOwnerController1. P2Arenaempty; source13retained/AP0/nextP3choicepending.",
+    "full_suffix_remains_original_correct": "P3declines9/10unchanged; P4accept11bottom/draw12/caster1Silver15; noP1fallbackdrawDeck6retained; onlythenGAAP1/source13ceases. Theseinputsareunreached, not claimedtested."
+  },
+  "corroborating_observations": [
+    "P2actualHand8/Deck7provescorrectphysicalbottomanddrawtarget, whileonlyrewardcasteriswrong; no forcedcardmutation/RNG replacement.",
+    "CapturedHero1/virtual13/controllerowner1/sourceHero1andserializedframe mzIDp1Hero0 remaincorrect, distinguishingoriginalcontrollerfromchooser2.",
+    "ActualBlue5pitch/p1R1AP0 andHeroARC_USED_0turn2 prove realAction2payment/onceassetpath; no syntheticAP/history/effects.",
+    "OriginalUIDs1-12allconservedwithowners/controllers; onlynewobjects13virtualand14Silver, with14physicallyinP2ArenaOwnerController2. Allotherarenasempty/allHP20.",
+    "P3realnonemptyHand9/Deck10andchoicepending, P4Hand11/Deck12untouched, P1Deck6untouched/AP0 showfailureboundarybeforedecline/secondaccept/fallback/GAcompletion."
+  ],
+  "source_cause_evidence": [
+    "ActualcompiledGenisrunner4a561f0a1d7848cf0e28 queues MZMAYCHOOSE and CUSTOM continuation to$target; callback invokesrunner withcallback$player. Savedlocals retainseats/i/silver/targetbutnotoriginalcaster.",
+    "Atacceptedcase5 compiledFaBSEAHeroCreate(FaBWTRCreateArena,$player,silver)usesthecurrentcallbackplayer. Existingwrapperdelegatesprovidedargs; rawphysicalobservationsconfirmchooser2rewardinstead ofsourcecontroller1. This identifies the bounded attributioncause, not a sourcefix proposal."
+  ],
+  "controls": {
+    "extra_native_controls_run_by_reviewer": 0,
+    "isolated_fault_controls_claimed": 0,
+    "old_cases_replayed": 0,
+    "scope": "Original7inputnativefailure plusRootindependentdiagnosticreproductionofsame7inputs; exactinitial/physicalsourceholder/chooseroutputscontrast only. No P3decline/P4accept/noSilverfallback/GAorothercardpathsuccesscredit."
+  },
+  "limits": [
+    "ConfirmedoneGenisfirstP2acceptedreward defect atactual0d only; P3decline/P4accepted/fullcompletion stillunreached, no passingfixture/coverage/replay/sourcefixqualification.",
+    "NoR/native/PHP/sourcefix/generator/backend/service/remote/oldcorpus audit byreviewer. Noappliedproposedrepair/permissionretry or classifiercountinflation.",
+    "Deferredfallback5898/bfe4remainsunrecorded/notforinstallorcredit. Originalcorrectoraclesandfullsuffixunchanged."
+  ],
+  "method": "Independent readonlynativearchive/actionprefix/same-runtimeprivatecaptureandfullschema rawinitial+post7snapshot parse. Exactsourcecaster/physicalUIDownership/cost/targetdraw/callbackframe/nextchoiceverified; primaryrules/printedexpectations reusedfrom580ffeapproval. Onlytwoexplicitrelatedledgerrowsreviewedforfamilydedup. Noauthorbuilder/native/PHP executed."
+}

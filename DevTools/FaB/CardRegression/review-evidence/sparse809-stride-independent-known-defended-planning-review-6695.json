@@ -1,0 +1,176 @@
+{
+  "status": "B809_STRIDE_INDEPENDENT_KNOWN_DEFENDED_PLANNING_REVIEW",
+  "phase": "PLANNING",
+  "batch": 809,
+  "reviewer": "/root/b809_review_recover",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T01:59:04.312892+00:00",
+  "card_id": "stride_of_reprisal",
+  "group_id": "identity:stride_of_reprisal",
+  "members": [
+    "stride_of_reprisal"
+  ],
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-firm-reservation.json",
+    "sha256": "d9cfc6e1eba2c9d8b3b05c2c9fd5e5e5b9a8adfe4668afcf931b30df2c6501c7"
+  },
+  "author_planning_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-stride-known-required-contract-unattempted-planning-hold.json",
+    "sha256": "f00238f3c76f485d8e0449d93e0b5f83ff328b5083b69cb604c03122f22d4284"
+  },
+  "full_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-selected-helper-preflight.json",
+    "sha256": "70964964a670eab67f713a11ae919dda2f99737db41714c949282ca14c8d1e9d"
+  },
+  "independent_printed_helper_preparation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-independent-printed-selected-path-preparation.json",
+    "sha256": "d0bbfaa757173a17a95898af30e4f2b2f7382664986912a749e565b5efa9e505"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_preimages": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/MONCards.php": "3e855be139501d1b2f78524ab700bdcdedb503257c4f089bc1d1d7b16d82bfcc",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/ROSCards.php": "643fa4e4e57b1156ada42ff45bf7612c0027bbb84910bdd64d580da3877c84dd",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "DevTools/FaB/mon_abilities.json": "41ff76fda49bb17ddcce19fe71ace6302ccd8199ab155c88a5fff7285f4a4386",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+  },
+  "all31_selected_actual_preimages_current": true,
+  "known_required_context_rows": [
+    {
+      "index": 161,
+      "card_id": "adaptive_plating",
+      "row_sha256": "e98b410cfdeff35dbfd42602d9512b711ceb3c10dd85fb5010d6058ad8db1c0f",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Adaptive Galvanize has an actual direct Defended await, but no selected separately captured responseable WHEN layer before the positive Item-destroy choice. Body/helper are present. Unattempted source concern only, no native defect or coverage."
+    },
+    {
+      "index": 210,
+      "card_id": "drag_down_blue",
+      "row_sha256": "fb04a31756961246597fd1b884a12f09d309f83398b72dae643e35062d40bf14",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "The managed defense reaction attaches correctly with Role DEFENSE_REACTION, then the selected OnDefended path immediately applies WTR_POWER:-1 instead of establishing the card's own separately responseable WHEN layer. The body and managed DR route exist. No native six-damage outcome, cleanup, confirmed gameplay defect, fixture, coverage or repair is claimed; no inline-effect/basic-defense passing substitute."
+    },
+    {
+      "index": 242,
+      "card_id": "blood_in_the_water_red",
+      "row_sha256": "eca3a2ed5af9ffeb95bde45612d5b7cf96ecac221f4d67146fbcae964357cccb",
+      "status": "source_only_unattempted_selected_known_dependency",
+      "reason": "The ordinary defense reaction correctly attaches as a defending card before OnDefended, then invokes its generated Defended modal directly without a separate WHEN response layer. Same known Drag Down210/Adaptive161/Whispers176 family; not a chooser while physical DR remains on Stack."
+    },
+    {
+      "index": 250,
+      "card_id": "horns_of_the_despised",
+      "row_sha256": "1ba36c12255fe7ea932f2c4236597b17ae543ee08efd193672bcd3d564b872a4",
+      "status": "source_only_unattempted_selected_known_dependency",
+      "reason": "The fixed formal defense event reaches OnDefended and directly invokes the implemented SUP crowd-boo macro before a separately responseable Horns WHEN layer. Same known formal Defended-WHEN contract; selection preview is not the earned event. No executable or later crowd/Killjoy consumer outcome is attempted."
+    },
+    {
+      "index": 251,
+      "card_id": "helm_of_the_adored",
+      "row_sha256": "8e0e2b70312c04506b6cabcb86c51b1e01a00e1e40c438321dd8405c91d3af13",
+      "status": "source_only_unattempted_selected_known_dependency",
+      "reason": "The fixed formal defense event reaches implemented SUP crowd-cheer code inline before a separately responseable Helm WHEN layer, the same exact required caller contract as Horns251. No separate primary layer or subsequent Pleiades/Confidence output is attempted."
+    },
+    {
+      "index": 252,
+      "card_id": "cogwerx_tinker_rings",
+      "row_sha256": "e2442d14d77f644e62e914574a0ea9b658a44645093c17ef813956fd55171458",
+      "status": "source_only_unattempted_selected_known_dependency",
+      "reason": "The actual SEA Defended creation body runs inline at formal defense completion before a separately responseable Rings layer, matching Horns/Helm. No Cog, entry steam or Crank outcome is attempted."
+    }
+  ],
+  "current_holds": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+    "sha256": "73ea9a6e486374b3403bd0678432124cbfdd6a0b07556463b5ec937247a77d8c"
+  },
+  "printed": "Mystic Ninja Equipment Legs DEF1: formal-defends WHEN creates an actual Crouching Tiger card in hand; Blade Break. Fixed young Zen is natural20 and legal MysticNinja; Tiger is Ninja Action Attack, not Token.",
+  "actual_required_trace": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1895–1897",
+      "fact": "Formal finish finds actual declared defending UID and invokes OnDefended."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1220–1227;1290–1326",
+      "fact": "OnDefended calls direct source macro; loop executes implemented generated body synchronously."
+    },
+    {
+      "path": "DevTools/FaB/mst_abilities.json",
+      "card_id": "stride_of_reprisal",
+      "fact": "Canonical Defended is FaBMSTTiger($player)."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "25973–25978",
+      "fact": "Actual compiled Defended directly calls FaBMSTTiger before a separate own WHEN layer."
+    },
+    {
+      "path": "FaBSim/Custom/MSTCards.php",
+      "line": 51,
+      "fact": "Actual helper creates Crouching Tiger with AddHand owner/controller player. Helper exists; the required timing path is held."
+    }
+  ],
+  "official_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.5",
+        "6.6.6"
+      ]
+    }
+  ],
+  "disposition": "UNATTEMPTED_SAME_KNOWN_REQUIRED_FORMAL_DEFENDED_WHEN_CONTRACT",
+  "independent_planning_review_complete": true,
+  "planning_hold_approved": true,
+  "source_executable_approved": false,
+  "correct_required_contract": "Own earned triggered layer before Tiger creation, with genuine four-seat responses. This exact required path matches Horns/Helm/Rings and earlier Adaptive/DragDown/Blood cases.",
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_root_cause_group": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "No redundant native probe, basic1block/inlineTiger/alternatecreator substitute or partial credit.",
+    "Tiger creation, HP17 and owned BladeBreak cleanup remain unrun and uncredited. No Zen Chi activation, search/banish, Tiger futureplay, GoAgain/Ephemeral or fullcard certificate.",
+    "Reviewer W-only/read-onlyR; no PHP/native/replay/R/source/Git/repair/heldrepair/newagent action."
+  ]
+}

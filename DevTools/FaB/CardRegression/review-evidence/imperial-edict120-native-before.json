@@ -1,0 +1,172 @@
+{
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "full_suite_run": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "created_utc": "2026-11-05T13:53:55.152142+00:00",
+  "id": "FAB-REG-120",
+  "status": "NATIVE_CONFIRMED_NAMED_PLAY_RESTRICTION_LOST_AT_CHAIN_CLOSE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_reviews": [
+    {
+      "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-imperial471-independent-native-before-classification.json",
+      "sha256": "2b7651f7654150f8a3a4ca02ba71deba66c2c57f7af1ec7c6a889c171b6faa85"
+    },
+    {
+      "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-imperial471-postclose-v2-independent-native-before-classification.json",
+      "sha256": "283107bb7cc58917f395dc1d3e1ad363c1b3f81f8858133f9ab5410a005ede8d"
+    }
+  ],
+  "original_duration_loss": {
+    "source_spec": "card-regression-batch471.json",
+    "input_sha256": "6a054a567857e67b9ec3f0401392f41352b6de05aea892e6a6db8a0da6008643",
+    "scenario_id": "card-imperial-edict-red-four-live-sparse-real-destroy-literal-name-restricts-instant-and-go-again-funds-paid-attack",
+    "native_evidence": {
+      "native_recording_results": {
+        "path": "card-regression-batch471.recording-results.json",
+        "sha256": "73bdd74bb199a7ae04da98da968a1effe808fc589dc29a0d28132f7ea238e8bd"
+      },
+      "immutable_native_archive": {
+        "path": "recording-runs/card-regression-batch471-20261105T132923Z-6aec84b3c94b5.json",
+        "sha256": "4a3aaecacd8eabe0f66f5eec58fa17e0ecba4d9f487eee52e5d42dc5e2342ce3"
+      }
+    },
+    "first_failure": {
+      "error": "Expected FaBSim state [\"dynEdicts\"] to exist for JSON equality, got missing.",
+      "native_action_boundary": 35,
+      "source_step_index": 70,
+      "source_check_index": 54,
+      "ordered_authored_check_ordinal_1based": 2852,
+      "preceding_ordered_authored_checks_passed": 2851,
+      "completed_prior_boundary_checks": 2797,
+      "same_boundary_checks_before_failure": 54,
+      "remaining_authored_checks_after_failure_unexecuted": 143,
+      "expected_effect_record": [
+        {
+          "player": 1,
+          "name": "Sigil of Solace"
+        }
+      ],
+      "actual_effect_key": "missing",
+      "raw_source_check": {
+        "type": "game_state_field",
+        "rootName": "FaBSim",
+        "path": [
+          "dynEdicts"
+        ],
+        "comparison": "equals",
+        "valueJson": "[{\"player\":1,\"name\":\"Sigil of Solace\"}]"
+      }
+    },
+    "classification": {
+      "category": "SOURCE_BACKED_NATIVE_DURATION_STATE_LOSS_NOT_PRIVATE_ALIAS_OR_PROTOCOL_ERROR",
+      "private_state_oracle_only_mistake": false,
+      "legitimate_equivalent_effect_representation_found_in_selected_source_path": false,
+      "oracle_correction_proposed": false,
+      "native_confirmed_fact": "Namedprohibition record exists after actual naming and throughout the realfirstrejection/damage sequence, then is absent immediately after combat close. The firstfailure is at finalclose, not early naming or the bannedplay witness.",
+      "why_key_is_semantic": "Actual FaBDYNProhibit writes the literal-name effect only into dynEdicts; actual FaBDYNCanPlay consults exactly that key for the named-card restriction. Actual DYNStart has source-player-start expiry. Current close calls FaBResetWindowState, which recreates state and preserves an explicit list omitting dynEdicts. No alternate storage/migration is present in this selected producer/consumer/reset path. Therefore dropping this assertion would hide an earned-duration-state loss, not correct an equivalent private representation.",
+      "source_derived_consequence_not_native_afterclose_play": "Once the key has been discarded, the current named-card predicate has no record to reject a matching card. An actual second Sigil attempt after close has NOT been performed in this run, so successful forbidden play afterclose is not native-confirmed here. Root has requested a separate stronger same-turn actual-priority witness; originalV1 remains unchanged/failing.",
+      "duration_boundary": "Printed restriction lasts until sourcecontrollers next turn, not until combat closes or sourceItem leavesArena. SourceItem was destroyed as cost before effectgenerated, and the inputstream contains no EndPhase/turn-advance/owner-start crossing; final observedwindow is same-action-phase return afterclose. InitialTurnPlayer1/TurnNumber2 are rawverified; no separate finalTurnNumber scalar after this failing check is fabricated.",
+      "attribution": "No issue/globaldistinct-root/Core allocation or source repair authorization by reviewer. This is the selected named-effect duration retention seam only, not a broad omitted-state audit."
+    }
+  },
+  "direct_same_turn_witness": {
+    "source_spec": "card-regression-batch471-imperial-post-close-v2.json",
+    "input_sha256": "0563cb561786dc6f6d881e75314da5de2aa55188dbcccb2f219aafe709c6e30e",
+    "scenario_id": "card-imperial-edict-red-four-live-post-close-same-turn-named-instant-remains-prohibited-correct-probe-v2",
+    "native_evidence": {
+      "native_recording_results": {
+        "path": "card-regression-batch471-imperial-post-close-v2.recording-results.json",
+        "sha256": "9c4e3727851f62a8050c141693bd310d9744a126e55bca9e4bedc3694d819a4e"
+      },
+      "immutable_native_archive": {
+        "path": "recording-runs/card-regression-batch471-imperial-post-close-v2-20261105T134430Z-6aec883e13d5a.json",
+        "sha256": "4c808f31c4f4c7cb7da9c1816577ca170d6bfc40f90ff3445f2ffe47e17cfdb4"
+      }
+    },
+    "first_failure": {
+      "error": "Expected ConsecutivePasses to equal 3, got 0.",
+      "native_action_boundary": 39,
+      "source_step_index": 79,
+      "source_check_index": 5,
+      "ordered_authored_check_ordinal_1based": 3380,
+      "preceding_ordered_authored_checks_passed": 3379,
+      "completed_prior_boundary_checks": 3374,
+      "same_boundary_checks_before_failure": 5,
+      "expected_consecutive_passes": 3,
+      "actual_consecutive_passes": 0,
+      "raw_source_check": {
+        "type": "scalar_zone_equals",
+        "zone": "ConsecutivePasses",
+        "value": 3
+      },
+      "remaining_authored_checks_after_failure_unexecuted": 131
+    },
+    "actual_native_prefix": {
+      "accepted_inputs": 39,
+      "manual_inputs": 32,
+      "manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "before_second_attempt": "All127 boundary38checks passed: sameTurnPlayer1/TurnNumber2, ACTIONclosedcombat, actualP4priority4/pass3, soleownedSigil6Hand, HP13/R0/AP0, Stack0/allDQempty/noPayment/noResolvingReaction. Threeactualpasses1/2/3 reached4 without fourthACTIONpass/EndPhase/nextstart.",
+      "after_second_attempt_direct": "Input39 actor4 actuallyclicked p4Hand0!FSM. Firstfivechecks stillprove SeatOrder/LiveSeats1234/TurnPlayer1/TurnNumber2/Priority4, then livepasscounter0fails expected3. Independently capturedstate adds SigilRed under player4 cardsPlayedThisTurn, arcCards6 origin4/fromHand and observedHandRefs4empty; windowPRIORITY. Those together confirm forbidden card admission rather than an isolated pass-counter no-op defect."
+    },
+    "classification": {
+      "category": "NATIVE_GAMEPLAY_EARNED_NAMED_PLAY_PROHIBITION_EXPIRES_PREMATURELY_ON_CHAIN_CLOSE",
+      "protocol_or_oracle_error_at_first_failure": false,
+      "native_confirmed": "The same namedSigil that was actually rejected while the effectrecord existed is now played from P4Hand in the same sourceplayerturn aftercombatclose, before printedexpiry. Nativehistory+UID6play provenance+emptyHandrefs demonstrate actualadmission; failure is not established frompasscounteralone.",
+      "linked_source_cause": "Original nativeV1 observed named-duration store lostatclose, with current FaBCloseCombatChain->FaBResetWindowState keep-list omitting dynEdicts. Current FaBDYNCanPlay directlyreads exactlythat store, while FaBDYNStart is intended sourceplayer-nextstart expiry. V2 now independently verifies materiallegal-admission consequence on sameTurn1/number2 aftersupportedpriorityrotation. No equivalenteffectalias/private-oracle correction or transportissue is supported.",
+      "source_vs_direct_physical": "Directnativephysical evidence is observedHandRefs4empty versus immediatelyprior soleHand6 identityquery. Directnativehistory records actualSigil4 and UID6 origin4/fromHand. Current DoPlayCard creates Stack before OnCardPlayed/paidcompletion records theplay and resets passes. A postclick Stackcount1 or fullStack6 object was NOT independently queried/captured because its no-opassertion occurs after firstfailedCP; any exactStackplacement is source-derived, not a new nativegetter result.",
+      "attribution": "Root reserved120 only; no repair application/authorization or broadstate/root/Core/corpus inference byreviewer. No additionalnative run is needed to resolve a transport ambiguity, since the actualexpectedpriority and rawinput were correct."
+    }
+  },
+  "selected_source_file_sha256": {
+    "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim\\Custom\\WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim\\Custom\\DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim\\Custom\\DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e"
+  },
+  "source_guards_verified": 69,
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1954/",
+      "finding": "Fresh official Edict activated cost/name effect/nonRoyal branch/prohibition duration/ownGA."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/286/",
+      "finding": "Fresh named SigilRed GenericInstant0/gain3, otherwise legal at P4 actualAttack priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.1.6a",
+        "8.3.5a"
+      ],
+      "finding": "Instant at ownpriority; ability goagain after other resolution effects, no AP cost for Instant."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.4",
+        "5.3.5",
+        "5.3.7"
+      ],
+      "finding": "Resolve naming effects then ownGA and clear completed layer; source held during pending choice."
+    }
+  ],
+  "limits": [
+    "No furtherresponse follows secondSigilplay. Its healing/resolution/physicalGY/fullcleanup did not run. P4HP13 was queriedbeforeattempt38; postclick39 HP/no-heal checks lie after firstfailedCP and areunexecuted. No HP16/heal3 claim.",
+    "The remaining postclick no-opwindow/Stack/Hand/health/economy checks areunexecuted after CP check5. Both deferred originalprivate dynEdicts assertions at ordinals3510/3511 werealso unexecuted in V2; missingdynEdicts is separatelyobservedstate and independentlyproved by originalV1. Do not describe late map assertions as having passed orfailed here.",
+    "Onlyinitial rawsnapshot iscomplete. No fullpostfailure physicalsnapshot/savedfixture or final48manualprefs/UIDcleanup is fabricated. OriginalV1 and V2 strictcorrectsources retained unchanged;131 authoredchecks afterfirstfailure unexecuted.",
+    "No fixture/coverage/nativecontrol/othername/Royal/expiry/supportprimary/sibling/fullcard/globalRoot/Core credit. No rerun/companion/sourcefix/PHP/native/replay/R/source/service/generation/fullsuite/remote or deniedrepairretry/reroute byreviewer."
+  ]
+}

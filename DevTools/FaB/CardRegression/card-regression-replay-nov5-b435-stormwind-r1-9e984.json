@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch435.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T09:20:41.042622+00:00",
+  "fixtures": [
+    {
+      "slug": "card-stormwind-sheath-red-four-live-real-lightning-pitch-earns-owned-embodiment-and-five-defense",
+      "fixture_sha256": "f232c4ae1c785cabc32e269b7a9672d54a0cd2530e6c2326ec1fa1f93d822656",
+      "passed": true,
+      "result": "[PASS] stormwind_sheath_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stormwind-sheath-red-four-live-real-lightning-pitch-earns-owned-embodiment-and-five-defense",
+      "returncode": 0,
+      "stdout": "[PASS] stormwind_sheath_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

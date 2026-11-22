@@ -90,7 +90,7 @@ function FaBWTRPayAbilityCosts(int $player, object $stack): void {
     if($spec['timing']==='ACTION')FaBWTRSetEffects($player,array_values(array_filter(FaBWTREffects($player),fn($e)=>($e['type']??'')!=='FIRST_ACTION_COST')));
 }
 
-/** Exact printed hit abilities migrated from synchronous generated token creation. */
+/** Exact simple printed hit effects; preserve the legacy token capture ABI. */
 function FaBWTRPureTokenHitSpec(string $id): ?array {
     return match ($id) {
         'destructive_deliberation_red', 'destructive_deliberation_yellow', 'destructive_deliberation_blue'
@@ -103,11 +103,17 @@ function FaBWTRPureTokenHitSpec(string $id): ?array {
             => ['token'=>'embodiment_of_lightning', 'heroOnly'=>false],
         'icy_encounter_red', 'icy_encounter_yellow', 'icy_encounter_blue'
             => ['token'=>'frostbite', 'heroOnly'=>true, 'underHitHero'=>true],
+        'pursue_to_the_edge_of_oblivion_red'
+            => ['effect'=>'MARK', 'heroOnly'=>true, 'underHitHero'=>true],
+        'searing_shot_red'
+            => ['effect'=>'LOSE_LIFE', 'heroOnly'=>true, 'underHitHero'=>true],
+        'combustible_courier_yellow'
+            => ['effect'=>'COURIER', 'heroOnly'=>false],
         default => null,
     };
 }
 
-/** Capture the triggered effect now; token creation occurs only on resolution. */
+/** Capture the hit now; its token or condition effect occurs only on resolution. */
 function FaBWTRQueuePureTokenHit(int $player, object $attack, int $amount): void {
     $spec = FaBWTRPureTokenHitSpec((string)$attack->CardID);
     $controller = intval($attack->Controller ?? $player);
@@ -122,9 +128,38 @@ function FaBWTRQueuePureTokenHit(int $player, object $attack, int $amount): void
         if (!FaBSeatIsLive($recipient)) return;
         $extra['wtrTokenHitRecipient'] = $recipient;
     }
+    if (($spec['effect'] ?? '') === 'MARK') {
+        $heroUID = intval($state['attackTarget']['uid'] ?? 0);
+        $hero = FaBFindUID($heroUID);
+        if (intval($attack->UniqueID ?? 0) < 1 || $hero === null || $hero['zone'] !== 'Hero'
+            || intval($hero['player']) !== intval($extra['wtrTokenHitRecipient'] ?? 0)) return;
+        $extra['wtrTokenHitEffect'] = 'MARK';
+        $extra['wtrTokenHitHeroUID'] = $heroUID;
+    }
+    if (($spec['effect'] ?? '') === 'LOSE_LIFE') {
+        if (intval($attack->UniqueID ?? 0) < 1 || ($attack->Role ?? '') !== 'ATTACK') return;
+        $extra['wtrTokenHitEffect'] = 'LOSE_LIFE';
+    }
+    if (($spec['effect'] ?? '') === 'COURIER') {
+        $uid = intval($attack->UniqueID ?? 0); $turn = intval(GetTurnNumber());
+        if ($uid < 1 || ($attack->Role ?? '') !== 'ATTACK' || empty($state['combatOpen'])
+            || intval($state['chainLink'] ?? 0) < 1 || intval($state['attackUID'] ?? 0) !== $uid || $turn < 1) return;
+        $chainToken = intval($state['wtrCourierChainToken'] ?? 0);
+        $layer = AddStack(CardID:$attack->CardID, Owner:$controller, Controller:$controller, Kind:'ABILITY',
+            SourceZone:'CombatChain', SourceUniqueID:$uid,
+            Params:['wtrTokenHitToken'=>'', 'wtrTokenHitController'=>$controller,
+                'wtrTokenHitAction'=>FaBHasType($attack, 'Action'), 'wtrTokenHitEffect'=>'COURIER',
+                'wtrCourierTurn'=>$turn, 'wtrCourierLink'=>intval($state['chainLink']),
+                'returnWindow'=>(string)$state['window'], 'returnCombatStep'=>(string)$state['combatStep']]);
+        // The first real trigger UID identifies this chain without another allocation.
+        if ($chainToken < 1) $chainToken = intval($layer->UniqueID ?? 0);
+        $layer->Params['wtrCourierChainToken'] = $chainToken;
+        $state = FaBGetState(); $state['wtrCourierChainToken'] = $chainToken; $state['window'] = 'PRIORITY'; FaBSetState($state);
+        return;
+    }
     AddStack(CardID:$attack->CardID, Owner:$controller, Controller:$controller, Kind:'ABILITY',
         SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),
-        Params:['wtrTokenHitToken'=>$spec['token'], 'wtrTokenHitController'=>$controller,
+        Params:['wtrTokenHitToken'=>$spec['token'] ?? '', 'wtrTokenHitController'=>$controller,
             'wtrTokenHitAction'=>FaBHasType($attack, 'Action'),
             'returnWindow'=>(string)$state['window'], 'returnCombatStep'=>(string)$state['combatStep']] + $extra);
     $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
@@ -132,8 +167,56 @@ function FaBWTRQueuePureTokenHit(int $player, object $attack, int $amount): void
 
 /** A queued layer survives its source leaving, changing, or losing its abilities. */
 function FaBWTRResolvePureTokenHit(object $stack): void {
+    if (!is_array($stack->Params ?? null)) return;
     $player = intval($stack->Params['wtrTokenHitController'] ?? 0);
     $token = (string)($stack->Params['wtrTokenHitToken'] ?? '');
+    if (($stack->Params['wtrTokenHitEffect'] ?? '') === 'COURIER') {
+        $chain = FaBGetState(); $chainToken = intval($stack->Params['wtrCourierChainToken'] ?? 0);
+        if (empty($chain['combatOpen']) || $chainToken < 1 || intval($chain['wtrCourierChainToken'] ?? 0) !== $chainToken
+            || intval($stack->Params['wtrCourierTurn'] ?? 0) !== intval(GetTurnNumber())
+            || intval($stack->Params['wtrCourierLink'] ?? 0) < 1
+            || intval($chain['chainLink'] ?? 0) < intval($stack->Params['wtrCourierLink'])) return;
+        if ($stack->CardID !== 'combustible_courier_yellow' || ($stack->Kind ?? '') !== 'ABILITY'
+            || intval($stack->Controller ?? 0) !== $player || !FaBSeatIsLive($player)
+            || ($stack->SourceZone ?? '') !== 'CombatChain' || intval($stack->SourceUniqueID ?? 0) < 1
+            || $token !== '') return;
+        $hadController = array_key_exists('fabEffectController', $GLOBALS);
+        $previousController = $hadController ? $GLOBALS['fabEffectController'] : null;
+        $GLOBALS['fabEffectController'] = $player;
+        try { FaBCRUAdd($player,'COURIER',3); }
+        finally {
+            if ($hadController) $GLOBALS['fabEffectController'] = $previousController;
+            else unset($GLOBALS['fabEffectController']);
+        }
+        return;
+    }
+    if (($stack->Params['wtrTokenHitEffect'] ?? '') === 'LOSE_LIFE') {
+        $recipient = intval($stack->Params['wtrTokenHitRecipient'] ?? 0);
+        if ($stack->CardID !== 'searing_shot_red' || ($stack->Kind ?? '') !== 'ABILITY'
+            || intval($stack->Controller ?? 0) !== $player || !FaBSeatIsLive($player)
+            || ($stack->SourceZone ?? '') !== 'CombatChain' || intval($stack->SourceUniqueID ?? 0) < 1
+            || $token !== '' || !FaBSeatIsLive($recipient)) return;
+        $hadController = array_key_exists('fabEffectController', $GLOBALS);
+        $previousController = $hadController ? $GLOBALS['fabEffectController'] : null;
+        $GLOBALS['fabEffectController'] = $player;
+        try { FaBARCLoseLife($recipient,1,$player); }
+        finally {
+            if ($hadController) $GLOBALS['fabEffectController'] = $previousController;
+            else unset($GLOBALS['fabEffectController']);
+        }
+        return;
+    }
+    if (($stack->Params['wtrTokenHitEffect'] ?? '') === 'MARK') {
+        $spec = FaBWTRPureTokenHitSpec((string)$stack->CardID);
+        $recipient = intval($stack->Params['wtrTokenHitRecipient'] ?? 0);
+        $heroUID = intval($stack->Params['wtrTokenHitHeroUID'] ?? 0);
+        $hero = FaBFindUID($heroUID);
+        if (!FaBSeatIsLive($player) || $token !== '' || ($spec['effect'] ?? '') !== 'MARK'
+            || !FaBSeatIsLive($recipient) || $hero === null || $hero['zone'] !== 'Hero'
+            || intval($hero['player']) !== $recipient || FaBUPRHeroUID($recipient) !== $heroUID) return;
+        FaBHNTMark($recipient);
+        return;
+    }
     if (!FaBSeatIsLive($player) || !in_array($token,
         ['ponder', 'gold', 'embodiment_of_earth', 'embodiment_of_lightning', 'frostbite'], true)) return;
     $recipient = $token === 'frostbite' ? intval($stack->Params['wtrTokenHitRecipient'] ?? 0) : $player;

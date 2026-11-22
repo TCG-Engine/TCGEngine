@@ -1,0 +1,129 @@
+{
+  "status": "APPROVED_EXACT_SAVED_SIGNAL_JAMMER_GLOBAL_NAA_RESTRICTION_AND_ACTUAL_ACCEPTED_NOOP_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T08:24:57.285805+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch309-signal-jammer.json",
+  "input_sha256": "b6a3336f8166b8ea9064ade7aaf85261377386f16a9b0c23c49dde480ee8b24f",
+  "fixtures": [
+    {
+      "slug": "card-signal-jammer-blue-four-live-sparse-first-naa-play-second-naa-accepted-noop-rejection-and-legal-attack",
+      "card_id": "signal_jammer_blue",
+      "group_id": "identity:signal_jammer_blue",
+      "fixture_sha256": "b3bbb467834c0999f97a170b0b22ceec018f3360e3d837bcaabbb429920f03ba",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "196105b92c072638ab1d44832a583615b4cfa5fcd03626f4c2a0f25db9408a23",
+        "actions.json": "86f6d0b53818917a1e8653afc8f81836153b53d1db055fb3fc6a5262b9d22624",
+        "assertions.json": "e682fba3e8bf3b2335cdde61def96111b771d719796d42858364eb53cdd66c3f",
+        "expected_final_gamestate.txt": "235a214a4ace9f461418b79441dee164bf63168d541afb7d60e44de92b2189dc",
+        "meta.json": "3eb7ca87665e0fc6475a197157a801b8fbdadce2ed62632011a9fe1417b29c47"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "196105b92c072638ab1d44832a583615b4cfa5fcd03626f4c2a0f25db9408a23",
+        "actions.json": "86f6d0b53818917a1e8653afc8f81836153b53d1db055fb3fc6a5262b9d22624",
+        "assertions.json": "e682fba3e8bf3b2335cdde61def96111b771d719796d42858364eb53cdd66c3f",
+        "expected_final_gamestate.txt": "235a214a4ace9f461418b79441dee164bf63168d541afb7d60e44de92b2189dc",
+        "meta.json": "3eb7ca87665e0fc6475a197157a801b8fbdadce2ed62632011a9fe1417b29c47"
+      },
+      "actions": 33,
+      "native_assertions": 2864,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_response_passes": 28,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "actual_gameplay_noop_native_step": 6,
+      "unchanged_before_after_native_assertions": 126,
+      "formal_transport_failures": 0,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_hand_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_arena_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualP4youngDashownspriorJammer5Arena/Steam1/Status2, P1youngDoriownsNimblism6/Healing7Hand and facedownArsenalWounding8. Allfourmanual/live/ready. ActualfirstNimblism6cost0APspend/four1,2,3,4responses givesactualhistory[Nimblism]/same6GY/GAAP1. Nativeaction6 is recordedordinarymode10002FSMclicksameHand7; actual126before/afterpersistedchecks exactlyequal includingrealHistory1/physical7Hand,8Arsenal/Stack0/AP1/R0/HP20/DQs/paymentmarkers. No formaltransportfailure or new rejected-inputharness. ActuallegalAA8Arsenalclick7/freshP4targetanswer8 thenAP1payment/realNimblism3 givespower7/noGA; fullfour-seatcombatactual7damageHP13. FinalunorderedGY1UIDset6,8, unplayedHealing7ownedHand1, originalownedItem5P4ArenaSteam1/status2, allRAP0/HeroUID1-4same/StackChainsqueuesclear. OriginalphysicalUID1-8allconserved/no newvirtualallocation. Capturedno-op didnotconsumeAP, heal, changehistory, or move anycard.",
+      "qualification": "Only global firstNAAallowed/secondNAAdenied through actualaccepted-noop/attackactionallowed. NoItemcast/entry/upkeep/Steamexpiry/turnreset/abilityloss/multicopies/multipleopponents/hero/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch309-independent-source-review.json",
+    "sha256": "bfaed7d71938b019d7c10747396b12f69e088a92d66083030c867a27ccd05772",
+    "manifest_sha256": "7f29a339ebdcca438d6a7a840d13f946ff0058df94a65623a090215d2ff3eedd"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch309-signal-jammer-20261103T082208Z-6ae999b097c10.json",
+    "sha256": "267e158034bc8b4bd6b148039537152c53bd01555af8653edb96a9f402ed8e0e"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch309-signal-jammer.recording-results.json",
+    "sha256": "7c0e8fb5baec0e0e95f370e20f815523d5cf8afb71375602a6e2b9a04e6a6db6"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch309-native-r1\\receipt.json",
+    "sha256": "16f22d8fda46bc81d70046e75ba42abffeec0e8e37424b2462833db2f1ed9aa6",
+    "stdout_sha256": "931ece1c94c674207c6de6c9b543e491b0c0f6a3d7f1ab1b3db45febd5ebfe34",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own genericraw5/archive/schema/action/assertionparsingprefix with exactB309bindings before unrelatedsemanticsection; noauthorbuilder."
+  },
+  "method": "Independent readonly exactsavedraw5 review; all33actualactor/mode/payloads and2864orderednativeassertions exactly equal approvedinput. Fullinitial/finalschemaparse/UIDownership/heroidentity/ItemSteam/Hand/GY/economy/history/cleanup plusactualordinaryno-op126persistedchecks andall29manualactors verified. NoPHP/native/replay/R/backend execution.",
+  "limits": [
+    "Savedcreationreviewonly; Root two focusedreplays are separate evidence, not executed by reviewer.",
+    "Only global firstNAAallowed/secondNAAdenied through actualaccepted-noop/attackactionallowed. NoItemcast/entry/upkeep/Steamexpiry/turnreset/abilityloss/multicopies/multipleopponents/hero/supportprimary/fullcard/controlcredit.",
+    "Actual0d context retained; no sourceapplication/runtime migration/oldcorpus audit/deniedrepairretry."
+  ]
+}

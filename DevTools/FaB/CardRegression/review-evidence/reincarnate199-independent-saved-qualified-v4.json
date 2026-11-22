@@ -1,0 +1,177 @@
+{
+  "status": "SAVED_QUALIFICATION_BINDING_REINCARNATE_AFTER_V4_IMPLICIT_OWNER_CORRECTION",
+  "phase": "SAVED",
+  "batch": 864,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "saved_review_complete": true,
+  "actual_saved_fixture_reviewed": true,
+  "source_spec": "card-regression-batch864-reincarnate-blue-nonberserk-positive-after-v3.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b864-reincarnate-normal-after-v3-application\\positive-case.json",
+    "sha256": "bae094a8527c03064afb0477b7933793a50500634b8216e51d838c62c8d3f931"
+  },
+  "input_sha256": "bae094a8527c03064afb0477b7933793a50500634b8216e51d838c62c8d3f931",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b864-reincarnate-normal-after-v3-application\\manifest.json",
+    "sha256": "c4f6b408cfba2049c237732be7ba778eea86c5e9dcc8b4b6fa5d48b54df9ef65"
+  },
+  "manifest_sha256": "c4f6b408cfba2049c237732be7ba778eea86c5e9dcc8b4b6fa5d48b54df9ef65",
+  "runtime_sha256": "2439a9c85278682c852cd8190d4eaeefa8dd8e5711ae46586231434ee7f69301",
+  "recorded_runtime_sha256": "161af1af3a3563ff013d1c821b22ec8fb2d73016129a145ffb9921c789188423",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-after-v3-independent-normal-operational-source-review.json",
+    "sha256": "23b99992d365299c4481773e67f2304e328a753d2587d108beed366864c94021"
+  },
+  "independent_V3_code_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-v3-independent-source-application-review.json",
+    "sha256": "30ea08a031f17868770e39e39823cc3db60d77776c7e3b30b98d087ed8d40006"
+  },
+  "root_source_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-v3-root-application\\receipt.json",
+    "sha256": "23ca2e775b3ba9926db6c77021e9c2429251f994d334b7151477fd11cdd070e6"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-after-v3-normal-native-save\\receipt.json",
+    "sha256": "6e49ac8203d7d52c4bbb0c436ab7c06092f0de730875206e27a7b1387e5d9d10"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch864-reincarnate-blue-nonberserk-positive-after-v3.recording-results.json",
+    "sha256": "b9cf9f4dda98252e01a43f4611279340c00a8b015d49b30d3855e5609f7d9fa3"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch864-reincarnate-blue-nonberserk-positive-after-v3-20261116T154136Z-6afb24300a027.json",
+    "sha256": "82dd1dc615cecaeb93abdba840048241840853ad76496b66f2e21634b682b524"
+  },
+  "original_before_failure_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-independent-actual-no-save-before-failure-review.json",
+    "sha256": "d5065a435161b3ff4b817bb83ace9e709de3760540c0cb8d4bc1ddc658c73d4e"
+  },
+  "fixtures": [
+    {
+      "card_id": "reincarnate_blue",
+      "slug": "card-reincarnate-blue-four-live-real-additional-random-discard-earned-bottom-deck",
+      "actions": 32,
+      "native_assertions": 3965,
+      "manual_passes": 29,
+      "actual_manual_inputs": 32,
+      "actual_manual_actor_counts": {
+        "1": 10,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "actual_native_actor_counts": {
+        "1": 10,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "actual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "75c1fee2574a166d34768b50e145b1bcbed0a6fe6d08b787f867af5ea3e924d3",
+        "actions.json": "bb35c1d88d2903e358ed4c0557af04c32602b25a504d9ffe2512571468f96014",
+        "assertions.json": "203947a2d5e274236e7bef3ca87c51e1ec9b04bde0eb5095dcad22ee587174be",
+        "expected_final_gamestate.txt": "f4697865cfa65f5fd4c321e843a83fe57fa95fc2c8ec1d4b70632daa26617f96",
+        "meta.json": "840f10b9faddbd938eb0e5221ba810806a5b666711e85ee01026b0604d86d2dd"
+      },
+      "fixture_sha256": "2b114dd2d08671a24a90a5ee5a05d96bbddc85f4ab24c91a4df0211ddd6f4a2a",
+      "behaviorfixture_sha256": "2b114dd2d08671a24a90a5ee5a05d96bbddc85f4ab24c91a4df0211ddd6f4a2a",
+      "input_sha256": "bae094a8527c03064afb0477b7933793a50500634b8216e51d838c62c8d3f931",
+      "runtime_sha256": "2439a9c85278682c852cd8190d4eaeefa8dd8e5711ae46586231434ee7f69301",
+      "recorded_runtime_sha256": "161af1af3a3563ff013d1c821b22ec8fb2d73016129a145ffb9921c789188423",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 135,
+      "terminal_endpoint_queries_independently_evaluated": 248,
+      "qualified_runtime_sha256": "2439a9c85278682c852cd8190d4eaeefa8dd8e5711ae46586231434ee7f69301"
+    }
+  ],
+  "actions": 32,
+  "native_assertions": 3965,
+  "manual_passes": 29,
+  "actual_manual_inputs": 32,
+  "actual_manual_actor_counts": {
+    "1": 10,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "actual_native_actor_counts": {
+    "1": 10,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "actual_pass_actor_counts": {
+    "1": 7,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "legal_priority_response_controls": 28,
+  "formal_defense_finish_inputs": 1,
+  "nonpriority_END_transport_controls": 0,
+  "pass_controls_are_not_all_priority_responses": true,
+  "actual_expected_envelope_mapping_sha256": "e86a52dd4f4fa9d932fe5ec68324d7416c71d99fa10bfdf95b606d0b984727a7",
+  "actual_ordered_query_mapping_sha256": "fd494b170e8d81a59952407cb9ab556c62329bab5e722c4615b1fc6ee0341229",
+  "checkpoint_mapping_sha256": "1005012fbf1c533c9a38ac86323fcf15052c55b959743f309f8aaf6b41af4f08",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "actual_semantics": [
+    "Exact independentV3Saved review0a659 remains actualcreation32actions/3965queries/raw5/both48/semantic evidence at161af. Originalrecordedruntime/receipt/result/archive/Nativeactor counts are not relabelled2439.",
+    "V4 solely normalizes clonedHandLKI Owner0 at the actualHand-aware caller; explicitOwner1 fixture and all expected gameplay remain unchanged. Root actualcandidatecaller with realDYN/ROS defaultAddHand seats2/4 and foreign/negative/missingowner controls PASS. InstalledGLaa1 matches candidate; DYN/ROS remainV3.",
+    "Actual finalselectedfixture replay PASS on2439, zeroStderr and onefixture/raw5preserved. Fiveexactraw hashes remain unchanged; no repeatraw48/model/sourceaudit. This is oneafterV4 replay, not a newrecording/fullsuite or relabelling of twohistoricalV3replays."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": "Root guarded registration/qualification and repair-status metadata only; no extra routine replay/recording/fullsuite required by this binding.",
+  "limits": [
+    "NamedBlue !Berserk route plus focusedimplicitOwner0 legacy controls only; no siblings/Berserk/allcard/rootgroup/broadcoverage expansion.",
+    "Before/V3creation/twoV3replays remain distincthistorical evidence. Reviewer ran noPHP/Native/replay/Rwrites."
+  ],
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false,
+  "review_kind": "NARROW_OPERATIONAL_QUALIFICATION_REBIND",
+  "qualified_runtime_sha256": "2439a9c85278682c852cd8190d4eaeefa8dd8e5711ae46586231434ee7f69301",
+  "native_creation_runtime_sha256": "161af1af3a3563ff013d1c821b22ec8fb2d73016129a145ffb9921c789188423",
+  "original_Saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-after-v3-independent-actual-saved-review.json",
+    "sha256": "0a6592b3d7386ddd3a964119f5b27e077901043494f383f21cd5fead13d58b7c"
+  },
+  "current_revision_proposal": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-v4-implicit-hand-owner-unapplied-proposal\\manifest.json",
+    "sha256": "dbb6d9901db568c11e8dd023bf7d6c99d6315d41df0fba5844f5eb76ce41d63c"
+  },
+  "current_revision_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-v4-root-application\\receipt.json",
+    "sha256": "d937237112e55d25fece4704ebc19f16c0460bd6c293efa7df3a0fa2dd24e137"
+  },
+  "current_revision_focused_components": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-v4-candidate-focused-checks\\receipt.json",
+    "sha256": "5cfcfac7f57db5f36a4d9ac76e2e7b95e7803b13c4360016f29a6e69bfc68333"
+  },
+  "current_revision_targeted_replay": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-reincarnate199-v4-final.json",
+    "sha256": "f9dd742a00c77bb9568e23ecfa12bc12203d57b9a626f946920cae1fc2384187"
+  },
+  "qualification_binding_approved": true,
+  "current_runtime_targeted_replay_passed": true,
+  "creation_runtime_evidence_not_retagged": true,
+  "raw5_hashes_unchanged": true,
+  "new_raw48_or_model_audit_performed": false
+}

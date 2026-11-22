@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch270.json",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T00:39:02.325967+00:00",
+  "fixtures": [
+    {
+      "slug": "card-flying-kick-red-four-live-sparse-real-two-head-jabs-earn-third-link-seven-power-kick",
+      "fixture_sha256": "ec082e9e0f15bca47362ddbefdc76cc3322bf8475f345a6855ee5fa2fa4f80ff",
+      "passed": true,
+      "result": "[PASS] flying_kick_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-overpower-red-four-live-sparse-real-hand-block-earns-paid-six-power-reprise-and-five-weapon-damage",
+      "fixture_sha256": "a9b1a763d0e795a358c21e3402e51902d62b9c1af14935923d0831d05c04c1ae",
+      "passed": true,
+      "result": "[PASS] overpower_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flying-kick-red-four-live-sparse-real-two-head-jabs-earn-third-link-seven-power-kick",
+      "returncode": 0,
+      "stdout": "[PASS] flying_kick_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-overpower-red-four-live-sparse-real-hand-block-earns-paid-six-power-reprise-and-five-weapon-damage",
+      "returncode": 0,
+      "stdout": "[PASS] overpower_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

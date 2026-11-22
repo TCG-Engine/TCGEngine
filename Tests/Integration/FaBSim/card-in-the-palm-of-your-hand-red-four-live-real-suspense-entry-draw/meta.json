@@ -1,0 +1,7 @@
+{
+    "name": "In the Palm of Your Hand Red / real Suspense entry and separate draw WHEN",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T20:04:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact Red entry-only representative. Four living/manual Young Betsy seats HP20. Actual P1 ownMAIN Palm5 InstantAura proposes printed2; actual GenericBlue6 pitch3 leavesR1/AP1unchanged. All four real source responses1/2/3/4 precede physicalPalm5Arena entry with exactSUSPENSE2. This entry replacement earns no additional response round itself. Distinct actual ABILITY9/SourceUID5/supEnter waits through another four real responses1/2/3/4 BEFORE draw. Only final resolution moves actualTopRed7 fromDeck toHand, Yellow8remainsDeck, physicalPalm5remainsArena/SUSPENSE2, Blue6Pitch. AllHP20/R1AP1/otherRAP0, emptyStack/queues/chains andMAINP1. No seededAura/counters/draw/resourcehistory, heroactivation, InstantAPspend/refund, sourceGY, alternativeAurateardown, leave/startphase/naturalremoval/zeroCounterdestroy/multiturn branch or genericvirtual-layerdeletion-order certificate. Sources: https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/super-slam/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

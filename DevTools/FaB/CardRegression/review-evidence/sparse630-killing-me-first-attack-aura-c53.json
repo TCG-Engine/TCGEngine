@@ -1,0 +1,315 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_KILLING_ME_SUBSET_TO_BE_CONTINUED_UNSAVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T18:25:23.880947+00:00",
+  "source_spec": "card-regression-batch630-suspense-auras.json",
+  "input_sha256": "3ce9e7e34641dbdc32c492f61513aac982f31b24ca852e4ebceb9c88972617da",
+  "manifest_sha256": "481fc75f101311bf2af114547531b19b0e6d988bbfa7598aabb3dfc45e433e60",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-independent-source-review.json",
+    "sha256": "1e4e8b885a4819ec0f6ddab0831442ae213909dea81905fabeef255e23164010",
+    "unchanged_saved_case_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch630-suspense-auras-20261106T181958Z-6aee1a4ed8daf.json",
+    "sha256": "4897d6cce87426e353be8a470c83571fc9f81bed3b8de49b1a385243916f9aed"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch630-suspense-auras.recording-results.json",
+    "sha256": "9740e1e3e3eab11e97263912d22728fa57b8094276bc16100b6031f06bcd58f1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-suspense-auras-native-c53\\receipt.json",
+    "sha256": "14d5854c37e7c04e2e0534c6db837135003226a64c4a44e094a5c0a54f7ba5e1"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "the_suspense_is_killing_me_blue",
+      "group_id": "identity:the_suspense_is_killing_me_blue",
+      "slug": "card-the-suspense-is-killing-me-blue-four-live-real-aura-entry-and-first-attack-five-damage",
+      "source_spec": "card-regression-batch630-suspense-auras.json",
+      "input_sha256": "3ce9e7e34641dbdc32c492f61513aac982f31b24ca852e4ebceb9c88972617da",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_AURA_ENTRY_FIRST_ATTACK_FIVE_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-the-suspense-is-killing-me-blue-four-live-real-aura-entry-and-first-attack-five-damage",
+      "fixture_sha256": "d11eaa6eec483d23d089c344939dcc4538acdd6beb671c0887c3879ca0eef241",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "9714c101c895daa160f20fc69e38c07eb92912fe4c495a2b3cce8117433ab093",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "895052638a8770889c8bdbfc8913dcd57bf6b662e0d17707f5e2761f7d684d4f",
+        "expected_final_gamestate.txt": "615478f2ccc4034fc3c59c121c7f6ff5265b65801b503c649d84af76c3f3b36a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9714c101c895daa160f20fc69e38c07eb92912fe4c495a2b3cce8117433ab093",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "895052638a8770889c8bdbfc8913dcd57bf6b662e0d17707f5e2761f7d684d4f",
+        "expected_final_gamestate.txt": "615478f2ccc4034fc3c59c121c7f6ff5265b65801b503c649d84af76c3f3b36a",
+        "meta.json": "1ea22271a90c053e22c6f0ea6900a6cced260bcb0ea0e85d9bec371f509807aa"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9714c101c895daa160f20fc69e38c07eb92912fe4c495a2b3cce8117433ab093",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "895052638a8770889c8bdbfc8913dcd57bf6b662e0d17707f5e2761f7d684d4f",
+        "expected_final_gamestate.txt": "615478f2ccc4034fc3c59c121c7f6ff5265b65801b503c649d84af76c3f3b36a",
+        "meta.json": "1ea22271a90c053e22c6f0ea6900a6cced260bcb0ea0e85d9bec371f509807aa"
+      },
+      "actions": 32,
+      "native_assertions": 2500,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 606,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "the_suspense_is_killing_me_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "the_suspense_is_killing_me_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_Arena1_exact_UIDs": [
+        5
+      ],
+      "Aura_Counters": {
+        "FAB_PLAY_ORDER": 1,
+        "SUSPENSE": 2
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "e6685eddf79221d7a574817f4134bcd5f6b417eece1c4633d5c86d340cdc2569",
+      "native_assertion_mapping_sha256": "12d41968ea808dd274528da4d96e7f55c268a94d087e5d1449f9e5d18cf62096"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "to_be_continued_blue",
+      "group_id": "identity:to_be_continued_blue",
+      "slug": "card-to-be-continued-blue-four-live-real-offturn-aura-response-and-first-arcane-prevention",
+      "approved": false,
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "first_failure": "Expected p4Arena-0.Counters to equal '{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}', got '{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}'.",
+      "actual_prevention_unreached": true,
+      "classification": "SEPARATE_FAB_PLAY_ORDER_ORACLE_RECONCILIATION_NOT_GAMEPLAY_BUG"
+    }
+  ],
+  "total_actions": 32,
+  "total_native_assertions": 2500,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 606,
+  "material_findings": [
+    "Exact raw5/all32nativeenvelopes2500orderedassertions29manual7,7,7,8/raw48preferencesperendpoint/current71c53+ab33/specificimmutablearchive match source1e4e for KillingMe only. Initial/final fullUID inventories and all endpoint native checks independently parsed.",
+    "SamephysicalAura5Instant0/AP1preserved/freshfour→Arena1readyDamage0/FAB1+SUSPENSE2. RealblankWounding6firstAttack0/AP0/freshfour livepower4+primary1=5/noGA yields actual5physicalHP15. Actualfirst-use marker/globalATTACKS1 retained afterClose. No seededfirstAttackflag or omittedearnedWHEN.",
+    "FullClose sameAura5/counter2retained, physical6ownpublicGY1/originalUID1..6/counter6/RNG0/RAP0/allqueuesStackchainawaitpaymentquiet. FutureownStart/zeroCounterWHEN not earned in case; Saved does not certify maturity/expiry.",
+    "ToBeContinued is unsaved/unqualified; actualAura-entry CounterMap mismatch is separately classified, and real Zap prevention suffix was not reached. Qualified KillingMe is not rerun or altered."
+  ],
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\the_suspense_is_killing_me_blue.webp",
+      "sha256": "d99d5746f8c89e0cc0495f46e190c43399f659e1d732b18cc662288775774805",
+      "actually_viewed": true,
+      "printing": "APS026"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\to_be_continued_blue.webp",
+      "sha256": "151671f0eddb751ad80381b0400f91bc4ad8b7facc7d81fb31c92c7fdae657ee",
+      "actually_viewed": true,
+      "printing": "APS027"
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4332/",
+      "retrieved": true,
+      "finding": "CurrentGuardianInstantAura0/firstattackeachturn+1."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4336/",
+      "retrieved": true,
+      "finding": "CurrentGuardianInstantAura0/firstdamagetimeeachturnprevent1."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "retrieved": true,
+      "rules": [
+        "8.3.42"
+      ],
+      "finding": "Suspense static entry2 and two later triggered-static abilities; no current Start or zero-counter trigger earned."
+    }
+  ],
+  "limits": [
+    "Only positive currentAuraentry/firstattack+1 branch. No laterattack/reset/multipleAura/blanking/leave/SuspenseStart/zeroCountertrigger/maturity/Hero/support/sibling/fullcard certification.",
+    "ToBeContinued has no Saved/prevention/damage/coverage claim here. Original failed source/results/archive preserved for narrow oracle classification and immutable successor.",
+    "No source/history re-audit/PHP/native/replay/R/source/fullsuite/remote/deniedrepair by reviewer; Root qualification remains separate. Opaqueundo hash-bound/excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch630_saved_subset_readonly.py",
+    "sha256": "0ec07f3ea02cc91e8564fbfb8df25ec2e34dedf078e9fead6787dac8bc4c5fb4"
+  }
+}

@@ -1,7 +1,13 @@
 # Sparse four-player first pass
 
+> **20 November remaining-repair review pause:**4,188 qualified/registered (3,074 duel +1,114 four-live);1,339/5,196 identities and1,213/3,324 representative groups.81/93 original records resolved in tested scope,12open;125/147partial. [Current handoff](REPAIR_REMAINING17_20261120.md). No full suite or breadth expansion.
+
+
+<!-- REPAIR-REVIEW-CURRENT-20261117 -->
+> **22 November, latest registration repair093-20261122:** 4,202 saved/registered scenarios (3,075 duels +1127 four-live), 1350 recorded primary IDs/5,196 and 1224 groups/3,324. This phase qualified 839 scenarios across 829 groups at their stated runtimes. 9 new gameplay defect groups fixed, plus 20 existing-family extensions. Qualified named repairs 085, 086, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175 remain tracked separately while global defect-group attribution is unallocated. No full-suite run for these creation batches; historical capped-suite evidence remains separate. [Progress and current lookup](SPARSE_PROGRESS_20261025.md) preserves exact branches, untested siblings and historical contexts.
+
 <!-- SPARSE-CURRENT-20261025 -->
-> **26 October, latest registration batch254-canonical-combat-windows:** 3,521 saved/registered scenarios (3,074 duels +447 four-live), 677 recorded primary IDs/5,196 and 551 groups/3,324. This phase qualified 158 scenarios across 155 groups at their stated runtimes. 8 new gameplay defect groups fixed, plus 8 existing-family extensions. No full-suite run. [Progress and current lookup](SPARSE_PROGRESS_20261025.md) preserves exact branches, untested siblings and historical contexts.
+> **17 November, historical registration repair-dread164-assets-before-random-graveyard-cost:** 4,171 saved/registered scenarios (3,074 duels +1097 four-live), 1324 recorded primary IDs/5,196 and 1198 groups/3,324. This phase qualified 808 scenarios across 803 groups at their stated runtimes. 9 new gameplay defect groups fixed, plus 20 existing-family extensions. Qualified named repairs 085, 086, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175 remain tracked separately while global defect-group attribution is unallocated. No full-suite run for these creation batches; historical capped-suite evidence remains separate. [Progress and current lookup](SPARSE_PROGRESS_20261025.md) preserves exact branches, untested siblings and historical contexts.
 
 <!-- REPAIR-HANDOFF-20261025 -->
 > **25 October compatibility repair: final full suite3,363/3,363 passed,0 failed.** The15 reproduced failures were stale expected snapshots; all actions/assertions and the gameplay runtime were preserved. See [current assessment](FAILURE_REPAIR_20261025.md) and [validation](failure-repair-validation-20261025.json). Coverage remains522 exact IDs/396 groups; historical dated evidence below keeps its original scope.

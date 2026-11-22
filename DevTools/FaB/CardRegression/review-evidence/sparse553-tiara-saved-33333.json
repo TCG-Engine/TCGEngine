@@ -1,0 +1,286 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B553_STATIC_SPELLVOID_PREVENTION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T02:14:49.725989+00:00",
+  "source_spec": "card-regression-batch553.json",
+  "input_sha256": "6237444440b7a76bd63e3f09b90be38692558f2da81519a7f73bec63f0092619",
+  "manifest_sha256": "9109ac0b50b80a1d587ed57f695d65dac774f648e65ce64ce79a31987196d0cf",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "recorded_runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch553-independent-source-review.json",
+    "sha256": "ed2bb9e14246097b7a42e1db6b69355c7b0e72a8716754ceea90e86447e779d5",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch553-20261106T021017Z-6aed37097ad72.json",
+    "sha256": "fada465da305986aafbaccb1d3a2ef36c728198fd7ac94070cc81f48004eb367"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch553.recording-results.json",
+    "sha256": "fcb9e478ae0c6c864e280c38465b78bca0713852e0782d5a80bf9bc99f7be4c1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch553-native-r1-33333\\receipt.json",
+    "sha256": "4f46b7e214f57e0b4705d87daf27cd0006a126249f93965279864c829fd78e52"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "spell_fray_tiara",
+      "group_id": "identity:spell_fray_tiara",
+      "slug": "card-spell-fray-tiara-four-live-real-spellvoid-destroy-prevents-one-of-three-arcane",
+      "source_spec": "card-regression-batch553.json",
+      "input_sha256": "6237444440b7a76bd63e3f09b90be38692558f2da81519a7f73bec63f0092619",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_STATIC_SPELLVOID_DESTROY_PREVENT_ONE",
+      "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+      "recorded_runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-spell-fray-tiara-four-live-real-spellvoid-destroy-prevents-one-of-three-arcane",
+      "fixture_sha256": "0883894c3eaec627afab38718ead069dcabf2e7cc3dbfdacfad59e7ebc1cdd85",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f3e8e1120f764cbf44a2fb60c1dac8f7f41f924e72c1072f9cf6f3a67ebaee58",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "dec135040605d6c9315fc86958d1fc7ebae72df9c2913028a41ab90aa6328ab9",
+        "expected_final_gamestate.txt": "3e82e1090126f1926cc59c0275032a52b2a3406a3fb241c3d5a104a70212a0ee"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3e8e1120f764cbf44a2fb60c1dac8f7f41f924e72c1072f9cf6f3a67ebaee58",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "dec135040605d6c9315fc86958d1fc7ebae72df9c2913028a41ab90aa6328ab9",
+        "expected_final_gamestate.txt": "3e82e1090126f1926cc59c0275032a52b2a3406a3fb241c3d5a104a70212a0ee",
+        "meta.json": "532dc4adccd533a88429c159b2f4c91137f032e0de1d1b327c94fb5d3f927e7c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f3e8e1120f764cbf44a2fb60c1dac8f7f41f924e72c1072f9cf6f3a67ebaee58",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "dec135040605d6c9315fc86958d1fc7ebae72df9c2913028a41ab90aa6328ab9",
+        "expected_final_gamestate.txt": "3e82e1090126f1926cc59c0275032a52b2a3406a3fb241c3d5a104a70212a0ee",
+        "meta.json": "532dc4adccd533a88429c159b2f4c91137f032e0de1d1b327c94fb5d3f927e7c"
+      },
+      "actions": 7,
+      "native_assertions": 697,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 180,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "spell_fray_tiara",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "spell_fray_tiara",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        5
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_original_arcane_packet": 3,
+      "actual_prevented": 1,
+      "actual_arcane_damage": 2,
+      "actual_static_choice_boundary": 6,
+      "actual_destroy_damage_cleanup_boundary": 7,
+      "no_extra_ability_allocation": true,
+      "no_activated_history": true,
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "a67862530cb47787aea3aa29b9ce2a7f5fe00c363438ca00021653d461e88938",
+      "native_action_mapping_sha256": "8b735d1fc5863a6cbada9e39b64c43d4dec078fc35b6ae3225023504b2cbcf80",
+      "native_assertion_mapping_sha256": "970930e596c8da831562db2942ae98f1886bcc4f2bcc5c4403d99e7fdeb9bbb2"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 7,
+  "total_native_assertions": 697,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_schema_property_assertions": 180,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one newfixture at unchanged33333. Every7native action and697ordered persisted assertion equals the independently approved model; four actual manual response actors1/2/3/4, all70sourceguards and48rawmanual settings perendpoint verified.",
+    "Real Zap6 announces from Hand, selects adjacent P4 before paying AP1 to0 at zero resources. All firstthree response checkpoints retain own physical source6Stack and owned P4Head5Equipment/HP20; fourthresponse stops on actual P4 MZMAYCHOOSE with same6stillStack and5stillreadyEquipment. No private priority/window is asserted during unresolved choice.",
+    "Real P4 choice destroys same5 to public owner4GY and applies static Spellvoid1 to original3arcane. Actual2damage/P4HP18 and finalarcaneDealt1to4=2 corroborate the outcome; no extra response round, ability allocation or EVR_ACTIVATED appears. Zap6clears to public owner1GY after the choice/damage work. This is a replacement, not activated ability credit.",
+    "Full raw initial/final exactUID1..6/ownership/zones and quietHeroobjects, counter6/RNG0/RAPChi0, allQueues/Stack/Chain/await/payment/combat cleanup verified. Stale decision-variable source/choice labels are not mistaken for pending work. Full undoVersions are hash-bound but excluded from current physical inventory.",
+    "Only one positive Spellvoid1/3arcane packet/actual destroy-prevent1 branch qualifies. No decline/multiple Spellvoid/otherpacket/unpreventable/resource prevention/Quell/Ward/Head defense/wear/Hero/support-primary/sibling/full-card credit; Root focused replay gates remain separate and unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.15",
+        "8.3.15a"
+      ],
+      "finding": "Optional static Spellvoid destruction prevents its printed amount, with no responseable activation."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.4a",
+        "5.3.4",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Declare target before costs; complete resolution choices/effects before source leaves and clears."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "rule": "9.3",
+      "finding": "Selected target4 is adjacent to player1 in four-seat1234; no unrestricted hero/self-target claim."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AUR028.webp",
+      "finding": "Issuer locator and actually viewed local AUR028 face, hash bound; no JudgeHub ID invented."
+    }
+  ],
+  "limits": [
+    "ONEGenericHeadSpellvoid1/staticreplacementdestroy/actual3\u22121=2arcane/quietfullcleanup branch. No decline/otherpacket/multipleoption/unpreventable/ArcaneBarrier/Quell/Ward/headdefense/wear/Hero/supportprimary/sibling/fullcardcredit.",
+    "ActualnativecompiledSpellvoidsupportbodyestablished, notabsencefrombaseARCrow. No newsource/knownawaitworkaround; genuineexistingmanagedZapcohort used.",
+    "Fresh33333/69baseline+1selectedsourceguard=70total. Authorstaticonly/noapproval/native/fixture/coverage; OTHERpeer/Rootnative/Saved/replayspending. NoR/PHP/source/fullsuite/git/remote/deniedretry.",
+    "No native/exact Saved/two clean replay gates claimed by reviewer. Actual endpoint48manual preferences and full raw physical records require later Saved review.",
+    "No decline/multiple Spellvoid/unpreventable/other packet/recipient/resource prevention/Quell/Ward/head defense/wear/Hero/support primary/full-card credit. Source owner/controller match is selected, foreign ownership untested.",
+    "Completed native assertion ledger plus raw initial/final only; no invented per-input raw snapshots or private callback instrumentation.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/remote/denied operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch553_saved_readonly.py",
+    "sha256": "a2891573d7c4420a0b582afba6263c273fc81c264221c49bed982a18046f93ea"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch553_source_readonly.py",
+    "sha256": "2ae388c104ef33fac432f4cc3a2dacb3232369ad9e2e356ce47f4b525585c7c7",
+    "portion": "Own declarative input/schema/action/assertion model only; no source or author model execution"
+  }
+}

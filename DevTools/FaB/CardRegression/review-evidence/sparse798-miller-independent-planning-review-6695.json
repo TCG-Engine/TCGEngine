@@ -1,0 +1,91 @@
+{
+  "status": "APPROVED_KNOWN_SHARED_WHEN_CLASH_CONTRACT_PLANNING_HOLD_UNATTEMPTED",
+  "batch": 798,
+  "reviewer": "/root/sand_saved_recovery",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_classification_approved": true,
+  "planning_only": true,
+  "created_utc": "2026-11-14T22:30:58.231826+00:00",
+  "card_id": "millers_grindstone",
+  "group_id": "identity:millers_grindstone",
+  "planning_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch798-miller-known-hit-clash-when-contract-unattempted-planning-hold.json",
+    "sha256": "2c0113b310574f6bc4e6b6389a40247332f3ef4533a0a9f5ef24a94d22fbe0d1"
+  },
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch798-firm-reservation.json",
+    "sha256": "3a7d1b4cbc539946ef728d5824c1e30f286bc55dbdb5a4aa502a69b8e3c3baad"
+  },
+  "selected_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch798-selected-helper-preflight.json",
+    "sha256": "d3262b5704000f0e21c4801f62c446e6dd49f22697e33e9997b31fb449ee55ff"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "unchanged_source_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch798-headliner-independent-correct-positive-source-review.json",
+    "sha256": "994f652baf9e4a10c9b17e60fd2a70974db83433424018c43a57ccac0ddf4bfd"
+  },
+  "selected_preimage_map_sha256": "712dceaab07963aa9370fcf97e65ec63f462e19cdc5bb2ff0e25fb6c2ada5c5d",
+  "selected_generated_Hit_function_sha256_normalized_lf": "b28ce5d57af2c88e806e0972dc28330845512824aca7deb9415c566dfbb1c93a",
+  "exact_caller": "HIT: actualpositive damage GL2066 -> OnHit1247 -> SourceMacro ordinary Hit1322 -> Miller generated closure29414..29419 / framePC28to27 -> actualClash/reveal244561.",
+  "finding": "The source has real weapon, clash, winner and destroy-revealed bodies. Its selected Hit callback begins an await frame and executes the first clash/reveal instructions inline before any separately captured responseable Miller WHEN layer. The generated frame/DQ continuations are not a triggered layer. Current named WTR hit queues and pure-token spec exclude this exact primary. This is a concrete selected caller/contract concern, not a global code-absence audit.",
+  "known_contract": {
+    "primary_retained_hold": {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[200]",
+      "card_id": "clash_of_might_blue",
+      "row_sha256": "dc37a82fea779068a7b88e5f9591e95d87678c152a4bdc71ee2ca78cb3aedc13"
+    },
+    "comparison": "ClashOfMight200 reaches this direct generated WHEN/await-before-responseable-layer contract through Defended; Miller reaches it through Hit. Caller and card effects differ, but the missing earned-layer boundary is the same held contract.",
+    "unearned_revealed_hold": {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[145]",
+      "card_id": "thunk_blue",
+      "row_sha256": "8ca2901489580f957d634ceb5b545f13061ff62347ef231b36f2a7b23b70afd0"
+    },
+    "unearned_scope": "Both fixed revealed cards are blank Wounding AAs; Thunk/GoldenSon/Wallop, Victor retry, Gold and Switch are absent. Their absence does not remove Miller own WHEN-layer obligation.",
+    "actual_native176_context": {
+      "id": "FAB-REG-176",
+      "row_sha256": "65fe9e1d0e714ccfc0c7d7b9d5c81495a8f5cbe094a55fde6d504f0466a3f134",
+      "classification": "missing_earned_hit_self_banish_layer",
+      "repair_status": "Deniedcombinedseven-sourceoperation remainsFROZEN/knownunexecuted. No repair/apply/retry/split/reroute authorized bythisnote."
+    },
+    "native176_limit": "Historical Hellbound missing-Hit-layer evidence is context only, not a Miller native observation or permission to apply/retry the denied combined repair."
+  },
+  "rules_basis": {
+    "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "rules": [
+      "6.6.1",
+      "6.6.5",
+      "6.6.6"
+    ],
+    "basis": "Previously independently retrieved current triggered-effect rules: an earned WHEN creates a layer before priority; its effects belong to that layer resolution."
+  },
+  "disposition": "Keep the exact fixed Miller route UNATTEMPTED. No executable/probe, new native bug/root allocation, repair or weapon-base-only/support-substitute case. Headliner positive is separate and unaffected.",
+  "counts": {
+    "executable_cases": 0,
+    "recipes": 0,
+    "native_inputs": 0,
+    "new_issues": 0,
+    "new_native_bug_claims": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "input_approved": false,
+  "native_execution_approved": false,
+  "qualification_permitted": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "metadata_context": "Source6695/known hold and issue rows bound. Preflight4061 totals are historical Root context while Visor qualification progresses; no current count recertification or old-evidence retagging.",
+  "limits": [
+    "No Miller actual activation/hit/clash/win/deck destruction/cleanup observed or certified; all remain unrun.",
+    "No alternate reveal cards, retry/tie/missingpower/losing counter/future weapon attack/whole-clash/whole-card or sibling credit.",
+    "No broad legacy audit, PHP/native/game/replay/R/source/Git/repair/B787 action."
+  ],
+  "B787_denied_operation_untouched": true
+}

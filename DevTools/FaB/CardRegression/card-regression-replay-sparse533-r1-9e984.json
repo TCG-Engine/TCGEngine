@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch533.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T22:30:42.727492+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gold-hunter-ketch-yellow-four-live-opponent-gold-reduces-real-cost-and-deals-four",
+      "fixture_sha256": "8c40ec8bd560e5ae122ff76cbfb2fab29a96876428f238f814c8796eed048419",
+      "passed": true,
+      "result": "[PASS] gold_hunter_ketch_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gold-hunter-ketch-yellow-four-live-opponent-gold-reduces-real-cost-and-deals-four",
+      "returncode": 0,
+      "stdout": "[PASS] gold_hunter_ketch_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,104 @@
+{
+  "status": "APPROVED_EXACT_SAVED_PARTIAL_REPRESENTATIVES_REPLAYS_PENDING",
+  "reviewer": "/root/nov2_metadata_review",
+  "review_date": "2026-11-02",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "input_sha256": "bbb2c21278b21599c071df51f7ee847cf5e1cc55f25feb935233e4c2971b34aa",
+  "input_file": "DevTools/FaB/CardRegression/card-regression-batch256.json",
+  "manifest_sha256": "3c3554c375447b60fc78bc633623982d863629a04d766664232ca31c648212eb",
+  "approved_spec_review": {
+    "path": "batch256-independent-spec-review.json",
+    "sha256": "3a0b3e5ef3c1fc8753bdd13a517d0894a9e3e7dd5025affba0037695512fea2b"
+  },
+  "native_recording_evidence": {
+    "archive": "recording-runs/card-regression-batch256-20261102T203535Z-6ae8f4171f165.json",
+    "archive_sha256": "e88c65c28f3c6587c499faa4d03465e819f03b3566fe4fc1a74dc9793d1e43ec",
+    "wrapper_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch256-native-r1\\receipt.json",
+    "wrapper_receipt_sha256": "ab6161843ae8914e66c46d0f1216ecedd387a3531b73cba3f162d470d5a54168",
+    "stdout_sha256": "4a50aee8aa908d38c82b5f730557b14925b1edea832930ad64c1d457fc506b58",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "all_three_recorded_semantically_checked": true,
+    "runtime_before_equals_after": true
+  },
+  "review_method": "Read every saved native action and assertion and independently reconstruct their exact ordered mapping, including action-step placement, from the approved source and recorder mapping. Fully parse both saved snapshots using the schema fields and serialization order; check initial setup, ownership, physical UID conservation, manual priority preferences, economy, effects, histories and final physical outcomes. Check completed native archive and wrapper against exact input. Native execution was by root; this reviewer performed read-only inspection.",
+  "fixtures": [
+    {
+      "slug": "card-death-dealer-four-live-sparse-paid-bow-load-draw-and-earned-action-point-followthrough",
+      "card_id": "death_dealer",
+      "group_id": "identity:death_dealer",
+      "fixture_sha256": "06460fcf2cbeb73ad8093b0b26b42dbffd0c8f344106b86a174815f40a7bba37",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03a76d76d3123ddd67320f03a2a2f771fe6525b6d5f8c764908b01d90111e9b5",
+        "actions.json": "dfd9852a86d1a065e066e79519b2453d1677bbb8ed535ddf30ba5313d0473313",
+        "assertions.json": "bc5ce6a0084f52dbd3e607e6ee160dbbfcc7669443acf5201d5b2604ce68545b",
+        "expected_final_gamestate.txt": "3012b90c9d856831e898442d4dff221862987fe0ac357d7f1ea0e36f00a712e2",
+        "meta.json": "4342afc2330e31ba16fc741a537ae59558afc4d28917396cd940b6943634137a"
+      },
+      "actions": 34,
+      "native_assertions": 2414,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "semantically_approved": true,
+      "every_action_and_assertion_exactly_matches_source": true,
+      "saved_snapshot_findings": "Legal young Azalea and three young Dorintheas retain owner/controller/UID1-4, HP20 initially, manual live seats1234, R0/AP1 only for P1, and empty initial effects/play/hit histories. Physical Bow5 remains, actual Blue7 pays ability1/R2/AP0, and recorded assertions pin ABI9/sourceWeaponsUID5 through three responders and the fourth-response private choice. Optional load resolves Arrow6 face-up with empty counters, draws distinct Deck8 before completion/earned AP1, and actual Yellow8 then spends that AP and deals3 to adjacent P4/HP17. Final own public GY8, Pitch7, Arsenal6, Bow5 and exact physical UID conservation verified. Bow counters show one real use at turn2; Stack, queues, pending payment and managed marker are clear.",
+      "final_graveyard_uid_sets": {"1": [8], "2": [], "3": [], "4": []},
+      "qualification": "One successful load/draw/earned-AP witness only; loaded Arrow is not played. Decline, second use, full Arsenal, empty Deck, Bow departure and hero/support primary branches remain uncredited."
+    },
+    {
+      "slug": "card-calming-breeze-red-four-live-sparse-real-instant-prevents-one-of-seven-physical-damage",
+      "card_id": "calming_breeze_red",
+      "group_id": "identity:calming_breeze_red",
+      "fixture_sha256": "e68c9738a74569dd75de660622f29ec14ecaa7e8bd599482193019be83dd4b37",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "02db03beaf657c4bccda7bad0d45762840bb1b61723406f76036d00d21f3869d",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "81429202e0613ab79ef1b3470762de062298456755872bc119158f6e14fbc58e",
+        "expected_final_gamestate.txt": "a049b4137a36908c3f531081de933f65afa1303319d308ee8fd9715ea4535816",
+        "meta.json": "ccae08a9e8f97fc38fe754273ec08000b75f1e82498eed77b9fb110d93e3e89f"
+      },
+      "actions": 36,
+      "native_assertions": 2351,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "semantically_approved": true,
+      "every_action_and_assertion_exactly_matches_source": true,
+      "saved_snapshot_findings": "Legal young Fai and three young Dorintheas, manual four-live profile and exact native setup checked. Actual Blue7 pays Raging6 printed3/AP1; physical Breeze5 belongs to P4 and is really played as Instant0/AP0 during reaction priority. Exact actions and persisted assertions pin all four responder passes4/1/2/3 with source5 on Stack until completion. Real7 physical damage is prevented once to6/HP14; final state retains earned HNT_CALM amount2. Exact public ownGY sets are P1{Raging6},P4{Breeze5}; Pitch7 and all physical identities/owners conserved. Final R0/AP0, otherHP20, empty Stack/queues and closed combat verified.",
+      "final_graveyard_uid_sets": {"1": [6], "2": [], "3": [], "4": [5]},
+      "qualification": "Only the first prevention event is exercised. The two remaining prevention uses, expiry, arcane/unpreventable damage, repeated copies and support/hero primary branches remain uncredited."
+    },
+    {
+      "slug": "card-overswing-red-four-live-sparse-real-paid-next-guardian-plus-three-and-thirteen-damage",
+      "card_id": "overswing_red",
+      "group_id": "pitch-cycle:overswing",
+      "fixture_sha256": "2d78726ff518b844dbc233f12d839ec262f5384c0dd9838175763b2274f810ff",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f7192727c43750f5a8e043fd9d0d1cd4d85f1f5ab4056be6a3c19d6c72be0fd2",
+        "actions.json": "adf2da1b9d537c6c11089fa9d78f854ca6907c23115c5283c62fda3f6eef42fa",
+        "assertions.json": "043ddd5b8218beeaa85d3daa8fd15c39d2787eea83f4e37b31adb9f9af63a056",
+        "expected_final_gamestate.txt": "6a4b34aaa14831bf270374efcf6b064409ae406183355d76692263e5d11e787b",
+        "meta.json": "bcf7728ad446b72591b012b4fb833d2aa837faa4e8fcec681a21bc9fc9bf914c"
+      },
+      "actions": 35,
+      "native_assertions": 2552,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "semantically_approved": true,
+      "every_action_and_assertion_exactly_matches_source": true,
+      "saved_snapshot_findings": "Legal young Bravo and three young Dorintheas, manual four-live profile and no seeded buffs/resources/history checked. Actual Blue7 pays Overswing5 printed2/R1/AP0; four real live responses complete primary effect and Go again/AP1. Actual Guardian attack-action ThunderQuake6 targets adjacent P4; Blue8 producesR4 while still awaiting printed6, then distinct Blue9 allows payment/R1/AP0. Persisted computed power13 and actual damage13/HP7 witness printed10 plus earned3 through the full combat suffix. Fully parsed final public owner1 graveyard has exactly OverswingUID5 and ThunderQuakeUID6, without relying on order. Pitch UIDs exactly7/8/9, all physical cards conserved, no Seismic token or Heave, and Stack/queues/payment/managed marker clear.",
+      "final_graveyard_uid_sets": {"1": [5, 6], "2": [], "3": [], "4": []},
+      "qualification": "One red representative for the Overswing pitch cycle. Siblings, Heave, second attack, matching failures, hero/support primary and complete-card branches remain uncredited."
+    }
+  ],
+  "totals": {"fixtures": 3, "actions": 105, "native_assertions": 7317, "actual_manual_passes": 90},
+  "limitations": [
+    "Exact fixture hash uses SHA256 of each raw4 filename immediately followed by its raw bytes, in initial/actions/assertions/final order.",
+    "This review approves exact saved semantics for the named bounded branches; it does not certify all internal callback ordering or unchanged framework behavior.",
+    "Initial history and effects are empty. Final turn effects, play/hit history and undo versions are earned native bookkeeping, not seeded inputs.",
+    "Two focused creation replays remain separate and are not claimed here. No suite result, sibling coverage or isolated causal fault-control credit is claimed."
+  ],
+  "reviewer_ran_native_or_mutated_repository": false,
+  "replay_qualification_claimed": false,
+  "remaining_blockers": []
+}

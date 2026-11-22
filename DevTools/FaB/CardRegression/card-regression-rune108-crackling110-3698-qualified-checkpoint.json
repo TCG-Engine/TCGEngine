@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T22:05:44.925326+00:00",
+  "runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+  "source_spec": "card-regression-repair-rune108-crackling110-consumers.json",
+  "source_spec_sha256": "c33e19b277463dc23fcae4a46d3e919e7ce170669a80ab4b70507583287229f4",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 65,
+  "native_assertions": 5316,
+  "manual_passes": 58,
+  "totals": {
+    "saved_registered_scenarios": 4134,
+    "duels": 3074,
+    "four_live": 1060,
+    "recorded_primary_ids": 1287,
+    "identity_denominator": 5196,
+    "recorded_groups": 1161,
+    "group_denominator": 3324,
+    "four_live_groups": 1053,
+    "phase_qualified_scenarios_at_actual_contexts": 771,
+    "phase_qualified_unique_groups": 766,
+    "creation_replay_passes": 1512,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "rune_snare_red",
+      "group_id": "identity:rune_snare_red",
+      "scenario_id": "card-rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe",
+      "effect_branches": [
+        "rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe",
+      "source_spec": "card-regression-repair-rune108-crackling110-consumers.json",
+      "source_spec_sha256": "c33e19b277463dc23fcae4a46d3e919e7ce170669a80ab4b70507583287229f4",
+      "review_evidence": "review-evidence/rune108-crackling110-3698-qualified-saved.json",
+      "review_evidence_sha256": "bf3c4fd316516f3ee31fc3c18a80150a30987ce9b26048cf0dc5d5113e0f40b3",
+      "recorded_runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "qualification_runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-rune108-crackling110-replay.json",
+          "sha256": "92eebd74315672305df3db363f733d74bd515abf00ad622ea7e846429e58c2ca",
+          "runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "crackling_red",
+      "group_id": "pitch-cycle:crackling",
+      "scenario_id": "card-crackling-red-four-live-correct-real-lightning-play-earns-flow-plus-one-and-five-damage",
+      "effect_branches": [
+        "crackling-red-four-live-correct-real-lightning-play-earns-flow-plus-one-and-five-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-crackling-red-four-live-correct-real-lightning-play-earns-flow-plus-one-and-five-damage",
+      "source_spec": "card-regression-repair-rune108-crackling110-consumers.json",
+      "source_spec_sha256": "c33e19b277463dc23fcae4a46d3e919e7ce170669a80ab4b70507583287229f4",
+      "review_evidence": "review-evidence/rune108-crackling110-3698-qualified-saved.json",
+      "review_evidence_sha256": "bf3c4fd316516f3ee31fc3c18a80150a30987ce9b26048cf0dc5d5113e0f40b3",
+      "recorded_runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "qualification_runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-rune108-crackling110-replay.json",
+          "sha256": "92eebd74315672305df3db363f733d74bd515abf00ad622ea7e846429e58c2ca",
+          "runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

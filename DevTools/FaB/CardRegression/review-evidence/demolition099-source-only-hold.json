@@ -1,0 +1,30 @@
+{
+  "status": "HOLD_SOURCE_ONLY_UNATTEMPTED_REAL_REVEAL_EFFECT_COST_BEFORE_ASSETS",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "original_input_sha256": "71177642946484316257f55789d600c95146b1c2033f8fb1dba23706b934be10",
+  "original_manifest_sha256": "639a4181deca2220a9d0ecd166e715b6f2aad452fc52cc2563f3f540c960f7e2",
+  "card_id": "demolition_crew_red",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_files": {
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "finding": "Early selection of the cost-card parameter is permitted by CR5.1.3. The selected source then actually calls FaBRevealChoices/IncrementMacroGameIndexCard(RevealCard) before FaBFinishPreparedCard and the later Blue6 resource/AP payment. This is actual reveal-effect publication, not merely parameter declaration. Reveal is an effect-cost (CR1.14.4/8.5.17); assets5.1.7 precede effect-cost5.1.9. Thus this frozen branch cannot be qualified healthy merely because recorder expectations omit event timing.",
+  "native_confirmed": false,
+  "native_executed": false,
+  "gameplay_bug_count_credit": false,
+  "passing_fixture": null,
+  "qualified": false,
+  "original_frozen_case_unchanged": true,
+  "repair_proposed": false,
+  "required_boundary": "Do not install/run this case as a healthy qualification. Any future correct ordering probe or different legal funded path requires independent authorization/freeze/review; no current-output fit, newAPI or source repair by this reviewer.",
+  "official_sources": [
+    "https://judge.fabtcg.com/cards/detail/292/",
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "status": "INDEPENDENT_APPROVED_B870_TWO_REQUIRED_CONTRACT_SOURCE_ONLY_PLANNING_NOTES",
+  "phase": "PLANNING",
+  "batch": 870,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch870-two-required-contract-notes-manifest.json",
+    "sha256": "770ffc49bbbfa7949a9868852bf60c902bc2b27ce508efc54ff26beac5129ed4"
+  },
+  "manifest_sha256": "770ffc49bbbfa7949a9868852bf60c902bc2b27ce508efc54ff26beac5129ed4",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch870-firm-reservation.json",
+    "sha256": "db3941baa602384740fee1f1502e0b28df910fb21741435242038595932f69a9"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch870-firm-reservation-support-admission.json",
+    "sha256": "355d05214860de0c5acde1ebc063b57bb6a12b876b126e8f4cc6d767acfb5bfd"
+  },
+  "required_support_addendum": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch870-firm-reservation-support-addendum-vox-priorpitch.json",
+    "sha256": "79456dfb16323d682d9065486868e7094bd25d4cec1cac9815e97f4f5b817df9"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 19,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "restless_quartermaster_red",
+      "group_id": "identity:restless_quartermaster_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_ORDINARY_HIT_WHEN285295_BEFORE_VICTIM_ARSENAL_BANISH",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch870-quartermaster-required-hit285295-unattempted-note.json",
+        "sha256": "df8cc8a48dcfca80819e6af3c613fb55953123b342ff539d569f9bf998d08348"
+      },
+      "known_required_contracts": [
+        {
+          "human_hold_row": 285,
+          "card_id": "pursuit_of_knowledge_blue",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "human_hold_row": 295,
+          "card_id": "stun_star_blue",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "sisters_of_fire_red",
+      "group_id": "identity:sisters_of_fire_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_FORMAL_REACTION_DAGGER_TARGET267290_BEFORE_PRIORITY_WITH_VALID_WEAPON_ADMISSION",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch870-sisters-required-target267290-unattempted-note.json",
+        "sha256": "215c3abb520b87a177d375531b509e3ceab48b2b02631b5818d50c47e672f006"
+      },
+      "known_required_contracts": [
+        {
+          "human_hold_row": 267,
+          "card_id": "tarantula_toxin_red",
+          "historical_reviewed_runtime": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse820-independent-diagnostic-source-and-tarantula-planning-review-429a.json",
+            "sha256": "68d361e8a46fd5eea83bebf0528dbb6491f15e7150675f92be9892cb6bf14122"
+          }
+        },
+        {
+          "human_hold_row": 290,
+          "card_id": "cut_to_the_chase_blue",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse839-two-known-required-contract-planning-cdc.json",
+            "sha256": "99ab6a486de14b2679907b31522f2206a172a0627ab596ded03c1776c8b5787b"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Exact final manifest770ffc49, Quartermasterdf8cc8a4/Sisters215c3abb bytes, Root firmdb3941/support355d0521/required addendum79456dfb, all19 current CDC guards, two actual canonical rows and four retained known-contract proof hashes independently match. Historical evidence remains at its own runtime and no replay/current retag is claimed. The bounded current issues/holds/index scan found no exact selected IDs/base names/printingIAR065/HNT112; this establishes no existing primary record, not Native success or absence of known shared contracts.",
+    "Quartermaster has an implemented IAR Hit body: actual ordinary GL1264 directly invokes victim Hero4 mandatory positive Arsenal MZChoose then real Arsenal-to-Banish movement before a separate own-hit captured layer/quorum. This is exact ordinary-Hit285/295, not a missing Zombie or victim-choice implementation. Full correct controller1/source-Ally-LKI/four responses before victim4 selects and banishes the same owner4 Arsenal UID remains unrun.",
+    "The required legal attack grant is actual vox_necropolis, Shadow/Necromancer2H Staff, admitted by Root before its current helper-body trace. MONAbilities55 requires that Staff for Zombie attacks and grants native1R/baseCardPower; printed grant supplies tap. Malice20 legally admits this Zombie/Staff. No invented Vox Rationis alias or generic free-Ally fallback is retained. Prior normal HAND play excludes Vox grave/Banish enter-tapped/enter-attack condition; no death excludes Malice200, and Malice activation/EndDecay are unentered.",
+    "Quartermaster full future native Blue3 pays1/R2/AP0/tap, printed3 real damage to Hero4HP17, earned source/controller/freshfour, victim4 sole ArsenalBlue sameUID face-up owner4 Banish and physical/live-Ally/economy/StackDQ/chain cleanup remain required. Printed life3/ready preexisting state requires coherent prior Hand cast and legal remainingAP context with no unstated owner-EndDecay; no complete fixture/history or unsupported computed-life getter is certified by this planning note.",
+    "Sisters actual HNTCanPlay39 enforces two Draconic links and the fixed active attack is a real Dagger WEAPON, so WTR487 weapon admission succeeds:148/153 is not an earlier required barrier. Its only HNT ResolveCard body recomputes DAGGER and awaits formal MZChoose at resolution, then applies exact+3. CardChoices4..5 early declaration is only Nip/Shred, with no Sisters PrepareCard. Thus exact267/290 declaration-before-cost/response contract is FIRST.",
+    "Full future Sisters route remains Fang20/two legal1H Obsidian copies; prior HitAndRun before any weapon gave first base1 attack GA without a power bonus, prior Red1 paid its1R, victim4unmarked/current19, current own Action PHASE/open-chain RESOLUTION/AP1. Prior support plays/first damage are explicitly uncredited initial history, not an entered218 waiver. Real second Dagger activation1 from Blue3 leavesR2/AP0 and creates second Draconic link; actual current Sisters is a Draconic card played THIS link, giving Obsidian continuous+1 and GA plus Sisters+3, total5 real damage to14. HNT power65/GA69 current-link logic exists; no extra WHEN/early-flag or prior-link substitute is invented.",
+    "Proper actual GA refundAP1, SistersGY/both physical Daggers retained and used/BluePitch/R2/current proxy/source/StackDQ/true close remain unrun. FangFealty is unentered because victim is unmarked. Both full positive routes are unattempted planning holds, not executable Source approval, a new individually confirmed primary/support defect, a source-health pivot, or coverage of support/siblings/full card."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "restless_quartermaster_red",
+      "action": "Execute full legal Zombie attack and own-hit-earned victim Arsenal banish",
+      "reason": "Known ordinaryHit285/295 before mandatory victim chooser",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "sisters_of_fire_red",
+      "action": "Execute full valid two-link Dagger reaction and conditional Obsidian5damage consumer",
+      "reason": "Known formal target267/290 deferred to ResolveCard; weapon admission itself valid",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "No executable/Native/Save/coverage/new issue/root/Core/source-fix approval. Prior-life/AP/history feasibility remains a full future fixture obligation, not an observed result.",
+    "No PHP/Native/Rwrites/replays/new agents/fullsuite or deniedReincarnate199/older source-operation retry by reviewer."
+  ]
+}

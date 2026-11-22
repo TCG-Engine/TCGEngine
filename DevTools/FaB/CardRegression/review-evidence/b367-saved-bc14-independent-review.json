@@ -1,0 +1,140 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B367_OTHER_RED_EARNED_GO_AGAIN_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T20:27:01.003446+00:00",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch367.json",
+  "input_sha256": "814223e203ccdd5cc67a71858f1c8f20d078079393dbd3bb107518301cb0f19f",
+  "manifest_sha256": "c93a404a7d318a694ce26f7a2a57a79a3b9e9ebcda9d0f4d317667c2a81be385",
+  "fixtures": [
+    {
+      "slug": "card-blaze-headlong-red-four-live-sparse-real-other-red-play-earns-go-again-and-seven-damage",
+      "card_id": "blaze_headlong_red",
+      "group_id": "identity:blaze_headlong_red",
+      "fixture_sha256": "742a72aae3e35a136e9e539eb15a56f1cd63069555bfd7e5e8296466bf70d70e",
+      "behavior_sha256": "742a72aae3e35a136e9e539eb15a56f1cd63069555bfd7e5e8296466bf70d70e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d0230f47c1c257c7797206fcc04f794eca910acf12a16c7b1d1f48b98bd2af59",
+        "actions.json": "0ddc01dbfe0e238f6e0881a4cffa79901de121ae266928cc7509f9841dfd3fa2",
+        "assertions.json": "8c05fc35700cd0c47bbb38cbf0183c07ffad8162aea007b6ebab4f3746c25148",
+        "expected_final_gamestate.txt": "75ad8a3cf656beae188f7c2ac789b76977f42034dd91e7fa305bba907f71520b",
+        "meta.json": "e5c25ed1d7a964fca557ddfee854241df2c9df66068513578a2f287e51e098d8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d0230f47c1c257c7797206fcc04f794eca910acf12a16c7b1d1f48b98bd2af59",
+        "actions.json": "0ddc01dbfe0e238f6e0881a4cffa79901de121ae266928cc7509f9841dfd3fa2",
+        "assertions.json": "8c05fc35700cd0c47bbb38cbf0183c07ffad8162aea007b6ebab4f3746c25148",
+        "expected_final_gamestate.txt": "75ad8a3cf656beae188f7c2ac789b76977f42034dd91e7fa305bba907f71520b",
+        "meta.json": "e5c25ed1d7a964fca557ddfee854241df2c9df66068513578a2f287e51e098d8"
+      },
+      "actions": 32,
+      "native_assertions": 2521,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 182,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "actual_raw_cards_played": {
+        "1": [
+          "nimblism_red",
+          "blaze_headlong_red"
+        ]
+      },
+      "actual_raw_hits": {
+        "1": [
+          5
+        ]
+      },
+      "no_positive_NEXT_AA_LOW_residue": true,
+      "physical_findings": "Actual RedNimblism6 pays AP1 at printed0 and remains Stack through first3 source responses; fourth ownsGY6/earnsAP1 and real +3 support. Actual Blaze5 target then printed0 spends earnedAP; same5 gains POWER3 plus own conditionalGO_AGAIN from real earlierRed, not a seed. Fresh four puts same5 Hand ATTACK link1/computed7/GA, actual unblocked7damage givesHP13. AP0 until fourthDAMAGE28\u2192Resolution/AP1; four closure responses clean originalGYUIDset5,6/allUID1..6 conserved/counter6/RNG0/R0/no positiveNEXT_AA_LOW residue.",
+      "qualification": "One positive standalone other-red condition only; no first-cardfalse, otherorigins, extraattack, hero/Flame, expiry, supportprimary, sibling/full-card or isolated control credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch367-independent-source-review.json",
+    "sha256": "534eef9a31ae23a5df9e49cdf9b3aff9cd927fcc70dda2717020ae013b2ffc41",
+    "manifest_sha256": "c93a404a7d318a694ce26f7a2a57a79a3b9e9ebcda9d0f4d317667c2a81be385"
+  },
+  "source_guards_verified": 20,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch367-20261103T202513Z-6aea43296d5fa.json",
+    "sha256": "5bd505b2c83402f00948f6b7e89e30669d0c4f0cd69dddb37271ee1dc3063fb9"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch367.recording-results.json",
+    "sha256": "4866ff872a6fde10b8b45a44a64aa7ffed929e6269b9f9bdf327d1bbc5690658"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch367-native-bc14-r1\\receipt.json",
+    "sha256": "0105dd86f56c9fdeed8210c15e84aac9a859eefabb54288f5f44dde63b538b0f",
+    "stdout_sha256": "128fa8072b464cd5d8c3e55b161bcc766a74af10997ed87b2c90b1c669323e0b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+    "runtime_after": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56"
+  },
+  "method": "Exact all32actualinputs/2521persistedassertions compared with independently approved immutable input. Full initial/final schema parsed, terminal assertions independently checked, every physical/economy/HP/GA/source lifetime checkpoint inspected against source model. No builder or game execution.",
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes initial/actions/assertions/expected_final; individual raw5 hashes separately bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Root replay evidence separate; no PHP/native/replay/R/source/generated/service/fullsuite by reviewer.",
+    "No old fixture review, supportprimary/branchmatrix or unrelated source/issue claims."
+  ]
+}

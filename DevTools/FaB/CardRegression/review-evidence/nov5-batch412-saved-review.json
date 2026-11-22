@@ -1,0 +1,515 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B412_TWO_NEW_FOUR_LIVE_REPRESENTATIVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-05T03:02:40.599710+00:00",
+  "source_spec": "card-regression-batch412.json",
+  "input_sha256": "d05b2e4a4e6e369be5d2fe30371d9ef8b32eda4d6f0d6d763ec57106645f584d",
+  "manifest_sha256": "c55788609c4238e667ed696b5e8f9d21d8ebb4aef15b0ffc10a86e53bbdaab26",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 60,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch412-independent-source-review.json",
+    "sha256": "c3f3580cb1c0b318f1547d81c50ad77ad2caf89be24c1894c04b94111bf9a460",
+    "reviewer": "/root/b106_semantic_review",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch412-20261105T025915Z-6aebf103d1047.json",
+    "sha256": "7627ebf372532fa64676f78fa670d8afb52f6b295955bc510dad7de36282e9ff"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b412-native-9e984-r1\\receipt.json",
+    "sha256": "991015926a6e14b7ef98317c0e6ace414e69d0342de37c0d3c7e09636afed484"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch412_saved_readonly.py",
+    "sha256": "0ea950604276ddb52d1eeb88dce0912077cfb319caa7e35c4b8a93a4c2ae3f3e"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Reviewer authored neither recipes/implementation nor native recording; prior independent official/source model reused without gameplay simulation.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "searing_emberblade",
+      "group_id": "identity:searing_emberblade",
+      "slug": "card-searing-emberblade-four-live-sparse-real-paid-weapon-second-draconic-link-earns-go-again",
+      "source_spec": "card-regression-batch412.json",
+      "input_sha256": "d05b2e4a4e6e369be5d2fe30371d9ef8b32eda4d6f0d6d763ec57106645f584d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-searing-emberblade-four-live-sparse-real-paid-weapon-second-draconic-link-earns-go-again",
+      "fixture_sha256": "95fa86ff3ddc8eb17f4382a040de4d4a18e6128ee21145f9b0595be704562ac8",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "a1a22d8926d6cf0ba962075ba38aee08d45e35812c673f791ff5fef3c7896114",
+        "actions.json": "8e6e8107af28df1dc35c4aa830cb960c1c780f3fb4e3ceacd5ade6a4a0367487",
+        "assertions.json": "bc9f1c247c5c73d6f738eea7ef795bfe45eee75b367a92c0480705f20b103039",
+        "expected_final_gamestate.txt": "3868dce8713a563b1476a9c8bf0be7d02a60b1f36710412137c37640a73263c9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a1a22d8926d6cf0ba962075ba38aee08d45e35812c673f791ff5fef3c7896114",
+        "actions.json": "8e6e8107af28df1dc35c4aa830cb960c1c780f3fb4e3ceacd5ade6a4a0367487",
+        "assertions.json": "bc9f1c247c5c73d6f738eea7ef795bfe45eee75b367a92c0480705f20b103039",
+        "expected_final_gamestate.txt": "3868dce8713a563b1476a9c8bf0be7d02a60b1f36710412137c37640a73263c9",
+        "meta.json": "a8e3a91a990a02ee3b3b3eb75da4dc47339359c335cb1bb3aa49a0654e82dfa1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a1a22d8926d6cf0ba962075ba38aee08d45e35812c673f791ff5fef3c7896114",
+        "actions.json": "8e6e8107af28df1dc35c4aa830cb960c1c780f3fb4e3ceacd5ade6a4a0367487",
+        "assertions.json": "bc9f1c247c5c73d6f738eea7ef795bfe45eee75b367a92c0480705f20b103039",
+        "expected_final_gamestate.txt": "3868dce8713a563b1476a9c8bf0be7d02a60b1f36710412137c37640a73263c9",
+        "meta.json": "a8e3a91a990a02ee3b3b3eb75da4dc47339359c335cb1bb3aa49a0654e82dfa1"
+      },
+      "actions": 50,
+      "native_assertions": 4252,
+      "actual_manual_passes": 46,
+      "actual_priority_response_passes": 44,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "schema_property_assertions": 1321,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "ronin_renegade_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "searing_emberblade",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "searing_emberblade",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "ronin_renegade_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "6872d7f0927648efe677b997711137fc18a02794ab34f09b3137c6f0a5e406b9",
+      "native_action_mapping_sha256": "f9d794e26ec56b2be716b7fed6e3666ac6d541a8251b80021878dbdc0608ad83",
+      "native_assertion_mapping_sha256": "3808cd78fc12d44c22bf57313bec5b6ee6cba028c3a1834f34d95e209adaa9d2"
+    },
+    {
+      "index": 1,
+      "card_id": "fang",
+      "group_id": "identity:fang",
+      "slug": "card-fang-four-live-sparse-three-owned-fealty-enable-real-zero-resource-dagger-activation",
+      "source_spec": "card-regression-batch412.json",
+      "input_sha256": "d05b2e4a4e6e369be5d2fe30371d9ef8b32eda4d6f0d6d763ec57106645f584d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-fang-four-live-sparse-three-owned-fealty-enable-real-zero-resource-dagger-activation",
+      "fixture_sha256": "f910fab5db98dea3169c8486f8c9e34104cb87ead4df64dd53660aa243645505",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "bddc787f525ac3bedb583e1b92a919f9378125ac556ba48a77f6241a532a79cb",
+        "actions.json": "8df3b5f29ae6367544ab75c908df457f9fef4a285dc235e90f8fed778486cef3",
+        "assertions.json": "14674f7c647938b8a05b9319ec61e15a4d2f5be18a5fa4ce8dc52cd556a2e050",
+        "expected_final_gamestate.txt": "210684c54d1728ea088fe9de030d4a60c19971c2ac0d0563397bf64ae30d2c86"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bddc787f525ac3bedb583e1b92a919f9378125ac556ba48a77f6241a532a79cb",
+        "actions.json": "8df3b5f29ae6367544ab75c908df457f9fef4a285dc235e90f8fed778486cef3",
+        "assertions.json": "14674f7c647938b8a05b9319ec61e15a4d2f5be18a5fa4ce8dc52cd556a2e050",
+        "expected_final_gamestate.txt": "210684c54d1728ea088fe9de030d4a60c19971c2ac0d0563397bf64ae30d2c86",
+        "meta.json": "c5125a3d9d54a1c351e17627bb7042f05f04fa5aac3e72ac6c1813d3c77ca865"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "bddc787f525ac3bedb583e1b92a919f9378125ac556ba48a77f6241a532a79cb",
+        "actions.json": "8df3b5f29ae6367544ab75c908df457f9fef4a285dc235e90f8fed778486cef3",
+        "assertions.json": "14674f7c647938b8a05b9319ec61e15a4d2f5be18a5fa4ce8dc52cd556a2e050",
+        "expected_final_gamestate.txt": "210684c54d1728ea088fe9de030d4a60c19971c2ac0d0563397bf64ae30d2c86",
+        "meta.json": "c5125a3d9d54a1c351e17627bb7042f05f04fa5aac3e72ac6c1813d3c77ca865"
+      },
+      "actions": 27,
+      "native_assertions": 2594,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 932,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fang",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "obsidian_fire_vein",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "fealty",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "fealty",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "fealty",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fang",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "obsidian_fire_vein",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "fealty",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "fealty",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "fealty",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "80c6840e388900e114cc5b5f84e6f6639acf48ab243a18d9c0346e79e8c210d9",
+      "native_action_mapping_sha256": "70d14223eb856041190c8b9f7090373e75627c923b3f39c73d31cf131cca48f7",
+      "native_assertion_mapping_sha256": "94a6f2aab05c42b1ebe44b43ce42985178c503cfe55fd3ebee43e2205d693ad4"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 77,
+  "total_native_assertions": 6846,
+  "total_manual_passes": 71,
+  "total_priority_response_passes": 68,
+  "total_defender_declaration_finish_inputs": 3,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 2253,
+  "material_findings": [
+    "Searing: actualRonin6 paidzero and realfirst Draconiclink1/power3/ownGA, actual3damageHP17 and earnedAP1 onlyonResolution. Sameopenchain retained; actualphysicalSword5 activation createdproxy8, realpendingcost2 fundedby sameBlue7pitch3 leavesR1/AP0. Actualproxy8 is link2 whileRonin6 remainslink1; savedcomputed power3/GA1 use p1CombatChain-1 throughout29..49, notoldRonin/currentcache. Realweapon3damageHP14, conditionalAP1 returns onlyat secondResolution. Fullclose source5usedWeapons/6ownpublicGY/7Pitch/proxy8ceased/R1AP1/counter8. CurrenttwoDraconiclinks condition is genuinelyearned; nooldtwoRed assumption.",
+    "Fang: actualthree distinct priorownedFealty5/6/7 andphysicalObsidian8 withnoHand/Pitch/resources. Printed1 actualactivation is paidzero through static3Fealtydiscount, consumesAP1 and marksweaponused. Realproxy9 base1/GA0, actual1physicaldamageHP19; allAP/Rremain0throughDamage/Resolution. AllthreeFealty fullrawinitial/finalrecords identical, noextraFealty/markedHit orDraconicCARDcondition. Fullclose sameused8/proxy9ceased/counter9.",
+    "Bothrawfive sets/all77 actual nativeenvelopes/6846orderedpersistedchecks/2253cardproperties independently compared.71manualcommands comprise68priorityresponses plus3P4emptydefender declarationfinishes. Raw48preferences at eachendpoint percase, allphysicalUIDs/defaults/ownership, realpayment/health/AP and fullqueues/Stack/frame/combat cleanup verified at actual9e984/all60guards."
+  ],
+  "limits": [
+    "OnlySearingpositive realtwo-link conditionalGA andyoungFangpositive3Fealtydiscount. Nofalsecondition/count2/secondactivation/thirdlink/oldRedcondition test, Faihero/PhoenixFlame/supportRonin/supportweaponprimary/Fealtyorigin/activation/endphase/marked-hit trigger/adult/sibling/negativecontrols credit.",
+    "Internal cardsPlayedThisTurn telemetry includes weapon activations. It is preserved and reported accurately, not treated as normative Draconic CARDplay. Nativecomputed noGA/base1, actualzero-cost payment and relevant HNT source distinction establish the selected Fang branch.",
+    "Fullrawsnapshots are initial/final; intermediate facts are passed nativeassertions/envelopes only. No privatePC/awaitlocal/fullintermediate snapshot or literal intermediate sourceWeapon zone equivalence is invented. Serialized Versions are opaque retained undo data, hash-bound without treating them as extra current physicalobjects or new native snapshots.",
+    "Source-model historical pending/native-unexecuted prose remains immutable metadata; this actual saved proof supplies current stage evidence without retagging it as replay/registration. Root focused replay/registration gates remain separate, unclaimed.",
+    "No PHP/native/replay/R/source/service/gen/fullsuite/optional simulation/denied089090 retry/reroute by reviewer."
+  ]
+}

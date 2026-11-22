@@ -1,0 +1,473 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_COMMAND143_AFTER_V3",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T10:28:04.694644+00:00",
+  "source_spec": "card-regression-batch589-command-after143-r3.json",
+  "input_sha256": "762f680f2bd18322984a3b8d30515bebd044f2515e74c9130fc7a82a219a4aed",
+  "manifest_sha256": "06afd568c928d81e4d4a25b940e76c4d4bee09a88924a3a54dc4dfd7e1af7ada",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 70,
+  "actual_source_binding_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-after-actual-independent-source-review.json",
+    "sha256": "16107292ac7d74fe59c6bbf8eefa02409b185fa52289c616c333e4aba9d012ff"
+  },
+  "projected_oracle_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-after-projected-independent-source-review.json",
+    "sha256": "546167b3c4eb73146ed6c3beaef5a237f9ce9cab62d74c895f8fceac09c49f76",
+    "historical_projection_not_retagged": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch589-command-after143-r3-20261106T102408Z-6aedaac8400bd.json",
+    "sha256": "091d62d56715b23bff52e3c7c6e115743c6d6b51c3d6f9c1d732501c7cd8dac6"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch589-command-after143-r3.recording-results.json",
+    "sha256": "a5cc82279e1c0f61a2d69f78350c1657f407712e2ebacedc20120019e59baec1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-native-after-v3-c53\\receipt.json",
+    "sha256": "b7483850eb75e4897e00b9ee9744436a99150900794b1a3dd0758e67cb59d1d3"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "consuming_command_blue",
+      "group_id": "identity:consuming_command_blue",
+      "slug": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "source_spec": "card-regression-batch589-command-after143-r3.json",
+      "input_sha256": "762f680f2bd18322984a3b8d30515bebd044f2515e74c9130fc7a82a219a4aed",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_AFTER143_ONGOING_TYPED_GRANT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "fixture_sha256": "64dae881fbc39edc37b5094285c45b9107d2c3853a3759e11203f43232092ec4",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4855d0e13442750e0b90e113cefd787581830857e4468a6c8133565f4c21098d",
+        "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+        "assertions.json": "b2f2f99354cf4bf9817e25414b873ced828f7affa73b5d1902924cbc45416361",
+        "expected_final_gamestate.txt": "6a46e244b9f016e588f19a995ecb66cf4628d412044135e53b300b012165c65d"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4855d0e13442750e0b90e113cefd787581830857e4468a6c8133565f4c21098d",
+        "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+        "assertions.json": "b2f2f99354cf4bf9817e25414b873ced828f7affa73b5d1902924cbc45416361",
+        "expected_final_gamestate.txt": "6a46e244b9f016e588f19a995ecb66cf4628d412044135e53b300b012165c65d",
+        "meta.json": "ea3496f76e4589f013b4a2e9df267b771dbbb20324a6df39a0c2493f967bc58f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4855d0e13442750e0b90e113cefd787581830857e4468a6c8133565f4c21098d",
+        "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+        "assertions.json": "b2f2f99354cf4bf9817e25414b873ced828f7affa73b5d1902924cbc45416361",
+        "expected_final_gamestate.txt": "6a46e244b9f016e588f19a995ecb66cf4628d412044135e53b300b012165c65d",
+        "meta.json": "ea3496f76e4589f013b4a2e9df267b771dbbb20324a6df39a0c2493f967bc58f"
+      },
+      "actions": 33,
+      "native_assertions": 4442,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 2331,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "original33_actions4435_assertions_unchanged": true,
+      "seven_typed_duration_guards_all_passed": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "consuming_command_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "blasmophet_the_insatiable_hunger",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "14": {
+          "card_id": "unworldly_bellow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "15": {
+          "card_id": "goremass_summoning_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "dread_screamer_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "dread_screamer_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "howl_from_beyond_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "13": {
+          "card_id": "ghostly_visit_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "blasmophet_the_insatiable_hunger",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "14": {
+          "card_id": "unworldly_bellow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "15": {
+          "card_id": "goremass_summoning_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "consuming_command_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "dread_screamer_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "dread_screamer_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "howl_from_beyond_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "13": {
+          "card_id": "ghostly_visit_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "actual_token_UID": 6,
+      "actual_token_Status": 1,
+      "actual_token_Damage": 0,
+      "actual_token_damage_dealt": 6,
+      "actual_granted_Resolution_AP_refund": 1,
+      "actual_primary_GA_refund_funded_token_action": true,
+      "final_GY1_exact_UIDs": [
+        5,
+        14,
+        15
+      ],
+      "prior_Banish_exact_UIDs": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "prior_public_Banish_whole_objects_unchanged": true,
+      "ceased_proxy_UID": 16,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "final_UniqueIDCounter": 16,
+      "RandomCounter": 0,
+      "actual_post_close_grant": {
+        "store": "turnEffects",
+        "player": 1,
+        "index": 7,
+        "type": "IAR_BLASMOPHET_ATTACK",
+        "amount": 1,
+        "logical_total": 1
+      },
+      "post_close_ongoing_grant_preserved": true,
+      "second_untap_or_EndTurn_native_executed": false,
+      "prior_producer_or_upkeep_certified": false,
+      "intra_synchronous_clear_certified": false,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "5bf0de579e8a459b3e4513a4f66c481903bcc93b48a64447afe676d9cb2de045",
+      "native_action_mapping_sha256": "43163961be53a9fcd6f18d4013ab556caca2a383b415e1a9252a3cdcbf8b7494",
+      "native_assertion_mapping_sha256": "8d070614e098d62887efa62312f259f179c727cd2ed19ec266db9e8a5196efd5"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 4442,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 2331,
+  "material_findings": [
+    "Actual COMPLETE0/stderr0/onecorrectSaved at currentc53. All33 inputenvelopes/4442orderedassertions exact: unchangedoriginal4435plus7reviewedtypedguards,29realmanual7/7/7/8,48rawpreferences eachendpoint,70actualguards.",
+    "Real Command1/Blue3 leavesR2/AP0 beforefreshfour; primaryintrinsicGArefund fundsactualsamephysicaltoken6 Action0/formalHero4/tapcost beforeproxy16freshfour. Realpower6/grantedGA deals6/P4HP14 whileAP0; onlyResolutionrefundAP1, fullcloseceases16 andretains6TappedDamage0.",
+    "Correctongoinggrant isactualtypedrow7/typeIAR_BLASMOPHET_ATTACK/amount1 afterprimary, beforeclose andLASTafterclose; wholeinitialeffects[] andinitialmissingtype prove no seed. Finalrawtypedlogicaltotal1 confirmsduration survives same-turnclose. Backendiar absence is legitimate aftermigration; oldprivatebackend preservation isnotdemanded.",
+    "Complete physicalUID1..15/owners/zones/emptyDecks, exactunorderedGY{14,15,5}, Blue7Pitch/Banish8..13unchanged, originalHeroesunchanged/counter16/RNG0/R2/AP1/allqueues/payment/await/Chainquiet verified. Oldbadraw5quarantine andstrictR2BEFOREevidence unchanged, notoverwritten/retagged.",
+    "Prior tokencreation/upkeep/Handacquisition remain rules-only provenance. FutureEndexpiry hasisolatedcomponent evidence only, notnative; no secondactivation/untap/permission/internalclear/fullcard or support/sibling certification. Roottwofocusedreplays/Coglegacycontrol areseparate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR036.webp",
+      "actually_viewed": true,
+      "finding": "Primary printed grant/cost1/ownGA/BloodDebt."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR221.webp",
+      "actually_viewed": true,
+      "finding": "Token6power6life/Unique/eachEnd optionalBanish then conditionalselfdestroy; no intrinsic attack."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/882/",
+      "finding": "Bellow additional randomGY3/ownGA; exactly3priorGY makes6powerBD inclusion definite, not RNG seed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "rules": [
+        "4.4.3f"
+      ],
+      "finding": "Intellect refill is not maximum Hand size; concrete retained5Hand before three opponentEnds legal."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Actionasset before tap effectcost, formal target declaredbeforecost."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "finding": "Granted GA refunds only atResolution; futureEnd/upkeep/BloodDebt obligations unrun, not certified."
+    }
+  ],
+  "historical_preservation": {
+    "old_bad_raw5_evidence": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-duration-hold-evidence\\fixture",
+    "sha256": {
+      "initial_gamestate.txt": "4855d0e13442750e0b90e113cefd787581830857e4468a6c8133565f4c21098d",
+      "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+      "assertions.json": "57e258f85029d4eb724b22a720547cc6ddf82a2efe22fb1d15b752a045935523",
+      "expected_final_gamestate.txt": "43d17eec89aa826f574450d86a7458db4866080bff259c86ce7aa19a18465ced",
+      "meta.json": "5b37174c8e1b81bd5ebc7e6fcec4ad07fc14987def85f5010d6a1464af7587b2"
+    },
+    "old_before_gate": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-r2-independent-native-before-review.json",
+      "sha256": "eec816d51597adac62c922cf385962129488e023d024d9260e11cfba83d35ed2"
+    }
+  },
+  "limits": [
+    "Only selected realgrant/oneattack6damage/bothrefunds andongoingcarrierpersiststhroughsame-turnclose. No seconduntap/activation/laterAPconsumer/newtoken/Endexpiry nativecredit; isolatedexpiry isnotwholeEndTurn.",
+    "No Banishpermission/priorcreator/Unique/upkeep/Handproducer/Hero/support/sibling/fullcard certificate. Currentexternalactualbinding1610contextualizes unchangedprojectedpreparationremarks insourceoracle/meta; theyarenotnewruntimeobservations.",
+    "Original1ef/held3cf7/HOLDd55c andBEFORE36ff/eec remainhistorical. New762f isseven-add successor, notbyteidenticaloriginaloverall. V2suspended; no whole-bankfix/Core/globalrootclaim.",
+    "Persisted orderedledger+rawinitial/final only, no invented per-inputsnapshots. Reviewer noR/PHP/native/replay/source/fullsuite/remote/deniedoperation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_command143_saved_after_readonly.py",
+    "sha256": "612c13ff87c860eb319872062a757fb3947d0334fbafdf700bf331f2ac2227ab"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch589_command_source_readonly.py",
+    "sha256": "7a0fdc8cab9699ce15a7cda1d86299b453bf43ee47399f5fe1eee2c1e2b6d9d6",
+    "portion": "Original4435declarativeledgeronly; no oldruntime/sourceaudit"
+  },
+  "retained_endpoint_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch589_command_saved_readonly.py",
+    "sha256": "2f75a7a213649e5300b11cd13792a781db13f883373f53f1fdeb70da8547f578",
+    "portion": "Physical/manual/economy endpoints only, notsupersededqualification"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/pox_snapshot_repair_review independent actual saved review; Root execution and clean replay",
+  "runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+  "source_spec": "card-regression-pox147-repair-20261120.json",
+  "input_sha256": "a463e87064c75b7b5ba8df67d34cafc19d838c77fe920349d1cb21983dde3058",
+  "fixtures": [
+    {
+      "slug": "repair-pox147-four-live-captured-source-prevention-and-real-pay-three-complete-end",
+      "card_id": "bloodrot_pox",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae6876fb8328c13f12073242609d010e3a628e4677ec60b6960daa740f7a63ca",
+        "actions.json": "32df22a21bbbf4554886a925b6c4ba2a97d2365adbaba22c592af7b19b641958",
+        "assertions.json": "3185555a5716d178680830969d2571bf2e56d89048b576bcdaee4edc69ad70ee",
+        "expected_final_gamestate.txt": "4a0f04a2b0ed8d00cd829315bfd7bd22ea8906b3c104b0a89909c0dbc8fb70f9",
+        "meta.json": "da625c673c2aee24de55b748524b31037f4c89c64df9307108fd53dd6fc78f42"
+      },
+      "fixture_sha256": "b33c125b5f77a8d45873c8f03823ec0f197e7b19c41b74f556dbc63e6dcf5755",
+      "actions": 13,
+      "native_assertions": 940,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+      "runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+      "source_spec": "card-regression-pox147-repair-20261120.json",
+      "input_sha256": "a463e87064c75b7b5ba8df67d34cafc19d838c77fe920349d1cb21983dde3058"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-pox147-repair-20261120-replay.json",
+    "sha256": "01f0dd818d79819e83f95aa227a1a26f17298d46e022b444138dcf430dfaa942"
+  },
+  "independent_review_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox147-saved-independent-review.json",
+    "sha256": "26ce01be3eea9adaeb4c016bb70733f97bc1934e89a93f716a22f6d666ebb02a"
+  },
+  "source_review_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox147-burn125-v3-source-recommendation.json",
+    "sha256": "67140ae823a90d709b180258029fcf9c9c9730472b6c086f505d80b9e108b934"
+  },
+  "source_application_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\approved125147-offline-application\\receipt.json",
+    "sha256": "c53fce47340362becb8037b5375269b4b25a361484a1719dce74e1fb3df208b8"
+  },
+  "end_pitch_application_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox147-end-pitch-guard-prepared\\application.json",
+    "sha256": "e69714a2b725a2b2da982d3ae96bcb59423f23e19eab2946f0a2b383f10a11ba"
+  },
+  "basis": "Original strict source5 prevention expectedHP19 now passes after destruction. Complete independent token6 Pay3 uses actual Blue7 and finishes End only after real choice: Pitch0,Hand4,nextP2Turn3quiet. All13actions/940persistedassertions independently reviewed; one clean replay plus Read,Hellbound andArcanic compatibility pass. A newly exposed EndPitch continuation bug is repaired using existing waiting marker, preserving correct cleanup expectations.",
+  "limits": [
+    "Two existing tokens in one four-live repair fixture; no new breadth credit or untested siblings.",
+    "Native token5 decline+source-specific prevention and token6 real payment/cleanup only; no exhaustive prevention matrix.",
+    "Historical no-save failures and diagnostic input remain unchanged.",
+    "Legacy disease End uses administrative controls; this does not certify general no-priority End timing or simultaneous ordering.",
+    "Captured-source/ownership/Consecrate/generation components are isolated controls, not additional native fixtures.",
+    "Two Burn final epoch-only compatibility corrections tracked separately; full suite not run."
+  ],
+  "full_suite_run": false
+}

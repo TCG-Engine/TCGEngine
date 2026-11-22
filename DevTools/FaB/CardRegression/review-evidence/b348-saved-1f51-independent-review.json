@@ -1,0 +1,299 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_AVAST_GRANTED_PIRATE_ALLY_GO_AGAIN_FULL_BLOCK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T16:46:06.830813+00:00",
+  "source_spec": "card-regression-batch348.json",
+  "input_sha256": "ecc66cf0239debea0d0cb2ff0afd01036ea5c16d740bf2f6ca911d2b5d4b256e",
+  "manifest_sha256": "2cd588855d107f5f5a13743412f1215b44553719046253b9a269a7fa99a5aa9b",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_guards_verified": 19,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch348-independent-source-review.json",
+    "sha256": "b260478c5d26c4103f59276302491cdd45f23931da6e92c940e40ff6691ed75a",
+    "reused_not_new_source_approval": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch348-20261103T163959Z-6aea0e5ff0d4b.json",
+    "sha256": "2bdbc20714ed4a9956f790ead7dacad91e9b9bff6cb62581018a80df63becff2"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch348-native-r1\\receipt.json",
+    "sha256": "7907ab78aeb88003d61a48529dc95816b3203a03cf3ed992172983a9f6ec28fa"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch348_saved_readonly.py",
+    "sha256": "ca09989db0ae02d6732374ece335b3ba3d655aafdf57e6ecd127b90e3b436bd5"
+  },
+  "reviewer_independence": "Original scenarioSparse, independent sourceMeta; saved reviewer authored neither.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "avast_ye_blue",
+      "slug": "card-avast-ye-blue-four-live-sparse-real-paid-pirate-ally-attack-earns-go-again-after-full-block",
+      "source_spec": "card-regression-batch348.json",
+      "input_sha256": "ecc66cf0239debea0d0cb2ff0afd01036ea5c16d740bf2f6ca911d2b5d4b256e",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-avast-ye-blue-four-live-sparse-real-paid-pirate-ally-attack-earns-go-again-after-full-block",
+      "fixture_sha256": "3a1f9ae88005c0d1b868e0ae042a928207cb649dc761cddd6c6fb8d4c6f70485",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f7788e4b529056dda4c2a3da03ac1d874bd5f5dc69d7493b0d2e5f779e1349c8",
+        "actions.json": "aeb9e11d47d933ee69f51810f080ede46d940f4c4be68336f7412534faa89f38",
+        "assertions.json": "7fd4d0c5900bc419417c0c57eaf5ae5a5e6e4cf7820c80efce0d1c480cab4019",
+        "expected_final_gamestate.txt": "b3e23735a6724686db93d2e5790f45f4cb25a702c1ec64a9b120cefdb24b3120"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f7788e4b529056dda4c2a3da03ac1d874bd5f5dc69d7493b0d2e5f779e1349c8",
+        "actions.json": "aeb9e11d47d933ee69f51810f080ede46d940f4c4be68336f7412534faa89f38",
+        "assertions.json": "7fd4d0c5900bc419417c0c57eaf5ae5a5e6e4cf7820c80efce0d1c480cab4019",
+        "expected_final_gamestate.txt": "b3e23735a6724686db93d2e5790f45f4cb25a702c1ec64a9b120cefdb24b3120",
+        "meta.json": "1e3efdb67a5cad4cb3fd370520405c8597f315ebb71573e9b070fed3f5760689"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f7788e4b529056dda4c2a3da03ac1d874bd5f5dc69d7493b0d2e5f779e1349c8",
+        "actions.json": "aeb9e11d47d933ee69f51810f080ede46d940f4c4be68336f7412534faa89f38",
+        "assertions.json": "7fd4d0c5900bc419417c0c57eaf5ae5a5e6e4cf7820c80efce0d1c480cab4019",
+        "expected_final_gamestate.txt": "b3e23735a6724686db93d2e5790f45f4cb25a702c1ec64a9b120cefdb24b3120",
+        "meta.json": "1e3efdb67a5cad4cb3fd370520405c8597f315ebb71573e9b070fed3f5760689"
+      },
+      "actions": 36,
+      "native_assertions": 3655,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "avast_ye_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "swabbie_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "swabbie_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 1,
+          "damage": 0,
+          "counters": {
+            "WEAPON_ATTACK_TURN": 2,
+            "WEAPON_ATTACKS": 1
+          }
+        },
+        "5": {
+          "card_id": "avast_ye_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_assertion_mapping_sha256": "d4adccc78fe604405ec44989d9f9fccd8e3356a93f1e7894f957ecc41d4f36c5",
+      "native_action_mapping_sha256": "9335f167bf6cdc334cf7e2677a359d114a2854d919bfbafc9caf506cd022d4fc",
+      "native_assertion_mapping_sha256": "4198d71a439b5efee8af73b386db3a25b2f35b7ef449d33780665bd4bce49741"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 36,
+  "total_native_assertions": 3655,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Real primaryAvast5 resource0/spendsAP1, four manual responses return ownGA/AP1. ActualPirateSwabbie6 attack costs2 paid by originalBlue7pitch3, AP1 spent and same6 tapped before four source responses; R1/AP0.",
+    "Actual proxy11 has printedSwabbie power7 plus GRANTED GoAgain; Avast is not a power bonus. Three original Hand defenders8/9/10 eachprintedDEF3 enter actual Chain. Actual7 versus9 yields0 damage/allHP20/no hero-hit Gold. Only fourth DAMAGE response grantsAP1 despite full block.",
+    "Full parsed final sameSwabbie6 retained Arena/Status1/Damage0/one-use counters; ownGY5/Pitch7, P4ownGY8/9/10 unordered. All original1..10 conserved/proxy11ceased/Counter11/RNG0/R1AP1. Four ready living manual heroes,96 endpoint preference values, Stack/chains/DQs/payment/frames clear."
+  ],
+  "limits": [
+    "One paidPirateAlly attack/grantedGA/fullblock/nohit branch only. No hitGold/repeatedallyattack/otherallies/buffstack/allydeath/WateryGrave/Gravyability/expiry/thirdplay/supportprimary/sibling/fullcard/control/fullsuite credit.",
+    "Source model reused; saved evidence/normalization and all3655assertions independently verified. Root replays/registration separate, no reviewerPHP/native/R/source/generator/service/oldcase replay."
+  ]
+}

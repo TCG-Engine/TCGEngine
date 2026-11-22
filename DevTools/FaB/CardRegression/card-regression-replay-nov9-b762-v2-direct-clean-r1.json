@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch762-v2-direct-activation.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-09T01:23:32.261857+00:00",
+  "fixtures": [
+    {
+      "slug": "card-restless-looter-red-four-live-real-tap-resolution-discard-and-draw-same-uids",
+      "fixture_sha256": "b3fa3f61bf728a95c5d0e72778ca9f4975e091b2fd14d0407e5497580aa22706",
+      "passed": true,
+      "result": "[PASS] restless_looter_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-restless-corporal-red-four-live-real-tap-banish-to-graveyard-earned-go-again-and-four-damage",
+      "fixture_sha256": "c5359640db6ab2dbdf615fe501147cc5c86bcee3135bf4a1edaa60f921765d12",
+      "passed": true,
+      "result": "[PASS] restless_corporal_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-restless-looter-red-four-live-real-tap-resolution-discard-and-draw-same-uids",
+      "returncode": 0,
+      "stdout": "[PASS] restless_looter_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-restless-corporal-red-four-live-real-tap-banish-to-graveyard-earned-go-again-and-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] restless_corporal_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

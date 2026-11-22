@@ -71,7 +71,7 @@ function FaBHNTGoAgain(int $p,object $o): bool {
  // The threshold is evaluated dynamically; do not cache a power bonus on declaration.
  if(FaBWTRIsWeapon($o)&&FaBMONArena($p,'sharpened_senses')&&FaBAttackPower(FaBGetState())>2*intval(CardPower($o->CardID)))return true;return false;
 }
-function FaBHNTDefense(int $p,object $o): int {$b=FaBWTRBase($o->CardID);$s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));if(str_starts_with($b,'blade_beckoner_')&&$a&&FaBWTRIsWeapon($a['object']))return 1;if(str_starts_with($b,'red_alert_'))foreach(FaBLiveSeats() as $v)if(!empty($s['arakniAttackReactions'][FaBArakniReactionKey($v)]))return 1;return 0;}
+function FaBHNTDefense(int $p,object $o): int {$b=FaBWTRBase($o->CardID);$s=FaBGetState();if(str_starts_with($b,'blade_beckoner_')&&FaBDefendingCardFacesWeapon($o))return 1;if(str_starts_with($b,'red_alert_'))foreach(FaBLiveSeats() as $v)if(!empty($s['arakniAttackReactions'][FaBArakniReactionKey($v)]))return 1;return 0;}
 function FaBHNTDeclared(int $p,object $o): void {
  foreach(FaBLiveSeats() as $v)FaBHNTClear($v,'DRACONIC_LINK');
  if(($o->FromZone??'')!=='Weapons'&&FaBHasType($o,'Draconic'))FaBHNTAdd($p,'DRACONIC_LINK');
@@ -100,3 +100,96 @@ function FaBHNTEnd(int $p): void {
 }
 function FaBHNTBlockLegal(int $p,array $f): bool {$s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));return FaBWTRBase($f['object']->CardID)!=='put_in_context'||($a&&intval(CardPower($a['object']->CardID))<=3);}
 function FaBHNTWeaponLegal(int $p): bool {foreach(FaBOpponents($p) as $v)if(FaBHNTCount($v,'KABUTO'))return false;return true;}
+
+
+/** Tip Off Blue's Hand ability declares its Hero before the discard cost. */
+function FaBHNTPendingTip(int $player, int $uid): ?array {
+    $found=FaBFindUID($uid);$pending=FaBGetState()['pendingPayment']??null;
+    if(!FaBSeatIsLive($player)||$found===null||$found['zone']!=='Stack'||!is_array($pending))return null;
+    $o=$found['object'];
+    if(!empty($o->removed)||$o->CardID!=='tip_off_blue'||($o->Kind??'')!=='ABILITY'
+       ||intval($o->Controller??0)!==$player||($o->SourceZone??'')!=='Hand'
+       ||($o->Params['arcSpec']['timing']??'')!=='INSTANT'||intval($o->Params['arcSpec']['index']??-1)!==0
+       ||intval($pending['uid']??0)!==$uid||intval($pending['player']??0)!==$player
+       ||empty($pending['isAbility'])||($pending['kind']??'')!=='ABILITY'||!empty($pending['preparedEffectError']))return null;
+    $physical=FaBFindUID(intval($o->SourceUniqueID??0));
+    if($physical===null||$physical['zone']!=='Hand'||$physical['player']!==$player
+       ||$physical['object']->CardID!=='tip_off_blue'||HasNoAbilities($physical['object']))return null;
+    return $found;
+}
+
+function FaBHNTRejectTipTarget(int $player,object $ability): void {
+    $expected=(string)($ability->Params['hntTipTarget']['undoHash']??'');
+    $versions=GetVersions($player);$version=$versions[0]??null;
+    if($expected!==''&&is_object($version)&&hash_equals($expected,hash('sha256',(string)$version->Version))){LoadVersion($player,0);return;}
+    $s=FaBGetState();
+    if(intval($s['pendingPayment']['uid']??0)===intval($ability->UniqueID)){
+        $s['pendingPayment']['preparedEffectError']='Tip Off target declaration is invalid.';FaBSetState($s);
+    }
+}
+
+/** All stored values and the returned declaration are serializable scalars/arrays. */
+function FaBHNTBeginTipTarget(int $player,int $uid): array {
+    $found=FaBHNTPendingTip($player,$uid);if($found===null)return [];
+    $offered=[];$refs=[];
+    foreach(array_filter(explode('&',FaBDYNHeroTargets($player,true)))as$ref){
+        $target=FaBIdentityFromMZ($ref);
+        if($target===null||$target['zone']!=='Hero'||!in_array($target['player'],FaBOpponents($player),true))continue;
+        $targetUID=intval($target['object']->UniqueID??0);if($targetUID<1)continue;
+        $refs[]=$ref;$offered[(string)$targetUID]=intval($target['player']);
+    }
+    $token=intval(FaBARCCard($uid,'hntTipAnnouncement',0))+1;FaBARCSetCard($uid,'hntTipAnnouncement',$token);
+    $versions=GetVersions($player);$version=$versions[0]??null;
+    $found['object']->Params['hntTipTarget']=['stage'=>'CHOOSING','token'=>$token,'player'=>$player,
+        'sourceUID'=>intval($found['object']->SourceUniqueID),'offered'=>$offered,
+        'undoHash'=>is_object($version)?hash('sha256',(string)$version->Version):''];
+    if(!$refs){FaBHNTRejectTipTarget($player,$found['object']);return [];}
+    return ['token'=>$token,'refs'=>implode('&',$refs)];
+}
+
+function FaBHNTBindTipTarget(int $player,int $uid,int $token,string $answer): bool {
+    $found=FaBHNTPendingTip($player,$uid);if($found===null)return false;
+    $o=$found['object'];$context=(array)($o->Params['hntTipTarget']??[]);
+    // An old callback may not cancel or overwrite a newer legitimate declaration.
+    if(DecisionQueueController::ExecutingSeat()!==$player||($context['stage']??'')!=='CHOOSING'
+       ||$token<1||intval($context['token']??0)!==$token||intval(FaBARCCard($uid,'hntTipAnnouncement',0))!==$token
+       ||intval($context['player']??0)!==$player||intval($context['sourceUID']??0)!==intval($o->SourceUniqueID))return false;
+    $target=FaBIdentityFromMZ($answer);$targetUID=intval($target['object']->UniqueID??0);
+    if($target===null||$target['zone']!=='Hero'||!FaBSeatIsLive($target['player'])
+       ||!in_array($target['player'],FaBOpponents($player),true)
+       ||intval($context['offered'][(string)$targetUID]??0)!==intval($target['player'])
+       ||!in_array($answer,array_filter(explode('&',FaBDYNHeroTargets($player,true))),true)){
+        FaBHNTRejectTipTarget($player,$o);return false;
+    }
+    $o->Params['hntTipTarget']=['stage'=>'SEALED','token'=>$token,'player'=>$player,
+        'sourceUID'=>intval($o->SourceUniqueID),'targetUID'=>$targetUID,'targetPlayer'=>intval($target['player'])];
+    return true;
+}
+
+function FaBHNTPrepareTipBridge(int $player,int $uid): void {
+    $declaration=FaBHNTBeginTipTarget($player,$uid);$refs=(string)($declaration['refs']??'');if($refs==='')return;
+    $token=intval($declaration['token']);
+    DecisionQueueController::AddDecision($player,'MZCHOOSE',$refs,1,'Choose_opposing_hero');
+    DecisionQueueController::AddDecision($player,'CUSTOM','FAB_HNT_TIP_TARGET|'.$uid.'|'.$token,1,'',1);
+}
+
+/** Physical source is now discarded; only this managed ABI's captured Hero can be marked. */
+function FaBHNTResolveTipTarget(int $player,int $uid): void {
+    $found=FaBFindUID($uid);$pending=FaBGetState()['resolvingReaction']??null;
+    if(!FaBSeatIsLive($player)||$found===null||$found['zone']!=='Stack'||!is_array($pending))return;
+    $o=$found['object'];$context=(array)($o->Params['hntTipTarget']??[]);
+    if($o->CardID!=='tip_off_blue'||($o->Kind??'')!=='ABILITY'||intval($o->Controller??0)!==$player
+       ||($o->SourceZone??'')!=='Hand'||($o->Params['arcSpec']['timing']??'')!=='INSTANT'
+       ||intval($o->Params['arcSpec']['index']??-1)!==0||!FaBManagedAbilityResolutionOwns($o)
+       ||($pending['resolutionClass']??'')!=='ARC_ABILITY'||intval($pending['uid']??0)!==$uid
+       ||intval($pending['controller']??0)!==$player||($pending['cardID']??'')!=='tip_off_blue'
+       ||intval($pending['sourceUniqueID']??0)!==intval($o->SourceUniqueID)
+       ||($context['stage']??'')!=='SEALED'||intval($context['player']??0)!==$player
+       ||intval($context['sourceUID']??0)!==intval($o->SourceUniqueID)
+       ||intval($context['token']??0)<1||intval($context['token'])!==intval(FaBARCCard($uid,'hntTipAnnouncement',0)))return;
+    $o->Params['hntTipTarget']=['stage'=>'CONSUMED'];
+    $target=FaBFindUID(intval($context['targetUID']??0));$seat=intval($context['targetPlayer']??0);
+    if($target===null||$target['zone']!=='Hero'||$target['player']!==$seat
+       ||!FaBSeatIsLive($seat)||!in_array($seat,FaBOpponents($player),true))return;
+    FaBHNTMark($seat);
+}

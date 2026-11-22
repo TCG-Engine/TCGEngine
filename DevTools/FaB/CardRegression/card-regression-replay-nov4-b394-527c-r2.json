@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch394.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T22:19:25.441363+00:00",
+  "fixtures": [
+    {
+      "slug": "card-runeblood-barrier-yellow-four-live-sparse-real-seven-damage-destroys-four-owned-runechants-prevents-four",
+      "fixture_sha256": "b9f8227e4ca8c98ea3219173c216b2a3a9f30b7562c7b9bb846f39f8c6f70856",
+      "passed": true,
+      "result": "[PASS] runeblood_barrier_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-imperial-seal-of-command-red-four-live-sparse-real-destroy-action-forbids-opponent-defense-reaction",
+      "fixture_sha256": "73464ed8bde0e2c60eadedfc9a3caa88d2b9941a11d34e181b285d7a8e67a74d",
+      "passed": true,
+      "result": "[PASS] imperial_seal_of_command_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-runeblood-barrier-yellow-four-live-sparse-real-seven-damage-destroys-four-owned-runechants-prevents-four",
+      "returncode": 0,
+      "stdout": "[PASS] runeblood_barrier_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-imperial-seal-of-command-red-four-live-sparse-real-destroy-action-forbids-opponent-defense-reaction",
+      "returncode": 0,
+      "stdout": "[PASS] imperial_seal_of_command_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

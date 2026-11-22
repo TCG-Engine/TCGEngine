@@ -1,0 +1,90 @@
+{
+  "status": "TWO_NAMED_EXISTING039_CALLER_REPAIRS_QUALIFIED",
+  "utc": "2026-11-03T01:36:53.698824+00:00",
+  "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "new_fixed_distinct_infrastructure_roots": 0,
+  "fixed_existing_family_card_callers": 2,
+  "source_application": "review-evidence/062064-cost-source-application.json",
+  "native_before_evidence": [
+    "review-evidence/nimble062-cost-order-native-before.json",
+    "review-evidence/celestial064-cost-order-native-before.json"
+  ],
+  "scenarios": [
+    {
+      "issue_id": "FAB-REG-062",
+      "card_id": "nimble_strike_red",
+      "scenario_id": "card-nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough",
+      "checkpoint": "card-regression-sparse271-nimble062-45b1-checkpoint.json",
+      "saved_review": "review-evidence/nimble062-saved-45b1-independent-review.json",
+      "saved_review_sha256": "5cf5e5006e4fe9a4ba0d51a812bea5b2a11040d07f299bce0e3ae29b71db4e0d",
+      "source_spec": "card-regression-batch271.json",
+      "source_spec_sha256": "c468cea666c1729a7f3a6bcd73d7bc290f6d7db4dff113accb61437481599521"
+    },
+    {
+      "issue_id": "FAB-REG-064",
+      "card_id": "celestial_cataclysm_yellow",
+      "scenario_id": "card-celestial-cataclysm-yellow-four-live-correct-probe-actual-channel-tax-assets-before-three-soul-effect-cost",
+      "checkpoint": "card-regression-sparse273-celestial064-45b1-checkpoint.json",
+      "saved_review": "review-evidence/celestial064-saved-45b1-independent-review.json",
+      "saved_review_sha256": "e1cc2864bb6fe302aeeb2eb8ca62085cb59923d4052e0d191c6ce9f6dcb42d9c",
+      "source_spec": "card-regression-batch273-celestial-correct-probe.json",
+      "source_spec_sha256": "d3fd775022788d3725f6ef9651f1e680f0a2765e46641238770e5a7872d9ff6b"
+    }
+  ],
+  "validation_receipts": [
+    {
+      "path": "card-regression-replay-nov3-nimble062-45b1-r1.json",
+      "sha256": "730478ab80dfdbe5dd393df3b4f4da8ee3507658023a6e8b7cfa3a42d5abd90f",
+      "passed": 1,
+      "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b"
+    },
+    {
+      "path": "card-regression-replay-nov3-nimble062-45b1-r2.json",
+      "sha256": "9afd6c2c12e9b12d61e63bac6010599fe45c3a3036316cd36f99c0c14b02ed4f",
+      "passed": 1,
+      "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b"
+    },
+    {
+      "path": "card-regression-replay-nov3-celestial064-45b1-r1.json",
+      "sha256": "fa4a9e7d7db9bfa4979959d227f0ced95acb7719d64fa62818a802857dcbb813",
+      "passed": 1,
+      "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b"
+    },
+    {
+      "path": "card-regression-replay-nov3-celestial064-45b1-r2.json",
+      "sha256": "d40c8f92d98182e7ac548ba7007fb7c441c4c2adea85d8a833254c1d4d0f3902",
+      "passed": 1,
+      "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b"
+    },
+    {
+      "path": "card-regression-replay-nov3-cost-compat-tome-rouse-45b1.json",
+      "sha256": "8dadc95a5f9d86bfec8bc47e136c08092e280f44d97b5474357c38e8586196fa",
+      "passed": 2,
+      "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b"
+    },
+    {
+      "path": "card-regression-replay-nov3-cost-compat-prism-45b1.json",
+      "sha256": "1a7d18bcdd41476d56142cf53566a9197fb52314ae364b560cd51be3b86d463d",
+      "passed": 1,
+      "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b"
+    },
+    {
+      "path": "card-regression-replay-nov3-cost-compat-chane-45b1.json",
+      "sha256": "d68de52ca9096926f26a760f79523c5242cb2140fde91d537f0c88d0ba7c395d",
+      "passed": 1,
+      "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b"
+    }
+  ],
+  "new_creation_replay_passes": 4,
+  "direct_affected_existing_compatibility_passes": 4,
+  "original_inputs_actions_assertions_unchanged": true,
+  "initial_states_equal_original_before_probes": true,
+  "native_intra_action_order_limit": "Native checkpoints pin source cost still unpaid before funding and final proper movement. Audited source plus38 actual-function contracts/147assertions establish debit-before-movement within the single funding EngineAction.",
+  "coverage_credit_for_untested_variants_or_branches": false,
+  "isolated_native_fault_controls_added": 0,
+  "full_suite_run": false,
+  "remaining_confirmed_open_issues": [
+    "FAB-REG-063"
+  ],
+  "limits": "NamedRedNimble andYellowCelestial positivefourlive branches only. No native decline/cancel/missing-cost/full-card/sibling credit. Originalfailedprefixes retained; no wrongexpectations weakened. Allolderruntime contexts remainhistorical."
+}

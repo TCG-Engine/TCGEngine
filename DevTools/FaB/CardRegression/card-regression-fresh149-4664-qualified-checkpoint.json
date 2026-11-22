@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T22:27:40.271030+00:00",
+  "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+  "source_spec": "card-regression-repair-fresh149-supported-attack-oracle-v2.json",
+  "source_spec_sha256": "da5bd02018a647cc59927ac791fcd49e7e603010bb16e913588051c2ea5e9d28",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 25,
+  "native_assertions": 2010,
+  "manual_passes": 21,
+  "totals": {
+    "saved_registered_scenarios": 4138,
+    "duels": 3074,
+    "four_live": 1064,
+    "recorded_primary_ids": 1291,
+    "identity_denominator": 5196,
+    "recorded_groups": 1165,
+    "group_denominator": 3324,
+    "four_live_groups": 1057,
+    "phase_qualified_scenarios_at_actual_contexts": 775,
+    "phase_qualified_unique_groups": 770,
+    "creation_replay_passes": 1516,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 4,
+  "scenarios": [
+    {
+      "card_id": "fresh_from_the_forge_red",
+      "group_id": "identity:fresh_from_the_forge_red",
+      "scenario_id": "card-fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic",
+      "effect_branches": [
+        "fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic",
+      "source_spec": "card-regression-repair-fresh149-supported-attack-oracle-v2.json",
+      "source_spec_sha256": "da5bd02018a647cc59927ac791fcd49e7e603010bb16e913588051c2ea5e9d28",
+      "review_evidence": "review-evidence/fresh149-4664-qualified-saved.json",
+      "review_evidence_sha256": "b59604834ab4f4340ded9f6ef2f6d81614782c835f9d67888b91adcd202454c3",
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "qualification_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-fresh149-corrected-replay.json",
+          "sha256": "35b4e5bffdfbd974ea4fb172f7f7ca25dc9ab434b0c6a7028dccff60ecdb38d2",
+          "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

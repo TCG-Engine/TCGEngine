@@ -1,0 +1,215 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B302_PASSING_SUBSET_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T07:17:26.702095+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch302.json",
+  "input_sha256": "8ac036ecc772914381ed2a7b5a9c58146fc4a1c31a19ead7b8d52a5f12bb2524",
+  "manifest_sha256": "20f397ed4527eab61a792850fd69eb1fd191b88f86a7d1ca395e038a469c97d4",
+  "fixtures": [
+    {
+      "slug": "card-quick-clicks-four-live-sparse-real-nimblism-earns-destroy-action-next-attack-go-again",
+      "card_id": "quick_clicks",
+      "group_id": "identity:quick_clicks",
+      "semantically_approved": true,
+      "fixture_sha256": "53985e3b427f1dacb174196a53de6be604c9aa612998142de052ba9f849ce662",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e87d9851176f2e2018beaf0e5b06f91e2111d875fc43e3411d6cc6791d285e2",
+        "actions.json": "ff13907fd2194baabbaa5eed14f21881ee74aab9f094f8743cf0012d67aa1bf8",
+        "assertions.json": "edb2223e4b16e7fb231bd2a52b5e3c6b061be208fa910088383b7bb757d446d6",
+        "expected_final_gamestate.txt": "a5c6836e5977fc9135c5fea567fe348c41a41394b61c836a36c387b45d6b0217",
+        "meta.json": "a4b8715563d9ec476fbe6c2e21713e4d17fe2493d8e589244e844de2694f0045"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1e87d9851176f2e2018beaf0e5b06f91e2111d875fc43e3411d6cc6791d285e2",
+        "actions.json": "ff13907fd2194baabbaa5eed14f21881ee74aab9f094f8743cf0012d67aa1bf8",
+        "assertions.json": "edb2223e4b16e7fb231bd2a52b5e3c6b061be208fa910088383b7bb757d446d6",
+        "expected_final_gamestate.txt": "a5c6836e5977fc9135c5fea567fe348c41a41394b61c836a36c387b45d6b0217",
+        "meta.json": "a4b8715563d9ec476fbe6c2e21713e4d17fe2493d8e589244e844de2694f0045"
+      },
+      "actions": 37,
+      "native_assertions": 2671,
+      "actual_manual_pass_inputs": 33,
+      "actual_manual_passes": 33,
+      "manual_passes": 33,
+      "priority_pass_inputs": 32,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "priority_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_proxy_uids_absent": [
+        8
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "physical_findings": "Real Nimblism5 resolves after four manual responses; sameQuickClicks6 is destroyed as Action/AP cost before fresh four source responses. ActualWounding7 then has printed4+Nimblism3=7 and earned nextattackGA, deals7/HP13, returnsAP1 only after damage-step four responses. Actual final ownGY physicalUIDset{5,6,7}; virtual8 absent, every other physicalUID conserved.",
+      "qualification": "One positive standalone primary group only. No false-condition/rejection/second-use, support-primary, hero, sibling, full-card or isolatedfaultcontrol credit."
+    },
+    {
+      "slug": "card-mandible-claw-four-live-sparse-real-six-power-discard-paid-two-resource-weapon-eight-damage-go-again",
+      "card_id": "mandible_claw",
+      "group_id": "identity:mandible_claw",
+      "semantically_approved": true,
+      "fixture_sha256": "a2b983735c611d3117c85fd823ced1cbfd801d0e062586dd6d421d37e81e9676",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a4c4f36f781df6c68591e41bfb7e6c74c6a2d498b53023f66abc5933c65f2ee",
+        "actions.json": "b18cc156c753ecef01a046a7dae9de63719fdba0ffeef13428c2d9efdbefec93",
+        "assertions.json": "7f4d868b39158e19ea301c26d3262f104fdf7e066b48e546e8ab59373491ed6d",
+        "expected_final_gamestate.txt": "770eac0cbfb7de6d13b1977bd742a28ddbbabc2b15ecbff7f22a0bcfe1126948",
+        "meta.json": "756b2fea02162558199608e7aacd1408dae40652084500d5ac90b59ede6967f7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7a4c4f36f781df6c68591e41bfb7e6c74c6a2d498b53023f66abc5933c65f2ee",
+        "actions.json": "b18cc156c753ecef01a046a7dae9de63719fdba0ffeef13428c2d9efdbefec93",
+        "assertions.json": "7f4d868b39158e19ea301c26d3262f104fdf7e066b48e546e8ab59373491ed6d",
+        "expected_final_gamestate.txt": "770eac0cbfb7de6d13b1977bd742a28ddbbabc2b15ecbff7f22a0bcfe1126948",
+        "meta.json": "756b2fea02162558199608e7aacd1408dae40652084500d5ac90b59ede6967f7"
+      },
+      "actions": 37,
+      "native_assertions": 2991,
+      "actual_manual_pass_inputs": 33,
+      "actual_manual_passes": 33,
+      "manual_passes": 33,
+      "priority_pass_inputs": 32,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "priority_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_proxy_uids_absent": [
+        9,
+        10
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "physical_findings": "ActualPotion5 earnsR2 only at fourth response; Primeval6 spendsAP and actually discards sole eligible printed6power physicalRaging7 as additionalcost before responses. Claw8 freshP4target paysprintedTWO exactly from earnedR2 plusAP1, actualproxy10 getsBrute+5 for3+5=8 and conditionalGA from actual discard; deals8/HP12 and laterreturnsAP1. Final same8 usedWeapons and ownGY physical{5,6,7}; virtual9/10 absent, all physicalUIDs conserved.",
+      "qualification": "One positive standalone primary group only. No false-condition/rejection/second-use, support-primary, hero, sibling, full-card or isolatedfaultcontrol credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch302-independent-source-review.json",
+    "sha256": "78a723e85ae18503c63411192cb94d019f4a1f41e0cf32ebc6fa828badcaf00e",
+    "manifest_sha256": "20f397ed4527eab61a792850fd69eb1fd191b88f86a7d1ca395e038a469c97d4"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch302-20261103T071601Z-6ae98a316991d.json",
+    "sha256": "7c96c366ee4062b42c99799b60e0a47bfa4ff337eaed210b90b70b8b7b001190"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch302.recording-results.json",
+    "sha256": "1a903ffa88989667e678df51e4483acdebd7dba30753c6170e5250993bca7fdc"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch302-native-r1\\receipt.json",
+    "sha256": "f5281e3aa4c0c419ce1ebff1e7b92ee75fbdf191d922b2d1c4b88d068d6acb72"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Exact saved passing subset only; no unselected branches or sibling/support-primary credit.",
+    "Replay qualification belongs to separate actual Root reports.",
+    "No R writes, PHP/native execution, source changes, generator/backend/service or sourcefix by reviewer."
+  ]
+}

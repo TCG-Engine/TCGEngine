@@ -1,0 +1,277 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B370_TWO_MANAGED_RESOLUTION_CHOICE_GROUPS_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T20:52:13.115240+00:00",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch370.json",
+  "input_sha256": "c171843cdb25af14e4e9ba0771a9e69ad2f159664978449d3186de066cb091c4",
+  "manifest_sha256": "ff027c87594b4dadd41fbc6785af2f23e1e402bda917c319a093db29ec76bb50",
+  "fixtures": [
+    {
+      "slug": "card-shiver-four-live-sparse-real-paid-instant-loads-owned-arrow-and-power-mode-fullblock",
+      "card_id": "shiver",
+      "group_id": "identity:shiver",
+      "fixture_sha256": "35d03c605ee2fa9828839b413ce41daef40bf8a9ff1df4c287fa9ca165c8b5ef",
+      "behavior_sha256": "35d03c605ee2fa9828839b413ce41daef40bf8a9ff1df4c287fa9ca165c8b5ef",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "44f8039561821f7521c195bbd19842d219a71230228856660ceb805a9daa1ec9",
+        "actions.json": "650a2e464cc968cce5ac9dfcfac54eacfe1163b0cb7d289b9c828d3b94e84b61",
+        "assertions.json": "e4e6ad76df40eefb7394864d47c21d0364012ce6abf6280a053161bf5778a818",
+        "expected_final_gamestate.txt": "75f1e6f88c7baa231ac5f511db9fb10d9e5cd3e5ed39d256bd81cc4451fa2fa7",
+        "meta.json": "27f8392192e21fbdb25bfcc66fcb63ed635a57739f510f28d99585068ef8c220"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "44f8039561821f7521c195bbd19842d219a71230228856660ceb805a9daa1ec9",
+        "actions.json": "650a2e464cc968cce5ac9dfcfac54eacfe1163b0cb7d289b9c828d3b94e84b61",
+        "assertions.json": "e4e6ad76df40eefb7394864d47c21d0364012ce6abf6280a053161bf5778a818",
+        "expected_final_gamestate.txt": "75f1e6f88c7baa231ac5f511db9fb10d9e5cd3e5ed39d256bd81cc4451fa2fa7",
+        "meta.json": "27f8392192e21fbdb25bfcc66fcb63ed635a57739f510f28d99585068ef8c220"
+      },
+      "actions": 37,
+      "native_assertions": 3572,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "original_physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 211,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          8,
+          9
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "retained_objects": [
+        {
+          "CardID": "shiver",
+          "Status": 2,
+          "Owner": 1,
+          "Controller": 1,
+          "Damage": 0,
+          "UniqueID": 5,
+          "TurnEffects": [],
+          "Counters": {
+            "ELE_USE_TURN": 2,
+            "ELE_USES_0": 1,
+            "ARC_USED_0": 2
+          }
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual Bow5Instant1 keepsAP1 pending, Blue6pitch3 pays1R2/AP1/nativeoncecounters. First3source responses keepArrow7Hand andcaptured source5 ability; fourth6 opensliveoptionalHand7chooser. Answer7 movesSAME7faceupArsenal whilecaptured source5 abilityretained; Power0answer8adds+1 andfinalizes ability/noGAorAPrefund. ActualArrow7cost1fromR2leavesR1AP0, ownBow5retained; freshfour putsbase3+1=4/noGA ontoChain. TwoactualNimblism8,9DEF2 fullyblock4/nohit/allHP20. Damage/ResolutionnoAPrefund; fullcloseGY1{7}/GY4{8,9}/Pitch6/Bow5readyactualoncecounters/alloriginalUID1..9conserved/ability cleared.",
+      "qualification": "One selected branch per standalone. No alternate/declinedchoices, expiry/enforcement/hero/supportprimary/fullcard/control credit.",
+      "final_allocation_counter": 10,
+      "intermediate_virtual_uid_not_pinned": true,
+      "all_ability_layers_cleared": true
+    },
+    {
+      "slug": "card-glacial-horns-four-live-sparse-real-destroy-action-chooses-nonadjacent-hero-freezes-owned-arsenal-and-ally",
+      "card_id": "glacial_horns",
+      "group_id": "identity:glacial_horns",
+      "fixture_sha256": "40a62cc8d58feef7f307151fe334a810b02309f819d0242801484e2da0149505",
+      "behavior_sha256": "40a62cc8d58feef7f307151fe334a810b02309f819d0242801484e2da0149505",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0189f5662f377ee28e74f9baf102027fcb9f3cc1aef3c7e47f436ba18fc8d51f",
+        "actions.json": "2503594f2ab349daea3ea9a0534dc602120ef485c847c656e7472bfdd09f7dbe",
+        "assertions.json": "3159c0b165a65b1cdb746f79e4f3a7334869f5fdbbe58d427b62a4b93d92cc71",
+        "expected_final_gamestate.txt": "068996af2242e822163e2d41fb22485869d2e2f4621071352e73c696b6a20bac",
+        "meta.json": "e39c81b0a263736cd89665db9ce95a350413ec31e4f222d033569110ed70ca86"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0189f5662f377ee28e74f9baf102027fcb9f3cc1aef3c7e47f436ba18fc8d51f",
+        "actions.json": "2503594f2ab349daea3ea9a0534dc602120ef485c847c656e7472bfdd09f7dbe",
+        "assertions.json": "3159c0b165a65b1cdb746f79e4f3a7334869f5fdbbe58d427b62a4b93d92cc71",
+        "expected_final_gamestate.txt": "068996af2242e822163e2d41fb22485869d2e2f4621071352e73c696b6a20bac",
+        "meta.json": "e39c81b0a263736cd89665db9ce95a350413ec31e4f222d033569110ed70ca86"
+      },
+      "actions": 8,
+      "native_assertions": 858,
+      "actual_manual_pass_inputs": 4,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "priority_pass_inputs": 4,
+      "defending_declaration_finish_inputs": 0,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "original_physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 203,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "retained_objects": {
+        "Arsenal": [
+          {
+            "CardID": "wounding_blow_red",
+            "UniqueID": 6,
+            "FaceDown": 1,
+            "TurnEffects": [],
+            "Counters": {
+              "UPR_FROZEN_BY": 1
+            },
+            "Owner": 3,
+            "Controller": 3
+          }
+        ],
+        "Ally": [
+          {
+            "CardID": "swabbie_yellow",
+            "Status": 2,
+            "Owner": 3,
+            "Controller": 3,
+            "Damage": 0,
+            "UniqueID": 7,
+            "TurnEffects": [],
+            "Counters": {
+              "UPR_FROZEN_BY": 1
+            }
+          }
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualIceHead5Action0spendsAP1/destroysSAME5ownGYbeforefreshfour. Sourcecaptured source5 abilityheldthroughfirst3/fourthopensallHerochoice; actualnonadjacentP3answer6selectslegalyoungGravy/ownedpriorArsenal6Swabbie7. OptionalArsenalanswer7freezesSAME6by1/FD1/ownercontroller3/zoneunchanged whileAllyunfrozen. FinaloptionalAllyanswer8freezesSAME7by1/readyDamage0/ownercontroller3/zoneunchanged, onlythencaptured source5 abilityceases+ownGAAP1. FullownedUID1..7conserved/GY1{5}/allHP20/R0AP1/queuesmanagerawaitclean. Noactualexpiry/blockedclick/Allyactivation/death/WateryGrave credit.",
+      "qualification": "One selected branch per standalone. No alternate/declinedchoices, expiry/enforcement/hero/supportprimary/fullcard/control credit.",
+      "final_allocation_counter": 8,
+      "intermediate_virtual_uid_not_pinned": true,
+      "all_ability_layers_cleared": true
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch370-independent-source-review.json",
+    "sha256": "ee2a6a76ed0f59a68d537ffa971e515208e5b777ca76f55e4247c182a0f5ef58",
+    "manifest_sha256": "ff027c87594b4dadd41fbc6785af2f23e1e402bda917c319a093db29ec76bb50"
+  },
+  "source_guards_verified": 21,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch370-20261103T204757Z-6aea487da8ef6.json",
+    "sha256": "6fb5d48e78f9524afbd1436e88e2d69b2586a58394e07f96433b86f479f20e67"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch370.recording-results.json",
+    "sha256": "69952f9231a6604ef45558b9541b5dfc0aa087f96bf16d857a96fa98229cbe16"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch370-native-bc14-r1\\receipt.json",
+    "sha256": "27ef29f34270a531113877c8df2007e7706c07a6611e63a01913bc999c462e04",
+    "stdout_sha256": "ca89f15ccad2094fb7931d88339c33fac293d5aa194043851019891402640aa2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+    "runtime_after": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56"
+  },
+  "method": "Exact all45actualinputs/4430persistedassertions compared with independently approved immutable input. Completeinitial/finalsparsed/allterminaloracleschecked; source/lifetime/payment/choice/owners/zones/counters/economy endpoints independently inspected. No authorbuilder or game execution.",
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes initial/actions/assertions/expected_final; individual raw5 hashes separately bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Root replay receipts separate; no PHP/native/replay/R/source/generated/service/fullsuite by reviewer.",
+    "NoShiverDominate/no-load/second-useenforcement/expiry/Arrowhit orHornsdeclines/expiry/blockedclick/Allyattack/death/WateryGrave/hero/supportprimary/fullcard/control credit.",
+    "No old fixture requalification/retagging or unrelated source/issue claims.",
+    "Intermediate virtual UID is intentionally unpinned; actual layer lifetime binds CardID/Controller/SourceUniqueID5 plus Stack count. Final allocation counters10/8 and emptyStack are checked separately; no extra intermediate rawUID witness invented."
+  ]
+}

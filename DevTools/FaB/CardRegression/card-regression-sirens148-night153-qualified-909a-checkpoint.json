@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T20:19:23.214090+00:00",
+  "runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+  "source_spec": "card-regression-repair-sirens148-night153-after-targetless-ar.json",
+  "source_spec_sha256": "4a176a118f11955f6625ed2e34fb764b21b7ee77c7d7b0d1bafa20ddb46cd403",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 66,
+  "native_assertions": 5045,
+  "manual_passes": 58,
+  "totals": {
+    "saved_registered_scenarios": 4120,
+    "duels": 3074,
+    "four_live": 1046,
+    "recorded_primary_ids": 1273,
+    "identity_denominator": 5196,
+    "recorded_groups": 1147,
+    "group_denominator": 3324,
+    "four_live_groups": 1039,
+    "phase_qualified_scenarios_at_actual_contexts": 757,
+    "phase_qualified_unique_groups": 752,
+    "creation_replay_passes": 1498,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "sirens_call_red",
+      "group_id": "identity:sirens_call_red",
+      "scenario_id": "card-sirens-call-red-four-live-real-blue-hand-defender-draw-and-one-damage",
+      "effect_branches": [
+        "sirens-call-red-four-live-real-blue-hand-defender-draw-and-one-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sirens-call-red-four-live-real-blue-hand-defender-draw-and-one-damage",
+      "source_spec": "card-regression-repair-sirens148-night153-after-targetless-ar.json",
+      "source_spec_sha256": "4a176a118f11955f6625ed2e34fb764b21b7ee77c7d7b0d1bafa20ddb46cd403",
+      "review_evidence": "review-evidence/sirens148-night153-qualified-saved-909a.json",
+      "review_evidence_sha256": "a0a8c381c7f6ff8cdcb8abacc1c75313fff006ae595744930b73a5aa5e0edd29",
+      "recorded_runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "qualification_runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-sirens148-night153-replay.json",
+          "sha256": "790763a4eadf8d0c9cadc89ed972cbc750ba3fe3588a3b8ee602ab1a8fa882ba",
+          "runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "nights_embrace_blue",
+      "group_id": "identity:nights_embrace_blue",
+      "scenario_id": "card-nights-embrace-blue-four-live-original-correct-stealth-plus-one-physical-damage-diagnostic",
+      "effect_branches": [
+        "nights-embrace-blue-four-live-original-correct-stealth-plus-one-physical-damage-diagnostic"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-nights-embrace-blue-four-live-original-correct-stealth-plus-one-physical-damage-diagnostic",
+      "source_spec": "card-regression-repair-sirens148-night153-after-targetless-ar.json",
+      "source_spec_sha256": "4a176a118f11955f6625ed2e34fb764b21b7ee77c7d7b0d1bafa20ddb46cd403",
+      "review_evidence": "review-evidence/sirens148-night153-qualified-saved-909a.json",
+      "review_evidence_sha256": "a0a8c381c7f6ff8cdcb8abacc1c75313fff006ae595744930b73a5aa5e0edd29",
+      "recorded_runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "qualification_runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-sirens148-night153-replay.json",
+          "sha256": "790763a4eadf8d0c9cadc89ed972cbc750ba3fe3588a3b8ee602ab1a8fa882ba",
+          "runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,146 @@
+{
+  "status": "INDEPENDENT_APPROVED_TWO_SOURCE_ONLY_UNATTEMPTED_POSITIVE_REVEAL_LIFETIME_AND_ATTACK_PAY3_WHEN_NOTES",
+  "phase": "PLANNING",
+  "batch": 860,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch860-two-required-contract-notes-manifest.json",
+    "sha256": "1e8c7954792ad7f55237edb912180be0789f2a7ca14ab143196d74c82cca76f0"
+  },
+  "manifest_sha256": "1e8c7954792ad7f55237edb912180be0789f2a7ca14ab143196d74c82cca76f0",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch860-firm-reservation.json",
+    "sha256": "f6ec1b022609586675d6ec4fb3c038eeaff4de7dff17bed5ddf1212cc4a285cb"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 16,
+  "all_current_source_guards_matched": true,
+  "all_retained_contract_proof_hashes_matched": true,
+  "holds": [
+    {
+      "card_id": "arcanic_reproach_blue",
+      "group_id": "identity:arcanic_reproach_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN094_RESOLVING_ABILITY_PRECLEAR_BEFORE_AWAIT_NOT_MISSING_DAMAGE_PRODUCER",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch860-reproach-required094-positive-reveal-layer-unattempted-note.json",
+        "sha256": "a8148696f9997a2addcfa91bebfe501a3db9979af6bf2f4ea4745a9c94ab7bee"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 283,
+          "card_id": "who_blinks_first_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse833-sea-legs-source-and-who-blinks-unattempted-a11.json",
+            "sha256": "2e53bc9ad841d21a9365419e522f93bd1eab36e82af0f3ffad9863726f4953f9"
+          }
+        },
+        {
+          "human_row": 297,
+          "card_id": "up_on_a_pedestal_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse843-two-known-required-contract-planning-cdc.json",
+            "sha256": "7a66acd83c7dfeaec7a112ad1499b2ad1df17c8bcc92a9e3addc37a021f923a8"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "punch_above_your_weight_blue",
+      "group_id": "pitch-cycle:punch_above_your_weight",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN269_282_ATTACK_WHEN_BEFORE_OPTIONAL_PAY3_CHOICE",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch860-punch-required269-onattack-pay3-unattempted-note.json",
+        "sha256": "d93c66e577ce376adbeca68b7611f36c950a0d98578492f4a2dd47eb9927dd0d"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 269,
+          "card_id": "chest_puff_red",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse822-chest-pay-one-attack-when-unattempted-429a.json",
+            "sha256": "e062e6f972ce57974eab8964aa721e303526832fb6950446270d7d12f8aaa8a7"
+          }
+        },
+        {
+          "human_row": 282,
+          "card_id": "look_tuff_red",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse832-phantom-source-and-look-tuff-unattempted-a11.json",
+            "sha256": "ff74a845f11dcb18ff224ff1e2dfd1271a54e8632ade9044e16e8d4748dfd5f7"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Reproach has a real proper earned damage producer: GL1999 calls OMNDamaged140..143 on positive damage; first opposingHero4 damage to controller1 queues actual Aura5/controller1/source5 ROS KindABILITY with original source hero4 captured as rosTarget. The Aura and canonical counterdamage body exist. No missing capture/ordinaryHit/184 inline-token producer or new Native failure is alleged.",
+    "Its required positive Lightning reveal reaches canonical ResolveAbility MZMultiChoose0..1. Current managed predicate GL1592..1599 cannot admit this ROS Arena ABILITY: MON401 requires KindTRIGGER/CombatChain/monArcanicTrigger; ARC management explicitly excludes rosTrigger. Thus GL1728 passes through,1730 removes the earned ability before1731 calls ROSCards62 and the actual awaited body. Exact retained094/WhoBlinks283/Pedestal297 resolving-layer lifetime contract applies. This is not a blanket namesake Arcanic family or a latent unentered barrier branch.",
+    "Full future Reproach keeps legal Young Aurora20/EssenceLightning with unentered activatedHeroability, real no-text Lightning HeavensClawsHand1, native P4 WoundingRed4 damageHP1=16, earned Aura layer/four responses, positive reveal of SAME physical card retained in Hand, then actual1 arcane to that originalHero4HP19/full physical-combat cleanup. CardChoices186..197 publishes native RevealCard through shared Events without replacing parameters; any exposed public witness remains an explicit future obligation, not an observed certificate. Own beginningAction destroy-an-Aura upkeep is not entered; no quiet skipped entered branch. All full effects remain unrun.",
+    "Punch Blue printed0/base2 When-attacks pay3/+3 has implemented SUP AttackDeclared real Pay_resources Modal/pitch loop. Ordinary GL1233 directly invokes it before a separate earned own-AttackWHEN response layer. This exact required optional resolving-payment contract is retained Chest269/LookTuff282; it is not an additional play cost, formal target or missing body. Real Blue3 from initialR0 makes the positive branch required and affordable.",
+    "Full future Punch retains cost0/AP1to0/actual hero4 attack, fresh earned four responses before optional Pay3 choice and real Blue pitchR3to0 while resolving ability/source remains, then printed+3 produces actualbase2to5/5damageHP15, physical primaryGY/Pitch/economy/StackDQ cleanup. Current paid canonical WTR_POWER:5 differs from printed+3; that later quantity concern is SOURCE_ONLY_UNCONFIRMED behind the earlier required269/282 contract, with no quantity-only probe, changed oracle, new Native issue/root or coverage credit.",
+    "Both frozen notes, all16 current selected source guards, selected printed primary/support metadata and exact canonical rows, four retained proof hashes and unchanged CDC runtime independently matched. This approves note retention only, with zero executable cases, Native/save/source execution approval, new defect or coverage."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_recent_independent_primary_trigger_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-and-abilities/",
+      "sections": [
+        "5.3.4",
+        "5.3.7"
+      ],
+      "reuses_established_independent_resolving_layer_lifetime_contract": true
+    }
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "arcanic_reproach_blue",
+      "action": "Execute full positive Lightning reveal and original-source counterarcane route",
+      "reason": "Required generic ROS resolving-layer lifetime094/283/297",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "punch_above_your_weight_blue",
+      "action": "Execute full positive earned Pay3 and actual5damage route",
+      "reason": "Required ordinary own-AttackDeclared earned-layer timing269/282",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Planning-note accuracy/retention only; both complete positive routes remain unrun and primary/support/siblings/fullcard uncredited.",
+    "Later Punch quantity concern is Source-only; Reproach proper producer/public reveal implementation existence is not actual reveal/counterdamage validation.",
+    "No Native/PHP/R writes/sourcefix/repair retry/fullsuite/Git/remote/deferredRadiant or denied188/184/B787 action. No B861 work."
+  ],
+  "created_utc": "2026-11-16T10:13:52.376451+00:00"
+}

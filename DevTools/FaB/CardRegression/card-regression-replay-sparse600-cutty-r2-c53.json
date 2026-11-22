@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch600.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T11:08:28.439127+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cutty-shark-quick-clip-yellow-four-live-real-paid-ally-buff-and-four-damage-consumer",
+      "fixture_sha256": "043c1d0b41793e3455142ada419d84d6116bd589710dc29e8ce36337577fcb6a",
+      "passed": true,
+      "result": "[PASS] cutty_shark_quick_clip_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cutty-shark-quick-clip-yellow-four-live-real-paid-ally-buff-and-four-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] cutty_shark_quick_clip_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-shelly-hardened-traveler-yellow-four-live-real-tap-next-attack-action-defense-and-three-damage"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

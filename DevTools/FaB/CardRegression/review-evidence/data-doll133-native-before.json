@@ -1,0 +1,150 @@
+{
+  "id": "FAB-REG-133",
+  "status": "CONFIRMED_NATIVE_DATA_DOLL_PREMATURE_ITEM_ENTRY_CAUSES_UNEARNED_SAME_BOOST_RESOURCE_NO_FIX",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-data-doll133-independent-native-before-classification.json",
+  "independent_review_sha256": "2d2c0c141e2e1472ac9c8a6f1b18e25f8774b1f6e08df3ef7b2d8e3e361e925a",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch491.json",
+  "input_sha256": "7ee837053838b087f313bae90cf0772454ffd56060f8c098b6048156c41fe0a5",
+  "scenario_id": "card-data-doll-mkii-four-live-correct-deck-boost-item-earns-responseable-hero-trigger-then-owned-entry-and-six-damage",
+  "first_failure": {
+    "error": "Expected p1Resources to equal 1, got 2.",
+    "native_input_ordinal": 4,
+    "source_step_index": 8,
+    "checkpoint": "actual_Blue6pitchTHREE_paysfixedTWO_AP1_THEN_BoostbanishesSAME7_publicBanish_Deck0_R1AP0_THEN_earnedDataDollHeroABIcaptured1_above5ATTACK_ArenaZERO_not_inlineentry",
+    "actor": 1,
+    "action": "realGenericBlue6pitchinputafterThrottleP4targetandBoostaccept0",
+    "check_in_boundary_1_based": 5,
+    "global_assertion_ordinal_1_based": 328,
+    "assertions_passed_before_failure": 327,
+    "prior_complete_checkpoint_assertions": 323,
+    "same_boundary_checks_passed_before_failure": 4,
+    "failed_check": {
+      "type": "scalar_zone_equals",
+      "zone": "p1Resources",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "expected_p1Resources": 1,
+    "actual_p1Resources": 2,
+    "no_fixture": true
+  },
+  "actual_native_prefix": {
+    "attempted_and_recorded_inputs": 4,
+    "exact_match_to_authored_prefix": true,
+    "manual_passes": 0,
+    "nonpass_inputs": 4,
+    "planned_selected_full_inputs": 33,
+    "planned_selected_full_assertions": 2816,
+    "planned_selected_full_manual": 29,
+    "last_complete_input": 3,
+    "last_complete_checkpoint": {
+      "native_input_count": 3,
+      "source_step_index": 6,
+      "checkpoint": "actual_modal_indexZERO_acceptsBoost_fixedTWO_assets_stillunpaid_Deck7NOTbanished_R0AP1",
+      "normalized_checks": 73,
+      "cumulative_passed": 323
+    },
+    "actual_material_route": "Lastcomplete3provesHeroDataDoll1ready/legal20, physicalThrottle5StackATTACK/printedcost2pending/AP1R0, realBlue6Hand andRedHyperDriver7Deckretained, noArena/Banishseed. ActualfourthinputisBlue6pitch; currentrawMST_BLUE_PITCHED/ARC_BOOSTED1/primary5boostedtrue/banished7penBoostTurn2/pendingPaymentNonecorroboratecompletedasset+Boostpath. Sourceassets-before-banishorderiscodecorroborated, notextraunrecordedsubsteptrace.",
+    "current_direct_passed_facts": "OnlysameboundaryPriority1/ConsecutivePasses0/combatOpenFalse/P1HP20passedbeforeResourcefailure. NativequerydirectlyobservedP1R2vsnormativeR1. SubsequentP1AP0/Stack2/HeroABIproperties/Banish7/ItemSteam3/otherHPqueriesUNREACHED.",
+    "observed_state_selected": {
+      "window": "PRIORITY",
+      "combatStep": "NONE",
+      "combatOpen": false,
+      "chainLink": 0,
+      "attackUID": 0,
+      "pendingPayment": null,
+      "damageDealt": 0,
+      "attackHit": false,
+      "cardsPlayedThisTurn": {
+        "1": [
+          "throttle_red"
+        ]
+      }
+    },
+    "observed_cached_Boost_facts": {
+      "primary5_boosted": true,
+      "item7_penBoostTurn": 2,
+      "ARC_BOOSTED": [
+        {
+          "type": "ARC_BOOSTED",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "physical_observation_limits": "No fullpostfailurephysicalgamestatedump. NoactualHeroLayerStackcount/ItemArenaUID/Steam2or3/Banishlocation/physicalBlue6PitchprovenbyqueriesafterearlyResourcefailure. Inlineentry/newDrivercallbackaresource-corroboratedcausalexplanation, notinventedobservedphysicalobjects. EmptyrawdecisionqueuesdoNOTproveStackempty/nolayer."
+  },
+  "classification": {
+    "kind": "GAMEPLAY_PREMATURE_WHEN_ITEM_ENTRY_AND_RETROACTIVE_BOOST_RESOURCE_EFFECT",
+    "oracle_or_protocol_error": false,
+    "reason": "NormativeBlue3minusfixedcost2leavesR1/APpaid. DataDollWHENmustresolveasaseparatelayerbeforeItem7enters; newHyperDriverwasnotfunctionalattheBoosteventandmustnotretroactivelytrigger/gainresource. NativefirstobservationisR2, anextra1beforeanymanualpriorityresponse. Actualselectedsourceorderexplainsit: inlineDeckBanish\u2192Arena thencurrentArenaDriverloopadds1. Thisconfirmsearlyeconomywrongbehavior, whilethelaterStack/lifetime/steamoraclesremainunrun.",
+    "source_cause_scope": "ExactCRUAfterMove64..65inlineItementryplusARCApplyBoostConsequences363..364currentArenaDrivercallback, afterfixedpayment. Not a totalabsence claim, notdirectnativeproofofmissingHeroStacklayerorSteamcountervalue.",
+    "issue_allocation": "Parent reserved133; reviewer allocatesnoissue/globalroot/Corecount",
+    "related_scope": "No newvariant/replay/sourcefixorheldoperationintegration; sourceobserver/callbacktimingfailure distinctfromplainspellawaitlifetime132."
+  },
+  "expected": "Blue3 pays fixed2 leaving R1. The Item enters only after Data Doll Hero WHEN resolves; it cannot retroactively grant a resource for the Boost that banished it.",
+  "observed": "Four nonpass inputs/zero manual responses executed.327 checks passed then resources1 expected but actual2. At this boundary only priority1/pass0/noCombat/P1HP20 preceded the failed resource query. AP0, Stack/Hero-source tuples, Item location/steam, response rounds, damage and cleanup assertions were unrun. Selected inline entry plus current-Arena Driver callback is a source-derived cause.",
+  "source_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-data-doll133-native-before-independent-preserved\\source-evidence.json",
+    "sha256": "81c70694f93a4f0c404adfa12d436b4d900e20e2f8b773ce837c88100d837bda",
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    }
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch491.recording-results.json",
+      "sha256": "4a085d8a7ecc390b8ddbf401723b4a64c4c97deea7ce2543e42946aa8e51104f"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch491-20261105T172000Z-6aecbac018f78.json",
+      "sha256": "5fccbf79e3043373851dc055f7d7c8658a4363016f27e7a30fb9ac7a9d3697b0"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch491-independent-source-review.json",
+    "sha256": "43976635f57290625ddd944c60004ffec166c09ac138e23d230bde2bb628f842"
+  },
+  "primary_sources": [
+    {
+      "url": "https://fabtcg.com/articles/crucible-war-release-notes/",
+      "role": "SelectedDataDollprintedWhenevereligibleMechanologistItemDeck\u2192BanishthenputArena; currentlocalCRU099face/catalogmatch."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/375/",
+      "role": "SelectedREDHyperDrivercost1/enters3Steam/onceWHENyouBoostremoveSteam+gain1."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "role": "CR6.6.5aeffectmustexistduringtriggeringevent/no retroactivetrigger;6.6.5/6.6.6layerbeforepriority."
+    }
+  ],
+  "limits": [
+    "Only4inputs/327successfulchecks+failed328; original33/2816/29manualstrictR1/WHENmodelunchanged.",
+    "AllfreshHeroWHENresponses/ItemBanishretention/ownedArenaSteam3/noRetroSteamloss/underlyingAAfreshresponses/6damageHP14/GArefund/fullcleanupUNRUN. Do not claimactualHeroLayerStackcountfromunreachedchecks.",
+    "CurrentP1AP0source-supportedbutnativeAPqueryafterResourceunrun; no inventedcurrentphysicalPitch/Item/counterobservations.",
+    "NasrethadjacentunattemptedholdandallotherItem/sibling/support/fullcardbranchesuncredited. No fixture/coverage/newglobalCorecount/PHP/native/replay/R/sourcefix/gen/service/fullsuite/deniedretrybyreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T17:27:26.030267+00:00"
+}

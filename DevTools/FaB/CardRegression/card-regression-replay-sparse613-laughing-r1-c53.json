@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch613.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T14:23:38.202622+00:00",
+  "fixtures": [
+    {
+      "slug": "card-laughing-knee-slappers-four-live-real-controlled-might-and-vigor-defense-and-blade-break",
+      "fixture_sha256": "e5ead375ff7db64e51781318818aebe4f0797fa623311bf4c16c5cdb671ed668",
+      "passed": true,
+      "result": "[PASS] laughing_knee_slappers / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-laughing-knee-slappers-four-live-real-controlled-might-and-vigor-defense-and-blade-break",
+      "returncode": 0,
+      "stdout": "[PASS] laughing_knee_slappers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

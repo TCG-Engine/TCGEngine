@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch259-halo-correct-probe.json",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T22:04:58.914795+00:00",
+  "fixtures": [
+    {
+      "slug": "card-halo-of-illumination-four-live-correct-rule-earned-floating-resource-soul-choice-only-on-resolution-probe",
+      "fixture_sha256": "f1c71fb761c1886d8ea8fb07e842bbfbc66c299533f408ba5645a484d2c72a6b",
+      "passed": true,
+      "result": "[PASS] halo_of_illumination / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-halo-of-illumination-four-live-correct-rule-earned-floating-resource-soul-choice-only-on-resolution-probe",
+      "returncode": 0,
+      "stdout": "[PASS] halo_of_illumination / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

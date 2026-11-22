@@ -1,0 +1,228 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B791_HELM",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T20:27:14.747479+00:00",
+  "source_spec": "card-regression-batch791-dark_arcanite_helm.json",
+  "input_sha256": "af2514202fee531aa0eb27ab3759a29c2b8afae1696490ae3f434612fc6be675",
+  "manifest_sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-helm-independent-correct-positive-source-review.json",
+    "sha256": "abb6bb9289a3dc3e2b85e5edbfe33e4307be84c40879109dccec395e255c89a9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b791-helm-native-correct-shadow-controller-resist\\receipt.json",
+    "sha256": "eedc35afb25add0e89570ff76d24f20e68b9078d606ff49dd5efb2308b449bfe"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch791-dark_arcanite_helm-20261114T202421Z-6af8c375c3d32.json",
+    "sha256": "04d1dfdc978858d2dc2595a684f705dc471a280340679cba1eb4cf2348da30a3"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch791-dark_arcanite_helm.recording-results.json",
+    "sha256": "7518c2ff9857425b616bdc03f5b85381fdae76c45fca572e21176112231ad074"
+  },
+  "fixtures": [
+    {
+      "slug": "card-dark-arcanite-helm-generic-source-shadow-controller-resist",
+      "card_id": "dark_arcanite_helm",
+      "group_id": "identity:dark_arcanite_helm",
+      "source_spec": "card-regression-batch791-dark_arcanite_helm.json",
+      "input_sha256": "af2514202fee531aa0eb27ab3759a29c2b8afae1696490ae3f434612fc6be675",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-dark-arcanite-helm-generic-source-shadow-controller-resist",
+      "fixture_sha256": "ccbb2525b07e40f7b8bb234a3bd37f654cfb76ad1b013f6fa3d9e8a8a643f03b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ee91d9b4e629469e39f2ad7e983959e65b957b08eb6ae1396d99177f27ea5310",
+        "actions.json": "988cee8466152b212dcc2de9cb7fbe065f47f4d9d8d40903c78f33a64172e6b7",
+        "assertions.json": "b33b2560587db555cf477e6127f486b56816e5f4536d255f4fe874544d89d0c1",
+        "expected_final_gamestate.txt": "892f6fd85d5d6d02fe78eb17493e60f878de254d918e8c4248eb45eb7ae89ea8",
+        "meta.json": "8783ce200d2704ee7a84ff42ec1bb3e0b114928b3bded0c3a83a4fbfd0b49f92"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ee91d9b4e629469e39f2ad7e983959e65b957b08eb6ae1396d99177f27ea5310",
+        "actions.json": "988cee8466152b212dcc2de9cb7fbe065f47f4d9d8d40903c78f33a64172e6b7",
+        "assertions.json": "b33b2560587db555cf477e6127f486b56816e5f4536d255f4fe874544d89d0c1",
+        "expected_final_gamestate.txt": "892f6fd85d5d6d02fe78eb17493e60f878de254d918e8c4248eb45eb7ae89ea8",
+        "meta.json": "8783ce200d2704ee7a84ff42ec1bb3e0b114928b3bded0c3a83a4fbfd0b49f92"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ee91d9b4e629469e39f2ad7e983959e65b957b08eb6ae1396d99177f27ea5310",
+        "actions.json": "988cee8466152b212dcc2de9cb7fbe065f47f4d9d8d40903c78f33a64172e6b7",
+        "assertions.json": "b33b2560587db555cf477e6127f486b56816e5f4536d255f4fe874544d89d0c1",
+        "expected_final_gamestate.txt": "892f6fd85d5d6d02fe78eb17493e60f878de254d918e8c4248eb45eb7ae89ea8"
+      },
+      "actions": 28,
+      "native_assertions": 1926,
+      "manual_passes": 25,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 558,
+      "checkpoint_count": 30,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 126,
+        "28": 178
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "dark_arcanite_helm",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "dark_arcanite_helm",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "10add2170cdfad1142e0db17d4cc55651f1473f53ca841beed4e746884d135fb",
+      "native_assertion_mapping_sha256": "3fd8090599dad9f5efce5a92686ff94b58048ded2a80441247d584afdb598b67",
+      "checkpoint_assertion_mapping_sha256": "53dbb5d0734d992e7d42265d27782a588f439680c78599c878952305a6ecdd0f",
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 12,
+  "all_current_guards_matched": true,
+  "total_actions": 28,
+  "total_native_assertions": 1926,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 558,
+  "total_checkpoints": 30,
+  "total_endpoint_assertions_evaluated": 304,
+  "material_findings": [
+    "Actual GenericBlue5 is controlled by Shadow youngLevia, remains real2/noGA. Optional native MZMULTICHOOSE0..1 offers ownHelm6; real selection destroys same6\u00e2\u2020\u2019GY4/prevents1, actual1 damage yieldsHP4_19. SameBlue5GY1/AP0 and full cleanup.",
+    "Every actual native envelope/manual actor and ordered successful query matches frozen Source. Actual raw endpoints independently verify48 manual booleans EACH, no initial outcome/effect/count/prevention seed, all original physical identities/ownership and terminal Stack/chain/queues/targets/payment/manager/await cleanup.",
+    "Shared prevention transport is an existing native damage choice, not a newly earned layer or seeded Forcefield producer. Intermediate facts are direct successful query evidence; raw5 contains initial/final snapshots only."
+  ],
+  "limits": [
+    "One exact bounded equipment positive only; no BladeBreak defense, token creator/producer, Hero ability, suppression/elimination/copy/stale/decline/nonShadow/other-damage/full-card certificate.",
+    "Root targeted replays/registration remain separate. Reviewer executed no PHP/native/game/replay/full-suite or R/source/Git/remote mutations/further agents. B787 denied operation remains frozen."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch791_helm_saved.py",
+    "sha256": "7a9af62f1a1a7e648cc3a6cb1f51035ba68f9fd2cafe359cc7812dfc250d24b7"
+  }
+}

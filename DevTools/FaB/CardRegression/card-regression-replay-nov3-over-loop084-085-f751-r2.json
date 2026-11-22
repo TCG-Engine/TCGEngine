@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch373-over-loop-v2.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T23:14:19.506949+00:00",
+  "fixtures": [
+    {
+      "slug": "card-over-loop-red-four-live-current-when-hit-correct-probe-responseable-source-before-bottom",
+      "fixture_sha256": "53398fdfa52d9f69393266cb61fbd707ec0f16e06f6be866543dd8dbbe6951a0",
+      "passed": true,
+      "result": "[PASS] over_loop_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-over-loop-red-four-live-current-when-hit-correct-probe-responseable-source-before-bottom",
+      "returncode": 0,
+      "stdout": "[PASS] over_loop_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

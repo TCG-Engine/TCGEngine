@@ -1,0 +1,95 @@
+{
+  "status": "INDEPENDENT_APPROVED_SIGIL_FYENDAL_SOURCE_ONLY_SHARED_ROS_BEGIN_ACTION194_CONTRACT_NOTE",
+  "phase": "PLANNING",
+  "batch": 864,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-sigil-fyendal-required-ros-note-manifest.json",
+    "sha256": "1347bd8455beccacbdf0565ef6a5ae30034cf29e13b28b02ee20a2027c5da4ea"
+  },
+  "manifest_sha256": "1347bd8455beccacbdf0565ef6a5ae30034cf29e13b28b02ee20a2027c5da4ea",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-firm-reservation.json",
+    "sha256": "c1f4be6511118f01a85569e14568b672e61a296261475acb1cfceb5a793b6929"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-firm-reservation-support-admission.json",
+    "sha256": "06375d0a4b5113bec73879bf6e6b0a8a51371fdc106a7544817c9c801a1c8ae0"
+  },
+  "prior_hold_row_clarification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-firm-reservation-support-admission-prior-row-clarification.json",
+    "sha256": "23eb3d0f32bc3a3aaba1ce457f962d057af62ccf9fb0d0b558ee5113b095dbb2"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 13,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "sigil_of_fyendal_blue",
+      "group_id": "identity:sigil_of_fyendal_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "EXACT_SAME_NATIVE_ROSStart32_ARRAY_STATEMENT_AS_HARVEST194_AND_TEMPORAL314",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-sigil-fyendal-required-shared-ros194-unattempted-note.json",
+        "sha256": "9b9e3690284f7fec788329edcdbf728699e1fd3a0219b7f343ec8021b0c5b3f3"
+      },
+      "known_required_contracts": [
+        {
+          "issue_id": "FAB-REG-194",
+          "individually_reproduced_card": "harvest_season_blue",
+          "retained_native_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\harvest194-independent-native-before-cdc.json",
+            "sha256": "88a2214cd47e446832ecdce3e94646fb939d4f911c0b9259a66c395258dcd23f"
+          }
+        },
+        {
+          "human_row": 314,
+          "card_id": "sigil_of_temporal_manipulation_blue",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse859-two-required-ros-attack-planning-cdc.json",
+            "sha256": "351a083e9f10dae4043301b73637165f456f827566873235fb8b568e57e47ac9"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Actual Blue Sigil is GenericActionAura0 with printedGoAgain,beginningActiondestroy and distinct When-leaves gain1; legal under fourYoungBetsy20/noWager. CurrentP1HP17 is legitimatepriorinjury and20startinglife is not a maximum cap. PriorAuraActioncasting/GoAgain is uncredited; no Wizard/Lightning/talent assumption or seededNoHeal/effect outcome.",
+    "Exact current ROSRuntime32 in_array explicitly includes SigilFyendal alongside Harvest and Temporal, and SAME FaBMONDestroy statement runs during GL2487 before2490 actual beginningAction dispatcher. Correct printed beginningAction trigger requires pending source/controller layer and four ordinary Actionresponses before destroy. This is exact retained common producer194/Temporal314, not mereSigil/file-family/Tome blanket or printedautomaticStartBlessing.",
+    "Actual ROSCards80 proper Arena-leave producer and canonical ResolveAbility CRUGainLife(player,1) exist downstream. Full future route must be firstP1Action/AP1/Aura5stillArena\u2192firstearnedfour\u2192same5ownerGY1/HP17\u2192SECONDdistinct leaveLKI/source/controllerABI\u2192freshfour\u2192realHP18/fullStackDQphase/economycleanup. No inlineheal,mergedquorum,cast-only/heal-only orautomaticStart fallback is certified. All complete positive Native outcomes remain unrun.",
+    "Root immutable clarification23eb corrects prior humanrow shorthand: Temporal is314, while315 is Gravekeeping. Bind actual Harvest194 retainedNative proof88a221 and Temporal314 planning351a083 refs; this changes no behavior/selectedcard/route and does not individually reproduce Fyendal or allocate a new issue/root.",
+    "Exact frozennote/manifest,13 current guards,actual selected printed metadata/canonical row,both retained evidence hashes and Root prior-row clarification independently matched at inherited unchangedCDC. Planning-note retention only, zero executable/native/save/coverage/sourcefix approval. Reincarnate has a separate strictdiagnostic Source gate and is unaffected."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "sigil_of_fyendal_blue",
+      "action": "Execute full beginningAction destroy plus distinct leave-lifegain route",
+      "reason": "Exact shared ROSStart32 premature beginningAction destruction194/Temporal314",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Fyendal not individually Native-reproduced; full twoquorums/physicalGY/HP17to18 outcomes,otherleavecauses/priorcasting/GoAgain/lifetotals/support/fullcard remain untested.",
+    "No PHP/Native/Rwrites/sourcefix/fullsuite/Git/remote/deferredRadiant or denied188/184/B787 retry."
+  ],
+  "created_utc": "2026-11-16T11:23:04.199722+00:00"
+}

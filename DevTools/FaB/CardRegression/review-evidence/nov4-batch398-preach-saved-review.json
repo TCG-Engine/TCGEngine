@@ -1,0 +1,309 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B398_PREACH_HEALTHY_SUBSET_SURFACE_BLOCKED_UNSAVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T22:57:54.278257+00:00",
+  "source_spec": "card-regression-batch398.json",
+  "input_sha256": "23687d1ee41fdb5f7b4965f874ed9b44e7d60f21761d8085f5ec8415979b4abd",
+  "manifest_sha256": "e3ad389ae037fae1c6123a9ab7960bab06e82b089b2b22587a9a8be06bb9c56b",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 49,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch398-independent-source-review.json",
+    "sha256": "1ccf6c4c0a0af5c37c0f32d41d2a09301f658d2b7829ab46a0610a3fcde47953",
+    "reviewer": "/root/b106_semantic_review",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch398-20261104T225101Z-6aebb6d5e71b6.json",
+    "sha256": "98b5e0668adc2a7c409dce6066c1cb739ea62c427efde8ff40f054363661f466"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b398-native-527c-r1\\receipt.json",
+    "sha256": "e6101f1805c98482e2b21650d3c4924076b7e49e6651612d58ed26e260a96435"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch398_preach_saved_readonly.py",
+    "sha256": "6c5821402fb60cddb2808e758bd6bfc50fd5b126cb300e51528d4b8ee96d81fd"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Reviewer authored neither scenario/source implementation nor native recording; own independent source/rules gate reused.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "preach_modesty_red",
+      "group_id": "identity:preach_modesty_red",
+      "slug": "card-preach-modesty-red-four-live-sparse-real-hero-creation-cost-rejects-chane-and-legal-attack-followthrough",
+      "source_spec": "card-regression-batch398.json",
+      "input_sha256": "23687d1ee41fdb5f7b4965f874ed9b44e7d60f21761d8085f5ec8415979b4abd",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-preach-modesty-red-four-live-sparse-real-hero-creation-cost-rejects-chane-and-legal-attack-followthrough",
+      "fixture_sha256": "f94e89cf363be825dc7f848090f04596109658c26f8cfb5b7aa0006a09b7a067",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ca198bffe790785dc3d67fa430a92b545efb8ac96945b08281f920ef23231e35",
+        "actions.json": "bf72baf493944896a293e60ddc505c2907bdd04ba2d8bafd5e6fa832a17112c2",
+        "assertions.json": "2541dd2d59dc3442223a9cf6ff2811f35a8e7dd7d5ec99d973da02d42a2ea0fa",
+        "expected_final_gamestate.txt": "ddeb7d3dfcc492154da62516fa3b307404422c544b7d61a347deed64b3242b94"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ca198bffe790785dc3d67fa430a92b545efb8ac96945b08281f920ef23231e35",
+        "actions.json": "bf72baf493944896a293e60ddc505c2907bdd04ba2d8bafd5e6fa832a17112c2",
+        "assertions.json": "2541dd2d59dc3442223a9cf6ff2811f35a8e7dd7d5ec99d973da02d42a2ea0fa",
+        "expected_final_gamestate.txt": "ddeb7d3dfcc492154da62516fa3b307404422c544b7d61a347deed64b3242b94",
+        "meta.json": "b2e93edf133562a3f6d332e68eef020fef7c80f7f5533c9486d27f831807d533"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ca198bffe790785dc3d67fa430a92b545efb8ac96945b08281f920ef23231e35",
+        "actions.json": "bf72baf493944896a293e60ddc505c2907bdd04ba2d8bafd5e6fa832a17112c2",
+        "assertions.json": "2541dd2d59dc3442223a9cf6ff2811f35a8e7dd7d5ec99d973da02d42a2ea0fa",
+        "expected_final_gamestate.txt": "ddeb7d3dfcc492154da62516fa3b307404422c544b7d61a347deed64b3242b94",
+        "meta.json": "b2e93edf133562a3f6d332e68eef020fef7c80f7f5533c9486d27f831807d533"
+      },
+      "actions": 28,
+      "native_assertions": 2317,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "initial_full_native_checks_after_HeroClick_identical": 126,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "katsu",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        },
+        "5": {
+          "card_id": "preach_modesty_red",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "katsu",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        },
+        "5": {
+          "card_id": "preach_modesty_red",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_initial_counters": {
+        "5": {
+          "BALANCE": 1
+        }
+      },
+      "actual_final_counters": {
+        "5": {
+          "BALANCE": 1
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_Hero_Counters": [
+        {},
+        {},
+        {},
+        {}
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "ff22fdab7e09241e76c6a23de4f35567b865ff07ea243e396a4155bc15082acb",
+      "native_action_mapping_sha256": "65cad6bfb8d2ceaa9e6235816775ee62a7d93b723cd635bbbdeb913d13bd117c",
+      "native_assertion_mapping_sha256": "bc1caf5e583f821a0656e2f34add706f09e8ee5d08298713ad103af6f99010d3"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "surface_shaking_blue",
+      "group_id": "identity:surface_shaking_blue",
+      "slug": "card-surface-shaking-blue-four-live-correct-probe-real-aura-entry-trigger-before-three-seismic-tokens",
+      "source_spec": "card-regression-batch398.json",
+      "input_sha256": "23687d1ee41fdb5f7b4965f874ed9b44e7d60f21761d8085f5ec8415979b4abd",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "gameplay_discrepancy_confirmed": true,
+      "verdict": "BLOCKED_NATIVE_MISSING_RESPONSEABLE_ENTRY_TRIGGER_NO_FIXTURE",
+      "accepted_native_inputs": 6,
+      "error": "Expected Stack count 1, got 0.",
+      "native_before_classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-surface398-independent-native-before-classification.json",
+        "sha256": "e4ed8db2538917a6a06602ec8d07db755cbc27105643ef0e717104d2c62efcfc"
+      },
+      "source_spec_expectations_remain_correct": true,
+      "limits": "Stack1\u21920 nativeconfirmed; AP1 prefixproven before failure. Physical early3/Aura location are source-derived, not postfailure fullraw. No trigger suffix/fixture/coverage."
+    }
+  ],
+  "total_actions": 28,
+  "total_native_assertions": 2317,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualHero1Chane normalFSM clickaccepted/gameplaynoop: exact126 nativechecked values remain identical, including AP1/R0/HP20/Stack0/queues/UIDcounter6/no turneffects/cardsplayed/hits. Mandatory beforecolon creationcost correctly cannotbe paid under existingPreach; no illegal ABI/once/shackle/GA is earned. No claim of intermediate rawbyte equality beyond passed nativechecks.",
+    "ActualsameWounding6Hand with proper adjacentHero4target, printed0 paid AP1\u21920, real four-seat responses. Freshcomputedpower4/noGA/noBlock, actual4damage/hit\u2192P4HP16. P4Katsu does notcontrol attackingAA, so no Hero hitcondition.",
+    "Fullclosure same6 publicP1GY; priorPreach5 remainsP4Arena readyDamage0/BALANCE1; legalunchanged readyHeroes1..4 and allsix physicalUIDs conserved/no newobject/SoulShackle/virtualproxy. AllRAP0/Chi0/Stack/chain/payment/choice/await clean, RNG0.",
+    "Exactall28 actualenvelopes/2317nativeassertions/25manualinputs (24priority plus P4emptydeclarationfinish), everypersistedcheck and parsedinitial/final endpoints/all48manualsettings perendpoint verified;49sourceguards/current527c unchanged.",
+    "OnlyhealthyPreach row approved. Surface correctstrictprobe separatelyfailed after6inputs and savednothing; existing043 namedentrytriggerextension classification is independentlybound, suffixexpectations preserved."
+  ],
+  "limits": [
+    "Only prior-owned Preach restriction making Chane mandatorycreationcostunpayable plus realordinaryattack followthrough; no Preachentry/upkeep/BALANCEcreation/expiry/suppression/otherHero/effect-bodycreation/fullcard/supportprimary credit. Chane correct rejection is notnewbug.",
+    "Allnativeactions/assertions from specificimmutablearchive and savedfiles; rawinitial/final only. No invented intermediate capture/fullstate/noopbyteequivalence.",
+    "Surface not semanticallyapprovedaspassingfixture, no coverage/nativequalifiedgroup; no assertionsweakened/sourcefixapplied.",
+    "Root new-onlyreplays/registration are separate; not executed or prematurelyclaimed by reviewer. No PHP/native/R/source/service/gen/fullsuite/optional paper-model or denied089retry/reroute."
+  ]
+}

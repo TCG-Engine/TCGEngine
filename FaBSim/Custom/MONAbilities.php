@@ -31,7 +31,7 @@ function FaBMONAbilityLegal(int $p,array $f): bool {
     if(in_array($b,['boltyn','ser_boltyn_breaker_of_dawn'],true)){$a=FaBFindUID(intval($s['attackUID']));if(!$a||FaBAttackPower($s)<=intval(CardPower($a['object']->CardID)))return false;}
     if($b==='aether_ironweave'&&(!count(FaBARCPlayed($p,true))||!count(array_filter(FaBARCPlayed($p),fn($id)=>FaBHasType($id,'Attack')))))return false;
     if($b==='blood_drop_brocade'&&!FaBMONCount($p,'PHYSICAL'))return false;
-    if(in_array($b,['ebon_fold','halo_of_illumination','rally_the_rearguard'],true)){
+    if(in_array($b,['rally_the_rearguard'],true)){
         $cost=$b==='rally_the_rearguard'?0:1;
         if(!array_filter(FaBChoiceRefs($p,'Hand'),fn($r)=>FaBAvailablePitch($p)-FaBMONPitchValue($p,FaBIdentityFromMZ($r)['object']->CardID)>=$cost))return false;
     }
@@ -75,4 +75,67 @@ function FaBMONArenaAttack(int $p,array $f,?array $chosenTarget=null): bool {
     if($spec['aura'])FaBSetObjectCounter($o,'MON_AURA',1);if($spec['iris'])FaBSetObjectCounter($o,'MON_IRIS',1);
     $s=FaBGetState();$s['pendingPayment']=['player'=>$p,'uid'=>intval($o->UniqueID),'weaponUID'=>$uid,'cost'=>$spec['cost'],'fromZone'=>'Arena','kind'=>'ATTACK','isWeaponAttack'=>$spec['aura'],'isArenaAttack'=>true,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];
     $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);return FaBTryCompletePayment();
+}
+
+/** Ebon's printed cost is resource1+destroy; Hand banish is a resolution effect. */
+function FaBMONEbonFinishPreparation(int $player,string $mzID): void {
+    $found=FaBIdentityFromMZ($mzID);$pending=FaBGetState()['pendingPayment']??null;
+    if($found===null||$found['zone']!=='Stack'||!is_array($pending))return;
+    $o=$found['object'];$uid=intval($o->UniqueID??0);
+    if($uid<1||$o->CardID!=='ebon_fold'||($o->Kind??'')!=='ABILITY'
+       ||intval($o->Controller??0)!==$player||intval($o->SourceUniqueID??0)<1
+       ||intval($pending['player']??0)!==$player||intval($pending['uid']??0)!==$uid
+       ||empty($pending['isAbility'])||($pending['kind']??'')!=='ABILITY'
+       ||($o->Params['arcSpec']['timing']??'')!=='INSTANT'||intval($o->Params['arcSpec']['index']??-1)!==0)return;
+    FaBFinishPreparedCard($uid);
+}
+
+/** Existing managed ARC frame owns this unique ABI; physical Equipment may already be gone. */
+function FaBMONEbonResolutionIsCurrent(int $player,int $abilityUID): bool {
+    if($abilityUID<1||!FaBSeatIsLive($player))return false;
+    $pending=FaBGetState()['resolvingReaction']??null;$found=FaBFindUID($abilityUID);
+    if(!is_array($pending)||$found===null||$found['zone']!=='Stack')return false;
+    $o=$found['object'];
+    return ($pending['resolutionClass']??'')==='ARC_ABILITY'&&($pending['kind']??'')==='ABILITY'
+        &&intval($pending['uid']??0)===$abilityUID&&intval($pending['controller']??0)===$player
+        &&($pending['cardID']??'')==='ebon_fold'&&$o->CardID==='ebon_fold'
+        &&($o->Kind??'')==='ABILITY'&&intval($o->Controller??0)===$player
+        &&intval($o->SourceUniqueID??0)>0&&intval($pending['sourceUniqueID']??0)===intval($o->SourceUniqueID)
+        &&($o->Params['arcSpec']['timing']??'')==='INSTANT'&&intval($o->Params['arcSpec']['index']??-1)===0
+        &&FaBManagedAbilityResolutionOwns($o);
+}
+
+/** Snapshot only current post-payment Hand references and scalar identities, once per ABI. */
+function FaBMONEbonResolutionChoices(int $player,int $abilityUID): string {
+    if(!FaBMONEbonResolutionIsCurrent($player,$abilityUID)
+       ||FaBARCCard($abilityUID,'monEbonChoice',null)!==null)return '';
+    $offered=[];
+    foreach(FaBChoiceRefs($player,'Hand') as $ref){
+        $found=FaBIdentityFromMZ($ref);
+        if($found===null||$found['player']!==$player||$found['zone']!=='Hand')continue;
+        $o=$found['object'];$uid=intval($o->UniqueID??0);if($uid<1)continue;
+        $offered[$ref]=['uid'=>$uid,'cardID'=>(string)$o->CardID];
+    }
+    FaBARCSetCard($abilityUID,'monEbonChoice',['controller'=>$player,'phase'=>$offered?'CHOOSING':'COMPLETE','offered'=>$offered]);
+    return implode('&',array_keys($offered));
+}
+
+/** Revalidate after await; consume once before movement and draw only after actual Shadow banish. */
+function FaBMONEbonResolveChoice(int $player,int $abilityUID,string $choice): bool {
+    if(DecisionQueueController::ExecutingSeat()!==$player
+       ||!FaBMONEbonResolutionIsCurrent($player,$abilityUID))return false;
+    $context=FaBARCCard($abilityUID,'monEbonChoice',null);
+    if(!is_array($context)||intval($context['controller']??0)!==$player
+       ||($context['phase']??'')!=='CHOOSING')return false;
+    $offered=$context['offered'][$choice]??null;$found=FaBIdentityFromMZ($choice);
+    if(!is_array($offered)||$found===null||$found['player']!==$player||$found['zone']!=='Hand'
+       ||intval($found['object']->UniqueID??0)!==intval($offered['uid']??0)
+       ||(string)$found['object']->CardID!==(string)($offered['cardID']??''))return false;
+    $shadow=FaBHasType($found['object'],'Shadow');$chosenUID=intval($offered['uid']);
+    FaBARCSetCard($abilityUID,'monEbonChoice',['controller'=>$player,'phase'=>'COMPLETE']);
+    $moved=FaBMoveChoice($player,$choice,'Hand','Banish');$live=FaBFindUID($chosenUID);
+    if($moved===null||intval($moved->UniqueID??0)!==$chosenUID||$live===null
+       ||$live['zone']!=='Banish'||$live['player']!==$player)return false;
+    if($shadow&&FaBSeatIsLive($player))DoDrawCard($player,1);
+    return true;
 }

@@ -1,0 +1,215 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_REINCARNATE_PREMATURE_POST_RANDOM_DISCARD_GRAVEYARD_RETENTION_FAILURE",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 864,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "new_issue": false,
+  "confirmed_required_post_discard_graveyard_retention_failure": true,
+  "confirmed_missing_earned_trigger_layer": false,
+  "confirmed_typed_Native_Deck_destination_or_order": false,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal DYNRandomDiscard167 Reincarnate timing finding; Root may retain/allocate prospective199. Native proves required post-discard GY absence, with early bottom relocation attributed from guarded source. No distinct shared/Core root, actual Deck order, child-layer absence or repair/coverage inferred.",
+  "source_spec": "card-regression-batch864-reincarnate-random-cost-earned-bottom-probe.json",
+  "input_sha256": "b57df95fc4465163fbc25061b98381dce99bc1bcb8b351cc11aa312180e77d32",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-real-random-cost-earned-bottom-deck-strict-probe-author\\reincarnate-real-random-cost-earned-bottom-deck-full-probe.json",
+    "sha256": "b57df95fc4465163fbc25061b98381dce99bc1bcb8b351cc11aa312180e77d32"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-real-random-cost-earned-bottom-deck-strict-probe-author\\manifest.json",
+    "sha256": "4fab02ab46d5a14979a01c2c3ac574ebf852518fc047d715e320db6e58933e60"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-independent-full-diagnostic-source-review.json",
+    "sha256": "ff6b25f16a236f9b630ddf3021dc184163d75e61e4bdee2f813f6c16d2df258f"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b864-reincarnate-strict-native-cdc\\receipt.json",
+    "sha256": "973fc1d87318df0d3dbe5a9e09b299280812009f13e1bc02cfd446d4c28f1632"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b864-reincarnate-strict-native-cdc\\actual-result.json",
+    "sha256": "56f9374df2250e3564d2b1b40720e0cbc8f107ed8cff9dca0985be97f0687be9"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch864-reincarnate-random-cost-earned-bottom-probe-20261116T112225Z-6afae771a7971.json",
+    "sha256": "2ae2389e1a142726bf8e1b695f58858717e8417b290bc4bf0f5dfa02b76f18c4"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch864-reincarnate-random-cost-earned-bottom-probe.recording-results.json",
+    "sha256": "56f9374df2250e3564d2b1b40720e0cbc8f107ed8cff9dca0985be97f0687be9"
+  },
+  "planned_controls": 32,
+  "planned_queries": 3965,
+  "planned_pass_controls": 29,
+  "planned_legal_priority_response_controls": 28,
+  "planned_defense_finalizers": 1,
+  "planned_nonpriority_END_transports": 0,
+  "actual_native_inputs": 3,
+  "actual_native_actor_counts": {
+    "1": 3
+  },
+  "actual_manual_inputs": 0,
+  "actual_manual_actor_counts": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+  },
+  "actual_legal_priority_response_controls": 0,
+  "actual_defense_finalizer_controls": 0,
+  "actual_nonpriority_END_transports": 0,
+  "actual_earned_Reincarnate_response_inputs": 0,
+  "actual_parent_Source_response_inputs": 0,
+  "actual_completed_four_seat_manual_response_cycles": 0,
+  "persisted_successful_queries": 363,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "dc8e94dc6d8aebe23ab0e513da5f1be78561232de6df89db7170bfdde1fc7319",
+  "first_failed_query": {
+    "source_step_index": 6,
+    "source_check_index": 2,
+    "native_after_input": 3,
+    "checkpoint": "realBlue7pitch3paysWrecker2_R1_AP0_thenSOLEHandReinc5_NATIVE_RANDOM_DISCARD_GY5_andEarnedABI_ABOVEparent6_BEFOREDeckBottom",
+    "query_ordinal_in_checkpoint": 3,
+    "global_query_ordinal": 364,
+    "query": {
+      "type": "zone_count",
+      "zone": "p1Graveyard",
+      "value": 1,
+      "viewerPlayerID": 1,
+      "step": 3
+    },
+    "expected": 1,
+    "actual": 0,
+    "error": "Expected p1Graveyard count 1, got 0."
+  },
+  "queries_unrun_after_failed_query": 3601,
+  "not_passed_including_failed_query": 3602,
+  "native_controls_unrun": 29,
+  "declarative_controls_unrun": 29,
+  "manual_inputs_unrun": 29,
+  "unrun_control_breakdown": {
+    "pass_until": 29
+  },
+  "unrun_pass_control_breakdown": {
+    "legal_priority_responses": 28,
+    "defense_finalizers": 1,
+    "END_transports": 0
+  },
+  "passed_current_cluster_queries": [
+    {
+      "type": "scalar_zone_equals",
+      "zone": "p1Resources",
+      "value": 1,
+      "viewerPlayerID": 1,
+      "step": 3
+    },
+    {
+      "type": "scalar_zone_equals",
+      "zone": "p1ActionPoints",
+      "value": 0,
+      "viewerPlayerID": 1,
+      "step": 3
+    }
+  ],
+  "initial_raw_sha256": "75c1fee2574a166d34768b50e145b1bcbed0a6fe6d08b787f867af5ea3e924d3",
+  "initial_raw_48_manual_controls": true,
+  "initial_raw_queries_independently_evaluated": 135,
+  "genuine_four_live_manual_seats_initial": true,
+  "genuine_four_seat_manual_interactions_completed": false,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "Initial135 plus full first and second checkpoints109+117 passed. Captured initial raw independently parses/evaluates all135; fourYoungRhinar/Betsy20 living manualUPF/noBotPassive/all48 settings verified, initialR0/AP1 and realHand5Reinc/6Wrecker/7Blue plus orderedDeck8/9. These are initial-state facts, not completed four-seat interaction credit.",
+    "First three actual inputs are owner1 WreckerHand1click,legalHero4targetanswer,and remainingBlueHand1click. Before last click, typed HandReinc5/Blue7 and actual physical Wrecker6Stack ATTACK/ownercontroller1/pendingcost2 all passed. After last click only R1 andAP0 pass at currentcheckpoint; no actual manual/child/parent response input has occurred.",
+    "First failed native query364 is p1Graveyard count expected1,actual0, third post-cost query step6/check2. No post-cost typedReincUID/GY owner/Deck count/order/Stack/HP/PitchUID checks after this frontier are credited. Source model has3601 queries after the failed query,29 controls/29 pass inputs unrun."
+  ],
+  "causal_source_findings": [
+    "Original printed WHEN discarded at random is a triggered effect, not replacement: CR6.6.5/6 creates an earned layer before next priority. A genuine discard first places the cardGY; physical Reinc5 should remain there while its earned ability above the paid parent waits four responses, then resolves to absolute Deckbottom. Original correct GY1 oracle is sound and is not changed to match output.",
+    "Current guarded GL1123..24 pays resource/AP assets;1178 calls WTRAdditionalCosts520..526\u2192GL497..506 genuine randomHandUID,clone/moveGY/discardhooks then DYNRandomDiscard. After actualBluepitch only physicalReinc5 remains eligible; no chosen-discard/RNGseed/cursor hack. ParentWrecker physicalATTACK source retention is implemented, not Bloodrush218 or a synchronous waiver.",
+    "DYNRuntime167 directly FaBARCToDeck(player,uid,false) for Reincarnate withoutBerserk; ARC122..125 false appends to Deck immediately. This causally explains native requiredGY0 after costdiscard. Blueprimarypower5 skips Rhinar>=6/Trackers/Berserk paths. Exact terminal Deck destination/order/UID and missingABI are SOURCE attribution/unrun expectations, not typed native observations.",
+    "Source original full route and all current guards remain unchanged; no oracle correction, extra probe, Save or source repair is needed to establish the observed timing failure. Root reserves issue199 allocation and any later concrete repair review; no new distinctCore/rootgroup count is inferred."
+  ],
+  "captured_corroboration": {
+    "observed_state_window": "PRIORITY",
+    "pendingPayment": null,
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "raw_history_path": [
+      "observed_state",
+      "turnEffects",
+      "1"
+    ],
+    "raw_history_rows": [
+      {
+        "type": "MST_BLUE_PITCHED",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_GRAVEYARD",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SEA_BLUE_GRAVE",
+        "amount": 1,
+        "uses": 1
+      }
+    ],
+    "actual_parent_discardedPower_path": [
+      "observed_state",
+      "arcCards",
+      "6",
+      "discardedPower"
+    ],
+    "actual_parent_discardedPower": 5,
+    "meaning": "Separate captured raw corroborates Bluepitch and real Blue5 discard event/emptyHand/paymentcomplete. It does not expose full physical zones or native Stack objects and is not additional persisted query credit."
+  },
+  "postfailure_raw_limit": "No final physical raw was captured. Existing result has observed gamefields/decisions/hand refs and initial raw only; no terminal Deck/UID/Stack read or fullcapture audit/rerun was needed. Cached damageDealt/attackPower0 are not resolved damage/power certificates.",
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independently_reviewed_official_trigger_rules": true
+    }
+  ],
+  "limits": [
+    "3601 queries after failed364 and29 controls remain unrun;3602 not-passed includes failedquery. No actual deckbottom8,9,5/child4/parentSource4/attack8/HP12/fullcleanup/secondendpoint certificate.",
+    "Three actual inputs allowner1,zero manual responses; four-live/manual initial setup is not completed all-seat interaction or coverage. Only initial48 rawcontrols,not final48/raw5.",
+    "No PHP/native/Rwrites/rerun/sourcefix/fullsuite/Git/remote/deferredRadiant or denied188/184/B787 retry by reviewer."
+  ],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch864_reincarnate_actual_failure.py",
+    "sha256": "664694864bc7d4e8cd1f929274e625d9054e7d10dafdfe3918fca629dd89aa75"
+  },
+  "created_utc": "2026-11-16T11:29:50.883934+00:00"
+}

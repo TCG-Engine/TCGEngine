@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch163.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T23:13:09.682808+00:00",
+  "fixtures": [
+    {
+      "slug": "card-edge-of-autumn-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "fixture_sha256": "55b65587fa4087e29a1c6a299009c7c5eab39c2f55b3b7de76874e78b2505b67",
+      "passed": true,
+      "result": "[PASS] Edge of Autumn / four live sparse positive weapon attack"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-edge-of-autumn-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "returncode": 0,
+      "stdout": "[PASS] Edge of Autumn / four live sparse positive weapon attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-zephyr-needle-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

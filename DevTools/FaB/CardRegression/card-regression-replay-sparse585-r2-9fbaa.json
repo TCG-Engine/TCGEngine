@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch585-puffer-only.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T07:14:30.909017+00:00",
+  "fixtures": [
+    {
+      "slug": "card-puffer-jacket-four-live-real-paid-nontoken-hyper-driver-enters-with-four-steam",
+      "fixture_sha256": "1d0c2fbb928c616701e22843605bddf348505802695bf77e9915b1dcfca64054",
+      "passed": true,
+      "result": "[PASS] puffer_jacket / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-puffer-jacket-four-live-real-paid-nontoken-hyper-driver-enters-with-four-steam",
+      "returncode": 0,
+      "stdout": "[PASS] puffer_jacket / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

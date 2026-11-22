@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch489.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T16:52:33.090479+00:00",
+  "fixtures": [
+    {
+      "slug": "card-point-of-engagement-red-four-live-real-marked-hero-and-dagger-grants-five-damage-mark-clears-live-power-four",
+      "fixture_sha256": "d860569f77318b4b75369b19cd51e1312fca42b52f52ff5b50b3e36a52f6a126",
+      "passed": true,
+      "result": "[PASS] point_of_engagement_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-point-of-engagement-red-four-live-real-marked-hero-and-dagger-grants-five-damage-mark-clears-live-power-four",
+      "returncode": 0,
+      "stdout": "[PASS] point_of_engagement_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

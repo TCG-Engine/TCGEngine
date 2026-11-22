@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-dread164-assets-before-random-graveyard-cost.json",
+  "runtime_sha256": "226b6bb82ab6fd9cf9d70254bf59762f846464765b221b06d53c3b662bc0db66",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T07:50:56.622340+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dread-screamer-blue-four-live-repair164-assets-before-random-three-cost-earned-go-again-full-close",
+      "fixture_sha256": "42ccd4f1a7d2dd99d41d381f55b2981e44b016d86df190e419a8d68f38066dd4",
+      "passed": true,
+      "result": "[PASS] Dread Screamer Blue / existing164 repair completion / real asset payment then random-three cost"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dread-screamer-blue-four-live-repair164-assets-before-random-three-cost-earned-go-again-full-close",
+      "returncode": 0,
+      "stdout": "[PASS] Dread Screamer Blue / existing164 repair completion / real asset payment then random-three cost\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

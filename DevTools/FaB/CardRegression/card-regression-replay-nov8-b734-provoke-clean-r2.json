@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch734-provoke.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T18:51:39.849856+00:00",
+  "fixtures": [
+    {
+      "slug": "card-provoke-blue-four-live-paid-weapon-and-real-opposing-hand-defender",
+      "fixture_sha256": "0d97153beff7b5cc40633e9ebab91c983d4a467516a738c5f7a4634f30f89474",
+      "passed": true,
+      "result": "[PASS] provoke_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-provoke-blue-four-live-paid-weapon-and-real-opposing-hand-defender",
+      "returncode": 0,
+      "stdout": "[PASS] provoke_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,142 @@
+{
+  "status": "APPROVED_EXACT_NEW_SAVED_AFTER_COST_REPAIR_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T01:34:10.176683+00:00",
+  "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch271.json",
+  "input_sha256": "c468cea666c1729a7f3a6bcd73d7bc290f6d7db4dff113accb61437481599521",
+  "fixtures": [
+    {
+      "slug": "card-nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough",
+      "card_id": "nimble_strike_red",
+      "group_id": "pitch-cycle:nimble_strike",
+      "fixture_sha256": "e96aaa0016722f603464092e44343fe682d6b557345f2d2beb26180c1c071b2d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03bab339b745d453adef99bcf8ae1524f60e8c85af86765b38cbcc6297d959d5",
+        "actions.json": "05b71b1b2492f7ed1085873055217414d9acac3d1455dad3b189f7a792b3fcad",
+        "assertions.json": "9fecbc5829cfc7c45d2fa748e0af6a0f71eaea6bfd2df47ded629481e97eca33",
+        "expected_final_gamestate.txt": "a2585c035749af03d4b80399ad94257249e75dea7d70a5dbb65cc7f2ba07cdaa",
+        "meta.json": "0c95c509c56116112075b1cc99f74fe7fce2e5069759177ecfec4dbab96e4802"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "03bab339b745d453adef99bcf8ae1524f60e8c85af86765b38cbcc6297d959d5",
+        "actions.json": "05b71b1b2492f7ed1085873055217414d9acac3d1455dad3b189f7a792b3fcad",
+        "assertions.json": "9fecbc5829cfc7c45d2fa748e0af6a0f71eaea6bfd2df47ded629481e97eca33",
+        "expected_final_gamestate.txt": "a2585c035749af03d4b80399ad94257249e75dea7d70a5dbb65cc7f2ba07cdaa",
+        "meta.json": "0c95c509c56116112075b1cc99f74fe7fce2e5069759177ecfec4dbab96e4802"
+      },
+      "actions": 61,
+      "native_assertions": 4624,
+      "actual_manual_passes": 54,
+      "manual_passes": 54,
+      "manual_pass_actor_counts": {
+        "1": 13,
+        "2": 13,
+        "3": 13,
+        "4": 15
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_original_approved_source": true,
+      "initial_bytes_identical_to_before_failure": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_banish_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        8
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Sameoriginalinitialbytes asbefore failure. ActualNimblism5 Action0/fourresponses earnsownGY5/+3nextlowcost/AP1; optionaldeclares5 but strictunpaidcheckpoint keepsGY5/Banish0/Blue7Hand/R0/AP1/cost1pending. RealBlue7 pays1/AP, leavingR2/AP0; selected5nowownfaceupBanish andactualprimary6paidtag. Actual8power(4+3+1)/GA deals8\u2192HP12; realGA fundsnewchainWounding8 Action0/noGA4\u2192HP8. ExactownpublicGY{6,8},Banish5,Pitch7/R2/AP0, allphysicalIDsconserved/fullcleanclose. Supportnextbonusconsumedonce.",
+      "qualification": "Only Red optionalaccepted-one cost with earnedNimblism prefix andreal8/GA+4followthrough. No sibling/decline/empty/replacement/rollback/otherownership/supportprimary/fullcard/control credit. OpenCenterexistingrest remainsregisteredhistoricalf40e and is notrereviewed/retagged."
+    }
+  ],
+  "existing_reviewed_rest": [
+    {
+      "slug": "card-open-the-center-red-four-live-sparse-real-head-jab-same-chain-combo-six-go-again-followthrough",
+      "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+      "status": "EXISTING_REVIEWED_REGISTERED_REST_UNCHANGED_NOT_REVIEWED_OR_RETAGGED_HERE"
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch271-independent-source-review.json",
+    "sha256": "44fdf3c7ad807f844e3ff67a917ae6c9510bb946b52e77142b5b4dd1a6d969db",
+    "historical_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+    "original_input_and_oracles_unchanged": true
+  },
+  "source_fix_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-062064-independent-source-review.json",
+    "sha256": "30aada52400a7db92a118e6078a17317d1a67242513a46e58d34f5c5f4a919de"
+  },
+  "actual_generated_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-062064-actual-generated-independent-review.json",
+    "sha256": "b00b4d2fd3dd34a2903e812ea5da8e1d719650f60e98b663c6f9af13e3e83fb0"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch271-20261103T012810Z-6ae938aa0f943.json",
+    "sha256": "e65a2b6b7418022ffc3f59b98adeef79bb17232899718fc8d74a0383ca51a7fd"
+  },
+  "historical_before_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch271-20261103T004746Z-6ae92f3288eaf.json",
+    "sha256": "b9d5028b2a86af05ad83acb24ed896d8e0c743e4379ba3aa6df711228ba4e697",
+    "original_initial_sha256": "03bab339b745d453adef99bcf8ae1524f60e8c85af86765b38cbcc6297d959d5",
+    "prefix_actions_unchanged": true
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch271.recording-results.json",
+    "sha256": "e8c63f568d89cfb8a07253f0cc2b42ab1db7cf07efd2b9f361c7f663c52c657b"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-nimble062-native-after-r1\\receipt.json",
+    "sha256": "2db68c26b4e9babfb005aa320597c3228bc511ac92c8e7e5dc72e72706d8108b",
+    "stdout_sha256": "36ea3b6bfc4474684f90b4c12d89d1b6413a0a8cca90d08f312f1c9b38cbbe4c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime_before": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+    "runtime_after": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+    "exit_code": 0,
+    "stderr_bytes": 0
+  },
+  "method": "Independentread-only exactsaved5file review atactual45b1. Everyaction actor/mode/payload andeverynativeassertion/order/step exactlyequals ORIGINALapprovedinput, notauthorbuilder/model. Fullschema-backedinitial/final snapshotsparsed; Soulhasimplicitseatownership, BanishhasexplicitOwner/Controller. NoPHP/native/replay/backend/Rwrites byreviewer.",
+  "cost_order_evidence_limit": "Actualnativeunpaidcheckpoint retainsdeclaredUIDsinoriginalzone, fullsuccesspostpaymentcheckpointhasrealPitch/R/APandselectedBanish. Movementandassetdebitfinishwithinoneactualinput: nativecheckpointsalone do notprove invisibleintraactionordering. Existingexactsourcehelper andhistoricalhostadapted38contracts/147assertions showmove seesR/APalreadydebited; thosef40eproposalcomponents are notretaggedas45b1testruns.",
+  "limits": [
+    "Savedcreation review only; roottwofocusedcreationreplays andcompatibilitychecks areseparateevidence. Reviewer claimsno replay or fullnativefixqualification here.",
+    "Originalfailedbefore evidence/spec/initialbytes preservedhistorically, no wrongoracle or fabricatedpass. Onlythisnewactualsavedfixturecanregister; allotherregisteredrest keepsitsactualoldcontext.",
+    "No sibling/fullcard/control/legacycorpus/fullsuite/requalification claim; no source/native/backend writes."
+  ]
+}

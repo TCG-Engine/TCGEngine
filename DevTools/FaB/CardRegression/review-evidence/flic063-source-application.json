@@ -1,0 +1,34 @@
+{
+  "status": "APPLIED_EXACT_EVENT_SCOPED_FLIC_REPAIR_NATIVE_QUALIFICATION_PENDING",
+  "utc": "2026-11-03T01:45:02.011122+00:00",
+  "issue_id": "FAB-REG-063",
+  "base_runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "actual_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_path": "FaBSim/Custom/WTRCards.php",
+  "before_sha256": "2b8c672f47413d475c8cc23fbbc3530c60b2e7f0f41f5bba8e52ffc5166a3ea4",
+  "after_sha256": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+  "manifest_sha256": "2dc2bd25528d48b55939a60fa4c2ce3c36221960b038f7022935e66be1bfa35b",
+  "independent_source_review_sha256": "7c2180a5476695ab5cbb101be88947224399021840ad08c4c97a9567edf9f837",
+  "validation_sha256": "60ae14e97ab251ce04d33ed1a60c147606c9d0bef8dba4c3d9cd295a657c7ec0",
+  "historical_component_context": "26actual-function contracts/9beforefailures atf40e candidate context; explicit current45b1dependencyrebind beforeapply. Not a native current-runtime claim.",
+  "actual_R_syntax": {
+    "exit_code": 0,
+    "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php\n",
+    "stderr": ""
+  },
+  "verified_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-flic063-source-application\\WTRCards.before.php",
+  "application_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-flic063-source-application\\receipt.json",
+  "application_receipt_sha256": "818927a1333905ea7d2e68acd713ad99144ec24bffe805d67cbf82f8a983d918",
+  "all_other_runtime_sources_preserved": true,
+  "fixture_count_at_application": 3559,
+  "generator_run": false,
+  "remote_authoring_writes": false,
+  "full_suite_run": false,
+  "mechanism": "PhysicalUID+actualTurn+persistedcardsPlayedThisTurn count identifies originating defendcompletion once; nextdistinctdefender consumes whetherCombo ornot. No globalFAB_PLAY_ORDER repair or lifecycle rewrite.",
+  "rejected_or_held_prior_proposals": [
+    "Genericmatching/nonCombo-preservation candidate rejected beforeapply.",
+    "UnprovenFAB_PLAY_ORDER eventidentity candidate held beforeapply; discarded in favorofactualpersistedhistory."
+  ],
+  "native_qualification": "PENDING_EXACT_SAVED_REVIEW_AND_TWO_REPLAYS",
+  "limits": "No untested pitch, stacked-native, sameUID-native, cancellation orfull-card credit. Purehelpernegativecontracts are separate from newfourlivecreationevidence."
+}

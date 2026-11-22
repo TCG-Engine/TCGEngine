@@ -1,0 +1,585 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B744_TWO_STATIC_DEFENSES_AND_BLADE_BREAK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T20:55:22.674461+00:00",
+  "source_spec": "card-regression-batch744.json",
+  "input_sha256": "ea8d3d5b86efff783c2df5379786f0f784a399056e8171afcc207ea4bb292e81",
+  "manifest_sha256": "947ab2ad4ee038b44af9173e267053751e9bee964b4c2998c760d5895b83fbea",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch744-static-defense-independent-source-review.json",
+    "sha256": "9144262169ff1557f9e6945b02de82542cb1e9ab186deebb467f08a34ef2e10a",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch744-20261108T205310Z-6af0e13691b19.json",
+    "sha256": "49aa0528b857a7d57ea02d25feb4b5daca05377a274713cc2b27da5d5932d4d6"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch744.recording-results.json",
+    "sha256": "6a92aeb03da11710b1dcefdf31d9714d9d905d27802191234cd774114d7fb17a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b744-static-defense-native-recording\\receipt.json",
+    "sha256": "3377548b52d80059f752219c9e34662a3804fd8a0acc9ac1d130236ce12f1231"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "strong_stomach_for_adversity",
+      "group_id": "identity:strong_stomach_for_adversity",
+      "slug": "card-strong-stomach-for-adversity-four-live-real-confidence-might-three-defense-four-damage-bladebreak",
+      "source_spec": "card-regression-batch744.json",
+      "input_sha256": "ea8d3d5b86efff783c2df5379786f0f784a399056e8171afcc207ea4bb292e81",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_STATIC_DEFENSE_DAMAGE_AND_BLADE_BREAK",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-strong-stomach-for-adversity-four-live-real-confidence-might-three-defense-four-damage-bladebreak",
+      "fixture_sha256": "a79ca80efb026412db0255a85e65745a8ddb8e539e79a895462b3bfacf6f2d05",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7a62768207c72d0650267773d5f49d9e71cdb0e85556863acdb06fa81e8a37f6",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "743716ee19c478b4ef72a6d25b526c5741eb627535dc4b2c6965c4805add7fb6",
+        "expected_final_gamestate.txt": "bedf7f56f84d1c910387e7064186fc70b94fec9628c7b6c553a9387d293ad370"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a62768207c72d0650267773d5f49d9e71cdb0e85556863acdb06fa81e8a37f6",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "743716ee19c478b4ef72a6d25b526c5741eb627535dc4b2c6965c4805add7fb6",
+        "expected_final_gamestate.txt": "bedf7f56f84d1c910387e7064186fc70b94fec9628c7b6c553a9387d293ad370",
+        "meta.json": "d5734154aef954a6d34db6c53f907651926819e0edf3de6f03bdc4db2f508924"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7a62768207c72d0650267773d5f49d9e71cdb0e85556863acdb06fa81e8a37f6",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "743716ee19c478b4ef72a6d25b526c5741eb627535dc4b2c6965c4805add7fb6",
+        "expected_final_gamestate.txt": "bedf7f56f84d1c910387e7064186fc70b94fec9628c7b6c553a9387d293ad370",
+        "meta.json": "d5734154aef954a6d34db6c53f907651926819e0edf3de6f03bdc4db2f508924"
+      },
+      "actions": 29,
+      "native_assertions": 2847,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 1056,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "lyath_goldmane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "strong_stomach_for_adversity",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "confidence",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "might",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "lyath_goldmane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "confidence",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "might",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "strong_stomach_for_adversity",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "actual_attack_resources_paid": 3,
+      "actual_Action_AP_paid": 1,
+      "actual_defense": 3,
+      "actual_physical_damage": 4,
+      "actual_BladeBreak_UID": 5,
+      "condition_objects_retained": true,
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "45434d0fd7c9fa8d25ce6f407833445fa64ef6ecfa783916596ba82e6447c672"
+    },
+    {
+      "index": 1,
+      "card_id": "helm_of_lignum_vitae",
+      "group_id": "identity:helm_of_lignum_vitae",
+      "slug": "card-helm-of-lignum-vitae-four-live-real-four-earth-banish-two-defense-five-damage-bladebreak",
+      "source_spec": "card-regression-batch744.json",
+      "input_sha256": "ea8d3d5b86efff783c2df5379786f0f784a399056e8171afcc207ea4bb292e81",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_STATIC_DEFENSE_DAMAGE_AND_BLADE_BREAK",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-helm-of-lignum-vitae-four-live-real-four-earth-banish-two-defense-five-damage-bladebreak",
+      "fixture_sha256": "778b1e1eb0960225b2e88792b43f9bd6770561829c7b48a39962e65eec725b63",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "541fb575e6b00c06b219fdbd48e8fc9aa1634d294a7204b0a4a9bfcfe7add28d",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "62819c8c0992a84a32f20df3f8d5d7071fe45c9d458d8480fcf0a6771fd66e73",
+        "expected_final_gamestate.txt": "2013a72a137ba4d2862666e176ef01ac948c86ef1e9b4a5a60635631259c5259"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "541fb575e6b00c06b219fdbd48e8fc9aa1634d294a7204b0a4a9bfcfe7add28d",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "62819c8c0992a84a32f20df3f8d5d7071fe45c9d458d8480fcf0a6771fd66e73",
+        "expected_final_gamestate.txt": "2013a72a137ba4d2862666e176ef01ac948c86ef1e9b4a5a60635631259c5259",
+        "meta.json": "f926b3daeb95173a3818e31a95ac4717323c8cefb34c0fd2f7c0761c1728f8ab"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "541fb575e6b00c06b219fdbd48e8fc9aa1634d294a7204b0a4a9bfcfe7add28d",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "62819c8c0992a84a32f20df3f8d5d7071fe45c9d458d8480fcf0a6771fd66e73",
+        "expected_final_gamestate.txt": "2013a72a137ba4d2862666e176ef01ac948c86ef1e9b4a5a60635631259c5259",
+        "meta.json": "f926b3daeb95173a3818e31a95ac4717323c8cefb34c0fd2f7c0761c1728f8ab"
+      },
+      "actions": 29,
+      "native_assertions": 3095,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 1304,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "oldhim",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "helm_of_lignum_vitae",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "autumns_touch_red",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "autumns_touch_red",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "oldhim",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "helm_of_lignum_vitae",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "autumns_touch_red",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "autumns_touch_red",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_attack_resources_paid": 3,
+      "actual_Action_AP_paid": 1,
+      "actual_defense": 2,
+      "actual_physical_damage": 5,
+      "actual_BladeBreak_UID": 5,
+      "condition_objects_retained": true,
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "a4f031cafa9a6f9e95a13fa6344fe01e885822b5dca82e861182d18e1d13ba77"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 58,
+  "total_native_assertions": 5942,
+  "total_manual_passes": 50,
+  "total_schema_property_assertions": 2360,
+  "material_findings": [
+    "Exact rawfive each/behavior/all58 normalized controls5942 ordered persisted queries50 manual/48 preferences at each endpoint/current70c53ab33 match Source914426 and native receipt/results/archive. Every initial/final assertion independently evaluated against parsed snapshots/full UID maps.",
+    "Actual controlled ConfidenceANDMight6/7 yields Strong5DEF3 after mandatory Lyath half-base1 rounds to1 before +2; real Raging7 minus3 delivers4/HP16. Actual four owned face-up Earth6..9 remain Banish, Helm5DEF2 makes7minus2 deliver5/HP15. Whole physical condition inventories remain strict throughout, not private history or cached bonus alone.",
+    "Each actual Blue3 pays attack3/AP1 leavingR0AP0, normal four-living quorums, sameGear5 actualEquipment defender then BladeBreak ownGY4. Attack8or10GY1/Blue9or11Pitch1/retained condition objects/full original UID9or11/RNG0/StackChainsDQpaymentawaitquiet. No extra Close response round or omitted earned Hero trigger."
+  ],
+  "limits": [
+    "Only two actual visible-board static-defense conditions, real native cost/defender/physical damage and same-UID BladeBreak cleanup.",
+    "Public initial Confidence/Might and faceupEarthBanish fixtures have no prior-producer/history/turn-start/format credit; future token/Oldhim/Lyath abilities unearned.",
+    "All earned printed mechanics in the chosen branch retained; Lyath mandatory base halving accounted for. No full effect-bank/private history/FAB chronology or raw-cache-currentpower claim.",
+    "Actual local Helm ROS029 viewed; selection FLR003 metadata is historical printing pointer, not a claimed viewed face.",
+    "Root native, independent exactSaved/all48preferences and twoNEW focused clean replays remain required.",
+    "Ordinary initial public token/Earth board premises are legal setup only; no prior producer, initial ownership trace, previous turns, token ownStart/expiry/consumer or support/Hero/fullcard/sibling certification. No private current-turn history/effect seed or activation is used.",
+    "Only selected static-defense and physical damage/BladeBreak routes. No token-loss/fewerEarth/face-down thresholds, different defender/retarget/secondary equipment effects. Viewed Helm is ROS029; no invented exactJudgeID/currentfetch success.",
+    "Native recording, exactSaved raw5/all48preferences and two new focused replays/Root registration remain separate. Source approval is not fixture/coverage credit. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "Only these actual continuous-defense/physical-damage/BladeBreak branches. No prior producers, previous-turn chronology/initial UID trace, Confidence/Might ownStart/functionality, Earth banish producer, Lyath activation/BooWHEN, Oldhim DR/otherHero/support/sibling/fullcard credit. Helm actually viewedROS029.",
+    "Root two new-only packet replays/registration/index/promotion remain separate; no qualification before registration. RawVersions hash-bound/excluded from physical inventory. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch744_static_defense_saved_readonly.py",
+    "sha256": "6db059b71d32b4d2dfe4105a53e99d9d027d56d45bf4c30dabdbfc1459347270"
+  }
+}

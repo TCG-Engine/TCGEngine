@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T02:28:34.303236+00:00",
+  "runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+  "source_spec": "card-regression-repair-deathmatch079-global-hero-permission.json",
+  "source_spec_sha256": "c30bab81a35b399c8330566aca276d4747eee9e651e84521767ad631fc77a883",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 2481,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4153,
+    "duels": 3074,
+    "four_live": 1079,
+    "recorded_primary_ids": 1306,
+    "identity_denominator": 5196,
+    "recorded_groups": 1180,
+    "group_denominator": 3324,
+    "four_live_groups": 1072,
+    "phase_qualified_scenarios_at_actual_contexts": 790,
+    "phase_qualified_unique_groups": 785,
+    "creation_replay_passes": 1531,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "deathmatch_arena",
+      "group_id": "identity:deathmatch_arena",
+      "scenario_id": "card-deathmatch-arena-four-live-original-correct-real-landmark-permits-nonadjacent-p3-attack-probe",
+      "effect_branches": [
+        "deathmatch-arena-four-live-original-correct-real-landmark-permits-nonadjacent-p3-attack-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-deathmatch-arena-four-live-original-correct-real-landmark-permits-nonadjacent-p3-attack-probe",
+      "source_spec": "card-regression-repair-deathmatch079-global-hero-permission.json",
+      "source_spec_sha256": "c30bab81a35b399c8330566aca276d4747eee9e651e84521767ad631fc77a883",
+      "review_evidence": "review-evidence/deathmatch079-d125-qualified-saved.json",
+      "review_evidence_sha256": "91fb669e8eec65de37647e5933a1bef00cb3046f4cbd9fb63347a99eadeb33c9",
+      "recorded_runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+      "qualification_runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-deathmatch079-replay.json",
+          "sha256": "4b65fa64f5f2d00222a0b9d323d7e3f84345f36dca79c73187faa6b582d21845",
+          "runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

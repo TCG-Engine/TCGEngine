@@ -1,0 +1,186 @@
+{
+  "status": "SOURCE_APPROVED_NORMAL_POSITIVE_TENSION_BLUE_LITERAL_TWO_SPARSE_REPRESENTATIVE",
+  "phase": "SOURCE",
+  "batch": 829,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T20:56:17.273698+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "normal_save_approved": true,
+  "native_fixture_recording_approved": true,
+  "passing_fixture_approved": false,
+  "source_spec": "card-regression-batch829-tension-blue-real-zero-leave-consumer-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch829-tension-blue-real-zero-leave-six-damage-positive-author\\tension-blue-real-zero-separate-leave-and-six-damage-consumer.json",
+    "sha256": "4f736210d17798007c0e74bfcc050783d2b12f4fdb7bfd0a4ccbc1f3a3b3372f"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch829-tension-blue-real-zero-leave-six-damage-positive-author\\manifest.json",
+    "sha256": "e0aa269d611c672cd13370bc40c9901741ac9a01ab9ec4bbe133be1da2fd891e"
+  },
+  "input_sha256": "4f736210d17798007c0e74bfcc050783d2b12f4fdb7bfd0a4ccbc1f3a3b3372f",
+  "manifest_sha256": "e0aa269d611c672cd13370bc40c9901741ac9a01ab9ec4bbe133be1da2fd891e",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch829-firm-reservation.json",
+    "sha256": "ac82a8c10897b9d5c4d5ec90daa16a715e58bcfebce895edc893e59bb9164346"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch829-tension-literal-two-reuse-circlet-known-preflight.json",
+    "sha256": "cb6489377d00525c33e20758f4f679a6f6484146c6aa38630f40070e02490840"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 29,
+  "selected_support_guard_map_sha256": "6dfa266dcef2e553f3b34c00797bc1db77da3a38e8b5f26b5c1a97fd2ed66a96",
+  "all_current_guards_independently_matched": true,
+  "actions": 41,
+  "declarative_controls": 41,
+  "native_assertions": 4609,
+  "assertions": 4609,
+  "recorded_persisted_assertions": 4609,
+  "manual_passes": 37,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 9,
+    "2": 9,
+    "3": 9,
+    "4": 10
+  },
+  "expected_priority_response_passes": 36,
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 43,
+  "schema_property_checks": 814,
+  "control_mapping_sha256": "00dab4f4a68f72a435f83f61927cd04cbfe6388154249db0aedeb478cc007dfd",
+  "native_expected_envelope_mapping_sha256": "59c042c78c79186e177d4e5e82eb1acaf32861019be99bae4ff50a5d3a8b5f8e",
+  "expected_native_query_mapping_sha256": "d99de40847da2207ad8be102e67a0f66cad5a8c8a516f7ace11b4f21b09662ed",
+  "checkpoint_mapping_sha256": "015666b73442692e6f671c348d53c7861509a767f0e80e624992148ec1dd21f0",
+  "reused_approved_Edge_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-edge-independent-normal-positive-source-review.json",
+    "sha256": "5284a3c8a5783d8ff9c619bde222e234a04a3f9310a9a09afd2d336dc9503f16"
+  },
+  "exact_new_identity_and_query_deltas": {
+    "physical_or_layer_cardID": 51,
+    "next2_after_leave": 6,
+    "single_power_tag": 25,
+    "actual_power": 21,
+    "physical_HP": 10
+  },
+  "new_card_canonical": {
+    "cardId": "tension_in_the_air_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$event = strval(DecisionQueueController::GetVariable('rosEvent'));\n $uid = intval(DecisionQueueController::GetVariable('rosSource'));\n if ($event === 'supZero') {\n FaBSUPZero($uid);\n \n}\nif ($event === 'supLeave') {\n FaBSUPNext($player, 2, '', '');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  "independent_generated_raw_closure_sha256": "0eb8a9e44da7a7eec721da68da2f3db58bc8c435d5935de778940d2859dfe8bb",
+  "selected_Blue_printed_metadata": {
+    "id": "tension_in_the_air_blue",
+    "name": "Tension in the Air",
+    "types": [
+      "Guardian",
+      "Instant",
+      "Aura"
+    ],
+    "cost": "2",
+    "pitch": "3",
+    "power": "",
+    "defense": "3",
+    "health": "",
+    "functional_text_plain": "Suspense\nWhen this leaves the arena, your next attack this turn gets +2{p}.",
+    "printing_ids": [
+      "APS025",
+      "SUP206"
+    ]
+  },
+  "diagnostic_only": false,
+  "qualification": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "passing_registry_approval": false,
+  "independent_actual_Saved_review_required": true,
+  "two_new_only_clean_replays_required": true,
+  "B828_denied_source_repair_untouched": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "independent_semantic_findings": [
+    "Own Blue Tension text is Suspense plus nextattack+2 on leaving; canonical and actual emitted callback independently contain supZero and literal SUPNext2. Printed cost2 and pitch3 metadata are distinguished from the pre-existing one-counter setup; cost/entry/startphase get no coverage.",
+    "Reused unchanged reviewed ActR4/Edge machinery: legal pre-existing physicalAura6/SUSP1 and native Pleiades tap/remove costs beforepriority; actual fourzero responses, fourearnedleave responses and fouroriginalHero responses remain independently required. No prebuilt buff/outcome or direct helper action.",
+    "Complete four-row source-derived history remains EVR_ACTIVATED/DTD_HERO_USED/EVR_GRAVEYARD/SEA_BLUE_GRAVE. Exact noearlySUP_NEXT checks remain and next2 appears onlyafterleave resolves; mandatorytarget request precedespayment, then Red5consumes onceasWTR_POWER:2. PhysicalRed4+2 must produce6/noGA/HP4=14 with ownUIDcleanup.",
+    "Every41controls/4609queries retained. Independent comparison permits only51newCardID values and62necessary value changes:6next2arrays,25POWER2tags,21computed6 and10physicalHP14. Allother normalizedqueries and every Native input envelope are unchanged. Fourmanualseats still9/9/9/10 includingformalP4defendfinish; ownNative evidence must follow."
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "circlet_of_eternal_end",
+      "group_id": "identity:circlet_of_eternal_end",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_FORMAL_DEFENDED_WHEN_AWAIT_CONTRACT",
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_BEFORE_TARGET_CHOICE_CONTRACT",
+      "reason": "Actual OnDefended GameLogic1226 directly invokes the implemented IAR Defended canonical/emitted await chooser. No captured separately responseable Circlet WHEN is established before choosing the attacking hero banished card and applying FaceDown. Same retained Trench/Toby formal Defended-WHEN caller contract; this is not an absent implementation, new native failure or new root-cause.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch829-circlet-known-defended-when-unattempted-note.json",
+        "sha256": "2e4be230ceb4cc5290073a5e178a126aa9faa777fbcbfadc95afd79b9171382f"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "Circlet known formal Defended-WHEN direct-await seam remains unattempted. Its printed choice is not labelled a formal target; no separate target-declaration defect, FaceDown/damage/BladeBreak/expiry or fallback credit is inferred."
+    }
+  ],
+  "limits": [
+    "One exact normal Native recording attempt only; Source approval is not behavior/fixture qualification. No Native credit borrowed from earlier cards.",
+    "Independent Saved/raw5/raw48manual both endpoints/all41envelopes4609queries and two new-only clean replays remain required before registration.",
+    "Blue one-counter leave/consumer only. No owncost2/entry2/naturalstartphase/replenishment/otherlistener/control/suppression/generalvirtual-layer-order/heroCrowd/fullcard or untested Red/Yellow Native coverage.",
+    "The denied B828 shared OMN repair remains unapplied and is not retried or bypassed by this independent unchanged-runtime case. Fullsuite/historical replay remain unrun."
+  ]
+}

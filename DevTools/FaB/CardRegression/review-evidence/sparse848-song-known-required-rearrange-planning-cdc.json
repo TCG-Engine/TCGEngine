@@ -1,0 +1,96 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_SONG_REQUIRED_REARRANGE_LIFETIME_NOTE",
+  "phase": "PLANNING",
+  "batch": 848,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix_applied": false,
+  "new_issue": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch848-song-required-known-contract-note-manifest.json",
+    "sha256": "966a29c27121976c496ec50cea1afeef3d8cf839ca60796a3ca4a63489588272"
+  },
+  "manifest_sha256": "966a29c27121976c496ec50cea1afeef3d8cf839ca60796a3ca4a63489588272",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch848-song-known-positive-rearrange-lifetime-unattempted-note.json",
+    "sha256": "3fa15c205d5c65b8e820eaa02cce81475b46f8ca02c4f2b556c3a11850f95336"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch848-firm-reservation.json",
+    "sha256": "b0be0ad8769b38718446f18fb960baed57e0664f10d2211f5b8fa41bd4ea7243"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_guards_matched": true,
+  "source_guard_count": 14,
+  "holds": [
+    {
+      "card_id": "song_of_sinew_yellow",
+      "group_id": "identity:song_of_sinew_yellow",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_LIFETIME_CONTRACT",
+      "classification": "KNOWN_REQUIRED_POSITIVE_RESOLVING_CHOICE_PHYSICAL_SOURCE_LIFETIME",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch848-song-known-positive-rearrange-lifetime-unattempted-note.json",
+        "sha256": "3fa15c205d5c65b8e820eaa02cce81475b46f8ca02c4f2b556c3a11850f95336"
+      },
+      "known_contracts": [
+        {
+          "card_id": "hit_the_gas_blue",
+          "row": 288,
+          "evidence": {
+            "path": "review-evidence/sparse838-two-known-required-contract-planning-cdc.json",
+            "sha256": "06f50ef577ba675a1d0f9c7c3acf7e8d5bad7d389b06f17495d9092523646dd6"
+          }
+        },
+        {
+          "card_id": "diabolic_ultimatum_red",
+          "row": 296,
+          "evidence": {
+            "path": "review-evidence/sparse843-two-known-required-contract-planning-cdc.json",
+            "sha256": "7a66acd83c7dfeaec7a112ad1499b2ad1df17c8bcc92a9e3addc37a021f923a8"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "confirmed_gameplay_bug": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Currentcanonical/emittedwrapper7262 invokes requiredRearrange after actualSongCount/Peek4/OrderParam. SourceisnonpersistentACTION and absentfromBOTHGL1588KnownPlainSpellLifecycleCard/1654managedcohorts; ordinary1840movesphysicalStacktoGYbefore1841executesbody/requiredawait. ExactHitGas288/Workshop281/Diabolic296 requiredphysical-source-lifetime contract, notabsenceofhelpers/unusedoptionalbranch or genericWHEN classification.",
+    "LegalRhinarYoung20/threeBetsy20. Actual0SongAP1to0/fourSource, realtopfour6/8/2/noPower andsuffix4; two6plusrevealcountsX2, noWreckerplay/discard/Rhinartrigger. EveryrevealUID/materialANYORDERpermutation/untouchedsuffix andSourceonStackthroughchoice remainrequiredUNRUN.",
+    "PrintedXnextattackbuff precedesputbackANYORDER. CurrentFaBSUPNextAFTERRearrange/FinishPeek is a separate downstreamSOURCE-ONLY orderingconcern. NoNativefailure/newissue/rootcount claimed, no reorder-skipping/reveal-only/seededbuff/currentoutputoracle approved.",
+    "Onlyafterwholecorrecteffect completes mayprintedGAreturnAP1; actualplainSmashRed7/resource2Blue3/R1/AP0 plusX2mustdealreal9/HP4=11 withfour-seatcombat/physicalGY/Pitch/deckorder/Stackqueuescleanup. AllremainsUNRUN, no cachedpower-only certificate."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.1.2"
+      ],
+      "reuses_independent_instruction_order_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3"
+      ],
+      "reuses_retained_source_lifetime_normative_contract": true
+    }
+  ],
+  "limits": [
+    "Onlyaccuracyofsource-onlyplanningnoteisapproved. No executable/spec/Native/Save/fixture/coverage/fullcard/support/reorder/buff/GA/currentnewruntimequalification approval.",
+    "Allcosts/reveals/choice/UIDorder/buff/AP/actual9damage/cleanupremainunrun. OtherXcounts/permutations/Hero/siblings/supportfullcard untested.",
+    "NoPHP/native/Rwrites/sourcepatch/framework/CodeGen/fullsuite/Git/remote/newagents/Radiant189/Head190repair or denied188184B787 retry byreviewer."
+  ],
+  "created_utc": "2026-11-16T05:32:45.166695+00:00"
+}

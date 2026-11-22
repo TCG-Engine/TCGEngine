@@ -1,0 +1,99 @@
+{
+  "status": "APPROVED_EVIDENCE_CLASSIFICATION_BASELINE_REPRODUCED_FAILURES_MON_SUFFIX_UNRUN",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_at_utc": "2026-11-02T22:29:35.088043+00:00",
+  "method": "Read-only actual receipts/logs/source-line inspection; verified complete log hashes and byte-exact same-driver baseline/current stdout and stderr; recomputed final active/private fingerprints. No PHP/game/backend/native execution or R writes by reviewer.",
+  "dependency_complete_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-isolated-component-comparison\\dependency-complete-receipt.json",
+    "sha256": "27a5cf5124e2de8589e7223ee0e49336342cf775a42d87d16e698ab83add13bc"
+  },
+  "same_driver_baseline_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-isolated-component-comparison\\baseline8920-separate-mon-body-receipt.json",
+    "sha256": "b38c120c3f95ee73f92269b740736d718cd9b1cd2228724c2170d1fb412068e5"
+  },
+  "baseline_runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "current_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "active_and_restored_private_runtime_independently_verified": true,
+  "static_dependency_and_original_component_sha256": {
+    "DevTools/FaB/wtr_test.php": "69daf3b4485caaac7789dcc2e9e464103940dd9bbc215243a91ec2fdf33fc94c",
+    "DevTools/FaB/arc_test.php": "a32c0a8a7e16649de7cbde76864e98c98e57271b422754d0a399c9ea3b1a8e52",
+    "DevTools/FaB/mon_test.php": "63f12deee621d31336b7d3e7fbf087539dd1c283a3972907957cd0ed336f6651",
+    "Database/SiteRegistry.php": "e8b30dd3ca3253950f6bec5f77047e952ef142deada619d03c83b4d61c0df692"
+  },
+  "log_files": {
+    "baseline8920-deps-complete-original-mon.stdout.log": {
+      "sha256": "3151f852cf1c53a87911b19181954888c65495771e96cfecd9f9f853d265f6aa",
+      "bytes": 796
+    },
+    "baseline8920-deps-complete-original-mon.stderr.log": {
+      "sha256": "9363aff3a0111f84b9a1b804ecb4f3c00d8569a2e6e97af5cc23c8c7f5a1e19b",
+      "bytes": 669
+    },
+    "currenteccb-deps-complete-separate-mon-retain-arc.stdout.log": {
+      "sha256": "262db22c6b1e4ed4374be73cbbbc2d72591d91ad2d78524a799ce2033c1ceaf4",
+      "bytes": 389
+    },
+    "currenteccb-deps-complete-separate-mon-retain-arc.stderr.log": {
+      "sha256": "8f5208d00f2866ce61dfd09f6bdf51c4b308ee6bbf5e1a20f3657b45e3f0a539",
+      "bytes": 155
+    },
+    "baseline8920-separate-mon-body.stdout.log": {
+      "sha256": "262db22c6b1e4ed4374be73cbbbc2d72591d91ad2d78524a799ce2033c1ceaf4",
+      "bytes": 389
+    },
+    "baseline8920-separate-mon-body.stderr.log": {
+      "sha256": "8f5208d00f2866ce61dfd09f6bdf51c4b308ee6bbf5e1a20f3657b45e3f0a539",
+      "bytes": 155
+    }
+  },
+  "classification": {
+    "superseded_initial_attempt": {
+      "status": "INVALID_MISSING_STATIC_DEPENDENCY_NOT_BASELINE_GAMEPLAY_EVIDENCE",
+      "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-isolated-component-comparison\\receipt.json",
+      "sha256": "02286599bdfce14ed44576f0ce21ec33797ebb6790741b2011ae8e7d0d7e8b1b",
+      "missing_dependency": "Database/SiteRegistry.php"
+    },
+    "valid_baseline_original_mon_entry": {
+      "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+      "exit_code": 255,
+      "timed_out": false,
+      "result": "WTR checks report passed; inherited ARC throws No pending choice for seat4 from wtr_test.php11, called by arc_test.php103. Original MON body is not reached."
+    },
+    "same_supplemental_driver_baseline_and_current": {
+      "baseline_runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+      "current_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "exit_code_each": 1,
+      "stdout_byte_exact": true,
+      "stderr_byte_exact": true,
+      "stdout_sha256": "262db22c6b1e4ed4374be73cbbbc2d72591d91ad2d78524a799ce2033c1ceaf4",
+      "stderr_sha256": "8f5208d00f2866ce61dfd09f6bdf51c4b308ee6bbf5e1a20f3657b45e3f0a539",
+      "retained_arc_failures": [
+        "Kano banished action cannot be played as instant. (arc_test.php102)",
+        "No pending choice for seat4 (arc_test.php103 -> wtr_test.php11)"
+      ],
+      "mon_body_reached": true,
+      "mon_gate": "mon_test.php94 writes accumulated failures and exits1",
+      "mon_failed_assertions": [
+        {
+          "source": "mon_test.php67",
+          "message": "Destroyed aura left an attack or granted go again.",
+          "occurrences": 2
+        },
+        {
+          "source": "mon_test.php60",
+          "message": "Library discard cost/destruction/go again failed.",
+          "occurrences": 1
+        }
+      ],
+      "later_mon_continuations": "UNRUN",
+      "later_mon_bot_matches": "UNRUN",
+      "full_original_entrypoint_pass": false
+    }
+  },
+  "interpretation": "These exact ARC and MON-prefix failure diagnostics are reproduced on the dependency-complete pre-repair8920 baseline and remain byte-identical on currenteccb under the same diagnostic driver. The result does not indicate a newly introduced failure signature in these exercised checks; it does not establish the status of unrun checks or all legacy behavior.",
+  "limits": [
+    "No full suite, passing ARC/MON entrypoint, all-legacy correctness, or MON continuation/bot certification is claimed.",
+    "Supplemental MON-body diagnostic retains ARC failure; it does not replace a successful original inherited entrypoint.",
+    "Recorded repair-specific native fixtures/replays are separate evidence. No expected output/source changes or unrelated repair proposed."
+  ]
+}

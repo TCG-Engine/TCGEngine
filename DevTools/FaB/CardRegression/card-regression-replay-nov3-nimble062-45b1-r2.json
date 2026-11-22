@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch271.json",
+  "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T01:32:32.028820+00:00",
+  "fixtures": [
+    {
+      "slug": "card-nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough",
+      "fixture_sha256": "e96aaa0016722f603464092e44343fe682d6b557345f2d2beb26180c1c071b2d",
+      "passed": true,
+      "result": "[PASS] nimble_strike_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough",
+      "returncode": 0,
+      "stdout": "[PASS] nimble_strike_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-open-the-center-red-four-live-sparse-real-head-jab-same-chain-combo-six-go-again-followthrough"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

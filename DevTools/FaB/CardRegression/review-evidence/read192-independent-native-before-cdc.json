@@ -1,0 +1,167 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_READ_BEGIN_END_AUTOMATIC_EFFECT_DELAYED_UNTIL_LATE_END_QUORUM",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 850,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal UPR Read beginning-End caller finding. Relation to broader phase/trigger families unallocated; Root reserves issueID. No denied operation or shared repair retried.",
+  "source_spec": "card-regression-batch850-read-correct-auto-end-opt-bottom-draw-arsenal-probe.json",
+  "input_sha256": "ad34579c3feb1a659837e7e93112afc5378e200986ab54a46356d8bcd766c93e",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-rule-correct-automatic-end-opt-draw-arsenal-strict-probe-author\\read-rule-correct-automatic-end-opt-bottom-draw-arsenal-full-probe.json",
+    "sha256": "ad34579c3feb1a659837e7e93112afc5378e200986ab54a46356d8bcd766c93e"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-rule-correct-automatic-end-opt-draw-arsenal-strict-probe-author\\manifest.json",
+    "sha256": "8c4dc5961c7c605936ac8095d6a641b07f8cc8f997348db4bf5c9b323f4754ca"
+  },
+  "root_rule_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-root-read-no-endphase-priority-correction.json",
+    "sha256": "584d31ed548dc9aff6f86b87a024a413cb5bf10a97631bd92fb2dbd2b133a5a3"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-independent-rule-correct-diagnostic-source-review.json",
+    "sha256": "9d21e174478731ee0dc9e7d8dbaeb362efdbe7fd30ec86aa305e1327ba5e487e"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b850-read-correct-auto-end-strict-nosave-cdc\\receipt.json",
+    "sha256": "d625bdde5b55a7a931214d35f8d0b33886ccb8dc927ca702a7c60def3935e12d"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b850-read-correct-auto-end-strict-nosave-cdc\\actual-result.json",
+    "sha256": "4cc2ba5aff6c34f9d8072d877cecb19f8ab14d7b49f68bf4a723a96ecd657763"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch850-read-correct-auto-end-opt-bottom-draw-arsenal-probe-20261116T063232Z-6afaa38006282.json",
+    "sha256": "e85e83340a05849c747585f0e42f541cd73a8dde0b9b1647af70e891e7451a91"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch850-read-correct-auto-end-opt-bottom-draw-arsenal-probe.recording-results.json",
+    "sha256": "4cc2ba5aff6c34f9d8072d877cecb19f8ab14d7b49f68bf4a723a96ecd657763"
+  },
+  "planned_declarative_controls": 12,
+  "planned_controls": 12,
+  "planned_queries": 1604,
+  "expected_complete_route_native_input_bound": [
+    11,
+    15
+  ],
+  "actual_native_inputs": 9,
+  "actual_manual_inputs": 8,
+  "actual_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "actual_legal_Source_response_passes": 4,
+  "actual_legal_Action_phase_passes": 4,
+  "actual_EndPhase_priority_response_passes": 0,
+  "persisted_successful_queries": 1136,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "3a3825e6d9934fb7c483bcd8e339c58d8a8476e3824133ed647e24d64cf19d5e",
+  "first_failed_query": {
+    "source_step_index": 18,
+    "source_check_index": 21,
+    "native_after_input": 9,
+    "checkpoint": "fourth_ordinary_ACTION_pass_automatic_beginEnd_resolution_ALREADYatOpt_AuraGY_layerRetained_NO_EndPriorityOrExtraPass",
+    "global_query_ordinal": 1137,
+    "query_ordinal_in_checkpoint": 22,
+    "query": {
+      "step": 9,
+      "type": "zone_count",
+      "zone": "p1Arena",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    "expected": 0,
+    "actual": 1,
+    "error": "Expected p1Arena count 0, got 1."
+  },
+  "queries_unrun_after_failed_query": 467,
+  "not_passed_including_failed_query": 468,
+  "declarative_controls_unrun": 3,
+  "native_controls_unrun": {
+    "minimum": 2,
+    "maximum": 6
+  },
+  "expected_future_native_input_bound": [
+    2,
+    6
+  ],
+  "remaining_controls_detail": [
+    "Real Opt answer:1unrun Nativeinput.",
+    "Actual drawnB Arsenalclick:1unrun Nativeinput.",
+    "One final declarative transport may emit0..4Nativephase-driverpasses; notcard responses."
+  ],
+  "legal_manual_response_inputs_unrun": 0,
+  "post_Arsenal_transport_pass_inputs_unrun_bound": [
+    0,
+    4
+  ],
+  "complete_route_bound_not_applied_to_failed_prefix": true,
+  "passed_current_cluster_queries": 21,
+  "initial_raw_sha256": "04422e2f02e626529e75581a22cb95d3abdc49aeab0f3474eefdb98beff95b1e",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All9 actualenvelopes/1136persistedqueries exactly equal corrected original Source prefix. Native1isrealReadclick;2..5arefourlegalSourcepasses;6..9arefourlegalempty-stackActionpassesactors1/2/3/4. No EndPhase responsequorum/extratransportwasexecuted;8passes2each. Initialfreshraw48manualcontrols andlegitimateRead5+fourHand/DeckA10B11 verified.",
+    "ReadzeroActionAP1to0 andfourSource responsespassed beforeactualAura5Arena1/ownercontroller1/status2/damage0. Atcontrol8 immediatelybeforelastActionpass, typedAura5 identity andHand4/Deck2/originalphysicalHandandDeckorder passed.",
+    "AfteractualfourthActionpass, current21passedqueriesprove liveSeatOrder1234/TurnPlayer1/Turn2/Winner0/allHeroHP20/allresourcesChiAP0. Nextquery1137directly observesArena1 count1 againstcorrect0. ExactpostfailureArenaCardID/UID isnotqueried; sameRead5remaining derivesfromlasttypedpreboundaryidentity+closedroster/currentdispatch, notpassedpostquery.",
+    "CapturedGameState separatelyshowsEND_PHASE/noCombat/paymentnull/noendingTurn; allfouractualDecisionQueuesempty andfourHandrefs remain. Thus expectedpositiveOptdecisionwasnotyetoffered. END_PHASElabelaloneisnotbugproof; actualretainedArenacountandemptyOptqueueatcorrectautomaticboundaryarethemeaningfulobservations."
+  ],
+  "causal_source_findings": [
+    "GL2220..2223 handlesexactfourthordinaryActionpass bysettingEND_PHASE andqueueingonlyIntimidatereturns. ItdoesnotstartReadbegin-endresolution. LiteralReadUPREnd127..128 iscalledlaterfromFaBEndTurn2517, whichcurrentGL2225requiresanotherEndwindowquorumtoinvoke. CurrentrawendingTurnabsent/emptyDQ+Aura1matcheslatecaller; no needprobeextraquorumtoblesswrongordering.",
+    "CurrentReadStartTurnnameisnotmissingorwrongbyitself: actualcanonical/emitted19260 existsandimplementsdestroy->positiveRearrange->draw. GLRunSourceMacro invokesitdirectly. Actualfailureisoncorrectbeginning-Endautomaticeffectboundary,beforethatbody/Opt; notexact094rosTriggerpreclear andnotordinaryoptionalchoicefailure.",
+    "CorrectCR4.4.1/4.4.2 givesNOplayerpriorityinEndPhase; beginning-Endlayersresolveasifallpassuntilrealresolutionchoice. Aura5shouldalreadybedestroyedandOptA pendingwhenactionphaseends. Fourmanualearnedresponseswouldbeincorrect; originalfirmmisconceptionwascorrectedbeforethissoleNativeReadattempt andisnotreintroduced.",
+    "PostfailureGY5/TempA10/DeckB11/resolvingStack1source5/controller1/Opt enum andBOTTOManswer/card-effectdrawB/ArsenalFaceDownB/normalrefill0/nextP2MAINcleanupallremainUNRUN. No actualStackabsence/Tempidentity/source-layer-lifetime orArsenal-before-refill defect independentlyconfirmed bythisprefix. Preserve fullcorrectsuffix forlaterqualification."
+  ],
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afaa373ed60e",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afaa373ed60e",
+    "existing_directory_present": false,
+    "reason": "Recorder finally clears memory/deletes unique game. Frozenresult has initialraw and captured GameState/decisions/handrefs only, no finalphysicalraw. Existing immutablearchive inspected; no rerun/capturemutation."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.3.4",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3b",
+        "4.4.3f"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3"
+      ],
+      "reuses_resolution_layer_lifetime_review": true
+    }
+  ],
+  "limits": [
+    "Nofixture/coverage/promotion.467queries afterfailure/3declarativecontrols remainunrun;468notpassedincludesfailedquery. Complete11..15Nativebound doesnotinvalidatea9-inputfailureprefix;futureunrunNativecount is2..6,notfixed3.",
+    "Onlylistedpassedfactsandseparatelycapturedrawstate/decisions areactualevidence. LaterAuraGY/Opt/Stack/draw/Arsenal/refill/suffixphysicalqueriesdidnotexecute.",
+    "No EndPhase prioritycertificate, noNative/PHP/retrial/Rwrites/sourcefix/Radiant189/Head190/Oysten191or denied188184B787 action."
+  ],
+  "created_utc": "2026-11-16T06:36:17.416231+00:00"
+}

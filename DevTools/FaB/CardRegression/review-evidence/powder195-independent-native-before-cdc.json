@@ -1,0 +1,181 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_POWDER_GUN_HIT_OPTIONAL_CHOICE_BEFORE_EARNED_RESPONSES",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 853,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "confirmed_early_resolution_choice": true,
+  "confirmed_destruction_outcome": false,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal DYNHit Powder Gun-hit producer finding. The actual confirmed behavior is an early resolution choice, not completed destruction. Root reserves issue ID; no distinct shared-root/Core allocation or repair is inferred.",
+  "source_spec": "card-regression-batch853-powder-real-gun-hit-defending-equipment-probe.json",
+  "independent_Source_proposed_basename": "card-regression-batch853-powder-real-gun-earned-equipment-probe.json",
+  "source_basename_bookkeeping": {
+    "actual_basename": "card-regression-batch853-powder-real-gun-hit-defending-equipment-probe.json",
+    "review_proposed_basename": "card-regression-batch853-powder-real-gun-earned-equipment-probe.json",
+    "actual_input_byte_identical": true,
+    "actual_receipt_and_archive_binding": true,
+    "proposed_N_file_present_at_review": false,
+    "explanation": "Root used a different local source basename. The exact reviewed input SHA, all envelopes/oracles and actual receipt/archive match. No duplicate game or change to the card route is inferred."
+  },
+  "input_sha256": "d7d3bdbbf542db770fc60c85832cd3b3d76a557339d5c8a81fd4246472282be4",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-real-gun-hit-defending-equipment-strict-probe-author\\powder-real-gun-hit-positive-earned-equipment-full-probe.json",
+    "sha256": "d7d3bdbbf542db770fc60c85832cd3b3d76a557339d5c8a81fd4246472282be4"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-real-gun-hit-defending-equipment-strict-probe-author\\manifest.json",
+    "sha256": "05b1c84d555c56a9d9cf71dbe9ac39d30fe2ddf5164b463b5c577eb07c7126a5"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-independent-real-gun-diagnostic-source-review.json",
+    "sha256": "9c236d30a8118d4ab4997d1f66b947230999a1b0b17c8b83db0bc29647b34ea0"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b853-powder-real-gun-strict-nosave-cdc\\receipt.json",
+    "sha256": "cb21139d73ebd8fe9e83a15203e0dce62ad44596262a6b39cee1c9d5c52533f4"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b853-powder-real-gun-strict-nosave-cdc\\actual-result.json",
+    "sha256": "c3475e51f5dbabfe807784699c3aa76e6057ced2aac1ec9b9bcc2a03ebb17c2c"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch853-powder-real-gun-hit-defending-equipment-probe-20261116T074820Z-6afab5448eb2e.json",
+    "sha256": "cf402aacda865de4ab8c324bc3831f6da16b098015ed928750f0ab14b1cab218"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch853-powder-real-gun-hit-defending-equipment-probe.recording-results.json",
+    "sha256": "c3475e51f5dbabfe807784699c3aa76e6057ced2aac1ec9b9bcc2a03ebb17c2c"
+  },
+  "planned_controls": 34,
+  "planned_queries": 4619,
+  "actual_native_inputs": 21,
+  "actual_manual_inputs": 17,
+  "actual_manual_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 5
+  },
+  "actual_formal_defense_finish_inputs": 1,
+  "actual_earned_Keg_response_inputs": 0,
+  "actual_optional_equipment_choice_inputs": 0,
+  "persisted_successful_queries": 2748,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "0fce272524a10b3ef02aa163a00602a5f43034316a1319f6802eaced9a0e9135",
+  "first_failed_query": {
+    "source_step_index": 42,
+    "source_check_index": 46,
+    "native_after_input": 21,
+    "checkpoint": "actual_REACTION_four_Gun2minusShell1_realHP19_earnsKeg_NO_OPTIONAL_CHOICE_BEFORE_EARNED_FOUR_fourth_actualResponse",
+    "global_query_ordinal": 2749,
+    "query_ordinal_in_checkpoint": 47,
+    "query": {
+      "step": 21,
+      "type": "decision_queue_empty",
+      "player": "1",
+      "viewerPlayerID": 1
+    },
+    "expected": "empty",
+    "actual_decision_count": 2,
+    "actual_decisions": [
+      {
+        "Type": "MZMAYCHOOSE",
+        "Param": "p4CombatChain-0",
+        "Block": 1,
+        "Tooltip": "Destroy_defending_equipment",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 0,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "powder_keg_blue:0:ResolveAbility-await|powder_keg_blue:0:ResolveAbility#1|2|chosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 1,
+        "_sourceZone": null
+      }
+    ],
+    "error": "Expected decision queue for player 1 to be empty."
+  },
+  "queries_unrun_after_failed_query": 1870,
+  "not_passed_including_failed_query": 1871,
+  "native_controls_unrun": 13,
+  "declarative_controls_unrun": 13,
+  "manual_inputs_unrun": 12,
+  "unrun_control_breakdown": {
+    "earned_Keg_responses": 4,
+    "optional_answer": 1,
+    "Damage_responses": 4,
+    "Resolution_responses": 4
+  },
+  "passed_current_cluster_queries": 46,
+  "initial_raw_sha256": "b6b5ef73d11c62da9830f02d1e7fc69cda0b28434b729285c140fda206888a98",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All21 native envelopes and2748 persisted queries exactly match the original reviewed Source. Native21 is actor4 fourth Reaction response.17 manual passes4/4/4/5 include the P4 defense finish; zero Keg earned responses and zero optional choice answers occurred. Fresh initial raw48 controls, Young/live/UPF/no passive and face-up Shell8 were verified.",
+    "Actual Gun6 announcement/adjacent Hero4 target, Blue7 pitch3 paying3/R0/AP0 and four Source/Attack/Defend/Reaction routes passed. Physical Shell8 was natively declared and finalized as DEFENSE from Equipment. At control20, typed physical Gun6/ownercontroller1, Gloves9 Equipment4 and computed power2/noGA were successful prior-boundary witnesses.",
+    "At control21, the first46 successful queries directly establish physical Keg5 in Arena1/CardID/UID/ownercontroller1/status2/damage0, Shell8 on CombatChain4/CardID/UID/ownercontroller4/status2/RoleDEFENSE/Link1/FromEquipment, current HP4=19 and otherHP20, all resources/AP/Chi0, MAIN/UPF/open combat and no payment/reaction marker. These precede the DQ failure.",
+    "The failed empty-DQ query is corroborated by captured MZMAYCHOOSE Param=p4CombatChain-0, Tooltip=Destroy_defending_equipment and the Powder ResolveAbility await continuation. The current typed Shell8 maps that actual choice ref to the defending equipment. Captured DAMAGE/attackPower2/defenseValue1/damage1, declaredBlockUID8 and weaponHits6 corroborate the real Gun hit; cached values are not substituted for the passed HP/physical witnesses."
+  ],
+  "causal_source_findings": [
+    "DYNHit110..112 recognizes the actual Gun and directly invokes Powder ResolveAbility. Actual emitted176568 queues MZMAYCHOOSE and176569 its continuation immediately, matching the captured named chooser before any earned Keg responses. This is the fresh named listener path, not the ordinary Walk own-Hit macro contract285/295.",
+    "The printed optional destruction choice has no formal target or modal declaration to choose when the trigger is added. It belongs to resolution after a responseable triggered layer under CR6.6.5/6.6.6. Correct DQ-empty-before-earned-four remains unchanged; moving the chooser earlier would fit the runtime defect.",
+    "No optional answer was executed. The prefix confirms an early choice, not destruction of Keg or Shell. Keg remains physically present in the successful current queries; later GY destruction/endpoints and Gloves/Gun postchoice cleanup are unrun. Source body explains what would happen only if a choice were later accepted.",
+    "Expected Stack count1 and ABI/controller/source metadata occur after the first DQ failure and were UNRUN. Empty or nonempty actual Stack is not certified from the captured window/DQ. Full earned-four/answer/Damage/Resolution suffix1870 queries and13 controls remains unrun. The actual proxy UID present in captured state was observed, never a Source-seeded or guessed oracle."
+  ],
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afab51d71eb9",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afab51d71eb9",
+    "existing_directory_present": false,
+    "reason": "Recorder finally clears memory and deletes the unique game. Immutable archive/result retain initial raw and captured state/decisions/hand refs only. No final physical raw, new game or rerun/capture mutation."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_trigger_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.36"
+      ],
+      "reuses_Cloaked_midgame_legality_review": true
+    }
+  ],
+  "limits": [
+    "No fixture, promotion, coverage or repair.1870 queries after failure/13 controls are unrun;1871 not-passed includes the failed query.",
+    "Actual completed destruction, later owner-GY identities, ABI Stack count, positive optional answer and full cleanup are not confirmed. Current passed physical Keg/Shell and HP facts are distinguished from prior Gun/Gloves witnesses and separately captured queue/state.",
+    "No PHP/native retry, R writes/sourcefix/fullsuite/Git/remote or deferred/denied repair action."
+  ],
+  "created_utc": "2026-11-16T07:53:57.895126+00:00"
+}

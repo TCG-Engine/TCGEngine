@@ -1,0 +1,253 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_SWIFTSTRIKE_EARNED_NIMBLISM_ACTION_DESTROY_NEXT_ATTACK_NINE_DAMAGE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T07:06:19.101812+00:00",
+  "source_spec": "card-regression-batch301.json",
+  "input_sha256": "ddb4729ac680c8addb6a8b05dbf8f8f6cf0d2f9179d23894b40697b280ffafd3",
+  "manifest_sha256": "b505d89d1776c63ebb30e5cd77f2b62f2c4725bbe59730a92353b148632a4c20",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch301-independent-source-review\\review.json",
+    "sha256": "22008b7e46921a7dc871f289b22dcc9f3c060df75384f63b91fd599172a471ed"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch301-20261103T070356Z-6ae9875cc2c77.json",
+    "sha256": "2a35c7c9149ad17c49597f4841a981f0b0250f2b380c4173117f4e7f36ddbcf5"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch301-native-r1\\receipt.json",
+    "sha256": "3cbe735cb55d631bc4051829d69b01bce8b237a77e333eb1cc8a73bd6506a3c6"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch301-independent-saved-review\\audit_saved.py",
+    "sha256": "a007fada573fb605aad8544a9a21045f3c2f393629001740977f0d0bf549de28"
+  },
+  "review_method": "Reuse independent printed/source approval. Every actual action and persisted assertion exactly mapped; all manual pass actors independently scheduled; complete strict schema initial/final physical UID/ownership/economy/manual profiles; terminal assertions evaluated and raw4/raw5 stability verified. No native/PHP/replay/R work.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "swiftstrike_bracers",
+      "slug": "card-swiftstrike-bracers-four-live-sparse-real-nimblism-play-earns-destroy-action-next-attack-nine-damage",
+      "source_spec": "card-regression-batch301.json",
+      "input_sha256": "ddb4729ac680c8addb6a8b05dbf8f8f6cf0d2f9179d23894b40697b280ffafd3",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-swiftstrike-bracers-four-live-sparse-real-nimblism-play-earns-destroy-action-next-attack-nine-damage",
+      "fixture_sha256": "9caa31706e513853e7673789e2114ad5c16694bce452e01f928b9e4ef14fa143",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "bbeb543736686f236a9dc6301e2b95e655730a79a54f07dc2a64e512b080af5f",
+        "actions.json": "ff13907fd2194baabbaa5eed14f21881ee74aab9f094f8743cf0012d67aa1bf8",
+        "assertions.json": "1d77ec53ac69d1f616f37ef6275486b0add660ec55607a49d48fe7331cf7e61e",
+        "expected_final_gamestate.txt": "e77102a894905f6daf3608745157b6f10888ae11bd18ea9fba52e654c0a18811"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bbeb543736686f236a9dc6301e2b95e655730a79a54f07dc2a64e512b080af5f",
+        "actions.json": "ff13907fd2194baabbaa5eed14f21881ee74aab9f094f8743cf0012d67aa1bf8",
+        "assertions.json": "1d77ec53ac69d1f616f37ef6275486b0add660ec55607a49d48fe7331cf7e61e",
+        "expected_final_gamestate.txt": "e77102a894905f6daf3608745157b6f10888ae11bd18ea9fba52e654c0a18811",
+        "meta.json": "c152e1fb3c677ae0f35e894635674b6dcbde077ca63609ef11aa497ea79ffe83"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "bbeb543736686f236a9dc6301e2b95e655730a79a54f07dc2a64e512b080af5f",
+        "actions.json": "ff13907fd2194baabbaa5eed14f21881ee74aab9f094f8743cf0012d67aa1bf8",
+        "assertions.json": "1d77ec53ac69d1f616f37ef6275486b0add660ec55607a49d48fe7331cf7e61e",
+        "expected_final_gamestate.txt": "e77102a894905f6daf3608745157b6f10888ae11bd18ea9fba52e654c0a18811",
+        "meta.json": "c152e1fb3c677ae0f35e894635674b6dcbde077ca63609ef11aa497ea79ffe83"
+      },
+      "actions": 37,
+      "native_assertions": 2829,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "nimblism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "swiftstrike_bracers",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "nimblism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "swiftstrike_bracers",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 39,
+      "checkpoint_assertion_mapping_sha256": "a09c1f5f2b7e876699770253ec611bd53f5c96dbbad1990c5310649c9bc502d2",
+      "native_action_mapping_sha256": "2fb84953444776a5d4c4339d002ff53b0ffc3569575820581bbb22a123e7211c",
+      "native_assertion_mapping_sha256": "1cece11dec32b194fecd3b4901a2833d6f4692ce73757fd65bd8a504744e89ca"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 37,
+  "total_native_assertions": 2829,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual four young Dorinthea20/manual UPF endpoints, no initial resources, history, power or go-again seed. Real Nimblism5 Action0 spends AP1, only four responses grant its own go again and next low-AA +3; actual played history earns Bracers prerequisite.",
+    "Actual Bracers6 Action0 spends returned AP1 and destroys SAME Equipment6 to own public GY before priority. Captured virtual8 from Equipment6 remains pending through first three genuine responses; fourth clears virtual source, grants own go again/AP1 and next attack +2. No Bracers target declaration or early refund.",
+    "Real Hand Wounding7 first declares P4 target while still Hand/AP1/Stack0; answer pays Action AP1/resource0. Actual source resolves at power4+3+2=9/no go again, all four-seat windows and P4 declaration finish execute, actual nine damage/P4HP11, no later AP refund. Both next-attack effects consumed.",
+    "Full parsed final physical UIDset1-7 unchanged: heroes1-4 ready/live, own public GY exact UIDset5,6,7, virtual8 ceased, no other cards, Stack, chains, queues, pending payment, reaction or await frame. All resources/AP0; only P4HP11, other HP20. All five files, source and metadata match approved bytes."
+  ],
+  "limits": [
+    "Exact selected positive Nimblism-play/Bracers Action-destroy/next-attack+2/own-go-again/9damage branch only. No false-condition rejection, second activation, other attack, weapon, support-primary, hero, full-card or sibling/control credit.",
+    "Intermediate events are supported by completed native assertions and exact action mapping; endpoint files alone are not snapshots of every intermediate state.",
+    "Root performs two focused replays and registration separately. No native/PHP/R writes, source fix, generation, backend/service, remote write, full suite, broad audit or authorization retry."
+  ]
+}

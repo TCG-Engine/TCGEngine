@@ -1,0 +1,340 @@
+{
+  "id": "FAB-REG-159",
+  "status": "NATIVE_CONFIRMED_UNFIXED_SELECTED_GUARDWELL_WEAPON_CONTEXT_COUNTER_FAILURE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch713-plating-independent-native-before-review.json",
+  "independent_review_sha256": "f995db62efd7371499b460bc79edaaa6e8ac4c69578fc4c269333c9fd2f320eb",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch713-plating-probe.json",
+  "input_sha256": "d3eea90be3e1a5009fee31d2827fc373ee260cb8bffdf9e2776af589331d4461",
+  "scenario_id": "diagnostic-blade-beckoner-plating-four-live-real-weapon-defense-two-and-guardwell-two",
+  "first_failure": {
+    "source_pointer": "/0/steps/58/checks/62",
+    "source_step": 58,
+    "check_index": 62,
+    "after_native_actions": 29,
+    "native_assertion_ordinal": 2285,
+    "query_ordinal": 2285,
+    "passed_assertions_before": 2284,
+    "type": "card_property_equals",
+    "mzId": "p4Equipment-0",
+    "property": "Counters",
+    "expected": "{\"DEFENSE\":2}",
+    "observed": "{\"DEFENSE\":1}",
+    "expected_json": {
+      "DEFENSE": 2
+    },
+    "observed_json": {
+      "DEFENSE": 1
+    },
+    "error": "Expected p4Equipment-0.Counters to equal '{\"DEFENSE\":2}', got '{\"DEFENSE\":1}'."
+  },
+  "actual_native_prefix": {
+    "native_actions": 29,
+    "actual_actions": 29,
+    "manual_inputs": 25,
+    "manual_actor_counts": {
+      "1": 6,
+      "2": 6,
+      "3": 6,
+      "4": 7
+    },
+    "actual_priority_response_inputs": 24,
+    "actual_defender_declaration_finish_inputs": 1,
+    "successful_native_assertions": 2284,
+    "successful_checkpoint_counts": [
+      {
+        "source_step": 0,
+        "after_action": 0,
+        "native_assertions": 130,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 2,
+        "after_action": 1,
+        "native_assertions": 59,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 4,
+        "after_action": 2,
+        "native_assertions": 74,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 6,
+        "after_action": 3,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 8,
+        "after_action": 4,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 10,
+        "after_action": 5,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 12,
+        "after_action": 6,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 14,
+        "after_action": 7,
+        "native_assertions": 75,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 16,
+        "after_action": 8,
+        "native_assertions": 75,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 18,
+        "after_action": 9,
+        "native_assertions": 75,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 20,
+        "after_action": 10,
+        "native_assertions": 75,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 22,
+        "after_action": 11,
+        "native_assertions": 75,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 24,
+        "after_action": 12,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 26,
+        "after_action": 13,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 28,
+        "after_action": 14,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 30,
+        "after_action": 15,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 32,
+        "after_action": 16,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 34,
+        "after_action": 17,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 36,
+        "after_action": 18,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 38,
+        "after_action": 19,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 40,
+        "after_action": 20,
+        "native_assertions": 76,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 42,
+        "after_action": 21,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 44,
+        "after_action": 22,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 46,
+        "after_action": 23,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 48,
+        "after_action": 24,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 50,
+        "after_action": 25,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 52,
+        "after_action": 26,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 54,
+        "after_action": 27,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 56,
+        "after_action": 28,
+        "native_assertions": 79,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 58,
+        "after_action": 29,
+        "native_assertions": 62,
+        "checkpoint_complete": false
+      }
+    ],
+    "actual_action_envelopes_sha256": "eb8c53ed927dfe360ec0a30a756345ac9fd21d57d475f4b1f0b64162a1c95bca",
+    "actual_passed_native_assertions_sha256": "f4bb589f248a285046b196c60df0820e324987add85378510e1d28991696c886",
+    "recording_actions_exact": true,
+    "recording_assertions_exact": true,
+    "initial_manual_preference_values_verified": 48,
+    "real_target_before_proxy_and_assets": true,
+    "physical_Blue7_paid_Weapon6_cost1_AP1_resources2_AP0": true,
+    "actual_weapon_power": 2,
+    "actual_defense_total": 2,
+    "actual_physical_damage": 0,
+    "actual_defender_HP": 20,
+    "actual_attack_hit": false,
+    "actual_equipment_defender_UID": 5,
+    "actual_attack_proxy_UID": 8,
+    "actual_same5_returned_Equipment_owner_controller4_ready_damage0": true,
+    "actual_Weapon6_retained_used": true,
+    "first_Guardwell_Counters_observed": "{\"DEFENSE\":1}",
+    "observed_window": "ACTION",
+    "observed_combatOpen": false,
+    "postfailure_full_final_UID_inventory_certificate": false
+  },
+  "classification": "Original-correct Blade Beckoner weapon defense succeeds (2 power versus2 defense, zero physicaldamage), but selected Close Guardwell writes one minus-defense counter instead of the required two. Current FaB cleanup removes the attacker weapon proxy before HNT-family/Guardwell recomputation; source-supported bounded attribution only, not a globally deduplicated new Core/root claim.",
+  "expected": "After Blade Beckoner Plating defends against the real Cintari Saber weapon attack with defense two and fully blocks its two physical damage, Guardwell must put two minus-defense counters on the same equipment during Close, before the weapon context is removed.",
+  "observed": "All 29 native inputs executed; 2284 assertions passed, including actual power two, defense two, physical damage zero, defender health twenty, no hit and the same Plate retained in Equipment. Query 2285 observed DEFENSE counter one instead of two. All 128 subsequent full-final assertions were unrun. Mandatory probe-only mode saved no fixture and preserved the 3978-fixture inventory, review, index and runtime.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+      "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+      "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+      "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8"
+    },
+    "normative_contract": "ViewedCIN004/currentCR8.3.34: Guardwell counter count equals currentdefense; currentCR7.7.3-6 resolves Close effects before remainingEquipmentreturn/chainclear. ThisPlate stilldefends Weapon and hasDEF2 when amount must be determined.",
+    "static_modifier": "GL351-367\u2192WTR703-711\u2192HNT74 actual blade_beckoner_family+Weapon reader exists and nativephysicalfullblock proves it applied.",
+    "selected_counter_route": "HVY169 recomputes FaBCurrentDefense during per-seatGL2110. With fixedSeatOrder1\u21924, GL2118 has already markedP1Weaponsproxy8 removed; FindUID622 skipsremoved, so HNT74 currentattacklookup lacksthatWeapon. No selected LKI/physicalWeapon fallback was established.",
+    "attribution_limit": "Native evidence directly confirms Counter1 vsnormative2. The intermediate per-call removal/recomputation chronology is source-supported, not separately instrumented native call tracing. No globaldedup/family/Core/newdistinctroot allocation or repair proposal.",
+    "source_executed_by_reviewer": false
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch713-plating-probe.recording-results.json",
+      "sha256": "31f707531639f4f56239392f9138fe56617cc92e130dbed34e1d1c8c1253db9f"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch713-plating-probe-20261107T060858Z-6aeec07ab6b10.json",
+      "sha256": "f25a484e3bdc2bdb1033ec1c0fd6d0da8649aaa8f414f61f6ed75c1f2db67887"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch713-plating-independent-diagnostic-source-review.json",
+    "sha256": "51cce56525cdcffb8097f1b8cff00498ea169fbe4f5f25da19edc1844258f716"
+  },
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\blade_beckoner_plating.webp",
+      "sha256": "9ebf478f285e7fd524a52641e09447a6698e10f470a63ff100f31d6751f98dab",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\cintari_saber.webp",
+      "sha256": "1dfea91fcd2063927e98eb588020194ffc371c250dc4c42173bf6e1c89d83b5d",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "independently_retrieved": true,
+      "clauses": [
+        "8.3.34"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "independently_retrieved": true,
+      "clauses": [
+        "7.7.3",
+        "7.7.4",
+        "7.7.5",
+        "7.7.6"
+      ]
+    },
+    {
+      "exact_judge_id_established": false,
+      "publisher_fetch_succeeded": false,
+      "scope": "Primary issuerCIN004 viewed; currentcatalog/currentCR bound; no successful publisher page or exactJudgeID invented"
+    }
+  ],
+  "limits": [
+    "Only selected fixed-seat Saberweapon defense and Guardwell Close physicalcounter amount. Other seats/order/weapons, suppression/buffs, otherGuardwell equipment, additionaldefenses, futureblocking/Hero/support/fullcard branches remain untested.",
+    "Native2284 passed/fail2285/128unrun. Same5Equipment andWeapon6 retention stated only because thosequeries passed beforefailure. The finalcompleteUID/economy/shortcut audit didnotrun and no finalserializedsnapshot was captured; do not extend prefix observations into a passingfinalcertificate.",
+    "No fixture/Saved/qualification/coverage/replay/fullsuite/fix/sourceapplication or reviewer PHP/R write. Originalnormative2,input/Source/results/archive preserved. Source attribution is sharedFaBcleanup/HNT/Guardwell only; parentowns ledger159 attribution andglobaldedup, with none allocated here."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-07T06:13:31.032942+00:00"
+}

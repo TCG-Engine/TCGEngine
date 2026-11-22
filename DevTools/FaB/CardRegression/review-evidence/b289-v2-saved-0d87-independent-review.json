@@ -1,0 +1,137 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B289_V2_QUIVER_ARSENAL_BOTTOM_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T05:06:21.430029+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch289-v2-priority-protocol.json",
+  "input_sha256": "401674787069c5f00f52e54de8aefe7a8164bf1b5e9c343c4f47ce266161f4ef",
+  "fixtures": [
+    {
+      "slug": "card-driftwood-quiver-four-live-sparse-real-destroy-instant-bottoms-owned-arsenal-after-two-deck-cards",
+      "card_id": "driftwood_quiver",
+      "group_id": "identity:driftwood_quiver",
+      "fixture_sha256": "cbe4c61d1b1b75eb530c5a05ac49ccff5e6d35a206428509a48cdd048781184b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7250d9a76da2fb5d00b460c03eb6e7b5922ee715cfed5753acbcd2b6afe40bf6",
+        "actions.json": "7fe17b39c85cd6bf22309a8743fc11949e644c0c1b765b3e79fd999ddfb1d557",
+        "assertions.json": "37001e42854625b8c980f81296c7b5e97cf8ac427b19d74fe407156054f2b0d0",
+        "expected_final_gamestate.txt": "da03bd33467568a8ad0885213ccbaa9f1c0d7a99ac2068a201de5f2e511255eb",
+        "meta.json": "78cc0e14d564bb748798943ab660802ff3912a3320e454005eab02197959c8ea"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7250d9a76da2fb5d00b460c03eb6e7b5922ee715cfed5753acbcd2b6afe40bf6",
+        "actions.json": "7fe17b39c85cd6bf22309a8743fc11949e644c0c1b765b3e79fd999ddfb1d557",
+        "assertions.json": "37001e42854625b8c980f81296c7b5e97cf8ac427b19d74fe407156054f2b0d0",
+        "expected_final_gamestate.txt": "da03bd33467568a8ad0885213ccbaa9f1c0d7a99ac2068a201de5f2e511255eb",
+        "meta.json": "78cc0e14d564bb748798943ab660802ff3912a3320e454005eab02197959c8ea"
+      },
+      "actions": 6,
+      "native_assertions": 655,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_deck_uid_order": {
+        "1": [
+          7,
+          8,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        19,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualyoungRiptide19/threeDorinthea20/manualfourlive; originalphysicalQuiver5Weapons/ownfacedownArsenal6/Deck7,8/noHandhistory/effects. ActualInstantdestroycostmovesSAME5toownpublicGYbeforefresh1,2,3,4responses, printedR0/AP1unchanged. Distinctvirtual9ABILITYCardIDQuiver/Controller1/SourceWeapons5retainedacrossfirstthreeandfourthactualpendingownArsenalMZCHOOSE; same6/Deck7,8remainuntilchoice. Actualanswer selectsSAME6\u2192bottombehind7,8, exactDeckUIDorder7,8,6/no shuffle/draw/cardplay. Onlythenvirtual9ceases, managedmarker/Stack/queues/Arsenal/Weaponsclear, ownGY5/AP1R0/health19,20,20,20/alloriginalphysicalUIDownershipconserved. InitialAP1isunchanged, notgain/GA. V1one-inputprivatewindowerrorremainsnonpassing; V2actualfull6inputs/materialoraclesnowpassed.",
+      "qualification": "One realdestroyInstant/mandatoryownArsenalbottom/exactorderedphysicalDeck branch only. No emptyArsenal/illegalSpecialization/restriction/faceup/foreignowner/multipleArsenal/hero/endphase/fullcard/control/sibling/supportprimary credit. NoHandcardplayed so Riptidehero abilities unexercised."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch289-v2-independent-source-review.json",
+    "sha256": "28ecfd5440d0fd639834993d38fbf7df32fc4279f31eed95c52d58b5703b1f96",
+    "manifest_sha256": "921b7e731efa063459d0a9eca1f714676230a4773032f27f336d76d61e3899ce"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch289-v2-priority-protocol-20261103T050408Z-6ae96b4831eaa.json",
+    "sha256": "d9a1dc10b76aa80b39ae848b5891a2f8f23a75d13779a0161ac6bcb601ebb6ad"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch289-v2-priority-protocol.recording-results.json",
+    "sha256": "90b0f1ace84096edbd3d6cf66c67fb292fc39c5a0c693547a7730e9ad69b01a9"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch289-v2-native-r1\\receipt.json",
+    "sha256": "8b9fca3609068cc4174f6861c4552e426728de048efa29d547fec72dd67d7cb2",
+    "stdout_sha256": "895636c7ef4c83e616718157de5e21ba4a9ab90be062045bedf2e88383cf0db6",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "original_nonpassing_attempt": {
+    "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch289-20261103T045409Z-6ae968f1ec654.json",
+    "archive_sha256": "323e560740c80172ff2dfa6ffbb4a2e43855d07e6bbbcfc590ce122df953a32c",
+    "wrapper": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch289-native-r1\\receipt.json",
+    "wrapper_sha256": "dddada69a8567d74e8b5df6be7ac70326ca9b1f965f3263d6f1c6c38b1dd6abf",
+    "stdout_sha256": "138da3a7c41bbe0240dbee725e327a80779e7ed1bcc27ac4ad97c460a51fc141",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "accepted_inputs": 1,
+    "error": "state window expected \"ACTION\" got \"PRIORITY\"",
+    "fixture_saved": false,
+    "classification": "PRIVATE_PROTOCOL_ORACLE_ERROR_NOT_GAMEPLAY_ENGINE_BUG",
+    "material_checks_after_window_failure": "UNREACHED_UNQUALIFIED",
+    "later_expected_deck_uid_order": [
+      7,
+      8,
+      6
+    ],
+    "later_expected_owned_graveyard_uidset": [
+      5
+    ]
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own generic raw5/archive/schema/action/assertion parsing only; exact B289V2 bindings. Initial-health checker binds approved printed-health vector19,20,20,20; all other checks retained."
+  },
+  "method": "Independent exactsaved read-only raw5 review: all6actualactors/modes/payloads and655orderedassertions match approvedV2. Complete schema initial/final printedherohealth/UID/ownership/Counters/economy/GY/orderedDeck parsed, fourmanualactors and materialcostsource/retainedvirtualchoice6/bottom7,8,6 checked. NoPHP/native/replay/R/backend executed.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplays are separate evidence not executed by reviewer.",
+    "One realdestroyInstant/mandatoryownArsenalbottom/exactorderedphysicalDeck branch only. No emptyArsenal/illegalSpecialization/restriction/faceup/foreignowner/multipleArsenal/hero/endphase/fullcard/control/sibling/supportprimary credit. NoHandcardplayed so Riptidehero abilities unexercised.",
+    "Actual0d and distinctV2 context retained. OriginalV1Rspec/archive/privatewindowfailure preserved, notpassing/enginebug evidence. No sourcefix/applicationretry or legacy audit."
+  ]
+}

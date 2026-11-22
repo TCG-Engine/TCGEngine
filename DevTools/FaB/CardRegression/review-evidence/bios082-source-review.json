@@ -1,0 +1,172 @@
+{
+  "status": "APPROVED_SOURCE_SEMANTICS_BIOS082_DELAYED_ITEM_QUEUE_COMPONENTS_EMISSION_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T19:57:15.555677+00:00",
+  "runtime_before_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\manifest.json",
+    "sha256": "f4581f70b83dc5e79b8676933086c1c1d6da54b8c512a94115ffbbd4586711ba"
+  },
+  "patch": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\proposal.patch",
+    "sha256": "5a7aa0deb906a78e999bf8ab74b4d8e6ff2fc39d5ae5e49bdfdb3086d40af04c"
+  },
+  "validation_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\validation-plan.json",
+    "sha256": "63320be2b842c2fefbc991627627ee22f9f31ba4b642dd6ab84556bfd53057b9",
+    "execution": "NOT_RUN_REVIEWED_STATIC_PLAN_ONLY"
+  },
+  "candidates": [
+    {
+      "path": "FaBSim/Custom/DYNRuntime.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\candidates\\FaBSim\\Custom\\DYNRuntime.php",
+      "before_sha256": "85e28425ebd6a99541d5984041e14d573a59109de1097b21cafb2de8e8b82be7",
+      "after_sha256": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php",
+      "before_sha256": "e51280ce0c495f835157e6aac3ca9712edbb8e49b28d1307bca985a5bc845ac1",
+      "after_sha256": "fd52fcc1ce037db4c8204509713c6d743e494a5ffd26cd6ed71348efd76c4a9d",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "DevTools/FaB/dyn_abilities.json",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\candidates\\DevTools\\FaB\\dyn_abilities.json",
+      "before_sha256": "b851c298ff9a31fd3da8cea0b62bd3bf6a6878dd77b22f21f57aef7dab6221cd",
+      "after_sha256": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "DevTools/FaB/build_dyn_abilities.py",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\candidates\\DevTools\\FaB\\build_dyn_abilities.py",
+      "before_sha256": "6e3bb07bf96f82d413f8b215c64fc910808b3f019f822ab26631726e74a8b1f5",
+      "after_sha256": "af31d1a7a5d1d0810da433d46a37005389cef0108fc1e65c0d12716d4617b734",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-delayed-item-queue-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php",
+      "before_sha256": "8829dc0c85903c5c26e82bf3a6df0c5a0db5f53658deeb049871a81c390acbff",
+      "after_sha256": "95907fd9ae6b679d115c29af526352e95668f49528d82ef639ed5be0db478ce5",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE_NOT_APPLIED"
+    }
+  ],
+  "source_guards_verified": 15,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/DYNRuntime.php": "85e28425ebd6a99541d5984041e14d573a59109de1097b21cafb2de8e8b82be7",
+    "FaBSim/Custom/ROSCards.php": "e51280ce0c495f835157e6aac3ca9712edbb8e49b28d1307bca985a5bc845ac1",
+    "DevTools/FaB/dyn_abilities.json": "b851c298ff9a31fd3da8cea0b62bd3bf6a6878dd77b22f21f57aef7dab6221cd",
+    "DevTools/FaB/build_dyn_abilities.py": "6e3bb07bf96f82d413f8b215c64fc910808b3f019f822ab26631726e74a8b1f5",
+    "FaBSim/Custom/CodeGeneration.php": "8829dc0c85903c5c26e82bf3a6df0c5a0db5f53658deeb049871a81c390acbff",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "7576a12c264373f0df180cb103010797419d071f412884d283d31d135a9514cc",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "exact_scope_verified": true,
+  "canonical_single_body_path": "/15/abilities/0/abilityCode",
+  "canonical_legacy_normalized_sha256": "1d820f653562a45a98f61a63cfb3c30e48b7bc5592fefec9d3d97724eb19b3d3",
+  "canonical_fixed_normalized_sha256": "3ac55e0c6ba8a3b6ff0d30f7008be14b5ecf6ccb080e33927bbbb54d88989a9a",
+  "independent_semantic_findings": [
+    "Actual printed BIOS face independently viewed: first next boosted-AA +3 is continuous; second next-time eligible cost2-or-less Mechanologist Item banished to pay Boost this turn is a delayed triggered effect under CR6.6. First power statement and native Boost cost infrastructure are byte-identical.",
+    "Actual DoResolveCard ordinary path first moves BIOS5 to GY then FaBResolveRules re-finds the resolved UID and passes that GY mzID into ResolveCard. Canonical fixed body arms sourceUID5/cardID/controller1 from that real argument. Source record is serializable per turn; no fake source/permission/history/nonce or new framework.",
+    "Actual FaBTryCompletePayment charges resources/AP and marks arcBoostAssetsPaid before FaBARCPayDeferredBoostCosts. That helper pays ALL accepted top-card banishes, sets arcBoostCostsPaid, then invokes FaBARCApplyBoostConsequences->FaBDYNBoost. New callback sees actual Item7 Banish; it consumes only positive valid DYN_BIOS_ITEM records before queue callbacks and appends one existing ROS ABI per source. Item remains unmoved during payment/queue. Noneligible cost/type events preserve the delayed record; normal turnEffects expiry applies.",
+    "Actual FaBROSQueue leaves window/payment intact while pendingPayment exists; AddStack appends above retained attack6. FaBTryCompletePayment re-reads current state after callbacks and clears pendingPayment by sourceUID6, not top-of-stack; it does not replace or discard queued ABI. Existing OnCardPlayed remains tied to6. HoldPriority resets actor1/pass0. Actual FaBStackTop takes last live layer; fourth responses resolve the new BIOS layer before underlying6 receives its own fresh four.",
+    "New ROS event dispatch is the sole added line; existing DoResolveCard marks ABI removed then calls existing ROS handler, returning PRIORITY while lower attack remains. Resolver depends on earned layer metadata, not BIOS current zone/abilities. It guards exact captured Item UID/current Banish holder/cardID/owner, marks dynBIOSResolved before movement, moves at most once through existing FaBMoveUID, then calls existing FaBARCEnterItem. Missing/moved/mismatched Item cannot be resurrected. Two independent BIOS records queue separately; first to move7 succeeds, remaining layer finds7 no longer Banish.",
+    "Selected own Deck/Banish Item7 stored Controller1 is preserved by sourceObject movement into P1Arena; original Owner is preserved. FaBMoveUID/FaBAddToZone do not generally overwrite an already nonzero Controller. This review does not claim arbitrary foreign stored-controller reassignment or leave/re-enter incarnation tracking. Selected Induction Chamber red printedcost2 has no mandatory entry Steam/WHEN; zero Steam is correct, and both activated abilities remain unused.",
+    "Exact mechanical scope independently verified: DYN helper insertion plus single old inline callback replacement only; ROS one-line event dispatch only; canonical JSON only /15/abilities/0/abilityCode; builder one matching producer; CodeGeneration adds one invocation and one exact normalized-hash helper. Legacy->fixed hashes bind real canonical bodies; fixed idempotence/unknown fail-closed/unselected identity follow the literal branches. No PHP result is claimed from static inspection.",
+    "Current snapshot has exactly ONE BIOS ResolveCard closure bios_update_red:0. Existing macro-only emitter route is appropriate only after Root guarded read preflight/backups and components/lints. Allow semantic change solely in that named body; keep every unselected wrapper/helper/index/count byte identical, except actual generator timestamps. No new await means no new continuation/helper expected. No six-wrapper drift waiver follows from this proposal.",
+    "Native-before evidence is bounded to original correct V3 eight accepted inputs and missing extra stack layer (expected2 got1); raw remaining Stack UID or actual Item location was not captured and is not invented. Independent impact lookup reports no direct saved BIOS or seeded BI0S producer state candidates; no broad legacy replay is required by that result. Unchanged correct V3 native/saved/replay qualification remains pending."
+  ],
+  "printed_faces_viewed": {
+    "bios_update_red": {
+      "path": "FaBSim/WebpImages/bios_update_red.webp",
+      "sha256": "388b2379d8b13c0c559b511c9595fd3e18a867023b654fbb36d255840a3473ab"
+    },
+    "induction_chamber_red": {
+      "path": "FaBSim/WebpImages/induction_chamber_red.webp",
+      "sha256": "da4d9e28e807367a4cc0f06eb57caef769ff16ccd5606ea30d2593bac53ca0c3"
+    }
+  },
+  "official_rule_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.3",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Next-time delayed effect earns an independent responseable layer, no instead/replacement text."
+    }
+  ],
+  "actual_engine_path_guards": {
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "FaBSim/Custom/ROSCards.php": "e51280ce0c495f835157e6aac3ca9712edbb8e49b28d1307bca985a5bc845ac1",
+    "zzGameCodeGenerator.php": "f4066fb8104d8c43610635d879f6307e8d2ce61b4179ef6ee51ef053245d16f4"
+  },
+  "native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-independent-native-before-classification.json",
+    "sha256": "b321759c089208f0faea82d893abff135a7c5ecac8f3bd53bfc18f51475a7396"
+  },
+  "independent_impact": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-direct-impact-lookup.json",
+    "sha256": "7e15993a306c256365742ead46cd7c419faa3bdec2be167763938abb555146c8"
+  },
+  "correct_probe": {
+    "input_sha256": "3f6ebbe900c02d2179914d4d78e09b458ca6ccc532ed3e6c9ad634098c3f3658",
+    "source_review_sha256": "1bfc72b6ddfffeb8916e2dd74fa2a7278d0e43d9d254c82a42abc92d14c8467a"
+  },
+  "component_execution": "PENDING_ROOT_NO_PHP_RUN_BY_REVIEWER",
+  "generation_scope": {
+    "route": "Existing rootName=FaBSim only=MacroCode with guarded preimages and exact post-emission scope checker",
+    "expected_semantic_change": "Only bios_update_red:0 ResolveCard body",
+    "existing_wrapper_count": 1,
+    "expected_continuations_added": 0,
+    "unselected_bytes": "Must remain exact",
+    "GeneratedMacroCount_js": "Timestamp-only; values/indices unchanged"
+  },
+  "remaining_gates": [
+    "Root actual extracted-function/component contracts including real queue/payment sequence and malformed/noneligible/second-source/once-only cases.",
+    "Root PHP syntax on three custom candidates and Python builder syntax; actual logs/receipts required.",
+    "Guarded supported MacroCode emission with known remote legacy/fixed hash preflight, exact BIOS-only generated scope and Count timestamp-only check. No manual generated or remote authoring writes.",
+    "Unchanged correct V3 native recording, independent exact saved review, two clean selected replays."
+  ],
+  "holds": [],
+  "bounded_plan_clarifications": [
+    "Existing FaBMoveUID preserves a nonzero stored Controller; selected Item7 already Controller1. Do not broaden this approval to arbitrary foreign stored-controller reassignment.",
+    "Current Banish+UID/card/owner guards deliberately do not distinguish same UID leaving and re-entering Banish. No new global incarnation/freshness subsystem is proposed or approved.",
+    "Only one actual BIOS ResolveCard closure may change; do not authorize six unrelated wrappers from ambiguous wording."
+  ],
+  "native_after_qualified": false,
+  "coverage_credit": false,
+  "new_global_root_count_claimed": false,
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "replay": false,
+    "R_writes": 0,
+    "source_applied": false,
+    "generation": false,
+    "service": false,
+    "full_suite": false
+  },
+  "limits": [
+    "Source semantics and exact patch scope only; pending Root execution is not converted into a fix/qualification claim.",
+    "No broad source audit or legacy fixture requalification. Ten old070079 and optional SmashingItem branch preserved."
+  ]
+}

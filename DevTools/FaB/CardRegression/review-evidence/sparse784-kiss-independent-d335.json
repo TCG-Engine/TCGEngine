@@ -1,0 +1,391 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B784_KISS_SEPARATE_RESPONSEABLE_HIT_LIFE_LOSS",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth774_author_crossreview",
+  "created_utc": "2026-11-14T05:13:32.592589+00:00",
+  "source_spec": "card-regression-batch784-kiss-full.json",
+  "input_sha256": "d45d9d9365ba53b166b34886572a46e922018866e0a6742d17237d5175a3ac7f",
+  "manifest_sha256": "fe244a0a20da3ce47fdc54a8b0c7edea2e39506f14c7b94cd3fd08b715cbf16b",
+  "runtime_sha256": "d3356696c3bb58e9c0b201aa4c74cfb855e870ddb3bac86e13f91e710d23a977",
+  "recorded_runtime_sha256": "d3356696c3bb58e9c0b201aa4c74cfb855e870ddb3bac86e13f91e710d23a977",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-kiss-full-bound-d335-author\\manifest.json",
+    "sha256": "fe244a0a20da3ce47fdc54a8b0c7edea2e39506f14c7b94cd3fd08b715cbf16b"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-kiss-bound-d335-independent-runtime-source-review.json",
+    "sha256": "025625b496da501a08bdf04b1c30607f1cef08a1cefc2549742388b3e9af482f"
+  },
+  "inherited_full_semantic_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-kiss-full-independent-correct-draft-source-review.json",
+    "sha256": "2d0e2ffe065aeb323847e31f744f8c778b035addf642c9b0cbc111b750f890a7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b784-kiss-full-native-after-d335\\receipt.json",
+    "sha256": "5a0247811f937b1206de9f9e4a1ae0ecb824cb90d2eb740e2a059a58df9888ca"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch784-kiss-full-20261114T051009Z-6af7ed31e4d1c.json",
+    "sha256": "b5d4477ce8616a8486f3fbb00676768d00f3ab2cd78f9ab5cdb27e7cffe10d2d"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch784-kiss-full.recording-results.json",
+    "sha256": "0f8e555f2c070f8130eeba44dad276b6836ace8a3c9e8a1cedb56da98946e3fa"
+  },
+  "fixtures": [
+    {
+      "slug": "card-kiss-of-death-red-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "card_id": "kiss_of_death_red",
+      "group_id": "identity:kiss_of_death_red",
+      "source_spec": "card-regression-batch784-kiss-full.json",
+      "input_sha256": "d45d9d9365ba53b166b34886572a46e922018866e0a6742d17237d5175a3ac7f",
+      "runtime_sha256": "d3356696c3bb58e9c0b201aa4c74cfb855e870ddb3bac86e13f91e710d23a977",
+      "recorded_runtime_sha256": "d3356696c3bb58e9c0b201aa4c74cfb855e870ddb3bac86e13f91e710d23a977",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-kiss-of-death-red-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "fixture_sha256": "868f7b8fb4f377871299bfa3daaaf6b4702f02e612f59da168470ffd238d57b0",
+      "file_sha256": {
+        "initial_gamestate.txt": "7b67b0e244bdbd5e690079aa2ed212231affed36d924276efaf17eaca5cc2135",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "6deca8a193b5100703462779a597e231ee62ba5bac130f63621341614c60ad6a",
+        "expected_final_gamestate.txt": "238dffc835402451ba815c3500343dd5bfd05ae598b9d1d0191e3728a3bd1468",
+        "meta.json": "5ee1195ab41b3e167afd2ffa503ca2aff8e857ad06bebfd3db849d0c713074c9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7b67b0e244bdbd5e690079aa2ed212231affed36d924276efaf17eaca5cc2135",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "6deca8a193b5100703462779a597e231ee62ba5bac130f63621341614c60ad6a",
+        "expected_final_gamestate.txt": "238dffc835402451ba815c3500343dd5bfd05ae598b9d1d0191e3728a3bd1468",
+        "meta.json": "5ee1195ab41b3e167afd2ffa503ca2aff8e857ad06bebfd3db849d0c713074c9"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7b67b0e244bdbd5e690079aa2ed212231affed36d924276efaf17eaca5cc2135",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "6deca8a193b5100703462779a597e231ee62ba5bac130f63621341614c60ad6a",
+        "expected_final_gamestate.txt": "238dffc835402451ba815c3500343dd5bfd05ae598b9d1d0191e3728a3bd1468"
+      },
+      "actions": 31,
+      "native_assertions": 1738,
+      "manual_passes": 29,
+      "actual_manual_passes": 29,
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 411,
+      "checkpoint_count": 32,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "endpoint_assertions_evaluated": {
+        "0": 120,
+        "31": 121
+      },
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "kiss_of_death_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "kiss_of_death_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "retained_primary_UID": 5,
+      "actual_physical_damage": 3,
+      "actual_life_loss": 1,
+      "actual_HP_after_hit_and_first3_trigger_responses": 17,
+      "actual_HP_after_fourth_trigger_response": 16,
+      "actual_go_again": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_final_UniqueIDCounter_observed": 6,
+      "final_counter_value_is_observation_not_expected_oracle": true,
+      "trigger_UID_or_descriptor_not_assumed": true,
+      "RandomCounter": 0,
+      "full_card_certification": false
+    }
+  ],
+  "total_actions": 31,
+  "total_native_assertions": 1738,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 411,
+  "total_checkpoints": 32,
+  "total_endpoint_assertions_evaluated": 241,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "e493f0e83a9de773d31e69d4906569a3dddfa6aab12f263a007bc63d7aafcab0",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "7d3de0238c603b68df8ed9249b724c403a352afd46f5d47f8122aee72c51bf76",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "306678f46c2fff96a66fe293ec4675903ae446850f8cd3a7cfa59953e986ebe3",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "a61f600b3933a59f4eaa735115564d4030b78f42b194bf1127326cd6322d6d47",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "48a14a2f86f0d49b7bdf58af0c2a64868e9f7f94a13c2de61a5cce483e41150f",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510",
+    "DevTools/FaB/omn_abilities.json": "eaaceedb02d99ba22d911d5c00ce63eea7dd491909e3278761c5278c8063209b",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+  },
+  "additional_guards": {
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "DevTools/FaB/CardRegression/initial_snapshot_guard.php": "5839a952b70c8c20f12c17aa044061cb492f4bf830789dc1c113e6d927fea36f",
+    "DevTools/FaB/build_omn_abilities.py": "cfd519c3e4039e618e52e1e5e3e743b7b21498ba22c88d6f811ce470b38efd8a",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "40b9cc593a53aba5bdd6df2c382cb73c1faa3931b11b74008f9317d6cf311858",
+    "FaBSim/Custom/ELEAbilities.php": "2290c420234518940b00af7e7a79c872c72dcdaf2eb440819f0813296d1bd28b",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+    "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+    "DevTools/FaB/mpg_abilities.json": "ffab225740b0957cfe245c1994fdf3be11fb8b5e03c420fbb411eb39df4a4f1a"
+  },
+  "original_failed_no_save_attempt": {
+    "card_id": "kiss_of_death_red",
+    "source_spec": "card-regression-batch784-kiss-trigger-probe.json",
+    "input_sha256": "9cec7276d36b9734500e9480bd50998dded102e390991397e5d9cee536b2a7c4",
+    "runtime_sha256": "0a5d4bf40e91dfeeafc2589480fa480630b3b5b32887dfb438e10964a5fc00eb",
+    "independent_Source": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-kiss-independent-strict-diagnostic-source-review.json",
+      "sha256": "089599718c6330cba5e8d0b8d81b877322572037f17f38dc56884425698ab65e"
+    },
+    "root_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b784-kiss-hit-trigger-native-before\\receipt.json",
+      "sha256": "44598b6bb3ef150c2c11719c6dac6828a52847d2050003c2bf04e1d9b96c504b"
+    },
+    "native_result": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch784-kiss-trigger-probe.recording-results.json",
+      "sha256": "bee6301f23ba3403e20578c840c5724f789b0ceb7a19e42f0b1c2c83b1fc3728"
+    },
+    "immutable_archive": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch784-kiss-trigger-probe-20261114T044314Z-6af7e6e200577.json",
+      "sha256": "74d765c695fc92d92f5a9fe27ae6dda25ac9c932aa8cbb80d921a4489be7994c"
+    },
+    "actual_native_inputs": 19,
+    "actual_actions_exact": true,
+    "actual_manual_pass_actors": [
+      1,
+      2,
+      3,
+      4,
+      1,
+      2,
+      3,
+      4,
+      4,
+      1,
+      2,
+      3,
+      4,
+      1,
+      2,
+      3,
+      4
+    ],
+    "future_trigger_response_inputs_consumed": 0,
+    "persisted_prior_successful_queries": 997,
+    "persisted_prefix_exact": true,
+    "successful_prefix_count_is_direct_recorded_evidence": true,
+    "failed_ordered_query_ordinal": 998,
+    "failed_query": {
+      "step": 19,
+      "type": "scalar_zone_equals",
+      "zone": "p4Health",
+      "value": 17,
+      "viewerPlayerID": 1
+    },
+    "direct_observed_health": 16,
+    "expected_health_before_trigger_response": 17,
+    "direct_observed_physical_attack_UID": 5,
+    "direct_observed_physical_attack_target": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "direct_observed_Kiss_damageDealt": 3,
+    "direct_observed_Kiss_DTD_LOST_packets": [
+      3,
+      1
+    ],
+    "direct_observed_Arcanic_arcaneDealt": null,
+    "Stack_following_observer_not_executed": true,
+    "post_zone_Stack_trigger_target_raw_snapshot_available": false,
+    "direct_Stack_count_claim": null,
+    "normalized_trigger_target_claim": null,
+    "causal_explanation_source_derived_only": "SelectedcanonicalHitdirectFaBARCLoseLife / selectedResolveCarddirectFaBARCDealArcane explain prematureeffect withoutseparateresponsewindow. Actualeffecttimingisconfirmed; exactabsence/internalshapeoftriggerlayer/normalizedtargetbinding/physicalzonelocationafterfailurearenotrawobserved.",
+    "actual_initial_manual_booleans_checked": 48,
+    "actual_initial_queries_evaluated": 120,
+    "initial_raw_sha256": "7b67b0e244bdbd5e690079aa2ed212231affed36d924276efaf17eaca5cc2135",
+    "native_confirmed_responseable_trigger_timing_failure": true,
+    "fixture_saved": false,
+    "qualification": false,
+    "coverage_credit": false
+  },
+  "material_findings": [
+    "All31actualnativeenvelopes/1738orderedpersistedqueries/29truemanualpasses/411typedpropertiesmatchindependentfull2d0eandfinal0256Source; stabletoolingreused/no genericmodelrebuild.",
+    "Actual3unblockedphysicalhit givesHP17andStack1. FourgenuinefreshtriggerresponsesretainHP17afterfirstthree; onlyfourthloses1lifeHP16/Stack0. Samephysical5remainsChain; damageDealt3neverbecomes4.",
+    "Raw5actualinitial/finalexportsverify48manualbooleansEACH, youngownedreadyheroes/natural20initial/noprivatehistoryortriggerseed; actualsame5publicownGY/allRChiAP0/originalphysical1..5conserved/RNG0 andfullStack/chain/DQ/payment/manager/awaitcleanup.",
+    "Finalrawcounterreportedonlyasactualobservation; no virtualtriggerUID/type/Params/Counterallocation wasguessed orusedasgameplayoracle. Rawlossrecord3then1isdistinctfromone3physicaldamagepacket."
+  ],
+  "limits": [
+    "OnegenuinepositiveownedKissnormalHeroHit/responselayer/lifeLoss/cleanuprepresentative only. Nofullcard/othercards/suppression/prereqnegative/copy/PseudoHit/changedowner/sourceleft/LKI/elimination/multiple-triggerordering certification.",
+    "Originalfailed0a5dprobe remainsunsaved; firstStack1observerneverranthen andno postrawzone/triggerParams existed. Currentd335 actualSavedclaimsapplyonlytothissuccessfulfullcase. Arcanic173stillseparate/unqualified.",
+    "Raw5exportsinitial/final; intermediatehit/priority/Stack/lifeLoss factsusetheactualcompletequeryledger, notinventedmidpoint rawexports.",
+    "Roottwotargetedcleannewreplays/registrationremainseparategates. Reviewer ran noPHP/native/game/replay/fullsuite/R/source/Git/remote action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch784_kiss_saved.py",
+    "sha256": "e69ffef4c648fc48fb331143a80d125d50acb12a222435900fa6fc41b76fdb85"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

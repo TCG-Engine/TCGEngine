@@ -1,0 +1,49 @@
+{
+  "status": "APPLIED_NOT_YET_NATIVE_QUALIFIED",
+  "started_utc": "2026-11-06T04:16:11.830899+00:00",
+  "runtime_before": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "projected_runtime": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "proposal_sha256": "7b2921007c11427929a2dfe6469def09016aaaadb4ec6fcd926a2af6c237d78d",
+  "independent_source_review_sha256": "8702b6f144f6634e8556390a26d6c3da35621933bc8995e4f06a6bc5e92d4ad2",
+  "candidate_component_results_sha256": "e6676df535c041ad07e1d9a0aafb9840c61e77a2288e9174d3b0e28a8a03c939",
+  "changes": [
+    {
+      "path": "FaBSim/Custom/BoltynCards.php",
+      "before_sha256": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+      "after_sha256": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\BoltynCards.php",
+      "preimage": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\before-BoltynCards.php",
+      "candidate_bytes": 4778,
+      "preserves_unrelated_preimage_bytes": true
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "before_sha256": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+      "after_sha256": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\WTRCards.php",
+      "preimage": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\before-WTRCards.php",
+      "candidate_bytes": 63954,
+      "preserves_unrelated_preimage_bytes": true
+    }
+  ],
+  "written": [
+    "FaBSim/Custom/BoltynCards.php",
+    "FaBSim/Custom/WTRCards.php"
+  ],
+  "qualified": false,
+  "full_suite_run": false,
+  "scope": "Only two FaB handwritten files; no Core, generated, canonical, user fixtures, stage, commit, push or remote write.",
+  "runtime_after": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "completed_utc": "2026-11-06T04:16:11.929530+00:00",
+  "source_review_sha256": "8702b6f144f6634e8556390a26d6c3da35621933bc8995e4f06a6bc5e92d4ad2",
+  "base_runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "actual_runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "original_application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-source-application\\receipt.json",
+    "sha256": "1b86128b33de3e55355aaed0e651f14c16837b826e47f2827beb2d8d0f0b78df"
+  },
+  "actual_lints_passed": [
+    "FaBSim/Custom/WTRCards.php",
+    "FaBSim/Custom/BoltynCards.php"
+  ]
+}

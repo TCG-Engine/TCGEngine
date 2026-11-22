@@ -10,6 +10,54 @@ function FaBELESelect(int $p,string $zone,string $elements='',string $kind='',in
     }));
 }
 function FaBELEFused(int $uid,string $element=''): bool {return $element===''?(bool)FaBARCCard($uid,'eleFused'):(bool)FaBARCCard($uid,'eleFuse'.$element);}
+/** Save only the offered own-Hand choices for the inspected Entwine Earth Prepare continuation. */
+function FaBELEFusionChoicesForSave(array $zone,int $seat):array {
+    if($seat<1||!FaBSeatIsLive($seat))return $zone;
+    $pending=FaBGetState()['pendingPayment']??null;
+    if(!is_array($pending)||intval($pending['player']??0)!==$seat||($pending['kind']??'')!=='ATTACK')return $zone;
+    $uid=intval($pending['uid']??0);$source=FaBFindUID($uid);
+    if($uid<1||$source===null||$source['zone']!=='Stack')return $zone;
+    $o=$source['object'];$id=(string)($o->CardID??'');
+    if($id!=='entwine_earth_red'||($o->Kind??'')!=='ATTACK'
+        ||intval($o->Controller??0)!==$seat||intval($o->Owner??0)!==$seat
+        ||intval($o->SourceUniqueID??0)!==$uid||($o->SourceZone??'')!=='Hand'
+        ||($pending['fromZone']??'')!=='Hand')return $zone;
+    $live=[];foreach($zone as$i=>$q)if(is_object($q)&&!$q->Removed())$live[]=$i;
+    if(count($live)<2)return $zone;
+    $index=$live[0];$choice=$zone[$index];$resume=$zone[$live[1]];
+    if(($choice->Type??'')!=='MZMAYCHOOSE'||($choice->Tooltip??'')!=='Reveal_Earth_to_fuse'
+        ||intval($choice->Block??0)!==1||($resume->Type??'')!=='CUSTOM'||intval($resume->Block??0)!==1)return $zone;
+    $parts=explode('|',(string)($resume->Param??''));
+    if(count($parts)!==4||$parts[0]!==$id.':0:PrepareCard-await'||$parts[2]!=='1'||$parts[3]!=='chosen'
+        ||preg_match('/^'.preg_quote($id.':0:PrepareCard#','/').'[1-9][0-9]*$/D',$parts[1])!==1)return $zone;
+    $frame=DecisionQueueController::GetAwaitFrame($parts[1]);$locals=is_array($frame)?($frame['locals']??null):null;
+    if(!is_array($locals)||intval($locals['uid']??0)!==$uid||($locals['mzID']??null)!==$source['mzID']
+        ||($locals['targets']??null)!==(string)($choice->Param??''))return $zone;
+    $offered=explode('&',(string)$choice->Param);$eligible=explode('&',FaBELESelect($seat,'Hand','Earth'));
+    if($offered===['']||count(array_unique($offered))!==count($offered))return $zone;
+    $map=[];$removed=[];$next=0;
+    foreach(GetHand($seat)as$old=>$card){
+        $ref='p'.$seat.'Hand-'.$old;
+        if($card==null||$card->Removed()){$removed[$ref]=true;continue;}
+        if(intval($card->UniqueID??0)<1)return $zone;
+        $map[$ref]='p'.$seat.'Hand-'.$next++;
+    }
+    $refs=[];
+    foreach($offered as$ref){
+        if(preg_match('/^p'.$seat.'Hand-(0|[1-9][0-9]*)$/D',$ref)!==1)return $zone;
+        if(isset($removed[$ref]))continue;
+        if(!isset($map[$ref]))return $zone;
+        if(!in_array($ref,$eligible,true))continue;
+        $refs[]=$map[$ref];
+    }
+    $param=$refs?implode('&',$refs):'p'.$seat.'Hand-999999';
+    if($param!==(string)$choice->Param){$copy=clone$choice;$copy->Param=$param;$zone[$index]=$copy;}
+    // The resumed answer replaces chosen. targets is not read after this actual continuation.
+    // Keep opaque frame locals, callback strings and live zones unchanged.
+    return $zone;
+}
+
+
 function FaBELEFinishFusion(int $p,int $uid,array $refs,array $elements): void {
     $reveal=[];$all=true;if(FaBUPRBleak())return;
     foreach($elements as $i=>$element){$f=FaBIdentityFromMZ($refs[$i]??'');$ok=$f&&$f['player']===$p&&$f['zone']==='Hand'&&FaBHasType($f['object'],$element);
@@ -117,7 +165,7 @@ function FaBELEPlayed(int $p,object $o,string $from): void {
         if($aa&&$k==='ELE_NEXT_AA')$use=true;
         if($attack&&$k==='ELE_NEXT_ELEMENT'&&FaBELEElement($o,'Earth|Ice|Lightning|Elemental'))$use=true;
         if($attack&&$k==='ELE_NEXT_GUARDIAN'&&FaBHasType($o,'Guardian'))$use=true;
-        if($attack&&$k==='ELE_NEXT_ARROW'&&FaBHasType($o,'Arrow'))$use=true;
+        if($attack&&in_array($k,['ELE_NEXT_ARROW','ARC_NEXT_ARROW'],true)&&FaBHasType($o,'Arrow'))$use=true;
         if($attack&&$k==='ELE_NEXT_FUSED'&&FaBELEFused($uid))$use=true;
         if($aa&&str_starts_with($k,'ELE_WEAVE_')&&FaBELEElement($o,substr($k,10).'|Elemental')){$use=true;if(FaBELEFused($uid)){if($k==='ELE_WEAVE_Earth')++$v;if($k==='ELE_WEAVE_Ice')FaBWTRTag($o,'DOMINATE');if($k==='ELE_WEAVE_Lightning')FaBWTRTag($o,'GO_AGAIN');}}
         if(!$use){$left[]=$e;continue;}if($v)FaBWTRTag($o,'WTR_POWER:'.$v);foreach($e['tags']??[] as $tag)FaBWTRTag($o,$tag);
@@ -126,10 +174,10 @@ function FaBELEPlayed(int $p,object $o,string $from): void {
     if($attack&&FaBELECount($p,'ENTANGLE')){FaBWTRTag($o,'WTR_POWER:-2');FaBELEClear($p,'ENTANGLE');}
 }
 function FaBELEDamageBonus(int $p,string $ref,int $n,string $type): int {
-    $f=FaBIdentityFromMZ($ref);if(!$f||$n<=0)return $n;$o=$f['object'];if($type==='ARCANE'&&FaBSEAArcaneCapped(intval($o->UniqueID)))return $n;
-    if(FaBHasType($o,'Action')&&FaBELEElement($o,'Lightning|Elemental'))foreach(FaBLiveSeats() as $seat)$n+=FaBELECount($seat,'BALL');
-    if(FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o))$n+=FaBELECount($p,'FRAZZLE');
-    if($type==='ARCANE'&&FaBHasType($o,'Action'))$n+=FaBELECount($p,'FLICKER')+FaBEVRCount($p,'WILDFIRE');return $n;
+    $f=FaBDamageSourceView($ref);if(!$f||$n<=0)return $n;$o=$f['object'];if($type==='ARCANE'&&(isset($o->__fabDamageMeta)?FaBDamageSourceObjectCard($o,'seaComplianceTurn',-1)===intval(GetTurnNumber()):FaBSEAArcaneCapped(intval($o->UniqueID))))return $n;
+    if(FaBDamageSourceHasType($o,'Action')&&(FaBDamageSourceHasType($o,'Lightning')||FaBDamageSourceHasType($o,'Elemental')))foreach(FaBLiveSeats() as $seat)$n+=FaBELECount($seat,'BALL');
+    if((FaBDamageSourceHasType($o,'Attack')&&FaBDamageSourceHasType($o,'Action'))||FaBDamageSourceHasType($o,'Weapon'))$n+=FaBELECount($p,'FRAZZLE');
+    if($type==='ARCANE'&&FaBDamageSourceHasType($o,'Action'))$n+=FaBELECount($p,'FLICKER')+FaBEVRCount($p,'WILDFIRE');return $n;
 }
 function FaBELEDamaged(int $p,int $target,int $n,string $ref): void {
     if($n<=0)return;FaBELEAdd($target,'DAMAGED',$n);$f=FaBIdentityFromMZ($ref);if(!$f)return;$o=$f['object'];$uid=intval($o->UniqueID);$b=FaBWTRBase($o->CardID);
@@ -184,6 +232,44 @@ function FaBELECombatChoices(string $kind,string $elements='',int $max=999): str
         }
     }return implode('&',$out);
 }
+function FaBELEEmboldenAfterMove(int $p,object $o,string $from,string $to): void {
+    FaBAdvanceCapturedSourceEpochs($o,$from,$to,['eleEmboldenEntryEpoch']);
+    if($to!=='Arena'||$from==='Arena'||!in_array((string)($o->CardID??''),['embolden_red','embolden_yellow','embolden_blue'],true)
+        ||intval($o->UniqueID??0)<1||HasNoAbilities($o))return;
+    $controller=intval($o->Controller??0);$uid=intval($o->UniqueID);
+    if(!FaBSeatIsLive($controller))return;
+    $found=FaBFindUID($uid);
+    if($found===null||$found['zone']!=='Arena'||$found['object']!==$o)return;
+    $epoch=FaBArmCapturedSourceEpoch($uid,'eleEmboldenEntryEpoch');
+    // WHEN is the entry event; the IF condition is evaluated by the earned effect.
+    FaBROSQueue($controller,(string)$o->CardID,$uid,
+        ['rosEvent'=>'eleEmboldenEntryDraw','eleEmboldenEntryEpoch'=>$epoch]);
+}
+function FaBELEEmboldenOtherAura(int $p,int $uid,int $epoch): bool {
+    foreach(FaBChoiceRefs($p,'Arena',['type'=>'Aura']) as $ref){
+        $found=FaBIdentityFromMZ($ref);if($found===null)continue;$o=$found['object'];
+        if(intval($o->Controller??0)!==$p||FaBHasType($o,'Token'))continue;
+        // A returned same UID is a new object and can be another Aura.
+        if(intval($o->UniqueID??0)===$uid
+            &&intval(FaBARCCard($uid,'eleEmboldenEntryEpoch',0))===$epoch)continue;
+        return true;
+    }
+    return false;
+}
+function FaBELEResolveEmboldenEntry(int $p,object $layer): void {
+    $params=is_array($layer->Params??null)?$layer->Params:[];
+    $uid=intval($layer->SourceUniqueID??0);$epoch=$params['eleEmboldenEntryEpoch']??null;
+    if(!FaBSeatIsLive($p)||($layer->Kind??'')!=='ABILITY'
+        ||intval($layer->Controller??0)!==$p||!in_array((string)($layer->CardID??''),['embolden_red','embolden_yellow','embolden_blue'],true)
+        ||intval($layer->UniqueID??0)<1||$uid<1||!is_int($epoch)||$epoch<1
+        ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='eleEmboldenEntryDraw'
+        ||!empty($params['eleEmboldenEntryResolved']))return;
+    $params['eleEmboldenEntryResolved']=true;$layer->Params=$params;
+    if(!FaBELEEmboldenOtherAura($p,$uid,$epoch))return;
+    $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+    try{DoDrawCard($p,1);}finally{$GLOBALS['fabEffectController']=$previous;}
+}
+
 function FaBELEOtherAura(int $p,int $uid): bool {
     foreach(FaBChoiceRefs($p,'Arena',['type'=>'Aura']) as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->UniqueID)!==$uid&&!FaBHasType($o,'Token'))return true;}return false;
 }

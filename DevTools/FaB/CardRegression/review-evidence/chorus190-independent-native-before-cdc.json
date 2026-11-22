@@ -1,0 +1,136 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_CHORUS_GRANTED_HIT_DRAW_BEFORE_EARNED_RESPONSES",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 846,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh IAR_CHORUS producer timing finding; relation to other Hit timing families is unallocated. Root reserves issueID, no denied operation or shared repair retried.",
+  "source_spec": "card-regression-batch846-chorus-first-empty-hand-earned-hit-draw-probe.json",
+  "input_sha256": "bb65fd3f48a61f04845bf65d59d7a5fd24ad655c6a4f1f003e998ccbfba889eb",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-first-eligible-empty-hand-hit-draw-probe-author\\chorus-first-guardian-empty-hand-earned-hit-draw-full-probe.json",
+    "sha256": "bb65fd3f48a61f04845bf65d59d7a5fd24ad655c6a4f1f003e998ccbfba889eb"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-first-eligible-empty-hand-hit-draw-probe-author\\manifest.json",
+    "sha256": "db4c2497f2d063466cfb7ad11c9e8ce1cbc95c569358d890893e8e76f28622cb"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-independent-original-correct-diagnostic-source-review.json",
+    "sha256": "dba42d44ea4dc94ecb59099e240671ffd322326681ed422e0491372da1c09c74"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b846-chorus-first-eligible-strict-nosave-cdc\\receipt.json",
+    "sha256": "d0351189470f48a5cce2a6b218d7776fa9d052b064d82e8e62341c3b8ae85c06"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b846-chorus-first-eligible-strict-nosave-cdc\\actual-result.json",
+    "sha256": "369eb4a255962679204d776f6583c6af812f85dd33400a78825416300c9657fb"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch846-chorus-first-empty-hand-earned-hit-draw-probe-20261116T050447Z-6afa8eefb0c24.json",
+    "sha256": "83e92f23edbeea74259a011ba61d694353c243643a50679a4e71f1ca19cf9d1c"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch846-chorus-first-empty-hand-earned-hit-draw-probe.recording-results.json",
+    "sha256": "369eb4a255962679204d776f6583c6af812f85dd33400a78825416300c9657fb"
+  },
+  "planned_controls": 37,
+  "planned_queries": 4509,
+  "actual_native_inputs": 25,
+  "actual_manual_inputs": 21,
+  "actual_manual_actor_counts": {
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 6
+  },
+  "persisted_successful_queries": 2895,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "f369c2405fff24fb73e89ef9d63b6d76772172d3adc3333bc8585782ffbfc324",
+  "first_failed_query": {
+    "source_step_index": 50,
+    "source_check_index": 30,
+    "native_after_input": 25,
+    "checkpoint": "native_REACTION_four_actual4damage_earnsGrantedHit_noDrawYet_fourth_actual_response",
+    "global_query_ordinal": 2896,
+    "query_ordinal_in_checkpoint": 31,
+    "query": {
+      "step": 25,
+      "type": "zone_count",
+      "zone": "p1Hand",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    "expected": 0,
+    "actual": 1,
+    "error": "Expected p1Hand count 0, got 1."
+  },
+  "queries_unrun_after_failed_query": 1613,
+  "not_passed_including_failed_query": 1614,
+  "native_controls_unrun": 12,
+  "manual_inputs_unrun": 12,
+  "passed_current_cluster_queries": 30,
+  "initial_raw_sha256": "94976470c3df0df84d871fe1ce029bd79abb748625de01549d0c9ea77e11fe4a",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All25actualinputs/2895persistedqueries equal originalcorrectorderedprefix. Lastinput is realactor4 fourthReactionresponse.21manualinputs5/5/5/6, no automation/passive seat; initialraw exactPleiades/threeBetsyYoung/live48manualcontrols verified.",
+    "ActualChorus5 cost1 paidBlue6pitch3/floating2/AP1; fourSource responses before AuraFAB_PLAY_ORDER1/SUSPENSE2. FIRSTGuardianAA7RisingEnergy actualfloating2cost/AP0/naturallyHand0 and realtarget4. No priorDraw discount or seededfirstattack; actualSource/control/cost checks passed.",
+    "Atcontrol24 beforefinalReactionresponse, passedHand0/Deckonephysical8WoundingRed/physicalAura5ownercontroller1SUSPENSE2 and attackIAR_CHORUS. Afterinput25 currentcluster30passed proves physicalAttack7 identity/ownercontroller1/IAR_CHORUS/roleATTACK/link1, computed4/noGA, actualHP4=16, R1/AP1=0, liveSeatguards and emptyDQ1.",
+    "Firstfailedquery p1Handcount0 vs1; capturedobserved_hand_refs independentlylistsoneHandref. CapturedGameState is Damage/open/attack7/link1/paymentnull/positiveHit. Cacheddamage4 corroborates HP16 but is not primary computed/damage proof."
+  ],
+  "causal_source_findings": [
+    "IARPlayed99..101 actualfirstGuardian/Revered AA grant exists; nativeGameLogic1258 calls IARHit142 which directly DoDrawCard forIAR_CHORUS+heroHit+emptyHand duringhit, before separate earnedresponseablelayer. This is concrete actualearlyHandchange matching freshproducer concern, not missingcanonicalbody or supportcost failure.",
+    "Printed grantedWhen-hit ability must create responseablelayer; following if-empty-Hand is checked only when that layer resolves(CR6.1.3/6.6.1c). CorrectpositiveemptyHand route expects no draw beforeallfour earnedresponses; replacingHand0 with1 would fitbug/relax correct timing.",
+    "PhysicalDeck8-to-Hand8 afterfailure is source/sole-Deck inference based on lastpassedDeck8 and directDoDrawCard, NOT a passedpostfailureCID/UID query. Subsequent Deck/Aura/Stack/sourceUID/layer/object-zone andcleanupqueries didNOTexecute; no actualStack0 claim inferred from emptyDQ/GameState."
+  ],
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afa8ec4523ac",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afa8ec4523ac",
+    "existing_directory_present": false,
+    "reason": "Recorderfinally309-312 clears memory/deletes unique isolated game. Frozenresultcontainsinitialrawonly, nofinalphysicalraw. No newgame/rerun/capturemutation performed."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.1.3",
+        "6.6.1c",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independently_verified_Source_normative_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.42"
+      ],
+      "reuses_independently_verified_Source_normative_review": true
+    }
+  ],
+  "limits": [
+    "Nofixture/coverage/promotion. Allqueriesafterfirstfail include1613queries/12controls for earnedfourresponses/drawidentity/Damage/Resolution/cleanup; nofinalraw5/final48certificate.",
+    "Onlylistedpassedfacts/capturedhandref+GameState establish actual evidence; distinguish earlier typedAura/Deck witnesses from unrun postfailureones.",
+    "No Native/PHP/retrial/Rwrite/sourcefix or deniedrepair/Radiant189 application byreviewer."
+  ],
+  "created_utc": "2026-11-16T05:07:54.152111+00:00"
+}

@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-09T02:12:51.197277+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch767.json",
+  "source_spec_sha256": "7f42b6014057969549c4a1ed36de02d7484e607fb8eda88285ccffc9c78cc7cc",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 52,
+  "native_assertions": 4669,
+  "manual_passes": 43,
+  "totals": {
+    "saved_registered_scenarios": 4021,
+    "duels": 3074,
+    "four_live": 947,
+    "recorded_primary_ids": 1175,
+    "identity_denominator": 5196,
+    "recorded_groups": 1049,
+    "group_denominator": 3324,
+    "four_live_groups": 940,
+    "phase_qualified_scenarios_at_actual_contexts": 658,
+    "phase_qualified_unique_groups": 653,
+    "creation_replay_passes": 1316,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 138,
+  "scenarios": [
+    {
+      "card_id": "radiant_view",
+      "group_id": "identity:radiant_view",
+      "scenario_id": "card-radiant-view-four-live-real-self-and-soul-banish-costs-prevent-two-of-seven",
+      "effect_branches": [
+        "radiant-view-four-live-real-self-and-soul-banish-costs-prevent-two-of-seven"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-radiant-view-four-live-real-self-and-soul-banish-costs-prevent-two-of-seven",
+      "source_spec": "card-regression-batch767.json",
+      "source_spec_sha256": "7f42b6014057969549c4a1ed36de02d7484e607fb8eda88285ccffc9c78cc7cc",
+      "review_evidence": "review-evidence/sparse767-radiant-view-runebleed-robe-paid-prevention-saved-c53.json",
+      "review_evidence_sha256": "6d838cf6a830def66ca818db26435e282f844f423024ba23c27bd8a6aa9227fc",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "qualification_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov9-b767-radiant-robe-clean-r1.json",
+          "sha256": "cbbc7b4d0b9566239638a71889d10415863368307bf58271d9e8d9913fdd8bcc",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov9-b767-radiant-robe-clean-r2.json",
+          "sha256": "8d1b3768d5bc330c71554187e1f8c7b2fb070e16e27d8253d38eeaeec06948fb",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runebleed_robe",
+      "group_id": "identity:runebleed_robe",
+      "scenario_id": "card-runebleed-robe-four-live-real-self-and-runechant-destruction-prevents-one-arcane",
+      "effect_branches": [
+        "runebleed-robe-four-live-real-self-and-runechant-destruction-prevents-one-arcane"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runebleed-robe-four-live-real-self-and-runechant-destruction-prevents-one-arcane",
+      "source_spec": "card-regression-batch767.json",
+      "source_spec_sha256": "7f42b6014057969549c4a1ed36de02d7484e607fb8eda88285ccffc9c78cc7cc",
+      "review_evidence": "review-evidence/sparse767-radiant-view-runebleed-robe-paid-prevention-saved-c53.json",
+      "review_evidence_sha256": "6d838cf6a830def66ca818db26435e282f844f423024ba23c27bd8a6aa9227fc",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "qualification_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov9-b767-radiant-robe-clean-r1.json",
+          "sha256": "cbbc7b4d0b9566239638a71889d10415863368307bf58271d9e8d9913fdd8bcc",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov9-b767-radiant-robe-clean-r2.json",
+          "sha256": "8d1b3768d5bc330c71554187e1f8c7b2fb070e16e27d8253d38eeaeec06948fb",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

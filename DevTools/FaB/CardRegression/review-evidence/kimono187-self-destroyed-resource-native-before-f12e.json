@@ -1,0 +1,125 @@
+{
+  "status": "ACTUAL_UNSAVED_FAILURE_REVIEWED_KIMONO_PREMATURE_SELF_DESTROYED_RESOURCE",
+  "phase": "ACTUAL_FAILED_ATTEMPT",
+  "batch": 836,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T23:27:58.567707+00:00",
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch836-kimono-independent-diagnostic-source-review.json",
+    "sha256": "544ffe387f7843ca65dfd8328a2d38ffacf6b48477329fdcf37774f4abcebae9"
+  },
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch836-kimono-original-correct-self-ward-earned-resource-probe-author\\kimono-original-correct-self-ward-earned-resource-probe.json",
+    "sha256": "1b19490c777c5e7139dd35e72d11b08ac402842d89a4a578cd8d927e6082dddb"
+  },
+  "source_spec": "card-regression-batch836-kimono-original-correct-self-ward-earned-resource-probe.json",
+  "input_sha256": "1b19490c777c5e7139dd35e72d11b08ac402842d89a4a578cd8d927e6082dddb",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch836-kimono-original-correct-self-ward-earned-resource-probe-author\\manifest.json",
+    "sha256": "68990fd301b0f796ec2233f568869800e1fc2eb5a4a68f385bb657383f288e9d"
+  },
+  "manifest_sha256": "68990fd301b0f796ec2233f568869800e1fc2eb5a4a68f385bb657383f288e9d",
+  "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b836-kimono-full-original-correct-unsaved-before-f12e\\receipt.json",
+    "sha256": "fe367b612e73560b68b55e0be8f4f9c54c5528e5a07c3f3811b8358dbe5527bc"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b836-kimono-full-original-correct-unsaved-before-f12e\\actual-result.json",
+    "sha256": "ed533b19cc855a0f70e289b1827b63479379069efac08123c117828d83d0d921"
+  },
+  "identical_Native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch836-kimono-original-correct-self-ward-earned-resource-probe.recording-results.json",
+    "sha256": "ed533b19cc855a0f70e289b1827b63479379069efac08123c117828d83d0d921"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch836-kimono-original-correct-self-ward-earned-resource-probe-20261115T232216Z-6afa3ea8e7784.json",
+    "sha256": "b3e2c9779f37352e98ee1513cbc0d946b6bf3fac70fa17cfe34294f20388f710"
+  },
+  "actual_inputs": 20,
+  "planned_inputs": 32,
+  "actual_manual_passes": 17,
+  "actual_manual_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 5
+  },
+  "actual_genuine_four_live_manual_seats": true,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": false,
+  "exact_action_prefix_matched": true,
+  "exact_2242_persisted_query_prefix_matched": true,
+  "failed_query": {
+    "ordinal_one_based": 2243,
+    "source_step_index": 40,
+    "source_check_index": 102,
+    "control": 20,
+    "query": {
+      "type": "scalar_zone_equals",
+      "zone": "p4Resources",
+      "value": 0,
+      "viewerPlayerID": 1,
+      "step": 20
+    },
+    "actual_value": 1
+  },
+  "query_counts": {
+    "planned": 3634,
+    "successful_recorded_prefix": 2242,
+    "failed_unpersisted": 1,
+    "later_unrun": 1391,
+    "postWard_successful_before_failure": 102
+  },
+  "actual_first_failure_is_protocol_or_oracle_error": false,
+  "native_gameplay_timing_defect_confirmed": true,
+  "confirmed_scope": "After actual self-Ward destruction, P4 already has one resource before any of the four responses to the earned resource trigger.",
+  "observed_facts": [
+    "All20 native envelopes and2242 successful recorded queries exactly match original correct Source. Four seats manually responded17 times in total4/4/4/5; initial raw48manual controls and fourYoung/live configuration verified.",
+    "At control20 the first102 queries directly identify actual Kimono6 in ownGY4 owner/controller4 and Equipment4empty; allHP20, APall0 and otherR0 pass. Actual incoming power1 and go-again1 queries pass. The next actual resource getter reports R4=1 where correct boundary requires0.",
+    "No new earned-trigger response has executed when resource is already present. The direct resource mismatch establishes premature effect independently of any missing Stack inference."
+  ],
+  "unrun_limits": [
+    "Stack count1/CardID/controller/kind/SourceUID assertions follow the failed resource getter and are unrun. No native Stack0, captured-layer absence or virtual CardID is claimed.",
+    "All12 remaining inputs/1391 later queries are unrun: earned four responses, intended R0to1 timing, Damage/Resolution go-again refund and complete final cleanup. No final raw snapshot or Saved fixture exists.",
+    "Only self-Ward branch is diagnosed; other non-token Ward, second once-per-turn occurrence, suppression/control/siblings/support branches remain untested. No distinct global root count is awarded here."
+  ],
+  "source_causal_findings": "MONDestroy moves the pre-move Kimono snapshot to ownerGY then invokes DYNDestroyed. DYNRuntime178-182 marks KIMONO and immediately AddResources during that callback instead of delaying effect to a responseable resource layer. This fresh DYN producer matches the actual resource witness and differs from denied OMN184/B787 operations.",
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6b explicit Celestial Kimono self-destruction resource layer example"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraph": "8.3.20 Ward"
+    }
+  ],
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "normal_save_approved": false,
+  "source_fix": false,
+  "source_application_approved": false,
+  "new_global_root_count_awarded": false,
+  "corpus_before": 4093,
+  "corpus_after": 4093,
+  "fixture_inventory_unchanged": true,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch836_kimono_actual_failure.py",
+    "sha256": "21ddc5ad235c55e002f9e80733d7428f6898e386a6455ca0ef4a0f697ed1e5fe"
+  }
+}

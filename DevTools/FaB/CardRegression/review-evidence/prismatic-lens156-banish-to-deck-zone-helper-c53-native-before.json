@@ -1,0 +1,148 @@
+{
+  "id": "FAB-REG-156",
+  "status": "NATIVE_CONFIRMED_UNFIXED_SELECTED_LENS_BANISH_TO_DECK_FAILURE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch668-lens-independent-native-before-review.json",
+  "independent_review_sha256": "7080aa90d9643a88a194e7c21e58e1d18aced301ba583c77fe320bf1882e813f",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch668-lens-probe.json",
+  "input_sha256": "d17a0ad86f01259d4caa7d57530ccd98ab44646ad02a4b95274dfaeb8feba390",
+  "scenario_id": "card-prismatic-lens-yellow-four-live-original-correct-banish-to-deck-top-diagnostic",
+  "first_failure": {
+    "source_pointer": "/0/steps/12/checks/0",
+    "source_step": 12,
+    "check_index": 0,
+    "after_native_actions": 6,
+    "native_assertion_ordinal": 548,
+    "query_ordinal": 548,
+    "passed_assertions_before": 547,
+    "type": "card_property_equals",
+    "mzId": "p1Deck-0",
+    "property": "CardID",
+    "expected": "hyper_driver_blue",
+    "observed": "wounding_blow_blue",
+    "error": "Expected p1Deck-0.CardID to equal 'hyper_driver_blue', got 'wounding_blow_blue'."
+  },
+  "actual_native_prefix": {
+    "native_actions": 6,
+    "actual_actions": 6,
+    "manual_responses": 4,
+    "manual_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "successful_native_assertions": 547,
+    "successful_checkpoint_counts": [
+      {
+        "source_step": 0,
+        "after_action": 0,
+        "native_assertions": 157
+      },
+      {
+        "source_step": 2,
+        "after_action": 1,
+        "native_assertions": 78
+      },
+      {
+        "source_step": 4,
+        "after_action": 2,
+        "native_assertions": 78
+      },
+      {
+        "source_step": 6,
+        "after_action": 3,
+        "native_assertions": 78
+      },
+      {
+        "source_step": 8,
+        "after_action": 4,
+        "native_assertions": 78
+      },
+      {
+        "source_step": 10,
+        "after_action": 5,
+        "native_assertions": 78
+      }
+    ],
+    "actual_action_envelopes_sha256": "1fc616fe05c8a1ee950db7adb583150aad874681bcf7c91285c6b0a9237e54f0",
+    "actual_passed_native_assertions_sha256": "2f38c2df26417fc46b7a9e2c4650af4366eed7d1cbf3eace4bcc18ade40890c6",
+    "recording_actions_exact": true,
+    "recording_assertions_exact": true,
+    "actual_source5_ABI14_held_through_four_responses": true,
+    "actual_positive_chooser_and_answer_reached": true,
+    "actual_Instant_resources0_AP1_unchanged": true
+  },
+  "classification": "Original-correct resolving Banish-to-Deck effect fails after a legal same-color owned Mechanologist Item choice; actual selected final helper accepts only Graveyard.",
+  "expected": "After selecting the legal same-color owned Mechanologist Item Hyper Driver from Banish, the resolving Lens effect places that physical card on top of Deck, preserving the original Deck card below it.",
+  "observed": "After six actual native inputs including the valid Banish choice, query548 expected Hyper Driver as Decktop but observed the original Wounding Blow. The first547 queries passed;218 suffix checks including Banish departure, UID/order and final cleanup were not reached. No fixture saved.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+      "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+      "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+      "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43"
+    },
+    "selected_contract": "Official Lens2590/EVO071: put a same-color Mechanologist Item from own Banish on top of Deck.",
+    "selector": "EVOCards91-92: synchronously reveal current Decktop; own face-up Banish Item, effective Mechanologist class, equal CardPitch.",
+    "actual_final_call": "Canonical and compiled ResolveAbility call FaBDTDTopChoice after actual MZCHOOSE answer.",
+    "cause": "DTDCards117 only permits own Graveyard; valid actual p1Banish-0 fails that zone guard, so FaBARCToDeck is not reached.",
+    "managed_lifetime": "ARCAbilities128/169, GameLogic1545-1585: captured once-used ABI14 remains through four responses and resolving MZCHOOSE. Actual prefix confirms these material prerequisites.",
+    "new_global_root_allocation": false
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch668-lens-probe.recording-results.json",
+      "sha256": "95329627a4f831226551402eaf36bd667a2051cff0d37fcb99a4a46a68386e3b"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch668-lens-probe-20261107T004613Z-6aee74d5c0e46.json",
+      "sha256": "55e49a605ab5618f19bd8a7123a8df493050359161801576d1351ee53a299dbc"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch668-lens-independent-diagnostic-source-review.json",
+    "sha256": "6c04254a6a55422180a643a2b97e7f7b671987984433028b33da09076efc6390"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2590/",
+      "access": "Current official text retrieved"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\prismatic_lens_yellow.webp",
+      "sha256": "6c171e63ad23b070841f794670c15337246caa22658796f7b91f31e799f3742c",
+      "printing": "EVO071",
+      "actually_viewed": true
+    }
+  ],
+  "limits": [
+    "Only selected same-color owned face-up Banish Item positive placement. No other colors/targets/foreign/menu/decline/Reveal visibility log or futureStart/Crank/producer/Hero/support/fullcard claim. Prior legal Boost/normalentry/fullblock/retained-Hand/upkeep are unexecuted provenance only.",
+    "Native movement failure confirmed at first CardID assertion. Remaining218 assertions are unrun; no successful final Banish departure, UIDorder, source cleanup or finalstate certificate. Initial raw snapshot and actual recorded prefix are hash-retained, not per-query complete state snapshots.",
+    "No fixture/coverage/Saved/replay/fullsuite, fix or source application. No Quantum144 repair/retry/global-family/Core/new-distinct-root allocation. Root owns issue-ledger attribution/retention; reviewer performs only W artifact write and read-only evidence checks."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-07T00:49:30.124523+00:00"
+}

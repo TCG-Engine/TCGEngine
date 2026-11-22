@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch341-v2.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T15:49:16.653399+00:00",
+  "fixtures": [
+    {
+      "slug": "card-orihon-of-mystic-tenets-blue-four-live-sparse-real-chi-and-red-pay-four-replaces-two-draw-with-three-physical-cards",
+      "fixture_sha256": "7ae3d144966282786cd7743a0b333919bf508caf5202a1e177758a84f63b367d",
+      "passed": true,
+      "result": "[PASS] orihon_of_mystic_tenets_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-orihon-of-mystic-tenets-blue-four-live-sparse-real-chi-and-red-pay-four-replaces-two-draw-with-three-physical-cards",
+      "returncode": 0,
+      "stdout": "[PASS] orihon_of_mystic_tenets_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

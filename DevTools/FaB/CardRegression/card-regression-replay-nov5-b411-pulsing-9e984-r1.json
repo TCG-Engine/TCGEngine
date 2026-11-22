@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch411-pulsing-left.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T02:55:07.316388+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pulsing-aether-life-red-four-live-sparse-real-left-only-mode-target-paid-four-arcane",
+      "fixture_sha256": "e836a219dbe7154744a727653625cdaaa9db1b09e8432b4f0b3a4cad03a42516",
+      "passed": true,
+      "result": "[PASS] pulsing_aether_life_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pulsing-aether-life-red-four-live-sparse-real-left-only-mode-target-paid-four-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] pulsing_aether_life_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

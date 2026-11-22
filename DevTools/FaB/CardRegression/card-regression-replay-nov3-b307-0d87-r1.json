@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch307-payload.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T08:06:29.403631+00:00",
+  "fixtures": [
+    {
+      "slug": "card-payload-red-four-live-sparse-real-same-chain-boost-earns-dominate-on-paid-second-link",
+      "fixture_sha256": "f2c16f9f2183b7322b6a4b81439c2f4fecf89f6ead0e287b7e1f46206eecc901",
+      "passed": true,
+      "result": "[PASS] payload_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-payload-red-four-live-sparse-real-same-chain-boost-earns-dominate-on-paid-second-link",
+      "returncode": 0,
+      "stdout": "[PASS] payload_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

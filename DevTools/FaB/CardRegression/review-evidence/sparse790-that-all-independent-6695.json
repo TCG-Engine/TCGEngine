@@ -1,0 +1,306 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B790_THAT_ALL_REAL_TWO_VERSUS_THREE_AUTOMATIC_CLOSE_DRAW",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T20:08:56.796095+00:00",
+  "source_spec": "card-regression-batch790-that-all-automatic-close.json",
+  "input_sha256": "727a095a1b5a0d97cd4418422b82d35007f36dd69c12f03af02d4d23e54c05a8",
+  "manifest_sha256": "fe5a37c4b7491e08b2cc250a70070d9f3d1c8a8d1b35591776f545155e226edf",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-that-all-real-two-versus-three-automatic-close-draw-author\\manifest.json",
+    "sha256": "fe5a37c4b7491e08b2cc250a70070d9f3d1c8a8d1b35591776f545155e226edf"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-that-all-independent-correct-positive-source-review.json",
+    "sha256": "5685dc657e69e2ab62a688cc53e2439e7b2300b4d8f72d0bef411a061ac21ad7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b790-that-all-native-correct-automatic-close\\receipt.json",
+    "sha256": "a3063715a20f0accedb54e41c9f276d5e82d15c6067c9d7d71e197b4f0abfd66"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch790-that-all-automatic-close-20261114T200506Z-6af8bef2ed9cf.json",
+    "sha256": "1570b70f398baf5b316d6a565e5c0e0324a6295ae57e5ae81ffb50946530f256"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch790-that-all-automatic-close.recording-results.json",
+    "sha256": "ce2056288e67d8e8c4dd38e33118f043280e0c4ac87513fdf8f5a002793fb76d"
+  },
+  "fixtures": [
+    {
+      "slug": "card-that-all-you-got-yellow-four-live-real-two-versus-three-automatic-close-draw",
+      "card_id": "that_all_you_got_yellow",
+      "group_id": "identity:that_all_you_got_yellow",
+      "source_spec": "card-regression-batch790-that-all-automatic-close.json",
+      "input_sha256": "727a095a1b5a0d97cd4418422b82d35007f36dd69c12f03af02d4d23e54c05a8",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-that-all-you-got-yellow-four-live-real-two-versus-three-automatic-close-draw",
+      "fixture_sha256": "425241ab42a28f5a9d598bd1f4ae2364aa511a69b9ffc679d6b956999abca79f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c6c62b759cbec42ab3d29dc061c0b58aab43db83b4739abceefce42ef1b22fd4",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "cc9ff13e9ea890c238ebb5fc1cc7ae37abe60e9560a70b33e39a0f3f851a8b7e",
+        "expected_final_gamestate.txt": "9fe060b259b41bb7a4c7f8d5850be609398ea6312a69ac198541c623064d1914",
+        "meta.json": "83461d47a5c1cc5b86e7e0da4a9f979e496002a9339cb8ea928d0bb23efb1625"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c6c62b759cbec42ab3d29dc061c0b58aab43db83b4739abceefce42ef1b22fd4",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "cc9ff13e9ea890c238ebb5fc1cc7ae37abe60e9560a70b33e39a0f3f851a8b7e",
+        "expected_final_gamestate.txt": "9fe060b259b41bb7a4c7f8d5850be609398ea6312a69ac198541c623064d1914",
+        "meta.json": "83461d47a5c1cc5b86e7e0da4a9f979e496002a9339cb8ea928d0bb23efb1625"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c6c62b759cbec42ab3d29dc061c0b58aab43db83b4739abceefce42ef1b22fd4",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "cc9ff13e9ea890c238ebb5fc1cc7ae37abe60e9560a70b33e39a0f3f851a8b7e",
+        "expected_final_gamestate.txt": "9fe060b259b41bb7a4c7f8d5850be609398ea6312a69ac198541c623064d1914"
+      },
+      "actions": 35,
+      "native_assertions": 2486,
+      "manual_passes": 32,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_DR_source_response_actors": [
+        4,
+        1,
+        2,
+        3
+      ],
+      "checkpoint_count": 36,
+      "schema_property_assertions": 849,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 129,
+        "35": 131
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "that_all_you_got_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "that_all_you_got_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_attack_UID": 5,
+      "actual_defense_reaction_UID": 6,
+      "actual_drawn_UID": 7,
+      "actual_attack_power": 2,
+      "actual_defense": 3,
+      "actual_damage": 0,
+      "actual_attack_hit": false,
+      "no_early_draw_at_every_preClose_checkpoint": true,
+      "automatic_draw_during_Close_without_priority_round": true,
+      "full_card_certification": false,
+      "raised_power_after_reaction_branch": "UNTESTED_SOURCE_ONLY_LIMITATION",
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "native_action_mapping_sha256": "15e1e52ec239a82f6b93da53fdef68fb0a36636f94c37d270d6ab7cbe6c5c38b",
+      "native_assertion_mapping_sha256": "4bf8d09828ca76d857c907867fa59b6b06481f6259cdccc118e6b2b16290b1fe",
+      "checkpoint_assertion_mapping_sha256": "04e8360bd5bbc4e2879909b69fdebcf0be867a237ecfac6bb2a944637fa4568a"
+    }
+  ],
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "c1b296b05874e1f45757c427f517793877ef80b3bbd844f77bf7dc889de944cf",
+  "all82_current_guards_matched": true,
+  "total_actions": 35,
+  "total_native_assertions": 2486,
+  "total_manual_passes": 32,
+  "total_schema_property_assertions": 849,
+  "total_checkpoints": 36,
+  "total_endpoint_assertions_evaluated": 260,
+  "index_unattempted_planning_hold_review": {
+    "status": "APPROVED_KNOWN_LIFETIME_DEPENDENCY_UNATTEMPTED_PLANNING_ONLY",
+    "approved": true,
+    "reviewer_independent": true,
+    "evidence": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-index-known-lifetime-unattempted-planning-hold.json",
+      "sha256": "4e57c9fc295df87da4eb9cc8ce29c19294e16dd15eafac0ad0de3f632ab578dd"
+    },
+    "basis": "Reused exact preceding Source gate and selected current managed-predicate/fallback inspection; Index resolving chooser body exists but selected ordinary physical-spell lifetime route is the inherited held dependency. This Saved review adds no Index execution or source absence claim.",
+    "native_attempted": false,
+    "confirmed_new_bug": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "source_fix_approved": false
+  },
+  "material_findings": [
+    "All35 actual input envelopes and2486 successful ordered queries match exact independent Source at current6695;32 genuine manual passes give each living seat8, including actual P4 DR play/source actors4,1,2,3.",
+    "Actual physical attack5 stays power2/noGA, reaction6 remains unresolved through first3 source passes and then defends with3. Real damage is0/no hit; allHP20. SameRed7 remains Deck4 at every pre-Close endpoint with no Hand gain.",
+    "Final Resolution pass enters true Close; no extra Close response input exists. Automatic close draw moves originalRed7 toHand4; same5GY1/6GY4 and every original UID conserved. Independent raw endpoints confirm48 manual values EACH and full chain/Stack/queues/targets/payment/manager/await cleanup; all260 endpoint queries evaluated.",
+    "CR7.7.1/3/4 automatic Close model is honored. Power-at-Close condition is satisfied by unchanged2; raised-power-after-reaction remains UNTESTED/source-only, no new engine bug or full-card credit. Index known-lifetime plan remains approved unattempted only."
+  ],
+  "limits": [
+    "One fixed unchanged2-versus3 positive only; no changed-power/source-leaves-chain/full-card/Index coverage.",
+    "Intermediate facts use actual successful ordered native queries; raw5 supplies initial/final snapshots only. No synthetic midpoint or invisible trigger-layer certification.",
+    "Root alone owns two targeted replays/registration. Saved approval does not itself grant coverage credit. Reviewer ran no PHP/native/game/replay/full-suite, made no R/source/Git/remote changes or further delegation; B787 denied operation remains frozen."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch790_thatall_saved.py",
+    "sha256": "f2ac2f92b86be5d0d397432b1619d889a0e32a41183fbfa1e3e4682301e70a41"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "status": "APPROVED_SOURCE_ONLY_UNATTEMPTED_PLANNING_CLASSIFICATION",
+  "batch": 805,
+  "approved": true,
+  "planning_approved": true,
+  "planning_only": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T00:34:59.492806+00:00",
+  "card_id": "gamblers_gloves",
+  "group_id": "identity:gamblers_gloves",
+  "members": [
+    "gamblers_gloves"
+  ],
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch805-firm-reservation.json",
+    "sha256": "b9497217a3bf9c568d8fe87ae52aae95ad88bdf90202fcec8182cc6ff6844bc0"
+  },
+  "author_planning_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch805-gamblers-gloves-required-replacement-unattempted-planning-hold.json",
+    "sha256": "9542e2cea35709a1c0f2cfbf6aa6aea54ab9c907f0d9607b64c2a536613e41ce"
+  },
+  "full_family_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch805-selected-helper-preflight.json",
+    "sha256": "f8e23d4b727749e3fe73d42db5e1ff3ebe5dc70d95b8ec1420f4c4a2651e1bb2"
+  },
+  "independent_printed_selected_path_preparation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch805-independent-printed-selected-path-preparation.json",
+    "sha256": "11e181ebe45a1e56ab4e31306994ed88b04f0d0c67fe2e808857c24f17bde232"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "selected_guard_count": 22,
+  "all_selected_guards_current": true,
+  "unchanged_82_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-throw-actual-owned-blue-reveal-prevention-three-physical-consumer-author\\manifest.json",
+    "sha256": "1e60b5ef9d1321378bec04a40aa5e2a3eb0f5813431ea991ef7df4bc342cfd20"
+  },
+  "selected_relevant_preimages": {
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b"
+  },
+  "exact_route": "SamefirmyoungRhinar/ownedGlovesArms+ScabskinLegs+ordinaryTimesnapArena/RedHand. RealTimesnap2AP thenScabskinspendto1; requiredoptionalreplacementdestroysGloves/rerollsoneD6 andAPmustusefinalface. AllfutureactionsandoutcomesremainUNRUN.",
+  "official_rules": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/713/",
+      "finding": "Current official Oracle requires optional reroll replacement for all D6 of the resolving effect."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.18",
+        "8.5.28"
+      ],
+      "finding": "Reroll replaces original result, considered never to have happened; no WHEN priority."
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/errata-bulletins/errata-bulletin/",
+      "retrieval": "Official indexed errata read; old local CRU WHEN image explicitly superseded for timing."
+    }
+  ],
+  "bounded_source_findings": [
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "functions": [
+        "FaBWTRAbilitySpec",
+        "FaBWTRResolveAbility"
+      ],
+      "lines": "8;16;339-349",
+      "fact": "NormalScabskinAction0 andTimesnapdestroyActionexist. ActualselectedScabskin fallbackdirectlyconsumesintdiv(FaBEVRRoll(player),2) intoAP aftercanonical returnsnoaction; Timesnap+2supportexistsbutunexecuted."
+    },
+    {
+      "path": "FaBSim/Custom/EVRCards.php",
+      "function": "FaBEVRRoll",
+      "lines": "8-13",
+      "fact": "ActualselectedcallerrollsEngineRandomIntD6 immediately. READY extra-die/max andSkullCrushers/rollflags aredistinctunearnedbranches. NoGlovesoptionalchoice/destruction/reroll-allintegrationonthisselectedbody; scalarreturndoesnotretainfirst/finalfaces."
+    },
+    {
+      "path": "DevTools/FaB/cru_abilities.json",
+      "card_id": "gamblers_gloves",
+      "fact": "Exactcanonicalentryhasemptyabilities. Thisaloneisnotglobalabsenceevidence; concreteScabskincalleraboveisrequiredroutefailure."
+    },
+    {
+      "path": "Core/DeterministicRNG.php",
+      "functions": [
+        "EngineSnapshotState",
+        "EngineDeterministicHashMaterial",
+        "EngineDeterministicBytes",
+        "EngineRandomInt"
+      ],
+      "lines": "51-102;114-148",
+      "fact": "Existingdeterministicstreamdependsserializedactualzones/currentPlayer/updateNumber/randomCounter, withrejectionsampling. Noindependentcompletecapture-derivedfirst/finalfaceproofexists; counter0aloneisnotfixedscalarsequence. Nochangetorandomnessorharnessandnoresultselectionperformed."
+    }
+  ],
+  "known_context_rows": [
+    {
+      "index": 216,
+      "card_id": "ready_to_roll_blue",
+      "row_sha256": "5a71d78902723b4a9ed74fea477e11291b295860aa30a3955069b4d1ac81aa6e",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Ready's real body grants EVR_READY and the EVR helper implements its extra-die replacement, but the fixed Reckless Arithmetic consumer uses raw EngineRandomInt and CRULegacyRoll without that hook. This is the selected consumer-route limitation, not absence of Ready's implementation or an exhaustive producer claim. No native dice result, RNG adjustment, replacement consumer, confirmed bug, fixture, coverage or repair."
+    }
+  ],
+  "context_classification": "Ready216consumerbypassandBadBeatsRNGsnapshotcontextremaincontextonly. NoexactexistingGlovesNativefailureornewrootasserted; newunattemptedsourceplanningrowmayrecordselectedunsupportedreplacement/observability.",
+  "disposition": "UNATTEMPTED_REQUIRED_SELECTED_REPLACEMENT_INTEGRATION_AND_FAITHFUL_ROLL_EVIDENCE_UNSUPPORTED",
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_root_cause_group": false,
+  "coverage_credit": false,
+  "support_qualification_credit": false,
+  "source_approved": false,
+  "input_approved": false,
+  "qualification_permitted": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "NoNative/probe/Glovesactivation/reroll/RNGface/APoutcome/Timesnapconsumer/Reddamageobservation. No2rollcounterasproof.",
+    "NoRNGseed/modification/favorableoutputselection/retry/probe-to-select/newharness/alternatedieproducer.",
+    "No globalGloves/RNGframeworkabsence, genericreplacementorScabskinhealthcertificate; onlyexactrequiredfixedcallerreviewed.",
+    "Overcomehealthycaseindependentandnotapprovedbythisplanningproof. ReviewerWonly/readR/noPHP/native/replay/R/source/Git/repair/B787action."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Shimmers of Silver / real Aura weapon earns permanent power counter",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-17T03:48:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "STRICToriginalcorrectnoSaveevenPASS. FourmanualYoungPrism1/Betsy2and3and4/all20, noHeroability. LegitimateShimmers5Aura/SpectralShield6initialPOWERabsent/Iris7/Blue8Hand. ActualnativeShieldIrisAuraWeaponAction3 declaresHero4, realBlue8pitch3pays3/R0/AP1to0; native5proxycounters+WEAPON_UID6 derived, no seededweaponflag/counter/AP/hit. FourthactualSource response makesrealAuraWeaponattacking: capturedShimmersABILITYcontroller1physicalsource5, Shield6POWERstillabsent andactualbase4 untilfreshfour. FourthShimmersresponse putsactualpermanentPOWER1onSAMEphysicalShield6, actualweaponpower5. FourAttack/noDefense/Defend/Reaction flow dealsreal5HP4=15; IrisgrantedGA refundsactualAP1inResolution; fullcleanupremovesonlyproxy whileShimmers5/Shield6POWER1/Iris7persist, Blue8Pitch1/R0/Stackqueuesclear. No virtualproxyUID/Owner/ABIalias orprintedtapcostguess, no cachedpower-onlyproof. Once-limitsecondattack/reset/otherAuras/priorcast/Spectra/Ward/Hero/support/fullcarduncredited. Emptycanonicalnotbodyabsence. No automaticSaveevenPASS/actualreview+explicitpromotionrequired. Sources: https://rules.fabtcg.com/en/cr/06-effects/"
+}

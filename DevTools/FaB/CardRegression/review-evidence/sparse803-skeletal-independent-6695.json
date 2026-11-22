@@ -1,0 +1,302 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B803_SKELETAL",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T00:12:52.539607+00:00",
+  "source_spec": "card-regression-batch803-skeletal_puppetry_blue.json",
+  "input_sha256": "b1c7e1c1b0d9f7add9e4fd53841f1e0c85700c8913163e69d0d534b50b362cea",
+  "manifest_sha256": "d5e2cd56798cbdf6487a91e5346cb1b557bfaaa6306d9ccfc48d11e05a9f8bc9",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch803-skeletal-regular-two-real-barnacle-five-go-again-red-four-consumer-author\\manifest.json",
+    "sha256": "d5e2cd56798cbdf6487a91e5346cb1b557bfaaa6306d9ccfc48d11e05a9f8bc9"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch803-skeletal-independent-correct-positive-source-review.json",
+    "sha256": "5f67bd1df77b636106c0f1d8362776de4908db324291b811a34da6f8c0b5a7be"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b803-skeletal-native-regular-two-ally-five-red-four\\receipt.json",
+    "sha256": "88237575403907e6e32a6616491fcc0649b7c4269218cab73d32471feb841c5b"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch803-skeletal_puppetry_blue-20261115T000700Z-6af8f7a48decb.json",
+    "sha256": "7fb44089743f25e8b2016fb2d811382bc70036f16abcc1409cc97c72635ad1cd"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch803-skeletal_puppetry_blue.recording-results.json",
+    "sha256": "ca53e382d3b6a714a3c7571d498035757bff1be326c8fa25149b30934bdd1916"
+  },
+  "fixtures": [
+    {
+      "slug": "card-skeletal-regular-two-real-barnacle-five-go-again-red-four-consumer",
+      "card_id": "skeletal_puppetry_blue",
+      "group_id": "pitch-cycle:skeletal_puppetry",
+      "source_spec": "card-regression-batch803-skeletal_puppetry_blue.json",
+      "input_sha256": "b1c7e1c1b0d9f7add9e4fd53841f1e0c85700c8913163e69d0d534b50b362cea",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-skeletal-regular-two-real-barnacle-five-go-again-red-four-consumer",
+      "fixture_sha256": "e5b4896068075f81f888bcc88ea4814b9b784b184ec712ec85b7106d0d1c6963",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "220f743f47c9ed0de99a6253705e6d8ef17d5af234ada337eba94b34e27e262b",
+        "actions.json": "268951cf7ff69e7c8c333d0a85f0c7cfa6c6129b5d28ac6e39b6d459cce89e3c",
+        "assertions.json": "e073ada75a07a160fe9753aec39d3af18d96f77b5826045284f50a47cf08274e",
+        "expected_final_gamestate.txt": "131114ea85feec74279484ee2c9dd290dbf802d438e43caf2afa21617598930d",
+        "meta.json": "401c77eb3fa2569cef45aa5b3ed90bf7cc7b6414259ab400af690b914c513abc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "220f743f47c9ed0de99a6253705e6d8ef17d5af234ada337eba94b34e27e262b",
+        "actions.json": "268951cf7ff69e7c8c333d0a85f0c7cfa6c6129b5d28ac6e39b6d459cce89e3c",
+        "assertions.json": "e073ada75a07a160fe9753aec39d3af18d96f77b5826045284f50a47cf08274e",
+        "expected_final_gamestate.txt": "131114ea85feec74279484ee2c9dd290dbf802d438e43caf2afa21617598930d",
+        "meta.json": "401c77eb3fa2569cef45aa5b3ed90bf7cc7b6414259ab400af690b914c513abc"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "220f743f47c9ed0de99a6253705e6d8ef17d5af234ada337eba94b34e27e262b",
+        "actions.json": "268951cf7ff69e7c8c333d0a85f0c7cfa6c6129b5d28ac6e39b6d459cce89e3c",
+        "assertions.json": "e073ada75a07a160fe9753aec39d3af18d96f77b5826045284f50a47cf08274e",
+        "expected_final_gamestate.txt": "131114ea85feec74279484ee2c9dd290dbf802d438e43caf2afa21617598930d"
+      },
+      "actions": 55,
+      "native_assertions": 3508,
+      "manual_passes": 50,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 877,
+      "checkpoint_count": 57,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 139,
+        "55": 200
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "skeletal_puppetry_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "barnacle_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "barnacle_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "skeletal_puppetry_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "35320daad4faf6eafda32e6617f9e4513dc4b27f7f1b268a0c16a27ce15f857a",
+      "native_assertion_mapping_sha256": "152f82c8cb0763e2c777d3ded21c2feb7af46951291e4e28cedf8767913c8887",
+      "checkpoint_assertion_mapping_sha256": "efdeec7b63ef4d23097bd269ea19eebd7cd81f07b4fa649b86310575b93e4aa6",
+      "physical_Ally_UID": 8,
+      "actual_derived_attack_proxy_UID": 9,
+      "actual_proxy_SourceUniqueID": 8,
+      "virtual_proxy_owner_rules_asserted": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 20,
+  "all_current_guards_matched": true,
+  "total_actions": 55,
+  "total_native_assertions": 3508,
+  "total_manual_passes": 50,
+  "total_schema_property_assertions": 877,
+  "total_checkpoints": 57,
+  "total_endpoint_assertions_evaluated": 339,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    11
+  ],
+  "material_findings": [
+    "Every actual55 native envelope/50 manual actor and3508 successful persisted query matches exact Source. All339 raw endpoint assertions and48 manual preferences EACH independently evaluated; no extra/automatic pass masked.",
+    "Actual ownSkeletal5 normalcost2 is paid by singleBlue6pitch3/R1/AP0, no HandAlly/alternative chooser. Four Source responses give ownSkeletal5GY and printedGA/AP1.",
+    "Actual own physicalBarnacle8 is ready at early Hero-target decision with AP1/Stack0/counter8. Only actual Hero4 answer spendsAP/exhausts same physical8 and creates attackproxy9 SourceArena8; no virtual Owner rules inference. Real firstattack5/GA yields HP4_15, and earnedAP1 is actually spent on samechain Red7 link2.",
+    "Actual GenericRed remains4/noGA and yields HP4_11: nextAlly+1/GA is consumed without spill. Cached firstdamage5 after25 and while RedStack30-33 is distinguished from newattack34 reset and second damage4 after47. Successful physicalHP precedes cached corroboration.",
+    "Final actual raw original physicalUIDs1..8 conserved: Barnacle8 ownArena exhausted/Damage0/no permanentGO_AGAIN, Skeletal5+Red7ownGY1, Blue6Pitch1/R1/AP0. Allocationcounter9 is retained but proxy9 physically ceases at trueClose; Stack/chain/all4queues/targets/payment/manager/await fully clear."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_action_source_effect_ordering_certified": false,
+  "general_plain_spell_lifecycle_certified": false,
+  "alternative_cost_certified": false,
+  "general_Ally_system_certified": false,
+  "limits": [
+    "One actual Blue regularcost/noHandAlly quiet positive only. No optionaldiscard/available-alternative decline/cost-order branch, RGBsiblings/full-card or general Ally/system certificate.",
+    "PhysicalAlly and proxy identities differ. Actual StackSourceUniqueID8 and laterproxy9 onChain are verified; no proxy Owner storage or unqueried intermediate counter field is elevated to a rules observation.",
+    "Within-atomic source/effect ordering, GravyHero/Gold/WateryGrave/graveyardplay/Allyproducer/death/untap/reuse and unrelated held routes remain uncertified.",
+    "Root must supply two exact new-only focused replays and registration; reviewer executed no PHP/native/replay/fullsuite/R/source/Git/remote/new-agent/repair/B787 action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch803_skeletal_saved.py",
+    "sha256": "5660e474ffbe6a5ba147bbe33e6be35b65e4f013f11272d740bab069caa44ee2"
+  }
+}

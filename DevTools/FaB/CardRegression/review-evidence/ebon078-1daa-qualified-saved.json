@@ -1,0 +1,53 @@
+{
+  "status": "EBON078_ORIGINAL_CORRECT_7_747_QUALIFIED_ONE_REPLAY",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independently reviewed agent-authored source and prior original scenario against issuer MON188; exact saved source mapping",
+  "runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+  "source_spec": "card-regression-batch330-correct-cost-probe.json",
+  "input_sha256": "7f9d86dc7471abbd0a515007b91267ea1150e014648ace0990b0dc98f8206581",
+  "fixtures": [
+    {
+      "slug": "card-ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe",
+      "card_id": "ebon_fold",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1fc3fd4b266dc234241fe4194a3ce50da43188a29d166bd45d3f8cebf940b670",
+        "actions.json": "1c354f3e71561d50ec6cea8ff2ea4d47711298cf4a354e45e33903761b68d5f8",
+        "assertions.json": "cee7176e540cfe1b0065bf1d854d56c209165242195f54ed800f874062ad7170",
+        "expected_final_gamestate.txt": "cc18cacc6e8952e73649b28c3bf6ef3716c840110e09d40caee687d7b1b0bc10",
+        "meta.json": "591f7eb62d64936b7601039c0155f846a01864f3f265a74a9423499725e9d0a4"
+      },
+      "fixture_sha256": "beb1034d4925eb3fc8926328078c4d416a2617cabf44795c297091a2f3cef49e",
+      "actions": 7,
+      "native_assertions": 747,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+      "runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+      "source_spec": "card-regression-batch330-correct-cost-probe.json",
+      "input_sha256": "7f9d86dc7471abbd0a515007b91267ea1150e014648ace0990b0dc98f8206581"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov20-ebon078-1daa-replay.json",
+    "sha256": "132cdcc0ca2af65dd5079d77935c634f62d8d57d1df4dffd0a42f42e669f9c5f",
+    "passed": true
+  },
+  "source_review": {
+    "path": "nov20-ebon078-independent-root-source-review.json",
+    "sha256": "5fc891dd15064a1a235e6b16915c50e72cd4a66d884d7d7818537de43e2f8f23"
+  },
+  "application": {
+    "path": "nov20-ebon078-guarded-application-and-emission/receipt.json",
+    "sha256": "f97dc686daa80c4f0acc39ffdd1a6c1e9591e0b15557085b3bd759a600d8c050"
+  },
+  "components": 31,
+  "basis": "Original7 actual actions and747 queries preserved exactly and persisted, all four manual live seats/48 manual preferences verified. Actual Blue6 pitch3 pays Ebon resource1 then destroys ownEquipment5 toGY before fresh four-seat responses, R2/AP1. Ebon ABI9 remains owned through real resolution Hand chooser; chosen Shadow7 reachesBanish before actualDeck8 draw toHand, ABI9 then ceases and allStack/queues/await/payment state quiet. Final ownGY5/Pitch6/Banish7/Hand8 exact. Root independently checked issuer separates cost from effect; no snapshot blessing/expectation weakening. One clean replay passes unchanged.",
+  "limits": [
+    "Only original paid Shadow banish/draw branch natively covered. EmptyHand/nonShadow/failedmove/wrongseat/stale/nested-ABI alternatives have component evidence only.",
+    "Spellvoid2 unchanged, not tested here. No094/generic lifecycle, sibling/newbreadth, remote authoring or full-suite claim."
+  ],
+  "full_suite_run": false
+}

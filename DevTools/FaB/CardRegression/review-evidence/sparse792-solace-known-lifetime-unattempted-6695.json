@@ -1,0 +1,143 @@
+{
+  "batch": 792,
+  "author": "/root/breadth787_author",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "immutable_firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-firm-reservation.json",
+    "sha256": "aeb5c7db563532e6c5ebce64f92065fa5d85bc8ab213167e25b9fc1788d733a8"
+  },
+  "whole_primary_support_family_printing_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-primary-support-family-metadata-preflight.json",
+    "sha256": "4d57b7f7cef6ca688e947d646d5b97ae945241d65d2c5c6f59f5e9d061bb6804"
+  },
+  "all82_source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "all82_current_guards_verified": true,
+  "metadata_at_final_read": {
+    "sparse-source-only-holds.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+      "sha256": "680f64e5ac3f0e699dbd856eb9d733fd964b3bef8a0f2618508fa31e5befa748"
+    },
+    "card-regression-issues.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+      "sha256": "9555f4255868e3de29ecc421abc11d7cd3077ec9c3cb9514f247e8c88ad90c50"
+    },
+    "card-regression-review.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-review.json",
+      "sha256": "cf718f34affab1efd0ad01f74a933845694b5c7b30e507176cecacae5867c94e"
+    },
+    "coverage-additions-after218.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\coverage-additions-after218.json",
+      "sha256": "f64ada60e27529a628ae7705347fb74048bc88a62751bd1050b79e3304288755"
+    }
+  },
+  "coverage_at_read": {
+    "saved_registered_scenarios": 4054,
+    "recorded_groups": 1082
+  },
+  "counts": {
+    "runnable_cases": 0,
+    "recipes": 0,
+    "controls": 0,
+    "queries": 0,
+    "native_inputs": 0,
+    "new_issues": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "repair_proposal": false,
+  "B787_denied_operation_untouched": true,
+  "status": "B792_SOLACE_FIXED_ZOMBIE_LIFE_ROUTE_KNOWN_UNMANAGED_SPELL_LIFETIME_UNATTEMPTED",
+  "created_utc": "2026-11-14T20:31:42.401043+00:00",
+  "card_id": "shadowrealm_solace_blue",
+  "group_id": "identity:shadowrealm_solace_blue",
+  "fixed_route": "YoungMalice natural20, realownedpublicBanish RestlessShieldmaidenRed nonTokenShadowNecromancerZombie (ShadowResist1/Decay only), actualoptionalSolacechoice movesSAMEcardGY/gain1to21, realprintedGA thenordinaryWoundingBlue2cost0attackHero4/finalAPconsumer. NoZombieproduction/inArena/play/death/Heroability/BloodDebt/Endclaim.",
+  "selected_canonical": {
+    "cardId": "shadowrealm_solace_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$chosen = \"-\";\n $refs = FaBIARBanishRefs($player);\n if ($refs !== \"\") {\n $chosen = await $player.MZMultiChoose($refs, 0, 1, \"Return_banished_card_to_graveyard\");\n \n}\nif (FaBIARReturnBanish($player, $chosen)) {\n FaBCRUGainLife($player, 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  "selected_emission": {
+    "function": "__RunAwait_d02b879e0655212ecdb2",
+    "sha256_normalized_lf": "a1ebfb9d2298f85fd8120cbe6a793e96bb05f153a4ba0b35346b47e740cf2c55",
+    "MZCHOOSE": false,
+    "MZMULTICHOOSE": true
+  },
+  "source_chain": [
+    {
+      "file": "FaBSim/Custom/IARCards.php",
+      "lines": [
+        145,
+        165
+      ],
+      "finding": "ActualownpublicBanishrefs and ReturnBanish sameUID\u2192GY/Zombiequalification exist; canonical await thenrealGainLife leaf."
+    },
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1571,
+        1572,
+        1637,
+        1681
+      ],
+      "finding": "Both exactmanagedphysicalplainspell predicates excludeSolace."
+    },
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1823,
+        1834
+      ],
+      "finding": "Ordinarynonpersistent fallback movesphysicalsourceGY beforeResolveRules/unfinishedoptionalBanishchooser and returnsACTION/GA early. Same inherited source-lifetime dependency as knownIndex/otherheldspells."
+    }
+  ],
+  "known_family_holds": [
+    {
+      "json_path": ".holds[85]",
+      "row_sha256": "bcab5df9e5d7b372ea6aa1854513115141811406dcb5a51938bdeed769c00877",
+      "card_id": "read_the_glide_path_blue",
+      "group_id": "pitch-cycle:read_the_glide_path",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Inherited known unmanaged physical-spell source-lifetime seam only. Exact card body and helpers exist; no whole-card/global implementation-absence or new native bug claim. Hold the selected real nonempty Opt route rather than remove its lifetime assertion, omit Opt via empty Deck, add handwritten transport, or repeat known-family native failure."
+    },
+    {
+      "json_path": ".holds[159]",
+      "row_sha256": "73361b5fa05fa2c4d0ccffe15eebca5e7076629c137ed54f490d108ac1674172",
+      "card_id": "foreboding_bolt_blue",
+      "group_id": "pitch-cycle:foreboding_bolt",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Hero target is correctly declared in Prepare and arcane plus Opt body exists, but ordinary resolution removes the source before mandatory positive nonempty-Deck Opt await. No empty-Deck bypass; unattempted source concern only, no native defect or coverage."
+    },
+    {
+      "json_path": ".holds[237]",
+      "row_sha256": "3e3b120616aee957327cb51039a261ce96a4cf6f321ce97ffddab9e6f33ad1b3",
+      "card_id": "index_blue",
+      "group_id": "pitch-cycle:index",
+      "status": "source_only_unattempted_selected_known_dependency",
+      "reason": "Current exact ordinary-spell predicates exclude Index while its real emitted StageTop/chooser/Rearrange awaits remain. The fixed positive route inherits known physical source clearance before resolving await; no substitute or missing-body claim."
+    }
+  ],
+  "reason": "Exactknownunmanagedordinaryspellawait-lifetime helper dependency. Parentagreed UNATTEMPTED; no native repeat, emptyBanish/declinedchoice/nonZombie/bonusAP substitute, or sourcefix.",
+  "selected_preimage_guards": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086"
+  },
+  "limits": [
+    "No native sameZombieGY/heal21/GA/attackconsumer/cleanup or coverage certification.",
+    "No Malice/Zombieproducer/ShieldmaidenArena/Decay/Resist/death behavior certificate."
+  ]
+}

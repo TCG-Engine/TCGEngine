@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch443.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T10:18:48.562480+00:00",
+  "fixtures": [
+    {
+      "slug": "card-doubling-season-red-four-live-sparse-real-plus-three-replaced-by-plus-four-and-four-physical-damage",
+      "fixture_sha256": "05a3a5e20ee0c87f3eade6aee75c4e76a1a7dff484082f6a38c8035acf3f160a",
+      "passed": true,
+      "result": "[PASS] doubling_season_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-doubling-season-red-four-live-sparse-real-plus-three-replaced-by-plus-four-and-four-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] doubling_season_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,18 @@
+{
+  "status": "INDEPENDENTLY_APPROVED_MATERIAL_PROBE_CORRECTION_NO_OUTCOME_WEAKENING",
+  "source_v1": "card-regression-batch275.json",
+  "source_v1_sha256": "d2dd3671ff25b2ef125a7b814cb0114086ed6b8c2bb2ebef463fb532756880b8",
+  "corrected_source": "card-regression-batch275-prognosticate-material-correct-probe.json",
+  "corrected_source_sha256": "8412007de8e11e9da5a3e7a98c5a0f018d12c4012960a35d6257d692b894f073",
+  "independent_review_sha256": "5675ef2e7feaa2bb50f4bebb56fec5523e0d78bb70ca98fdda355e7cbda2fdac",
+  "changes": [
+    "Removedone implementation-onlyarcCards5.arcaneBonus check, notprinted4damage/Opt/lifetime condition.",
+    "Boundedlastresponse tooneactualP4Passusingcurrentreturnpriority1, preventing40-passdriftifOptmissing."
+  ],
+  "unchanged": "All13plannednativeactions/setup/materialHP16/Opt1/sourceStack/GY/Decksuffix unchanged.",
+  "assertions": 1177,
+  "v1_failure_not_used_as_gameplay_evidence": true,
+  "v2_workspace_unexecuted": true,
+  "v3_actual_printed_outcome_failure": true,
+  "no_wrong_passing_fixture": true
+}

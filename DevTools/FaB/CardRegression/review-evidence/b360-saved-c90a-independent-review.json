@@ -1,0 +1,259 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B360_SWIFTWATER_FOREIGN_GOLD_CONTROL_AND_GRANTED_ATTACK_GO_AGAIN",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T18:16:18.528962+00:00",
+  "source_spec": "card-regression-batch360.json",
+  "input_sha256": "786bb28601b980b61441808b6c580b6278ec3f724d056496016748a891687644",
+  "manifest_sha256": "b183e43c8e5553d54a805106387347a9da840190e95827ec48a2b4b340c7a76f",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "source_guards_verified": 20,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch360-independent-source-review.json",
+    "sha256": "1717eea14ed34ef2406e5f33817f1d96fad813d1f3d13f6bdf61ad7c6f53be80",
+    "reused_not_new_source_approval": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch360-20261103T181356Z-6aea246485144.json",
+    "sha256": "dbb3df57165a5482b89b1e9ee015c366ad758823744e9aa2fb0983c782565714"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch360-native-r1\\receipt.json",
+    "sha256": "7117f0070f4dd4937e90e151f9dd7228990985f79dd25b8195a8b3a6ada7442b"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch360_saved_readonly.py",
+    "sha256": "0e552e017bd19aa28aef1db232b064ea25ee8ba804978aedae6ef23501523e07"
+  },
+  "reviewer_independence": "Metaauthoredoriginal360; savedreviewerindependentlysource-reviewed butauthoredneitherscenario nor implementation/native recording.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "mutiny_on_the_swiftwater_blue",
+      "slug": "card-mutiny-on-the-swiftwater-blue-four-live-sparse-real-gold-theft-earns-next-attack-go-again",
+      "source_spec": "card-regression-batch360.json",
+      "input_sha256": "786bb28601b980b61441808b6c580b6278ec3f724d056496016748a891687644",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mutiny-on-the-swiftwater-blue-four-live-sparse-real-gold-theft-earns-next-attack-go-again",
+      "fixture_sha256": "2da79c89f193957807bf9bc65d737395e518fd9457cba06b2190ff93619ecfc7",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "92ce3e93955082e2346091fccb31c267ce730895c8c9807653e5b65f802d69b1",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "91c66e6625d874ff4d80e4ad25bbc44b41340a38bcdde77b7bb341535c7ad916",
+        "expected_final_gamestate.txt": "bf7c0efa4ff1433ebf0ac25e145f532915aa5431eb6eabd32a845d4d207c0d8e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "92ce3e93955082e2346091fccb31c267ce730895c8c9807653e5b65f802d69b1",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "91c66e6625d874ff4d80e4ad25bbc44b41340a38bcdde77b7bb341535c7ad916",
+        "expected_final_gamestate.txt": "bf7c0efa4ff1433ebf0ac25e145f532915aa5431eb6eabd32a845d4d207c0d8e",
+        "meta.json": "5e70e035d792ae49756e55046fac51e359bc83e370e524ae1f38339dd1c24120"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "92ce3e93955082e2346091fccb31c267ce730895c8c9807653e5b65f802d69b1",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "91c66e6625d874ff4d80e4ad25bbc44b41340a38bcdde77b7bb341535c7ad916",
+        "expected_final_gamestate.txt": "bf7c0efa4ff1433ebf0ac25e145f532915aa5431eb6eabd32a845d4d207c0d8e",
+        "meta.json": "5e70e035d792ae49756e55046fac51e359bc83e370e524ae1f38339dd1c24120"
+      },
+      "actions": 32,
+      "native_assertions": 2724,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mutiny_on_the_swiftwater_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "gold",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 4,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "mutiny_on_the_swiftwater_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "Gold6_raw_Owner": 4,
+      "Gold6_raw_Controller": 1,
+      "Gold6_exact_all_other_raw_fields_unchanged": true,
+      "checkpoint_assertion_mapping_sha256": "5aabcf1c525ce1bda91599a9ee487897242b54197fc313af33a22c61f7f87663",
+      "native_action_mapping_sha256": "e6685eddf79221d7a574817f4134bcd5f6b417eece1c4633d5c86d340cdc2569",
+      "native_assertion_mapping_sha256": "9d828839b2a8949651158fe39f9c92222657513181895d831aa33d3dcbf2e8aa"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 32,
+  "total_native_assertions": 2724,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actualprimary5Action0/APspentbeforefour1,2,3,4; same5Stackand6P4Arenathroughfirstthree. Fourth5ownGY/ownGAAP1andactual6P1ArenaOwner4Ctl1. RawinitialGold6andrawfinalGold6areexactdict-equalexceptController4\u21921:Status2/Damage0/UID6/Counters/TurnEffectsallretained. NonewGold/UID/resource/activation.",
+    "ActualvanillaWounding7freshadjacentP4targetwhileHandthenprinted0/APpaid, actualStack7GO_AGAINearnedtag; four-source\u2192Chain7power4not6/computedGAtrue. Freshfour-livecombatactual4physicaldamageHP16; AP0throughfirstthreeDAMAGEresponses, onlyfourthRESOLUTIONrefundAP1. RawSEA_NEXTpositiveeffectabsent, no unearnedprimarybuff2 orintrinsicWoundingGA.",
+    "All32actualinputs/2724orderedchecks/29manualpasses(28priority+P4finish)/rawfive/fullschemaendpoints/48manualpreferencevaluesperendpointverified. FinalGYUIDset{5,7}, Gold6Owner4Ctl1P1Arena, alloriginal1..7conserved/Counter7RNG0/R0/AP1onlyP1/HP20,20,20,16; allfourheroesready/live andalltransientzones/DQs/payment/manager/framesclear."
+  ],
+  "limits": [
+    "OnepositiveoneGoldtheft/grantednextattackGA. NozeroGold/failure/multipleGold/victim/Goldcreation/activation/hero/WateryGrave/endphase/secondattack/expiry/sibling/support-primary/fullcard/control/fullsuitecredit.",
+    "Actualcompletednativeledger+parsedendpoints only; noextra per-inputrawsnapshots/native/replay/controlbyreviewer. Roottwofocusedreplays/registrationseparate.",
+    "NoPHP/native/R/source/generator/service/legacyauditbyreviewer."
+  ]
+}

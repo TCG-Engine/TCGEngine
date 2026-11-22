@@ -1,0 +1,274 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_DROMAI_ONE_REAL_RED_PLAY_DRAGON_GA_CONSUMER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T07:29:13.987675+00:00",
+  "source_spec": "card-regression-batch429.json",
+  "input_sha256": "f779caebcac55928205b2e68a4adfe890649fc2a6d1baea7342a3709c4cda517",
+  "manifest_sha256": "39d9232907e5eb1350bc41056f05096e09e44b6080a97e80ff18e431f44b0de9",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 66,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch429-independent-source-review.json",
+    "sha256": "dd709b80b1fade9d180b3efd662150f5e034b4d8413ce297f7eb2165787f5bd6",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch429-20261105T072426Z-6aec2f2a75d5e.json",
+    "sha256": "e01f2b722cf28fcccce0dc2b755ca3719a758c4211496ca222e07d1fc3b59bb9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch429-native-r1-9e984\\receipt.json",
+    "sha256": "2f6b948567283ed0f5f0fb9f43b929c17aed89070e93bbaeab84387db4c9d4a5"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch429_dromai_saved_readonly.py",
+    "sha256": "59f9a76d02c44d83b5bffa64bd802de61bf5ab8a9b0e49ef05e9468806617ac4"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "dromai",
+      "slug": "card-dromai-four-live-sparse-real-red-play-earns-dragon-go-again-and-action-point-refund",
+      "source_spec": "card-regression-batch429.json",
+      "input_sha256": "f779caebcac55928205b2e68a4adfe890649fc2a6d1baea7342a3709c4cda517",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-dromai-four-live-sparse-real-red-play-earns-dragon-go-again-and-action-point-refund",
+      "fixture_sha256": "911eb3867ab5ba40b37add344510d0e298b51fddb83f81898010d16150af75c6",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3d690b0de7d0d8a233a51955b86965f9c1d1b58780a20dc91fbc6ca9f8f56f99",
+        "actions.json": "264f605d2ae126b548a6d286143f87ae25bbd59165c4e50290bba7dd04533314",
+        "assertions.json": "dc7b145ece9d5b17f1e62b26382515f0088077b004c90f77ddce1e0681aa37b8",
+        "expected_final_gamestate.txt": "a2deb0018e57c9bc440b9cd42cec95fac1fcc74b0a13b05445f4677bfd29c7b8"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3d690b0de7d0d8a233a51955b86965f9c1d1b58780a20dc91fbc6ca9f8f56f99",
+        "actions.json": "264f605d2ae126b548a6d286143f87ae25bbd59165c4e50290bba7dd04533314",
+        "assertions.json": "dc7b145ece9d5b17f1e62b26382515f0088077b004c90f77ddce1e0681aa37b8",
+        "expected_final_gamestate.txt": "a2deb0018e57c9bc440b9cd42cec95fac1fcc74b0a13b05445f4677bfd29c7b8",
+        "meta.json": "d5716bca425b6ff23ef039d8d848579c91e58b9ef2e10e9e17cea8e19a8c3a16"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3d690b0de7d0d8a233a51955b86965f9c1d1b58780a20dc91fbc6ca9f8f56f99",
+        "actions.json": "264f605d2ae126b548a6d286143f87ae25bbd59165c4e50290bba7dd04533314",
+        "assertions.json": "dc7b145ece9d5b17f1e62b26382515f0088077b004c90f77ddce1e0681aa37b8",
+        "expected_final_gamestate.txt": "a2deb0018e57c9bc440b9cd42cec95fac1fcc74b0a13b05445f4677bfd29c7b8",
+        "meta.json": "d5716bca425b6ff23ef039d8d848579c91e58b9ef2e10e9e17cea8e19a8c3a16"
+      },
+      "actions": 32,
+      "native_assertions": 2816,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 127,
+        "32": 198
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "nimblism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "storm_of_sandikai",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "aether_ashwing",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "storm_of_sandikai",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "aether_ashwing",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "nimblism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "Ally5_raw_Status": 1,
+      "Ally5_raw_Damage": 0,
+      "Ally5_raw_Counters": {
+        "UPR_ASH": 1,
+        "DYN_ASH": "ash",
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "Storm7_raw_unchanged": true,
+      "unused_Nimblism_NEXT_AA_LOW": {
+        "amount": 3,
+        "uses": 1
+      },
+      "checkpoint_assertion_mapping_sha256": "ced3e68ed724acdf05294becf6bd9603a8b07daca5e3af968ebee069d594f0f6",
+      "native_action_mapping_sha256": "4ea9ef4047466c6ac67c14250e4e6729758d4f408ec32577dca80275fa7d9297",
+      "native_assertion_mapping_sha256": "75adae66410c29ff2647d975d51bc95a8ed408ed8a72e4f28337bf9201daa09f"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 32,
+  "total_native_assertions": 2816,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualNimblismRed6played0/APspent\u2192sourcefour\u2192ownGAAP1/GY6; actualrawhistoryonlyRed6, noPitch/noAshcreation. RawNEXT_AA_LOW3uses1remainsunusedasDragonALLYattackisnotAA; actualproxybase1/damage1strictlyexcludes+3.",
+    "ActualreadyownedStorm7suppliesOncePerTurnAction0Attack permission toAlly5; targetbeforeAP/activationbookkeeping, actualproxy8StackSourceArenaUID5/Controller1/Ownerdefault0\u2192ChainOwnerfallback1/base1/earnedHeroGA. FourDAMAGEresponsesrefundAP1onlyatproperResolution, real1damageHP19.",
+    "Every32actualinput/2816check/29manualactors/all48prefsperendpoint verified. PhysicalAlly5retainedStatus1Damage0/Ashmaterialandonce-usecounters, Storm7rawunchangedready, onlyNAA6GY/R0AP1/allUID1..7conserved/virtual8ceased/fullqueuesframescombatpaymentcleanup."
+  ],
+  "limits": [
+    "VirtualStackOwner0 isgeneratedproxydefault; actualphysical5/7OwnerController1. AllyStatus1/WEAPON_ATTACK_*andrawweaponHits5 are currentattack-usebookkeeping, notprintedtapcost/notrulesweaponattack orAAclassification/generalallymodelcredit.",
+    "OnlypositiveactualRedPLAY\u2192DragonGA/APrefund/damage/cleanup. NoRedPitch/AshWHEN/creation/transform/materialidentity/retrieval/Phantasm/Barrier/secondDragon/otherRed/turntransition/negativecondition/suppression/foreigncontrol/StormorNimblismprimary/fullHero/fullcard/siblingcredit.",
+    "Teklovossen/Evoexcludedunattemptednoteunreviewed/no credit. Sourceofficialtextreviewreused, no historicalfixtureaudit or newsourceproposal.",
+    "Roottargetedreplays/registrationseparate; reviewerexecutednoPHP/native/R/source/gen/service/fullsuite/deniedoperationretry."
+  ]
+}

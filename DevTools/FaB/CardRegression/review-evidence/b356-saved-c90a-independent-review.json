@@ -1,0 +1,144 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B356_REAL_RUNE_GATE_CONSUMER_TWO_TRIGGER_ROUNDS_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T17:47:50.085677+00:00",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch356.json",
+  "input_sha256": "4f50b1260040a0578ce43e0f7c581a841522d1cc912a428380b4520fc37c13ec",
+  "fixtures": [
+    {
+      "slug": "card-putrid-stirrings-red-four-live-sparse-real-banish-action-earns-plus-five-on-actual-rune-gated-attack",
+      "card_id": "putrid_stirrings_red",
+      "group_id": "pitch-cycle:putrid_stirrings",
+      "fixture_sha256": "b8c8b91875e5b2bb30be4cde81438f8751cd557388c4dc470765a7c92dbd7098",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "05a4522486ed38ef5f58b4d8e17f3c11f83aaed0ad9c78c9245ef5e845fa8094",
+        "actions.json": "7900e169c426264fe57cf739c4188b5309fd4d303412ddf5a429eb3f35944571",
+        "assertions.json": "152e5845d72e33bdc73500bad8c7afd330103f12bb8c2685416cd2ce0e5862f3",
+        "expected_final_gamestate.txt": "5be10d160ea5be99c3436bd857d6256a274285acf1867a9562b2f929b1354a5f",
+        "meta.json": "a5f3c498b0319b8a543731ac4a30489a5b53fae04c72bc18104dcbd478a7129f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "05a4522486ed38ef5f58b4d8e17f3c11f83aaed0ad9c78c9245ef5e845fa8094",
+        "actions.json": "7900e169c426264fe57cf739c4188b5309fd4d303412ddf5a429eb3f35944571",
+        "assertions.json": "152e5845d72e33bdc73500bad8c7afd330103f12bb8c2685416cd2ce0e5862f3",
+        "expected_final_gamestate.txt": "5be10d160ea5be99c3436bd857d6256a274285acf1867a9562b2f929b1354a5f",
+        "meta.json": "a5f3c498b0319b8a543731ac4a30489a5b53fae04c72bc18104dcbd478a7129f"
+      },
+      "actions": 43,
+      "native_assertions": 3536,
+      "extra_recorder_only_hooks": 0,
+      "actual_manual_passes": 37,
+      "manual_passes": 37,
+      "priority_response_passes": 36,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "retained_original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "ceased_original_runechant_uids": [
+        8,
+        9
+      ],
+      "ceased_virtual_trigger_uids": [
+        10,
+        11
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        7
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "raw_actual_arcane_dealt_1_to_4": 2,
+      "raw_actual_UID6_dtdRuneGate": true,
+      "no_positive_DTD_NEXT_RUNE_remaining": true,
+      "physical_findings": "ActualownedpublicPutrid5/Wraith6Banishflag0/Blue7Hand/twoownedreadyRunechants8,9 withnoinitialhistory/buffs/permission/APresourceflags. RealPutridBanishAction3/Blue7pitch3pays3AP\u2192R0AP0, NAAfirst3held5and2Runes/fourth5GYownGAAP1/+5fornextRuneGatedAAonly. Actual6normalP4targetthenRuneGateprinted2thresholdmetbyreal2Runes; resourcecost0butAPspent; physical6StackPOWER5belowmanagedtrigger10/source8and11/source9. TWOactualP4Runechanttargetanswersbeforepriority/noearlydestruction. THREEdistinctfresh4response1,2,3,4rounds: upper11/source9ceasesand1arcaneHP19; lower10/source8ceasesand1arcaneHP18; onlythenunderlying6ChainFromBanish/base6+5=11/noGA. Fullcombat11physicalHP7; rawarcaneDealt1to4=2/dtdRuneGateUID6true andconsumedpositiveDTD_NEXT_RUNEabsent. FullcloseGYexact5,6/Pitch7/RChiAP0/UID1-7retained/token8,9+proxy10,11ceased/counter11RNG0/allfourmanual/live/queuesclear.",
+      "qualification": "OnlyactualintrinsicBanishpaidPutrid3/ownGA/realRuneGate+5consumer and requiredRunechantresponses. NoordinarypaidHandAA/otherGatecounts/Runechantcreation/secondattack/Chane/EndPhaseBloodDebt/expiry/supportprimary/sibling/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch356-independent-source-review.json",
+    "sha256": "b11ff202b4c95e7a0cbdd203b4529c5e793f233039e14b0dcaee6399ee09bc29",
+    "manifest_sha256": "f3c15f58ae0a790d9a09ed9fde6d936f40a30cc82afcee32140724e91e2bbe7f",
+    "current_source_guards_verified": 19
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch356-20261103T174427Z-6aea1d7bdcb9a.json",
+    "sha256": "f7f547c4cc33c490f2c7d13a4329a2408255c0929d2db030d01e76e3adba6bad"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch356.recording-results.json",
+    "sha256": "bfd508e79f98f2bb15593b24da85f0ed54eca44c66e916b71cd94d54271177f1"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch356-native-r1\\receipt.json",
+    "sha256": "983aec1c110d5f91ecdcc56b9c16572097c5e27d679e577ed1637fd42b4fe1ae",
+    "stdout_sha256": "60fcda4e156394f4a44b63ddb838e3700b6587f84f46f35cd30742a6bf77b595",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+    "runtime_after": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3"
+  },
+  "method": "Independentactualrawfive/schemaendpoints/every43nativeactor-mode-payloadand3536orderedpersistedchecks equal4f50independentlyapprovedinput. Physicallycheckedtwotargetanswers+distinctupper/lower/underlying4responsegroups, exactownedUID/power/economy/HP/manualprofiles/queuecleanup; rawarcane2/Gatecapture/effectconsumption required. PurePythonparsers/normalizer/actionhelpers only, noauthorbuilder/PHP/native/replay/R/source execution.",
+  "limits": [
+    "CreationSavedreviewonly; Root twofreshfocusedreplaysseparate/notreviewerexecution.",
+    "All3536checks persisted/no recorder-onlyhooks. SelectedRuneGatebranchonly, noordinaryHandconsumer/Runechantcreation/hero/endphase/sibling/supportprimary/fullcard/controlcredit.",
+    "Unrelated070079/SmashItemholdsuntouched."
+  ]
+}

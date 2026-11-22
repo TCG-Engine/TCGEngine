@@ -1,0 +1,82 @@
+{
+  "status": "INDEPENDENT_APPROVED_PILLAR_SOURCE_ONLY_EXACT_SHARED_UNITY278_CONTRACT_NOTE",
+  "phase": "PLANNING",
+  "batch": 862,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch862-pillar-required-unity-note-manifest.json",
+    "sha256": "b9365c9f57a64f9f19bb7ff20af452b0c7fedb14d1cff23b1d9e39a30efd06a7"
+  },
+  "manifest_sha256": "b9365c9f57a64f9f19bb7ff20af452b0c7fedb14d1cff23b1d9e39a30efd06a7",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch862-firm-reservation.json",
+    "sha256": "6e67edfac04a59f7592d9aa14f5b6dad5552334bbc2fd5908920b5d94f5d7f15"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch862-firm-reservation-support-admission.json",
+    "sha256": "5d68678a8f0c21c7806a198c9604ab312d72932bf0fabc63433136ddddb37cf4"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 12,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "pillar_of_unity",
+      "group_id": "identity:pillar_of_unity",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "EXACT_BASTION278_SAME_DTD_DEFEND_GROUP_STATEMENT_NOT_BOLTyN_ALIAS_ASSUMPTION",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch862-pillar-required-shared-unity278-unattempted-note.json",
+        "sha256": "b48009a2db1cc7f8c2fdf8b9de8c36f3273ace0182e209d5a54d8fcfb866210d"
+      },
+      "known_required_contract": {
+        "human_row": 278,
+        "card_id": "bastion_of_unity",
+        "retained_independent_proof": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse830-independent-known-contract-planning-review-a11.json",
+          "sha256": "2d5de0484837bc4652148b05e7a16c22a4174236e970a51c51726ced8c44e458"
+        },
+        "exact_current_causal_statement": "DTDRuntimeFaBDTDDefendGroup61..64 explicitlylistsBastion/Plating/PillarinSAMEin_array\u2192FaBWTRTagWTR_DEFENSE1whenotherdeclaredobjectFromZoneHand. ActualGL1911runsDefendGroupBEFORE1914OnDefendedand1920DefendPriority. No separatelycapturedUnitylayerbefore+1."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Pillar printed WarriorLegs/baseDEF1/Unity/Temper is legal on YoungDorinthea20; GenericHandWoundingBlueDEF3 and opposing GenericBrutalRedcost2/base6 with realBlue3pitch are legal. No Dori weaponhit or Betsy wager triggers are entered. Frozen supports/refinement remain within the fixed positive Equipment+Hand defense route.",
+    "Actual native DTDRuntime61..64 FaBDTDDefendGroup constructs the simultaneously declared objects and explicitly includes Bastion/Plating/Pillar in the SAME in_array statement applying WTR_DEFENSE1 when another declared object came from Hand. GL1911 invokes this BEFORE1914 OnDefended and later defense priority. It applies the material bonus without a separately captured responseable Unity layer: exact retained Bastion278 common producer/statement. Empty PEN canonical/absent literal emitted Pillar does not mean missing implementation; this is not an inferred FaBBoltynUnity alias.",
+    "Full future positive route requires both actualPillar and actualHandDEF3 together, captured controller/source4 Unity and four fresh responses BEFOREbase1becomes2. Real attack6 minus totalDEF5 must deal1/HP4=19 (not baseline2/HP18), with all physical ownership/payment/Hand/Equipment continuity. All effect and combat observations remain unrun behind known278.",
+    "Temper at true close must retain SAME physical Pillar with one minus-defense counter: immediate currentDEF=base1+Unity1untilEOT-minus1=1, so it survives in Equipment. HanddefenderGY4/BrutalGY1/BluePitch1/R1/AP0/fullStackDQchaincleanup remain future requirements. Do not remove untilEOTUnity early or invent a Close priority quorum. Later EOT expiry/consequences/nextdefense/priorEquipping/siblings/support/fullcard are untested.",
+    "Exact frozen note,12 current source guards, selected printed metadata/canonical row and retained278 evidence hash independently matched. Approval is planning-note retention only: zero executable cases, native/save/coverage/newissue/sourcefix approval. Chromatic has a separate healthy normal Source gate; this note does not block it."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "pillar_of_unity",
+      "action": "Execute full Equipment+Hand earned Unity/damage/Temper route",
+      "reason": "Exact shared FaBDTDDefendGroup Unity layer contract278",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Full positive route unrun; no individual Pillar Native defect or distinct Core/root allocation inferred from retained Bastion contract.",
+    "No PHP/Native/Rwrites/sourcefix/fullsuite/Git/remote/deferredRadiant or denied188/184/B787 retry."
+  ],
+  "created_utc": "2026-11-16T10:49:56.033060+00:00"
+}

@@ -1,0 +1,81 @@
+{
+  "status": "SOURCE_ONLY_UNATTEMPTED_ELEMENTAL_EARTH_EFFECT_COST_BEFORE_AP_PLANNING_LIMIT",
+  "card_id": "elemental_strike_red",
+  "group_id": "identity:elemental_strike_red",
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T23:46:22.207350+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch758-trip-real-hand-prevention-and-elemental-source-only-author\\batch758-elemental-strike-positive-earth-cost-source-only-plan.json",
+    "sha256": "56afb2d0a9e49a2c49e903ba27aca9d5367e8e9b759129459dc98568801733d6"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch758-trip-real-hand-prevention-and-elemental-source-only-author\\manifest.json",
+    "sha256": "2fab7724e50088878b748be83776c5da993b9f2e7798758a29f23da442a23752"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch758-trip-real-hand-prevention-and-elemental-source-only-author\\SOURCE_RULES_NOTES.json",
+    "sha256": "319146944e3f05d1f4fb4ff20ffe6d859fb1af354c03a760f796e6263b347550"
+  },
+  "source_guard_count": 70,
+  "source_guards_verified": true,
+  "executable_cases": 0,
+  "source_body_present": true,
+  "positive_conditions_valid": true,
+  "engine_implementation_concern": true,
+  "independent_findings": [
+    "Primary and Autumns Touch Earth support publisher faces actually viewed. Elemental Strike has a real Prepare body and legal positive Earth Hand premise under Verdance; resource0 still requires ActionAP1. No body-absence/condition-false claim.",
+    "Current selected canonical/generated Prepare invokes MZCHOOSE then FaBPENElementalStrike before FaBFinishPreparedCard. PENCards409 physically moves chosen original Hand UID to Banish;410 tags Earth power2. This is actual effect-cost payment, not merely declaring a cost parameter.",
+    "GL968-990 installs pending ATTACK/cost0 and invokes Prepare while AP is unpaid; no selected deferral or natural Boost grant applies. FinishPrepared217-233 reaches resource/AP asset payment only later GL1097-1102. CR5.1.7 precedes5.1.9 even when resource cost is0; selected positive Earth path therefore cannot qualify correct AP-before-banish timing.",
+    "This is unattempted static Source inference only. Proposed7power/damage/UID/cost/close outcomes were never executed or certified. Trip Source admission is separate and conveys no Elemental approval."
+  ],
+  "source_evidence": {
+    "paths": [
+      "DevTools/FaB/pen_abilities.json:elemental_strike_red PrepareCard",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php:124937-124965",
+      "FaBSim/Custom/PENCards.php:405-413",
+      "FaBSim/Custom/GameLogic.php:968-990,1097-1102,1264-1297",
+      "FaBSim/Custom/CardChoices.php:217-233"
+    ],
+    "canonical_elemental_sha256": "97b61545e8e4fc449b75b9f7a06d970b335dfb4553b2aedfdf284827e029d79c"
+  },
+  "official_rules": {
+    "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "actually_retrieved": true,
+    "sections": [
+      "5.1.6b",
+      "5.1.7",
+      "5.1.9"
+    ]
+  },
+  "limits": [
+    "Only selected Red positive Earth additional-cost route is held; no Lightning/Ice/native/confirmed-bug/family claim.",
+    "No AP prefloat, false/empty condition, skipped/No choice, alternative primary/producer hunt, private flag/history seed, source fix or denied-repair retry.",
+    "No actual effect, power, damage, paid timing, fixture, replay, coverage, Hero/support/sibling/full-card credit. Exact original selection, mixed manifest/current70/c53/ab33 and per-card plan retained."
+  ],
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false
+}

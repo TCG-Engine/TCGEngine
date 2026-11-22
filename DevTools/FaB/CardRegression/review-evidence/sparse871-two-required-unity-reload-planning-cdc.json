@@ -1,0 +1,157 @@
+{
+  "status": "INDEPENDENT_APPROVED_B871_TWO_REQUIRED_CONTRACT_SOURCE_ONLY_PLANNING_NOTES",
+  "phase": "PLANNING",
+  "batch": 871,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-two-required-contract-notes-manifest.json",
+    "sha256": "5ce7a2e84892f9c6351fbbe7da4d2dc987d5d8fd126cbbb26001ac1bd0a21464"
+  },
+  "manifest_sha256": "5ce7a2e84892f9c6351fbbe7da4d2dc987d5d8fd126cbbb26001ac1bd0a21464",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-firm-reservation.json",
+    "sha256": "cf1486ba365491e407f6894879438d0783c56bfc49dbb3ff9b09e61e31435c10"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-firm-reservation-support-admission.json",
+    "sha256": "e66ab34019cd8343a1e98664a890177ae89ae0da6eacf3852feea42c31456657"
+  },
+  "required_bow_support_addendum": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-firm-reservation-support-addendum-bow.json",
+    "sha256": "93cc7d1a64e884ef62a78631e60103831a75993b08c6b50ef629795b48fe118f"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 15,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "plating_of_unity",
+      "group_id": "identity:plating_of_unity",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_SHARED_DEFEND_GROUP_UNITY278319_BEFORE_DEFENSE_BONUS",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-plating-required-unity278319-unattempted-note.json",
+        "sha256": "ad7f1ff4b2d6010322c1dd556a267328cd84240848ed85f14181959e632ee652"
+      },
+      "known_required_contracts": [
+        {
+          "human_hold_row": 278,
+          "card_id": "bastion_of_unity",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse830-independent-known-contract-planning-review-a11.json",
+            "sha256": "2d5de0484837bc4652148b05e7a16c22a4174236e970a51c51726ced8c44e458"
+          }
+        },
+        {
+          "human_hold_row": 319,
+          "card_id": "pillar_of_unity",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse862-pillar-known-required-unity-planning-cdc.json",
+            "sha256": "e193445cd34f3f3cbf1c1329d74db871434b7f365517a07c32254f56f75c6fbb"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "poison_the_tips_yellow",
+      "group_id": "identity:poison_the_tips_yellow",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_EARLIER_PHYSICAL_ORDINARY_SPELL_LIFETIME218281288_AT_REQUIRED_POSITIVE_RELOAD",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-poison-required-reload-source218281288-unattempted-note.json",
+        "sha256": "8577f3a09b6e05a7095876e69c668a7a216c1c2874f0da5fabeb3c1d60974884"
+      },
+      "known_required_contracts": [
+        {
+          "human_hold_row": 218,
+          "card_id": "bloodrush_bellow_yellow",
+          "historical_reviewed_runtime": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse756-bloodrush-source-cleared-before-synchronous-effects-unattempted-c53.json",
+            "sha256": "e86b76ef0f2653f2bc85d62d26223715f08599b1bb25c199b144fed1ca2c41f9"
+          }
+        },
+        {
+          "human_hold_row": 281,
+          "card_id": "teklovossens_workshop_blue",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse831-independent-known-source-lifetime-planning-review-a11.json",
+            "sha256": "bdf61ada6868d6f1774ed1b2a75a26a249fc72349cd7a67bfbb53c36a656b14e"
+          }
+        },
+        {
+          "human_hold_row": 288,
+          "card_id": "hit_the_gas_blue",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse838-two-known-required-contract-planning-cdc.json",
+            "sha256": "06f50ef577ba675a1d0f9c7c3acf7e8d5bad7d389b06f17495d9092523646dd6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Exact final manifest5ce7a2e8, Platingad7f1ff4/Poison8577f3a0 bytes, Root firmcf1486ba/supporte66ab340/Bow addendum93cc7d1a, all15 current CDC guards, actual selected canonical rows and five retained proof hashes independently match. Historical proofs retain their own runtimes, no Native replay/current retag. The bounded current issues/holds/index search has no selected primary IDs/base names/printingPEN045/CRU124 record; known shared contracts still apply.",
+    "Plating is explicitly included with Bastion/Pillar in DTDRuntime61..64 FaBDTDDefendGroup, directly adding WTR_DEFENSE1 for the same-step hand co-defender. GL1911 calls this before OnDefended1914/DEFEND_PRIORITY1920. Exact shared-statement Unity278/319 is required before any correct damage/Temper suffix; empty selected PEN canonical is acknowledged and is not a missing-implementation claim.",
+    "Full future legal Dorinthea1/PlatingChestDEF1+HandBlueDEF3 joint defense against Betsy4 native BrutalRed6 paid2 by Blue3/R1/AP0 requires Plating source/controller1 earnedfour BEFORE current-turn+1DEF. Total5 must produce actual1damageHP1_19. At proper chain close, own Temper earnedfour then one minus-defense counter leaves base1+Unity1-counter1=1, so same physical Plating survives in Equipment. All real damage/Source/UID/ownership/GY/Pitch/R1/AP0/StackDQ/close results are unrun; End bonus expiry/zero-defense destruction are excluded, not certified.",
+    "Poison actual CRU ResolveCard first grants POISON then awaits positive Reload MZMayChoose with real SicEm in Hand/empty Arsenal before LoadArsenal. Full GL1588/1654 managed predicates exclude this nonpersistent owned ACTION, so ordinary1840 clears physical source to GY before1841 required await/completion and1844 go-again code. This is earlier exact218/281/288 physical-source lifecycle, not merely a new granted-hit concern, absent implementation, skipped optional branch or synchronous waiver. No grant-flag/Arrow-only executable is approved.",
+    "Official CR8.2.6a requires both Arsenal and controlled Bow. Root admitted actual legal Ranger DeathDealer2H for Azalea20 as a passive prerequisite before frozen input/helper tracing; neither Bow nor Azalea activation is entered. This preserves the same positive Reload and Arrow branch and is not a Native oracle correction, source-health pivot or extra effect. SicEmShotRed has printed GA and no own Hit, preventing an unrelated required own-Hit support seam.",
+    "Full future Poison0/AP0 Source must remain Stack through actual positive Reload of same SicEm UID, then GY/GAAP1. Real loaded Arrow1 paid by Blue3/R2/AP0 must hit Hero4 for4 to16, then separately captured granted Arrow Hit/sourceUID/controller1/victim4/four responses BEFORE victim4 chooses Blue from Red+Blue Hand. Same Blue UID owner4 GY/Red retained, distinct ownerPitchBlue, proper GAAP1/ArrowGY/Bow/Pitch/economy/queues/chain cleanup all remain unrun. Later granted-trigger/choice semantics are Source-only and no new individually confirmed defect/root is allocated.",
+    "Both full positive routes remain source-only unattempted. No Native, executable query model, shortened baseline, helper outcome, passing fixture, sibling/full-card coverage, Source repair, old-case replay or denied-operation retry is authorized."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "plating_of_unity",
+      "action": "Execute full joint defense earned Unity, real damage and earned Temper survival route",
+      "reason": "Exact shared inline Unity278/319 before separate earned defense bonus",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "poison_the_tips_yellow",
+      "action": "Execute full positive Reload then real Arrow and granted victim-discard route",
+      "reason": "Earlier physical-source lifecycle218/281/288 at required positive Reload await",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.2.6a",
+        "8.3.10",
+        "8.4.10"
+      ]
+    }
+  ],
+  "limits": [
+    "No executable/Native/Save/coverage/new issue/root/Core/source-fix approval; all future semantic outcomes remain unrun.",
+    "No PHP/Native/Rwrites/replays/new agents/fullsuite or deniedReincarnate199/older source-operation retry by reviewer."
+  ]
+}

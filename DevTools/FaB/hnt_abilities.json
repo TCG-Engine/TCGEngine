@@ -2239,8 +2239,13 @@
     "cardId": "tip_off_blue",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$tipUID = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0);\n$tipDeclaration = FaBHNTBeginTipTarget($player, $tipUID);\n$tipRefs = strval($tipDeclaration['refs'] ?? '');\n$tipToken = intval($tipDeclaration['token'] ?? 0);\nif ($tipRefs !== '') {\n $tipChosen = await $player.MZChoose($tipRefs, \"Choose_opposing_hero\");\n if (FaBHNTBindTipTarget($player, $tipUID, $tipToken, $tipChosen)) { FaBFinishPreparedCard($tipUID); }\n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveAbility",
-        "abilityCode": "$chosen = \"-\";\n $refs = FaBDYNHeroTargets($player, true);\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Choose_opposing_hero\");\n \n}\n$victim = intval(FaBIdentityFromMZ($chosen)['player'] ?? 0);\n FaBHNTMark($victim);\n",
+        "abilityCode": "FaBHNTResolveTipTarget($player, intval(DecisionQueueController::GetVariable(\"arcAbilityUID\")));\n",
         "isImplemented": true
       }
     ]

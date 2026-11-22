@@ -1,0 +1,340 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_WHELMING_SUBSET_SMASH_PROTOCOL_PENDING_UNSAVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T18:09:46.800817+00:00",
+  "source_spec": "card-regression-batch496.json",
+  "input_sha256": "f1490408f3df11ae76564c5b91f24171822a5c58a9da5cfbad0059b83481d6d5",
+  "manifest_sha256": "08783df1f09bdc637395f21bd9b08fee2786781d2e0bcb0f2c2cc38d8b37da65",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "reviewed_subset": true,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch496-independent-source-review.json",
+    "sha256": "7701a4783fd1abc6667eab90afc2e037a2a482100c421a2899b1ea51a8485f77",
+    "Whelming_model_reused": true,
+    "Smash_protocol_omission_acknowledged": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch496-20261105T180349Z-6aecc5056143c.json",
+    "sha256": "8ea3b8a55f7e0ac0c75d92f43f7c97ffbe19a489785f0c45c4cda65625b30e3f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch496.recording-results.json",
+    "sha256": "b3dd1b18616ae9c4fb9e5f1a2240597dd0f144768f6b7aa55c5955d108938fd0"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch496-native-r1-9e984\\receipt.json",
+    "sha256": "ccdde389c6c8acc8a80ea9d47cd4637ca0f3994df2730acd52274c17110e0cc0"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch496_saved_subset_readonly.py",
+    "sha256": "39fdcfee0a84fb25028c14dcecb24223fd53350f199c28fed50c902bceafe861"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "whelming_gustwave_red",
+      "group_id": "pitch-cycle:whelming_gustwave",
+      "slug": "card-whelming-gustwave-red-four-live-real-surging-combo-gives-four-power-and-go-again-through-full-block",
+      "source_spec": "card-regression-batch496.json",
+      "input_sha256": "f1490408f3df11ae76564c5b91f24171822a5c58a9da5cfbad0059b83481d6d5",
+      "reviewer": "/root/nov2_sparse_author",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_WHELMING_COMBO_SUBSET_ONLY",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-whelming-gustwave-red-four-live-real-surging-combo-gives-four-power-and-go-again-through-full-block",
+      "fixture_sha256": "4dd0587321cda984f4d44c504be5c9c2519ffd88cf5c81c20d34b7535c0b0d12",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f1f3a52ddf6a41c0995a437446d7559bcd89d564f0e4d8304a0a6c6ee61979aa",
+        "actions.json": "bba63a1a32721c13d1b668f86192da5ef3dd78b55d8c6fd7e22dab4ac3e237bf",
+        "assertions.json": "d074fbe0f9191f55406a9137d4672b394495094480eb83ec32f171da59ad0ddd",
+        "expected_final_gamestate.txt": "75a1ef82be675775624031146ad030497276d2f67761fd548392868973627151"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f1f3a52ddf6a41c0995a437446d7559bcd89d564f0e4d8304a0a6c6ee61979aa",
+        "actions.json": "bba63a1a32721c13d1b668f86192da5ef3dd78b55d8c6fd7e22dab4ac3e237bf",
+        "assertions.json": "d074fbe0f9191f55406a9137d4672b394495094480eb83ec32f171da59ad0ddd",
+        "expected_final_gamestate.txt": "75a1ef82be675775624031146ad030497276d2f67761fd548392868973627151",
+        "meta.json": "22dc8f761da656d8726aac1193901ff1f8d219e1c123d52ee65a6a8e0d0ded2a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f1f3a52ddf6a41c0995a437446d7559bcd89d564f0e4d8304a0a6c6ee61979aa",
+        "actions.json": "bba63a1a32721c13d1b668f86192da5ef3dd78b55d8c6fd7e22dab4ac3e237bf",
+        "assertions.json": "d074fbe0f9191f55406a9137d4672b394495094480eb83ec32f171da59ad0ddd",
+        "expected_final_gamestate.txt": "75a1ef82be675775624031146ad030497276d2f67761fd548392868973627151",
+        "meta.json": "22dc8f761da656d8726aac1193901ff1f8d219e1c123d52ee65a6a8e0d0ded2a"
+      },
+      "actions": 52,
+      "native_assertions": 4812,
+      "actual_manual_passes": 46,
+      "actual_priority_response_passes": 44,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "schema_property_assertions": 1658,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "whelming_gustwave_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "whelming_gustwave_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 9,
+      "final_RandomCounter": 0,
+      "actual_primary_power": 4,
+      "actual_primary_GA": true,
+      "actual_primary_damage": 0,
+      "actual_primary_hit": false,
+      "actual_prior_surging_damage": 5,
+      "actual_Combo_prior": "Surging Strike",
+      "checkpoint_assertion_mapping_sha256": "217b0f5c2d891f9ad45777268ff12ea60e2756ac02e05cbb943a70b32ac3a23b",
+      "native_action_mapping_sha256": "560a6c480d1c8a33f3fc250d4be4f9672340ec0fa7396aa897fd15f5f13d05ae",
+      "native_assertion_mapping_sha256": "cbf709e43167acdba88e7298727fd27cc33421ef9b451153ec801ed5c86aeb4a"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "smash_and_grab_red",
+      "group_id": "identity:smash_and_grab_red",
+      "slug": "card-smash-and-grab-red-four-live-two-real-boost-costs-earn-seven-power-and-cause-owned-ward-consumption-without-hit",
+      "approved": false,
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "classification": "protocolpendingchoice",
+      "classification_evidence": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch496-smash-prevention-protocol-classification.json",
+        "sha256": "8ef259c95c145f5487aeb2f25683ffc1326ce5fb3f7f929197c29bb1ce2fd3c7"
+      },
+      "gameplay_bug_confirmed": false,
+      "source_expectations_unchanged": true
+    }
+  ],
+  "total_actions": 52,
+  "total_native_assertions": 4812,
+  "total_manual_passes": 46,
+  "total_priority_response_passes": 44,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 1658,
+  "material_findings": [
+    "Actualraw5/52nativeenvelopes/4812orderedchecks/46manual11,11,11,13 and all48manualprefs at initial/final endpoints/current69guards exact.",
+    "ActualBlue7 pays Surging6 cost2/R1AP0; support5damageHP15 andGAAP1. Actual primary5 cost0 consumes earnedAP at same-chainResolution, realprior6 retained onlink1; after separate sourcefour physical5onlink2 computes3+1=4/GA.",
+    "Actual P4Hand8+9 NAADEF3 each defendlink2; fullblock6/zeroDamage/noHit/noDrawWHEN. PrimaryGA refundsAP1 despitezeroDamage. AlloriginalUID1..9 retained:5,6publicGY1/8,9publicGY4/Pitch7/R1AP1/counter9/RNG0; quiet Stack/Chains/DQs/payment/await and whole originalHeroes unchanged.",
+    "Smash original unsaved due omitted mandatory generic Ward/prevention choice after48thinput; no gameplayissue135 or Ward/damage/cleanup suffix credit. Exact classification/preserved original evidence bound."
+  ],
+  "limits": [
+    "Whelming selected positive Combo+1/GA/fullblock only; no hitDraw/negativeCombo/otherprefix/thirdlink/Zenactivation/supportprimary/sibling/fullcard credit.",
+    "Raw hashes bind opaque undo bytes, which are not current physical inventory. Macrovariable caches retained without pending await are not source-lifetime failures. Intermediate facts are completed native assertions; no extra per-input physical snapshots/computed callbacks executed by reviewer.",
+    "Smash material final outcome not reviewed/qualified; immutable protocol successor needs new gate/native. No fresh Root execution inherited from Whelming.",
+    "NoPHP/native/replay/R/sourcefix/gen/service/fullsuite/git/remote/deniedretry by reviewer; Root two targetedWhelmingreplays/registration separate."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

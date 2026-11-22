@@ -1,0 +1,7 @@
+{
+    "name": "High Roller / four-live-no-roll-second-target-ignored-and-real-damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T04:44:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Repair-only. Declare two separate Intimidate targets before asset costs even before a roll; evaluate printed Red4+ condition only on resolution. Same Hero across separate instances is an inference from CR1.8.5b and Everfest two-instance note, informed by supplied rules-chat interpretation, not a published card ruling. Never select a new target at resolution. All four young20 heroes live/manual; all priority responses native. No roll or roll-history seed: only slot1 Intimidate is generated; slot2 declared target is not intimidated.  UPF TRP9.3: adjacent heroes only; separate one-target effects do not receive multi-target adjacency exception. Sources: https://judge.fabtcg.com/cards/detail/1281/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/08-keywords/ https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/everfest/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

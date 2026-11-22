@@ -1,0 +1,52 @@
+{
+  "status": "BOUNDED_DIRECT_OVER_LOOP_HIT_IMPACT_LOOKUP",
+  "completed_utc": "2026-11-03T22:25:30.465402+00:00",
+  "runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "exact_ids": [
+    "over_loop_red",
+    "over_loop_yellow",
+    "over_loop_blue"
+  ],
+  "metadata_first": [
+    {
+      "path": "cycle-coverage-current.json",
+      "sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+      "exact_id_mentions": {
+        "over_loop_red": 0,
+        "over_loop_yellow": 0,
+        "over_loop_blue": 0
+      }
+    },
+    {
+      "path": "coverage-additions-after218.json",
+      "sha256": "ff109c3d07f27f1a4ec697fa47d70d5f3953ba13ef9859520d15ebb40f346f2c",
+      "exact_id_mentions": {
+        "over_loop_red": 0,
+        "over_loop_yellow": 0,
+        "over_loop_blue": 0
+      }
+    },
+    {
+      "path": "card-regression-review.json",
+      "sha256": "289fe5b117bab26aaf17d63d8cb5d3f8c8cfbf7a9e09f075948a8a2424396ca8",
+      "exact_id_mentions": {
+        "over_loop_red": 0,
+        "over_loop_yellow": 0,
+        "over_loop_blue": 0
+      }
+    }
+  ],
+  "fixture_direct_lookup": {
+    "folders": 3669,
+    "files_read": 7338,
+    "parts": [
+      "initial_gamestate.txt",
+      "meta.json"
+    ],
+    "matching_fixtures": []
+  },
+  "scope": "One confirmed named hit-timing bug only. Read-only direct IDs; no other fixture files, generic trigger search, replay, qualification or historical runtime relabeling.",
+  "source_write": false,
+  "native": false,
+  "full_suite": false
+}

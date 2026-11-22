@@ -1,0 +1,149 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_TOME_FIRST_ACTUAL_NEXT_ACTION_EARNED_DESTROY_DRAW",
+  "phase": "SOURCE",
+  "batch": 851,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch851-tome-first-actual-action-earned-destroy-draw-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-aeo-real-next-action-earned-draw-strict-probe-author\\tome-real-next-action-earned-destroy-draw-full-probe.json",
+    "sha256": "fcb6a1e2be0aedecafd0d8325da86cb79982d7c2d28bf35a8ec6bd8ade166a9c"
+  },
+  "input_sha256": "fcb6a1e2be0aedecafd0d8325da86cb79982d7c2d28bf35a8ec6bd8ade166a9c",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-aeo-real-next-action-earned-draw-strict-probe-author\\manifest.json",
+    "sha256": "d0a8aca94cdf4bfee3a97e3a7c13f7cf32d59d74115079905ce76762eec9cf57"
+  },
+  "manifest_sha256": "d0a8aca94cdf4bfee3a97e3a7c13f7cf32d59d74115079905ce76762eec9cf57",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-firm-reservation.json",
+    "sha256": "4eddaa0cde711f0860e56ea0e5e1036e5a4028bd1af286b91924b24c34db7856"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-aeo-real-next-action-earned-draw-strict-probe-author\\preflight.json",
+    "sha256": "1158a5614d13ce36825972bd125227206cc2681ca382ef95835710e20c591ad8"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-aeo-real-next-action-earned-draw-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "c35199f2b41b3d16200ca695daf6cbad71b87ce5cb9f97b41aeb6b93346f3d0b"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-aeo-real-next-action-earned-draw-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "256578fee2b95b8b58c293b6e2623bf8755630364ed421cfa85f617c96ea0a80"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 15,
+  "all_current_guards_independently_matched": true,
+  "actions": 12,
+  "declarative_controls": 12,
+  "planned_native_inputs": 12,
+  "assertions": 1464,
+  "native_assertions": 1464,
+  "planned_native_assertions": 1464,
+  "manual_passes": 8,
+  "planned_native_mode10001_inputs": 12,
+  "nonpriority_end_transport_inputs": 4,
+  "EndStart_priority_response_inputs": 0,
+  "expected_native_input_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    2,
+    3,
+    4,
+    1
+  ],
+  "expected_legal_manual_response_actors": [
+    1,
+    2,
+    3,
+    4,
+    2,
+    3,
+    4,
+    1
+  ],
+  "expected_legal_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "expected_nonpriority_transport_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "checkpoints": 14,
+  "schema_property_checks": 246,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "a52e5b19f1cfe67970142f853e264d009c957cdefaa298e77c8443f5462047f8",
+  "expected_native_query_mapping_sha256": "ff835f7e980d152aed0d62461697bd4f9e81c4441bc593ad5055955dce233994",
+  "checkpoint_mapping_sha256": "f77e03cc09b6a33e423a1ae32eb7c36dedb65685f6ef0cc6201aeb152d70f13b",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "ValidmidgameunmodifiedpreexistingTome5Arena2/ownercontroller2 underYoungPrism20Illusionist; fourYoungliveUPF/noPassives andactualDeck6only. No cast/ward/draw/death/trigger/result/historyseed; priorplaynotexercised. PrismHeroabilityandLibrarianStartbranchunentered; genericWoundinglegal. EmptyP1Hand/Deck/Arsenal preventsunrelatedchoice/refillcardconfusion.",
+    "ExactlyfourlegalP1empty-stackActionpasses1/2/3/4 leadintoexistingENDtransport;fourcurrentnativeENDdriverinputs1/2/3/4 are labellednonprioritytransport only. OldglobalTurnPlayer1/Turn2/Tomealive/Hand0guardsatallintermediatespreventswallowingunexpectedearliernewturn. No End orStartphase responseoracle.",
+    "Finaltransportfrompriority4 usesuntilpriority2withoutwindowACTION filter. ItstopsfirstnewP2returnevenifcorrectearnedlayerusesrawPRIORITY. Immediate GLOBALTurnPlayer2/Turn3/MAIN/AP2=1 plusactualTomeArena/Deck6/Hand0/earnedcontroller2/source5ABILITYmustholdbeforeanynewActionresponse. No inventeduntilturnPlayercriterion;FCRReadyfallbackdoesnotreadglobalTurnPlayer.",
+    "CR4.2.1 Startphasehasnopriority;4.3.1createsbeginningACTIONtrigger,4.3.2assignsAP1,4.3.3givesordinarypriority. ThereforecorrectfirstnewActionstatehasAP1andpendingTomewhilephysicalAura/Deckunchanged. FourgenuinelegalActionresponses2/3/4/1 precedephysicalTome5GY2 andrealDeck6Hand2; AP2stays1/fullqueuesStackcleanup.",
+    "ActualcurrentDYNStart220 directlycallsnamedStartTurnbodyviaGL2486,beforededicatedbeginActiondispatch2490;GL2464hasalreadyassignedMAIN/AP1. Actualcanonical/emittedbodyexistsanddestroys/drawssynchronously. Freshnamedbegin-Actionproducertimingconcern,noexactpriorTomeledgerrecord;notwrongMacroNameabsenceorblanket094classification. No NativebugconfirmedbySource.",
+    "Full12supportednativeenvelopes/1464orderedqueries/246schemafields and72+10+15guards independentlymatched. RawtransportPriorityPlayer/ConsecutivePasses fieldsdescribeexistingUImechanismonly,notlegalEndphasepriorityorpermissiontoplaycards. Currentprotocolisexpectedfixed12;actualreviewmustrejectextra/swallowednewActionpasses."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.2.1",
+        "4.3.1",
+        "4.3.2",
+        "4.3.3",
+        "4.4.1"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_trigger_review": true
+    }
+  ],
+  "required_remaining_gates": [
+    "OneRootexactfull--probe-onlyrun/noSaveevenPASS.",
+    "Independentactualorderedprefix/fulltrace,firstnewTurnfrontier,legal-vs-transportactors review.",
+    "AnyfuturepromotionrequiresexplicitRootdecision/freshnormalSource/Savedraw5/bothfresh48/twoownfocusedreplays."
+  ],
+  "limits": [
+    "No Native result/fixture/bugconfirmation/fix/qualification/coverage.",
+    "Onlyfirstbegin-Actiondestroy/drawrepresentative;owncast/Ward/otherphasecopies/Hero/support/fullcarduntested. No fullStart/Endphaseortransportlegalitycertificate.",
+    "NoPHP/native/Rwrites/sourcefix/fullsuite/Git/remote/newagents/Radiant189/Head190/Oysten191/Read192/denied188184B787 action."
+  ],
+  "created_utc": "2026-11-16T06:53:01.953695+00:00"
+}

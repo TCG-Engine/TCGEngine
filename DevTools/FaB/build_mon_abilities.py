@@ -84,11 +84,13 @@ for c in cards:
  if base=='convulsions_from_the_bellows_of_hell':add('ResolveCard',f"if (FaBARCCard(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'monSix')) {{ FaBWTRAddEffect($player, 'NEXT_ATTACK', {v}, ['dominate'=>true]); }}")
  if base=='unworldly_bellow':add('ResolveCard',f"FaBMONAdd($player, 'NEXT_SHADOW_BRUTE', {v+1});")
  if base=='howl_from_beyond':add('ResolveCard',effect('NEXT_ATTACK',v))
- if base in ['arcanic_crackle','vexing_malice']:add('ResolveCard',arcane(1 if base=='arcanic_crackle' else 2))
+ if base=='arcanic_crackle':add('ResolveCard',arcane(1, "FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0))").replace('FaBARCDealArcane(', 'FaBMONArcanicDealArcane('))
+ if base=='vexing_malice':add('ResolveCard',arcane(2, "FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0))").replace('FaBARCDealArcane(', 'FaBMONArcanicDealArcane('))
  if base=='rifted_torment':add('ResolveCard',"if (FaBARCCard(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'monFromBanish')) { "+arcane(1)+' }')
  if base in ['bolt_of_courage','engulfing_light']:
   add('Hit',"if (FaBFaiHeroHit() && FaBMONCount($player, 'CHARGED')) { "+('DoDrawCard($player, 1);' if base=='bolt_of_courage' else "FaBMONToSoul($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID));")+' }')
- if base.startswith('herald_of_') or base in ['wartune_herald','illuminate','rising_solartide']:
+ if base=='illuminate':add('Hit',"FaBMONQueueIlluminateHit($player, $mzID, intval($amount));")
+ if base.startswith('herald_of_') or base in ['wartune_herald','rising_solartide']:
   add('Hit',"if (FaBFaiHeroHit()) { FaBMONToSoul($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID)); }")
   if base=='herald_of_protection':add('Hit',"if (FaBFaiHeroHit()) { FaBWTRCreateArena($player, 'spectral_shield'); }")
   if base=='herald_of_ravages':add('Hit',"if (FaBFaiHeroHit()) { "+arcane(1)+' }')
@@ -97,7 +99,11 @@ for c in cards:
   if base=='herald_of_rebirth':add('Hit',"if (FaBFaiHeroHit()) { "+choice("implode('&', FaBChoiceRefs($player, 'Graveyard', ['keyword'=>'Phantasm']))")+" if (isset($chosen) && $chosen !== 'PASS') { FaBARCToDeck($player, intval(FaBIdentityFromMZ($chosen)['object']->UniqueID), true); } }")
  if base in ['seeds_of_agony','seeping_shadows','captains_call']:
   if base=='captains_call':
-   add('ResolveCard',f'$mode = await $player.Modal(1, 1, "Power&Go_again", "Choose_Captains_Call_mode"); FaBMONAdd($player, "NEXT_SMALL", $mode === "0" ? 2 : 0, ["maxCost"=>{v-1}, "goAgain"=>$mode === "1"]);')
+   if id=='captains_call_red':
+    add('PrepareCard','$uid = intval(FaBIdentityFromMZ($mzID)[\'object\']->UniqueID ?? 0);\n$captainToken = FaBMONBeginCaptainMode($player, $uid);\nif ($captainToken > 0) {\n $mode = await $player.Modal(1, 1, "Power&Go_again", "Choose_Captains_Call_mode");\n if (FaBMONBindCaptainMode($player, $uid, $captainToken, $mode)) { FaBFinishPreparedCard($uid); }\n}\n')
+    add('ResolveCard','FaBMONResolveCaptainMode($player, $mzID);\n')
+   else:
+    add('ResolveCard',f'$mode = await $player.Modal(1, 1, "Power&Go_again", "Choose_Captains_Call_mode"); FaBMONAdd($player, "NEXT_SMALL", $mode === "0" ? 2 : 0, ["maxCost"=>{v-1}, "goAgain"=>$mode === "1"]);')
   else:add('ResolveCard',f"FaBMONAdd($player, 'NEXT_SMALL', {1 if base=='seeping_shadows' else 0}, ['maxCost'=>{v-1}, 'goAgain'=>{'true' if base=='seeping_shadows' else 'false'}, 'seeds'=>{'true' if base=='seeds_of_agony' else 'false'}]);")
   if id=='seeds_of_agony_red':add('ResolveAbility',arcane(1))
  if base in ['minnowism','phantasmify']:add('ResolveCard',f"FaBMONAdd($player, '{'MINNOW' if base=='minnowism' else 'PHANTASMIFY'}', {v if base=='minnowism' else v+2});")
@@ -118,7 +124,11 @@ for c in cards:
   add('ResolveCard',opt(v))
   if base=='blood_tribute':add('ResolveCard',"$top = FaBChoiceRefs($player, 'Deck')[0] ?? ''; $f = FaBIdentityFromMZ($top); if ($f !== null) { FaBMoveUID(intval($f['object']->UniqueID), 'Banish', $player); }")
   else:add('ResolveCard',"$caster = $player; $top = FaBChoiceRefs($player, 'Deck')[0] ?? ''; $uid = intval(FaBIdentityFromMZ($top)['object']->UniqueID ?? 0); FaBRevealChoices($player, $top); $runeblade = FaBHasType(FaBIdentityFromMZ($top)['object'] ?? '', 'Runeblade'); $shadow = FaBHasType(FaBIdentityFromMZ($top)['object'] ?? '', 'Shadow'); if ($runeblade) { $seats = FaBOpponents($caster); for ($i = 0; $i < count($seats); ++$i) { "+arcane(1,'$seats[$i]')+" } } if ($shadow) { $mode = await $caster.Modal(1, 1, \"Leave_on_top&Banish\", \"Banish_revealed_Shadow_card\"); if ($mode === '1') { FaBMoveUID($uid, 'Banish', $caster); } } $player = $caster;")
- if base=='memorial_ground':add('ResolveCard',choose_move('Graveyard','AA',maxcost=v-1,may=False,top=True))
+ if base=='memorial_ground':
+  if id=='memorial_ground_blue':
+   add('PrepareCard','$uid = intval(FaBIdentityFromMZ($mzID)["object"]->UniqueID ?? 0); $memorialToken = FaBMONBeginMemorialTarget($player, $uid); if ($memorialToken > 0) { $memorialChoices = FaBMONMemorialTargetChoices($player, $uid, $memorialToken); if ($memorialChoices !== "") { $memorialChosen = await $player.MZChoose($memorialChoices, "Choose_a_card"); if (FaBMONBindMemorialTarget($player, $uid, $memorialToken, $memorialChosen)) { FaBFinishPreparedCard($uid); } } }')
+   add('ResolveCard','FaBMONResolveMemorialTarget($player, $mzID);')
+  else:add('ResolveCard',choose_move('Graveyard','AA',maxcost=v-1,may=False,top=True))
  if base=='unhallowed_rites':add('ResolveCard',choice("FaBMONSelect($player, 'Graveyard', 'NAA_DEBT')")+" FaBMoveChoice($player, $chosen ?? 'PASS', 'Graveyard', 'Deck');")
  if base=='spew_shadow':add('ResolveCard',choice(f"implode('&', FaBChoiceRefs($player, 'Banish', ['attackAction'=>true, 'maxCost'=>{v-1}]))",'Choose_banished_attack',False)+" $f = FaBIdentityFromMZ($chosen ?? ''); if ($f !== null) { $f['object']->PlayableFromBanish = 1; FaBWTRTag($f['object'], 'MON_SPEW'); }")
  if base in ['consuming_aftermath','shadow_of_ursur','seek_horizon','rise_above']:
@@ -130,7 +140,9 @@ for c in cards:
    code+="FaBARCToDeck($player, intval($f['object']->UniqueID), true); "
    code+="FaBTagUID($uid, 'GO_AGAIN');" if base=='seek_horizon' else "FaBMONSetCost($uid, 0);"
   add('PrepareCard',finish_prepare(code+' }'))
- if base in ['celestial_cataclysm','beacon_of_victory','soul_harvest']:
+ if base=='celestial_cataclysm':
+  add('PrepareCard', '$uid = intval(FaBIdentityFromMZ($mzID)[\'object\']->UniqueID);\n$targets = implode(\'&\', FaBChoiceRefs($player, \'Soul\'));\n$chosen = await $player.MZMultiChoose($targets, 3, 3, "Banish_to_pay");\nif (!FaBDeclarePreparedEffectCost($player, $uid, \'BANISH_THREE_SOUL\', $chosen)) {\n    return;\n}\nFaBFinishPreparedCard($uid);')
+ if base in ['beacon_of_victory','soul_harvest']:
   zone='Graveyard' if base=='soul_harvest' else 'Soul';n=6 if base=='soul_harvest' else 3 if base=='celestial_cataclysm' else 1
   maximum=str(n) if base!='beacon_of_victory' else '$maximum'
   code=f"$maximum = count(FaBChoiceRefs($player, '{zone}')); "+multi(f"implode('&', FaBChoiceRefs($player, '{zone}'))",n,maximum,'Banish_to_pay')+f" $count = FaBMoveChoices($player, $chosen, '{zone}', 'Banish'); FaBARCSetCard($uid, 'monX', $count);"
@@ -155,14 +167,15 @@ for c in cards:
  if base in ['aether_ironweave','blood_drop_brocade','gallantry_gold','dream_weavers','time_skippers','guardian_of_the_shadowrealm','exude_confidence']:
   codes={'aether_ironweave':'AddResources($player, intval(GetResources($player)) + 2);','blood_drop_brocade':'AddResources($player, intval(GetResources($player)) + 1);','gallantry_gold':"FaBMONAdd($player, 'GALLANTRY');",'dream_weavers':"FaBMONAdd($player, 'DREAM', 0);",'time_skippers':'AddActionPoints($player, intval(GetActionPoints($player)) + 2);','guardian_of_the_shadowrealm':"FaBMoveChoice($player, $mzID, 'Banish', 'Hand');",'exude_confidence':"FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'WTR_POWER:2');"}
   add('ResolveAbility',codes[base])
- if base in ['ebon_fold','halo_of_illumination','rally_the_rearguard','great_library_of_solana']:
+ if base=='halo_of_illumination':add('ResolveAbility',choice("implode('&', FaBChoiceRefs($player, 'Hand'))",'Put_card_into_soul',False)+" $f = FaBIdentityFromMZ($chosen ?? ''); if ($f !== null && $f['player'] === $player && $f['zone'] === 'Hand') { $light = FaBHasType($f['object'], 'Light'); $moved = FaBMoveChoice($player, $chosen, 'Hand', 'Soul'); if ($moved !== null && $light) { DoDrawCard($player, 1); } }")
+ if base=='ebon_fold':
+  add('PrepareCard','FaBMONEbonFinishPreparation($player, $mzID);')
+  add('ResolveAbility','$ebonPlayer = intval($player); $ebonAbilityUID = intval(DecisionQueueController::GetVariable("arcAbilityUID")); $ebonChoices = FaBMONEbonResolutionChoices($ebonPlayer, $ebonAbilityUID); if ($ebonChoices !== "") { $ebonChosen = await $ebonPlayer.MZChoose($ebonChoices, "Banish_a_card_from_hand"); FaBMONEbonResolveChoice($ebonPlayer, $ebonAbilityUID, $ebonChosen); }')
+ if base in ['rally_the_rearguard','great_library_of_solana']:
   if base=='great_library_of_solana':code=multi("implode('&', FaBChoiceRefs($player, 'Hand', ['pitch'=>2]))",2,2,'Discard_two_yellow_cards')+" FaBMONDiscard($player, $chosen);"
   else:code=choice("FaBMONAffordableHand($player)",'Pay_additional_cost',False)+" $f = FaBIdentityFromMZ($chosen ?? ''); if ($f !== null) { "
-  if base in ['ebon_fold','halo_of_illumination']:
-   code+=f"$draw = FaBHasType($f['object'], '{'Shadow' if base=='ebon_fold' else 'Light'}'); FaBARCSetCard($uid, 'monDraw', $draw); FaBMoveChoice($player, $chosen, 'Hand', '{'Banish' if base=='ebon_fold' else 'Soul'}'); }}"
-  elif base=='rally_the_rearguard':code+="FaBMONDiscard($player, $chosen); }"
+  if base=='rally_the_rearguard':code+="FaBMONDiscard($player, $chosen); }"
   add('PrepareCard',finish_prepare(code))
-  if base in ['ebon_fold','halo_of_illumination']:add('ResolveAbility',"if (FaBMONAbilityData($player, 'monDraw')) { DoDrawCard($player, 1); }")
   if base=='rally_the_rearguard':add('ResolveAbility',"FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'WTR_DEFENSE:3');")
  if base in ['smash_with_big_tree','talisman_of_dousing']:handled=True
  if base=='belittle':

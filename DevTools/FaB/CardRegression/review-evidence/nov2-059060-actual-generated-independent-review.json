@@ -1,0 +1,90 @@
+{
+  "status": "APPROVED_ACTUAL_GENERATED_COMPONENTS_NATIVE_QUALIFICATION_PENDING",
+  "reviewed_at_utc": "2026-11-02T22:04:18.752297+00:00",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "generation_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-059060-guarded-generation-attempt1\\receipt.json",
+  "generation_receipt_sha256": "6c423942dee3e02715929000c47d9fd57de0409db158dfa14cb94f4561eff392",
+  "actual_generated_php_sha256": "637a789710b861a5562ee7e4838604e499806ff1e6d265757d69f56cf7d3d6d5",
+  "actual_generated_count_sha256": "b6328958196d666be448f8c047879e20bbabd31b36094ff80ca1018a7ce5fe47",
+  "approved_merged_manifest_sha256": "366c36a36e79c62b00891550cec49d65e376f9d29258eefb6c8a43e8cdd1d5fa",
+  "actual_nine_source_and_generated_hashes_match_receipt": true,
+  "independently_rechecked_scope": {
+    "unrelated_php_bytes_preserved": true,
+    "count_substance_preserved": true,
+    "selected_before": [
+      {
+        "kind": "resolveCardAbilities",
+        "key": "spreading_plague_yellow:0",
+        "sha256": "7d2cc5931960db5b60a04b867afae108cf19867faf035dedb7812a32085cfed6"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "3e88ba31737ca2ae4359b5d8e2406c242be548871fe65cfe738c5c23f915beb8"
+      },
+      {
+        "kind": "resolveAbilityAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "44b0882f9991ff5187e1d5babfc24ad018f8087fa967c644687af12a2c3eafba"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "halo_of_illumination:0:PrepareCard-await",
+        "sha256": "460205c10c3f06634a36370cbfcafc86d54b1cf1db06f95ec71fd6a57f9174b3"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_10274d37d83c521821dc",
+        "sha256": "df78fe1927acaa3fb286e5013e3c68f8396d13235511e591de00422446c6d70c"
+      }
+    ],
+    "selected_after": [
+      {
+        "kind": "resolveCardAbilities",
+        "key": "spreading_plague_yellow:0",
+        "sha256": "ff34be22619136c01eeefaa51571d44d7f00edf3a3995f9802a7ec7fb550a387"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "befcb15502c828272e16fb2abf71c966006a1f05ab4f34e46e5a392547bd5848"
+      },
+      {
+        "kind": "resolveAbilityAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "0749c22dc1d6d2b4ba1e26ba724a2982a59480d5fdfe7159aaeef0923ffdaf4f"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "halo_of_illumination:0:ResolveAbility-await",
+        "sha256": "f6975568ecd7e350b7272a7aacf6dc553dd2aa898507c9cc02ab8aede29e6bd8"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_dfb285c3b26021e727f6",
+        "sha256": "4f37d10439d4664e81af4706b2a219de60b766cdae56badf81adfb6338765851"
+      }
+    ],
+    "unrelated_php_sha256": "18ffc184556bc84c9356e2c4e5758dc5b26438a61b146692273ecda604306760"
+  },
+  "semantic_inspection": {
+    "Plague": "After EOL normalization, complete ResolveCard closure equals the old closure with only the approved OUTToken-to-owner-aware-HVYToken call substitution. Victim/count unchanged; seventh owner argument is $player. Target block source newlines were emitted as CRLF rather than LF; no other code difference.",
+    "Halo_PrepareCard": "Only uid/FinishPreparedCard legacy inert stub; no chooser, await or Hand cost.",
+    "Halo_ResolveAbility": "Starts its own ResolveAbility frame at PC8; reads current own Hand at resolution after responses.",
+    "Halo_await": "PC8 initializes PASS/live Hand refs; PC7 chooses only if nonempty; PC6 queues Put_card_into_soul and ResolveAbility callback with PC5 return; PC5 re-reads identity; PC4 validates own Hand; PC3 checks current Light type and moves Hand to Soul; PC2 draws only if moved successfully and Light; PC0 finishes.",
+    "Halo_lifetime": "Object identity is re-read after await, with no stale object relied on across choice. Pending resolution does not require destroyed equipment to remain in play.",
+    "Halo_empty_hand": "Skips choice, PASS fails live identity validation, finishes without move/draw; no affordability filter or cached monDraw.",
+    "Halo_callback": "Exactly one ResolveAbility-await callback, same helper, chosen scalar stored into that frame; no PrepareCard-await callback."
+  },
+  "reused_root_receipts": {
+    "generator_runs": 1,
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "four_php_lints": "PASS",
+    "fixture_files_unchanged_at_generation": 17660
+  },
+  "limits": [
+    "Generated component approval; native and saved fixture review are separate.",
+    "No PHP, generator, backend, native game or R writes by reviewer."
+  ]
+}

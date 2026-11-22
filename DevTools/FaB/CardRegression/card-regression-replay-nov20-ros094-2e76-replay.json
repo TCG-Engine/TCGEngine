@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner",
+  "source_spec": "card-regression-batch413-blood-vest-correct-probe.json",
+  "runtime_sha256": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+  "returncode": 0,
+  "completed_utc": "2026-11-20T17:54:40.346861+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+      "fixture_sha256": "c4e157a692455a603dba60a54a6de678638b1faf327eda3ca24c78129b4464af",
+      "passed": true,
+      "result": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\vest_creation_replay.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice --max-failures=1 --compact --log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\vest_creation_replay.complete.log",
+      "returncode": 0,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-replays\\vest_creation_replay.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected new fixture only",
+  "omitted_source_scenarios": [],
+  "qualification": "One clean creation replay; five separate direct compatibility cases have separate evidence."
+}

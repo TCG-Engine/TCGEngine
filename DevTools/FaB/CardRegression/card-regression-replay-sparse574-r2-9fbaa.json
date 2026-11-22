@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch574.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T05:48:44.871806+00:00",
+  "fixtures": [
+    {
+      "slug": "card-knife-through-blue-four-live-real-dagger-hit-earns-go-again-and-damage-consumer",
+      "fixture_sha256": "3d23037361edd858e944f4a24a5d91b191384c23c2018afef429f6f2c6cef7b0",
+      "passed": true,
+      "result": "[PASS] Knife Through Blue / real same-chain Dagger hit / go-again consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-knife-through-blue-four-live-real-dagger-hit-earns-go-again-and-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Knife Through Blue / real same-chain Dagger hit / go-again consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

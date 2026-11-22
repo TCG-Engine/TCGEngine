@@ -1,0 +1,158 @@
+{
+  "status": "APPROVED_SOURCE_SEMANTICS_OVER_LOOP084_CURRENT_WHEN_HIT_NAMED_QUEUE_COMPONENTS_EMISSION_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T22:42:39.980010+00:00",
+  "runtime_before_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "projected_source_only_runtime_sha256": "48c31f86dcebb9c47bd4fb3e9449bd59b40be7a8f7bf81015955cce3ed965bb9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\manifest.json",
+    "sha256": "f2a596290781c77deeb8c1de133d632d319a9d8cfc03c4c793d17aec7e99a2bb"
+  },
+  "patch": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\proposal.patch",
+    "sha256": "ef5c6bd46efbf6c2c4fb0541fe23b79012261671166bd02fa1b32c96165dafe3"
+  },
+  "validation_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\validation-plan.json",
+    "sha256": "6d856c958a01463e6550a5f6b4f906a7492f859ed9970e437a5d1c318e7f855d",
+    "execution": "NOT_RUN",
+    "reviewed_as_plan_only": true
+  },
+  "candidates": [
+    {
+      "path": "DevTools/FaB/arc_abilities.json",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\DevTools\\FaB\\arc_abilities.json",
+      "before_sha256": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+      "after_sha256": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\ARCCards.php",
+      "before_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+      "after_sha256": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php",
+      "before_sha256": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+      "after_sha256": "24a0348f1ec45273784ed293ee57b5247596849797ada944d65f229bbd5c961c",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "DevTools/FaB/build_arc_abilities.py",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\DevTools\\FaB\\build_arc_abilities.py",
+      "before_sha256": "5b9077a788594791dab16a1c44cb4a37913533c373d3427b8ce175bd94dd32e8",
+      "after_sha256": "71ad2344e986bf38977007cd2703ba74467c065354dce469beef60f0231f6052",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php",
+      "before_sha256": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+      "after_sha256": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    }
+  ],
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/build_arc_abilities.py": "5b9077a788594791dab16a1c44cb4a37913533c373d3427b8ce175bd94dd32e8",
+    "FaBSim/Custom/CodeGeneration.php": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "5d67c0778ebcb4467b21afb983fdb5a375fa7485615f414c7acee727815ad8fe"
+  },
+  "source_guards_verified": 29,
+  "actual_native_before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\over-loop084-native-before.json",
+    "sha256": "204483e83f064e89045fb117bac896fbb23bb9c9cf0c933baf12c204658f9cc7"
+  },
+  "independent_direct_impact": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-direct-impact-lookup.json",
+    "sha256": "4619643231975b9c8a605eb7d16a24e818f8af16fc34e20d3e2be14479beeaaa"
+  },
+  "correct_probe": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-over-loop-current-hit-v2\\batch373-v2-over-loop-current-when-hit-correct-probe.json",
+    "sha256": "53c5f2a803763b41694e7acd0c0526d7608ffbac6e2a655b4eaed1cb446ee855",
+    "source_review": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-over-loop-v2-independent-source-review.json",
+    "source_review_sha256": "c6839e5f441bbe7e8be9b33d052aa8c7fa5425a2d82010868eefbbf15a45c39f"
+  },
+  "root_actual_remote_read_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-remote-read-preflight.json",
+    "sha256": "5a2f03822dce43424f0ccb91a696da635911c6cc795cd276e0fb7c18801660ac",
+    "reviewer_did_not_execute": true
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_over_loop084_source_readonly.py",
+    "sha256": "359c1659dbe51c75abe0f41d256fd86847bbec8b1a8bf424495bb4c76f31acbd"
+  },
+  "exact_scope_verified": {
+    "ARCCards": "Removing exactly two appended namedhelper bodies restores complete originalbytes. All existingToDeck/PreserveAttack/HeadShot/unrelated helpers untouched.",
+    "ROSCards": "Removing exactly one event+threeCardID dispatch restores complete originalbytes; sharedROSQueue andall065-083handlers untouched.",
+    "canonical_json": "Only /109/abilities/0, /110/abilities/0, /111/abilities/0 abilityCode changed; inversefullobjects AND alloriginalbytes exact. AllBoostPrepare bodies retained.",
+    "builder": "One matchingOverLoop dictionarystring only; inversefullbytes exact; PythonASTparsed notexecuted.",
+    "CodeGeneration": "One insertedpreprocesscall+appendedexacthashbridge only; removalrestorescomplete944fa originalbyteprefix. ThreeknownlegacyHit\u2192fixedcall, fixedbody+unchangedknownBoostPrepareidentity, unselectedidentity, unknownsamecardreject.",
+    "Core_GameLogic_ARCAbilities_generated": "No candidates/changes; generatedemission threeHitclosures pendingRoot."
+  },
+  "independent_semantic_findings": [
+    "CurrentofficialErrata5 WHEN-hit and independentcorrectprobe/native21inputDeckgrowth are the rule/evidence basis. This repairs missingresponseablehit effect in existing043family, not obsoleteoldprintlink-resolution timing. Rednative alone reached; oldV1unattempted remains notanenginebug.",
+    "ActualcanonicalHit nowcallsnamedqueuehelper once; existingOnHit dispatch context providesactualsourceMZ/controller/positivehitamount. Producer requires positivehit, exactcohortphysicalCombatChainATTACK/currentattackUID/controller+attacker/liveSeat/earn-timeability-suppression gates, then capturesCardID/UID/Owner/Turn/ChainLink into existingROSABI. It doesnotmovephysicalsource/Deck, payadditionalassets or grantBoostGA; noHero-only restriction or newglobalmarker/nonce.",
+    "ROSQueue captureslayerController andSourceUID independently. FaBBeginDamageStep rereadsstate afterOnHit withoutoverwritingqueuePRIORITY; combatStep remainsDAMAGE. Ordinaryfreshfourresponses therefore precedeeffect. ExistingROSABILITY removal/dispatch resolves once and restorescombatStepDAMAGE/resetpriority; no awaitinnewresolver/no newmanagerlifetime path.",
+    "Exactevent+CardIDdispatch callsresolverwith capturedlayerController; destination uses capturedphysicalOwner, notcontroller. Source isrefetchedbyUID and restrictedtosameactiveATTACK/location/Owner/CardID/Turn/ChainLink. Earnedsuppression orphysicalcontrollerchange isnotrechecked, so itdoesnotcounteralreadyearnedlayer. ToDeck(false) usesactualunchangedPreserveAttack beforemove, retainingGoAgainLKI; nativeprobe stopscomputedChain APIs aftersourceleaves.",
+    "CurrentCardID/Owner/Role/Turn/ChainLink revalidation is reviewedasboundedunchangedphysicalsource/location safeguard. It doesnotcertify arbitrarylegalcopy/transform/reentry/control interactions. In particular a legal same-object CardIDchange could make exactCardIDguard skipselfmovement; no such implementedroute wasestablished/tested here. This remainsunattemptedSOURCE_ONLY limitation, not a newnativebug/globalincarnationframework claim.",
+    "Allfivecandidate/patch/plan/currentguards and sourceonlyprojectedhash independentlyverified. Canonicalthreepaths/builderoneentry/byteinverses/knownremoteHit+Prepare hashes/legacy-fixed-idempotent-knownPrepare-unselected-unknown bridge branches inspected. ActualPHPcontracts/lints/generatedscope/body/nativeafter are stillrequired and not claimed from staticread."
+  ],
+  "bounded_plan_requirements": [
+    "Rootactualextractedbefore/afterPHPcontracts andcandidatePHPsyntax: sourceheld/onequeue/capturedcontroller-vsowner/suppressionearnonly/independentearnedlayer/currentobjectguard controls/actualToDeckLKI/wrongevent/nohit/independentrecords.",
+    "Bridge actualcontracts legacy\u2192fixed/fixedidentity/knownPrepareidentity/unselectedidentity/unknownsamecardreject withLFnormalizedhashes; no remote/backendwrites.",
+    "GuardedexistingMacroCode emission once; exactlythreeoverloopHitclosurecalls+allowedtimestamp only, Prepare+allunselectedwrappers/helpers/index/countsubstance byteidentical; independentactualemittedbody review.",
+    "UnchangedcurrentcorrectRed/noBoost33input2625probe exactsource5ABI/Chain/Deckheldfourresponses\u2192bottomownerDeck7,5, normalDamage/Resolution/fullcleanup; exactSaved+twofocusedreplays. No siblingcoverage."
+  ],
+  "remaining_gates": [
+    "Rootactualisolatedcomponents/PHPsyntax",
+    "Independentguardedapplication/emissiontransport gate",
+    "Actualthreeclosureemission/bodyreview",
+    "Unchangedcorrectnativeafter/exactSaved/twofocusedreplays"
+  ],
+  "limits": [
+    "Approval limitedtonamedcurrentWHEN-hit unchangedsource positive Red/noBoost path plusthreecohortcanonicalcompatibility. Siblingnative/fullcard/Boostacceptance/unhit/copy/transform/reentry/control branches unqualified.",
+    "No arbitrarydirectcallbackidempotence/globalfreshness/newCore-root claim; existingnormalone-layer removal owns once-only execution.",
+    "NoPHP/native/R/source/service/generation/fullsuite by reviewer. Sourcecandidate unchanged/unapplied; tenold070079holds/SmashItem andparkedconcerns untouched."
+  ],
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "replay": false,
+    "R_write": false,
+    "service": false,
+    "generation": false
+  },
+  "holds": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Morlock Hill Blue / actual lethal four prevented by public Arsenal Minerva banish",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T19:21:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine live manual Young seats. Dorinthea4 begins at explicitly currentHP4, with real face-down Minerva in Arsenal. Native Morlock0 resolves during the real GenericRed attack source window before otherwise lethal4. Actual optional prevention payment moves the SAME Minerva from Arsenal to PUBLIC Banish FaceDown0, UID7, owner4 and controller4 preserved; no Arsenal-flip ability is invoked. Actual full damage/prevention/cleanup leavesHero4HP4/live/nohit, otherheroes20, WoundingownGY1/MorlockownGY4/MinervaBanish4/allRAP0/quietStackChainQueues. All36 controls and4192 queries remain identical to independently reviewed repaired full no-save success. Do not use cached damageDealt as health oracle. Named Blue/face-downArsenal branch only; no Hand-native, private-banish-exception, alternate-source, sibling or general movement certificate. Sources: https://judge.fabtcg.com/cards/detail/2299/ https://rules.fabtcg.com/en/cr/03-zones/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

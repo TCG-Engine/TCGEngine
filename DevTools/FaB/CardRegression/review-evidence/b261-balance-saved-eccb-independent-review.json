@@ -1,0 +1,212 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "reviewer": "/root/nov2_sparse_author",
+  "created_utc": "2026-11-02T22:12:05.498132+00:00",
+  "review_method": "Independent raw-five saved audit using established saved_fixture_review_tools schema/normalizer; all approved source checkpoints, exact actions/actors/assertions and complete physical endpoints. No engine/model execution, PHP/backend/native or R writes.",
+  "source_spec": "card-regression-batch261.json",
+  "input_sha256": "3682933c3f646dfe3d0ef33c883af637fad080be78b9645deff03963991178e7",
+  "manifest_sha256": "a094403256de8e7d710fff8239148e6fc96b6d4d9493e23c2fb261c365dc2613",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "original_semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch261-independent-source-review.json",
+    "sha256": "a8fe85fb19e8acda4e8565ce36b87cf9d1ec00b9e179831adcf5296809490e0b"
+  },
+  "bound_semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch261-eccb-guard-rebind\\bound-source-approval.json",
+    "sha256": "3f7d2d528b0080d961fd0d824f168f26b95737df0b949c3588ee4bc064a37243"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch261-20261102T220918Z-6ae90a0e1d206.json",
+    "sha256": "d1d8680331f40b50aec7d339bff2f12af50cbca8602e3b5b5e180a1e101c8d27"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch261-native-r1\\receipt.json",
+    "sha256": "d5c8247477def28f11c1bd29990b7282e24698b384a9853885c5dd7f6da0561f"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "slug": "card-balance-of-justice-four-live-sparse-real-opponent-draw-two-then-owned-instant-draw",
+      "card_id": "balance_of_justice",
+      "primary_group_id": "identity:balance_of_justice",
+      "source_spec": "card-regression-batch261.json",
+      "input_sha256": "3682933c3f646dfe3d0ef33c883af637fad080be78b9645deff03963991178e7",
+      "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "reviewer": "/root/nov2_sparse_author",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_sha256": "e6117a1bc881ce428db49ffa08bf4372dcc8700d0e1cfdb3fc98f546480bbf2c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a699c063bc4eecd11c7cadc4a1e7e00d5266f3294bc8ea4480b61da1dc57003c",
+        "actions.json": "7d0aeae0aaff98775d1950ce5b00a95d338ebbe1869e93f50e67ea9e29bbc019",
+        "assertions.json": "307360a2e902b88d4159876838e93b89c13dc118d5cfa9e4689a6a84485f2738",
+        "expected_final_gamestate.txt": "662d3b69e5a84f3fdd082af8218655c387ef61579823e05bebccfbfffd9132b4",
+        "meta.json": "9102745ff03eb14cb11c60ed8d0baa54cd4ae4aa0d7b2e983392d4817aa8a5e0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a699c063bc4eecd11c7cadc4a1e7e00d5266f3294bc8ea4480b61da1dc57003c",
+        "actions.json": "7d0aeae0aaff98775d1950ce5b00a95d338ebbe1869e93f50e67ea9e29bbc019",
+        "assertions.json": "307360a2e902b88d4159876838e93b89c13dc118d5cfa9e4689a6a84485f2738",
+        "expected_final_gamestate.txt": "662d3b69e5a84f3fdd082af8218655c387ef61579823e05bebccfbfffd9132b4",
+        "meta.json": "9102745ff03eb14cb11c60ed8d0baa54cd4ae4aa0d7b2e983392d4817aa8a5e0"
+      },
+      "actions": 14,
+      "native_assertions": 1230,
+      "actual_manual_passes": 11,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_owned_Generic_Head5_and_real_opponent_draw_two_prefix",
+          "native_assertions": 127
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Tome_from_Hand_printed_one_waits_real_Blue7_and_Action_asset",
+          "native_assertions": 73
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Blue7_pays_Tome_one_R2_AP0_both_known_P1_Deck_cards_not_drawn_early",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Tome_draw_two_four_live_responses_actual_response_1_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Tome_draw_two_four_live_responses_actual_response_2_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Tome_draw_two_four_live_responses_actual_response_3_of_four",
+          "native_assertions": 69
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_Tome_draw_two_four_live_responses_fourth_actual_response",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_Action_priority_pass_1_gives_P4_eligible_Balance_Instant",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_Action_priority_pass_2_gives_P4_eligible_Balance_Instant",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_Action_priority_pass_3_gives_P4_eligible_Balance_Instant",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_P4_Balance_Instant_destroy_cost_paid_after_real_opponent_draw_two_no_early_draw",
+          "native_assertions": 73
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_Balance_source_response_1_of_four_P4_Deck10_unchanged",
+          "native_assertions": 73
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_Balance_source_response_2_of_four_P4_Deck10_unchanged",
+          "native_assertions": 73
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "actual_Balance_source_response_3_of_four_P4_Deck10_unchanged",
+          "native_assertions": 73
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "fourth_actual_Balance_response_draws_exact_P4_UID10_then_virtual11_clears",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 29,
+          "action_step": 14,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 127
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "isolated_fault_control_credit": false
+    }
+  ],
+  "total_actions": 14,
+  "total_native_assertions": 1230,
+  "total_manual_passes": 11,
+  "pure_actual_checks": 1754,
+  "semantic_findings": [
+    "Actual Tome6 from Hand paid printed1/AP1 with Blue7 pitch3, retaining R2/AP0. Four responders1/2/3/4 resolve its real two-card draw only on the fourth pass: physicalP1Hand8/9, own publicGY6, allHP20/no Arsenal heal.",
+    "P1 genuine opponent draw-two history is earned by those moves; actual final DTD_DRAWN2 confirms. No initial effect, resource, history or extra AP seed.",
+    "Three empty-stack ACTION passes1/2/3 give P4 priority before any fourth/endphase pass. P4 activates printed Instant0 while AP0/R0, paying self-destruction5 to own publicGY; virtual11 retains Controller4/SourceEquipment/UID5.",
+    "Actual Balance response actors4/1/2 preserve destroyed source5, virtual11 and untouched P4Deck10. Fourth actor3 resolves exactBlueUID10 into P4Hand and clears virtual11; returnACTION/P1priority, no private choice or eager draw.",
+    "Final complete physical/economy profile: P1Hand8/9,Pitch7,GY6,R2/AP0; P4Hand10,GY5,R0/AP0; allHP20, bothDecks/Equipment/Stack/all queues and managed markers empty; own/controllers preserved."
+  ],
+  "limits": [
+    "Only Balance exact positive opponent-drew-two/Instant-draw representative. No Guardwell, fewer-than-two/rejection, extra draws, replacements, Tome Arsenal heal, sibling/support/hero primary, full-card or isolated-source-fault credit.",
+    "This saved review does not certify replay outcomes; root retains targeted replay receipts separately. Positive first-pass breadth case: focused controls NOT_RUN_NOT_CLAIMED; no isolated fault-control credit is required or synthesized.",
+    "No full suite, game, backend or R writes by reviewer."
+  ],
+  "focused_controls": "NOT_RUN_NOT_CLAIMED"
+}

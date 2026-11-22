@@ -1,0 +1,275 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_CATCH_SUBSET_CULL_BLOCKED_NO_FIXTURE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-11-04T19:29:16.130004+00:00",
+  "source_spec": "card-regression-batch382.json",
+  "input_sha256": "539a982c2d6de6687fac660917d15f1be0492c87dc44e803d5dbc42e1c01c304",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch382-arrow-and-cull-probe-author\\manifest.json",
+  "manifest_sha256": "e9a6153c66d3e0e03a726ccaf421372fd49651ead65a1b65ae4bb9a7569a5f08",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "recorded_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch382-independent-source-review.json",
+    "sha256": "1844334ec0273852e22513f1770c8004a2f01ef704283c74027ed4b64bcb51bd",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch382-20261104T192614Z-6aeb86d633e82.json",
+    "sha256": "a3e634b163237fcd858c92bd5843c814156a934b708913bb12cc6398c52f33fa"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b382-native-a06-r1\\receipt.json",
+    "sha256": "50ace0a46007a9ff9f9c61972dd5b83f079056ac304674b88f67136400f0ecf0"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "catch_of_the_day_blue",
+      "group_id": "identity:catch_of_the_day_blue",
+      "slug": "card-catch-of-the-day-blue-four-live-sparse-real-next-arrow-plus-two-damage-without-go-fish-event",
+      "source_spec": "card-regression-batch382.json",
+      "input_sha256": "539a982c2d6de6687fac660917d15f1be0492c87dc44e803d5dbc42e1c01c304",
+      "reviewer": "/root/b105_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+      "recorded_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-catch-of-the-day-blue-four-live-sparse-real-next-arrow-plus-two-damage-without-go-fish-event",
+      "fixture_sha256": "b4418269a7a7c866ac0167ba8d2500bf59a1ffb030a4aa5b399ede0a8ee3e58b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "18606eb75fa0461c803905bd2c4a8a2838035990c00559899f0a3ab06ca1867b",
+        "actions.json": "5cb7ace140aab385abe75812c47171816c92fb1d4a342ad41dbad4e4174d7a00",
+        "assertions.json": "5e1e59e98c63812e3d0ca013e3db11858717cdf03e5c18fbdc0178453c0f61d2",
+        "expected_final_gamestate.txt": "32b0c070b5e5a97856f573ac697b5775d4fb11d5b8d4661fedc818c0e0f92d33",
+        "meta.json": "83978dd00e3e210c34302229f3d1ed8bc0c9baf503a8ba00aa63afcb59f1d187"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "18606eb75fa0461c803905bd2c4a8a2838035990c00559899f0a3ab06ca1867b",
+        "actions.json": "5cb7ace140aab385abe75812c47171816c92fb1d4a342ad41dbad4e4174d7a00",
+        "assertions.json": "5e1e59e98c63812e3d0ca013e3db11858717cdf03e5c18fbdc0178453c0f61d2",
+        "expected_final_gamestate.txt": "32b0c070b5e5a97856f573ac697b5775d4fb11d5b8d4661fedc818c0e0f92d33",
+        "meta.json": "83978dd00e3e210c34302229f3d1ed8bc0c9baf503a8ba00aa63afcb59f1d187"
+      },
+      "actions": 34,
+      "native_assertions": 3348,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "marlynn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "catch_of_the_day_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "head_shot_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "1"
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "marlynn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2"
+        },
+        "5": {
+          "card_id": "catch_of_the_day_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "6": {
+          "card_id": "head_shot_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4,
+          "FaceDown": "0"
+        }
+      },
+      "all_actions_and_assertions_exact": true,
+      "initial_and_final_assertions_evaluated_against_serialized_endpoints": true,
+      "all_four_queues_frames_payments_clean": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "cull_red",
+      "slug": "card-cull-red-four-live-original-correct-probe-real-banish-play-four-owned-hand-choices-retains-source",
+      "semantically_approved": false,
+      "approved": false,
+      "fixture_saved": false,
+      "native_fixture_saved": false,
+      "qualified": false,
+      "accepted_actions": 5,
+      "error": "Expected Stack count 1, got 0.",
+      "classification_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch382-cull-native-lifetime-boundary-classification.json",
+      "classification_sha256": "380a2503c0081cc902bcf7f7f8f559efa28eb609a754fcddd2b66affde3ebd19"
+    }
+  ],
+  "total_actions": 34,
+  "total_native_assertions": 3348,
+  "total_actual_manual_passes": 29,
+  "findings": [
+    "Catch actual primary0/ownGA then paid same facedown-Arsenal HeadShot6 base4+earned2=6, actualDEF3\u2192damage3/HP17. R2/AP0; Bow7ready; final exactUIDs1..9/no extra objects.",
+    "Cull original strict correct source-lifetime probe remains blocked and unsaved. Its expected Stack retention and all later physical choices are preserved; no failed fixture approved."
+  ],
+  "limits": [
+    "No Catch GoFish-doubling event/secondArrow/expiry/HeadShotFaceUp/hero/Bow activation/support-primary/whole-card/sibling/control credit.",
+    "Raw intermediate asserted definitions bind exact successful recording; no fabricated intermediate snapshot/private-await proof.",
+    "Cull failure captures Stack0 and pending first choice; sourceUID5 GY destination source-derived only. Separate W classification preserves exact observations/limits.",
+    "Root targeted replays/registration separate; reviewer no PHP/native/replay/R/source/service/generation/fullsuite/stage/commit/push/deploy."
+  ]
+}

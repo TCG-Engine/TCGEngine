@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-bastion180-earned-prevention.json",
+  "runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T07:22:05.275575+00:00",
+  "fixtures": [
+    {
+      "slug": "fab-reg-180-battlefront-bastion-blue-four-live-earned-sole-defend-prevention-real-damage",
+      "fixture_sha256": "8cd44bd6bf5f7cc8b7fea51fe339267581e8c259b8e4eddba17f08de55e20390",
+      "passed": true,
+      "result": "[PASS] Battlefront Bastion / earned sole-defend prevention with actual damage"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=fab-reg-180-battlefront-bastion-blue-four-live-earned-sole-defend-prevention-real-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Battlefront Bastion / earned sole-defend prevention with actual damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,152 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B354_ROWDY_HEALTHY_SUBSET_HAZE_TRANSPORT_BLOCKED_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T17:45:30.031244+00:00",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch354.json",
+  "input_sha256": "a84292c5939e1af20642130d6d8a37236dd9b9ca297f517a263eaad9c7904677",
+  "fixtures": [
+    {
+      "slug": "card-rowdy-locals-blue-four-live-sparse-real-action-defenders-grant-two-power-once-full-block",
+      "card_id": "rowdy_locals_blue",
+      "group_id": "identity:rowdy_locals_blue",
+      "fixture_sha256": "494ffb42c254efc0fb9a3bddc6ef5d71860aca705549f72ed3636cacdd50c270",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "52409595976575f4add9224fdd6396a5d76a8a84dfdeeb2fda13e34c6ea752ef",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "8b7687f63ea0dccccc7727ea74ce1d2a18fbfec85f319fa5469abdea62b44470",
+        "expected_final_gamestate.txt": "86bcdf1a5cdb238875afdd04490e4e0e53253690472d4478c35987fb80c8bf0a",
+        "meta.json": "77fa91c73cd9ff2794926f266ea8f7b24641e8b3ccc470bf4bf5f3f7bdc4a136"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "52409595976575f4add9224fdd6396a5d76a8a84dfdeeb2fda13e34c6ea752ef",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "8b7687f63ea0dccccc7727ea74ce1d2a18fbfec85f319fa5469abdea62b44470",
+        "expected_final_gamestate.txt": "86bcdf1a5cdb238875afdd04490e4e0e53253690472d4478c35987fb80c8bf0a",
+        "meta.json": "77fa91c73cd9ff2794926f266ea8f7b24641e8b3ccc470bf4bf5f3f7bdc4a136"
+      },
+      "actions": 29,
+      "native_assertions": 2469,
+      "extra_recorder_only_hooks": 0,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "priority_response_passes": 24,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          6,
+          7
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "physical_findings": "ActualnormaladjacentP4target/Rowdy5cost0spendsAP1/nopitch/fourmanualsource\u2192printedbase2/noGA. RealP4firstoriginalComeToFightRed6normalActionHandDEFENSE/link1 DEF3 makescomputedpower4, secondoriginalComeToFightYellow7ActionDEF3 leavespowerSTILL4/not6; same5Chain/noPOWERtagseed. Fullmanualcombat4vs6fullblock0/allHP20/attackHitfalse/Stack0/noearnedWHENhitdiscard. NAAsdefendandarenotplayed(cardhistoryP4empty), noownbuffGAeffect. FullcloseactualownGY1{5}/P4publicGYexact{6,7}/allUID1-7identityconserved/allRChiAP0/counter7RNG0/allfourheroesready-live-manual/StackChainsqueuesawaitclear.",
+      "qualification": "OnlyactualActiondefenders+2once/fullblockRowdybranch. NoWHENhit/discard/otherdefendertypes/unblocked/hero/supportprimary/sibling/fullcard/controlcredit. Haze is explicitly blocked/unsaved/uncredited."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-haze-shelter-red-four-live-sparse-real-blue-paid-aura-ward-four-prevents-four-of-seven",
+      "card_id": "haze_shelter_red",
+      "group_id": "pitch-cycle:haze_shelter",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "passing_credit": false,
+      "reason": "OriginalHaze transport omitted the existing legitimate mandatoryWard prevention selection. RecorderstoppedwithP4MZCHOOSEp4Arena-0+continuationafter29capturednativeinputs; intended3damage/prevention suffix not reached. MaterialprintedWard4/HP17expectationsretained; classification/correctedtransportreviewseparate. Noenginebugclaim.",
+      "status": "blocked_or_incorrect",
+      "captured_attempted_native_inputs": 29,
+      "error": "Unexpected decision {\"1\":[],\"2\":[],\"3\":[],\"4\":[{\"Type\":\"MZCHOOSE\",\"Param\":\"p4Arena-0\",\"Block\":1,\"Tooltip\":\"Choose_damage_prevention\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null},{\"Type\":\"CUSTOM\",\"Param\":\"radiant_forcefield_yellow:0:ResolveAbility-await|radiant_forcefield_yellow:0:ResolveAbility#1|10|dtdChosen\",\"Block\":1,\"Tooltip\":\"\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null}]}",
+      "native_failure_evidence": {
+        "archive_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch354-20261103T173903Z-6aea1c37c772f.json",
+        "archive_sha256": "d34ff5a24043903cd383aaba76fba2ce3c80b4ffbb304c060c5b2f69fad7f651",
+        "results_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch354.recording-results.json",
+        "results_sha256": "0e6319f8f9286a3bd12cdf0f7fc9ca2b6b3a2115b49b87c0df15b1c58f9cfe51"
+      },
+      "observed_window": "REACTION",
+      "no_fixture_path_verified": true
+    }
+  ],
+  "reviewed_subset": true,
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch354-independent-source-review.json",
+    "sha256": "edc073e0c642bf897e42fee6edc50f5b9d4d4656f15d801dc299ef714883aa3f",
+    "manifest_sha256": "7164921188c3cbd3e3b0aa09e4cf620103d558a2c3c044277efb19eb24752fc2",
+    "current_source_guards_verified": 21,
+    "selected_source_case": "rowdy_locals_blue",
+    "Haze_original_transport_not_qualified": true
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch354-20261103T173903Z-6aea1c37c772f.json",
+    "sha256": "d34ff5a24043903cd383aaba76fba2ce3c80b4ffbb304c060c5b2f69fad7f651"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch354.recording-results.json",
+    "sha256": "0e6319f8f9286a3bd12cdf0f7fc9ca2b6b3a2115b49b87c0df15b1c58f9cfe51"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch354-native-r1\\receipt.json",
+    "sha256": "29beebe5822aa47a048ceb97f9db29d3e4d5efe7075fef5f89beba0828f63a31",
+    "stdout_sha256": "50a160ae6904f481dd52fc641ea1b977cddcf0815541fc3b274d45e4c711bc95",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1,
+    "stderr_bytes": 0,
+    "runtime_before": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+    "runtime_after": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3"
+  },
+  "method": "Independent exactactualsavedRowdyonlyrawfive/fullschemaendpoints/every29nativeactionand2469orderedpersistedchecks equalapproveda842case; manual4profiles/actual2\u21924\u21924/nohit/ownedphysicalcleanup. FailedHazeactualarchive/29inputs/preventionDQbound separately/no fixtureexists/no materialoraclelowered. PurePythonread/helpers only; noPHP/native/replay/R/source mutation.",
+  "limits": [
+    "SavedcreationRowdysubsetonly; Root twoRowdy-onlyreplaysseparate/notreviewerexecution.",
+    "No recorder-onlyhooks inRowdy; 2469allpersisted. Hazeprintedphysicalruleoracles retained buttransportfailed/no fixture/noHP17preventionqualification.",
+    "Rowdyhit/discard/otherdefendingtypes/fullcard/supportprimary/sibling/controluncredited; unrelated070079/SmashItemholdsuntouched."
+  ]
+}

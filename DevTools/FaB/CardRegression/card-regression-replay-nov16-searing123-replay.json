@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-searing123-captured-hit-life-loss.json",
+  "runtime_sha256": "83b6a69edb6781cdfe55e5e53d596f6ba443b84a3ab23173a45a6b232a9ad6d1",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T23:41:32.988654+00:00",
+  "fixtures": [
+    {
+      "slug": "card-searing-shot-red-four-live-current-hero-hit-trigger-before-one-life-loss-correct-probe",
+      "fixture_sha256": "3a91696489afa6b18bd8c7c5489f860099409e92f0c3d96254211705613d157d",
+      "passed": true,
+      "result": "[PASS] searing_shot_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-searing-shot-red-four-live-current-hero-hit-trigger-before-one-life-loss-correct-probe",
+      "returncode": 0,
+      "stdout": "[PASS] searing_shot_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

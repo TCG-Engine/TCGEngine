@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch795-dark_arcanite_plating.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T21:27:11.780528+00:00",
+  "fixtures": [
+    {
+      "slug": "card-plating-generic-source-shadow-controller-resist",
+      "fixture_sha256": "46ae397466c16ee84dcee200b213c396e69b89dc6b144d3f420d5021a0f18210",
+      "passed": true,
+      "result": "[PASS] Dark Arcanite Plating / Generic source controlled by Shadow Levia"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-plating-generic-source-shadow-controller-resist",
+      "returncode": 0,
+      "stdout": "[PASS] Dark Arcanite Plating / Generic source controlled by Shadow Levia\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

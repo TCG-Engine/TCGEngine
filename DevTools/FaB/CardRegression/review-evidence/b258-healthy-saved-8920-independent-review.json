@@ -1,0 +1,173 @@
+{
+  "status": "APPROVED_EXACT_SAVED_HEALTHY_SUBSET_WITH_UNSAVED_BLOCKED_ATTEMPT",
+  "reviewer": "/root/nov2_metadata_review",
+  "review_date": "2026-11-02",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "input_file": "DevTools/FaB/CardRegression/card-regression-batch258.json",
+  "input_sha256": "befc62d5cc654a0c499eaa37701024b65fabee647d141be7dc437a70056ae403",
+  "manifest_sha256": "81ca965a5a0297f563ec22ce2229e4466b163749cd9406c330ce392e20bdff8b",
+  "independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch258-correct-owner-independent-source-review.json",
+    "sha256": "7922f61182f2f3abd0d8dd8a34f72c64fda17828e835bf569e41ec1bcaa726de"
+  },
+  "native_recording_evidence": {
+    "archive": "recording-runs/card-regression-batch258-20261102T205357Z-6ae8f86565ecd.json",
+    "archive_sha256": "69720c18dc3b6c00b4d54dac575db4c27f81857fb9c8c588d004bfa75d752147",
+    "wrapper_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch258-native-before-r1\\receipt.json",
+    "wrapper_receipt_sha256": "9a8b68fcc9705f27d559820696a0b71819914da5a700a76eab22f498cda760f9",
+    "stdout_sha256": "beb710aa1413b82c5f4c5a9901bf4a8c352d4903f5a6662d99e53a5c224e5327",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1,
+    "stderr_bytes": 0,
+    "saved_fixtures": 2,
+    "unsaved_blocked_attempts": 1,
+    "runtime_before_equals_after": true
+  },
+  "fixtures": [
+    {
+      "slug": "card-grasp-of-the-darknight-four-live-sparse-paid-destroy-opt-bottom-then-runechant-and-earned-go-again",
+      "card_id": "grasp_of_the_darknight",
+      "group_id": "identity:grasp_of_the_darknight",
+      "fixture_sha256": "f055639d0a1a555cba041e4df8124222609967648ccba2fb9d75f1ef59f46a6a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b222c28e78871ce6e71e7b8d6ef7760bc5eeeaf5c5c77146b45cdc18062b9894",
+        "actions.json": "1299f9df333911c4e8ca74d9ef7d39228be406e9a9b378bfa0b37608d126501e",
+        "assertions.json": "18e096ae63590286a82235ad6170718df887540d74acc0559482bf9168f8891a",
+        "expected_final_gamestate.txt": "8b5f76a7f30cc4ccd4271cb9f849c0a38c778d027696fea0a86e84ad4a65ab8b",
+        "meta.json": "ffb4e6866fc918ebcd08ed15d2d10951fa95d8846bd79d3e6ebf3078cbddaeb6"
+      },
+      "actions": 7,
+      "native_assertions": 711,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "all_initial_and_final_snapshot_fields_parsed": true,
+      "initial_four_live_manual_owned_legal_profile_verified": true,
+      "physical_uid_conservation_and_intended_creation_verified": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "saved_semantic_findings": "Legal owned young Chane and three young Dorintheas; exact manual four-live initial profile, ordered Red7/Yellow8 Deck and no seeded effects/resources/history. Actual Blue6 pitches3 to pay printed1 and AP1, leavingR2/AP0; Arms5 is destroyed as a cost into public own graveyard. Three genuine responses retain virtual9 and unchanged Deck/no Runechant/AP0. Fourth response enters real Opt with Red7 alone in Temp, Yellow8 Deck, virtual9 and managed ARC_ABILITY marker source5 in graveyard. Actual bottom answer returns Red7 after Yellow8, then creates Runechant10 owner/controller1 Status2 and only then clears virtual9 and grants Go again/AP1. Full parsed snapshots verify final exact Deck UID order[8,7], own graveyard{5}, Pitch6, Runechant10 and no other added physical UID; all original identities/owners conserved, allHP20/R2/AP1/Temp/Stack/queues clear.",
+      "qualification": "Only paid destruction, Opt-bottom and Runechant creation/Go again. Runechant attack/damage, other Opt choices, repeat activation, Chane/Soul Shackle and hero/support/full-card credit remain untested."
+    },
+    {
+      "slug": "card-bulls-eye-bracers-four-live-sparse-real-optional-load-earned-plus-one-and-five-damage",
+      "card_id": "bulls_eye_bracers",
+      "group_id": "identity:bulls_eye_bracers",
+      "fixture_sha256": "a26e4d46fe3c3a6b022c8d700d27c87632eb6ee81d60b5ff9cc2378c4854e516",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fcdc6ddaa6e09b6c0f979a2988af59453ed83ff5a9f0cb4e0827e8d1e093847b",
+        "actions.json": "46c103b34d2fd5510e9c24dad82aadfa1e261749b100ec88af77f5a39343e1ac",
+        "assertions.json": "5795b607e95d989c79792f17df9ee5134570c70169b1fd40791a354b9528cd11",
+        "expected_final_gamestate.txt": "ffbc1a7bdfcccd2118d7c1520fe73aa86afb16a351d3cecd92e5a716609565a0",
+        "meta.json": "ec1c404fd397fa1540bbb0a270387f2bab42294ee1d2d40609bb8f37cb16fcf5"
+      },
+      "actions": 34,
+      "native_assertions": 2446,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "all_initial_and_final_snapshot_fields_parsed": true,
+      "initial_four_live_manual_owned_legal_profile_verified": true,
+      "physical_uid_conservation_and_intended_creation_verified": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "saved_semantic_findings": "Legal owned young Azalea and three young Dorintheas; empty Arsenal, real Arrow6/Blue7 Hand and ready Bow8. Actual Bracers Action0 destroys physical5 as paid cost and spends AP1 to0. Three genuine responses retain virtual9/Arrow6 Hand/empty Arsenal/AP0. Fourth response enters managed optional MZMAYCHOOSE while virtual9 remains Stack and marker sourceUID5 points to own graveyard; no premature Go again. Actual accept loads same Arrow6 face-up and earns AP1 only on completion. Arrow6 is then really played from Arsenal with Bow presence and adjacentP4 target; actual Blue7 pays printed1/AP1, leavingR2/AP0. Saved computed5 and actual5 damage/HP15 witness printed4 plus earned Bracers1; intrinsic Sic Em Shot Go again earns finalAP1. Full parsed final own public graveyard has exact unordered UIDset{5,6}, Pitch7, ready Bow8/empty counters, empty Arsenal/Stack/queues; every original physical UID and owner/controller conserved without additions.",
+      "qualification": "One accept/load/+1/actual Arrow combat branch. Decline/full Arsenal/other arrows/expiry/Arcane Barrier, Bow activation and hero/support/full-card credit remain untested."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-spreading-plague-yellow-four-live-sparse-real-paid-reaction-two-defenders-create-two-owned-bloodrots",
+      "card_id": "spreading_plague_yellow",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "error": "Expected p4Arena-0.Owner to equal '1', got '4'.",
+      "actual_attempted_inputs": 23,
+      "attempted_actions_match_exact_correct_source_prefix": true,
+      "initial_gamestate_sha256": "c4b747dbca1a1cc70fe254696b82ffab24e4164264ea33bf34c73a1890ebcbdc",
+      "evidence": {
+        "archive": "recording-runs/card-regression-batch258-20261102T205357Z-6ae8f86565ecd.json",
+        "archive_sha256": "69720c18dc3b6c00b4d54dac575db4c27f81857fb9c8c588d004bfa75d752147",
+        "wrapper_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch258-native-before-r1\\receipt.json",
+        "wrapper_receipt_sha256": "9a8b68fcc9705f27d559820696a0b71819914da5a700a76eab22f498cda760f9",
+        "stdout_sha256": "beb710aa1413b82c5f4c5a9901bf4a8c352d4903f5a6662d99e53a5c224e5327",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exit_code": 1,
+        "stderr_bytes": 0,
+        "saved_fixtures": 2,
+        "unsaved_blocked_attempts": 1,
+        "runtime_before_equals_after": true
+      },
+      "qualification": "The correct Owner1/Controller4 source expectations are retained. Actual native Owner4 mismatch was preserved and no fixture was saved. This failed attempt receives no coverage or replay credit; any repair and subsequent validation are separate."
+    }
+  ],
+  "review_method": "Exact independent ordered mapping of each saved native action and every persisted assertion to approved correct-owner input, with actual pass actors/action-step placement. Fully parse four healthy initial/final snapshots using schema/serialization order; inspect legal manual profiles, source/payment/await checkpoints, printed primary faces, physical identity/effect/economy outcomes. Inspect the separate immutable failed Plague result and confirm exact source-action prefix and fixture absence. Read-only repository work and W proof authoring only.",
+  "totals": {
+    "approved_fixtures": 2,
+    "approved_actions": 41,
+    "approved_native_assertions": 3157,
+    "approved_actual_manual_passes": 33,
+    "blocked_unsaved_attempts": 1
+  },
+  "limits": [
+    "Raw4 fixture digest concatenates each filename then its raw bytes in initial/actions/assertions/final order; raw5 binds metadata too.",
+    "Native wrapper exit1 belongs to the preserved unsaved Plague failure. The two complete saved cases have their own exact successful archive rows and checks.",
+    "No old fixtures or prior checks were rerun. Root creation replays remain separate evidence, not certified here.",
+    "No isolated causal fault-control, sibling, hero/support primary, broad callback-order or full-card coverage claim."
+  ],
+  "reviewer_ran_native_or_mutated_repository": false,
+  "replay_qualification_claimed": false,
+  "healthy_subset_registration_blockers": [],
+  "remaining_blocked_case": "card-spreading-plague-yellow-four-live-sparse-real-paid-reaction-two-defenders-create-two-owned-bloodrots"
+}

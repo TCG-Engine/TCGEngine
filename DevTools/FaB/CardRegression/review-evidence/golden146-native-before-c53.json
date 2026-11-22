@@ -1,0 +1,416 @@
+{
+  "status": "CONFIRMED_NATIVE_BEFORE_GOLDEN_COUNTS_AS_GOLD_PLAY_REJECTION",
+  "native_confirmed": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T14:27:25.727152+00:00",
+  "issue_id": null,
+  "card_id": "golden_gauntlets",
+  "group_id": "identity:golden_gauntlets",
+  "slug": "card-golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "input_sha256": "2993c786be4167dcb6b50b8d20368c3653f54c7e986954101a6d355c291b5428",
+  "manifest_sha256": "6324346fc264759a8b956e597df33b677ce74504ca49d130f08edf73b117f1c5",
+  "fixture_saved": false,
+  "fixture_exists": false,
+  "semantically_approved": false,
+  "coverage_credit": false,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+  },
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-independent-source-review.json",
+    "sha256": "bbb973eeacad328c6c700661447e15eb4259d76149cfd7212d8f4169c460f00a"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-native-c53\\receipt.json",
+    "sha256": "7c3d56efcd6d8b80e8e8960fb91bd2dfadee1bdf35bb22d6582c282f34c2423a"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch613.recording-results.json",
+    "sha256": "3f0856758f77d52c330d800998e7d1424c3d9c37f4405451a16f3e05689747cf"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch613-20261106T142158Z-6aede2865008e.json",
+    "sha256": "ca2ea250bde6cf7566d201043ef88da3548b87e6f733219c80286b051a59de07"
+  },
+  "first_failure": {
+    "source_step": 2,
+    "check_index": 47,
+    "native_assertion_ordinal_1_based": 177,
+    "prior_assertions_passed": 176,
+    "after_input": 1,
+    "total_expected_assertions": 2455,
+    "remaining_unrun_assertions": 2278,
+    "error": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+    "expected": "MZCHOOSE",
+    "actual": "",
+    "last_input": {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "last_source_step": 1
+  },
+  "actual_native_prefix": {
+    "submitted_native_input_count": 1,
+    "submitted_native_inputs": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "accepted_gameplay_play": false,
+    "manual_response_input_count": 0,
+    "manual_actors": [],
+    "initial_manual_preference_values": 48,
+    "initial_raw_sha256": "899c47db56ac193250d7dae19061a8ec729065aee6c860273a750bc0f63b8c50",
+    "initial_physical_uid_locations": {
+      "1": {
+        "card_id": "gravy_bones",
+        "zone": "p1Hero",
+        "owner": 1,
+        "controller": 1
+      },
+      "6": {
+        "card_id": "gold_hunter_ketch_yellow",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "7": {
+        "card_id": "wounding_blow_blue",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "2": {
+        "card_id": "dorinthea",
+        "zone": "p2Hero",
+        "owner": 2,
+        "controller": 2
+      },
+      "3": {
+        "card_id": "dorinthea",
+        "zone": "p3Hero",
+        "owner": 3,
+        "controller": 3
+      },
+      "4": {
+        "card_id": "olympia",
+        "zone": "p4Hero",
+        "owner": 4,
+        "controller": 4
+      },
+      "5": {
+        "card_id": "golden_gauntlets",
+        "zone": "p4Equipment",
+        "owner": 4,
+        "controller": 4
+      }
+    },
+    "passed_prefix_sha256": "96c880f9daf518b216624e1991fe39d0e0f2626df7b8631ab4efb1d5c074f584",
+    "observed_state": {
+      "window": "ACTION",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attacker": 0,
+      "defender": 0,
+      "attackUID": 0,
+      "attackTarget": null,
+      "pendingAttackTarget": null,
+      "previousAttackCardID": "",
+      "handBlockUIDs": [],
+      "intimidated": [],
+      "pendingPayment": null,
+      "lastAttackName": "",
+      "attackHit": false,
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "declaredBlockUIDs": [],
+      "passiveSeats": [],
+      "gameMode": "UPF",
+      "turnEffects": [],
+      "nextTurnEffects": [],
+      "hitsThisTurn": [],
+      "cardsPlayedThisTurn": []
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [
+        "p1Hand-0",
+        "p1Hand-1"
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "queried_passed_facts": [
+      "All129initialassertions, then47postclickassertions.",
+      "PostclickallHP20/R0/AP1onlyP1, Stack0/Hand2/noPitch/noCombat; sameKetch6 andBlue7Hand withOwnerCtl1; sameGolden5ready2Damage0EquipmentOwnerCtl4; P1/P4Arena0.",
+      "FailedactualP1DQTypeempty; directobservedallDQsempty/ACTION/paymentnull/pendingTargetnull/no cardplayhistory."
+    ],
+    "source_inferred_not_native_queried": [
+      "CanPlayGL920 calls actualCardCost beforeDoPlaytarget; SEA8 counts onlyArenaGold and SEA66 returns noâˆ’2. With noArenaGold and soleBlue3 available, computed affordability is4>3. No nativependingcost4 orcost2query was reached."
+    ],
+    "unrun": [
+      "Step2check48 targetParam and14laterchecksinthatblock; every sourceStep3 onward, includingtargetanswer/pending2/Bluepitch/APpayment/fourresponses/power7/realdefense/damage5HP15/Temper/fullcleanup.",
+      "NoactualGoldenpayment, manualpriorityround, equipmentdefense, damage orTemper observed; 28authoredinputs and2278laterassertionsunrun."
+    ]
+  },
+  "classification": {
+    "kind": "GAMEPLAY_COUNTS_AS_GOLD_COST_CONDITION_MISSING_AT_LEGAL_PLAY_ADMISSION",
+    "oracle_or_protocol_error": false,
+    "reason": "GoldenEquipmentcountsasoneGold underCR1.8.8. LegalGravyPirateKetch4costminus2isaffordablewithsoleBlue3; correctordinaryclickP1Hand0atP1ACTION/AP1shouldrequestHero targetbeforepayment. NativeinsteadleavesbothHandcards/equipment/assetsuntouchedandnochooser. No incorrecthero, wrongseat, unsupportedinput, hiddenmandatorycost or wrongchoiceencoding explainsit.",
+    "source_cause": "ActualCanPlay affordability callsFaBCardCostâ†’FaBSEACostâ†’FaBSEALessGold. TheselectedcounterseesonlyArenaGold andignoresopposingcounts-asGoldEquipment; thisfailsbeforeDoPlaycanrequesttarget. RelevantSUPGoldEquipmenthelperexistsforotherconsumers, so thisisnotglobalabsenceofGoldenimplementation.",
+    "dedup_scope": "BoundedcurrentissueledgerGoldkeywordrows inspected; no exactcounts-asGold/Ketch/GoldenGauntletsobservationfound. 031unrelatedstrikeGolddispatchand115unattemptedGoldenCompanyalternativecost are not this nativecounting/admissionobservation. Reviewerallocatesnoissue/globalroot/Corecount; parentdedupdecisionremainsseparate."
+  },
+  "bounded_issue_ledger": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "99661a3e63bc3a25add20b3abd9334a2f2d0ff38d83f061fe6bce1c2b1fde283",
+    "gold_keyword_row_ids": [
+      "FAB-REG-027",
+      "FAB-REG-028",
+      "FAB-REG-031",
+      "FAB-REG-079",
+      "FAB-REG-115"
+    ],
+    "exact_selected_count_match_ids": [],
+    "selected_related_rows": {
+      "FAB-REG-031": {
+        "status": "fixed_verified_partial_scope",
+        "classification": null,
+        "card_ids": [
+          "destructive_deliberation_red",
+          "destructive_deliberation_yellow",
+          "destructive_deliberation_blue",
+          "strike_gold_red",
+          "strike_gold_yellow",
+          "strike_gold_blue",
+          "earth_form_red",
+          "earth_form_yellow",
+          "earth_form_blue",
+          "lightning_form_red",
+          "lightning_form_yellow",
+          "lightning_form_blue"
+        ],
+        "row_sha256": "3d0a60a1a4a924a8a816cd2e5aaf5a174c48d5f7b4eb43fc087a3beaa1f0059c"
+      },
+      "FAB-REG-115": {
+        "status": "source_only_unattempted_GoldenCompany_Gold_alternative_protocol_unresolved",
+        "classification": "unattempted_supported_alternative_cost_declaration_route_unresolved",
+        "card_ids": [
+          "golden_company_red"
+        ],
+        "row_sha256": "b306f693dc8d30603e8626b8a0ae9211c71cd5e6fdbbfb312261f50cd8ae8062"
+      }
+    },
+    "no_historical_fixture_audit": true
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+      "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+      "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+    },
+    "correct_cost_2_and_complete_strict_suffix_retained": true,
+    "implementation_inference_separated_from_observation": true,
+    "no_source_fix_or_proposal": true
+  },
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "rules": [
+        "1.1.3",
+        "1.8.8"
+      ],
+      "retrieved": true,
+      "finding": "Legal class card-pools; counts-as considered for counting effect only."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.3",
+        "8.3.10"
+      ],
+      "retrieved": true,
+      "finding": "BladeBreak destroys/Temper one minus-defense counter at Close."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2",
+        "7.5.2",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4"
+      ],
+      "finding": "Normal equipment defense, damage, automatic Close as retained stable rules evidence."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/super-slam/",
+      "indexed": true,
+      "independent_fetch_result": "403; no retrieved page-content claim"
+    },
+    {
+      "url": "https://cards.fabtcg.com/card/golden-gauntlets/SUP249/",
+      "independent_fetch_result": "404 via web; actual local issuer face independently viewed"
+    },
+    {
+      "url": "https://cards.fabtcg.com/card/gold-hunter-ketch-2/SEA165/",
+      "independent_fetch_result": "500 redirect to inaccessible cardvault; current catalog and author retrieved publisher remain distinct"
+    },
+    {
+      "card_id": "golden_gauntlets",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\golden_gauntlets.webp",
+      "sha256": "cee0236d133a0a71ce02f1fd6401c64343cb85a89cea3a2e71555753aa853aae",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "laughing_knee_slappers",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\laughing_knee_slappers.webp",
+      "sha256": "14ef9990cbf2a5601e0e8cf6efe83fd677286d5bc925a679bf6f8f4dfb4f28b4",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "kayo_strong_arm",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\kayo_strong_arm.webp",
+      "sha256": "5ed4b72a27a41ad5d377481b869c37d90100a7c250f59a4b6d0ab7aecc93175e",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "offensive_behavior_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\offensive_behavior_blue.webp",
+      "sha256": "8516fe5b5a2db1c82b03132008c9b96e8cd70f17a28e2c2cc3eb52accd25ebd2",
+      "actually_viewed": true
+    }
+  ],
+  "durable_evidence": {
+    "strict-input.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-golden-independent-native-before-evidence\\strict-input.json",
+      "sha256": "2993c786be4167dcb6b50b8d20368c3653f54c7e986954101a6d355c291b5428",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch613.json"
+    },
+    "normative-source-review.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-golden-independent-native-before-evidence\\normative-source-review.json",
+      "sha256": "bbb973eeacad328c6c700661447e15eb4259d76149cfd7212d8f4169c460f00a",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-independent-source-review.json"
+    },
+    "root-receipt.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-golden-independent-native-before-evidence\\root-receipt.json",
+      "sha256": "7c3d56efcd6d8b80e8e8960fb91bd2dfadee1bdf35bb22d6582c282f34c2423a",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-native-c53\\receipt.json"
+    },
+    "recording-results.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-golden-independent-native-before-evidence\\recording-results.json",
+      "sha256": "3f0856758f77d52c330d800998e7d1424c3d9c37f4405451a16f3e05689747cf",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch613.recording-results.json"
+    },
+    "immutable-archive.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-golden-independent-native-before-evidence\\immutable-archive.json",
+      "sha256": "ca2ea250bde6cf7566d201043ef88da3548b87e6f733219c80286b051a59de07",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch613-20261106T142158Z-6aede2865008e.json"
+    },
+    "stdout.log": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-golden-independent-native-before-evidence\\stdout.log",
+      "sha256": "fed6966903296f4d6388f502fba6184323578d2afc3ae46b42c0bfbef3b7cc7d",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-native-c53\\stdout.log"
+    },
+    "stderr.log": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-golden-independent-native-before-evidence\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch613-native-c53\\stderr.log"
+    }
+  },
+  "limits": [
+    "Confirmedonlyrejectedlegalordinaryplayduetocounts-asGold affordability route; noGoldenfixture/coverage/actualpayment/costfield4/damage/Temper/suffixPASS.",
+    "Whole29inputs2455correctchecksretained; nocost4/extraBlue/Goldtoken/DEF-onlybaselineworkaround.",
+    "No PHP/native/replay/R/source/fullsuite/remote/denied retry/sourceproposal byreviewer; c53evidenceunchanged."
+  ]
+}

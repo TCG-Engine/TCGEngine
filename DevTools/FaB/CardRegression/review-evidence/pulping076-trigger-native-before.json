@@ -1,0 +1,188 @@
+{
+  "status": "CONFIRMED_PULPING_EAGER_DRAW_DISCARD_DOMINATE_WITHOUT_RESPONSEABLE_ATTACK_TRIGGER_NO_FIXTURE",
+  "candidate_issue_id": "FAB-REG-076",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_at_utc": "2026-11-03T07:43:55.440222+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch305-correct-trigger-probe.json",
+  "input_sha256": "05ec2d43971fc65eb689b3ae60aaaefe2bab63cdb44e66691f35437460055666",
+  "manifest_sha256": "0d05cea73f3d967e520af49b0f2c9ef8b3ca96d955bc4f248c9ded22ccccde9c",
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch305-independent-source-review.json",
+    "sha256": "8762bd9cca0e4300db303766a63b4edecab1b736a26a1584f79d6fd7066fc58b"
+  },
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch305-native-r1\\receipt.json",
+    "sha256": "795927653907189db3f98fbe2b9a9f3cc681c957512a26fec92c0b71796eba67",
+    "exit_code": 1,
+    "stderr_bytes": 0
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch305-correct-trigger-probe-20261103T073752Z-6ae98f508dbf1.json",
+    "sha256": "5290b1c37e404e83d3f3d13c476ba5192e4adb288555f4edee710d70bd3a6e11",
+    "error": "Expected p1Deck count 1, got 0."
+  },
+  "prefix_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-pulping305-failed-prefix\\receipt.json",
+    "sha256": "6689218055c396260711fdcda518941cecf860660f27b2cfe146d04e5a7f49df",
+    "configuration_sha256": "aa4ac6ca5d3052c73ba783b2c474515c8411a8c1c304708e394623f48b152b29",
+    "snapshot_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-pulping305-failed-prefix\\initial_gamestate.txt",
+    "snapshot_sha256": "fbc921a618dbc9d885f26e7385babdc618394c639be1f87d34e98d2717434353",
+    "snapshot_fully_parsed": true,
+    "mutation_keys": [],
+    "helper_sha256": "72739371849c7f7df742e28489003cd12238cfae3425a21d8fee0bd1f48f233c"
+  },
+  "fixtures": [],
+  "blocked_attempts": [
+    {
+      "slug": "card-pulping-red-four-live-original-correct-on-attack-trigger-retains-deck-until-real-draw-six-power-discard",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_absence_verified": true,
+      "status": "HELD_CONFIRMED_EAGER_TRIGGER_EFFECT_NO_FIXTURE",
+      "accepted_native_inputs": 7,
+      "error": "Expected p1Deck count 1, got 0."
+    }
+  ],
+  "observed_actual": {
+    "accepted_native_inputs": 7,
+    "actual_source_response_actors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "prefix_actions_exactly_match_original_native_archive_and_correct_input": true,
+    "attack_uid5": {
+      "CardID": "pulping_red",
+      "Status": 2,
+      "Owner": 1,
+      "Controller": 1,
+      "Damage": 0,
+      "UniqueID": 5,
+      "TurnEffects": [
+        "DOMINATE"
+      ],
+      "Counters": {
+        "FAB_PLAY_ORDER": 1
+      },
+      "Role": "ATTACK",
+      "ChainLink": 1,
+      "FromZone": "Hand"
+    },
+    "Stack": [],
+    "P1Hand": [],
+    "P1Deck": [],
+    "P1Graveyard_uid7": {
+      "CardID": "raging_onslaught_yellow",
+      "UniqueID": 7,
+      "Owner": 1,
+      "Controller": 1,
+      "FaceDown": 0
+    },
+    "P1Pitch_uid6": {
+      "CardID": "wounding_blow_blue",
+      "UniqueID": 6,
+      "Owner": 1,
+      "Controller": 1
+    },
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "action_points": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "damage_dealt": 0,
+    "attack_hit": false,
+    "physical_uid_set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "all_four_live_manual_ready": true
+  },
+  "expected_at_same_boundary": {
+    "same_original_uid5": "CombatChain attack; printedpower6",
+    "Stack": "one responseable triggered ability captured from Pulping5/controller1; virtualUID/Params/SourceZone unpinned",
+    "P1Deck_uid7": "soleDeck card still retained until four fresh trigger responses",
+    "P1Hand_count": 0,
+    "P1Graveyard_count": 0,
+    "same_uid5_TurnEffects": "no DOMINATE before trigger resolution",
+    "resources": 1,
+    "action_points": 0
+  },
+  "independent_classification": {
+    "confirmed_defect": "Printed WHEN-attacks effect executes inline at attack declaration: physical7 is already ownGY after source-path draw/discard and DOMINATE is on same5, while Stack is empty and no fresh trigger response occurred.",
+    "current_source_chain": [
+      "GameLogic1704-1707 puts same5 onChain then callsOnAttackDeclared.",
+      "GameLogic1189-1201 dispatches AttackDeclared macro inline.",
+      "Canonical mon_abilities.json pulping_red and emitted GeneratedMacroCode22979-22990 immediately call FaBMONDrawDiscard then conditionallytagDOMINATE.",
+      "MONCards271 performs DoDrawCard then actualFaBDiscardRandom, checking discarded printedpower>=6. The selected path does not queue a responseable layer."
+    ],
+    "existing_family_reference": "FAB-REG-043 native_confirmed_missing_responseable_trigger",
+    "family_limit": "Existing missing-responseable-trigger category in a distinct intrinsic attack-event caller. Root owns ledger deduplication; no new shared-root count or same-function/hunk claim. Existing043 granted-hit Runechant scope does not certify this caller.",
+    "not_an_oracle_or_transport_correction": "Both physical Deck7 retention and the separate printed layer are violated in actual persisted snapshot; adapting expectations to eager draw/discard/DOMINATE would weaken the printed rule."
+  },
+  "rules": {
+    "printed_primary_face_sha256": "f67ec91b4ef8afb201d92ef8db64f879aaccfde5b012a54c00e2df58501a3ab7",
+    "primary_CR": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "rules": [
+      "6.6.1",
+      "6.6.1d",
+      "6.6.4",
+      "6.6.5",
+      "6.6.6"
+    ],
+    "source_rule_review_reused": true
+  },
+  "limits": [
+    "Only seven accepted native inputs: target/payment and four source responses. No fresh triggered-layer response, later attack/defender/reaction/damage/GA-resolution/full-close suffix executed or credited.",
+    "ActualR1/AP0/Pitch6 confirms printed2resource/AP payment. No cost defect or prematureGA claimed. ActualallHP20/damage0: no6damage/HP14/AP1/finalGY5/fullcleanup result claimed.",
+    "No passing fixture, replay, coverage or sibling/support-primary/control credit; original32-input/2436-check correct suffix is unchanged.",
+    "No extra native/PHP execution, R writes, source proposal/fix, generator or engine backend/service by reviewer. Source repairs remain pending authorization."
+  ],
+  "source_sha256": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+    "FaBSim/Custom/WTRCards.php": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "FaBSim/Custom/MONCards.php": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+    "FaBSim/Custom/ROSCards.php": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b"
+  },
+  "prior_family_ledger": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "4e5f34552b2a4c098c5801d3fba58c6861335ce548ec39e940851d3a3f4c093f",
+    "selected_043_classification": "native_confirmed_missing_responseable_trigger",
+    "selected_043_description": "The earned granted hit ability created Runechants immediately. Native hit boundary had DAMAGE/Stack0/three Runechants, with no response window. Each grant now queues its own captured host/controller/count; normal creation modifiers apply at resolution."
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  }
+}

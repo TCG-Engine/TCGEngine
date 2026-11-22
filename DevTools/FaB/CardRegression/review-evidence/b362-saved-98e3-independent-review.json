@@ -1,0 +1,316 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_SEEKERS_LEGGINGS_PAID_DESTROY_RETAINED_OPT_BOTTOM_PREVENTION_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T18:58:25.425644+00:00",
+  "source_spec": "card-regression-batch362.json",
+  "input_sha256": "e5d8cb7a3f4320aea6167d362f786dc16031383cafd361cdc9b5bd9013f6c01b",
+  "manifest_sha256": "fb7c09ac1eb890a1573999c6dc4629531ec6229299450a6335f4bc950ebd1f46",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "source_guards_verified": 21,
+  "reviewer_independence": "Meta authored B362; Next reviewed source and exact saved bytes but authored neither selected fixture nor implementation/native recording.",
+  "actual_setup": "Fai20 plus threeDorinthea20; only GenericRaging played/noDraconic hero condition. Embedded allDorinthea/DRAFT prose errata remain bound to source manifest, no changed actions or historical context retag.",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch362-independent-source-review.json",
+    "sha256": "f2ddecddf52c200887f58934a9399dc1a1db92ca557fc7506495fa13ac0c08ff"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch362-20261103T185538Z-6aea2e2a51245.json",
+    "sha256": "2a8c07ba6d7b5db5c89f599f68a8adf3e1d34e7c692031fa4e483121944ffb82"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch362-native-r1\\receipt.json",
+    "sha256": "2e466eccdfc0bed057805faba0a880af542c030ae244b1f011784c69c11b9253"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch362_saved_readonly.py",
+    "sha256": "36dd61f388943b0a9fa83de5100c8924ed3ab4d39f35786ac3d1a7a5254e171c"
+  },
+  "review_method": "Reused selected independent printed/source model. All38actions3602assertions exactly mapped, all32manualactors scheduled; strict fullschema initial/final physical identities/owners/zones/order/economy, 48manualpreferences each endpoint, allterminal assertions evaluated, exactmeta/raw4/raw5/runtime stable. No old fixture re-review or reviewer native/PHP/R writes.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "seekers_leggings",
+      "slug": "card-seekers-leggings-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "source_spec": "card-regression-batch362.json",
+      "input_sha256": "e5d8cb7a3f4320aea6167d362f786dc16031383cafd361cdc9b5bd9013f6c01b",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-seekers-leggings-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "fixture_sha256": "95fa067e7576d900c43d6d78941ba0470a1e2782cdec957eaf107747a16ee451",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "abef276d6b6252aa7e971a50c702eb2c50c0b518a46c5813d94da4b03f55c5cc",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "acbc05bcebc4d9373a7165dddc521af3ea7a706ccfc1914bf14971ee5a36e9cd",
+        "expected_final_gamestate.txt": "cde1acb9291836284e1c198e626540387426d7288bb7a29a89f1c7169d790f68"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "abef276d6b6252aa7e971a50c702eb2c50c0b518a46c5813d94da4b03f55c5cc",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "acbc05bcebc4d9373a7165dddc521af3ea7a706ccfc1914bf14971ee5a36e9cd",
+        "expected_final_gamestate.txt": "cde1acb9291836284e1c198e626540387426d7288bb7a29a89f1c7169d790f68",
+        "meta.json": "c8f2a8f3da5b9806a2bd49a30e94ec87ead45fa0c8338cb30bb60869752ed1f7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "abef276d6b6252aa7e971a50c702eb2c50c0b518a46c5813d94da4b03f55c5cc",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "acbc05bcebc4d9373a7165dddc521af3ea7a706ccfc1914bf14971ee5a36e9cd",
+        "expected_final_gamestate.txt": "cde1acb9291836284e1c198e626540387426d7288bb7a29a89f1c7169d790f68",
+        "meta.json": "c8f2a8f3da5b9806a2bd49a30e94ec87ead45fa0c8338cb30bb60869752ed1f7"
+      },
+      "actions": 38,
+      "native_assertions": 3602,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "seekers_leggings",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "seekers_leggings",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_p4_deck_uid_order": [
+        10,
+        11,
+        9
+      ],
+      "ceased_virtual_uid": 12,
+      "checkpoint_count": 40,
+      "checkpoint_assertion_mapping_sha256": "82a6365bfbf1f2a93d8ba69b61405abbbca035736af6cd0d47d39e71f6021328",
+      "native_action_mapping_sha256": "65c32f7b764deb49e2538790ec3f2d55cee6b2f5ac8dabe8fe9ade6cb01ad1d5",
+      "native_assertion_mapping_sha256": "9ff6efb6e7c65ab250c33c228b5d614f0549374ee679527c93466a2f1b06b976"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 38,
+  "total_native_assertions": 3602,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual four legal living youngheroes/manualUPF, no initial prevention/resource/history seeds. Real P1Blue8 fundsRaging7cost3/AP1. Four source/attack/defending rounds and realP4finish plus threeReactionpasses earn P4Instant priority.",
+    "Actual P4Leggings5 cost1 captures virtual12 while5stillEquipment. ActualBlue6pitch3 pays1/R2 then same5destroycost toownedpublicGY before fresh actual4/1/2/3source responses. Allheroes remain ready/live; no hero tap/AP cost/GA refund.",
+    "Fourth source response stages sameownedUID9 intoTemp and leaves10/11Deck; virtual12/capturedEquipment5 remainsStack with managed frame through actualP4Opt. Actualbottom answer moves SAME9 into Deck10,11,9 and onlythen clearsvirtual/await/Temp and returnsReactionP1/pass0. This is material physicalOpt follow-through, no random/order proxy.",
+    "Four actual remainingReaction responses resolve attack7 power7 minus next1 prevention =6damage/P4HP14; actualdamage histories corroborate6 and prevention consumed. AllremainingDamage/Resolutionresponses finish. FinalsameownedGY4uid5/Pitch4uid6/Deck10,11,9 and GY1uid7/Pitch1uid8; alloriginalphysicalUID1-11 conserved/virtual12ceased, P4R2/otherR0/APall0/heroStatusall2/fullcombat/DQ/payment/await cleanup."
+  ],
+  "limits": [
+    "Only selected new Leggings identity paid1/destroy/acceptedOptbottom/onephysicaldamagepacket prevention branch. No Hood/Gilet/Mitts/slot/supportprimary/hero/fullcard/control credit.",
+    "No top/emptyDeck/otherpacket/unpreventable/suppression/expiry/entry/normalblock/otherfunding branches. Intermediate evidence is exact completed native action/assertion ledger, not additional percheckpoint snapshot files.",
+    "Root performs two focused replay/registration gates separately. No R/native/PHP/source repair/generation/service/fullsuite/legacy replay or authorization retry."
+  ]
+}

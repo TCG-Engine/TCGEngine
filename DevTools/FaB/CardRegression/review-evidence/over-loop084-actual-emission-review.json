@@ -1,0 +1,134 @@
+{
+  "status": "APPROVED_ACTUAL_OVER_LOOP084_THREE_HIT_EMITTED_BODIES_AND_EXACT_SCOPE_NATIVE_QUALIFICATION_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T22:50:58.439417+00:00",
+  "runtime_before_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "runtime_sha256": "800b8b4f79d79d280ecff89ad13dca62b959559d66c300067b66f5a501bb7a56",
+  "application_receipt_sha256": "785774f0eabce21a23703416b7dcd492e537ba6bf7c4323a031464cfa7b12d0b",
+  "generated_scope_sha256": "d93bd86ed1e93244907df9745f4e7bb154fd5adae454e16427d44b68768591ca",
+  "manifest_sha256": "f2a596290781c77deeb8c1de133d632d319a9d8cfc03c4c793d17aec7e99a2bb",
+  "source_review_sha256": "fb61503e1720b48d50dfecb71cc13aa7e93b4caf94efa3129a483c165b6a3a5d",
+  "actual_component_receipt_sha256": "58f30c282b37a5f7aa1ec0e86571751fa9531b383505ce742b787ace9adabd65",
+  "validation_plan_sha256": "9020399b8728c0464cc8db606900356343eae9739c8af1db2d7c195bbf3a7787",
+  "actual_source_files": [
+    {
+      "path": "DevTools/FaB/arc_abilities.json",
+      "before_sha256": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+      "after_sha256": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\before\\DevTools\\FaB\\arc_abilities.json"
+    },
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "before_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+      "after_sha256": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\before\\FaBSim\\Custom\\ARCCards.php"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+      "after_sha256": "24a0348f1ec45273784ed293ee57b5247596849797ada944d65f229bbd5c961c",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\before\\FaBSim\\Custom\\ROSCards.php"
+    },
+    {
+      "path": "DevTools/FaB/build_arc_abilities.py",
+      "before_sha256": "5b9077a788594791dab16a1c44cb4a37913533c373d3427b8ce175bd94dd32e8",
+      "after_sha256": "71ad2344e986bf38977007cd2703ba74467c065354dce469beef60f0231f6052",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\before\\DevTools\\FaB\\build_arc_abilities.py"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+      "after_sha256": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\before\\FaBSim\\Custom\\CodeGeneration.php"
+    }
+  ],
+  "generated_before": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "5d67c0778ebcb4467b21afb983fdb5a375fa7485615f414c7acee727815ad8fe",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "actual_emitted_files": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "f1db3603aa11cba94afc1fec49609f217a1fcea27e57c66b010a54fd58fb0d4f",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "selected_closures": [
+    {
+      "card_id": "over_loop_blue",
+      "macro": "Hit",
+      "key": "over_loop_blue:0",
+      "before_sha256": "7b0c85df6f54849a17cc20e734c045cccbf403bae6a6d93e671580879fbc76a6",
+      "after_sha256": "f78e96e8f743d7d727d229c584a74c771c9295ccee59bc072d0ba74bcf0f4746",
+      "actual_emitted_closure": "$hitAbilities[\"over_loop_blue:0\"] = function($player) { //over_loop_blue\r\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBARCQueueOverLoopHit($player, $mzID, intval($amount));\r\n};\r\n",
+      "exact_only_call_replacement": true,
+      "canonical_call_equal": true,
+      "wrapper_and_parameter_capture_preserved": true
+    },
+    {
+      "card_id": "over_loop_red",
+      "macro": "Hit",
+      "key": "over_loop_red:0",
+      "before_sha256": "79fb405e908c25fb057659cc241e9b23f54a6440aebf0788ef321d223eba6889",
+      "after_sha256": "2cd85384e3913dc3c5db1d738011b555f3f07fc684de7c91d62a956f343b111b",
+      "actual_emitted_closure": "$hitAbilities[\"over_loop_red:0\"] = function($player) { //over_loop_red\r\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBARCQueueOverLoopHit($player, $mzID, intval($amount));\r\n};\r\n",
+      "exact_only_call_replacement": true,
+      "canonical_call_equal": true,
+      "wrapper_and_parameter_capture_preserved": true
+    },
+    {
+      "card_id": "over_loop_yellow",
+      "macro": "Hit",
+      "key": "over_loop_yellow:0",
+      "before_sha256": "58cf3fef6a9a2bf3ee213ab6f5f23a7d6c6e62c6048b8742364e122e8e4597ef",
+      "after_sha256": "19710a1c99332909aed3ce2f9fe7be357b5cb42e68a0b3987779352d60b39022",
+      "actual_emitted_closure": "$hitAbilities[\"over_loop_yellow:0\"] = function($player) { //over_loop_yellow\r\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBARCQueueOverLoopHit($player, $mzID, intval($amount));\r\n};\r\n",
+      "exact_only_call_replacement": true,
+      "canonical_call_equal": true,
+      "wrapper_and_parameter_capture_preserved": true
+    }
+  ],
+  "scope": {
+    "status": "PASS_EXACT_THREE_OVER_LOOP_HIT_CLOSURES",
+    "selected_closures": 3,
+    "macros": [
+      "over_loop_blue:0:Hit",
+      "over_loop_red:0:Hit",
+      "over_loop_yellow:0:Hit"
+    ],
+    "unselected_php_bytes_preserved": true,
+    "unselected_sha256": "c90513f1a25b7eba61da2a7160a3a623154048a6c68d31e2e9b970e02fe7c00c",
+    "macro_count_timestamp_only": true,
+    "new_await_helpers_allowed": 0,
+    "limits": "Transport/scope only; source semantics, actual emitted peer and native qualification remain separate."
+  },
+  "semantic_findings": [
+    "All three actual emitted Hit wrappers capture player, current mzID and actual amount, then make exactly the approved FaBARCQueueOverLoopHit(player,mzID,intval(amount)) call. Legacy inline ToDeck is absent from each selected closure.",
+    "Each actual wrapper differs from its verified preimage solely by the known inline-ToDeck to queued-hit call. Parameters, key/index and wrapper bytes are preserved; no await/helper/callback is added.",
+    "Every unselected generated PHP byte is identical after validated timestamp masking, including all three Over Loop Prepare/Boost continuations, Tree StartTurn/entry body, BIOS and other cards. MacroCount differs only in validated timestamp.",
+    "All five current R source files equal the independently approved frozen candidates; their verified backups and both generated backups bind exact preimages. Captured emitted outputs equal current R byte for byte; current runtime independently recomputed.",
+    "Root receipt records one supported selective emission, four actual R lint passes and unchanged fixture inventory during application. Independent component receipt records before2/11 and after17/96; reviewer executed none."
+  ],
+  "holds": [],
+  "native_credit": false,
+  "qualification_credit": false,
+  "limits": [
+    "Actual emitted-body/source-binding/scope review only; source semantics reuse independent fb615 approval, not a second full source audit.",
+    "No PHP/native/replay/R/source/service/generator execution or writes by reviewer. Native original strict probe, exact saved review and focused replays are separate qualification gates.",
+    "No broad object-incarnation, transformation/copy/reentry, sibling coverage or unrelated issue/Core/shared-root claim."
+  ]
+}

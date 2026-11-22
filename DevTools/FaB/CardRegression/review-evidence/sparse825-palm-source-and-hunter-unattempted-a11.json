@@ -1,0 +1,152 @@
+{
+  "status": "SOURCE_APPROVED_NORMAL_POSITIVE_PALM_REAL_SUSPENSE_ENTRY_AND_SEPARATE_DRAW",
+  "phase": "SOURCE",
+  "batch": 825,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T19:03:19.194870+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "normal_save_approved": true,
+  "native_fixture_recording_approved": true,
+  "passing_fixture_approved": false,
+  "source_spec": "card-regression-batch825-palm-real-suspense-entry-draw-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch825-palm-real-Suspense-entry-draw-positive-author\\palm-real-suspense-entry-and-responseable-draw.json",
+    "sha256": "8fdfe37068b130a11f65cae517e5d5ddb0fc6c2ef5c04623c678ecd7058c0c4d"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch825-palm-real-Suspense-entry-draw-positive-author\\manifest.json",
+    "sha256": "62c35195013a132e96e546efd43fab5e458add44e9593bccbf571023c7474bc9"
+  },
+  "input_sha256": "8fdfe37068b130a11f65cae517e5d5ddb0fc6c2ef5c04623c678ecd7058c0c4d",
+  "manifest_sha256": "62c35195013a132e96e546efd43fab5e458add44e9593bccbf571023c7474bc9",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch825-firm-reservation.json",
+    "sha256": "ab047ba2b74b7a8d894388022a0f78d217c71ed7add8ffdb83442695137605a4"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch825-palm-entry-draw-and-hunter-known-hold-preflight.json",
+    "sha256": "8fc08a6606db6327380cc9ff8013703f96a4d121f227ceaca6c1ac4e8f93c57a"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 21,
+  "selected_support_guard_map_sha256": "e0e67c0c3b1c886655fae0e82e8da0c18a61adee8faedb10a82047589bc1d82e",
+  "all_current_guards_independently_matched": true,
+  "actions": 10,
+  "declarative_controls": 10,
+  "native_assertions": 1404,
+  "assertions": 1404,
+  "recorded_persisted_assertions": 1404,
+  "manual_passes": 8,
+  "expected_priority_response_passes": 8,
+  "expected_formal_defense_finish_inputs": 0,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "checkpoints": 12,
+  "schema_property_checks": 348,
+  "control_mapping_sha256": "618ab64527ecb618e10b3bcc2ddedb24e8b1df41ddae829276096a06bf49a7aa",
+  "native_expected_envelope_mapping_sha256": "eea2fe4e25788777a53a344f0e47bda9420101ec00cbfb91b5c1647db0b69dbc",
+  "expected_native_query_mapping_sha256": "6711285b5fc8d1971d762cb67879e00142e5203071e40413b0be52c4fdc84c96",
+  "checkpoint_mapping_sha256": "e276649909bf452d231b933220a810b93ab6d4767fdf3545acf82ed3088e3527",
+  "diagnostic_only": false,
+  "qualification": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "passing_registry_approval": false,
+  "independent_actual_Saved_review_required": true,
+  "two_new_only_clean_replays_required": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "official_read_only_rules_web_used": true,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "independent_semantic_findings": [
+    {
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/4233/",
+        "https://rules.fabtcg.com/en/cr/08-keywords/ CR8.3.42,8.1.6a,8.2.4a",
+        "https://rules.fabtcg.com/en/cr/06-effects/ CR6.6"
+      ],
+      "finding": "Actual Red Guardian InstantAura costs2, hasSuspense and entry/leave drawWHEN. YoungBetsy is legal Guardian; ownMAINInstant costsnoAP, actualGenericBlue3pays2/R1 whileAP1stays1. Suspense2 isentryreplacement, notdelayedentry orseparate response layer. Entrydraw isseparate earnedtrigger, so freshfourresponses precede actualdraw."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/SUPCards.php:35-45,279-282",
+        "FaBSim/Custom/ROSCards.php:24-59",
+        "DevTools/FaB/build_sup_abilities.py:42",
+        "DevTools/FaB/sup_abilities.json:in_the_palm_of_your_hand_red"
+      ],
+      "finding": "Ordinary actual playedAura5entersArena. SUPAfterMove39setsSUSPENSE2;41queues supEnter. Outsideinitial dtdStarting, SUPQueue uses realROSQueue withsourceUID5. Separate ABILITY9 waits throughfourresponses. Actualcanonical ResolveAbilitydraws1 forsupEnter; actualtopRed7movesDecktoHand, Yellow8remainsDeck. Source5persistsArena with2counters, Blue6Pitch. No startingAura orseededcounter/history/hiddenAPrefund."
+    },
+    {
+      "finding": "Exact10controls/1404queries/12points/348typed and8manualpasses2each independently normalized. InitialphysicalUIDs5Palm/6Blue/7Red/8Yellow andterminalHand/Deck/Arena/Pitch identities are independently rule-derived. Allfouryounglivingmanualseats and unchangedhealth/resources/AP/quietStackqueues must beverified bylaterSavedreview."
+    },
+    {
+      "finding": "Printed naturalstartphase removal, zero-counter destruction and leave-draw are explicitly UNTESTED. This boundedentry route stops in sameMAIN withSUSPENSE2; it claims no fullcard/genericvirtual-layerdeletionorder certificate. OfficialJudgeHub/CR text were read; the legacySuperSlamreleaseURL returned502, so no directlegacyfullpage retrieval claim."
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "thick_hide_hunter_yellow",
+      "group_id": "identity:thick_hide_hunter_yellow",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_ATTACK_WHEN_RANDOM_DISCARD_CONTRACT",
+      "classification": "KNOWN_EARNED_ATTACK_WHEN_BEFORE_RANDOM_DISCARD",
+      "reason": "Actual HNT canonical AttackDeclared and emitted ordinary macro call FaBDiscardRandom1 directly. GameLogic1205..1217 OnAttackDeclared reaches source macro at1216 without a Hunter captured responseable WHEN layer; current named macro overrides do not intercept Hunter. Exact known MiniMeataxe/Ravenous attack-WHEN contract, not missing RNG/discard/body or a fresh native failure.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch825-hunter-known-attack-when-unattempted-note.json",
+        "sha256": "5a15bcd40dceb736ee41d508be484577236c3e74f701cc18525dc56039db9416"
+      },
+      "known_contract_proof": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse799-ravenous-independent-planning-review-6695.json",
+        "sha256": "e21c86519cd33e6e1cd2a78b79641ecd7e9a23958f1d119a5a5ce906f80279f8"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "KnownAttackWHEN directdiscard contract precedes selectedrandomdiscard. SingletonYellowpower3avoidsRNGseed andRhinarIntimidate butdoesnotfixtriggercapture. Noinline/emptyHand/additionalcost/basicattack/alternateprimaryfallback ornewnativebug/defendedbranch credit."
+    }
+  ],
+  "limits": [
+    "Approve one exactnormalNativeSaveonly; recorderstopswithoutsaveonanycorrectassertionfailure. Sourceapproval doesnot grantcoverage.",
+    "Freshactualraw5/initialANDfinal48manualprefs/every10envelope1404query/physicalUIDs5-8/counter2/HandDeckorder/costR1AP1 requireindependentSavedreview andtwo targetedcleanreplays beforequalification/registration.",
+    "Entry-onlyRed representative. No leave/startphase/removal/zero-destroy/multiturn/otherlistener/suppression/controlchange/heroability/genericvirtualdeletionorder/fullcard/pitchsibling evidence. No B825bug/fix orisolatednativefaultcredit."
+  ],
+  "current_primary_newness_independently_checked": {
+    "current_index": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\coverage-additions-after218.json",
+      "sha256": "73cf428ef0837c3171a34c42c118353eefecc1583a1842b2cd2224ed7a2cfdd0"
+    },
+    "base_cycles": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\cycle-coverage-current.json",
+      "sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09"
+    },
+    "registered_through": "card-regression-sparse824-glow-a11-checkpoint.json",
+    "primary_unrepresented": true,
+    "frozen_author_index_snapshot_retains_original_4085_context": true,
+    "no_historical_runtime_retagging": true
+  }
+}

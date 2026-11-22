@@ -1,0 +1,30 @@
+{
+  "status": "FAILED_READ_ONLY_GET_NO_RETRY",
+  "request_count": 1,
+  "method": "GET",
+  "action": "card",
+  "root": "FaBSim",
+  "card": "bloodrot_pox",
+  "safe_endpoint": "https://soulmastersdb.net/TCGEngine/CardEditor/API/CardCodeService.php",
+  "remote_write_called": false,
+  "PHP_executed": false,
+  "R_writes": false,
+  "started_utc": "2026-11-16T22:30:06.612854+00:00",
+  "error_class": "URLError",
+  "http_status": null,
+  "completed_utc": "2026-11-16T22:30:06.678166+00:00",
+  "issue": "FAB-REG-147",
+  "blocked_action": "Guarded local regeneration of two Bloodrot Pox damage-type cells",
+  "reason": "Required exact raw authored legacy bodies unavailable: configured read-only GET failed with URLError before any HTTP response. Underlying transport cause was not retained; no hosting-outage conclusion.",
+  "canonical_locations": [
+    "DevTools/FaB/out_abilities.json: Bloodrot Pox ResolveAbility and EndTurn cells",
+    "DevTools/FaB/build_out_abilities.py: two corresponding literals"
+  ],
+  "proposed_change": "PHYSICAL to GENERIC in canonical/builder via reviewed exact-legacy bridge and guarded emitter; NOT APPLIED",
+  "needed_input": "Reachable configured Card Code service or unmodified raw authored Pox ResolveAbility and EndTurn rows with provenance. Do not substitute pretty canonical-body hashes or edit generated outputs.",
+  "source_applied": false,
+  "native_repair_run": false,
+  "fixture_saved": false,
+  "denied": false,
+  "outcome": "Read failed definitively; regeneration never attempted. Other independent repairs continue."
+}

@@ -1,0 +1,300 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B467_V2_RUNEBLOOD_ENTRY_COUNTER_AND_GO_AGAIN",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T13:20:57.774697+00:00",
+  "source_spec": "card-regression-batch467-v2.json",
+  "input_sha256": "a96d5d7a6040720f9ecc8272e949dd9e2bab59d28e10325f31cd06b1a463eacd",
+  "manifest_sha256": "cef427a876b133a6599316aa47ef9f4b008f8486769448dcd0152512d7b4dad0",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch467-v2-independent-source-review.json",
+    "sha256": "bf1b747aff9f8141a4e64d9b17f36d05ab535c4649ee42492ecc1166bbefe0ca",
+    "unchanged_source_and_rules_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch467-v2-20261105T131750Z-6aec81fe73c65.json",
+    "sha256": "481f4e4a22eaaeb472eb9c45ae976a78b09adc1bb79980572c049e7c46bbcf8d"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch467-v2.recording-results.json",
+    "sha256": "8b089c370dc5720b1948862b61d542e1306bcd6b1f590c415f79cd8726b66f40"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch467-v2-native-r1-9e984\\receipt.json",
+    "sha256": "ba58b60b51848ba52906ad466ec8e4810fe7c48c3f7b7c3a230252b9d3285b4e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "runeblood_incantation_red",
+      "group_id": "pitch-cycle:runeblood_incantation",
+      "slug": "card-runeblood-incantation-red-four-live-sparse-real-paid-aura-enters-with-three-verse-counters-and-go-again",
+      "source_spec": "card-regression-batch467-v2.json",
+      "input_sha256": "a96d5d7a6040720f9ecc8272e949dd9e2bab59d28e10325f31cd06b1a463eacd",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_ENTRY_COUNTER_AND_GO_AGAIN_PARTIAL_BRANCH",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-runeblood-incantation-red-four-live-sparse-real-paid-aura-enters-with-three-verse-counters-and-go-again",
+      "fixture_sha256": "1427f77674d07d170430fbd8b1b6b5b9641dbd549f839672dbf1b001f570750b",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4b768ce8697aaff61f88d732f0d9afdde93ee9d004368771fd7b4946cfa8d5af",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "704ea6cc7eafadcdfe81144d99ab6ad4e925a33e7af96aae2832b94f75bce363",
+        "expected_final_gamestate.txt": "60cda4a3638ad367cf308ce25a76c4b18bfb272cfcf137b5bc54ecf0e50acfa7"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b768ce8697aaff61f88d732f0d9afdde93ee9d004368771fd7b4946cfa8d5af",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "704ea6cc7eafadcdfe81144d99ab6ad4e925a33e7af96aae2832b94f75bce363",
+        "expected_final_gamestate.txt": "60cda4a3638ad367cf308ce25a76c4b18bfb272cfcf137b5bc54ecf0e50acfa7",
+        "meta.json": "d644401d7834c3e41d36e9aef57c511bccc3c6e4334a9057e83153188581633e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4b768ce8697aaff61f88d732f0d9afdde93ee9d004368771fd7b4946cfa8d5af",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "704ea6cc7eafadcdfe81144d99ab6ad4e925a33e7af96aae2832b94f75bce363",
+        "expected_final_gamestate.txt": "60cda4a3638ad367cf308ce25a76c4b18bfb272cfcf137b5bc54ecf0e50acfa7",
+        "meta.json": "d644401d7834c3e41d36e9aef57c511bccc3c6e4334a9057e83153188581633e"
+      },
+      "actions": 6,
+      "native_assertions": 627,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 147,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "runeblood_incantation_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "runeblood_incantation_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "actual_final_Aura_Counters": {
+        "FAB_PLAY_ORDER": 1,
+        "VERSE": 3
+      },
+      "checkpoint_assertion_mapping_sha256": "87714fc3df76d4546008e9fe74bf07bbbcd63ee88de02413a5e69e04acdacf3e",
+      "native_action_mapping_sha256": "b2490aec25cba8e564ad7e38bd669fd7d50735f1ef493f9036c15ddece01d92e",
+      "native_assertion_mapping_sha256": "b602b651f497a3c933dda3cdbdf4d50be05b12d1a9087aa8b8b413db7e15ce65"
+    }
+  ],
+  "total_actions": 6,
+  "total_native_assertions": 627,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 147,
+  "material_findings": [
+    "Allraw5/6actualactions/627orderedassertions/147properties exactly matchcorrected approvedV2. Fouractualresponses1,2,3,4/noadminfinish;48rawmanualprefs atbothendpoints/all69guards/current9 verified.",
+    "Actualprimary5cost1pendingR0AP1 thenrealBlue6pitch3 pays1/AP1->0/R2. Source5 remainsStack andArenaempty throughfirstthree responses; fourth actualsameowned5ArenaReadyDamage0/VERSE3 andownGA/AP1. No secondentryWHEN layer/chooser/inventedmanualround.",
+    "Rawfinalcountermap exactly FAB_PLAY_ORDER1 plus printedVERSE3, as correctedbeforefirstnativeexecution. Host marker is realfirstplaybookkeeping, notaninitialseed/additionalprintedability orgameplayfix. OriginalV1wholemapdraft remainedunexecuted.",
+    "FulloriginalUID1..6 preserved; same5ArenaOwnerCtl1/samewholeBlue6Pitch1/rawfourHeroesunchanged; allHP20/R2onlyP1/AP1onlyP1/Chi0/counter6/RNG0. NoRunechant/newcard/attack, allotherphysicalzonesempty andStack/DQ/frames/payment/combatclear."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1382/",
+      "finding": "Fresh current cost1/entry3Verse/ownGA/future action-start separate."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.4.8",
+        "6.6.5a"
+      ],
+      "finding": "With-counters identity replacement; no retroactive action-start trigger merely from later entry."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.4a",
+        "8.3.5a"
+      ],
+      "finding": "Aura resolves intoArena; own nonattack GA refunds after completion."
+    }
+  ],
+  "pre_native_representation_erratum": {
+    "original_input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch467-runeblood-first-ready-author\\batch467-runeblood-one-real-entry-verse-counter-and-actionpoint-group.json",
+    "original_input_sha256": "4fb825a32c62ec2bcf2dbf8ae0d856934ea1ec2079a30c135fa908a0da409f3c",
+    "original_verdict": "HOLD wrong whole-counter map, no native gameplay defect",
+    "original_unexecuted": true,
+    "delta_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch467-runeblood-v2-counter-representation\\two-counter-delta-proof.json",
+    "delta_sha256": "1f56c9fc380a3b11fcf2648bb3b89070b7a627d7c25c66ef71b6d2ac9e883c22",
+    "two_changed_counter_values": [
+      {
+        "path": [
+          0,
+          "steps",
+          12,
+          "checks",
+          40,
+          "value"
+        ],
+        "before": "{\"VERSE\":3}",
+        "after": "{\"FAB_PLAY_ORDER\":1,\"VERSE\":3}"
+      },
+      {
+        "path": [
+          0,
+          "steps",
+          13,
+          "checks",
+          38,
+          "value"
+        ],
+        "before": "{\"VERSE\":3}",
+        "after": "{\"FAB_PLAY_ORDER\":1,\"VERSE\":3}"
+      }
+    ],
+    "only_other_input_change": "Matching explanatory oracle append",
+    "full_independent_inverse_exact": true,
+    "gameplay_expectations_retained": "VERSE3/real cost1/R2/AP0beforefour/AP1afterfour/ownership/queues/6actions627checks unchanged",
+    "source_evidence_files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "FaBSim\\ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "FaBSim\\Custom\\MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "DevTools\\FaB\\evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e"
+    }
+  },
+  "limits": [
+    "OneRedentryVERSE3/ownGApositiveonly. No futureactionphase/Verse removal/Runechantcreation/otherwiseDestroy/upkeep/expiry/Heroactivation/supportprimary/sibling/fullcard or intra-entry event-order certification.",
+    "Only initial/final rawsnapshotscomplete; intermediatefacts are actualcompletednativeassertions. Complete rawhashes include historical undo bytes; opaqueVersions are excludedfromcurrentinventory and no reviewerundo/replayexecution claimed. HistoricalDQmzIDCardID leftover isnot additionalcurrentcard or live-source claim.",
+    "ImperialEdict/B471 separate and excluded. Roottargetedreplays/registration separate; noPHP/native/replay/R/source/service/generation/fullsuite/remote or deniedrepairretry/reroute/integration byreviewer."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch467_v2_saved_readonly.py",
+    "sha256": "860f75f7704da22dd4fa970af39252a6d101d59be53b79ae3f34ca29734a2b84"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Rocktop Bellow Blue / high reveal Overpower and actual damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T05:33:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Full normal positive candidate, notqualified. ActualBlue6paysRocktop2/R1/AP0, fourSource responses; realtopSmash9base7revealed/staystopahead10, printedGAAP1 and actualnext+2/OVERPOWER. RawSavedMacroGameIndexRevealCard1 is mandatoryindependentgate and FaBfinalsnapshotpinsit, no customadapter/wholehistoryliteral. NativeSmash7cost2 fromfloating1+Blue8/R2/AP0, realtarget4, fourSource/combat. Actualpower7+2=9, onelegalAction11DEF3, nativeordinarysecondAction12click notadmitted withliteralunchangedHand/Chain/window/state. No unsupportedexpect_rejectionmode10002/servererrorclaim. Completeactualdamage6HP4=14, noattackGA/APrefund, fullphysicalcleanup/Bellow5andAttack7GY1/defender11GY4/second12Hand4/Deck9then10/Blue6and8Pitch1/R1two/APall0/4manualYoungunused. No buff/reveal/permission/defense/damageoutcome seeded, directhelpers, sourcegreenfallback or prior111genericenforcementclaim. Below6/bottom/otherdefenders/otherattacks/pitches/supportfullcard untested; denied188184B787 untouched. Sources: https://rules.fabtcg.com/en/cr/08-keywords/"
+}

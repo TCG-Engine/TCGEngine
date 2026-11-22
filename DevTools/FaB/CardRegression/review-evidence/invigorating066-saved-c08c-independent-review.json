@@ -1,0 +1,304 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_066_INVIGORATING_ONLY_REVIEWED_SUBSET_TRIGGER_SIX_DAMAGE_OWN_SOUL_CLOSE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T14:39:50.708616+00:00",
+  "source_spec": "card-regression-batch278-trigger-probes.json",
+  "input_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+  "manifest_sha256": "ef5702cf65e93b629d3b37be3bcf1fc4b889e019f04d15ba7ee529ff2d0d9df5",
+  "runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "recorded_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "source_guards_verified": 17,
+  "historical_probe_source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch278-v2-independent-source-review.json",
+    "sha256": "8dae34455297e72aeb594f27ec0a8f5f479cd0d1c4ffc1ea4443642423310ad0",
+    "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "prior_semantic_source_review_reused": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-independent-source-review.json",
+    "sha256": "02bf4520661d517c71ac724b7722c7a6b437cd08719444cd72a7e987b8a26e3b",
+    "new_source_review_claimed": false,
+    "actual_source_bytes_equal_reviewed_candidate": true
+  },
+  "source_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-source-application-9075\\receipt.json",
+    "sha256": "45e323a79c1f2cf4901fede99277afcf54b3454f63b9f505df9838f7302096e3"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch278-trigger-probes-20261103T143312Z-6ae9f0a85fa7b.json",
+    "sha256": "272f7d4be785d4e32b6c307ceac8a64cb54391df06d6c5f545b3061fc68a5762"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-native-after-r1\\receipt.json",
+    "sha256": "904c10d12dfd7f2d9976e62df38b68ca9983a4b0eeab23486f7f4ddd5981c186"
+  },
+  "source_guard_rebinds": [
+    {
+      "target": "FaBSim/Custom/ARCCards.php",
+      "historical_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+      "current_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f"
+    },
+    {
+      "target": "FaBSim/Custom/MONCards.php",
+      "historical_sha256": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+      "current_sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f"
+    },
+    {
+      "target": "FaBSim/Custom/ROSCards.php",
+      "historical_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+      "current_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6"
+    }
+  ],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-independent-saved-review\\audit_saved.py",
+    "sha256": "ce05f7008b2f1d4bec1ab321fad7284a1dffd33b7f680907e686496665b86ae7"
+  },
+  "reviewer_independence": {
+    "original_probe_author": "/root/nov2_metadata_review",
+    "source_fix_author": "/root/nov2_metadata_review",
+    "reviewer_authored_probe": false,
+    "reviewer_authored_fix": false,
+    "reviewer_previous_work": "Independent066sourcepeer and mechanicalapplier/unionpreparation only."
+  },
+  "review_method": "Exact32actualactions/2140nativeassertions mapped against immutableoriginalcorrectprobe, fullyparsedrawfive endpoints/manual/UID/ownership/economy, allfinalassertions evaluated. Reuse exact priorindependentprinted/source/30component review; no newsemantic/sourceexecution audit.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "invigorating_light_red",
+      "slug": "card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul",
+      "source_spec": "card-regression-batch278-trigger-probes.json",
+      "input_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+      "recorded_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul",
+      "fixture_sha256": "016a7faf52b838d5105b9351134b480bcefca3cc5b22fb663193ea4b4a798d41",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7c71db1ab6166e3eaf202fa6a53cad4a7eaae79fb17daa267f55f8436c4aeb74",
+        "actions.json": "63aafbc97165081ce73bcdbd0196da64600670ab7a28ff42573066b6160028e9",
+        "assertions.json": "22430ca4df03b603d5db90198514993cfaed80ebb29025435b1c22439ced18ca",
+        "expected_final_gamestate.txt": "3553bfd731042f0e53b129707ad9db86e1fa358b2530f6e2a1e1b1f0f28b2ccb"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c71db1ab6166e3eaf202fa6a53cad4a7eaae79fb17daa267f55f8436c4aeb74",
+        "actions.json": "63aafbc97165081ce73bcdbd0196da64600670ab7a28ff42573066b6160028e9",
+        "assertions.json": "22430ca4df03b603d5db90198514993cfaed80ebb29025435b1c22439ced18ca",
+        "expected_final_gamestate.txt": "3553bfd731042f0e53b129707ad9db86e1fa358b2530f6e2a1e1b1f0f28b2ccb",
+        "meta.json": "7493194dc8f8046f9fe93a43b6bf846d1b8da6736101ca22686a0ef42f36e2c0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7c71db1ab6166e3eaf202fa6a53cad4a7eaae79fb17daa267f55f8436c4aeb74",
+        "actions.json": "63aafbc97165081ce73bcdbd0196da64600670ab7a28ff42573066b6160028e9",
+        "assertions.json": "22430ca4df03b603d5db90198514993cfaed80ebb29025435b1c22439ced18ca",
+        "expected_final_gamestate.txt": "3553bfd731042f0e53b129707ad9db86e1fa358b2530f6e2a1e1b1f0f28b2ccb",
+        "meta.json": "7493194dc8f8046f9fe93a43b6bf846d1b8da6736101ca22686a0ef42f36e2c0"
+      },
+      "actions": 32,
+      "native_assertions": 2140,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "invigorating_light_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "invigorating_light_red",
+          "zone": "p1Soul",
+          "owner": 1,
+          "controller": 1,
+          "ownership_evidence": "Initial/Stack Owner1 and own Soul1 destination; no stored Soul owner/controller field."
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 34,
+      "checkpoint_assertion_mapping_sha256": "72cbc6d16bdb58e7740b3d0d5dffc5bf47ecae48a8f9bef72e67e3569c32a873",
+      "native_action_mapping_sha256": "3817253311d9843f5926f5891fe23983928191d6c431fbb351d350ffffc5cfaf",
+      "native_assertion_mapping_sha256": "1a2e3e57b4aaa6e74e4c8c5b7a4b4029a77ace5bdd381f279eae28dfc5ca6d5e"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+      "card_id": "smashing_good_time_red",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "status": "EXCLUDED_UNSAVED_UNFIXED_067068_NOT_SELECTED_IN_066_AFTER_RUN",
+      "selected_after_run_inputs": 0,
+      "prior_failed_native_inputs": 11,
+      "error": "power  expected 7 got 4",
+      "prior_before_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "prior_native_archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch278-trigger-probes-20261103T025547Z-6ae94d33616cf.json",
+      "prior_native_archive_sha256": "3ddeb50f2ca4e8c1b5c589b3b415723d210e06ef2bec1bbdaefe2f24c7eb72aa",
+      "coverage_credit": false
+    }
+  ],
+  "total_actions": 32,
+  "total_native_assertions": 2140,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual legal quiet youngBoltyn20/threeDorinthea20, allready/live/manual. Initial own5LightAA+GenericBlue6Hand/Soul0, allR0/APonlyP1=1/nocharge/history/effectseed. TargetP4 declared before source/assets; actualBlue6pitch3 pays3/AP1 leavingRAP0.",
+    "Directnativeledger: afterpayment actualStack2 physicalATTACK5OwnerController1 beneathcapturedABILITYCardIDInvigorating/Controller1/SourceUID5. Four real1/2/3/4responders retainboth throughfirstthree; onlyfourth clearsability, keepsphysical5Stack. Freshseparateunderlyingattackround moves5Chain/printed6/noGA. No synthetictrigger/sourcephysicalreplacement.",
+    "Directnativeledger/snapshots: seven freshfour-seatrounds plusP4declarationfinish=29manualpasses(7/7/7/8). No blockers, actual6damage/P4HP14 atentryDAMAGE, noGA/APrefund. Same5Chain/Soul0 throughfirstthreefullclosepasses; onlyfourthfullclose movesoriginal5toownSoul1. FinalSoul5schemaCardID/UIDonly, originalOwner1retainedfromsourceanddestination; no inventedSoulownershipfield. Alloriginal1-6conserved/Pitch6/virtual7ceased/Counter7/noRNG/fullcleanup.",
+    "Tagtiming evidence boundary: frozennativeprobe has no TurnEffects assertions orper-inputrawsnapshots. No false native-tag assertion claimed. ExactappliedMON50cc/ROS1013 equals priorindependentlyreviewedsource: produceronlyqueues, resolveronlytagafterearnedlayer; retainedactual30contracts separatelyverifyearly-tagabsence/capturedeligibility/reentry. NamednativeStackresponse/materialclosepath is directlyproved; tagtiming is source/component-backed.",
+    "OtherbatchSmashing remainsunsaved/unqualified: previous0d11-inputpower7vs4failure bound; selected066afterrun filtersitout. Explicitblocked_attempts grantszeroothercase/067068coverage."
+  ],
+  "tag_timing_evidence": {
+    "native_per_input_tag_assertion": false,
+    "source_exact_applied_bytes_verified": true,
+    "prior_actual_component_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-root-component-validation\\receipt.json",
+    "prior_actual_component_receipt_sha256": "74692bc0f36072afb039640de4575f2bfbcd0c4f364a5cf3c4909d8ccfde9a8b",
+    "prior_after_contracts": 30,
+    "new_component_or_native_control_run": false
+  },
+  "limits": [
+    "Only ordinary Red/ownLightHero/emptySoulatplay/paidBlue3/earnedonplaylayer/6damage/samephysicalownSoulfullclose. No nonemptySoul/laterSoulchange/otherpitch/sibling/foreigncontrol/suppression/source-removal/reentry/closevariants/heroactivation/charge/supportprimary/fullcard/controlcredit.",
+    "Currentfixtureassertionsplusendpointsprove selectedmaterialpath; source/componentevidence supports tagtiming withoutnewnativeprivatefieldcredit. Roottwofocusedreplays/registrationseparate.",
+    "No PHP/native/R/source edits/generation/service/fullsuite/oldfixture replay; priorsourceapprovalreusedtruthfully, not authored anew."
+  ]
+}

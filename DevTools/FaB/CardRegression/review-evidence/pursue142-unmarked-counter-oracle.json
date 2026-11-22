@@ -1,0 +1,172 @@
+{
+  "status": "TEST_ORACLE_ERROR_PRE_MARK_ZERO_COUNTER_REPRESENTATION",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T04:43:46.718793+00:00",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "input_sha256": "06aa36f22c167b1e2d378cda00d24632bc681224c67c83f0a833cfe490d1c6ff",
+  "source_spec": "card-regression-batch568-after142.json",
+  "card_id": "pursue_to_the_edge_of_oblivion_red",
+  "slug": "card-pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe",
+  "original_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-independent-source-review.json",
+    "sha256": "a185c29bde0ea94b793ef46cb5013d80e1db814394920ccd65aa7c530f833b62"
+  },
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-r2-independent-source-review.json",
+    "sha256": "c22230c916d677fcd079de9e83ce867ef4ccf6b4c49b6feae01fb4383c47301c"
+  },
+  "original_native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-independent-native-review.json",
+    "sha256": "b8e153bcb1fcb32e146472edd9a4a61c30c2a1ef0b0d66cde396c8b8934ed7b3"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-native-after-9fbaa\\receipt.json",
+    "sha256": "9c1e5d6a695462c6e18c5bea8c41d6bc0e7532f80439499e839428bf1d5d77cd"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch568-after142.recording-results.json",
+    "sha256": "1c7219d51fcb43c63c46fb6604c9cc1d1047ba8f5c6e7b86376b3a0f5edd8886"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch568-after142-20261106T043950Z-6aed5a164332a.json",
+    "sha256": "e55b7f12fc8e91449e7f651c38e7f55516e8ace2084840e9227cac52fdc7eefe"
+  },
+  "preserved_evidence": {
+    "initial_gamestate.txt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-counter-oracle-preserved\\initial_gamestate.txt",
+      "sha256": "8286555d84d1858cae49c4e668739cedf0537221660d9694ca3418040d697b27"
+    },
+    "original-after142-input.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-counter-oracle-preserved\\original-after142-input.json",
+      "sha256": "06aa36f22c167b1e2d378cda00d24632bc681224c67c83f0a833cfe490d1c6ff"
+    },
+    "recording-results.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-counter-oracle-preserved\\recording-results.json",
+      "sha256": "1c7219d51fcb43c63c46fb6604c9cc1d1047ba8f5c6e7b86376b3a0f5edd8886"
+    },
+    "recording-run.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-counter-oracle-preserved\\recording-run.json",
+      "sha256": "e55b7f12fc8e91449e7f651c38e7f55516e8ace2084840e9227cac52fdc7eefe"
+    },
+    "root-native-receipt.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-counter-oracle-preserved\\root-native-receipt.json",
+      "sha256": "9c1e5d6a695462c6e18c5bea8c41d6bc0e7532f80439499e839428bf1d5d77cd"
+    }
+  },
+  "first_failure": {
+    "source_step_index": 38,
+    "query_index": 69,
+    "native_inputs": 19,
+    "assertion_ordinal": 1353,
+    "assertion": {
+      "type": "card_property_equals",
+      "mzId": "p4Hero-0",
+      "property": "Counters",
+      "value": "{\"HNT_MARKED\":0}",
+      "viewerPlayerID": 1
+    },
+    "expected_json": {
+      "HNT_MARKED": 0
+    },
+    "observed_json": [],
+    "error": "Expected p4Hero-0.Counters to equal '{\"HNT_MARKED\":0}', got '[]'."
+  },
+  "actual_native_prefix": {
+    "actions": 19,
+    "manual_passes": 17,
+    "actual_manual_actor_counts": {
+      "1": 4,
+      "2": 4,
+      "3": 4,
+      "4": 5
+    },
+    "assertions_passed_before_failure": 1352,
+    "original_failed_Stack_assertion_ordinal1307_now_passed": true,
+    "passed_normalized_prefix_sha256": "57d51cc134177558a674ebf5fa71be85850dfeaf879b06de3fe119b655c19a1b",
+    "actual_HP16_passed": true,
+    "actual_Stack1_passed": true,
+    "actual_captured_source5_controller1_passed": true,
+    "actual_same_physical5_chain_passed": true,
+    "fresh_hit_response_inputs": 0,
+    "actual_current_hero_counters": [],
+    "raw_initial_unmarked_state_and_48preferences_identical_to_before": true,
+    "initial_snapshot_sha256": "8286555d84d1858cae49c4e668739cedf0537221660d9694ca3418040d697b27",
+    "full_postfailure_zone_dump_available": false
+  },
+  "classification": "The unmarked condition is correct. The test incorrectly demanded an explicit zero-valued HNT_MARKED entry. Current FaBSetObjectCounter removes entries whose value is zero; initial empty Hero counters therefore remain [] after HNTBeforeHit calls Mark(false). The native property query JSON-encodes that empty array. This is an oracle representation mistake, not a new gameplay failure or reason to change source. My prior source review missed this zero-removal behavior. The newly passed Stack/source/controller/physical damage prefix is retained; full repair qualification is still pending unexecuted responses and suffix.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a"
+    },
+    "anchors": [
+      "GameLogic FaBObjectCounters/FaBSetObjectCounter (343-348): zero unsets named entry.",
+      "HNTCards FaBHNTMark(false) and FaBHNTBeforeHit: removes old marked condition during hit.",
+      "HNTCards FaBHNTMarked: absent counter is false.",
+      "RegressionTestFramework card_property_equals: non-scalar property serialized with json_encode."
+    ],
+    "source_guards_verified": 70
+  },
+  "minimal_proposed_immutable_correction": {
+    "value_changes": [
+      {
+        "path": "/0/steps/38/checks/69/value",
+        "before": "{\"HNT_MARKED\":0}",
+        "after": "[]",
+        "execution_status": "first queried failure"
+      },
+      {
+        "path": "/0/steps/40/checks/69/value",
+        "before": "{\"HNT_MARKED\":0}",
+        "after": "[]",
+        "execution_status": "previously unexecuted suffix, independently corrected from setter semantics"
+      },
+      {
+        "path": "/0/steps/42/checks/69/value",
+        "before": "{\"HNT_MARKED\":0}",
+        "after": "[]",
+        "execution_status": "previously unexecuted suffix, independently corrected from setter semantics"
+      },
+      {
+        "path": "/0/steps/44/checks/69/value",
+        "before": "{\"HNT_MARKED\":0}",
+        "after": "[]",
+        "execution_status": "previously unexecuted suffix, independently corrected from setter semantics"
+      }
+    ],
+    "matching_oracle_prose_correction_allowed": true,
+    "post_mark_one_paths_unchanged": [
+      "/0/steps/46/checks/69/value",
+      "/0/steps/48/checks/69/value",
+      "/0/steps/50/checks/69/value",
+      "/0/steps/52/checks/69/value",
+      "/0/steps/54/checks/69/value",
+      "/0/steps/56/checks/69/value",
+      "/0/steps/58/checks/69/value",
+      "/0/steps/60/checks/69/value",
+      "/0/steps/62/checks/57/value",
+      "/0/steps/63/checks/115/value"
+    ],
+    "all31actions2297checks29manual409props_and_remaining_outcomes_retained": true,
+    "all_original_checks_through_Stack1307_identical": true,
+    "HP16_Stack1_Source5_Controller1_fresh_four_Mark1_and_cleanup_not_weakened": true,
+    "no_other_Hero_zero_counter_changes": true,
+    "requires_exact_delta_review_before_native": true
+  },
+  "limits": [
+    "Only first19 inputs and1352 passed checks are actual after evidence. No hit-layer responses, Mark1 effect, post-Mark persistence, Damage/Resolution/fullcleanup or passing fixture was executed.",
+    "Exactlyfour pre-Mark whole-counter expected values need []; changing three later pre-Mark leaves is an unexecuted-suffix representation correction, not a claim that their native outcomes ran. Allten post-Mark1 values and all other Hero semantics must remain unchanged.",
+    "Original06aa input and first333 native failure remain immutable/historical. A successor will no longer be byte-identical overall and needs an exact four-leaf/prose delta gate.",
+    "No new issue/engine bug/source repair, native replay, PHP execution, repository write or full suite by reviewer."
+  ],
+  "gameplay_bug_confirmed": false,
+  "additional_issue_allocated": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "repair_qualified": false,
+  "source_change_proposed": false,
+  "reviewer_native_PHP_R_execution": false,
+  "review_script_sha256": "bff0c64657e4355d9a12fe7bf3288f631f45ee63d388d122e770f207ec8600ed"
+}

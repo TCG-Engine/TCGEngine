@@ -1,0 +1,154 @@
+{
+  "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_DEFENDED_CLASH_TRIGGER_LAYER_LIMIT",
+  "planning_limits_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-08T15:55:30.098281+00:00",
+  "card_id": "clash_of_might_blue",
+  "primary_id": "clash_of_might_blue",
+  "group_id": "pitch-cycle:clash_of_might",
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch716-clash-of-might-selected-defended-layer-limit\\clash_of_might_blue-selected-defended-trigger-layer-limit.json",
+  "input_sha256": "da938e4a0902fca039f39f70e5541766dcc717f722080f3b6370190e4ec20f92",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch716-clash-of-might-selected-defended-layer-limit\\clash_of_might_blue-selected-defended-trigger-layer-limit.json",
+    "sha256": "da938e4a0902fca039f39f70e5541766dcc717f722080f3b6370190e4ec20f92"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch716-clash-of-might-selected-defended-layer-limit\\manifest.json",
+    "sha256": "1f3c49d4ec805d339cdd2bb7e1ae01f227a031278a1b08aa350f2c4b0d1d8d74"
+  },
+  "manifest_sha256": "1f3c49d4ec805d339cdd2bb7e1ae01f227a031278a1b08aa350f2c4b0d1d8d74",
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch716-clash-of-might-selected-defended-layer-limit\\frozen-author-QA.json",
+    "sha256": "470f71fa65c94a81139fee3d6248edd4c8916e136d30f16cbe26205e12a317ba"
+  },
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 73,
+  "author_model_error": false,
+  "source_only": true,
+  "native_confirmed": false,
+  "findings": [
+    "Independently viewed HVY139 Blue: Brute/Guardian Attack Action, cost2, power4, DEF3. Becoming a Hand defender earns its WHEN-defends clash; the winner creates Might. Defending is not playing the card or paying its printed cost. Current CR6.6.5-6 requires the earned triggered layer before the next priority; CR8.5.45 defines clash as a discrete reveal/compare resolution, without priority between its reveal and prize payload.",
+    "Completed selected caller check: GL1848-1855 confirms the physical defender, then OnDefended1215-1222 invokes FaBRunSourceMacro directly. The quiet selected route has no earlier named capture. The generated wrapper24895-24900 enters owned PC23 at221951-221955 and performs actual FaBHVYClash immediately; with no Victor/Switch condition it reaches case1 prize creation in that same invocation. BeginAwaitFrame stores continuation locals and does not itself establish a triggered Stack layer.",
+    "The actual canonical, compiled, reveal/compare and Might-prize bodies exist. Retain only the unattempted selected earned Defended-WHEN response-layer timing limit. No executable defense, reveal, token, damage, resource or final-UID result is approved; no missing-body, ordinary-choice, formal-target, source-lifetime, global absence or native-confirmed bug claim."
+  ],
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\clash_of_might_blue.webp",
+      "sha256": "64ea8dfcfae09b1fdeb18131f9867e00bbfd1eca419a35e1c7b935ccb32c80e2",
+      "printing": "HVY139",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://cards.fabtcg.com/card/clash-of-might/HVY139/",
+      "independent_direct_fetch": false,
+      "scope": "Author direct-fetch limitation preserved; independent printed basis is the viewed issuer face, no invented current JudgeID."
+    }
+  ],
+  "normative_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "independently_retrieved": true,
+      "clauses": [
+        "6.6.1",
+        "6.6.4",
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "independently_retrieved": true,
+      "clauses": [
+        "7.3.2",
+        "7.3.2d",
+        "7.3.3",
+        "7.3.4"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "independently_retrieved": true,
+      "clauses": [
+        "8.5.45",
+        "8.5.45a"
+      ]
+    }
+  ],
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+      "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+      "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+      "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+      "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+      "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+      "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "FaBSim/Custom/ELEAbilities.php": "bf8c0531d2ff8817cf2c9b9a778d235675280fab1517c1fcf6956a6a4940ef55",
+      "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+      "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+      "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d"
+    },
+    "catalog_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "completed_selected_preflight_reused": true,
+    "selected_anchors": [
+      "GL1848-1864/1215-1222/1264-1297",
+      "HVYRuntime87-92/HVYCards48-74/168",
+      "hvy canonical Defended",
+      "Generated24895-24900/221841-221962",
+      "CoreDecisionQueueController460-475"
+    ],
+    "source_executed": false
+  },
+  "limits": [
+    "No PHP/native/probe/replay/game execution, fixture, coverage, gameplaybug allocation, repair or currentcorpus invalidation.",
+    "No DEF3-only or ordinaryAttackAction baseline in place of printedmainclash effect; no seededMight/history/roll/reveal state, no forgedStack/proxy/API, no replacementprimary.",
+    "No primaryattack-playcost2/power4, tokenfutureStartfunction/expiry, VictorRetry/Gold/Switch, ties/missingpower, siblings/fullcard/Hero/support coverage certification.",
+    "Exactlyonefreshcap8 GuardianAAmetadata pool; alleightprintedmetadata read before onefirmclaim; othersevenbodies remainunread. Datedcandidatehints are not currentimplementationproof or an implementeddenominator.",
+    "Currentcommon70 guards plus actual earlier delegates DTDRuntime/ELEAbilities/MPGCards are pinned; Root remains soleR/native executor.",
+    "Blue representative only; no pitch-sibling/full-card coverage. No source or engine fix, new issue/root allocation or current native attempt; exact note and all73 current selected guards plus ab33 are bound."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch716_clash_planning_readonly.py",
+    "sha256": "cd6a7a0a536a10899d27fcf1e8bfab669ba04a04db9d59a4339a4fae47b54c0f"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "installable_approved": false,
+  "native_approved": false,
+  "native_attempted": false,
+  "fixture_approved": false,
+  "fixture_saved": false,
+  "coverage_approved": false,
+  "coverage_credit": false,
+  "coverage_qualified": false,
+  "confirmed_bug_approved": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "new_gameplay_bug_claim": false,
+  "issue_allocated": false,
+  "source_fix": false,
+  "source_fix_applied": false,
+  "prototype_created": false,
+  "executable_cases": 0,
+  "executable_case_count": 0,
+  "prototype_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0
+}

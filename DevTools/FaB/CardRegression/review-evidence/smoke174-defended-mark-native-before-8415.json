@@ -1,0 +1,48 @@
+{
+  "status": "CONFIRMED_NATIVE_SMOKE_DEFENDED_MARK_BEFORE_TRIGGER_RESPONSES_NO_FIXTURE",
+  "issue": "FAB-REG-174",
+  "utc": "2026-11-14T06:14:18.219322+00:00",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "card_id": "smoke_out_red",
+  "group_id": "identity:smoke_out_red",
+  "source": {
+    "path": "card-regression-batch786-smoke-mark-probe.json",
+    "sha256": "789500ba990e5a7e2fc7522fcdab5a6d7edbdc4bd967d502dd24f6f1a0d3de59"
+  },
+  "recording_results": {
+    "path": "card-regression-batch786-smoke-mark-probe.recording-results.json",
+    "sha256": "c3160b28c52a5f1518c74e51428c52f52a45294856511d3eff1c0b527c9409c4"
+  },
+  "independent_correct_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-smoke-independent-strict-diagnostic-source-review.json",
+    "sha256": "8f2ca3a481da480f5aa73bb9457186de8d267f92dbb1f191ae9b66dd098b59b0",
+    "role": "External source review or focused execution receipt; not a replay dependency"
+  },
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b786-smoke-original-correct-native-before\\receipt.json",
+    "sha256": "c4044d93be2d79c5f8db1f576cdf6eab775b2f7b5134601ef9ceba9ac255e9f8",
+    "role": "External source review or focused execution receipt; not a replay dependency"
+  },
+  "native_inputs": 23,
+  "successful_persisted_queries": 1390,
+  "first_failed_query_ordinal": 1391,
+  "total_planned_queries": 1450,
+  "unrun_queries_after_failure": 59,
+  "expected": "After actual red attack5 is really defended by Smoke6 and its source-response quorum4/1/2/3 completes, the attacking Hero1 remains unmarked until a separate earned WHEN-defends mark layer receives responses and resolves.",
+  "observed_error": "Expected p1Hero-0.Counters to equal '[]', got '{\"HNT_MARKED\":1}'.",
+  "actual_scope": "Only the first Hero1 counter assertion failed. The following Stack1 assertion and59 suffix queries were not run; no direct Stack0 or final raw-zone claim.",
+  "fixture_saved": false,
+  "fixture_inventory_unchanged": true,
+  "passing_corpus_scenarios": 4051,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "assertions_weakened": false,
+  "mandatory_probe_only": true,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "limits": [
+    "Native before witness is exact selected true red condition only, not other pitches, priorMark, elimination or copy certification.",
+    "Correct future trigger-response/one-damage/cleanup continuation remains unrun.",
+    "Lowercase-only Source successor changes no action/query expectations; original uppercase author packet remains uninstalled/unexecuted."
+  ]
+}

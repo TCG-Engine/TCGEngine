@@ -1,0 +1,370 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B812_HOLO_WITH_HUNT_SOURCE_ONLY_HOLD",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b809_review_recover",
+  "created_utc": "2026-11-15T02:36:39.146154+00:00",
+  "source_spec": "card-regression-batch812-holo_shield_blue.json",
+  "input_sha256": "d9264cc7a4d9e3964162cf573ed914a24d2b9d7647154100a1e207acce97f479",
+  "manifest_sha256": "7b2f51bce88ee6a372174ff856f928dfb7783ae415150221561c68c41c30c783",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch812-holo-blue-real-paid-nonturn-instant-counterless-ward-one-selfdestroy-three-damage-author\\manifest.json",
+    "sha256": "7b2f51bce88ee6a372174ff856f928dfb7783ae415150221561c68c41c30c783"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch812-holo-independent-correct-positive-source-review.json",
+    "sha256": "85e7d409b8ec184011191ae4b8fd5806cceb2e93961e2013dcc15aafae3e4f57"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b812-holo-native-paid-nonturn-counterless-ward\\receipt.json",
+    "sha256": "f515e5bf9da5030aab416e83b92a5ff2c5b88d4cbe6f9ed2c589f08c1043271e"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch812-holo_shield_blue-20261115T023446Z-6af91a461c79b.json",
+    "sha256": "960b65114e0d4b61e96f5b2a208a33a6fb4166088a1862732332900d908bec62"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch812-holo_shield_blue.recording-results.json",
+    "sha256": "dd494c90d6149ad766e7acc2c43ae737138312e1713395a887455e5c3a6ab270"
+  },
+  "fixtures": [
+    {
+      "slug": "card-holo-blue-real-paid-nonturn-instant-counterless-ward-one-selfdestroy-three-damage",
+      "card_id": "holo_shield_blue",
+      "group_id": "pitch-cycle:holo_shield",
+      "source_spec": "card-regression-batch812-holo_shield_blue.json",
+      "input_sha256": "d9264cc7a4d9e3964162cf573ed914a24d2b9d7647154100a1e207acce97f479",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-holo-blue-real-paid-nonturn-instant-counterless-ward-one-selfdestroy-three-damage",
+      "fixture_sha256": "3e34cd9edb9cf4a4b1fdda9919bfe4ca2e2460bc7aa1dbad3364ae8a54d1b341",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "066d6d56a3c6f9ff41e01dab1362f7a8972842191f10736425111c94dffeaafa",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "2ab46534eb5e6176eb0dadd8eaf154656ff3bbdf2daac66c90b7e0e246f399cd",
+        "expected_final_gamestate.txt": "7ab8b4fb60a0994848e67abb93956c9df33acffaa5c3b6b0cfa96072e879daa4",
+        "meta.json": "f1c5accfdc661aa54412fef23f1d4a7568701153610878781765337eb59b6620"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "066d6d56a3c6f9ff41e01dab1362f7a8972842191f10736425111c94dffeaafa",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "2ab46534eb5e6176eb0dadd8eaf154656ff3bbdf2daac66c90b7e0e246f399cd",
+        "expected_final_gamestate.txt": "7ab8b4fb60a0994848e67abb93956c9df33acffaa5c3b6b0cfa96072e879daa4",
+        "meta.json": "f1c5accfdc661aa54412fef23f1d4a7568701153610878781765337eb59b6620"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "066d6d56a3c6f9ff41e01dab1362f7a8972842191f10736425111c94dffeaafa",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "2ab46534eb5e6176eb0dadd8eaf154656ff3bbdf2daac66c90b7e0e246f399cd",
+        "expected_final_gamestate.txt": "7ab8b4fb60a0994848e67abb93956c9df33acffaa5c3b6b0cfa96072e879daa4"
+      },
+      "actions": 37,
+      "native_assertions": 2558,
+      "manual_passes": 32,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 536,
+      "checkpoint_count": 39,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 133,
+        "37": 193
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "zyggy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "holo_shield_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "zyggy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "holo_shield_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "e6b44ce2b72b4897ed23fe99a456f7bb3a7ac4732993e9821288e5141e94bac8",
+      "native_assertion_mapping_sha256": "70d407212a95a9da936c130adf2fa9de0f3ec71448afc8f2c864bfa8c05dc146",
+      "checkpoint_assertion_mapping_sha256": "4efeb317d961bb78b72988b4d01a12b11382c9c1d8e7aea1ffc23ffee27b716b",
+      "actual_mandatory_Ward_chooser_player": 4,
+      "actual_same_Holo_UID_destroyed": 6,
+      "actual_prevented_damage": 1,
+      "actual_final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "full_card_certification": false
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "hunts_end_red",
+      "group_id": "identity:hunts_end_red",
+      "members": [
+        "hunts_end_red"
+      ],
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_REQUIRED_FORMAL_TARGET_CONTRACT",
+      "planning_hold_approved": true,
+      "reviewer_independent": true,
+      "author_planning_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch812-hunts-end-known-late-target-unattempted-planning-hold.json",
+        "sha256": "4989257387b9f2e6daf15046a1974ab0db389c17a2082693afc76990674d7cac"
+      },
+      "full_helper_preflight": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch812-selected-helper-preflight.json",
+        "sha256": "fa61d2e84aa7b6caaabedec9a3e5761d7a727363ef90cb6ebe268a211389af6b"
+      },
+      "firm": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch812-firm-reservation.json",
+        "sha256": "5883460d54054c8521b10d9955da6a6d9d5a9824670f56d20753dfb982e81445"
+      },
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "current_required_preimages": {
+        "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+        "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+        "FaBSim/Custom/HNTCards.php": "1dcd0b8ddf896fcdb67e1e28de4da6dd8dc47d36ee3bc15cee787e340f984c9d",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+        "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8"
+      },
+      "known_required_context": [
+        {
+          "index": 239,
+          "card_id": "concealed_blade_blue",
+          "row_sha256": "e15860aee5e931fc57e584668ee4a789f63d3ab92cfd4194dbdadcabad8e7006",
+          "reason": "Real resolving attack-target chooser is late; no Prepare admission and current declared reaction whitelist covers Nip/Shred only. Same existing Incision/Sutcliffe target family. Normal Inventory fixture setup and identity movement are supported; this is not an inventory framework blocker."
+        },
+        {
+          "index": 248,
+          "card_id": "diced_blue",
+          "row_sha256": "5582d56074481e31e9ea180a5e96ced85c776e607d4b26ed9e89c8b60fb9a90e",
+          "reason": "Implemented resolving HNT reaction body awaits its current dagger-attack target after priority. Actual declared-target registry/early binding excludes Diced, so no genuine early singleton binding exists in the fixed route. Normal reaction source retention and current/next dagger effect bodies exist; this is the known formal-target timing seam, not missing framework or effects."
+        }
+      ],
+      "canonical": {
+        "cardId": "hunts_end_red",
+        "abilities": [
+          {
+            "macroName": "ResolveCard",
+            "abilityCode": "$chosen = \"-\";\n $refs = FaBHNTAffectsAttack($player, 'DAGGER');\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Choose_attack\");\n \n}\nFaBDYNTag($chosen, 'WTR_POWER:' . (4));\n",
+            "isImplemented": true
+          }
+        ]
+      },
+      "actual_trace": [
+        {
+          "path": "FaBSim/Custom/CardChoices.php",
+          "lines": "4–12",
+          "finding": "Current earlydeclaration registry admits Nip/Shred only; Hunt excluded."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "line": 1274,
+          "finding": "Earlier Prepare declaration interceptor uses that exact registry; no HuntPrepare canonical."
+        },
+        {
+          "path": "FaBSim/Custom/HNTCards.php",
+          "line": 63,
+          "finding": "Current ownedDaggerattack target helper exists."
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "lines": "3642–3647",
+          "finding": "Actual compiled Hunt ResolveCard calls emitted await, recomputes currentDAGGER refs/MZChoose duringresolution, then +4 tag. Formalprintedtarget requiredbefore cost/responses; singletondoesnotrepairlatebinding."
+        }
+      ],
+      "official_source": {
+        "url": "https://judge.fabtcg.com/cards/detail/3571/",
+        "finding": "Actualtargetdaggerattack+4 with3Fealty prerequisite. Formaltargetdeclaration rules CR5.1.3 apply toattackreaction."
+      },
+      "executable_cases": 0,
+      "native_attempted": false,
+      "diagnostic_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue_claimed": false,
+      "new_root_cause_group": false,
+      "source_fix": false,
+      "repair_proposal": false,
+      "limits": [
+        "Exact known239/248 lateformal-target contract; actual buff/threeFealtycostcondition/reactionretention helpers exist. No missingframework claim.",
+        "No Quicksilverdiscount/+4/5damage/HP15/noextraFealty/cleanup/markedHero/otherweaponGA/Fealtycreation/activation/End/Sharpen/fullcard or sibling outcome executed/credited. No latechooser/under3/partialattack/alternateweapon fallback."
+      ]
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 28,
+  "all_current_guards_matched": true,
+  "total_actions": 37,
+  "total_native_assertions": 2558,
+  "total_manual_passes": 32,
+  "total_schema_property_assertions": 536,
+  "total_checkpoints": 39,
+  "total_endpoint_assertions_evaluated": 326,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    17
+  ],
+  "material_findings": [
+    "All37 actualnativeenvelopes/2558 ordered successfulqueries/32actualmanualPasses eightperseat/536typed/39points matchSource. Allrawendpointqueries and48manualvalues eachendpoint independently evaluated.",
+    "Actualnatural20youngBetsyx3/Zyggy20/Red5Hand1/Holo6Red7Hand4only/noAurasHOLOFlowZyggyactivation/prevention/history/outcomeseed. SameRed5earlyHero4/AP0/source4, real3Attackhandoffs giveP4priority.",
+    "ActualP4castsHolo6INSTANT1 withR0/AP0, actuallypitchesRed7for1/R0; same6heldStackthrough4,1,2,3, onlyfourth entersownedArena. ExactFAB_PLAY_ORDER1 is notHOLO; dynamicintrinsicWard1, no highercounterbranch.",
+    "ActualmandatoryP4MZCHOOSE sameAura6 atphysicalHP20; actualanswer destroysSAME6 toownpublicGY4 andprevents1ofrealRed4/noDefenders, physical3damageHP4_17. Pendingchooserwindow/priority/manager neverguessed. Packetprevention consumed, no leftovercounter/resultseed.",
+    "TrueClose sameRed5ownpublicGY1/Holo6ownpublicGY4/paidRed7Pitch4/RChiAP0/allphysical1..7conserved/UIDcounter7/noEnd/allfourheroesquietready/live/fullStackChainDQTargetPaymentManagerAwaitcleanup.",
+    "CompactHunt source-only hold separately embedded: actualcanonical/emittedlateMZChoose before+4, currentearlyregistry excludesHunt, exactConcealed239/Diced248 knowncontract.0Huntnative/executable/outcome/coverage/newroot/repair."
+  ],
+  "observable_only_admission": true,
+  "general_Ward_Holo_or_Aura_ordering_certified": false,
+  "limits": [
+    "OneactualpaidnonturnBlueInstant/counterlessWard1/prevent1of4/sameAuraowneddestruction. NohigherHOLO/Flow/Zyggyability/allWard/Aurageneralordering/fullcard/sibling/supportHero certificate.",
+    "Hunt remainssource-onlyknownrequiredtargetcontract, no alternative/partial/nativeoutcomecredit.",
+    "RoottwoNEWonlytargetedreplays/registration remain. Reviewer W-only/read-onlyR/no PHP/native/replay/R/source/Git/heldrepair/newagent action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch812_holo_saved.py",
+    "sha256": "474d5896f246f129337aa25a56a12db5000f8b7922a7fdaa8323ff9115258c09"
+  }
+}

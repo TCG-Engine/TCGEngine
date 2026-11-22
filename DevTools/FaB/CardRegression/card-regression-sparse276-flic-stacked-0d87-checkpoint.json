@@ -1,0 +1,78 @@
+{
+  "status": "EXISTING_GROUP_BUG_WITNESS_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T02:38:17.062950+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_spec": "card-regression-batch276-flic-stacked-bug-witness.json",
+  "source_spec_sha256": "a22771e8cdb9aa6fcdc9441807ac6ac2754df5bdc2be912cfc4d2153d061ee35",
+  "new_scenarios": 1,
+  "new_groups": 0,
+  "new_primary_ids": 0,
+  "existing_group_issue": "FAB-REG-063",
+  "actions": 70,
+  "native_assertions": 6578,
+  "manual_passes": 61,
+  "totals": {
+    "saved_registered_scenarios": 3564,
+    "duels": 3074,
+    "four_live": 490,
+    "recorded_primary_ids": 719,
+    "identity_denominator": 5196,
+    "recorded_groups": 593,
+    "group_denominator": 3324,
+    "four_live_groups": 484,
+    "phase_qualified_scenarios_at_actual_contexts": 201,
+    "phase_qualified_unique_groups": 197,
+    "creation_replay_passes": 402,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 5,
+  "scenarios": [
+    {
+      "card_id": "flic_flak_red",
+      "group_id": "pitch-cycle:flic_flak",
+      "scenario_id": "card-flic-flak-red-four-live-bug063-stacked-two-reactions-next-combo-only-plus-two",
+      "effect_branches": [
+        "flic-flak-red-four-live-bug063-stacked-two-reactions-next-combo-only-plus-two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-flic-flak-red-four-live-bug063-stacked-two-reactions-next-combo-only-plus-two",
+      "source_spec": "card-regression-batch276-flic-stacked-bug-witness.json",
+      "source_spec_sha256": "a22771e8cdb9aa6fcdc9441807ac6ac2754df5bdc2be912cfc4d2153d061ee35",
+      "review_evidence": "review-evidence/b276-flic-stacked-saved-0d87-independent-review.json",
+      "review_evidence_sha256": "0b9de4cc41d9c78ba423aaa420455b24682994a6653765a20797a97d934d4411",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "qualification_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-b276-flic-stacked-0d87-r1.json",
+          "sha256": "d826ada3603f14bb0f298299af5fb9a147ca2ffb7d19e62ae3ff70a50073bffa",
+          "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-b276-flic-stacked-0d87-r2.json",
+          "sha256": "20f202aacf2f4792792936c14a6b7aca23d75216d02f75bec54fac27fedd80db",
+          "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_existing_group_bug_regression",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS",
+      "coverage_kind": "EXISTING_GROUP_BUG_WITNESS",
+      "new_group_credit": false,
+      "new_primary_id_credit": false,
+      "related_issue": "FAB-REG-063"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T18:56:43.527353+00:00",
+  "runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+  "source_spec": "card-regression-repair-owner072107-after2a6b.json",
+  "source_spec_sha256": "003a627b9c1b55472d4ed87eacbd32bf51485db5f1cde81f474d97b5bff4ca90",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 46,
+  "native_assertions": 4828,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 4115,
+    "duels": 3074,
+    "four_live": 1041,
+    "recorded_primary_ids": 1268,
+    "identity_denominator": 5196,
+    "recorded_groups": 1142,
+    "group_denominator": 3324,
+    "four_live_groups": 1034,
+    "phase_qualified_scenarios_at_actual_contexts": 752,
+    "phase_qualified_unique_groups": 747,
+    "creation_replay_passes": 1493,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "genis_wotchuneed",
+      "group_id": "identity:genis_wotchuneed",
+      "scenario_id": "card-genis-wotchuneed-four-live-original-correct-probe-two-opponents-accept-caster-creates-silver",
+      "effect_branches": [
+        "genis-wotchuneed-four-live-original-correct-probe-two-opponents-accept-caster-creates-silver"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-genis-wotchuneed-four-live-original-correct-probe-two-opponents-accept-caster-creates-silver",
+      "source_spec": "card-regression-repair-owner072107-after2a6b.json",
+      "source_spec_sha256": "003a627b9c1b55472d4ed87eacbd32bf51485db5f1cde81f474d97b5bff4ca90",
+      "review_evidence": "review-evidence/owner072107-qualified-saved-2a6b.json",
+      "review_evidence_sha256": "b4f87e1c95da01e25a91c748b5acd0ea247e809f5cd79385d7b11f4b077bc5e7",
+      "recorded_runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "qualification_runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-owner072107-after2a6b-replay.json",
+          "sha256": "b3d9586b4af53c731096313f6eb79c379620cf546d7e17a269d078426270a19c",
+          "runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "frosthaven_sheath_red",
+      "group_id": "identity:frosthaven_sheath_red",
+      "scenario_id": "card-frosthaven-sheath-red-four-live-real-ice-pitch-earns-frostbite-and-five-defense",
+      "effect_branches": [
+        "frosthaven-sheath-red-four-live-real-ice-pitch-earns-frostbite-and-five-defense"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-frosthaven-sheath-red-four-live-real-ice-pitch-earns-frostbite-and-five-defense",
+      "source_spec": "card-regression-repair-owner072107-after2a6b.json",
+      "source_spec_sha256": "003a627b9c1b55472d4ed87eacbd32bf51485db5f1cde81f474d97b5bff4ca90",
+      "review_evidence": "review-evidence/owner072107-qualified-saved-2a6b.json",
+      "review_evidence_sha256": "b4f87e1c95da01e25a91c748b5acd0ea247e809f5cd79385d7b11f4b077bc5e7",
+      "recorded_runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "qualification_runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-owner072107-after2a6b-replay.json",
+          "sha256": "b3d9586b4af53c731096313f6eb79c379620cf546d7e17a269d078426270a19c",
+          "runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

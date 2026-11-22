@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch397.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T22:46:50.771319+00:00",
+  "fixtures": [
+    {
+      "slug": "card-solid-ground-blue-four-live-sparse-two-real-controlled-seismic-surges-reduce-reaction-cost-three-to-one",
+      "fixture_sha256": "921add1fd9ef6dbf61e2e0609a4d32b3cfaf92f0eebe3796efb4428e6863503e",
+      "passed": true,
+      "result": "[PASS] solid_ground_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-solid-ground-blue-four-live-sparse-two-real-controlled-seismic-surges-reduce-reaction-cost-three-to-one",
+      "returncode": 0,
+      "stdout": "[PASS] solid_ground_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-blackout-kick-red-four-live-sparse-real-leg-tap-rising-knee-thrust-chain-earns-seven-power-combo"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

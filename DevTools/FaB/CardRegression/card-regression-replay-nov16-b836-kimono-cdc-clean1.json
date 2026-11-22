@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch836-kimono-positive-cdc.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T00:28:31.280975+00:00",
+  "fixtures": [
+    {
+      "slug": "card-celestial-kimono-four-live-real-self-ward-earned-resource",
+      "fixture_sha256": "61684a4ba2673c14086ac371b6932de8b072e97a0d492afe3616cc6aebb250f7",
+      "passed": true,
+      "result": "[PASS] Celestial Kimono / strict self Ward then earned resource"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-celestial-kimono-four-live-real-self-ward-earned-resource",
+      "returncode": 0,
+      "stdout": "[PASS] Celestial Kimono / strict self Ward then earned resource\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

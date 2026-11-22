@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch647.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T21:21:32.276355+00:00",
+  "fixtures": [
+    {
+      "slug": "card-widowmaker-blue-four-live-real-one-equipment-defender-dr-rejection-and-four-damage",
+      "fixture_sha256": "edbaf754091325f16032ed156b5777dc93ebca327931367a370d3b0ab785d13a",
+      "passed": true,
+      "result": "[PASS] widowmaker_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-widowmaker-blue-four-live-real-one-equipment-defender-dr-rejection-and-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] widowmaker_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

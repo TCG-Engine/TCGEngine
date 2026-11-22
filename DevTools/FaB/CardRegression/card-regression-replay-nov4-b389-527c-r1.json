@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch389.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T20:53:56.597051+00:00",
+  "fixtures": [
+    {
+      "slug": "card-spoils-of-war-red-four-live-sparse-real-paid-next-sword-two-power-go-again-full-block",
+      "fixture_sha256": "8565e2ca071c8d00f7077eb6411706e0406458758c28d45b4323a517d7bf647b",
+      "passed": true,
+      "result": "[PASS] spoils_of_war_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-zen-state-four-live-sparse-real-owned-balance-aura-prevents-one-of-seven",
+      "fixture_sha256": "1ed37a09722f3309d6ed38c633d84cce773e181bc63881f0995627b3b8294880",
+      "passed": true,
+      "result": "[PASS] zen_state / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spoils-of-war-red-four-live-sparse-real-paid-next-sword-two-power-go-again-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] spoils_of_war_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-zen-state-four-live-sparse-real-owned-balance-aura-prevents-one-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] zen_state / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,270 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PRIMEVAL_RANDOM_DISCARD_COST_EARNED_RESOURCES_PLUS_FIVE_AND_TWELVE_DAMAGE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T06:27:35.666499+00:00",
+  "source_spec": "card-regression-batch297.json",
+  "input_sha256": "7f33355f84915b56252a31c160d6af7f85ddc080c0da5a8573916b4596a7b4dc",
+  "manifest_sha256": "ebf3f9915546c9166e63ae04384c60dce40fe7a7c86574dce15048579202d11e",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch297-independent-source-review\\review.json",
+    "sha256": "f0489c14add892a458ff4fc1282f552c859d4849efb7559b35dfdb98fc72836c"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch297-20261103T062440Z-6ae97e2817105.json",
+    "sha256": "547c5470208283d2836e16b096e6e26663cd431aa60c855dff604f4696b14ad7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch297-native-r1\\receipt.json",
+    "sha256": "c6b528fbc9b345a6c56f5f6fed5ad6a64af22aea8c9f7e8b76b72e5fc23e5244"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch297-independent-saved-review\\audit_saved.py",
+    "sha256": "33b90cb4dc05c2349470f641c17142e35a291e65bc6f24a522dd3565441d81e7"
+  },
+  "review_method": "Printed/current-source peerreused. Exact37actualinputs/2838nativeassertions/independent33Passactor schedule; strictwhole-schema parsedinitial/final includingallphysicalUIDs/ownercontroller/economy/manual48each, terminalassertions evaluated/raw4raw5stable. NoPHP/native/replay/R/backend/sourcework.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "primeval_bellow_red",
+      "slug": "card-primeval-bellow-red-four-live-sparse-real-random-discard-cost-earns-five-power-paid-brute-attack",
+      "source_spec": "card-regression-batch297.json",
+      "input_sha256": "7f33355f84915b56252a31c160d6af7f85ddc080c0da5a8573916b4596a7b4dc",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-primeval-bellow-red-four-live-sparse-real-random-discard-cost-earns-five-power-paid-brute-attack",
+      "fixture_sha256": "34ee61961dfcb92e0d11e1b4671699e00c2b61ee2eac62755ccc03afb71b2701",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "08b27497268de906bd4cf03162da6cd36faa243919a39476cd3c8432e30bdf76",
+        "actions.json": "d9731b52ee731c2371514a0bec2080c11d899d898fd56dcd5859d72672533f66",
+        "assertions.json": "0d18ac544370ca7939f95a8d8d9d0d64baf4e7ee2e0a4c0b50094321a3640ee7",
+        "expected_final_gamestate.txt": "a3baf4cd3178acb86dcb7f654b5abf62c502995330c298bb0918a69011b2466b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "08b27497268de906bd4cf03162da6cd36faa243919a39476cd3c8432e30bdf76",
+        "actions.json": "d9731b52ee731c2371514a0bec2080c11d899d898fd56dcd5859d72672533f66",
+        "assertions.json": "0d18ac544370ca7939f95a8d8d9d0d64baf4e7ee2e0a4c0b50094321a3640ee7",
+        "expected_final_gamestate.txt": "a3baf4cd3178acb86dcb7f654b5abf62c502995330c298bb0918a69011b2466b",
+        "meta.json": "b964d848e4c413afae2a6f959d95515ea0210806faf0b57cf172363094ac002a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "08b27497268de906bd4cf03162da6cd36faa243919a39476cd3c8432e30bdf76",
+        "actions.json": "d9731b52ee731c2371514a0bec2080c11d899d898fd56dcd5859d72672533f66",
+        "assertions.json": "0d18ac544370ca7939f95a8d8d9d0d64baf4e7ee2e0a4c0b50094321a3640ee7",
+        "expected_final_gamestate.txt": "a3baf4cd3178acb86dcb7f654b5abf62c502995330c298bb0918a69011b2466b",
+        "meta.json": "b964d848e4c413afae2a6f959d95515ea0210806faf0b57cf172363094ac002a"
+      },
+      "actions": 37,
+      "native_assertions": 2838,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "primeval_bellow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "energy_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "energy_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "primeval_bellow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        8
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_public_owned_GY_UID_set": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "checkpoint_count": 39,
+      "checkpoint_assertion_mapping_sha256": "8c74948b6448c1f8788ce51ddd3427e844c62d04ec90df41467ae3fe93817688",
+      "native_action_mapping_sha256": "db2fb4068afae2f9cf91eeb0d12f6ff51a56b6f201a9f5a50c08784654cdb0c7",
+      "native_assertion_mapping_sha256": "6462106d2c87f33235401eafaf212bfc240670e6cc7e6e794156c4513aadb8ed"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 37,
+  "total_native_assertions": 2838,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualquietyoungLevia20/fourmanualUPF/nohistorysetup. SameownedPotion5Arena destroysasInstantcostbeforefourresponses/AP1R0; actualfourthearnsR2/AP1/sourceclear. PhysicalPrimary6 thenreallyplayedforresource0/AP1, soleeligibleactualHand7 movedtoownpublicGY-1 BEFOREfirstprimaryresponse, Hand0/6Stack/R2AP0; actualdiscardedPower6/CRU_DISCARD_SIX1finalhistory corroborates, noRhinartrigger/seed/choice replacement.",
+    "Actualfourfreshprimaryresponses retain6untilfourthnextBrute+5/ownGAAP1/source6GY. RealArsenalSmash8freshP4targetdeclarationbeforemove/asset preserves8facedown; answerpaysactualPotionR2 andearnedAP1, leavesR0AP0/noPitch and8StackWTR_POWER5. Realcomputedpower7+5=12/noGA remains throughoutmanualcombat; actual12damage/P4HP8/noAPrefund andfullclose.",
+    "StrictsavedendpointphysicalUID1-8retainedunique, allHeroesready/positivehealth; exactunorderedownpublicGYset5Potion/6Primary/7discard/8attack, nootherphysicalzones/cards andcapturedPotionvirtual9ceased. FinalRAP0/P4HP8/manual48each/allqueues/payment/await/managerclean; actualprimarygrantconsumed/oneattackhit8/12damagehistory matchprintedbranch."
+  ],
+  "limits": [
+    "Redpositiveadditionalrandomdiscardcost/nextBrute+5/ownGA/realpaidAA12 branchonly. Noothersibling/nonBrute/weapon/secondattack/emptydiscard/multiplecandidateRNG/discardtrigger/foreignownership/endphase/supportprimary/Leviahero/fullcard/control credit.",
+    "OnelegitimateeligibleHandcandidate meansdeterministiccostoutcome; actualRandomCounter0 is preserved, noRNGdistribution/sensitivity/replacementcontrol claimed. Intermediateboundaries supported bycompletednativeassertionenforcement/exactledgers; endpointfilesalone donotsnapshoteveryprivateintermediate.",
+    "Roottwofocusednewcase replays/registrationremainseparategates andwerenotrunhere. NoR/native/PHP/backend/sourcefix/generation/service/remote/fullsuite/broadreview. Waitingfornextassignmentafterthisproof."
+  ]
+}

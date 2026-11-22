@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T19:40:52.499745+00:00",
+  "runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+  "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+  "source_spec_sha256": "00894017d6aef8a920a09a648e5cffd48438ad7a4ac3f548e945675c8f05530e",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 76,
+  "native_assertions": 7261,
+  "manual_passes": 64,
+  "totals": {
+    "saved_registered_scenarios": 4118,
+    "duels": 3074,
+    "four_live": 1044,
+    "recorded_primary_ids": 1271,
+    "identity_denominator": 5196,
+    "recorded_groups": 1145,
+    "group_denominator": 3324,
+    "four_live_groups": 1037,
+    "phase_qualified_scenarios_at_actual_contexts": 755,
+    "phase_qualified_unique_groups": 750,
+    "creation_replay_passes": 1496,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "steel_on_steel_red",
+      "group_id": "pitch-cycle:steel_on_steel",
+      "scenario_id": "card-steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage",
+      "effect_branches": [
+        "steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage",
+      "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+      "source_spec_sha256": "00894017d6aef8a920a09a648e5cffd48438ad7a4ac3f548e945675c8f05530e",
+      "review_evidence": "review-evidence/steel113-offhand114-qualified-saved-81b6.json",
+      "review_evidence_sha256": "e4d966b5ef6ea73d40c164be2a77ebbc7ddf2035908a0d01357829e669980c78",
+      "recorded_runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "qualification_runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-steel113-offhand114-replay.json",
+          "sha256": "6ba54e2d671cbb4a6d0cf31f778ea79a14a006aefdab3f314eaf3f04c29d1bf5",
+          "runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "shield_bash_red",
+      "group_id": "pitch-cycle:shield_bash",
+      "scenario_id": "card-shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper",
+      "effect_branches": [
+        "shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper",
+      "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+      "source_spec_sha256": "00894017d6aef8a920a09a648e5cffd48438ad7a4ac3f548e945675c8f05530e",
+      "review_evidence": "review-evidence/steel113-offhand114-qualified-saved-81b6.json",
+      "review_evidence_sha256": "e4d966b5ef6ea73d40c164be2a77ebbc7ddf2035908a0d01357829e669980c78",
+      "recorded_runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "qualification_runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-steel113-offhand114-replay.json",
+          "sha256": "6ba54e2d671cbb4a6d0cf31f778ea79a14a006aefdab3f314eaf3f04c29d1bf5",
+          "runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

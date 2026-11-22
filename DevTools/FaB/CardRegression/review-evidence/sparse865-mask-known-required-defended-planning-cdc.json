@@ -1,0 +1,81 @@
+{
+  "status": "INDEPENDENT_APPROVED_MASK_SOURCE_ONLY_REQUIRED_ORDINARY_DEFENDED274_NOTE",
+  "phase": "PLANNING",
+  "batch": 865,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mask-required-defended-note-manifest.json",
+    "sha256": "d1339bcb404d04b12a5cd2ca56ee6bc814db9ed1d59a0b8f9f348db973c5d246"
+  },
+  "manifest_sha256": "d1339bcb404d04b12a5cd2ca56ee6bc814db9ed1d59a0b8f9f348db973c5d246",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-firm-reservation.json",
+    "sha256": "4b206e83076e2106bb7726ba3438d8fa0a3f5d9d393966dbacf6612cd510984b"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-firm-reservation-support-admission.json",
+    "sha256": "4d6a0999f0b9f50f94847381bc720c5b2b26c060e1a69408db2175127eb3a6e1"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 11,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "mask_of_wizened_whiskers",
+      "group_id": "identity:mask_of_wizened_whiskers",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_ORDINARY_DEFENDED_WHEN_BEFORE_POSITIVE_COMBO_GY_CHOICE_274",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mask-required-defended274-unattempted-note.json",
+        "sha256": "5de9cc1bafc0a8be63806bd049a9b885b0848b3723e0ded0f980ef190aee4486"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 274,
+          "card_id": "toby_jugs",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse826-act-r4-source-and-toby-unattempted-a11.json",
+            "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Selected Mask and all support metadata independently match the guarded current catalog. Katsu is actual Young Ninja20 and admits Ninja Mask plus printed Combo Whelming Gustwave Blue; only defending does not enter Katsu attack-action-hit ability. Betsy Generic Brutal Assault Red6/cost2 and actual Blue3 yield R1/AP0 without Wager.",
+    "Exact current GL OnDefended1243 invokes implemented MST Defended directly. Its emitted mask_of_wizened_whiskers:0 entry and __RunAwait_15d74c4331d217649e37 case2 produce actual MZCHOOSE/Bottom_Combo plus CUSTOM continuation before any separately captured earned Mask layer/four responses. Positive Combo GY refs are required, so this is the same known ordinary Defended-WHEN contract retained at Toby row274/proof093d82, not a blanket missing-body/optional-await hold.",
+    "The current canonical and emitted bodies implement the mandatory Combo GY choice and FaBHVYBottomChoice; bottom movement exists. Full future same owner4 Combo UID bottom of nonempty ordered Deck, sourceMask DEF1 versus real6 giving5damage/HP15, and Blade Break sameMask ownerGY at combat-close/full physical cleanup remain unrun. No no-choice/cast-only or quiet baseline is certified.",
+    "Frozen manifest/note/firm/support/prior evidence hashes, exact selected canonical row, actual emitted causal path, and11 current source guards independently verified at unchangedCDC. Planning retention only; no executable or Native approval."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "mask_of_wizened_whiskers",
+      "action": "Execute full positive Mask defend/Combo-bottom/damage/BladeBreak route",
+      "reason": "Known ordinary Defended-WHEN274 reaches mandatory positive choice before earned response layer",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Mask and support actions/outcomes/priorCombo/equipping/otherCombo/fullcard remain Native-unrun.",
+    "No PHP/Native/Rwrites/sourcefix/fullsuite/replays/newagents or deniedReincarnate199/188/184/B787 retry."
+  ]
+}

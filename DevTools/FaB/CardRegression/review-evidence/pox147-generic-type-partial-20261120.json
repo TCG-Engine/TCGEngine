@@ -1,0 +1,113 @@
+{
+  "status": "POX147_DAMAGE_TYPE_FIXED_NATIVE_DIAGNOSTIC_PASS_NO_SAVED_QUALIFICATION",
+  "runtime_sha256": "f5b53e63c077ed1a5b267d70fb6326dbf4bafee766b8ea4094b868a3b4b5adf1",
+  "source_approved": true,
+  "source_review": {
+    "path": "nov20-pox147-generic-independent-source-review.json",
+    "sha256": "1fa5256a2f332caf9018cb2c6cf15c73a7fce7a4e2938a207ed350a7baa13709"
+  },
+  "application": {
+    "path": "nov20-pox147-guarded-application-and-emission\\receipt.json",
+    "sha256": "05e3175d092b2a9f47b6f3495332408875570253c78265351fb0d11b8d4d2f90"
+  },
+  "generated_scope": {
+    "status": "ONLY_POX_FOUR_WRAPPERS_TWO_OWN_AWAIT_HELPERS_AND_TIMESTAMPS_CHANGED",
+    "before_blocks": [
+      {
+        "table": "resolveAbilityAbilities",
+        "key": "bloodrot_pox:0",
+        "sha256": "0b1e48a15cc65a0ec1ff275d1aa1c445fd62f0dbed9461f885b75b58c04c3b52"
+      },
+      {
+        "table": "endTurnAbilities",
+        "key": "bloodrot_pox:0",
+        "sha256": "ccfc45b8ead2cac8fec6378223745f5e752d18a7a8de830257fc3ce5f99a8151"
+      },
+      {
+        "table": "customDQHandlers",
+        "key": "bloodrot_pox:0:ResolveAbility-await",
+        "sha256": "f1b287ddeb73e1e9147ab7dfb4e871613a6fc5a78c750df4e9101d3fd8899d58"
+      },
+      {
+        "table": "customDQHandlers",
+        "key": "bloodrot_pox:0:EndTurn-await",
+        "sha256": "4710ac96b7524add43df021aeea27efb18601ac837e96117fe9ff35d41d62180"
+      },
+      {
+        "table": "await_function",
+        "key": "__RunAwait_6605e37c13d0e60e84fa",
+        "sha256": "b19c2bc7c3465910da14cfac8334bcedfbc9fac0fffd9b2513c961eb786c1cf9"
+      },
+      {
+        "table": "await_function",
+        "key": "__RunAwait_c53f63604a129e9b0b35",
+        "sha256": "40c5f70b12fb5abeeba2172436f31d674736e90c7f172c48811782afc59e6625"
+      }
+    ],
+    "after_blocks": [
+      {
+        "table": "resolveAbilityAbilities",
+        "key": "bloodrot_pox:0",
+        "sha256": "0b1e48a15cc65a0ec1ff275d1aa1c445fd62f0dbed9461f885b75b58c04c3b52"
+      },
+      {
+        "table": "endTurnAbilities",
+        "key": "bloodrot_pox:0",
+        "sha256": "ccfc45b8ead2cac8fec6378223745f5e752d18a7a8de830257fc3ce5f99a8151"
+      },
+      {
+        "table": "customDQHandlers",
+        "key": "bloodrot_pox:0:ResolveAbility-await",
+        "sha256": "f1b287ddeb73e1e9147ab7dfb4e871613a6fc5a78c750df4e9101d3fd8899d58"
+      },
+      {
+        "table": "customDQHandlers",
+        "key": "bloodrot_pox:0:EndTurn-await",
+        "sha256": "4710ac96b7524add43df021aeea27efb18601ac837e96117fe9ff35d41d62180"
+      },
+      {
+        "table": "await_function",
+        "key": "__RunAwait_6605e37c13d0e60e84fa",
+        "sha256": "52326c61ce7d7a100fea3cb445a82f758b44e628e0e5c75d7c2175cff702e201"
+      },
+      {
+        "table": "await_function",
+        "key": "__RunAwait_c53f63604a129e9b0b35",
+        "sha256": "dfb7980d306065bb2fe088bc61301e56817bfe0c855bfa2399762981ad69b919"
+      }
+    ],
+    "unselected_generated_PHP_and_count_preserved": true,
+    "generic_final_calls": 2,
+    "generic_prevention_packet_types": 2
+  },
+  "generated_scope_sha256": "fc40d8afb5b5b70270e4f494f7fa53a550097a3f04507acb3e05e01d2c737054",
+  "actual_bridge_checks": 14,
+  "static_review_checks": 41,
+  "component_receipt_sha256": "20a4c527a45f50f03327f82690728a243cf9d8552baa5958d898880dec749359",
+  "original_correct_diagnostic": {
+    "source": "card-regression-batch618-pox-probe-v3.json",
+    "sha256": "8e697f225c3f18bac0bc4d51c002cc6a84200d34c478288812a888d3720f57f3",
+    "actions": 10,
+    "native_assertions": 1095,
+    "receipt_sha256": "b5206127c5f82003dc1838baffd17f25d08d003bb1b16b804d830bd2cea9d101",
+    "results_sha256": "348e34c8e463dffb917e2f16bb76dfd13515a1c4ca9223d206b194707a45c9e6",
+    "fixture_saved": false,
+    "fixture_inventory_unchanged": true,
+    "coverage_credit": false
+  },
+  "basis": "Two exact authored Pox DoDamage types nowGENERIC in canonical/builder/local bridge; actual emitted prevention packet types andfinal callsGENERIC inboth selectedpaths. OriginalEnd diagnostic10/1095passesunchanged; firstdeclinedPoxactual2damageHP18andgenericcommonhistories, no MON/EVRphysicalhistory rows. No snapshot blessing, sourceamount/payment/chooser/order changes orweakenedassertions.",
+  "limits": [
+    "Original input remains diagnostic_only/qualification_permittedfalse andendswithsecondPoxmandatorychoicepending. No savedfixture/cycle/individualcoveragecredit.",
+    "Exacttoken-sourceUID/LKI unresolved/unobserved bythisoracle; HNTnonAllytrackingHeromappingisnottokensourceproof.",
+    "No secondPox/fullEnd/refill/Pay3/prevention/sourceattribution/fullcard/ResolveAbilityNativequalification.",
+    "147 record staysopenforproperdurableregression/remainingSource concerns; this is anappliednative-verifiedtypefix, notfullrecordclosure."
+  ],
+  "remote_authoring": false,
+  "full_suite_run": false,
+  "_retention_context": {
+    "original_workspace_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox147-type-fix-partial-proof.json",
+    "original_receipt_sha256": "8bba6c5ec84055870aba5cffbd950ec25dbe8198557b4af25a7724bf412bf07b",
+    "relative_workspace_artifact_fields_resolve_from": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task",
+    "raw_logs_snapshots_and_backups_not_copied_into_repository": true
+  }
+}

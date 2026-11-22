@@ -1,0 +1,25 @@
+{
+  "status": "READ_ONLY_SERVICE_HTTP521_GENERATION_NOT_STARTED",
+  "utc": "2026-11-02T21:22:54.317565+00:00",
+  "runtime_unchanged": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "safe_endpoint": "https://soulmastersdb.net/TCGEngine/CardEditor/API/CardCodeService.php",
+  "request": "GET action=card root=FaBSim card=spreading_plague_yellow",
+  "http_status": 521,
+  "content_type": "text/plain; charset=UTF-8",
+  "body_bytes": 16,
+  "body_sha256": "4558ae09802e147610ebdb88e4472fe625c897af9a18b04d47dfcdb6b563a138",
+  "body_logged": false,
+  "credentials_logged": false,
+  "halo_card_get_attempted": false,
+  "diagnostic_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-codegen-read-preflight\\transport-receipt.json",
+  "diagnostic_receipt_sha256": "a3c707e8d17ae7ae69c0258c6edee20c94c68c28cc352ebb359ed57d39dcb480",
+  "affected_issues": [
+    "FAB-REG-059",
+    "FAB-REG-060"
+  ],
+  "source_fixes_applied": false,
+  "generator_started": false,
+  "generated_outputs_manually_edited": false,
+  "remote_authoring_writes": false,
+  "required_action": "Restore the configured Card Code service to return valid JSON or provide the correct read endpoint. Do not retry until materially new availability/configuration evidence. Independent local test coverage continues."
+}

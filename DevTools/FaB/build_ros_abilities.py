@@ -150,7 +150,7 @@ for c in json.loads((HERE/'ros_catalog.json').read_text()):
   elif b in bodies:add('ResolveAbility',bodies[b])
  if b in ['channel_lightning_valley','channel_the_millennium_tree']:
   add('StartTurn',UID+"$flow = FaBELEFlow($uid); "+many("FaBELESelect($player, 'Pitch', '"+('Earth' if b=='channel_the_millennium_tree' else 'Lightning')+"')",'$flow',0,'Bottom_element_cards_to_keep_Channel')+'FaBELEChannelPay($player, $uid, $chosen, $flow);')
-  if b=='channel_the_millennium_tree':add('ResolveCard',"FaBMSTAdd($player, 'AMP', 3);")
+  if b=='channel_the_millennium_tree':add('ResolveCard',"/* Entry amp is queued by FaBROSAfterMove. */")
  if b=='save_the_thought':add('ResolveCard',many("FaBROSRefs($player, 'Graveyard', 'NAA')",v,0,'Shuffle_non_attack_actions')+"FaBROSShuffle($player, $chosen); "+token('ponder'))
  if b=='call_to_the_grave':add('ResolveCard',choose('FaBStageSearch($player, [])','Search_for_card')+"FaBMoveChoice($player, $chosen, 'Temp', 'Graveyard'); FaBFinishSearch($player);")
  if b=='truce':add('ResolveCard',UID+choose("FaBARCHeroTargets($player, true, true)",'Choose_opponent',False)+"FaBROSSetTruce($uid, $chosen);")

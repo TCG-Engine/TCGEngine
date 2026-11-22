@@ -1,0 +1,207 @@
+{
+  "id": "FAB-REG-155",
+  "status": "CONFIRMED_NATIVE_BEFORE_FUNCTIONAL_NEXT_ACTION_PHASE_BANISH_PLAY_REJECTION",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch665-expendable-r2-independent-native-before-review.json",
+  "independent_review_sha256": "212904a20fe251e79c29f77ca189d02d50d417ffbbf19a55df77f97bacc52a0b",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch665-probe-r2.json",
+  "input_sha256": "c417ebf6cd59dcd63e26bdf487f92d9f3bd9c5630ec3f9abfae788d240638890",
+  "scenario_id": "card-expendable-limbs-blue-four-live-future-banish-play-duration-diagnostic",
+  "first_failure": {
+    "source_pointer": "/0/steps/144/checks/45",
+    "query_ordinal_one_based": 5570,
+    "passed_query_count": 5569,
+    "executed_query_count": 5570,
+    "later_unrun_query_count": 1879,
+    "native_input_ordinal": 71,
+    "last_source_control_pointer": "/0/steps/143",
+    "last_actual_control": {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Banish-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "query": {
+      "type": "card_property_equals",
+      "mzId": "p4DecisionQueue-0",
+      "property": "Type",
+      "value": "MZCHOOSE",
+      "viewerPlayerID": 1
+    },
+    "expected": "MZCHOOSE",
+    "actual": "",
+    "error": "Expected p4DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+    "functional_interpretation": "Legally permitted and adequately funded banished AA6 failed to enter play at owner4 next action phase; no target decision or attack starts. Not merely a different popup representation."
+  },
+  "actual_native_prefix": {
+    "submitted_inputs": 71,
+    "all_controls_exact_source_prefix": true,
+    "manual_control_count": 64,
+    "manual_control_actor_counts": {
+      "1": 16,
+      "2": 16,
+      "3": 16,
+      "4": 16
+    },
+    "administrative_END_controls": 12,
+    "last_Potion_response_actors": [
+      4,
+      1,
+      2,
+      3
+    ],
+    "milestones": [
+      {
+        "source_checkpoint": 40,
+        "observed": "Real DR5 cost0/sole otherHand6 GenericRagingYellow actualrandomBanish; same5 heldStack, no AP/resource costs."
+      },
+      {
+        "source_checkpoint": 48,
+        "observed": "Fresh4,1,2,3 resolves same5 into p4CombatChain RoleDEFENSE_REACTION."
+      },
+      {
+        "source_checkpoint": 56,
+        "observed": "Incoming power7/physicalDEF4, actualdamage3 toP4; HP20,20,20,17."
+      },
+      {
+        "source_checkpoint": 72,
+        "observed": "FullClose, primary5GY4/attack7GY1/6publicBanish4/Potions9,10 retained."
+      },
+      {
+        "source_checkpoint": 88,
+        "TurnPlayer": 2,
+        "TurnNumber": 3,
+        "observed": "Native cyclic ACTION plus administrative END controls; P1Pitch8 returns and refills Hand8."
+      },
+      {
+        "source_checkpoint": 104,
+        "TurnPlayer": 3,
+        "TurnNumber": 4
+      },
+      {
+        "source_checkpoint": 120,
+        "TurnPlayer": 4,
+        "TurnNumber": 5,
+        "CurrentPhase": "MAIN",
+        "AP4": 1,
+        "R4": 0
+      },
+      {
+        "source_checkpoint": 131,
+        "observed": "ActualPotion9 destroy/virtual11 freshfour complete",
+        "AP4": 1,
+        "R4": 2
+      },
+      {
+        "source_checkpoint": 141,
+        "observed": "ActualPotion10 destroy/virtual12 freshfour complete",
+        "AP4": 1,
+        "R4": 4
+      },
+      {
+        "source_checkpoint": 142,
+        "observed": "LAST PRE-CLICK publicBanish UID6/CardIDRagingYellow Owner4/Controller4/FaceDown0; owner4 MAIN/Turn5/AP1/R4/Hand0."
+      }
+    ],
+    "after_last_click_passed_queries": {
+      "HP": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "R4": 4,
+      "AP4": 1,
+      "p4Hand_count": 0,
+      "Stack_count": 0,
+      "combatOpen": false,
+      "p4Arena_count": 0,
+      "p4Graveyard_count": 3,
+      "p1Hand_UID": 8,
+      "UniqueIDCounter": 12
+    },
+    "actual_observed_state": {
+      "window": "ACTION",
+      "combatOpen": false,
+      "attackUID": 0,
+      "attackTarget": null,
+      "pendingAttackTarget": null,
+      "pendingPayment": null,
+      "decision_counts": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0
+      }
+    },
+    "observability_boundary": "The Banish-specific rows at source144/q50 onward are AFTER failed q45 and UNRUN. UID6 public Banish was directly checked at last pre-click142, not post-click. Post-click R4/AP1/Hand0/Stack0/no combat are passed queries; observed state independently confirms no attack or pending target/payment/DQ."
+  },
+  "classification": {
+    "kind": "CONFIRMED_NATIVE_GAMEPLAY_FAILURE_OF_EARNED_FUTURE_PLAY_PERMISSION",
+    "confirmed_native_gameplay_bug": true,
+    "test_oracle_error": false,
+    "target_autobind_explanation_excluded": true,
+    "explanation": "Printed Expendable earned permission from real 6-power random cost and resolved DR; correct next-owner ActionPhase arrived with fully funded cost3/AP1. Actual Banish click remains ACTION with no target, Stack or attack and unspent R4/AP1. Both adjacent legal heroes1/3 live, so normal admitted attack must open target chooser. A single-target auto-bind would still create Stack/attack/payment, also excluded by reached facts. Functional permission failure is native-confirmed, without querying a private permission bank."
+  },
+  "expected": "After the real 6-power additional banish cost and resolved defense reaction, the banished Generic attack is playable during owner4 next Action Phase. With R4/AP1 and printed cost3, an actual play click must enter the normal target/payment/Stack flow.",
+  "observed": "Actual play click at owner4 Turn5 MAIN produced no target, payment, Stack or attack; R4/AP1 remained unspent. The correct probe failed at query5570 after5569 passed and71 actual inputs. Future payment/damage and1879 queries were not reached.",
+  "source_evidence": {
+    "classification": "BOUNDED_SOURCE_ATTRIBUTION_FOR_CONFIRMED_NATIVE_REJECTION_NOT_GLOBAL_ABSENCE_OR_DISTINCT_ROOT_ALLOCATION",
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+      "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+      "DevTools/FaB/dtd_abilities.json": "eca8a13fd892fa879ec3e6b527e8661a0cc656551594bd313ec50ab4817de9e5",
+      "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+      "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c"
+    },
+    "anchors": [
+      "Canonical Expendable Prepare actualHandBanish\u2192DTDGrant31 stores dtdPermissions; getter32/34-36 accepts this future play. GenericRagingYellow has no intrinsic Banish permission. Early grant timing is separately unqualified.",
+      "Actual fullClose2128 calls ResetWindow233-244, which reconstructs state and does not preserve dtdPermissions. DTD99-106 close handlers do not preserve this carrier. Observed current state lacks carrier, corroboration only.",
+      "CanPlayCard896 rejects Banish source when no applicable permission; ActionMap2263-2283 adds PLAY only if CanPlayCard; DoPlayCard925 checks admission BEFORE target selection937-940. No PLAY/action therefore yields this observed no-op.",
+      "Normal target path ProfessorCards49-64\u2192GL176-182/659-672 yields adjacentHeroes1 and3 on this closed-chain/noArena board. GL698-719 queues MZCHOOSE for two targets; automatic binding is only single-target branch710/716 and cannot explain unchangedStack0/attackUID0.",
+      "WTRAbilities19/347 realPotion Instantdestroy/+2 source supports reached R4; timing/AP/phase and source6 physical legality independently established in passed prefix."
+    ],
+    "scope": "Selected Expendable future-permission route and carrier lifecycle only. No global framework absence, unique root count, other DTD card verdict or source repair is asserted."
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+    "DevTools/FaB/dtd_abilities.json": "eca8a13fd892fa879ec3e6b527e8661a0cc656551594bd313ec50ab4817de9e5",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch665-probe-r2.recording-results.json",
+      "sha256": "4b71ab2c9ad929b6ec80f8d8834fafafddfadabd4405615c260074ae793de78d"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch665-probe-r2-20261107T000348Z-6aee6ae49839f.json",
+      "sha256": "ee930e4e5506c1175d6f73f18724595eb21d21c0e44cb41dd8e2d9f58cd3a61b"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch665-expendable-r2-independent-source-review.json",
+    "sha256": "0d6f8219ba8dd8bfa924552ff0e5acb32dc48418df932e0d70218322881db555"
+  },
+  "primary_sources": [],
+  "limits": [
+    "No future payment or sixdamage observed; do not claim AP/resource consumption or HP14 failure when no attack was admitted.",
+    "No DR early-grant/countered-layer timing, exact permission expiry, random non-singleton cases, other Hero/card/support/fullcard or global/dedup root claim.",
+    "Diagnostic-only mandatory --probe-only/neverSave remained in force; unchanged inventory3951/no fixture/coverage. No issue ID allocation or source fix by reviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-07T00:11:53.152849+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch691-cromai-r2.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T03:41:38.505749+00:00",
+  "fixtures": [
+    {
+      "slug": "card-invoke-cromai-red-four-live-real-early-ash-target-same-card-transform-and-go-again-consumer",
+      "fixture_sha256": "9e19be2caee1a964a7bfd11b23c2f51cf5cb035971fa717d9f7bc0ac9ad57063",
+      "passed": true,
+      "result": "[PASS] invoke_cromai_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-invoke-cromai-red-four-live-real-early-ash-target-same-card-transform-and-go-again-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] invoke_cromai_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

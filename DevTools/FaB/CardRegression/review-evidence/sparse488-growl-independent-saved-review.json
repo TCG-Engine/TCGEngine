@@ -1,0 +1,308 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_GROWL_SUBSET_WITH_EMBOLDEN_BLOCKED_UNSAVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T16:53:34.619426+00:00",
+  "source_spec": "card-regression-batch488.json",
+  "input_sha256": "7be8a61d0de6212419f44d1f395eff5f95d565271d413d6d3ebffb56add7be63",
+  "manifest_sha256": "ededb99682ee99aab81200f7ffe6317f4585ef85beacc4f070898545e9db27bd",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 72,
+  "reviewed_subset": true,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch488-independent-source-review.json",
+    "sha256": "f59252b996e9aea70f930758b4ad633de387c088d235bce2251f3c26df50a0ee",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch488-20261105T164940Z-6aecb3a42acfa.json",
+    "sha256": "3e10f0982ac3a49a5e7928e484cbd3e5d5c93e5a87fcdc07d25c21b5db6dcf1e"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch488.recording-results.json",
+    "sha256": "1aa596a086dcaf65377870e80e40a4081dbe296859060f404807a01d4892bfdc"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch488-native-r1-9e984\\receipt.json",
+    "sha256": "cba626bd3e9dfe76b2c9e54d21b26cb610e453c44307f6c52cc35280a4083e7d",
+    "whole_process_exit": 1,
+    "mixed_partial_failure_honestly_retained": true
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "graveling_growl_red",
+      "group_id": "pitch-cycle:graveling_growl",
+      "slug": "card-graveling-growl-red-four-live-real-six-power-hand-cost-banish-earns-paid-seven-damage",
+      "source_spec": "card-regression-batch488.json",
+      "input_sha256": "7be8a61d0de6212419f44d1f395eff5f95d565271d413d6d3ebffb56add7be63",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_COST_BANISH_EARNS_RESTRICTED_PAID_ATTACK",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-graveling-growl-red-four-live-real-six-power-hand-cost-banish-earns-paid-seven-damage",
+      "fixture_sha256": "82c6295b6a720ffb18f153418b60b569ce11a222e9a9eb2d8c48019ccad73c60",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "04493c4737145640dd32f0d0fce5b7ed278ce0d457dba92c6d0737cc3aecea87",
+        "actions.json": "8a7f2292549e2e6544cd6fb97b47a4d7602997e0437ea6db0db17fde38d9b50c",
+        "assertions.json": "ce03a42f0c5d75e05b67e33c2ec807646ab67f1bfb2dd52b834dd980c5a989c2",
+        "expected_final_gamestate.txt": "edad2f43eedac1699b0f44668c8064592086db6d6e62ac44a320e35c5dae1472"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04493c4737145640dd32f0d0fce5b7ed278ce0d457dba92c6d0737cc3aecea87",
+        "actions.json": "8a7f2292549e2e6544cd6fb97b47a4d7602997e0437ea6db0db17fde38d9b50c",
+        "assertions.json": "ce03a42f0c5d75e05b67e33c2ec807646ab67f1bfb2dd52b834dd980c5a989c2",
+        "expected_final_gamestate.txt": "edad2f43eedac1699b0f44668c8064592086db6d6e62ac44a320e35c5dae1472",
+        "meta.json": "7724cfb2f0d2534ccd9ac7c5c8cbdaf4ec792e231b34ffb085829be24b84d29b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "04493c4737145640dd32f0d0fce5b7ed278ce0d457dba92c6d0737cc3aecea87",
+        "actions.json": "8a7f2292549e2e6544cd6fb97b47a4d7602997e0437ea6db0db17fde38d9b50c",
+        "assertions.json": "ce03a42f0c5d75e05b67e33c2ec807646ab67f1bfb2dd52b834dd980c5a989c2",
+        "expected_final_gamestate.txt": "edad2f43eedac1699b0f44668c8064592086db6d6e62ac44a320e35c5dae1472",
+        "meta.json": "7724cfb2f0d2534ccd9ac7c5c8cbdaf4ec792e231b34ffb085829be24b84d29b"
+      },
+      "actions": 33,
+      "native_assertions": 2795,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 792,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "graveling_growl_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "consuming_lash_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "graveling_growl_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "consuming_lash_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "4e42b0b3381761a8b7ee1b84e39f669a1df2929f2ba89baff8e3c1d178760ae1",
+      "native_action_mapping_sha256": "22836d8233dbf81612cd62592690c963ff3ea8a2650f397727a5061d37133b51",
+      "native_assertion_mapping_sha256": "c9abea7c78c22962129bb55fad2c6e2b047fd2d17f4368319236b99b9cd110a6"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "embolden_red",
+      "group_id": "pitch-cycle:embolden",
+      "slug": "card-embolden-red-four-live-original-correct-responseable-entry-draw-with-retained-deck-tail",
+      "approved": false,
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch488-embolden-independent-native-before-classification.json",
+        "sha256": "96d5fef0e17de9a726320fd768939a0411e2e35e7355eb4a5d032d1e3d49f3ad"
+      },
+      "first_failure": "Expected p1Deck count 2, got 1.",
+      "source_expectations_unchanged": true
+    }
+  ],
+  "total_actions": 33,
+  "total_native_assertions": 2795,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 792,
+  "material_findings": [
+    "All exact five files/33 native actions/2795 persisted ordered assertions/792 properties/29 manual inputs(28responses+one defenderfinish), all48 raw manual settings each endpoint and72 actual guards verified. Only Growl qualifies; Embolden failed originalcorrectprobe remains no fixture/semanticallyfalse.",
+    "Actual Lash6Hand Instant1/sourceABI8 first pending beforeassets; actual Blue7pitch3 pays1/R2 while sameLash6 costs public own banish. Printed power6 and actual MON_BANISHED_SIX1 history earned primary permission. No Blasmophet needed for distinctInstantability. No source flag/resource/AP/grant seed.",
+    "Real Growl5 then declares adjacentP4 and pays1 fromfloatingR2/R1AP0. Samephysical5Chain base7/freshGAtrue earned from actualLashresolve, realDEF0/damage7/P4HP13 rather than merely a computed oracle. RefundAP1 onlyattackresolution; all fullcombatrounds/manualseats retained.",
+    "Full originalUID1..7 conserved: Growl5 publicownGY, Lash6 publicownnonplayableBanish withactualDTD_HAND_BANISH2 bookkeepingmarker, Blue7Pitch rawunchanged; virtualABI8 ceased/Counter8. FourHeroeswholeunchanged/R1AP1onlyP1/otherRAPChi0/otherHP20; no unusedGO_AGAINgrant or async/payment/combat residue."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/874/",
+      "finding": "Current restriction/cost1/base7/BloodDebt independently retrieved."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1246/",
+      "finding": "Current cost4/ownGA/entry WHEN if another nonTokenAura draw1 independently retrieved."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1157/",
+      "finding": "Current Earth nonTokenAura/AA+3/future endphase upkeep independently retrieved."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Triggered entry effect creates a separate layer before next priority; independently verified current primary rules."
+    }
+  ],
+  "limits": [
+    "One Red primary cycle representative/earnedrestrictionpositive only. No unmet-condition negative/otherbanishorigins/foreigncontrol/BloodDebt orLeviafutureendphase/supportprimary/siblings/fullcard credit. Levia currenttext removes BloodDebt life loss during endphase ifconditionearned, notkeywordloss; thatphasewasnotcrossed.",
+    "Only initial/final full physical snapshots; intermediate facts actual completed native assertions. Reviewer doesnotreexecute freshquerycallbacks or substitutecachedpower. Rawhashes bindundo bytes butopaqueVersions excludedfromcurrent inventory, no undo/replay credit.",
+    "Embolden failure separate129 candidate; no nativeStack0/drawnUID9/finaleffect claim. Root targeted replay receipts/registration separate. NoPHP/native/replay/R/source/service/gen/fullsuite/remote/deniedretry/sourcefix byreviewer."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch488_saved_and_failure_readonly.py",
+    "sha256": "88382832acd93dfae7af61dc3ddfed32ffe6dc5731a0a4f845bc4b8831ad7af4"
+  }
+}

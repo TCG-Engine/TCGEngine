@@ -1,0 +1,123 @@
+{
+  "status": "APPROVED_AS_PLANNING_LIMITS",
+  "approved": true,
+  "approval_scope": "selected_unattempted_TakeFlight_Charge_support_dependency_only",
+  "planning_limits_approved": true,
+  "source_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "runnable_approved": false,
+  "installable": false,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T00:44:54.094667+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch546-bolting-selected-charge-support-limit\\planning-hold.json",
+    "sha256": "522f0b07937679411b6e974a4975523e9e0d6c33a30fec1704a08913dc04033a"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch546-bolting-selected-charge-support-limit\\manifest.json",
+    "sha256": "e4f840c9cfb65b9ad94baf46481139582317486f2ac95c2594d8d6c4b9b9d7d6"
+  },
+  "manifest_sha256": "e4f840c9cfb65b9ad94baf46481139582317486f2ac95c2594d8d6c4b9b9d7d6",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "baseline_reference": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch543-v2-dyadic-correct-protocol-and-empty-counters\\manifest.json",
+    "sha256": "161ff57d9ca20af7a12fd5b2d2a2e70c4875e164f75ca92a374e3f3ecdd457d9"
+  },
+  "source_guards_verified": 69,
+  "selected_readset_count": 5,
+  "selected_readset_is_baseline_subset": true,
+  "relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "catalog": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\cardArrayCache.json",
+    "sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "prior_dependency_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-independent-source-review-hold.json",
+    "sha256": "38047df6fe66b180e74a7e6ce44a004255308f71195e893c35192fb22d5abcfb"
+  },
+  "prior_dependency_reused_not_reexecuted_or_retagged": true,
+  "selected_entries": [
+    {
+      "card_id": "bolting_blade_yellow",
+      "group_id": "identity:bolting_blade_yellow",
+      "selected_support": "take_flight_blue",
+      "planning_limit_approved": true,
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false
+    }
+  ],
+  "independent_findings": [
+    "Fresh official762 confirms BoltingBlade Yellow4/base7 and minus2 per charge this turn. Its canonical and compiled CostModifier both exist and use actual MON_CHARGED count. There is no whole-primary implementation or availability absence finding.",
+    "Fresh official786 identifies optional Charge as TakeFlightBlue additional effect-cost and charged-this-turn GA. CR5.1.3 allows early declaration/selection; CR5.1.7 asset payment precedes5.1.9 actual effect-cost payment. CR8.5.29 distinguishes a real Charge Hand-to-Soul event from unrelated Soul entry. Early chooser presentation itself is not the objection.",
+    "Actual selected Prepare and compiled continuation present MZMAYCHOOSE, then invoke FaBMONCharge, then FinishPreparedCard. MONCharge immediately moves a valid own Hand card into Soul, increments CHARGED and runs charge hooks. Those are payment effects, not merely cached intent. FinishPreparedCard invokes TryCompletePayment only afterward.",
+    "Full selected normal play establishes pendingPayment/PITCH and runs Prepare before its normal payment fallback. Earlier Boost preparation seams do not apply to the planned ungranted non-Boost support. With printedcost1/R0/AP1 and no reducers, TryCompletePayment returns for insufficient resources before resource/AP debit; source-derived Charge would already have happened. No native Soul/AP/resource/marker/prompt/discount/power/damage observation is claimed.",
+    "This selected support dependency matches retained B537 source-order concern. The old HOLD remains preserved at old9 and is not rerun, retired, retagged or declared repaired. No survey of other Charge producers/routes, prior Soul/Halo substitution, seeded current history/AP/permission or duplicate native probe is approved.",
+    "All69 currenta4f6 guards and five selected subset bindings verified. Zero executable/native/fixture/issue/fix/coverage credit. This approves the truthful selected-route planning limit only, not a runnable scenario or a new gameplay bug."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/762/",
+      "finding": "Current primary cost4/base7/minus2 per actual charge this turn."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/786/",
+      "finding": "Current TakeFlightBlue additional Charge cost and charged GA."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.3",
+        "5.1.7",
+        "5.1.8",
+        "5.1.9"
+      ],
+      "finding": "Early declaration is distinct from paying effect-cost after asset costs."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.29",
+        "8.5.29a",
+        "8.5.29b"
+      ],
+      "finding": "Charge event and ordinary Soul entry are distinct."
+    }
+  ],
+  "source_evidence": {
+    "primary_cost_modifier_sha256": "d3aec1693e67ab46d10c11566fc5da7d10072086f3df6fa9498ced97e7920887",
+    "support_prepare_sha256": "8e597880c025754f4ba3502b3e1ebc24acce00cf1ba90eafedd7a931c2e27653",
+    "actual_compiled_support_helper": "__RunAwait_4ac7155ba3b7d6a3fd4b",
+    "compiled_helper_normalized_text_sha256": "d13c431d368e21300324bce184ef5e01188ea4a3dc751c3a6332e92b6900e473",
+    "actual_charge_effect_before_finish_static": true,
+    "ordinary_unpaid_asset_return_before_debit_static": true,
+    "engine_helper_execution_claimed": false
+  },
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_engine_bug": false,
+  "new_issue_allocation": false,
+  "source_fix_proposed": false,
+  "denied_operation_retried": false,
+  "limits": [
+    "Only BoltingYellow via chosen TakeFlightBlue support branch; no other Charge producer/route, full-card/cycle or global source-absence verdict.",
+    "Source-only unattempted dependency; no actual native cost, choice, Soul, counter, AP, reduction or damage certification. Old B537 remains distinct historical evidence.",
+    "No W executable successor, PHP/native/replay/R/source/service/generation/fullsuite/other denied repair action. Specific135 authorization is not expanded."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch546_planning_limit_readonly.py",
+    "sha256": "a1cb4c6ac694de21045c0ddb13861f25b4916b9638171b129318ea9f2ae61729"
+  }
+}

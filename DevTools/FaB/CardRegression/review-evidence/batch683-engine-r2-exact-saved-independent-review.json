@@ -1,0 +1,362 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B683_ENGINE_R2",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T02:33:28.450161+00:00",
+  "source_spec": "card-regression-batch683-engine-r2.json",
+  "input_sha256": "d9e1feaac1aa563b0ee1625228331d1cb9ac64690b7351960908c5780a2769aa",
+  "manifest_sha256": "93b5feffa2a998c7cbe3b95981158ce3b777fe15391661f39b8f4a7c1354ea2e",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch683-engine-r2-independent-source-review.json",
+    "sha256": "e00d0acb857a82e4e7f486e3a70038328dbc550293014965b113aaf245843832",
+    "approved_material_model_and_exact69support_delta_reused": true
+  },
+  "original_setup_failure": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch683-engine-first-native-defender-setup-classification.json",
+    "sha256": "23e76b0ad9b993d576bb1a303391ebd2beef679149ab2c169e5f998f09fdaea4",
+    "historical_failure_not_relabelled": true,
+    "engine_fix": false
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch683-engine-r2-20261107T023100Z-6aee8d6452e2a.json",
+    "sha256": "b325cd768c1e38227955536d7f73793eb4d88985bbb79566cbd44186efbcf4f6"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch683-engine-r2.recording-results.json",
+    "sha256": "7ee017f8d2f69810a66d027998a92b886ba730cb3d091b1d802fd2004155135b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b683-engine-r2-native-recording\\receipt.json",
+    "sha256": "f80bea65a3fa1889719728e62edd35bd6fceb123d8f9c392b07dd03bb1c9984d"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "annihilator_engine_red",
+      "group_id": "identity:annihilator_engine_red",
+      "slug": "card-annihilator-engine-red-four-live-real-two-evo-discount-paid-three-and-full-block",
+      "source_spec": "card-regression-batch683-engine-r2.json",
+      "input_sha256": "d9e1feaac1aa563b0ee1625228331d1cb9ac64690b7351960908c5780a2769aa",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TWO_EVO_DISCOUNT_PAID_THREE_CORRECT_DEF3_SUPPORT_FULL_BLOCK_R2",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-annihilator-engine-red-four-live-real-two-evo-discount-paid-three-and-full-block",
+      "fixture_sha256": "0d15a7d6d8b05b4309264bd88cbc75fb6f6289b6882deef1c9c9eda6e588e1e8",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4aab611440787bfef95fc21d65f5a35b8ad5fdff9cad5fcc896b47421d1bb8e7",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "547ceb59baf04d63047987ad81fddb9caf62e3126fa8278dd9567fd0585c2670",
+        "expected_final_gamestate.txt": "133cad586edffaf0df8e5e2b6d7a8705f1791ed8275dc3f933daa9007c0c0dd8"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4aab611440787bfef95fc21d65f5a35b8ad5fdff9cad5fcc896b47421d1bb8e7",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "547ceb59baf04d63047987ad81fddb9caf62e3126fa8278dd9567fd0585c2670",
+        "expected_final_gamestate.txt": "133cad586edffaf0df8e5e2b6d7a8705f1791ed8275dc3f933daa9007c0c0dd8",
+        "meta.json": "fccf4f6981df57aeab7fdc915cbe1b13c0525fdf51e6dbec85cac6167de5b6ad"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4aab611440787bfef95fc21d65f5a35b8ad5fdff9cad5fcc896b47421d1bb8e7",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "547ceb59baf04d63047987ad81fddb9caf62e3126fa8278dd9567fd0585c2670",
+        "expected_final_gamestate.txt": "133cad586edffaf0df8e5e2b6d7a8705f1791ed8275dc3f933daa9007c0c0dd8",
+        "meta.json": "fccf4f6981df57aeab7fdc915cbe1b13c0525fdf51e6dbec85cac6167de5b6ad"
+      },
+      "actions": 30,
+      "native_assertions": 3069,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 1346,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "annihilator_engine_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "nimblism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "nimblism_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "evo_sentry_base_head_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "evo_sentry_base_chest_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "nimblism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "nimblism_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "evo_sentry_base_head_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "evo_sentry_base_chest_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "annihilator_engine_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "final_UniqueIDCounter": 14,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "86a6dde6d2f71ab10b0595792dce2ee8670214c17fc269e417042622e17b8074",
+      "native_assertion_mapping_sha256": "1a8912846fb3527bb289df4f83835eb50c703516fc7eda9356887ff6bbf77fcc"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 30,
+  "total_native_assertions": 3069,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 1346,
+  "material_findings": [
+    "ExactR2rawfive/30envelopes3069orderedqueries25manualactors/48preferencesperendpoint/current70c53ab33 match Sourcee00d; completephysicalendpoints/terminalqueries independentlyparsed.",
+    "ActualtwoSentryEvo7/8/nativeProtoSUBCARDS/effectivecount2; currentavailablepitch5belowprinted6. Normaltargetbeforeassets thenpending3/actualsoleBlue6pays3/AP1toR0AP0/sourcefour→base6/noGA. Priorlawfultransforms/materialrepresentationrules-only/unexecuted/uncredited.",
+    "ActualnewWoundingBlue13/Red14DEF3bothacceptedfromcurrentHand0; totalDEF6/zeroPhysical/HP20/noHit. ThislegitimatelyleavesgainedHero-hitdestroyWHENunearned. Below3/4Evosso noOP/+3positivecredit; twoHandacceptanceboundscount2behavior.",
+    "FullClose5ownGY/6Pitch/actual13,14ownGY4, sameunwornEvos7/8/materials, retained11,12Hand and9,10Deckbyteidentical; originalUID1..14/counter14/RNG0/fullquiet. AllpreviouslyunrunR2damage/Resolution/Closechecksactualpassed."
+  ],
+  "limits": [
+    "OnlyactualtwoEvocostdiscount/fullblockrepresentative. NoHero-hitdestroy/3EvoOverpower/4Evopower/priorproducerexecution/underlyingProtofactoryUIDtrace/defensiveBattleworn/Hero/support/fullcardcredit. BashpositiveWHENseparatelysource-onlyheld.",
+    "OriginalR1model/setupfailurepreserved; noR1passingcredit/enginebug/fix. R2physicalDEF3supportcorrectionseparatelyreviewedandnowactualSaved, registration/qualificationremainRootsteps.",
+    "No reviewerPHP/native/replay/R/source/fullsuite/Git/remote/deniedretry/newcatalogexploration. Rootonlytwofocusedreplaysseparate. RawVersionshashbound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch683_engine_r2_saved_readonly.py",
+    "sha256": "d0f63c701ba242b9a721bfb9fc874bc269aefd02d1030956c1ba769a7d3dc864"
+  }
+}

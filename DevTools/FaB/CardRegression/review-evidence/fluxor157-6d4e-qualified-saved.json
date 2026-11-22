@@ -1,0 +1,66 @@
+{
+  "status": "FLUXOR157_BLUE_PRINTED_PLUS_ONE_AND_FULL_FOLLOWTHROUGH_QUALIFIED_ONE_REPLAY",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of source/test author pox_snapshot_repair_review",
+  "runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+  "source_spec": "card-regression-repair-fluxor157-blue-pitch-amount.json",
+  "input_sha256": "f520a3a7d965987fbcbeef8bce7c5f2283846b07a629b1b7aea222dac920d8d2",
+  "fixtures": [
+    {
+      "slug": "card-volatile-fluxor-blue-four-live-instant-link-plus-one-fully-blocked-and-followthrough",
+      "card_id": "volatile_fluxor_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13604014a0696d2eb7aaf9180ac7820024e5be3442731fa2d04b598c0e9a3b77",
+        "actions.json": "451b779e94432279684b49f153f2bfc8a0b52918dd017f69d1aef3effbddb33b",
+        "assertions.json": "dfb0b76df38b5fa11210b1c2086493e96cc9d5d3cc11e34117e536b62a7b8b70",
+        "expected_final_gamestate.txt": "9d70d9e01e18f738178d12e106610a29b7fd1644018d23782e20d475879c0712",
+        "meta.json": "f518cc08c355e7e3b2e22cfe987a88f7d733a9cbd19f88ff7721d16a322e9b02"
+      },
+      "fixture_sha256": "b00c2bb97542e96fa151dd4314ea7b89d520301bc1e3a5af2755d660a81d4928",
+      "actions": 56,
+      "native_assertions": 4346,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 50,
+      "recorded_runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+      "runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+      "source_spec": "card-regression-repair-fluxor157-blue-pitch-amount.json",
+      "input_sha256": "f520a3a7d965987fbcbeef8bce7c5f2283846b07a629b1b7aea222dac920d8d2"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov20-fluxor157-6d4e-replay.json",
+    "sha256": "9c973564a531e4043baf7977bad3a83651766da8295ddef2612ec54fa512c3dd",
+    "passed": true
+  },
+  "source_review": {
+    "path": "nov20-fluxor157-independent-root-source-binding.json",
+    "sha256": "18679e447f0ec4d40e34fbbebb8ca47c7e3e6adb7c1dd73c3c3cb8151b3d12e3"
+  },
+  "source_review_scope_erratum": {
+    "path": "nov20-fluxor157-native-scope-wording-erratum.json",
+    "sha256": "6f2e38504ad8f6e467ddbad95359fc0d96e62a43946997a9838f6891c86ba924"
+  },
+  "application": {
+    "path": "nov20-fluxor157-guarded-application-and-emission/receipt.json",
+    "sha256": "b6786340a67e485c958467ef270965816e2ccaed45669d197ff83d0f819cbef6"
+  },
+  "components": 36,
+  "component_receipt_sha256": "6352475210def87e704111aaec08ca621e5da7bde6663b5f63f4ba34cca6ef76",
+  "original_diagnostic": {
+    "path": "card-regression-batch680-fluxor-probe.json",
+    "sha256": "0a950c48f86afd402408a56a080d537f7eb575fdbfdc47d5b331a3298e81463a",
+    "unchanged": true,
+    "rerun": false
+  },
+  "basis": "Separate reviewedSAVE successor preserves every original56control/4346query andnormativesetup. LegalAurora playsactualBlueFluxor5/SigilBlue6Instantthislink, heals1HP21; printedbase0+earned1 vsactualSnatchBlue9DEF2 deals0/nohit/noFlow/P4HP20. IntrinsicGAAP1 is really consumedbyCriticalRed7 fundedfromrealBlue8pitch3/cost1, leavingR2/AP0; actualCritical5damageP4HP15andfullclose. ExactsourceUIDs5/6/7GY1,8Pitch1,9GY4, allmanual/queues/payment/awaitcleanup and singlecleanreplaypass. SharedsourcepitchmappingcorrectedBlue1/Yellow2whileRed3andallHitunchanged; onlyBlueNativecredit.",
+  "limits": [
+    "No Yellow/Red Native or individual coverage credit; issuer/component evidence only.",
+    "No Fluxor hit-earnedFlow/futureFlow/fullcard qualification; fully blocked Blue owes no hit trigger.",
+    "Critical follow-through provesGAuse/fullclose, not a later-link Volatile conditional expiry; previous-link/turn predicate checks are isolated components only.",
+    "No full-suite or historical replay, remote-sourcewrite, generic094 or original-oracle weakening."
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch309-signal-jammer.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T08:23:06.120130+00:00",
+  "fixtures": [
+    {
+      "slug": "card-signal-jammer-blue-four-live-sparse-first-naa-play-second-naa-accepted-noop-rejection-and-legal-attack",
+      "fixture_sha256": "b3bbb467834c0999f97a170b0b22ceec018f3360e3d837bcaabbb429920f03ba",
+      "passed": true,
+      "result": "[PASS] signal_jammer_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-signal-jammer-blue-four-live-sparse-first-naa-play-second-naa-accepted-noop-rejection-and-legal-attack",
+      "returncode": 0,
+      "stdout": "[PASS] signal_jammer_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

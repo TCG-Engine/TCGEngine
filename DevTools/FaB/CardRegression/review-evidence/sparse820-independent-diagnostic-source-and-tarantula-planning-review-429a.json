@@ -1,0 +1,171 @@
+{
+  "status": "SOURCE_APPROVED_CORRECT_QUIET_CLOSE_DIAGNOSTIC_ONLY_MANDATORY_NO_SAVE_EVEN_PASS",
+  "phase": "SOURCE",
+  "batch": 820,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T17:04:12.790698+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "diagnostic_source_approved": true,
+  "source_spec": "card-regression-batch820-embermaw-original-correct-automatic-close-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch820-embermaw-blue-correct-phantasm-automatic-close-probe-author\\embermaw-blue-real-phantasm-automatic-close-ash-probe.json",
+    "sha256": "d4cc55daac9afd316e07b74400a02561ccaf6596a539bccc1240bd46cf90d53d"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch820-embermaw-blue-correct-phantasm-automatic-close-probe-author\\manifest.json",
+    "sha256": "936821e1b841051b53e38383d9655e74e728153a5d8805eb616816df198cffc8"
+  },
+  "input_sha256": "d4cc55daac9afd316e07b74400a02561ccaf6596a539bccc1240bd46cf90d53d",
+  "manifest_sha256": "936821e1b841051b53e38383d9655e74e728153a5d8805eb616816df198cffc8",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "73a8656e208fe15819503c4151c35cecd70a485abf9a753ece10b6c357bef7a3",
+  "selected_support_guard_count": 25,
+  "selected_support_guard_map_sha256": "135fd293407611f50ee68b5a84abc2b70d46d958733d16f7230013559de95bcf",
+  "all_current_guards_independently_matched": true,
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch820-firm-reservation-r2-rule-corrected-close.json",
+    "sha256": "22a495a5e164ad99de2fd73ab5943b92351499085d732aee4802a4a0da425292"
+  },
+  "support_dependency_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch820-selected-helper-and-rule-correction-preflight.json",
+    "sha256": "2e697e7528f911bec92957b6097cce580e0795f88831b23d5ee1a6fb2d921c0e"
+  },
+  "expected_controls": 17,
+  "actions": 17,
+  "declarative_controls": 17,
+  "assertions": 2123,
+  "recorded_persisted_assertions": 2123,
+  "manual_passes": 13,
+  "expected_priority_response_passes": 12,
+  "expected_formal_defense_finish_inputs": 1,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 3,
+    "2": 3,
+    "3": 3,
+    "4": 4
+  },
+  "checkpoints": 19,
+  "schema_property_checks": 447,
+  "control_mapping_sha256": "1ac20b907292b8ef7075e704682629619bd915714e61f902c691c6112c767178",
+  "native_expected_envelope_mapping_sha256": "ec7143e1fcc19ca1e98ffc3c83b687751cf8a8a56b287bd1ff13d2fd816ca484",
+  "expected_native_query_mapping_sha256": "3008d12c65980b44d0a824e7e667ecd1b3cb3df6247dde4ad728af271b7f08cd",
+  "checkpoint_mapping_sha256": "217a5a52848a7f239f345eb42883906c54ea1e2330ee6390a6489dc73d29115f",
+  "official_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1530/",
+      "finding": "Official Blue confirms cost2/power6/Phantasm and destruction creatingAsh."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.13a",
+        "8.3.13b"
+      ],
+      "finding": "Qualifying defense creates a Phantasm layer; resolution rechecks its condition and destroys the attack."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.2.2d",
+        "7.3.2",
+        "7.7.1",
+        "7.7.2c",
+        "7.7.3",
+        "7.7.4"
+      ],
+      "finding": "Defending does not play the blocker. Losing the only active attack before damage forcesClose; noClosepriority, pendinglayers resolve automatically."
+    }
+  ],
+  "oracle_corrected_before_any_native": true,
+  "original_incorrect_firm_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch820-firm-reservation.json",
+    "sha256": "c949d263f966f2210348eaac0d689a116d9eb9a115abd8e4695ac6d53bafd496"
+  },
+  "not_fitted_to_native_output": true,
+  "expected_effect": "Paid2viaactualBlue3, noDromaiRedpitchAsh. ActualEmber5power6/noGA andRomp7nonIllusionistpower8; fourPhantasmresponses preserveattack/Ash0throughfirst3, fourthdestroysattack andautomaticClose yieldsAsh1ownedcontrolled1, originalownerGraveyards/Blue6Pitch, allHP20/AP0/R1/cleanup.",
+  "source_findings": [
+    "Actual MONPhantasm queues/rechecks; MONDestroy moves physicalsource toownerGY; UPRDestroyed directly createsAsh forEmbermaw. The quiet corrected oracle can pin functional destruction/Ash outcome, not internal Ash-layer/ordering correctness.",
+    "Existing other queuedClose-draining holds remain unresolved and untested; thisroute does not invoke their required queuedleave effects and does not certify generalWHEN/Close behavior.",
+    "Toxin canonical modes/currentdaggertarget selected onlyduringResolveCard, whileactualdeclaredreactiontargetseam includesonlyNip/Shred. Implementedpayload andmanagedreactionlifetime exist; requiredformal-declaration contract knownunmet."
+  ],
+  "whole_selected_support_family_alias_printing_ledger_scan": {
+    "terms": [
+      "embermaw_cenipai",
+      "Embermaw Cenipai",
+      "UPR027",
+      "UPR028",
+      "UPR029",
+      "DRO016",
+      "tarantula_toxin",
+      "Tarantula Toxin",
+      "HNT015",
+      "FAB315",
+      "wrecker_romp",
+      "Wrecker Romp",
+      "WTR029"
+    ],
+    "hold_rows": 266,
+    "issue_rows": 182,
+    "matches": []
+  },
+  "source_only_held_cases": [
+    {
+      "card_id": "tarantula_toxin_red",
+      "group_id": "identity:tarantula_toxin_red",
+      "classification": "KNOWN_LATE_FORMAL_DAGGER_ATTACK_TARGET_AND_MODE_SELECTION",
+      "reason": "Actual HNT canonical and emitted ResolveCard await modal and current dagger target only after response priority. CardChoices4..12 and GameLogic1274/1307 early target binding is limited to Nip/Shred and excludes Toxin; no Toxin PrepareCard. Exact known Diced/HuntsEnd/Incision/ WideBlueYonder formal target contract. Printed effects and managed reaction source retention are present, not missing framework or generic weapon admission.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch820-tarantula-toxin-known-late-formal-target-unattempted-note.json",
+        "sha256": "90a340d9d92fb4b2094fc2f7e07f73f162789dbcaa31f3f0e871eaf8ee03b53c"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false
+    }
+  ],
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "native_fixture_recording_approved": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "independent_actual_probe_review_required": true,
+  "PHP_native_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "network_scope": "Read-only official card/rules pages only; noCardCode service orauthoring calls.",
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "OnlyquietBlue functionalPhantasm/Ashroute; nointernalAshlayer/order/suppression/generalWHEN/Close-draining/nonPhantasmdestruction/sibling/alternatebranch orwholecardcertificate.",
+    "No virtualUID/kind/Owner orAshUIDallocation prediction. First3Phantasmresponse physical/Ashabsence andfourthautomaticoutcome must actuallypass beforepromotioncanbeconsidered.",
+    "Mandatoryunsaveddiagnostic evenPASS; separateactualreview/explicitpromotion/freshpositiveSource/normalSavedreview andtwo cleannew-onlyreplays precedequalification. NoNativeorpassingcoverage now."
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "status": "INDEPENDENT_APPROVED_TRACKERS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_BLOODRUSH218_NO_WAIVER",
+  "phase": "PLANNING",
+  "batch": 852,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "native_inputs_executed": 0,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-trackers-required-bloodrush218-contract-superseding-unattempted-note.json",
+    "sha256": "c025f99b4b186e646e11f8f839e4bb168d49b6d133d794e508df33ede8c6cf0f"
+  },
+  "authoritative_superseding_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-trackers-required-bloodrush218-contract-superseding-unattempted-note.json",
+    "sha256": "c025f99b4b186e646e11f8f839e4bb168d49b6d133d794e508df33ede8c6cf0f"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-trackers-real-random-six-bloodrush-strict-probe-author\\manifest.json",
+    "sha256": "238239e84a709fdc4076ac50fa18fd747b3f7de4550df609220bdedaeaaff44a"
+  },
+  "manifest_sha256": "238239e84a709fdc4076ac50fa18fd747b3f7de4550df609220bdedaeaaff44a",
+  "manifest_status": "WITHDRAWN_UNAPPROVED_EXECUTABLE_DRAFT_NOT_FOR_INSTALL_OR_NATIVE",
+  "source_candidate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-trackers-real-random-six-bloodrush-strict-probe-author\\trackers-real-random-six-paid-bloodrush-earned-ap-full-probe.json",
+    "sha256": "5a41039c5f5472aeea342ead8eed0e209e234149ba5bedb0871cfa47a67dd49e"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-firm-reservation.json",
+    "sha256": "965e18efcaef1f5d3c7133c6e89361606b12006e17cf53ca43ff1d6d08254059"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 17,
+  "all_current_source_guards_matched": true,
+  "frozen_draft_preserved": true,
+  "wrong_waiver_rejected": true,
+  "holds": [
+    {
+      "card_id": "beaten_trackers",
+      "group_id": "identity:beaten_trackers",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SUPPORT218_CONTRACT",
+      "classification": "REQUIRED_BLOODRUSH218_FULL_SOURCE_LIFETIME_CONTRACT_NOT_WAIVED",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-trackers-required-bloodrush218-contract-superseding-unattempted-note.json",
+        "sha256": "c025f99b4b186e646e11f8f839e4bb168d49b6d133d794e508df33ede8c6cf0f"
+      },
+      "known_contracts": [
+        {
+          "card_id": "bloodrush_bellow_yellow",
+          "row_at_read": 218,
+          "classification": "SOURCE_ONLY_UNATTEMPTED_SOURCE_LEAVES_BEFORE_RESOLUTION_EFFECTS_PLANNING_LIMIT",
+          "evidence": {
+            "path": "review-evidence/sparse756-bloodrush-source-cleared-before-synchronous-effects-unattempted-c53.json",
+            "sha256": "e86b76ef0f2653f2bc85d62d26223715f08599b1bb25c199b144fed1ca2c41f9",
+            "kind": "INDEPENDENT_PLANNING_LIMIT_NOT_RUNNABLE_APPROVAL"
+          },
+          "external_preparation": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\batch756-bloodrush-source-retention-source-only-plan.json",
+            "sha256": "1d3832a7c9e717591e5a5c85e60efcbb6c0d0dec205d74ab4021b98654893f3e"
+          },
+          "scope": "Original physical Bloodrush source must remain resolving/onStack throughout full draw/buff/conditional-go-again effects. Current ordinary fallback clears source before those synchronous effects. This is the full retained selected support218 requirement; no exception because no intermediate native query/await was authored. Parent requires this edge, so no redundant Native or quiet partial substitute."
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "ExactrequiredfullBloodrush218edge persists: currentordinaryfallbackGL1840movesphysicalsource5toGYBEFORE1841FaBResolveRules/WTR614draw2/BRUTE_TURN2/conditionalGA. BloodrushnonpersistentActionisoutsidemanagedcohort. Samefullselectedhostlifetimecontractasretained218; synchronouseffects/noawait/nointermediatequeryDO NOTwaiverequirement. WrongoriginalpreflightRootpolicy-waiverlanguageexplicitlyrejected/superseded.",
+    "FullrouteUNATTEMPTED, notshortenedprimarydiagnostic. NewTrackersDYNRandomDiscard165..169directModalconcernremainsSource-onlyunconfirmed. NoexactnewPrimaryNativefailure/repro/rootallocation; noquiethost/baseline/resampling/alternativeprimary orSourcefix.",
+    "Actualsource-derivedassetsadmissionisvalid: LeviaYoung20/ShadowBrutelegalgear+BloodrushYellowcost1; GL1123/1124resources/APpaymentbefore1178additionalcost. Blue3pitchleavesR2/AP0andsolesix-plusSmash7foractualFaBDiscardRandomevent. EngineRandomInt(0,0)equal-boundfastpathrequiresNOcursoradvance/seed; noRhinar/Kayo/blooddebt/reincarnate/skull-cracksideevent.",
+    "CorrectfuturegearWHENmustretainphysicalparent5StackthroughfourresponsesandoptionalModal1; destruction8whiletriggerresolvesisNOTseparateactivatedcost, AP0to1thenfreshparentfourrealDraw9/10andownconditionalGA1to2. FullparentphysicalsourceMUSTremainthroughresolutioneffectsper218. CachedAP/functionalpost-snapshotscannotcertifyinternalretention.",
+    "CurrentWTRAddEffect19writesrealturnEffectsrow BRUTE_TURN2/uses1; readonlyrowcountoracleisappropriateforpresencebutdoesnotcertifyactual+2attackconsumer. Frozen11controls/1625queries/473schemafieldsreviewedonlyaspreservedUNAPPROVEDdraft; novalidNativeadmissionormodelpassclaim. Allgear/hostcost/random/outcomes/physicalGY/Pitch/Hand/AP/economy/cleanup remainUNRUN."
+  ],
+  "limits": [
+    "Only compact supersedingplanningnote accuracy approved; input5a410/manifest238239/preflight87018 remainfrozenwithdrawn andmustNOTbeinstalled/run.",
+    "No218waiver/requalification orerasureofoldhold. No normalSaveevenifthewithdrawndraftwereassertionPASS; nohelper/card/ruleexpectationrelaxation.",
+    "NoNative/PHP/Rwrites/repair/Radiant189/Head190/Oysten191/Read192/Tome193or denied188184B787 action."
+  ],
+  "created_utc": "2026-11-16T07:25:09.043445+00:00"
+}

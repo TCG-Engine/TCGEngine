@@ -1,0 +1,114 @@
+{
+  "status": "SOURCE_ONLY_UNATTEMPTED_SOURCE_LEAVES_BEFORE_RESOLUTION_EFFECTS_PLANNING_LIMIT",
+  "card_id": "bloodrush_bellow_yellow",
+  "group_id": "identity:bloodrush_bellow_yellow",
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T23:34:13.229429+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\batch756-bloodrush-source-retention-source-only-plan.json",
+    "sha256": "1d3832a7c9e717591e5a5c85e60efcbb6c0d0dec205d74ab4021b98654893f3e"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\manifest.json",
+    "sha256": "efb40bbf4a9fe662ee9bda4ba67da14cf40b0832404a35f0c6975bfe516e610e"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\frozen-author-QA.json",
+    "sha256": "8eceb12b3644d728126618816fb54eb24619d0893529f8bbd8b7d8ab05e7eda3"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\SOURCE_RULES_NOTES.json",
+    "sha256": "2a93961bb5b8f7048e2e9ed2c96eebf90c7f9e53fcb79e8d9520f72896b4c7be"
+  },
+  "original_author_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-bloodrush-paid-discard-draw-and-ready-source-only-author\\manifest.json",
+    "sha256": "9e953f1e5cdd9c059b13076b8ab8e4377f998bff7a34da212231f02afc5c47cf"
+  },
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-firm-reservation.json",
+    "sha256": "125ec90ba1c12086095b83255eed2b064cde1db06a746e78e173cd7e11b66cac"
+  },
+  "pool": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-nonshadow-action-instant-metadata-pool.json",
+    "sha256": "f2f6255fa87c3062536d33e594370d6875b6e8923821dbe7b2bb7acec305ad26"
+  },
+  "source_guard_count": 70,
+  "source_guards_verified": true,
+  "executable_cases": 0,
+  "source_body_present": true,
+  "engine_implementation_concern": true,
+  "independent_findings": [
+    "Bloodrush publisher face actually viewed. Its mandatory random discard is an additional play cost; Brute +2, conditional draw2 and conditional go again are resolution effects. Selected printed positive seven-power discard premises and real asset payment are present; the concern is not a missing body or condition-false branch.",
+    "GL1097-1102 pays resources and AP before GL1156 calls WTR520-527 actual random discard. Payment then opens a fresh response window at GL1160-1163; no draw2 or primary BruteTurn buff is generated in that cost callback. Original source remains on Stack throughout response passes.",
+    "Bloodrush is absent GL1542 and GL1604-1639 managed ordinary-spell cohorts and has no canonical Prepare/Resolve macro. The nonpersistent fallback GL1781 physically moves original source Stack to Graveyard first. GL1782 then dispatches through GL1801-1807 to WTR614, generating BruteTurn +2, conditional draw2 and AP refund from the already-moved source reference. This synchronous order violates the required effects, go-again, leave/clear ordering; absence of an await or intermediate raw snapshot does not establish correct source retention.",
+    "CR5.3.1 and 5.3.4-5.3.7 require resolution effects, then go again, then source departure/clear. The original candidate explicitly omitted retention during its synchronous effects. Its proposed33 controls/3018 queries are not executed, approved or credited; unchanged bytes are preserved solely for provenance."
+  ],
+  "source_evidence": {
+    "canonical_bloodrush_sha256": "b684f7c8a5b3a03753fde23b4247df5a669378a20564a5419ad5bb571e22e7eb",
+    "paths": [
+      "DevTools/FaB/wtr_abilities.json:bloodrush_bellow_yellow empty canonical abilities",
+      "FaBSim/Custom/GameLogic.php:1097-1108,1143-1164,1540-1543,1603-1640,1763-1793,1801-1809",
+      "FaBSim/Custom/WTRCards.php:520-528,592-620"
+    ]
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "actually_retrieved": true,
+      "sections": [
+        "5.1.7",
+        "5.1.9",
+        "5.3.1",
+        "5.3.4",
+        "5.3.5",
+        "5.3.6",
+        "5.3.7"
+      ]
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/120/",
+      "actually_retrieved": true,
+      "scope": "Current primary printed card"
+    }
+  ],
+  "limits": [
+    "Only Bloodrush Yellow’s selected ordinary positive paid-discard/draw/buff path is retained as an unattempted static Source lifecycle concern. It does not assert a payment-order defect, missing body, observed native bug, or a full-card/family failure.",
+    "No gameplay/native/replay/fixture/draw order/Brute power/GA refund/damage/UID/coverage/confirmed-bug outcome is certified. No support, weapon, Hero, sibling, full-card, alternative primary or replacement consumer credit.",
+    "The exact positive candidate and original author manifest/QA/notes remain unchanged and unapproved. Final planning manifest admits zero executable cases. No synchronous-retention exception, output-fitted oracle, workaround, source repair or denied-repair retry is authorized or performed."
+  ],
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false,
+  "preserved_unapproved_candidate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-bloodrush-paid-discard-draw-and-ready-source-only-author\\batch756-bloodrush-real-paid-discard-two-draws-claw-buff-one-positive-group.json",
+    "sha256": "9875b3471b7f82ce4dd6bdba884bb0315a35157d90e6a04bc17c959cee3a17f1"
+  },
+  "candidate_source_approved": false,
+  "candidate_planned_actions": 33,
+  "candidate_planned_queries": 3018,
+  "native_actions": 0,
+  "native_assertions": 0
+}

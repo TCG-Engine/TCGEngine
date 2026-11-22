@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch355.json",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:37:58.754222+00:00",
+  "fixtures": [
+    {
+      "slug": "card-unhallowed-rites-red-four-live-sparse-real-non-attack-play-earns-public-banish-attack-permission",
+      "fixture_sha256": "a9c248b475fba0a9a36043c793b83465e3c9b53d798b7cb8fb9cdc87bbf18304",
+      "passed": true,
+      "result": "[PASS] unhallowed_rites_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-unhallowed-rites-red-four-live-sparse-real-non-attack-play-earns-public-banish-attack-permission",
+      "returncode": 0,
+      "stdout": "[PASS] unhallowed_rites_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,36 @@
+{
+  "status": "QUALIFIED_ORIGINAL_081_TRIGGER_EXPECTATIONS_UNCHANGED",
+  "utc": "2026-11-03T18:53:54.568715+00:00",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "issue": "FAB-REG-081",
+  "existing_family": "FAB-REG-043",
+  "scenario": "card-first-tenet-of-chi-moon-blue-four-live-original-correct-granted-when-attacks-draw-layer-paid-blue-attack",
+  "original_input_sha256": "e2b9f56abdc973063166684c519eaabdd77529aca249aa1d6dad6fd9410951cb",
+  "independent_saved_review": {
+    "path": "review-evidence/first-tenet081-saved-98e3-independent-review.json",
+    "sha256": "df245097ff7f3b6c5daf9ad69e437082bc9f75fa7e45ee836c9f77d114a634e1"
+  },
+  "clean_replays": [
+    {
+      "path": "card-regression-replay-nov3-b359-first-tenet081-98e3-r1.json",
+      "sha256": "a3152ba54bafe8a32af0f3903f5aca06386a9116a68c22e303d625bb8989cca8"
+    },
+    {
+      "path": "card-regression-replay-nov3-b359-first-tenet081-98e3-r2.json",
+      "sha256": "1b1fe818e967bc35f4ca14ff27db8fbd0ee9fa98ae3ebbd78143ba08bf1bf1a3"
+    }
+  ],
+  "native_actions": 37,
+  "persisted_assertions": 3266,
+  "manual_inputs": 33,
+  "component_evidence": "review-evidence/first-tenet081-root-php-checks.json",
+  "component_scope": "13 isolated extracted-source contracts/22 assertions at pinned proposal hashes; not native helper controls. Historical harness stays outside the repository; the native five-file fixture is the runnable regression.",
+  "direct_impact": "review-evidence/first-tenet081-direct-impact.json",
+  "qualification_limits": [
+    "One granted draw on the named real blue attack only",
+    "No native multiple-grant/suppression/removal/other-card or pitch-sibling credit",
+    "No full-suite execution or new Core/global root count"
+  ],
+  "existing_ten_holds_unchanged": true,
+  "Smashing_Item_choice": "SOURCE_ONLY_UNATTEMPTED_UNCREDITED"
+}

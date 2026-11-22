@@ -1,0 +1,304 @@
+{
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b418-glisten-native-9e984-r1\\receipt.json",
+    "sha256": "965a173cdcea304eda36c15f7783557b48e12d08a1126edec08e65ea544c776e"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch418-glisten-correct-resolution-probe.recording-results.json",
+    "sha256": "61085f67e26bdb4722c70d7200149de67651c883c72744aa009b3cdb86cc64f4"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch418-glisten-correct-resolution-probe-20261105T043513Z-6aec078132bdf.json",
+    "sha256": "809eab36b051642ba544b9ea5dffbabf1555c58d4ea964eca4ac6136a567849d"
+  },
+  "preservation": {
+    "folder": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved",
+    "files": [
+      {
+        "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch418-glisten-correct-resolution-probe.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\card-regression-batch418-glisten-correct-resolution-probe.json",
+        "sha256": "b4193197f8dcd74798efc182a3787ba7713ea9afa21420048e9553d8abf34c4e"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch418-glisten-correct-resolution-installable-v2\\batch418-glisten-yellow-one-original-correct-two-weapon-resolution-lifetime-probe.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\batch418-glisten-yellow-one-original-correct-two-weapon-resolution-lifetime-probe.json",
+        "sha256": "b4193197f8dcd74798efc182a3787ba7713ea9afa21420048e9553d8abf34c4e"
+      },
+      {
+        "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch418-glisten-correct-resolution-probe.recording-results.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\card-regression-batch418-glisten-correct-resolution-probe.recording-results.json",
+        "sha256": "61085f67e26bdb4722c70d7200149de67651c883c72744aa009b3cdb86cc64f4"
+      },
+      {
+        "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch418-glisten-correct-resolution-probe-20261105T043513Z-6aec078132bdf.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\card-regression-batch418-glisten-correct-resolution-probe-20261105T043513Z-6aec078132bdf.json",
+        "sha256": "809eab36b051642ba544b9ea5dffbabf1555c58d4ea964eca4ac6136a567849d"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b418-glisten-native-9e984-r1\\receipt.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\root-native-receipt.json",
+        "sha256": "965a173cdcea304eda36c15f7783557b48e12d08a1126edec08e65ea544c776e"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch418-independent-source-review.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\nov5-batch418-independent-source-review.json",
+        "sha256": "d1e97befffa8cbebd251910df1af78a79b14207c49d11f2838b3d4849b3b2158"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch418-glisten-correct-resolution-installable-v2\\manifest.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\authoritative-source-manifest.json",
+        "sha256": "0970a931ffd94bab9d192a745c3e8820d553583f45a5dbf5453992f5b6b9dc4e"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch418-glisten-correct-resolution-installable-v2\\frozen-author-QA.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\frozen-author-QA.json",
+        "sha256": "992b2a8d58b7b55469cd0facb08c4b762f4566343cecd5f40ed1b3ba3460cfaa"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b418-glisten-native-9e984-r1\\stdout.log",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\stdout.log",
+        "sha256": "505e3963a0ef04d3105ee28d5d70c9bfa091f21c81143d0c26aabd84d550b731"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b418-glisten-native-9e984-r1\\stderr.log",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "initial_gamestate": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-native-before-independent-preserved\\initial_gamestate.txt",
+      "sha256": "63c12202d710ab841bc8eff9f19047434e1bde4111ef37cc8cc2f9bb050b6f0b"
+    }
+  },
+  "earliest_failure": {
+    "error": "Expected Stack count 1, got 0.",
+    "native_action_boundary": 6,
+    "source_step_index": 12,
+    "source_check_index": 19,
+    "failed_native_check_ordinal_1based": 547,
+    "preceding_native_checks_passed": 546,
+    "completed_prior_boundary_checks": 527,
+    "same_boundary_checks_before_failure": 19,
+    "assertion": {
+      "step": 6,
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "expected": 1,
+    "actual": 0,
+    "original_complete_actions": 10,
+    "original_complete_assertions": 1033
+  },
+  "observed_failure_state": {
+    "window": "ACTION",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "MST_BLUE_PITCHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_COST_ONE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_INSTANT_CHAIN",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_INSTANT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "glisten_yellow"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "penPitchTypes": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "dynPitchAA": true,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "iarPermission": []
+      },
+      "6": {
+        "iarPermission": []
+      }
+    },
+    "omn": {
+      "2": {
+        "1": {
+          "INSTANT:0": 1,
+          "DISCOUNT:0": 0,
+          "STARFALL": 1
+        }
+      }
+    }
+  },
+  "observed_pending_decisions": {
+    "1": [
+      {
+        "Type": "MZMAYCHOOSE",
+        "Param": "p1Weapons-0&p1Weapons-1",
+        "Block": 1,
+        "Tooltip": "Allocate_power_counter_or_pass",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 0,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "glisten_yellow:0:ResolveCard-await|glisten_yellow:0:ResolveCard#1|5|chosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 1,
+        "_sourceZone": null
+      }
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_PLAIN_SPELL_LIFETIME_DEFECT",
+    "oracle_error": false,
+    "protocol_error": false,
+    "producer_missing": false,
+    "mechanism": "Actual Glisten LightInstant is outside the existing named managed plain-spell cohort; DoResolveCard unmanaged nonpersistent route moves its physical source before running unchanged ResolveCard. Actual four-response completion leaves Stack0 while the real optional counter-allocation choice/continuation remain pending.",
+    "normative": "Current Glisten has no instruction to leave Stack during its allocation effect. CR5.3.4/4a determine and generate resolution effects before normal leave/clear5.3.6/7; 5.3.4c permits continuation after an exceptional disappearance but does not authorize unconditional early engine clearing.",
+    "source_vs_native": "Native independently confirms only Stack0 with unresolved choice at first boundary. Exact source makes earlyGY movement the bounded causal explanation; physicalGY5 destination is not relabeled a direct postfailure observation.",
+    "existing_family": "Closest direct caller mechanism is existing021 named plain-spell lifecycle/061 Aether caller extension and069 Sift. Generictrigger094 is a different managed virtual class, not this physical INSTANT caller. No new globalroot/Core count or issueID is allocated.",
+    "confirmed_scope": "One GlistenYellow source lifetime through first resolving weapon-choice boundary. No Red/Blue/native sibling/secondchoice/numberallocation/endphase/weaponattack completion credit."
+  },
+  "source_findings": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "actual_helper": "__RunAwait_6c06bdddbf4298ac2ebc",
+    "raw_helper_to_next_function_sha256": "fbbdaa86402ceb68d1a94434ccbb2c11b393df9f797f8c5c854f845fefaa64c3",
+    "raw_span_bytes": 3271,
+    "source_path": "CanPlay/realInstant2payment/fourresponses\u2192DoResolveCard unmanaged nonpersistent branch\u2192MoveStackUID(Graveyard)\u2192ResolveRules\u2192actual generated Glisten ResolveCard MZMayChoose/NumberChoose loop",
+    "body_effect": "Existing FaBMONGlisten adds actualPOWER plus MON_GLISTEN tracking only after numberanswer. Neither has executed in this native prefix."
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/800/",
+      "finding": "Current Yellow LightInstant2/up-to3POWER on controlled weapons; no earlyclear instruction."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.1",
+        "5.3.4",
+        "5.3.4a",
+        "5.3.4c",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "reused_independent_current_source_gate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch418-independent-source-review.json"
+    }
+  ],
+  "unexecuted_suffix_limits": [
+    "No weaponchoice/NUMBER1|3 answer1/secondweaponchoice/NUMBER1|2 answer2 submitted; no actualPOWER1plus2 or MON_GLISTENfuturetracking nativeoutcome.",
+    "No finalGY/allqueuesdrained/fullcounterallocation/endphaseexpiration/weaponattacks/fullcleanup/savedfixture/replay/coverage claim.",
+    "Only nativeinitial is a fullrawphysicalsnapshot. Failure gameState/decisionqueues/hands and directStackcount are observed; physicalGYmovement is boundedsource inference.",
+    "Original10actions1033correctexpectations preserved unchanged; no current-output fit/relaxedsource assertions or oracle/protocol relabeling.",
+    "No issueallocation/globalroot-count increase, patch, PHP/native/extra capture/R/source/gen/service/remote/fullsuite or denied094089090retry/reroute."
+  ],
+  "issue": "FAB-REG-096",
+  "status": "CONFIRMED_NATIVE_PLAIN_SPELL_EARLY_SOURCE_CLEAR_DURING_RESOLVING_CHOICE_NO_FIX_APPLIED",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch418-glisten-correct-resolution-probe.json",
+  "input_sha256": "b4193197f8dcd74798efc182a3787ba7713ea9afa21420048e9553d8abf34c4e",
+  "independent_full_classification": {
+    "external_workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-glisten418-independent-native-before-classification.json",
+    "sha256": "b7ffce56f4a41541d7aae103d21e2e07f879f9a87cbefc0e865f9d1a070080b6"
+  },
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "full_suite_run": false
+}

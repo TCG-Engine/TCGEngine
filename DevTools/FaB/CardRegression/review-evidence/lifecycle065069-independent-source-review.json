@@ -1,0 +1,103 @@
+{
+  "status": "APPROVED_EXACT_065069_SIX_ID_EXISTING_PLAIN_SPELL_LIFETIME_UNION_SOURCE_ONLY_ROOT_CHECKS_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T14:28:08.905539+00:00",
+  "runtime_sha256": "90758aeb35536e3364b326789fc88b8eb9abc0f51b2de5f00426f0149fd9d51e",
+  "reconciliation_report": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-repairs065069-reconciliation-9075\\report.json",
+    "sha256": "1a3e4321d48a0ec7da5201e5d674062bae0c63624789f672f16f40b61b4d9c55"
+  },
+  "files": [
+    {
+      "target_relative": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-repairs065069-reconciliation-9075\\stage065069-plain-spell-six-id-union\\FaBSim\\Custom\\GameLogic.php",
+      "after_sha256": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+      "exact_inserted_bytes": 101,
+      "exact_added_ids": [
+        "sift_red",
+        "sift_yellow",
+        "sift_blue",
+        "prognosticate_red",
+        "prognosticate_yellow",
+        "prognosticate_blue"
+      ],
+      "outside_inserted_bytes_identical": true
+    }
+  ],
+  "unchanged_function_sha256": {
+    "FaBPlainSpellResolutionIsManaged": "c4bfa55a1a62a9569c8f4078e1b158e8a5cc960da6ee46d1e9595593563f88de",
+    "FaBFinishPlainSpellGoAgain": "718281e8238d1736c9578669701b645e81b1682ba08b3f1c44c062b2896391ae",
+    "FaBFinishReactionResolution": "ffd8f1c0300cae129bb22dc0e90d4fc856b3c63c0a3fc9ccbd4262a40c7b9b4a",
+    "FaBReactionResolutionHasWork": "222ae8871cd0f060902c392cab0a90db7986258a937c71c37fe71820247edc40",
+    "FaBTrackReactionAwaitFrames": "cddc93abd4c2045c72d797736828ef367d97232f33344d2f415c7fee8e0aab1f",
+    "DoResolveCard": "ec574080c0801e5fe17adf3df8c52b9739d714937e72c3677160f0b0344bfece"
+  },
+  "native_before_evidence": [
+    {
+      "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-sift279-failed-prefix\\receipt.json",
+      "receipt_sha256": "2623ca1da776a1c003138440a8cf2bdc22538033598b9f9b09a3c2f51ea42228",
+      "snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-sift279-failed-prefix\\initial_gamestate.txt",
+      "snapshot_sha256": "8b1ff7ac5249573f031c64d65639ffda03b0765a56b5038270b6daadddecc0a5",
+      "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch279-20261103T030401Z-6ae94f216a05a.json",
+      "archive_sha256": "7bd288909f06dbb89873606aefb8f686c8a2f587f06d77f5557963b194c25c61",
+      "actual_inputs": 5,
+      "passing_fixture_saved": false,
+      "source5_already_GY_with_live_await": true
+    },
+    {
+      "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-earned-opt-prefix\\receipt.json",
+      "receipt_sha256": "211f8d7e45aaf86611f3a8117bcbfd9c89a4567a79da129c8e0d6752aa016378",
+      "snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-9075\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-prognosticate065-earned-opt-prefix\\initial_gamestate.txt",
+      "snapshot_sha256": "31e03b268f68835f190496620a0ec495f279e858181cb0fb2852420436c4119d",
+      "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch275-prognosticate-material-correct-probe-20261103T141556Z-6ae9ec9c81175.json",
+      "archive_sha256": "503ef46a4a2a5f74b13c49440b1c60ad92aecf6423e587d6fb7ac309330fbcc9",
+      "actual_inputs": 12,
+      "passing_fixture_saved": false,
+      "source5_already_GY_with_live_await": true
+    }
+  ],
+  "reused_Sift_only_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-sift069-independent-source-review.json",
+    "sha256": "b89001e2ac3addb926d1acb9c4761753ecb80d34f6b4ddcf5f350b383d890a62",
+    "scope": "Original Sift3 only; Prognosticate3 addition and exact six-ID union independently inspected here, no oldunionapproval inferred."
+  },
+  "canonical_ResolveCard_body_sha256": {
+    "sift_red": "35cff9f463fe286ba170cb19d23f0989ae1c931e703ecad25079bf02128c7a3d",
+    "sift_yellow": "6a4cfe69270b9fb26bf9fa8457106af9a6dc563d9ba2b1cf74b19abef8c5c4cb",
+    "sift_blue": "91d4b5f6d34d3ede05641beb7d99fbe86857bacdc2e31b8ebf7f8058f7dbba23",
+    "prognosticate_red": "b94a79d9ffa2661a408f3c13faa0f534d9e02d97df456051cfbcbf4a123cf832",
+    "prognosticate_yellow": "b70ed2c23b2541fb63f0ac0292a1d7aadee331be5dcd5f9c20f01a07059b3de8",
+    "prognosticate_blue": "edda138a318ff7a5ae4b7f1b0a3992da0d0d9cdad56a1e862e95484b70896352"
+  },
+  "findings": [
+    "Exact known-list addition admits only six named ordinaryACTION/INSTANT sources to existing serializedmanager; no manager/default-all-spell/finalizer rewrite or newstate. Both positive-owner foreigncontrol rejection and existingTomeexception byte-identical.",
+    "PrintedSift bottom/draw finishes before ownGoagain/sourceclear. Prognosticate Surged Opt1 is part ofsame resolvingSpell; actualdamage4/HP16 reaches Opt yet same5alreadyGY while realRearrange/await pending. Existing manager retains5Stack through ownedwork and clears aftereffects, owner-routed byunchangedfinalizer.",
+    "BothKnown classifier roles preserved: eligiblelifetime and existing suppression-aware finalGoAgain. Prognosticate has no printedGA, so no newAPgranted; all3colors share sameordinary non-selfmoving asyncOptbody/threshold-specificdamage.",
+    "SixID registry eligibility is not nativepitchsibling/INSTANT/foreignownership/suppression/elimination coverage. Before evidence only5Sift/12Prognosticate inputs, no choicesuffix, no passingfixture."
+  ],
+  "printed_faces_viewed_sha256": {
+    "prognosticate_red": "4e6dfa9b4d3d23030b0f590490c033e65ec0fb6f2b1228c582462218c6e4987e",
+    "sift_red": "ca6cf03e70574ef51c71c2f836f72947c535cfe93283b54b9390c248e73220f3"
+  },
+  "rule_basis": "CR5.3 layer resolution effects precedeGoagain/sourceclear; primaryprintedfaces inspected, previous boundSift ruleproof reused; no oracle modification.",
+  "required_before_application": [
+    "Root actual exactsixID extracted-classifier contracts and candidatePHP lint, not executed bythisreviewer.",
+    "Currenttargetac90hash guard and exactcandidate7d475 atapplication; preserve all otherdelta stages."
+  ],
+  "required_native_qualification": [
+    "Original correctSift andPrognosticate probes unchanged, strictfirstmismatch/noincorrectfixture.",
+    "Independentexactsaved plus twofocusedcleanreplays, actualmanagedsource/GA/lifetimecleanup."
+  ],
+  "no_PHP_native_R_or_source_writes": true,
+  "native_qualification": false,
+  "generated_code_changed": false,
+  "limits": [
+    "Sourceapprovalfor exact101byteunion only, not fullyqualifiedfixclaim.",
+    "OldSiftPHP19contracts/lint receipts not relabelled fornewunion; Root newexactunionchecks required.",
+    "No other lifecycle cohorts/foreignowner/engine/rootbug/sibling/fullsuite credit."
+  ]
+}

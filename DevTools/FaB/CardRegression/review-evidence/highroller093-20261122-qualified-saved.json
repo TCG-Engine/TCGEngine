@@ -1,0 +1,224 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/highroller093_review actual saved raw5, source-to-actions/assertions, setup and observable snapshot review; root native execution and clean replays",
+  "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+  "source_spec": "card-regression-repair093-20261122.json",
+  "input_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+  "fixtures": [
+    {
+      "slug": "repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+      "card_id": "high_roller_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c0a0ef72f728aaa04d69a79f585937ba80dc031a6761f7731b9eaa44c9919d3c",
+        "actions.json": "c5718426d1c3c7f2e75c4ce4785bfea3c69c42629c69098b6e855be09722d1c3",
+        "assertions.json": "9b81d67e5b72a564cb29189fd8f937832ad94c67a1be87a090465de59a4b954c",
+        "expected_final_gamestate.txt": "4170e49e4d36b51f4a094c322b224a932605c0bafc7127ba67a746d3b741ebf7",
+        "meta.json": "611b10148fc81348cc496a82390cf334d01406b4a5428d404093a826915f0321"
+      },
+      "fixture_sha256": "1ed19d71ef2d277c815660ae8807da2379e6edf26ee9cdf95dce1f458cbe93df",
+      "actions": 39,
+      "native_assertions": 192,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "source_spec": "card-regression-repair093-20261122.json",
+      "input_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+      "issue": "FAB-REG-093",
+      "profile": "four_live_manual_UPF",
+      "approved": true,
+      "reviewer_independent": true
+    },
+    {
+      "slug": "repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+      "card_id": "high_roller_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f7006a154ba9b967f046f2d5e9ef18c357ee794c260d1dbbd2033ad090855f0",
+        "actions.json": "c731e5932a01def2ef43fbe4cab062d8582c70b8964d7a3e12f4682f3552bd87",
+        "assertions.json": "e23cfedcdf7f38c17e0d95f1a327cfcfcec708f5ed9a10b7de4b0a2747386852",
+        "expected_final_gamestate.txt": "6a6e72b111a50ec95374af7dfdb86994179a6a40c5eb524d0eb91723538aae88",
+        "meta.json": "ddec4a825fd71a6f50050c6ae2e3c8e86cc12e0fc92e38981cf9cefdfc2a5234"
+      },
+      "fixture_sha256": "2a87dd0a198d255c66653a41deae2ac3aaf2f4445e076e4450b5bbff2e62b6ea",
+      "actions": 34,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "source_spec": "card-regression-repair093-20261122.json",
+      "input_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+      "issue": "FAB-REG-093",
+      "profile": "four_live_manual_UPF",
+      "approved": true,
+      "reviewer_independent": true
+    },
+    {
+      "slug": "repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+      "card_id": "high_roller_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d03ed98ab9f051987939d41730140a7e0be98c3f74be6d3c926493fef5968c2d",
+        "actions.json": "92c496fffb60ffece2dc8e632cd2d231670b1f2c1fc06d73dfb43b47aab89009",
+        "assertions.json": "86c63dc3cde7129b942662b1788e6035aab7b1a3c6199797b6cd72d3b821eb0d",
+        "expected_final_gamestate.txt": "a4a57a3e45b3aa288fcf952e7758b9cd9b21184379c3d988ef1c695a842b64fc",
+        "meta.json": "01bbb584b0cf900cf953e3f9e7343ca911576f8edad218e546386f0d93b13575"
+      },
+      "fixture_sha256": "d4885e850e113c071486f77c365573a30a4b96aa92192a8a4ffc85c94781e7f7",
+      "actions": 10,
+      "native_assertions": 81,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 5,
+      "recorded_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "source_spec": "card-regression-repair093-20261122.json",
+      "input_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+      "issue": "FAB-REG-093",
+      "profile": "two_live_manual_UPF_one_adjacent_opponent",
+      "approved": true,
+      "reviewer_independent": true
+    }
+  ],
+  "replay": {
+    "path": "card-regression-repair093-20261122-replay.json",
+    "external_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\receipt.json",
+    "external_receipt_sha256": "7a2506ceb2fa219703fab1a1286411e7dc7581c41b768cbebe1c9183a60db333"
+  },
+  "source_scope": {
+    "seven_sources_match_reviewed_bytes": true,
+    "generated_scope": "Only three High Roller ResolveCard wrappers; other generated bytes/counts unchanged except generator timestamps"
+  },
+  "observed": [
+    {
+      "slug": "repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+      "accepted_final_die": 5,
+      "banished_uids": [
+        "8",
+        "9"
+      ],
+      "health": [
+        "20",
+        "20",
+        "20",
+        "16"
+      ],
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "slug": "repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+      "accepted_final_die": null,
+      "banished_uids": [
+        "8"
+      ],
+      "health": [
+        "20",
+        "20",
+        "20",
+        "16"
+      ],
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "slug": "repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+      "accepted_final_die": 5,
+      "banished_uids": [
+        "6",
+        "5"
+      ],
+      "health": [
+        "20",
+        "20"
+      ],
+      "actual_pass_actors": [
+        2,
+        2,
+        1,
+        1,
+        2
+      ]
+    }
+  ],
+  "causal_control": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-native-causal-control\\receipt.json",
+    "sha256": "54a724c9bb8fa901ef8057f9a81a4f55644a9b9ff1fe874c1d353b7bedf17d63",
+    "result": "Final native roll5 with recording removed causes missing second declared physical banish; no saved fixture; exact restoration verified"
+  },
+  "rules_inference": "Same legal adjacent Hero across separate Intimidate instances follows CR1.8.5b plus official Everfest two-instance note; not represented as a card-specific ruling. UPF adjacent-only follows TRP9.3.",
+  "limits": [
+    "Three fixtures all qualify only high_roller_red / FAB-REG-093; no sibling or support-card credit.",
+    "Two fixtures are four-live/manual; repeated-target control is explicitly existing two-live/manual UPF.",
+    "Yellow/blue printed thresholds have source/component evidence only; no native sibling qualification.",
+    "End-phase return and next-turn history reset are not newly qualified by these fixtures.",
+    "Remote Prepare publication/authenticated generator integration not exercised; trusted cached native local boundary only.",
+    "Earlier failed/low-roll/self-positive diagnostics are not counted."
+  ],
+  "full_suite_run": false
+}

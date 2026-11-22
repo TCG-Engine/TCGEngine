@@ -1,0 +1,235 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B682_SONATA",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T02:12:38.993241+00:00",
+  "source_spec": "card-regression-batch682-sonata.json",
+  "input_sha256": "52723340fc7a7b761966dbcc2a5a9d0980e0712c9f6a54382e2efbeb8361c6f0",
+  "manifest_sha256": "3f88222d19a2aeb8c3f010f291058a632c08b2949c98dcf061d3c27a4ef2c184",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch682-sonata-independent-source-review.json",
+    "sha256": "6ee88b95dfe7b0e3e03d50a1ec3dae26d093f080a6f84c137c47067cb3e51a61",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch682-sonata-20261107T021032Z-6aee8898e4b71.json",
+    "sha256": "216067fa3110d2cc1f904087909a2e3501600875c0075a8ed9aee3182009697d"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch682-sonata.recording-results.json",
+    "sha256": "eed94c632eed459f806b66f8703166d52c620476643c4f57cf61fd8a91354c53"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b682-sonata-native-recording\\receipt.json",
+    "sha256": "ed9f85ed6332604520e87c735db23320d2a7bcfcdee84498ebb53051b852e95e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "sonata_fantasmia_blue",
+      "group_id": "identity:sonata_fantasmia_blue",
+      "slug": "card-sonata-fantasmia-blue-four-live-real-x-one-pays-two-creates-one-runechant",
+      "source_spec": "card-regression-batch682-sonata.json",
+      "input_sha256": "52723340fc7a7b761966dbcc2a5a9d0980e0712c9f6a54382e2efbeb8361c6f0",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_X_ONE_PAID_TWO_ONE_RUNECHANT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-sonata-fantasmia-blue-four-live-real-x-one-pays-two-creates-one-runechant",
+      "fixture_sha256": "dc0928cc1919d4c0ad6cabb1fe753e2b176a8027374814f132b8f2411cf58680",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "36f09b6bd7356bc685c1d13067337955650d4d0807fb4c00e0f37d36fdbfc518",
+        "actions.json": "020cc6ecbe1ec909a6941faa74d2b8271705cb970d700ebe65d45b31690c5db6",
+        "assertions.json": "e7a5c7ab81a6393f725d3bdeb0aa9035c78de7b04865fe0d01ad1ac2033d7b7e",
+        "expected_final_gamestate.txt": "279eec71871f32606f0f04bf3f0803c26294d29faf8595cfe5d25d01b38d5e5e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "36f09b6bd7356bc685c1d13067337955650d4d0807fb4c00e0f37d36fdbfc518",
+        "actions.json": "020cc6ecbe1ec909a6941faa74d2b8271705cb970d700ebe65d45b31690c5db6",
+        "assertions.json": "e7a5c7ab81a6393f725d3bdeb0aa9035c78de7b04865fe0d01ad1ac2033d7b7e",
+        "expected_final_gamestate.txt": "279eec71871f32606f0f04bf3f0803c26294d29faf8595cfe5d25d01b38d5e5e",
+        "meta.json": "a5949eb76b6a8b4faef1110de46bb55fc90c18730b220ec603c090999287e32c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "36f09b6bd7356bc685c1d13067337955650d4d0807fb4c00e0f37d36fdbfc518",
+        "actions.json": "020cc6ecbe1ec909a6941faa74d2b8271705cb970d700ebe65d45b31690c5db6",
+        "assertions.json": "e7a5c7ab81a6393f725d3bdeb0aa9035c78de7b04865fe0d01ad1ac2033d7b7e",
+        "expected_final_gamestate.txt": "279eec71871f32606f0f04bf3f0803c26294d29faf8595cfe5d25d01b38d5e5e",
+        "meta.json": "a5949eb76b6a8b4faef1110de46bb55fc90c18730b220ec603c090999287e32c"
+      },
+      "actions": 7,
+      "native_assertions": 691,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 147,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "viserai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sonata_fantasmia_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "viserai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sonata_fantasmia_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "a1817e1d6dfb503fc348f20009045d6196aa8b2e01e7ff73351dbf509e43cb4e",
+      "native_assertion_mapping_sha256": "a01e5834f78e3c8b8f65c37c2bc946e2d6f24f930c337bdf4c4b9a950db3f06c"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 7,
+  "total_native_assertions": 691,
+  "total_manual_passes": 4,
+  "total_schema_property_assertions": 147,
+  "material_findings": [
+    "Exactrawfive/sevenenvelopes691orderedqueries/fourmanual1,2,3,4/48preferences perendpoint/current70c53ab33 match Source6ee88 and completephysicalendpoints.",
+    "ActualNUMBERX1choicebeforeassets/XXpending2 thenphysicalBlue6pitch3/AP1pays2 leavesR1AP0. Same5Stackthroughfirstthreepasses/fourthcompletion; exactlyONEnewphysicalRune7ArenaOwnerCtl1Ready, source5ownGY/6Pitch/UID1..7/counter7/RNG0/quiet. NoGA/APrefund.",
+    "FirstonlyNAAmeansViseraianotherNAAWHENunearned; X1thresholdfalsemeansHerochooser/randomdiscardunearned. NoattackmeansRuneownfutureWHENunearned. ActualpaidRunecreationisboundedprimaryeffect, noforcedunrelatedconsumer."
+  ],
+  "limits": [
+    "OnlyX1paid2/createoneRune. No highX/target/discard/randomness/secondNAA/ViseraiHero/futureRuneattack/damage/ordinaryinternalpreclear/End/support/siblings/fullcardcredit. Researchpositive-revealroute separatelysource-onlyheld.",
+    "No reviewerPHP/native/replay/R/source/fullsuite/Git/remote/deniedretry. Rootfocusedreplays/registration/qualificationseparate. RawVersionshashbound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch682_sonata_saved_readonly.py",
+    "sha256": "d12748cc4ecd0ae0db4f479b096c7468068e278bb854fc4b3cb2c376b0c15347"
+  }
+}

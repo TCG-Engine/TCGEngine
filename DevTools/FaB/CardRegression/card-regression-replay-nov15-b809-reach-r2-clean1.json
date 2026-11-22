@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch809-reach_of_the_abyss-r2.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T02:11:27.681041+00:00",
+  "fixtures": [
+    {
+      "slug": "card-reach-real-two-defenders-source-arms-and-blue-automatic-close-banish-r2",
+      "fixture_sha256": "bfa7c383dd1e19293e96659d2959e0e880701a3af29c063c7fab15fe3ef9222c",
+      "passed": true,
+      "result": "[PASS] Reach of the Abyss / actual source Arms and Blue defender automatically banished at true Close"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-reach-real-two-defenders-source-arms-and-blue-automatic-close-banish-r2",
+      "returncode": 0,
+      "stdout": "[PASS] Reach of the Abyss / actual source Arms and Blue defender automatically banished at true Close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

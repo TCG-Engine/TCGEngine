@@ -1,0 +1,178 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_HARVEST_BEGIN_ACTION_LIFE_BEFORE_EARNED_RESPONSES",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 852,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal ROSRuntime Harvest beginning-Action producer finding. It is separate named evidence from Tome DYNStart193, with no distinct shared-root/Core allocation inferred. Root reserves the issue ID; no repair is approved.",
+  "source_spec": "card-regression-batch852-harvest-first-actual-action-earned-destroy-life-probe.json",
+  "input_sha256": "30d2958bb74e1f6de7a3b9e3f4662c52929f06416dbfaad3a6839dfe7fd5e9bc",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-real-next-action-earned-life-strict-probe-author\\harvest-real-next-action-earned-destroy-life-full-probe.json",
+    "sha256": "30d2958bb74e1f6de7a3b9e3f4662c52929f06416dbfaad3a6839dfe7fd5e9bc"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-real-next-action-earned-life-strict-probe-author\\manifest.json",
+    "sha256": "6b281b54d9d892442cfde84715e02733da7f222a9b4857aa62f2ce6495709a39"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-independent-first-action-diagnostic-source-review.json",
+    "sha256": "8777138c17b1879247bf459c5dd3c02876ac3f20d9a573691535a12e50caedc2"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b852-harvest-first-action-strict-nosave-cdc\\receipt.json",
+    "sha256": "73963aff7865d97f59c089f55b2a79db08931807c37eb55c7963442935b63a72"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b852-harvest-first-action-strict-nosave-cdc\\actual-result.json",
+    "sha256": "0acda91e61a74c5f0de6e28f597c0b51ce631419d8193f889aa58095491ba140"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch852-harvest-first-actual-action-earned-destroy-life-probe-20261116T072012Z-6afaaeac0f3f5.json",
+    "sha256": "488979c89672224d971dbaccce754dce4c341caf5220faeb33349bc9dafe3635"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch852-harvest-first-actual-action-earned-destroy-life-probe.recording-results.json",
+    "sha256": "0acda91e61a74c5f0de6e28f597c0b51ce631419d8193f889aa58095491ba140"
+  },
+  "planned_controls": 12,
+  "planned_queries": 1408,
+  "actual_native_inputs": 8,
+  "actual_native_mode10001_inputs": 8,
+  "actual_native_mode10001_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "actual_manual_inputs": 8,
+  "actual_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "manual_input_count_semantics": "Eight manually driven pass signals: four legal P1 Action passes plus four nonpriority END transport inputs. This is not eight legal priority responses.",
+  "actual_legal_priority_pass_inputs": 4,
+  "actual_legal_priority_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "actual_nonpriority_END_transport_inputs": 4,
+  "actual_nonpriority_END_transport_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "actual_new_Harvest_Action_response_inputs": 0,
+  "actual_End_Start_priority_response_inputs": 0,
+  "persisted_successful_queries": 808,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "1381e6ef37f31681d50e40b50f2d29bfb5d1e287f957ad11788b26a0d6e058e2",
+  "first_failed_query": {
+    "source_step_index": 16,
+    "source_check_index": 12,
+    "native_after_input": 8,
+    "checkpoint": "FIRST_newP2_ACTION_phase_Turn2_Number3_AP1_Harvest5MUSTremainArena_HP19_earnedABI_beforeANYlegalResponses",
+    "global_query_ordinal": 809,
+    "query_ordinal_in_checkpoint": 13,
+    "query": {
+      "step": 8,
+      "type": "scalar_zone_equals",
+      "zone": "p2Health",
+      "value": 19,
+      "viewerPlayerID": 1
+    },
+    "expected": 19,
+    "actual": 20,
+    "error": "Expected p2Health to equal 19, got 20."
+  },
+  "queries_unrun_after_failed_query": 599,
+  "not_passed_including_failed_query": 600,
+  "native_controls_unrun": 4,
+  "declarative_controls_unrun": 4,
+  "manual_inputs_unrun": 4,
+  "remaining_legal_Harvest_Action_response_actors": [
+    2,
+    3,
+    4,
+    1
+  ],
+  "passed_current_cluster_queries": 12,
+  "fresh_p2_AP1_query_passed": false,
+  "fresh_p2_resource_chi_queries_passed": false,
+  "fresh_p3_p4_health_queries_passed": false,
+  "initial_raw_sha256": "0749cbe2b6f40368bb8b571db54d10f9fee84e20567a975551429154350a1c7b",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All eight native envelopes and 808 persisted assertions exactly match the corrected original Source prefix. Inputs 1..4 are legal P1 Action passes by 1/2/3/4; inputs 5..8 are existing END procedure transport by 1/2/3/4. No Harvest Action response or End/Start priority response occurred. Initial raw 48 manual controls and all four Young/live seats were verified.",
+    "The initial raw has legal Young Florian at current health19, base20, with owned physical Harvest5 in Arena2. Earlier typed assertions through control7 establish Harvest identity/ownership/status and health19, with no Banish/Earth-four/token replacement or Verdance passive. Those are pretransition witnesses, not postfailure physical queries.",
+    "At the first new-turn checkpoint, the twelve successful queries prove global TurnPlayer2, TurnNumber3, MAIN, PriorityPlayer2, ConsecutivePasses0, live seat order, Winner0 and P1 health20/resources0/Chi0/AP0. Query809 then directly reads P2 health20 against correct19. P2 AP1/resources/Chi, P3/P4 health and all following card/layer checks were unrun.",
+    "Captured raw GameState separately reports ACTION, dtdStarting=false, uprRefill=false, empty decisions, omn[3][2].AURA_DESTROYED=1 and P2 ROS_LIFE1/SEA_BLUE_GRAVE1 rows. These corroborate early life gain and Aura destruction. They do not supply postfailure physical GY5/owner/Stack reads or a P2 AP getter result."
+  ],
+  "causal_source_findings": [
+    "Current GameLogic2487 calls ROSStart before the dedicated beginning-Action dispatcher2490. ROSRuntime32 directly destroys each Harvest and calls CRUGainLife with 4 minus printed pitch; Blue pitch3 therefore gains exactly1. The direct life20 failure and raw ROS_LIFE1/AURA_DESTROYED history match this literal producer.",
+    "Printed beginning-Action timing requires a responseable layer: CR4.3.1 creates the trigger,4.3.2 assigns AP1,4.3.3 gives ordinary priority. The correct first P2 Action boundary retains health19 and Harvest pending four legal responses before destruction/life20. Start and End phases have no priority; none was invented by this oracle.",
+    "Florian Essence of Earth legally admits Harvest; his four-Earth Banish token replacement is unentered and cannot explain a life increase. There is no Verdance life-gain damage listener. Ordinary turn transition resets Allies, not hero health; this is actual card-effect timing rather than expected normal phase healing.",
+    "Current raw confirms destruction/life history, but exact physical Harvest5 in GY2 and owner/controller after failure are source-path/closed-roster inference, not passed postfailure UID assertions. Actual Stack count/ABI/source metadata, P2 AP1 and all remaining four Harvest responses/endpoints/cleanup are unrun. No actual Stack0 or full phase correctness certificate."
+  ],
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afaaea428c3d",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afaaea428c3d",
+    "existing_directory_present": false,
+    "reason": "The recorder finally clears memory and deletes its unique game. The immutable result contains initial raw and captured GameState/decisions/hand refs, not a final physical raw snapshot. No rerun or capture mutation was performed."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.2.1",
+        "4.3.1",
+        "4.3.2",
+        "4.3.3",
+        "4.4.1"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.16"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_trigger_review": true
+    }
+  ],
+  "limits": [
+    "No fixture, promotion, coverage or repair.599 queries after the failed query and four future legal Harvest Action responses remain unrun;600 not-passed includes the failed query.",
+    "Do not inherit Tome193 later-boundary facts: Harvest failed before the new P2 AP1/resources/Chi or other heroes health queries. Only the twelve current successful queries and separately labelled raw state are actual evidence.",
+    "No final raw5/final48 certificate, no Native/PHP retry, R writes, source fix or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T07:29:02.719948+00:00"
+}

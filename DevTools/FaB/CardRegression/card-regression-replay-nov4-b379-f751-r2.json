@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch379.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T18:43:34.427327+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+      "fixture_sha256": "91e4bf7aa9e1402af89681755daf6c9544c5f377099a2f457e5871fd1c14fe35",
+      "passed": true,
+      "result": "[PASS] cash_out_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-shifting-winds-of-the-mystic-beast-blue-four-live-sparse-real-chi-payment-creates-two-owned-crouching-tigers",
+      "fixture_sha256": "dbca210499f9fe95deedd8c07d89cdd875eee870284bc8fd189d67b337e69e3a",
+      "passed": true,
+      "result": "[PASS] shifting_winds_of_the_mystic_beast_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+      "returncode": 0,
+      "stdout": "[PASS] cash_out_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shifting-winds-of-the-mystic-beast-blue-four-live-sparse-real-chi-payment-creates-two-owned-crouching-tigers",
+      "returncode": 0,
+      "stdout": "[PASS] shifting_winds_of_the_mystic_beast_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

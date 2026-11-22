@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T16:57:06.450558+00:00",
+  "runtime_sha256": "01198c841e4121fb26efd5297b407788fa33567ef5ac5b9f7029ead7b0b74b80",
+  "source_spec": "card-regression-repair-memorial178-declared-graveyard-topdeck.json",
+  "source_spec_sha256": "8ab6f0a4ca474a2852b8c605e4633156788b2267dbdca766f53d3953fdd16374",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 2400,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4179,
+    "duels": 3074,
+    "four_live": 1105,
+    "recorded_primary_ids": 1331,
+    "identity_denominator": 5196,
+    "recorded_groups": 1205,
+    "group_denominator": 3324,
+    "four_live_groups": 1097,
+    "phase_qualified_scenarios_at_actual_contexts": 816,
+    "phase_qualified_unique_groups": 810,
+    "creation_replay_passes": 1557,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "memorial_ground_blue",
+      "group_id": "pitch-cycle:memorial_ground",
+      "scenario_id": "repair-memorial178-blue-four-live-declared-graveyard-head-jab-to-deck-top",
+      "effect_branches": [
+        "real-first-head-hit-cleanup-then-early-two-option-graveyard-target"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-memorial178-blue-four-live-declared-graveyard-head-jab-to-deck-top",
+      "source_spec": "card-regression-repair-memorial178-declared-graveyard-topdeck.json",
+      "source_spec_sha256": "8ab6f0a4ca474a2852b8c605e4633156788b2267dbdca766f53d3953fdd16374",
+      "review_evidence": "review-evidence/memorial178-0119-qualified-saved.json",
+      "review_evidence_sha256": "238718bca4b474992e6b5bcbfb8706410c7dba4da2bec64ff58e2a21c452491f",
+      "recorded_runtime_sha256": "01198c841e4121fb26efd5297b407788fa33567ef5ac5b9f7029ead7b0b74b80",
+      "qualification_runtime_sha256": "01198c841e4121fb26efd5297b407788fa33567ef5ac5b9f7029ead7b0b74b80",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov20-memorial178-0119-replay.json",
+          "sha256": "9e72732cf0802c8b3560a3f57cf684612e248c136b8426f937aba49072f2b882",
+          "runtime_sha256": "01198c841e4121fb26efd5297b407788fa33567ef5ac5b9f7029ead7b0b74b80",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

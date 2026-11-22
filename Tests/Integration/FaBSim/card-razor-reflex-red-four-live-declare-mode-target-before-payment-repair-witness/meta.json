@@ -1,0 +1,7 @@
+{
+    "name": "Repair reproducer: Razor Reflex Red mode and target before payment",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T17:36:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Repair-only normal-save witness, only after Root accepts/applies the repair. At authoring the Razor mode/target defect was source-only and unconfirmed by Native; Root retains before proof separately. Real Sword1/Blue3 pays before combat; Razor mode then formal bound attackUID8/link1 BEFORE its cost1; fresh four responses before+3; actual5damage to Hero1HP15. No Gauntlets/other-card qualification or coverage. Protocol is derived from existing FCR/MZMODAL/MZCHOOSE plus proposed R2 structured declaration source; first expected mode frontier is not claimed observed. Live/manual prefs pinned initial/final, no passive/shortcut simulation. No AA mode/granted-Hit branch or Hero ability entered. Sources: https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T02:50:25.251456+00:00",
+  "runtime_sha256": "7aef2654e593bb19712054ab29ddd58d4dac345ddd1d7084b2b37b49f22cf4ef",
+  "source_spec": "card-regression-repair-shimmers196-earned-aura-counter.json",
+  "source_spec_sha256": "7db00deec02709044e76376cb0453e24323a570792d7baa5ad90c37a47721e67",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 4128,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4155,
+    "duels": 3074,
+    "four_live": 1081,
+    "recorded_primary_ids": 1308,
+    "identity_denominator": 5196,
+    "recorded_groups": 1182,
+    "group_denominator": 3324,
+    "four_live_groups": 1074,
+    "phase_qualified_scenarios_at_actual_contexts": 792,
+    "phase_qualified_unique_groups": 787,
+    "creation_replay_passes": 1533,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "shimmers_of_silver_blue",
+      "group_id": "identity:shimmers_of_silver_blue",
+      "scenario_id": "probe-shimmers-of-silver-blue-four-live-real-iris-aura-weapon-earned-permanent-power",
+      "effect_branches": [
+        "actualIrisCost3AuraWeapon-firstAttack-earnedfour-physicalPermanentPOWER1-actual5damage-GAcleanup"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/probe-shimmers-of-silver-blue-four-live-real-iris-aura-weapon-earned-permanent-power",
+      "source_spec": "card-regression-repair-shimmers196-earned-aura-counter.json",
+      "source_spec_sha256": "7db00deec02709044e76376cb0453e24323a570792d7baa5ad90c37a47721e67",
+      "review_evidence": "review-evidence/shimmers196-7aef-qualified-saved.json",
+      "review_evidence_sha256": "cdfbf7f40ba71d23db81739cb2ad28c6087b8caee4e64a3e04d37cff5374ce23",
+      "recorded_runtime_sha256": "7aef2654e593bb19712054ab29ddd58d4dac345ddd1d7084b2b37b49f22cf4ef",
+      "qualification_runtime_sha256": "7aef2654e593bb19712054ab29ddd58d4dac345ddd1d7084b2b37b49f22cf4ef",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-shimmers196-replay.json",
+          "sha256": "b7f89b0d94dc9351f264dfb7a5ea12436925cc07d82b98449c21cc842f9f4044",
+          "runtime_sha256": "7aef2654e593bb19712054ab29ddd58d4dac345ddd1d7084b2b37b49f22cf4ef",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

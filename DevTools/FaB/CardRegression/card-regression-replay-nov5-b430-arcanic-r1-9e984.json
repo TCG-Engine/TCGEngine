@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch430.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T08:23:51.686788+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arcanic-cunning-red-four-live-sparse-real-on-stack-prevents-one-of-earned-opposing-instant-zap",
+      "fixture_sha256": "96895efb2aca90c0e0687b5fff3f2e406741e5e553601a08c40e293dff13a846",
+      "passed": true,
+      "result": "[PASS] arcanic_cunning_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcanic-cunning-red-four-live-sparse-real-on-stack-prevents-one-of-earned-opposing-instant-zap",
+      "returncode": 0,
+      "stdout": "[PASS] arcanic_cunning_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

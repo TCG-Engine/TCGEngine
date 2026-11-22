@@ -1,0 +1,327 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_CALMVEIL_BLUE_PREVENTION_AND_FLOW",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T16:24:50.915959+00:00",
+  "source_spec": "card-regression-batch619-calmveil.json",
+  "input_sha256": "97e0d8e8214e90d3e5a2012ce7d9340328eb1971804d396a23b085e5404c7b72",
+  "manifest_sha256": "4bb3200d91e4d9b6798fd8aecfc3e643ddcb90b5d0b639ba547585ffda87fd47",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch619-independent-source-review.json",
+    "sha256": "838fd37cc07df6daece226a0b20ccdf7aacb10f213dafc06fb5686e3657f9277",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch619-calmveil-20261106T162220Z-6aedfebc529d7.json",
+    "sha256": "f2f128667342c3565c90b666124deeef6d9dde4ab19922ff3360daa8fc74c62f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch619-calmveil.recording-results.json",
+    "sha256": "9da11d3f1b56249d42a6f8900ece6f4dd5a8200a1cddb1608b2651a4dd9f4a6f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch619-calmveil-native-c53\\receipt.json",
+    "sha256": "d9ac73e582263ac94ae27d3d5d3c79a8a4ac4b9006a70ddea1229089fdbeb7d0"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "calmveil_of_volthaven_blue",
+      "group_id": "pitch-cycle:calmveil_of_volthaven",
+      "slug": "card-calmveil-of-volthaven-blue-four-live-paid-shield-one-of-three-creates-real-lightning-flow",
+      "source_spec": "card-regression-batch619-calmveil.json",
+      "input_sha256": "97e0d8e8214e90d3e5a2012ce7d9340328eb1971804d396a23b085e5404c7b72",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_SHIELD_ONE_OF_THREE_AND_OWNED_FLOW_CREATION",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-calmveil-of-volthaven-blue-four-live-paid-shield-one-of-three-creates-real-lightning-flow",
+      "fixture_sha256": "235bec0b761d8645ea653bf96b7555496a14a5248bd747f0df24065eb68b4100",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6b53ce853124edc758b9d43a36ff0e3cd9b414810119e60650f7620499df56e6",
+        "actions.json": "a243223b9592a84318447e776108cd0aa9bc0a82d0380234662e45fb1a9507d4",
+        "assertions.json": "844c54de08c358458d24990bc09f92bcd4b10a77436ccad31057b4a846044f31",
+        "expected_final_gamestate.txt": "6657e805e5b072844375a74ebbb77d714f5f36498e0abd2b967e7ae852445acc"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b53ce853124edc758b9d43a36ff0e3cd9b414810119e60650f7620499df56e6",
+        "actions.json": "a243223b9592a84318447e776108cd0aa9bc0a82d0380234662e45fb1a9507d4",
+        "assertions.json": "844c54de08c358458d24990bc09f92bcd4b10a77436ccad31057b4a846044f31",
+        "expected_final_gamestate.txt": "6657e805e5b072844375a74ebbb77d714f5f36498e0abd2b967e7ae852445acc",
+        "meta.json": "c61bec7480aef7f7e3f3b6a2a774de65a11892a65e06d28af084b4ad7c079ca1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6b53ce853124edc758b9d43a36ff0e3cd9b414810119e60650f7620499df56e6",
+        "actions.json": "a243223b9592a84318447e776108cd0aa9bc0a82d0380234662e45fb1a9507d4",
+        "assertions.json": "844c54de08c358458d24990bc09f92bcd4b10a77436ccad31057b4a846044f31",
+        "expected_final_gamestate.txt": "6657e805e5b072844375a74ebbb77d714f5f36498e0abd2b967e7ae852445acc",
+        "meta.json": "c61bec7480aef7f7e3f3b6a2a774de65a11892a65e06d28af084b4ad7c079ca1"
+      },
+      "actions": 15,
+      "native_assertions": 1305,
+      "actual_manual_passes": 11,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 2
+      },
+      "schema_property_assertions": 386,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "aurora",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "calmveil_of_volthaven_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "aurora",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "lightning_flow",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "calmveil_of_volthaven_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "primary_resource_cost": 2,
+      "actual_Blue_pitch": 3,
+      "prevented_damage": 1,
+      "actual_arcane_damage": 2,
+      "earned_LightningFlow_UID": 8,
+      "Flow_owner_controller": 4,
+      "Flow_ready_status": 2,
+      "Flow_no_intrinsic_ability_credited": true,
+      "shield_fully_consumed": true,
+      "Instant_AP_cost_or_refund": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        5
+      ],
+      "final_Pitch4_exact_UIDs": [
+        7
+      ],
+      "final_Arena4_exact_UIDs": [
+        8
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "77d43eaea590d6f87fecfe66791a7345827a3416005d9a0876605ca5bb473a17",
+      "native_assertion_mapping_sha256": "40d87a8463a4ef9eecb3a31477308591fa089c662abd2e5710ea2b2e13f31822"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 15,
+  "total_native_assertions": 1305,
+  "total_manual_passes": 11,
+  "total_schema_property_assertions": 386,
+  "material_findings": [
+    "Exactraw5/all15nativeenvelopes1305orderedchecks11manual3,3,3,2/raw48settingsperendpoint/70currentc53guards+ab33andimmutablearchiveverifiedagainstsource838fd37.",
+    "ActuallegalVerdanceZap6Action0payAP1beforepriority; firstthreepassesgiveAurora4legalInstant. RealCalmveil5printed2/Blue7pitch3leavesR1/AP0beforefresh4,1,2,3; firstthreeholdbothStackcards, onlyfourth5GY/shield1withZap6stillStack/HP20/noFlow.",
+    "FreshZap1,2,3,4thenactual3arcane minus1 prevention=2/P4HP18andnewFlow8OwnerCtl4readyDamage0emptyCounterEffects; no separateWHENresponseoractivatedability. Shieldfullyconsumed, no ongoingunusedgrant hiddenbypartialscope.",
+    "WholeactualUID1..8/counter8/RNG0/primary5GY4/Zap6GY1/Blue7Pitch4/Flow8Arena4/R4one/APall0; allHandsDecks/otherzones/StackDQpaymentawaitspellworkquiet. Heroesunchanged/noOmensmacro/noFlowSpellvoid. Rootreplaysandregistrationremainseparate, notclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4910/",
+      "retrieved": true,
+      "finding": "Current Blue printed resource2 and next1 shielding prevention/first prevention Flow."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2981/",
+      "retrieved": true,
+      "finding": "Current young20 ElementalRuneblade Aurora/EssenceLightning; optional activation not forced."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "retrieved": true,
+      "rules": [
+        "6.4.3",
+        "6.4.10",
+        "6.4.10a",
+        "6.4.10c",
+        "6.4.10j"
+      ],
+      "finding": "Existing shielding replacement applies anydamage, consumes1 andceases whenexhausted; associatedmodification not a newWHEN layer."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/omens-of-the-third-age/",
+      "indexed": true,
+      "independent_open_result": "403; indexedshielding-preventionnoteonly, no fullpagequotecertification"
+    },
+    {
+      "card_id": "calmveil_of_volthaven_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\calmveil_of_volthaven_blue.webp",
+      "sha256": "5bc6da11c73ccbaebe3649e822ae3e10d987fbe457a7e6fce55e9e4d3c04e0a3",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "aurora",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\aurora.webp",
+      "sha256": "42754a1ee8c2f915921c9d59ae65051087cd73d2822345917d1fd741ab7c5888",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "lightning_flow",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\lightning_flow.webp",
+      "sha256": "941f53be60982deb68414080b8a914ae02a2ee282bb6914cdaf918deb9d44106",
+      "actually_viewed": true
+    }
+  ],
+  "limits": [
+    "One BLUEshield1/firstsuccessfulpreventionofonearcane3packet/Flowcreation-retentiononly. Nootherpitches/multiplepackets/twicecreation/leftoveramount/Endexpiry/preventioninteraction/Flowuse/Spellvoid/Omensmacro/Hero/support/fullcardcredit.",
+    "No completeZap target/self/menu qualification or internalordinaryspellsourcepreclear/lifetimecertificate. Complete spell-work cleanup, notcombatClose. SeparateVisitBoneyardnotinthisinput and remainsunattemptedheldroute.",
+    "ExactSavedreviewonly; no qualificationcredituntilRootregistration and no reviewerreplay/native/PHP/R/source/fullsuite/remote/deniedrepair operation. Opaqueundodatahashbound/excludedfromcurrentphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch619_saved_readonly.py",
+    "sha256": "c6f931f8a4d5854765388b281891a23de3004ded6cffdb480d2e9450f68dd866"
+  }
+}

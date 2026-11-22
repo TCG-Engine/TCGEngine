@@ -1,0 +1,150 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B368_PAID_AR_DESTROY_OWNED_HAND_CREATION_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T20:34:41.353405+00:00",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch368.json",
+  "input_sha256": "a1ab76eab05013f1c2d3c578eab4110691ad6b7b4820e8122b44a757b2266d90",
+  "manifest_sha256": "58bc6ee07ddad5e82b08b688a9634ea8190ad74e34808dbcaab72c52fb6a95fb",
+  "fixtures": [
+    {
+      "slug": "card-arousing-wave-four-live-sparse-real-paid-arms-destroy-creates-owned-fang-strike-hand",
+      "card_id": "arousing_wave",
+      "group_id": "identity:arousing_wave",
+      "fixture_sha256": "074b4008aa41f6858fb41018d98b199d6275e212cb5a09fe4bb7547c24fa20ad",
+      "behavior_sha256": "074b4008aa41f6858fb41018d98b199d6275e212cb5a09fe4bb7547c24fa20ad",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e2c139474381138c763da27a02eaf777c10b1ef4288c12096ecbc7fa6e0be31",
+        "actions.json": "9f9f36a385b8ef2401266b95490c883f1067d6df314d1889f23a937897ea6ae1",
+        "assertions.json": "5b8a8ed51f1b0361ae7b3d116acf9dcfcb852107e9773de0f5f4d06eb3522786",
+        "expected_final_gamestate.txt": "3e6352b6f4142f1e5237a6492547df70892dc4f57c872ef796ac79437bada43d",
+        "meta.json": "c8bfb272b3b3dee7f4e1a7f471041f2e3a596bd729a710daeb17d24ef321434e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6e2c139474381138c763da27a02eaf777c10b1ef4288c12096ecbc7fa6e0be31",
+        "actions.json": "9f9f36a385b8ef2401266b95490c883f1067d6df314d1889f23a937897ea6ae1",
+        "assertions.json": "5b8a8ed51f1b0361ae7b3d116acf9dcfcb852107e9773de0f5f4d06eb3522786",
+        "expected_final_gamestate.txt": "3e6352b6f4142f1e5237a6492547df70892dc4f57c872ef796ac79437bada43d",
+        "meta.json": "c8bfb272b3b3dee7f4e1a7f471041f2e3a596bd729a710daeb17d24ef321434e"
+      },
+      "actions": 33,
+      "native_assertions": 2846,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "original_physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 254,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "new_owned_physical_hand_uid": 9,
+      "ceased_virtual_ability_uid": 8,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_created_hand_card": {
+        "CardID": "fang_strike",
+        "UniqueID": 9,
+        "Owner": 1,
+        "Controller": 1
+      },
+      "actual_raw_created_effect": {
+        "type": "PEN_CREATED",
+        "amount": 1,
+        "uses": 1
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual plainRedAA6cost0 consumesAP1, targetP4/four source and combat reachReaction. Actual Equipment5AR1 retains5untilBlue7pitch3 pays1\u2192R2AP0 then5ownedGY beforefour1,2,3,4 source responses. First3holdvirtual8/Hand0/noFang; onlyfourth21 createsone NEWownedFang9Hand andceases8, sameAA6staysChain/power4/noGA. FreshfourReactiondeal4HP16; Damage/Resolutiongive noAPrefund; finalGYset5,6/Pitch7/Fang9unplayed/UID1..7 conserved/R2AP0/fullcleanup. RawPEN_CREATED amount1uses1 confirmsonecreated, noindexpin.",
+      "qualification": "One paid AR/direct ownedHand creation only. Fang remains unplayed; no target/+1/Ephemeraldisposal/expiry/Battleworn/Stealth/Chi/Nuu/multiplecreation/supportprimary/fullcard/control credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch368-independent-source-review.json",
+    "sha256": "f497f55903824341d9d679d746bb6ed37bdb189d07db2b2cb9bb7a9f922ca2cf",
+    "manifest_sha256": "58bc6ee07ddad5e82b08b688a9634ea8190ad74e34808dbcaab72c52fb6a95fb"
+  },
+  "source_guards_verified": 19,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch368-20261103T203246Z-6aea44ee4c2e0.json",
+    "sha256": "8decc5b8b584634c925591a68441d06661596aed84202bfc093c873c67228387"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch368.recording-results.json",
+    "sha256": "2b7af0c080eab121d235763b6e5cfb180bbef0d3f95668adbadd78d93a02c5e7"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch368-native-bc14-r1\\receipt.json",
+    "sha256": "bcb38132aa342b856f2cbabfc75804b879d27aea0b79dced7e1a9cb82db91bc0",
+    "stdout_sha256": "895455c5792414b908f5c59cc2f70f0d5adc382837fed6908f522adbd658627a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+    "runtime_after": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56"
+  },
+  "method": "Exact all33actualinputs/2846persistedassertions compared with independently approved immutable input. Full initial/final schema parsed, all terminal assertions independently checked, every physical/economy/HP/source-lifetime/creationcheckpoint inspected against source model. No builder or game execution.",
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes initial/actions/assertions/expected_final; individual raw5 hashes separately bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Root replay evidence separate; no PHP/native/replay/R/source/generated/service/fullsuite by reviewer.",
+    "No old fixture re-review, new branch/control/supportprimary or unrelated source/issue claim."
+  ]
+}

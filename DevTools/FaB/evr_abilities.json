@@ -487,7 +487,7 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$seats = FaBOpponents($player);\n $i = 0;\n $silver = 0;\n while ($i < count($seats)) {\n $target = $seats[$i];\n $chosen = 'PASS';\n $targets = implode('&', FaBChoiceRefs($target, 'Hand'));\n\nif ($targets !== \"\") {\n $chosen = await $target.MZMayChoose($targets, \"Bottom_card_and_draw\");\n \n}\n if ($chosen !== 'PASS') {\n FaBARCToDeck($target, intval(FaBIdentityFromMZ($chosen)['object']->UniqueID), false);\n DoDrawCard($target, 1);\n FaBWTRCreateArena($player, 'silver');\n $silver = $silver + 1;\n \n}\n $i = $i + 1;\n \n}\n if ($silver === 0) {\n DoDrawCard($player, 1);\n \n}\n",
+        "abilityCode": "$caster = $player;\n$seats = FaBOpponents($caster);\n $i = 0;\n $silver = 0;\n while ($i < count($seats)) {\n $target = $seats[$i];\n $chosen = 'PASS';\n $targets = implode('&', FaBChoiceRefs($target, 'Hand'));\n\nif ($targets !== \"\") {\n $chosen = await $target.MZMayChoose($targets, \"Bottom_card_and_draw\");\n \n}\n if ($chosen !== 'PASS') {\n FaBARCToDeck($target, intval(FaBIdentityFromMZ($chosen)['object']->UniqueID), false);\n DoDrawCard($target, 1);\n FaBWTRCreateArena($caster, 'silver');\n $silver = $silver + 1;\n \n}\n $i = $i + 1;\n \n}\n if ($silver === 0) {\n DoDrawCard($caster, 1);\n \n}\n",
         "isImplemented": true
       }
     ]
@@ -530,9 +530,15 @@
     "cardId": "high_roller_red",
     "abilities": [
       {
-        "macroName": "ResolveCard",
-        "abilityCode": "FaBRequestIntimidate($player);\n if (FaBEVRCount($player, 'HIGH_ROLL')) {\n FaBRequestIntimidate($player);\n \n}\n",
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBEVRPrepareHighRoller($player, $uid);\n",
         "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBEVRResolveHighRoller($player, $uid);\n",
+        "isImplemented": true,
+        "previousCodeHash": "ef42e422ec261f1998db026874aff65aa5f7b300a5e38cd82466c4889b6e1369"
       }
     ]
   },
@@ -540,9 +546,15 @@
     "cardId": "high_roller_yellow",
     "abilities": [
       {
-        "macroName": "ResolveCard",
-        "abilityCode": "FaBRequestIntimidate($player);\n if (FaBEVRCount($player, 'HIGH_ROLL')) {\n FaBRequestIntimidate($player);\n \n}\n",
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBEVRPrepareHighRoller($player, $uid);\n",
         "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBEVRResolveHighRoller($player, $uid);\n",
+        "isImplemented": true,
+        "previousCodeHash": "ef42e422ec261f1998db026874aff65aa5f7b300a5e38cd82466c4889b6e1369"
       }
     ]
   },
@@ -550,9 +562,15 @@
     "cardId": "high_roller_blue",
     "abilities": [
       {
-        "macroName": "ResolveCard",
-        "abilityCode": "FaBRequestIntimidate($player);\n if (FaBEVRCount($player, 'HIGH_ROLL')) {\n FaBRequestIntimidate($player);\n \n}\n",
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBEVRPrepareHighRoller($player, $uid);\n",
         "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBEVRResolveHighRoller($player, $uid);\n",
+        "isImplemented": true,
+        "previousCodeHash": "ef42e422ec261f1998db026874aff65aa5f7b300a5e38cd82466c4889b6e1369"
       }
     ]
   },
@@ -1322,12 +1340,12 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBEVRAdd($player, 'SMASH');\n if (FaBARCCard(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'fromZone') === 'Arsenal') {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 3);\n \n}\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nFaBEVRRegisterSmashing($player, $uid);\n if ((string)DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal') {\n FaBWTRAddEffect($player, 'SUP_NEXT_AA', 3);\n \n}\n",
         "isImplemented": true
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$target = intval(FaBGetState()['defender']);\n $chosen = 'PASS';\n $targets = FaBEVRTargets($player, 'Item', $target);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Destroy_item\");\n \n}\n if ($chosen !== 'PASS') {\n FaBMONDestroy(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID));\n \n}\n",
+        "abilityCode": "$target = intval(DecisionQueueController::GetVariable('evrSmashingVictim'));\n $chosen = 'PASS';\n $targets = $target > 0 ? FaBEVRTargets($player, 'Item', $target) : '';\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Destroy_item\");\n \n}\n if ($chosen !== 'PASS') {\n FaBMONDestroy(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID));\n \n}\n",
         "isImplemented": true
       }
     ]
@@ -1337,12 +1355,12 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBEVRAdd($player, 'SMASH');\n if (FaBARCCard(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'fromZone') === 'Arsenal') {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 2);\n \n}\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nFaBEVRRegisterSmashing($player, $uid);\n if ((string)DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal') {\n FaBWTRAddEffect($player, 'SUP_NEXT_AA', 2);\n \n}\n",
         "isImplemented": true
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$target = intval(FaBGetState()['defender']);\n $chosen = 'PASS';\n $targets = FaBEVRTargets($player, 'Item', $target);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Destroy_item\");\n \n}\n if ($chosen !== 'PASS') {\n FaBMONDestroy(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID));\n \n}\n",
+        "abilityCode": "$target = intval(DecisionQueueController::GetVariable('evrSmashingVictim'));\n $chosen = 'PASS';\n $targets = $target > 0 ? FaBEVRTargets($player, 'Item', $target) : '';\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Destroy_item\");\n \n}\n if ($chosen !== 'PASS') {\n FaBMONDestroy(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID));\n \n}\n",
         "isImplemented": true
       }
     ]
@@ -1352,12 +1370,12 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBEVRAdd($player, 'SMASH');\n if (FaBARCCard(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'fromZone') === 'Arsenal') {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 1);\n \n}\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nFaBEVRRegisterSmashing($player, $uid);\n if ((string)DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal') {\n FaBWTRAddEffect($player, 'SUP_NEXT_AA', 1);\n \n}\n",
         "isImplemented": true
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$target = intval(FaBGetState()['defender']);\n $chosen = 'PASS';\n $targets = FaBEVRTargets($player, 'Item', $target);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Destroy_item\");\n \n}\n if ($chosen !== 'PASS') {\n FaBMONDestroy(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID));\n \n}\n",
+        "abilityCode": "$target = intval(DecisionQueueController::GetVariable('evrSmashingVictim'));\n $chosen = 'PASS';\n $targets = $target > 0 ? FaBEVRTargets($player, 'Item', $target) : '';\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Destroy_item\");\n \n}\n if ($chosen !== 'PASS') {\n FaBMONDestroy(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID));\n \n}\n",
         "isImplemented": true
       }
     ]

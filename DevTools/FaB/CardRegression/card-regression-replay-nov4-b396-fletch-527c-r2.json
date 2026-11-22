@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch396-fletch.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T22:33:44.325481+00:00",
+  "fixtures": [
+    {
+      "slug": "card-fletch-a-yellow-tail-yellow-four-live-sparse-real-aimed-falcon-hero-attack-reduces-two-yellow-defenders",
+      "fixture_sha256": "2043c1537c8879749a58acc2e928bc7e082dc755890cb1e3663e57969658bf8c",
+      "passed": true,
+      "result": "[PASS] fletch_a_yellow_tail_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fletch-a-yellow-tail-yellow-four-live-sparse-real-aimed-falcon-hero-attack-reduces-two-yellow-defenders",
+      "returncode": 0,
+      "stdout": "[PASS] fletch_a_yellow_tail_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

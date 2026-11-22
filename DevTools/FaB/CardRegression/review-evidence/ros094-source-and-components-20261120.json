@@ -1,0 +1,1069 @@
+{
+  "status": "PASS_SOURCE_COMPONENTS_AND_INDEPENDENT_SAVED_REVIEW",
+  "runtime_before": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+  "runtime_after": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+  "proposal": {
+    "status": "SPECIFICALLY_AUTHORIZED_REBASED_FOUR_FUNCTIONS_UNAPPLIED",
+    "issue": "FAB-REG-094",
+    "utc": "2026-11-20T17:38:55.152019+00:00",
+    "runtime_before_sha256": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+    "specific_user_approval_received": true,
+    "prior_denial_known_unexecuted": true,
+    "source_application_executed": false,
+    "target": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+    "candidate_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+    "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+    "functions": [
+      {
+        "name": "FaBFinishReactionResolution",
+        "before_sha256": "72c1a530bbbe6a4324955936d2bee996c90644d304ea5b7dadcf09449ae2fbe6",
+        "candidate_sha256": "b674d15c28debc4ebe64c147f32e075e576d8486a904c82957a38af0984bd3ee"
+      },
+      {
+        "name": "FaBManagedVirtualResolutionClass",
+        "before_sha256": "8a7880ae4a32dd752559e51c0268e19e4209050f0e468a2dd913e9387c0b6450",
+        "candidate_sha256": "56a52fcb65d0f86b754d404f07f50241cf555ea40e4a0e2a5a5658f9aae778a3"
+      },
+      {
+        "name": "FaBResolveManagedVirtualLayer",
+        "before_sha256": "bf53f1450e4b1da1500d74b70eba15549603a6ea17b41b280ddf516076012fb1",
+        "candidate_sha256": "4935d8e6cd02e55b46d495996f74e37f44d4316551470eaef25cdd2c8c3ee0b2"
+      },
+      {
+        "name": "FaBTrackReactionAwaitFrames",
+        "before_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd",
+        "candidate_sha256": "fef4398931178692ace1ef8c59c62dc069e05ed094eb9358ded396c3148f4583"
+      }
+    ],
+    "outside_four_functions_byte_identical": true,
+    "same_approved_function_bodies_as_prior_proposal": true,
+    "previous_proposal": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-ros094-four-function-proposal-after164-for-specific-approval\\manifest.json",
+      "sha256": "4c8db7cf7e4d8d600145f5f3bd5c477479746974f27f414799bca181c496ae75"
+    },
+    "diff_sha256": "bf6964192442139afefbe072b8afbcf17d40e3d6e2b925749c0cb9132cab4881",
+    "scope": "Generic rosTrigger ABILITY with rosEvent empty or literalability only; retainactualResolveAbilityframes/sourceMZ untilcompletion. Preservephysicalspelllifecycle, ARC/Runechant/MON/namedROS paths andnoextraGA; excludeiarBound/Mark/Malice.",
+    "component_native_replay_run": false
+  },
+  "reviews": [
+    {
+      "workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-rebased-independent-source-review-approved.json",
+      "sha256": "925892ba24109824c0ea85ba1efc239f98251a90e342d126014a54f19a6d2052",
+      "receipt": {
+        "status": "GO_SOURCE_ONLY_NOT_EXECUTED",
+        "issue": "FAB-REG-094",
+        "reviewed_utc": "2026-11-20T17:40:31.878972+00:00",
+        "manifest": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\manifest.json",
+          "sha256": "a0046b14ac68de554bd0723ddd13b86a8694f376646928d1c22f9e97cb9b4830"
+        },
+        "runtime_before_sha256": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+        "current_GameLogic_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+        "candidate_GameLogic_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+        "source_checks": [
+          "Exactly four named function bodies differ; reversing those replacements reconstructs current GameLogic bytes exactly.",
+          "ROS admission requires Kind ABILITY, rosTrigger truthy, rosEvent absent/empty/literal ability. Named ROS, ARC, Runechant and MON routes retain existing precedence and predicates.",
+          "Pending layer remains addressable on Stack while actual ResolveAbility awaits execute. Source MZ is captured from physical SourceUniqueID, matching FaBROSResolveTrigger ResolveAbility dispatch.",
+          "Await ownership excludes baseline frames and requires card namespace, ResolveAbility macro and exact source MZ; other macro/source/card frames cannot become owned.",
+          "Completion waits existing all-seat queues, await frames and call-depth; removes marker under reentry guard, removes only still-live virtual layer and resets existing turn-player priority/pass rules.",
+          "ROS passes through existing virtual finisher but cannot receive ARC-only go again; synchronous ROS retains direct no-autopass policy.",
+          "DoResolveCard, ordinary physical spell/defense lifecycle and current named-event implementations remain byte-identical. Existing iarBound/Mark/Malice goals are neither implemented nor rerouted."
+        ],
+        "risks_and_required_validation": [
+          "Scope admits all existing generic ROS ability fallbacks, so original Vest await and synchronous fallback plus ARC/Runechant compatibility are required.",
+          "Frame ownership uses existing namespace/source/baseline model; no new stronger generic identity mechanism is introduced.",
+          "Current Vest helper source absence and later source blank/control semantics are unchanged, not independently repaired.",
+          "Historical component passes do not establish current execution; fresh-bound components, original Native33/2935 and clean relevant replays remain Root-owned gates."
+        ],
+        "blocking_findings": [],
+        "executed": {
+          "PHP": false,
+          "games": false,
+          "network": false,
+          "R_writes": false
+        }
+      }
+    },
+    {
+      "workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-saved-independent-semantic-review-approved.json",
+      "sha256": "eb3a9b20840a3d3a46198f283ad8f28fe239025fcfd4ad613c4eac6c91ae20d2",
+      "receipt": {
+        "status": "GO_SAVED_SEMANTICS_REQUIRES_ROOT_CLEAN_REPLAY",
+        "issue": "FAB-REG-094",
+        "reviewed_utc": "2026-11-20T17:52:07.017147+00:00",
+        "row": {
+          "slug": "card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+          "card_id": "blood_splattered_vest",
+          "semantically_approved": true,
+          "raw5_sha256": {
+            "initial_gamestate.txt": "11cda9b50238e64d0bbec2c61202c35cbedbeeb3d902ec63939fe82d0306c7ab",
+            "actions.json": "12aa50f0330460b24cd68f65afd04a8af9d3bad444299e4c48e9de48bc34fcf5",
+            "assertions.json": "ce1eca58bcfcb38bbe1578ec3cc9114350136c380786678d19c120084689ab86",
+            "expected_final_gamestate.txt": "a39f8236b62f02187f6204bafc4434ee7d37ed89b42b103916961b8ba417a7b4",
+            "meta.json": "321490e8c5228b1604fc8deffde0abec4395beed10e92453164119490c339b83"
+          },
+          "fixture_sha256": "c4e157a692455a603dba60a54a6de678638b1faf327eda3ca24c78129b4464af",
+          "actions": 33,
+          "native_assertions": 2935,
+          "author_only_checks_not_persisted": [],
+          "actual_manual_pass_inputs": 29,
+          "recorded_runtime_sha256": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+          "runtime_sha256": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+          "source_spec": "card-regression-batch413-blood-vest-correct-probe.json",
+          "input_sha256": "e765d880320ff60a097874e4bab8c62aa6340781a7f43064d7a904f4b0cdf699"
+        },
+        "fixture_folder": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+        "source": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch413-blood-vest-correct-probe.json",
+          "sha256": "e765d880320ff60a097874e4bab8c62aa6340781a7f43064d7a904f4b0cdf699"
+        },
+        "current_GameLogic_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+        "native_receipt": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-native\\receipt.json",
+          "sha256": "76dca69fc8c3ecdbdec6b7f19cfdb86716accd8ce6e29795c1d2d5c63eb26a94"
+        },
+        "review_script": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov20_ros094_saved_readonly.py",
+          "sha256": "f0859f6e33dd0f9a961a1a8cc3dad4caad1453aeb1f07764e37912e3e0d2b6e2"
+        },
+        "read_only_common": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16_saved_repair_review_common.py",
+          "sha256": "3cd87847e74d9183550c054cc69aab5cb99fb0602f43c5860a0e6868cf9450ce"
+        },
+        "verified": {
+          "all_33_actions_and_2935_queries_match_original": true,
+          "manual_passes": 29,
+          "all_four_live_manual_preferences": true,
+          "initial_126_and_terminal_194_queries_independently_checked_against_raw_snapshots": true,
+          "fresh_real_dagger_hit": "P4 HP20 to19 earns Vest9 after REACTION fourth response; no initial hit/stain/trigger seeded.",
+          "retained_trigger": "Same material CardID/Controller1/SourceUniqueID5 Stack-one assertions through response steps20..24 including actual pending MZMODAL.",
+          "reward_once": "Step25 numeric gain1 produces R2 to3/STAIN0 to1/Stack0/AP0; R3/STAIN1 remain through full cleanup, no duplicate trigger/grant.",
+          "go_again_attribution": "AP remains0 through Vest gain and first three DAMAGE responses; only fourth normal DAMAGE response step29 reaches RESOLUTION/AP1 for Kodachi.",
+          "final": "Vest5 ready/STAIN1, Kodachi6 used, Blue7 Pitch, original UIDs1..7 conserved; proxies8/9 absent. R3/AP1/P4HP19, ACTION/closed chain, empty queues/Stack/payment/awaits/resolving marker, counter9/RNG0."
+        },
+        "blocking_findings": [],
+        "limits": [
+          "Intermediate checkpoints are exact original queries in a native success receipt; raw-five contains only initial/final snapshots, not independent intermediate state snapshots.",
+          "One unmarked real controlled dagger-hit gain branch only; no decline, third-stain destruction, Blade Break, transferred/departed source or other dagger/trigger/full-card qualification.",
+          "Historical oracle/proposal metadata remains unchanged; actual reviewed evidence and runtime binding are recorded here.",
+          "Clean replay and directly relevant compatibility remain Root-owned; this reviewer ran no PHP/game/replay/network or R writes."
+        ]
+      }
+    }
+  ],
+  "components": {
+    "status": "PASS",
+    "runtime_before": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+    "manifest_sha256": "d7fe54001594d3570e7579b7dc24f2fc2c2eb3674153414697a6194a006c07aa",
+    "source_application": false,
+    "commands": [
+      {
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "-l",
+          "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php"
+        ],
+        "returncode": 0,
+        "stdout_sha256": "de8c44d6e304b1b20f7e8a976b0e9a89ce6eb61f752cd6f7afb7413638e0d557",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "-l",
+          "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php"
+        ],
+        "returncode": 0,
+        "stdout_sha256": "ed535f14a71af599d50d95f77b7cdde911bd80d06595fd4c92817d29c91a7ae8",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "-l",
+          "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-components-current\\ros094-current-focused-components.php"
+        ],
+        "returncode": 0,
+        "stdout_sha256": "fd6f800b96915818b09f94f043105a9b8fab96f4ebfed67ca4316b7e5b7ba150",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-components-current\\ros094-current-focused-components.php",
+          "before",
+          "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-components-current\\source-bindings.json"
+        ],
+        "returncode": 0,
+        "stdout_sha256": "6e5b1b7f7ca424578156529ee245663c3054c4e85cf7af3d97b85cd2ba70e0c3",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-components-current\\ros094-current-focused-components.php",
+          "after",
+          "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-focused-components-current\\source-bindings.json"
+        ],
+        "returncode": 0,
+        "stdout_sha256": "b19c41d9b3aba31415ab886943d2bed88e8d58c01c9f0f2c61040c1a332ec817",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "component_results": {
+      "before": {
+        "status": "PASS_BEFORE_CHARACTERIZATION_NOT_NATIVE",
+        "mode": "before",
+        "contracts": 6,
+        "checks": 67,
+        "completed_contracts": [
+          "01 actual before early-clear / after held-Vest await",
+          "06 synchronous generic fallback old/new material equivalence",
+          "07 generic empty/literal-ability admission and named disjoint scopes",
+          "08 actual ARC/Cindra await plus ARC go-again-once compatibility",
+          "09 actual Runechant resolver destroy/ResolveCard frame compatibility",
+          "10 ordinary wrong-kind and exact Runechant predicates unchanged"
+        ],
+        "actual_functions": {
+          "DoResolveCard": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "30efb901005e55bdd931ff872c0d0f512b2ac094823152e500af7594469de6b6"
+          },
+          "FaBManagedVirtualResolutionClass": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "8a7880ae4a32dd752559e51c0268e19e4209050f0e468a2dd913e9387c0b6450"
+          },
+          "FaBManagedAbilityResolutionOwns": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "a6d87419992738fee257d1a51f9cac13e5f1de7b965d4831f2daa641378a7619"
+          },
+          "FaBResolveManagedVirtualLayer": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "bf53f1450e4b1da1500d74b70eba15549603a6ea17b41b280ddf516076012fb1"
+          },
+          "FaBTrackReactionAwaitFrames": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "9dd0ade07ead961e1bcd76013e4b72f074c4c97647cf5575b4ad1f6af5f380dd"
+          },
+          "FaBReactionResolutionHasWork": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+          },
+          "FaBReactionResolutionIsPending": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+          },
+          "FaBFinishReactionResolution": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "72c1a530bbbe6a4324955936d2bee996c90644d304ea5b7dadcf09449ae2fbe6"
+          },
+          "FaBFinishManagedVirtualGoAgain": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "7fa832df2b3d5018f182871f1035f3f6e769d25949424b24e884deb51b2d2ba7"
+          },
+          "FaBPrepareReactionEliminationCleanup": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "53ac8135cf78f709f0f464bb890dc585481134f01accc931491faab04e738026"
+          },
+          "FaBFinishReactionEliminationCleanup": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "a6c04fc9ca40c92351fae2b3bb91db07685dd2912bd24939e826580f718a49fd"
+          },
+          "FaBReactionQueuedAwaitFrame": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "029b9095648f6096421812070abc3fd4c755c7bbc0134aa77224dba857ccb77a"
+          },
+          "FaBReactionEliminationDiagnostic": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "1735cb93c3a20c336a3da049f18ec3bc9d72d39e01343ce9ff790134d1d48038"
+          },
+          "FaBRunSourceMacro": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "2f7be7ae152d8989446b17cc807ff175cbddcf0d9a158ab916173ebfd9454c54"
+          },
+          "FaBResolveRules": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7"
+          },
+          "FaBStackTop": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "21c7cdf8171e44a6ac20faaedacea784dc310b067ef4e1a13888cdf658a1b908"
+          },
+          "FaBObjectCounters": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "f5dae50d6969e79f396106c449177b3d74289911def73343a8cb2cb713eb3489"
+          },
+          "FaBSetObjectCounter": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "69f6f0ce25cc0e494e0f078cc55fe9ae45e516a427df6f368ec4b90f8b4626d8"
+          },
+          "FaBBeforeActionPoints": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "715ebd949aefff4ff098084e00a09b0235c8a39a4521b5a489d074a70d49e741"
+          },
+          "FaBSeatOrder": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "2fc215641cc8e95b6bf4c34472315e12a125053fed24f7674f31200bcccc7cec"
+          },
+          "FaBLiveSeats": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "7fef236a9a59accf85b07422882f66f171f5e1c6ded9bf3a33128445c7d8d107"
+          },
+          "FaBSeatIsLive": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "620811f9b234510363162075d8ebd97f7cabe46d2cf12b2b36fac984dc47584e"
+          },
+          "FaBOpponents": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "f68f627a4710ebbd32552fb2eb4e332242bac2f6cb3ac42700ca32a8a54b5462"
+          },
+          "FaBPlainSpellResolutionIsManaged": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "a2c14d74fbaf5320134bd9ed7b1ebd6ad318ec0e724443964c68bd14f43e0477"
+          },
+          "FaBFinishPlainSpellGoAgain": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1"
+          },
+          "FaBFinishDefenseReactionLayer": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\before\\GameLogic.php",
+            "source_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+            "function_sha256": "b0c680dfafcc9e6b69cc93fcdae5bf801681f0e0da5ed92d65767e07b8586da4"
+          },
+          "FaBWTRResolveAbility": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRAbilities.php",
+            "source_sha256": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+            "function_sha256": "f9be7171efd36bc5c0e20c0198633ee4161ba4b6c1b81d0574385e204bde41a3"
+          },
+          "FaBARCResolveAbility": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCAbilities.php",
+            "source_sha256": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+            "function_sha256": "21b212744c01e0dd6f3752c8b9c4afcdf9c229b6ee84043c96be649ad3bbb9cb"
+          },
+          "FaBARCGrantedBoostMacro": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCAbilities.php",
+            "source_sha256": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+            "function_sha256": "ccf44bdf779d9a6869e32171ad97f83d8be3a334c31277db233892075f5e28d4"
+          },
+          "FaBARCResolveRunechantTrigger": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php",
+            "source_sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+            "function_sha256": "7a91bb31b06939b833b28cbf500e09434b897ecf933358f458c1f2642af0eec6"
+          },
+          "FaBARCEffect": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php",
+            "source_sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+            "function_sha256": "5e9d68ab952cb49255a037fbbae34442cfb72c2199520d35643f120cd610c207"
+          },
+          "FaBROSResolveTrigger": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "17fff1d89d825b36909a6a236bf81195e3e24a88b1b696461e6ce8b2d948f74a"
+          },
+          "FaBROSQueue": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "4fa2bca6c95aa05fbf4fd5069efec469d246626f4e76e3b162f057dc320452ac"
+          },
+          "FaBROSMeldFirst": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "ee40f2885164424a295fd2b1417dbdf837942f2a284d793a7841e157e4213364"
+          },
+          "FaBROSMeld": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "58a881a63ee7defab26fed1101a90d9b6a0a9bbe024a5d3ac68b3c3fcac0d2d7"
+          },
+          "FaBROSCount": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "370ffe6887ef41fdbb30391c56dec8dc1b274506e0a669188ef5d77c1449f96c"
+          },
+          "FaBROSGo": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSRuntime.php",
+            "source_sha256": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+            "function_sha256": "fcfd7c611faf5346778f0b92bc62f94c7c4a641ac550c00a033b9a4eaf3718e3"
+          },
+          "FaBHNTVest": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "84ccb3da09bd4be46f3289de91f4e0e6856e50c6f3186bf13c9f8b9ec31b9f18"
+          },
+          "FaBHNTEqpDaggers": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "18a39399d089ed00eda0564d829f403253f5e0a79647d9d647e2c967a6668aea"
+          },
+          "FaBHNTOpenHands": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "30ef64e056abd5aef0327fc0cddc3b53b5c9dbaf6ddf5b65d25e8c9038212057"
+          },
+          "FaBHNTEquip": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "0870885e9fd432574cfc7628a844ce3e39f88f192036e5cf2a7286115a4aff16"
+          },
+          "FaBUPRUIDs": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\UPRCards.php",
+            "source_sha256": "7f0e3b9e5127dc2cb0203f0aa8bdd46d3ff114a07768e0ed6836fb88791463ce",
+            "function_sha256": "0b34d63a3abe82c2c2b2ed840be8170357b88f8ea99759fc4cdc6593e02852f2"
+          },
+          "FaBDYNEquipmentStillPresent": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\DYNCards.php",
+            "source_sha256": "3bf8bd752c9c48c68e570ae6bc99a279193a0a9fab7335fe1f9d2884f1a7bc59",
+            "function_sha256": "2c1d458bb7345c55d802262cf2ade7a832fd9a9f600bcfbccf2e61ce92e3b983"
+          },
+          "FaBDYNPitched": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\DYNCards.php",
+            "source_sha256": "3bf8bd752c9c48c68e570ae6bc99a279193a0a9fab7335fe1f9d2884f1a7bc59",
+            "function_sha256": "5a7ae8ae5958f05476fe091178310fde469f8432066c14a4042ebf4503233883"
+          },
+          "FaBWTRIsWeapon": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "f1f1cddf23de7f3729f3225aba1e6e5184cf7f25b5615d198afda250583b9f2e"
+          },
+          "FaBWTRBase": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d"
+          },
+          "FaBWTRMayGoAgain": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "2753987387d6359fdcb19d68219ee1efcfa83143f58b3c64c67c485016f2cb43"
+          },
+          "FaBWTREffects": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "39d1d1b7ee08fe9a8d0f652415a325e7d56a7636c5ee08d7f40373012a51e07a"
+          },
+          "FaBUsesDeclaredReactionTarget": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "93f6a9b7f94bb62e972159f8bb5a955f2557614710cb712cd5bea8fd9eeb5771"
+          },
+          "FaBSUPSuppressed": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\SUPCards.php",
+            "source_sha256": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+            "function_sha256": "7bfea005900fcc0b8d339b32fbf7e104422e4e7bddb391fc7aa86f1e94974319"
+          },
+          "FaBMPGSuppressed": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MPGCards.php",
+            "source_sha256": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+            "function_sha256": "5786ccf37634009843cb78565bc016547f9cf9494730573437995e7798209363"
+          },
+          "AddActionPoints": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\ZoneAccessors.php",
+            "source_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+            "function_sha256": "3e05ca378e6f9c6e987635cb69abb9acb4a0d6bc9b95b2fb8625a957c65e13d5"
+          },
+          "FaBMONArcanicTrigger": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MONCards.php",
+            "source_sha256": "45cec609e502215fa81caaa4f30d8952c8c629b6f7aa71dedd9582f3940fc8db",
+            "function_sha256": "2e33107a2fd954d2d8ae40a3723077ff0314531dc5cf352b9a193d3acc571056"
+          },
+          "FaBMONArcanicCard": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MONCards.php",
+            "source_sha256": "45cec609e502215fa81caaa4f30d8952c8c629b6f7aa71dedd9582f3940fc8db",
+            "function_sha256": "dfcab20956fb9069aa6bba12372ac138df677a6d3e6e04c512902119d088554e"
+          },
+          "FaBDeclaredReactionDefinition": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "a04355a4b01cf987c8a829f7cc214aae0efd1d11461fe6a9a106226df59390de"
+          },
+          "FaBDreadPreparedCostCard": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "dd5a00416de45770db0081aaa0afef9fc9dd42d904bc94011f2fe4c7929b7967"
+          },
+          "FaBDreadPrepareCostContext": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "306825febb161fd355a5fe9e8d62e97be8c6275f0be8426710bf509ae5ee8d37"
+          },
+          "FaBUPRUsesDeclaredSandTarget": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\UPRCards.php",
+            "source_sha256": "7f0e3b9e5127dc2cb0203f0aa8bdd46d3ff114a07768e0ed6836fb88791463ce",
+            "function_sha256": "5c97bb12ded7ae3fa48307698d5aa9618e7db0e6e8f7ae70c39a56a8a7276b61"
+          },
+          "FaBROSStoredSource": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "6e05613a2f69242dba9fd1db3af4019ce1c0883069053791c1b353eb2b5cbceb"
+          },
+          "FaBMPGEffects": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MPGCards.php",
+            "source_sha256": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+            "function_sha256": "8f2c400e8171d9cffe484d62c27a8214497be9b1691b7cb669a1d26bfc47a35d"
+          },
+          "FaBELEKorshemActivity": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ELECards.php",
+            "source_sha256": "7b9713c5ecf4eaa515fedbb271b7b82f35ff0794ae4b3cd33e4b21600e7025b6",
+            "function_sha256": "03a245c0cef3d642e088c25a395c9cd7142227ce8780dbea22a3c07f0756f7a5"
+          },
+          "BeginAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "a502151cf431e474737bf5dc3e151dded4db8ff053408d9698125bae0b63e69c"
+          },
+          "GetAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "eb7633aa159d8cdc87fa98a5c487416ac5dd4b40447c1bf3f8a2a413f07dfd70"
+          },
+          "UpdateAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "0b2132c71e5d613a0565008c0ce2405302cdc188e67d44bf0f0a63c9e6576bb3"
+          },
+          "FinishAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "0746f22ee61ef59eb12b15a618c4188026a904352dd4065c3aca19d5e8fffd7f"
+          },
+          "SetAwaitFrameLocal": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "2cf3a272cdf5933859e9958e1cdb4d4f6bb77f1cbd11b73966de0b881fcf0de3"
+          },
+          "StoreVariable": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "f5b6bfd6e088da7c87d47d73acc7d11668960381f0b014c28d79638483d16b87"
+          },
+          "GetVariable": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "d2452b9e9a5d3ad0f17083abf2bcdfc939a09254fa852b2a609565beb3821fc6"
+          },
+          "ClearVariable": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "535c9d594ae4afbf830366e8219a29dbf1f39b77a629919e3edcb44683df96c4"
+          },
+          "DecodeVariablesPublic": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "44d9baf7f7543b7791aeb90dddaf827ace5da72209e4e58bb0cc8effead50c46"
+          },
+          "DecodeVariables": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "2862cba4001fb587ebe53dfa3da26010b7b92e882916756758a3fb66060e634f"
+          },
+          "SanitizeAwaitFrameValue": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "d4412b6957618095e56872e3663ced3b9952c7d3795a9d63d6941d4019be17b2"
+          },
+          "SanitizeAwaitFrameLocals": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "9923dd5f47122cfa14bace26838699dddb7b517a7efb7342764726adf692b5df"
+          },
+          "AddDecision": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "e0977d7e0f316a39d0c47186df655475a6a50960bc64fe42f1b5f81245afc453"
+          }
+        },
+        "source_binding_sha256": "17564da63d8e260b5caa77088e0d320a8c356fd4191cc226f7634b4cd2ed4359",
+        "no_game_bootstrap": true,
+        "no_native_or_coverage_credit": true
+      },
+      "after": {
+        "status": "PASS_AFTER_CONTROLLED_COMPONENTS_NOT_NATIVE",
+        "mode": "after",
+        "contracts": 14,
+        "checks": 189,
+        "completed_contracts": [
+          "01 actual before early-clear / after held-Vest await",
+          "02 actual generated numeric gain / one reward and cleanup",
+          "03 actual generated numeric decline",
+          "04 captured controller four / physical owner one",
+          "05 source absence / later ordinary blank / stain destroy LKI",
+          "06 synchronous generic fallback old/new material equivalence",
+          "07 generic empty/literal-ability admission and named disjoint scopes",
+          "08 actual ARC/Cindra await plus ARC go-again-once compatibility",
+          "09 actual Runechant resolver destroy/ResolveCard frame compatibility",
+          "10 ordinary wrong-kind and exact Runechant predicates unchanged",
+          "11 real owned-frame matching / baseline foreign macro source / serialize",
+          "12 all-seat static work / frame-only / depth prevents clear",
+          "13 existing elimination owned-pair cleanup and live reference preservation",
+          "14 pending resolver/reentrant callback/repeated finisher never double executes"
+        ],
+        "actual_functions": {
+          "DoResolveCard": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "30efb901005e55bdd931ff872c0d0f512b2ac094823152e500af7594469de6b6"
+          },
+          "FaBManagedVirtualResolutionClass": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "56a52fcb65d0f86b754d404f07f50241cf555ea40e4a0e2a5a5658f9aae778a3"
+          },
+          "FaBManagedAbilityResolutionOwns": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "a6d87419992738fee257d1a51f9cac13e5f1de7b965d4831f2daa641378a7619"
+          },
+          "FaBResolveManagedVirtualLayer": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "4935d8e6cd02e55b46d495996f74e37f44d4316551470eaef25cdd2c8c3ee0b2"
+          },
+          "FaBTrackReactionAwaitFrames": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "fef4398931178692ace1ef8c59c62dc069e05ed094eb9358ded396c3148f4583"
+          },
+          "FaBReactionResolutionHasWork": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+          },
+          "FaBReactionResolutionIsPending": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+          },
+          "FaBFinishReactionResolution": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "b674d15c28debc4ebe64c147f32e075e576d8486a904c82957a38af0984bd3ee"
+          },
+          "FaBFinishManagedVirtualGoAgain": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "7fa832df2b3d5018f182871f1035f3f6e769d25949424b24e884deb51b2d2ba7"
+          },
+          "FaBPrepareReactionEliminationCleanup": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "53ac8135cf78f709f0f464bb890dc585481134f01accc931491faab04e738026"
+          },
+          "FaBFinishReactionEliminationCleanup": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "a6c04fc9ca40c92351fae2b3bb91db07685dd2912bd24939e826580f718a49fd"
+          },
+          "FaBReactionQueuedAwaitFrame": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "029b9095648f6096421812070abc3fd4c755c7bbc0134aa77224dba857ccb77a"
+          },
+          "FaBReactionEliminationDiagnostic": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "1735cb93c3a20c336a3da049f18ec3bc9d72d39e01343ce9ff790134d1d48038"
+          },
+          "FaBRunSourceMacro": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "2f7be7ae152d8989446b17cc807ff175cbddcf0d9a158ab916173ebfd9454c54"
+          },
+          "FaBResolveRules": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7"
+          },
+          "FaBStackTop": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "21c7cdf8171e44a6ac20faaedacea784dc310b067ef4e1a13888cdf658a1b908"
+          },
+          "FaBObjectCounters": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "f5dae50d6969e79f396106c449177b3d74289911def73343a8cb2cb713eb3489"
+          },
+          "FaBSetObjectCounter": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "69f6f0ce25cc0e494e0f078cc55fe9ae45e516a427df6f368ec4b90f8b4626d8"
+          },
+          "FaBBeforeActionPoints": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "715ebd949aefff4ff098084e00a09b0235c8a39a4521b5a489d074a70d49e741"
+          },
+          "FaBSeatOrder": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "2fc215641cc8e95b6bf4c34472315e12a125053fed24f7674f31200bcccc7cec"
+          },
+          "FaBLiveSeats": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "7fef236a9a59accf85b07422882f66f171f5e1c6ded9bf3a33128445c7d8d107"
+          },
+          "FaBSeatIsLive": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "620811f9b234510363162075d8ebd97f7cabe46d2cf12b2b36fac984dc47584e"
+          },
+          "FaBOpponents": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "f68f627a4710ebbd32552fb2eb4e332242bac2f6cb3ac42700ca32a8a54b5462"
+          },
+          "FaBPlainSpellResolutionIsManaged": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "a2c14d74fbaf5320134bd9ed7b1ebd6ad318ec0e724443964c68bd14f43e0477"
+          },
+          "FaBFinishPlainSpellGoAgain": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1"
+          },
+          "FaBFinishDefenseReactionLayer": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-approved-rebased-proposal\\candidate\\GameLogic.php",
+            "source_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+            "function_sha256": "b0c680dfafcc9e6b69cc93fcdae5bf801681f0e0da5ed92d65767e07b8586da4"
+          },
+          "FaBWTRResolveAbility": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRAbilities.php",
+            "source_sha256": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+            "function_sha256": "f9be7171efd36bc5c0e20c0198633ee4161ba4b6c1b81d0574385e204bde41a3"
+          },
+          "FaBARCResolveAbility": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCAbilities.php",
+            "source_sha256": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+            "function_sha256": "21b212744c01e0dd6f3752c8b9c4afcdf9c229b6ee84043c96be649ad3bbb9cb"
+          },
+          "FaBARCGrantedBoostMacro": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCAbilities.php",
+            "source_sha256": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+            "function_sha256": "ccf44bdf779d9a6869e32171ad97f83d8be3a334c31277db233892075f5e28d4"
+          },
+          "FaBARCResolveRunechantTrigger": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php",
+            "source_sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+            "function_sha256": "7a91bb31b06939b833b28cbf500e09434b897ecf933358f458c1f2642af0eec6"
+          },
+          "FaBARCEffect": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php",
+            "source_sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+            "function_sha256": "5e9d68ab952cb49255a037fbbae34442cfb72c2199520d35643f120cd610c207"
+          },
+          "FaBROSResolveTrigger": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "17fff1d89d825b36909a6a236bf81195e3e24a88b1b696461e6ce8b2d948f74a"
+          },
+          "FaBROSQueue": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "4fa2bca6c95aa05fbf4fd5069efec469d246626f4e76e3b162f057dc320452ac"
+          },
+          "FaBROSMeldFirst": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "ee40f2885164424a295fd2b1417dbdf837942f2a284d793a7841e157e4213364"
+          },
+          "FaBROSMeld": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "58a881a63ee7defab26fed1101a90d9b6a0a9bbe024a5d3ac68b3c3fcac0d2d7"
+          },
+          "FaBROSCount": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "370ffe6887ef41fdbb30391c56dec8dc1b274506e0a669188ef5d77c1449f96c"
+          },
+          "FaBROSGo": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSRuntime.php",
+            "source_sha256": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+            "function_sha256": "fcfd7c611faf5346778f0b92bc62f94c7c4a641ac550c00a033b9a4eaf3718e3"
+          },
+          "FaBHNTVest": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "84ccb3da09bd4be46f3289de91f4e0e6856e50c6f3186bf13c9f8b9ec31b9f18"
+          },
+          "FaBHNTEqpDaggers": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "18a39399d089ed00eda0564d829f403253f5e0a79647d9d647e2c967a6668aea"
+          },
+          "FaBHNTOpenHands": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "30ef64e056abd5aef0327fc0cddc3b53b5c9dbaf6ddf5b65d25e8c9038212057"
+          },
+          "FaBHNTEquip": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\HNTCards.php",
+            "source_sha256": "3a7cab1d5abf221882885578bfe2b5b306c43bb1728f1e40b8249bf33fd76af1",
+            "function_sha256": "0870885e9fd432574cfc7628a844ce3e39f88f192036e5cf2a7286115a4aff16"
+          },
+          "FaBUPRUIDs": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\UPRCards.php",
+            "source_sha256": "7f0e3b9e5127dc2cb0203f0aa8bdd46d3ff114a07768e0ed6836fb88791463ce",
+            "function_sha256": "0b34d63a3abe82c2c2b2ed840be8170357b88f8ea99759fc4cdc6593e02852f2"
+          },
+          "FaBDYNEquipmentStillPresent": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\DYNCards.php",
+            "source_sha256": "3bf8bd752c9c48c68e570ae6bc99a279193a0a9fab7335fe1f9d2884f1a7bc59",
+            "function_sha256": "2c1d458bb7345c55d802262cf2ade7a832fd9a9f600bcfbccf2e61ce92e3b983"
+          },
+          "FaBDYNPitched": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\DYNCards.php",
+            "source_sha256": "3bf8bd752c9c48c68e570ae6bc99a279193a0a9fab7335fe1f9d2884f1a7bc59",
+            "function_sha256": "5a7ae8ae5958f05476fe091178310fde469f8432066c14a4042ebf4503233883"
+          },
+          "FaBWTRIsWeapon": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "f1f1cddf23de7f3729f3225aba1e6e5184cf7f25b5615d198afda250583b9f2e"
+          },
+          "FaBWTRBase": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d"
+          },
+          "FaBWTRMayGoAgain": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "2753987387d6359fdcb19d68219ee1efcfa83143f58b3c64c67c485016f2cb43"
+          },
+          "FaBWTREffects": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+            "source_sha256": "3989c43d25ec43b5a2c3e480c6a961ca5746639e00e34565961bd3db9a508bc5",
+            "function_sha256": "39d1d1b7ee08fe9a8d0f652415a325e7d56a7636c5ee08d7f40373012a51e07a"
+          },
+          "FaBUsesDeclaredReactionTarget": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "93f6a9b7f94bb62e972159f8bb5a955f2557614710cb712cd5bea8fd9eeb5771"
+          },
+          "FaBSUPSuppressed": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\SUPCards.php",
+            "source_sha256": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+            "function_sha256": "7bfea005900fcc0b8d339b32fbf7e104422e4e7bddb391fc7aa86f1e94974319"
+          },
+          "FaBMPGSuppressed": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MPGCards.php",
+            "source_sha256": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+            "function_sha256": "5786ccf37634009843cb78565bc016547f9cf9494730573437995e7798209363"
+          },
+          "AddActionPoints": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\ZoneAccessors.php",
+            "source_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+            "function_sha256": "3e05ca378e6f9c6e987635cb69abb9acb4a0d6bc9b95b2fb8625a957c65e13d5"
+          },
+          "FaBMONArcanicTrigger": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MONCards.php",
+            "source_sha256": "45cec609e502215fa81caaa4f30d8952c8c629b6f7aa71dedd9582f3940fc8db",
+            "function_sha256": "2e33107a2fd954d2d8ae40a3723077ff0314531dc5cf352b9a193d3acc571056"
+          },
+          "FaBMONArcanicCard": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MONCards.php",
+            "source_sha256": "45cec609e502215fa81caaa4f30d8952c8c629b6f7aa71dedd9582f3940fc8db",
+            "function_sha256": "dfcab20956fb9069aa6bba12372ac138df677a6d3e6e04c512902119d088554e"
+          },
+          "FaBDeclaredReactionDefinition": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "a04355a4b01cf987c8a829f7cc214aae0efd1d11461fe6a9a106226df59390de"
+          },
+          "FaBDreadPreparedCostCard": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "dd5a00416de45770db0081aaa0afef9fc9dd42d904bc94011f2fe4c7929b7967"
+          },
+          "FaBDreadPrepareCostContext": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CardChoices.php",
+            "source_sha256": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+            "function_sha256": "306825febb161fd355a5fe9e8d62e97be8c6275f0be8426710bf509ae5ee8d37"
+          },
+          "FaBUPRUsesDeclaredSandTarget": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\UPRCards.php",
+            "source_sha256": "7f0e3b9e5127dc2cb0203f0aa8bdd46d3ff114a07768e0ed6836fb88791463ce",
+            "function_sha256": "5c97bb12ded7ae3fa48307698d5aa9618e7db0e6e8f7ae70c39a56a8a7276b61"
+          },
+          "FaBROSStoredSource": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php",
+            "source_sha256": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+            "function_sha256": "6e05613a2f69242dba9fd1db3af4019ce1c0883069053791c1b353eb2b5cbceb"
+          },
+          "FaBMPGEffects": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MPGCards.php",
+            "source_sha256": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+            "function_sha256": "8f2c400e8171d9cffe484d62c27a8214497be9b1691b7cb669a1d26bfc47a35d"
+          },
+          "FaBELEKorshemActivity": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ELECards.php",
+            "source_sha256": "7b9713c5ecf4eaa515fedbb271b7b82f35ff0794ae4b3cd33e4b21600e7025b6",
+            "function_sha256": "03a245c0cef3d642e088c25a395c9cd7142227ce8780dbea22a3c07f0756f7a5"
+          },
+          "BeginAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "a502151cf431e474737bf5dc3e151dded4db8ff053408d9698125bae0b63e69c"
+          },
+          "GetAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "eb7633aa159d8cdc87fa98a5c487416ac5dd4b40447c1bf3f8a2a413f07dfd70"
+          },
+          "UpdateAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "0b2132c71e5d613a0565008c0ce2405302cdc188e67d44bf0f0a63c9e6576bb3"
+          },
+          "FinishAwaitFrame": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "0746f22ee61ef59eb12b15a618c4188026a904352dd4065c3aca19d5e8fffd7f"
+          },
+          "SetAwaitFrameLocal": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "2cf3a272cdf5933859e9958e1cdb4d4f6bb77f1cbd11b73966de0b881fcf0de3"
+          },
+          "StoreVariable": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "f5b6bfd6e088da7c87d47d73acc7d11668960381f0b014c28d79638483d16b87"
+          },
+          "GetVariable": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "d2452b9e9a5d3ad0f17083abf2bcdfc939a09254fa852b2a609565beb3821fc6"
+          },
+          "ClearVariable": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "535c9d594ae4afbf830366e8219a29dbf1f39b77a629919e3edcb44683df96c4"
+          },
+          "DecodeVariablesPublic": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "44d9baf7f7543b7791aeb90dddaf827ace5da72209e4e58bb0cc8effead50c46"
+          },
+          "DecodeVariables": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "2862cba4001fb587ebe53dfa3da26010b7b92e882916756758a3fb66060e634f"
+          },
+          "SanitizeAwaitFrameValue": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "d4412b6957618095e56872e3663ced3b9952c7d3795a9d63d6941d4019be17b2"
+          },
+          "SanitizeAwaitFrameLocals": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "9923dd5f47122cfa14bace26838699dddb7b517a7efb7342764726adf692b5df"
+          },
+          "AddDecision": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\Core\\DecisionQueueController.php",
+            "source_sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+            "function_sha256": "e0977d7e0f316a39d0c47186df655475a6a50960bc64fe42f1b5f81245afc453"
+          }
+        },
+        "source_binding_sha256": "17564da63d8e260b5caa77088e0d320a8c356fd4191cc226f7634b4cd2ed4359",
+        "no_game_bootstrap": true,
+        "no_native_or_coverage_credit": true
+      }
+    },
+    "harness_contract_bodies_identical_to_reviewed_legacy": true,
+    "runtime_after": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+    "completed_utc": "2026-11-20T17:45:22.167379+00:00"
+  },
+  "application": {
+    "status": "APPROVED_ONE_FILE_APPLIED_HASH_SYNTAX_BOUND_NATIVE_PENDING",
+    "utc": "2026-11-20T17:47:06.606957+00:00",
+    "target": "FaBSim/Custom/GameLogic.php",
+    "runtime_before": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+    "before_sha256": "39d600bcd26f91e299e34984245724905dd4309b7a1513eb5f87fdfcd484dd98",
+    "candidate_sha256": "5377ae1633bb7a6e1e436d3fd7ab80fbf00c58cfc2a796ea9cae44fda3f7fabb",
+    "proposal_sha256": "a0046b14ac68de554bd0723ddd13b86a8694f376646928d1c22f9e97cb9b4830",
+    "independent_source_review_sha256": "925892ba24109824c0ea85ba1efc239f98251a90e342d126014a54f19a6d2052",
+    "current_component_receipt_sha256": "6e9f69644a84fabd0a5d695633e0a7a3bbbf9dc4224c1ad8283c5445b784bde5",
+    "specific_user_approval_received": true,
+    "prior_denial_known_unexecuted": true,
+    "permitted_retry_under_new_specific_authorization": 1,
+    "source_application_executed": true,
+    "functions": [
+      "FaBFinishReactionResolution",
+      "FaBManagedVirtualResolutionClass",
+      "FaBResolveManagedVirtualLayer",
+      "FaBTrackReactionAwaitFrames"
+    ],
+    "syntax_evidence": "Fresh candidate PHP-l passed; actual source byte identity reuses exact syntax result.",
+    "source_only_no_generation": true,
+    "full_suite_run": false,
+    "remote_writes": false,
+    "runtime_after": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+    "unrelated_generated_config_index_metadata_fixtures_preserved": true,
+    "completed_utc": "2026-11-20T17:47:07.028506+00:00"
+  },
+  "source_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-ros094-authorized-one-file-application\\GameLogic.before.php",
+  "outside_four_functions_unchanged": true,
+  "other_prior_code_and_generated_outputs_unchanged": {
+    "DevTools/FaB/mon_abilities.json": "3622dfcc0d44e684bb1dce8ce8a962e7030079fbf17e1a05f1f13a70edbc8c24",
+    "DevTools/FaB/build_mon_abilities.py": "8183ec7a957c3547862ba90cb8c232cc749fb162bdcf92eaeeb445a286c35a61",
+    "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+    "FaBSim/Custom/CodeGeneration.php": "c11770d01652e5ebf8ac23aa99bcd252ed04235fd25a44209fa93efc5190556b",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c76f06f37470ffa83cc4b47f677ef9758ae019074cd583e6bd4c7b37e00d1da2",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "8a3e5e6d55923eb1b01b2172e97b17b91f34937ece772b1568f5ba1a11bfdbb7",
+    "FaBSim/Custom/MONCards.php": "45cec609e502215fa81caaa4f30d8952c8c629b6f7aa71dedd9582f3940fc8db",
+    "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+    "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+    "DevTools/FaB/hnt_abilities.json": "5b1eeffffe7e60016a4f0dc5d8390268c0ac2872a776064e3b302bbb67cf29c1",
+    "DevTools/FaB/build_hnt_abilities.py": "b3c29e7a4d8026b3d4704e8e577ca6a93c393e4944a31e043142f1a4a11745e6",
+    "DevTools/FaB/out_abilities.json": "6ee8f54993e19135642b564263fdd2505867c80c33532bd5e5ac21326571a3f1",
+    "DevTools/FaB/build_out_abilities.py": "e80ec43929ade3d4be7eb2cc5f5801c01892891362a17ef554ee5296e2ce253c",
+    "FaBSim/Custom/ROSCards.php": "8005179b78860cdaeb1fbcf2cc9fc98546324c6d558b2bd463300e88b0691839",
+    "DevTools/FaB/sea_abilities.json": "17fea7fde53690de08d84112a35b6884555d4804998eda589bd594157c925ab9",
+    "DevTools/FaB/build_sea_abilities.py": "aed18f64829f9cc10f5caacfe1d3dd8d5d8fbff4de9c840f417c5e3183dd14b6",
+    "DevTools/FaB/omn_abilities.json": "190d0fa0e556f78d04e41142b86fed6374bdbfa56bd6531989b8e38ff3dff957",
+    "DevTools/FaB/build_omn_abilities.py": "985cafa7ec1e98f55232f779b1500f05d2a887d4ed723af01c38b474d14806f6",
+    "DevTools/FaB/dtd_abilities.json": "b02ee1ef3b61f742e94e7296a63a0b6d7879702290861a4fa19414770ed475a2",
+    "DevTools/FaB/build_dtd_abilities.py": "c42695a4ea590b2ff16b6fe9e740a8a625025e753024f4e8620e30c20116b55f"
+  },
+  "scoped_git_diff_check": 0,
+  "git": {
+    "head": "b097e43e4de0369d44839fa95d3804aa1454ff1e",
+    "staged_entries": 0,
+    "unstaged_tracked_entries": 146,
+    "untracked_normal_mode_entries": 5581,
+    "scope": "Before final docs; normal untracked entries can be directory placeholders, not raw file counts."
+  },
+  "source_action": "Specific approval accepted. Prior denied operation known unexecuted; one source write succeeded. A wrapper parse error occurred before execution and was corrected after checking unchanged source. No fresh approval denial.",
+  "other_denied_operations_attempted": false,
+  "full_suite_run": false
+}

@@ -1,0 +1,56 @@
+{
+  "status": "GENERIC_ROS094_SPECIFIC_APPLICATION_APPROVAL_PENDING_CURRENT_PROPOSAL_SOURCE_SCOPE_REVIEWED",
+  "utc": "2026-11-17T03:31:14.300378+00:00",
+  "target": "FaBSim/Custom/GameLogic.php",
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-ros094-current-four-function-proposal-for-specific-approval\\manifest.json",
+  "proposal_sha256": "58e6f8085c455c8a9eb08b534650d299a3652dd4d8590c3b9b24d5294e16e234",
+  "diff": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-ros094-current-four-function-proposal-for-specific-approval\\change.diff",
+  "diff_sha256": "5a638a46a0021316c4fdc3e534e97f659d90620fd922aca1a9be7559baad517d",
+  "source_review": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-ros094-independent-root-scope-review.json",
+  "source_review_sha256": "2ba4afda445a33ada76713977d1a7b4eef1634d3a547a783d10706fc375256f5",
+  "functions_changed": [
+    "FaBFinishReactionResolution",
+    "FaBManagedVirtualResolutionClass",
+    "FaBResolveManagedVirtualLayer",
+    "FaBTrackReactionAwaitFrames"
+  ],
+  "GL_preimage_sha256": "b61f735054c6811879762200680f53832b978818dd1c2dc5a3c7e8b85dbb0926",
+  "candidate_GL_sha256": "df0fa242b86099874a248f0f6d985c44ca543be77f82f6ebf714d43164a98189",
+  "current_runtime_at_metadata_read": "59514a44fc3a9d500c98d91897374f7c5672f04e623ee650c921fbc37f52c193",
+  "intended_behavior": "Retain the existing generic virtual ABI through its actual ResolveAbility choices, then existing finalizer clears the virtual layer after all work completes. No new choice/trigger or physical source movement.",
+  "preservation": [
+    "Current MON_ARCANIC_TRIGGER classification, dispatch, pending route and virtual completion retained.",
+    "R4/R5 owned physical plain-spell lifecycle, Gorganian exception, self-move guards and all other current source bytes retained.",
+    "Wind schedule reset preservation, Deathmatch, 071/105/137/114/131/163 and all other unrelated edits unchanged.",
+    "Named ROS events excluded; only ABILITY+rosTrigger with missing/empty rosEvent or literal ability is ROS_ABILITY. No producer/canonical/generated/Core/service change.",
+    "Existing all-seat queue/await-work check and exact card/ResolveAbility/physical-source-MZ frame ownership reused without expanding queue or elimination policy.",
+    "No trigger GoAgain: abilityGoAgain remains ARC-only and unchanged FinishManagedVirtualGoAgain rejects other resolution classes.",
+    "Generic ROS synchronous route keeps its previous no-direct-AutoPassShortcuts policy; legacy ARC/Runechant/MON policies unchanged."
+  ],
+  "prior_denial": {
+    "status": "AUTO_REVIEW_DENIED_BEFORE_CREATEPROCESS_KNOWN_UNEXECUTED",
+    "target": [
+      "FaBSim/Custom/GameLogic.php"
+    ],
+    "reason": "This persistently modifies FaBSim gameplay source, while the user authorized documenting incorrect behavior rather than changing rules and provided no direct approval for this repair.",
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-blood-vest094-auto-review-denial.json",
+    "sha256": "0c0717ef85a621856608f1811732f84b5a082788d986aa7a1c4d3806c1cd725e",
+    "known_unexecuted": true
+  },
+  "specific_application_approval_received": false,
+  "denied_operation_retried": false,
+  "source_application_executed": false,
+  "current_components_run": false,
+  "native_after_run": false,
+  "historical_components_only": {
+    "before_checks": 67,
+    "candidate_checks": 189,
+    "current_revalidation": false
+  },
+  "needed": "Specific authorization for this one-file generic ROS continuation repair before any guarded application retry; current components/review gates and originalVest33/2935 Native/Saved/single replay plus direct affected compatibility remain. No full suite.",
+  "limits": [
+    "Workspace-only proposal/review is concrete but does not activate gameplay or qualify094/dependent cards.",
+    "Physical R4/R5 lifecycle is already approved/applied/qualified in its own scope; its approval is not treated as authorization for this different denied generic virtual action.",
+    "All other denied repairs remain untouched. No new application/PHP/game/service action performed by this metadata update."
+  ]
+}

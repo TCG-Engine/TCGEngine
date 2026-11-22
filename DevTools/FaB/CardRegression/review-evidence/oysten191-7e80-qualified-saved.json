@@ -1,0 +1,54 @@
+{
+  "status": "OYSTEN191_ORIGINAL36_4250_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root exact Saved review of original independent recipe; b820 independently reviewed Root-authored code patch",
+  "reviewer_independent": true,
+  "source_patch_author": "Root",
+  "source_patch_independent_review": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-oysten191-independent-source-review.json",
+  "source_patch_independent_review_sha256": "f8e40c9e939f6514f8a9b07ec3f3ab99fc49b71980755ff420a64f503390652c",
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "7e806d4e8d49dd309fdda55af5eb53be6a34b8ab4d65af84b34799ab5c0caed3",
+  "input_sha256": "a918c7c219d73ad76d0d97ddc2c9cfa90fdb2a87d59bec1a0b12db1feb31944d",
+  "source_spec": "card-regression-repair-oysten191-earned-death-gold.json",
+  "fixtures": [
+    {
+      "slug": "probe-oysten-heart-of-gold-yellow-four-live-real-ally-lethal-earned-gold-watery",
+      "card_id": "oysten_heart_of_gold_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a99bff815c4f812a7c4161d40940bea6d872dc18cce35201206fc6d1c6237e9b",
+        "actions.json": "24de52aefccfdff14a1bbbc2d498bf5431c8dd2ccd6f6940cb134fecd8cd93c4",
+        "assertions.json": "8bec4c9af796fab9fb81bea78a02046ab8cacdef78da9a7e30a295fefa01ce87",
+        "expected_final_gamestate.txt": "bcc7a7b4ddcc3d44fc0e5118fa3a9b193b54a493e5c32e5b7e51cb72285cf647",
+        "meta.json": "b092236b7ec699795cbe88bb6efbf06199aaddae77476c1792dd73fe5822b9e0"
+      },
+      "fixture_sha256": "9e318183ae0ab9a618820c148b11d03c79a3812b15917c5b674d88c2c8d7d316",
+      "actions": 36,
+      "native_assertions": 4250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "7e806d4e8d49dd309fdda55af5eb53be6a34b8ab4d65af84b34799ab5c0caed3",
+      "runtime_sha256": "7e806d4e8d49dd309fdda55af5eb53be6a34b8ab4d65af84b34799ab5c0caed3",
+      "source_spec": "card-regression-repair-oysten191-earned-death-gold.json",
+      "input_sha256": "a918c7c219d73ad76d0d97ddc2c9cfa90fdb2a87d59bec1a0b12db1feb31944d"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-oysten191-replay.json",
+    "sha256": "6649caeac72fc856ec7de62d698c1c630828b9d1a58f6260bf7866002cd58f55",
+    "passed": true
+  },
+  "source_review_sha256": "d84d5f2d93409e4f22ec1fcd68db278aa68b2fc60b2a59c5bc43cd8cbfd26765",
+  "components": 26,
+  "component_receipt_sha256": "fa0d8c4785296e0f8d4cd2a04c437ccf7ca8ae1dd61b83e074a6f48af94e092d",
+  "basis": "All original36actions/4250queries/setup unchanged. Real paid Smash5 targets actual adjacent life1 Oysten7; real7damage kills the Ally with all HeroHP20. After lethal damage, original assertions require Gold0 and face-up owned corpse before two independently earned layers. Separate fresh four-live response rounds resolve both Gold and Watery; intermediate order deliberately unconstrained. Final actual Gold owned/controlled4, original Oysten7 GY4FaceDown1, Smash5ownGY, Blue6Pitch, P1R1/AP0/full Stack/DQ/await/combat cleanup. Source captures last-known controller/functionality before grave observer, then uses existing token factory only at earned resolution. Failed before evidence remains retained.",
+  "official_sources": [
+    "https://rules.fabtcg.com/en/cr/06-effects/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ],
+  "limits": [
+    "Original nonlethal-to-Hero, lethal-to-Ally branch only. Test does not certify trigger-order chooser/permutations or which effect resolves first; final Gold/Watery and both response rounds are pinned. Gold newly allocated UID is retained in raw snapshot, not a separate exact-UID assertion claim.",
+    "26 actual-function controls model GraveEntered and token factory; actual Native supplies lethal movement/Gold ownership/Watery evidence. Later source departure/blanking/control handling is component evidence only. Existing Watery ability-loss and general source-class/creator attribution limitations are unqualified.",
+    "No generic094 continuation, interactive await, Core/generated/schema/service/remote authoring change. No full suite, historical corpus replay, new breadth or other denied-repair retry."
+  ]
+}

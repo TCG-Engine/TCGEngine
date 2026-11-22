@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch584.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T07:05:43.930065+00:00",
+  "fixtures": [
+    {
+      "slug": "card-helm-of-astral-sanctuary-four-live-real-offturn-hero-tap-destroy-and-prevent-one-of-three",
+      "fixture_sha256": "7cfa64e28f91e45d70905d09f2cb852b4673e6ff3d35b8dc551b3208a912f1c1",
+      "passed": true,
+      "result": "[PASS] Helm of Astral Sanctuary / actual off-turn Hero tap / prevent1 of Zap3"
+    },
+    {
+      "slug": "card-data-link-blue-four-live-real-boost-fully-blocked-one-power-go-again-damage-consumer",
+      "fixture_sha256": "fd72b4aea28877b629bc084f98abe230ab0f822f9f8f8c6fc9031f2093d2b535",
+      "passed": true,
+      "result": "[PASS] Data Link Blue / actual Boost / full-block and go-again consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-helm-of-astral-sanctuary-four-live-real-offturn-hero-tap-destroy-and-prevent-one-of-three",
+      "returncode": 0,
+      "stdout": "[PASS] Helm of Astral Sanctuary / actual off-turn Hero tap / prevent1 of Zap3\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-data-link-blue-four-live-real-boost-fully-blocked-one-power-go-again-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Data Link Blue / actual Boost / full-block and go-again consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

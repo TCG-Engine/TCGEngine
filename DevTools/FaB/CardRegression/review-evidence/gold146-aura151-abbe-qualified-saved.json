@@ -1,0 +1,67 @@
+{
+  "status": "GOLD146_AURA151_ORIGINAL63_5458_AND_TWO_CLEAN_REPLAYS_PASS",
+  "reviewer": "Root independent of b820 source proposal and original scenario authors",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+  "input_sha256": "0aaa8d372606a75d2b00bfd3fb727aa837e0ee9b1684f3ba4df8b7d3b3403c32",
+  "source_spec": "card-regression-repair-gold146-aura151-shared-consumers.json",
+  "fixtures": [
+    {
+      "slug": "card-golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper",
+      "card_id": "golden_gauntlets",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "899c47db56ac193250d7dae19061a8ec729065aee6c860273a750bc0f63b8c50",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "5f75ba44678bff948edf32b827e98d24814594eac6ac6a29c60f3c45ac0c636c",
+        "expected_final_gamestate.txt": "13c0381bf8e50c9aa9bd86cd205dee84caba93c12071641d05e698a310783687",
+        "meta.json": "497d46dd80e17a287a6e602c4daf6fbcf69e780aff36fb9d9ddc7d2c93a9d630"
+      },
+      "fixture_sha256": "d450d6d8fc1d6f25b5a7c1bbb7c789170c1f11188950261bc6f3b106b62d1290",
+      "actions": 29,
+      "native_assertions": 2455,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "source_spec": "card-regression-repair-gold146-aura151-shared-consumers.json",
+      "input_sha256": "0aaa8d372606a75d2b00bfd3fb727aa837e0ee9b1684f3ba4df8b7d3b3403c32"
+    },
+    {
+      "slug": "card-uphold-tradition-four-live-original-correct-counter-and-damage-diagnostic",
+      "card_id": "uphold_tradition",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0bbf526998c7e5d5d46d479f605079581d5b25c687d59df019f00161bc52c138",
+        "actions.json": "cf207cc89d663bb3972a35d7663e6f52689c8c205094cfc9dff809869a980c05",
+        "assertions.json": "365c03170c3806dc56da1a4c7ae896ee625ef92abeb42cd45f843de97cedb19e",
+        "expected_final_gamestate.txt": "e5dcc713c7688babdf70a98d6236589cf46de33cbece5b4d85cf58bdc185d1c2",
+        "meta.json": "4a480570cb66e1511ee52b81887399d336b93758e42ee6b81d8b4141b18858f3"
+      },
+      "fixture_sha256": "c93dcce598a051018d74c10a05303ed0d734e2f5883513c72ad1ea5bf66964f2",
+      "actions": 34,
+      "native_assertions": 3003,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "source_spec": "card-regression-repair-gold146-aura151-shared-consumers.json",
+      "input_sha256": "0aaa8d372606a75d2b00bfd3fb727aa837e0ee9b1684f3ba4df8b7d3b3403c32"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-gold146-aura151-replay.json",
+    "sha256": "6c2e4553bc7f8b4c1ef19cd67e981019212e9358e5936a20ece2e1a0f2d241c9",
+    "passed": true
+  },
+  "source_review_sha256": "55186a569800225bbbad8633a3c450a07ac799948b2553264a62e4bc324b8a38",
+  "component_receipt_sha256": "956b452f5a668df7fce998d6ab7e6946d8a453a9ed8acc1f7a75b11ecfc8a31a",
+  "components": 58,
+  "basis": "146: opposing functional Golden Gauntlets counts as Gold; actual Ketch costs2 paidbyBlue3, real7attack vsGauntlets2defense yields5damageHP15 andactualTemperDEFENSE1.151: actualUpholdcost/chooser grantsonePOWERtoownedShield7; Ward1base plusonephysicalcounter gives2actualdamageHP18, not3; realGArefundAP1, counterandownedcardsretained. All original63inputs5458queries unchanged, fullfourlivepreferences/allseatresponses andcleancleanup independently matched tosaved files.",
+  "limits": [
+    "Only existing confirmed branches qualified. Sharedcategory/aggregate components are not individual card coverage or exhaustive Gold/Aura matrix.",
+    "No canonical/generated edit, held virtual094 repair, other denied retry, fullsuite or new breadth. Original failure evidence and runtime contexts retained."
+  ]
+}

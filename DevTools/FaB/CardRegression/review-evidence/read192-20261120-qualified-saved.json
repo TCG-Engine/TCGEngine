@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/pox_snapshot_repair_review independent actual saved-outcome review; Root native execution, exact persisted review and clean replay",
+  "runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+  "source_spec": "card-regression-read192-repair-20261120.json",
+  "input_sha256": "37d8bb5a8ca3a18d582ba20f5d92805a302094e9897bde358656c739df4bedb9",
+  "fixtures": [
+    {
+      "slug": "card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+      "card_id": "read_the_ripples_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04422e2f02e626529e75581a22cb95d3abdc49aeab0f3474eefdb98beff95b1e",
+        "actions.json": "1de68db7d781a19d3f6044faf6b05e520e5961b548ec9d9a4b993653434c7d08",
+        "assertions.json": "0e816ef1e0be1be62c58b99adf6494cd91407f2330438a17ba8c126f27ca50fa",
+        "expected_final_gamestate.txt": "20301f53c2010f22b1e88ea88fc9879c450839da2b44699195fcec37a5134713",
+        "meta.json": "97577b62369096805654bdf0cb64b305ed02501db15266202d1f9f3b7dd05a8d"
+      },
+      "fixture_sha256": "077c4aa437bd92ff2778153d906b4bbef27215d8264ce0001231bf660eae0271",
+      "actions": 15,
+      "native_assertions": 1604,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+      "runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+      "source_spec": "card-regression-read192-repair-20261120.json",
+      "input_sha256": "37d8bb5a8ca3a18d582ba20f5d92805a302094e9897bde358656c739df4bedb9",
+      "qualification_runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+      "pass_counts_by_control": {
+        "11": 4
+      },
+      "replay_status": "PASS_ONE_CLEAN_REPLAY"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-read192-repair-20261120-replay.json",
+    "sha256": "d1015cbbc1489847fdabd87c4c72ad368d50185246f81661ed65aa8e519a9304"
+  },
+  "independent_review_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-read192-saved-independent-review.json",
+    "sha256": "ca1064fcd0ff5c7b9c8e5f64d01796418e7586859cd581b75c267a42c0b13617"
+  },
+  "source_review_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-read192-v2-independent-source-review.json",
+    "sha256": "835650401057260dbc991d269c6d75c8c4413637228e3742d3d313b7d6f5a13c"
+  },
+  "source_application_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\approved192-offline-application\\receipt.json",
+    "sha256": "42ad975876f1439057f1f1bb1808c2b617ceeebd332f81182cbe3c95b2d7ba37"
+  },
+  "basis": "Original15nativeactions/1604unchangedpersistedassertions now completeautomaticbeginning-End Read ownedStartTurn\u2192realOpt bottom/draw\u2192actual drawn-cardArsenal before refill\u2192quietnextturn. Independentguardreview and37isolatedcontrols plus exactsavedreview andonecleanreplay; one directly affected no-Read end-phasecompatibilityreplay passed. Existing normal phase/layer/await machinery reused; no full suite.",
+  "limits": [
+    "Only exact Blue positive repair branch and stated setup; Red/Yellow not individually tested.",
+    "Other beginning-End cohorts retain their existing behavior unless co-present; no claim of general End-catalog migration.",
+    "Simultaneous trigger ordering remains existingqueueorder and is not certified by this case.",
+    "Originalno-save diagnostic retained unchanged.",
+    "No native fault-control, sibling, exhaustivecard or unrelatedhistorical corpus credit.",
+    "Existing prior qualification runtimes preserved; fullsuite remains user-owned."
+  ],
+  "full_suite_run": false
+}

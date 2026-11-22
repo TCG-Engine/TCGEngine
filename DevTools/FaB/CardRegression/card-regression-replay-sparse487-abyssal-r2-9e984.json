@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch487.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T16:40:55.562431+00:00",
+  "fixtures": [
+    {
+      "slug": "card-abyssal-force-blue-four-live-real-intrinsic-banish-play-grants-shadow-overpower-first-action-allowed-second-rejected-four-damage",
+      "fixture_sha256": "5d684cf46a68def4c42dd75e1824306956156623eb8dbd623a4a2aa6db5e9ab3",
+      "passed": true,
+      "result": "[PASS] abyssal_force_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-abyssal-force-blue-four-live-real-intrinsic-banish-play-grants-shadow-overpower-first-action-allowed-second-rejected-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] abyssal_force_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-engage-steel-red-four-live-real-sword-grant-and-warrior-card-defender-earn-seven-power-four-damage-correct-probe"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

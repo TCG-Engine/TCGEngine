@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch397-blackout-self-power-v2.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T22:58:47.552801+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blackout-kick-red-four-live-sparse-real-leg-tap-rising-knee-thrust-chain-earns-seven-power-combo",
+      "fixture_sha256": "a6aa0c31236756ad8ea5250df40627b95e3de63ae725b42cff32288d866771f3",
+      "passed": true,
+      "result": "[PASS] blackout_kick_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blackout-kick-red-four-live-sparse-real-leg-tap-rising-knee-thrust-chain-earns-seven-power-combo",
+      "returncode": 0,
+      "stdout": "[PASS] blackout_kick_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

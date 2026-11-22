@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-rift128-banish-play-earned-power.json",
+  "runtime_sha256": "d12c964bdcf7227a78d347f7f3499c1461e52507863e7ade64a1cb3596772218",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T03:59:43.930427+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage",
+      "fixture_sha256": "da2364af673d0e5edfb93fb357ba085105f4bd963a809c47d8f3d707abb8e560",
+      "passed": true,
+      "result": "[PASS] rift_bind_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] rift_bind_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

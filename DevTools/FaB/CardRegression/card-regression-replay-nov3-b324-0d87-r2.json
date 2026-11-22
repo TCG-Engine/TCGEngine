@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch324.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T11:00:28.606068+00:00",
+  "fixtures": [
+    {
+      "slug": "card-barraging-big-horn-red-four-live-sparse-real-paid-random-discard-one-hand-defender-earns-go-again",
+      "fixture_sha256": "28868169ada7525b868f43ddac4e12ec1b4b803be6269ab0250020a91978c6c9",
+      "passed": true,
+      "result": "[PASS] barraging_big_horn_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-barraging-big-horn-red-four-live-sparse-real-paid-random-discard-one-hand-defender-earns-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] barraging_big_horn_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

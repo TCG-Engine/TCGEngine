@@ -1,0 +1,163 @@
+{
+  "status": "NATIVE_CONFIRMED_SHARED_STALE_CURRENT_ATTACK_UID_RESOLVES_OFFCHAIN_DECK_SOURCE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T23:02:37.465037+00:00",
+  "candidate_issue_id": "FAB-REG-085_ROOT_TO_FINALIZE",
+  "classification": "Existing shared GameLogic current-attack getter accepts UID found outside activeCombatChain, surfaced by normalDTDMirage after delayedselfmove/save-reload.",
+  "runtime_sha256": "800b8b4f79d79d280ecff89ad13dca62b959559d66c300067b66f5a501bb7a56",
+  "input_sha256": "53c5f2a803763b41694e7acd0c0526d7608ffbac6e2a655b4eaed1cb446ee855",
+  "current_WHEN_hit_rule_model_correct": true,
+  "oracle_or_recorder_expectation_defect": false,
+  "diagnostic": {
+    "result_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-exception-diagnostic-native-800b-r1\\complete-diagnostic-result.json",
+    "result_sha256": "e91f572986a3a106deeed0a98556e7c40b341120c93111f96cdb0c58749942a4",
+    "wrapper_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-exception-diagnostic-native-800b-r1\\receipt.json",
+    "wrapper_sha256": "15f552a56028b96842559e85b2fc205af83f8741a3232ac7a28161db7171ad7a",
+    "immutable_archive_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch373-over-loop-v2-20261103T225703Z-6aea66bf47aaa.json",
+    "immutable_archive_sha256": "e714c1a66a3068d4c45e32100a058b8e12b8b8c467a8ad9ee37c0fe5cf153d1a",
+    "pinned_recorder_copy_sha256": "32f89b6f4a9c84570a9191a498d68144b70e436e5f3a70af7dd19db45a3cefab"
+  },
+  "exact_native_boundary": {
+    "successfully_recorded_inputs": 25,
+    "successfully_recorded_manual_inputs": 21,
+    "last_successfully_recorded_input": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "last_successfully_recorded_meaning": "P4fourthearnedOverLoopWHEN-hit response resolvesandmovesource",
+    "failing_unrecorded_input_ordinal": 26,
+    "failing_unrecorded_input": {
+      "playerID": 1,
+      "mode": 10001,
+      "cardID": "!CustomInput!Pass"
+    },
+    "failing_recipe_step": 51,
+    "failing_recipe_until": {
+      "window": "DAMAGE",
+      "priority": 2
+    },
+    "failing_phase": "Engine normalpostaction GameAfterEngineAction duringfirstordinaryDAMAGEP1pass, beforegamestatewrite/RegressionRecordAction. NotP4resolutionorFCRCheck.",
+    "completed_native_assertions_before_failing_action": 1940,
+    "all70_post_trigger_checkpoint_assertions_passed": true
+  },
+  "actual_exception": {
+    "type": "ErrorException",
+    "message": "Undefined property: Deck::$TurnEffects",
+    "file": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+    "line": 1864,
+    "trace": "#0 C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php(1864): {closure}(2, 'Undefined prope...', 'C:\\\\xampp\\\\htdocs...', 1864)\n#1 C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\DTDRuntime.php(58): FaBAttackPower(Array)\n#2 C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php(1966): FaBDTDMirage()\n#3 C:\\xampp\\htdocs\\TCGEngine\\Core\\EngineActionRunner.php(1124): GameAfterEngineAction(Array, Array)\n#4 C:\\xampp\\htdocs\\TCGEngine\\Core\\EngineActionRunner.php(1220): EngineExecuteLoadedAction(Array, 'FaBSim', 'regression_fab_...', Array)\n#5 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-after-exception-diagnostic-preparation\\record_over_loop084_exception_diagnostic.php(18): EngineRunAction(Array, 'FaBSim', 'regression_fab_...', Array)\n#6 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-after-exception-diagnostic-preparation\\record_over_loop084_exception_diagnostic.php(271): FCRAction(1, 10001, '!CustomInput!Pa...')\n#7 {main}"
+  },
+  "actual_source_call_chain": [
+    "Wdiagnosticrecorder FCRAction(P1,10001,Pass)",
+    "Core EngineRunAction parses typedzones then EngineExecuteLoadedAction",
+    "FaBPassPriority normalDAMAGEpass handspriorityon; GameAfterEngineAction atCore1124",
+    "GameLogic1966 FaBDTDMirage called afteraction",
+    "DTDRuntime58 finds stateattackUID acrossallidentityzones andcalls FaBAttackPower beforelookingforMiragedefenders",
+    "GameLogic1864 FaBAttackPower again unrestrictedFindUID\u2192Deckobject thenrawTurnEffects dereference throws"
+  ],
+  "native_checkpoint_evidence": {
+    "physical_source5_stillChain_through_fresh_three_responses": true,
+    "source5_ABI_Controller1_and_Deck7_held_until_fourth": true,
+    "checkpoint25_completed_all70checks": true,
+    "after_fourth_checkpoint": {
+      "Deck1_UIDorder": [
+        7,
+        5
+      ],
+      "DeckOwnersControllers": [
+        1,
+        1
+      ],
+      "Stack_count": 0,
+      "CombatChain1_count": 0,
+      "P1Resources": 1,
+      "P1ActionPoints": 0,
+      "P4Health": 15,
+      "UniqueIDCounter": 8
+    },
+    "evidence_kind": "Sequentialunchangedrecipe+actualtrace proves precedingcheckpointassertions completed; not a postfailure rawphysicalsnapshot."
+  },
+  "actual_observed_state_subset": {
+    "window": "DAMAGE",
+    "combatStep": "DAMAGE",
+    "combatOpen": true,
+    "attackUID": 5,
+    "attackPower": 5,
+    "damageDealt": 5,
+    "attackHit": true,
+    "attackGoAgain": false,
+    "departedChainTypes": {
+      "1": {
+        "1": [
+          "Mechanologist",
+          "Action",
+          "Attack"
+        ]
+      }
+    }
+  },
+  "causal_bounded_source_findings": [
+    "CurrentstateattackUID5 deliberatelysurvivesattackleavingChain forchainlinkLKI. GenericFaBFindUID isnotanactiveattacklocator: it returnsphysicalDeck5 aftermovement. FaBAttackPower onlychecksnull andusesDeckas liveattack, causingrawTurnEffects read.",
+    "Miragecalls getter on everyrelevantpostaction beforeitsdefenderloop; selectedboard hasno Miragecard, soexception is engine sharedcaller not an earned Miragecardbranch or badoracle.",
+    "FaBMoveUID\u2192FaBAddToZone Deck\u2192generatedAddDeck deepcopiesoldsourceproperties inRAM; generatedDeckconstructor/Serialize retainonlyCardID/UID/Owner/Controller. NextEngineRunAction reparses zone and dropsdynamicTurnEffects/Role. Thisboundedsourcepath explains why input25and70checks pass, while nextP1input26hitsundefinedDeckproperty. No newserialization/schemafixneededforlegalDeckabsence.",
+    "No source repair appliedinthisreview. A narrowlysharedliveattacklocator shouldseparateactualactiveCombatChainATTACK/currentUID+link fromphysicalWeapons/Arena/Decksources and leaveexistingcachedattackPower/damage/attackGoAgain LKI untouched. Nativeweapon/aura/allyproxy source representation andpostdeparturecontrols belongtotheindependentproposal/componentgate."
+  ],
+  "source_hashes": {
+    "FaBSim\\Custom\\GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim\\Custom\\DTDRuntime.php": "8812bc94760701fd363d88891fa03a50158b3c1dc16c399aaa2e2a598f27983e",
+    "Core\\EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim\\ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim\\ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim\\GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988"
+  },
+  "deduplication": {
+    "ledger_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "ledger_sha256": "efe5a0ffc487e32813d75c68bbd8925a5caa729da1a2e7e961bff3cc06d686c0",
+    "bounded_prior_records": [
+      {
+        "id": "FAB-REG-010",
+        "status": "fixed_verified_partial_scope",
+        "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+        "resolution": "Existing Quicken now creates a separate captured-controller trigger per token on qualifying attack action play or weapon attack activation. The trigger destroys its source token and grants go again to its captured attack. Response, two-token/single-go-again, known suppression, nonattack and weapon branches were authored with six saved pilots; current replay qualification is reported separately below.",
+        "limitations": [
+          "Known initial-token fixtures do not establish token creation.",
+          "No generic trigger-order/controller/source-departure or all-token lifecycle coverage is claimed."
+        ]
+      },
+      {
+        "id": "FAB-REG-027",
+        "status": "fixed_verified_partial_scope",
+        "scope_note": "Missing printed nextweapon+3 effect reproduced numerically, repaired by oneexistingtyped-effect table entry. EnGarde21 effectscenarios+separateunchanged numericdiagnostic are saved and semantically reviewed; ownpitch/normaldefense and knowninteractionholds prevent completecard claim.",
+        "resolution": "FaBWTRResolveCard buff map gains only en_garde=>NEXT_WEAPON[3]. Existing typed use1/consumption/subtype filters/expiry are used. No sourceownGA/payment/weaponGA/rules/generator changes. OriginalreviewedCRLFcandidate metadata mismatch was caught beforewrite; LF-only correction f31e independently approved and preserves oneentry/nativeLF. Later028changes preserve thisentry.",
+        "limitations": [
+          "EarliestStack effecttiming, abilityloss/restoration/copy.",
+          "Power/cost/defense modifiers/prohibitions/replacements andlisteners/Korshem.",
+          "Otherhero/weapon conditions, foreignownership/control/multiplayer."
+        ]
+      }
+    ],
+    "conclusion": "010 Quicken captured-controller trigger timing and027 EnGarde missing+3typed-table effect are not this observedwrong-zone sharedgetter. Theirboundedvalidation/interactionlimitations do notestablishthisfaultfixedorqualified. 084 existing043WHEN-hit producer nowreacheslayer+movement correctly, revealingseparategetter/caller causalboundary.",
+    "distinct_from_084_producer_cause": true,
+    "new_root_count_claim": false,
+    "new_Core_root_count_claim": false,
+    "root_count_attribution": "Pending Rootboundedledgerdecision. Do notinferglobalnewroot/Corecount from onecallertrace or unrelatedLKImentions."
+  },
+  "fixture_saved": false,
+  "fixture_absence_verified": true,
+  "coverage_credit": false,
+  "source_fix_qualification": false,
+  "remaining_gates": [
+    "IndependentreviewNexttwo-fileminimalsharedlocator proposal/positiveweapon-aura-allyproxycompatibility+separatecachedGA preservation.",
+    "Rootactualcomponents/lints/guardedsourceapply onlyafterapproval.",
+    "Unchanged33input2625currentV2native/saved/twofreshfocusedreplays; no partialfixture saved now."
+  ],
+  "limits": [
+    "NoPower/GA/TurnEffectsoracleafterdeparture wasasked; originalall33actions2625checks unchanged.",
+    "Diagnosticcopyaddedonlypathbindings+exceptionmetadata, no alteredgameplay/errorpolicy; no hiddenexpectationlowering.",
+    "NoPHP/native/R/source/service/generation/fullsuite byreviewer. Tenold070079holds/SmashItem unchanged."
+  ]
+}

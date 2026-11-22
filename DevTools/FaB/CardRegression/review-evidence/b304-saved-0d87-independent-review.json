@@ -1,0 +1,126 @@
+{
+  "status": "APPROVED_EXACT_SAVED_GLOVES_ASTRAL_SANCTUARY_HERO_TAP_PREVENTION_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T07:38:22.303255+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch304.json",
+  "input_sha256": "b6a8f1c99f0ac68255f57e86453e5180c1d98ae40b3849b7dcfc8ac3e4179ebd",
+  "fixtures": [
+    {
+      "slug": "card-gloves-of-astral-sanctuary-four-live-sparse-real-hero-tap-and-destroy-prevents-one-of-seven",
+      "card_id": "gloves_of_astral_sanctuary",
+      "group_id": "identity:gloves_of_astral_sanctuary",
+      "fixture_sha256": "21583c65be80448a80209b047e8a1249c88110dd348fce5d16afae570c532cf4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "87e283828dbe255ff30cb4b32c77c661eb86ad4d09f68594486cb18bfa1a2392",
+        "actions.json": "3a9956973de917fca024920a8fed81812eebc72b76d6d583f57de4fb9b34ebad",
+        "assertions.json": "17e5be645216937cd5d1da48c300933684e56834451ea40dc2bef96591492573",
+        "expected_final_gamestate.txt": "5eeacb91addf3fd53f8f64b86944a29780f9b2addbf7170390f81e101f85e051",
+        "meta.json": "94745e8b9c21a45b55b43989a4e501894244701f15b732d06909450b467164ee"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "87e283828dbe255ff30cb4b32c77c661eb86ad4d09f68594486cb18bfa1a2392",
+        "actions.json": "3a9956973de917fca024920a8fed81812eebc72b76d6d583f57de4fb9b34ebad",
+        "assertions.json": "17e5be645216937cd5d1da48c300933684e56834451ea40dc2bef96591492573",
+        "expected_final_gamestate.txt": "5eeacb91addf3fd53f8f64b86944a29780f9b2addbf7170390f81e101f85e051",
+        "meta.json": "94745e8b9c21a45b55b43989a4e501894244701f15b732d06909450b467164ee"
+      },
+      "actions": 36,
+      "native_assertions": 2710,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_response_passes": 31,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_hero_statuses": [
+        2,
+        2,
+        2,
+        1
+      ],
+      "final_live_seats": "1234",
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actualfourlegal youngDori20/manualUPF/holdPrioritytrue/nohistorypreventionassetsseed. ActualRaging6freshP4targetandBlue7pitch3payprinted3/AP1\u2192R0AP0; completefourlivecombat/emptydefender/reactionframes. Actualnativeinput20P4Gloves5Instant0tapHero4Status2\u21921ANDdestroyphysical5ownP4publicGY COSTbeforefreshsourceinputs21-24actors4,1,2,3. SameHero4UID4OwnerController4remainsalive/LiveSeats1234/manualpriority, otherHeroes2; sourcevirtualSourceEquipmentUID5retainedfirstthree/fourthinstallsnext1preventionandclears/REACTIONP1. Freshreactioninputs25-28actors1,2,3,4resolveactual7packet to6/P4HP14/noadditionaltokenlayer. FullDAMAGE/RESOLUTIONclose6P1GY/5P4GY/7P1Pitch/allRAP0/HP20exceptP4HP14/Hero4stilltapped1andlive/othersready2/StackChainsqueuesmarkersclear. AlloriginalphysicalUID1-7ownershipconserved, virtual8ceased; rawsnapshotsunmodifiedandparsedwithONLYfinalHero4expectedtappedexception.",
+      "qualification": "OnlypositiveGenericArmsactualtap+destroycost/next1of7physicalprevention. No tapped-heroactivationrejection/untapreset/expiry/otherpacket/arcane/unpreventable/hero/supportprimary/fullcard/control/siblingcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch304-independent-source-review.json",
+    "sha256": "97a491f15eae40925b258375e2f2f8f93931b181d8cf6268343d35f71365fdcf",
+    "manifest_sha256": "2f7884b9165a5d480e458fc0102657e0f61a25f73b7c8e5643762ffb5468d881"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch304-20261103T073536Z-6ae98ec829ead.json",
+    "sha256": "aee08a3541a083a1447520922cb938e8b19524afef7982b934bcc9b2ed3b7aa8"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch304.recording-results.json",
+    "sha256": "333b2d759bcc8e368e1ed257b59a6f2c4fb1b908ccb4c64404d3c46718c8b545"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch304-native-r1\\receipt.json",
+    "sha256": "8a6c010fe82e652190e181747dce2c46d3b47148655db6fb84aa2f9f42d487ba",
+    "stdout_sha256": "b9514260d8bf32b2a6a4b43e348b201c97f0c30a948b5d0e9f349f97e9724bfa",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Owngenericraw5/archive/schema/action/assertionparsingonly with exactB304bindings; localcommon_snapshotexpectedONLYfinalHero4Status1/allothers2, actualrawdataunchanged. Noauthorbuilder/generalframeworkmutation."
+  },
+  "method": "Independentreadonly exactsavedraw5review: all36nativeactor/mode/payloadsand2710orderedassertionsequalapprovedinput. Completeinitial/finalschema/physicalUIDownership/economy/Heroidentity/tappedstatus/liveseats/GY/Pitch/cleanup parsed. All32actualmanualpasses8each andcosttap+destroy-beforefourresponses/prevention1actualdamage6 verified. NoPHP/native/replay/R/backendexecuted.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplays areseparateevidence, notrunbyreviewer.",
+    "OnlypositiveGenericArmsactualtap+destroycost/next1of7physicalprevention. No tapped-heroactivationrejection/untapreset/expiry/otherpacket/arcane/unpreventable/hero/supportprimary/fullcard/control/siblingcredit.",
+    "Current0d/sourcecontextretained; no historicalretag/sourcefix/oldcorpus audit or deniedrepairretry."
+  ]
+}

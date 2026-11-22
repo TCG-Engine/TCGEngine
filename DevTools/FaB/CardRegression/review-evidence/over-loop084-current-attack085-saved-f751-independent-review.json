@@ -1,0 +1,307 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_OVER_LOOP_084_085_RED_STRICT_UNCHANGED_INPUT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-03T23:17:07.729204+00:00",
+  "source_spec": "card-regression-batch373-over-loop-v2.json",
+  "input_sha256": "53c5f2a803763b41694e7acd0c0526d7608ffbac6e2a655b4eaed1cb446ee855",
+  "manifest_sha256": "ebc178160c312bb1bdfc39acb9df48879aafebae12655caba56131ec5dfe5c6b",
+  "historical_manifest_runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "source_guards_verified": 24,
+  "bound_current_source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "24a0348f1ec45273784ed293ee57b5247596849797ada944d65f229bbd5c961c",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "DevTools/FaB/build_arc_abilities.py": "71ad2344e986bf38977007cd2703ba74467c065354dce469beef60f0231f6052",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "f1db3603aa11cba94afc1fec49609f217a1fcea27e57c66b010a54fd58fb0d4f",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+  },
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-over-loop-v2-independent-source-review.json",
+    "sha256": "c6839e5f441bbe7e8be9b33d052aa8c7fa5425a2d82010868eefbbf15a45c39f",
+    "reused_not_new_source_review": true
+  },
+  "source_application_bindings": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\receipt.json",
+      "sha256": "785774f0eabce21a23703416b7dcd492e537ba6bf7c4323a031464cfa7b12d0b"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-current-attack085-source-application\\receipt.json",
+      "sha256": "7ead8abf8db159f3bc36762af6705a5d0af9057219f6ad0e237002395b37fd08"
+    }
+  ],
+  "actual_emitted_scope": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-guarded-application-generation\\generated-scope.json",
+    "sha256": "d93bd86ed1e93244907df9745f4e7bb154fd5adae454e16427d44b68768591ca"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch373-over-loop-v2-20261103T231327Z-6aea6a97a603b.json",
+    "sha256": "2b69d38d8629821e8f60591332427733ef024d107e5b693684249eb3652c7d22"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-085-native-after-f751-r1\\receipt.json",
+    "sha256": "c225e81718210a41746177cff600f573441404b12a147ed1fecdb14b718d3150"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_over_loop084085_saved_readonly.py",
+    "sha256": "9a2cbd6ee864a659139c84b2abfdfc7dc9f3bafc5f7e7bb7b2b1126136dc5360"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "over_loop_red",
+      "group_id": "pitch-cycle:over_loop",
+      "slug": "card-over-loop-red-four-live-current-when-hit-correct-probe-responseable-source-before-bottom",
+      "source_spec": "card-regression-batch373-over-loop-v2.json",
+      "input_sha256": "53c5f2a803763b41694e7acd0c0526d7608ffbac6e2a655b4eaed1cb446ee855",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_RED_CURRENT_WHEN_HIT_BOTTOM_AFTER_FRESH_FOUR",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-over-loop-red-four-live-current-when-hit-correct-probe-responseable-source-before-bottom",
+      "fixture_sha256": "53398fdfa52d9f69393266cb61fbd707ec0f16e06f6be866543dd8dbbe6951a0",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2ca7b9f4ea8786ff9e1f108e89f94a955817451e3da87393e9bcaad686150744",
+        "actions.json": "d32195f6c40828be4b4dcaf154a735c90605d4a8056e5f3cbaad1c19950b9d24",
+        "assertions.json": "16c9de93836e3aa1b94674bde139ba7a4d01105cf459ae3ebf32482faf1f0483",
+        "expected_final_gamestate.txt": "375e33d5336782ad50f1496fb10ab80b892f00f8df57d880cb282c73208636d0"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ca7b9f4ea8786ff9e1f108e89f94a955817451e3da87393e9bcaad686150744",
+        "actions.json": "d32195f6c40828be4b4dcaf154a735c90605d4a8056e5f3cbaad1c19950b9d24",
+        "assertions.json": "16c9de93836e3aa1b94674bde139ba7a4d01105cf459ae3ebf32482faf1f0483",
+        "expected_final_gamestate.txt": "375e33d5336782ad50f1496fb10ab80b892f00f8df57d880cb282c73208636d0",
+        "meta.json": "db717cf71fdcb62bb5ec3876e46cbf83f5916a196cc3964682363b5589500054"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2ca7b9f4ea8786ff9e1f108e89f94a955817451e3da87393e9bcaad686150744",
+        "actions.json": "d32195f6c40828be4b4dcaf154a735c90605d4a8056e5f3cbaad1c19950b9d24",
+        "assertions.json": "16c9de93836e3aa1b94674bde139ba7a4d01105cf459ae3ebf32482faf1f0483",
+        "expected_final_gamestate.txt": "375e33d5336782ad50f1496fb10ab80b892f00f8df57d880cb282c73208636d0",
+        "meta.json": "db717cf71fdcb62bb5ec3876e46cbf83f5916a196cc3964682363b5589500054"
+      },
+      "actions": 33,
+      "native_assertions": 2625,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "over_loop_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "over_loop_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "Deck1_UIDorder": [
+        7,
+        5
+      ],
+      "Pitch1_UIDs": [
+        6
+      ],
+      "all_GY_empty": true,
+      "virtual8_ceased": true,
+      "checkpoint_assertion_mapping_sha256": "6e092ccc81bd6caf9b846578da7febd3433c6e6cf34062c2203454080144ed39",
+      "native_action_mapping_sha256": "a6bb499e3671d4fe7bb236be588b41844eaa7767863c9b9db2367c01dd83a456",
+      "native_assertion_mapping_sha256": "3a2b177b6020f03de092a9ae76e3da40839e271b0c98e82df13986c37de3856a"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2625,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual Blue6 pays printed2/AP1 leaving R1AP0; explicit Boost decline; 5power/noGA and real5damage P4HP15.",
+    "At input21 hit, actual5 remains Chain and Deck only7; earned ABI Controller1/SourceUniqueID5 persists through fresh actual1,2,3 responses. Input25 fourth P4 response alone moves same5 to bottom Deck7,5 and clears layer.",
+    "Original strict subsequent input26 P1 DAMAGE pass and all ordinary DAMAGE/RESOLUTION responses now complete without unsafe off-chain getter fault; no computed power/GA assertion made after source leaves Chain.",
+    "All33 actual envelopes/2625 persisted assertions/29 manual inputs/48 endpoint settings/all original physical UIDs, ownership/economy/priority/payment/queues/full close independently checked.",
+    "Historical source manifest remains unchanged at0a2a; only documented084 five-source plus single scoped emission and085 two-source application update current guard binding to f751."
+  ],
+  "limits": [
+    "One Red native representative, explicit declined Boost route only. Sibling colors are canonical/component compatibility, not independent native qualification.",
+    "No positive Boost, no-hit, copy/transform/control-change, general LKI, Mirage integration or full-card credit. Shared 085 component proxy contracts and Root compatibility cases are separate evidence.",
+    "Obsolete delayed-link V1 remains unattempted; prior actual084/085 failure archives retained; no weakening of original current-WHEN-hit expectations.",
+    "Intermediate physical/trigger outcomes are passed sequential native assertions; only initial/final snapshots are full raw states.",
+    "No reviewer PHP/native/replay/R/source/service/generator/full-suite execution; Root targeted replays and registration separate."
+  ]
+}

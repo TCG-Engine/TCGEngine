@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch862-chromatic-earned-cost-first-damage-positive.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T10:51:45.093844+00:00",
+  "fixtures": [
+    {
+      "slug": "card-chromatic-refinement-blue-four-live-earned-action-reduced-cost-first-damage",
+      "fixture_sha256": "7a9453ef8edbcb30ec01142ce78ca706a8d2b344099919e025e71143c841356e",
+      "passed": true,
+      "result": "[PASS] Chromatic Refinement Blue / earned action trigger reduces real cost and first damage increases"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-chromatic-refinement-blue-four-live-earned-action-reduced-cost-first-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Chromatic Refinement Blue / earned action trigger reduces real cost and first damage increases\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

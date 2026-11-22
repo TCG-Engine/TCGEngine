@@ -1,0 +1,112 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_BODICE_R2_LEGAL_PLEIADES_DEFENDED_SUSPENSE_NOTE",
+  "phase": "PLANNING",
+  "batch": 851,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix_applied": false,
+  "new_issue": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-bodice-required-known-contract-note-manifest-r2.json",
+    "sha256": "8063d0c98022847edac245a72e579c2a719459c3bd9840c4faf50dcd6dc341c8"
+  },
+  "manifest_sha256": "8063d0c98022847edac245a72e579c2a719459c3bd9840c4faf50dcd6dc341c8",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-bodice-known-defended-suspense-unattempted-note-r2.json",
+    "sha256": "708e08b78051180f1ecb09557d5a8081a4d71bac03571aaa992919cdca88fc0e"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-firm-reservation.json",
+    "sha256": "4eddaa0cde711f0860e56ea0e5e1036e5a4028bd1af286b91924b24c34db7856"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_guards_matched": true,
+  "source_guard_count": 14,
+  "holds": [
+    {
+      "card_id": "virtuoso_bodice",
+      "group_id": "identity:virtuoso_bodice",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_DEFENDED_CHOICE_CONTRACT",
+      "classification": "KNOWN_REQUIRED_FORMAL_DEFENDED_WHEN_BEFORE_OPTIONAL_RESOLVING_CHOICE",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-bodice-known-defended-suspense-unattempted-note-r2.json",
+        "sha256": "708e08b78051180f1ecb09557d5a8081a4d71bac03571aaa992919cdca88fc0e"
+      },
+      "known_contracts": [
+        {
+          "card_id": "toby_jugs",
+          "row": 274,
+          "evidence": {
+            "path": "review-evidence/sparse826-act-r4-source-and-toby-unattempted-a11.json",
+            "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "confirmed_gameplay_bug": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "R2only: actualYoungPleiades4ReveredGuardian20 legallyadmitsReveredGuardianChorusYellowandGuardianBodice. OldBetsy4lackedReveredtalent(CR2.11.6b); originalunattemptednote/manifestwithdrawn/preservedandneverapproved/retained/Native. ExactdiffonlyfixedHeroproseroute/supportlimits/explicitlegalityhistory; no primary/counter/gain/damage/BladeBreak expectationchanged.",
+    "CurrentSUPDefendedcanonical/emittedbodyexists: actualoptionalMZMultiChoose0..1 choosesownedpositiveSuspenseAura; selectingitISacceptance, nofakeYESModal. FaBSUPCounter(-1)andAddResources2 exist. GL1243 directlyrunsbodybeforeaseparateearnedDefendedlayer/fourresponses. ExactToby274/Trench requiredcontract, notmissingbody/unimplementedpaymentorblanketoptionalchoicehold.",
+    "LegitimatepreexistingChorusSUSP2supportprecondition. P4playsnoGuardianAA, soChorus190hitbranchunentered/uncredited. PleiadesInstantcountertransferunused; nocrowdcheer earned. AuraSUSP2to1avoidszero/leave/cast/countdown/expirytrigger anddoesnotcertifythosebranches.",
+    "Fullfuturecorrectroute: realWoundingRed4/cost0/AP0, nativeBodiceDEF2block, earnedfourbeforepositiveactualAura selection/removingoneSUSP2to1/gain2resource; realdamage2HP4=18. NativechaincloseBladeBreakearnedfourthenphysicalBodiceGY4, AuraSUSP1Arena4/WoundingGY1/resourcesP4=2/allAP0/fullcleanup allUNRUN."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/02-object-properties/",
+      "sections": [
+        "2.11.6b"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_Defended_review": true
+    }
+  ],
+  "limits": [
+    "OnlyR2source-onlyplanningnoteaccuracyapproved. No executable/Native/Save/fixture/newissue/root/fix/coverage claim.",
+    "No illegalR1fixtureused,no quietdecline/noCounter/inlinechoice/resourcehelper/primarysubstitution. Allactualpay/gain/damage/BladeBreak/cleanup unrun.",
+    "No PHP/native/Rwrites/sourcefix/fullsuite/Git/remote/newagents/Radiant189/Head190/Oysten191/Read192/Tomerepairor denied188184B787 action."
+  ],
+  "created_utc": "2026-11-16T07:00:34.311829+00:00",
+  "legality_correction": {
+    "status": "R1_UNATTEMPTED_INVALID_SUPPORT_HERO_SETUP_WITHDRAWN_ONLY_R2_IS_CANDIDATE",
+    "old_note": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-bodice-known-defended-suspense-unattempted-note.json",
+      "sha256": "2f9907217ae68a4da2b640fab4167e8da85b50ab1cd8e12659c5c7e9c70835f7"
+    },
+    "old_manifest": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-bodice-required-known-contract-note-manifest.json",
+      "sha256": "978bca501b94781000ec6ffd227680be596da8d7d089a7f1b85eee764c12a530"
+    },
+    "rule_url": "https://rules.fabtcg.com/en/cr/02-object-properties/",
+    "rule_section": "2.11.6b",
+    "reason": "Revered is a talent. ChorusYellow is ReveredGuardian and Betsy4 lacks Revered; legalYoungPleiades4 has both Revered and Guardian, printed20. Same primary/ChorusSUSP2/fullWHEN/removal/gain/damage/BladeBreak requirements, no alternativecard or engine change.",
+    "native_attempted": false,
+    "wrong_fixture_created": false,
+    "source_fix": false
+  },
+  "old_invalid_setup_approved": false,
+  "old_invalid_setup_native_attempted": false,
+  "legality_corrected_before_Native": true,
+  "metadata_snapshot_current_match_at_review": {
+    "holds_snapshot": true,
+    "issues_snapshot": false
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "status": "APPLIED_SYNTAX_PASS_NATIVE_QUALIFICATION_PENDING",
+  "started_utc": "2026-11-03T18:30:11.623857+00:00",
+  "runtime_before": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "expected_runtime_after": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "manifest_sha256": "c16f380055a4066184a6eb06c6c724e438495ecdfc95e24894c632a08c0a785c",
+  "source_review": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-independent-source-review.json",
+  "source_review_sha256": "8dc9bee8b41e86a1cedfc330c829b613d2e03942d1dd1a2625bbe5e4591ca753",
+  "root_php_checks": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-root-php-checks.json",
+  "root_php_checks_sha256": "017e70aa1f2f543a28dbb57cc55fd84b0833d2c94954d569b472787665c1dc44",
+  "direct_impact_lookup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-mst-draw-attack-direct-impact-lookup.json",
+  "direct_impact_lookup_sha256": "7fc14c0f64857cb6b76626fa2527a1258c66c402801352a9aec26636ca1cf8ec",
+  "files": [
+    {
+      "path": "FaBSim/Custom/MSTCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\MSTCards.php",
+      "before_copy": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\before\\FaBSim\\Custom\\MSTCards.php",
+      "before_sha256": "42f119459e4aec25ccba37a43a6891b5ba123195a23e58402bdd2723948b9a45",
+      "after_sha256": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+      "application": "EXACT_GUARDED_TWO_SOURCE_CANDIDATE_NO_GENERATION"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php",
+      "before_copy": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\before\\FaBSim\\Custom\\ROSCards.php",
+      "before_sha256": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7",
+      "after_sha256": "e51280ce0c495f835157e6aac3ca9712edbb8e49b28d1307bca985a5bc845ac1",
+      "application": "EXACT_GUARDED_TWO_SOURCE_CANDIDATE_NO_GENERATION"
+    }
+  ],
+  "applied_files": [
+    "FaBSim/Custom/MSTCards.php",
+    "FaBSim/Custom/ROSCards.php"
+  ],
+  "syntax": [
+    {
+      "path": "FaBSim/Custom/MSTCards.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MSTCards.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php\n",
+      "stderr": ""
+    }
+  ],
+  "generated_files_changed": false,
+  "native_after_executed": false,
+  "runtime_after": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "completed_utc": "2026-11-03T18:30:12.198662+00:00"
+}

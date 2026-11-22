@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch347.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T16:53:21.198599+00:00",
+  "fixtures": [
+    {
+      "slug": "card-wind-chakra-red-four-live-sparse-real-created-tiger-consumes-next-three-power-and-deals-four",
+      "fixture_sha256": "781c7bbe86de22882840a6b2aee9f558e567242a52149435349b3c77c4e050a6",
+      "passed": true,
+      "result": "[PASS] wind_chakra_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-unravel-aggression-blue-four-live-sparse-real-chi-three-cost-draw-one-and-five-defense",
+      "fixture_sha256": "bc418838e991b66b0028c73e6e6551eaa7dacc36c44d3ad83dd8398f55515200",
+      "passed": true,
+      "result": "[PASS] unravel_aggression_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-wind-chakra-red-four-live-sparse-real-created-tiger-consumes-next-three-power-and-deals-four",
+      "returncode": 0,
+      "stdout": "[PASS] wind_chakra_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-unravel-aggression-blue-four-live-sparse-real-chi-three-cost-draw-one-and-five-defense",
+      "returncode": 0,
+      "stdout": "[PASS] unravel_aggression_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

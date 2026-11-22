@@ -1,0 +1,322 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B464_PRIOR_ARSENAL_NEXT_ARROW_BUFF_AND_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T13:01:41.174551+00:00",
+  "source_spec": "card-regression-batch464.json",
+  "input_sha256": "50e8a659cb71759c80b27f7d10d6e1f304d99c2c8ea459b00443ac35818394f5",
+  "manifest_sha256": "60a49e6230f5bb3ad6e97e14c8c13c292c055fba3a95aa1cc697f997d79d5f30",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 72,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch464-independent-source-review.json",
+    "sha256": "8737fdaadca6da9f350b0c03d5cce5c1935fe1241c63d54e2c11cb93219e357d",
+    "unchanged_rules_and_selected_compiled_branch_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch464-20261105T125803Z-6aec7d5b18996.json",
+    "sha256": "a8bf2c4a7524499df91cdd52c326fb517dfbd282c4c5d9ffbc0f0c843f05adbc"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch464.recording-results.json",
+    "sha256": "f106b9ee244bf81e6ada59ff7d2e582c342c567cba170d96cf0039984619081e"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch464-native-r1-9e984\\receipt.json",
+    "sha256": "3182856d52c723137893fb3443041de85e711f5d58b73d6d6a3fd04159d8a900"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "call_in_the_big_guns_red",
+      "group_id": "pitch-cycle:call_in_the_big_guns",
+      "slug": "card-call-in-the-big-guns-red-four-live-sparse-real-prior-arsenal-arrow-consumes-plus-three-and-earned-action-point",
+      "source_spec": "card-regression-batch464.json",
+      "input_sha256": "50e8a659cb71759c80b27f7d10d6e1f304d99c2c8ea459b00443ac35818394f5",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_PRIOR_ARSENAL_PARTIAL_BRANCH",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-call-in-the-big-guns-red-four-live-sparse-real-prior-arsenal-arrow-consumes-plus-three-and-earned-action-point",
+      "fixture_sha256": "6686d5eb3c2bbf42e8edaf6ea7b36dba02910c5df370402e60997d916b995fc3",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "39091a47422a4fa8e43a4c38bda1250173695429009377367fa2d3daa4a27143",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "6ee0826ee44e380212dc9c8fbb444f3f106194c50be69db3f1fc8c8fbadeb795",
+        "expected_final_gamestate.txt": "4c7b4278e39920e47995bb1d0bf17be81784cf773aff634ac8c9ecf9e7d06dc7"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "39091a47422a4fa8e43a4c38bda1250173695429009377367fa2d3daa4a27143",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "6ee0826ee44e380212dc9c8fbb444f3f106194c50be69db3f1fc8c8fbadeb795",
+        "expected_final_gamestate.txt": "4c7b4278e39920e47995bb1d0bf17be81784cf773aff634ac8c9ecf9e7d06dc7",
+        "meta.json": "e748f492068f6dae805e0a79f3ed9a21b750b18e6b9865073476ec4f59761b24"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "39091a47422a4fa8e43a4c38bda1250173695429009377367fa2d3daa4a27143",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "6ee0826ee44e380212dc9c8fbb444f3f106194c50be69db3f1fc8c8fbadeb795",
+        "expected_final_gamestate.txt": "4c7b4278e39920e47995bb1d0bf17be81784cf773aff634ac8c9ecf9e7d06dc7",
+        "meta.json": "e748f492068f6dae805e0a79f3ed9a21b750b18e6b9865073476ec4f59761b24"
+      },
+      "actions": 33,
+      "native_assertions": 2879,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 915,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "call_in_the_big_guns_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "head_shot_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "call_in_the_big_guns_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "head_shot_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "8e5979ea497075dcadff33b03fee629f6462f43e5639e4fa43c87a237ae9677f",
+      "native_action_mapping_sha256": "7fc197b42eb6455f3d6e2b7c322497b0e9d3bc2da080fd3dc84790103d3dec5b",
+      "native_assertion_mapping_sha256": "778c41fa57bf178e286a6424ac5f2761bfc1c5036303230fff327773edb9c190",
+      "full_raw_undo_payload_bytes_bound": true,
+      "opaque_undo_payload_bindings": {
+        "1": {
+          "records": 1,
+          "Version_payload_characters": 5469,
+          "Version_payload_sha256": "dabc694bc66baf1e234175c3cf47c82ff54fd657ce59b46f40303f67308e7f8f"
+        },
+        "2": {
+          "records": 1,
+          "Version_payload_characters": 5469,
+          "Version_payload_sha256": "b3e968e7c33ed16eba3120e74b3ab9a35e4c0cfac3953f8424171e1e895c98fc"
+        },
+        "3": {
+          "records": 1,
+          "Version_payload_characters": 5469,
+          "Version_payload_sha256": "0e3097e6251284a5468b6bf6a8aeb6413e2a45d952ee7e7a4c466a4e5a9c3083"
+        },
+        "4": {
+          "records": 1,
+          "Version_payload_characters": 5469,
+          "Version_payload_sha256": "1cbf70ad8b4d7c61ec0fae7a398fd9969df5801e78ad36907c0f4fa6666b4f10"
+        }
+      }
+    }
+  ],
+  "total_actions": 33,
+  "total_native_assertions": 2879,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 915,
+  "material_findings": [
+    "All five complete raw files,33 native action envelopes/2879 ordered assertions/915 properties exactly match unchanged approved source.29 manual inputs=28priority+oneP4declarationfinish/actors7,7,7,8;48 raw manual settings both endpoints/all72 sourceguards/current9 verified. Raw hashes bind complete undo payload bytes as well as current state.",
+    "Real main5 cost0 spends AP1->0; first three source responses keep5 Stack, fourth gives publicGY5 and ownGA/AP1. PriorArrow6 remainsFaceDown1 in occupied Arsenal and Bow7 remainsReady throughout. Selected compiled no-load path was independently source-reviewed; actual completion has Stack/decisions clear with no chooser. This is not qualification of the optional true-load/await branch.",
+    "ActualArsenal6 normal click opens adjacent-target MZCHOOSE before assets; P4 target then pendingcost1/fromArsenal/UID6 whileAP1, actualBlue8pitch3 pays1/AP1->0/R2. Stack/currentChain same6 receives exactlyWTR_POWER3. Freshcurrentpower7/noGA and actual7damage/P4HP13 pass; nativefaceUpfalse/FromArsenal supports no HeadShot currentface-up-entryWHEN.",
+    "Full physical original1..8 preserved: GY1same5then6/public, Pitch1samewholeBlue8, Bow7Weapons1 exactrawunchangedReady/unactivated, fourrawHeroesunchanged/allotherzonesempty/counter8/RNG0. AllAPChi0/R2onlyP1/allotherHP20, twoactualActionplays/singleArrowhit/SEA_NEXT consumed. Queues/payment/target/sourceframe/currentcombat complete. No snapshot-only or cachedpower-only approval."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3775/",
+      "finding": "Fresh current primary0/+3nextArrow/optionalHandload/ownGA."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/396/",
+      "finding": "Fresh current HeadShot1/base4/WHEN faceupArsenal entry, not earned here; old local IF face not used as current timing rule."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.6a",
+        "8.3.5a"
+      ],
+      "finding": "Fresh Arsenal+controlled Bow needed for actualArrow; own nonattack go-again refunds after resolution, not Arrow go-again."
+    }
+  ],
+  "limits": [
+    "OneRed/prioroccupiedArsenalArrow consumer/+3/ownGA/real7damage branch only; no optional Hand-load positive, pending-await source-lifetime, currentfaceup HeadShot WHEN, new Bow load, aim, Hero activation, secondArrow, multiplegrants, nonArrownegative, expiry, supportprimary, siblings or fullcard credit.",
+    "Only initial/final raw snapshots are complete; intermediate facts are the completed actual ordered native checks. Historical DecisionQueueVariables after cleanup are not live object/UID claims; opaque Versions are excluded from current physical inventory but every full raw byte and per-seat payload hash is retained. This static saved audit does not claim executing undo; Root replay/full-undo verification requires its own receipts.",
+    "No source/expected/assertion modification or oracle flaw found in selected branch. Root targeted replays/registration remain separate and are not claimed here. No PHP/native/replay/R/source/service/generation/fullsuite/remote or denied repair retry/reroute/integration by reviewer."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch464_saved_readonly.py",
+    "sha256": "d4dfe53ace6c9bd13b9d20b675c15fc4bea0d227657cb44f23feaa469226750d"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

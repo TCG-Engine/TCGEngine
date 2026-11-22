@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch291.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T05:24:38.443394+00:00",
+  "fixtures": [
+    {
+      "slug": "card-azalea-young-four-live-sparse-real-hero-action-bottoms-arsenal-loads-top-arrow-face-up-dominate-go-again",
+      "fixture_sha256": "6d0c7d3304c358edb8b6c4500eef5a7883c9011b9cdc26ce0542a3ec2c396fd2",
+      "passed": true,
+      "result": "[PASS] azalea / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-azalea-young-four-live-sparse-real-hero-action-bottoms-arsenal-loads-top-arrow-face-up-dominate-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] azalea / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

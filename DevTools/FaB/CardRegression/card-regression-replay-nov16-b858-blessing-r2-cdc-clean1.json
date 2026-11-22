@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch858-blessing-r2-target-offer-order-positive.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T09:29:56.343850+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-savagery-blue-four-live-automatic-start-real-generic-seven-damage",
+      "fixture_sha256": "48d3c12b5497f700c1fa4f539d6516de9b3dafef63a86823e9cfb29c81bdaf93",
+      "passed": true,
+      "result": "[PASS] Blessing of Savagery Blue / automatic Start then real base-six attack deals seven"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blessing-of-savagery-blue-four-live-automatic-start-real-generic-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Blessing of Savagery Blue / automatic Start then real base-six attack deals seven\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

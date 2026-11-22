@@ -1,0 +1,98 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_TWO_UNATTEMPTED_KNOWN_CONTRACTS",
+  "phase": "SOURCE_PLANNING_HOLDS",
+  "batch": 830,
+  "approved": true,
+  "approved_as_planning_limits": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T20:59:37.365574+00:00",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch830-two-known-required-contract-holds-manifest.json",
+    "sha256": "c018a00170c62c778ff3a6c3948bad77254b17ed559a4e1732936934a0532b10"
+  },
+  "manifest_sha256": "c018a00170c62c778ff3a6c3948bad77254b17ed559a4e1732936934a0532b10",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch830-firm-reservation.json",
+    "sha256": "b18025d37dcfa764017f1949d0510ed3cd7230e792efba7a77a20d8d577d2fcf"
+  },
+  "source_preimage_guard_count": 22,
+  "all_current_source_preimages_matched": true,
+  "source_only_held_cases": [
+    {
+      "card_id": "bastion_of_unity",
+      "group_id": "identity:bastion_of_unity",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_DEFENDED_WHEN_CONTRACT",
+      "classification": "KNOWN_FORMAL_DEFENDED_UNITY_INLINE_WHEN_CONTRACT",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch830-bastion-known-unity-when-unattempted-note.json",
+        "sha256": "c9f6a95a17b7db46a2eb074e622170a5fdc0ff686a0e6689ca2db7831658b2ce"
+      },
+      "reason": "Real conjunction implementation exists: GameLogic1894 calls DTDDefendGroup with actual declaredBlockUIDs; DTDRuntime62..64 checks another real Hand-origin defender then immediately applies WTR_DEFENSE:1. This executes inside defend-declaration completion before a separately responseable printed Unity WHEN layer. Known formal Defended-WHEN caller contract; not absent body, new native failure or a new distinct root.",
+      "independently_verified_known_contract_reference": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse826-act-r4-source-and-toby-unattempted-a11.json",
+        "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false
+    },
+    {
+      "card_id": "shadowrealm_swiftness_yellow",
+      "group_id": "identity:shadowrealm_swiftness_yellow",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_UNMANAGED_PHYSICAL_SOURCE_LIFETIME",
+      "classification": "KNOWN_UNMANAGED_AWAITED_PHYSICAL_SOURCE_LIFETIME",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch830-shadowrealm-known-unmanaged-await-unattempted-note.json",
+        "sha256": "1f8f88cc87912eb9a2425f25a3a0220dfdf5cf8c644a51b1985e23a5de2156a6"
+      },
+      "reason": "Actual canonical/compiled ResolveCard optional positive Banish MZMultiChoose and Zombie-conditioned next GoAgain helpers exist. Both GameLogic managed ordinary-spell predicates exclude Shadowrealm. Its nonpersistent ACTION therefore follows1823 Stack-to-Graveyard BEFORE1824 awaited ResolveCard; printed GoAgain1827 can refund while the required choice is still pending. Exact retained Index/Solace/Toll/Strength/Painful physical-source-lifetime contract, without borrowing Painful adult-hero setup issue. No new native/gameplay defect is claimed.",
+      "independently_verified_known_contract_reference": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse819-independent-two-known-helper-contract-planning-review-6695.json",
+        "sha256": "cadab28fe372f78a84bc441d2ca82f2b4364adef114c80553807be4fe044004c"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false
+    }
+  ],
+  "source_approved": false,
+  "native_case_approved": false,
+  "normal_save_approved": false,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_new_issue": false,
+  "source_fix": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch830_two_holds.py",
+    "sha256": "942c46f236453535675d4e9b20e79f3f3fab3cbe60973b21eb1fecc54ad359c3"
+  },
+  "independent_findings": [
+    "Bastion body exists in native Unity helper: real declaredBlockUIDs and another real Hand-origin defender are checked, then +1DEF tag is applied synchronously. FinishDefendDeclaration invokes this before normal OnDefended dispatch. Printed WHEN requires a responseable earned layer. Same formalDefended family; no native Bastion failure, missing-implementation claim, basicblock fallback or new distinct root.",
+    "Shadowrealm has actual canonical/emitted awaited optional Banish choice and Zombie-conditioned nextattackGA. It is absent from both plain-spell managed lists, and nonpersistent Action path clears source before invoking await, then may award printedGA while choice is pending. This matches retained Index/Solace/Painful lifetime contract, verified against current code rather than borrowing historical runtime evidence.",
+    "YoungMalice legal ShadowNecromancer plus face-up owned actualZombie Banish support and positive return helper are available; no adult-Hero support issue is imported. No executable optionalaccept/decline/movement/GA/consumer/damage/cleanup scenario has run."
+  ],
+  "limitations": [
+    "Source-only planning records, not native reproduction or gameplay coverage. No new bug, repair, fixture, root count or passing result from either card.",
+    "Historical known-contract review files are reference ancestry only. Current guarded source paths were independently checked; no historical corpus or Native evidence was rerun or relabelled current.",
+    "Bastion later DEF/damage/Temper/endturn and Shadowrealm positive/negative choice/GA/fullconsumer remain untested. No fallback, redundant probe, source-green passing case, denied-repair retry or framework workaround.",
+    "Newness/index/hold snapshots in author manifest reflect its read-time checkpoint4089; this review makes no assertion that concurrent healthy-case registration leaves those metadata hashes unchanged."
+  ]
+}

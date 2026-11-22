@@ -1,0 +1,130 @@
+{
+  "status": "COMPLETE_ONE_SNAPSHOT_READ_NO_RETRY",
+  "requested_reads": [
+    "FaBSim_snapshot"
+  ],
+  "request_attempts": 1,
+  "results": [
+    {
+      "card": "FaBSim_snapshot",
+      "started_utc": "2026-11-20T15:05:27+00:00",
+      "expected_card_data_present": true,
+      "snapshot_structure_valid": true,
+      "ability_rows": 6261,
+      "unique_card_ids": 5333,
+      "ability_types": {
+        "macro": 6257,
+        "listener": 4
+      },
+      "repair_entries": [
+        {
+          "card_id": "bloodrot_pox",
+          "row_count": 2,
+          "macro_names": [
+            "EndTurn",
+            "ResolveAbility"
+          ],
+          "expected_entries_present": true
+        },
+        {
+          "card_id": "surface_shaking_blue",
+          "row_count": 2,
+          "macro_names": [
+            "ResolveAbility",
+            "ResolveCard"
+          ],
+          "expected_entries_present": true
+        },
+        {
+          "card_id": "volatile_fluxor_blue",
+          "row_count": 2,
+          "macro_names": [
+            "AttackPowerModifier",
+            "Hit"
+          ],
+          "expected_entries_present": true
+        },
+        {
+          "card_id": "figment_of_erudition_yellow",
+          "row_count": 1,
+          "macro_names": [
+            "ResolveCard"
+          ],
+          "expected_entries_present": true
+        },
+        {
+          "card_id": "captains_call_red",
+          "row_count": 1,
+          "macro_names": [
+            "ResolveCard"
+          ],
+          "expected_entries_present": true
+        },
+        {
+          "card_id": "memorial_ground_blue",
+          "row_count": 1,
+          "macro_names": [
+            "ResolveCard"
+          ],
+          "expected_entries_present": true
+        },
+        {
+          "card_id": "tip_off_blue",
+          "row_count": 1,
+          "macro_names": [
+            "ResolveAbility"
+          ],
+          "expected_entries_present": true
+        },
+        {
+          "card_id": "ebon_fold",
+          "row_count": 2,
+          "macro_names": [
+            "PrepareCard",
+            "ResolveAbility"
+          ],
+          "expected_entries_present": true
+        }
+      ],
+      "snapshot_raw_sha256": "e78c540bf7ff1ab6d62a268c0f50c8a2c4a18d139a4018a129932d7b5fa4afa8",
+      "snapshot_file": "response.raw.json",
+      "revision": "9c1cd5a53b7dbb422db01e5642d172dc8c869ed64250d0332b69ae2148cdb3b8",
+      "transport": {
+        "http_status": 200,
+        "curl_errno": 0,
+        "curl_error": "",
+        "content_type": "application/json; charset=utf-8",
+        "redirect_count": 0,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "server": "cloudflare",
+          "cf-ray": "a5d85a61b803166b-MCI"
+        },
+        "response_bytes": 3588225,
+        "json_object": true,
+        "response_kind": "application_json",
+        "application_success": true
+      },
+      "completed_utc": "2026-11-20T15:05:29+00:00"
+    }
+  ],
+  "started_utc": "2026-11-20T15:05:27+00:00",
+  "repository_changed": false,
+  "config_changed": false,
+  "database_opened": false,
+  "redirects_followed": false,
+  "endpoint": "https://soulmastersdb.net/TCGEngine/CardEditor/API/CardCodeService.php",
+  "workspace": "FaBSim",
+  "client_source_sha256": "fd511443a291c6aa08c01812d4020a70b4a00eba3cfc67fafc1d8f82e73c8552",
+  "config_file_sha256": "ade2e4ea8d37d60f3f3c0f047e202d84c2a474163f7961eb3bd4f50f6708b33c",
+  "method": "GET",
+  "transport": "Actual normal RemoteCardAbilityRepository::request PHP/cURL method with sanitized observer/no-redirect restrictions",
+  "completed_utc": "2026-11-20T15:05:29+00:00",
+  "_retention_context": {
+    "original_workspace_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-cardcode-snapshot-read\\receipt.json",
+    "original_receipt_sha256": "d319719b8b6d766e3e6196433d4ce0950ae269925752f5ee960d320718f4a834",
+    "relative_workspace_artifact_fields_resolve_from": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task",
+    "raw_logs_snapshots_and_backups_not_copied_into_repository": true,
+    "raw_snapshot_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-cardcode-snapshot-read\\response.raw.json"
+  }
+}

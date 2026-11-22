@@ -1,0 +1,117 @@
+{
+  "id": "FAB-REG-123",
+  "status": "NATIVE_CONFIRMED_PREMATURE_HERO_HIT_LIFE_LOSS_BEFORE_FRESH_TRIGGER_RESPONSES",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch477-independent-native-before-classification.json",
+  "independent_review_sha256": "211192e6254be819ce3696ffc57b14ddb557695930d8187357cb5bb3fa29ed02",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch477.json",
+  "input_sha256": "913e96a45d302869d6f5b4e80d15041abcf5c153f50208a3ae84c0ca2df5cb66",
+  "scenario_id": "card-searing-shot-red-four-live-current-hero-hit-trigger-before-one-life-loss-correct-probe",
+  "first_failure": {
+    "error": "Expected p4Health to equal 16, got 15.",
+    "native_action_boundary": 19,
+    "source_step_index": 38,
+    "source_check_index": 15,
+    "ordered_authored_check_ordinal_1based": 1487,
+    "preceding_ordered_authored_checks_passed": 1486,
+    "completed_prior_boundary_checks": 1471,
+    "same_boundary_checks_before_failure": 15,
+    "expected_p4Health": 16,
+    "actual_p4Health": 15,
+    "raw_source_check": {
+      "type": "scalar_zone_equals",
+      "zone": "p4Health",
+      "value": 16
+    },
+    "remaining_authored_checks_after_failure_unexecuted": 1136
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 19,
+    "remaining_inputs_unexecuted": 12,
+    "manual_inputs": 17,
+    "priority_response_inputs": 16,
+    "defender_declaration_finish_inputs": 1,
+    "manual_actor_counts": {
+      "1": 4,
+      "2": 4,
+      "3": 4,
+      "4": 5
+    },
+    "passed_prefix": "RealpriorArsenalArrow5/Bow6/quietDeck7 and all48manualprefs; adjacentHero4 announcement/printed0/AP1->0; sourcefour1/2/3/4, samephysicalArrow5Chain/power4/noGA. Actual emptydefense combat throughthirdReactionpass keepsP4HP20. Input19 actor4 is fourthReactionpass; priority-only stop returnsPriority1/pass0/combatopen. First15sameboundarychecks prove other3HP20/RAP0 and queue1/2/3empty before liveHP4fails16->15.",
+    "separately_captured_native_damage": "Actualobserved state independentlyrecords DAMAGE/link1/sourceAttackUID5/targetHero4/power4/DEF0/damageDealt4/attackHittrue/attackGoAgainfalse; onlyArrowplayed/historyhitUID5. P4turnEffects separatelyrecord DTD_LOST4 then DTD_LOST1. Thus theextra1loss before freshresponses is not inferred solelyfromtheHP15failure or mistakenfor5physicaldamage.",
+    "no_fresh_trigger_response": "None ofplanned inputs20..23 was executed. No callback/triggerresolution was manuallyrespondedto; HP15 alreadyobserved at first posthit priority boundary."
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_HIT_TRIGGER_RESOLUTION_EFFECT_APPLIED_PREMATURELY_INLINE",
+    "protocol_or_oracle_error_at_first_failure": false,
+    "native_confirmed": "CurrentWHENhero-hit requires a separate earned triggeredlayer before loss1. Native reachesHP15 before any ofits fourfreshresponses, with independentlycaptured4damage/hit and additional1life-loss event. CorrectHP16+triggerfour->15 remainsstrict; source loss executed during Hit dispatch ratherthan later earnedlayer resolution.",
+    "native_Stack_limit": "The expectedStack1 check is source38/check27 (afterfailedHPcheck15) and neverexecuted. Recorderobserved_state includes noStackarray/count. EmptyDQ does not establishemptyStack. Do NOTclaim nativeStack0, missing capturedSource/controller query, or physicalpostfailurezones. The immediateinline canonical+actualcompiledbody and timingviolation supportsourcecause, but are not a separatelycapturedStackgetter result.",
+    "bounded_source_cause": "Actual emitted selected Searing Hit wrapper and canonicalARC body both call FaBARCLoseLife(defender,1,player) directly underFaBFaiHeroHit; helper directlysubtractsHealth and notifiesLifeLost, notDoDamage. Shared Hit dispatch invokes this body during hit processing. No sourcechange/repair wasauthorized orapplied; no catalogue-wide absence or global/Core attribution follows."
+  },
+  "selected_source_file_sha256": {
+    "DevTools\\FaB\\arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim\\Custom\\ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch477.recording-results.json",
+      "sha256": "971abc39628200837066f45a7aad84a2258d9dfcbf294a4f4fe2e43917e60587"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs/card-regression-batch477-20261105T143148Z-6aec935488015.json",
+      "sha256": "ecefd704d0436719d8a903089480846c60829cf20683bc94a910f1c05f88f3c1"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/408/",
+      "finding": "Fresh current SearingRed0/base4 WHEN hero-hit lose1life."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Hit triggers create a separate layer before next priority; life loss is its resolution effect."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.5.2",
+        "7.5.3",
+        "7.5.4",
+        "7.5.5a",
+        "7.6.2"
+      ],
+      "finding": "Actual4damage/hit then priority; extra lose-life is not another physical hit; noGA selected."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.6a"
+      ],
+      "finding": "Arrow played from Arsenal while controlling a Bow; legal prior board does not activate Bow."
+    }
+  ],
+  "limits": [
+    "NativeStackcount/pendingtriggerCardID/SourceUID/Controller checks atboundary19 wereUNRUN; no rawStackcapture exists. Do not upgrade emptyDQ or inline sourceanalysis to a nativeStack0 observation. Directmissingresponsewindow consequence is prematureHP15, independentlycorroborated by damage4 and separateLifeLost1.",
+    "Only initialrawsnapshot complete. LastphysicalArrowChain/Bowready/Deck7 identities werequeriedbeforefailure atboundary18; no fullpostfailurephysicalzone/owner/UID/getter/cleanup isfabricated. LogicalattackUID5 atfailure iscapturedstate, not a repeatedphysicalquery.",
+    "All plannedfreshtriggerresponses20..23 and ordinaryDamage/Resolutionclose24..31,1136authoredchecks afterfirstfailure, sourceGY/publicfinalstate/counter/final48manualprefs and finalHP15aftercorrectresolution remainunexecuted. No extra5physicaldamage, secondhit, APrefund or finalcleanup claim.",
+    "Originalcorrect31/2623 and sourceWHENtiming/HP16+fourthen15 unchanged; failureunsaved/uncredited. RamRaider remains separateunattemptedsource-onlyhold. No sibling/support/fullcard/nativecontrol/globalRoot/Core allocation.",
+    "No rerun/companion/sourcefix/PHP/native/replay/R/source/service/generation/fullsuite/remote or deniedrepairretry/reroute byreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T14:54:13.889398+00:00"
+}

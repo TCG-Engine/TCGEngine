@@ -1,0 +1,466 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B815_TWO_CASES",
+  "phase": "SAVED",
+  "batch": 815,
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b809_review_recover",
+  "created_utc": "2026-11-15T02:56:01.317123+00:00",
+  "source_spec": "card-regression-batch815-legs-and-waxing-specter.json",
+  "input_sha256": "29fff9dea9710368fd4d303086a4dcbf3e675f76e5843ad3366f3e8365fbbf9e",
+  "manifest_sha256": "d91b88b54429c075d62bc89e146179595e751c7a8b7aad49c3f6aceeeb860c46",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch815-legs-end-and-waxing-blue-entry-power-ward-author\\manifest.json",
+    "sha256": "d91b88b54429c075d62bc89e146179595e751c7a8b7aad49c3f6aceeeb860c46"
+  },
+  "frozen_preflight_clerical_descriptor": {
+    "field": "batch",
+    "frozen_value": 813,
+    "actual_batch": 815,
+    "actual_firm_status_manifest_input_cards_and_nativebasename_are_815": true,
+    "unused_for_gameplay_actions": true,
+    "packet_preserved_immutable": true,
+    "no813coverage_credit": true
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch815-two-independent-correct-positive-source-review.json",
+    "sha256": "58a1a391700b9dfcad526889a97577a28a59d8efb9625b6cef4c8f97b4fdd904"
+  },
+  "root_wrapper_receipt": {
+    "path": "nov15-b815-two-native-legs-waxing-power-ward\\receipt.json",
+    "sha256": "de44a36e59ee7604e8ec3a3d110b2b30a7f38c0934d3e2ce11e7050607128e8d"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch815-legs-and-waxing-specter-20261115T025517Z-6af91f15803e6.json",
+    "sha256": "29d7d3046b9da98241e0e197c04a7d61adccce0c84bceefeb43a295a772d9acf"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch815-legs-and-waxing-specter.recording-results.json",
+    "sha256": "bed6165315255f5707fbc5f56a1ada20aee320dcf89acada26ea4d0ca951082c"
+  },
+  "fixtures": [
+    {
+      "slug": "card-frontline-legs-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "card_id": "frontline_legs",
+      "group_id": "identity:frontline_legs",
+      "source_spec": "card-regression-batch815-legs-and-waxing-specter.json",
+      "input_sha256": "29fff9dea9710368fd4d303086a4dcbf3e675f76e5843ad3366f3e8365fbbf9e",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-frontline-legs-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "fixture_sha256": "b53aebd14c3ad7f061474e13984816b0953870f1bcf4cc42577374e135aef66c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66045c5d1817ca382295dd65a023ee16992946f2d7afea9510c3bf8062dfaf0b",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "f174376f6fb8ca5012e08c4ae5a020be6d100a1e8048d19053ddb7307f7ce7ef",
+        "expected_final_gamestate.txt": "b531f2b65a8513176f0e05105e14a2abfaac8b73541f3a6d458bf1e7da826c9c",
+        "meta.json": "a5becf561d84dd1b0719fc6213e7b67bfd6102aeddc6804a21ebe06bd34cddce"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "66045c5d1817ca382295dd65a023ee16992946f2d7afea9510c3bf8062dfaf0b",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "f174376f6fb8ca5012e08c4ae5a020be6d100a1e8048d19053ddb7307f7ce7ef",
+        "expected_final_gamestate.txt": "b531f2b65a8513176f0e05105e14a2abfaac8b73541f3a6d458bf1e7da826c9c",
+        "meta.json": "a5becf561d84dd1b0719fc6213e7b67bfd6102aeddc6804a21ebe06bd34cddce"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "66045c5d1817ca382295dd65a023ee16992946f2d7afea9510c3bf8062dfaf0b",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "f174376f6fb8ca5012e08c4ae5a020be6d100a1e8048d19053ddb7307f7ce7ef",
+        "expected_final_gamestate.txt": "b531f2b65a8513176f0e05105e14a2abfaac8b73541f3a6d458bf1e7da826c9c"
+      },
+      "actions": 36,
+      "declarative_controls": 32,
+      "native_assertions": 2338,
+      "manual_passes": 33,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 28,
+      "actual_mechanical_End_dispatch_acknowledgments": 4,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 428,
+      "checkpoint_count": 34,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 134,
+        "36": 190
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "frontline_legs",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Hand",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "frontline_legs",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Graveyard",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "ecc59ff1b17453b389e1fc1cf44aa895c2143d5606eda709e0ea9b8b689a1bb3",
+      "native_assertion_mapping_sha256": "22b3e2a6eb5aa977d0cabb017b8b596c9dcbae8279d372e17d40143e4c2a5995",
+      "checkpoint_assertion_mapping_sha256": "8b903790471a18ad8960608a300b97974b5b4fbe15c50d0e73070b01ad8b07e8",
+      "actual_final_health": [
+        17,
+        20,
+        20,
+        20
+      ],
+      "full_card_certification": false,
+      "source_derived_ordinary_End_hero_bookkeeping": {
+        "ended_P1_exact_inactive_counter": {
+          "MST_COLORLESS_UNTIL": 0
+        },
+        "source": "FaBSim/Custom/MSTCards.php121-124/18 + EVOCards.php105",
+        "same_current_guards_independently_verified": true,
+        "raw_only_no_added_native_query": true
+      }
+    },
+    {
+      "slug": "card-waxing-blue-real-blue-three-pays-two-entry-power-one-ward-one-selfdestroy-three-damage",
+      "card_id": "waxing_specter_blue",
+      "group_id": "pitch-cycle:waxing_specter",
+      "source_spec": "card-regression-batch815-legs-and-waxing-specter.json",
+      "input_sha256": "29fff9dea9710368fd4d303086a4dcbf3e675f76e5843ad3366f3e8365fbbf9e",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-waxing-blue-real-blue-three-pays-two-entry-power-one-ward-one-selfdestroy-three-damage",
+      "fixture_sha256": "e668ba0f7fa5344aa78277a0fe2a1a0314251cfe71000829ada123807235aaeb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f79c8033a782f8e8823189922af76e0ad92632b3268990ea5c6c97e94fca6891",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "41429729a4da576418c100dff8631e3d0cf29e21e3932f3f5c25b4bee6d696bc",
+        "expected_final_gamestate.txt": "2ca93b344aacb9abdd7c2cb057b06ea75c1a9c7a2f32c2954886119b83d5ea4f",
+        "meta.json": "c020ee2e1db77c3aacae504e1594d099b1d7641a4b55ae463a4153f76eb17071"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f79c8033a782f8e8823189922af76e0ad92632b3268990ea5c6c97e94fca6891",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "41429729a4da576418c100dff8631e3d0cf29e21e3932f3f5c25b4bee6d696bc",
+        "expected_final_gamestate.txt": "2ca93b344aacb9abdd7c2cb057b06ea75c1a9c7a2f32c2954886119b83d5ea4f",
+        "meta.json": "c020ee2e1db77c3aacae504e1594d099b1d7641a4b55ae463a4153f76eb17071"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f79c8033a782f8e8823189922af76e0ad92632b3268990ea5c6c97e94fca6891",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "41429729a4da576418c100dff8631e3d0cf29e21e3932f3f5c25b4bee6d696bc",
+        "expected_final_gamestate.txt": "2ca93b344aacb9abdd7c2cb057b06ea75c1a9c7a2f32c2954886119b83d5ea4f"
+      },
+      "actions": 37,
+      "declarative_controls": 37,
+      "native_assertions": 2558,
+      "manual_passes": 32,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_mechanical_End_dispatch_acknowledgments": 0,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 536,
+      "checkpoint_count": 39,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 133,
+        "37": 193
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "enigma",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "waxing_specter_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "enigma",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "waxing_specter_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "e6b44ce2b72b4897ed23fe99a456f7bb3a7ac4732993e9821288e5141e94bac8",
+      "native_assertion_mapping_sha256": "4544aaed9d4ea7d1337d701d2c5492dc578b40551fe8aa4470981b57971a78a8",
+      "checkpoint_assertion_mapping_sha256": "13285359e986c60934fd3f845895b292a98474242a61caa1b4e423a565220a84",
+      "actual_final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "full_card_certification": false,
+      "actual_real_blue_pitched_uid": 7,
+      "actual_blue_pitch_history_count": 1,
+      "actual_cost_paid": 2,
+      "actual_Ward_prevented": 1,
+      "actual_same_Waxing_UID_destroyed": 6,
+      "actual_mandatory_Ward_chooser_player": 4
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 25,
+  "all_current_guards_matched": true,
+  "total_actions": 73,
+  "total_native_assertions": 4896,
+  "total_manual_passes": 65,
+  "total_priority_response_passes": 59,
+  "total_mechanical_End_dispatch_acknowledgments": 4,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 964,
+  "total_checkpoints": 73,
+  "total_endpoint_assertions_evaluated": 650,
+  "material_findings": [
+    "Every actual73envelope/4896orderedquery/65manualPass/964typed/73checkpoint independently mapped to exact two-case Source; all raw5 each/48manualvalues each endpoint/wholephysicalinventory/endpointqueries verified.",
+    "Legs actual namedLegs5 earnsownautomaticEndDEFENSE1; realnextP2turn3/AP1 andearlytargetHero1; printed2minus1=1defense againstRed4 gives3damageHP17. SameLegsBladeBreakownGY1/Red6GY2; noEndpriority/intra-atomicWHEN/globalEnd certificate. FouractualEnddispatch acknowledgments aremechanical, notlegalresponses.",
+    "WaxingBlue6 actualnonturnINSTANT2 withactualBlue7pitch3/payment2/R1/AP0; exactoneearnedMST_BLUE_PITCHED earnsentryPOWER1; printedWard1. MandatoryP4same6destroytoownGY4 prevents1ofRed4/noDefenders; actual3damageHP17. Red5ownGY1/Blue7Pitch4. EarnedPOWER1 entry map alsoverified atallArena checkpoints; noAuraattack/POWERuse/EnigmaChi/Shieldability, zero/multiblue/fullcard credit.",
+    "Eachfreshordinarysetup hasfourmanual liveheroes20/naturalP1AP1/noAura/Endwear/bluehistory/prevention/outcome seed, completeUID/owner/controller conservation andfulltrueClosecleanup. Ownstablemodels specializedexactnewidentities/cost/pitch/Ward/damage/Hero beforeNative; actualSaved reviewedfresh, noqualificationbyanalogy."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_End_trigger_layer_ordering_certified": false,
+  "general_Start_End_Ward_Aura_ordering_certified": false,
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Only actual firstLegswear/nextturn3damageBladeBreak andactualoneBlueWaxingWard1/3damage scenes. No genericphase/layer/order/fullcard/sibling/Herobranch certificate.",
+    "Root two NEW-only focused batchreplays and registration separate. Reviewer W-only/read-onlyR/no PHP/native/replay/R/source/Git/heldrepair/newagent action."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch815_two_saved.py",
+    "sha256": "f392c47ca40623de1535d54a67018a4d94f21bf15f68b955f6b9337e3dcce06f"
+  }
+}

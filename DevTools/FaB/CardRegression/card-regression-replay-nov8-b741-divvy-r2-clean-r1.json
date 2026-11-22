@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch741.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T20:23:12.972979+00:00",
+  "fixtures": [
+    {
+      "slug": "card-divvy-up-blue-casual-four-live-treasure-island-macro-variant-removes-two-creates-two-gold",
+      "fixture_sha256": "d0bfe98277086304343bc9df38614575fbede7a5071ad196b7d25aa1d430c61f",
+      "passed": true,
+      "result": "[PASS] Divvy Up Blue / casual four-live Treasure Island macro variant / synthetic fixture clock / two Gold"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-divvy-up-blue-casual-four-live-treasure-island-macro-variant-removes-two-creates-two-gold",
+      "returncode": 0,
+      "stdout": "[PASS] Divvy Up Blue / casual four-live Treasure Island macro variant / synthetic fixture clock / two Gold\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

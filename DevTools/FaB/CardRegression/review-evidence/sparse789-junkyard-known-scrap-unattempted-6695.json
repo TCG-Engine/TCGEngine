@@ -1,0 +1,147 @@
+{
+  "status": "B789_JUNKYARD_DOGG_FIXED_SCRAP_ROUTE_SOURCE_ONLY_UNATTEMPTED_KNOWN_DEPENDENCY",
+  "created_utc": "2026-11-14T19:46:27.938500+00:00",
+  "batch": 789,
+  "card_id": "junkyard_dogg_blue",
+  "group_id": "pitch-cycle:junkyard_dogg",
+  "members": [
+    "junkyard_dogg_red",
+    "junkyard_dogg_yellow",
+    "junkyard_dogg_blue"
+  ],
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch789-firm-reservation.json",
+    "sha256": "2654164e37ef0165c05d141c6e65bd0017a3682e05a5202dc53d3b2593c4241f"
+  },
+  "whole_family_support_alias_hold_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch789-selected-support-family-metadata-preflight-r2-current178.json",
+    "sha256": "6c55ece8f2da170327b51eff1442d57f057ce4b32b390117be25849dee966430"
+  },
+  "independent_official_rules_preparation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch789-independent-official-rules-preparation.json",
+    "sha256": "0f0ff9cc021f623545d1de6743e3178d485d1fe5fa3437398098e2e8f0e0c7a4"
+  },
+  "known_dependency": {
+    "file": "sparse-source-only-holds.json",
+    "json_path": ".holds[106]",
+    "row_sha256": "fc07d71a27048634b0d34e55327a66799ba6fcdb7125356ddf3da19914ff3655",
+    "hits": [
+      "Scrap"
+    ],
+    "id": null,
+    "card_id": "scrap_trader_red",
+    "card_ids": null,
+    "status": "source_only_unattempted_selected_route",
+    "reason": "The implemented selected Prepare path calls Scrap and actually banishes chosen Graveyard cards before FinishPrepared reaches the Action AP debit; the declared-effect-cost staging whitelist does not include this route. This is an inherited source-only cost-order dependency. No native probe, new issue, source repair, alternate primary or passing coverage is claimed."
+  },
+  "fixed_printed_plan": "Young Dash20 at1 / three quiet young Betsy20. Actual Junkyard5 action attack adjacentHero4; optional Scrap ONE own ordinary initialGY IronrotLegs equipment, paid printed3 by one ordinary unhooked WoundingBlue pitch and AP1. Only successful real Scrap may earn WHEN +1 on printed4, fresh responses, eventual5 physical. No item-start ability or result/effect/counter/history seed.",
+  "legality": "Independent official CR8.3.32 accepts ownGY item/equipment without Mechanologist restriction. Declare optional additional cost and target, then pay resource/AP assets before real effect-cost banish (CR5.1.7/5.1.9); selecting is distinct from paying.",
+  "selected_canonical": {
+    "cardId": "junkyard_dogg_blue",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$refs = FaBEVORefs($player, 'Graveyard', 'scrap', false);\n $maximum = min(1, count(array_filter(explode(\"&\", $refs))));\n $chosen = \"-\";\n if ($maximum > 0) {\n $chosen = await $player.MZMultiChoose($refs, 0, $maximum, \"Scrap_items_or_equipment\");\n \n}\nFaBEVOScrap($player, $uid, $chosen);\n FaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nif (FaBARCCard($uid, 'evoScrap')) {\n FaBTagUID($uid, 'WTR_POWER:1');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  "current_emitted_selected_path": {
+    "file": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+    "registration_lines": [
+      11077,
+      11082
+    ],
+    "await_function_lines": [
+      132802,
+      132840
+    ],
+    "function": "__RunAwait_d1bcb4f5ed67c68e5dfb",
+    "decisive_code": "case1 FaBEVOScrap(player,uid,chosen); then FaBFinishPreparedCard(uid);",
+    "selected_function_sha256_normalized_lf": "9c213b5f036bdc74e4b4654f594e222a2e2d34d7e2a559dc2f150f1983fa9d5a"
+  },
+  "exact_helper_chain": [
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        968,
+        993
+      ],
+      "finding": "DoPlayCard creates pendingPayment and PITCH, then selected PrepareCard runs before TryCompletePayment."
+    },
+    {
+      "file": "DevTools/FaB/evo_abilities.json",
+      "cardId": "junkyard_dogg_blue",
+      "finding": "PrepareCard awaits0..1 ownGY eligible choices; immediately calls FaBEVOScrap before FinishPreparedCard."
+    },
+    {
+      "file": "FaBSim/Custom/EVOCards.php",
+      "line": 61,
+      "finding": "FaBEVOScrap validates same-player Graveyard Item/Equipment and physically FaBMoveUID to Banish, then records evoScrap."
+    },
+    {
+      "file": "FaBSim/Custom/CardChoices.php",
+      "lines": [
+        217,
+        233
+      ],
+      "finding": "FinishPreparedCard then calls TryCompletePayment for ordinary selected path."
+    },
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1085,
+        1113
+      ],
+      "finding": "TryCompletePayment checks/charges resources and Action AP after Prepare; current selected direct Scrap already occurred."
+    },
+    {
+      "file": "FaBSim/Custom/CodeGeneration.php",
+      "line": 145,
+      "finding": "Finite reviewed declared-effect-cost source bridge excludes Junkyard; current selected emitted function confirms direct banish remains."
+    }
+  ],
+  "reason": "Exact same inherited source-only ScrapTrader selected cost-order helper dependency: physical chosen GY banish occurs before resource/AP asset payment. Held UNATTEMPTED without probing this known route, changing primary/support, or weakening positive plan.",
+  "preimage_guards": {
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/CodeGeneration.php": "b4e55525fdb5dfdd939b5363249ef905a764299c9422697bffd940f1c848a146",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "all82_source_guard_reference": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch789-tip-off-native-menu-strict-early-target-diagnostic-author\\manifest.json",
+    "sha256": "86e609550fb67ec6f808ed2f8c9b5160350f393690bd8fd860e67a3daf982755"
+  },
+  "counts": {
+    "runnable_cases": 0,
+    "recipes": 0,
+    "controls": 0,
+    "queries": 0,
+    "native_inputs": 0,
+    "new_issues": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "not_claimed": [
+    "No native Junkyard behavior observed or confirmed bug.",
+    "No attack WHEN timing, +1 power, response flow, damage or later cleanup verified; those remain planned only.",
+    "No full family or untested pitch-sibling credit; exact selected Blue fixed route only.",
+    "No repair/prototype/emission/PHP/remote authoring, no R write, no denied B787 action."
+  ],
+  "native_attempted": false,
+  "fixture_saved": false,
+  "qualification_permitted": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true
+}

@@ -27,7 +27,7 @@ function FaBHVYAbilityLegal(int $p,array $f,array $spec): bool {
  if($id==='prized_galea'&&FaBHVYAttackTargets($p,'weapon')==='')return false;return true;
 }
 function FaBHVYPrepareAbility(int $p,object $o): bool {return in_array($o->CardID,['kassai','kassai_of_the_golden_sand','hood_of_red_sand','graven_call','good_time_chapeau'],true)&&FaBRunSourceMacro('PrepareCard',$p,$o->CardID,['mzID'=>FaBDTDSource(intval($o->UniqueID))])>0;}
-function FaBHVYPaid(int $p,object $o): void {if(FaBHVYHandAbility($o->CardID)){FaBMoveUID(intval($o->UniqueID),'Graveyard',$p);FaBWTRCardDiscarded($p,$o->CardID);}}
+function FaBHVYPaid(int $p,object $o): void {if(FaBHVYHandAbility($o->CardID)){$discardSource=clone $o;FaBMoveUID(intval($o->UniqueID),'Graveyard',$p);FaBWTRCardDiscarded($p,$o->CardID,intval($discardSource->UniqueID),$discardSource);}}
 function FaBHVYKassai(int $p): bool {foreach(GetHero($p) as $h)if(empty($h->removed)&&in_array($h->CardID,['kassai','kassai_of_the_golden_sand'],true)&&FaBWTRHeroActive($p))return true;return false;}
 function FaBHVYAbilityCost(int $p,array $spec): int {return FaBHVYKassai($p)&&FaBDTDCount($p,'DRAWN')&&FaBHasType($spec['cardID']??'','Sword')?-1:0;}
 function FaBHVYControlled(int $p,string $token): bool {return FaBHVYCount($p,'CONTROLLED_'.$token)>0||count(FaBMONArena($p,$token))>0;}

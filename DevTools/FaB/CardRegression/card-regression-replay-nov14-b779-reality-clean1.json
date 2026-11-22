@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch779-reality-refractor.json",
+  "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T02:22:22.129908+00:00",
+  "fixtures": [
+    {
+      "slug": "card-reality-refractor-four-live-real-aura-weapon-two-paid-five-damage",
+      "fixture_sha256": "42e1d0a9b16fbbdccd5e7d5291d6a154eb5b2dcfd4a9621dbd7d7b8492b1b798",
+      "passed": true,
+      "result": "[PASS] Reality Refractor / actual aura weapon pays two and deals five"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-reality-refractor-four-live-real-aura-weapon-two-paid-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Reality Refractor / actual aura weapon pays two and deals five\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

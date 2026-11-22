@@ -1,0 +1,52 @@
+{
+  "status": "SCALE181_NATIVE33_1662_SAVED_ONE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 source/checker author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+  "input_sha256": "de19601b2c5ae141b7b1ab62398621e619b6576ff8e1302ed1d9293aba9a3104",
+  "source_spec": "card-regression-repair-scale181-earned-hit-equipment-effect.json",
+  "fixtures": [
+    {
+      "slug": "card-scale-peeler-four-live-earned-equipment-debuff-piercing-close-repair",
+      "card_id": "scale_peeler",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a31081807975f979a0cc7504ca7efa317bfd759e2b17f4bcfc673e6c4d78cf5",
+        "actions.json": "235a2bde56c1a4ce94569d7e299bf72a53a4dd4684756caa997d969cd8db6b47",
+        "assertions.json": "49cf71bc69d157dba93c37043c9ad968e5f2601d30c6a4225db4a47d9fcbb348",
+        "expected_final_gamestate.txt": "3c132e9136db672d94ba2a28de8345215b1dc11b0b4e3430fa76feeef12e2427",
+        "meta.json": "5c70d7d50e9a3cdbe86b0d12a16bb9a14121003b58ac62404f08786222763edc"
+      },
+      "fixture_sha256": "b68071b239b018f79550dfb411e444ce4f86961501b19987304713a04c5bfa22",
+      "actions": 33,
+      "native_assertions": 1662,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+      "runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+      "source_spec": "card-regression-repair-scale181-earned-hit-equipment-effect.json",
+      "input_sha256": "de19601b2c5ae141b7b1ab62398621e619b6576ff8e1302ed1d9293aba9a3104"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-scale181-replay.json",
+    "sha256": "e96c1f72af0fca9d0fb368678218c6556bd0ac01d8c14e48136ec146055b2372",
+    "passed": true
+  },
+  "source_review_sha256": "5cde5795fdf1ff526b2884b5512b0b3174f310037108284980b64fe2a23b2d0f",
+  "component_receipt_sha256": "f8c6b12024957f401465f8f839f095b93dfc84cc553f72c53b859e515b1d4c37",
+  "components": 27,
+  "basis": "Original21controls/1535checks unchanged; separate bug-completion witness adds12controls/127checks. Actual paid ScaleProxy10/sourceWeapon7 Piercing1 against physicalLegs8DEF1 deals1/P4HP19 and earns source7/controller1/victim4 ABI. Fresh4 responses precede exactly one OUT_DAGGER_EQUIPMENT row amount1/uses1; type/quantity are durably queried via existing nested path. Independent Saved type-search verifies the actual row without relying on slot order. Real Damage/GA and Resolution/Close retain weapon7/Helm9, destroy BladeBreakLegs8 toGY, and retain actual Hand6/Pitch5/economy; all4manual/Stack/queues/await/payment cleanup reviewed. Other dagger branches/bookkeeping unchanged.",
+  "rejected_candidates": [
+    "R1 was never applied: Root Source review found supported physical Throw/PseudoHit calls would be dropped by proxy-only guards.",
+    "R2 was never applied: actual component18 caught missing-WEAPON_UID proxy fallback masquerading as valid physical source. Its failedreceipt retained; R3 preserves that negative and supports proxy whose actual weapon has since departed.",
+    "R3 actual OUTThrow/ArakniThrow/PseudoHit compatibility passed in isolation before exact disjoint ROS rebase retained180 route. Only combined-runtime Native/replay supplies this case qualification."
+  ],
+  "limits": [
+    "Native only normal existing181 combat route. Actual extracted physical throws and future equipment effect-consumption have isolated component evidence, no extra Native/fullcard credit.",
+    "Native exact row path uses source-derived slot7 guarded by type; unrelated history order is a representation limit. Saved search independently verifies quantities.",
+    "No generic094, deniedB787, canonical/generated/Core/service edits, full suite or historical corpus replay."
+  ]
+}

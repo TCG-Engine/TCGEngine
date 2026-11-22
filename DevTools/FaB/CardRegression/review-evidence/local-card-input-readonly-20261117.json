@@ -1,0 +1,26 @@
+{
+  "status": "SUPPORTED_LOCAL_INPUT_ROUTE_UNAVAILABLE_FA_B_MAPPED_DATABASE_ABSENT",
+  "result": {
+    "scope": "Read-only loopback local Card Code input availability; no constructor/EnsureSchema/generation",
+    "utc": "2026-11-17T04:48:20+00:00",
+    "writes": false,
+    "status": "LOCAL_READ_UNAVAILABLE",
+    "error_code": 1049,
+    "reason": "FaBSim mapped local database does not exist"
+  },
+  "receipt_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-local-card-input-readonly\\receipt.json",
+  "receipt_sha256": "5979c543d9505b0844175e20087198eb2acad515b957a5f66d7acb265537fb65",
+  "probe_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\probe_nov17_local_card_input_readonly.php",
+  "probe_sha256": "f421f344b0877bb79ddca9a42f29ee23f81bd0c33ed2ac3b22db3f5956760d8e",
+  "remote_last_verified": {
+    "path": "review-evidence/pox147-service-http403-block-20261116.json",
+    "sha256": "baa6329d738328a226a7f1788eec9401527daed7a24100462835a6f7512ae928",
+    "outcome": "HTTP403 Forbidden, historical lastGET, not retried here"
+  },
+  "source_basis": "OpenCardAbilityRepository supports LocalMySQL alternative. Availability probe used actual GetLocalMySQLConnection with loopback/database guards and explicit FaBSim root. It did not instantiate CardAbilityDB, whose constructor calls EnsureSchema and may issue DDL. No table/data/source/generation/import/config writes occurred.",
+  "next_required_input": "Usable authorized configured remote snapshot read, or an existing correct locally mapped raw authored database/export usable by the supported guarded generation route. Creating/importing a database is outside this read-only check and was not attempted.",
+  "limits": [
+    "1049 is an actual local mapped-database error; not evidence that remote hosting is down.",
+    "No selected row hashes obtained; canonical Surface bodies remain only the historical matching two-body cache, not a whole-root snapshot. No arbitrary database fallback or generated hand editing."
+  ]
+}

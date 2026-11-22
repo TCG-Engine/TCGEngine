@@ -1,0 +1,138 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_SHIMMERS_REAL_AURA_WEAPON_EARNED_PERMANENT_COUNTER",
+  "phase": "SOURCE",
+  "batch": 854,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch854-shimmers-real-aura-weapon-earned-counter-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-real-iris-aura-weapon-earned-counter-strict-probe-author\\shimmers-real-iris-aura-weapon-earned-permanent-counter-full-probe.json",
+    "sha256": "3a8d6e299392069ae9c23fee803b841702b51791eeff6d6b2558692154445108"
+  },
+  "input_sha256": "3a8d6e299392069ae9c23fee803b841702b51791eeff6d6b2558692154445108",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-real-iris-aura-weapon-earned-counter-strict-probe-author\\manifest.json",
+    "sha256": "a91da9bd7213a070c7c21578fc8c0470ae832c02fb13f35e5e0ecdcfe3c3fcce"
+  },
+  "manifest_sha256": "a91da9bd7213a070c7c21578fc8c0470ae832c02fb13f35e5e0ecdcfe3c3fcce",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-firm-reservation.json",
+    "sha256": "58c054d61d77e4cfd6fb00bae0e241b029293d70b191b753ff2264e9bd9286ed"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-real-iris-aura-weapon-earned-counter-strict-probe-author\\preflight.json",
+    "sha256": "4ca7c69b46e6d1509a3aaddb199aaf24e4e29a89420dd2e0d7e555c2b684e80a"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-real-iris-aura-weapon-earned-counter-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "a3fd143ceeb4f4ebf8b1a767d05360fbfe8ce951cb5612fc15b7dc1c55dc1a8e"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-real-iris-aura-weapon-earned-counter-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "5c9408e20e8656bab776afcb47d92c51e5d9e96e419e094b76eab18fc22fe133"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 17,
+  "all_current_guards_independently_matched": true,
+  "actions": 32,
+  "declarative_controls": 32,
+  "planned_native_inputs": 32,
+  "assertions": 4128,
+  "native_assertions": 4128,
+  "planned_native_assertions": 4128,
+  "manual_passes": 29,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 7,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 34,
+  "schema_property_checks": 1121,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "e8cf9e29bc37b71f11a58215ca3f533e972eb3ef5d9bb0f5b0cf3e6a3103af22",
+  "expected_native_query_mapping_sha256": "fab9450b4708648c1c16b86396c1cbba51f90c9e76906d3c6be18a6b4199fca9",
+  "checkpoint_mapping_sha256": "3a8ec1f3c4ff586c8f6c9fd37d5e0de2ff1e113cf522ceb3567bd9d9f8793169",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "Four legal manual Young heroes Prism/Betsy/Betsy/Betsy, all20/UPF/no passive seats. Legitimate preexisting Shimmers5 and Shield6 under Illusionist Prism with real Iris7 and Blue8; no seeded attack, power, weapon flag, GA or AP outcome. Prism soul ability/Betsy wager remain unentered.",
+    "Iris explicitly prints weapons with base4 and Once per Turn Action3 Attack/Go again. MONAbilities57..76 builds actual Aura attack proxy and target declaration; Blue8 pays3 to R0/AP0 before priority. Native six-key proxy shape after payment is source-derived; no virtual UniqueID/Owner/event guess. No printed tap cost is invented from legacy used Status.",
+    "CRUUseWeapon321..325 writes physical Shield WEAPON_ATTACK_TURN2/WEAPON_ATTACKS1. Those remain through pending Shimmers trigger. Only meaningful printed outcome POWER must remain absent/computed4 until fresh earned four responses, then same physical source6 receives permanent POWER1 and computed5. Shimmers once-limit EVR_TURN reservation at capture is not independently certified or challenged.",
+    "EVRAttack76..90 ordinary declaration path directly increments physical source POWER and marks Shimmers EVR_TURN. Canonical empty abilities does not mean absent implementation. This is a fresh named inline counter producer concern, not Native confirmation, no waiver/duplicate probe of an exact required retained support contract.",
+    "Source control7 expects captured Shimmers ABILITY/source5/controller1 and computed4; controls8..10 preserve noPOWER through the first three earned responses. Control11 requires POWER1/computed5. Remaining full attack/no-defense/Reaction deals5 to HP4=15; Iris GA refunds AP1 in Resolution; proxy alone clears, Shimmers5/Shield6POWER1/Iris7 persist and Blue8 stays Pitch.",
+    "WTRCards669..670 reads physical WEAPON_UID source POWER into attack delta. Thus physical counter and actual5damage are independent witnesses beyond cached proxy base4. All32 expected controls/4128 ordered queries/1121 actual schema properties/current guards verified, 29 manual passes7/7/7/8 include P4 zero-defense finish."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_prior_independent_trigger_rules_review": true
+    }
+  ],
+  "required_remaining_gates": [
+    "Root exact full --probe-only attempt; no Save even PASS.",
+    "Independent actual full trace review before any promotion recommendation.",
+    "Separate explicit promotion/fresh normal Source/actual Saved raw5/both48 profiles/two own replays would still be required."
+  ],
+  "limits": [
+    "Source approval only; no Native result, confirmed bug, repair, fixture, qualification or coverage.",
+    "Prior casting/Spectra/Ward, second attack/once reset, other Aura weapons, Hero/support/fullcard branches and generic virtual-layer deletion are untested.",
+    "No PHP/native/R writes, full suite/Git/remote/deferred repairs or denied188/184/B787 actions."
+  ],
+  "created_utc": "2026-11-16T08:05:02.308563+00:00"
+}

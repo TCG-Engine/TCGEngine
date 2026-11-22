@@ -1,0 +1,229 @@
+{
+  "status": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+  "phase": "PLANNING",
+  "batch": 808,
+  "approved": true,
+  "planning_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T01:37:21.825409+00:00",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch808-firm-reservation.json",
+    "sha256": "911af4d8e65bc53d2759a64302819922d314edcff38bba653a05ca9aa1b7ccda"
+  },
+  "support_dependency_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch808-selected-helper-preflight.json",
+    "sha256": "ad340157587e9cb8e5e44e929781237206a501c0c477bc4942572a349f83180a"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-throw-actual-owned-blue-reveal-prevention-three-physical-consumer-author\\manifest.json",
+    "sha256": "1e60b5ef9d1321378bec04a40aa5e2a3eb0f5813431ea991ef7df4bc342cfd20"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "c1b296b05874e1f45757c427f517793877ef80b3bbd844f77bf7dc889de944cf",
+  "selected_preimage_count": 23,
+  "selected_preimage_map_sha256": "106697d38c5e806b56d41aa3ec78f42b6c8a23fc6a3091fa2bb953ffd220fa69",
+  "all_current_guards_independently_matched": true,
+  "known_required_contract_rows": [
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[147]",
+      "card_id": "deep_recesses_of_existence_blue",
+      "row_sha256": "66b486c93726388da83310bc586ff75dcbd8a8a7f44acdb4e2984fa06ccbf3ee"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[148]",
+      "card_id": "widespread_annihilation_blue",
+      "row_sha256": "34999ab35f39aa3deac6ef5a21c59ac646c034d678581df20f5229af9a2782b3"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[250]",
+      "card_id": "horns_of_the_despised",
+      "row_sha256": "1ba36c12255fe7ea932f2c4236597b17ae543ee08efd193672bcd3d564b872a4"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[251]",
+      "card_id": "helm_of_the_adored",
+      "row_sha256": "8e0e2b70312c04506b6cabcb86c51b1e01a00e1e40c438321dd8405c91d3af13"
+    }
+  ],
+  "known_row_index_note": "Horns251/Helm252 are human serial labels; exact zero-based ledger locations are .holds[250]/.holds[251]. Close contracts are exactly .holds[147]/.holds[148].",
+  "actually_viewed_faces": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\cogwerx_tinker_rings.webp",
+      "sha256": "4d2a4ccad6bb3c0c56d1fa5525a0629363749aa3537c707637ab9a371eab0d65"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\shroud_of_the_fate_watcher.webp",
+      "sha256": "8e38126272833ecfa9a2d0de4366da5dbc47504100ddc90226efa9a73938cfe5"
+    }
+  ],
+  "official_rules_basis": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "An earned WHEN creates a triggered layer before priority; the effect occurs when that layer resolves."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2",
+        "7.3.2b",
+        "7.3.3",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4",
+        "7.7.7"
+      ],
+      "finding": "Formal declaration earns defend triggers; defense zero is legal. Close has no player priority and settles triggered layers automatically before the Action Phase continues."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/03-zones/",
+      "rules": [
+        "3.0.5",
+        "3.0.5a",
+        "3.0.5b"
+      ],
+      "finding": "Equipment zones and combat chain are in the arena; graveyard is outside. Equipment-to-chain is not leaving the arena."
+    }
+  ],
+  "official_retrieval_limit": "Current official CR pages read; actual cached primary card faces viewed. No fetched official Judge card page or release-page claim.",
+  "reviews": [
+    {
+      "card_id": "cogwerx_tinker_rings",
+      "group_id": "identity:cogwerx_tinker_rings",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch808-rings-known-required-contract-unattempted-planning-hold.json",
+        "sha256": "4f81e78b4e811a16ed859a2907aefa2a245cebe1e25b04121634492d4a5ef207"
+      },
+      "planning_classification_approved": true,
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_INLINE_CONTRACT_UNATTEMPTED",
+      "implemented_body_sha256": "288215fa7c8c7e0ba627d01e46d563d8e32c2cfe62e47ec96c7a0b04263aa728",
+      "source_preimages": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd"
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "sha256": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086"
+        },
+        {
+          "path": "FaBSim/Custom/HVYCards.php",
+          "sha256": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d"
+        },
+        {
+          "path": "DevTools/FaB/sea_abilities.json",
+          "sha256": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78"
+        }
+      ],
+      "known_family_rows": [
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[250]",
+          "card_id": "horns_of_the_despised",
+          "row_sha256": "1ba36c12255fe7ea932f2c4236597b17ae543ee08efd193672bcd3d564b872a4"
+        },
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[251]",
+          "card_id": "helm_of_the_adored",
+          "row_sha256": "8e0e2b70312c04506b6cabcb86c51b1e01a00e1e40c438321dd8405c91d3af13"
+        }
+      ],
+      "actual_bounded_path": "GameLogic FaBFinishDefendDeclaration1890-1906 calls OnDefended at1897 after physical declaration. OnDefended1226 invokes FaBRunSourceMacro; its1290-1322 dispatch reaches generated25013-25019/canonical SEA Defended directly. That body immediately calls FaBHVYToken(golden_cog); HVYCards20-33 creates the token. The only exact Defended interception here is Smoke Out, not Rings.",
+      "correct_expectation": "The printed Arms2 WHEN must create its own responseable layer before Cog creation. Block selection preview is not the formal defend event. Planned same-owned Cog/steam1 and optional Crank decline require later actual evidence.",
+      "scope": "Exact fixed Dash/quiet Betsy route only. No Cog, steam, Crank choice, AP, HP18, Blade Break, Dash start ability, creator or future upkeep output executed; no basic-block fallback."
+    },
+    {
+      "card_id": "shroud_of_the_fate_watcher",
+      "group_id": "identity:shroud_of_the_fate_watcher",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch808-shroud-known-required-contract-unattempted-planning-hold.json",
+        "sha256": "8c219c56a2dc73b4707c1cdcafb6ce049ef0fb9df33b1b316c5d9a1a50f34902"
+      },
+      "planning_classification_approved": true,
+      "classification": "KNOWN_REQUIRED_AUTOMATIC_CLOSE_LAYER_SEQUENCING_UNATTEMPTED",
+      "implemented_body_sha256": "532cc3a7f8115fb4174042fae3f78cec9b50cb90f99517228ec146b0724d53f9",
+      "source_preimages": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd"
+        },
+        {
+          "path": "FaBSim/Custom/PENCards.php",
+          "sha256": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94"
+        },
+        {
+          "path": "FaBSim/Custom/ROSCards.php",
+          "sha256": "643fa4e4e57b1156ada42ff45bf7612c0027bbb84910bdd64d580da3877c84dd"
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "sha256": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086"
+        },
+        {
+          "path": "FaBSim/Custom/HVYCards.php",
+          "sha256": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d"
+        },
+        {
+          "path": "DevTools/FaB/pen_abilities.json",
+          "sha256": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054"
+        }
+      ],
+      "known_family_rows": [
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[147]",
+          "card_id": "deep_recesses_of_existence_blue",
+          "row_sha256": "66b486c93726388da83310bc586ff75dcbd8a8a7f44acdb4e2984fa06ccbf3ee"
+        },
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[148]",
+          "card_id": "widespread_annihilation_blue",
+          "row_sha256": "34999ab35f39aa3deac6ef5a21c59ac646c034d678581df20f5229af9a2782b3"
+        }
+      ],
+      "actual_bounded_path": "GameLogic FaBMoveUID799 passes captured source to FaBPENAfterMove. PENCards290 correctly rejects Equipment-to-CombatChain and293 queues the arena-to-outside departure through FaBROSQueue. GameLogic2129-2130 marks defending Blade Break; true Close2162 moves the same physical Shroud to Graveyard. ROSCards24 queues its ability;25-47 dispatches ResolveAbility to canonical PEN/generated17467-17471 Sigil creation. Parent FaBCloseCombatChain2167-2171 continues cleanup, resets window state and restores priority without draining that layer automatically; GameAfterEngineAction2005-2035 has no selected Close-layer drain.",
+      "correct_expectation": "Natural Kano15/Head0 is legal. No Sigil is earned by Equipment-to-chain movement. Actual Close destruction earns the leave-arena effect, which must settle within the automatic Close process before Action priority; adding a fresh manual response round would be incorrect.",
+      "scope": "Arena-aware predicate, queue, source body and Sigil creation implementation exist. Same required parent sequencing contract as held147/148, not a missing-body or false early-leave claim. No native HP11, leave/cleanup/Sigil allocation, future Sigil Opt or Kano ability outcome executed; no zero-block-only fallback."
+    }
+  ],
+  "planning_only": true,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_distinct_root_cause_groups": 0,
+  "repair_proposal": false,
+  "source_fix": false,
+  "qualification_permitted": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "future_outcomes_observed": false,
+  "current_context_snapshot": {
+    "qualified": 4072,
+    "issues": 181,
+    "holds": 252,
+    "runtime": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11"
+  },
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Approval covers the two exact unattempted planning classifications only; no executable, new native defect/root, fixture, coverage, positive substitute or repair is authorized.",
+    "Full fixed primary/support family, alias/printing/helper scan is bound by the frozen preflight; only the required paths above were independently traced. Unchanged guard witness was reused without a whole-engine re-review.",
+    "No chosen UID/kind/window/counter/virtual-owner assumptions, no new Close priority window, no substitute producer or partial blocking certificate.",
+    "Reviewer performed read-only source/metadata/rules/image inspection and this W proof write; no PHP/native/replay/R/source/Git/remote write, held repair or B787 retry."
+  ]
+}

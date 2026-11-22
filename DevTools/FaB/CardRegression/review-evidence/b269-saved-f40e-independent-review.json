@@ -1,0 +1,211 @@
+{
+  "status": "APPROVED_EXACT_SAVED_TWO_CASES_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T00:26:18.948578+00:00",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "input_file": "DevTools/FaB/CardRegression/card-regression-batch269.json",
+  "input_sha256": "c84f1235da0bff816def06aace5f94aa912bfb32eb8e090d6d8c34c6e6d30656",
+  "fixtures": [
+    {
+      "slug": "card-ninth-blade-of-the-blood-oath-yellow-four-live-sparse-one-real-rune-discounts-nine-to-eight-then-nine-damage",
+      "card_id": "ninth_blade_of_the_blood_oath_yellow",
+      "group_id": "identity:ninth_blade_of_the_blood_oath_yellow",
+      "fixture_sha256": "d6efbf26d03996d60acb948ffb7ac8e0ec55f8301a001bfda023b3379c33f67c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0a832102708c337aa63a88a41580076cec494aabb59c25fbd5dc641b93e8afe3",
+        "actions.json": "003bb717d8251f6f6629b4521b2a318c45124174494c86e8695ee2ef306d9bbc",
+        "assertions.json": "03be5970a92a46440a5bed867a4330db06f363c4407f20c3d39c2cd667cdde8e",
+        "expected_final_gamestate.txt": "23898b2c728aea0cc99118e5471fbd2aac34c98e1a40793ff58b135ed6015676",
+        "meta.json": "7e5fcb21ed0f47fa824649ef4ed1aeeaa6a91942b373da138ed4301c6304820d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0a832102708c337aa63a88a41580076cec494aabb59c25fbd5dc641b93e8afe3",
+        "actions.json": "003bb717d8251f6f6629b4521b2a318c45124174494c86e8695ee2ef306d9bbc",
+        "assertions.json": "03be5970a92a46440a5bed867a4330db06f363c4407f20c3d39c2cd667cdde8e",
+        "expected_final_gamestate.txt": "23898b2c728aea0cc99118e5471fbd2aac34c98e1a40793ff58b135ed6015676",
+        "meta.json": "7e5fcb21ed0f47fa824649ef4ed1aeeaa6a91942b373da138ed4301c6304820d"
+      },
+      "actions": 35,
+      "native_assertions": 2542,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6,
+          7,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        10
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_active_zones": [
+        "p1Hero",
+        "p2Hero",
+        "p3Hero",
+        "p4Hero",
+        "p1Graveyard",
+        "p1Pitch"
+      ],
+      "physical_findings": "Initial owned Rune9 is the sole removed physical identity; virtual10 is absent. Final exact own GY5/Pitch6,7,8; actual arcaneDealt1->4=1 and saved damage9 witness P4HP10, R0/AP0.",
+      "qualification": "One actual initialRune discount9->8 with real3+3+2 payments and captured Rune1arcane then Blade9physical. No initial Rune creation, other counts/floor/rejections/barriers/Chane/Shadow/siblings/support-primary/full-card credit."
+    },
+    {
+      "slug": "card-ode-to-wrath-yellow-four-live-sparse-actual-four-cost-aura-grants-go-again-to-fully-blocked-illusionist-attack",
+      "card_id": "ode_to_wrath_yellow",
+      "group_id": "identity:ode_to_wrath_yellow",
+      "fixture_sha256": "ea683ca08964085bbd29b9d2f800cfc6169fb2c422244424de1795462cba3936",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5fddbe8f8974a916ab173f977a0d22727ee293f163b4a167c12d4d3436a57e54",
+        "actions.json": "06b419aca77d2db8f0291502ff67dc1e91cc9a649a5dcf04077d6f36fbded0c2",
+        "assertions.json": "7564a5f953dabf2017081f1b8c82e883ce9024eb860eaf6ee7fa19a9c3a4c68a",
+        "expected_final_gamestate.txt": "1cf6ba8350758e429e54a2fe3e2cbfa646bdf2c57362e2f80c5a94944726548b",
+        "meta.json": "c73c234ca967a9c97a984a49c31084bb20a2d28acaa44d43064e15cc88eb3a14"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5fddbe8f8974a916ab173f977a0d22727ee293f163b4a167c12d4d3436a57e54",
+        "actions.json": "06b419aca77d2db8f0291502ff67dc1e91cc9a649a5dcf04077d6f36fbded0c2",
+        "assertions.json": "7564a5f953dabf2017081f1b8c82e883ce9024eb860eaf6ee7fa19a9c3a4c68a",
+        "expected_final_gamestate.txt": "1cf6ba8350758e429e54a2fe3e2cbfa646bdf2c57362e2f80c5a94944726548b",
+        "meta.json": "c73c234ca967a9c97a984a49c31084bb20a2d28acaa44d43064e15cc88eb3a14"
+      },
+      "actions": 44,
+      "native_assertions": 3746,
+      "actual_manual_passes": 36,
+      "manual_passes": 36,
+      "manual_pass_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          10,
+          11
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6,
+          7,
+          9
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_active_zones": [
+        "p1Hero",
+        "p2Hero",
+        "p3Hero",
+        "p4Hero",
+        "p1Arena",
+        "p1Graveyard",
+        "p4Graveyard",
+        "p1Pitch"
+      ],
+      "physical_findings": "All initial physical identities conserved with original owners/controllers. Actual cast Aura5 remains ready ownArena; GY1={Herald8}, Pitch1=6,7,9; unordered exact GY4={Raging10,Sink11}; allHP20/R2/AP1.",
+      "qualification": "Only actual paidInstant4/Aura and static go again on real fully blocked Illusionist attack. Separate Ode life-loss timing remains untested/uncredited; no damage/Soul hit/Spectra/Prism/Sinkexchange/support-primary/full-card claim."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch269-independent-source-review.json",
+    "sha256": "577f340a35160b4cd2776b31eddb5b1d92799e59de81fa64eff2b7673db1dff0",
+    "manifest_sha256": "cefda598f4f38a6e8d0a74b9ad91b89bc5bfeb6a01941b964866840c54db344d"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch269-20261103T001820Z-6ae9284c5c425.json",
+    "sha256": "69dbed2fca9a091a8178e9d983e810b36594bd94a1552160dc5ef0a548846025"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch269.recording-results.json",
+    "sha256": "dcb5a4dd5c861e6541104ff69af33606424ad668aabd9c3b80caa2f8b3e50f6b"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch269-native-r1\\receipt.json",
+    "sha256": "518f796505417f0f328c7f8ed21d53d68cd3d3c92773d6d5c99d816001d5fa12",
+    "stdout_sha256": "0ea0fe87695c4e0f5ebd84df3d21c8496dbdc8290ab0e56234e4376dace4a986",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+    "runtime_after": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7"
+  },
+  "method": "Independent read-only raw five-file review. Parsed complete schema-backed initial/final snapshots; matched every actual mode/actor/payload and every persisted assertion/order/step to the already independently approved exact input without executing its builder. Checked full all-seat source/response/phase assertions and concrete physical cost/effect/UID/economy outcomes. No PHP/native/replay/R/backend writes.",
+  "semantic_findings": [
+    "Blade: actual one owned Rune9 remains live through real cost9-1=8 payment; Blue6/7 then Yellow8 actually pitch3+3+2, AP stays1 while insufficient then becomes0 on completion. Actual separate target/trigger10 and four responders preserve Rune9 until fourth destroys it and deals1arcane, then physical Blade5 resolves after four further source responses for printed9 attack/noGA and actual9physical.",
+    "Ode: actual Instant4 uses Blue6+Yellow7 leavingR1/AP1 and physical source5 remains Stack through the first three responses. Fourth resolves same5 to active ownArena; actual Herald8 costs2 funded by additionalBlue9, leavingR2/AP0. Real Raging10 defense3 and Sink11 defense4 fully block7. Herald reduces printed-six Raging to5 so Phantasm does not pop; Sink Hand is empty after actual play so no exchange choice.",
+    "Ode-source attack gets go again from actual Aura5; no Luminaris/other GA source or synthetic AP exists. Saved zero-damage/attackHitfalse/allHP20 witnesses exclude both Soul hit and Ode life-loss branch. Four DAMAGE passes reach Resolution and grant AP1; full closure retains cast Aura5 and exact physical final sets.",
+    "Every pass_until maps to exactly one actual manual mode10001 action by the previous checkpoint priority actor, including P4 defender declaration and P4-created Hand reaction responses4/1/2/3. All other actual actions and all6288 native assertions exactly map to approved setup/cost/target/source/cleanup checkpoints."
+  ],
+  "limits": [
+    "This proof reviews saved native recording only. Root creation replays are separate evidence and are not claimed here. No native game or replay was run by reviewer.",
+    "79 saved actions,6288 assertions,65 actual manual passes, two positive standalone groups only. No sibling/full-card or new isolated fault-control credit.",
+    "Ode separate life-loss source uncertainty remains explicitly unexecuted/uncredited; this chosen zero-damage path is not a repair or broader health verdict.",
+    "Exact original f40e runtime/input/source review contexts retained. No old scenario review, corpus scan, retagging or unrelated legacy checks."
+  ]
+}

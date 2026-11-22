@@ -1,0 +1,97 @@
+{
+  "status": "UNATTEMPTED_MEGANETIC_SINGLE_PASS_RECORDER_CONTRACT_PLANNING_LIMIT",
+  "kind": "RECORDER_WITNESS_LIMIT",
+  "card_id": "meganetic_protocol_blue",
+  "group_id": "identity:meganetic_protocol_blue",
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-09T03:02:13.345062+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch770-diabolic-real-six-and-meganetic-recorder-limit-author\\batch770-meganetic-premature-finish-recorder-contract-planning-limit.json",
+    "sha256": "7aab02dfcdc22f59f9ab884d246987b00e69acc74413f79047d3b1ada0e9eabc"
+  },
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch770-diabolic-real-six-and-meganetic-recorder-limit-author\\batch770-meganetic-premature-finish-recorder-contract-planning-limit.json",
+  "input_sha256": "7aab02dfcdc22f59f9ab884d246987b00e69acc74413f79047d3b1ada0e9eabc",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch770-diabolic-real-six-and-meganetic-recorder-limit-author\\manifest.json",
+    "sha256": "5ae185432ef2a6ffb7571371720a572a5c2b3ad7563662f9f5c20f49986d26d8"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch770-diabolic-real-six-and-meganetic-recorder-limit-author\\frozen-author-QA.json",
+    "sha256": "f34f0caeb5d394dda314f69594d668162f5aa0ca9caaf815c1b5d3a57384878e"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch770-diabolic-real-six-and-meganetic-recorder-limit-author\\SOURCE_RULES_NOTES.json",
+    "sha256": "8b6cb27b3c46118480f3e176814e0d514121d565324a79feda1f305e5270c19c"
+  },
+  "related_positive_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch770-diabolic-real-six-and-meganetic-recorder-limit-author\\batch770-diabolic-real-six-power-banish-one-positive-group.json",
+    "sha256": "2b4e596be2f906332ec649c5faf755d063be691f48e808b72962295f0591206f"
+  },
+  "source_guard_count": 71,
+  "source_guards_verified": true,
+  "source_guards_sha256": "7ae10b9be62d073401a73043505d926428e44d54d9bb513b3d0e6d06e9d1a51d",
+  "source_guards_binding": "Every actual current path of exact71 map in pinned manifest matched.",
+  "source_body_present": true,
+  "engine_implementation_concern": false,
+  "recorder_contract_limit": true,
+  "author_model_error": false,
+  "executable_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0,
+  "passing_fixtures": 0,
+  "independent_findings": [
+    "Viewed Meganetic Protocol, fixed Evo Beta Base Head/Proto Base Head and Tectonic Plating publisher faces. Static X1 compulsory-equipment rule and actual mandatory-finish gate are present: EVORuntime93-99 and GameLogic1848-49. This is not absent/incorrect primary engine implementation or a native-confirmed bug.",
+    "The fixed public prior Evo compressed SUBCARDS base-card representation exists in EVOCards45-51; prior Tectonic Battleworn counter is an ordinary public premise. Neither transformation nor previous combat is executed or credited, and no separate compressed under-card UID is invented.",
+    "A meaningful fixed witness must actually attempt to finish defending before declaring the eligible equipment and remain in DEFEND_DECLARE, then use that same physical equipment. A voluntary block alone cannot prove that enforcement.",
+    "Current recorder only emits native mode10001 through pass_until. It checks FCRReady before each pass: an already-true predicate executes zero inputs, whereas a different unreachable predicate repeats blocked passes toward the40 limit. Its expect_rejection contract explicitly permits only mode100 answer envelopes, and the supported step switch has no one-shot pass/raw-input kind. A fake answer rejection would test a different operation.",
+    "Accordingly only the unattempted selected recorder witness is limited. No engine bug, gameplay result, actual forced defense/DEF1/damage4, UID/economy/Close, fixture, replay or coverage is certified; no unsupported raw envelope/framework extension or repeated-pass diagnostic is authorized."
+  ],
+  "source_evidence": {
+    "paths": [
+      "DevTools/FaB/CardRegression/record_card_regressions.php:80-103,219-229,266-285",
+      "FaBSim/Custom/EVORuntime.php:93-99",
+      "FaBSim/Custom/GameLogic.php:1848-1849",
+      "FaBSim/Custom/EVOCards.php:45-51",
+      "FaBSim/Custom/ProfessorCards.php:4-11"
+    ]
+  },
+  "limits": [
+    "Only selected Meganetic positive X1/damaged-equipment recipe and required prematureFinish witness; engine implementation concern=false, recorder contract limit=true.",
+    "No zero-input pass credit, arbitrary answer/raw-input hack, voluntary-block vanilla substitute, alternate primary/producer hunt, private history/counter/defense oracle, false condition, Source repair or native diagnostic.",
+    "Frozen Diabolic positive input and its later exact Source approval remain separate; this per-card proof approves only retention of planning limits."
+  ],
+  "actual_review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch770_meganetic_planning_readonly.py",
+    "sha256": "34d2c826157151af7d3523ea435261dd95aebdc71d35f035bc8e3c17dc971d13"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "native_bug": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification_permitted": false,
+  "executable_admission": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false,
+  "new_framework": false
+}

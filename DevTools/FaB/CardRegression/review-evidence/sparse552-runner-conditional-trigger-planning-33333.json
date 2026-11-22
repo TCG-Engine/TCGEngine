@@ -1,0 +1,170 @@
+{
+  "status": "APPROVED_CONDITIONAL_SELECTED_SOURCE_LIMIT_ONLY",
+  "approved": true,
+  "planning_review_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-06T02:10:25.105252+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch552-runner-selected-conditional-trigger-limit\\planning-hold.json",
+    "sha256": "eac812900c4f7ebbb585e8f4a4ec11b68187cd4785a54a1780fdadfacd15b614"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch552-runner-selected-conditional-trigger-limit\\manifest.json",
+    "sha256": "8522102733251e81da46c6a93ad3c47109a7143d4fa843f58bdc39da8dec557b"
+  },
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "baseline_69_guards": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-after140\\manifest.json",
+    "sha256": "6eccd65bad5d11ee6e8410abafe31e9f115dbd20b79b8a87a477b083d1b7a754",
+    "all_current_verified": true
+  },
+  "source_guard_count": 69,
+  "selected_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "card_id": "runner_runner_red",
+  "group_id": "identity:runner_runner_red",
+  "current_printed_basis": {
+    "url": "https://judge.fabtcg.com/cards/detail/2614/",
+    "actually_opened": true,
+    "cost": 2,
+    "power": 6,
+    "defense": 3,
+    "types": [
+      "Brute",
+      "Warrior",
+      "Action",
+      "Attack"
+    ],
+    "paraphrase": "Onattacking, conditionalongoagain, itsWHEN createsAgility. This is a triggeredability, not a simpleinlinediscreteeffect."
+  },
+  "printed_face_viewed": {
+    "path": "FaBSim/WebpImages/runner_runner_red.webp",
+    "sha256": "a6a9e8d5edb189d7b877430de1758d3a82ba33b0ae0d656900ecab1bfe5bd6e7"
+  },
+  "rules": {
+    "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "basis": "Current6.6.1/6.6.5/6.6.6 createsa triggeredlayerbeforepriority; tokeninstruction happensonthatlayerresolution. Review assumeslawfulGAatattackandretainedthroughresolution. Nofalsecondition/lossofGA/recheck interpretation iscertified."
+  },
+  "actual_dispatch_verified": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1699-1718",
+      "finding": "ActualATTACKresolver movesphysicalsourceCombatChain, setsactiveUID/target/link then callsOnAttackDeclared synchronously. RawPriorityintegerissetearlier,butnorealresponseopportunity interveneswhilethiscallstackruns."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1200-1212",
+      "finding": "OnAttackDeclared runsnamedhooks then directFaBRunSourceMacro AttackDeclared forcurrentCardID; genericlistenerdispatch follows. NoouterselectedRunnerWHENlayerwraps ordefersthisexplicitcall."
+    },
+    {
+      "path": "FaBSim/Custom/HVYCards.php",
+      "lines": "147-152",
+      "finding": "EarlierHVYhookcontainsweapon/DownButNotOut/Angel/wager paths; noRunnercaptureinthisselectedhook. This isnotanallothercards/hookaudit."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1264-1296",
+      "finding": "ForordinaryunsuppressedAttackDeclared, derivesCardAttackDeclaredCount/globalabilities/prereqs, storesparams, andcallsregisteredclosure directly. OnlyspecialResolveCard/PrepareCard branchesdefer/remapothercases, notthisRunnerpath."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "count_entry_line": 261163,
+      "count_function_lines": [
+        261319,
+        261322
+      ],
+      "finding": "ActualCardAttackDeclaredCountData runner_runner_red=1; generatedcountfunctionreturnsit. Complete selected-ID stream enumeration findsclosure/countentry/nameentry, noselectedprereqregistration.",
+      "selected_mentions": [
+        [
+          23306,
+          "$attackDeclaredAbilities[\"runner_runner_red:0\"] = function($player) { //runner_runner_red"
+        ],
+        [
+          261163,
+          "\"runner_runner_red\" => 1,"
+        ],
+        [
+          261687,
+          "\"runner_runner_red:0\" => \"runner_runner_red\","
+        ]
+      ],
+      "raw_bound_slices": [
+        {
+          "lines": [
+            23306,
+            23315
+          ],
+          "sha256": "94179cc4de5fcf0a449943a3c6c35e4223b6e1d95b3dd1b7f439ef1dd641486e"
+        },
+        {
+          "lines": [
+            261163,
+            261163
+          ],
+          "sha256": "acfd550a1d61b5fb1a1506b4b53cbecd7e1584da6813fc69d834502668f22177"
+        },
+        {
+          "lines": [
+            261319,
+            261322
+          ],
+          "sha256": "17c7cd4242b2fa38cfe51df7df3e41aa684da10ba07e9cd5c7c5276bb8ae5bda"
+        }
+      ]
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "23306-23315",
+      "finding": "ActualregisteredattackDeclaredAbilities Runnerclosure readsparams, checkscurrentFaBAttackHasGoAgain, callsHVYToken directlyiftrue; nocapture/queue/awaitwrapinthisclosure."
+    },
+    {
+      "path": "FaBSim/Custom/HVYCards.php",
+      "lines": "20-33",
+      "finding": "Inquietpositivecontext withnoamount/replacementmodifiers, HVYToken immediatelycallsWTRCreateArena forAgility; tokenhelperitselfdoesnotqueueRunnerWHEN. Unrelatedreplacement/listenerroutesarenotcertified."
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "lines": "791",
+      "source_sha256": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+      "finding": "ActualArena factory createsownedreadyobject/invokesordinaryentryhooks immediately. AqueuedotherentryeffectdoesnotretroactivelymakeRunnerinstructionresponseable."
+    }
+  ],
+  "independent_classification": {
+    "conclusion": "Conditional selected-route source timing limitation is supported byfullactualearlierdispatch andgeneratedregistration, notmerelyisolatedcanonicalbody.",
+    "conditional_precondition": "Runnerislegallytheactualattackingchaincard, unsuppressed, withlawfullyearnedgoagainmaintainedthroughrelevantresolution, inotherwisequietnormalfactorycontext.",
+    "source_derived_concern": "Thatcurrentpath reachesactualAgilitycreation insideattackdeclaration withoutfirstcreatingaresponseablecapturedRunnerWHENlayer. Printedpositivebranchrequiresthatlayer. Canonicalbody/actualclosure/tokenimplementationexist; thisisnotimplementationabsence.",
+    "native_status": "NoapprovedGAproducersequence, executablecase/nativeattempt/actualGA/trigger/token/damage/payment resultorbugconfirmed. Thisreviewdoesnotturnaconditionalsourceconcernintoapassingcase ornewissue."
+  },
+  "retracted_Lead_support_mistake": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch552-runner-selected-conditional-trigger-limit\\retracted-pre-freeze-support-plan.json",
+    "sha256": "2f7b745b9082f1ebaf85b10a2eac6f97c9df28ce998c1eaeef6573b9aae9727b",
+    "accepted_as_separate_retraction": true,
+    "current_primary": "https://judge.fabtcg.com/cards/detail/548/",
+    "independent_basis": "CurrentLeadtheChargeReddescribesnextplayedactionAPgain andhasitsowngoagain; anAPgrantdoesnotgiveRunnergoagain. CurrentCR6.6.3alsoexplicitlyusesLeadtheChargeasadelayedAPtriggerexample.",
+    "status": "Rejectedbeforeanyinput/model/recipe/native; notanengine/sourceholdorcoveragefinding."
+  },
+  "planning_disposition": "Retainonlythisconditionalunattemptedselectedsource limit. NoalternateGAproducerisapprovedorsearchedhere. A futurecorrectnativeproberequiresanindependentlysupportedrealGAproducerandmustretainRunnerresponseableWHENexpectations; noAP-as-GA/historyseed/no-effectbaseline substitute.",
+  "limits": [
+    "PositiveGA-retainedselectedrouteonly; nofalsecondition/loss/recheck/alternateproducer/allhooks/wholecard/allsourceabsence judgement.",
+    "Noexistingheldrepairintegration/newsourceproposal, Rwrite/PHP/native/replay/fullsuite/remoteoperation orsourcegeneration.",
+    "No fixture/passcoverage/bug/root/Core/dedupallocation. RetractedLeadplanremainsnonrunnableandnotanimplementationdefect.",
+    "Current33333and69guardsverified; oldsource/nativecontextsnotretagged."
+  ],
+  "source_spec_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "installable": false,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_engine_bug": false,
+  "coverage_credit": false,
+  "new_issue_allocation": false,
+  "repository_writes": false
+}

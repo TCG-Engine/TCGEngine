@@ -1,0 +1,97 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_GLOW_ENTRY_TRIGGER_HEAL_AND_WARD",
+  "phase": "SAVED",
+  "batch": 824,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T18:59:40.943283+00:00",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "source_spec": "card-regression-batch824-glow-entry-when-heal-ward-positive.json",
+  "input_sha256": "09852f90ddb5d7a011d35d7cf62eb4913079998eecc1f19e86eaa0943d9b4be8",
+  "manifest_sha256": "9215e91b7bbf55dfd8c94ae5e5200e41290ab04aa8517f26e3bf69a952ce1445",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch824-glow-independent-normal-positive-source-review.json",
+    "sha256": "8fd7768f6d94afffee1ee7a8a0a72f60f8afe40ed89a8e7f14490c4f07747b80"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b824-glow-positive-native-save-a11\\receipt.json",
+    "sha256": "96f6c1774fc81ca9ced8cea8768ce6d035d144cd874cdafc6528405a527ec98c"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch824-glow-entry-when-heal-ward-positive.recording-results.json",
+    "sha256": "0bf17d857de3a2d7648f98de0a6fa8ea40fbb851e76e35d4bcf19543d3a13f68"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch824-glow-entry-when-heal-ward-positive-20261115T185509Z-6afa000d1a7ca.json",
+    "sha256": "ed2aa843fb08bace87ba75c22829de31c624f63d5a6769de849c5248505d3136"
+  },
+  "fixtures": [
+    {
+      "card_id": "nourishing_glow_blue",
+      "slug": "card-nourishing-glow-blue-four-live-entry-when-heal-one-real-ward-one",
+      "actions": 40,
+      "native_assertions": 4526,
+      "manual_passes": 36,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a6ba69d77a328b18494a3085046cd25a5bc4eb332ce60123788540a05b6486d",
+        "actions.json": "29b648339d4ce6b13c1f74aa47e84d450f6a74177173dab6e859c7001c0ebfff",
+        "assertions.json": "f2fa3257ae92ab5a19c7f0682c44be24b0112c630f01d699eefc2af62a0b4d59",
+        "expected_final_gamestate.txt": "1c868d3725409f8f6bacfe2e6e26a1614cbfad4045f39e5fbd370ea2a95c714c",
+        "meta.json": "da5e08f554bf6d6d07db0be440d70297c171c4123a1c7b558513eeb19b4b1d59"
+      },
+      "fixture_sha256": "fdf5a740b3bb77a3dcf5fb402f9cc28d38a5b670d255f84337a23d0d4e470277",
+      "input_sha256": "09852f90ddb5d7a011d35d7cf62eb4913079998eecc1f19e86eaa0943d9b4be8",
+      "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "recorded_runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "terminal_queries_independently_evaluated": 222,
+      "expected_original_40_controls_4526_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Exact Blue entryWHENheal1 then Ward1 prevention of1from4. No genericvirtualdeletionorder/otherlistener/sibling/fullcard claim."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4526_native_queries_semantically_reviewed_against_unchanged_source": true,
+  "all_40_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 42,
+  "typed_property_queries": 844,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 24,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "semantic_witnesses": [
+    "All40actualNativeenvelopes/4526orderedqueries matchapprovedSource;36actualmanualpasses9each cover every liveYoungseat. Input10leavesrealAura6Arena andseparateentryABILITY7SourceUID6/omnEnter atopunderlyingattack. First3triggerresponses retainHP20; fourthinput14 acceptsHP21, notinlineheal.",
+    "Actualsource5WoundingRed4 remainspendinguntilfreshresponses. NativeWardchooser selectsactualAura6; acceptedinput32moves6toowner4GY andphysicalhealth21to18, preventing1of4. No cached damageDealt orAura poweroracle.",
+    "Freshrawinitial/finalschemafullyconsumed; both48manualprofilesUPF/live/young/noauto/passive verified. ActualfinalrawhasWounding5GY1/Glow6GY4publicFaceDown0, HP20/20/20/18/allRChiAP0, nootherphysicalcards, noStack/Hands/Arena/queues/awaitframes/chains andACTION/fullcleanup. All222terminalqueries independently evaluatedonrawfinal. IntermediatewitnessesareacceptedNativeassertions,notseparaterawsnapshots."
+  ],
+  "limitations": [
+    "ExactSavedreview only; two new-only cleanreplayreceipts atunchangeda11 remain the separate qualification/registration gate.",
+    "Nootherlisteners/suppression/controlchange/Zyggyability/genericvirtual-layerdeletionorder/generalWard/fullcard/nativepitchsibling certificate orB824enginebug/fixclaim. Hiss remainsknownsource-onlyunattempted.",
+    "No isolatednativefaultcredit, historicalcorpusreplay orfullsuitepass implied."
+  ]
+}

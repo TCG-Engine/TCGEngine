@@ -1,0 +1,7 @@
+{
+    "name": "Mark of Neverest / real bound Zombie death with Malice and positive banish choice",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-20T19:51:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Order-neutral STRICT diagnostic only. No fictional ordering UI/private event/virtual UID. First death frontier publicGY host plus originalpublicBanishRed/noCorpse and two capturedABIs. Then actualMark MZMULTICHOOSE readiness consumes4or8trigger responses; chooseRed7. Remaining0or4Malice responses plus fullDamage/Resolution via existingboundedACTION endpoint. Exactly8total death-trigger responses expected acrossboth legalorders, but no per-effect intermediate timing/order certificate. Independent actual raw review must establish Mark sourceAlly5/Malice sourceHero1, physicalhost5FaceDown and exactly2Corpse final; declarative assertions do not invent filtered multi-object counts or order-specific zone indices. Any otherUI is capability blocker, not framework bypass. No automaticpromotion evenPASS. Full real Blue9paysBrutal8cost2/R1/AP0; physical6damage killsAllylife2, heroesall20. BothMaliceandMarkeffectsrequired, notquietnonZombie/blankedHero/fakecounter variant. Originalred7turnsFD, host5banishedFD, actualCorpse2inBanish1, Mark6GY1/Brutal8GY4/Blue9Pitch4/fullStackDQchaincleanup. Priorcast/bind/otherAllyattacks/siblings/support/fullcarduncredited. Sources: https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

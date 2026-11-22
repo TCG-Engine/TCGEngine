@@ -1,0 +1,187 @@
+{
+  "status": "CONFIRMED_NATIVE_EARLY_TRIGGER_LAYER_REMOVAL_DURING_UNRESOLVED_CHOICE_NO_FIX_APPLIED",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "input_sha256": "e765d880320ff60a097874e4bab8c62aa6340781a7f43064d7a904f4b0cdf699",
+  "source_spec": "card-regression-batch413-blood-vest-correct-probe.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b413-blood-vest-native-9e984-r1\\receipt.json",
+    "sha256": "e0c4dce5e0536cff7c2c9895d28ab5cf472bcf901a2c4a080b460b13c6815718"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch413-blood-vest-correct-probe.recording-results.json",
+    "sha256": "1bb280157791cdf4951243dfb6f8c928c4f3f3c8a5eae527c76a9c024cfcd8d2"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch413-blood-vest-correct-probe-20261105T030440Z-6aebf2488b983.json",
+    "sha256": "2500aba6fc995fc872bb0b7aa095111e82c2880407b0b4fc534c0bd0423d6110"
+  },
+  "earliest_failure": {
+    "error": "Expected Stack count 1, got 0.",
+    "native_action_boundary": 24,
+    "source_step_index": 48,
+    "source_check_index": 25,
+    "failed_native_check_ordinal_1based": 2011,
+    "preceding_native_checks_passed": 2010,
+    "completed_prior_boundary_checks": 1985,
+    "same_boundary_checks_before_failure": 25,
+    "assertion": {
+      "step": 24,
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "expected": 1,
+    "actual": 0,
+    "checks_total_if_complete": 2935
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_LIFETIME_DEFECT",
+    "oracle_error": false,
+    "protocol_error": false,
+    "missing_trigger_producer": false,
+    "mechanism": "Generic ROS-trigger ABILITY is explicitly excluded from current managed virtual admission, then marked removed before invoking ResolveAbility; that macro suspends on an unresolved mode choice. Existing source5 physicalVest is not the missing layer: its continued ready Equipment presence and empty counters passed before the Stack failure.",
+    "normative": "Current CR5.3.4/4a require mode/effect completion before normal5.3.6/7leave/clear. Vest neither directs its triggered-layer to leave early nor supplies an exception. CR5.3.4c permits continuing effects if a layer otherwise disappears; it does not authorize this unconditional engine removal before the optional decision.",
+    "relation": "Closest existing family is managed_virtual_lifetime (046 non-trigger arcSpec caller). This ROS-trigger caller is a separate currently excluded protocol branch. 049 is responseable Cintari producer timing and is not this already-earned-layer completion cause;054reaction completion is analogous rather than proof of identical cohort. Root/global attribution and new issue allocation remain unallocated here.",
+    "native_confirmed_scope": "One BloodSplatteredVest hit-trigger resolves through its fourth fresh response and disappears while its real optional mode+continuation remain pending. No sibling/other event/decline/selfmoving/closedchain branch native credit."
+  },
+  "source_findings": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+      "FaBSim\\Custom\\HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+      "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "actual_helper": "__RunAwait_f3afeb525492e1bdc206",
+    "actual_helper_to_next_function_sha256": "c5eb3677b01fd2b253009f636a52ec7b7f6e1ed9a542dde8589fe803ec91be95",
+    "actual_helper_bytes": 2142,
+    "source_path": "HNTHit→ROSQueue→DoResolveCard generic rosTrigger branch(remove=true)→ROSResolveTrigger→actual generated ResolveAbility(await modal)",
+    "source_evidence_only": "Early mark-removal order and absence from managed classifier are read from actual current source. No patch, generalized-source fix correctness or later effect outcome is claimed."
+  },
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.1",
+        "5.3.4",
+        "5.3.4a",
+        "5.3.4c",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "independently_retrieved_current": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\blood_splattered_vest.webp",
+      "sha256": "c1905c2b49b49961e1c9104dfee8f1a318fe5534d9f23d4ee42c81093aca5f6c",
+      "finding": "Independently viewed official-print face: each controlled dagger hit permits gain-resource-and-stain choice during that trigger resolution. No early layer-removal instruction."
+    }
+  ],
+  "unexecuted_suffix_limits": [
+    "No mode answer submitted, no native R3/stain1/threshold destruction/decline or postchoice grant/completion outcome. No AP1laterResolution/fullclose/finalphysical endpoint/savedfixture/replay claim.",
+    "Only initial is a complete raw physical snapshot. At failure selected prior25same-boundary checks prove physicalVest5/Equipmentready/Counters[] and R2/AP0/HP19; no full postfailure zone dump or physicalgraveyard/chain-count inference is invented.",
+    "Actual raw observed state has currentattack8/hit1/DAMAGE/link1/no pendingPayment, and actual queues expose owner1mode+continuation. Stack0 is the direct native failed zone-count result.",
+    "Original33-input/2935check correct probe remains unchanged; no expectations weakened, no new fixture or coverage/control credit.",
+    "No source fix or new global root number allocated. No PHP/native/R/source/service/generation/optional simulation or denied089090 retry/reroute by reviewer."
+  ],
+  "kind": "COMPACT_REPOSITORY_PROJECTION_OF_EXTERNAL_INDEPENDENT_NATIVE_CLASSIFICATION",
+  "projected_by": "/root",
+  "full_independent_proof": {
+    "external_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-blood-vest413-independent-native-before-classification.json",
+    "sha256": "4ff312db49f4d12b1eda18adce0f8448d2857785b66693304050d8cb24e63ddc"
+  },
+  "actual_prefix_summary": {
+    "accepted_inputs": 24,
+    "expected_prefix_sha256": "a19af154ef99d6d6397a1051b72f1461ad9830b1af61eaaae501e1c68e4a5b32",
+    "actual_prefix_sha256": "a19af154ef99d6d6397a1051b72f1461ad9830b1af61eaaae501e1c68e4a5b32",
+    "last_input": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "manual_inputs": 21,
+    "priority_response_inputs": 20,
+    "empty_defender_finish_inputs": 1,
+    "fresh_earned_layer_response_actors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "initial_manual_preference_values_verified": 48,
+    "initial_native_assertions_evaluated": 126,
+    "earned_trigger_asserted_at_boundaries": [
+      20,
+      21,
+      22,
+      23
+    ],
+    "earned_trigger_card_id": "blood_splattered_vest",
+    "earned_trigger_controller": 1,
+    "earned_trigger_source_uid": 5,
+    "prefix_proved_R1": 2,
+    "prefix_proved_AP1": 0,
+    "prefix_proved_P4HP": 19,
+    "prefix_proved_physical_vest": {
+      "uid": 5,
+      "zone": "p1Equipment",
+      "owner": 1,
+      "controller": 1,
+      "status": 2,
+      "counters": []
+    },
+    "initial_empty_counter_checks_verified_with_native_array_semantics": 1,
+    "empty_counter_serialization_note": "Raw snapshot default dash parses as native empty Counters array; actual FaBObjectCounters returns [] for a non-array decode. The Python retained terminal helper otherwise uses an empty mapping for dash, so these exact empty-array assertions were checked explicitly against unchanged raw defaults. No fixture/assertion values changed."
+  },
+  "observed_failure_state": {
+    "window": "DAMAGE",
+    "combatOpen": true,
+    "combatStep": "DAMAGE",
+    "chainLink": 1,
+    "attackUID": 8,
+    "pendingPayment": null,
+    "attackHit": true,
+    "damageDealt": 1
+  },
+  "observed_pending_decisions": {
+    "1": [
+      {
+        "Type": "MZMODAL",
+        "Param": "1|1|Decline&Gain_resource",
+        "Block": 1,
+        "Tooltip": "Blood_Splattered_Vest",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 0,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "blood_splattered_vest:0:ResolveAbility-await|blood_splattered_vest:0:ResolveAbility#1|2|mode",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 1,
+        "_sourceZone": null
+      }
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_guard_count": 56
+}

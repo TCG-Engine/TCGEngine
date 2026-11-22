@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T18:08:03.688083+00:00",
+  "runtime_sha256": "ac4a4f45b6bbd33e424af064e6cb3fca5d625c4b3abe8a17e7e2b9fb25fbed67",
+  "source_spec": "card-regression-repair-single197-afterac4.json",
+  "source_spec_sha256": "f18f3fbfe278867314336d1e714c3f7d4fc5173d1a0417f30b754848e35b94a6",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 10,
+  "native_assertions": 1285,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4110,
+    "duels": 3074,
+    "four_live": 1036,
+    "recorded_primary_ids": 1263,
+    "identity_denominator": 5196,
+    "recorded_groups": 1137,
+    "group_denominator": 3324,
+    "four_live_groups": 1029,
+    "phase_qualified_scenarios_at_actual_contexts": 747,
+    "phase_qualified_unique_groups": 742,
+    "creation_replay_passes": 1488,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "single_minded_determination_blue",
+      "group_id": "pitch-cycle:single_minded_determination",
+      "scenario_id": "card-single-minded-determination-blue-four-live-earned-entry-printed-one-counter-repair",
+      "effect_branches": [
+        "realActionCost2Blue3-noOtherIllusionAura-realEntry-earnedfour-exactOnePhysicalPowerCounter"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-single-minded-determination-blue-four-live-earned-entry-printed-one-counter-repair",
+      "source_spec": "card-regression-repair-single197-afterac4.json",
+      "source_spec_sha256": "f18f3fbfe278867314336d1e714c3f7d4fc5173d1a0417f30b754848e35b94a6",
+      "review_evidence": "review-evidence/single197-qualified-saved-ac4.json",
+      "review_evidence_sha256": "e94e44ed36b93b14fbc3bd483720dbf8844be1a6a70de575644a265d17aaf7ac",
+      "recorded_runtime_sha256": "ac4a4f45b6bbd33e424af064e6cb3fca5d625c4b3abe8a17e7e2b9fb25fbed67",
+      "qualification_runtime_sha256": "ac4a4f45b6bbd33e424af064e6cb3fca5d625c4b3abe8a17e7e2b9fb25fbed67",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-single197-afterac4-replay.json",
+          "sha256": "f6a35ca30139515aa9bcec14bf899d21b6579abdd57ad6af251c379e313e4100",
+          "runtime_sha256": "ac4a4f45b6bbd33e424af064e6cb3fca5d625c4b3abe8a17e7e2b9fb25fbed67",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,355 @@
+{
+  "status": "B817_BOTH_INDEPENDENT_KNOWN_REQUIRED_CONTRACT_PLANNING_REVIEW",
+  "phase": "PLANNING",
+  "batch": 817,
+  "reviewer": "/root/b809_review_recover",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T03:57:25.300654+00:00",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch817-firm-reservation.json",
+    "sha256": "1929f759fdf4915b16f7c1b5d033e47b8212a775b26eed71cb273612f0e8aa38"
+  },
+  "full_selected_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch817-selected-helper-preflight.json",
+    "sha256": "ed1622f4cc2bef2102eecf8566071d04cefeb19ed50e384243900598310d9105"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_guard_count": 82,
+  "selected_support_guard_count": 15,
+  "all_current_preimages_independently_verified": true,
+  "required_selected_source_preimages": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/ELEAbilities.php": "2290c420234518940b00af7e7a79c872c72dcdaf2eb440819f0813296d1bd28b",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/CodeGeneration.php": "b4e55525fdb5dfdd939b5363249ef905a764299c9422697bffd940f1c848a146",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "DevTools/FaB/ele_abilities.json": "9e0f27afa772225ec73488928f8e54ca2b2205fe9aafd59f2f97da4ba61cf4f3",
+    "DevTools/FaB/omn_abilities.json": "eaaceedb02d99ba22d911d5c00ce63eea7dd491909e3278761c5278c8063209b",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+  },
+  "current_holds": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+    "sha256": "c8e0e236d608063cb0a966af0573e2360da0fd5290d48f336dfa5616309c7e1c"
+  },
+  "current_issues": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "8695b14f11f64b5c22b2cfe7a18ce9521e63b278f5c6097ceb6fc635e2a2939f"
+  },
+  "known_required_context": [
+    {
+      "index": 190,
+      "card_id": "mini_meataxe",
+      "row_sha256": "09d0ca2d5994fc02ceb43db9efdbe63893ca98ef9e97c0453418618f8436731a",
+      "classification": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_NORMAL_ATTACK_WHEN_CAPTURE_LIMIT"
+    },
+    {
+      "index": 244,
+      "card_id": "ravenous_meataxe",
+      "row_sha256": "ccd1b5a311fe3244341ad61a4c674a1556fb08c62d483ca834da7edce51699ba",
+      "classification": "INDEPENDENT_APPROVED_KNOWN_ATTACK_WHEN_DRAW_DISCARD_CONTRACT"
+    },
+    {
+      "index": 250,
+      "card_id": "horns_of_the_despised",
+      "row_sha256": "1ba36c12255fe7ea932f2c4236597b17ae543ee08efd193672bcd3d564b872a4",
+      "classification": "INDEPENDENT_APPROVED_KNOWN_FORMAL_DEFENDED_WHEN_INLINE_CONTRACT"
+    },
+    {
+      "index": 254,
+      "card_id": "stride_of_reprisal",
+      "row_sha256": "72106406541bae09a13c79efdb460901d75486925a59f5c68b3fd320f389bc23",
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_LAYER_CONTRACT"
+    }
+  ],
+  "known_OffHand_issue114": {
+    "id": "FAB-REG-114",
+    "row_sha256": "1d1138f633cecf93f13822a9be4ffcc2e16b4e8760483b44cea727a03466844b",
+    "status": "native_confirmed_unfixed_legal_OffHand_equipment_block_rejected_in_Weapons",
+    "individually_native_reproduced": [
+      "steelbraid_buckler"
+    ]
+  },
+  "full_selected_support_family_ids": [
+    "betsy",
+    "rampart_of_the_rams_head",
+    "conflicting_thoughts_red",
+    "conflicting_thoughts_yellow",
+    "conflicting_thoughts_blue",
+    "wounding_blow_red",
+    "wounding_blow_yellow",
+    "wounding_blow_blue"
+  ],
+  "whole_family_metadata_sha256": "390920e014243074ca7d5cb9b04051e0fe8d298554d5f9c624fa6f1f73c95246",
+  "name_aliases": [
+    "Betsy",
+    "Conflicting Thoughts",
+    "Rampart of the Ram's Head",
+    "Wounding Blow"
+  ],
+  "printing_ids": [
+    "BET001",
+    "DRO022",
+    "ELE203",
+    "FAB049",
+    "FAI027",
+    "GEM079",
+    "GEM175",
+    "HVY046",
+    "KSU027",
+    "MST215",
+    "MST216",
+    "MST217",
+    "OMN219",
+    "OMN220",
+    "OMN221",
+    "TEA015",
+    "WTR203",
+    "WTR204",
+    "WTR205"
+  ],
+  "current_holds_issues_planning_review_additions_whole_family_alias_printing_terms_scanned": true,
+  "actually_viewed_faces": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rampart_of_the_rams_head.webp",
+      "sha256": "02bfa9889356a65f402bca3826e8e4f7ecf94aef2828f8117c0cd070d2ef8e6d"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\conflicting_thoughts_blue.webp",
+      "sha256": "a72a3aa9ef59c95f53604011b6882419d1ff4549cc7d6d0b4377c1cfc674ddc9"
+    }
+  ],
+  "canonical_payloads_exist": true,
+  "cards": [
+    {
+      "card_id": "rampart_of_the_rams_head",
+      "group_id": "identity:rampart_of_the_rams_head",
+      "members": [
+        "rampart_of_the_rams_head"
+      ],
+      "classification": "UNATTEMPTED_KNOWN_OFFHAND_WEAPONS_ADMISSION_AND_FORMAL_DEFENDED_WHEN_CONTRACTS",
+      "independent_planning_review_complete": true,
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch817-rampart-known-offhand-defended-contract-unattempted-planning-hold.json",
+        "sha256": "540432ae0b1f811aeeeb34f0ca2db4c986c21b9d149e6594c510312eccd522ee"
+      },
+      "known_earlier_dependency": {
+        "id": "FAB-REG-114",
+        "row_sha256": "1d1138f633cecf93f13822a9be4ffcc2e16b4e8760483b44cea727a03466844b",
+        "status": "native_confirmed_unfixed_legal_OffHand_equipment_block_rejected_in_Weapons",
+        "individually_native_reproduced": [
+          "steelbraid_buckler"
+        ]
+      },
+      "known_trigger_dependencies": [
+        {
+          "index": 250,
+          "card_id": "horns_of_the_despised",
+          "row_sha256": "1ba36c12255fe7ea932f2c4236597b17ae543ee08efd193672bcd3d564b872a4",
+          "classification": "INDEPENDENT_APPROVED_KNOWN_FORMAL_DEFENDED_WHEN_INLINE_CONTRACT"
+        },
+        {
+          "index": 254,
+          "card_id": "stride_of_reprisal",
+          "row_sha256": "72106406541bae09a13c79efdb460901d75486925a59f5c68b3fd320f389bc23",
+          "classification": "KNOWN_FORMAL_DEFENDED_WHEN_LAYER_CONTRACT"
+        }
+      ],
+      "actual_implemented_canonical": {
+        "cardId": "rampart_of_the_rams_head",
+        "abilities": [
+          {
+            "macroName": "ResolveAbility",
+            "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$paid = false;\n if (FaBAvailablePitch($player) >= 1) {\n $payMode = await $player.Modal(1, 1, \"Decline&Pay_resources\", \"Pay_resources\");\n if ($payMode === '1') {\n while (intval(GetResources($player)) < 1) {\n $pitchRefs = FaBARCPitchChoices($player);\n $pitchChoice = await $player.MZChoose($pitchRefs, \"Pitch_to_pay\");\n FaBARCPitchForEffect($player, $pitchChoice);\n \n}\n AddResources($player, intval(GetResources($player)) - 1);\n $paid = true;\n \n}\n \n}\n if ($paid) {\n FaBTagUID($uid, 'WTR_DEFENSE:1');\n \n}\n",
+            "isImplemented": true
+          }
+        ]
+      },
+      "source_trace": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1853-1874",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "LegallyequippedOffHandmustbeinWeapons. CurrentblockgateadmitsWeaponsliteralparry_bladeonly, sameknownunfixed114; normaldeclare repeatsgatebeforemovingcard. Rampartneverprobed/reproducedindividually."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1890-1906;1220-1227",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "If formaldefenseeventreached, finishdeclaration1897 callsOnDefended;1224 invokesELEDefendedbefore ordinaryDefendpriority. SelectionpreviewisnotearnedDefended."
+        },
+        {
+          "path": "FaBSim/Custom/ELEAbilities.php",
+          "lines": "63-72",
+          "sha256": "2290c420234518940b00af7e7a79c872c72dcdaf2eb440819f0813296d1bd28b",
+          "finding": "ActualRampart branch71 directly invokesResolveAbility, beforeseparatelyresponseableWHEN."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1280-1327",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "RunSourceMacro1322 directbody; currentinterceptors do notcaptureRampartResolveAbility asordinarytrigger."
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "lines": "16935-16940;177243-177317",
+          "sha256": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+          "finding": "Implementedmodaloptionalpay1→realpitch→consume1→+1DEFtag. Awaitedchoiceisnot a separatelyresponseableearnedWHENlayer."
+        }
+      ],
+      "limits": [
+        "Initialandreturn Equipment wording in firm is equipmentclass only: correctOffHandplacement remainsWeapons perCR8.2.10. No illegalEquipment-zone workaround/decline/static0block/alternateproducer/probe/repair.",
+        "Correctpositiveoptionalpayment/+1DEF/3damageHP17/survival/Endduration remainUNRUN/uncredited. No new Rampartnativebug/globalroot/allOffHandclaim; existing114onlySteelbraidwasnativelyreproduced."
+      ],
+      "executable_cases": 0,
+      "native_attempted": false,
+      "diagnostic_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue_claimed": false,
+      "new_distinct_root": false,
+      "source_fix": false,
+      "repair_proposal": false
+    },
+    {
+      "card_id": "conflicting_thoughts_blue",
+      "group_id": "pitch-cycle:conflicting_thoughts",
+      "members": [
+        "conflicting_thoughts_red",
+        "conflicting_thoughts_yellow",
+        "conflicting_thoughts_blue"
+      ],
+      "classification": "UNATTEMPTED_KNOWN_RESPONSEABLE_ATTACK_WHEN_BEFORE_OPT_CONTRACT",
+      "independent_planning_review_complete": true,
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch817-conflicting-thoughts-known-attack-when-opt-contract-unattempted-planning-hold.json",
+        "sha256": "5fc6f0f0d1ceacf20f00a7ae2aa2cd1bdb896571d204cb558c7fbc3dc88a8919"
+      },
+      "known_trigger_dependencies": [
+        {
+          "index": 190,
+          "card_id": "mini_meataxe",
+          "row_sha256": "09d0ca2d5994fc02ceb43db9efdbe63893ca98ef9e97c0453418618f8436731a",
+          "classification": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_NORMAL_ATTACK_WHEN_CAPTURE_LIMIT"
+        },
+        {
+          "index": 244,
+          "card_id": "ravenous_meataxe",
+          "row_sha256": "ccd1b5a311fe3244341ad61a4c674a1556fb08c62d483ca834da7edce51699ba",
+          "classification": "INDEPENDENT_APPROVED_KNOWN_ATTACK_WHEN_DRAW_DISCARD_CONTRACT"
+        }
+      ],
+      "full_RGB_canonical_body_sha256": "0a8d764529d0e50793a069f2e9488e148d232605c4fe268445435d3e5b147b81",
+      "source_trace": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1742-1760;1205-1217",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "Actualsourcebecomesattackingthen1759 callsOnAttackDeclared;1216 directlyexecutesselectedAttackDeclared macro."
+        },
+        {
+          "path": "FaBSim/Custom/OMNCards.php",
+          "lines": "448-450",
+          "sha256": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510",
+          "finding": "OMNDeclared onlyqueuesexistingOMN_GAUNTLETtag; quietConflictingfixedscene hasno suchgrant or owncapturedOptWHEN."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1280-1327",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "No currentselectedAttackDeclared interceptor; direct1322 body executesbefore earnedresponseableattackWHEN."
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "lines": "20915-20937;198864-198914",
+          "sha256": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+          "finding": "ActualBlue compiledstage5 immediatelyStageTop1 at198895 then MZREARRANGE198884; no independenttriggerresponse boundary beforelook/staging."
+        },
+        {
+          "path": "FaBSim/Custom/ARCCards.php",
+          "lines": "101-125",
+          "sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+          "finding": "RealprivateTemp staging/TopBottom order/UIDpreservingfinish exists. Thispayloadcapability isnotabsent; layercapture isearlierrequiredknowncontract."
+        }
+      ],
+      "limits": [
+        "FixednonemptyDeckRedtop/Bluebelow andrealBottomchoice remainplannedonly. No actuallook/Opt/orderchange/2damageHP18/sourcecleanup outcome/nativecredit.",
+        "No emptyDeck/noop/blank2attack/alternateOptproducer/directhelper/forgedtrigger/history/APseed/fallback orrepair. HistoricalOpthelperqualificationisnotattackWHENqualification; known190olderruntimecontext retainsitsactualscope whilecurrent6695caller isverifieddirectly."
+      ],
+      "executable_cases": 0,
+      "native_attempted": false,
+      "diagnostic_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue_claimed": false,
+      "new_distinct_root": false,
+      "source_fix": false,
+      "repair_proposal": false
+    }
+  ],
+  "official_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4870/",
+      "finding": "ExactBlueConflictingcost0/power2/DEF3; attackingWHENcreatesOpt1."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/omens-of-the-third-age/",
+      "finding": "PublishersearchindexspecificallystatesConflictingtriggerswhenitbecomesattackingandOptoccurswhenits triggered effect resolves; directfetch403 disclosed."
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/tales-aria-release-notes/",
+      "finding": "OfficialindexedRampartnotes identifyOffHandweaponzone, optionalpayafterformaldefense, +1DEFuntilEnd/noBattleworn. Directfetch502 disclosed; viewedELE203faceolderWheneverwordingis sameevent."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5-6"
+      ],
+      "finding": "Triggeredconditionscreate layers beforepriority; theirpayloadresolvesafterresponses."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.2.2-4",
+        "7.3.2"
+      ],
+      "finding": "Becomingattackingandformaldefending createactualevents; declaringdefenseisnotplayingcard orpayingtriggerresolutioncost."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.10",
+        "8.5.22"
+      ],
+      "finding": "OffHandequipsWeapons. Optlooksattopcards thenchoosesToporBottom; appliedonlyaftercorrectearnedtriggerresolution."
+    }
+  ],
+  "independent_planning_review_complete": true,
+  "source_executable_approved": false,
+  "source_Save_approved": false,
+  "qualification": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "ONEcompactcombinedplanningproof/twoknownunattemptedrows, noexecutableSourcegate orNativeprobe required/authorized. Existingpayloads/helpersacknowledged; no blanketbodyabsence/globalimpossibility claim.",
+    "No prefix/fullNativeoutcome/fixture/coverage/newissue/root/repair/fullcard/siblingqualification. No fullsuite/historicalreplay/Git/remote/helddeniedretry/newagent action. Reviewer W-only/read-onlyR."
+  ],
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_distinct_root": false,
+  "source_fix": false,
+  "repair_proposal": false
+}

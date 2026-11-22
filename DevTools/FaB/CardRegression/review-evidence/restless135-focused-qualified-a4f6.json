@@ -1,0 +1,165 @@
+{
+  "status": "APPROVED_FOCUSED_REPAIR_EVIDENCE_NAMED_RESTLESS135_QUALIFIED",
+  "approved": true,
+  "repair_evidence_approved": true,
+  "named_issue": "FAB-REG-135",
+  "named_issue_qualified": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T00:12:21.680010+00:00",
+  "runtime_before_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "actual_source_path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\IARRuntime.php",
+  "actual_source_sha256": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+  "before_sha256": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+  "exact_one_line_inverse": true,
+  "applied_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-restless135-independent-applied-source-review.json",
+    "sha256": "286d98f277be2d7404fb5d9e20f20e4e8964910d3e6607b2889d8a2adc857167"
+  },
+  "original_native_before_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch519-independent-native-before-classification.json",
+    "sha256": "98b3793050a99c129a459f60bfa0b4b9e20116b48ee00dd4832e4548fe33150b"
+  },
+  "source_rebinding_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-restless135-independent-source-rebinding-review.json",
+    "sha256": "d8b497977e475cb87d4c72a57acb1da2863af4bf22c60d2f33653b1cd6e60897"
+  },
+  "exact_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-restless135-independent-saved-review.json",
+    "sha256": "96f0c8ba03e9839aedbdf8d23f9f9311075e261bfd73831c859a99b6b1955909"
+  },
+  "component_preparation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-restless135-focused-components-independent-preparation-review.json",
+    "sha256": "fdb4567895ec93a9698903635c87ead5eb081ecfa2b5539b3cae87cc058738f9"
+  },
+  "actual_before_component_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-restless135-component-before.actual.json",
+    "sha256": "1311ea3ba76e84a7921fb8afe939fa4f9eec54ad9a1c5a4db29b52bab68ba95f"
+  },
+  "actual_after_component_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-restless135-component-after.actual.json",
+    "sha256": "509c3aa6d310d2064c75d17c8b2453128a1fc17eab8d6c15144aea0cfecc9211"
+  },
+  "component_summary": {
+    "before_contracts": 14,
+    "before_passed": 12,
+    "before_normative_failed": 2,
+    "before_characterization_not_correctness_pass": true,
+    "after_contracts": 14,
+    "after_passed": 14,
+    "after_failed": 0,
+    "actual_after_source": true,
+    "scope": "Controlled actual-function contracts; not native/helper-control coverage"
+  },
+  "native_after_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-restless135-native-after-a4f6\\receipt.json",
+    "sha256": "ac80664afd66f4c4e46b124e8eac4a666d8f35e32ae1798081356c65b2ad3c21"
+  },
+  "native_after_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch519-after135-20261106T000631Z-6aed1a07d071f.json",
+    "sha256": "6db7f3f30255d0f75b4a5d9b74a00cd7cff419c267d27027c0d57a1caa5ac9e6"
+  },
+  "native_after_actions": 5,
+  "native_after_assertions": 576,
+  "native_after_manual_passes": 4,
+  "replay_receipts": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-restless135-after-r1-a4f6.json",
+      "sha256": "6c4ede429e42d633ec0dd8dc2b29a438cb1c8bf5fc7705df6aaf452c5010b396",
+      "source_spec": "card-regression-batch519-after135.json",
+      "slug": "card-restless-coalescence-yellow-four-live-real-power-counter-cost-creates-one-owned-spectral-shield",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "passed": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b89457bd673a1da9a7fb1f49e149cfac46c59c080f1b06594aec47e8ea6c1a4",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "e4107bad9fe3f837c4e2a5d29bad6e96b824cee2fb70947eed9436d88f0facf3",
+        "expected_final_gamestate.txt": "6b43b5ec7760f0e3cebe1e2762a4da92a515fdaf61d24699a89b659f004c875a",
+        "meta.json": "79599378289ec062bf5953f4996283af9a1db18bf1360ed5fcfdfcda13e31015"
+      },
+      "fixture_sha256": "71b08eae76d26de092d5b3e6bc0ba6585d445cf430fcb2280421d59309181f8a",
+      "completed_utc": "2026-11-06T00:08:29.136588+00:00"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-restless135-after-r2-a4f6.json",
+      "sha256": "6fe9f9cebafb028212c01762f8219b5360e62811bcfdd6b15249029938bb36a7",
+      "source_spec": "card-regression-batch519-after135.json",
+      "slug": "card-restless-coalescence-yellow-four-live-real-power-counter-cost-creates-one-owned-spectral-shield",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "passed": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b89457bd673a1da9a7fb1f49e149cfac46c59c080f1b06594aec47e8ea6c1a4",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "e4107bad9fe3f837c4e2a5d29bad6e96b824cee2fb70947eed9436d88f0facf3",
+        "expected_final_gamestate.txt": "6b43b5ec7760f0e3cebe1e2762a4da92a515fdaf61d24699a89b659f004c875a",
+        "meta.json": "79599378289ec062bf5953f4996283af9a1db18bf1360ed5fcfdfcda13e31015"
+      },
+      "fixture_sha256": "71b08eae76d26de092d5b3e6bc0ba6585d445cf430fcb2280421d59309181f8a",
+      "completed_utc": "2026-11-06T00:09:57.057063+00:00"
+    }
+  ],
+  "selected_compatibility_receipts": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-restless135-compat-malice-a4f6.json",
+      "sha256": "c3a04563c7fed18117973cb8f3a4de7dfa674c88b1171892b82407c6eb262f41",
+      "source_spec": "card-regression-batch420.json",
+      "slug": "card-malice-four-live-sparse-real-paid-tapped-hero-grants-zombie-graveyard-play-permission-consumed",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "passed": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "811134177dc4e0f39b4f3139dbfce786b2681ff1a11f7177bdfdfabd5fb2e04c",
+        "actions.json": "34d79700c4e838fe167cdd246d7c510d413d8204e707705d21b206859896bdc0",
+        "assertions.json": "7ec7d7718d5e202a52a58bb8d098f934821783c06ed547016bcc09ee96bf81fd",
+        "expected_final_gamestate.txt": "da8de85bf3dd6a4b5eb3abfe2e068f67813a157456892c7b399107a88fd20401",
+        "meta.json": "d0aa847cdea2ecf98f89313090df6d6518fd701ab76dfd27cf12ec21e2dbaf32"
+      },
+      "fixture_sha256": "bb7b2faad65e825ce476dbc2f48b50a2e7943651d63a819b36f2ec1e4926ac60",
+      "completed_utc": "2026-11-06T00:04:31.651324+00:00",
+      "original_qualification_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "old_qualification_not_retagged": true,
+      "no_new_coverage_credit": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-restless135-compat-cleric-a4f6.json",
+      "sha256": "81bcbefce285d35fac154e1f9547750755b4c3bdce3e3501cb3242832217d723",
+      "source_spec": "card-regression-batch474.json",
+      "slug": "card-restless-cleric-red-four-live-real-ally-tap-heals-one-and-go-again-funds-actual-attack",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "passed": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e124a6fff3b8558631654e826d6cedec9de276f603be48196904b503e861ee92",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "aef532612b28e5de5267e016556641cecae2bb9cda7856c008c2eaf009f1343c",
+        "expected_final_gamestate.txt": "57430c30b79722404bacc648671518690cad1e53d78ccfc570a7941a4bf73840",
+        "meta.json": "28a365d399e3c6d2bf4eb9cb9eb6ff06d20639b8b00ade6ad9da4db37125b320"
+      },
+      "fixture_sha256": "d45017f8ada607bc55fb8b8adc2ab8120e2c11a64be1976f4541d89932505776",
+      "completed_utc": "2026-11-06T00:05:15.631099+00:00",
+      "original_qualification_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "old_qualification_not_retagged": true,
+      "no_new_coverage_credit": true
+    }
+  ],
+  "qualification_basis": [
+    "Original strict Status2 oracle was correct; before native failed at check161 after one activation, with counter/token suffix unrun. The original failure and old runtime labels remain immutable.",
+    "Applied handwritten FaB IAR guard exactly matches reviewed candidate; removing it restores d207. Fourteen actual after contracts pass, with the same12 registered/no-op results retained and only two controlled foreign Coalescence Status failures corrected.",
+    "Unchanged original correct recipe now actually records at a4f6: all5 inputs/576 checks/four manual seats pass. Independent Saved review verifies ready physical Aura5, real counter payment/once marker, source-bound ABI6 and owned Shield7 only after fourth response, complete physical identities/economy/cleanup.",
+    "Both distinct clean after-fixture replay receipts PASS at a4f6 with exact raw5 preserved. Focused existing Malice420 and RestlessCleric474 each PASS at a4f6 with old source/raw5 and original qualification proofs still intact.",
+    "This qualifies the named135 one-line FaB payment-family repair and selected positive activation branch. It does not allocate a distinct global root cause, claim repository Core changes, run a full suite or certify the other denied repairs."
+  ],
+  "limits": [
+    "No entry WHEN, prior counter producer/transfer/Chi, Ward, attack, second activation/once rejection, alternate choices/counter amounts/foreign control/suppression/support/sibling/full-card credit.",
+    "Only actual selected receipts and source inverse assessed; no new test, PHP/native/replay/R/source/service/generation/remote operation by reviewer. Controlled components remain separate from native witnesses.",
+    "Root registration/ledger updates remain separate. Existing positive compatibility qualifications retain old9 labels; these are appended focused new-runtime replays, not requalification of the full corpus."
+  ],
+  "global_root_dedup_status": "UNALLOCATED",
+  "repository_core_change": false,
+  "full_suite_run": false,
+  "other_denied_repairs_attempted": false,
+  "blockers": [],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_restless135_focused_repair_evidence_readonly.py",
+    "sha256": "53488f02e1d07617b876701ced9ef4120a044f04f5d831b1fa463f3727be2cc7"
+  }
+}

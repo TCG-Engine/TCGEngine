@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch456.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T11:50:19.744404+00:00",
+  "fixtures": [
+    {
+      "slug": "card-wax-off-blue-four-live-real-wax-on-earns-owned-zen-state-prevents-one-and-retains-balance",
+      "fixture_sha256": "4935e56f66158ccd59ee066da3087c9baaeb2e64510a214cb6e20e20db4c9dd8",
+      "passed": true,
+      "result": "[PASS] wax_off_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-wax-off-blue-four-live-real-wax-on-earns-owned-zen-state-prevents-one-and-retains-balance",
+      "returncode": 0,
+      "stdout": "[PASS] wax_off_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

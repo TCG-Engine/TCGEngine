@@ -1,0 +1,284 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_STANDALONE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T03:55:25.545323+00:00",
+  "source_spec": "card-regression-batch282.json",
+  "input_sha256": "74982109cac00e289ca4f77b8bb64bc0cc2e5e3be2b284b2433848c7aa0322f7",
+  "manifest_sha256": "ead2d42b4f31ddba672329670529b3cbc7a8678adf776c1e784dfe831707040d",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch282-independent-source-review\\review.json",
+    "sha256": "7f3827eddb9471ec5dd97f311de1e669980e745add8acc8031717fd05d99d1e0"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch282-20261103T035230Z-6ae95a7ec1d04.json",
+    "sha256": "729499810f7f5e54277dfa9ff7a551ed791abe4e643c2dc22a80111a1809ba6c"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch282-native-r1\\receipt.json",
+    "sha256": "a9b6421b27c887d7ccbf76f502d1b2ea6e36eda213ecb056828960e9e69c2df9"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch282-independent-saved-review\\audit_saved.py",
+    "sha256": "136562ff9f596252115b6a8a842cf011079b9b3ae74132e6eabadbb682a5dc46"
+  },
+  "review_method": "Existing independent printed/source approval reused. Every actual native input/persisted assertion mapped exactly with independent three-combat four-seat actor schedule; full strict schema endpoints/all physical UID/card/owner/controller/zone/economy/manual profiles; final assertions evaluated and complete unordered UIDsets inspected independently; raw4/raw5 stable. No PHP/native/replay/backend or R writes.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "big_shot_red",
+      "slug": "card-big-shot-red-four-live-sparse-two-real-zero-cost-boosts-earn-eight-power-primary",
+      "source_spec": "card-regression-batch282.json",
+      "input_sha256": "74982109cac00e289ca4f77b8bb64bc0cc2e5e3be2b284b2433848c7aa0322f7",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-big-shot-red-four-live-sparse-two-real-zero-cost-boosts-earn-eight-power-primary",
+      "fixture_sha256": "488402ba9fd1577920156266fe82ca7fd107ae63b3201e5c09e44e7bef3ac1c8",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "df748c14b3842337908ea85c3edd319cc872866c9ff4e013eb96dd9d85cfb014",
+        "actions.json": "1fcf2deea3b3e34d6a68e47d84bf37173d4e7ca3e6af38a9f1ad51db5bff2726",
+        "assertions.json": "c0422bc4c391f72aff0d96202374793b4b840dae6fd1e67f463085165a1798a7",
+        "expected_final_gamestate.txt": "995cb1d8bdab8aa64999c3ce78e4d0a20f9f2f1e190eb33adf7fe73b8b785bd6"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df748c14b3842337908ea85c3edd319cc872866c9ff4e013eb96dd9d85cfb014",
+        "actions.json": "1fcf2deea3b3e34d6a68e47d84bf37173d4e7ca3e6af38a9f1ad51db5bff2726",
+        "assertions.json": "c0422bc4c391f72aff0d96202374793b4b840dae6fd1e67f463085165a1798a7",
+        "expected_final_gamestate.txt": "995cb1d8bdab8aa64999c3ce78e4d0a20f9f2f1e190eb33adf7fe73b8b785bd6",
+        "meta.json": "08f17cb068c2624e5c8438449a820f1a447fe3b7290b704ec84b410c8628a730"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "df748c14b3842337908ea85c3edd319cc872866c9ff4e013eb96dd9d85cfb014",
+        "actions.json": "1fcf2deea3b3e34d6a68e47d84bf37173d4e7ca3e6af38a9f1ad51db5bff2726",
+        "assertions.json": "c0422bc4c391f72aff0d96202374793b4b840dae6fd1e67f463085165a1798a7",
+        "expected_final_gamestate.txt": "995cb1d8bdab8aa64999c3ce78e4d0a20f9f2f1e190eb33adf7fe73b8b785bd6",
+        "meta.json": "08f17cb068c2624e5c8438449a820f1a447fe3b7290b704ec84b410c8628a730"
+      },
+      "actions": 84,
+      "native_assertions": 6725,
+      "actual_manual_passes": 75,
+      "actual_priority_response_passes": 72,
+      "actual_defender_declaration_finish_inputs": 3,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "zero_to_sixty_red",
+          "zone": "p1Hand"
+        },
+        "6": {
+          "card_id": "zero_to_sixty_red",
+          "zone": "p1Hand"
+        },
+        "7": {
+          "card_id": "big_shot_red",
+          "zone": "p1Hand"
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "9": {
+          "card_id": "mechanical_strength_blue",
+          "zone": "p1Deck"
+        },
+        "10": {
+          "card_id": "throttle_blue",
+          "zone": "p1Deck"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "zero_to_sixty_red",
+          "zone": "p1Graveyard"
+        },
+        "6": {
+          "card_id": "zero_to_sixty_red",
+          "zone": "p1Graveyard"
+        },
+        "7": {
+          "card_id": "big_shot_red",
+          "zone": "p1Graveyard"
+        },
+        "9": {
+          "card_id": "mechanical_strength_blue",
+          "zone": "p1Banish"
+        },
+        "10": {
+          "card_id": "throttle_blue",
+          "zone": "p1Banish"
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        4
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 86,
+      "checkpoint_assertion_mapping_sha256": "e339b97d91be7e6474a040913a7e3a96300b420376f33e9809d997cca747d7f3",
+      "native_action_mapping_sha256": "8f56989f87feeec6eefcc63513c92b8d6e3e5c00ad1a6c4d7ddb60d2035b2124",
+      "native_assertion_mapping_sha256": "950f9ef736ee060691a87c7a984f4b54c026e25da56f500a6e4349eec327f56c"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 84,
+  "total_native_assertions": 6725,
+  "total_manual_passes": 75,
+  "total_priority_response_passes": 72,
+  "total_defender_declaration_finish_inputs": 3,
+  "material_findings": [
+    "Actual distinct ZeroRed5 and6 each declared freshP4target while same sourceHand, then nativeBoostModal0 accepted with realAP1 asset before actualDeck9/10 banish. OriginalMechStrengthBlue9 thenThrottleBlue10 actuallymove topublicownBanish; each samepaidStack5/6 receivesGO_AGAIN. No resourcePitch forZero0, no seededBoost/history/extraAP or source swap. Exactnative actions contain two actualBoost answers, no thirdBoost onBigShot.",
+    "Both actualfullcombats use allfourlivingmanualresponders, deal4+4 toP4HP16then12, gainexactlyAP1 at beginningResolution andfullyclose before nextfreshplay. Native finalstate records actualARC_BOOSTED1+1 and boostedflags5/6only, corroborating physicalpayment/sourceGA/earnedAP without substituting a private count oracle.",
+    "ActualprimaryBigShot7 freshlytargetsP4, realBlue8pitch3 paysprinted3 andspendspreviouslyearnedAP1. Actualcomputedpower8 fromprinted6+twoBoostbonus2, noGA; actualthirdpacket8 leavesP4HP4. Finalactualdamagehistory4/4/8 andhitUIDs5/6/7/cardplaysZero/Zero/BigShot corroborate samephysical causal path.",
+    "Fullschema actualendpointsverify ALLoriginalUIDs1-10. FinalownpublicGYunorderedUIDset5,6,7 includesbothdistinctsameCardIDZeroobjects; ordinarypublicBanishUIDset9,10 retainscorrectdifferentCardIDs/owners/controllers/noReturn/noPlayablepermission/counterseffects, Pitch8actualBlue. Deck/Hand/Arsenal/Stack/Chains/Temp/queues/awaitframes/payment/managedmarkersclear, allRAP0/otherHP20, uniqueIDcounter10/noextraobjects. All84actions/6725asserts/75manualpasses72priority+3declaration finishes match."
+  ],
+  "limits": [
+    "Only BigShotRed standalone twoactualBoost positive threshold branch. No support-primary/falsecondition/zero-oneBoost/nonMech/failedBoost/otherbanishtrigger/suppression/pitchsiblings/equipment/Evo/Item/hero/fullcard/control credit.",
+    "PublicBanish andGY order are not credited; actualfullphysicalUIDsets andownership were independentlychecked despite broadunorderedterminalassertions. Conditional8damage requiresactual earnedhistory, not seededcounter.",
+    "Intermediate material states are supported by completed native assertion enforcement with exact persisted checks and actions, not endpoint-only inference or synthetic native approval. Root two focused clean replays and registration remain separate gates, not executed by reviewer.",
+    "Runtime0d unchanged, all17approvedsourceguards verified; no deniedsourceapply retried or sourcefix/PHP/native/backend/generator/fullsuite/historicalaudit work by reviewer."
+  ]
+}

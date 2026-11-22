@@ -203,7 +203,7 @@ for c in json.loads((HERE/'sea_catalog.json').read_text()):
   add('PrepareCard',UID+choose('FaBSEASarongRefs($player)','Turn_blue_arrow_face_up',False)+"FaBARCSetCard($uid, 'seaSarong', FaBUPRUIDs($chosen)[0] ?? 0); FaBSEASarong($player, $chosen); FaBFinishPreparedCard($uid);")
   add('ResolveAbility',"$abilityUID = intval(DecisionQueueController::GetVariable('arcAbilityUID')); FaBTagUID(intval(FaBARCCard($abilityUID, 'seaSarong')), 'GO_AGAIN');")
  if b=='surface_shaking':
-  add('ResolveCard',token('seismic_surge',n=3))
+  add('ResolveCard',"/* Entry Seismic Surges are queued by FaBROSAfterMove. */")
   add('ResolveAbility',UID+"FaBMONDestroy($uid); $maximum = intval(DecisionQueueController::GetVariable('rosTarget')); "+many(refs('Hand'),'$maximum',0,'Bottom_hand_cards')+"$n = count(FaBUPRUIDs($chosen)); FaBUPRBottom($chosen); DoDrawCard($player, $n);")
  if b=='throw_caution_to_the_wind':add('ResolveCard',"$top = FaBSEATop($player); FaBRevealChoices($player, $top); FaBSEAAdd($player, 'CAUTION', intval(CardPitch(FaBIdentityFromMZ($top)['object']->CardID ?? '')));")
  if b=='tip_the_barkeep':add('ResolveCard',UID+token('goldkiss_rum')+choose('FaBHVYGold($player)','Give_a_Gold_token')+"if ($chosen !== '-') { $goldUID = FaBUPRUIDs($chosen)[0] ?? 0; "+choose('FaBDYNHeroTargets($player, true)','Choose_other_hero',False)+"if (FaBSEAGiveGold($goldUID, $chosen)) { FaBSEASetBottom($uid); } }")

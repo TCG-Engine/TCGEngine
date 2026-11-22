@@ -1,0 +1,338 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_GALVANIC_ONLY_ASSEMBLY_BLOCKED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T13:29:09.997915+00:00",
+  "source_spec": "card-regression-batch609.json",
+  "input_sha256": "72554fa80fb4f4cbcc0954751cea9426b961224aee1ebfd342038dacdb98ea36",
+  "manifest_sha256": "a0db383674510ebd3ed0ed8f0e9283a3550bc5f3ef81c4d366fda84f24fcdabe",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch609-independent-source-review.json",
+    "sha256": "f436869bbf57e80bf4a22c856c0151e2c7cea3f9bbf1fe3f8c11191faaedde42",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch609-20261106T132358Z-6aedd4eeea742.json",
+    "sha256": "3f278878947157f5b8b66cd342d09a00aaef2370015f24c291d1fb547d48f04b"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch609.recording-results.json",
+    "sha256": "8aa4f85796363afe2e0a60ff32359eb638afab9f5ab86a926c03f82ba6f34e7b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch609-native-c53\\receipt.json",
+    "sha256": "855d2ebd1b607f8096d9e442a4298971fe75198bbfab6b1392cc71a90cb0922d"
+  },
+  "fixtures": [
+    {
+      "index": 1,
+      "card_id": "galvanic_bender",
+      "group_id": "identity:galvanic_bender",
+      "slug": "card-galvanic-bender-four-live-real-one-defense-and-battleworn-survival",
+      "source_spec": "card-regression-batch609.json",
+      "input_sha256": "72554fa80fb4f4cbcc0954751cea9426b961224aee1ebfd342038dacdb98ea36",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_DEF1_BATTLEWORN_PARTIAL",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-galvanic-bender-four-live-real-one-defense-and-battleworn-survival",
+      "fixture_sha256": "080c90f44b753a9b6e945645db3d90972a6f810d4a8ae84068c0abc70e25f609",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c734314d2b640682d26d75ce39863705317dc154ecfad2574f0522a146d73442",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "6709ac78aa796916e9fb8d8f686aaa4e927889128d1b8f6996970ca602ca902e",
+        "expected_final_gamestate.txt": "68e9ea1b6b6dc8a7b7ead32ab6b39d6361501dfb3751368b89bceb4cfe23633f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c734314d2b640682d26d75ce39863705317dc154ecfad2574f0522a146d73442",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "6709ac78aa796916e9fb8d8f686aaa4e927889128d1b8f6996970ca602ca902e",
+        "expected_final_gamestate.txt": "68e9ea1b6b6dc8a7b7ead32ab6b39d6361501dfb3751368b89bceb4cfe23633f",
+        "meta.json": "c42e4e4da5353deb92984bdca8e631f75480ee7ff1e7896fed877a9fe4e57118"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c734314d2b640682d26d75ce39863705317dc154ecfad2574f0522a146d73442",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "6709ac78aa796916e9fb8d8f686aaa4e927889128d1b8f6996970ca602ca902e",
+        "expected_final_gamestate.txt": "68e9ea1b6b6dc8a7b7ead32ab6b39d6361501dfb3751368b89bceb4cfe23633f",
+        "meta.json": "c42e4e4da5353deb92984bdca8e631f75480ee7ff1e7896fed877a9fe4e57118"
+      },
+      "actions": 29,
+      "native_assertions": 2455,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 694,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dash",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "galvanic_bender",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dash",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "galvanic_bender",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_attack_power": 5,
+      "actual_defense": 1,
+      "actual_damage": 4,
+      "actual_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_equipment_UID": 5,
+      "final_DEFENSE_counters": 1,
+      "remaining_DEF_derived": 0,
+      "unsupported_computed_defense_getter_claimed": false,
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "Material_branch_earned": false,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "b39ce60e4d7af9ad4697487a8084480c9b4d2fbc84e1481c95391662b2de5648"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 0,
+      "card_id": "assembly_module_blue",
+      "group_id": "identity:assembly_module_blue",
+      "slug": "card-assembly-module-blue-four-live-real-tap-search-driver-enters-with-three-steam",
+      "approved": false,
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch609-assembly-independent-native-before-review.json",
+        "sha256": "18bfe3965e5f6f849256ecd836befd6bcaf1e90989d4e935293ef6190047dca0"
+      },
+      "first_failure": "Expected p1Arena-1.Counters to equal '{\"STEAM\":3}', got '[]'.",
+      "source_expectations_unchanged": true
+    }
+  ],
+  "total_actions": 29,
+  "total_native_assertions": 2455,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 694,
+  "material_findings": [
+    "ExactGalvanicraw5/29nativeactions/2455orderedchecks/25manual/48preferencesperendpoint/70c53guardsandimmutablemixedarchiveverified.",
+    "ActualCritical6cost1/realBlue7pitch3leavesR2AP0; sourcefourthenphysical5EquipmentnormalblockDEF1, real5−1=4HP16/noGA.",
+    "AutomaticCloseaddsONEBattleworncounter; same5returnsEquipmentready2Damage0/survivesderived0DEF. OriginalphysicalUID1..7conserved/Critical6GY1/Blue7Pitch/noallocation/RNG0/fullquietcleanup. Materialunderconditionunearned; blockisnotactivation.",
+    "AssemblyNOFixture/Coverage: strict3Steamfails517after516passed/sixinputs/fourmanual, actualDriver6Arenaidentityqueried; separateindependentnativeproofretainsexactlimits. Rootreplaysseparate/notclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4407/",
+      "finding": "Currentofficialsearchresultretrievedwithfullprintedtext; directopeninaccessible, nofullpageviewclaim."
+    },
+    {
+      "kind": "viewed_local_issuer_faces",
+      "faces": {
+        "assembly_module_blue": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\assembly_module_blue.webp",
+          "sha256": "52aa0d9a984fadfe68500aee865a0d05194e0a0c797adf3b2cd6fc2683f191e9",
+          "independently_viewed": true
+        },
+        "galvanic_bender": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\galvanic_bender.webp",
+          "sha256": "070e5e9b7d71a083a12637ec8bdf26119d0d3b7c0a77830c2dbd26bf3a9dab2e",
+          "independently_viewed": true
+        },
+        "hyper_driver_red": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\hyper_driver_red.webp",
+          "sha256": "87b4373f474c5408103eabb4eeb9a617d1e4836dab1d2c8ae2ef4558d2c7cab1",
+          "independently_viewed": true
+        }
+      }
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Actionassets/tapbeforepriority; resolvingsearchchoice/effect, putnotplay."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "finding": "NormalEquipmentdeclaration anddamage; automaticClosewithoutadditionalpriority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "finding": "Staticentrycounters/Crank; BattlewornwearnotTemperdestruction; Materialonlyunderpermanent."
+    }
+  ],
+  "limits": [
+    "OnlyGalvanicnormalDEF1/firstBattlewornsurvivalqualifiedbythisSavedreview; Material/Evo/underpermanent+power/secondblock/blanking/foreigncontroller/Hero/support/fullcardexcluded.",
+    "AssemblyunapprovedforSaved/coverage; do notweakenTHREESteam orclaim147unrunchecks/completecleanup.",
+    "No reviewerPHP/native/replay/R/source/fullsuite/remote/deniedretry ornewglobalroot/Coreallocation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch609_native_and_saved_readonly.py",
+    "sha256": "ceb824bc9abe7d3e9a8c25bf92c7e1f54101ddd5a9ac119b2103c22f55c19dee"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch256.json",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T20:37:44.480549+00:00",
+  "fixtures": [
+    {
+      "slug": "card-death-dealer-four-live-sparse-paid-bow-load-draw-and-earned-action-point-followthrough",
+      "fixture_sha256": "06460fcf2cbeb73ad8093b0b26b42dbffd0c8f344106b86a174815f40a7bba37",
+      "passed": true,
+      "result": "[PASS] death_dealer / four live distinctive effect"
+    },
+    {
+      "slug": "card-calming-breeze-red-four-live-sparse-real-instant-prevents-one-of-seven-physical-damage",
+      "fixture_sha256": "e68c9738a74569dd75de660622f29ec14ecaa7e8bd599482193019be83dd4b37",
+      "passed": true,
+      "result": "[PASS] calming_breeze_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-overswing-red-four-live-sparse-real-paid-next-guardian-plus-three-and-thirteen-damage",
+      "fixture_sha256": "2d78726ff518b844dbc233f12d839ec262f5384c0dd9838175763b2274f810ff",
+      "passed": true,
+      "result": "[PASS] overswing_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-death-dealer-four-live-sparse-paid-bow-load-draw-and-earned-action-point-followthrough",
+      "returncode": 0,
+      "stdout": "[PASS] death_dealer / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-calming-breeze-red-four-live-sparse-real-instant-prevents-one-of-seven-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] calming_breeze_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-overswing-red-four-live-sparse-real-paid-next-guardian-plus-three-and-thirteen-damage",
+      "returncode": 0,
+      "stdout": "[PASS] overswing_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,89 @@
+{
+  "status": "B793_VESTIGE_FIXED_SIGIL_BLUE_PRODUCER_KNOWN_LIFETIME_DEPENDENCY_UNATTEMPTED",
+  "created_utc": "2026-11-14T20:43:13.234630+00:00",
+  "card_id": "vestige_of_flagellation",
+  "group_id": "identity:vestige_of_flagellation",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch793-firm-reservation.json",
+    "sha256": "e3434569692164022c8313d84230ae4f8bf6daa46a66c92e4c19339a344d9183"
+  },
+  "preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch793-selected-helper-preflight-current4056.json",
+    "sha256": "79b77e2510800ad06f4d93171107da34895d487ecf97b12ef6f5f1fa68f1ce96"
+  },
+  "all82_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "all82_current_guards_verified": true,
+  "fixed_route": "YoungLevia20ChestVestige actualWoundingBlue2attackHero4; P2source-responseSigilBlue gain1 wouldbereplaced: P1loss1/ownedcontrolledVigor1/P2unhealed, thenactualattack2/fullcleanup. No futureVigor, secondheal, BladeBreak, seeds or substitute.",
+  "known_dependency": {
+    "file": "sparse-source-only-holds.json",
+    "json_path": ".holds[229]",
+    "row_sha256": "ab3b72449118581cacad2badb9caa0a34b1b6eecb2d9bd32dcfa41faed54019f",
+    "hits": [
+      "sigil"
+    ],
+    "card_id": "voltic_vanguard",
+    "status": "source_only_unattempted_selected_route",
+    "reason": "Voltic's real played-Instant condition and prevention body exist. The fixed Sigil Blue support is outside the managed plain-spell cohort and its actual selected path moves the physical source from Stack to Graveyard before resolving gain-one-life instructions. A matching end-of-input life total would not certify the required source lifetime. The selected Voltic route remains unattempted; no alternative producer, seeded history, native attempt, fixture, coverage, confirmed gameplay bug, repair or primary-body absence claim. Original two-case proposal is preserved and unapproved; exact unchanged healthy Dance case proceeds independently in its mixed successor."
+  },
+  "exact_chain": [
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1571,
+        1572,
+        1637,
+        1681,
+        1823,
+        1824,
+        1848,
+        1849
+      ],
+      "finding": "SigilBlue excludedbothmanagedphysicalspellregistries; ordinaryfallbackfirstmovessourceGY thenResolveRules dispatchesnativeWTRbody."
+    },
+    {
+      "file": "FaBSim/Custom/WTRCards.php",
+      "line": 612,
+      "finding": "ActualnativeSigilbody callsFaBCRUGainLife printedBlue1. CanonicalwtrSigilrowemptydoesNOTmeanbodymissing."
+    },
+    {
+      "file": "FaBSim/Custom/PENCards.php",
+      "lines": [
+        1057,
+        1068
+      ],
+      "finding": "Vestige firstopponentgain replacement/helperexists; singleVestige realownerloss andFaBHVYToken explicitowner. This isnotanassertedmissingreplacement/tokenownerbug."
+    }
+  ],
+  "reason": "Same exactfixedSigilBlue ownHandproducer lifetime path alreadyheld byVoltic229. Source-clearing precedesgain/replacementinstructions; retainUNATTEMPTED/noNative/newbugcount/alternateproducer.",
+  "selected_preimage_guards": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+  },
+  "counts": {
+    "runnable_cases": 0,
+    "recipes": 0,
+    "controls": 0,
+    "queries": 0,
+    "native_inputs": 0,
+    "new_issues": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true
+}

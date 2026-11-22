@@ -760,7 +760,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBOUTToken($player, 'ponder', 1);\n",
+        "abilityCode": "/* Entry Ponder is queued by FaBROSAfterMove. */\n",
         "isImplemented": true
       }
     ]

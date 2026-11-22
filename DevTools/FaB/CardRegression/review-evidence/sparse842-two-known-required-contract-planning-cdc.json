@@ -1,0 +1,105 @@
+{
+  "status": "INDEPENDENT_SOURCE_ONLY_UNATTEMPTED_TWO_EXACT_REQUIRED_KNOWN_CONTRACT_NOTES_APPROVED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 842,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_evidence_approved": true,
+  "source_notes_approved": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch842-two-required-known-contract-notes-manifest.json",
+    "sha256": "d5ab9d6c5117fc0604339fcde661814988587c926c263d8d17c56015d9a2adb6"
+  },
+  "manifest_sha256": "d5ab9d6c5117fc0604339fcde661814988587c926c263d8d17c56015d9a2adb6",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch842-firm-reservation.json",
+    "sha256": "cfdf05922da80091d79306ee14585fd9dd494bee8eb92d7dccc326c48e0e2d3b"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_preimage_guards_matched": true,
+  "guard_count": 18,
+  "notes": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch842-cindering-required-known-opt-lifetime-unattempted-note.json",
+      "sha256": "6495cbcf53baa14bca50e427a34a4b92f626b189f3fe72f5da18eceb4ec34898"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch842-stun-star-required-known-hit-when-unattempted-note.json",
+      "sha256": "f84f23d7519c516eb243629e9e1ff8a73487d54b874e16c96252ffdf451d2d85"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "cindering_foresight_blue",
+      "group_id": "pitch-cycle:cindering_foresight",
+      "status": "UNATTEMPTED",
+      "classification": "EXACT_KNOWN_UNMANAGED_PHYSICAL_SPELL_PRECLEAR_BEFORE_REQUIRED_POSITIVE_OPT_AWAIT",
+      "independent_causality": "CRUAsInstant90..92 admits actual offturn Cindering; Action-as-Instant/AP0 is supported. Canonical/emitted wrapper1382..1387 enters runner6014ea atPC5, adds ARC_NEXT_ARCANE1 and stages actual topUID; fixed positive Deck reaches MZREARRANGE46613..46615 before FinishOrder46608. Both managed spell registries omit this identity; actual nonpersistent INSTANT GL1840 moves physical source toGY before1841 invokes resolving code. This is the retained EvenBigger positive resolving-Opt source lifetime contract, not absence of a registry alone or a latent skipped choice.",
+      "corrected_unrun_consumer": "Blue Emeritus Scolding is Wizard ACTION, not naturally Instant as the initial firm suggestion implied. Real Young Iyslander18 can play Blue non-attackAction from actual Arsenal offturn under her printed/native EVRAsInstant51 permission; Cindering itself can be Hand. Both non-Ice, so no Frostbite trigger is earned. RealBlue3 pays cost2/R1; printed offturn4 plus primary1 requires actual5 arcane damage, not base2+1.",
+      "full_unrun_route": "Four genuine live/manual seats, actual opposing-turn priority, native primary0/APunchanged/four responses; actual positive Opt1 on two distinct Deck cards with bottom order and resolving source retained; native BlueArsenal consumer target/payment/four responses and real5life loss/next-card effect consumed/ownership/economy/fullcleanup. Own-turn, keep-top, other consumers/siblings and Hero/support identities remain untested.",
+      "retained_contract": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse823-independent-two-known-contract-planning-review-a11.json",
+        "sha256": "854d4bf9cbf091d40165225a91803c2eba96896b120662bada3a8e6068e3d266"
+      }
+    },
+    {
+      "card_id": "stun_star_blue",
+      "group_id": "identity:stun_star_blue",
+      "status": "UNATTEMPTED",
+      "classification": "EXACT_KNOWN_ORDINARY_HIT_MACRO_APPLIES_TAP_BEFORE_EARNED_RESPONSE_LAYER",
+      "independent_causality": "Supported MONArenaAttackSpec42..45/Attack67..77 supplies physical Arena Shuriken cost1/base1 and a separate ATTACK proxy with MON_SOURCE_UID. Actual payment taps physical source via GL1144..1146 and CRUUseWeapon321..325; declaration marks delayed Shuriken usage. Ordinary OnHit1264 is not intercepted for this identity; actual emitted Hit31018..31026 directly calls OMNTapHero107..111, so victim taps before a captured earned response layer. This matches retained Pursuit ordinary-Hit contract; no unsupported-Item or blanket-trigger hold.",
+      "legal_support_admission": "Real Young Katsu20 admits Ninja Item and does not grant Ira first-attack+1; Item attack is not an attack action card so Katsu AA-hit ability is unearned. Native cost0 Instant cast spends no AP, actual ArenaItem then printed Action resource1/AP1/tap paid by Blue3 floats2. Physical Item and attack proxy identities must remain distinct.",
+      "full_unrun_route": "Four actual cast responses establish physical Item; native adjacentHero4 target/actualBluepitch/pay/tap/AP0, all four combat/no-block responses, real1damage/HP19 with Hero4 still ready until separate earned hit layer/four responses then tap; correct printed attack GoAgain/AP1, same physical source owner1GY at delayed combat-chain-close destruction and fullcleanup. No cast-only or omitted hit/close endpoint.",
+      "later_unattempted_limits": "OMNClose442..444 currently destroys used Shuriken inline. Its correct delayed-close sequencing remains unresolved/unattempted behind the earlier Hit hold; this proof neither certifies that timing nor invents a Close response window. No new Native-confirmed defect/root is allocated from source alone.",
+      "retained_contract": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+        "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+      }
+    }
+  ],
+  "primary_rules": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4858/",
+      "official_read_only_web_read": true,
+      "finding": "Official Stun Star cost0 Instant/ShurikenItem, printed Action resource/tap/deferredclose destruction cost, basepower1, attackGoAgain and hitHero tap."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.3",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "official_read_only_web_read": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.1.1d",
+        "8.3.5b",
+        "8.5.22"
+      ],
+      "reused_existing_independent_normative_review": true
+    }
+  ],
+  "limits": [
+    "Two fixed selected routes are source-only and UNATTEMPTED; no executable, Native failure, new issue/root, fix, passing fixture, coverage or qualification.",
+    "Real permission/Opt/buff, Item attack/payment/tap/GA and close bodies exist. No blanket optional-await/trigger hold, naturallyInstant Scolding misclassification, seededpermission/outcome, false basiccast baseline, alternate primary or source-green resampling.",
+    "Whole generated-file/current18guards and actual selected emitted closures/causal helpers checked; no redundant fragment-hash/corpus audit or repeated completed Touch checks.",
+    "No PHP/native/Rwrites/fullsuite or denied188/184/B787 repair operation."
+  ],
+  "source_approved": false,
+  "native_probe_approved": false,
+  "native_execution_approved": false,
+  "normal_save_approved": false,
+  "passing_fixture_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "new_issue": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "PHP_native_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "created_utc": "2026-11-16T03:28:18.679761+00:00"
+}

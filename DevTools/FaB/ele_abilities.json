@@ -2432,7 +2432,7 @@
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$target = intval(FaBGetState()['defender']);\n$maximum = min(2, FaBHandCount($target));\n if ($maximum > 0) {\n $handRefs = implode('&', FaBChoiceRefs($target, 'Hand'));\n $discarded = await $target.MZMultiChoose($handRefs, $maximum, $maximum, \"Discard_cards\");\n FaBMoveChoices($target, $discarded, 'Hand', 'Graveyard');\n \n}\n",
+        "abilityCode": "$target = FaBELECapturedTearVictim($player);\n$maximum = $target > 0 ? min(2, FaBHandCount($target)) : 0;\n if ($maximum > 0) {\n $handRefs = implode('&', FaBChoiceRefs($target, 'Hand'));\n $discarded = await $target.MZMultiChoose($handRefs, $maximum, $maximum, \"Discard_cards\");\n FaBMoveChoices($target, $discarded, 'Hand', 'Graveyard');\n \n}\n",
         "isImplemented": true
       }
     ]

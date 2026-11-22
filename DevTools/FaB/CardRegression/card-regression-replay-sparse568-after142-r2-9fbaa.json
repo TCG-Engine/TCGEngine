@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch568-after142-r3.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T04:51:02.006243+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe",
+      "fixture_sha256": "e61e6be15c6daa4c9410c851503d64722632053107e8f9698c82f9ac0a67f08d",
+      "passed": true,
+      "result": "[PASS] pursue_to_the_edge_of_oblivion_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe",
+      "returncode": 0,
+      "stdout": "[PASS] pursue_to_the_edge_of_oblivion_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

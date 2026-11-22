@@ -1,0 +1,241 @@
+{
+  "status": "APPROVED_SOURCE_ONLY_SHARED_CAPTURED_HIT_MARK_EXTENSION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T04:24:52.008508+00:00",
+  "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "current_runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "proposal_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\manifest.json",
+    "sha256": "dd452d93d8e29a58167e356ceb6db0e36af51e628c3410514ff8affb875b27eb"
+  },
+  "manifest_sha256": "dd452d93d8e29a58167e356ceb6db0e36af51e628c3410514ff8affb875b27eb",
+  "proposal_author": "/root/nov2_sparse_author",
+  "changes": [
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "before_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\before-WTRAbilities.php",
+      "before_sha256": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+      "candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\WTRAbilities.php",
+      "candidate_sha256": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+      "preserves_unrelated_preimage_bytes": true
+    }
+  ],
+  "candidate_sha256": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+  "preimage_sha256": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+  "projected_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "projected_runtime_is_not_actual": true,
+  "source_guards_verified": true,
+  "source_guard_count": 70,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+  },
+  "exact_delta": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\exact-source-delta-and-inverse.json",
+    "sha256": "d4b5efa0a0eb7b8c356bb638a8c81413edaf95710b6f2179a2b7c8b648dc9678"
+  },
+  "patch": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\source.patch",
+    "sha256": "cc1a52ebaf5ea67f86e3675fde4727804b0c1e1ee0ed3e073840a0827263de8d"
+  },
+  "six_unique_raw_anchors_verified": true,
+  "full_before_after_CRLF_inverse_verified": true,
+  "unchanged_token_ids": [
+    "destructive_deliberation_red",
+    "destructive_deliberation_yellow",
+    "destructive_deliberation_blue",
+    "strike_gold_red",
+    "strike_gold_yellow",
+    "strike_gold_blue",
+    "earth_form_red",
+    "earth_form_yellow",
+    "earth_form_blue",
+    "lightning_form_red",
+    "lightning_form_yellow",
+    "lightning_form_blue",
+    "icy_encounter_red",
+    "icy_encounter_yellow",
+    "icy_encounter_blue"
+  ],
+  "existing15_token_rows_and_values_preserved": true,
+  "existing_token_resolver_branch_raw_unchanged": true,
+  "independent_findings": [
+    "Current printed HNT224 hero-hit WHEN earns one independent layer at hit; its Mark effect occurs only on resolution. Existing Mark removal within the hit event remains unchanged. Proposal adds exactly this one Red identity to the existing shared simple-hit spec using a non-token MARK primitive.",
+    "Full actual damage -> OnHit -> WTRHit path reaches the common producer before generic Hit. Existing spec-based skip now suppresses the old canonical/compiled inline selected Hit, avoiding double Mark. Positive amount/live controller/no-abilities/hit-suppression/Hero-target/actual Hero seat+UID gates apply at earn, not on later physical source state.",
+    "Captured layer stores actual controller separately from physical source owner, source UID and original hit hero UID/seat plus return Damage/combat context. Nothing marks during queueing. Empty token string remains isset for the actual existing dispatch; explicit MARK discriminator and static mapped spec prevent entering token creation.",
+    "Deferred resolver checks live captured controller/recipient and original current Hero identity, rejecting a different replacement Hero UID or wrong zone/seat. It does not consult current attackTarget, the physical source, its later CardID/controller/abilities/suppression, so an earned layer is not cancelled or redirected by those changes. Same Hero physical identity with a transformed face remains valid; this is not a general incarnation/security audit.",
+    "All original15 token rows are exact, their nonempty payload values are unchanged under null-coalescing, and the entire token resolution branch/helper/global-controller restoration body is raw identical. CnC, ordinary activated payment/resolver functions and every byte outside six declared anchors are preserved. No GL/ROS/Core/canonical/generated/emitter/held094 manager changes.",
+    "Existing generic ability resolution calls the synchronous primitive then restores captured Damage/combatStep and turnplayer priority. Its legacy remove-before-call behavior is untouched; the selected Mark helper has no await, queue or source-dependent continuation, so this change does not claim or bypass the denied generic ROS completion repair. No AP/resource/GA cost or refund is introduced.",
+    "Actual current0942 includes only the separately applied141 WTRCards/Boltyn changes relative to prior333; all70 actual guards are verified and WTRAbilities remains original f33a before application. Historical native333/source evidence is not relabeled as a current0942 run. Read-only candidate projection9fbaa is validated but inactive."
+  ],
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-r2-independent-source-review.json",
+    "sha256": "c22230c916d677fcd079de9e83ce867ef4ccf6b4c49b6feae01fb4383c47301c"
+  },
+  "independent_native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-independent-native-review.json",
+    "sha256": "b8e153bcb1fcb32e146472edd9a4a61c30c2a1ef0b0d66cde396c8b8934ed7b3"
+  },
+  "original_strict_spec": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch568.json",
+    "sha256": "06aa36f22c167b1e2d378cda00d24632bc681224c67c83f0a833cfe490d1c6ff"
+  },
+  "known_intervening141_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-source-application\\receipt.json",
+    "sha256": "1b86128b33de3e55355aaed0e651f14c16837b826e47f2827beb2d8d0f0b78df"
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+      "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+      "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+      "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "candidate_raw_function_hashes": {
+      "FaBWTRPureTokenHitSpec": "6fab954eebf3ba73179cbd40aaf1ef0daa4b4bc575568c276288e8d537b18b47",
+      "FaBWTRQueuePureTokenHit": "7d16e9abfbf8d0924cf39fdff7312e48aea9e45458e22ddac5d645895b8a63fc",
+      "FaBWTRResolvePureTokenHit": "fd3ea5e937d42b576b35aaea0882f7490cf0139f93dcf8d757d14ba702713e20"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1c-d",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Hit creates independent triggered layer before priority; effect on resolution, not hit event."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3"
+      ],
+      "finding": "Earned layer resolves independently of later source state; synchronous effect and captured return context."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/09-additional-rules/",
+      "rules": [
+        "9.3.2b",
+        "9.3.3"
+      ],
+      "finding": "Mark applies condition; existing mark removed as part of opponent hit."
+    }
+  ],
+  "validation_plan_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\validation-plan.json",
+    "sha256": "331f3b83bc7f4df4b832e39b61c9bd7f56d379712f23a62f04d2896d156573c3",
+    "approved_as_plan_only": true,
+    "actual_component_results": null,
+    "actual_after_native_results": null,
+    "required_focused_contracts": [
+      "Actual OnHit before/after queue/direct-effect contrast and no duplicate generic selected Hit.",
+      "Earn suppression/positive-hit/live controller/Hero identity negatives.",
+      "Controller distinct from source owner; later source removal/CardID/control/ability changes do not cancel earned effect.",
+      "Original captured hero and transformed same identity versus replacement/wrong zone/seat; malformed mode/payload returns safely.",
+      "All15 legacy token spec/payload/helper outcomes and unchanged CnC dispatch; separate actual-source captures/boundary doubles.",
+      "Root candidate syntax lint, independently reviewed actual-source component preparation, actual Root execution, guarded one-file application, unchanged strict native31/2297 after external guard rebinding, exactSaved/two focused replays and bounded shared-hit native compatibility."
+    ]
+  },
+  "remaining_gates": [
+    "Independent component PREPARATION review and actual Root component execution/lint, with real results; none supplied by this source gate.",
+    "Root operational source application only when authorized; candidate/projection remain W-only and inactive in this review.",
+    "Original strict native after at actual successor context, exact saved review, two clean focused replays and bounded existing shared token-hit/CnC compatibility."
+  ],
+  "limits": [
+    "OnlyselectedPursueEdge printedMark hit migrated; otherMarkcards/otherhitfamiliesunmodified andnotqualified.",
+    "No generalqueue/forgedstate/security/proxyincarnation audit. NewMarktargetcapturedHeroUID checked, physicalsourceindependence preserved.",
+    "Legacytokenfunction/param names retained as ABI; Mark is a condition effect, no fakeMarktoken/helper.",
+    "Originalstrictprobeunchanged; inputallocatorvirtualABI details remainunasserted as authored.",
+    "Current0942 context141applied separately; no141qualification/old333evidenceretagging; authorW-onlyproposal/noPHP/native/sourceapply/fullsuite/remote.",
+    "Source semantics approval only; no PHP/component/native/application executed by reviewer, and no component PASS/qualification/fixture/coverage/fix claim.",
+    "This synchronous selected primitive does not certify general virtual-layer error/async lifecycle or unrelated MARK cards.",
+    "No global Core/distinct-root allocation or source-repair expansion."
+  ],
+  "source_application_executed": false,
+  "component_executed": false,
+  "component_pass_claimed": false,
+  "native_executed": false,
+  "fix_applied": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "denied_operation_retried": false,
+  "repository_writes": false,
+  "review_script_sha256": "1deb472dbde053e017fbf9789518f1114175cd35aab1e734d3b62b70f8a35957"
+}

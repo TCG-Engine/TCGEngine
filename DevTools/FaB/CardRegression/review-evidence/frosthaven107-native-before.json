@@ -1,0 +1,538 @@
+{
+  "status": "NATIVE_CONFIRMED_CREATED_TOKEN_PHYSICAL_OWNER_WRONG_NO_FIX_APPLIED",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "input_sha256": "51360faddbbcc0e603baf1a54f55d35d6bdb32af6c3f26181ca271545f30229a",
+  "manifest_sha256": "085a8828cd2400a262cfa0e9eb1cfe0500a0af392e16160574555cf887b5b7f3",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "card_id": "frosthaven_sheath_red",
+  "group_id": "identity:frosthaven_sheath_red",
+  "slug": "card-frosthaven-sheath-red-four-live-real-ice-pitch-earns-frostbite-and-five-defense",
+  "fixture_saved": false,
+  "fixture_exists": false,
+  "semantically_approved": false,
+  "first_failure": {
+    "error": "Expected p1Arena-0.Owner to equal '4', got '1'.",
+    "native_action_boundary": 25,
+    "source_step_index": 50,
+    "source_check_index": 37,
+    "failed_native_check_ordinal_1based": 2017,
+    "preceding_native_checks_passed": 2016,
+    "completed_prior_boundary_checks": 1979,
+    "same_boundary_checks_before_failure": 37,
+    "assertion": {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 37,
+      "type": "card_property_equals",
+      "mzId": "p1Arena-0",
+      "property": "Owner",
+      "value": "4",
+      "viewerPlayerID": 1
+    },
+    "expected_owner": 4,
+    "actual_owner": 1,
+    "query_kind": "Native card_property_equals directlyreads liveArenaobject.Owner; no ObjectCurrentPower/display/computed owner getter involved."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 25,
+    "action_prefix_sha256": "1702c09afc6baf724f8ff54ef53e6fbe960d22d4f0e559d32f881ce2129d07d3",
+    "last_input": {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "manual_inputs": 20,
+    "priority_response_inputs": 19,
+    "defender_declaration_finish_inputs": 1,
+    "manual_actor_counts": {
+      "1": 5,
+      "2": 5,
+      "3": 5,
+      "4": 5
+    },
+    "fresh_DR_response_actors": [
+      4,
+      1,
+      2,
+      3
+    ],
+    "initial_manual_settings_verified": 48,
+    "initial_physical_uid_locations": {
+      "1": {
+        "card_id": "dorinthea",
+        "zone": "p1Hero",
+        "owner": 1,
+        "controller": 1
+      },
+      "6": {
+        "card_id": "raging_onslaught_red",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "7": {
+        "card_id": "wounding_blow_blue",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "2": {
+        "card_id": "dorinthea",
+        "zone": "p2Hero",
+        "owner": 2,
+        "controller": 2
+      },
+      "3": {
+        "card_id": "dorinthea",
+        "zone": "p3Hero",
+        "owner": 3,
+        "controller": 3
+      },
+      "4": {
+        "card_id": "oldhim",
+        "zone": "p4Hero",
+        "owner": 4,
+        "controller": 4
+      },
+      "5": {
+        "card_id": "frosthaven_sheath_red",
+        "zone": "p4Hand",
+        "owner": 4,
+        "controller": 4
+      },
+      "8": {
+        "card_id": "winters_grasp_blue",
+        "zone": "p4Hand",
+        "owner": 4,
+        "controller": 4
+      }
+    },
+    "initial_gamestate_sha256": "3c98652a0a0d5227bd47142b9177764cf83e335f55e650e5f9a10415eff94ed5",
+    "proved_payment": "ActualP4Source5DEFENSE_REACTIONowner/controller4 withpendingcost1, realoriginalIceWinterGraspBlue8Pitch3\u2192P4R2/AP0; actualcapturedpenPitchTypesIce/elePitchedIce true. No historyseed.",
+    "proved_failure_boundary": "All4HP20/P4R2/allAP0/allqueuesempty/Stack0, actualp1Arenacount1/CardIDfrostbite/UniqueID9 passed beforeOwner. DirectliveOwner query returns1."
+  },
+  "same_boundary_passed_checks": [
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 0,
+      "type": "scalar_zone_equals",
+      "zone": "PriorityPlayer",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 1,
+      "type": "scalar_zone_equals",
+      "zone": "ConsecutivePasses",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 2,
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "window"
+      ],
+      "comparison": "equals",
+      "valueJson": "\"REACTION\"",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 3,
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "combatOpen"
+      ],
+      "comparison": "equals",
+      "valueJson": "true",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 4,
+      "type": "scalar_zone_equals",
+      "zone": "p1Health",
+      "value": 20,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 5,
+      "type": "scalar_zone_equals",
+      "zone": "p1Resources",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 6,
+      "type": "scalar_zone_equals",
+      "zone": "p1ActionPoints",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 7,
+      "type": "decision_queue_empty",
+      "player": "1",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 8,
+      "type": "scalar_zone_equals",
+      "zone": "p2Health",
+      "value": 20,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 9,
+      "type": "scalar_zone_equals",
+      "zone": "p2Resources",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 10,
+      "type": "scalar_zone_equals",
+      "zone": "p2ActionPoints",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 11,
+      "type": "decision_queue_empty",
+      "player": "2",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 12,
+      "type": "scalar_zone_equals",
+      "zone": "p3Health",
+      "value": 20,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 13,
+      "type": "scalar_zone_equals",
+      "zone": "p3Resources",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 14,
+      "type": "scalar_zone_equals",
+      "zone": "p3ActionPoints",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 15,
+      "type": "decision_queue_empty",
+      "player": "3",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 16,
+      "type": "scalar_zone_equals",
+      "zone": "p4Health",
+      "value": 20,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 17,
+      "type": "scalar_zone_equals",
+      "zone": "p4Resources",
+      "value": 2,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 18,
+      "type": "scalar_zone_equals",
+      "zone": "p4ActionPoints",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 19,
+      "type": "decision_queue_empty",
+      "player": "4",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 20,
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "pendingPayment"
+      ],
+      "comparison": "missing_or_null",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 21,
+      "type": "zone_count",
+      "zone": "p1Deck",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 22,
+      "type": "zone_count",
+      "zone": "p1Temp",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 23,
+      "type": "zone_count",
+      "zone": "p1Equipment",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 24,
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 25,
+      "type": "zone_count",
+      "zone": "p1Hand",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 26,
+      "type": "zone_count",
+      "zone": "p1Arsenal",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 27,
+      "type": "zone_count",
+      "zone": "p1Weapons",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 28,
+      "type": "zone_count",
+      "zone": "p1Pitch",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 29,
+      "type": "card_property_equals",
+      "mzId": "p1Pitch-0",
+      "property": "CardID",
+      "value": "wounding_blow_blue",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 30,
+      "type": "card_property_equals",
+      "mzId": "p1Pitch-0",
+      "property": "UniqueID",
+      "value": "7",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 31,
+      "type": "card_property_equals",
+      "mzId": "p1Pitch-0",
+      "property": "Owner",
+      "value": "1",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 32,
+      "type": "card_property_equals",
+      "mzId": "p1Pitch-0",
+      "property": "Controller",
+      "value": "1",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 33,
+      "type": "zone_count",
+      "zone": "p1Graveyard",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 34,
+      "type": "zone_count",
+      "zone": "p1Arena",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 35,
+      "type": "card_property_equals",
+      "mzId": "p1Arena-0",
+      "property": "CardID",
+      "value": "frostbite",
+      "viewerPlayerID": 1
+    },
+    {
+      "step": 25,
+      "source_step": 50,
+      "source_check_index": 36,
+      "type": "card_property_equals",
+      "mzId": "p1Arena-0",
+      "property": "UniqueID",
+      "value": "9",
+      "viewerPlayerID": 1
+    }
+  ],
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_TOKEN_CREATOR_OWNERSHIP_NOT_PRESERVED",
+    "protocol_or_oracle_error": false,
+    "normative": "CR1.3.1a gives ownership to the player instructed to create a card. CurrentprintedFrosthaven instructs its P4controller to create a Frostbite underattackingheroP1control. Thus Owner4 and Controller1 are distinct correct expectations. BondIF is a resolvingconditional effect (CR8.4.15), not a missingWHENlayer.",
+    "native_confirmed": "After actualpaidIceBond resolution, the identifiednewFrostbiteUID9 exists inP1Arena but its actualOwner property is1 instead of4. This is not a query/displayrepresentation error: the framework directlyreads stored object.Owner and the class has an explicitserializedOwnerfield.",
+    "source_cause": "CanonicalFrosthaven calls FaBHVYToken(victim1,frostbite,1,player4). Its4th argument is effect-controller provenance, not tokenOwner. Optional7thowner is omitted/null; helpercreator defaults to recipientp1 and rawCreateArena receivesnullowner. CreateArena constructs Owner=owner??recipient and Controller=recipient. Sourceexplains actualOwner1; no sharedfactory/globalmigration proposed here.",
+    "attribution": "OnlythisnativeFrosthavenpositive proves wrongtokenownership. Othercallers/creationbonuses/currentController result/futurebehavior remain outside native scope; Root107/globalroot/Core allocation remainsunallocated."
+  },
+  "source_evidence": {
+    "files": {
+      "Core\\RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "FaBSim\\ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "FaBSim\\Custom\\HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+      "FaBSim\\Custom\\WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+      "DevTools\\FaB\\pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054"
+    },
+    "anchors": [
+      "RegressionTestFramework1098\u20131108 directGetZoneObject Owner read",
+      "ZoneClassesArena explicit Ownerproperty/parser/serialization",
+      "canonicalFrosthavenResolveCard FaBHVYToken(victim,frostbite,1,player)",
+      "HVYToken explicitowner7 defaultsnull, creator=owner??recipient, forwardsowner",
+      "WTRCreateArena AddArenaOwner(owner??recipient), Controllerrecipient"
+    ]
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4514/",
+      "finding": "CurrentIFIce-pitched createunderattackercontrol/cost1/DEF5 independentlyread inpriorproof."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "section": "1.3.1a",
+      "finding": "Creatorownership rule already independentlyverified; correctV2expectedOwner4 staysstrict."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "section": "8.4.15",
+      "finding": "Bondlabels a conditionalresolution ability, not a responseableWHEN."
+    }
+  ],
+  "limits": [
+    "Controller assertion follows thefailedOwner check and was NOT executed. ActualController1 is source-derived fromfactoryAddArena, not an additionalnativepropertyquery result. No fullpostfailurephysicalzonesnapshot was captured.",
+    "TokenStatus/Damage/Counters afterOwner, postresolutionphysicalDR5Chainproperties, currentpower/GA atthissameboundary, actualDEF5query, laterphysical2damage/P4HP18/finalGY/Pitch/tokenpersistence/fullcleanup remain unexecuted. StatecacheddefenseValue0/attackPower0 are not fresh defense/power evidence.",
+    "Onlyprefixreactiondamageunresolved: actualstateREACTION/hitfalse/damageDealt0. Neverclaimdamage2/HP18 or any postfailurefuturetax/WHENdestroy/endphase result.",
+    "InitialV1Owner1draftneverinstalled/executed, independentlyheld and correctedbeforefirstnative. OriginalinputandV2strictprobe preserved; no expectationalteration/sourcefix/companionrun.",
+    "No PHP/native/R/source/service/gen or deniedrepairretry/reroute/integration byreviewer, no wholecatalogaudit/fullsuite/globalrootcount/sibling/supportprimary/fullcardcredit."
+  ],
+  "source_fix_applied": false,
+  "source_spec": "card-regression-batch431-creator-ownership-v2.json",
+  "independent_full_peer_sha256": "59ae0a2f3db702a1a57ece882049ba27612e9836c64dc88a9489887af359c492",
+  "original_wrong_owner_draft_installed_or_executed": false,
+  "native_recording_results": {
+    "path": "card-regression-batch431-creator-ownership-v2.recording-results.json",
+    "sha256": "7ff95c8ce2125e31e04c4c472902c8ea28441e5de31a8bed7c7339d7baa56e6d"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch431-creator-ownership-v2-20261105T075003Z-6aec352b334f1.json",
+    "sha256": "1a595cc32c92d09f95587c54e0bbecc3c03186afb087a0098f05318d3a331abb"
+  },
+  "observed_state": {
+    "window": "REACTION",
+    "combatOpen": true,
+    "combatStep": "REACTION",
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 6,
+    "attackHit": false,
+    "damageDealt": 0,
+    "pendingPayment": null
+  },
+  "retention": "Compact direct stored-Owner witness; full failed state and initial native fixture remain in immutable repository archive. No passing fixture or source repair."
+}

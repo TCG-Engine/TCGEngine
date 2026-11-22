@@ -1,0 +1,195 @@
+{
+  "status": "APPROVED_ACTUAL_SMASHING_V2_EMITTED_SIX_FAMILIES_AND_BODY_SCOPE_SOURCE_PAIRING_REQUIRED",
+  "approved": true,
+  "actual_generated_body_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T15:20:21.763203+00:00",
+  "emitted_php": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-guarded-application-generation\\emitted-output-preserved\\GeneratedMacroCode.php",
+    "sha256": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df"
+  },
+  "emitted_count": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-guarded-application-generation\\emitted-output-preserved\\GeneratedMacroCount.js",
+    "sha256": "7576a12c264373f0df180cb103010797419d071f412884d283d31d135a9514cc"
+  },
+  "before_php_sha256": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6",
+  "before_count_sha256": "2f9d5b52ba9eabf61646de651cce1f30fae9a7bca5654b05aa761f3e573a38ab",
+  "actual_scope": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-guarded-application-generation\\actual-generated-scope-after-wrapper-stop.json",
+    "sha256": "1fd9619eb44614cce080e99d18ec34df78d6e42b8ce54325be1ba491b4d25d6d",
+    "independently_recomputed": true,
+    "selected_blocks": 12,
+    "all_unselected_php_bytes_exact": true,
+    "Count_substance_exact_timestamp_only": true,
+    "unrelated_php_sha256": "e32595604fff5203cb63677f4fea9b2cbaf6222e108be260bf33f76edd12c628"
+  },
+  "families": [
+    {
+      "card_id": "smashing_good_time_blue",
+      "ResolveCard": {
+        "wrapper_sha256": "5af7e69ea6c260cb4ad45f0290605b4d1710842caea2c97c3a3b9797f55e7923",
+        "changed": true,
+        "exact_canonical_statements": true,
+        "AA_only_bonus": 1
+      },
+      "ResolveAbility": {
+        "wrapper_sha256": "e565f836f9fc8a637bfc988bdf3827d08b0dac04b3eb63ef633501be3d5d3641",
+        "wrapper_changed": false,
+        "callback_sha256": "e790ec504341095ab507ee356c7eae5104a9ef267a68dca459ef769b01038426",
+        "callback_changed": false,
+        "owned_helper": "__RunAwait_b38029be27fd101fd6e4",
+        "helper_sha256": "da0bdd2e2ff80b14670e75cfbd38413ecb8c4d8e7fae8dad2e11d8d6d1803573",
+        "helper_changed": true,
+        "exact_change": "Onlycapturedvictimprelude; allotherstate-machinebytesunchanged"
+      },
+      "family_semantics_changed": true
+    },
+    {
+      "card_id": "smashing_good_time_red",
+      "ResolveCard": {
+        "wrapper_sha256": "af8380b169c4c54c862eb62ced38d2c879a9aaa0fda2e1ffc735c2f1363789d3",
+        "changed": true,
+        "exact_canonical_statements": true,
+        "AA_only_bonus": 3
+      },
+      "ResolveAbility": {
+        "wrapper_sha256": "1ad7d9b1ddbe56c34b47c407daf45bc912a7cf6aad03eb6c7b97e6cb54a45438",
+        "wrapper_changed": false,
+        "callback_sha256": "e6f5fd251d4799e375428dfa5c59ed5073d39f363cde1ffdd48e772cbec7eb65",
+        "callback_changed": false,
+        "owned_helper": "__RunAwait_ba7c6b4e3a6420d335b0",
+        "helper_sha256": "956423cf9057d4459afabc73ba29afc2da29d231700107e0220eb229bec33d9c",
+        "helper_changed": true,
+        "exact_change": "Onlycapturedvictimprelude; allotherstate-machinebytesunchanged"
+      },
+      "family_semantics_changed": true
+    },
+    {
+      "card_id": "smashing_good_time_yellow",
+      "ResolveCard": {
+        "wrapper_sha256": "db665272ebdeb4ef71cddbaadb7a07a1f1ed0636b96806f9ca38894fe320eafd",
+        "changed": true,
+        "exact_canonical_statements": true,
+        "AA_only_bonus": 2
+      },
+      "ResolveAbility": {
+        "wrapper_sha256": "944c9752ed67830d9163c641eaac4e9bb2b7b6087b50b48ae8485219ac5331cf",
+        "wrapper_changed": false,
+        "callback_sha256": "08efa425cedb857232e56496c5b8ba5cd0ca8d1d127f3e1cd364a5ccc269b8ee",
+        "callback_changed": false,
+        "owned_helper": "__RunAwait_197e4a91a4b50070804d",
+        "helper_sha256": "ba30968bc1acd93b175aab945a2af91411b54468bf96d94c4965b2f69f7d958d",
+        "helper_changed": true,
+        "exact_change": "Onlycapturedvictimprelude; allotherstate-machinebytesunchanged"
+      },
+      "family_semantics_changed": true
+    }
+  ],
+  "canonical_manifest_sha256": "f7626923b8b540bec3250b54cd5750b8407ae769f76f3a263486265aa23843db",
+  "source_semantic_approval_sha256": "2730e404303a147d8eac9c337c793bce2c0317fdfda0dabc014a19654909ebaf",
+  "scope_approval_sha256": "dc45aef190f7b1ea0e8bd4084ab2ffcf91b02854eac29dba3e3088770a01b423",
+  "actual_emitter_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-guarded-application-generation\\receipt.json",
+    "sha256": "511c94388cb486eaa5e9384d4efdaf3891a8cd12e82e4340d4145bfa027ee076",
+    "exit_code": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wrapper_status": "FAILED_EXTRA_OUTER_WRAPPER_ASSERTION_NOT_GENERATOR_OR_CARD_SEMANTIC_FAILURE"
+  },
+  "current_runtime_sha256": "4006fa3163092d8bab2c3c9b26a90afd9f53280f3476e1803e77c2f0062e161a",
+  "current_sources_are_restored_preSmashing": true,
+  "source_pairing_required": true,
+  "source_files_to_pair": [
+    {
+      "path": "DevTools/FaB/evr_abilities.json",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\DevTools\\FaB\\evr_abilities.json",
+      "before_sha256": "4c5f45496d8b1536729525f3a017d3e0f267dd19d571c0d137295b0ed3ee90f8",
+      "after_sha256": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+      "predecessor_reference": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\evr_abilities.json",
+      "V1_candidate_sha256": "a11784ab2798d66e15c28a13d9e503a6f5f047780d98714f9af91cc569f47398",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE"
+    },
+    {
+      "path": "DevTools/FaB/build_evr_abilities.py",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\DevTools\\FaB\\build_evr_abilities.py",
+      "before_sha256": "6bfc7af840d936911ccd2b34c95970f7d07688b7f92564c1d0f1d2d3d75663ad",
+      "after_sha256": "786fe553984f50ef207122bc9330fb47ba6fd4391c22c99f65630b9f1b338955",
+      "predecessor_reference": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\build_evr_abilities.py",
+      "V1_candidate_sha256": "0b4fdc00ac18f8deacd04e3a0b20568f01cbb5c760f1dc358e05fc25c6f4582c",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE"
+    },
+    {
+      "path": "FaBSim/Custom/EVRCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\FaBSim\\Custom\\EVRCards.php",
+      "before_sha256": "dee27af62c574dc67e99daf1455fb35e806f4a2299479401027cd999c386ff52",
+      "after_sha256": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "predecessor_reference": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\EVRCards.php",
+      "V1_candidate_sha256": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php",
+      "before_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6",
+      "after_sha256": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7",
+      "predecessor_reference": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-repairs065069-reconciliation-9075\\stage066-exact-reviewed\\FaBSim\\Custom\\ROSCards.php",
+      "V1_candidate_sha256": "7ae2c885b1580d010aa0ea19bd5e3bd7611f26ad2d06ff7c905993f842d5c4f2",
+      "application": "MERGE_ONLY_REVIEWED_FRAGMENT_NOT_WHOLE_STALE_FILE"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php",
+      "before_sha256": "8ceef24c7fe2f311bc7bda5f039dcec4bda57fb8e1866f382855ae37c119229a",
+      "after_sha256": "8829dc0c85903c5c26e82bf3a6df0c5a0db5f53658deeb049871a81c390acbff",
+      "predecessor_reference": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CodeGeneration.php",
+      "V1_candidate_sha256": "bd4b53607f5dafae80f3b39124af878a7ad63b15d733f5d8490258fbed220c3c",
+      "application": "MERGE_ONLY_REVIEWED_FRAGMENT_NOT_WHOLE_STALE_FILE"
+    }
+  ],
+  "findings": [
+    "Actual3ResolveCardwrappers exactlyapprovedcanonicalstatements: originalNAAUIDregisteronce, existingfabSourceZoneArsenalonly, existingSUP_NEXT_AA3/2/1; noawait/directduplicateproducer/weaponeligibility.",
+    "Actual3ResolveAbilityfamilieschangeintheir3ownedhelpers; outerwrappers+callbacks legitimatelybyteidenticalbecauseexistingemitterindirectionretainshelpernames. All3helperdiffs exactlycapturedvictimlookupandpositivevictimgate; priorcurrentdefenderfallbackgone. Rawouter-changeassertionwasoverstrictoperationalwitness, notgeneratedsemanticerror.",
+    "WrapperBeginAwaitFrame savesonlysourceMZstring andentersPC5; helpercapturesvictimint/defaultPASS/refstring, PC4checkseligibleItemsatresolution. PC3serializesonlyscalar/stringlocals thenMZMAYCHOOSE+ownCUSTOMcallbackPC2; callbackstoreschosen/framestate, resumesownhelper. PASSorNoItemsreachesPC0Finish; actualchoicePC1doesliveMZlookupUIDthenexistingFaBPENDestroy(actor)andfinishes. Nozoneobjectheldacrossawait, noforeignhelper/callback, no repeatedregistration/bonus or callbackearlycontinuation.",
+    "ExistingFaBEVRTargetsItemfilter restrictscapturedhero/liveItemsprintedcost<=2. ExistingPENdestroywrapperpreservesactorattribution/protectionthenMONDestroy, sameemittermappingbeforeandafter. SmashingisoptionaldestroyItem, notrandomdiscard/declaredtarget.",
+    "ActualallunselectedPHPbytesunchangedexceptonevalidgeneratortimestamp; Countentirecontentsunchangedexcepttimestamp. All18135fixturefilepath/size/mtime metadatahash matchesoriginalbefore; source5confirmedrestoredbeforebytes, preservedemittedcopiesexactlycurrentoutputs."
+  ],
+  "async_trigger_lifetime_scope": {
+    "status": "UNATTEMPTED_SHARED_ROS_SOURCE_ONLY_CONCERN_NOT_NATIVE_CONFIRMED_NOT_PART_OF_SELECTED_NO_ITEM_QUALIFICATION",
+    "source": "CurrentGameLogic1535-36 excludesrosTriggerfromARCmanagedvirtualclass;1660-61 marksproxyremovedbeforeFaBROSResolveTrigger.",
+    "correction_to_prior_wording": "EarlierV1source-reviewmanagedABILITYphrasewasoverbroad. Actualgeneratedhelpercallback/framecompletionverified; retainedtriggerproxyStackduringItemchoiceNOTverified/approved.",
+    "selected_route": "OriginalcorrectnoItemsprobe has noawaitatresolution, takesPASS/Finishwithinoneinput afterfourearnedresponses. Thisgeneratedbodygate approves exactcanonicalcode/currentselectedroute, notasyncfullcardqualification.",
+    "no_new_bug_or_coverage_credit": true,
+    "no_source_proposal_or_repair": true,
+    "rule_reference": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+  },
+  "fixture_preservation": {
+    "file_count": 18135,
+    "metadata_sha256": "09acf37e45f3a94bd11f26f128722957aec856e359e571fcba748c16481a48b6",
+    "independently_recomputed": true,
+    "canonical_scenario_count_at_generation": 3627
+  },
+  "holds": [],
+  "required_next": [
+    "RootmustpairONLYsame5approvedcandidate-sourcebyteswiththeseexactpreservedemittedoutputs undercurrent4006guards; noemitterrerun/manualgeneratededit neededorapprovedbythisproof.",
+    "Actualsource/generatedPHPsyntaxlintsstillrequired: wrapperstoppedbeforeitslintstage. Keepgenerationfailedreceiptunchangedandrecordsourcepairingseparately.",
+    "ThenunchangedcorrectRedorigin/hitprobe, independentexactsavedreview/twofreshreplays plusfocusedweapon->AArepairwitness whereapproved. No Yellow/Blue nativecoverage fromthissourcefamilyreview."
+  ],
+  "PHP_native_generator_service_executed_by_reviewer": false,
+  "R_writes": false,
+  "native_credit": false,
+  "limits": [
+    "Actualgeneratedbody/scopeonly; no gamesrunduringincoherentsource/outputpairing.",
+    "NoItemselection/destruction/retainedtriggerawaitlifetime/foreignownership/elimination/simultaneousordering/fullcard/sibling/control/fullsuitecredit."
+  ],
+  "semantically_approved": true,
+  "semantic_approval_scope": "LIMITED_EXACT_CANONICAL_EMISSION_AND_SELECTED_NO_ITEMS_ROUTE_ONLY_NOT_FIXTURE_OR_FULLCARD_QUALIFICATION",
+  "generated_php_sha256": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df",
+  "generated_macro_sha256": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df",
+  "generated_count_sha256": "7576a12c264373f0df180cb103010797419d071f412884d283d31d135a9514cc",
+  "runtime_sha256": "4006fa3163092d8bab2c3c9b26a90afd9f53280f3476e1803e77c2f0062e161a",
+  "temporary_runtime_not_qualified": true,
+  "schema_clarification_prior": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-actual-generated-independent-review.json",
+    "sha256": "ec5dda3979594c3f2ddd7d2ad0dbc730a84dfdb4670499e4f41234f24d9407d6",
+    "body_and_scope_findings_unchanged": true
+  }
+}

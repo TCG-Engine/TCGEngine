@@ -1,0 +1,303 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_CHANNEL_FIRST_DAMAGE_PREMATURE_DRAW_BEFORE_EARNED_RESPONSES",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 868,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "new_issue": false,
+  "retention_approved": true,
+  "scenario_primary_context_card_id": "channel_lightning_valley_yellow",
+  "confirmed_defective_producer_card_id": "channel_lightning_valley_yellow",
+  "confirmed_defective_producer_function": "FaBROSDamaged",
+  "confirmed_branch_scope": "Only the pre-firmed first opposing-Hero damage draw branch; once-per-turn second-event consumer, prior casting and upkeep/end branches are not qualified.",
+  "context_primary_effect_qualified": false,
+  "confirmed_premature_draw_before_earned_responses": true,
+  "confirmed_typed_Native_earned_layer_absence": false,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal ROSCards65..67 Channel inline draw is confirmed at this first-damage frontier. Root may allocate prospective202; no distinct shared/Core/root-group or complete once-per-turn/full-card credit is allocated by reviewer.",
+  "source_spec": "card-regression-batch868-channel-first-damage-earned-draw-consumer-probe.json",
+  "input_sha256": "ca0b73f1e9e99fb19217a1d447041cf2cb29a60e4adc973435246e7e89921b95",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-first-damage-earned-draw-real-second-attack-strict-probe-author\\channel-first-damage-earned-draw-real-blue-consumer-full-probe.json",
+    "sha256": "ca0b73f1e9e99fb19217a1d447041cf2cb29a60e4adc973435246e7e89921b95"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-first-damage-earned-draw-real-second-attack-strict-probe-author\\manifest.json",
+    "sha256": "5015be09f1aa8e61b00dd28a9d9dcae4cf58328a40cbe0e9c9f81b8aeecd3c44"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "runtime_before_after_unchanged": true,
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-independent-first-damage-diagnostic-source-review.json",
+    "sha256": "eea2ec60af0dccb8d5233013517ba9ec6d1253817ed551489b821eaeb9976116"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b868-channel-strict-native-cdc\\receipt.json",
+    "sha256": "a7343bcfe382b8f364ef5148b77e7474d6b91b25dead6c570b1cd87b0e29c867"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b868-channel-strict-native-cdc\\actual-result.json",
+    "sha256": "c7a165d19177cef8ea4c0cd7a4623de70fb2ac698a2bf81f902cff46d46bb263"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch868-channel-first-damage-earned-draw-consumer-probe-20261116T134356Z-6afb089c0dbb7.json",
+    "sha256": "c38ad73033c7d591674911e839f823b3534cf9ec199de2fe7f4ed365929f0ac9"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch868-channel-first-damage-earned-draw-consumer-probe.recording-results.json",
+    "sha256": "c7a165d19177cef8ea4c0cd7a4623de70fb2ac698a2bf81f902cff46d46bb263"
+  },
+  "planned_controls": 57,
+  "planned_queries": 6898,
+  "planned_pass_controls": 54,
+  "planned_legal_priority_response_controls": 52,
+  "planned_defense_finalizers": 2,
+  "planned_nonpriority_END_transports": 0,
+  "actual_native_inputs": 23,
+  "actual_native_actor_counts": {
+    "1": 7,
+    "2": 5,
+    "3": 5,
+    "4": 6
+  },
+  "actual_manual_inputs": 23,
+  "actual_manual_actor_counts": {
+    "1": 7,
+    "2": 5,
+    "3": 5,
+    "4": 6
+  },
+  "actual_manual_inputs_definition": "All23 manually controlled Native inputs: one Scar play click, one formal target answer, and21 PASS envelopes. PASS envelopes are separately classified below.",
+  "actual_pass_envelopes": 21,
+  "actual_pass_actor_counts": {
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 6
+  },
+  "actual_legal_priority_response_controls": 20,
+  "actual_legal_priority_actor_counts": {
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 5
+  },
+  "actual_defense_finalizer_controls": 1,
+  "actual_nonpriority_END_transports": 0,
+  "actual_Scar_played_WHEN_response_inputs": 4,
+  "actual_physical_Scar_Source_response_inputs": 4,
+  "actual_Scar_ATTACK_response_inputs": 4,
+  "actual_Scar_DEFEND_PRIORITY_response_inputs": 4,
+  "actual_Scar_REACTION_response_inputs": 4,
+  "actual_earned_Channel_response_inputs": 0,
+  "actual_completed_four_seat_manual_response_cycles": 5,
+  "all_native_envelopes_independently_match_original_Source_prefix": true,
+  "persisted_successful_queries": 2664,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "9b12b7fca5a79f9dd5debd6a12ff2066c62fc385e4e709c6104e0ea4032e2cab",
+  "first_failed_query": {
+    "source_step_index": 46,
+    "source_check_index": 1,
+    "checkpoint": "ScarREACTION_four_actualFIRST4damage_HP4_16_earnsChannelBEFOREdrawBlue7_fourthResponse",
+    "native_after_input": 23,
+    "query_ordinal_in_checkpoint": 2,
+    "global_query_ordinal": 2665,
+    "query": {
+      "step": 23,
+      "type": "zone_count",
+      "zone": "p1Hand",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    "expected": 0,
+    "actual": 1,
+    "error": "Expected p1Hand count 0, got 1."
+  },
+  "queries_unrun_after_failed_query": 4233,
+  "not_passed_including_failed_query": 4234,
+  "native_controls_unrun": 34,
+  "declarative_controls_unrun": 34,
+  "manual_inputs_unrun": 34,
+  "pass_envelopes_unrun": 33,
+  "unrun_control_breakdown": {
+    "Channel_earned_responses": 4,
+    "Scar_DAMAGE_responses": 4,
+    "drawn_Blue_play_click": 1,
+    "Blue_Source_responses": 4,
+    "Blue_ATTACK_responses": 4,
+    "second_defense_finalizer": 1,
+    "Blue_DEFEND_PRIORITY_responses": 4,
+    "Blue_REACTION_responses": 4,
+    "Blue_DAMAGE_responses": 4,
+    "RESOLUTION_close_responses": 4
+  },
+  "passed_current_cluster_queries": 1,
+  "initial_raw_sha256": "c7a9e50aad5b2b0bdd141ffd3bcfd680e13de3b2a643670b922f03dd99f397bb",
+  "initial_raw_48_manual_controls": true,
+  "initial_raw_queries_independently_evaluated": 133,
+  "genuine_four_live_manual_seats_initial": true,
+  "genuine_four_seat_manual_interactions_completed": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All133 original initial queries independently evaluate against complete actual raw c7a9e50a: Young Aurora1 health17 and Betsy2/3/4 health20, four live/manual UPF seats/no passive seats, holdPriority plus11 disabled auto windows each(48 controls), AuraUID5 owner/controller1, ScarUID6 Hand1 and ordered BlueUID7 then RedUID8 Deck1. No draw/GA/first-damage marker is seeded.",
+    "Every one of23 exact native envelopes and2664 persisted queries matches the approved ordered Source prefix. Actual P1 Scar click and formal Hero4 answer pay native0cost/AP1->0. The proper played-WHEN four responses occur before GO_AGAIN tag, then four fresh physical Source responses, four ATTACK responses, one P4 zero-defense finalizer, four DEFEND_PRIORITY responses and four REACTION responses. No Channel response occurred.",
+    "Through control22 pre-damage checkpoints, physical ScarUID6 is current ATTACK/CombatChain0, computedpower4/goagain1; Aura5 owner/controller1 persists, Hand1=0 and original Blue7/Red8 physical Deck order is typed, AP1=0 and all relevant other zones/Stack are checked. These are last observed pre-damage physical facts, not an invented post-damage snapshot.",
+    "At actual first-damage control23, public Hero4 scalar query2664 directly passes health16 after prior20. Next query2665 directly observes p1Hand count1 where correct earned timing requires0. This confirms the draw effect happened before any Channel fresh response, rather than merely a wrong internal label or a correctly timed later Hand1 endpoint."
+  ],
+  "causal_source_findings": [
+    "Printed first-time damage is an ordinal triggered effect under CR6.6.1/6.6.5d/6.6.6, not a replacement. Aura controller1 must receive its captured earned layer after real damage and all live players must be able to respond before its draw resolves. Prior cast/end-flow/upkeep were excluded by firm scope before bodies; no later branch is silently substituted.",
+    "Actual generic Scar is a legal0cost4P attack and its conditional played-WHEN is properly queued by WTRCards584/WTRAbilities230..239. Full support source/trigger responses are present in the actual prefix. Scar has no own printed draw; unused Aurora activation and Betsy wager are not entered, and no other draw source/card exists in the fixed setup.",
+    "Actual GL2055..2089 starts DAMAGE, computes and applies the physical attack to real Hero4; GL2001 changes health and GL2004 calls FaBROSDamaged. The guarded ROSCards65..67 function sets ROS_DAMAGE and ROS_VALLEY_HIT then directly DoDrawCard(player,1) for the actual Channel Aura. GL2437..2448 performs a real Deck-to-Hand move before returning, without a separate earned Channel response boundary. This is the attributed literal producer.",
+    "Captured ROS_DAMAGE4 -> ROS_VALLEY_HIT1 -> SEA_DRAWN1 -> DTD_DRAWN1 and observed Hand1 reference corroborate the actual early draw and physical-damage context. Native typed post-damage Deck count/order/UID, Channel Stack count/source/controller, AP refund, drawn Blue identity and later functional once-per-turn consumer were never reached and are not certified. The causal code selects the prior top card, but that does not substitute for an executed post-damage UID query."
+  ],
+  "captured_corroboration": {
+    "observed_state_fields": {
+      "window": "DAMAGE",
+      "combatOpen": true,
+      "combatStep": "DAMAGE",
+      "chainLink": 1,
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 6,
+      "attackTarget": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "attackPower": 4,
+      "defenseValue": 0,
+      "damageDealt": 4,
+      "attackHit": true,
+      "pendingPayment": null,
+      "passiveSeats": [],
+      "gameMode": "UPF"
+    },
+    "exact_ordered_path": "observed_state.turnEffects[\"1\"]",
+    "exact_ordered_value": [
+      {
+        "type": "CRU_ATTACKS",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_PLAYED",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "HNT_ATTACKS",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "HNT_AA_ATTACK",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "HNT_ATTACKED_4",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SEA_ATTACKED",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SUP_ATTACKS",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "MON_LAST_scar_for_a_scar",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "ELE_AA_COMBAT",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "ROS_DAMAGE",
+        "amount": 4,
+        "uses": 1
+      },
+      {
+        "type": "ROS_VALLEY_HIT",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SEA_DRAWN",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "DTD_DRAWN",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "MON_PHYSICAL",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_PHYSICAL",
+        "amount": 4,
+        "uses": 1
+      }
+    ],
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [
+        "p1Hand-0"
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "interpretation_limit": "Captured game fields/history/Hand reference corroborate early draw, but are not a post-damage physical roster or typed Stack/Deck/UID certificate. Cached attackPower4 is contextual; actual health16 and Hand count1 queries are the principal Native witnesses."
+  },
+  "postfailure_raw_limit": "Only actual initial physical raw plus captured game-state/decisions/hand refs is available. The failed Hand query stops before post-damage typed Deck7/8, layer/source fields, AP and all later Channel responses/drawn-card play/second damage/no-second-draw/cleanup. No final physical raw48 is claimed.",
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.5d",
+        "6.6.6"
+      ]
+    }
+  ],
+  "limits": [
+    "4233 queries after failed2665 and34 future controls are unrun;4234 not-passed includes the failed query. No successful correct sequence/Save/promotion/coverage/final-raw certificate.",
+    "Only first-damage early draw is reproduced. Once-per-turn second-event prevention, actual drawn UID7/attack2/finalHP14, prior Aura play, other events/upkeep/end/unused Hero/support/siblings/full-card coverage remain unqualified.",
+    "No PHP/Native/Rwrites/replay/newagents/sourcefix/root/Core allocation or deniedReincarnate199/older repair retry by reviewer."
+  ],
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false
+}

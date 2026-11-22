@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch378.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T18:43:32.490845+00:00",
+  "fixtures": [
+    {
+      "slug": "card-buckle-blue-four-live-sparse-real-paid-next-guardian-power-dominate-single-hand-equipment-fullblock",
+      "fixture_sha256": "7748ce9f11a3b9d62f4fec793bdca14c1db013cee7d1f0003b6041e5f3a97a8b",
+      "passed": true,
+      "result": "[PASS] buckle_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-buckle-blue-four-live-sparse-real-paid-next-guardian-power-dominate-single-hand-equipment-fullblock",
+      "returncode": 0,
+      "stdout": "[PASS] buckle_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-anthem-of-spring-blue-four-live-original-correct-probe-real-next-attack-action-plus-one-fullblock"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}
