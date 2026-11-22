@@ -1,0 +1,406 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_FRENZY087_ONLY_EXISTING_OBLIVION_REVIEW_UNCHANGED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T19:58:12.083412+00:00",
+  "source_spec": "card-regression-batch381.json",
+  "input_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-two-shadow-effects-author\\manifest.json",
+  "manifest_sha256": "2b2ebb3a9465ef5e2e515fc39d7a4222b97b06848a7a6b481c8c02d067155ff8",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "current_source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/ROSCards.php": "24a0348f1ec45273784ed293ee57b5247596849797ada944d65f229bbd5c961c",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/dtd_abilities.json": "eca8a13fd892fa879ec3e6b527e8661a0cc656551594bd313ec50ab4817de9e5"
+  },
+  "source_guards_verified": 23,
+  "selected_indices": [
+    1
+  ],
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-independent-source-review.json",
+    "sha256": "b1f772c9794ef0f384821618a85cf93b12d06fe3aadf59015d61454964b7176b",
+    "original_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+    "reused_not_retagged": true
+  },
+  "repair_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-independent-source-review.json",
+    "sha256": "429ad3701b97179055aa6e3f7f96ad0fd06bf69a0601acfc635309d15d2e5cc9"
+  },
+  "application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-source-application\\receipt.json",
+    "sha256": "53a916754837f4ef398ec446dc082274d284d1041e1b3350dbb0739976409776"
+  },
+  "prior_Cull_context_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-source-application\\receipt.json",
+    "sha256": "aaee1e5890207cdf1fd455fe184e978ced9a8c25889bbb7fb18f0471572a999e"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch381-20261104T195431Z-6aeb8d77a53ed.json",
+    "sha256": "f5427407216f8e423f65a251aad1ef26b6b45b325835d81afe0f263180a5a77c"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-native-after-527c-r1\\receipt.json",
+    "sha256": "6ab15876f54f243dc167157374276434f94e6f08ee8c5e53151fb883fed9650b"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_frenzy087_saved_readonly.py",
+    "sha256": "9b66a32e81ba387c4d485dc3d99e2717cbaf323f03bf2437ee4d9a4667d3ecd0"
+  },
+  "native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-frenzy-independent-native-before-classification.json",
+    "sha256": "b440a9d57925fb6c1e4115302eb078ea6b8de0236290fe1c523ae3a30693da51",
+    "same_initial_bytes": true,
+    "original_spec_and_expectations_unchanged": true
+  },
+  "existing_reviewed_rest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-oblivion-exact-saved-independent-review.json",
+    "sha256": "fc9f11f85d8bcdb2f62c15e90389d5526ce4b991a99001bad0eb74b39a89eb8a",
+    "slug": "card-oblivion-blue-four-live-sparse-real-exact-six-owned-runechants-instant-creates-nasreth",
+    "recorded_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+    "excluded_from_this_fixture_inventory": true,
+    "not_reaudited_or_retagged": true
+  },
+  "fixtures": [
+    {
+      "index": 1,
+      "card_id": "blood_dripping_frenzy_blue",
+      "group_id": "identity:blood_dripping_frenzy_blue",
+      "slug": "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer",
+      "source_spec": "card-regression-batch381.json",
+      "input_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_POST087_REAL_FRENZY_PITCH_CAPTURE_DRAW_AND_PHYSICAL_BUFFED_ATTACK",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer",
+      "fixture_sha256": "301ddd5cbcc1a9fe45e0dffb01607cee2a4b814d138da3b674583cf6cbd48909",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "52e8715c5d66c0b561f49c613b050dd6354c647e0700085ab0a8484713a79b9f",
+        "actions.json": "196d668ab99c16ee909477bfbfd2684bb84a9d02946d89ddd1169d7f482baf4b",
+        "assertions.json": "e55766b79b6203d1fdbb955a8208413cebfc2988271d66d8d76c7a63d6fba9a3",
+        "expected_final_gamestate.txt": "6936e6c6612c8992525a945f48f93fe7994bdba6590896e4fc3eb86013b7c772"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "52e8715c5d66c0b561f49c613b050dd6354c647e0700085ab0a8484713a79b9f",
+        "actions.json": "196d668ab99c16ee909477bfbfd2684bb84a9d02946d89ddd1169d7f482baf4b",
+        "assertions.json": "e55766b79b6203d1fdbb955a8208413cebfc2988271d66d8d76c7a63d6fba9a3",
+        "expected_final_gamestate.txt": "6936e6c6612c8992525a945f48f93fe7994bdba6590896e4fc3eb86013b7c772",
+        "meta.json": "ffc02edddbc29988d3d7f407d9efeeb316f292733a8dfccd4f1f4fb20ba8fde6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "52e8715c5d66c0b561f49c613b050dd6354c647e0700085ab0a8484713a79b9f",
+        "actions.json": "196d668ab99c16ee909477bfbfd2684bb84a9d02946d89ddd1169d7f482baf4b",
+        "assertions.json": "e55766b79b6203d1fdbb955a8208413cebfc2988271d66d8d76c7a63d6fba9a3",
+        "expected_final_gamestate.txt": "6936e6c6612c8992525a945f48f93fe7994bdba6590896e4fc3eb86013b7c772",
+        "meta.json": "ffc02edddbc29988d3d7f407d9efeeb316f292733a8dfccd4f1f4fb20ba8fde6"
+      },
+      "actions": 34,
+      "native_assertions": 3049,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "blood_dripping_frenzy_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "dread_screamer_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "blood_dripping_frenzy_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "dread_screamer_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1,
+          "counters": {
+            "DTD_HAND_BANISH": 2
+          }
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "corrected_persisted_choice_at_step1": "p1Hand-0&p1Hand-1",
+      "actual_answer_at_step2": "p1Hand-0",
+      "actual_capture_step2": {
+        "source_uid": 5,
+        "dtdDraw": 1,
+        "dtdPower": 1
+      },
+      "actual_damage_checkpoint": {
+        "step": 26,
+        "power": 8,
+        "damage": 8,
+        "hit": true,
+        "hero4health": 12
+      },
+      "required_raw_remaining_effect": {
+        "player": 1,
+        "effect": {
+          "type": "DTD_FRENZY",
+          "amount": 1,
+          "uses": 1
+        }
+      },
+      "checkpoint_assertion_mapping_sha256": "7f295b881157ed6805f0b3e3ef2d936a9faefdbdc4982de08a7b64002ba10676",
+      "native_action_mapping_sha256": "9127df0350544b5dacb454724f3a540b8c3b924103f9c5bf3f963803c302e8a7",
+      "native_assertion_mapping_sha256": "21204fdec5f2241bc9d211818e66a44da90c691b03d4489c43d37c4f27fa014e"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 3049,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_end_phase_inputs": 0,
+  "material_findings": [
+    "Sameinitial52e871 andoriginalunchangedcorrecte01f input. Actualpersistedchooser0&1 nowmatchesBlue6/Dread7 identity; actualanswer0 selectsBlue6 notDread7. Corrected save-copy coordinate boundary is exercised by realnativegame, not only component doubles.",
+    "Step2completedcostendpoint hasphysicalBlue6Pitch/R1AP0/Handempty, actualsource5capturesdtdDraw1/dtdPower1 fromsoleDread7 BloodDebt/six. ActualDeck9,10 retainedthroughfirstthree responses; fourthactualsource5GY/draw9/Deck10/ownGAAP1. This proves intendedUID/capture/latephysicaldraw endpoints; it does not prove asset-debit-before-banish internalorder.",
+    "RealArsenalSmash8cost2 waitsforfundingfromactualdrawnBlue9, R2AP0; fourfreshresponses thenphysical8FromArsenalpower7+1=8/noGA, unblocked8damage/P4HP12. FullcloseGY1UIDset5,8/Pitchorder6,9/Banish7publicDTD_HAND_BANISH2/Deck10/allotherHP20/noGhost/queues/frames/payment/RNG. RawDTD_FRENZY1uses1 remainsbytype.",
+    "Allrawfive34nativeenvelopes3049persistedoracles29manualinputs/fullinitial-final12fourliveguards/48manualpreferencesperendpoint andeveryphysicalUIDownership/economy verified against unchanged normative source review. Intermediate observations are passednative assertions, not separatelycapturedfullstates."
+  ],
+  "source_only_concerns": [
+    {
+      "card_id": "blood_dripping_frenzy_blue",
+      "classification": "SOURCE_ONLY_PREPARE_EFFECT_COST_ORDER_OUTSIDE_ATOMIC_ENDPOINT_SCOPE",
+      "native_confirmed": false,
+      "blocks_exact_endpoint_recipe": false,
+      "source": "dtd canonical PrepareCard/compiled119149-119150 invokes FaBDTDFrenzy before FaBFinishPreparedCard; actual debit occurs later in FaBTryCompletePayment",
+      "finding": "Resources are generated by pitch, then Hand7 is physically banished before ordinary resource2/AP1 debit. CR5.1.7/5.1.9 require asset payment first. The recipe asserts only the completed callback endpoint, so it does not demonstrate or approve this internal ordering. No new source/native defect count, fix, rollback or ordering coverage awarded."
+    },
+    {
+      "card_ids": [
+        "oblivion_blue",
+        "blood_dripping_frenzy_blue"
+      ],
+      "classification": "SOURCE_ONLY_SYNCHRONOUS_PLAIN_SOURCE_LIFETIME_EXCLUSION",
+      "native_confirmed": false,
+      "blocks_exact_endpoint_recipe": false,
+      "source": "GameLogic FaBKnownPlainSpellLifecycleCard/FaBPlainSpellResolutionIsManaged and DoResolveCard ordinary fallback",
+      "finding": "Neither primary is in the managed-plain cohort; the ordinary synchronous fallback moves source to Graveyard before its body. These recipes assert four-response endpoints with no intra-resolution/await oracle; source lifetime while creating/drawing is not certified. Existing timing concern remains separate from bounded correct effect endpoints."
+    }
+  ],
+  "limits": [
+    "Only this Frenzy standalone branch/current527c receives new saved approval; previouslyregisteredOblivion retains originala06 context and is excluded.",
+    "No wholecard/supportprimary/sibling/other16cohort/nativehelpercontrol/zero-count/multi-card/multipleattack/EndPhase/BloodDebt/Levia passive execution credit. Levia current printedpassive concerns end-phase life loss; no native keyword-loss branch is claimed.",
+    "Earlier source-only cost-order and synchronous source-departure concerns remain explicitly uncorrected/excluded. Correct captures are preserved across banish; this review does not claim an intra-callback temporal trace.",
+    "Root replay/registration gates remain separate. No reviewerPHP/native/R/source/service/generator/fullsuite/optionalmodel execution."
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "status": "SOURCE_APPROVED_NORMAL_POSITIVE_EDGE_BLUE_LITERAL_THREE_COMPLETE_PROTOCOL_CORRECTION",
+  "phase": "SOURCE",
+  "batch": 827,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T20:04:40.155802+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "normal_save_approved": true,
+  "native_fixture_recording_approved": true,
+  "passing_fixture_approved": false,
+  "source_spec": "card-regression-batch827-edge-real-zero-leave-consumer-positive-r2.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-edge-r2-accurate-oracle-prose-only-author\\edge-real-zero-separate-leave-and-seven-damage-consumer-r2.json",
+    "sha256": "ab16919d7849efad237745bb5c34949acb16aa9beeb79418a72f7593830d37e1"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-edge-r2-accurate-oracle-prose-only-author\\manifest.json",
+    "sha256": "0c26e4528c24dec9c91d3cb712b50d55922e35ad6f227b9ef2f8a2c40d8c7bfd"
+  },
+  "input_sha256": "ab16919d7849efad237745bb5c34949acb16aa9beeb79418a72f7593830d37e1",
+  "manifest_sha256": "0c26e4528c24dec9c91d3cb712b50d55922e35ad6f227b9ef2f8a2c40d8c7bfd",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-firm-reservation.json",
+    "sha256": "ad3022f98176cd5b7ecaee70a41ed35e5d045c70ab90c6552ca7dcc07f3375c7"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-edge-literal-three-reuse-and-kabuto-known-hold-preflight.json",
+    "sha256": "cc3f05755743cc594565df94eaffc593f32e3c53347d26a4bcdaef109c5ef711"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 25,
+  "selected_support_guard_map_sha256": "190537c9a26de0c89367e8a0dfd26aa71dd9b2345d3246fafc677a3b828c3360",
+  "all_current_guards_independently_matched": true,
+  "actions": 41,
+  "declarative_controls": 41,
+  "native_assertions": 4609,
+  "assertions": 4609,
+  "recorded_persisted_assertions": 4609,
+  "manual_passes": 37,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 9,
+    "2": 9,
+    "3": 9,
+    "4": 10
+  },
+  "expected_priority_response_passes": 36,
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 43,
+  "schema_property_checks": 814,
+  "control_mapping_sha256": "00dab4f4a68f72a435f83f61927cd04cbfe6388154249db0aedeb478cc007dfd",
+  "native_expected_envelope_mapping_sha256": "59c042c78c79186e177d4e5e82eb1acaf32861019be99bae4ff50a5d3a8b5f8e",
+  "expected_native_query_mapping_sha256": "02db4a0b8ce81c1b9e2da5e9c91beae8a576c2c3822a2442c404ab44ba7a58a6",
+  "checkpoint_mapping_sha256": "a804f56f36d52f3add16b6ebf9f04c17001dc858f55946c014e267038308774a",
+  "reused_approved_Act_R4_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-r4-independent-normal-positive-source-review.json",
+    "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+  },
+  "original_unexecuted_Edge_f18_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-edge-reused-reviewed-zero-leave-consumer-positive-author\\edge-real-zero-separate-leave-and-seven-damage-consumer.json",
+    "sha256": "f18eb3f8c5963ebcf4492c8de728ec93a13ff3a2d55dd057fac841ba5d9796fa"
+  },
+  "exact_f18_to_final_delta": "14 wire/history fields plus one oracle metadata clarification only",
+  "exact_Act_R4_to_Edge_query_deltas": {
+    "physical_or_layer_cardID": 51,
+    "next3_after_leave": 6,
+    "single_power_tag": 25,
+    "actual_power": 21,
+    "physical_HP": 10
+  },
+  "canonical_new_Edge_Blue": {
+    "cardId": "edge_of_their_seats_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$event = strval(DecisionQueueController::GetVariable('rosEvent'));\n $uid = intval(DecisionQueueController::GetVariable('rosSource'));\n if ($event === 'supZero') {\n FaBSUPZero($uid);\n \n}\nif ($event === 'supLeave') {\n FaBSUPNext($player, 3, '', '');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  "independent_generated_raw_closure_sha256": "b101ba31a39445187f1f814b2c9aed82e90020e67a5426900351035c4dffe38b",
+  "diagnostic_only": false,
+  "qualification": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "passing_registry_approval": false,
+  "independent_actual_Saved_review_required": true,
+  "two_new_only_clean_replays_required": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "independent_semantic_findings": [
+    "Previously independently read primary JudgeHub4181 and SuperSlam release/CR8.3.42 reused: Blue Edge is Suspense and its leave gives nextattack+3. Canonical and emitted fresh Edge closure independently verified literal3, not copied Act4.",
+    "Same legitimate pre-existing physicalEdge6Arena/SUSP1, YoungPleiades1 ready/R0/AP1, Red5Hand and four genuine manual live seats. Native tap/removal costs precede priority; responseable zero8 then leave9 then originalHero7 each require four manual responses. Own cast/entry/startphase are not claimed.",
+    "All complete source-derived four-row history arrays and zero[] protocol correction agree with approved ActR4; exact noSUP_NEXT beforeleave and next3 afterward remain. Mandatorytarget input15 precedespayment; input16consumesnext3 as oneWTR_POWER:3 tag. All41controls4609queries37passes are retained.",
+    "Independent new-card query delta is only51CardID values,6next3arrays,25singlePOWER3tags,21computedpower7 and10physicalHP13 values; all other query bytes/controls stay equivalent. NativeRed4plus3 must produce7realphysicaldamage, sameUIDcleanup and4livingseats. New actualNative/Saved/replay evidence is mandatory, no inherited Native credit."
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "kabuto_of_imperial_authority",
+      "group_id": "identity:kabuto_of_imperial_authority",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_FORMAL_DEFENDED_WHEN_WEAPON_LOCK_CONTRACT",
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_BEFORE_WEAPON_ATTACK_LOCK",
+      "reason": "Actual HNT Defended macro calls FaBHNTDefended; its Kabuto branch at HNTCards85 immediately adds HNT_KABUTO through ordinary GameLogic OnDefended->RunSourceMacro. No separate captured responseable Kabuto WHEN precedes the lock. Exact known formal Defended-WHEN contract; weapon-lock body and normal defense support are not absent.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-kabuto-known-defended-when-unattempted-note.json",
+        "sha256": "8847e7868479de0341a36d25ea11358a0862559f30b33883396864b031b6c0bf"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "Kabuto properDefended-WHEN knowncontract remainsunattempted; noweapon-lock/rejection/GA/AP/BladeBreak/expiry certificate orfallback."
+    }
+  ],
+  "limits": [
+    "One exact normal Native attempt after Root Act registration; Source approval is not behavior or qualification.",
+    "Independent Saved/raw5/raw48manual both endpoints/all41envelopes4609queries and two new-only clean replays remain required.",
+    "Blue pre-existing one-counter leave/consumer only. No owncast3/entry2/naturalstartphase/replenishment/otherlisteners/control/suppression/generalvirtual-layer-order/fullcard/pitch-sibling orenginebug/fix certificate.",
+    "Historical preflight ActR2 ancestry and obsolete OMN narrative are superseded for incidental encoding by ActR4 review, final corrected actual assertions and clarified oracle; no historical reruns or new rules fetch."
+  ]
+}

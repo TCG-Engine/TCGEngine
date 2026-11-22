@@ -1,0 +1,295 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B366_RUNIC_AA_PITCH_CONDITIONAL_POWER_FULLBLOCK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T19:57:47.574083+00:00",
+  "source_spec": "card-regression-batch366.json",
+  "input_sha256": "eafa41e3dd7d382d4efb2c4e6ae702fed5eee64878fd50b6fc2914d41eb95ec2",
+  "manifest_sha256": "5853fca4cf2bc59ee6861a35fd5016e75f2f89d2da336e96c9f7c8b672f28c3e",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "source_guards_verified": 18,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch366-independent-source-review.json",
+    "sha256": "39276a27a0f3f87800a474ae314aef65f90e6c439979fe8c2c4e6dec71f3b810",
+    "reused_not_new_source_review": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch366-20261103T195544Z-6aea3c40243d7.json",
+    "sha256": "3e3049cf46ff22f1a146f881a777c0e0c7195f93fb92ee66ee87cbf7ee0b955f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch366-native-r1\\receipt.json",
+    "sha256": "83835aced1661ba88302781bb7619bf197d19ff269b84b6f423171c5ce04b24c"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch366_saved_readonly.py",
+    "sha256": "ac63fe1e1da6dd9c396620e88844c21049cfc33c81098d0ee7dba5420fd51685"
+  },
+  "reviewer_independence": "Sparse authored original366; Next reviewed source and saved bytes but authored neither scenario nor implementation/native recording.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "runic_reaping_red",
+      "slug": "card-runic-reaping-red-four-live-sparse-real-attack-pitch-earns-next-runeblade-plus-one-full-block",
+      "source_spec": "card-regression-batch366.json",
+      "input_sha256": "eafa41e3dd7d382d4efb2c4e6ae702fed5eee64878fd50b6fc2914d41eb95ec2",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-runic-reaping-red-four-live-sparse-real-attack-pitch-earns-next-runeblade-plus-one-full-block",
+      "fixture_sha256": "c749cc42c7a65624c02f2e738828e8ef5223bedee5759281adda44cb3a0fe839",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2d930c7b630345c221839e2f68f60852136ce43f0e068b8660f8d263cd909d6b",
+        "actions.json": "1c6bff4cda0347ba6f32691fd76943477f4544f1d8281fb6b52d2a0472593885",
+        "assertions.json": "36bd976ee1b9911fe1ae89ef93d3abe0a161fcacc5cf3ed844a8a994ae07536e",
+        "expected_final_gamestate.txt": "620179dbc70e51839c1b07d0d016ecec3db597eca9ff13de760a4e13ab5e4738"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d930c7b630345c221839e2f68f60852136ce43f0e068b8660f8d263cd909d6b",
+        "actions.json": "1c6bff4cda0347ba6f32691fd76943477f4544f1d8281fb6b52d2a0472593885",
+        "assertions.json": "36bd976ee1b9911fe1ae89ef93d3abe0a161fcacc5cf3ed844a8a994ae07536e",
+        "expected_final_gamestate.txt": "620179dbc70e51839c1b07d0d016ecec3db597eca9ff13de760a4e13ab5e4738",
+        "meta.json": "4e439eefb7fb44ac6a79d4a58e0fd507b1d7af49334afc4468f68377705c1b48"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2d930c7b630345c221839e2f68f60852136ce43f0e068b8660f8d263cd909d6b",
+        "actions.json": "1c6bff4cda0347ba6f32691fd76943477f4544f1d8281fb6b52d2a0472593885",
+        "assertions.json": "36bd976ee1b9911fe1ae89ef93d3abe0a161fcacc5cf3ed844a8a994ae07536e",
+        "expected_final_gamestate.txt": "620179dbc70e51839c1b07d0d016ecec3db597eca9ff13de760a4e13ab5e4738",
+        "meta.json": "4e439eefb7fb44ac6a79d4a58e0fd507b1d7af49334afc4468f68377705c1b48"
+      },
+      "actions": 35,
+      "native_assertions": 3308,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "runic_reaping_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "arcanic_spike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "runic_reaping_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "arcanic_spike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "actual_raw_source5_dynPitchAA": true,
+      "positive_DYN_NEXT_residue_absent": true,
+      "checkpoint_assertion_mapping_sha256": "1455521a98fb3fc47f8891eb177f10a7a8929d5fa0e81fa72b2cb53c8ed988e5",
+      "native_action_mapping_sha256": "900930b46fd1f4ab4e7e6bdaeab2ca185a7b2803d0fadfc48e7af32c06f4769e",
+      "native_assertion_mapping_sha256": "461d6a490847ac8a0ca07e95cdbac9be3050e4c69cdede88e2df872a870a4005"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 35,
+  "total_native_assertions": 3308,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualBlueAA6pitch3 paysRunic5resource1/AP1 beforefourresponses\u2192R2AP0/Pitch6. Fourthsource resolves5toownGY andownGAearnsAP1. ActualrawfinalarcCards5dynPitchAAtrue corroboratesreal source-specificpitch condition; additionalrawendpointinspection, not an inventednativeprivatefieldassertion.",
+    "ActualSpike7resource2 paidfromearnedfloatingR2/AP1\u2192RAP0; itsprinted5 plusRunicconditional1 isactualcomputed6/noGA, noarcanehistory or Spikeown+2. TwoactualP4DrivingBlueWarriorNAAUID8/9defend3each; actual6minus6=0/nohit/allHP20, sourcegrantDYN_REAP3 remainsunearned and noRunechantcreated.",
+    "All35actualinputs/3308orderedchecks/29manualPass(28priority+P4finish)exact; rawfive/fullschemaendpoints/allphysicalowners/48manualpreferencesperendpoint/initial+finalassertsevaluated. FinalexactGY1UIDset5,7/GY4UIDset8,9/Pitch6/alloriginal1..9/RAPChi0/Counter9RNG0/StackchainsArenaDQpaymentmanagerawaitclear. RawpositiveDYN_NEXTabsent; legitimateotherhistorypersists."
+  ],
+  "limits": [
+    "OnlyRedAApitchpositiveconditional+1/ownGA/paidRunebladeconsumer/fullblock. No grantedWHEN-hit timing/Runechantcreation/arcane/falsepitch/secondconsumer/hero/SoulShackle/EndPhase/sibling/supportprimary/fullcard/controlcredit.",
+    "Actual completed nativeledger andtwoendpoints only; no additionalper-inputrawsnapshots/native/replay/controlbyreviewer. Roottwofocusednew-onlyreplays/registrationseparate.",
+    "NoPHP/native/R/source/generator/service/fullsuite/legacyre-review. Tenoldholds/SmashingItemuntouched."
+  ]
+}

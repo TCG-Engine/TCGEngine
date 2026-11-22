@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch818-ebbing-full-positive-429a.json",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T16:51:54.753367+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ebbing-arcstride-blue-real-fragment-secondary-when-go-again-red-consumer",
+      "fixture_sha256": "dc46ffbadb8da8209d0ae697134e119161daa2f9147eb21eba7dfcda1cc70c40",
+      "passed": true,
+      "result": "[PASS] Ebbing Arcstride Blue / Fragment earns a separate go-again trigger and real Red attack"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ebbing-arcstride-blue-real-fragment-secondary-when-go-again-red-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Ebbing Arcstride Blue / Fragment earns a separate go-again trigger and real Red attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

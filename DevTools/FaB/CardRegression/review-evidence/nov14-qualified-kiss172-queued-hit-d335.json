@@ -1,0 +1,85 @@
+{
+  "status": "QUALIFIED_FOCUSED_KISS_PRINTED_HIT_LIFE_LOSS_TRIGGER",
+  "issue": "FAB-REG-172",
+  "runtime_sha256": "d3356696c3bb58e9c0b201aa4c74cfb855e870ddb3bac86e13f91e710d23a977",
+  "gameplay_files": [
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/ROSCards.php",
+    "FaBSim/Custom/HNTCards.php"
+  ],
+  "change": "Typed actual Hit/Kiss/index0 dispatch queues its captured non-targeted hero life-loss effect using the existing ROS resolver; suppression, prerequisites, generic listeners and unused pseudo path stay unchanged.",
+  "before_native": {
+    "path": "review-evidence/trigger-timing172173-kiss-arcanic-native-before-0a5d.json",
+    "sha256": "c6d3ddbfb1e110c27559b98611c0027e0711ae669793c71743256728c92b9bef"
+  },
+  "before_native_scope": "Only Kiss is qualified here. Arcanic173 remains independently open/unapplied.",
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-kiss-queued-hit-application.json",
+    "sha256": "b9b5404a8be01242a2070ac8c0d59ca67c27ae3059c76ee1274cdd66eb39ac95",
+    "role": "External preparation or receipt, not a replay dependency"
+  },
+  "independent_patch_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-kiss-queued-hit-independent-source-review.json",
+    "sha256": "fabba3c01894835b9d688a52dcc9b0041b21938e212f973a7926600ac4ff14e4",
+    "role": "External preparation or receipt, not a replay dependency"
+  },
+  "full_case_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-kiss-full-independent-correct-draft-source-review.json",
+    "sha256": "2d0e2ffe065aeb323847e31f744f8c778b035addf642c9b0cbc111b750f890a7",
+    "role": "External preparation or receipt, not a replay dependency"
+  },
+  "runtime_delta_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-kiss-bound-d335-independent-runtime-source-review.json",
+    "sha256": "025625b496da501a08bdf04b1c30607f1cef08a1cefc2549742388b3e9af482f",
+    "role": "External preparation or receipt, not a replay dependency"
+  },
+  "component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-kiss-printed-hit-queued-life-loss-proposal\\root-only-component-result.json",
+    "sha256": "8632dfe82f7ec0035c6dd9189c111390389224309df9386c144cdc0dbd46592b",
+    "role": "External preparation or receipt, not a replay dependency"
+  },
+  "pure_stub_checks": 33,
+  "syntax": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-kiss-root-component-and-syntax.json",
+    "sha256": "5c0661aba5dcbadc464a538148565239b00f883b8dc709a4d821b3dc3380e0d8",
+    "role": "External preparation or receipt, not a replay dependency"
+  },
+  "native_after": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b784-kiss-full-native-after-d335\\receipt.json",
+    "sha256": "5a0247811f937b1206de9f9e4a1ae0ecb824cb90d2eb740e2a059a58df9888ca",
+    "role": "External preparation or receipt, not a replay dependency"
+  },
+  "source_spec": {
+    "path": "card-regression-batch784-kiss-full.json",
+    "sha256": "d45d9d9365ba53b166b34886572a46e922018866e0a6742d17237d5175a3ac7f"
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse784-kiss-independent-d335.json",
+    "sha256": "fabc90b1d436d8de0909e0493463fd8fdb45ce8f44344020f0ad6618687587c9"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov14-b784-kiss-clean1.json",
+      "sha256": "8e8c0b5f125d0bdf6511c29bc8bf0695ccfc70b243a3433ece98691e8c922dc3"
+    },
+    {
+      "path": "card-regression-replay-nov14-b784-kiss-clean2.json",
+      "sha256": "d0f1600d5c140cc7c0fba4d696a07aae831e2db518a2486c1d6491dcfc1d1e3f"
+    }
+  ],
+  "native_inputs": 31,
+  "native_assertions": 1738,
+  "isolated_native_fault_credit": 0,
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "historical_rows_retagged": false,
+  "global_root_attribution": "UNALLOCATED_NAMED_LOCAL_REPAIR",
+  "limits": [
+    "Exact selected real3hit/HP17 throughfirst3freshresponses/lifeLoss1onlyfourth\u219216/cleanup/AP0 route qualified.",
+    "Captured victim/controller and moved or absent source/stale malformed payload behavior covered by stubs only, not native elimination/LKI/multitrigger/copy/pseudo-path certification.",
+    "No direct before Stack0/normalizedtrigger-target claim: its firstHP17 query failed16 and the laterStack query never ran.",
+    "No generated or remote authoring changes. The first component process-creation failure produced no process/result; actual access recovered and a single same-component retry passed.",
+    "All older cases retain their actual runtime evidence; no full-suite or old-corpus replay."
+  ]
+}

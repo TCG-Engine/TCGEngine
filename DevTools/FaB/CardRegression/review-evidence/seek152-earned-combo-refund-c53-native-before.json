@@ -1,0 +1,262 @@
+{
+  "id": "FAB-REG-152",
+  "status": "CONFIRMED_ORIGINAL_CORRECT_UNSAVED_NATIVE_REFUND_FAILURE",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch633-seek-independent-native-before-review-r2.json",
+  "independent_review_sha256": "b49049aa9a09874b3a6cb1658803d21ae02bcf85db7edb3f6d0c126ad490214f",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch633-seek-probe.json",
+  "input_sha256": "bae57dbb929f625d46a0af0807339ecb77d85f063c432d458879de1334e3b483",
+  "scenario_id": "probe-seek-vengeance-blue-four-live-real-edge-prerequisite-and-actual-go-again-refund",
+  "first_failure": {
+    "error": "Expected p1ActionPoints to equal 1, got 0.",
+    "source_step": 93,
+    "source_check": 10,
+    "pointer": "/0/steps/93/checks/10/value",
+    "native_input_ordinal": 46,
+    "native_assertion_ordinal": 3252,
+    "passed_native_assertions": 3251,
+    "expected_action_points": 1,
+    "actual_action_points": 0,
+    "suffix_native_assertions_unrun": 2169,
+    "remaining_planned_inputs_unrun": 26
+  },
+  "actual_native_prefix": {
+    "submitted_native_inputs": 46,
+    "all46_native_actions_equal_exact_authored_prefix": true,
+    "all3251_persisted_assertions_equal_exact_normalized_ordered_prefix": true,
+    "planned_native_inputs": 72,
+    "planned_native_assertions": 5421,
+    "manual_passes": 42,
+    "manual_pass_actor_counts": {
+      "1": 10,
+      "2": 10,
+      "3": 10,
+      "4": 12
+    },
+    "observed_resolution_state": {
+      "window": "RESOLUTION",
+      "combatOpen": true,
+      "combatStep": "RESOLUTION",
+      "chainLink": 2,
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 6,
+      "attackTarget": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "previousAttackCardID": "edge_of_autumn",
+      "attackHit": true,
+      "attackPower": 2,
+      "defenseValue": 0,
+      "damageDealt": 2,
+      "attackGoAgain": false,
+      "declaredBlockUIDs": [],
+      "pendingPayment": null
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "milestones": [
+      {
+        "source_step": 40,
+        "input": 20,
+        "window": "DAMAGE",
+        "HP4": 19,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 1
+      },
+      {
+        "source_step": 42,
+        "input": 21,
+        "window": "DAMAGE",
+        "HP4": 19,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 1
+      },
+      {
+        "source_step": 44,
+        "input": 22,
+        "window": "DAMAGE",
+        "HP4": 19,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 1
+      },
+      {
+        "source_step": 46,
+        "input": 23,
+        "window": "DAMAGE",
+        "HP4": 19,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 1
+      },
+      {
+        "source_step": 48,
+        "input": 24,
+        "window": "RESOLUTION",
+        "HP4": 19,
+        "R1": 2,
+        "AP1": 1,
+        "damageDealt": 1
+      },
+      {
+        "source_step": 85,
+        "input": 42,
+        "window": "DAMAGE",
+        "HP4": 17,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 2
+      },
+      {
+        "source_step": 87,
+        "input": 43,
+        "window": "DAMAGE",
+        "HP4": 17,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 2
+      },
+      {
+        "source_step": 89,
+        "input": 44,
+        "window": "DAMAGE",
+        "HP4": 17,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 2
+      },
+      {
+        "source_step": 91,
+        "input": 45,
+        "window": "DAMAGE",
+        "HP4": 17,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 2
+      },
+      {
+        "source_step": 93,
+        "input": 46,
+        "window": "RESOLUTION",
+        "HP4": 17,
+        "R1": 2,
+        "AP1": 0,
+        "damageDealt": 2,
+        "expected_AP1": 1,
+        "AP1_evidence": "Actual failed scalar query at global3252; expected1 is retained separately."
+      }
+    ],
+    "passed_physical_facts": [
+      "Real Edge5 attack declaresHero4 and createsproxy9; actualBlue8pitch3 paysresource1+AP1 leavingR2/AP0. SamephysicalEdge5nativeusage fields are bookkeeping, not an invented printedtap cost.",
+      "Edgeproxy9 is realchain1 attackpower1/ownGA; unblocked1damageHP19 and actualpostDamage Resolution AP1 passed before physicalSeek6 plays0/AP0 on sameopenchain.",
+      "Sourcefour into secondlink checks actualSeek6/Controller1/FromHand; native previousAttackCardID=edge_of_autumn plus outPreviousNames Edge of Autumn and earlierchainproxy9 satisfy actual printedCombo prerequisite, with no history seed.",
+      "UnblockedSeek2 damageHP17/damageDealt2/defense0 passed at source85 and throughsource91. FreshDamage responses1/2/3/4 (source86/88/90/92) reached actualResolution atinput46; firstpositiveactualAPrefund query then failed0vs1. ObservedResolution state independently has activeSeek6/chain2/power2/damage2/attackGoAgainfalse.",
+      "Allfourlive20initialheroes and initial48manualsettings are verified from embedded originalsnapshot. Atfailure, priorcheckpointphysicalUID facts remain priorpassed evidence; no completecurrentzonesnapshot was supplied."
+    ],
+    "unrun": [
+      "2169 queries after failed3252, including firstcomputedSeekGAtrue source93/q73/global3315, remain unexecuted. No freshly queried false getter is claimed.",
+      "26 remaining native controls, including WoundingRed7 refund-funded thirdattack/4damageHP13/fullClose/physicalcleanup, were never executed.",
+      "No End/reset/secondweapon/sibling/alternateCombo/support/fullcard coverage."
+    ]
+  },
+  "classification": {
+    "correct_expectation": true,
+    "material_gameplay_failure_confirmed": true,
+    "actual_missing_action_point_refund": true,
+    "expected_refund": 1,
+    "actual_refund": 0,
+    "cause": "Selected earned Combo go-again is not recognized by actual resolution consumer. FaBBeginResolutionStep GL2035-2040 reacquires active CombatChain attack and calls full FaBAttackHasGoAgain; actual attackGoAgain is false. GL399-421 correctly does not turn a conditional sentence into unconditional intrinsic GA; GL429-450/CRU184-187/WTR676-680 and compiled modifier dispatch have no established selected Seek condition/handler in the reviewed bounded route. Existing Combo identity helper GL424-427 and actual prior Edge identity are present. This is actual lost AP after resolution, beyond an early cached keyword assertion.",
+    "source_approval_vs_native": "Original-correct source approval ccf7 concerned expectations/protocol only; this separate immutable no-save run supplies actual missing refund evidence. No earlier oracle failure or expectation replacement is imported.",
+    "root_reserved_issue_hint": "FAB-REG-152",
+    "issue_allocation_by_reviewer": false,
+    "global_core_or_dedup_root_claim": false
+  },
+  "expected": "A real Edge of Autumn attack is the previous attack on this same combat chain. Seek Vengeance Blue earns Combo go again; after its real two damage at Resolution, P1 must receive one action point.",
+  "observed": "Edge actual one damage and go-again refund passed, then Seek actual two damage leaves P4 at17. At Seek Resolution P1 action points are0, not1. Strict no-save run stops after46 native inputs/3251 passing assertions; no fixture or coverage.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c"
+    },
+    "anchors": [
+      "GameLogic399-450 own-keyword/Combo/full AttackHasGoAgain; CRUCards184-187 and WTRCards676-680 final family consumers",
+      "GeneratedMacroCode264189-264203 EvaluateGoAgainModifier returns0 for no registered modifier; exact selected seek_vengeance literals/canonical rows were not found in bounded Custom+compiled+canonical readset",
+      "GameLogic1097-1102 actual resource/AP debit;1121-1127 weapon usage;1130-1148 managed return/source capture;1700-1718 real previous attack identity and chain movement",
+      "GameLogic2035-2040 actual Resolution getter/AP refund;2144-2149 four-manual responses"
+    ],
+    "classification": "Bounded SOURCE-ATTRIBUTION only: selected conditional-go-again handler was not established in the reviewed current caller/modifier routes; actual missing AP refund is separately confirmed by this native run. No whole-engine absence, dedup/Core allocation or source-fix claim."
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch633-seek-probe.recording-results.json",
+      "sha256": "d7981a1eaaa1bd93df8902475d9ca106825faa51ff8f0da77a35230d03997f6c"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch633-seek-probe-20261106T192500Z-6aee298c5a39c.json",
+      "sha256": "4a7ba2c1b736544347f23b3b8760dce1be2b29338a05c8ecf1b82c06b823c358"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch633-seek-diagnostic-independent-source-review.json",
+    "sha256": "ccf7f19e0c28d75a39906978cd9c5a768a66886626b01fea12713fd8b9f8ac15"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4036/",
+      "status": "freshly_opened",
+      "supports": "Seek BLUE cost0/base2 and Edge-last-this-chain conditional go again"
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "status": "official indexed result retrieved",
+      "supports": "CR1.4.3a Edge attack proxy inherits name/type/power1 and has go again"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\seek_vengeance_blue.webp",
+      "sha256": "fee9a49c732bde455d8e850fc25fea61c85afccae1c8653257c8b1bb88a36d0f",
+      "status": "independently_viewed ASR022"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\edge_of_autumn.webp",
+      "sha256": "d6fd6496e0b7876dd84f94a3e7159137838d88c8fb96b2adac2f91f19b22544d",
+      "status": "independently_viewed CRU050; no direct JudgeHub ID invented"
+    }
+  ],
+  "limits": [
+    "No fixture was saved; no passing semantic/qualification/coverage credit. Inventory3922 unchanged, runtimec53 and recorderab33 unchanged.",
+    "Actual priorEdge1damage/GArefund, Seek2damageHP17 and missingResolutionAP are confirmed; thirdconsumer damage/AP/Close cleanup and finalphysicalzones unrun.",
+    "Selected source route attribution is bounded; no global implementation absence, generic parser/Core root count, dedup allocation or source fix is claimed.",
+    "Observed attackGoAgainfalse is raw state; postfailure computedGA assertion was not executed.",
+    "Reviewer executed no PHP/native/replay/source writes; Root alone ran mandatory --probe-only."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-06T19:31:36.073056+00:00"
+}

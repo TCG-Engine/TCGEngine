@@ -1,0 +1,273 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_QUICKDODGE_ONLY_PENDING_ROOT_REPLAYS_REGISTRATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T06:13:23.570677+00:00",
+  "source_spec": "card-regression-batch421.json",
+  "input_sha256": "0fc9c423432b3739761c73975fc1b5095dc8f9c3818812b4bfb244bf7cb480b9",
+  "manifest_sha256": "834767aa167999b9c38ffc766c30435f5532782ada74abe5569f1e213880f544",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 66,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch421-quickdodge-only-independent-source-review.json",
+    "sha256": "78f21880ee98af10a1d150fe7d99368d483ff64cf1c9dbbdebe05c783b56b107",
+    "reused_not_new_semantic_audit": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch421-20261105T061028Z-6aec1dd4ce10d.json",
+    "sha256": "833f85e8d09592ea6f7e2afa659552710584395798d5490f351c41de2ffa1345"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch421-native-r1-9e984\\receipt.json",
+    "sha256": "edeee37bf4f995c9f2ecca4250d070bc610467819ba12950f94df1b0f977fdef"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch421_quickdodge_saved_readonly.py",
+    "sha256": "ba76ac44165f3296630e1c377284e88f1b790c018689b90b855b623b7f03cfdc"
+  },
+  "reviewer_independence": "Meta authored gameplay expectations. Reviewer source-reviewed and packaged exact unmodifiedrow only; authored neither card implementation nor native recording. No reviewer PHP/native/replay/Rwrites.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "quickdodge_flexors",
+      "slug": "card-quickdodge-flexors-four-live-real-paid-defense-reaction-adds-owned-equipment-and-blocks-two",
+      "source_spec": "card-regression-batch421.json",
+      "input_sha256": "0fc9c423432b3739761c73975fc1b5095dc8f9c3818812b4bfb244bf7cb480b9",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-quickdodge-flexors-four-live-real-paid-defense-reaction-adds-owned-equipment-and-blocks-two",
+      "fixture_sha256": "2fc7ae62af469e912f66218811da8172ecbb3c297c967264dfa9afd6541b6ce9",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "acbafbcd4d06739fb7b8272c817f4ec1052e9dfbaa302dc293dbdf7c15976fa1",
+        "actions.json": "b6bc8835aa57e0ef6692235df1f65b0af7249da4e0785885ddaf1e646ab29d59",
+        "assertions.json": "8359a82f21a3c8ca425ba076d15d24b65f807da8d0a480ad3050018b6762ef03",
+        "expected_final_gamestate.txt": "2772468d994614b34d2db461903b831bf72a8e40c13a01000a4150ce93241387"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "acbafbcd4d06739fb7b8272c817f4ec1052e9dfbaa302dc293dbdf7c15976fa1",
+        "actions.json": "b6bc8835aa57e0ef6692235df1f65b0af7249da4e0785885ddaf1e646ab29d59",
+        "assertions.json": "8359a82f21a3c8ca425ba076d15d24b65f807da8d0a480ad3050018b6762ef03",
+        "expected_final_gamestate.txt": "2772468d994614b34d2db461903b831bf72a8e40c13a01000a4150ce93241387",
+        "meta.json": "f721da10c7da6992198eec9f43a03c61ac1c4f1cb30b975a38d27cc66674d026"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "acbafbcd4d06739fb7b8272c817f4ec1052e9dfbaa302dc293dbdf7c15976fa1",
+        "actions.json": "b6bc8835aa57e0ef6692235df1f65b0af7249da4e0785885ddaf1e646ab29d59",
+        "assertions.json": "8359a82f21a3c8ca425ba076d15d24b65f807da8d0a480ad3050018b6762ef03",
+        "expected_final_gamestate.txt": "2772468d994614b34d2db461903b831bf72a8e40c13a01000a4150ce93241387",
+        "meta.json": "f721da10c7da6992198eec9f43a03c61ac1c4f1cb30b975a38d27cc66674d026"
+      },
+      "actions": 36,
+      "native_assertions": 3079,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 126,
+        "36": 196
+      },
+      "native_empty_counter_semantics_checks": 1,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "quickdodge_flexors",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "quickdodge_flexors",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_Legs5_Counters": {
+        "DEFENDING_HERO": 4
+      },
+      "final_Legs5_TurnEffects": [
+        "WTR_DEFENSE:2"
+      ],
+      "checkpoint_assertion_mapping_sha256": "dd3dea461b3bccb7ed2bb9b6523457db9de1d0790d83849874b78627e0744412",
+      "native_action_mapping_sha256": "6a929c77184459e149b002e694c7804787e32553deffb9743c1e1c3fd578e01a",
+      "native_assertion_mapping_sha256": "aaf25d9319862cbd99f31c99cdb434ca896b5d8689a05f2a84ca07ced9ab8aa0"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 36,
+  "total_native_assertions": 3079,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualP4Blue7pitch3 paysprintedDR1/noAP\u2192R2; virtual8Controller4/SourceEquipmentUID5 retainedthroughfour4,1,2,3 whilephysicalLegs5remainsequipped. Onlyfourth moves5toactualcurrentlinkDEFENSE/FromEquipment/DEFENDING_HERO4/WTR_DEFENSE2,virtual8ceases.",
+    "FreshfourReactionresponses yieldactual4power\u22122defense=2damage/HP18. RealnativephysicalChain5 andsameattack6/power4/noGA witnesses accompanydamage; no seededprevention/cache-onlysubstitution.",
+    "All36actualinputs3079checks32manualpasses8each equalapprovedsubset. Rawinitial+final48settingsperendpoint/fourliveUPF/completeUID1..7ownership/economy/Stack/DQ/framecleanup verified. ActualfinalLegs5EquipmentreadyDamage0 keepsDEFENDING_HERO4 andWTR_DEFENSE2; currentturn2hntDefended marker retained, futureendphase notexecuted. Source6ownpublicGY/Pitch4Blue7/R4=2/APall0/no virtual8."
+  ],
+  "limits": [
+    "Quickdodge selectedpaidactivation/currentlinkDEF2/real4minus2damage/fullclose only; noEndphase destruction/expiry/secondactivation/repeatedlink/othermodifier/fullcard/hero/supportprimarycredit.",
+    "Rawstoreddefensecounter/tag arelegitimateendpointbookkeeping and areexplicitlynotassertedempty; futureduration/nextlinkbehavior untested.",
+    "DemolitionexcludedfrominstalledNspec, unrun/source-onlyHOLD unchanged; no blockedattempt row because installedsubset containsONLYQuickdodge.",
+    "Nativeintermediateoutcomes from actualcompletedrecording+exactpersistedchecks; endpointfilesarenotfullperinputprivate-statecaptures. Rootfocusedreplays/registrationseparate/no reviewernativeclaim.",
+    "NoPHP/native/R/source/gen/service/remote/fullsuite or denied094096089090 retry/reroute/integration byreviewer."
+  ]
+}

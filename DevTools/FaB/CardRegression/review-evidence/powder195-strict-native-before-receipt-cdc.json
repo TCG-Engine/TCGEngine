@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T07:47:40.383712+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "d7d3bdbbf542db770fc60c85832cd3b3d76a557339d5c8a81fd4246472282be4",
+  "source_review_sha256": "9c236d30a8118d4ab4997d1f66b947230999a1b0b17c8b83db0bc29647b34ea0",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch853-powder-real-gun-hit-defending-equipment-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4099,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 36660,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected decision queue for player 1 to be empty.",
+  "result_sha256": "c3475e51f5dbabfe807784699c3aa76e6057ced2aac1ec9b9bcc2a03ebb17c2c",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4099,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 21,
+  "completed_utc": "2026-11-16T07:48:21.555062+00:00"
+}

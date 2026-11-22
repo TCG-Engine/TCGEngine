@@ -1,9 +1,21 @@
 <?php
 /** IAR state uses absolute seat IDs and a turn key, including during opponents' UPF turns. */
 function FaBIARCount(int $p, string $key): int {
+    if ($key === 'BLASMOPHET_ATTACK') {
+        return max(0, FaBARCEffect($p, 'IAR_BLASMOPHET_ATTACK') + intval(FaBGetState()['iar'][intval(GetTurnNumber())][$p][$key] ?? 0));
+    }
     return intval(FaBGetState()['iar'][intval(GetTurnNumber())][$p][$key] ?? 0);
 }
 function FaBIARAdd(int $p, string $key, int $n = 1): void {
+    if ($key === 'BLASMOPHET_ATTACK') {
+        $state = FaBGetState(); $turn = intval(GetTurnNumber());
+        $delta = max(0, FaBIARCount($p, $key) + $n) - FaBARCEffect($p, 'IAR_BLASMOPHET_ATTACK');
+        if (isset($state['iar'][$turn][$p][$key])) {
+            unset($state['iar'][$turn][$p][$key]); FaBSetState($state);
+        }
+        if ($delta !== 0) FaBWTRAddEffect($p, 'IAR_BLASMOPHET_ATTACK', $delta);
+        return;
+    }
     $s=FaBGetState(); $t=intval(GetTurnNumber());
     $s['iar']=[$t=>$s['iar'][$t]??[]];
     $s['iar'][$t][$p][$key]=max(0,intval($s['iar'][$t][$p][$key]??0)+$n); FaBSetState($s);
@@ -115,20 +127,63 @@ function FaBIARPlayed(int $p, object $o, string $from): void {
     }
     if ($from==='Banish'&&FaBIAROwnBanish($p,$uid)&&FaBHasType($o,'Aura')&&str_contains(CardName($o->CardID),'Runechant')&&FaBIARCount($p,'EMBRACE')) FaBIARAdd($p,'EMBRACE',-1);
 }
+function FaBIARQueueWindHit(int $p,object $attack): void {
+    $s=FaBGetState();$target=$s['attackTarget']??null;
+    $source=intval(FaBObjectCounters($attack)['MON_SOURCE_UID']??FaBObjectCounters($attack)['WEAPON_UID']??0);
+    $victim=is_array($target)?intval($target['player']??0):0;
+    if(!FaBSeatIsLive($p)||($attack->CardID??'')!=='wind_slicer_blue'||($attack->Role??'')!=='ATTACK'
+        ||intval($attack->UniqueID??0)<1||intval($attack->Controller??0)!==$p||HasNoAbilities($attack)||$source<1
+        ||intval($s['attackUID']??0)!==intval($attack->UniqueID)||!is_array($target)||($target['type']??'')!=='HERO'
+        ||intval($target['uid']??0)<1||intval($s['defender']??0)!==$victim||$victim===$p||!FaBSeatIsLive($victim))return;
+    FaBROSQueue($p,'wind_slicer_blue',$source,['rosEvent'=>'iarWindHeroHit','iarWindVictim'=>$victim]);
+}
+function FaBIARResolveWindHit(int $p,object $layer): void {
+    $params=is_array($layer->Params??null)?$layer->Params:[];$victim=$params['iarWindVictim']??null;
+    if(($layer->CardID??'')!=='wind_slicer_blue'||($layer->Kind??'')!=='ABILITY'
+        ||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)||intval($layer->SourceUniqueID??0)<1
+        ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='iarWindHeroHit'
+        ||!is_int($victim)||$victim===$p||!FaBSeatIsLive($victim))return;
+    // The earned hit ability is independent of the later physical Item or attack.
+    FaBIARWindLock($victim);
+}
 function FaBIARHit(int $p, object $o): void {
     $source=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);
     if($source&&FaBFaiHeroHit())FaBIARBoundTriggers($source);
     if(FaBFaiHeroHit()&&FaBHasType($o,'Dagger')&&FaBIARCount($p,'FORGE')){
         FaBIARAdd($p,'FORGE',-FaBIARCount($p,'FORGE'));FaBROSQueue($p,'fresh_from_the_forge_red',intval($o->UniqueID),['rosTarget'=>intval(FaBGetState()['defender'])]);
     }
-    if(FaBFaiHeroHit()&&FaBWTRBase($o->CardID)==='wind_slicer')FaBIARWindLock(intval(FaBGetState()['defender']));
+    if(FaBFaiHeroHit()&&FaBWTRBase($o->CardID)==='wind_slicer')FaBIARQueueWindHit($p,$o);
     foreach ((array)$o->TurnEffects as $tag) {
         if ($tag==='IAR_CORPSE') FaBIARCorpse($p);
         if ($tag==='IAR_GATE') FaBWTRCreateArena($p,'gate_to_iarathael');
         if ($tag==='IAR_HIT_GO') FaBWTRTag($o,'GO_AGAIN');
         if ($tag==='IAR_EXORCISM'&&FaBFaiHeroHit()) FaBIARTurnDownAll(intval(FaBGetState()['defender']));
-        if ($tag==='IAR_CHORUS'&&FaBFaiHeroHit()&&FaBHandCount($p)===0)DoDrawCard($p,1);
+        if ($tag==='IAR_CHORUS')FaBIARQueueChorusHit($p,$o);
     }
+}
+function FaBIARQueueChorusHit(int $p,object $attack): void {
+    $controller=intval($attack->Controller??$p);if($controller<1)$controller=$p;
+    if(!FaBSeatIsLive($controller)||!FaBFaiHeroHit()||intval($attack->UniqueID??0)<1
+        ||($attack->Role??'')!=='ATTACK'||!is_string($attack->CardID??null)||$attack->CardID===''
+        ||!in_array('IAR_CHORUS',(array)($attack->TurnEffects??[]),true)
+        ||HasNoAbilities($attack)||FaBCRUHitSuppressed($attack)
+        ||FaBMONArena($controller,'head_banging_chorus')===[])return;
+    // The first eligible attack already received this ability at play; hand is checked only on resolution.
+    FaBROSQueue($controller,$attack->CardID,intval($attack->UniqueID),
+        ['rosEvent'=>'iarChorusHitDraw','iarChorusGranted'=>true]);
+}
+function FaBIARResolveChorusHitDraw(int $p,object $layer): void {
+    $params=is_array($layer->Params??null)?$layer->Params:[];
+    if(($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)
+        ||intval($layer->SourceUniqueID??0)<1||!is_string($layer->CardID??null)||$layer->CardID===''
+        ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='iarChorusHitDraw'
+        ||($params['iarChorusGranted']??false)!==true||FaBHandCount($p)!==0)return;
+    // This earned ability is independent of the attack/Aura's later location, name or abilities.
+    $hadController=array_key_exists('fabEffectController',$GLOBALS);
+    $previousController=$hadController?$GLOBALS['fabEffectController']:null;
+    $GLOBALS['fabEffectController']=$p;
+    try{DoDrawCard($p,1);}
+    finally{if($hadController)$GLOBALS['fabEffectController']=$previousController;else unset($GLOBALS['fabEffectController']);}
 }
 function FaBIARBanishRefs(int $p, string $type=''): string {
     return implode('&',array_filter(FaBChoiceRefs($p,'Banish'),function($r)use($type){
@@ -220,7 +275,6 @@ function FaBIARPower(int $p, object $o): int {
     $uid=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??$o->UniqueID);
     $n=count(FaBIARBoundMarks($uid));if(HasNoAbilities($o))return $n;$b=FaBWTRBase($o->CardID);
     if($b==='feasting_shadowbeast'&&FaBMONCount($p,'BANISHED_SIX'))$n+=2;
-    if($b==='tremor_of_iarathael'&&FaBMONCount($p,'BANISHED'))$n+=2;
     return $n;
 }
 function FaBIARGoAgain(int $p, object $o): bool {
@@ -236,3 +290,36 @@ function FaBIARDestroyed(int $p, object $o): void {
 function FaBIARPitched(int $p, int $uid): void {
     if(FaBMONHero($p,'baalghor_omen_of_the_end'))FaBROSQueue($p,'baalghor_omen_of_the_end',$uid,['rosEvent'=>'iarPitch']);
 }
+/** Only the printed three Hellbound Assault identities; copied legacy macros stay separate. */
+function FaBIARHellboundCard(string $id): bool {
+    return in_array($id,['hellbound_assault_red','hellbound_assault_yellow','hellbound_assault_blue'],true);
+}
+
+/** Capture the actual attacking instance/link at its positive hit; do not self-banish inline. */
+function FaBIARQueueHellboundHit(int $p,object $attack,int $amount): void {
+    $s=FaBGetState();$uid=intval($attack->UniqueID??0);$link=intval($attack->ChainLink??0);
+    $owner=intval($attack->Owner??0);$found=FaBFindUID($uid);
+    if(!FaBIARHellboundCard((string)$attack->CardID)||$uid<1||$link<1||$amount<=0
+        ||!FaBSeatIsLive($p)||$owner<1||HasNoAbilities($attack)
+        ||intval($attack->Controller??0)!==$p||intval($s['attacker']??0)!==$p
+        ||intval($s['attackUID']??0)!==$uid||intval($s['chainLink']??0)!==$link
+        ||!$found||$found['zone']!=='CombatChain'||$found['object']!==$attack
+        ||($attack->Role??'')!=='ATTACK')return;
+    FaBROSQueue($p,(string)$attack->CardID,$uid,['rosEvent'=>'iarHellboundHit',
+        'iarHellboundLink'=>$link,'iarHellboundOwner'=>$owner]);
+}
+
+/** Resolve only that still-present chain instance. A departed source is never retrieved or resurrected. */
+function FaBIARResolveHellboundHit(int $p,object $trigger): void {
+    $uid=intval($trigger->SourceUniqueID??0);$link=intval($trigger->Params['iarHellboundLink']??0);
+    $owner=intval($trigger->Params['iarHellboundOwner']??0);
+    if(($trigger->Params['rosEvent']??'')!=='iarHellboundHit'
+        ||!FaBIARHellboundCard((string)$trigger->CardID)||intval($trigger->Controller??0)!==$p
+        ||!FaBSeatIsLive($p)||$uid<1||$link<1||$owner<1)return;
+    $found=FaBFindUID($uid);if(!$found||$found['zone']!=='CombatChain')return;$source=$found['object'];
+    if((string)$source->CardID!==(string)$trigger->CardID||($source->Role??'')!=='ATTACK'
+        ||intval($source->ChainLink??0)!==$link||intval($source->Owner??0)!==$owner)return;
+    // The trigger is already earned: later loss of source abilities does not cancel it.
+    FaBMoveUID($uid,'Banish',$owner);
+}
+

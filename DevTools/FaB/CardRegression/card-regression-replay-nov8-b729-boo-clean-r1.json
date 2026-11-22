@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch729.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T18:27:51.244405+00:00",
+  "fixtures": [
+    {
+      "slug": "card-boo-resident-spook-yellow-four-live-ready-spellvoid-and-mandatory-watery-grave",
+      "fixture_sha256": "1bfdcd4abdad8db904d56cf54fe3cc58f2259b948f6d117014bea54153b9ebf2",
+      "passed": true,
+      "result": "[PASS] boo_resident_spook_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-boo-resident-spook-yellow-four-live-ready-spellvoid-and-mandatory-watery-grave",
+      "returncode": 0,
+      "stdout": "[PASS] boo_resident_spook_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

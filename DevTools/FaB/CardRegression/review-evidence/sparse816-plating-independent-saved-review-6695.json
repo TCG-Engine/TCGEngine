@@ -1,0 +1,308 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B816_FRONTLINE",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b809_review_recover",
+  "created_utc": "2026-11-15T03:12:17.627993+00:00",
+  "source_spec": "card-regression-batch816-frontline-plating.json",
+  "input_sha256": "d5958a062422b25a838b8ccdb5ccde7e6ad475f3976f7847fc4c75d9c9726bf1",
+  "manifest_sha256": "7488519f695fc61318b674630f7e56799cab0c3fd2bdfa4955a500d81dc4796d",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-frontline-plating-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak-author\\manifest.json",
+    "sha256": "7488519f695fc61318b674630f7e56799cab0c3fd2bdfa4955a500d81dc4796d"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-plating-independent-correct-positive-source-review.json",
+    "sha256": "6d71542317543c6ae4fcba5eae0862352c3ab86775dd805c4528f3629b75aa08"
+  },
+  "root_wrapper_receipt": {
+    "path": "nov15-b816-plating-native-real-end-wear-next-turn-block\\receipt.json",
+    "sha256": "e777573e60dbdb981501c2f78ed11f2c7a157d720098003181be197d077760dc"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch816-frontline-plating-20261115T030923Z-6af9226366934.json",
+    "sha256": "fa866ed8af92d7f4d2ada5d0e305dfaf35d4d85011a1e65ce52d77dff4159d42"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch816-frontline-plating.recording-results.json",
+    "sha256": "7181713350e31eacff5d1c9f29c588ed7af8a6a2c2ba82b31c65eed85763a7f8"
+  },
+  "frozen_firm_runtime_descriptor": {
+    "frozen_value": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598160fe8da09d11",
+    "actual_current_execution_runtime": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+    "typo_field_not_used_as_execution_guard": true,
+    "packet_preserved_immutable": true
+  },
+  "fixtures": [
+    {
+      "slug": "card-frontline-plating-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "card_id": "frontline_plating",
+      "group_id": "identity:frontline_plating",
+      "source_spec": "card-regression-batch816-frontline-plating.json",
+      "input_sha256": "d5958a062422b25a838b8ccdb5ccde7e6ad475f3976f7847fc4c75d9c9726bf1",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-frontline-plating-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "fixture_sha256": "8b33115e315e27ee2276ebd171f5f5816be1d5c2e46b381ca923df6c5fa3d3e9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7d228139172fc7b981debb15c00cba9f20b963c8e3cdd203d8d4b22ec09c95c9",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "c284ac9cb3981f3427a75e5ec9bb2ba1ac8052a9bb8104cdc8aebb712dfeb0cf",
+        "expected_final_gamestate.txt": "b6e6c5e7473b02c1120878e4b7e83ea7a20e11a6aa6cd1e7cd5bcf172f7e58c5",
+        "meta.json": "af62e737c8d79024ddbd15604711c35ebfce6da82d1bcb0efb3f546925965714"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7d228139172fc7b981debb15c00cba9f20b963c8e3cdd203d8d4b22ec09c95c9",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "c284ac9cb3981f3427a75e5ec9bb2ba1ac8052a9bb8104cdc8aebb712dfeb0cf",
+        "expected_final_gamestate.txt": "b6e6c5e7473b02c1120878e4b7e83ea7a20e11a6aa6cd1e7cd5bcf172f7e58c5",
+        "meta.json": "af62e737c8d79024ddbd15604711c35ebfce6da82d1bcb0efb3f546925965714"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7d228139172fc7b981debb15c00cba9f20b963c8e3cdd203d8d4b22ec09c95c9",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "c284ac9cb3981f3427a75e5ec9bb2ba1ac8052a9bb8104cdc8aebb712dfeb0cf",
+        "expected_final_gamestate.txt": "b6e6c5e7473b02c1120878e4b7e83ea7a20e11a6aa6cd1e7cd5bcf172f7e58c5"
+      },
+      "actions": 36,
+      "declarative_controls": 32,
+      "native_assertions": 2338,
+      "manual_passes": 33,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 28,
+      "actual_mechanical_End_dispatch_acknowledgments": 4,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 428,
+      "checkpoint_count": 34,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 134,
+        "36": 190
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "frontline_plating",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Hand",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "frontline_plating",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Graveyard",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "ecc59ff1b17453b389e1fc1cf44aa895c2143d5606eda709e0ea9b8b689a1bb3",
+      "native_assertion_mapping_sha256": "bf591bd2eb83200d2ec9798b84afc9c7a4da756e21012ea2661b4e4a4467fce5",
+      "checkpoint_assertion_mapping_sha256": "fcba6e5e2f09973c8ad58af29d74d810c7b7b7f04bec16664cbdf82b065d32e3",
+      "actual_initial_turn_player": 1,
+      "actual_final_turn_player": 2,
+      "actual_initial_turn_number": 2,
+      "actual_final_turn_number": 3,
+      "actual_initial_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "actual_final_health": [
+        17,
+        20,
+        20,
+        20
+      ],
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 30,
+  "all_current_guards_matched": true,
+  "total_actions": 36,
+  "total_native_assertions": 2338,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 28,
+  "total_mechanical_End_dispatch_acknowledgments": 4,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 428,
+  "total_checkpoints": 34,
+  "total_endpoint_assertions_evaluated": 324,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    17,
+    20,
+    20,
+    20
+  ],
+  "material_findings": [
+    "All36 actual native envelopes/2338 ordered successful queries/33 actualPass actors9,8,8,8 match Source. Actual28legalAction/combatresponses+4mechanicalEnddispatch acknowledgments+1formalP1finish distinguished. No End/Start legalpriority or intermediateEnd response certificate.",
+    "Actual initial unmarked Frontline5Eq1/Red6Hand2/four natural20Betsy/allDeckempty/P1turn2/AP1/no End/wear/history/outcome seed. Actual automatic ownEnd/Start boundary reachesP2turn3/naturalAP1; sameFrontline5 exactDEFENSE1 and Red6Hand retained, no card allocation/UIDcounter6.",
+    "Actual sameP2Red6 targetHero1 throughnext3previous1chooser beforeAP1to0; source4/noGA/exactFAB_PLAY_ORDER1. P1samewornChest5 actuallydeclares/formallydefends; realprinted2minus1=1defense gives actualRed4minus1=3damage/HP1_17, otherHP20.",
+    "Actual BladeBreak retainsSAMEChestChain throughResolution, thentrueClose same5ownpublicGY1/Red6ownpublicGY2. All1..6physicalconserved/RChiAP0/allheroesready/live/StackChainDQtargetpaymentmanagerframesclear. All48actualmanualpreferencevalues independentlyverifiedeachendpoint.",
+    "Frozen firm runtime-label transcription typo retained/disclosed; exactmanifest/current82+30/runtimewrapper independently use actual6695. Actual PlatingChest816 identity only. Hoodwink remains separate mandatorycorrect probe-only/no-save evenPASS; this Saved proof grants no Hood promotion or qualification. QuietobservableEnd only/no intra-atomiclayer/globalStartEnd certificate.",
+    "Actual endedP1Hero carries exact inactive MST_COLORLESS_UNTIL0 from ordinary FaBMSTEnd clear code; allotherHeroCounters empty. Independently source-derived/raw-inspected, no arbitrary counter acceptance, activecolorless/Herobranch or additional recorded-query credit."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_End_trigger_layer_ordering_certified": false,
+  "general_Start_End_phase_certified": false,
+  "limits": [
+    "OnefirstactualownEndwear followed bynaturalnextturn realdefense3damage/BladeBreak. No furtherEnd/multiwear/negativeDEF/virtualtrigger/generalEnd/fullcard/sibling/supportHero certification.",
+    "No source/turn/wear/AP/outcome seed, static2block or partialfallback. Actual Enddispatcher inputs acknowledged mechanically, not legal Endresponses.",
+    "RoottwoNEWonlyfocusedreplays/registration separate. Reviewer W-only/read-onlyR/no PHP/native/replay/R/source/Git/heldrepair/newagent action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch816_plating_saved.py",
+    "sha256": "e5d9b37f6e505461e702511620ee3ce41c2f6b468f0d7ba3b765ecdd113cb72c"
+  },
+  "actual_endpoint_hero_bookkeeping": {
+    "ended_P1_exact_final_counter": {
+      "MST_COLORLESS_UNTIL": 0
+    },
+    "all_other_Hero_counters_empty": true,
+    "source_derivation": [
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "line": 2497,
+        "finding": "Actual ownEnd calls FaBMSTEnd on endedplayer1."
+      },
+      {
+        "path": "FaBSim/Custom/MSTCards.php",
+        "lines": "121â€“124;18",
+        "sha256": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+        "finding": "Every actual endedplayer Hero receives MST_COLORLESS_UNTIL=0; zero is inactive for pitch-color logic."
+      },
+      {
+        "path": "FaBSim/Custom/EVOCards.php",
+        "line": 105,
+        "sha256": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+        "finding": "FaBEVOCounter assigns exact suppliedzero, independent of Hero ability or priorcounter."
+      }
+    ],
+    "raw_endpoint_inspection_only_not_added_native_query": true
+  }
+}

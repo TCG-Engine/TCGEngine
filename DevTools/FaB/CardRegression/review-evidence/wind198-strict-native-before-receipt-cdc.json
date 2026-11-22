@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T08:47:34.399620+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "a6a1b8ab49cdab5510740db149527d5905a0ee9e9b70ee216792f84690c159f1",
+  "source_review_sha256": "4ff088611a2bad8ebeda18c2c45940ca0e4288aedcb78436fb48e5980288ee14",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch856-wind-real-item-hit-earned-next-ira-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4099,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 5564,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected Stack count 1, got 0.",
+  "result_sha256": "d37671f26fd3e2c8f05622a034cc34d389d8ac14b4685cda50d0d687cf91374f",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4099,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 20,
+  "completed_utc": "2026-11-16T08:48:08.787135+00:00"
+}

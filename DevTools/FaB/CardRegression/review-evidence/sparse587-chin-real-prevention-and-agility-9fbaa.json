@@ -1,0 +1,328 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B587_CHIN_PREVENTION_REPLACEMENT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T07:52:43.074270+00:00",
+  "source_spec": "card-regression-batch587-chin.json",
+  "input_sha256": "696c328a0ddbb605c748d488a35213aa36a94298fd00676b3a4b4afc16ec2d29",
+  "manifest_sha256": "81677e599591e1adce0aad2cd955e5dab7e920cacc53c0936eb22bcc1332a1e6",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch587-independent-source-review.json",
+    "sha256": "d67899e29630778d02dea73f63212edaef50a00c3cb2c8729eea5501002cf72e",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch587-chin-20261106T074110Z-6aed84967058b.json",
+    "sha256": "685d61cb504687439d8d5f4358489832857512fa9d876125645d8de20c7dec01"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch587-chin.recording-results.json",
+    "sha256": "da6d58ac442279a32c264d9ca614d0e84bdec285bb3b77e692f71daad69576a0"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch587-chin-native-r1-9fbaa\\receipt.json",
+    "sha256": "fa1e3f13169899971dae34078f0f9fec309c14ea3cae5d4c49cb58c9dc36de0d"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "take_it_on_the_chin_red",
+      "group_id": "identity:take_it_on_the_chin_red",
+      "slug": "card-take-it-on-the-chin-red-four-live-real-seven-prevents-two-and-creates-owned-agility",
+      "source_spec": "card-regression-batch587-chin.json",
+      "input_sha256": "696c328a0ddbb605c748d488a35213aa36a94298fd00676b3a4b4afc16ec2d29",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PREVENTION_AND_CONDITIONAL_AGILITY",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-take-it-on-the-chin-red-four-live-real-seven-prevents-two-and-creates-owned-agility",
+      "fixture_sha256": "95f64db15d4ff1e4ae1d79c97f4c8d083fbd8a0d080974beee3e3bdd4b5639fb",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c45d439f9d487ab6eb4b4461ffac44fdef10bc13d73be590f77e761eb6cee00f",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "34cf3ed019537fa1f6d4e4bf95338115dc3346cfa9e2a80285e847c75e52bccc",
+        "expected_final_gamestate.txt": "836e19489c7cd6fee9cbfe6afe8a1b0abede5e4f4cf9c58709d0f1ad78e85c6f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c45d439f9d487ab6eb4b4461ffac44fdef10bc13d73be590f77e761eb6cee00f",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "34cf3ed019537fa1f6d4e4bf95338115dc3346cfa9e2a80285e847c75e52bccc",
+        "expected_final_gamestate.txt": "836e19489c7cd6fee9cbfe6afe8a1b0abede5e4f4cf9c58709d0f1ad78e85c6f",
+        "meta.json": "801f9af5bdc9ac59d19867a93ad21efc8e414707a3240a9684152ac0feb94d3c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c45d439f9d487ab6eb4b4461ffac44fdef10bc13d73be590f77e761eb6cee00f",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "34cf3ed019537fa1f6d4e4bf95338115dc3346cfa9e2a80285e847c75e52bccc",
+        "expected_final_gamestate.txt": "836e19489c7cd6fee9cbfe6afe8a1b0abede5e4f4cf9c58709d0f1ad78e85c6f",
+        "meta.json": "801f9af5bdc9ac59d19867a93ad21efc8e414707a3240a9684152ac0feb94d3c"
+      },
+      "actions": 36,
+      "native_assertions": 2970,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 832,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "take_it_on_the_chin_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "agility",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "take_it_on_the_chin_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_damage_prevented": 2,
+      "actual_damage_dealt": 5,
+      "actual_Agility_UID": 8,
+      "actual_Agility_owner": 4,
+      "actual_Agility_controller": 4,
+      "actual_AP_refund": false,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "intra_synchronous_clear_order_certified": false,
+      "checkpoint_assertion_mapping_sha256": "69ee973d50964b58370cd32d5a8e25f916b19afbd97da677350ff247d57869c6",
+      "native_action_mapping_sha256": "7c3a622e0287c6896375eb5ac9f77f226cc94a9bcf2c418530264a50f89db44d",
+      "native_assertion_mapping_sha256": "86f2bb3d43d49cb1d3c6551faf857a03afdd2d0f12a93d24f93b8695f10a608c"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 36,
+  "total_native_assertions": 2970,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 832,
+  "material_findings": [
+    "Actual COMPLETE0/stderr0/new1 at unchanged9fbaa; all36 native envelopes/2970 ordered assertions equal independent source model,32 genuine manual actors8each,70 current guards and48 actual preferences per endpoint verified.",
+    "Actual Raging6 Hero4 target/Blue7pitch3 pays3 and Action1. P4 really has Reaction priority before Instant5. Observable physical5 Stack is retained through its firstthree responders4/1/2; fourth3 resolves prevention, source5 to ownerGY4 while HP20 and no Agility yet. Selected body synchronous: no internal callback preclear or lifetime certification.",
+    "Actual next damage event power7/no ordinary defense is reduced by2 to5, HP15, exactly one owned controlled ready Agility8 appears in same prevention replacement. No separate WHEN or extra response round, no Instant/Agility AP refund. Prevention fully consumed; legitimate token-control history retained.",
+    "Whole physicalUID1..7 plus exactly earnedtoken8, same source5GY4/attack6GY1/Blue7Pitch1, all wholeHeroes unchanged, complete source/payment/Stack/Chain/queues/await cleanup verified. Command remains separate and absent. Root replay gates are separate and unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2925/",
+      "actually_retrieved": true,
+      "finding": "CurrentInstant0/nextdamageprevent2/ifpreventdamagecreateAgility."
+    },
+    {
+      "kind": "issuer_face",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\take_it_on_the_chin_red.webp",
+      "sha256": "bf137eadd41d38ba75ab015a8eb862a88b4dd57e8cc9b91a1b18467127ae6fdf",
+      "actually_viewed": true,
+      "printing": "HVY160"
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/heavy-hitters/",
+      "finding": "Oneeventprevention; actualpositivepreventionearnsAgility; unpreventabledoesnot. No futurepacketcredit."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.4.10",
+        "6.4.10i"
+      ],
+      "finding": "Conditionalprevention and related tokencreation modifytheactualdamageevent."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.6.28"
+      ],
+      "finding": "Agility futureownerstartclause unrun; no immediateAPrefund."
+    }
+  ],
+  "limits": [
+    "Only actual positive prevent2 of7/5damage/conditional owned Agility creation branch. No zero/unpreventable/remainingprevention/multipleevent/otherpacket/fullcard credit.",
+    "Future Agility ownerstart/effect unrun; no immediate AP refund. No internal synchronous sourceclear certification or repair. No Command/tokenproducer/permission/provenance/support/sibling credit.",
+    "Persisted orderedledger plus rawinitial/final only, no invented per-input snapshots. Reviewer ran no PHP/native/replay/R/source/fullsuite/remote/denied operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch587_chin_saved_readonly.py",
+    "sha256": "a7c880dc0fbaca28b2432e0199069c1eebea1ecae48087e163d692961bd621eb"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch587_chin_source_readonly.py",
+    "sha256": "62711a75a7378237d1163cd5b701546b9a9bed56b5c0765966fbe5d20caa0868",
+    "portion": "Complete declarative Chin schema/action/checkpoint model only; no source or rules re-audit"
+  }
+}

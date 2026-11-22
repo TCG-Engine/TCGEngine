@@ -1,0 +1,457 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B813_TWO_CASES",
+  "phase": "SAVED",
+  "batch": 813,
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b809_review_recover",
+  "created_utc": "2026-11-15T02:48:48.785662+00:00",
+  "source_spec": "card-regression-batch813-helm-and-three-visits.json",
+  "input_sha256": "059a75862577258467e5ec7ca0134ee631d0a832f90d1fab21f0df7e308c580a",
+  "manifest_sha256": "fc4a20c5b9a588379cf16c9e3adc32b8d7c8ee04f7dbe8974602b95699b21601",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch813-helm-end-and-three-visits-blue-paid-ward-author\\manifest.json",
+    "sha256": "fc4a20c5b9a588379cf16c9e3adc32b8d7c8ee04f7dbe8974602b95699b21601"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch813-two-independent-correct-positive-source-review.json",
+    "sha256": "f9469aac8628edd3504a8f94415310919268557f209f92706b908bfe31964ab6"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b813-two-native-helm-end-visits-blue-ward\\receipt.json",
+    "sha256": "f65ef22786112cf9da7da74bda1157a16a72bdf2669eb101072e8d241c98ca64"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch813-helm-and-three-visits-20261115T024356Z-6af91c6caaabb.json",
+    "sha256": "a3b9c7ac5c83663467f34005e5ef3b054bb416b6e98940799ad63e534507ab1a"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch813-helm-and-three-visits.recording-results.json",
+    "sha256": "f5a0d09cd5ed71d33514e9e52ad23598d035ad87ea57b9fda2b5725144437ba9"
+  },
+  "fixtures": [
+    {
+      "slug": "card-frontline-helm-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "card_id": "frontline_helm",
+      "group_id": "identity:frontline_helm",
+      "source_spec": "card-regression-batch813-helm-and-three-visits.json",
+      "input_sha256": "059a75862577258467e5ec7ca0134ee631d0a832f90d1fab21f0df7e308c580a",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-frontline-helm-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "fixture_sha256": "a35ea43703fb02d24191ddd9077b9071a1df0fe9e583e96de9ac151e86e7ba42",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a85b22a385be56b33ba4c69b2fee910ac63164dffb8f7f074517d930406ef12a",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "454e60263409272c482f74c23e9aaa046d479c7d7b0381f0c8a99d631cf6ab93",
+        "expected_final_gamestate.txt": "0d02f0131189326f797cb89c104d39a96d5ffeb885bd23f3a02b363bca0308b2",
+        "meta.json": "cad9c9e9dfba67431e7457f5c314858d7e2d877317d3f238bc4eceeb66141bbc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a85b22a385be56b33ba4c69b2fee910ac63164dffb8f7f074517d930406ef12a",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "454e60263409272c482f74c23e9aaa046d479c7d7b0381f0c8a99d631cf6ab93",
+        "expected_final_gamestate.txt": "0d02f0131189326f797cb89c104d39a96d5ffeb885bd23f3a02b363bca0308b2",
+        "meta.json": "cad9c9e9dfba67431e7457f5c314858d7e2d877317d3f238bc4eceeb66141bbc"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "a85b22a385be56b33ba4c69b2fee910ac63164dffb8f7f074517d930406ef12a",
+        "actions.json": "b2158eac954e0360af9f82bdf9de3c1453ddfaf6d0f5d01198e6be9a591a4d88",
+        "assertions.json": "454e60263409272c482f74c23e9aaa046d479c7d7b0381f0c8a99d631cf6ab93",
+        "expected_final_gamestate.txt": "0d02f0131189326f797cb89c104d39a96d5ffeb885bd23f3a02b363bca0308b2"
+      },
+      "actions": 36,
+      "declarative_controls": 32,
+      "native_assertions": 2338,
+      "manual_passes": 33,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 28,
+      "actual_mechanical_End_dispatch_acknowledgments": 4,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 428,
+      "checkpoint_count": 34,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 134,
+        "36": 190
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "frontline_helm",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Hand",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "frontline_helm",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Graveyard",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "ecc59ff1b17453b389e1fc1cf44aa895c2143d5606eda709e0ea9b8b689a1bb3",
+      "native_assertion_mapping_sha256": "a439fe67a4c28d1039d45c70b16cfc98a6e5cc177d1bc217885a5fb96d30c950",
+      "checkpoint_assertion_mapping_sha256": "ab51fe3f27c35f98944a1673a86cdf25b2c3f467b0d7230d058d46eb8bea9266",
+      "actual_final_health": [
+        17,
+        20,
+        20,
+        20
+      ],
+      "full_card_certification": false,
+      "source_derived_ordinary_End_hero_bookkeeping": {
+        "ended_P1_exact_inactive_counter": {
+          "MST_COLORLESS_UNTIL": 0
+        },
+        "source": "FaBSim/Custom/MSTCards.php121-124/18 + EVOCards.php105",
+        "same_current_guards_independently_verified": true,
+        "raw_only_no_added_native_query": true
+      }
+    },
+    {
+      "slug": "card-three-visits-real-blue-three-paid-instant-dynamic-ward-three-selfdestroy-one-damage",
+      "card_id": "three_visits_red",
+      "group_id": "identity:three_visits_red",
+      "source_spec": "card-regression-batch813-helm-and-three-visits.json",
+      "input_sha256": "059a75862577258467e5ec7ca0134ee631d0a832f90d1fab21f0df7e308c580a",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-three-visits-real-blue-three-paid-instant-dynamic-ward-three-selfdestroy-one-damage",
+      "fixture_sha256": "244e719f1ef9011fa3f716a72d71e9a3051f97369741c86a70048ccbad6d2d49",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df954fd10734eaea3a94721d98c76f79b10dc7f21f6062fd409c1ac3db30934f",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "9cbb1e1bba5b700bf4796b081ef2f5efa99e36203cf14566d2d9052e50a93399",
+        "expected_final_gamestate.txt": "306a0c5b4a424bab462cff800bcc16628806fce45d63c35137e3911650337b6d",
+        "meta.json": "e69a853fdfb16e2788a9d64183e2fa21dfc07560b205482d11def66193ada769"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "df954fd10734eaea3a94721d98c76f79b10dc7f21f6062fd409c1ac3db30934f",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "9cbb1e1bba5b700bf4796b081ef2f5efa99e36203cf14566d2d9052e50a93399",
+        "expected_final_gamestate.txt": "306a0c5b4a424bab462cff800bcc16628806fce45d63c35137e3911650337b6d",
+        "meta.json": "e69a853fdfb16e2788a9d64183e2fa21dfc07560b205482d11def66193ada769"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "df954fd10734eaea3a94721d98c76f79b10dc7f21f6062fd409c1ac3db30934f",
+        "actions.json": "93a269565031bbb8f9c6fca6f1ab20edcd60c630481246b3686015f1a688b446",
+        "assertions.json": "9cbb1e1bba5b700bf4796b081ef2f5efa99e36203cf14566d2d9052e50a93399",
+        "expected_final_gamestate.txt": "306a0c5b4a424bab462cff800bcc16628806fce45d63c35137e3911650337b6d"
+      },
+      "actions": 37,
+      "declarative_controls": 37,
+      "native_assertions": 2558,
+      "manual_passes": 32,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_mechanical_End_dispatch_acknowledgments": 0,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 536,
+      "checkpoint_count": 39,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 133,
+        "37": 193
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "enigma",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "three_visits_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "enigma",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "three_visits_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "e6b44ce2b72b4897ed23fe99a456f7bb3a7ac4732993e9821288e5141e94bac8",
+      "native_assertion_mapping_sha256": "6893cb00557dda577e77ee7e1f1db3a4c5cfca7f9ec430e606aa8a7a9294e53b",
+      "checkpoint_assertion_mapping_sha256": "df6f085c032115299bb9efebc267e28a8b3e3bcd6b8376e923d954d82784ff40",
+      "actual_final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "full_card_certification": false,
+      "actual_real_blue_pitched_uid": 7,
+      "actual_blue_pitch_history_count": 1,
+      "actual_cost_paid": 3,
+      "actual_Ward_prevented": 3,
+      "actual_same_Visits_UID_destroyed": 6,
+      "actual_mandatory_Ward_chooser_player": 4
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 24,
+  "all_current_guards_matched": true,
+  "total_actions": 73,
+  "total_native_assertions": 4896,
+  "total_manual_passes": 65,
+  "total_priority_response_passes": 59,
+  "total_mechanical_End_dispatch_acknowledgments": 4,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 964,
+  "total_checkpoints": 73,
+  "total_endpoint_assertions_evaluated": 650,
+  "material_findings": [
+    "Every actual73envelope/4896orderedquery/65manualPass/964typed/73checkpoint independently mapped to exact two-case Source; all raw5 each/48manualvalues each endpoint/wholephysicalinventory/endpointqueries verified.",
+    "Helm actual namedHead5 earnsownautomaticEndDEFENSE1; realnextP2turn3/AP1 andearlytargetHero1; printed2minus1=1defense againstRed4 gives3damageHP17. SameHeadBladeBreakownGY1/Red6GY2; noEndpriority/intra-atomicWHEN/globalEnd certificate. FouractualEnddispatch acknowledgments aremechanical, notlegalresponses.",
+    "ThreeVisitsRed6 actualnonturnINSTANT3 withactualBlue7pitch3/payment3/R0/AP0; exactoneearnedMST_BLUE_PITCHED givesWard3. MandatoryP4same6destroytoownGY4 prevents3ofRed4/noDefenders; actual1damageHP19. Red5ownGY1/Blue7Pitch4. NoEnigmaChi/Shieldability, zero/multiblue/fullcard credit.",
+    "Eachfreshordinarysetup hasfourmanual liveheroes20/naturalP1AP1/noAura/Endwear/bluehistory/prevention/outcome seed, completeUID/owner/controller conservation andfulltrueClosecleanup. Ownstablemodels specializedexactnewidentities/cost/pitch/Ward/damage/Hero beforeNative; actualSaved reviewedfresh, noqualificationbyanalogy."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_End_trigger_layer_ordering_certified": false,
+  "general_Start_End_Ward_Aura_ordering_certified": false,
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Only actual firstHeadwear/nextturn3damageBladeBreak andactualoneBlueVisitsWard3/1damage scenes. No genericphase/layer/order/fullcard/sibling/Herobranch certificate.",
+    "Root two NEW-only focused batchreplays and registration separate. Reviewer W-only/read-onlyR/no PHP/native/replay/R/source/Git/heldrepair/newagent action."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch813_two_saved.py",
+    "sha256": "bb3a19daf74e9c4c79baf2c2f5f9a231853be30c18b555aa709796109dcda514"
+  }
+}

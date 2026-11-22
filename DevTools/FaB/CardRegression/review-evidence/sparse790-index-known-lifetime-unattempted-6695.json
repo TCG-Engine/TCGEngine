@@ -1,0 +1,123 @@
+{
+  "status": "B790_INDEX_BLUE_FIXED_REAL_REORDER_SOURCE_ONLY_UNATTEMPTED_KNOWN_LIFETIME_DEPENDENCY",
+  "created_utc": "2026-11-14T19:57:27.894432+00:00",
+  "card_id": "index_blue",
+  "group_id": "pitch-cycle:index",
+  "members": [
+    "index_red",
+    "index_yellow",
+    "index_blue"
+  ],
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-firm-reservation.json",
+    "sha256": "d6c36905c81c2842b50412450cdbb9b0c096b9300f66fbbaaf3e1373c85672a1"
+  },
+  "preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-selected-helper-preflight-current179.json",
+    "sha256": "bfe1410c86e7a4a0cd74a8cd12e271f95e1e1cfda54c8b035956a597b6a0c06a"
+  },
+  "rules_only_firm_clarification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-firm-rules-only-clarification-close-automatic.json",
+    "sha256": "05a717351f78e81d57f44bfa6e686604c8eee3c82c615c59af022ce3f17f3969"
+  },
+  "fixed_route": "YoungKano15 legal Wizard HandIndex cost0/AP1. Real three ordinaryDeck WoundingRed/Yellow/Blue; chooseYellowtop and bottomBlue,Red, plannedfinal[Y,B,R], IndexGY/AP0. No consumer/bonusAP or draw claim.",
+  "selected_canonical": {
+    "cardId": "index_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$lookUIDs = FaBARCStageTop($player, 3);\n$targets = FaBARCSelect($player, 'Temp');\nif ($targets !== '') {\n $chosen = await $player.MZChoose($targets, \"Choose_one_card_for_top_of_deck\");\n $topUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID);\n FaBARCToDeck($player, $topUID, true);\n}\n$orderParam = FaBARCOrderParam($lookUIDs, 'Bottom');\n$order = await $player.Rearrange($orderParam);\nFaBARCFinishOrder($player, $lookUIDs, $order);",
+        "isImplemented": true
+      }
+    ]
+  },
+  "exact_source_chain": [
+    {
+      "file": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "registration_line": 3793,
+      "await_function": "__RunAwait_3508ed11478a256b242b",
+      "finding": "Actualselected emitted StageTop/MZCHOOSE/MZREARRANGE/FinishOrder exists."
+    },
+    {
+      "file": "FaBSim/Custom/ARCCards.php",
+      "lines": [
+        102,
+        125
+      ],
+      "finding": "StageTop physically stages threeDeck identities inTemp, then ToDeck and FinishOrder move exactselected/order identities."
+    },
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1571,
+        1572,
+        1637,
+        1681
+      ],
+      "finding": "Both exactmanaged predicates exclude all Index printcolors; ownsource/KindAction reaches fallback."
+    },
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1823,
+        1834
+      ],
+      "finding": "Ordinarynonpersistent physicalsource movesGY before ResolveRules invokes awaitedbody, then returnsACTION before unfinished choices. Same inherited unmanaged physical-spell lifetime seam."
+    }
+  ],
+  "selected_emitted_function_sha256_lf": "10c0df80bddefa1f9e2ccf7966784db5505e5acbb6b800d09aab79210d106d1a",
+  "known_family_holds": [
+    {
+      "json_path": ".holds[39]",
+      "card_id": "gaze_the_ages_blue",
+      "status": "UNATTEMPTED_UNCREDITED_KNOWN_PLAIN_SPELL_AWAIT_LIFECYCLE_FAMILY",
+      "reason": null
+    },
+    {
+      "json_path": ".holds[85]",
+      "card_id": "read_the_glide_path_blue",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Inherited known unmanaged physical-spell source-lifetime seam only. Exact card body and helpers exist; no whole-card/global implementation-absence or new native bug claim. Hold the selected real nonempty Opt route rather than remove its lifetime assertion, omit Opt via empty Deck, add handwritten transport, or repeat known-family native failure."
+    },
+    {
+      "json_path": ".holds[159]",
+      "card_id": "foreboding_bolt_blue",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Hero target is correctly declared in Prepare and arcane plus Opt body exists, but ordinary resolution removes the source before mandatory positive nonempty-Deck Opt await. No empty-Deck bypass; unattempted source concern only, no native defect or coverage."
+    },
+    {
+      "json_path": ".holds[204]",
+      "card_id": "pull_from_beyond_blue",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "The positive Opt/rearrange and later banish/Gate payloads exist, but the selected ordinary route clears the resolving source to graveyard and refunds go again before the unfinished Opt choice. No native execution, missing-body claim, blank Opt fallback, fixture, coverage or repair credit."
+    }
+  ],
+  "preimage_guards": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/CodeGeneration.php": "b4e55525fdb5dfdd939b5363249ef905a764299c9422697bffd940f1c848a146",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6"
+  },
+  "counts": {
+    "runnable_cases": 0,
+    "recipes": 0,
+    "controls": 0,
+    "queries": 0,
+    "native_inputs": 0,
+    "new_issues": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "limits": [
+    "Positive body/helper availability does not establish correct source lifetime.",
+    "No native choice, Deck/Temp movement, reorder/cleanup/draw, confirmedbug or sibling/fullcard credit.",
+    "No emptyDeck/choiceomission/expectationweakening, alternateprimary/support, source repair or heldrouteprobe."
+  ],
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true
+}

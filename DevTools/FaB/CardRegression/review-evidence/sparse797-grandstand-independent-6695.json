@@ -1,0 +1,244 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B797_GRANDSTAND",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T22:21:03.938126+00:00",
+  "source_spec": "card-regression-batch797-grandstand_legplates.json",
+  "input_sha256": "573a3574537ebd4ab3185d169a7b90ad799780bed85d14778f94dd30552d3992",
+  "manifest_sha256": "1eff48b5e194e15159384d711b9c08e4a9a1d214619f699eb0f271fcd6aa1dc7",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch797-grandstand-natural-kano-three-opponents-defense-three-author\\manifest.json",
+    "sha256": "1eff48b5e194e15159384d711b9c08e4a9a1d214619f699eb0f271fcd6aa1dc7"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch797-grandstand-independent-correct-positive-source-review.json",
+    "sha256": "c118ae35c7d706eb53796b2721dbdca70c71e03867e2f84124cd3d4657e017d8"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b797-grandstand-native-correct-three-opponents\\receipt.json",
+    "sha256": "e5b4602ea393de03b0c59efc69c139bcade97489cb2a7f6e4ac5ac51411f9be1"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch797-grandstand_legplates-20261114T221339Z-6af8dd13591a5.json",
+    "sha256": "19352ad88caea01d1a07cfb8f04e2bcdb86347bf9a9a9f89876c22d198c54a9e"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch797-grandstand_legplates.recording-results.json",
+    "sha256": "97553661406f221bb1b351ea55320e31dc269a88b3cacb7b60d6851361f9cf61"
+  },
+  "fixtures": [
+    {
+      "slug": "card-grandstand-natural-kano-three-opponents-defense-three",
+      "card_id": "grandstand_legplates",
+      "group_id": "identity:grandstand_legplates",
+      "source_spec": "card-regression-batch797-grandstand_legplates.json",
+      "input_sha256": "573a3574537ebd4ab3185d169a7b90ad799780bed85d14778f94dd30552d3992",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-grandstand-natural-kano-three-opponents-defense-three",
+      "fixture_sha256": "941cfb7695ef185ce4c8c3c3ba31a79300bac2ccd1d0f9e8ad19d3f8a2937f7e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "aaf4c2f1331d5e5737c953472a5abbf03d350a566ac56f798581f8b592045f4f",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "e2b196c820ea5513e3338e04a8b0bd939ecf510c350b6e5305e6e7aa2d9e3597",
+        "expected_final_gamestate.txt": "10f5be088b7241a23ed7c320fcc74f5881d0795726b51039f1c6ed3aa2da2bb9",
+        "meta.json": "b2b819da8e5cc7427a2c0adbe4bdf8ed39079dc4e088f2d3e7cdbc83ffba8f72"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "aaf4c2f1331d5e5737c953472a5abbf03d350a566ac56f798581f8b592045f4f",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "e2b196c820ea5513e3338e04a8b0bd939ecf510c350b6e5305e6e7aa2d9e3597",
+        "expected_final_gamestate.txt": "10f5be088b7241a23ed7c320fcc74f5881d0795726b51039f1c6ed3aa2da2bb9",
+        "meta.json": "b2b819da8e5cc7427a2c0adbe4bdf8ed39079dc4e088f2d3e7cdbc83ffba8f72"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "aaf4c2f1331d5e5737c953472a5abbf03d350a566ac56f798581f8b592045f4f",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "e2b196c820ea5513e3338e04a8b0bd939ecf510c350b6e5305e6e7aa2d9e3597",
+        "expected_final_gamestate.txt": "10f5be088b7241a23ed7c320fcc74f5881d0795726b51039f1c6ed3aa2da2bb9"
+      },
+      "actions": 28,
+      "native_assertions": 1679,
+      "manual_passes": 25,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 306,
+      "checkpoint_count": 30,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 126,
+        "28": 178
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "kano",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "grandstand_legplates",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "kano",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "grandstand_legplates",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "e5482a60d858e876286c1cdff4d188b6209ea09e21880ada18bde9f9969d6be9",
+      "native_assertion_mapping_sha256": "7545b66c2e542c74fb77f3316cfc77dbf9e674cf32b87fd28435c4a0674a2f21",
+      "checkpoint_assertion_mapping_sha256": "8227fa4ac86c563c3d3d4d4abe4290f86ae0dafad90a53c8cbb726b680a67e26",
+      "intermediate_equipment_CombatChain_UID_Role_directly_queried": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 14,
+  "all_current_guards_matched": true,
+  "total_actions": 28,
+  "total_native_assertions": 1679,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 306,
+  "total_checkpoints": 30,
+  "total_endpoint_assertions_evaluated": 304,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    15
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    14
+  ],
+  "material_findings": [
+    "Actual raw naturalKano15 and threeBetsy20 exist before the first query, with ownGrandstand6 equipped. RealRed5 computes4 and sole native equipment block/formal finish yields actual1damage/HP4_14. Post-damage defense3 cache corroborates the actual life loss. Same ownedGrandstand6GY4/Red5GY1, no counter/HP/defense seed.",
+    "Every actual native envelope/25 individual manual actors and ordered successful query matches exact Source. Raw endpoints independently confirm48 manual values EACH, all original physical owned identities and complete terminal Stack/chain/queues/targets/payment/manager/await cleanup.",
+    "Same equipment identity is bound at actual raw initial/final endpoints. Actual equipment click, separate formal finish, slot/GY/Arena transitions and physical damage/payment are verified. Intermediate equipment CombatChain UID/Role is not directly queried and is not certified as a direct observation."
+  ],
+  "intermediate_equipment_CombatChain_UID_Role_directly_queried": false,
+  "limits": [
+    "One bounded fixed positive only; no self/two-Crossers/comparison universe, dynamic life changes, other set/equipment, suppression/elimination/copy, full-card or Hero ability/crowd/draw/Gold/Seismic/Yoji111 credit.",
+    "No intermediate equipment Chain identity query claim; cached defense is post-HP corroboration, not sole oracle. Cost for Crossers is evidenced by actual one-Blue funding and resumption, not cached cost.",
+    "Root focused replays and registration remain separate. Reviewer ran no PHP/game/native/replay/fullsuite/R/source/Git/remote mutation/new-agent/B787 operation.",
+    "Inherited manifest batch796 is descriptive only; actual B797 installed source, input573a, Sourcec118 and new Legs identity are exact. No Oval native/Saved/coverage evidence transferred."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch797_grandstand_saved.py",
+    "sha256": "baac0a2a85562970ecd9466084a70b8ec0c81f665ae4e96c780bbcd145350016"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+  "returncode": 0,
+  "fixtures": [
+    {
+      "slug": "repair-pox147-four-live-captured-source-prevention-and-real-pay-three-complete-end",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-pox147-four-live-captured-source-prevention-and-real-pay-three-complete-end",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\0.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\0.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\0.complete.log",
+      "complete_log_sha256": "8e8181187f1e53f9e21c208d1b1052a627733df5b39a7292981309630af47d01"
+    }
+  ],
+  "directly_affected_compatibility": [
+    {
+      "slug": "card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\1.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\1.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\1.complete.log",
+      "complete_log_sha256": "c5a8d5d6a1cc3dfed86a2d15236e95ca5c1fab2518371e085d6b124f6be42cdd"
+    },
+    {
+      "slug": "card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\2.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\2.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\2.complete.log",
+      "complete_log_sha256": "4ebe8da51c60acd1001de1e7793f847519a1d41d81ef5c9a6fea1dd0bf8cfa1c"
+    },
+    {
+      "slug": "card-arcanic-crackle-blue-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcanic-crackle-blue-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\3.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\3.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\3.complete.log",
+      "complete_log_sha256": "e981e9186126d0a57c33fb3143a2e61a7dcaa9ce2fde109b0247b66c9ac70d81"
+    }
+  ],
+  "raw5_unchanged": true,
+  "runs_per_fixture": 1,
+  "full_suite_run": false,
+  "other_focused_results": "Two Burn snapshot-only epoch discrepancies retained separately; no Pox failure or suppressed failure",
+  "complete_receipt_external": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-pox-burn-focused-replays\\receipt.json"
+}

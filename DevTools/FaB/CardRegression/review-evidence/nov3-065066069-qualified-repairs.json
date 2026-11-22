@@ -1,0 +1,279 @@
+{
+  "status": "THREE_NAMED_RED_REPAIRS_QUALIFIED_AT_STATED_ACTUAL_CONTEXTS",
+  "created_utc": "2026-11-03T15:20:39.331235+00:00",
+  "ledger_records": 79,
+  "distinct_root_count": "NOT_INFERRED_FROM_79_ISSUE_RECORDS",
+  "new_shared_root_count": 0,
+  "inventory_already_registered": {
+    "scenarios": 3627,
+    "four_live": 553,
+    "groups": 656,
+    "checkpoint": "card-regression-sparse275-prognosticate065-v2-2193-checkpoint.json"
+  },
+  "metadata_update_creates_new_scenarios": 0,
+  "full_suite_runs": 0,
+  "isolated_native_controls": 0,
+  "source_applications": {
+    "classifier065": {
+      "path": "review-evidence/prognosticate065-classifier-source-application.json",
+      "sha256": "2ee45bf99901ca28569e8bb8225ac100939367fd6336138a72171cbff4d3d772"
+    },
+    "trigger066": {
+      "path": "review-evidence/invigorating066-source-application.json",
+      "sha256": "45e323a79c1f2cf4901fede99277afcf54b3454f63b9f505df9838f7302096e3"
+    },
+    "lifecycle065069": {
+      "path": "review-evidence/lifecycle065069-source-application.json",
+      "sha256": "a520563c205dfd263b1616e39448560030f1f3db35d14b53f33ad6c501d96c5d"
+    }
+  },
+  "independent_source_reviews": {
+    "classifier065": {
+      "path": "review-evidence/prognosticate065-classifier-independent-source-review.json",
+      "sha256": "f3f21e05f191a92be3f3a5704f84596b818e91e0742a51d550d5844013182c2a"
+    },
+    "trigger066": {
+      "path": "review-evidence/invigorating066-independent-source-review.json",
+      "sha256": "02bf4520661d517c71ac724b7722c7a6b437cd08719444cd72a7e987b8a26e3b"
+    },
+    "lifecycle065069": {
+      "path": "review-evidence/lifecycle065069-independent-source-review.json",
+      "sha256": "603e308bae27e380c4b49fb175fc0eb4727e50ac7480f79328bfb3d4e3855152"
+    }
+  },
+  "cases": [
+    {
+      "issue": "FAB-REG-065",
+      "card_id": "prognosticate_red",
+      "passing_fixture": "card-prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained",
+      "qualification_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "source_spec": {
+        "path": "card-regression-batch275-prognosticate-managed-opt-v2.json",
+        "sha256": "75e5e182a1bd06b90714d465d4c9341ca8fdb1db746565dc9adfa3c24126f489"
+      },
+      "fixture_behavior_sha256": "c1802a439eb2a9d2177748a51263dc6ad50101b58844c310707b7b483b4a6173",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78c276d9c33bf99c3a9bd70e52b7e59758047528dae5bdaa73d12f4f8a31f531",
+        "actions.json": "87c3729964db53f75cd39c896d8f7da579e761b495dee7a4b69e7984850e3fdc",
+        "assertions.json": "44dc190243c59aeaa79d9b6309af3603ea40c7dc7265596847f195eccf6abbd6",
+        "expected_final_gamestate.txt": "56202e9dffe719d178a28483925cce3b712f61d5e1d3c37f9ee2ab4ff2698962",
+        "meta.json": "a6c807a8e9248e01b2e6364c4bc92ecd5e5de4eac604966d536f8573996ebb12"
+      },
+      "exact_saved_review": {
+        "path": "review-evidence/prognosticate065-saved-2193-independent-review.json",
+        "sha256": "2a7beaa6b9807798d2a4b10437563443a69cb9eb6d96333ef00d124d6a94c4fb"
+      },
+      "native_archive": {
+        "path": "recording-runs/card-regression-batch275-prognosticate-managed-opt-v2-20261103T145949Z-6ae9f6e5426c1.json",
+        "sha256": "e539172b1a81cbdceff62a1b17c19ae8742ed50812d13236b5a0b598c8a42da2"
+      },
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-prognosticate065-2193-r1.json",
+          "sha256": "6180eee686f646a76541b3a6f34e8abf3aa86a526a2fe213609704712734a260"
+        },
+        {
+          "path": "card-regression-replay-nov3-prognosticate065-2193-r2.json",
+          "sha256": "7fbfdf5c8394c17fc6465f118190dc3d61e49cefce355fba4693f8a2c96e6cd9"
+        }
+      ],
+      "qualification_checkpoint": {
+        "path": "card-regression-sparse275-prognosticate065-v2-2193-checkpoint.json",
+        "sha256": "7bdbed5eb9f7db8e4e33438515a47ea2c1a364f37909eefb81c6e8cfaad6f0e7"
+      },
+      "registered_utc": "2026-11-03T15:03:39.764883+00:00",
+      "actions": 13,
+      "native_assertions": 1177,
+      "manual_passes": 8,
+      "native_branch": "Named owned Red positive four-live branch only",
+      "full_card_complete": false,
+      "sibling_native_credit": false,
+      "physical_witness": "Real Crucible modifier produces4 arcane/HP16 and Opt1. Source5 stays Stack/GY0 through Temp8/Deck9 choice; bottom8 gives Deck9,8, then source5 GY. R2/AP0 and queues clear."
+    },
+    {
+      "issue": "FAB-REG-066",
+      "card_id": "invigorating_light_red",
+      "passing_fixture": "card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul",
+      "qualification_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+      "source_spec": {
+        "path": "card-regression-batch278-trigger-probes.json",
+        "sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47"
+      },
+      "fixture_behavior_sha256": "016a7faf52b838d5105b9351134b480bcefca3cc5b22fb663193ea4b4a798d41",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c71db1ab6166e3eaf202fa6a53cad4a7eaae79fb17daa267f55f8436c4aeb74",
+        "actions.json": "63aafbc97165081ce73bcdbd0196da64600670ab7a28ff42573066b6160028e9",
+        "assertions.json": "22430ca4df03b603d5db90198514993cfaed80ebb29025435b1c22439ced18ca",
+        "expected_final_gamestate.txt": "3553bfd731042f0e53b129707ad9db86e1fa358b2530f6e2a1e1b1f0f28b2ccb",
+        "meta.json": "7493194dc8f8046f9fe93a43b6bf846d1b8da6736101ca22686a0ef42f36e2c0"
+      },
+      "exact_saved_review": {
+        "path": "review-evidence/invigorating066-saved-c08c-independent-review.json",
+        "sha256": "030de483ac7c0ab17460079c00afa00ce9af4e43baef1962d36a3d6392876087"
+      },
+      "native_archive": {
+        "path": "recording-runs/card-regression-batch278-trigger-probes-20261103T143312Z-6ae9f0a85fa7b.json",
+        "sha256": "272f7d4be785d4e32b6c307ceac8a64cb54391df06d6c5f545b3061fc68a5762"
+      },
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-invigorating066-c08c-r1.json",
+          "sha256": "7c56eb07474a1448604583807283daebd3f87a630e5ede2583b12562fc39e0d2"
+        },
+        {
+          "path": "card-regression-replay-nov3-invigorating066-c08c-r2.json",
+          "sha256": "cef2783ed085c91d512fc2d9c3fc5cf9b41d720ba2b3768e9fd815ef112ade5d"
+        }
+      ],
+      "qualification_checkpoint": {
+        "path": "card-regression-sparse278-invigorating066-c08c-checkpoint.json",
+        "sha256": "277532bc3196e8b4bcaad1f336dea4a827f26cbe6fd92ecefdd4af66cebe32bf"
+      },
+      "registered_utc": "2026-11-03T14:44:00.848470+00:00",
+      "actions": 32,
+      "native_assertions": 2140,
+      "manual_passes": 29,
+      "native_branch": "Named owned Red positive four-live branch only",
+      "full_card_complete": false,
+      "sibling_native_credit": false,
+      "physical_witness": "Paid Blue6/cost3/AP, physical5 plus source-bound trigger Stack2; four responses leave physical5 Stack1, then actual6 damage/HP14. Same5 enters own Soul only on full close; Pitch6, R0/AP0, virtual7 ceased."
+    },
+    {
+      "issue": "FAB-REG-069",
+      "card_id": "sift_red",
+      "passing_fixture": "card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+      "qualification_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "source_spec": {
+        "path": "card-regression-batch279.json",
+        "sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e"
+      },
+      "fixture_behavior_sha256": "a2a712ec6108484c8dd1d706afc5287cbe6488f12fc21570bb3a4f43910809aa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1c23275d41115644fbf59f34c57e832a00c78bea7d56cd868411ce2380558903",
+        "actions.json": "4d57fcc6f91f2d93d0b31169eea2df078d4f10f21ce2931e80b7209f9295e22c",
+        "assertions.json": "7d68d3f231864d658b7bbacd24dc09d5c08b139fa031fa0862380daabbee943b",
+        "expected_final_gamestate.txt": "1d22c67f1fcc5e9e7d60332a34f2bcfc774435df2037cc33f73491f8a567e1a2",
+        "meta.json": "84207c875dc1d86135f8580524aa613c121f7807e4df383f53a58260bd402df1"
+      },
+      "exact_saved_review": {
+        "path": "review-evidence/sift069-saved-2193-independent-review.json",
+        "sha256": "0ab6453163356c5545d65e50078490a0218e5b2a11b260d238d58d686a783717"
+      },
+      "native_archive": {
+        "path": "recording-runs/card-regression-batch279-20261103T144954Z-6ae9f492c480f.json",
+        "sha256": "aef2c8772b638c1f979fcea110da7454f19a731997491f4d79d4bc6519f03fec"
+      },
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-sift069-2193-r1.json",
+          "sha256": "57959dfcf92ad35ff71523f950bd1898c56e7abc240c0c4c17d373c2567419c6"
+        },
+        {
+          "path": "card-regression-replay-nov3-sift069-2193-r2.json",
+          "sha256": "5f6ac67063e75b53cae3a8e628afa497523cdd868e5ab11e209b3dcc6b120763"
+        }
+      ],
+      "qualification_checkpoint": {
+        "path": "card-regression-sparse279-sift069-2193-checkpoint.json",
+        "sha256": "20566d956955589d534e50f67d3711b5329aeaae0d0c7f59bf59daaf0b1ef264"
+      },
+      "registered_utc": "2026-11-03T14:59:56.964061+00:00",
+      "actions": 34,
+      "native_assertions": 3079,
+      "manual_passes": 29,
+      "native_branch": "Named owned Red positive four-live branch only",
+      "full_card_complete": false,
+      "sibling_native_credit": false,
+      "physical_witness": "Source5 stays Stack/AP0 through actual Hand6/7 bottom; draws original Deck9/10, then GY/GA/AP1. Drawn attack9 paid by original Blue8 deals7/HP13; GY5,9, Pitch8, Hand10, Deck11,6,7."
+    }
+  ],
+  "native_before": {
+    "historical_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "evidence": {
+      "FAB-REG-065": {
+        "path": "review-evidence/prognosticate065-arcane-native-before.json",
+        "sha256": "34bd7c1cc139b30d02d2e620f52d2a8d51a6058120f4e89d4e5cecd51bffde07"
+      },
+      "FAB-REG-066": {
+        "path": "review-evidence/nov3-066069-native-before.json",
+        "sha256": "36a2edb90ab7bc7f6c5d98f9cd4657d26ca37d673408efab2d957a9ccee4b357"
+      },
+      "FAB-REG-069": {
+        "path": "review-evidence/nov3-066069-native-before.json",
+        "sha256": "36a2edb90ab7bc7f6c5d98f9cd4657d26ca37d673408efab2d957a9ccee4b357"
+      }
+    },
+    "archives": {
+      "FAB-REG-065": {
+        "path": "recording-runs/card-regression-batch275-prognosticate-material-correct-probe-20261103T023203Z-6ae947a33ea95.json",
+        "sha256": "5a2dd6aca5bc956206df022d4e799cb7d3d64130445ae415188063af2fd4f336"
+      },
+      "FAB-REG-066": {
+        "path": "recording-runs/card-regression-batch278-trigger-probes-20261103T025547Z-6ae94d33616cf.json",
+        "sha256": "3ddeb50f2ca4e8c1b5c589b3b415723d210e06ef2bec1bbdaefe2f24c7eb72aa"
+      },
+      "FAB-REG-069": {
+        "path": "recording-runs/card-regression-batch279-20261103T030401Z-6ae94f216a05a.json",
+        "sha256": "7bd288909f06dbb89873606aefb8f686c8a2f587f06d77f5557963b194c25c61"
+      }
+    },
+    "prognosticate_classifier": "Original 12-input material failure: 3 arcane/HP17, paid Crucible modifier unconsumed, no legitimate Opt. This before proof is not reinterpreted as lifetime evidence.",
+    "invigorating": "Three paid inputs: physical attack5 only/no earned layer and early close-Soul tag.",
+    "sift": "Five inputs: source5 already GY/AP1 while MZMULTICHOOSE and await remain pending."
+  },
+  "prognosticate_lifetime_followup": {
+    "runtime_sha256": "90758aeb35536e3364b326789fc88b8eb9abc0f51b2de5f00426f0149fd9d51e",
+    "archive": {
+      "path": "recording-runs/card-regression-batch275-prognosticate-material-correct-probe-20261103T141556Z-6ae9ec9c81175.json",
+      "sha256": "503ef46a4a2a5f74b13c49440b1c60ad92aecf6423e587d6fb7ac309330fbcc9"
+    },
+    "accepted_inputs": 12,
+    "observed": "Classifier fix earns actual4 arcane/HP16 and Opt1, but same5 is already GY/Stack0 while Temp8/Deck9/MZREARRANGE and ResolveCard-await remain pending.",
+    "historical_private_observer_receipt_sha256": "211f8d7e45aaf86611f3a8117bcbfd9c89a4567a79da129c8e0d6752aa016378",
+    "historical_prefix_snapshot_sha256": "31e03b268f68835f190496620a0ec495f279e858181cb0fb2852420436c4119d",
+    "additional_existing_family": "FAB-REG-021",
+    "new_shared_root": false,
+    "resolution": "Three exact Prognosticate IDs joined three Sift IDs in the known plain-spell cohort; existing manager/finalizer/foreign-owner guards are unchanged. Strict Red Opt suffix qualified at2193; no sibling native credit."
+  },
+  "prognosticate_recorder_correction": {
+    "original_input": {
+      "path": "card-regression-batch275-prognosticate-material-correct-probe.json",
+      "sha256": "8412007de8e11e9da5a3e7a98c5a0f018d12c4012960a35d6257d692b894f073"
+    },
+    "qualified_input": {
+      "path": "card-regression-batch275-prognosticate-managed-opt-v2.json",
+      "sha256": "75e5e182a1bd06b90714d465d4c9341ca8fdb1db746565dc9adfa3c24126f489"
+    },
+    "changed_path": [
+      0,
+      "steps",
+      23,
+      "until"
+    ],
+    "before": {
+      "priority": 1
+    },
+    "after": {
+      "decision": {
+        "player": 1,
+        "type": "MZREARRANGE"
+      }
+    },
+    "inverse_recursive_equality_verified": true,
+    "planned_native_inputs": 13,
+    "all1177_material_assertions_unchanged": true,
+    "classification": "Recorder stop condition correction for the visible managed choice; no additional gameplay bug.",
+    "limits": "Private priority was not a material rule oracle. HP16/real Opt1/physical Stack5/GY0/Temp8/Deck9 and actual bottom8 -> Deck9,8 suffix remain byte exact."
+  },
+  "invig_timing_boundary": {
+    "direct_native": "Paid physical5 plus captured source-bound ABILITY Stack2; four real responders retain both then Stack1; actual6 damage; same5 own Soul only on full close.32actions/2140assertions.",
+    "tag_timing": "No per-input TurnEffects assertion exists. Exact applied source and retained30 actual component contracts verify producer only queues, and tagging only after the earned trigger. No invented native private-field or negative-control credit.",
+    "source_component_receipt_sha256": "74692bc0f36072afb039640de4575f2bfbcd0c4f364a5cf3c4909d8ccfde9a8b",
+    "qualification_context": "c08 retained; later2193 does not retag Invigorating fixture/replays."
+  },
+  "limits": [
+    "Only named owned Red four-live manual positive branches, with two focused replays each. No sibling pitch, foreign owner, Instant form, conditional false, suppression, source removal, elimination, reentry, full-card, extra support-effect, control or full-suite credit.",
+    "Old before/native/source/saved/replay runtime contexts remain historical. Classifier065 at9075, trigger066 atc08 and lifecycle065069 at2193 are distinct stages. These caller repairs add no new shared root;79 issue records are not79 shared roots.",
+    "Other 76 issue objects and all index/review/fix counters remain unchanged, including 067/068; neither is qualified by this bundle. This metadata operation adds no fixtures, games, source changes, generation or remote writes."
+  ]
+}

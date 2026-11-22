@@ -1,0 +1,302 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_TEAR_LIMB_REAL_DRAWN_SIX_DISCARD_AND_NEXT_BRUTE_BASE_POWER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T17:14:34.187839+00:00",
+  "source_spec": "card-regression-batch351.json",
+  "input_sha256": "51da9fd612d5437fd2c821297b9a6f6dd34fe6e954d816683604e41598ec3fdc",
+  "manifest_sha256": "f3b9f43626a5d98f0e0138610931d88714e2a0fe998a829f03ef31bf298ed273",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_guards_verified": 19,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch351-independent-source-review.json",
+    "sha256": "a4bf6fa2d93fad3435fd5b7a944953f1f2d948f57220d0e7e47815d77db0cb98",
+    "reused_not_new_source_approval": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch351-20261103T170920Z-6aea1540f0550.json",
+    "sha256": "1dd929a8e6411487ebc4a705fb7b6cace25155bd2002318c0daab67b384eb7f2"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch351-native-r1\\receipt.json",
+    "sha256": "09b1abac7c2502a84c7dbc6983c2ee3c68d71715c48bc3ef72aa8f9a9351dc31"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch351_saved_readonly.py",
+    "sha256": "e26d3428115dbddf2897c608e8f33772214b8c4f28dd35f1b1fbf0b1c6cdb9f5"
+  },
+  "reviewer_independence": "Sparse authored original351; Meta sourcepeer; saved reviewer authored neither.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "tear_limb_from_limb_blue",
+      "slug": "card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+      "source_spec": "card-regression-batch351.json",
+      "input_sha256": "51da9fd612d5437fd2c821297b9a6f6dd34fe6e954d816683604e41598ec3fdc",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+      "fixture_sha256": "8de730f30ee375b7c5fd2b363ed8ff728e71b778d993d155eb471a58ab57a6bc",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "76a5ba07e99869ce8f2264b7b05cd85e587a2fddf7435591074e681675fd0363",
+        "actions.json": "255e9cf50a3c1e78d9df9e6f7b614153131945c40c4c85ac07466e63c826a3e8",
+        "assertions.json": "6eade8028558610dda3a0deec93f8f1c329583f1acd84e3fd65bdcf68a577b57",
+        "expected_final_gamestate.txt": "feb6861cee34aee2ccc7e8b8988a75806ce7b24ce598b2a5f63f19f3d237333d"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "76a5ba07e99869ce8f2264b7b05cd85e587a2fddf7435591074e681675fd0363",
+        "actions.json": "255e9cf50a3c1e78d9df9e6f7b614153131945c40c4c85ac07466e63c826a3e8",
+        "assertions.json": "6eade8028558610dda3a0deec93f8f1c329583f1acd84e3fd65bdcf68a577b57",
+        "expected_final_gamestate.txt": "feb6861cee34aee2ccc7e8b8988a75806ce7b24ce598b2a5f63f19f3d237333d",
+        "meta.json": "196119159f572747ed964af1e7a7b0398f9712640d902b6342735296a4d90b6d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "76a5ba07e99869ce8f2264b7b05cd85e587a2fddf7435591074e681675fd0363",
+        "actions.json": "255e9cf50a3c1e78d9df9e6f7b614153131945c40c4c85ac07466e63c826a3e8",
+        "assertions.json": "6eade8028558610dda3a0deec93f8f1c329583f1acd84e3fd65bdcf68a577b57",
+        "expected_final_gamestate.txt": "feb6861cee34aee2ccc7e8b8988a75806ce7b24ce598b2a5f63f19f3d237333d",
+        "meta.json": "196119159f572747ed964af1e7a7b0398f9712640d902b6342735296a4d90b6d"
+      },
+      "actions": 39,
+      "native_assertions": 3489,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "tear_limb_from_limb_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "tear_limb_from_limb_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        6
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_assertion_mapping_sha256": "367f956238f0ae6cb1fb5e5bed7f8a72d86bb962af4b93c40a8a832e1067196f",
+      "native_action_mapping_sha256": "7bd53400684296339ae0c499bdd6d03f9dd81254d0f64617fbab97cc8fa78d6f",
+      "native_assertion_mapping_sha256": "929472fccafce15f7b50e2bdfa6f58d25a98da5dda95972f9fc4f4afa601e97f"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 39,
+  "total_native_assertions": 3489,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualGold11 Action2/destroy paidbyoriginalBlue6pitch3 leavesR1/AP0/token11ceased, fourresponses actualDeckBlue8draw/GoldGAAP1. ActualTear5Action2 usesR1+actualdrawnBlue8pitch3 leavesR2/AP0, noearlyeffect beforefreshfour.",
+    "OnlyfourthTearresolution drawsoriginal9 then actualsolecandidate randomdiscard9 printedpower6; tail10 retained. Printed draw/discard is an effect, notadditionalcost. Solecandidate EngineRandomInt(0,0) consumesnoentropy, corroboratedfinalRandomCounter0. ActualTearGA/AP1 andnextBruteAA effectearned without historyseed.",
+    "ActualArsenalSmash7cost2 consumesR2/AP1; primaryconsumer adds THAT attack basepower7 toprinted7, notdiscardpower6. Same7actualpower14/noGA, fullfourmanualcombat/emptyP4finish deals14/P4HP6. FullcloseGYset5,9,7/Pitch6,8/Deck10/RAP0/alloriginal1..10conserved/token11andproxy12ceased/Counter12/RNG0.",
+    "All39actions/3489assertions mapped, rawfive/fullschemaendpointprofiles/allphysicalowners and48manualpreferences perendpoint verified. Allfourready/live, Stack/chains/DQs/payment/manager/framesclear."
+  ],
+  "limits": [
+    "Onlyactualsole6discard/base7AAconsumer positivebranch. NoRhinartrigger, falsecondition/otherdiscard/modifiedbase/weapon/stacking/hero/Leviaendphase/Goldsupportprimary/sibling/fullcard/control/fullsuitecredit.",
+    "Existing source model and nativecompletedledger reused honestly; no extra raw per-inputsnapshots, entropyoverride or faultcontrol. Rootfocusedreplays/registration separate.",
+    "NoPHP/native/R/source/generator/service/replay by reviewer."
+  ]
+}

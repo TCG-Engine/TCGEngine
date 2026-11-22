@@ -1,0 +1,190 @@
+{
+  "status": "INDEPENDENT_NATIVE_CONFIRMED_BOUNDED_DEATHMATCH_GLOBAL_PERMISSION_OMITTED_FROM_FAB_ATTACK_TARGET_ELIGIBILITY",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T12:45:02.953350+00:00",
+  "candidate_issue_id": "FAB-REG-079",
+  "confirmed_native": true,
+  "engine_bug_scope": "FaBSim shared attack-target eligibility/static-permission omission, not Core generic decision framework/judge",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_sha256": "301182f899d0fef1eae3278fa4c3240e68b375e67570d69945952431f7d69088",
+  "manifest_sha256": "5b10f13b5de7e50c4b05b8ed1daf104328db00a0af30a5d402202a45038dfe88",
+  "correct_expectation_source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch335-independent-source-review.json",
+    "sha256": "4d61d04acd35dcb726f67d140caea80032ae67525e5214c92673573fe3cd1826"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch335-native-r1\\receipt.json",
+    "sha256": "144e4feff3835458bc730cbf6afbc582fe8f70c8724b0f8f23bb6cd88aaa65ec"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch335-correct-nonadjacent-probe-20261103T122756Z-6ae9d34c44b3b.json",
+    "sha256": "0650051048af21737f3433c2f1b562254d5c306e411cae8c4067dd661a4d4687"
+  },
+  "prefix_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-deathmatch335-failed-prefix\\receipt.json",
+    "sha256": "66d7b581ba8bb37b7b3f80e41a9735d6a315f8e1bd44cf1adca3b12df35e1339"
+  },
+  "prefix_configuration": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-deathmatch335-failed-prefix\\prefix-only.json",
+    "sha256": "8a857613d4b51b8b494e86dbe12c8f2f7875032e4e72fc3f88689605c186c34f",
+    "keys": [
+      "fixture",
+      "prefix"
+    ],
+    "prefix_inputs": 6,
+    "no_mutations": true
+  },
+  "prefix_snapshot": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-deathmatch335-failed-prefix\\initial_gamestate.txt",
+    "sha256": "2ba6f6a943334b3acc672809eb6775ee9e614b1efcaef747421c9e74ff8dc043",
+    "helper_source_sha256": "72739371849c7f7df742e28489003cd12238cfae3425a21d8fee0bd1f48f233c",
+    "raw_prefix_actions_sha256": "5b1cf4588ee912e2a6f1cd121743d5cdf028294bd597f4a7703f6caf2e526242"
+  },
+  "all_original_source_guards_verified": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+    "FaBSim/Custom/WTRCards.php": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b"
+  },
+  "additional_source_trace_guards": {
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94"
+  },
+  "observed": {
+    "accepted_native_inputs": 6,
+    "actual_pass_actors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "action_points": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "living_ready_hero_UIDs": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "all_four_manual_profile_verified": true,
+    "Landmark": {
+      "uid": 5,
+      "zone": "p1Arena",
+      "owner": 1,
+      "controller": 1,
+      "status": 2
+    },
+    "attack_card": {
+      "uid": 6,
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "Stack": [],
+    "window": "ACTION",
+    "combatOpen": false,
+    "pendingPayment": null,
+    "actual_choice_members": [
+      "p2Hero-0",
+      "p4Hero-0"
+    ],
+    "missing_material_legal_choice": "p3Hero-0",
+    "missing_membership_not_order_only": true
+  },
+  "independent_findings": [
+    "Actual Root six-input archive and private unchanged-runtime prefix agree: play Landmark5, actual four manual passes1/2/3/4, click remainingAA6. Deathmatch5 public ready ownArena, allfour live/ready/manual HP20, AA6 stillHand/R0/AP1/Stackempty. UI target MZCHOOSE has exactlyP2/P4, omitsP3. This is a concrete legal-choice omission, not string-order difference, late declaration timing, stale card index, failed cost or dead/noninteractive seat.",
+    "Printed full Deathmatch face and current official TRP9.3 establish heroes may attack any opposing hero, expressly exempting adjacency for anyhero/opponent allowances. No other Landmark/silence/attack restriction exists; chain is closed so focused-hero limitation cannot explain missingP3. Legendarysinglecopy and unearned lethalGold clause preserved.",
+    "Literal source trace: FaBClaimOrRequestAttackTarget uses FaBProfessorAttackTargets then writes resulting refs as MZCHOOSE Param. For ordinary Generic Wounding Blow6, Farflight Arrow condition and the two explicit Professor anyHero special sources are false, so it calls FaBLegalAttackTargets. That enumerates FaBAttackableSeats, which unconditionally starts adjacent opponents inUPF and has no active Deathmatch exception. Thus P3 is already filtered out before Core receives the Param.",
+    "Core DecisionQueueController manages the supplied MZ specs/choice count; it contains neither Deathmatch nor FaBAttackableSeats. This evidence attributes missing global permission to the FaBSim shared target-eligibility path, not a newly proven cross-game Core rules engine defect. FaBResolveAttackTarget normally reuses the same adjacency helper unless descriptoranyHero; no invalidP3answer was attempted, so revalidation failure is source-supported only and receives no separate native bug claim.",
+    "Read-only ledger dedup across78rows found no adjacency/attackable/Deathmatch issue pattern. Existing035/070 are target declaration/binding timing, not omission of a legal global permission; existing033 is Core configured-seat decision-hook admission, while allfour current seats are present/manual. This is a distinct bounded local causal candidate, not78new roots or a general claim about all global permissions."
+  ],
+  "deduplication": {
+    "ledger_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "ledger_sha256": "eb72ebb093444d33ca63aec231b87b85dc7d6f5b4963503029e50d07298b98e7",
+    "rows_reviewed": 78,
+    "matching_adjacency_global_permission_prior_issue_ids": [],
+    "distinct_from": [
+      "FAB-REG-035",
+      "FAB-REG-070",
+      "FAB-REG-033"
+    ],
+    "proposed_local_root_group": "fab_upf_attack_eligibility_global_permission_omission",
+    "qualified_scope": "Only actualDeathmatch/ordinaryP1AA/nonadjacentP3choice omission; no other card/caller exercised."
+  },
+  "unexecuted_suffix": [
+    "P3 answer and attack payment/movement",
+    "AA source/attack priority rounds",
+    "P3 defender declaration",
+    "damage and HP16",
+    "lethal/Gold behavior",
+    "full combat cleanup",
+    "successful fixture/replays"
+  ],
+  "fixture_saved": false,
+  "verified_fixture_absent": true,
+  "coverage_credit": false,
+  "passing_regression": false,
+  "repair_applied": false,
+  "repair_proposal": false,
+  "official_rule_basis": [
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "sections": [
+        "9.3"
+      ],
+      "finding": "UPF adjacency rule has explicit-any-hero/opponent exception; the selected global printed permission allows P3 while allfourlive. Closed chain before freshattack avoids focused-hero restriction."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.2.9a",
+        "8.2.9b",
+        "8.3.5"
+      ],
+      "finding": "Landmark enters as permanent and clears other Landmarks, none present; primary ownGA returns AP1."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "sections": [
+        "1.0.1a",
+        "1.1.5"
+      ],
+      "finding": "Card effects override conflicting core rules; all other UPF players are opposing heroes."
+    }
+  ],
+  "printed_face_sha256": "95e31f0628ccf273d11757bfecf5d947083fc5fdb48464f92c1bb39a22d1e0ca",
+  "limits": [
+    "Six accepted inputs only. No P3 answer/validation, combat, damage, Gold or suffix result is claimed.",
+    "Root native receipts are evidence; reviewer executed only pure read-only Python, no PHP/native/backend/R source changes.",
+    "No repair/proposal/generation, no denial retry/workaround, no whole-catalog or additional native audit."
+  ]
+}

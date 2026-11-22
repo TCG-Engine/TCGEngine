@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch825-palm-real-suspense-entry-draw-positive.json",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T19:05:26.708503+00:00",
+  "fixtures": [
+    {
+      "slug": "card-in-the-palm-of-your-hand-red-four-live-real-suspense-entry-draw",
+      "fixture_sha256": "1be5d33f1e190083bddbc5ece62e8fd44cef15ee978d3cb3bfca63b230ac2e2f",
+      "passed": true,
+      "result": "[PASS] In the Palm of Your Hand Red / real Suspense entry and separate draw WHEN"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-in-the-palm-of-your-hand-red-four-live-real-suspense-entry-draw",
+      "returncode": 0,
+      "stdout": "[PASS] In the Palm of Your Hand Red / real Suspense entry and separate draw WHEN\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,116 @@
+{
+  "status": "APPROVED_EXACT_SAVED_ONE_FOCUSED_EXISTING_BUG063_STACKED_REACTIONS_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T02:32:01.047455+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch276-flic-stacked-bug-witness.json",
+  "input_sha256": "a22771e8cdb9aa6fcdc9441807ac6ac2754df5bdc2be912cfc4d2153d061ee35",
+  "fixtures": [
+    {
+      "slug": "card-flic-flak-red-four-live-bug063-stacked-two-reactions-next-combo-only-plus-two",
+      "card_id": "flic_flak_red",
+      "group_id": "pitch-cycle:flic_flak",
+      "fixture_sha256": "e0cffc87f47274ebb805b4f0e3f3ed9ee84555aa79f6cf089faf751d8a791a0c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e07e67449b27da88bbd6cecc5e3459d0a221bb612ef231fd915c62283e762e6e",
+        "actions.json": "c30b362dc59106cd9b23ed5f826b66d3b30cf354be2369aae5f2bc249c8af2fa",
+        "assertions.json": "8bee64e72702317036e3300f843f800aa6c1d424e2bef11e9142f7b3b53ef2e5",
+        "expected_final_gamestate.txt": "b788b8f595c7bd75d4434fa64b64edc62ac6ce72a3e7db102bf2cddfe6cde9a4",
+        "meta.json": "3602385001f7922bbde95d5137db9a17961d6c2128295c9c1df8fdb634755b40"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e07e67449b27da88bbd6cecc5e3459d0a221bb612ef231fd915c62283e762e6e",
+        "actions.json": "c30b362dc59106cd9b23ed5f826b66d3b30cf354be2369aae5f2bc249c8af2fa",
+        "assertions.json": "8bee64e72702317036e3300f843f800aa6c1d424e2bef11e9142f7b3b53ef2e5",
+        "expected_final_gamestate.txt": "b788b8f595c7bd75d4434fa64b64edc62ac6ce72a3e7db102bf2cddfe6cde9a4",
+        "meta.json": "3602385001f7922bbde95d5137db9a17961d6c2128295c9c1df8fdb634755b40"
+      },
+      "actions": 70,
+      "native_assertions": 6578,
+      "actual_manual_passes": 61,
+      "manual_passes": 61,
+      "manual_pass_actor_counts": {
+        "1": 15,
+        "2": 15,
+        "3": 15,
+        "4": 16
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          9
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5,
+          6,
+          7
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          10,
+          11
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "new_identity_credit": 0,
+      "new_group_credit": 0,
+      "physical_findings": "P4 actually plays FlicA5 then B6 before any response. B6 resolves after actual actors4/1/2/3, while A5 stays Stack; new four actual responders1/2/3/4 resolve A5, physical defender order B6,A5. Both printed4 block real Kodachi1 with zero damage; real Blue10 cost0 pitch3 pays weapon1, R2 and printed condition earns GA/AP1. Full close sends both Flics to own public GY, proxy12 ceases, used physical weapon8 stays. Actual Raging9 cost3 funded R2 plus Blue11pitch3 leaves R2/AP0. Next actual ComboKnee7 has only WTR_DEFENSE:2, printed3+2=5; actual attack7 minus5 deals2 to P4HP18. Final GY4 exact UIDset{5,6,7}, GY1{9}, Pitch10,11, used8/R2/AP0, all physical ownership conserved.",
+      "qualification": "One focused existing063 stacked-two-reaction regression. No new identity/group/sibling/depth/sameUID-replay/turn-reset/other defender order/support/full-card or isolated fault credit; root focused replays remain separate."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch276-independent-source-review\\review.json",
+    "sha256": "aea0911eb9a066cc50793f25dd845f51f337ba6a85aa70ec6a5648a20e344d4b",
+    "manifest_sha256": "465af860c0495033be53e7428b012d99ab8de8c27c84c0ba1181c69590560242"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch276-flic-stacked-bug-witness-20261103T020924Z-6ae94254ccedc.json",
+    "sha256": "3980bf7579c5efb95842080078d8375a11b1d75335adf70ffa5db11421d263e1"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch276-flic-stacked-bug-witness.recording-results.json",
+    "sha256": "52490e199300ae7c3196145634d6602d324f5c9734e142c60a61f95eaa4a8098"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch276-flic-stacked-native-r1\\receipt.json",
+    "sha256": "21d47ac8a8293c9ec4b60b1931c95948fe1643d88e38fbe696df5c6848ce8e68",
+    "stdout_sha256": "177b31559d095b4c977da9b7d164a214cc1eb693e45a90ee6255c924bb4db7d6",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independent read-only exact saved five-file review: all70 actual actors/modes/payloads and6578 ordered assertions match independently approved source; no author builder was executed. Full schema-backed initial/final snapshots parsed and physical UID sets/economy/HP verified. Reused pure parser/normalizer/action function definitions via AST only. No native/PHP/replay/R/backend executed.",
+  "limits": [
+    "Saved recording review only; root focused replays remain separate evidence.",
+    "Exactly one existing063 stacked regression; zero new identity/group credit.",
+    "No old fixture requalification, source change, full suite, isolated fault or broad audit."
+  ]
+}

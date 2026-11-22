@@ -1,0 +1,179 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_SHIMMERS_PERMANENT_POWER_COUNTER_BEFORE_EARNED_RESPONSES",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 854,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "confirmed_early_permanent_counter": true,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal EVRAttack Shimmers Aura-weapon counter timing finding. Root reserves issue ID; no distinct shared-root/Core allocation, global trigger diagnosis, repair or sibling credit inferred.",
+  "source_spec": "card-regression-batch854-shimmers-real-aura-weapon-earned-counter-probe.json",
+  "input_sha256": "3a8d6e299392069ae9c23fee803b841702b51791eeff6d6b2558692154445108",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-real-iris-aura-weapon-earned-counter-strict-probe-author\\shimmers-real-iris-aura-weapon-earned-permanent-counter-full-probe.json",
+    "sha256": "3a8d6e299392069ae9c23fee803b841702b51791eeff6d6b2558692154445108"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-real-iris-aura-weapon-earned-counter-strict-probe-author\\manifest.json",
+    "sha256": "a91da9bd7213a070c7c21578fc8c0470ae832c02fb13f35e5e0ecdcfe3c3fcce"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-shimmers-independent-real-aura-weapon-diagnostic-source-review.json",
+    "sha256": "76bad42f64b2dbbeee5b3b0558862bddc65216858b0d127bc531364eda3a04d6"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b854-shimmers-real-aura-weapon-strict-nosave-cdc\\receipt.json",
+    "sha256": "f1e5fb26518c394e44e06f4abe2d538a75bbd6ab712dbc39036e8cf01e61a549"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b854-shimmers-real-aura-weapon-strict-nosave-cdc\\actual-result.json",
+    "sha256": "784e5796eccccf7788271dc9540e5501b81fe77bd8f1e50a5d833a994252c0e9"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch854-shimmers-real-aura-weapon-earned-counter-probe-20261116T080546Z-6afab95a63b81.json",
+    "sha256": "25c65632017cf4234c632e7ef0597e5b5e371ecbf7f185fe7ad90e1a99c7610e"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch854-shimmers-real-aura-weapon-earned-counter-probe.recording-results.json",
+    "sha256": "784e5796eccccf7788271dc9540e5501b81fe77bd8f1e50a5d833a994252c0e9"
+  },
+  "planned_controls": 32,
+  "planned_queries": 4128,
+  "actual_native_inputs": 7,
+  "actual_manual_inputs": 4,
+  "actual_manual_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "actual_earned_Shimmers_response_inputs": 0,
+  "actual_defense_finish_inputs": 0,
+  "persisted_successful_queries": 860,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "f2136169fab1cb2ba193b4aa50ea28aa41ecf3948ebcf8d6fa2050b14eee621b",
+  "first_failed_query": {
+    "source_step_index": 14,
+    "source_check_index": 15,
+    "native_after_input": 7,
+    "checkpoint": "actualAuraWeapon_Source_four_attacking_earnsShimmersLayer_BEFORE_physicalPOWERcounter_andComputed5_fourth_actualActionResponse",
+    "global_query_ordinal": 861,
+    "query_ordinal_in_checkpoint": 16,
+    "query": {
+      "step": 7,
+      "type": "card_property_equals",
+      "mzId": "p1Arena-1",
+      "property": "Counters",
+      "value": "{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}",
+      "viewerPlayerID": 1
+    },
+    "expected": "{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}",
+    "actual": "{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1,\"POWER\":1}",
+    "expected_counter_map": {
+      "WEAPON_ATTACK_TURN": 2,
+      "WEAPON_ATTACKS": 1
+    },
+    "actual_counter_map": {
+      "WEAPON_ATTACK_TURN": 2,
+      "WEAPON_ATTACKS": 1,
+      "POWER": 1
+    },
+    "error": "Expected p1Arena-1.Counters to equal '{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}', got '{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1,\"POWER\":1}'."
+  },
+  "queries_unrun_after_failed_query": 3267,
+  "not_passed_including_failed_query": 3268,
+  "native_controls_unrun": 25,
+  "declarative_controls_unrun": 25,
+  "manual_inputs_unrun": 25,
+  "unrun_control_breakdown": {
+    "earned_Shimmers_responses": 4,
+    "Attack_responses": 4,
+    "defense_finish": 1,
+    "Defend_priority_responses": 4,
+    "Reaction_responses": 4,
+    "Damage_responses": 4,
+    "Resolution_responses": 4
+  },
+  "passed_current_cluster_queries": 15,
+  "initial_raw_sha256": "51dfa02b6dccedbb9a17846481b22374b8443648171c6cac0dda1a58e2d3b64d",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All seven actual envelopes and860 persisted queries exactly match the original Source order. Inputs1..3 are physical Shield6 click, Hero4 target answer and actual Blue8 pitch. Inputs4..7 are one Source-response pass per actor1/2/3/4. No earned Shimmers response, defense declaration, later combat response or cleanup input occurred.",
+    "Fresh initial raw48 manual controls and four legal Young/live UPF seats/allHP20/no passive seats were verified. Physical Shimmers5 and SpectralShield6 have owner/controller1; Shield initial raw Counters wire \"-\" decodes to [] under actual ZoneClasses Arena234/255, and the initial native property assertion [] passed; Iris7 actual Weapons1 and Blue8 Hand1. No seeded power, weapon flag or attack proxy is present in setup.",
+    "Prior completed boundary6 directly passed real Blue8 Pitch1/R0/AP0, same physical Shield6 use-only counters, Shimmers5/Iris7 identity, otherHP20 and actual Stack ATTACK/CardIDShield/controller1/SourceZoneArena/SourceUID6 plus source-derived six-key proxy base4/Iris/physicalWeaponUID6. These are prior-boundary facts, not later unrun current Stack witnesses.",
+    "At boundary7, the first15 successful queries directly establish SeatOrder/LiveSeats1234, TurnPlayer1/Turn2/Winner0/Priority1/passes0, P1HP20/R0/Chi0/AP0 and p1Arena-1 actual CardID spectral_shield/UniqueID6/Owner1/Controller1. The next raw property query fails with exact counter map use markers plus POWER1. This is the actual same physical source counter, not a guessed proxy or cached combat field.",
+    "Captured state independently shows ATTACK combat step/open combat/attacker1/defender4/physical Hero4 target/no pending payment and turnEffects[1] row EVR_ILLUSION_ATTACK amount1/uses1. All captured DQs are empty. Captured attackPower0 and attackGoAgain=false are caches at this stage and are not substituted for computed power/GA assertions."
+  ],
+  "causal_source_findings": [
+    "GameLogic1776 invokes OnAttackDeclared after moving the actual attack proxy to the chain. OnAttackDeclared1228 calls EVRAttack directly. EVRCards85 appends EVR_ILLUSION_ATTACK;90 recognizes physical Aura weapon via WEAPON_UID/MON_SOURCE_UID, iterates controlled Shimmers and immediately increments the physical source POWER. This exact path explains the observed POWER1 at the first postdeclaration return.",
+    "EVRCards90 also sets Shimmers EVR_TURN to current TurnNumber2 to reserve the once-per-turn limit. That physical Shimmers value was not a current passed query/raw-zone observation and is stated only as source behavior. Reserving the trigger limit itself is legitimate under CR6.6.1a/6.6.5e; the confirmed defect is early resolution of its counter effect.",
+    "Printed Shimmers is a static WHEN triggered effect. CR6.6.1d,6.6.5 and6.6.6 require its effect to generate on resolution after a layer and legal responses. The correct noPOWER-before-fresh-four oracle is unchanged. Initial Shield counter absence, native use markers, actual matching physical UID and source-derived counter writer exclude a serialization/protocol omission classification.",
+    "The current computed-power4/GA queries and current Stack1/ABILITY/source5/controller1 assertions follow the failed counter query and are UNRUN. Actual computed5, damage5/HP15, actual earned-layer presence/absence/count and complete GA/AP refund/physicalPOWER persistence at cleanup are not certified. The separately captured ATTACK label/DQ emptiness does not prove a Stack count.",
+    "All25 remaining controls and3267 queries after the failed query are unrun. No complete route, promotion or fixture is recommended; no distinct shared/Core root or repair is allocated. The prior Source concern now has a specific actual premature physical counter witness."
+  ],
+  "captured_corroboration": {
+    "window": "ATTACK",
+    "combatStep": "ATTACK",
+    "pendingPayment": null,
+    "attackPower_cache": 0,
+    "damageDealt_cache": 0,
+    "effect_path": [
+      "observed_state",
+      "turnEffects",
+      "1"
+    ],
+    "effect_row": {
+      "type": "EVR_ILLUSION_ATTACK",
+      "amount": 1,
+      "uses": 1
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    }
+  },
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afab951dcd40",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afab951dcd40",
+    "existing_directory_present": false,
+    "reason": "Recorder already deleted its isolated game. Immutable result/archive retain initial raw and captured game fields/decisions/hand refs, no final physical zones. No replay or terminal recapture was performed."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1a",
+        "6.6.1d",
+        "6.6.5",
+        "6.6.5e",
+        "6.6.6"
+      ],
+      "official_page_rechecked": true
+    }
+  ],
+  "limits": [
+    "No fixture, Save, qualification, coverage or source fix;3267 after-failure queries/25 controls remain unrun.3268 not-passed includes the failed query.",
+    "Only premature permanent POWER1 is confirmed, not later computed5/damage/earned Stack metadata/GA/refund/cleanup. Current passed physicalUID/assets are separated from prior-boundary witnesses and captured caches.",
+    "No PHP/native/R writes/rerun/fullsuite/Git/remote/deferred repairs or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T08:10:00.590175+00:00"
+}

@@ -1,0 +1,73 @@
+{
+  "status": "APPROVED_ACTUAL_BIOS082_EMITTED_BODY_AND_EXACT_SCOPE_NATIVE_QUALIFICATION_PENDING",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T20:17:40.635090+00:00",
+  "runtime_before_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "application_receipt_sha256": "7cc2641fda8144858db19984c4ad60f39448f8fcd472b818373c8f9e738850bb",
+  "generated_scope_sha256": "25aa3c96575c007c2847f9e3c7d326a61921c76a279b8046642daae8f4bb14da",
+  "manifest_sha256": "f4581f70b83dc5e79b8676933086c1c1d6da54b8c512a94115ffbbd4586711ba",
+  "prior_source_review_sha256": "e1091c19017f152e70c085b8f8796ea254dfe395c1d39ffef375e54434518119",
+  "transport_review_sha256": "33f3a9c2cb753b4d9cca0ecbd4aa5a3ff85159f3a6c080b7b74613a1521dcd1d",
+  "generated_before": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "7576a12c264373f0df180cb103010797419d071f412884d283d31d135a9514cc",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "actual_emitted_files": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "760ab242a13d1e53e08f6bcd92240f3838f81ce7d1062477652d0d9a57a61132",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "actual_selected_closure_sha256": "570c3adcfd9c3b16163e38682de18c0bfaec39ffe93133eac01896678295b287",
+  "actual_selected_closure": "$resolveCardAbilities[\"bios_update_red:0\"] = function($player) { //bios_update_red\r\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  FaBDYNAdd($player, 'BIOS_POWER');\r\n   FaBDYNArmBIOSItem($player, $mzID);\r\n};\r\n",
+  "semantic_findings": [
+    "One direct bios_update_red:0 ResolveCard closure retrieves actual mzID, retains original BIOS_POWER arm once, and invokes reviewed source-aware FaBDYNArmBIOSItem(player,mzID) once.",
+    "No await/callback/helper family or early Item movement added to emitted body. Actual resolved source GY mzID is passed through unchanged to reviewed source-arm helper.",
+    "Captured emitted bytes equal current production outputs; exact approved CRLF-body variant. Independently rerun scope comparison preserves every unselected PHP byte and MacroCount substance, excluding validated timestamps only.",
+    "All five actual source hashes and backups match previously approved manifest; current runtime independently recomputed. Root receipt reports one successful emitter invocation/stderr0 and all four actual R PHP lints PASS."
+  ],
+  "scope": {
+    "status": "PASS_EXACT_ONE_BIOS_RESOLVECARD_SCOPE",
+    "selected_macro": "bios_update_red:0:ResolveCard",
+    "selected_closures": 1,
+    "old_block_sha256": "faa092cdd16299570bf5486be2bc16082fde0dcd83fb6ba1d6a1245f7fd327b1",
+    "new_block_sha256": "570c3adcfd9c3b16163e38682de18c0bfaec39ffe93133eac01896678295b287",
+    "allowed_fixed_block_sha256": [
+      "bef55927b3d40a997db752b1f36c10ef2c0efd82df7ef2efd2d37700dda0d7fa",
+      "570c3adcfd9c3b16163e38682de18c0bfaec39ffe93133eac01896678295b287"
+    ],
+    "unselected_php_sha256": "33242f7a469e33957dba946653d2b78e3ee85fb1d33cf8041a6fc6329d67a3d1",
+    "unselected_php_bytes_preserved": true,
+    "macro_count_timestamp_only": true,
+    "new_await_helpers_allowed": 0,
+    "limits": "Scope transport only; actual generated-body peer and native qualification remain separate"
+  },
+  "fixture_inventory_before_after": [
+    3657,
+    3657
+  ],
+  "limits": [
+    "Source semantics reused from prior approval; this review reads actual emitted bytes and receipts only.",
+    "No PHP/native/service/generator/R writes by reviewer. Root native, exact saved review and focused replays remain independent qualification gates.",
+    "No full-suite, legacy corpus, coverage or new-root claim."
+  ],
+  "holds": [],
+  "native_credit": false,
+  "qualification_credit": false
+}

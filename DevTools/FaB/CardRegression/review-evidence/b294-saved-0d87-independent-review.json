@@ -1,0 +1,120 @@
+{
+  "status": "APPROVED_EXACT_SAVED_YOUNG_BRIAR_FIRST_DAMAGE_TRIGGER_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T05:58:22.571764+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch294.json",
+  "input_sha256": "2068084fcd4b884e8905fc6ed16de8dd772bdb7bba4ccaf6fb48fe916284101a",
+  "fixtures": [
+    {
+      "slug": "card-briar-young-four-live-sparse-real-first-attack-action-damage-queues-hero-trigger-creates-owned-earth",
+      "card_id": "briar",
+      "group_id": "identity:briar",
+      "fixture_sha256": "2809a6f893bd3b1f1e0821e3ee379c02ffbc26d33cda5c93c733b32064e6adc4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d9ec1bc9ad6f2a3e8aa2be92cef79598cead482801658185d978ece15d598e61",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "f2ff15373ea429713122341bfb17c154c2f9120fe052015f3d8db06c6455cdc3",
+        "expected_final_gamestate.txt": "0c3225efb5c307c9d882c0ba836d37c536258f537d0d2ca41cf9c1be75cb28e1",
+        "meta.json": "ac3076c6daceef587e3de33fbfcd309935bb34301f1fc58e6b5b31191631baa3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d9ec1bc9ad6f2a3e8aa2be92cef79598cead482801658185d978ece15d598e61",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "f2ff15373ea429713122341bfb17c154c2f9120fe052015f3d8db06c6455cdc3",
+        "expected_final_gamestate.txt": "0c3225efb5c307c9d882c0ba836d37c536258f537d0d2ca41cf9c1be75cb28e1",
+        "meta.json": "ac3076c6daceef587e3de33fbfcd309935bb34301f1fc58e6b5b31191631baa3"
+      },
+      "actions": 31,
+      "native_assertions": 2124,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_response_passes": 28,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "new_physical_token_uidset": [
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_arena_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualyoungBriarHero1/threeDori20/allfourmanual/noinitialtokens/history/effects. ActualownedWoundingRed5targetP4/cost0spendsoriginalAP1\u21920/R0, fourfreshsourceandfullcombatrounds. Nativeaction19actualP4response deals4/P4HP16 andimmediatelyholdsStackBriarABILITY/controller1/SourceUniqueID1 whileAA5Chain andArena0; selectedphasegateconsumedONEactualP4Pass, noextraPassdrift. Nativeactions20-23areFOURNEW1,2,3,4responses; firstthreeholdsameHero1source/Arena0/AA5Chain/HP16, onlyfourth createsactualEarth7ArenaOwnerController1/Status2 thenDAMAGE/sourceclears. SourceZone/Params/virtualUIDwereunconstrainedasapproved; completefinalrawstatehasno6virtualandCounter7. FullDamage/Resolutionclose31 sameAA5ownpublicGY/Earth7ownedArena/Hero1BriarUID1Status2alive/HP20exceptP4HP16/allRAP0/cleanStackChainsqueues. OriginalUID1-5ownershipconserved, onlynewphysical7token, noseededcreation/GA/APcredit.",
+      "qualification": "One earnedfirstcontrolledAAopposingHero damage\u2192responseableprimaryBriarHero1trigger\u2192ownedEarthcreation/fullclose. No EarthstaticNAAdefense/endphase, LightningsecondNAA, secondhitlimitenforcement/multipacket/arcane/buffs/blockedzero/otherHero/adult/supportAA/tokenprimary/fullcard/control/sibling credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch294-independent-source-review.json",
+    "sha256": "7db46d3ff30bf5ddca69b63bda5a6da58231820f83ff3b035569aadbe5ab2d6e",
+    "manifest_sha256": "f1de81cb41897d10b77a26989500c8465803674920e4eeafc2a77cd95492d165"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch294-20261103T055308Z-6ae976c4cb192.json",
+    "sha256": "29ebf4e112b1bc1610225cdd17ae44af7a8e69345e0162b2952e6cd0cc37f90b"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch294.recording-results.json",
+    "sha256": "f61eeefc12470ab85c0e3ce5aa0ad2c4580e1ac6cf8f517d5a0591a58177c2ca"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch294-native-r1\\receipt.json",
+    "sha256": "d75dc08e0899b14d88444d7d0bfe18398e8cd2162f4306efe15f3526e88be5e5",
+    "stdout_sha256": "0fba551f466db206c3e241d357b0d5d4930cb3014cd209c2e5c86ccf786445b7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own generic raw5/archive/schema/action/assertion parsing only, exactB294bindings beforeunrelatedsemanticsection; noauthorbuilder."
+  },
+  "method": "Independent readonly exactsaved raw5 review. All31actualactors/modes/payloads and2124orderedassertions matchapprovedsource; complete schema initial/finalphysicalUID/ownership/Heroidentity/token/economy/HP/GY/Arena parsed. All29manualactors and immediatefirst4damage\u2192Hero1layer/Arena0\u2192fourfreshresponses\u2192Earth7 onlyfourth verified. NoPHP/native/replay/R/backend executed.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplays are separate evidence, notrunbyreviewer.",
+    "One earnedfirstcontrolledAAopposingHero damage\u2192responseableprimaryBriarHero1trigger\u2192ownedEarthcreation/fullclose. No EarthstaticNAAdefense/endphase, LightningsecondNAA, secondhitlimitenforcement/multipacket/arcane/buffs/blockedzero/otherHero/adult/supportAA/tokenprimary/fullcard/control/sibling credit.",
+    "Actual0d/sourcecontext retained; no sourcefix/applicationretry or historicalcorpus audit."
+  ]
+}

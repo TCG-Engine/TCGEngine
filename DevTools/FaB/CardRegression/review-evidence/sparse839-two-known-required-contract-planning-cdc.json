@@ -1,0 +1,133 @@
+{
+  "status": "INDEPENDENT_SOURCE_ONLY_UNATTEMPTED_TWO_EXACT_REQUIRED_KNOWN_CONTRACT_NOTES_APPROVED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 839,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_evidence_approved": true,
+  "source_notes_approved": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch839-two-required-known-contract-notes-manifest.json",
+    "sha256": "56a696c821c5924efd45be37f45b009ec9caa00bdcb4c0bea5409543702a676d"
+  },
+  "manifest_sha256": "56a696c821c5924efd45be37f45b009ec9caa00bdcb4c0bea5409543702a676d",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch839-firm-reservation.json",
+    "sha256": "94848e29705ce1d376485d8dadcbdd2c76c01f632eb9394533f48a64230c10da"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_preimage_guards_matched": true,
+  "guard_count": 16,
+  "notes": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch839-light-fingers-known-defended-steal-when-unattempted-note.json",
+      "sha256": "ce1178a8e5ad0eff984fdc17d01b553fad8cb024f138c20304c7d47c5ca359a3"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch839-cut-known-formal-target-unattempted-note.json",
+      "sha256": "e739df3aa2f60cff017b31adeeb807851d32a22f179eeabf205ce8ff430b3cc5"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "light_fingers",
+      "classification": "EXACT_KNOWN_DEFENDED_WHEN_INLINE_BEFORE_THEFT",
+      "status": "UNATTEMPTED",
+      "independent_causality": "SEA canonical has only Defended; emitted light_fingers:0 at25627..25636 checks the real Hero Thief type and directly calls SEAStealGold. GL OnDefended1237..1244 executes this source macro synchronously. The positive fixed Scurv route therefore reaches the retained Crown/Toby missing earned Defended-WHEN response layer before theft. No blanket trigger or missing-effect-body claim.",
+      "legal_precondition": "Current catalog Scurv Stowaway has literal Pirate/Thief/Hero/Young, life20; Generic Light Fingers is legal without changing Hero types or inventing a state flag. Rum activation/listener remains unused; Killjoy is unnecessary. Actual Gold owned/controlled by attacker1 is a legitimate midgame token precondition.",
+      "unrun_normative_requirements": "Gold stays with attacker1 through the earned layer and all four manual responses; resolution transfers the same physical Gold control to4 while owner1 remains and token continues to exist. SEACards59..64 clones the source Arena object through AddToZone and sets Controller; this is source evidence only. Real incoming4 versus defense1 deals3 (Scurv17), then printed Blade Break destroys the physical equipment on combat-chain close to owner4 GY; full cleanup remains unrun.",
+      "retained_contract": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+        "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+      }
+    },
+    {
+      "card_id": "cut_to_the_chase_blue",
+      "classification": "EXACT_KNOWN_FORMAL_REACTION_TARGET_DEFERRED_TO_RESOLUTION",
+      "status": "UNATTEMPTED",
+      "independent_causality": "Printed target is an Assassin attack action card with contract. Canonical has ResolveCard only; actual generated case8 builds CONTRACT refs and case6 yields the target MZChoose during resolution, before case5 power and defending-deck peek. The GL Prepare bridge1291..1293 uses CardChoices4..12 Nip/Shred registry, excluding Cut. A singleton valid host does not waive target declaration before legal play/payment/response priority.",
+      "admission_distinguished": "WTRCards477 explicitly permits Cut with an actual CONTRACT attack; DYNCards15..16 recognizes the fixed non-Stealth Plunder the Poor host. This is not a weapon-only rejection or absent body. Managed reaction source completion exists; no blanket resolving-source lifetime failure is asserted.",
+      "unrun_normative_requirements": "Young Nuu with non-Stealth Plunder Yellow3 and legal block total4 avoids unrelated Stealth/hit/contract-reward effects. Declare host before payment/priority, then retain reaction during resolving bottom choice, apply+1 for actual4 fully blocked/no damage, move actual defending Deck top to bottom with second card becoming top, preserve ownership and all physical cleanup. These supports, bottom branch and siblings remain untested.",
+      "retained_contracts": [
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse556-incision-formal-target-planning-33333.json",
+          "sha256": "21872e611ac3711d5c68435031528c5e3e14b5776e01e0d0e8e08288c7e9cf5f"
+        },
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse812-holo-independent-saved-review-6695.json",
+          "sha256": "0493429eb29b4e79b64f418f6ac64a7aea037e620dfea6f84b6446067384ddbb"
+        }
+      ]
+    }
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/02-object-properties/",
+      "paragraphs": [
+        "2.11.6a"
+      ],
+      "official_read_only_web_read": true,
+      "finding": "Thief is a class supertype."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.5.54",
+        "8.3.3"
+      ],
+      "official_read_only_web_read": true,
+      "finding": "Steal changes control; Blade Break destroys defended equipment when the combat chain closes."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "paragraphs": [
+        "1.3.1a",
+        "1.3.1b",
+        "1.1.3"
+      ],
+      "official_read_only_web_read": true,
+      "finding": "Card ownership and control are distinct; Generic equipment fits the real Thief Hero."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "official_read_only_web_read": true,
+      "finding": "Earned trigger creates a layer before priority; theft is its resolving effect."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "paragraphs": [
+        "5.1.4",
+        "5.1.5",
+        "5.1.7",
+        "5.1.10"
+      ],
+      "official_read_only_web_read": true,
+      "finding": "Formal target declaration precedes legal-play check, payment and completed play."
+    }
+  ],
+  "limits": [
+    "Planning notes only; no executable, probe, Native observation, fixture, coverage, qualification, new issue/root or repair. Both full selected routes remain uncovered.",
+    "Whole generated-file guard and actual selected closures/causal native helpers were inspected; no redundant closure-fragment hash audit or historical replay.",
+    "Source clone/transfer, damage, Blade Break, deck-bottom and all support behavior are unrun, not certified by body presence or metadata/alias matches.",
+    "No alternate primary, non-Thief false branch, inline-theft acceptance, deferred-target acceptance, quiet baseline or omitted bottom choice.",
+    "W-only independent proof; no PHP/native/R writes, full suite, Git mutation or denied188/184/B787 repair action."
+  ],
+  "source_approved": false,
+  "native_probe_approved": false,
+  "native_execution_approved": false,
+  "normal_save_approved": false,
+  "passing_fixture_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "new_issue": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "PHP_native_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "created_utc": "2026-11-16T02:29:36.790127+00:00"
+}

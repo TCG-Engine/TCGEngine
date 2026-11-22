@@ -1,0 +1,96 @@
+{
+  "status": "APPROVED_AS_BOUNDED_COMPONENT_PREPARATION_NOT_EXECUTED",
+  "approved": true,
+  "preparation_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "harness_author": "/root",
+  "reviewed_utc": "2026-11-06T04:27:47.399965+00:00",
+  "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "proposal_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\manifest.json",
+    "sha256": "dd452d93d8e29a58167e356ceb6db0e36af51e628c3410514ff8affb875b27eb"
+  },
+  "original_independent_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-independent-source-review.json",
+    "sha256": "77e61350d692675dfc4131322067a9105f1c020ca1860217daa45aabd244540d"
+  },
+  "harness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php",
+    "sha256": "3c9a1ab271b181f727a2401770a17c2b2d833ecbe25d467c7365cf90b8bba9b1"
+  },
+  "candidate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\WTRAbilities.php",
+    "sha256": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c"
+  },
+  "before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\before-WTRAbilities.php",
+    "sha256": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448"
+  },
+  "actual_source_candidate_functions": [
+    "FaBWTRPureTokenHitSpec",
+    "FaBWTRQueuePureTokenHit",
+    "FaBWTRResolvePureTokenHit"
+  ],
+  "actual_before_function": "FaBWTRPureTokenHitSpec (name-only BeforeHitSpec alias)",
+  "static_contract_assessment": [
+    "Three exact reviewed candidate declarations and one actual beforeSpec are extracted by token_get_all; selected declarations have ordinary named signatures and no interpolation/heredoc edge case. No new implementation of the changed admission/capture/resolver is supplied by doubles.",
+    "Doubles are explicit boundaries for state, UID/live-Hero data, suppression, metadata, AddStack and Mark/token factory observation. Mark stub proves deferred call/recipient, not actual Hero counter storage; real Mark helper semantics were independently source-reviewed and original native integration remains required.",
+    "Normal path queues one captured layer without early Mark or token, preserves source/controller/Hero identity and PRIORITY window, then observes exactly one deferred Mark. Foreign physical owner/controller and later source CardID/controller/suppression changes are exercised. Changing active target does not redirect captured Hero.",
+    "Earn negatives cover early blank/hit suppression, nonpositive amount, non-Hero target, invalid source UID and wrong Hero seat. Resolution negatives cover replacement Hero UID, wrong zone, eliminated captured controller/recipient, mixed MARK/token payload and unmapped layer. These are controlled inputs, not full native legality or exhaustive malformed-state coverage.",
+    "All15 actual beforeSpec maps and full Params arrays are compared. Factory helper, one call, recipient, captured fabEffectController and restoration of a pre-existing global value are asserted. The full factory argument vector and the no-pre-existing-global finally arm are not independently asserted; the entire unchanged factory branch is covered by exact source preservation in 77e61350.",
+    "The explicit --fault-no-mark flag changes only one extracted eval-call string, guarded by replacement count1. The first resolved-mark equality must throw before PASS output; it does not mutate W/R candidate bytes.",
+    "No OnHit/dispatcher/DoResolveCard/four-pass priority or actual Mark-storage integration is claimed; original strict31/2297 native after remains mandatory. There is no baseline queue/resolver execution claim: only beforeSpec is executed in this candidate harness."
+  ],
+  "expected_root_results_not_observed": {
+    "normal": {
+      "status": "PASS",
+      "checks": 169,
+      "legacy_ids_compared": 15
+    },
+    "fault_no_mark": {
+      "expected_nonzero_exit": true,
+      "expected_error_contains": "resolved mark expected [4] got []",
+      "first_failing_eq_call": 7,
+      "no_PASS_output": true
+    }
+  },
+  "required_execution_hash_wrapper": {
+    "required": true,
+    "reason": "Harness itself has no whole-file/source hash guards; Root must verify these exact harness/candidate/preimage SHA values before the stated commands. This is the explicitly proposed external wrapper, not an unreported standalone guarantee.",
+    "harness_sha256": "3c9a1ab271b181f727a2401770a17c2b2d833ecbe25d467c7365cf90b8bba9b1",
+    "candidate_sha256": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "before_sha256": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448"
+  },
+  "suggested_root_commands": [
+    [
+      "C:\\xampp\\php\\php.exe",
+      "-l",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php"
+    ],
+    [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php"
+    ],
+    [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php",
+      "--fault-no-mark"
+    ]
+  ],
+  "limitations": [
+    "Preparation/source review only: no PHP, lint, normal/fault command, component contract or native game executed by reviewer; no actual PASS asserted.",
+    "Factory full argument vectors, absent-global finally arm, all legal game states, source incarnation/security and complete token creation ecosystem are outside this controlled harness.",
+    "OnHit spec-skip/no-double generic body, dispatcher/return-window restoration and real four-seat/physical Mark behavior require the original native integration case; source review supports them but this harness does not simulate them.",
+    "No15 native/sibling/card coverage, fixture, source application or repair qualification credit; no R writes or denied-operation retry."
+  ],
+  "blockers": [],
+  "actual_component_results": null,
+  "actual_negative_control_results": null,
+  "PHP_executed": false,
+  "native_executed": false,
+  "source_applied": false,
+  "repository_writes": false,
+  "coverage_credit": false,
+  "review_script_sha256": "3c3e0968dfd3dc3aa661a6db1e540355d777908be2853f07c706613da40c0e97"
+}

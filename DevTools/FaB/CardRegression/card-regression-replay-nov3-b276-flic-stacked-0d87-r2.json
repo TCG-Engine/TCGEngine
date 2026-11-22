@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch276-flic-stacked-bug-witness.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T02:31:02.795007+00:00",
+  "fixtures": [
+    {
+      "slug": "card-flic-flak-red-four-live-bug063-stacked-two-reactions-next-combo-only-plus-two",
+      "fixture_sha256": "e0cffc87f47274ebb805b4f0e3f3ed9ee84555aa79f6cf089faf751d8a791a0c",
+      "passed": true,
+      "result": "[PASS] flic_flak_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flic-flak-red-four-live-bug063-stacked-two-reactions-next-combo-only-plus-two",
+      "returncode": 0,
+      "stdout": "[PASS] flic_flak_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,121 @@
+{
+  "status": "ACTUAL_UNSAVED_FAILURE_REVIEWED_PREMATURE_POST_WARD_ARENA_OBJECT_GAMEPLAY_TIMING",
+  "phase": "ACTUAL_FAILED_ATTEMPT",
+  "batch": 828,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T20:44:30.848771+00:00",
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-elliptical-independent-diagnostic-source-review.json",
+    "sha256": "860d88dae7b6571d4d2b8de8a7802d33f563735f75b2f3f670736b7bf1486914"
+  },
+  "source_spec": "card-regression-batch828-elliptical-original-correct-ward-leave-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-elliptical-r2-required-diagnostic-flags-slug-author\\elliptical-original-correct-ward-then-earned-leave-token-probe-r2.json",
+    "sha256": "f07500106cc70f1b737814b24423d19e2e61e4533d12c79a770f9dcfde1654eb"
+  },
+  "input_sha256": "f07500106cc70f1b737814b24423d19e2e61e4533d12c79a770f9dcfde1654eb",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-elliptical-r2-required-diagnostic-flags-slug-author\\manifest.json",
+    "sha256": "fdf42f8b95a7a793a2c312f55bcac56d0075e84683abeafbf3a7a4b58aac3b19"
+  },
+  "manifest_sha256": "fdf42f8b95a7a793a2c312f55bcac56d0075e84683abeafbf3a7a4b58aac3b19",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b828-elliptical-original-correct-unsaved-before-a11\\receipt.json",
+    "sha256": "89cb5bbcdcf60a362c14a33d75f717c821b6014ca31475b293746004876f0790"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b828-elliptical-original-correct-unsaved-before-a11\\recording-results.json",
+    "sha256": "5c03220d6868f6942e83034b77532f094949d6bd5855942169885629c62d101c"
+  },
+  "identical_Native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch828-elliptical-original-correct-ward-leave-probe.recording-results.json",
+    "sha256": "5c03220d6868f6942e83034b77532f094949d6bd5855942169885629c62d101c"
+  },
+  "actual_inputs": 29,
+  "planned_inputs": 41,
+  "actions_mapping_sha256": "55a0ebb55b76ec009e24fc5a3ceeb4c83abbbd48a1e2da215040058b934ac9ca",
+  "actual_manual_passes": 24,
+  "actual_manual_actor_counts": {
+    "1": 6,
+    "2": 6,
+    "3": 6,
+    "4": 6
+  },
+  "actual_genuine_four_live_manual_seats": true,
+  "initial_raw_48_manual_controls": true,
+  "failed_query": {
+    "type": "zone_count",
+    "zone": "p4Arena",
+    "value": 0,
+    "viewerPlayerID": 1,
+    "step": 29,
+    "source_step_index": 58,
+    "source_check_index": 99,
+    "ordinal_one_based": 3321,
+    "actual": 1
+  },
+  "query_counts": {
+    "total": 4821,
+    "passed_recorded_prefix": 3320,
+    "failed": 1,
+    "unrun_suffix": 1500,
+    "postWard_passed_before_failure": 99
+  },
+  "accepted_native_query_prefix_exactly_matches_frozen_correct_source": true,
+  "actual_first_failure_is_protocol_or_oracle_error": false,
+  "native_gameplay_timing_defect_confirmed": true,
+  "confirmed_scope": "After real Ward cost/destruction and actual2damage, an unearned Arena object exists before any earned leave-layer response; the specified empty-Arena priority checkpoint is violated.",
+  "observed_facts": [
+    "All29actualenvelopes/3320successfully recordedNativequeries exactly match fullcorrectSource;24manualpasses sixeach, fourlive/manual initialraw48 verified. ActualHP20beforeWardchoice\u219218after, R4two/APall0, sameElliptical6owner/controller4 inGY4, actualBlue7Pitch4 allpassed beforefailure.",
+    "The next count query directly returns p4Arena1 instead of0 at control29, before any of the intended fourleave responses. Combat remains open inDAMAGE; no automaticClose or Ward-internal response route justifies resolving this ordinaryleave effect."
+  ],
+  "identity_and_layer_evidence_limits": [
+    "Actual unexpected Arena object CardID/UID/Owner/Controller were not queried successfully at this boundary and no rawfailure Arena snapshot is retained. Source predicts EmbodimentofLightning and failurestate arcCards8 suggests creation, but neither directly verifies Native object identity. Do not claim Native tokenUID8 or native-ownedEoL from this result alone.",
+    "ExpectedStack1/CardID/controller4/KindABILITY/SourceUID6 queries are after failedArena99 and allunrun. Empty observeddecisionqueues and DAMAGE state do not prove Stack0. Missing responseablelayer is source-derived here, not a separately observed NativeStackgetter.",
+    "All12remaining inputs/1500queries are unrun, including actualleave response window, intendedtokencreation/ownership, Damage/Resolution/finalcleanup. No final raw snapshot/rawfinal48 or passing fixture proof exists."
+  ],
+  "source_causal_findings": {
+    "path": [
+      "CodeGeneration123-142 mandatoryWardchooser",
+      "DTDCards148-151 selectedWardPay",
+      "MONCards234-244 destruction",
+      "GameLogic791-799 MoveUIDAfterMove",
+      "OMNCards22-26 Elliptical base inlineFaBWTRCreateArena"
+    ],
+    "finding": "Current selected helper directly creates the printed token while destruction is a replacement subevent, with no captured earned leave ability. This corroborates the actual premature Arena-object timing failure. Ordinary triggered layer belongs before nextpriority and its effect afterresponses, not inside Ward. The first failure is meaningful correct-rule behavior, not the earlier Act bookkeeping or packaging mistakes.",
+    "scope": "Selected Elliptical route only. Existing ROSQueue/captured ability machinery is available as a bounded migration path; this review approves no source application, generation, global root count, sibling claim or remote write."
+  },
+  "primary_rules": [
+    "https://rules.fabtcg.com/en/cr/06-effects/ CR6.4.1a,6.6.5-6",
+    "https://rules.fabtcg.com/en/cr/01-game-concepts/ CR1.11.5",
+    "https://rules.fabtcg.com/en/cr/07-combat/ CR7.5.2-3"
+  ],
+  "suggested_next_evidence": "If a directly observed token identity or Stack count is needed before repair review, Root may capture a separate tightly scoped unsaved observation at this same prefix without changing original correct expectations. Keep original failed run immutable; no passing/coverage credit.",
+  "qualified": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "fixture_inventory_unchanged": true,
+  "corpus_before": 4089,
+  "corpus_after": 4089,
+  "source_fix": false,
+  "source_application_approved": false,
+  "normal_save_approved": false,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 30,
+  "all_current_guards_matched": true,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch828_actual_failure.py",
+    "sha256": "046ff6eeb78dd5d97716e292e17af1ed1d0e4277f55e5186c055fed8d6b611e5"
+  }
+}

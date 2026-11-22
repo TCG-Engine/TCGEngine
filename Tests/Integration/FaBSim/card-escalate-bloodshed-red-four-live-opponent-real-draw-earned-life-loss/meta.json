@@ -1,0 +1,7 @@
+{
+    "name": "Escalate Bloodshed / opponent actual draw earns delayed life loss",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-17T01:39:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Independently promoted focused repair successor. All original9 actions/1247 expected queries and setup unchanged. Real opponent Skullhorn draw/discard/GA completes before Escalate life loss; four fresh responses precede captured life1 to same drawer. Preexisting Aura and beginning-Action/end clauses uncredited. Sources: https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

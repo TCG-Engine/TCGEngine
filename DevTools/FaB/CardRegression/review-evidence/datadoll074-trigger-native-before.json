@@ -1,0 +1,146 @@
+{
+  "status": "INDEPENDENT_NATIVE_CONFIRMED_UNFIXED_NO_FIXTURE",
+  "classification_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewed_utc": "2026-11-03T06:59:33.457329+00:00",
+  "suggested_issue_id_reserved_by_root": "FAB-REG-074",
+  "native_confirmed": true,
+  "classification": "existing responseable-trigger family: Data Doll Deck-to-Banish event producer executes Item entry inline",
+  "root_cause_group": "missing_responseable_trigger_named_producer",
+  "new_distinct_gameplay_defect_group": false,
+  "related_prior_issue_ids": [
+    "FAB-REG-043",
+    "FAB-REG-049",
+    "FAB-REG-066"
+  ],
+  "card_ids_individually_reproduced": [
+    "data_doll_mkii"
+  ],
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch299-v2-banish-witness.json",
+  "source_sha256": "48be40cad60b803d76865f17a64ce476c0ca2bd9950ccd13c6db77bca248941d",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch299-v2-banish-witness\\manifest.json",
+  "manifest_sha256": "314db16f8ac1c89763274259bbd3e9bab7defa1cd0e74a60e31b5910aff2f03d",
+  "source_approval": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch299-independent-source-review\\review-v2.json",
+  "source_approval_sha256": "ab66d42e3f5e5e6a70d2d57a36f332d3527314870ee8e7b94d37b5cf501870d1",
+  "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch299-v2-banish-witness-20261103T064949Z-6ae9840de5b76.json",
+  "archive_sha256": "0f2ba9e7285b6296ef9d3003b2b5507fbd41e4e50e57ae7739a26d88f06970e6",
+  "native_error": "Expected Stack count 2, got 1.",
+  "actual_native_inputs": 3,
+  "accepted_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "0",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "actual_response_inputs": 0,
+  "prefix_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-datadoll299-failed-prefix\\receipt.json",
+  "prefix_receipt_sha256": "ee80297ba3bb2e148455896946a4c46a69072571851908cc88ad897e5c5d305b",
+  "prefix_snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-datadoll299-failed-prefix\\initial_gamestate.txt",
+  "prefix_snapshot_sha256": "d28f614e2fb6bc56e22fbd9fc4d6568d381df167609215794432fa07badcf445",
+  "initial_snapshot_sha256": "254fb55b649cea5a5aa2a777269ccb1a31df165366731a0cb02f58cd044535ca",
+  "printed_face_actually_viewed": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\data_doll_mkii.webp",
+    "sha256": "9b27c5980ff89a9ecfa6dcfe0d8e2ba974b78d6e700323bff752f31a0fedd6dc",
+    "trigger_word": "Whenever",
+    "predicate": "Mechanologist Item of cost2 or less put into own Banish from own Deck",
+    "effect": "put that Item into Arena",
+    "hero_health": 20,
+    "intelligence": 3
+  },
+  "rule_source": {
+    "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "sections": [
+      "6.6.1c-d",
+      "6.6.4",
+      "6.6.5",
+      "6.6.6"
+    ],
+    "interpretation": "The event earns a triggered layer. The Item-entry instruction is that layer's resolution ability; it is not a replacement of the banish event. Add the layer before public priority, leaving the physical Item in Banish until resolution."
+  },
+  "correct_expectation": "After actual paid Boost and before any response: original AA5 plus earned Hero1 trigger on Stack (2), Item6 public own Banish, own Arena empty. Four genuine trigger responses precede Item6 entry.",
+  "native_observation": {
+    "original_AA_stack_only": [
+      {
+        "CardID": "zero_to_sixty_red",
+        "Owner": "1",
+        "Controller": "1",
+        "Kind": "ATTACK",
+        "SourceZone": "Hand",
+        "SourceUniqueID": "5",
+        "Params": "eyJhdHRhY2tUYXJnZXQiOnsidHlwZSI6IkhFUk8iLCJwbGF5ZXIiOjQsInVpZCI6NCwiem9uZSI6Ikhlcm8ifX0=",
+        "UniqueID": "5",
+        "TurnEffects": "GO_AGAIN",
+        "Counters": "eyJGQUJfUExBWV9PUkRFUiI6MX0="
+      }
+    ],
+    "premature_Arena_Item": {
+      "CardID": "induction_chamber_red",
+      "Status": "2",
+      "Owner": "1",
+      "Controller": "1",
+      "Damage": "0",
+      "UniqueID": "6",
+      "TurnEffects": "-",
+      "Counters": "-"
+    },
+    "Banish": [],
+    "Deck": [],
+    "P1_resources": 0,
+    "P1_AP": 0,
+    "all_HP": 20,
+    "window": "PRIORITY",
+    "queues_empty": true,
+    "LiveSeats": "1234"
+  },
+  "bounded_source_trace": [
+    "ARCAbilities.php:328-334 pays actual Boost by FaBMoveUID(Item6,Banish,P1).",
+    "GameLogic.php:785 invokes FaBCRUAfterMove for that physical Deck-to-Banish move.",
+    "CRUCards.php:64-66 immediately moves the same qualifying Item to Arena and initializes entry effects; the branch creates no captured Hero triggered layer or response window.",
+    "Actual three-input state independently confirms that eager entry/no-layer path. This is a named caller defect in an existing trigger-responseability family; no new shared queue-root defect is proven."
+  ],
+  "source_path_hashes": {
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/ROSCards.php": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00"
+  },
+  "dedup": {
+    "ledger": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "4d8d3f5bea2874c096667dfaa760cd603e055d0a61d0651e9338d69449e82dd3",
+    "entries": 73,
+    "named_matches": [],
+    "new_shared_root_count": 0
+  },
+  "fixture_saved": false,
+  "passing_fixture": null,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_fix_proposed": false,
+  "limits": [
+    "No opponent response, trigger resolution, AA resolution, damage or full suffix was executed. No 4damage/HP16/earned-AP/final-cleanup credit.",
+    "Exact owned cost2 Mechanologist Item/real ordinary Boost branch only; no other origins, cost bounds, suppression or Item-activation credit.",
+    "Entwine has a separate unresolved chooser-reference failure; it is outside this classification and receives no passing coverage here.",
+    "Read-only archive/snapshot/source review; no PHP, native execution, R writes, source fix, generation or authorization retry."
+  ]
+}

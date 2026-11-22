@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch559.json",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T03:01:21.139479+00:00",
+  "fixtures": [
+    {
+      "slug": "card-restless-plowman-red-four-live-real-tap-gains-resource-go-again-and-paid-seven-damage",
+      "fixture_sha256": "3e49c5608f539c3a283ee4fb109197921b72ea0cb5dc1542ede750cdc51a63f8",
+      "passed": true,
+      "result": "[PASS] Restless Plowman / real tap resource and go-again / paid attack consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-restless-plowman-red-four-live-real-tap-gains-resource-go-again-and-paid-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Restless Plowman / real tap resource and go-again / paid attack consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

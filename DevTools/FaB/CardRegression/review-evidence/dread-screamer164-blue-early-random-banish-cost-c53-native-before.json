@@ -1,0 +1,234 @@
+{
+  "id": "FAB-REG-164",
+  "status": "NATIVE_CONFIRMED_UNFIXED_DREAD_EFFECT_COST_BEFORE_ASSETS_LEGAL_V2",
+  "reviewer": "/root/b753_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch754-dread-legal-v2-independent-native-failure-review.json",
+  "independent_review_sha256": "5cef2b20898451dc8315427229c10e55954050906dcad0b2f47f0d4876e11514",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch754-dread-legal-v2-cost-boundary-probe.json",
+  "input_sha256": "6ee6b7c6a8261050f77f4681038f3986c39a038ff8b83c773dd95f00f13b3eca",
+  "scenario_id": "probe-dread-screamer-blue-four-configured-manual-asset-before-three-graveyard-banish-cost-legal-v2",
+  "first_failure": {
+    "source_pointer": "/0/steps/4/checks/0",
+    "source_step": 4,
+    "check_index": 0,
+    "after_native_actions": 2,
+    "query_ordinal": 200,
+    "native_assertion_ordinal": 200,
+    "passed_assertions_before": 199,
+    "checkpoint_query_ordinal": 1,
+    "type": "card_count",
+    "player": 1,
+    "zone": "Graveyard",
+    "native_assertion_type": "zone_count",
+    "native_zone": "p1Graveyard",
+    "expected": 3,
+    "observed": 0,
+    "error": "Expected p1Graveyard count 3, got 0.",
+    "failed_assertion_stored": false,
+    "ordinal_convention": "One-based evaluated native query ordinal; failed query is not a stored assertion row."
+  },
+  "actual_native_prefix": {
+    "native_actions": 2,
+    "after_native_actions": 2,
+    "input_actors": [
+      1,
+      1
+    ],
+    "manual_passes": 0,
+    "actions": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p4Hero-0",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "planned_native_assertions": 275,
+    "stored_successful_assertions": 199,
+    "stored_assertions_by_step": {
+      "0": 135,
+      "1": 64
+    },
+    "failed_evaluations": 1,
+    "unreached_planned_assertions": 75,
+    "all275_passed": false,
+    "actual_initial_manual_preference_values_verified": 48,
+    "configured_living_manual_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "all_seat_interaction_coverage": false,
+    "native_action_mapping_sha256": "ebf4f4553fb31744ca893da0438e6fbb62161c2840f44f183f0874b931b43f18",
+    "stored_assertion_mapping_sha256": "94662db84230aeea9e1449b1c20f787ff50a88366a5fd486c2414ae2625d1f3e",
+    "initial_gamestate_sha256": "ad7a20a7fefe64fd5540e30568075d82ce4e74a4531272a96754213358e5ad6d",
+    "observed_after_input2": {
+      "window": "PITCH",
+      "pendingPayment": {
+        "player": 1,
+        "uid": 5,
+        "cost": 2,
+        "fromZone": "Hand",
+        "kind": "ATTACK",
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE"
+      },
+      "graveyard_count_from_failed_evaluation": 0,
+      "MON_BANISHED_event_count": 3,
+      "MON_BANISHED_SIX_event_count": 3,
+      "monSix": true,
+      "hand_refs": {
+        "1": [
+          "p1Hand-1"
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "no_pending_decisions": true
+    },
+    "source_derived_after_input2": {
+      "Resources": 0,
+      "ActionPoints": 1,
+      "unpitched_funder_UID": 6,
+      "basis": "Actual initial raw and observed unpitched Hand-1 slot plus unchanged audited payment path. Post-target scalar queries were not reached; these are not measured post-target values."
+    },
+    "post_input_physical_Banish_UID_order_or_RNG_not_observed": true
+  },
+  "classification": "Native-confirmed Dread Screamer Blue gameplay cost-order bug: mandatory random graveyard banish executes before resource/AP assets at the correct unpaid boundary. Legal distinct-card UPF v2 reproduction; no input-protocol mistake. Shared prepared-effect cost-stage family overlap; no new distinct global root group assigned.",
+  "expected": "On the selected ordinary Dread Screamer Blue play, resource/AP asset costs must be paid before the physical random-three graveyard-banish effect cost. After the Hand click and legal Hero4 answer, while the two-resource attack payment remains pending, all three selected graveyard cards must still be present; no banish-derived benefit may be earned yet.",
+  "observed": "The legal-UPF distinct-card v2 no-save diagnostic executed two actor-one inputs. It persisted199 successful assertions, then query200 required p1Graveyard count3 but observed0;75 planned assertions remained unrun. Native state was PITCH with pending ATTACK cost2 and three MON_BANISHED plus three MON_BANISHED_SIX events and monSix=true before any pitch. Post-target R0/AP1 and funderUID6 retention are source-supported inferences from initial raw and the exact no-pitch transcript, not unreached scalar-query observations. The three GY cards were distinct legal seven/eight/seven-power cards. All four living manual seats were configured, but only actor1 acted before failure; no four-seat interaction qualification, later damage/go-again result, sibling or passing coverage. Mandatory no-save mode preserved4010 fixtures and the runtime/review/index. The earlier triple-copy diagnostic remains separately invalid for legal-UPF qualification and is not the issue's qualifying reproducer.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+    },
+    "completed_unchanged_cost_path_audit": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch754-dread-independent-native-failure-review.json",
+      "sha256": "41e8f975de937caf773aa13e1977b78c21b9b76df0e48993518784a74d8ee76f",
+      "reused_scope": "Only independently completed current source/recorder/rule audit; v1 legality was expressly rejected and remains unqualified."
+    },
+    "source_guards_verified": 71,
+    "anchors": [
+      "GeneratedMacro10063-10075: actual FaBMONBanishRandom3 before FinishPreparedCard",
+      "MONCards22-26: real random GY UID move to Banish;57: requires initialGY3",
+      "GameLogic968-990: selected Prepare before1097-1102 asset wait/debit",
+      "CardChoices217-233 and333-356: completion after effect, Dread outside bounded deferred cohort",
+      "Recorder31-37: evaluate then record only passed assertion"
+    ],
+    "correct_rule": "CR5.1.7 pays resource/AP assets before effect-cost execution under5.1.8-5.1.9; random selection and physical banish are effect execution, not an early declaration."
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch754-dread-legal-v2-cost-boundary-probe.recording-results.json",
+      "sha256": "1407652fab14d0c73cde3534455d03c70bc21f55c1eda83f196e6d4aa0514da0"
+    },
+    "immutable_archive": {
+      "path": "card-regression-batch754-dread-legal-v2-cost-boundary-probe.recording-results.json",
+      "sha256": "1407652fab14d0c73cde3534455d03c70bc21f55c1eda83f196e6d4aa0514da0"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch754-dread-legal-v2-independent-diagnostic-source-review.json",
+    "sha256": "b6e017c7e5bfda6dd0d00a483a7307f3f085705fa71f75d485e3d4496962c64e"
+  },
+  "primary_sources": [
+    {
+      "card_id": "dread_screamer_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dread_screamer_blue.webp",
+      "sha256": "3ae673894661ad9b8fdaff2aafa25b18426668ff0575a253f2de09b1ed49967a",
+      "independent_current_view": true
+    },
+    {
+      "card_id": "levia",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\levia.webp",
+      "sha256": "2ca6ddf55eb0b317b48e33f2a96df1c135ed8b9bd1553d79c735458a8fac7871",
+      "independent_current_view": true
+    },
+    {
+      "card_id": "dorinthea",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dorinthea.webp",
+      "sha256": "aedab88ebb29c93e3eb634cf835c5cbe51af42c70169f98c9c05198681a58ed1",
+      "independent_current_view": true
+    },
+    {
+      "card_id": "raging_onslaught_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\raging_onslaught_blue.webp",
+      "sha256": "8b44e687714035a33e5a609bce1c91c9db024c89ec141866d5d6a0607fd9dc58",
+      "independent_current_view": true
+    },
+    {
+      "card_id": "raging_onslaught_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\raging_onslaught_red.webp",
+      "sha256": "71caeb291c39f9e5b8a1d7030fbaf04e4c9ed550c7d4a75de222dc122967a655",
+      "independent_current_view": true
+    },
+    {
+      "card_id": "wrecker_romp_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\wrecker_romp_red.webp",
+      "sha256": "156c7f61d3b13a3fdd90f2a4817089bcbd6da65724707884603e96aea61e8020",
+      "independent_current_view": true
+    },
+    {
+      "card_id": "hungering_slaughterbeast_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\hungering_slaughterbeast_red.webp",
+      "sha256": "3c6ae0c1433f8455ff4dc4d651941799c31b9b48174cfafdd49864e64e9bc45f",
+      "independent_current_view": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.1.7",
+        "5.1.8",
+        "5.1.9"
+      ],
+      "independently_retrieved_in_preceding_unchanged_audit": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "section": "9.3",
+      "UPF_copy_limit": 2,
+      "independently_retrieved_in_preceding_unchanged_audit": true
+    }
+  ],
+  "limits": [
+    "One exact legal v2 no-save native cost-boundary failure for DreadBlue. Correct original GY3/Banish0 expectations preserved. V1 illegal-triplicate attempt remains separately preserved and unqualified; no output fitting or mutation of either original.",
+    "Only two actor1 native inputs and zero passes; four living manual seats/48 initial preferences are configured and inspected, not all-seat interaction coverage. Exactly199 stored passed queries, then evaluated query200 fails;75 later checks not reached.",
+    "No completed payment, resolved play, attack damage, GA refund, support play/producer, End/BloodDebt/Levia effect, pitch sibling/fullcard, successful fixture, coverage, replay or suite credit. Native observed event records/failed GYcount are distinct from source-derived postscalar/funder values.",
+    "Only actual supplied initial raw and native observed_state are inspected. No final/intermediate raw snapshot, postinput physical Banish UID order/count assertion or RNG measurement is invented.",
+    "Confirmed selected card finding does not allocate a distinct global/core root; relevant prepared-cost family overlaps are acknowledged. Root alone retains issue metadata. No source/engine/helper edits, fix application, PHP/native/replay/R/Git/remote or denied repair retry by reviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-08T23:13:32.133203+00:00"
+}

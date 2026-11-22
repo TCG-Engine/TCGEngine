@@ -1,0 +1,102 @@
+{
+  "status": "INDEPENDENT_APPROVED_GAUNTLETS_WHOLE_ROUTE_REQUIRED_RAZOR_TARGET267290_SOURCE_ONLY_NOTE",
+  "phase": "PLANNING",
+  "batch": 873,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch873-gauntlets-required-support-note-manifest.json",
+    "sha256": "2ced10d1d881d33aa7e125e575a04ba9d78b99ecdbbbb1f6376821225fc683d0"
+  },
+  "manifest_sha256": "2ced10d1d881d33aa7e125e575a04ba9d78b99ecdbbbb1f6376821225fc683d0",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch873-firm-reservation.json",
+    "sha256": "17ce55382a05c514c1ef015d2bdffbdfdff1a9f7c1d6128604d99f83bfe0e039"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch873-firm-reservation-support-admission.json",
+    "sha256": "74f30bad0f4b2b43a6af87db06e0f633ae7b8456e175b241d2eebf8d0065e615"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 14,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "gauntlets_of_iron_will",
+      "group_id": "identity:gauntlets_of_iron_will",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "REQUIRED_LATER_RAZOR_FORMAL_TARGET267290_BLOCKS_WHOLE_FIXED_POSITIVE_ROUTE",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch873-gauntlets-required-razor-target267290-unattempted-note.json",
+        "sha256": "aef9720338879a9ef673f8f8ec510a7182c6f8d3ab9ce75b4cdd53d2cfd79bcb"
+      },
+      "known_required_contracts": [
+        {
+          "human_hold_row": 267,
+          "card_id": "tarantula_toxin_red",
+          "historical_reviewed_runtime": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse820-independent-diagnostic-source-and-tarantula-planning-review-429a.json",
+            "sha256": "68d361e8a46fd5eea83bebf0528dbb6491f15e7150675f92be9892cb6bf14122"
+          }
+        },
+        {
+          "human_hold_row": 290,
+          "card_id": "cut_to_the_chase_blue",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse839-two-known-required-contract-planning-cdc.json",
+            "sha256": "99ab6a486de14b2679907b31522f2206a172a0627ab596ded03c1776c8b5787b"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "earlier_primary_source_concern": {
+    "card_id": "gauntlets_of_iron_will",
+    "function": "FaBHVYDefended",
+    "location": "HVYCards168 via GL1241",
+    "classification": "SOURCE_ONLY_UNCONFIRMED_FRESH_LITERAL_PRODUCER",
+    "native_confirmed": false,
+    "not_equated_to_ordinary_generated_Defended274": true,
+    "internal_reservation_metadata_alone_not_gameplay_proof": true
+  },
+  "independent_findings": [
+    "Exact noteaef97203/manifest2ced10d1, Root firm17ce5538/support74f30bad, all14 current CDC guards, actual selected/support canonical rows and retained267/290 proof hashes match. Empty canonical rows do not imply missing implementation. Historical proofs remain at their own runtimes and supply no replay/current qualification.",
+    "The full fixed route requires printed Razor FIRST weapon mode and a declared current Sword target before payment/opponent priority. Actual WTR485 admits Dagger/Sword and WTR627..639 implements+3 to the current attack, but GL942..1009 does not capture a Razor mode/target; non-Attack play Params are empty, only Lunging is separately bound, and CardChoices early registry is Nip/Shred. Reading the current attack at resolution is not a captured declared target. Exact required support267/290 blocks the WHOLE fixed positive route, despite occurring later in flow than Gauntlets defend; no singleton/one-legal-mode waiver or invented chooser is approved.",
+    "Earlier HVYCards168 called GL1241 immediately arms hvyIronWill for the current attack before a separate Gauntlets earned response layer. This is a fresh native literal concern only, not the ordinary generatedGL1243/274 contract and not a confirmed primary/root defect. Reserving an internal replacement marker alone is not Native proof of a functional timing failure. No truncated marker-only probe, helper blanking, alternate consumer or quiet equipment-only baseline is approved.",
+    "Full future legal Betsy1GuardianGauntletsDEF2 and Boltyn4uncharged/Soul0 CintariSword2 paidBlue3cost1R2/AP0 retain their printed eligibility. Equipment-only defense leaves Cintari AA-defended WHEN unentered. Gauntlets source/controller1/four fresh responses must precede replacement generation; Razor first mode realcost1R1/source/announced target/four responses must produce one+3gain replaced with+2, activepower4 minusDEF2 = actual2damageHero1HP18. No AA/RazorHitGA/BetsyWager/Boltynability branch is entered.",
+    "Actual future automatic Close/Temper(no player quorum) one-counter/effectiveDEF1 survival, physicalGauntletsowner1/Swordowner4 retained and used/RazorGY4/BluePitch4/R1/AP0/otherHP20/StackDQ/chain cleanup are all unrun. Only one positive power-gain event is proposed; repeat/zero/negative gain, future chain, other Guardians and support/full-card coverage remain uncredited.",
+    "PowerStance normal case is independent. This planning note supplies no executable, Native/new issue/root/Core/Save/coverage/source-fix approval and does not authorize any held Source operation or old-case replay."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "gauntlets_of_iron_will",
+      "action": "Execute full earned defended replacement and positive Razor power-gain/damage consumer",
+      "reason": "Required later Razor mode/target announcement267/290 not implemented in fixed route; earlier Gauntlets native concern remains Source-only",
+      "state": "WHOLE_FIXED_ROUTE_UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "No executable/truncated probe/Native/new confirmed defect/root/Core/Save/coverage/source-fix approval.",
+    "No PHP/Native/Rwrites/replays/new agents/fullsuite or deniedReincarnate199/older Source-operation retry by reviewer."
+  ]
+}

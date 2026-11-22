@@ -1,0 +1,740 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B804_EMBRACE",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T00:31:43.677053+00:00",
+  "source_spec": "card-regression-batch804-embrace_adversity.json",
+  "input_sha256": "2082d5a76c25c7fa3677d105a3cdbcb3d80becbc731a227c0615eff7613c117c",
+  "manifest_sha256": "04c9d71f01dfe942973f6e69245be1fc6aa53cee9e1c1916e6649916f61e75b1",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch804-embrace-real-four-seat-round-might-destroy-red-five-arms-two-author\\manifest.json",
+    "sha256": "04c9d71f01dfe942973f6e69245be1fc6aa53cee9e1c1916e6649916f61e75b1"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch804-embrace-independent-correct-positive-source-review.json",
+    "sha256": "7ba118de81ca22700ba12a1139a0d296aa21dc8aef795cfaab098bde30606264"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b804-embrace-native-real-round-might\\receipt.json",
+    "sha256": "cf3e636a88c3eae788bdd0274f3631e54b897296d296e481beb5f6ea30c291c3"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch804-embrace_adversity-20261115T002832Z-6af8fcb00488d.json",
+    "sha256": "70d62c3d2dac403183e6483882f067b9d910ebdd8f609d1b0f62945b93441570"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch804-embrace_adversity.recording-results.json",
+    "sha256": "0be391f6eba01697ecaf3beac8d5699b00424fd022cdf3403a6904295b3fcaa7"
+  },
+  "fixtures": [
+    {
+      "slug": "card-embrace-real-four-seat-round-might-destroy-red-five-arms-two",
+      "card_id": "embrace_adversity",
+      "group_id": "identity:embrace_adversity",
+      "source_spec": "card-regression-batch804-embrace_adversity.json",
+      "input_sha256": "2082d5a76c25c7fa3677d105a3cdbcb3d80becbc731a227c0615eff7613c117c",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-embrace-real-four-seat-round-might-destroy-red-five-arms-two",
+      "fixture_sha256": "58647da43d7e9c965605354a410e2db1a9118bcf2c2e82b7da1788af32d03f75",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51ff43609fa9aafbf889dac610bc9fb075ea8b7c0c3242a6ca77b1a641f15185",
+        "actions.json": "bae81188894e8cbf74dbb450a54ff5be9f28c71eccd085dcf5e98025f6ada8e5",
+        "assertions.json": "14f79dd5ccd2e4d637565d0c3927d4061bf4a1f19afcf66b638477d691357127",
+        "expected_final_gamestate.txt": "2c17263443c76576fb87037a62acc958eabc91d96454add2fd0b932f382ea447",
+        "meta.json": "d79cdc8dcec15245cecfb77ffe9528ca6b1e07a4511262343a2d60eb1d60a6ce"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "51ff43609fa9aafbf889dac610bc9fb075ea8b7c0c3242a6ca77b1a641f15185",
+        "actions.json": "bae81188894e8cbf74dbb450a54ff5be9f28c71eccd085dcf5e98025f6ada8e5",
+        "assertions.json": "14f79dd5ccd2e4d637565d0c3927d4061bf4a1f19afcf66b638477d691357127",
+        "expected_final_gamestate.txt": "2c17263443c76576fb87037a62acc958eabc91d96454add2fd0b932f382ea447",
+        "meta.json": "d79cdc8dcec15245cecfb77ffe9528ca6b1e07a4511262343a2d60eb1d60a6ce"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "51ff43609fa9aafbf889dac610bc9fb075ea8b7c0c3242a6ca77b1a641f15185",
+        "actions.json": "bae81188894e8cbf74dbb450a54ff5be9f28c71eccd085dcf5e98025f6ada8e5",
+        "assertions.json": "14f79dd5ccd2e4d637565d0c3927d4061bf4a1f19afcf66b638477d691357127",
+        "expected_final_gamestate.txt": "2c17263443c76576fb87037a62acc958eabc91d96454add2fd0b932f382ea447"
+      },
+      "actions": 60,
+      "declarative_controls": 44,
+      "native_assertions": 3089,
+      "manual_passes": 57,
+      "actual_manual_passes": 57,
+      "actual_combat_priority_response_passes": 24,
+      "actual_action_phase_pass_inputs": 16,
+      "actual_mechanical_End_dispatcher_pass_inputs": 16,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 14,
+        "2": 14,
+        "3": 14,
+        "4": 15
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "native_input_weights": {
+        "4": 5,
+        "8": 5,
+        "12": 5,
+        "16": 5
+      },
+      "actual_declarative_to_native_control_expansion": [
+        {
+          "control": 1,
+          "raw_action_start": 1,
+          "raw_action_end": 1,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 2,
+          "raw_action_start": 2,
+          "raw_action_end": 2,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 3,
+          "raw_action_start": 3,
+          "raw_action_end": 3,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 4,
+          "raw_action_start": 4,
+          "raw_action_end": 8,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            4,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "control": 5,
+          "raw_action_start": 9,
+          "raw_action_end": 9,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 6,
+          "raw_action_start": 10,
+          "raw_action_end": 10,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 7,
+          "raw_action_start": 11,
+          "raw_action_end": 11,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 8,
+          "raw_action_start": 12,
+          "raw_action_end": 16,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            1,
+            2,
+            3,
+            4,
+            1
+          ]
+        },
+        {
+          "control": 9,
+          "raw_action_start": 17,
+          "raw_action_end": 17,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 10,
+          "raw_action_start": 18,
+          "raw_action_end": 18,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 11,
+          "raw_action_start": 19,
+          "raw_action_end": 19,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 12,
+          "raw_action_start": 20,
+          "raw_action_end": 24,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            2,
+            3,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "control": 13,
+          "raw_action_start": 25,
+          "raw_action_end": 25,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 14,
+          "raw_action_start": 26,
+          "raw_action_end": 26,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 15,
+          "raw_action_start": 27,
+          "raw_action_end": 27,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 16,
+          "raw_action_start": 28,
+          "raw_action_end": 32,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            3,
+            4,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "control": 17,
+          "raw_action_start": 33,
+          "raw_action_end": 33,
+          "raw_inputs": 1,
+          "manual_pass_actors": []
+        },
+        {
+          "control": 18,
+          "raw_action_start": 34,
+          "raw_action_end": 34,
+          "raw_inputs": 1,
+          "manual_pass_actors": []
+        },
+        {
+          "control": 19,
+          "raw_action_start": 35,
+          "raw_action_end": 35,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 20,
+          "raw_action_start": 36,
+          "raw_action_end": 36,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 21,
+          "raw_action_start": 37,
+          "raw_action_end": 37,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 22,
+          "raw_action_start": 38,
+          "raw_action_end": 38,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 23,
+          "raw_action_start": 39,
+          "raw_action_end": 39,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 24,
+          "raw_action_start": 40,
+          "raw_action_end": 40,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 25,
+          "raw_action_start": 41,
+          "raw_action_end": 41,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 26,
+          "raw_action_start": 42,
+          "raw_action_end": 42,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 27,
+          "raw_action_start": 43,
+          "raw_action_end": 43,
+          "raw_inputs": 1,
+          "manual_pass_actors": []
+        },
+        {
+          "control": 28,
+          "raw_action_start": 44,
+          "raw_action_end": 44,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 29,
+          "raw_action_start": 45,
+          "raw_action_end": 45,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 30,
+          "raw_action_start": 46,
+          "raw_action_end": 46,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 31,
+          "raw_action_start": 47,
+          "raw_action_end": 47,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 32,
+          "raw_action_start": 48,
+          "raw_action_end": 48,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 33,
+          "raw_action_start": 49,
+          "raw_action_end": 49,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 34,
+          "raw_action_start": 50,
+          "raw_action_end": 50,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 35,
+          "raw_action_start": 51,
+          "raw_action_end": 51,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 36,
+          "raw_action_start": 52,
+          "raw_action_end": 52,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 37,
+          "raw_action_start": 53,
+          "raw_action_end": 53,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 38,
+          "raw_action_start": 54,
+          "raw_action_end": 54,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 39,
+          "raw_action_start": 55,
+          "raw_action_end": 55,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 40,
+          "raw_action_start": 56,
+          "raw_action_end": 56,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 41,
+          "raw_action_start": 57,
+          "raw_action_end": 57,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 42,
+          "raw_action_start": 58,
+          "raw_action_end": 58,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 43,
+          "raw_action_start": 59,
+          "raw_action_end": 59,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 44,
+          "raw_action_start": 60,
+          "raw_action_end": 60,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        }
+      ],
+      "schema_property_assertions": 676,
+      "checkpoint_count": 46,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 149,
+        "60": 212
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "might",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "embrace_adversity",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "embrace_adversity",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "e2af38104cb0237d9d3b576e2c3fd352ba578796fd92a5465366f257ccd03c40",
+      "native_assertion_mapping_sha256": "1bfe879c0ec6f04ca488d40c945d6870f06d71fab0a8bd22fd7860c4ca12125f",
+      "checkpoint_assertion_mapping_sha256": "7c50194f2e8157846f923396b6eed1df7f7da03963c855ec1bec80606d1d07b6",
+      "direct_intermediate_equipment_UID_Owner_Role_verified": true,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 17,
+  "all_current_guards_matched": true,
+  "total_actions": 60,
+  "total_declarative_controls": 44,
+  "total_native_assertions": 3089,
+  "total_manual_passes": 57,
+  "total_schema_property_assertions": 676,
+  "total_checkpoints": 46,
+  "total_endpoint_assertions_evaluated": 361,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    17
+  ],
+  "actual_initial_turn": 2,
+  "actual_final_turn": 6,
+  "material_findings": [
+    "Allactual44declarativecontrols->60nativeenvelopes/57rawpassinputs/3089successfulqueriesmatchSourceweightedmodelandactors14/14/14/15. Exactly16Actionpasses+16mechanicalENDdispatcheracknowledgments+24combatresponses+oneP4formalfinish. Noautomatic/extrahiddeninput; ENDacknowledgmentsnotlegalpriorityorresponsecertificate.",
+    "Actualturn2P1endrefillmovesSAMEownedRed7+Blue8/9/10DecktoHand. ActualquietP2turn3/P3turn4/P4turn5 retainoriginalMight6; realP1turn6automaticstartceasesMight/naturalAP1. Initialrawhasnohistory/buffseed; finalrawHVY_DESTROYED_might amounts[1,0,0,0] andNEXT_ATTACKconsumed.",
+    "ActualsameRed7declaresHero4earlythenAP1to0/realpower5noGA. SameownedEmbraceArms5directMIDChainUIDOwner4Controller4DEFENSERoleEquipmentoriginlink1queriessucceed; actual5minus2=3physicaldamageHP4_17.",
+    "FulltrueCloseArms5GY4/Red7GY1/threeBlue8,9,10Hand1/originalMight6ceased/RChiAP0/allfourlive/quietStackChainsDQTargetPaymentManagerAwait. All361rawendpointqueriesand48manualpreferenceseachindependentlyverified."
+  ],
+  "Start_End_legal_priority_certified": false,
+  "automatic_Start_End_dispatcher_only": true,
+  "general_Start_End_lifecycle_certified": false,
+  "limits": [
+    "ExactEmbraceArmspositiveonly. NoMightcreation/Renounceconversion/negativelegality/Hero/generalMight/fullcard/siblingcertificate.",
+    "NolegalStartEndpriority/freshMightresponses/within-automaticphaseordering/cardplaypermission/generalphasehealthcertificate. Dispatcherinputsaloneimplynoneofthese.",
+    "Roottwonew-onlyfocusedreplaysandregistrationremain. IndependentreviewernoPHP/native/replay/R/source/Git/repair/B787action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch804_embrace_saved.py",
+    "sha256": "ace895d5103d44480ec247e53d1d8db269c161658e46bcf99e94943be0875ea8"
+  }
+}

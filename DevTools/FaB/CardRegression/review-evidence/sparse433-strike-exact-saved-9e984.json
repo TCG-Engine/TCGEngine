@@ -1,0 +1,522 @@
+{
+  "status": "APPROVED_EXACT_SAVED_STRIKE_SUBSET_RUNE_BLOCKED",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-05T08:42:18.607330+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "runtime_fingerprint_verified": true,
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch433.json",
+  "input_sha256": "12e42606a3b5285f23a9e707b2ecd1c11265c0df648f081f2037fdf3c4141a12",
+  "fixtures": [
+    {
+      "slug": "card-strike-twice-red-four-live-real-prior-arcane-earns-instant-at-zero-action-and-three-more-damage",
+      "card_id": "strike_twice_red",
+      "group_id": "identity:strike_twice_red",
+      "fixture_sha256": "f80176aa2a4902e0daa0b6fcc0e92ce6e699fdbba207bcc28e4b68283e1965f3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9707e8bc997cc1a079543904bafd41608a300a7862c74edc93ca396e14738733",
+        "actions.json": "d8241f134ac2c4cb049b30345fc209176788828ec7dfa1951a4aa71cec6563bf",
+        "assertions.json": "158f1cb97694f85de678e5f3b768cac6783d8366fb12bc231b32440e9309db8a",
+        "expected_final_gamestate.txt": "9ba1a6c6ba92c827d618eba79fb281d784c973f8b0ef26098db91078b56a09e9",
+        "meta.json": "5fe2c39dec4bb9ab6c560e0a0ee36f2e512d64197d7eabd04692f0bf6c5057f0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9707e8bc997cc1a079543904bafd41608a300a7862c74edc93ca396e14738733",
+        "actions.json": "d8241f134ac2c4cb049b30345fc209176788828ec7dfa1951a4aa71cec6563bf",
+        "assertions.json": "158f1cb97694f85de678e5f3b768cac6783d8366fb12bc231b32440e9309db8a",
+        "expected_final_gamestate.txt": "9ba1a6c6ba92c827d618eba79fb281d784c973f8b0ef26098db91078b56a09e9",
+        "meta.json": "5fe2c39dec4bb9ab6c560e0a0ee36f2e512d64197d7eabd04692f0bf6c5057f0"
+      },
+      "actions": 13,
+      "native_assertions": 1127,
+      "actual_manual_passes": 8,
+      "manual_passes": 8,
+      "manual_pass_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "physical_uid_conservation_without_duplicates": true,
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_health": [
+        18,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "physical_findings": "ActuallegalOscilio18; Zap6ACTION0 spendsAP1/fourresponses3arcane/P4HP17/same6GY. ThisrealopponentdamageearnstrueStrikepermission; same5actuallyINSTANTatAP0/declaredP4beforeBlue7pays1/R2AP0/freshfour3more/P4HP14. Actualarcanehistorycaster1\u2192opponent4total6, same5and6ownpublicGYunordered/7Pitch/alloriginalUID1..7/queuesframesclear/noGAorAPrefund.",
+      "qualification": "RealearnedInstantpermission+selectedhero3arcane branch only; no falsepermission/normalActionmode/selforAllytarget/otheranytarget/prevention/Osciliohero/LightningFlow/sibling/support-primary/fullcard/helper-control credit."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe",
+      "card_id": "rune_snare_red",
+      "group_id": "identity:rune_snare_red",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "source_expectations_retained": true,
+      "classification": "CONFIRMED_NATIVE_MISSING_NEXT_ARROW_PLUS3_CONSUMPTION",
+      "accepted_inputs": 12,
+      "actual_manual_passes": 8,
+      "manual_pass_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "first_failure": {
+        "source_step_index": 24,
+        "native_input_count": 12,
+        "check_ordinal_in_checkpoint": 60,
+        "ordered_check_ordinal": 999,
+        "preceding_successful_check_count_from_source_failfast_order": 998,
+        "check": {
+          "kind": "power",
+          "expected": 7,
+          "actual_fresh_FaBAttackPower": 4
+        },
+        "error": "power  expected 7 got 4"
+      },
+      "passed_material_boundary": "RealRune5Action0 completedfourresponses/ownGAAP1, same5ownpublicGY. PriorfacedownArrow6 actualtarget4 thenBlue7cost1/R2AP0; fourArrowresponsescompletedtoATTACK/link1. First59checks atfailedcheckpoint passed: allHP20/R2AP0, Stack0, Bow8readyowned, Blue7Pitch, Rune5GY, physicalHeadShot6ownedChainRoleATTACK/FromZoneArsenal/link1, nootherdefenders. RawcardsPlayed includesRune+HeadShot andARC_NEXT_ARROW3uses1remainsunconsumed.",
+      "fresh_getter_vs_cache_and_damage": "FCRCheck kindpower callsactualFaBAttackPower at recorder32 and comparesbeforepersistingcomputedassertion. It returned4; observedstate cachedattackPower0 isnot thisgetter. Actualnormaldamagepath atGameLogic2003 wouldcallthe sameFaBAttackPower again, butDAMAGE wasnotreached. No actual4or7heroDamage/HP16or13 claim. Laterfreshgo_againcheck61 andremainingcheckpointswerenotreached.",
+      "source_cause": "CurrentcanonicalRuneResolveCard emitsARC_NEXT_ARROW3. ActualeffectremainsintheobservedledgerafterrealArrowplay. CurrentELECards115\u2013124 genericnextattackconsumption recognizesELE_NEXT_ARROW forArrow, then tagsWTR_POWER andconsumesmatchedentry; ARC_NEXT_ARROW isnotthatkey. BoundedexactliteralCustomscan foundnoARC_NEXT_ARROWconsumer. Thefreshgetterreadsbase4+currentmodifiers, leavingtheprinted+3unapplied. No sourcefixproposedorappliedbyreviewer.",
+      "rules_basis": "Currentofficial https://judge.fabtcg.com/cards/detail/4624/ grantsnextArrow+3andownGoAgain. CurrentHeadShot https://judge.fabtcg.com/cards/detail/396/ hasbase4; priorfacedownArsenalneverearnsput-into-Arsenal-face-up+2. Correct7isstrictandnotcurrentoutputfit.",
+      "observed_state": {
+        "window": "ATTACK",
+        "combatOpen": true,
+        "combatStep": "ATTACK",
+        "chainLink": 1,
+        "attacker": 1,
+        "defender": 4,
+        "attackUID": 6,
+        "attackTarget": {
+          "type": "HERO",
+          "player": 4,
+          "uid": 4,
+          "zone": "Hero"
+        },
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": null,
+        "lastAttackName": "Head Shot",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "UPF",
+        "turnEffects": {
+          "1": [
+            {
+              "type": "EVR_PLAYED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ARC_NEXT_ARROW",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "MST_BLUE_PITCHED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SUP_COST_ONE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "CRU_ATTACKS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_PLAYED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "HNT_ATTACKS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "HNT_AA_ATTACK",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "HNT_ATTACKED_4",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_ATTACKED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SUP_ATTACKS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "MON_LAST_head_shot",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ELE_AA_COMBAT",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "2": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "3": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "4": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_ATTACKED_HERO",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": {
+          "1": [
+            "rune_snare_red",
+            "head_shot_red"
+          ]
+        },
+        "arcCards": {
+          "5": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "evoDashPlay": false,
+            "omnFirstDamage": false,
+            "iarPlayedFrom": "Hand",
+            "mstFree": false,
+            "rosLastLightning": false,
+            "iarPermission": []
+          },
+          "6": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "faceUp": false,
+            "evoDashPlay": false,
+            "penPitchTypes": [
+              "Generic",
+              "Action",
+              "Attack"
+            ],
+            "dynPitchAA": true,
+            "omnFirstDamage": false,
+            "iarPlayedFrom": "Arsenal",
+            "outPreviousNames": [],
+            "mstFree": false,
+            "mstPreviousPitch": 0,
+            "mstPreviousAA": false,
+            "rosLastLightning": false,
+            "iarPermission": [],
+            "mstReactions": 0,
+            "mstBanished": [],
+            "supFirst": true
+          },
+          "7": {
+            "iarPermission": []
+          }
+        },
+        "arcActions": {
+          "1": 2
+        },
+        "outPreviousNames": {
+          "1": []
+        },
+        "lastAttackCardID": "head_shot_red",
+        "attackTargets": [
+          {
+            "type": "HERO",
+            "player": 4,
+            "uid": 4,
+            "zone": "Hero"
+          }
+        ],
+        "defendIndex": 0,
+        "attackGoAgain": false
+      },
+      "observed_decisions": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "observed_hand_refs": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "preservation": {
+        "directory": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b433-rune-native-before-independent-evidence-6aec3e26f04f2",
+        "capture_manifest_sha256": "db50f2140e23af28dbf86cdab73c7e3717abbb38da0d2860e2745f109c5bff38",
+        "initial_sha256": "b11471ccc30bdb02709a905e6627fc10627255c0af24a3cdf0ed99b75f8f4449"
+      },
+      "limits": [
+        "Nativefirstfailureestablishesmissing+3atfreshactiveArrowgetter, notphysicalheroDamage4or7. No continuedcompanionrun, laterStack/HP/cleanup/refund/consumptionsuffixobserved.",
+        "No fullpostfailurephysicalrawsnapshot exists; passednativeidentity/Stackassertions andexplicitobservedstate supportonlylistedfacts. Initialraw isindependentlypreserved.",
+        "AlternateTrapDefendedWHEN/faceupHeadShot/hero/Bowability/otherArrows/conditions/fullcard/siblings unearned. Root reserves/allocates108; reviewer createsnoissueIDorrepair. Originalstrict7/HP13/inputretained."
+      ]
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch433-independent-source-review.json",
+    "sha256": "aa4c15bd174f8095c2a2beb50423ae798a0ab4b696ccb37b74795d3eb41a5fba",
+    "manifest_sha256": "7747fe644366d1e3682db5ba8626b2032f3ddc7953a7b6d4e7ae24b640d1bd44"
+  },
+  "classification_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch433-rune-independent-native-before-classification.json",
+    "sha256": "c0658e3b168b579da245b9ea003fa9000d7d3572b8392422d34aa7cc61ded634"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch433-20261105T082822Z-6aec3e26f04f2.json",
+    "sha256": "05b324258873da9315ac54b624460ce4f116741a528ef091392fe68758e350fe"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch433.recording-results.json",
+    "sha256": "2635bd9b8a8e63a8653b467ced59935f6f9a4a3df88432991d05f2ad0d61e083"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch433-native-r1-9e984\\receipt.json",
+    "sha256": "9122dafe7b69ad4f28fdc7c31cd5e076bd846752baf8df0b9981bbe26128a538",
+    "exit_code": 1,
+    "stderr_bytes": 0,
+    "runtime_before": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+    "runtime_after": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04"
+  },
+  "source_guards_verified": 70,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "f1db3603aa11cba94afc1fec49609f217a1fcea27e57c66b010a54fd58fb0d4f",
+    "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+    "DevTools/FaB/ele_abilities.json": "9e0f27afa772225ec73488928f8e54ca2b2205fe9aafd59f2f97da4ba61cf4f3",
+    "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+    "DevTools/FaB/boltyn_abilities.json": "8e1c2a7f773770928618a8392bda7d597b311a44ecd96c0a44ef5ddc6ba5e3b7",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82"
+  },
+  "total_saved_actions": 13,
+  "total_saved_native_assertions": 1127,
+  "total_saved_manual_pass_inputs": 8,
+  "reused_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56",
+    "saved_fixture_review_tools.py": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "limits": [
+    "StrikefixturealoneeligibleafterRootfocusedreplays. Rune strictprobe remainsunsaved/unqualified, original7/HP13oraclesunchanged; no sourcefix/issueallocationbyreviewer.",
+    "InitialOscilio18isprintedlegalhealth, notnormalized20. All48prefsrawinitial/finalplusactual8actors; no intermediatefullraworunsupportedscalarpreferencesclaim.",
+    "NoPHP/native/game/replay/Rwrites/source/gen/service/fullsuite/companiondamageprobe or denied-operationretry/integration."
+  ]
+}

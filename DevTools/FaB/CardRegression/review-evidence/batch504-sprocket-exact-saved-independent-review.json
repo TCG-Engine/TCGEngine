@@ -1,0 +1,265 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B504_SPROCKET_ONLY",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewer_independent": true,
+  "semantic_author": "/root/nov2_sparse_author",
+  "created_utc": "2026-11-05T19:06:53.682258+00:00",
+  "source_spec": "card-regression-batch504.json",
+  "input_sha256": "a510f9619872de1b817c098f0c2a993ea70a71c5b3d863e874b87af3c07cd86d",
+  "manifest_sha256": "a0de13d459cca5ebfa8362eaf0fbcc6aab1b0c962ecce601ac1de4cd0d2e555c",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch504-independent-source-review.json",
+    "sha256": "8245699273db069bf09cc86cb341ef694f6fd4a45f03e26d3cda70fad64a3243",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch504-20261105T190248Z-6aecd2d8826da.json",
+    "sha256": "9b16e7e61fd2f7b35d61478892e0cf3d4bebce0d6a2facb38e8ad8e392d0646e"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch504.recording-results.json",
+    "sha256": "1947ecb509a7d49724c57f2755dea4ff215db8de4fad2864ee7fa8ebdbe95cc9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch504-native-r1-9e984\\receipt.json",
+    "sha256": "52c27c347ad02e7c9fc6602723b92902c64d5099027d4d7e5563d34785fc92f3"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch504_saved_readonly.py",
+    "sha256": "17231e4ed2cd6b9f43378a5c9ec73dc8a9d63981cece856ac520a56e0b324f4e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "sprocket_rocket_red",
+      "group_id": "pitch-cycle:sprocket_rocket",
+      "slug": "card-sprocket-rocket-red-four-live-real-owned-item-boost-earns-four-damage-and-go-again",
+      "source_spec": "card-regression-batch504.json",
+      "input_sha256": "a510f9619872de1b817c098f0c2a993ea70a71c5b3d863e874b87af3c07cd86d",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_SPROCKET_ITEM_BOOST",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-sprocket-rocket-red-four-live-real-owned-item-boost-earns-four-damage-and-go-again",
+      "fixture_sha256": "66d99355a733564a04e74b9b40b11529023c18d86ce21aa848e0860f731d93d4",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2e2c6ce4294b56f1da694e023b8d9231beb4f503cdac62f0f0747db87de8ce30",
+        "actions.json": "34470d8d57461cadf3c95c1d36d71bc37cea2a84649dcc0780ef8ae8ce0ac0f8",
+        "assertions.json": "7905d5af1748829cc0e50cf19e64af50526fe4ccd5c8f8714ccf7aea88422694",
+        "expected_final_gamestate.txt": "bdc042e6ad961207bf56c6d08ca9e7feeab3c14abf8f8099dfc1a64b1a7417af"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2e2c6ce4294b56f1da694e023b8d9231beb4f503cdac62f0f0747db87de8ce30",
+        "actions.json": "34470d8d57461cadf3c95c1d36d71bc37cea2a84649dcc0780ef8ae8ce0ac0f8",
+        "assertions.json": "7905d5af1748829cc0e50cf19e64af50526fe4ccd5c8f8714ccf7aea88422694",
+        "expected_final_gamestate.txt": "bdc042e6ad961207bf56c6d08ca9e7feeab3c14abf8f8099dfc1a64b1a7417af",
+        "meta.json": "8d8bda3c3f67cb88dfdaa2bb3102c94d9bcbf5fc241ab354cb0f0dd0a1676ff1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2e2c6ce4294b56f1da694e023b8d9231beb4f503cdac62f0f0747db87de8ce30",
+        "actions.json": "34470d8d57461cadf3c95c1d36d71bc37cea2a84649dcc0780ef8ae8ce0ac0f8",
+        "assertions.json": "7905d5af1748829cc0e50cf19e64af50526fe4ccd5c8f8714ccf7aea88422694",
+        "expected_final_gamestate.txt": "bdc042e6ad961207bf56c6d08ca9e7feeab3c14abf8f8099dfc1a64b1a7417af",
+        "meta.json": "8d8bda3c3f67cb88dfdaa2bb3102c94d9bcbf5fc241ab354cb0f0dd0a1676ff1"
+      },
+      "actions": 28,
+      "native_assertions": 2296,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 555,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 119,
+        "28": 187
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sprocket_rocket_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "induction_chamber_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sprocket_rocket_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "induction_chamber_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 6,
+      "final_RandomCounter": 0,
+      "actual_public_Item6_Banish_flags": {
+        "FaceDown": 0,
+        "PlayableFromBanish": 0,
+        "PlayableChainLink": 0,
+        "ReturnAtEndTurn": 0
+      },
+      "actual_Item6_Banish_counters": {},
+      "actual_single_Boost": 1,
+      "actual_fresh_power": 4,
+      "actual_damage": 4,
+      "one_GA_refund": true,
+      "no_Item_Arena_entry": true,
+      "checkpoint_assertion_mapping_sha256": "b650c1ec242818ec57af29a831029753518bd7ba35e922491646218438a0259d",
+      "native_action_mapping_sha256": "02023a0c0a97d9c61e4903a58241a54e7d14be1d936d70c6b1ee939e396ad64b",
+      "native_assertion_mapping_sha256": "f6f9290c9f447e217cd0c07c4182164820c0b48074722e158f4637942927223e"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2296,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 555,
+  "material_findings": [
+    "All raw5/28 actual inputs/2296 ordered normalized assertions/25 actual manual inputs/555 schema properties/current69 guards and runtime9 verified against exact approved authored input. Both endpoints have all48 manual preferences and complete physical UID1..6 ownership/location/economy audit.",
+    "Actual primary5 ordinary Hand play, adjacentHero4 target then supported MZMODAL Boost0 with ownedMechItem6. Real cost0 still spends AP1; same6 Deck->public nonplayable Banish, no Item Arena entry/new UID/steam/Item ability/DataDoll event. Actual source5 captured Boost and Item-condition corroborated by final state.",
+    "Same5 source four then active Chain currentpower4 and GA, actual physical4damage/defense0/P4HP16, one AP refund only at Resolution. Final same5 ownGY,6 public Banish with actual empty counters/effects/no return; no Deck/Pitch/Arena/Equipment/Weapons/other physical card, full Stack/Chain/DQ/payment/await cleanup. Scalar DQV caches remain historical, not pending work."
+  ],
+  "limits": [
+    "ONE positive Sprocket Red actual Item Boost/+1/real4 damage/one GA refund representative only. No Equipment alternative, otherBoostCount/nonMech/noBoost, Induction entry/steam/pistol, DataDoll/Bios/HyperDriver/control-change/sibling/support-primary/fullcard credit.",
+    "T-Bone remains separate source-planning transport hold, unattempted/no executable case/native/fixture/coverage/engine-bug credit; not a blocked native row.",
+    "Native assertion sequence and parsed complete endpoints reviewed; no per-action raw snapshot claim. Root two targeted replays and registration remain separate. No PHP/native/replay/R/source/gen/service/fullsuite/git/remote/denied retry by reviewer."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

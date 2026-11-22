@@ -1,0 +1,156 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B328_RAY_PAID_SELF_SOUL_AND_CONTROLLED_ATTACK_VS_SHADOW_PLUS1_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T11:20:33.141302+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch328.json",
+  "input_sha256": "aac9dd05c1881c63035aa13c8fc4dbcfe5322a987061814c4104c772f25e47c1",
+  "manifest_sha256": "be93bf3cfbdf7cfcf04a46db34fa1d9201c63b002cff636b135654851dee3f28",
+  "fixtures": [
+    {
+      "slug": "card-ray-of-hope-yellow-four-live-sparse-real-paid-lower-life-self-soul-and-shadow-attack-power",
+      "card_id": "ray_of_hope_yellow",
+      "group_id": "identity:ray_of_hope_yellow",
+      "fixture_sha256": "70e4fbcdc84288c0c06cdebef3f41e30cdc7a7f6a95ea33a310b8fb58395da83",
+      "behavior_sha256": "70e4fbcdc84288c0c06cdebef3f41e30cdc7a7f6a95ea33a310b8fb58395da83",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d1900fb47bd7eefd34167fe85c21ca2e50ed4bb8a4ce6e0a6ca3a3c80185db83",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "c218e5e18a5a89e97fbb77851baa7a7b948474af2caec8beec68fb8aafbb329e",
+        "expected_final_gamestate.txt": "a80409f5633a60a417374471e31bf0461375297f993142cf1bcbd501a74d7d2c",
+        "meta.json": "928fff3e24599b8bf62b70afde653a103c899557880153f81ea89eab98d11508"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d1900fb47bd7eefd34167fe85c21ca2e50ed4bb8a4ce6e0a6ca3a3c80185db83",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "c218e5e18a5a89e97fbb77851baa7a7b948474af2caec8beec68fb8aafbb329e",
+        "expected_final_gamestate.txt": "a80409f5633a60a417374471e31bf0461375297f993142cf1bcbd501a74d7d2c",
+        "meta.json": "928fff3e24599b8bf62b70afde653a103c899557880153f81ea89eab98d11508"
+      },
+      "actions": 33,
+      "native_assertions": 2477,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "schema_aware_Soul_identity_and_causal_ownership": true,
+      "Soul_serialized_fields": [
+        "CardID",
+        "UniqueID"
+      ],
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "no_virtual_uids_introduced": true,
+      "final_soul_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uids": [
+        6
+      ],
+      "initial_health": [
+        18,
+        20,
+        20,
+        20
+      ],
+      "final_health": [
+        18,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual legal Boltyn18 versus opposing ShadowLevia20. Ray5 ownedHand\u2192StackINSTANT/pending1/R0AP1; realBlue6pitch3 pays1 leavesR2AP1. Same5Stack/OwnerController1/Soul0 through firstthree source responses; only fourth input6 samephysicalCardID/UID5 enters ownedP1Soul. Soul raw schema has exactlyCardID+UID; causal originalownership and zone membership verified without invented SoulOwner/Controller/FaceDown. ActualRed7cost0 consumesAP1 atinput8; four source responses put same7Chain with emptytags/computed4+Ray1=5/noGA versus actualShadow4. Actual5damage/P4HP15 atinput25, P1remains18; source5staysSoul even after life totals cross. FullDamage/Resolution leavesR2AP0/GY7/Pitch6/Soul5/originalUID1-7conserved/counter7/no virtuals/allheroesready/live/Stackqueuespaymentownedframesclear.",
+      "qualification": "Only actual Instant1/lower-life-selfSoul/one controlled attack versusShadow+1/5damage/cleanup. No charge/Soulheroability/general life-caller fix/false-life/nonShadow/secondattack/expiry/EndPhase/BloodDebt/supportprimary/fullcard/control credit. No intermediate-GY or internal microstep outcome is claimed."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch328-independent-source-review.json",
+    "sha256": "1c4ed408dbc17b352d48f80ed2e169875104c5d92a8f217acef72b4281d182a3",
+    "manifest_sha256": "be93bf3cfbdf7cfcf04a46db34fa1d9201c63b002cff636b135654851dee3f28"
+  },
+  "source_guards_verified": 17,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch328-20261103T111726Z-6ae9c2c67b4d0.json",
+    "sha256": "76d9851c828c3d04ba0c175ca6a8993e9eeae9cac44c202f931eace530f7045c"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch328.recording-results.json",
+    "sha256": "6b9c7899dbaf2c47370a68539afc8ea13d469292169a1db4fb8f63acb7363911"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch328-native-r1\\receipt.json",
+    "sha256": "5561d3eb53759b94e4e4176b886ff6e28a76d35a8a2674375504a032f4eb3b65"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Only hash-bound source/wrapper/archive/rawfive/meta/action/assertion-equality prefix; B328 schema-aware physical checks follow."
+  },
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; raw-five individual hashes also bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Actual Root native COMPLETE0/stderr0/exact-five-file match; no reviewer PHP/native execution.",
+    "InitialHP18 is approved explicit prior nonlethal damage; no current damage-history or charge seed. Only selected life comparison and ordinary self-Soul movement, no generalized caller/charge/expiry fix claim.",
+    "Soul serialization onlyCardID/UID, original ownership traced from source and ownedP1Soul membership; no fake Soul properties.",
+    "Replay qualification belongs to separate actual Root reports; no fault-control credit.",
+    "No R/source edits, gameplay proposals, generation/engine backend/service/full suite or authorization retry."
+  ]
+}

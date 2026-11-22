@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch604.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T12:13:13.194569+00:00",
+  "fixtures": [
+    {
+      "slug": "card-mbrio-base-digits-four-live-real-two-tap-defense-temper-and-post-close-bonus-retention",
+      "fixture_sha256": "ef79931d6337cb74a2025acdc61a7bcee074606a723e0218c1b13da7fd1bc3b8",
+      "passed": true,
+      "result": "[PASS] mbrio_base_digits / four live distinctive effect"
+    },
+    {
+      "slug": "card-flamescale-furnace-four-live-real-red-play-red-pitch-and-resource-funded-five-damage",
+      "fixture_sha256": "09b220d2cad2a0b204b8c2c6d74bd64bbedb8801fa97d7472a2864240a5507a6",
+      "passed": true,
+      "result": "[PASS] flamescale_furnace / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mbrio-base-digits-four-live-real-two-tap-defense-temper-and-post-close-bonus-retention",
+      "returncode": 0,
+      "stdout": "[PASS] mbrio_base_digits / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flamescale-furnace-four-live-real-red-play-red-pitch-and-resource-funded-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] flamescale_furnace / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

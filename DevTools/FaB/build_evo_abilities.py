@@ -14,7 +14,7 @@ def multi(expr,n,tip='Choose_cards',minimum=0,p='$player'):
 def hit(code):return 'if (FaBFaiHeroHit()) { '+V+code+' }'
 def ref(z,k='',all=False,p='$player'):return f"FaBEVORefs({p}, '{z}', '{k}', "+('true' if all else 'false')+')'
 def steam(kind='crank',all=False):return select(f"FaBEVOItemTargets($player, '{kind}', "+('true' if all else 'false')+", true)",'Add_steam_counter',False)+"FaBEVOSteam($chosen);"
-def item(z='Hand',all=False):return select(ref(z,'cheap',all),'Put_item_into_arena')+"FaBEVOPutItem($player, $chosen);"
+def item(z='Hand',all=False,mechanologist=False):return select(ref(z,'mechCheap' if mechanologist else 'cheap',all),'Put_item_into_arena')+("FaBEVOPutItem($player, $chosen, 'Mechanologist');" if mechanologist else "FaBEVOPutItem($player, $chosen);")
 def under(optional=False):return "$sourceUID = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID); $previews = FaBEVOUnderPreview($player, $sourceUID); $chosen = 'PASS'; if ($previews !== '') { $chosen = await $player."+('MZMayChoose' if optional else 'MZChoose')+"($previews, \"Destroy_card_under_equipment\"); } $paid = FaBEVODestroyUnder($player, $sourceUID, $chosen, $previews);"
 def attacktag(tag):return select('FaBEVOAttackRefs()','Choose_attack')+f"FaBDYNTag($chosen, '{tag}');"
 def physical(n):return "$targetUID = FaBUPRHeroUID($victim); "+deal(n,physical=True)
@@ -107,7 +107,7 @@ for c in json.loads((HERE/'evo_catalog.json').read_text()):
  if b=='steam_canister':add('ResolveAbility',steam())
  if b.startswith('backup_protocol_'):
   add('ResolveAbility',select(f"FaBEVOBackup($player, {int(c['pitch'])})",'Recover_Mechanologist_attack')+"FaBMoveChoice($player, $chosen, 'Graveyard', 'Hand');")
- if b=='quantum_processor':add('ResolveAbility',item())
+ if b=='quantum_processor':add('ResolveAbility',item(mechanologist=True))
  if b=='prismatic_lens':add('ResolveAbility',"$pitch = FaBEVORevealTop($player); "+select('FaBEVOLens($player, $pitch)','Top_matching_item',False)+"FaBDTDTopChoice($player, $chosen);")
  if b=='grinding_gears':add('ResolveAbility',select('FaBDYNHeroTargets($player)','Choose_hero',False)+"FaBEVODestroyTop(intval(FaBIdentityFromMZ($chosen)['player']));")
  if b=='stasis_cell':

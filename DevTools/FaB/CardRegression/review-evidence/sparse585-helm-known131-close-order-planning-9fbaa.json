@@ -1,0 +1,90 @@
+{
+  "status": "APPROVED_AS_PLANNING_LIMITS",
+  "approved": true,
+  "planning_limits_approved": true,
+  "source_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "runnable": false,
+  "installable": false,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T07:12:08.199221+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-helm-known131-selected-planning-limit\\planning-hold.json",
+    "sha256": "d0fc07c742102a8ab77605a632c92995c240b2630b525bfc6e5ebac791514562"
+  },
+  "original_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-weapon-defense-and-driver-entry-author\\manifest.json",
+    "sha256": "02bb62553195f1ff3736ec3ed3e879475f9bc3adfd1906404237e851e07e6d51"
+  },
+  "original_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-weapon-defense-and-driver-entry-author\\batch585-blade-beckoner-helm-and-puffer-jacket-two-real-equipment-static-groups.json",
+    "sha256": "78ec02788fd906637d8cbc8060f15b74bc8ac76239fb1af1597f52ab5a149421"
+  },
+  "source_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-guardwell-close-order-source-note.json",
+    "sha256": "8a72184fe49b83cb1a93347bc8922dd4e6c0983ba8cbf468296ca4a481eaeb5f"
+  },
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 71,
+  "selected_source_guards": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d"
+  },
+  "primary_id": "blade_beckoner_helm",
+  "group_id": "identity:blade_beckoner_helm",
+  "recipes_released": 0,
+  "native_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_bug_claim": false,
+  "issue_allocated": false,
+  "source_fix_proposed": false,
+  "known_dependency": {
+    "id": "FAB-REG-131",
+    "original_independent_native_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch490-independent-native-before-classification.json",
+      "sha256": "b65d18c7391601bd0b30d43bfc7f67a0299dc7b84bfacfa373fce00d4a58f3d0"
+    },
+    "original_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+    "same_three_decisive_source_hashes": true,
+    "new_Helm_native_reproduction": false
+  },
+  "independent_findings": [
+    "Printed/current Helm1+1defendingWeapon=2 and automaticGuardwellTWO remain correct. CurrentCR8.3.34/7.7.1/3-5 and the official exactHelm Rewinds example agree; no Close priority or one-counter adaptation.",
+    "Same current GL/HNT/HVY source hashes and generic blade_beckoner_* path reproduce the already established selected dependency: P1 weaponproxy is retired before P4 Guardwell calls currentdefense; weaponconditional lookup loses the removedattack. OldBoots native2536passed/1vs2wear is historical evidence only, not a Helmrun.",
+    "Original29input Helmcase and strict2 remain frozen/unexecuted. No duplicate knownfailure, siblingbug/fullcard/globalCore/root credit or repair. Independent Puffer-only release excludes Helm."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.34"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.7.1",
+        "7.7.3",
+        "7.7.4",
+        "7.7.5"
+      ]
+    },
+    {
+      "url": "https://blog.judge.fabtcg.com/blog/2025/03/19/rewinds/",
+      "finding": "The exactHelm weapon-block example requires two counters."
+    }
+  ],
+  "limits": [
+    "Known131 dependency only, not a Helm native result, sibling certification or new global/Core root.",
+    "Original two-case W packet and strict Guardwell2 remain preserved/uninstalled/unrun; no source fix or denied retry.",
+    "Puffer release is independent; no Helm case exists in its one-case native input."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch585_puffer_source_readonly.py",
+    "sha256": "a5239298d3d82f39396034e6fc997f428582fd5418966200c8f5226088d3938c"
+  }
+}

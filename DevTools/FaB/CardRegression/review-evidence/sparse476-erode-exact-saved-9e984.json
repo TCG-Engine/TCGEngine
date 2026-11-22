@@ -1,0 +1,312 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B476_ERODE_DOMINATE_AND_RESPONSEABLE_FRAGMENT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T14:23:17.948604+00:00",
+  "source_spec": "card-regression-batch476.json",
+  "input_sha256": "c60b03c2c73006de5125184e6a3d071345c2ce854ca61019aa9eb41f7d0f3e22",
+  "manifest_sha256": "62b3d2675a435b1ce65815ec2d171baa22eaeef681eb35f282449695b7b3c880",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch476-independent-source-review.json",
+    "sha256": "26a9a208f14aded05ee34c6b8eaa0e435aaf4a88edc688362d9fb67efb289f30",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch476-20261105T141825Z-6aec9031cd1a1.json",
+    "sha256": "0329ea41b0939b7dd926252e0cf88c0322c1d5205653926036cd24785c34cbfc"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch476.recording-results.json",
+    "sha256": "2daf6b74621a42bbeb5acdebac2e2c69ebb056d4c7882e3ac02f5f73ba84e924"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch476-native-r1-9e984\\receipt.json",
+    "sha256": "6fc95ae6e23700573e564859d2210dcd04439d3ff5a8dbca84781ba8dab6d869"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch476_saved_readonly.py",
+    "sha256": "3ecd990c3cf6b4485726478e4613a4bdfd52c6dff6175e5a73e5cf6d0646af08"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "erode_authority_red",
+      "slug": "card-erode-authority-red-four-live-real-dominate-hand-rejection-and-responseable-fragment-minus-two-damage",
+      "source_spec": "card-regression-batch476.json",
+      "input_sha256": "c60b03c2c73006de5125184e6a3d071345c2ce854ca61019aa9eb41f7d0f3e22",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-erode-authority-red-four-live-real-dominate-hand-rejection-and-responseable-fragment-minus-two-damage",
+      "fixture_sha256": "3387c91fa2378c517a52c941b48709b588bfe092ac0c587b1c22220859fd9483",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2df04120de15698771621db63a19dd473e639a38abc845914b8a5fee02366c5d",
+        "actions.json": "c7c071a0ff13327d84936651e056e72ad4967876b72f403b35e85043d6489866",
+        "assertions.json": "3c1197fedd2e15a518dc02019a38e1a7d120928941623fd6c3604cf8e3edc602",
+        "expected_final_gamestate.txt": "36e96120ab1f693451afc3474da56cfa0626117df16e5c18c863f65d898e9843"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2df04120de15698771621db63a19dd473e639a38abc845914b8a5fee02366c5d",
+        "actions.json": "c7c071a0ff13327d84936651e056e72ad4967876b72f403b35e85043d6489866",
+        "assertions.json": "3c1197fedd2e15a518dc02019a38e1a7d120928941623fd6c3604cf8e3edc602",
+        "expected_final_gamestate.txt": "36e96120ab1f693451afc3474da56cfa0626117df16e5c18c863f65d898e9843",
+        "meta.json": "bea27b01b17c215a9349dd9f0a259c3d4ff5728ff955765123bf0816b9c2b09a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2df04120de15698771621db63a19dd473e639a38abc845914b8a5fee02366c5d",
+        "actions.json": "c7c071a0ff13327d84936651e056e72ad4967876b72f403b35e85043d6489866",
+        "assertions.json": "3c1197fedd2e15a518dc02019a38e1a7d120928941623fd6c3604cf8e3edc602",
+        "expected_final_gamestate.txt": "36e96120ab1f693451afc3474da56cfa0626117df16e5c18c863f65d898e9843",
+        "meta.json": "bea27b01b17c215a9349dd9f0a259c3d4ff5728ff955765123bf0816b9c2b09a"
+      },
+      "actions": 34,
+      "native_assertions": 3007,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 127,
+        "34": 200
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "erode_authority_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "erode_authority_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_GY1_UIDs": [
+        5
+      ],
+      "final_GY4_UIDs": [
+        6
+      ],
+      "final_Pitch1_UIDs": [
+        7
+      ],
+      "final_Hand4_UIDs": [
+        8
+      ],
+      "actual_second_hand_Dominate_rejection_exact_asserted_NOOP": true,
+      "actual_Fragment_source_UID": 5,
+      "actual_Fragment_controller": 1,
+      "power7_through_first3_Fragment_responses_then_power5": true,
+      "actual_total_defense": 3,
+      "actual_damage": 2,
+      "final_UniqueIDCounter": 9,
+      "physical_virtual9_absent": true,
+      "actual_raw_omnFragmented_flag": true,
+      "checkpoint_assertion_mapping_sha256": "9fe31d77b6d0a2c514358e2306f6d8a5cb0303cd1d5821a6887d59609875e920",
+      "native_action_mapping_sha256": "44a1db6f58d9f7bf70f55ba76cb370aa89ed6b5c299fe200ab6181d9e6740cd3",
+      "native_assertion_mapping_sha256": "738821589a57b6e078bfb8fd25231b2a38fbf458060be2a59ca96710434b9b84"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 3007,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actualraw5/all34inputs3007orderedassertions/29manual(7,7,7,8)/48rawmanualpreferencesperendpoint/current69guards exact. LegalyoungDromai20/3Dori20 andquietreadyheroes; realBlue7paysprimary3/AP1/RAP0 withoutRedpitch/Ash.",
+    "ActualfirstP4HandNAA6DEF3allowed/secondotherwiselegalHandAA8clickedbutretainedHand; completepersistedassertionarrays atinputs12and13 identical afterremovingstepnumber, no seconddefender/no extraevent/choice/payment. ThisisactualDominateconsumer, not an unattemptedrestrictioninspection.",
+    "OnlyactualP4defendfinish earnsoneFragmentABI capturedphysical5/controller1. Input14through17Stack1/7freshpower/sameprimary5+defender6/Hand8held. Fouractualresponders1,2,3,4theninput18Stack0/tagWTR_POWER\u00e2\u02c6\u20192/livepower5. NormalfreshDefendPriorityfour/Reactionfourthenphysical5\u00e2\u02c6\u20193=2/P4HP18/noGA/APrefund. RawfinalomnFragmentedtrue+rosEventomnFragment/rosSource5 corroborateactualcallback; no inferredunrecordedvirtualUID/Params/SourceZoneclaims.",
+    "FullDamage/Resolutionclose5publicGY1/6publicGY4/7Pitch1/8Hand4/alloriginal1..8conserved/Counter9/RNG0/no physical9. Stack/Chains/Arena/Deck/Banish/Temp/allDQ/payment/resolvingReaction/awaitframesclear; historicalROSvariablesremaincache, notpendingwork."
+  ],
+  "other_selected_candidate_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch476-erode-authority-first-ready-author\\chart-a-course-known-plain-await-source-only-hold.json",
+    "sha256": "1a4943cb2e17607beebdce594fd38143eb023e71ddc3e21b61c102d58e5fb35d"
+  },
+  "limits": [
+    "OneRedpositiveDominateoneHandlimit+oneDEF3Fragment\u00e2\u02c6\u20192POWER+physical2damage/fullclose; noDEF0or1/Equipment/multipledefenders/multipleFragments/sourceblank/disappearance/otherpitch/ally/Phantasm/Hero/fullcard/sibling/supportprimarycredit.",
+    "ChartnotinNspec/notrun/unattemptedknownplainawaitseamhold only; no blockedattemptinthissavedproof and no newbug/coverage/fixclaim forChart.",
+    "Nativeledger+parsedrawendpointsonly; noadditionalperinputphysicaldump/rawvirtualABIidentityorunassertedpendingwindowcertification. NoextraRootnative/replayassertions credited.",
+    "Roottwofocusedreplays/registrationseparate; reviewerexecutednoPHP/native/replay/R/source/gen/service/fullsuite/deniedrepairretry/integration."
+  ],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

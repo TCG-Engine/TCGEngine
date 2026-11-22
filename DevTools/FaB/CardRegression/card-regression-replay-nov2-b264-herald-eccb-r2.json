@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch264.json",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T22:56:03.744012+00:00",
+  "fixtures": [
+    {
+      "slug": "card-herald-of-triumph-red-four-live-sparse-real-six-power-blocker-lowered-below-phantasm-then-fully-blocked",
+      "fixture_sha256": "335abb1230f6f76dc2c276e0df004bbbec43837e57e2f7e03300d65140896b82",
+      "passed": true,
+      "result": "[PASS] herald_of_triumph_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-herald-of-triumph-red-four-live-sparse-real-six-power-blocker-lowered-below-phantasm-then-fully-blocked",
+      "returncode": 0,
+      "stdout": "[PASS] herald_of_triumph_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-rising-knee-thrust-red-four-live-sparse-real-leg-tap-same-chain-combo-five-damage-and-go-again"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,128 @@
+{
+  "status": "APPROVED_EXACT_SAVED_DOOMSDAY_SIX_PUBLIC_BLOOD_DEBT_SINGLE_OWNED_READY_BLASMOPHET_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T13:54:47.789386+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch343.json",
+  "input_sha256": "67f3d46cbf5f10ecf80a2d7f7bda29d0d0d31fb3985142ded58379ddb47d686b",
+  "fixtures": [
+    {
+      "slug": "card-doomsday-blue-four-live-sparse-real-six-public-blood-debt-cards-create-owned-blasmophet",
+      "card_id": "doomsday_blue",
+      "group_id": "identity:doomsday_blue",
+      "fixture_sha256": "983f1d9ec9a1806025e0b01f03c095d33922235a44fb71f4538ea5a2ca798b40",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5cb7328608add9adab19460f901cb7f08b9171296000c170514b9d7886592924",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "47e85a34f5d796ded38a6680ae56645f62ae01a35a30f94e2992f7322497ef44",
+        "expected_final_gamestate.txt": "9e9923c10547d630f5c5952badf15a773f6f99e5043d77abdf3df8cbc78566a7",
+        "meta.json": "bf8d6688dc36a6d620e275785cfedf2a007abe609f9d379b71009d55ac515862"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5cb7328608add9adab19460f901cb7f08b9171296000c170514b9d7886592924",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "47e85a34f5d796ded38a6680ae56645f62ae01a35a30f94e2992f7322497ef44",
+        "expected_final_gamestate.txt": "9e9923c10547d630f5c5952badf15a773f6f99e5043d77abdf3df8cbc78566a7",
+        "meta.json": "bf8d6688dc36a6d620e275785cfedf2a007abe609f9d379b71009d55ac515862"
+      },
+      "actions": 5,
+      "native_assertions": 785,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "priority_response_passes": 4,
+      "defender_declaration_finish_inputs": 0,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_ownership_conserved": true,
+      "original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "unchanged_public_owned_Banish_uids": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "original_Banish_rows_byte_semantic_equal": true,
+      "final_graveyard_uidset": [
+        5
+      ],
+      "created_Ally_uid": 12,
+      "created_Ally_card_id": "blasmophet_the_soul_harvester",
+      "created_Ally_owner": 1,
+      "created_Ally_controller": 1,
+      "created_Ally_Status": 2,
+      "created_Ally_Damage": 0,
+      "guarded_catalog_Ally_power": 6,
+      "guarded_catalog_Ally_health": 6,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActuallegalyoungLevia20/manualfour/singleLegendaryspecializedDoomsday5Hand. ActualsixownedpublicBanishUID6..11 twoeachRumblerR/Y/B printedBloodDebt/legalcopies/notkeywordseed, originalrows exactlyunchangedbetweenactualsnapshots. NormalInstant0click leavesR0/AP1, physical5INSTANTSourceHandUID5 heldStack/Arena0/GY0throughfirstthree manual1,2,3 responses. FourthresponseP4 onlynow same5ownpublicGY andexactONEnewBlasmophet12 Arena/selfOwnerController1/Status2/Damage0. ActualguardedcatalogShadowTokenDemonAllypower6health6; noAllyattackAPIorcurrentcombatstatsinvented. FinaloriginalUID1-11ownershipconserved pluscreated12/counter12/Random0/allHP20/R0/AP1/MAIN_ACTION/StackChainsqueuespaymentawaitclear/allfourmanual1each/11windowsfalse. Every5nativeactor-mode-payload and785orderedassertion equalsindependentlyapprovedfrozenexpectedinput. No borrowedcurrent-outputoracle.",
+      "qualification": "OnlypositiveLeviaLegendary/sixpublicBloodDebt/Instant0/fourresponses/oneownedreadyundamagedAllycreation. No below6/rejection/Legendaryenforcement/Allyattack/WHEN/EndPhaseBloodDebt/Leviaprotection/healing/othercreator/modifier/hero/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch343-independent-source-review.json",
+    "sha256": "c939b7d09fb924752b705f64d6da888da412d6ef0ad8a43aca44b869a839a12e",
+    "manifest_sha256": "70f31c602cb742fb82012cd8af807e0447f5d7adf318469de0a1c65ff26e0c57"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch343-20261103T135250Z-6ae9e7324cf2b.json",
+    "sha256": "6bd853237d810607c217f2076d2922db82dce85b1abdbe0adde1abfbe4bb9b0c"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch343.recording-results.json",
+    "sha256": "0da08479a3432f2bb8fb2642410e43e647880455a1bef5ae47a9c702a8a5c7d4"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch343-native-r1\\receipt.json",
+    "sha256": "f4663ca4b3608dd6ad73684c7d601ec9170ea236eb2fa5a6496492ed2cdad2bf",
+    "stdout_sha256": "e6ea5dc4e4ce19b4eff61f1aab6684169d63a8e65a5241da460b43839372f3e1",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independentactualsavedraw5review: all5nativeinputs/785orderedassertions vsapprovedexpectations, completeparsedinitial/finalUID/ownership/manualprofiles/economy/sixBanishrowequality/singleAllydefaults/currentcatalogstats/cleanupchecked. Noauthorbuilder/PHP/native/replay/R/sourcewrites.",
+  "limits": [
+    "Savedcreationreviewonly; Root twofocusedreplays separateevidence, notexecutedbyreviewer.",
+    "OnlypositiveLeviaLegendary/sixpublicBloodDebt/Instant0/fourresponses/oneownedreadyundamagedAllycreation. No below6/rejection/Legendaryenforcement/Allyattack/WHEN/EndPhaseBloodDebt/Leviaprotection/healing/othercreator/modifier/hero/supportprimary/fullcard/controlcredit.",
+    "Current0d retained; no sourcefix/application/proposal/runtime migration/deniedauthorizationretry."
+  ]
+}

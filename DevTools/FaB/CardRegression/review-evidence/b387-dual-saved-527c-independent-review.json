@@ -1,0 +1,328 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B387_DUAL_ONLY_CURRENT_WHEN_ILLUMINATE_FAILED_UNQUALIFIED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-04T20:41:20.650406+00:00",
+  "source_spec": "card-regression-batch387.json",
+  "input_sha256": "b102f81a04d7cdf38bb5ab88bd90c65795c8ee8d42e3080f7a30ddf4599e842b",
+  "manifest_sha256": "b8601e03d73b3ac9cc7be90ffa8f57e1f8616f8bbd07cc1646344de19ee4d291",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 40,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch387-independent-source-review.json",
+    "sha256": "92017d58a9dff77549bf28306e9674d97966bea3f0bcf03d5f1bea3ece0c303b",
+    "unchangedDual_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch387-20261104T203625Z-6aeb97499ec75.json",
+    "sha256": "d7a0cb5330b244f6ffb6e4bb146ca85a0587a7e33808924a8ef4ef00e9168565"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b387-native-527c-r1\\receipt.json",
+    "sha256": "790ea31afa6452dfe848d4fb5eed1b6550ad21ea0c610a9ddcb08a36580ca92f"
+  },
+  "Illuminate_before_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-illuminate387-independent-native-before-classification.json",
+    "sha256": "b941538a2b4b69e503f7403183c35c0885c47d4f786ce56003daf6dbd795c7a8"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch387_dual_saved_readonly.py",
+    "sha256": "08f57879c5840d579cf1f5d4c4b8e9732f02431be1ac1be7cd3327a9b272fce2"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "dual_threat_yellow",
+      "group_id": "identity:dual_threat_yellow",
+      "slug": "card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+      "source_spec": "card-regression-batch387.json",
+      "input_sha256": "b102f81a04d7cdf38bb5ab88bd90c65795c8ee8d42e3080f7a30ddf4599e842b",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_HEALTHY_DUAL_THREAT_SUBSET_ONLY",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+      "fixture_sha256": "93ff8b205a0979f66a572d881e538400298032bddaa60343d5bf893d00f0087f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8f29ac1adf5ca41357eb41585e4451d3681053feac171e98f3186f321f721788",
+        "actions.json": "3d2636ff35ea9a95aaec70e1764402b0b12b0a9f4fbdf08dcfb02e057174be6b",
+        "assertions.json": "092b21e0f416e525200e77db62816a07e8cc7190e953a86a5ac55119e2c32263",
+        "expected_final_gamestate.txt": "3fd862589277ff73fbbf0b1d24ec8ba9914e59e59f96b79758d7e0b30f9f4241"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f29ac1adf5ca41357eb41585e4451d3681053feac171e98f3186f321f721788",
+        "actions.json": "3d2636ff35ea9a95aaec70e1764402b0b12b0a9f4fbdf08dcfb02e057174be6b",
+        "assertions.json": "092b21e0f416e525200e77db62816a07e8cc7190e953a86a5ac55119e2c32263",
+        "expected_final_gamestate.txt": "3fd862589277ff73fbbf0b1d24ec8ba9914e59e59f96b79758d7e0b30f9f4241",
+        "meta.json": "7e41d10ecd0cdb295933b8f0bfff72a09f42be5d321289aeaf590f208df1220c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8f29ac1adf5ca41357eb41585e4451d3681053feac171e98f3186f321f721788",
+        "actions.json": "3d2636ff35ea9a95aaec70e1764402b0b12b0a9f4fbdf08dcfb02e057174be6b",
+        "assertions.json": "092b21e0f416e525200e77db62816a07e8cc7190e953a86a5ac55119e2c32263",
+        "expected_final_gamestate.txt": "3fd862589277ff73fbbf0b1d24ec8ba9914e59e59f96b79758d7e0b30f9f4241",
+        "meta.json": "7e41d10ecd0cdb295933b8f0bfff72a09f42be5d321289aeaf590f208df1220c"
+      },
+      "actions": 60,
+      "native_assertions": 5094,
+      "actual_manual_passes": 54,
+      "actual_priority_response_passes": 52,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 13,
+        "2": 13,
+        "3": 13,
+        "4": 15
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "dual_threat_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "dual_threat_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "actualWeaponCounters": {
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "actual_weapon_damage": 1,
+      "actual_nextAA_power_damage": 7,
+      "no_positive_HNT_NEXT_remaining": true,
+      "checkpoint_assertion_mapping_sha256": "66421d79203e38b132414ef064676944f232d2b5e3717968155e6def4619d777",
+      "native_action_mapping_sha256": "55e8e15b370ccfec9997b68ba325d68361696415095ce205500701d599a1c7b5",
+      "native_assertion_mapping_sha256": "4fad401b6306ba70e64c3849158d2fa0a821e22a5230578b205d51eb478d2874"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "illuminate_red",
+      "slug": "card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "reason": "Engine fails original correct currentWHEN responseablehit expectation: fourthReaction actualhit4 hasStack0 beforeexpectedSource5triggerresponses. Input19only; nofixture/passcoverage or weakenedSouloracle.",
+      "attempted_actions": 19,
+      "coverage_credit": false
+    }
+  ],
+  "total_actions": 60,
+  "total_native_assertions": 5094,
+  "total_manual_passes": 54,
+  "total_priority_response_passes": 52,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "ActualBlue7 cost0 pitch3 fundsKodachi6 activation1/AP1\u2192R2AP0, real1hit/GAAP1/fullcloseproxy9ceased establishespriorweaponattackhistory. CurrentrawweaponCounters turn2/uses1 legitimate, noemptyCounterassumption.",
+    "Realprimary5NAA0 spendsAPthenfourfreshresponses/ownGAAP1 afteractualweapon. RealWounding8 cost0 usesreturnedAP, actual7power/noGA and7damageHP12; noAA-firstweaponbonuscredit. SourceHNT_NEXT producer/typedconsumer reused, positiveHNT_NEXT absentfinal.",
+    "Allraw5/60actualinputenvelopes5094persistedasserts54manual/fulloriginalUID1..8/ownedweapon6used/GY5,8/Pitch7/R2AP0/noSoul/noToken/Counter9/proxy9ceased/all48endpointsettings/queuespaymentawait/combatcleanup verified."
+  ],
+  "limits": [
+    "HealthyDual newfixture subset only; Illuminate correctprobe enginefailure unsaved/unqualified; use --reviewed-subset.",
+    "Onealreadyweaponattack\u2192nextAA3branch; noAA-firstweaponbonus/otherconsumer/Faihero/otherhit/sourcecontrol/sibling/fullcard/controlcredit.",
+    "Intermediatefacts are sequentialpassednativechecks, onlyinitial/final arefullrawsnapshots; Rootfocusedreplays/registration separate.",
+    "NoPHP/native/replay/R/source/service/generation/full-suite byreviewer; tenoldholds/SmashingItem preserved."
+  ]
+}

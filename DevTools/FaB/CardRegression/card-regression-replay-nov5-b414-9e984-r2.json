@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch414.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T03:50:50.457881+00:00",
+  "fixtures": [
+    {
+      "slug": "card-seek-and-destroy-red-four-live-sparse-real-next-arrow-plus-three-consumed-before-full-block",
+      "fixture_sha256": "e5c62954cd408f34c4b869f46419c058e0233a7439b8eb6e97676ce369a0305d",
+      "passed": true,
+      "result": "[PASS] seek_and_destroy_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-swarming-gloomveil-red-four-live-sparse-real-one-aura-created-earns-go-again-after-runechant-consumed",
+      "fixture_sha256": "9aa4ea06cddf1036d8c43e0f2ea17db9a1ce46f141b95577c2d8e2dd82fbc5ad",
+      "passed": true,
+      "result": "[PASS] swarming_gloomveil_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-seek-and-destroy-red-four-live-sparse-real-next-arrow-plus-three-consumed-before-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] seek_and_destroy_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-swarming-gloomveil-red-four-live-sparse-real-one-aura-created-earns-go-again-after-runechant-consumed",
+      "returncode": 0,
+      "stdout": "[PASS] swarming_gloomveil_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

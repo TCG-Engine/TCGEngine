@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T01:08:25.458129+00:00",
+  "runtime_sha256": "2f72b9957b6352d688a4471d2345bb4803ae91a5e865979e745bd8ac4f973b81",
+  "source_spec": "card-regression-repair-courier121-current-chain-oracle-v2.json",
+  "source_spec_sha256": "3f554241b1b9ac2696b6c0e634e6ce3d9e7d266c143a40ff38ecfd9a5cb4cf5e",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 56,
+  "native_assertions": 5229,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4149,
+    "duels": 3074,
+    "four_live": 1075,
+    "recorded_primary_ids": 1302,
+    "identity_denominator": 5196,
+    "recorded_groups": 1176,
+    "group_denominator": 3324,
+    "four_live_groups": 1068,
+    "phase_qualified_scenarios_at_actual_contexts": 786,
+    "phase_qualified_unique_groups": 781,
+    "creation_replay_passes": 1527,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "combustible_courier_yellow",
+      "group_id": "pitch-cycle:combustible_courier",
+      "scenario_id": "card-combustible-courier-yellow-four-live-current-hit-trigger-before-real-next-boost-plus-three-and-five-damage",
+      "effect_branches": [
+        "combustible-courier-yellow-four-live-current-hit-trigger-before-real-next-boost-plus-three-and-five-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-combustible-courier-yellow-four-live-current-hit-trigger-before-real-next-boost-plus-three-and-five-damage",
+      "source_spec": "card-regression-repair-courier121-current-chain-oracle-v2.json",
+      "source_spec_sha256": "3f554241b1b9ac2696b6c0e634e6ce3d9e7d266c143a40ff38ecfd9a5cb4cf5e",
+      "review_evidence": "review-evidence/courier121-2f72-qualified-saved.json",
+      "review_evidence_sha256": "3e89372ae6d3ef179c11dde7b222f7b06dab16a5ce9791da86bc847b53db8411",
+      "recorded_runtime_sha256": "2f72b9957b6352d688a4471d2345bb4803ae91a5e865979e745bd8ac4f973b81",
+      "qualification_runtime_sha256": "2f72b9957b6352d688a4471d2345bb4803ae91a5e865979e745bd8ac4f973b81",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-courier121-replay.json",
+          "sha256": "40d50fd8b8dcf0f2fa9627c74d5fa41fdb361003b8667ff424f0c6a37496f021",
+          "runtime_sha256": "2f72b9957b6352d688a4471d2345bb4803ae91a5e865979e745bd8ac4f973b81",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

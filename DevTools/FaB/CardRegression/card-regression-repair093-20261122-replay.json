@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\0.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\0.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\0.complete.log",
+      "complete_log_sha256": "2f9494e73cc5e57889ddd014f2bb8f6cfe11b2b47c8dfff716ec6700c5527b9c"
+    },
+    {
+      "slug": "repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\1.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\1.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\1.complete.log",
+      "complete_log_sha256": "48b52940ef507b085a5693c6d9cc7e41c4fb9eb3200f4f186438f3d660b90a85"
+    },
+    {
+      "slug": "repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\2.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\2.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\highroller093-clean-replays-20261122\\2.complete.log",
+      "complete_log_sha256": "0bebd337b6fd701b96da1d7c97cb12c5f87ce28bedd5a4634ed44e4e5d12a2cf"
+    }
+  ],
+  "raw5_unchanged": true,
+  "completed_utc": "2026-11-22T03:45:08.263503+00:00",
+  "returncode": 0
+}

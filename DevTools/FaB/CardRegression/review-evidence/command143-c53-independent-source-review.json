@@ -1,0 +1,81 @@
+{
+  "status": "APPROVED_V3_SOURCE_PROPOSAL_ONLY",
+  "approved": true,
+  "source_proposal_approved": true,
+  "application_or_execution_claimed": false,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T09:52:15.065783+00:00",
+  "issue": "FAB-REG-143",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "projected_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "projected_runtime_active": false,
+  "source_guards_verified": 70,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-existing-turn-effect-proposed-v3\\manifest.json",
+    "sha256": "dd0006ac765e394531953299331dd9a3ecc2488bcf3036d595b51175e68bea23"
+  },
+  "candidate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-existing-turn-effect-proposed-v3\\FaBSim\\Custom\\IARCards.php",
+    "sha256": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a"
+  },
+  "before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\IARCards.php",
+    "sha256": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c"
+  },
+  "changed_files": [
+    "FaBSim/Custom/IARCards.php"
+  ],
+  "exact_two_guard_blocks": true,
+  "full_raw_inverse_sha256": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+  "all_other_key_paths_raw_unchanged": true,
+  "GameLogic_unchanged_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+      "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+      "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "selected_writers": [
+      {
+        "card_id": "consuming_appetite_yellow",
+        "macro": "ResolveAbility",
+        "body": "FaBIARAdd($player, 'BLASMOPHET_ATTACK');\n"
+      },
+      {
+        "card_id": "consuming_command_blue",
+        "macro": "ResolveCard",
+        "body": "FaBIARAdd($player, 'BLASMOPHET_ATTACK');\n"
+      }
+    ]
+  },
+  "semantic_findings": [
+    "Logicalkey BLASMOPHET_ATTACK alone migrates to existing plain turnEffects type IAR_BLASMOPHET_ATTACK. All other keys, including genericpositiveDAMAGE:target, execute exactoldbody with original reset/serialization; whole-bank V2 remains suspended.",
+    "Let A=existingtyped sum,L=currentlegacycount,C=max(0,A+L),T=max(0,C+n). Writer appendsdelta T-A and removes ONLY selected currentlegacykey, so newtypedsum isT, no doublecount/negativefloorerror. Multiple writes/duplicateeffects/signed decrements and zero delta are handled without consuming an ongoinggrant or creating an unnecessary0effect.",
+    "Getter is state-pure and reads oldcurrentlegacy plus typedtotal. Only actual selectedwrite promotes total and clears selectedlegacykey; unrelatedlegacykeys/otherseats preserved. Endcleanup removes allplain typedeffects, and promotedlegacykey no longer exists, avoiding selectedgrant resurrection.",
+    "Legacy snapshots are read-compatible, NOT eagerly migrated. Unwritten oldlegacygrant can still be dropped by originalReset; this explicit compatibility limit remains. No existing snapshots changed. Absence/null/scalar malformedlegacy robustness beyond existing legaldata is not newly certified.",
+    "FaBWTRAddEffect default uses1 is not a next-use rule here; actual FaBARCEffect sumsamounts without decrement, shared cardplayed path retainsunmatchedtypes, currentclose filters select othernamedtypes. Plainentry has no persistentUID/persistentUntilUsed/expiresAtStartOf/expiresAfterTurnOf. Existing all-seat FinishEndTurn filter drops it at currentglobalturnend, including Appetite Instant on anopponent turn.",
+    "Both exact canonicalwriters and two real consumers stay unchanged, no Core/schema/GameLogic/generated/canonical/service/codegen work. Source-only proposal reviewed; candidate execution/components/newAFTERtypedcarrier oracle/nativequalification still required."
+  ],
+  "scope_limitations": [
+    "Ordinary no-selectedkey paths are byte-equivalent by guard/rawinverse; actual DAMAGE-only before/after component serialization control still required as regression evidence.",
+    "No full IAR/card/corpus certification, dynEdicts120 fix or globaldistinctroot/Corecount. RelatedResetfamily only; V2/91 remainhistorical, not V3 gates.",
+    "No reviewer PHP/lint/native/sourceapplication/R/fullsuite/remote/deniedretry. Root-reported lintPASS not represented as reviewerexecution."
+  ],
+  "remaining_gates": [
+    "Independent V3 actual-source component preparation/execution: ordinaryDAMAGE/no-grant exactequivalence, typed/legacy/promotion/signedfloor/seat controls and source-bound all-seat End filterexpiry.",
+    "Separate legitimate typedcarrier AFTER-oracle rebind, actual authorized application/freshRT, native/compat/replay gates. Originaliar-specificBEFOREprobe remainsimmutable, not forcedgreen."
+  ],
+  "qualification_approved": false,
+  "actual_source_applied": false,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_command143_v3_and_before_readonly.py",
+    "sha256": "6f0e43b371232686e8fd9c67dd02448f8ae4dca1fc0f96b6c28d60fad7838b42"
+  }
+}

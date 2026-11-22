@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch824-glow-entry-when-heal-ward-positive.json",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T18:56:32.477531+00:00",
+  "fixtures": [
+    {
+      "slug": "card-nourishing-glow-blue-four-live-entry-when-heal-one-real-ward-one",
+      "fixture_sha256": "fdf5a740b3bb77a3dcf5fb402f9cc28d38a5b670d255f84337a23d0d4e470277",
+      "passed": true,
+      "result": "[PASS] Nourishing Glow Blue / separate entry WHEN heal and real Ward one"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nourishing-glow-blue-four-live-entry-when-heal-one-real-ward-one",
+      "returncode": 0,
+      "stdout": "[PASS] Nourishing Glow Blue / separate entry WHEN heal and real Ward one\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

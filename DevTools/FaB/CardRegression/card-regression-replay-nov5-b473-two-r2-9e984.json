@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch473.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T14:03:53.483483+00:00",
+  "fixtures": [
+    {
+      "slug": "card-a-good-clean-fight-red-four-live-real-owned-opposing-instant-loses-heal-ability-and-seven-damage",
+      "fixture_sha256": "b182e9156a75252da7a1a5abc7427dd210251bc006b642e33d2f0ce577127cde",
+      "passed": true,
+      "result": "[PASS] a_good_clean_fight_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-colors-of-aria-red-four-live-real-faceup-pitch-lightning-talent-earns-owned-bond-token",
+      "fixture_sha256": "c83413f8218e4843778de0e5f42bda67d5eeb3b4aa60e8e84754674e1ba7a592",
+      "passed": true,
+      "result": "[PASS] colors_of_aria_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-a-good-clean-fight-red-four-live-real-owned-opposing-instant-loses-heal-ability-and-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] a_good_clean_fight_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-colors-of-aria-red-four-live-real-faceup-pitch-lightning-talent-earns-owned-bond-token",
+      "returncode": 0,
+      "stdout": "[PASS] colors_of_aria_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

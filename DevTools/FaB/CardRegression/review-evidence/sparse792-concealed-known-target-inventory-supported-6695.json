@@ -1,0 +1,207 @@
+{
+  "batch": 792,
+  "author": "/root/breadth787_author",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "immutable_firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-firm-reservation.json",
+    "sha256": "aeb5c7db563532e6c5ebce64f92065fa5d85bc8ab213167e25b9fc1788d733a8"
+  },
+  "whole_primary_support_family_printing_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-primary-support-family-metadata-preflight.json",
+    "sha256": "4d57b7f7cef6ca688e947d646d5b97ae945241d65d2c5c6f59f5e9d061bb6804"
+  },
+  "all82_source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "all82_current_guards_verified": true,
+  "metadata_at_final_read": {
+    "sparse-source-only-holds.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+      "sha256": "680f64e5ac3f0e699dbd856eb9d733fd964b3bef8a0f2618508fa31e5befa748"
+    },
+    "card-regression-issues.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+      "sha256": "9555f4255868e3de29ecc421abc11d7cd3077ec9c3cb9514f247e8c88ad90c50"
+    },
+    "card-regression-review.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-review.json",
+      "sha256": "cf718f34affab1efd0ad01f74a933845694b5c7b30e507176cecacae5867c94e"
+    },
+    "coverage-additions-after218.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\coverage-additions-after218.json",
+      "sha256": "f64ada60e27529a628ae7705347fb74048bc88a62751bd1050b79e3304288755"
+    }
+  },
+  "coverage_at_read": {
+    "saved_registered_scenarios": 4054,
+    "recorded_groups": 1082
+  },
+  "counts": {
+    "runnable_cases": 0,
+    "recipes": 0,
+    "controls": 0,
+    "queries": 0,
+    "native_inputs": 0,
+    "new_issues": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "repair_proposal": false,
+  "B787_denied_operation_untouched": true,
+  "status": "B792_CONCEALED_FIXED_NORMAL_INVENTORY_ROUTE_KNOWN_LATE_REACTION_TARGET_UNATTEMPTED",
+  "created_utc": "2026-11-14T20:31:42.432720+00:00",
+  "card_id": "concealed_blade_blue",
+  "group_id": "identity:concealed_blade_blue",
+  "fixed_route": "YoungZen20 realHeadJabBlue1 attacksHero4; actualConcealedBlueReaction formallytargetsSAMENinjaAA beforecost/priority, real+1/2hit HP4_18, earnedWHEN/responses equipownnormalInventoryZephyrNeedle intoemptyWeaponsslot. Inventorysetup supported; fullfixedroute held earlier targetboundary, no+1-only substitute.",
+  "selected_canonical": {
+    "cardId": "concealed_blade_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$refs = FaBOUTTargets($player, 'hybrid');\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_Assassin_or_Ninja_attack\");\n \n}\nFaBDYNTag($chosen, 'WTR_POWER:1');\nFaBDYNTag($chosen, 'OUT_CONCEALED');\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "$refs = FaBOUTInventoryDaggers($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Equip_inventory_dagger\");\n \n}\nFaBOUTEquipDagger($player, $chosen);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  "selected_emission": {
+    "function": "__RunAwait_50cb6d619ae900d8160f",
+    "sha256_normalized_lf": "d88b0380439840c43b7aa93f41ed144f1ed7f5c7c82f4ef34d71b22439cf235b",
+    "MZCHOOSE": true,
+    "MZMULTICHOOSE": false
+  },
+  "source_chain": [
+    {
+      "file": "FaBSim/Custom/CardChoices.php",
+      "lines": [
+        3,
+        12
+      ],
+      "finding": "ExactdeclaredReaction target compatibility onlyNipBlue/Shredcolors; Concealedexcluded."
+    },
+    {
+      "file": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1274,
+        1276,
+        1307,
+        1308
+      ],
+      "finding": "EarlyPrepare/resolvingboundtarget bridge gatedbythatwhitelist; no selectedConcealedPrepare row/currentcompiledregistration."
+    },
+    {
+      "file": "DevTools/FaB/out_abilities.json",
+      "cardId": "concealed_blade_blue",
+      "finding": "ActualResolveCard firstawaitsformalHybridAA target, then+1/grantedhit tags. This chooses duringresolution afterordinaryreactioncost/responseopportunity."
+    }
+  ],
+  "known_family_holds": [
+    {
+      "json_path": ".holds[33]",
+      "row_sha256": "3fc3519a3b82c6a4081dc88daded6cb17d4f8555e73d96b38b3b2a403fb768aa",
+      "card_id": "sutcliffes_suede_hides",
+      "group_id": "identity:sutcliffes_suede_hides",
+      "status": "unattempted_target_declaration_source_concern",
+      "reason": "Current printed AttackReaction1/destroy targets attack action, restricted to prior NAA. ELE ResolveAbility snapshot selects that printed target through MZChoose only during resolution; no exact Prepare declaration mapping found. Generic arcSpec captures attackUID but body chooses anew. No native recipe/probe or confirmed gameplay defect; do not bless late target choice. Root may separately decide bounded repair. No replacement hunt."
+    },
+    {
+      "json_path": ".holds[89]",
+      "row_sha256": "3c8aa739e3b922937acea4fb297c7ab511621c55011fb1b97e00913d0c79ba95",
+      "card_id": "incision_blue",
+      "group_id": "pitch-cycle:incision",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Incision Blue has its +1 and Dagger-target infrastructure, but the selected normal play asks for its formal Dagger attack target during Resolve rather than before costs/responses. No legal Dagger support or native route is certified."
+    }
+  ],
+  "bounded_existing035": {
+    "id": "FAB-REG-035",
+    "status": "fixed_verified_bounded_four_live_repair",
+    "card_ids": [
+      "nip_at_the_heels_blue",
+      "shred_red"
+    ],
+    "row_sha256": "25f8c533bf4d8dd4c884e63546ffc84126f4cc9b4e816b6e2b56876332cd634c",
+    "scope": "OnlynativeconfirmedNip/Shrednamedregistration; doesnotadmitConcealed."
+  },
+  "normal_inventory_source_admission": {
+    "status": "SUPPORTED_NATIVE_SCHEMA_AND_EXISTING_RECORDER_ORDINARY_SETUP_NOT_A_FRAMEWORK_BLOCKER",
+    "schema": {
+      "file": "Schemas/FaBSim/GameSchema.txt",
+      "lines": [
+        17,
+        18,
+        158,
+        159
+      ],
+      "finding": "VersionedplayerInventoryzone; normalCardID/UniqueID/Owner/Controllerfields andUniqueIDmodule."
+    },
+    "recorder": {
+      "file": "DevTools/FaB/CardRegression/record_card_regressions.php",
+      "lines": [
+        254,
+        257
+      ],
+      "finding": "Existingordinaryzonesetup dispatchesAddInventory withactualownedseat/Controller, withoutnewscenarioKind/customhelper/Recorderchange."
+    },
+    "allocator": {
+      "file": "FaBSim/ZoneAccessors.php",
+      "lines": [
+        436,
+        454
+      ],
+      "finding": "NormalAddInventory assignsnativeUID fornewobject; sourceObjectmovespreserveexistingidentity. Futuretestmustbindactualnativeinitialidentity; no imaginedUIDforanexternalUIDlesslist."
+    },
+    "real_consumer": {
+      "file": "FaBSim/Custom/OUTCards.php",
+      "lines": [
+        109,
+        110
+      ],
+      "finding": "InventoryDaggers queriesnormalDaggerInventory whenweaponspace; EquipDagger callsFaBMoveChoice Inventory\u2192Weapons."
+    },
+    "identity_move": {
+      "file": "FaBSim/Custom/CardChoices.php",
+      "lines": [
+        144,
+        147
+      ],
+      "finding": "Checksactualownedplayer/fromInventory identity andmovesUID throughnativeFaBMoveUID."
+    },
+    "weapon_space": {
+      "file": "FaBSim/Custom/ArakniCards.php",
+      "line": 52,
+      "finding": "Twohandspacecount; futurefixedemptyWeapons supportsone1HZephyrNeedle."
+    },
+    "native_attempted": false,
+    "inventory_setup_recipe_authored": false,
+    "no_equipped_result_or_privateflag_seed": true
+  },
+  "later_hit_source_concern": "OUTRuntime108..115 directlyinvokesConcealedHitmacro foractualOUT_CONCEALED grantedtag. Latertrigger/chooser/equip/ownershipflow UNRUN andnotclaimed; no newbugfromsource, replacementgrantproducer or partial+1case.",
+  "reason": "Parentexplicitlyagreed inherited existingIncision/Sutcliffe formalreactiontarget-order family; HOLDUNATTEMPTED/no firsttargetprobe repeat. Inventoryissupported, notblocked/missingframework.",
+  "selected_preimage_guards": {
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086"
+  },
+  "limits": [
+    "No normalinventorysetup/native/equipUID/trigger/target/damage/cleanup/coveragepass certified.",
+    "Sourceadmission ofnativeInventoryrepresentation doesnotoverride the earlierheldtarget-order boundary."
+  ]
+}

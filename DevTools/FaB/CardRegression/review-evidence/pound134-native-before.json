@@ -1,0 +1,162 @@
+{
+  "id": "FAB-REG-134",
+  "status": "CONFIRMED_NATIVE_POUND_PLAYED_WHEN_RESPONSE_LAYER_MISSING_NO_FIX",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-pound134-independent-native-before-classification.json",
+  "independent_review_sha256": "220f7d5d4e840054968d9ecea1b9d3267f655b622ceb4ecdeebdf98e475969f4",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch495.json",
+  "input_sha256": "7d01af88f10156b6429c2c554c280836fee3f4aed2be41e9fac0a26bcebbb105",
+  "scenario_id": "card-pound-for-pound-red-four-live-real-opposing-heal-earns-responseable-play-dominate-one-hand-block-and-three-damage",
+  "first_failure": {
+    "error": "Expected Stack count 2, got 1.",
+    "native_input_ordinal": 11,
+    "source_step_index": 22,
+    "checkpoint": "actual_Blue7pitchTHREE_paysPRIMARY3_AP1_thenWHENPLAYEDearnsONEcaptured5ABI_above5ATTACKStack_lessLife20vs21_STILLNOdominate_R0AP0",
+    "actor": 1,
+    "action": "Actual Blue7 pitch after primary5 target declaration and fixed3 pending payment",
+    "check_in_boundary_1_based": 24,
+    "global_assertion_ordinal_1_based": 903,
+    "assertions_passed_before_failure": 902,
+    "prior_complete_checkpoint_assertions": 879,
+    "same_boundary_checks_passed_before_failure": 23,
+    "failed_check": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 2,
+      "viewerPlayerID": 1
+    },
+    "expected_Stack_count": 2,
+    "actual_Stack_count": 1,
+    "no_fixture": true
+  },
+  "actual_native_prefix": {
+    "attempted_and_recorded_inputs": 11,
+    "exact_match_to_authored_prefix": true,
+    "manual_passes": 7,
+    "manual_pass_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 1
+    },
+    "nonpass_inputs": 4,
+    "planned_selected_full_inputs": 42,
+    "planned_selected_full_assertions": 3762,
+    "planned_selected_full_manual": 36,
+    "last_complete_input": 10,
+    "last_complete_checkpoint": {
+      "native_input_count": 10,
+      "source_step_index": 20,
+      "checkpoint": "actual_PRIMARY5Stack_awaitsTHREEresources_APunpaid_R0AP1_NOTyetplayedtrigger_noearlydominate_orABI",
+      "normalized_checks": 81,
+      "cumulative_passed": 879
+    },
+    "completed_support": "Actual ACTION passes1,2,3 stop before end phase and let P4 cast SigilBlue6 for0. Fresh source passes4,1,2,3 hold HP20 through first3, then onlyfourth actualheal1 gives P4HP21 and Sigil6GY4. Same P1turn2/AP1. All support checkpoints passed; no seeded deficit/history.",
+    "completed_primary_announcement_and_payment": "Actual physical5 declared toward P4 through MZCHOOSE; input10 checkpoint proves same5ATTACK Stack/SourceHand5, pendingcost3/AP1R0 and Blue7Hand. Input11 is actual Blue7 pitch; first23 checks prove P1R0/AP0/HP20, P4HP21/R0/AP0, priority1/pass0/combatOpenFalse, all four DQs empty, pendingPayment null, empty P1Deck/Temp/Equipment. Thus real fixed3/AP payment completed and relative health condition holds before failed Stack query.",
+    "direct_failure": "Native Stack count is1 where underlying announced attack plus a separate earned WHEN layer requires2. This is the first incorrect reported behavior; not a private window alias or unsupported chooser.",
+    "observed_state_selected": {
+      "window": "PRIORITY",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attackUID": 0,
+      "pendingPayment": null,
+      "damageDealt": 0,
+      "attackHit": false,
+      "cardsPlayedThisTurn": {
+        "4": [
+          "sigil_of_solace_blue"
+        ],
+        "1": [
+          "pound_for_pound_red"
+        ]
+      }
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [
+        "p4Hand-0",
+        "p4Hand-1"
+      ]
+    },
+    "physical_observation_limits": "The current Stack-0 identity/Kind/TurnEffects and expected Stack-1 captured ABI fields occur AFTER the failed count and were not queried. Prior complete checkpoint proves physical5Stack, but no full postfailure object dump exists. Current DOMINATE flag, current physicalBlue7Pitch property and Counter10 were not queried; raw empty P1Hand and MST_BLUE_PITCHED corroborate pitch route without replacing those unrun physical checks. No claim of Stack0, no native observation of inline tag itself."
+  },
+  "classification": {
+    "kind": "GAMEPLAY_MISSING_RESPONSEABLE_CONDITIONAL_PLAYED_TRIGGER_LAYER",
+    "oracle_or_protocol_error": false,
+    "reason": "Current selected Red text has a WHEN-played trigger. Actual controllerHP20 is less than opposingP4HP21 beforeplay and after payment; it earns a separate layer above the unresolved announced attack before next priority. Native11 reached that exact paid/played boundary, but directly measured only one Stack layer instead of two. Correct source check Stack2 remains unchanged.",
+    "source_cause_scope": "MONCards137 direct DOMINATE assignment in FaBMONCardPlayed through normal shared OnCardPlayed/WTR dispatch is the bounded source-supported cause. Native confirms the missing additional layer, but does not separately instrument the call or observe early DOMINATE. Not a total effect absence claim.",
+    "issue_allocation": "Parent reserves134; reviewer allocates no issue, global root or Core count.",
+    "related_scope": "Missing producer/response layer, distinct from an already-earned managed-await completion issue. No source repair or integration with held denied operations."
+  },
+  "expected": "The real opposing Sigil heal earns the current WHEN-played condition. After Pound's fixed3/AP payment, its separate responseable trigger is above the unresolved attack before Dominate is granted.",
+  "observed": "Eleven inputs/seven manual passes ran;902 checks passed, including actual opponent healing20to21 and paid R0/AP0/relative HP20vs21/no pending payment. Stack2 expected but actual1 at check903. Current Dominate flag, captured ABI tuples, blocking, damage21to18 and cleanup queries were unrun.",
+  "source_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-pound134-native-before-independent-preserved\\source-evidence.json",
+    "sha256": "5e832ca65e57378b6d4e364a5a7e63e47249ab139c8dfd58d8977ca56b25047b",
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+      "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+      "DevTools/FaB/ele_abilities.json": "9e0f27afa772225ec73488928f8e54ca2b2205fe9aafd59f2f97da4ba61cf4f3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    }
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch495.recording-results.json",
+      "sha256": "947f025953aee2d30ac6afa19d83c77a8cfc85a8cb0a72a76f857c3135f95bb6"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch495-20261105T174530Z-6aecc0ba6d485.json",
+      "sha256": "2d8be23bfc0974a5ab7a5d75c25e6836a699d057daf9baab6c160d2f18fce6ad"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch495-independent-source-review.json",
+    "sha256": "0517a8f3821e8a2ccca37da73ded7457aa8309120a27afb2f719d9e57afe9461"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1008/",
+      "role": "Independently read selected RED current official cost3/power6/WHEN played conditional on less health than an opposing hero."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/288/",
+      "role": "SigilBlue Instant0 gains1life; actual support source completed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "role": "CR6.6.5/6.6.6 require an earned triggered layer before next priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "role": "Dominate one-Hand-defense rule remains normative but actual defender rejection branch unrun."
+    }
+  ],
+  "limits": [
+    "Only11inputs and902 successfulchecks before failed903; seven actual manual responses, no primary-trigger response has executed. Original42actions/3762checks/36manual/Stack2 model unchanged.",
+    "Current primary DOMINATE presence is unqueried, not observed. Captured ABI properties/no-earlyDOM, four trigger responses/fourthgrant, separate attack-source resolution, current power6/second-Hand rejection and later3damage21to18/fullcleanup are UNRUN.",
+    "Observed state has no open combat/damage; do not claim final defender placement/physical damage/HP18/currentCounter10 or complete physical preservation after failure.",
+    "Adjacent Glacial remains unattempted source-only hold/no executable case. No fixture/coverage/globalroot/Corecount/newvariant/native/PHP/replay/R/sourcefix/gen/service/fullsuite/deniedretry by reviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T17:55:28.160938+00:00"
+}

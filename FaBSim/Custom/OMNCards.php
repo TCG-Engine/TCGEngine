@@ -21,9 +21,8 @@ function FaBOMNAfterMove(int $p, object $o, string $from, string $to, ?object $o
     }
     if ($from === 'Arena' && $to !== 'Arena' && $old && !HasNoAbilities($old)) {
         $owner = intval($old->Controller ?: $p);
-        $token = ['circular_flowtide'=>'lightning_flow', 'sigil_of_astral_flow'=>'lightning_flow',
-            'elliptical_conflux'=>'embodiment_of_lightning', 'nebulus_cycle'=>'ponder'][$b] ?? '';
-        if ($token !== '') FaBWTRCreateArena($owner, $token);
+        $token = FaBOMNLeaveToken((string)$old->CardID);
+        if ($token !== '') FaBROSQueue($owner, (string)$old->CardID, intval($old->UniqueID), ['rosEvent'=>'omnLeaveToken']);
         if (in_array($b, ['corrosive_space_dust','flicker_reality'], true))
             FaBROSQueue($owner, $o->CardID, $uid, ['rosEvent'=>'omnLeave']);
     }
@@ -36,6 +35,19 @@ function FaBOMNAfterMove(int $p, object $o, string $from, string $to, ?object $o
         if (in_array($b, ['auric_shards','crackle_from_afar','fleeing_starbreeze','nourishing_glow','haven_veil'], true))
             FaBROSQueue($p, $o->CardID, $uid, ['rosEvent'=>'omnEnter']);
     }
+}
+/** Capture leave triggers during movement; create their tokens only at resolution. */
+function FaBOMNLeaveToken(string $id): string {
+    return ['circular_flowtide'=>'lightning_flow', 'sigil_of_astral_flow'=>'lightning_flow',
+        'elliptical_conflux'=>'embodiment_of_lightning', 'nebulus_cycle'=>'ponder'][FaBWTRBase($id)] ?? '';
+}
+function FaBOMNResolveLeaveToken(int $p, object $o): void {
+    if (($o->Params['rosEvent'] ?? '') !== 'omnLeaveToken' || ($o->Kind ?? '') !== 'ABILITY'
+        || intval($o->Controller ?? 0) !== $p || !FaBSeatIsLive($p)
+        || intval($o->SourceUniqueID ?? 0) < 1) return;
+    // The earned ability uses captured identity/controller even after its source leaves.
+    $token = FaBOMNLeaveToken((string)$o->CardID);
+    if ($token !== '') FaBWTRCreateArena($p, $token);
 }
 function FaBOMNDestroyed(int $p, object $o): void {
     if (FaBHasType($o, 'Aura')) FaBOMNAdd($p, 'AURA_DESTROYED');
@@ -457,4 +469,102 @@ function FaBOMNFinalPower(object $o, int $power): int {
 }
 function FaBOMNResolvedGoAgain(int $p): void {
     if(!FaBUPRFog()&&FaBWTRMayGoAgain($p)){AddActionPoints($p,intval(GetActionPoints($p))+1);FaBROSGo($p);}
+}
+
+/** Exact Aethersling declaration seam. The target universe remains FaBPENTargets. */
+function FaBOMNAetherslingPending(int $player, int $uid): ?array {
+    $found = FaBFindUID($uid); $pending = FaBGetState()['pendingPayment'] ?? null;
+    return $found !== null && $found['zone'] === 'Stack'
+        && (string)$found['object']->CardID === 'aethersling_red'
+        && intval($found['object']->Controller ?? 0) === $player
+        && is_array($pending) && intval($pending['player'] ?? 0) === $player
+        && intval($pending['uid'] ?? 0) === $uid
+        && empty($pending['preparedEffectError'])
+        && in_array((string)($pending['kind'] ?? ''), ['ACTION','INSTANT'], true)
+        && (string)($pending['kind'] ?? '') === (string)($found['object']->Kind ?? '')
+        ? $found : null;
+}
+
+/** Invalid or unavailable declarations cannot complete payment as targetless plays. */
+function FaBOMNAetherslingRejectDeclaration(int $player, object $source): void {
+    $expected = (string)($source->Params['omnAetherslingDeclaration']['undoHash'] ?? '');
+    $versions = GetVersions($player); $version = $versions[0] ?? null;
+    if ($expected !== '' && is_object($version)
+        && hash_equals($expected, hash('sha256', (string)$version->Version))) {
+        LoadVersion($player, 0);
+        return;
+    }
+    // Reuse the existing payment hard stop if the exact undo cannot be loaded.
+    $state = FaBGetState();
+    if (intval($state['pendingPayment']['uid'] ?? 0) === intval($source->UniqueID)) {
+        $state['pendingPayment']['preparedEffectError'] = 'Aethersling target declaration is invalid.';
+        FaBSetState($state);
+    }
+    if (function_exists('SetFlashMessage')) SetFlashMessage('Aethersling declaration stopped: preannouncement snapshot unavailable.');
+}
+
+/** Capture scalar offered identities before the canonical PrepareCard await. */
+function FaBOMNAetherslingPrepareRefs(int $player, int $uid): string {
+    $found = FaBOMNAetherslingPending($player, $uid);
+    if ($found === null) return '';
+    $source = $found['object'];
+    if (HasNoAbilities($source)) return '';
+    $versions = GetVersions($player); $version = $versions[0] ?? null;
+    $refs = FaBPENTargets($player, false); $options = [];
+    foreach (array_filter(explode('&', $refs)) as $ref) {
+        $target = FaBIdentityFromMZ($ref);
+        if ($target !== null && intval($target['object']->UniqueID ?? 0) > 0) {
+            $options[(string)intval($target['object']->UniqueID)] = (string)$target['zone'];
+        }
+    }
+    $source->Params['omnAetherslingDeclaration'] = [
+        'undoHash'=>is_object($version) ? hash('sha256', (string)$version->Version) : '',
+        'options'=>$options];
+    if (!$options) { FaBOMNAetherslingRejectDeclaration($player, $source); return ''; }
+    return $refs;
+}
+
+/** Bind only an originally offered, still legal object; the caller then pays normally. */
+function FaBOMNAetherslingBind(int $player, int $uid, string $answer): bool {
+    $found = FaBOMNAetherslingPending($player, $uid);
+    if ($found === null) return false;
+    $source = $found['object'];
+    if (HasNoAbilities($source)) { unset($source->Params['omnAetherslingDeclaration']); return true; }
+    $target = FaBIdentityFromMZ($answer);
+    $targetUID = $target === null ? 0 : intval($target['object']->UniqueID ?? 0);
+    $options = (array)($source->Params['omnAetherslingDeclaration']['options'] ?? []);
+    if (DecisionQueueController::ExecutingSeat() !== $player || $targetUID <= 0
+        || !array_key_exists((string)$targetUID, $options)
+        || (string)$target['zone'] !== (string)$options[(string)$targetUID]
+        || !in_array($answer, explode('&', FaBPENTargets($player, false)), true)) {
+        FaBOMNAetherslingRejectDeclaration($player, $source);
+        return false;
+    }
+    // Reuse the established per-source UID/seat bindings rather than an mzID index.
+    FaBUPRStoreTarget($uid, $answer);
+    FaBARCSetCard($uid, 'omnAetherslingDeclaredZone', (string)$target['zone']);
+    unset($source->Params['omnAetherslingDeclaration']);
+    return true;
+}
+
+/** Resolution revalidates the declared identity and never offers a replacement target. */
+function FaBOMNAetherslingTargetUID(int $player, int $uid): int {
+    $source = FaBFindUID($uid); $target = FaBUPRTarget($uid);
+    if ($source === null || (string)$source['object']->CardID !== 'aethersling_red'
+        || HasNoAbilities($source['object']) || $target === null
+        || (string)$target['zone'] !== (string)FaBARCCard($uid, 'omnAetherslingDeclaredZone', '')
+        || !in_array((string)$target['mzID'], explode('&', FaBPENTargets($player, false)), true)) return 0;
+    return intval($target['object']->UniqueID);
+}
+
+/** Compatibility until the reviewed canonical Prepare exists in the emitter's remote snapshot. */
+function FaBOMNAetherslingPrepareBridge(int $player, int $uid): void {
+    $refs = FaBOMNAetherslingPrepareRefs($player, $uid);
+    if ($refs !== '') {
+        DecisionQueueController::AddDecision($player, 'MZCHOOSE', $refs, 1, 'Choose_arcane_target');
+        // PASS must reach validation/rollback, never skip into an unbound payment.
+        DecisionQueueController::AddDecision($player, 'CUSTOM', 'FAB_OMN_AETHERSLING_TARGET|' . $uid, 1, '', 1);
+    } elseif (FaBOMNAetherslingBind($player, $uid, '-')) {
+        FaBFinishPreparedCard($uid);
+    }
 }

@@ -1,0 +1,152 @@
+{
+  "id": "FAB-REG-141",
+  "status": "NATIVE_CONFIRMED_WRONG_PHYSICAL_DAMAGE_UNFIXED",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-independent-native-review.json",
+  "independent_review_sha256": "2deba1344227dbc150794d7d8814e61a9e2a86d036c1e3d363ff5671dde1d806",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "source_spec": "card-regression-batch563.json",
+  "input_sha256": "42bf938e60b26782df9013663c34b4b6a6209da1409d3c9b25c341881e3b639d",
+  "scenario_id": "card-silverstride-dodgers-four-live-correct-controlled-flurry-defense-and-temper-probe",
+  "first_failure": {
+    "source_step_index": 40,
+    "query_index": 16,
+    "native_inputs": 20,
+    "assertion_ordinal": 1716,
+    "assertion": {
+      "type": "scalar_zone_equals",
+      "zone": "p4Health",
+      "value": 18,
+      "viewerPlayerID": 1
+    },
+    "expected": 18,
+    "observed": 17,
+    "error": "Expected p4Health to equal 18, got 17."
+  },
+  "actual_native_prefix": {
+    "actions": 20,
+    "actions_exact_match_reviewed_prefix": true,
+    "manual_passes": 17,
+    "actual_manual_actor_counts": {
+      "1": 4,
+      "2": 4,
+      "3": 4,
+      "4": 5
+    },
+    "assertions_passed_before_failure": 1715,
+    "normalized_prefix_sha256": "2a1463405e94b960847cc5bab5c01cbb0fb5e6bf006c324feb882debb44419a6",
+    "initial_snapshot_sha256": "83916406acc9976803e63d9d4e0a3b7dbf17f844353e5b4d71c8a1d8ef07ff31",
+    "raw_initial_preferences": [
+      {
+        "player": 1,
+        "holdPriority": true,
+        "manual_windows": 11
+      },
+      {
+        "player": 2,
+        "holdPriority": true,
+        "manual_windows": 11
+      },
+      {
+        "player": 3,
+        "holdPriority": true,
+        "manual_windows": 11
+      },
+      {
+        "player": 4,
+        "holdPriority": true,
+        "manual_windows": 11
+      }
+    ],
+    "last_passed_physical_checkpoint": {
+      "source_step": 38,
+      "after_inputs": 19,
+      "physical_primary_UID": 5,
+      "primary_owner_controller": 4,
+      "primary_from_zone": "Equipment",
+      "primary_role": "DEFENSE",
+      "Flurry_UID": 8,
+      "Flurry_owner_controller": 4,
+      "Flurry_zone": "p4Arena",
+      "prior_Toe_UID": 6,
+      "attack_UID": 7,
+      "fresh_attack_power": 4
+    },
+    "actual_failure_state": {
+      "attackUID": 7,
+      "declaredBlockUIDs": [
+        5
+      ],
+      "attackPower": 4,
+      "defenseValue": 1,
+      "damageDealt": 3,
+      "attackHit": true,
+      "window": "DAMAGE",
+      "chainLink": 1
+    },
+    "post_failure_full_zone_dump_available": false
+  },
+  "classification": "Selected Silverstride conditional static +1 defense is absent from the active defense aggregation: actual physical4\u22121=3damage/HP17 instead of printed4\u2212(1+controlledFlurry1)=2damage/HP18. This is native-confirmed health/damage behavior, not a cache-only discrepancy; no new core/global root is asserted.",
+  "expected": "Controlled face-up Flurry gives Silverstride +1 defense: printed1+1=2; real power4 attack deals2, leaving P4HP18.",
+  "observed": "After20 accepted native inputs, actual DAMAGE attack7/power4/declareddefender5/defense1/damage3 leftP4HP17. Correct expectation failed; zero fixture. Later Temper remains unrun.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+      "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+      "DevTools/FaB/boltyn_abilities.json": "8e1c2a7f773770928618a8392bda7d597b311a44ecd96c0a44ef5ddc6ba5e3b7",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "1cae8e955665e2dde73f2eb92d34e191036dbaa87f379b5d5ce015303e0ecb15"
+    },
+    "findings": [
+      "CurrentFaBCurrentDefense uses printedDEF,wear,generatedEvaluateDefenseModifier andFaBWTRDefenseModifier; no selectedSilverstride conditional route in the bounded actualgetters/Boltyncanonicalrow.",
+      "Actualphysical5/Flurry8Owner4Controller4/base4attack assertions passed through the finalpreDamagecheckpoint. Observedstate independently reports active7/declared5/power4/defense1/damage3 and actualfirstfailedHealth17.",
+      "All1715earlierchecks passed by actual sequentialrecorder control flow before firsterror; no unsaved fullper-action snapshots or finalzone dump invented.",
+      "Temper usesFaBCurrentDefense atClose but native never reachedClose: its proposedwear/survival suffix is UNRUN."
+    ]
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+    "DevTools/FaB/boltyn_abilities.json": "8e1c2a7f773770928618a8392bda7d597b311a44ecd96c0a44ef5ddc6ba5e3b7",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "1cae8e955665e2dde73f2eb92d34e191036dbaa87f379b5d5ce015303e0ecb15"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch563.recording-results.json",
+      "sha256": "edddc44c4e182209aabb4b54f66f3f378d47a6f1b50fb9cfa3bf3babf66f8c00"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch563-20261106T035403Z-6aed4f5b61f38.json",
+      "sha256": "ef79024dad174f714b44aadcca6ae31cc2a11d48d27170ebb9ad3067fbaee52b"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch563-independent-strict-r2-source-review.json",
+    "sha256": "c41530133d139e438fd5bcca691748f5045061bbe49c76176e0e7c36a9e22aef"
+  },
+  "primary_sources": [
+    "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AHA006-RF.webp",
+    "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AHA027.webp",
+    "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AHA015.webp",
+    "https://rules.fabtcg.com/en/cr/08-keywords/",
+    "https://rules.fabtcg.com/en/cr/07-combat/"
+  ],
+  "limits": [
+    "Acceptedprefix20inputs only; remaining8Damage/Resolutionpasses/fullclose/Temperwear/survival/finalUID/source-leave effects UNRUN, notfailed or qualified.",
+    "Initialfulltypedstate/48manualpreferences and lastpassedphysicalmaterial proofs are actual; no directpostfailurefullzoneclaim.",
+    "No fixture/coverage/fix applied/sourceapplication/native retry or fullsuite byreviewer; Root owns recording.",
+    "Allheld/deniedrepairs preserved; no globalroot allocation or othercard/sibling/support claim."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-06T04:02:38.572338+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch275-prognosticate-managed-opt-v2.json",
+  "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T15:00:55.449304+00:00",
+  "fixtures": [
+    {
+      "slug": "card-prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained",
+      "fixture_sha256": "c1802a439eb2a9d2177748a51263dc6ad50101b58844c310707b7b483b4a6173",
+      "passed": true,
+      "result": "[PASS] prognosticate_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained",
+      "returncode": 0,
+      "stdout": "[PASS] prognosticate_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

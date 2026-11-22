@@ -1,0 +1,674 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B750_TWO_ARROW_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "reviewer_independence": "New independent Saved reviewer; authored neither scenario nor gameplay implementation and performed no native recording or replay.",
+  "created_utc": "2026-11-08T22:15:46.772549+00:00",
+  "source_spec": "card-regression-batch750.json",
+  "input_sha256": "61946cee9ff7f53e18cf3e02790b890ca21b97390a7451463b76208ec51a30fb",
+  "manifest_sha256": "d4548ada1e965fd0fede46b43f65c7099441141f565b9d53d67b5b31ef3ca393",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+  },
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch750-two-arrow-independent-source-review.json",
+    "sha256": "c95be02198383ddd30688b0159b06f157c65fd13eaf0ff86d21ca88066b948af",
+    "unchanged_semantics_reused": true
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch750-two-real-arrow-replacement-and-unpreventable-effects-author\\frozen-author-QA.json",
+    "sha256": "24ad397572fd282a288755203c3ffb043e403ffbcdb2cc25ef683729aa656c1f"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch750-two-real-arrow-replacement-and-unpreventable-effects-author\\SOURCE_RULES_NOTES.json",
+    "sha256": "0738e832df43e6e8f50b5191f8e62a9323839ba95afeb0da64975a81995190b2"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch750-20261108T220359Z-6af0f1cf74f3d.json",
+    "sha256": "f02863b8d92850d6bc5cb24611edc4f776f5852c2971974fc23aa8f7fa8cd1b7"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch750.recording-results.json",
+    "sha256": "a8392b8dbdec021d1d15974e8585173a6faff7c18956cbc658059c75a50ec65d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b750-two-arrows-native-recording\\receipt.json",
+    "sha256": "e02ac9b0f2b976c2d7f8db2485672473f809c543a34cbd475cdc6b4a7c4d537b"
+  },
+  "existing_clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-nov8-b750-two-arrows-clean-r1.json",
+      "sha256": "cb17979e3989a148b730af760a2883273e8712c7270cb87da2c3e789d0dad3c4",
+      "passed": 2,
+      "total": 2,
+      "executed_by_this_reviewer": false
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-nov8-b750-two-arrows-clean-r2.json",
+      "sha256": "3bb2af87c9a36f9b59c9a413864280e8d5cb4aea3755217056dc16e89dd29f47",
+      "passed": 2,
+      "total": 2,
+      "executed_by_this_reviewer": false
+    }
+  ],
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "goldfin_harpoon_yellow",
+      "group_id": "identity:goldfin_harpoon_yellow",
+      "slug": "card-goldfin-harpoon-four-live-real-arsenal-shot-and-graveyard-removal-replacement",
+      "source_spec": "card-regression-batch750.json",
+      "input_sha256": "61946cee9ff7f53e18cf3e02790b890ca21b97390a7451463b76208ec51a30fb",
+      "reviewer": "/root/b750_saved_recovery",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_GOLDFIN_CLOSE_REMOVAL",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-goldfin-harpoon-four-live-real-arsenal-shot-and-graveyard-removal-replacement",
+      "fixture_sha256": "2a9534b084f147829f74c7f1c6e930f570e163e0b10881fc8b8177e9465ec824",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "da1ef0cc6077fb4db2e36d1fa5a256dce50b0f4c1982fc255bb176fd66ff98c7",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "974b585f024f89e8728d2f4e77bc1aef6832c252aba1173e3a5f3522d36d9c7b",
+        "expected_final_gamestate.txt": "53a42e6d4a16a69485af05ffc943a3dba48c302f427fb30b32c583234d5d4fc7"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da1ef0cc6077fb4db2e36d1fa5a256dce50b0f4c1982fc255bb176fd66ff98c7",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "974b585f024f89e8728d2f4e77bc1aef6832c252aba1173e3a5f3522d36d9c7b",
+        "expected_final_gamestate.txt": "53a42e6d4a16a69485af05ffc943a3dba48c302f427fb30b32c583234d5d4fc7",
+        "meta.json": "e3d385ab101f384b7543f44d90a4b5446c05912d9896cc89812a846f82b5d355"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "da1ef0cc6077fb4db2e36d1fa5a256dce50b0f4c1982fc255bb176fd66ff98c7",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "974b585f024f89e8728d2f4e77bc1aef6832c252aba1173e3a5f3522d36d9c7b",
+        "expected_final_gamestate.txt": "53a42e6d4a16a69485af05ffc943a3dba48c302f427fb30b32c583234d5d4fc7",
+        "meta.json": "e3d385ab101f384b7543f44d90a4b5446c05912d9896cc89812a846f82b5d355"
+      },
+      "actions": 27,
+      "native_assertions": 2101,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 509,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertions_evaluated": {
+        "0": 122,
+        "27": 174
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "marlynn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "goldfin_harpoon_yellow",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "barbed_castaway",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "marlynn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "barbed_castaway",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "actual_primary_resources_paid": 0,
+      "actual_primary_AP_paid": 1,
+      "actual_physical_damage": 2,
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "full_card_certification": false,
+      "normalized_ordered_queries_sha256": "17af5a47501a4e0bdb932873720096ce3d28a3dbbac4d9c95b34005cc07e00c4",
+      "source_review_ordered_query_ledger_sha256": "3ec2691e28477ac4540e458a01248b27467b2978a7d4c39132e7ffffaca6b10e",
+      "native_action_mapping_sha256": "abcf6a87feec3a9e841d9d4f88a13a23d94a047d79d97beb0b1ba6c2b89b3fab",
+      "native_assertion_mapping_sha256": "af1281fa1d51d638f0852e4d17593de2328b0f621b71f4673b23065e0ca9e300",
+      "checkpoint_assertion_mapping_sha256": "335ec469f8e03add0e01ef0c56050897ae7f1202fe331071d1e201cca6e5b304",
+      "original_Goldfin5_removed_at_full_Close": true,
+      "not_Token_source_material_reused": true,
+      "no_Graveyard_or_Banish_substitute": true
+    },
+    {
+      "index": 1,
+      "card_id": "murkmire_grapnel_blue",
+      "group_id": "pitch-cycle:murkmire_grapnel",
+      "slug": "card-murkmire-grapnel-blue-four-live-real-aim-and-unpreventable-three-through-prevention",
+      "source_spec": "card-regression-batch750.json",
+      "input_sha256": "61946cee9ff7f53e18cf3e02790b890ca21b97390a7451463b76208ec51a30fb",
+      "reviewer": "/root/b750_saved_recovery",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_AIM_AND_UNCONDITIONAL_UNPREVENTABLE_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-murkmire-grapnel-blue-four-live-real-aim-and-unpreventable-three-through-prevention",
+      "fixture_sha256": "3be43c8c35b1b0e00e8bb1ef34f508a979c1dd66c7602b286dcff56976d6b393",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f831f207526628920f0e6241f1c8145e4b3e23707c25fb80c2a5f3e6b4c9478e",
+        "actions.json": "44a3554666187adcc50fcc315260e9e7358d98cb446d310af8e5c60e3654024a",
+        "assertions.json": "439c1163a6366968ccd1e41c642abd3ab696e219eb73dae80ea49e932b5e4844",
+        "expected_final_gamestate.txt": "f838dc084f256fb8d24c2fd26f4a46d470828aedfaba23cf415bcb087d1b57ce"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f831f207526628920f0e6241f1c8145e4b3e23707c25fb80c2a5f3e6b4c9478e",
+        "actions.json": "44a3554666187adcc50fcc315260e9e7358d98cb446d310af8e5c60e3654024a",
+        "assertions.json": "439c1163a6366968ccd1e41c642abd3ab696e219eb73dae80ea49e932b5e4844",
+        "expected_final_gamestate.txt": "f838dc084f256fb8d24c2fd26f4a46d470828aedfaba23cf415bcb087d1b57ce",
+        "meta.json": "2ac70c4c4f0d71d0a02f0b5c5b44e79774ffd7c18e3ec5214e18f8c8ac9401f7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f831f207526628920f0e6241f1c8145e4b3e23707c25fb80c2a5f3e6b4c9478e",
+        "actions.json": "44a3554666187adcc50fcc315260e9e7358d98cb446d310af8e5c60e3654024a",
+        "assertions.json": "439c1163a6366968ccd1e41c642abd3ab696e219eb73dae80ea49e932b5e4844",
+        "expected_final_gamestate.txt": "f838dc084f256fb8d24c2fd26f4a46d470828aedfaba23cf415bcb087d1b57ce",
+        "meta.json": "2ac70c4c4f0d71d0a02f0b5c5b44e79774ffd7c18e3ec5214e18f8c8ac9401f7"
+      },
+      "actions": 42,
+      "native_assertions": 3460,
+      "actual_manual_passes": 36,
+      "actual_priority_response_passes": 35,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9
+      },
+      "schema_property_assertions": 1115,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertions_evaluated": {
+        "0": 133,
+        "42": 193
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "murkmire_grapnel_blue",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "barbed_castaway",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "boots_of_omnis_ward",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "barbed_castaway",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "murkmire_grapnel_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 1
+        },
+        "8": {
+          "card_id": "boots_of_omnis_ward",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "actual_primary_resources_paid": 0,
+      "actual_primary_AP_paid": 1,
+      "actual_physical_damage": 3,
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        1
+      ],
+      "full_card_certification": false,
+      "normalized_ordered_queries_sha256": "b6f27e7fb0cba494c05a676aa59c31269dcaab8598173874b0e17fd451c5e3fe",
+      "source_review_ordered_query_ledger_sha256": "429200b1662a45b29ffe62330304e1b24bd3b9ff3d4f927005960a00e9dbc4e2",
+      "native_action_mapping_sha256": "c30d486820aa03f690ce9fcf8543341b03476e844c9a160f47cf433b3d3c21c6",
+      "native_assertion_mapping_sha256": "e2e6a6218ca91c69bf69fd9f8a72f317fd162193bea2ca651208c960c6a42e25",
+      "checkpoint_assertion_mapping_sha256": "de47465d47dcc6b55b306afd382041a0be11ec9ae309d01f21ab9eab56ddf07d",
+      "actual_Bow_SECOND_Instant_cost": 1,
+      "actual_Blue7_pitch": 3,
+      "actual_AIM_earned": 1,
+      "AIM_power_bonus": 1,
+      "unpreventability_unconditional": true,
+      "actual_Boots8_destroyed": true,
+      "actual_Hero4_tapped": true,
+      "ceased_virtual_ability_UIDs": [
+        9,
+        10
+      ],
+      "final_raw_named_OMN_PREVENT_rows": [
+        {
+          "type": "OMN_PREVENT",
+          "amount": 1,
+          "uses": 1,
+          "token": "",
+          "arcane": false
+        }
+      ],
+      "final_raw_prevention_filter": {
+        "player": 4,
+        "type": "OMN_PREVENT",
+        "amount": 1,
+        "token": "",
+        "arcane": false
+      },
+      "intermediate_shield_grant_timing_basis": "Approved Source synchronous ResolveAbility plus exact ordered native controls/queries; no intermediate raw snapshot exported or bank getter claimed."
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 69,
+  "total_native_assertions": 5561,
+  "total_manual_passes": 61,
+  "total_priority_response_passes": 59,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 1624,
+  "material_findings": [
+    "Exact raw5 and behavior hashes for both fixtures, every 69 normalized controls/5561 ordered persisted queries/61 manual inputs/1624 typed properties verified against approved input. Every initial/final assertion evaluated with retained schema-aware readers. All 48 manual preference values per endpoint, complete physical UID/card/owner/controller/zone maps, current 70 source guards, c53 runtime and ab33 recorder verified.",
+    "Goldfin original physical5 played from facedown Arsenal, cost0 spends AP1, formal Hero4 target, same5 power2/noGA through pre-Close. Actual2 damage/HP18; only full Close removes same5 at attempted graveyard move. Final live physical IDs1,2,3,4,6, no Graveyard/Banish substitute, Bow6 ready/unactivated, counter6/RNG0/quiet. Printed non-Token and replacement/source semantics reuse the approved Source material audit.",
+    "Grapnel actual Bow SECOND Instant1 paid by Blue7 pitch3 leavesR2/AP1. ABI9 remains through fresh four and positive MAY; same5 flips facedown1to0 in place and earns AIM1 separately giving base2+1=3. Primary same5 Arsenal attack spends AP. Unpreventability is unconditional. Real Boots8 activation at Reaction4 pays Hero4tap and destruction8 before ABI10 responses4,1,2,3; fourth ceases ABI10 and restores fresh Reaction priority1. Actual3 damage/HP17, final same5GY1/8GY4/7Pitch1/Bow6ready/current use counters/originalUID1..8/virtual9,10ceased/counter10/RNG0/quiet.",
+    "MANDATORY direct FINAL raw observation: player4 turnEffects filtered by named OMN_PREVENT contains one row amount1, token empty, arcane false (also uses1). Unrelated rows allowed; no fixed index or whole-bank equality. Initial raw has no prevention seed. Intermediate grant timing is Source plus exact ordered controls/queries inference; raw5 exports only initial/final, so no direct intermediate bank observation or invented native getter is claimed.",
+    "Existing Root clean replay R1 and R2 each2/2 pass bind both current exact behavior hashes; reports inspected only, never rerun by this reviewer."
+  ],
+  "limits": [
+    "Only two positive representative routes approved: Goldfin own Close-removal and Blue Grapnel real AIM plus unconditional unpreventable damage against actual Boots prevention. No producer/support/Hero/sibling/full-card credit.",
+    "Ordinary initial physical Arsenal/Bow/Boots are legal public fixtures. Prior production, draw, starting history and native End were not executed or qualified.",
+    "Boots is used as Instant support only. Arcane DEF bonus/Temper/armor defense, future shield consumption/expiry, alternate prevention and other branches remain unqualified.",
+    "Raw5 only exports initial/final. Intermediate source boundaries rely on completed native assertion ledger plus exact controls and reused approved Source semantics. No intermediate raw shield snapshot or native bank API exists in this proof.",
+    "Existing replays are separate Root evidence; Root registration/index/promotion remains separate. No qualification credit before registration. Raw Versions is hash-bound opaque history, excluded from physical inventory.",
+    "Reviewer performed no PHP/game/native/replay/full-suite/source/framework/R/Git/remote operation or denied repair retry; W comparison script and proof only."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch750_two_arrow_saved_readonly.py",
+    "sha256": "34afda73dc1bbf0b2459c41665312c52104b0df5a238b85909b12e73e10bf7f8"
+  },
+  "retained_helpers": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+      "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch357_saved_readonly.py",
+      "sha256": "94a5b29f9890db84aa54f7bb9e9b4e80088229dc9dfc56e4a129a27b7507c03e"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch267-independent-saved-review\\audit_saved.py",
+      "sha256": "18467b1a90a4e58577665a006efd6b98b5696baba115c67f290b4f0737b142ba"
+    }
+  ],
+  "review_method": "Static exact-artifact comparison with retained native-normalization/schema snapshot/terminal/hash helpers; no replacement review framework and no gameplay execution."
+}

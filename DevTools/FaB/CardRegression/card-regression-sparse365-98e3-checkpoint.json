@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T19:43:59.928699+00:00",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "source_spec": "card-regression-batch365.json",
+  "source_spec_sha256": "55a5f9f7b8183767d4eabe11bae44e276df1df0a3264b500956d8ddf74e2b0c0",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 45,
+  "native_assertions": 3712,
+  "manual_passes": 38,
+  "totals": {
+    "saved_registered_scenarios": 3656,
+    "duels": 3074,
+    "four_live": 582,
+    "recorded_primary_ids": 810,
+    "identity_denominator": 5196,
+    "recorded_groups": 684,
+    "group_denominator": 3324,
+    "four_live_groups": 575,
+    "phase_qualified_scenarios_at_actual_contexts": 293,
+    "phase_qualified_unique_groups": 288,
+    "creation_replay_passes": 586,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 7,
+  "scenarios": [
+    {
+      "card_id": "void_wraith_red",
+      "group_id": "pitch-cycle:void_wraith",
+      "scenario_id": "card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+      "effect_branches": [
+        "void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+      "source_spec": "card-regression-batch365.json",
+      "source_spec_sha256": "55a5f9f7b8183767d4eabe11bae44e276df1df0a3264b500956d8ddf74e2b0c0",
+      "review_evidence": "review-evidence/b365-saved-98e3-independent-review.json",
+      "review_evidence_sha256": "6a64bd0f6c79dcd9aa8742e71b942372c57a826a6dc10655947573de08a438c9",
+      "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "qualification_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-b365-98e3-r1.json",
+          "sha256": "ed8f4a7c68eca3dd85816130800f1c6629f0bf65c8c2609b1ecd9a1d38bfbeb3",
+          "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-b365-98e3-r2.json",
+          "sha256": "696bb72e7f66f8b8c4a526d54617667388bc4fb99c7967803ea64c98caa969ac",
+          "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "enigma_chimera_red",
+      "group_id": "pitch-cycle:enigma_chimera",
+      "scenario_id": "card-enigma-chimera-red-four-live-sparse-real-six-power-blocker-phantasm-destroys-paid-eight-power-attack",
+      "effect_branches": [
+        "enigma-chimera-red-four-live-sparse-real-six-power-blocker-phantasm-destroys-paid-eight-power-attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-enigma-chimera-red-four-live-sparse-real-six-power-blocker-phantasm-destroys-paid-eight-power-attack",
+      "source_spec": "card-regression-batch365.json",
+      "source_spec_sha256": "55a5f9f7b8183767d4eabe11bae44e276df1df0a3264b500956d8ddf74e2b0c0",
+      "review_evidence": "review-evidence/b365-saved-98e3-independent-review.json",
+      "review_evidence_sha256": "6a64bd0f6c79dcd9aa8742e71b942372c57a826a6dc10655947573de08a438c9",
+      "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "qualification_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-b365-98e3-r1.json",
+          "sha256": "ed8f4a7c68eca3dd85816130800f1c6629f0bf65c8c2609b1ecd9a1d38bfbeb3",
+          "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-b365-98e3-r2.json",
+          "sha256": "696bb72e7f66f8b8c4a526d54617667388bc4fb99c7967803ea64c98caa969ac",
+          "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

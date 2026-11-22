@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch474.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T14:14:53.972073+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rising-energy-red-four-live-real-tome-draw-earns-cost-two-to-one-and-six-damage",
+      "fixture_sha256": "d719149d0f131255028414df9616e519d8bb29e0b80b22a98f4fffc97cc341a1",
+      "passed": true,
+      "result": "[PASS] rising_energy_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-restless-cleric-red-four-live-real-ally-tap-heals-one-and-go-again-funds-actual-attack",
+      "fixture_sha256": "d45017f8ada607bc55fb8b8adc2ab8120e2c11a64be1976f4541d89932505776",
+      "passed": true,
+      "result": "[PASS] restless_cleric_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rising-energy-red-four-live-real-tome-draw-earns-cost-two-to-one-and-six-damage",
+      "returncode": 0,
+      "stdout": "[PASS] rising_energy_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-restless-cleric-red-four-live-real-ally-tap-heals-one-and-go-again-funds-actual-attack",
+      "returncode": 0,
+      "stdout": "[PASS] restless_cleric_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

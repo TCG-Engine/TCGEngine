@@ -1,0 +1,107 @@
+{
+  "status": "APPROVED_SMASHING_067068_V2_EXACT_AA_ONLY_SOURCE_AND_BRIDGE_ROOT_VALIDATION_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T14:39:11.604247+00:00",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\manifest.json",
+  "manifest_sha256": "f7626923b8b540bec3250b54cd5750b8407ae769f76f3a263486265aa23843db",
+  "exact_delta_sha256": "0c375b08944b876acdda061672d78c29b69b0382dbd7ed36d2896e6940437475",
+  "validation_plan_sha256": "36539e3126d71793855e565c9b2e5f9bb97030eeb1f40144e53afe42a4f738ca",
+  "base_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "dependency_guards_verified": 14,
+  "files": [
+    {
+      "path": "DevTools/FaB/evr_abilities.json",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\DevTools\\FaB\\evr_abilities.json",
+      "before_sha256": "4c5f45496d8b1536729525f3a017d3e0f267dd19d571c0d137295b0ed3ee90f8",
+      "after_sha256": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE"
+    },
+    {
+      "path": "DevTools/FaB/build_evr_abilities.py",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\DevTools\\FaB\\build_evr_abilities.py",
+      "before_sha256": "6bfc7af840d936911ccd2b34c95970f7d07688b7f92564c1d0f1d2d3d75663ad",
+      "after_sha256": "786fe553984f50ef207122bc9330fb47ba6fd4391c22c99f65630b9f1b338955",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE"
+    },
+    {
+      "path": "FaBSim/Custom/EVRCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\FaBSim\\Custom\\EVRCards.php",
+      "before_sha256": "dee27af62c574dc67e99daf1455fb35e806f4a2299479401027cd999c386ff52",
+      "after_sha256": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "application": "EXACT_GUARDED_SOURCE_CANDIDATE"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php",
+      "before_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6",
+      "after_sha256": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7",
+      "application": "MERGE_ONLY_REVIEWED_FRAGMENT_NOT_WHOLE_STALE_FILE"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php",
+      "before_sha256": "8ceef24c7fe2f311bc7bda5f039dcec4bda57fb8e1866f382855ae37c119229a",
+      "after_sha256": "8829dc0c85903c5c26e82bf3a6df0c5a0db5f53658deeb049871a81c390acbff",
+      "application": "MERGE_ONLY_REVIEWED_FRAGMENT_NOT_WHOLE_STALE_FILE"
+    }
+  ],
+  "ROSunion_sha256": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7",
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing067068-independent-source-HOLD.json",
+    "sha256": "f96d58f1beb58c8b7ad4a445b51c5f4cc5a3929f0f60d33aa27f33924bf6cd54",
+    "scope": "FullV1remainingsemantic/source-review reused. Priorweapon-eligibleconsumerHOLD nowresolvedbyonlyselectedAA-onlyproducer/bridgecorrection; V1remainsimmutableheld/unapplied."
+  },
+  "findings": [
+    "ExactlythreeSmashingResolveCardproducer strings change NEXT_ATTACK->SUP_NEXT_AA; matchingsinglebuilderlineandthreefixedbridgehashes/bodies only. ResolveAbility/EVRsource+triggerhelpers byte-identical to independentlyreviewedV1. Allcanonical/producer/CodeGenoutsidebytespreserved; globalWTRconsumerunchanged.",
+    "ExistingSUP_NEXT_AA predicate requires bothActionandAttack; weaponproxy/Weaponisnoteligible. Unmatchedrow retained, nextAA gets exactly3/2/1 throughsharedTag andmatchedrowconsumedonce. No grantedGA/weaponbonus/interveningweaponconsumption. SharedNEXT_ATTACK still buffsweaponsforothercards.",
+    "Legacycanonicalhashesretained, newfixedbodyhashes derivedfromactualcanonicalcode; newfixedidempotentguard. UnapprovedV1fixedResolveCardhashesabsent, thereforefailclosed; existingResolveAbilitycapturedvictimhashunchanged. OthercardIDsreturnunchanged, unknownselectedbodiesfailclosed.",
+    "OriginalSmashingArsenalcontext/GA/sourceUID5/cost0, originalNAAtriggercontroller/cardID/sourceUID/capturedvictim, earnedpositiveAAhero-hit/noItemlayer and optionaldestroyItemprintedcost<=2 afterresponses retainpriorreview. No discardRandom/printedtarget invented, no newglobalnonce/freshness/framework/GameLogic/defaultfactorychanges.",
+    "ExactROS066+068uniondaf6 removesSmashfragmenttoactual066ROS1013; preserve066. CodeGen/ROSmerge-only semantics: actualcurrenttargetguards and permittedfragments, no blindstalefileoverwrite. Originalcorrectprobeeea92 unchanged; generationrootmustscopeexact6SmashResolveCard/ResolveAbilitygroups+ownedawaithelpers andpreserveallothermacrobytes."
+  ],
+  "actual_shared_extractions": {
+    "FaBWTRCardPlayed": "aff03436ec7ff3453fd3ca2a79e29c43c52087b184411153959ac2dc80141add",
+    "FaBWTRTag": "e60f2b984ce3f84e5265d45c480fe01fa868fe259898cea78c1340bc661a2a86",
+    "FaBWTRIsAttackAction": "1024fc7a31460ec554e6c695472008cef73def97662a1a7b69931f0e47638ace",
+    "FaBWTRIsWeapon": "f1f1cddf23de7f3729f3225aba1e6e5184cf7f25b5615d198afda250583b9f2e"
+  },
+  "component_harness_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-aa-only-proposed\\components\\combined-contracts.php",
+    "sha256": "826607935fcaf044bb275cb67ef25fb1a04bce44044e1bf044954735e181f2a8",
+    "planned_contracts": 47,
+    "execution_status": "PENDING_ROOT_EXECUTION",
+    "actual_full_shared_CardPlayed_Tag_predicates_byte_exact": true,
+    "three_colors_weapon_retain_then_AA_once_then_later_AA_none": true,
+    "global_NEXT_ATTACK_weapon_control": true,
+    "V1_fixed_body_rejected_all_three": true,
+    "unrelated_hook_noops_explicit": true,
+    "full_engine_native_credit": false,
+    "PHP_executed_by_reviewer": false
+  },
+  "required_before_source_application": [
+    "Root actual47contractreceipt and3fullcandidatePHPsyntaxlints mustPASS; no old40PASS substituted.",
+    "Recheckexactcurrentfilebeforehashes/066ROSpredecessor; preservealluserchanges andtheapprovedsourcebytes."
+  ],
+  "required_before_gameplay_qualification": [
+    "Root existingselectivegeneration plus exactgeneratedscope/bodyreview; no unselectedmacrochanges.",
+    "OriginalcorrectRednative fullsuffix includingearnedfour-livehit-triggerresponse, exactsavedindependentreview andtwofreshfocusedreplays."
+  ],
+  "holds": [],
+  "native_credit": false,
+  "applied": false,
+  "source_writes": false,
+  "PHP_native_generator_service_executed": false,
+  "rule_sources": [
+    "https://judge.fabtcg.com/cards/detail/1442/",
+    "https://rules.fabtcg.com/en/cr/06-effects/",
+    "https://fabtcg.com/rules-and-policy-center/release-notes/everfest/"
+  ],
+  "limits": [
+    "Source/bridgeapprovalonly. PendingRootcomponents/lints/generation/nativequalification, nofixcoverageyet.",
+    "Yellow/Blue codeconsistency and plannedcomponents notnativecoverage. NoItemchoice/destruction/await/elimination/simultaneousordering/foreignownership/control/fullsuitecredit.",
+    "No reviewerPHP/native/replay/R/sourceapplication/codegen/backend/remoteauthoring."
+  ]
+}

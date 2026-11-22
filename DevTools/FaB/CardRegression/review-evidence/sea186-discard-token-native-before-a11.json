@@ -1,0 +1,114 @@
+{
+  "status": "ACTUAL_UNSAVED_R2_FAILURE_REVIEWED_PREMATURE_ARENA_PERMANENT_WITNESS",
+  "phase": "ACTUAL_FAILED_ATTEMPT",
+  "batch": 833,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T22:05:55.032616+00:00",
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-r2-independent-diagnostic-source-review.json",
+    "sha256": "2e53bc9ad841d21a9365419e522f93bd1eab36e82af0f3ffad9863726f4953f9"
+  },
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-r2-semantic-witnesses-first-query-order-author\\sea-legs-original-correct-skullhorn-discard-earned-rum-probe-r2.json",
+    "sha256": "df1c4d3cdf77fb57c10da9f116cf5b200cb34b3acaeb07c26d33c571f33c09ac"
+  },
+  "source_spec": "card-regression-batch833-sea-legs-original-correct-skullhorn-discard-probe-r2.json",
+  "input_sha256": "df1c4d3cdf77fb57c10da9f116cf5b200cb34b3acaeb07c26d33c571f33c09ac",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-r2-semantic-witnesses-first-query-order-author\\manifest.json",
+    "sha256": "c96a602269010e2de80b03374a402760ff7e1a7c2ff9c5140baf851934f780fa"
+  },
+  "manifest_sha256": "c96a602269010e2de80b03374a402760ff7e1a7c2ff9c5140baf851934f780fa",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b833-sea-legs-r2-original-correct-unsaved-before-a11\\receipt.json",
+    "sha256": "ac6b7673fff8ab8217f4cc4ed458234c046733dfc830c44011cf0c163bc95bc4"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b833-sea-legs-r2-original-correct-unsaved-before-a11\\recording-results.json",
+    "sha256": "ef044093ff6cbfab402b4c27358f2e3b45eea10bc50938331ba676c7f7ad3f1a"
+  },
+  "identical_Native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch833-sea-legs-original-correct-skullhorn-discard-probe-r2.recording-results.json",
+    "sha256": "ef044093ff6cbfab402b4c27358f2e3b45eea10bc50938331ba676c7f7ad3f1a"
+  },
+  "actual_inputs": 5,
+  "planned_inputs": 9,
+  "actual_manual_passes": 4,
+  "actual_manual_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "exact_action_prefix_matched": true,
+  "exact_557_persisted_query_prefix_matched": true,
+  "failed_authored_check": {
+    "ordinal_one_based": 558,
+    "source_step_index": 10,
+    "source_check_index": 16,
+    "control": 5,
+    "raw": {
+      "type": "zone_count",
+      "zone": "p1Arena",
+      "value": 0
+    },
+    "expected": 0,
+    "actual": 1
+  },
+  "intended_native_query": {
+    "type": "zone_count",
+    "zone": "p1Arena",
+    "value": 0,
+    "viewerPlayerID": 1,
+    "step": 5
+  },
+  "check_counts": {
+    "planned": 1185,
+    "successful_persisted": 557,
+    "failed_unpersisted": 1,
+    "later_unrun": 627
+  },
+  "evaluation": "FCRCheck evaluates explicit query first and throws at recorder lines35-36 before recording11002 at37. Query558 failed and is not among557 persisted successful assertions;627 later checks never ran.",
+  "directly_observed_card_semantics": [
+    "Actual Skullhorn UID5 entered P1 graveyard as activation cost with AP0 before the four real Source responses. All four seats manually responded once.",
+    "At control5 the first16 queries pass: P1 graveyard count2, Skullhorn UID5 and Sea Legs Yellow UID6 both owner/controller1, P1 Hand0/Deck0, P1 AP1, and all four Health20. Thus sole drawn Sea Legs was discarded and printed Skullhorn go again completed before failure.",
+    "The next direct Arena-count query reports one P1 Arena object where no permanent should have been created yet before the earned discard trigger receives its four responses. This is a meaningful premature-permanent witness rather than only the earlier window-label mismatch."
+  ],
+  "first_failure_classification": "CONFIRMED_EARLY_ARENA_CREATION_BEFORE_EARNED_TRIGGER_RESPONSE_WINDOW",
+  "native_semantic_timing_failure_confirmed": true,
+  "source_causal_attribution": "Actual current FaBWTRCardDiscarded495 calls FaBSEADiscarded; SEACards40 creates goldkiss_rum inline for sea_legs_yellow rather than capturing a responseable WHEN. The source predicts Rum and matches the early-Arena witness; this is causal source attribution, not a native query of the unexpected object identity.",
+  "explicit_unrun_limits": [
+    "No post-effect p1Arena object CardID, UID, owner or controller was queried: do not claim native identification of the unexpected object as Rum.",
+    "Earned Stack count1/CardID Sea Legs/SourceUID6/controller/kind checks all follow the failed count and are unrun. Native Stack0 or absence of an earned trigger is not established by this evidence.",
+    "The four additional earned-trigger response inputs, exactly-one-owned-Rum final witness and final cleanup are unrun. This attempt saved no fixture and does not qualify Sea Legs or Skullhorn.",
+    "Observed ACTION window and empty decision queues are supplemental engine-state fields, not substitutes for unrun Stack/object identity checks. No final raw snapshot exists for this failed no-save attempt."
+  ],
+  "R1_relationship": "R1 stopped at internal window label before card-specific checks. R2 preserved every literal query at the same boundary and reordered only that list; it adds an actual meaningful early-Arena witness without relaxing expectations.",
+  "new_global_root_count_awarded": false,
+  "source_fix_applied": false,
+  "source_application_approved": false,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "normal_save_approved": false,
+  "corpus_before": 4090,
+  "corpus_after": 4090,
+  "fixture_inventory_unchanged": true,
+  "current_guards_match": true,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 47,
+  "full_suite_run": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch833_r2_actual.py",
+    "sha256": "77866786c3af8aea70f4a31a73340d9782146e88c28d9c6b963ed196b05d92ab"
+  }
+}

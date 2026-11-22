@@ -1,0 +1,534 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B377_HACK_AND_SHELTER_WITH_REQUIRED_RAW_REMAINING_EFFECTS",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-04T18:25:48.211124+00:00",
+  "source_spec": "card-regression-batch377.json",
+  "input_sha256": "c48987ed5d6b72991f2ae2b9c83ee1ad3348138dbbbcd22b7d08f36b2a285dff",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch377-two-generic-effects-author\\manifest.json",
+  "manifest_sha256": "2b77aed679ebdf30b8746073650da780150f63c4177a1c0a6028e18e7dbc7acf",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "source_guards_verified": 21,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch377-independent-source-review.json",
+    "sha256": "7d9c7a7aa11e51fc2dfdbe99105620b25f8fde90f746079dcd774ba948bdfe4e",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch377-20261104T182234Z-6aeb77ea13801.json",
+    "sha256": "1e20cd8295fc06a60acb1a523b3ec5e32e6b383046b39c83a84f5f702fb73efe"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b377-native-f751-r1\\receipt.json",
+    "sha256": "f1063d4afd7bde7d3a90519e828cf9cec4e6163e5607bed58c8c5f5e6eb01d05"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch377_saved_readonly.py",
+    "sha256": "2fb0875bcbaed9fc8d296825527c833e95f8a621d4f41d863a9eb1b8cc83b31b"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "hack_to_reality_yellow",
+      "group_id": "identity:hack_to_reality_yellow",
+      "slug": "card-hack-to-reality-yellow-four-live-sparse-real-paid-action-buff-consumed-by-fully-blocked-six-power-attack",
+      "source_spec": "card-regression-batch377.json",
+      "input_sha256": "c48987ed5d6b72991f2ae2b9c83ee1ad3348138dbbbcd22b7d08f36b2a285dff",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_PRINTED_POSITIVE_EFFECT",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-hack-to-reality-yellow-four-live-sparse-real-paid-action-buff-consumed-by-fully-blocked-six-power-attack",
+      "fixture_sha256": "b6cd797278f4b6c20ffd4851fef02425622224503033bccbcd33ed1479107677",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7bbe0179c104048dca2cc35ebdcec461aa079aed3946d86f064c1bc24ae97643",
+        "actions.json": "ca3107a96a301885d2fc01dcce908880ae969302f115e62f8ea0017fd4e612d3",
+        "assertions.json": "faec77dcb5a21495eed2e12765b83f638038c1319b1db1e6e5d4789e41db6c3a",
+        "expected_final_gamestate.txt": "9f1651e72bcfffbed8fe964bf5fcb607814ba88d46daca47f41c72c3de02f466"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7bbe0179c104048dca2cc35ebdcec461aa079aed3946d86f064c1bc24ae97643",
+        "actions.json": "ca3107a96a301885d2fc01dcce908880ae969302f115e62f8ea0017fd4e612d3",
+        "assertions.json": "faec77dcb5a21495eed2e12765b83f638038c1319b1db1e6e5d4789e41db6c3a",
+        "expected_final_gamestate.txt": "9f1651e72bcfffbed8fe964bf5fcb607814ba88d46daca47f41c72c3de02f466",
+        "meta.json": "a5c61dd24df810527aa160752671d605c09332e50b9792d5ec0a8ec5b40566c0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7bbe0179c104048dca2cc35ebdcec461aa079aed3946d86f064c1bc24ae97643",
+        "actions.json": "ca3107a96a301885d2fc01dcce908880ae969302f115e62f8ea0017fd4e612d3",
+        "assertions.json": "faec77dcb5a21495eed2e12765b83f638038c1319b1db1e6e5d4789e41db6c3a",
+        "expected_final_gamestate.txt": "9f1651e72bcfffbed8fe964bf5fcb607814ba88d46daca47f41c72c3de02f466",
+        "meta.json": "a5c61dd24df810527aa160752671d605c09332e50b9792d5ec0a8ec5b40566c0"
+      },
+      "actions": 35,
+      "native_assertions": 3249,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "hack_to_reality_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "hack_to_reality_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "required_raw_remaining_effect": {
+        "player": 1,
+        "effect": {
+          "type": "DTD_HACK",
+          "amount": 1,
+          "uses": 1
+        }
+      },
+      "unexecuted_remaining_branch": "next hero hit and Aura destroy",
+      "checkpoint_assertion_mapping_sha256": "c6d0f55bb00cf7da7c3fa4f381365c0c07cb1dcb97b2e15a1b74bb44132f3b8c",
+      "native_action_mapping_sha256": "a42e560256a26c98dac9336a5ebf539cb2a7d65654560b06c9717206082debb8",
+      "native_assertion_mapping_sha256": "a0a5340a4ef706b57e6f0df2d40cb8a63384af8aa602246f5e72dc04ba2a5c67"
+    },
+    {
+      "index": 1,
+      "card_id": "shelter_from_the_storm_red",
+      "group_id": "identity:shelter_from_the_storm_red",
+      "slug": "card-shelter-from-the-storm-red-four-live-sparse-real-hand-discard-instant-prevents-one-of-next-seven-damage",
+      "source_spec": "card-regression-batch377.json",
+      "input_sha256": "c48987ed5d6b72991f2ae2b9c83ee1ad3348138dbbbcd22b7d08f36b2a285dff",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_PRINTED_POSITIVE_EFFECT",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-shelter-from-the-storm-red-four-live-sparse-real-hand-discard-instant-prevents-one-of-next-seven-damage",
+      "fixture_sha256": "84850239505e134e80c54b176b2622d6f489a6a1c54a1dbb0e9552fdf520c28f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "1b738cdc98233f63018702ed5ef3b340c5c58af3f3bfd2321b6d8db5346e4670",
+        "actions.json": "c9d9e4558d7f1e6adc5f522bc53fcc764a086ab4aacf17a42e59c84e287bcad7",
+        "assertions.json": "0209eadab83e3d39b266b76cd16de5a0d0c87f5ef2d24abdf6a3a90296bd4097",
+        "expected_final_gamestate.txt": "16462c6c4d96a791f31c94d6c732ab6abb39fe5b55abee026287cbb8e2e346cd"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b738cdc98233f63018702ed5ef3b340c5c58af3f3bfd2321b6d8db5346e4670",
+        "actions.json": "c9d9e4558d7f1e6adc5f522bc53fcc764a086ab4aacf17a42e59c84e287bcad7",
+        "assertions.json": "0209eadab83e3d39b266b76cd16de5a0d0c87f5ef2d24abdf6a3a90296bd4097",
+        "expected_final_gamestate.txt": "16462c6c4d96a791f31c94d6c732ab6abb39fe5b55abee026287cbb8e2e346cd",
+        "meta.json": "ca25c720e5d0f5fbd95d6f9aeef8877d3b58a8b50648d8baf8c1d31396d55217"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1b738cdc98233f63018702ed5ef3b340c5c58af3f3bfd2321b6d8db5346e4670",
+        "actions.json": "c9d9e4558d7f1e6adc5f522bc53fcc764a086ab4aacf17a42e59c84e287bcad7",
+        "assertions.json": "0209eadab83e3d39b266b76cd16de5a0d0c87f5ef2d24abdf6a3a90296bd4097",
+        "expected_final_gamestate.txt": "16462c6c4d96a791f31c94d6c732ab6abb39fe5b55abee026287cbb8e2e346cd",
+        "meta.json": "ca25c720e5d0f5fbd95d6f9aeef8877d3b58a8b50648d8baf8c1d31396d55217"
+      },
+      "actions": 36,
+      "native_assertions": 2964,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "shelter_from_the_storm_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "shelter_from_the_storm_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "required_raw_remaining_effect": {
+        "player": 4,
+        "effect": {
+          "type": "HNT_CALM",
+          "amount": 2,
+          "uses": 1
+        }
+      },
+      "unexecuted_remaining_branch": "two future prevention packets and expiry",
+      "checkpoint_assertion_mapping_sha256": "ef329d47dc4c3ee04a1abe849b5cd7313b59dc7ee0ddb651f362c8ba9c663e31",
+      "native_action_mapping_sha256": "91e3a1352aaeee7090b7400671c9028c57117ac36dc0cef11e3f61fa6d8f1185",
+      "native_assertion_mapping_sha256": "8380918f4a5443f0f1b0ba975bd79975a6dc1067c94bfc829b17d7216e5e242a"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 71,
+  "total_native_assertions": 6213,
+  "total_manual_passes": 61,
+  "total_priority_response_passes": 59,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "Hack5 actualBlue7pitch3 pays1+AP beforefourresponses/R2AP0; fourth ownGAAP1, actualWounding6cost0 consumes+2\u21926/noGA; two actualDrivingBlueNAAs DEF3each fullyblock/nohit/fullUID/economy cleanup. Raw final P1 DTD_HACK amount1/uses1 remains exactly once; NEXT_ATTACK absent after actual consumption. Aura destroy branch unearned/uncredited.",
+    "Shelter5 actualHandInstant0 discardTHIS cost moves public5ownP4GY beforefirstfreshresponse; virtual8SourceHandUID5/Controller4 heldthrough4/1/2 and resolved onlyfourthP3, restoredATTACK/freshresetround. ActualRaging6power7 packet prevents1\u21926damage/P4HP14, fullGY5P4/6P1/Pitch7/RAP0/virtual8ceased. Raw P4 HNT_CALM amount2/uses1 remains exactly once by type, without fixedindex; remainingtwoevents/expiry not exercised.",
+    "Allactualraw10/all71 orderednative envelopes6213persistedasserts61manual/fullinitialandfinal physical UID zones/ownership/economy/priority/await/paymentcleanup/48manualsettingsperendpoint verified using unchanged independent source models."
+  ],
+  "limits": [
+    "Two selected standalone representatives only; no fullcard/supportprimary/control/sibling credit.",
+    "No positive Aura destruction, futureHeroHit, ShelterDRdefense4/remaining2events/expiry/unpreventable branches. Required raw registration is immediate observable witness, not future execution credit.",
+    "Only actual initial/final snapshots are full rawstates; intermediate outcomes are sequential passed native assertions. Root targeted replays/registration remain separate.",
+    "No reviewer PHP/native/replay/R/source/service/generator/full-suite execution; tenoldholds/SmashItem unchanged."
+  ]
+}

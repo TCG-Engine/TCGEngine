@@ -1,0 +1,168 @@
+{
+  "status": "READ_ONLY_FOUR_AUTHORING_RECORD_FEASIBILITY_REFRESH_NO_PROPOSALS",
+  "created_utc": "2026-11-20T15:48:32.224382+00:00",
+  "snapshot_sha256": "e78c540bf7ff1ab6d62a268c0f50c8a2c4a18d139a4018a129932d7b5fa4afa8",
+  "records": [
+    {
+      "issue": "FAB-REG-078",
+      "card_id": "ebon_fold",
+      "raw_canonical_exact": true,
+      "current_macros": [
+        {
+          "macro": "PrepareCard",
+          "normalized_sha256": "e3b950bd2b3467f9211d984cfb905e981dff3df03c1da7b2b9433e48f500370f"
+        },
+        {
+          "macro": "ResolveAbility",
+          "normalized_sha256": "012a6580c18bcfcd61bc67fb394a3ac77384bd83254995253efb94ce573ecf5d"
+        }
+      ],
+      "original": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch330-correct-cost-probe.json",
+        "sha256": "7f9d86dc7471abbd0a515007b91267ea1150e014648ace0990b0dc98f8206581",
+        "controls": 7,
+        "queries": 747,
+        "diagnostic_only": false,
+        "unchanged": true
+      },
+      "feasibility": "Bounded authored phase migration fits existing managed ARC ability lifetime; recorded authorization hold is preserved, no denied action retried.",
+      "literal_migration": [
+        "PrepareCard currently awaits MZChoose($targets, 'Pay_additional_cost'), computes Shadow/monDraw and FaBMoveChoice(...,'Hand','Banish'); move that resolution choice+banish+conditional draw together into ResolveAbility.",
+        "PrepareCard can retain only scalar ABI UID extraction plus FaBFinishPreparedCard($uid). Existing ARC admission then pays resource1/destroy normally. This avoids needing a new native Ebon exclusion solely to remove the wrong-phase chooser.",
+        "Replace ResolveAbility's monAbility_monDraw-only consumer with actual resolution choice/move/draw. Retire monDraw dependence for this card; no second delayed draw."
+      ],
+      "binding_and_contracts": [
+        "Capture acting controller and arcAbilityUID scalar before await; bind to the existing live managed ABI, not destroyed Equipment mzID or a retained object.",
+        "At resolution enumerate current Hand rather than FaBMONAffordableHand: that helper reserves unpaid resource cost and is wrong after payment. Mandatory choose only if Hand nonempty; no card means no banish/draw.",
+        "Re-fetch chosen live Hand object after await; validate offered identity, player/zone and executing seat. Snapshot Shadow classification before successful banish, draw once only after that selected banish succeeds.",
+        "Original7/747 must still observe resource/destroy before four responses, then the resolution effect; test empty Hand, source gone/blanked after cost, failed/stale choice and nested ABI isolation."
+      ],
+      "extra_source_scope": "MON canonical/builder + exact authored generation correction; existing ARC Prepare/Resolve machinery may remain unchanged. Actual source review must prove no remaining premature effect. No 094 change."
+    },
+    {
+      "issue": "FAB-REG-103",
+      "card_id": "captains_call_red",
+      "raw_canonical_exact": true,
+      "current_macros": [
+        {
+          "macro": "ResolveCard",
+          "normalized_sha256": "7cf9586723d9ec63aa4c183a234110c640c37a480fdbf697b3bb18866deed341"
+        }
+      ],
+      "original": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch427.json",
+        "sha256": "69e07a53f8eabaa1fd2deed30785798287a486f5c7571edff791444027a44f04",
+        "controls": 33,
+        "queries": 2502,
+        "diagnostic_only": false,
+        "unchanged": true
+      },
+      "feasibility": "Existing physical PrepareCard/pending-payment and ARC per-UID bank are sufficient building blocks; genuine authored mode producer+consumer is still required.",
+      "literal_migration": [
+        "Move `$mode = await $player.Modal(1,1,\"Power&Go_again\",...)` from ResolveCard into PrepareCard before assets/play priority.",
+        "Store validated mode0/1 under the pending physical Stack source UID, then call FinishPreparedCard. ResolveCard reads that bound scalar and performs the existing FaBMONAdd NEXT_SMALL effect without another Modal."
+      ],
+      "binding_and_contracts": [
+        "Validate exact source CardID/Kind/controller, current pendingPayment UID and chooser seat before sealing mode. Prepare must leave AP1 until a valid answer.",
+        "Reset binding per new announcement; guard cancellation/undo/replay or same-UID recast with verified announcement identity/nonce. Scalar bank alone is not an admission or once-only contract.",
+        "Resolve consumes exactly its source mode, no fallback default or late re-choice; costs, source own go again, NEXT_SMALL lifetime and the correct next-attack consumer remain unchanged.",
+        "Original33/2502 is a full existing route; preserve both the printed chooser ordering and its later physical attack/AP cleanup assertions."
+      ],
+      "extra_source_scope": "MON canonical/builder and named Prepare/bound-resolve helpers plus exact generation bridge/emission. Existing ordinary spell lifecycle suffices; no new virtual ownership."
+    },
+    {
+      "issue": "FAB-REG-178",
+      "card_id": "memorial_ground_blue",
+      "raw_canonical_exact": true,
+      "current_macros": [
+        {
+          "macro": "ResolveCard",
+          "normalized_sha256": "c2b9b622e34b00bb0b10eb46114b35208ca37980d211e715f744c81f30fc12cc"
+        }
+      ],
+      "original": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch788-memorial-strict-probe.json",
+        "sha256": "15a3bc0a504ab6f86fb3aea6668e5701ea09a7028d34ac77df9ce61c0fe0672e",
+        "controls": 28,
+        "queries": 2274,
+        "diagnostic_only": true,
+        "unchanged": true
+      },
+      "feasibility": "Memorial is an Instant. Existing PrepareCard/FinishPreparedCard and source scalar bank can support declaration; a new named Graveyard identity/revalidation contract is necessary, not a new generic lifecycle.",
+      "literal_migration": [
+        "Move FaBARCSelect(player,'Graveyard','','AA',0) + literal await MZChoose(...,'Choose_a_card') to PrepareCard.",
+        "Store target UID/Graveyard zone-seat/lifetime identity on the physical source, finish preparation, then ResolveCard revalidates that exact target and performs reveal + FaBARCToDeck(...,true). Remove the late await and fresh retargeting."
+      ],
+      "binding_and_contracts": [
+        "Snapshot offered legal own-Graveyard cost0 attack-action identities; bind only a still-offered/currently legal answer for the correct pending source/controller/seat before response priority.",
+        "Target UID and current zone alone are insufficient: departure and return of the same UID must invalidate the old formal target. Add a named Graveyard target epoch/identity invalidated on departure, reusing scalar ARC epoch patterns without broadening094.",
+        "At resolution revalidate target lifetime, own-Graveyard zone-seat and cost0 attack-action legality; absent/illegal target fizzles with no reveal/topdeck or re-choice. Preserve legal in-zone reordering by UID.",
+        "Original28/2274 ends at the declaration barrier; preserve it and prepare a separately reviewed existing-repair completion for actual four responses/topdeck, including target departure/return component contracts."
+      ],
+      "extra_source_scope": "MON canonical/builder, named preparation/binding/epoch/revalidation helper and exact generation. Existing declared-reaction CombatChain UID→link domain cannot be enrolled as-is for a Graveyard target."
+    },
+    {
+      "issue": "FAB-REG-179",
+      "card_id": "tip_off_blue",
+      "raw_canonical_exact": true,
+      "current_macros": [
+        {
+          "macro": "ResolveAbility",
+          "normalized_sha256": "6226193be35ae52fad642541ff62a2c0941612908f2c14660e6217a5f34dd81d"
+        }
+      ],
+      "original": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch789-tip-off-strict-probe.json",
+        "sha256": "c857a113c039be8bba756553ca8b9463d575947534007dd11b135c0b9654bd44",
+        "controls": 2,
+        "queries": 292,
+        "diagnostic_only": true,
+        "unchanged": true
+      },
+      "feasibility": "Existing managed ARC ABI and scalar per-ABI UID storage avoid a new virtual/094 lifetime; Tip needs explicit pre-cost Prepare admission and authored bound-Hero consumer.",
+      "literal_migration": [
+        "Move literal MZChoose(FaBDYNHeroTargets(...),\"Choose_opposing_hero\") out of ResolveAbility into a genuine pre-cost PrepareCard declaration.",
+        "Admit the Tip Hand Instant ability Prepare before TryCompletePayment/FaBHNTPaid discards its physical Hand source. Store target Hero UID/seat under unique ABI UID, then FinishPreparedCard.",
+        "ResolveAbility reads and revalidates that captured target, calls FaBHNTMark once; remove its late chosen/victim assignment and do not re-choose."
+      ],
+      "binding_and_contracts": [
+        "Seal only a real offered opposing live Hero for correct ABI/controller, ability index and pendingPayment; reject invalid/empty choices before discard/payment. Preserve ordinary Tip attack/menu selection route.",
+        "Store on ABI UID, not source card UID: Hand source is discarded as cost and a later activation/recast must not inherit old target. Copy ability UID/target scalars before any await and use existing managed ARC continuation ownership.",
+        "At resolution require the same live Hero object/UID, seat and legal opponent relation. A replacement Hero must not inherit a seat-only target; same-object legal transformation must not be rejected just because CardID changed. Invalid target means no Mark and no retarget.",
+        "Original2/292 is only the early declaration barrier; a separately reviewed existing-repair completion must observe actual discard, four responses and Mark on the originally declared Hero."
+      ],
+      "extra_source_scope": "HNT canonical/builder, Tip-specific ARC pre-cost admission/binding and exact generation; HNTPaid discard semantics and generic ABI lifecycle remain unchanged."
+    }
+  ],
+  "common": {
+    "machinery_verified": [
+      "CardChoices::FaBFinishPreparedCard checks pending UID and delegates normal payment; it does not validate declaration/source/choice ownership itself.",
+      "ARCCards::FaBARCSetCard/FaBARCCard store serializable per-UID values. ARCResolveAbility supplies arcAbilityUID; existing managed ARC resolution retains its ABI through generated awaits.",
+      "Existing Aethersling Prepare/bind/target helpers demonstrate offered-set/source guards and scalar UID storage. They are patterns, not a ready Graveyard/mode/Tip profile.",
+      "ROSRuntime::FaBAdvanceCapturedSourceEpochs can increment initialized named scalar epochs on a move; any Memorial target usage still needs an actual correct departure hook and epoch binding."
+    ],
+    "all_four": "Recompute live objects after every await; keep only scalars/arrays across frames. Bind offered options to actual source/controller/pending action, guard cancellation/undo/stale answers, and do not bypass generated lexical choices with fake answers or suppress the effect.",
+    "service": "Restored snapshot supplies all selected literal bodies and they exactly match current local canonical rows. Remaining work is authoring/identity design and independent review, not input-service access.",
+    "limits": "Read-only feasibility only. No source proposal/checker, new test case, PHP/network/game/generation/application/denial retry/approval request. Recorded078 hold and all other denied goals remain intact."
+  },
+  "observed_helper_source_hashes": {
+    "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/OMNCards.php": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510",
+    "FaBSim/Custom/MONCards.php": "fe10f6b00a2e4040ddbf89af0e5ddb09c356da605802961ab94bc1718463fa2d",
+    "FaBSim/Custom/HNTRuntime.php": "c4cb6e5b78552891f4a4d32164f00603e97f630cab07a74004278936332ce66c",
+    "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc"
+  },
+  "R_writes": false,
+  "PHP_executed": false,
+  "network": false,
+  "games": false,
+  "W_outputs": "This single triage JSON only.",
+  "_retention_context": {
+    "original_workspace_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-078103178179-readonly-feasibility-refresh.json",
+    "original_receipt_sha256": "8e9665d911eed05f58ab5bfd3cf9ba8e924dc8a3c0df704acd3f89438c382537",
+    "relative_workspace_artifact_fields_resolve_from": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task",
+    "raw_logs_snapshots_and_backups_not_copied_into_repository": true
+  }
+}

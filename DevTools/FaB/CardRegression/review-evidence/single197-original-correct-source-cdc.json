@@ -1,0 +1,135 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_SINGLE_MINDED_R2_QUERY_ORDER_ONLY",
+  "phase": "SOURCE",
+  "batch": 856,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch856-single-minded-entry-query-order-r2-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\single-minded-query-order-r2-full-probe.json",
+    "sha256": "9734327fc349e131fe55adbdd70d4c8de5ae16c486da9982b33a787e6fb8b079"
+  },
+  "input_sha256": "9734327fc349e131fe55adbdd70d4c8de5ae16c486da9982b33a787e6fb8b079",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\manifest.json",
+    "sha256": "4a1bd5b3a9457b88a16591cd15ef8f51555222fef495afb0f1e50df5b731d5c9"
+  },
+  "manifest_sha256": "4a1bd5b3a9457b88a16591cd15ef8f51555222fef495afb0f1e50df5b731d5c9",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-firm-reservation.json",
+    "sha256": "394e84720896988ace39a6861bd2baff6c64571774b797f3b0c2f6d2ddaa703e"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-real-entry-one-counter-strict-probe-author\\preflight.json",
+    "sha256": "416e697eb7ff55e5213b77592e2b73c2309f91fd9fcdb01b8054ce169d83d336"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\query-order-only-delta.json",
+    "sha256": "4e815282ccfb0115bfd8041d5fc24be10b5d181d06cf99a7d84258b442cba475"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\ordered-control-query-model.json",
+    "sha256": "3442f911dd779d5f8ddf3996db3409d3a2779d474e41235d58373e6d72265012"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 14,
+  "all_current_guards_independently_matched": true,
+  "actions": 10,
+  "declarative_controls": 10,
+  "planned_native_inputs": 10,
+  "assertions": 1285,
+  "native_assertions": 1285,
+  "planned_native_assertions": 1285,
+  "manual_passes": 8,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "checkpoints": 12,
+  "schema_property_checks": 229,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "eea2fe4e25788777a53a344f0e47bda9420101ec00cbfb91b5c1647db0b69dbc",
+  "expected_native_query_mapping_sha256": "8f908b70b980c83bb8373b488a761741ba2b3e16e92e11e81887f7749fa9c153",
+  "checkpoint_mapping_sha256": "031c5f4d5dabc5de3cf3d4ba3a334725e3953abafeb9dcbd5872fa525d918c51",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "Fresh exact R2 gate reuses the prior independent normative/source/schema review. Only steps12.checks moves the original window=PRIORITY query from index12 to the end; inverse permutation recovers the complete original JSON object. No setup, control, literal expectation, count, strict flag or case metadata changes.",
+    "The physical cost/UID5/Arena/Counters and captured earned-layer checks now precede the retained window guard. This seeks a meaningful native effect witness without blessing ACTION, currentPOWER3 or removing any original noPOWER\u2192earnedfour\u2192POWER1 expectation. R1 window-only actual failure is preserved and has no confirmed physical counter outcome.",
+    "Four legal manual Young Prism/Betsy/Betsy/Betsy, all20/UPF/no passive seats. Primary5 starts actual Hand with Blue6, no Arena, counters, attack, bonus AP or permission seed. Prism Light Illusionist legally admits the Illusionist Aura; its soul ability and Betsy wager passives are unentered.",
+    "Actual Action2 play and Blue3 pitch pay2 leaving R1/AP0 before the first Source response; all eight manual passes are two per actor1..4. Primary actual source5 is held through four Source responses, and Aura entry retains owner/controller1/UID5. Native FAB_PLAY_ORDER1 is source play-order metadata, not an extra outcome.",
+    "Printed Blue entry conditional WHEN requires no other controlled Illusionist Aura, which is true throughout this setup; the primary itself is excluded by MSTIllusionAuras57. At first entry boundary6 and first three earned responses7..9 the physical Aura counter map is only FAB_PLAY_ORDER1, with captured ABILITY/source5/controller1. Fourth earned response10 requires exact POWER1 on the same physical Aura, clear Stack/DQs/stable Action/R1AP0/allHP20.",
+    "MSTAfterMove72 calls MSTEnter58..64, which directly assigns hardcoded3 for all Single-Minded pitches when no other Aura. Both premature entry effect and Blue quantity are fresh Source concerns only before Native. Existing canonical abilities[] is not absence of the native body. The original correct packet never adopts3, drops the separate earned four, or seeds a counter.",
+    "All10 controls/1285 normalized ordered queries/229 actual-schema property checks and current guards independently matched. No guessed virtual ABI UID/CardID/event parameter or proxy owner. Meaningful permanent POWER1 is the bounded primary effect; Ward2, negative condition, siblings, Aura-weapon conversion/attack/damage, extra AP and support/fullcard credit remain outside this route."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1d",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independently_rechecked_trigger_rules": true
+    }
+  ],
+  "required_remaining_gates": [
+    "Root one exact full --probe-only attempt, no Save even PASS.",
+    "Independent actual ordered trace review; any promotion requires explicit separate decision/fresh normal Source and actual Saved raw5/both48/two own replays."
+  ],
+  "limits": [
+    "Source gate only; no actual Native result, confirmed bug, repair, fixture, qualification or coverage.",
+    "No PHP/native/R writes/fullsuite/Git/remote/deferred Radiant or denied188/184/B787 action.",
+    "No Native R2 outcome or issue credit. This Source gate authorizes one exact mandatory no-save probe only; no assertion/source/helper/rules change or old-case replay."
+  ],
+  "created_utc": "2026-11-16T08:39:54.990799+00:00",
+  "original_independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-independent-earned-entry-diagnostic-source-review.json",
+    "sha256": "e0cd4fe60fe79db0d47738cc536f2d965738b73b1157704c5caa2adc712ea19b"
+  },
+  "original_limited_actual_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-independent-actual-r1-window-frontier-review.json",
+    "sha256": "96535cfc9d8ad5027635beb9e982dda331889f523b968728a22a99f809cff6b8"
+  },
+  "query_order_delta": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\query-order-only-delta.json",
+    "sha256": "4e815282ccfb0115bfd8041d5fc24be10b5d181d06cf99a7d84258b442cba475"
+  },
+  "delta_only_review": true,
+  "all_case_setup_controls_and_literal_expectations_unchanged": true,
+  "all_per_boundary_query_multisets_unchanged": true,
+  "inverse_permutation_exactly_recovers_original": true,
+  "old_window_query_source_index": 12,
+  "new_window_query_source_index": 104
+}

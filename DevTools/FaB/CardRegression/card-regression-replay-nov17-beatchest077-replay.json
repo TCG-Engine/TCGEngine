@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-beatchest077-declared-discard-earned-agility.json",
+  "runtime_sha256": "eea92fedc8d04dc4f5d3a20da77969084e2bcfe2aae64b2c85e5b5c0ed61423f",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T06:38:07.228262+00:00",
+  "fixtures": [
+    {
+      "slug": "card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger-probe",
+      "fixture_sha256": "f83b747a469fdba31df3d07af3a016b9739fc10b45cb7f707949570c6e7ec7d9",
+      "passed": true,
+      "result": "[PASS] assault_and_battery_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger-probe",
+      "returncode": 0,
+      "stdout": "[PASS] assault_and_battery_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,278 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B809_REACH_R2",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b809_review_recover",
+  "created_utc": "2026-11-15T02:11:49.220510+00:00",
+  "source_spec": "card-regression-batch809-reach_of_the_abyss-r2.json",
+  "input_sha256": "1b3bca3e371026629c355915ed97d45c4fe1d7958aa2051a90c5ebf1d2bb1d2a",
+  "manifest_sha256": "4232f26a8aa9345a82dff79861bb4ce65edf149efa5f733f70c485df8856a557",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-reach-real-two-defenders-source-arms-and-blue-automatic-close-banish-r2-author\\manifest.json",
+    "sha256": "4232f26a8aa9345a82dff79861bb4ce65edf149efa5f733f70c485df8856a557"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-reach-r2-independent-correct-positive-source-review.json",
+    "sha256": "6bc8b14c9a646b6ca42c2fc19e5294302fc6010f13eb646970f2b2cc0d8af249"
+  },
+  "original_independent_oracle_stop": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-reach-original-independent-operator-oracle-stop-review.json",
+    "sha256": "a5959d5ffd7f0421250024b21ddf4cd6583e9398300488fc70ee9e60d4a1410b"
+  },
+  "exact_R2_counter_oracle_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch809-reach-real-two-defenders-source-arms-and-blue-automatic-close-banish-r2-author\\R2_COUNTER_ORACLE_CORRECTION.json",
+    "sha256": "ec0d97e6e11b6ef6ec2c52dc0af87dc64879f48bb5d7431532428d751a69ce77"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b809-reach-r2-native-two-defenders-auto-banish\\receipt.json",
+    "sha256": "ee6a7274d3f92f5c0f026239793aa8db01cfdbb123e0d00f4e70d2c6ef58984d"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch809-reach_of_the_abyss-r2-20261115T021102Z-6af914b63577d.json",
+    "sha256": "053cd12b0091753c65fbf967c225493c770e9af7b004bfcbf435ff03d4cabc3f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch809-reach_of_the_abyss-r2.recording-results.json",
+    "sha256": "220de3aef51e1ed78687f30342fb9fd36358cb625a77cd4bc840ef50a197b770"
+  },
+  "fixtures": [
+    {
+      "slug": "card-reach-real-two-defenders-source-arms-and-blue-automatic-close-banish-r2",
+      "card_id": "reach_of_the_abyss",
+      "group_id": "identity:reach_of_the_abyss",
+      "source_spec": "card-regression-batch809-reach_of_the_abyss-r2.json",
+      "input_sha256": "1b3bca3e371026629c355915ed97d45c4fe1d7958aa2051a90c5ebf1d2bb1d2a",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-reach-real-two-defenders-source-arms-and-blue-automatic-close-banish-r2",
+      "fixture_sha256": "bfa7c383dd1e19293e96659d2959e0e880701a3af29c063c7fab15fe3ef9222c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a9e5a8fab83aa91afeb50ec56818c18aca9cc280a03b51e660ab2c13dcb59b76",
+        "actions.json": "7fc56a68c95d76b4bc3373a345fc69d94e86061f31f1bb40c3b55e67651255d9",
+        "assertions.json": "8bcfa2f728097bc0f4fdd5d22fcdf39df7038cb038322af8e37c327baff73ad6",
+        "expected_final_gamestate.txt": "696b88535f7dc53710dcb4494e46f378ba226deec9e630889075392c76a8cb95",
+        "meta.json": "1045c063b4d45746c60f5df91ac9c3950e04328157ac6b6dac4e0721fce52bcd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a9e5a8fab83aa91afeb50ec56818c18aca9cc280a03b51e660ab2c13dcb59b76",
+        "actions.json": "7fc56a68c95d76b4bc3373a345fc69d94e86061f31f1bb40c3b55e67651255d9",
+        "assertions.json": "8bcfa2f728097bc0f4fdd5d22fcdf39df7038cb038322af8e37c327baff73ad6",
+        "expected_final_gamestate.txt": "696b88535f7dc53710dcb4494e46f378ba226deec9e630889075392c76a8cb95",
+        "meta.json": "1045c063b4d45746c60f5df91ac9c3950e04328157ac6b6dac4e0721fce52bcd"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "a9e5a8fab83aa91afeb50ec56818c18aca9cc280a03b51e660ab2c13dcb59b76",
+        "actions.json": "7fc56a68c95d76b4bc3373a345fc69d94e86061f31f1bb40c3b55e67651255d9",
+        "assertions.json": "8bcfa2f728097bc0f4fdd5d22fcdf39df7038cb038322af8e37c327baff73ad6",
+        "expected_final_gamestate.txt": "696b88535f7dc53710dcb4494e46f378ba226deec9e630889075392c76a8cb95"
+      },
+      "actions": 29,
+      "native_assertions": 2096,
+      "manual_passes": 25,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 530,
+      "checkpoint_count": 31,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 138,
+        "29": 214
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "levia",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "reach_of_the_abyss",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "levia",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "reach_of_the_abyss",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "d6df9cbcc002b9d078aadef870bb88ea183775ef54766149cd707be8c577c9a4",
+      "native_assertion_mapping_sha256": "d37990d9a96f1891bc072cd445d9ecde7b1bd72ab20f04e2aabcaceab12276e5",
+      "checkpoint_assertion_mapping_sha256": "44c49062c7cf2594fca10f17e17725151a10ee42a7fa971f7177bcc2b4f9318e",
+      "actual_final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "actual_defender_UIDs_banished": [
+        6,
+        7
+      ],
+      "source_Reach_UID_included": true,
+      "attacking_Red_UID_excluded": 5,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 31,
+  "all_current_guards_matched": true,
+  "total_actions": 29,
+  "total_native_assertions": 2096,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 530,
+  "total_checkpoints": 31,
+  "total_endpoint_assertions_evaluated": 352,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "material_findings": [
+    "All29 actual native envelopes/2096 successful ordered queries/25 manual actors6,6,6,7 exact Source. All352 endpoint queries and48 manual preference values each endpoint independently evaluated.",
+    "Actual initial ordinary Red5 Hand1/Reach6 ShadowArms2 Equipment4/Blue7 Hand4 DEF3, four natural20 young heroes/no earned history/banish/permission/outcome/AP seed. Actual early Hero4 target before RedAP1to0, real same5 source4/noGA.",
+    "Actual P4 declares same sourceReach6 and Blue7 as real physical defenders with RoleDEFENSE/Equipment+Hand/ChainLink1 and formally finishes. Real2+3 fully blocks actual Red4: allHP20/nohit/zero damage; completed defenseValue5 corroborates only after physical state.",
+    "Both actual defending cards remain through Resolution. Final fourth Resolution response enters automatic trueClose and both SAMEUID6Reach-source and7Blue become public owner4Banish, no play/return permission; attackingRed5 excluded and public ownGY1. ArmsHandChainGY4 empty; all original1..7 conserved/UIDcounter7/no new virtual layer.",
+    "Actual final MON_BANISHED total2; neither Arms(noPower) nor Blue2 earns Levia6 or BloodDebt branch. Full Stack/chain/DQ/Target/Payment/Manager/Await cleanup and four live heroes retained. Quiet observable result only, no general Close layer ordering/foreign owner/DR/all-target universe certificate."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_Close_layer_ordering_certified": false,
+  "general_Close_or_all_defending_universe_certified": false,
+  "limits": [
+    "One fixed quiet own two-defender positive including actual sourceReach. No foreignowner/DR/multilink/blanking/negative/otherlistener/generalClose/allowners/fullcard/sibling certification.",
+    "No initial defended/history/banish/permission/outcome seed, BladeBreak/Battleworn standin, manual Close priority or partialblock fallback. Stride known required DefendedWHEN remains unattempted.",
+    "Root two NEW-only focused replays and registration remain. Reviewer W-only/read-onlyR/no PHP/native/replay/R/source/Git/repair/heldrepair/newagent action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch809_reach_r2_saved.py",
+    "sha256": "863cbe7d07aac3e8c320cf79f520e29072b672ec90c29dfacedc87f40d9a6d8a"
+  }
+}

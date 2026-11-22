@@ -1,0 +1,7 @@
+{
+    "name": "Nourishing Glow Blue / separate entry WHEN heal and real Ward one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T19:55:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact Blue only. Four live/manual Young Rhinar1/Betsy2/Betsy3/Zyggy4 start20. Legal LightningIllusionist Zyggy ability unused; native real Wounding5Red cost0 targets adjacent Hero4 and AP1->0. After3 real source responses P4 casts actual Glow6 Instant cost0. Four real Glow source responses4/1/2/3 precede real sameUID6 Arena entry; a separate actual ABILITY SourceUniqueID6/omnEnter waits through fresh four responses1/2/3/4 with HP4=20 until final resolution gains1 to21. Underlying attack still waits; fresh four responses put real Wounding5 into chain, then proper Attack/zeroDefend/DefendPriority/Reaction. Real mandatory Ward1 chooser destroys sameAura6 to ownerGY4, prevents1 from incoming4 and actualHP21->18. Full Damage/Resolution/automaticClose puts5GY1/6GY4; no Arena/Stack/Hands/queues/chains remain, all4live/RChiAP0. No heal cap, seeded Aura/history/resources/effects, cached damage/defense/Aura-power oracle, hero ability, other listeners, suppression/control-change/private-virtual-order or general Ward certificate. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

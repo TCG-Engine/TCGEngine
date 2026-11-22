@@ -1,0 +1,67 @@
+{
+  "status": "RUNE108_CRACKLING110_ORIGINAL65_5316_AND_TWO_CLEAN_REPLAYS_PASS",
+  "reviewer": "Root independent of b820 source proposal and original correct scenario authors",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+  "input_sha256": "c33e19b277463dc23fcae4a46d3e919e7ce170669a80ab4b70507583287229f4",
+  "source_spec": "card-regression-repair-rune108-crackling110-consumers.json",
+  "fixtures": [
+    {
+      "slug": "card-rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe",
+      "card_id": "rune_snare_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b11471ccc30bdb02709a905e6627fc10627255c0af24a3cdf0ed99b75f8f4449",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "ff33c474dc0c6f45c225c4bd35908caf1714c98ff4daa75ee5040d1e4e0bb8fd",
+        "expected_final_gamestate.txt": "cb644bc6937415c4e931b23bf93e13100be1ff0a361fd921f223bed9903605bc",
+        "meta.json": "eaf56d8d367bd9a28653e557f6252adf360d67691adf7f68899dba70a0c8d1a1"
+      },
+      "fixture_sha256": "c2122e1adf723ff9bbad80fa688f3fbeca128fba55f684fa5987213d15ffd668",
+      "actions": 33,
+      "native_assertions": 2841,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "source_spec": "card-regression-repair-rune108-crackling110-consumers.json",
+      "input_sha256": "c33e19b277463dc23fcae4a46d3e919e7ce170669a80ab4b70507583287229f4"
+    },
+    {
+      "slug": "card-crackling-red-four-live-correct-real-lightning-play-earns-flow-plus-one-and-five-damage",
+      "card_id": "crackling_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c4263dd9960e17213502db5d14e5cefb7c49239b33fc6aa7a75b76d67bbea253",
+        "actions.json": "0ddc01dbfe0e238f6e0881a4cffa79901de121ae266928cc7509f9841dfd3fa2",
+        "assertions.json": "8d192e0c89a7f0f9109664c82a0b5b689604e18d6b8315a0b8e2db9071f01e25",
+        "expected_final_gamestate.txt": "728b646e541db648743b8a4e5b77b2c888078a99fa218ceb1666fc9c77f3f3d3",
+        "meta.json": "79d585291855320014e9d346616ae58dc751646006751f2d4979888c12d584df"
+      },
+      "fixture_sha256": "77a6b9264895a0c6d3409d0d330f268ccd0ffb2e0f9de9a3e833b901311383b9",
+      "actions": 32,
+      "native_assertions": 2475,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+      "source_spec": "card-regression-repair-rune108-crackling110-consumers.json",
+      "input_sha256": "c33e19b277463dc23fcae4a46d3e919e7ce170669a80ab4b70507583287229f4"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-rune108-crackling110-replay.json",
+    "sha256": "92eebd74315672305df3db363f733d74bd515abf00ad622ea7e846429e58c2ca",
+    "passed": true
+  },
+  "source_review_sha256": "ec7afe0a0d9ea0d73186c20233f8c93d84850fc3f7cba18f2ada91c854d0cbec",
+  "components": 30,
+  "component_receipt_sha256": "b2cdda22ebbdb50938ecd2bb2ed92bd3a5896c9d2eb67c1b637cc3b921c20844",
+  "basis": "108 actualRuneSnare5plays/resolves withGA, then realfacedownArsenalHeadShot6base4receives3anddeals7physicalHP13; sameowner5/6GY, realBlue7pitch/costR2/AP0, completecleanup.110 actualWeave6playsLightning/ownGA, thenElemental-onlyCrackling5base3getsWeave1plusownconditionalFlow1, actual5physicalHP15, nofuse/attackGA/APrefundinvented; sameowner5/6GY,RAP0. All65originalinputs5316queries unchanged andmatchedSavedactions/assertions; fullfourliveallseatflow andcleanup verified.",
+  "limits": [
+    "Rune play branch only, not its separate defensive Trap trigger. Crackling exactRed tested; no sibling credit. Component legacykey/one-use/blank/opponenthistory controls do not add Native branches.",
+    "Physical lifecycle guards reused from approvedR4/R5, no virtual094 or other held goal modified. No full suite or historical corpus replay."
+  ]
+}

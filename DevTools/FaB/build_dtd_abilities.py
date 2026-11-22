@@ -37,7 +37,7 @@ for c in json.loads((HERE/'dtd_catalog.json').read_text()):
  if b=='luminaris_celestial_fury':add('ResolveAbility',tag("FaBDTDAttacks($player, 'angelHerald')",'Choose_angel_or_Herald_attack','GO_AGAIN'))
  if b=='empyrean_rapture':add('ResolveAbility',"FaBDYNTag($mzID, 'DTD_WARD:1');")
  if b.startswith('figment_of_'):
-  kind=b[11:];body={'erudition':token('ponder'),'protection':token('spectral_shield'),'war':token('courage'),'tenacity':"FaBWTRAddEffect($player, 'NEXT_ATTACK', 0, ['dominate'=>true]);",'triumph':"FaBDTDAdd($player, 'TRIUMPH');"}.get(kind)
+  kind=b[11:];body={'erudition':"/* Entry Ponder is queued by FaBROSAfterMove. */",'protection':token('spectral_shield'),'war':token('courage'),'tenacity':"FaBWTRAddEffect($player, 'NEXT_ATTACK', 0, ['dominate'=>true]);",'triumph':"FaBDTDAdd($player, 'TRIUMPH');"}.get(kind)
   if kind=='judgment':body=select("FaBDTDRefs($player, 'Banish', '', true)",'Turn_banished_card_face_down')+"FaBDTDFaceDown($chosen);"
   if kind=='rebirth':body=select("FaBDTDRefs($player, 'Graveyard', 'yellowAction')",'Top_yellow_action')+"FaBDTDTopChoice($player, $chosen);"
   if kind=='ravages':body=UID+anydamage(1)

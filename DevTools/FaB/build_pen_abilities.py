@@ -173,7 +173,7 @@ for c in json.loads((HERE/'pen_catalog.json').read_text()):
         else:
             body+="if (FaBPENBond($uid, '"+element+"')) { "
             if b=='laden_with_frost':body+=choose('FaBPENTargets($player, true)','Create_Frostbite_under_hero',False)+"$victim = intval(FaBIdentityFromMZ($chosen)['player']); "+token('frostbite','$victim')
-            elif b=='frosthaven_sheath':body+="$victim = intval(FaBGetState()['attacker']); "+token('frostbite','$victim')
+            elif b=='frosthaven_sheath':body+="$victim = intval(FaBGetState()['attacker']); "+"FaBHVYToken($victim, 'frostbite', 1, $player, null, false, $player);"
             else:body+=token('embodiment_of_earth' if element=='Earth' else 'embodiment_of_lightning')
             body+=' }'
         add('ResolveCard',body)
@@ -311,7 +311,7 @@ for c in json.loads((HERE/'pen_catalog.json').read_text()):
         add('StartTurn',UID+many("implode('&', FaBMONArena($player, 'silver'))",2,tip='Destroy_two_Silver_to_return')+'FaBPENReturnGraven($player, $uid, $chosen);')
         if b=='seeker_kunai':add('ResolveAbility',choose("FaBDYNAttacks($player, 'ASSASSIN')",'Empower_Assassin_attack',False)+"FaBDYNTag($chosen, 'WTR_POWER:1');")
     if b == 'assembly_module':
-        add('ResolveAbility',choose("FaBStageSearch($player, ['base'=>'hyper_driver'])",'Find_Hyper_Driver',False)+"FaBMoveChoice($player, $chosen, 'Temp', 'Arena'); FaBFinishSearch($player);")
+        add('ResolveAbility',choose("FaBStageSearch($player, ['base'=>'hyper_driver'])",'Find_Hyper_Driver',False)+"$item = FaBMoveChoice($player, $chosen, 'Temp', 'Arena'); if ($item !== null) {  $entered = FaBFindUID(intval($item->UniqueID));  if ($entered !== null && $entered['zone'] === 'Arena' && $entered['player'] === $player      && FaBWTRBase($entered['object']->CardID) === 'hyper_driver'      && FaBHasType($entered['object'], 'Item') && !FaBHasType($entered['object'], 'Token')) {   FaBARCEnterItem($player, $entered['object']);  } } FaBFinishSearch($player);")
     if b in ['touch_of_reality','beckoning_haunt']:
         multiplier=2 if b=='beckoning_haunt' else 1
         add('PrepareCard',UID+f'$maximum = max(0, intdiv(FaBAvailablePitch($player) - {1 if multiplier==2 else 0}, {multiplier})); $amount = await $player.NumberChoose(0, $maximum, "Choose_X"); FaBPENSetX($uid, intval($amount) * {multiplier}); FaBARCSetCard($uid, "penChosenX", intval($amount)); FaBFinishPreparedCard($uid);')

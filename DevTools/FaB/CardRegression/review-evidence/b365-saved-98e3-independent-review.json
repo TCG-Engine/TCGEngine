@@ -1,0 +1,452 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B365_VOID_WRAITH_BANISH_PLAY_AND_CHIMERA_PHANTASM_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T19:43:10.851406+00:00",
+  "source_spec": "card-regression-batch365.json",
+  "input_sha256": "55a5f9f7b8183767d4eabe11bae44e276df1df0a3264b500956d8ddf74e2b0c0",
+  "manifest_sha256": "cf0f8cc0d14e0845341a2872f447fa7fad683822dde2d6c5b30463f0d7df2e2d",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "source_guards_verified": 18,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch365-independent-source-review.json",
+    "sha256": "957b7c93122effaf5ae51ad066cc82a9db75b70884ba0b16d731702f8bda833c",
+    "reviewer": "/root/nov2_sparse_author",
+    "reused_not_new_source_review": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch365-20261103T194029Z-6aea38adb6999.json",
+    "sha256": "c84675809ad7b6d8f440e894c4dc1a771b913d3d5f160ec4ac1622b09e1574ca"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch365-native-r1\\receipt.json",
+    "sha256": "157aec3ae47ef70aaa1cb87e942abd03d3443fe5ec008e04790de9cc5bb8f487"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch365_saved_readonly.py",
+    "sha256": "e68845f9f6705f3d979c8e9310c8c2ef17778349f17e6b177eb8c1ca54bdd71f"
+  },
+  "reviewer_independence": "Meta authored both scenarios; Sparse independently reviewed source; Next authored neither these scenarios nor implementation/native recordings.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "void_wraith_red",
+      "slug": "card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+      "source_spec": "card-regression-batch365.json",
+      "input_sha256": "55a5f9f7b8183767d4eabe11bae44e276df1df0a3264b500956d8ddf74e2b0c0",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+      "fixture_sha256": "5772edd87ed1adfdfbc0f8660f6e2c667960f1bfe88c0c7785916885cb4ce104",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "51d30992bed7813f1af2271023bc0c4e22d8e2aef870147d7918f7ccf2e6330a",
+        "actions.json": "5b27977a9953c33a22519a1262a66fecfddac175b0360ac3740bf8c94380c7ff",
+        "assertions.json": "1eb64be2a315adfb674129712fdb14fa8ca326e7f85dda13c55004f17486a9c0",
+        "expected_final_gamestate.txt": "8ad3cb0477e24b118472cefd45ed5c914cdf300fc1773719597bcf8c3c1db32d"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51d30992bed7813f1af2271023bc0c4e22d8e2aef870147d7918f7ccf2e6330a",
+        "actions.json": "5b27977a9953c33a22519a1262a66fecfddac175b0360ac3740bf8c94380c7ff",
+        "assertions.json": "1eb64be2a315adfb674129712fdb14fa8ca326e7f85dda13c55004f17486a9c0",
+        "expected_final_gamestate.txt": "8ad3cb0477e24b118472cefd45ed5c914cdf300fc1773719597bcf8c3c1db32d",
+        "meta.json": "45a9d32f9f1fa17b5877a33b522bf56850c80ecee8eb6810a3df9c7472e79f9c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "51d30992bed7813f1af2271023bc0c4e22d8e2aef870147d7918f7ccf2e6330a",
+        "actions.json": "5b27977a9953c33a22519a1262a66fecfddac175b0360ac3740bf8c94380c7ff",
+        "assertions.json": "1eb64be2a315adfb674129712fdb14fa8ca326e7f85dda13c55004f17486a9c0",
+        "expected_final_gamestate.txt": "8ad3cb0477e24b118472cefd45ed5c914cdf300fc1773719597bcf8c3c1db32d",
+        "meta.json": "45a9d32f9f1fa17b5877a33b522bf56850c80ecee8eb6810a3df9c7472e79f9c"
+      },
+      "actions": 28,
+      "native_assertions": 2200,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "void_wraith_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "void_wraith_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "f8660a038f1720f5a5e5badcf418b8d153db2ee7e600a6808992cc3fe9fd18ea",
+      "native_action_mapping_sha256": "d8f40e5361fb863989a89898d65ae74b8b8dce6263ce6bd867154904d9f75887",
+      "native_assertion_mapping_sha256": "8297b54e8e4c26b707e538473e33274394b3c8596ae1cd9564a09e62a587a7f5"
+    },
+    {
+      "index": 1,
+      "card_id": "enigma_chimera_red",
+      "slug": "card-enigma-chimera-red-four-live-sparse-real-six-power-blocker-phantasm-destroys-paid-eight-power-attack",
+      "source_spec": "card-regression-batch365.json",
+      "input_sha256": "55a5f9f7b8183767d4eabe11bae44e276df1df0a3264b500956d8ddf74e2b0c0",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "recorded_runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-enigma-chimera-red-four-live-sparse-real-six-power-blocker-phantasm-destroys-paid-eight-power-attack",
+      "fixture_sha256": "1a62ad68a112f9b88109e23710f5483269d4c0840710aefa3a3c839d9b3f4e70",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "36474f9a7cc94810a94b05bfa3b206030ff0a0da3366dd47eab2f46364076170",
+        "actions.json": "5060a4c0b3a416af84d65b8fe59e4822cc8f0e83f6236a67f113a7ae375b5192",
+        "assertions.json": "a65bb69f9b064492e9ff38e9e3e39e8badd1daa82d9cec9e11e3f664b6244114",
+        "expected_final_gamestate.txt": "782b1583e00807767638357299ccc7bcb8a2fe45cab6b5f63eb4d110af4d067f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "36474f9a7cc94810a94b05bfa3b206030ff0a0da3366dd47eab2f46364076170",
+        "actions.json": "5060a4c0b3a416af84d65b8fe59e4822cc8f0e83f6236a67f113a7ae375b5192",
+        "assertions.json": "a65bb69f9b064492e9ff38e9e3e39e8badd1daa82d9cec9e11e3f664b6244114",
+        "expected_final_gamestate.txt": "782b1583e00807767638357299ccc7bcb8a2fe45cab6b5f63eb4d110af4d067f",
+        "meta.json": "d7eb1d1ba0a180c2d87c06b82b8b7e9ba316e333f49830e9ce7b19c65f7723ed"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "36474f9a7cc94810a94b05bfa3b206030ff0a0da3366dd47eab2f46364076170",
+        "actions.json": "5060a4c0b3a416af84d65b8fe59e4822cc8f0e83f6236a67f113a7ae375b5192",
+        "assertions.json": "a65bb69f9b064492e9ff38e9e3e39e8badd1daa82d9cec9e11e3f664b6244114",
+        "expected_final_gamestate.txt": "782b1583e00807767638357299ccc7bcb8a2fe45cab6b5f63eb4d110af4d067f",
+        "meta.json": "d7eb1d1ba0a180c2d87c06b82b8b7e9ba316e333f49830e9ce7b19c65f7723ed"
+      },
+      "actions": 17,
+      "native_assertions": 1512,
+      "actual_manual_passes": 13,
+      "actual_priority_response_passes": 12,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 4
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "prism",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "enigma_chimera_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "prism",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "enigma_chimera_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "7ba3a82b5cef0daf44419df61857d966dc126495df2a30c34668e9524d136073",
+      "native_action_mapping_sha256": "ec7143e1fcc19ca1e98ffc3c83b687751cf8a8a56b287bd1ff13d2fd816ca484",
+      "native_assertion_mapping_sha256": "1efbe8c96028b6d264ad852316cb7986d37aae0c0944831fbd8cf5e62d8fb3fe"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 45,
+  "total_native_assertions": 3712,
+  "total_manual_passes": 38,
+  "total_priority_response_passes": 36,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "VoidWraith: actual prior publicownedBanish5flag0 retained during freshP4targetdeclaration; same5StackSourceBanish and realBlue6pays2/AP1\u00e2\u2020\u2019R1AP0 beforefour. Actual5ChainFromBanish/base5/noGA, fullfourlivecombat causes5damage/HP15; same5ownGY/Pitch6/alloriginal1..6/R1AP0/noqueue. BloodDebtendphase/Leviaprotection unused, no seededpermission or alternateorigin credit.",
+    "Chimera: actualBlue6pays2/AP1\u00e2\u2020\u2019R1AP0, same5Chainprinted8/noGA. ActualP4HandRagingYellow7POWER6/nonIllusionist (printedDEF3) triggersPhantasmon completeddeclaration. CapturedABIcontroller1/SourceCombatChain5 plus bothphysicalcards remainthroughfresh1/2/3; fourth4destroys5/clears7/ceasesvirtual/fullclosesbeforeDamage. AllHP20/Soul0, finalGY1{5}/GY4{7}/Pitch6/original1..7/Counter8/nohitdamagehistory. No inventedper-inputABIUIDassertion; source/Controller andphysicaltiming areactualnativechecks.",
+    "Bothrawfive/all45actualinputs/all3712orderedassertions and38manualactors (36priority+2declarationfinish), strict fullschema initial/final endpoints/owners/48manualpreferencevaluesperendpoint/initial+finalasserts/meta verified. Current98e3/all18sourceguards stable; exact savedproof does not claim reviewer games/replays."
+  ],
+  "limits": [
+    "OneRedrepresentativepernewcycle only. No sibling/falsecondition/Hand-origin/debtEndPhase/hero/normaldamage-throughPhantasm/suppression/extraattack/supportprimary/fullcard/control credit.",
+    "Native completedledgers andtwoendpoints only; no synthetic per-inputsnapshots or reviewer native/PHP/replay. Roottwofocusednew-onlyreplays/registration separate.",
+    "No R/source/PHP/native/generator/service/fullsuite/legacyre-review; tenoldholds/SmashingItem untouched."
+  ]
+}

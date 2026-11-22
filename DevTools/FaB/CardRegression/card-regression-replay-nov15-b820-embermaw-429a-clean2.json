@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch820-embermaw-full-positive-429a.json",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T17:14:47.801911+00:00",
+  "fixtures": [
+    {
+      "slug": "card-embermaw-cenipai-blue-real-phantasm-destruction-automatic-close-ash",
+      "fixture_sha256": "bdf436a38aadb96ba96bf4dc91381623c276bfae3a7f36f1f78286320594d9d7",
+      "passed": true,
+      "result": "[PASS] Embermaw Cenipai Blue / real Phantasm destruction and automatic Close Ash"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-embermaw-cenipai-blue-real-phantasm-destruction-automatic-close-ash",
+      "returncode": 0,
+      "stdout": "[PASS] Embermaw Cenipai Blue / real Phantasm destruction and automatic Close Ash\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

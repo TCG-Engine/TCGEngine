@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch715-quicksilver-r2.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T16:24:33.244995+00:00",
+  "fixtures": [
+    {
+      "slug": "card-quicksilver-dagger-four-live-real-other-weapon-go-again-and-item-consumer",
+      "fixture_sha256": "aa25ee4afe091d40a5d4c960014a47c18f88ff92b6baeac66d24452630848a05",
+      "passed": true,
+      "result": "[PASS] quicksilver_dagger / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-quicksilver-dagger-four-live-real-other-weapon-go-again-and-item-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] quicksilver_dagger / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

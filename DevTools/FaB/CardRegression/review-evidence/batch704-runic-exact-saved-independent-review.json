@@ -1,0 +1,231 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B704_RUNIC",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T05:06:53.859693+00:00",
+  "source_spec": "card-regression-batch704-runic.json",
+  "input_sha256": "d09903a20c52958aebe74460d6186595ebe96a62e176f1ce6d6c656fba38c4ec",
+  "manifest_sha256": "2d6fa2fa43ddce8d12e4fb8aab963b45b079ac1566c68a5337ced76c348e3f4d",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch704-runic-independent-source-review.json",
+    "sha256": "c97cd8ec0aa129a1f94a77f051198eb9063b825bbd199ad5e115188e70c4d206",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch704-runic-20261107T050326Z-6aeeb11e7c602.json",
+    "sha256": "5d151744cbc07fb8f70eb7b1e4241b179c34b9b8585f3c1b57c79f79f7c12317"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch704-runic.recording-results.json",
+    "sha256": "d775fd14746ff299882a40046afc24def4276f825abc63935d4f4e44dd95e07d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b704-runic-native-recording\\receipt.json",
+    "sha256": "03921ae87266f83234fac164ee59bccda6011c101c8bfe2465c9108398940f95"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "runic_reaving_blue",
+      "group_id": "pitch-cycle:runic_reaving",
+      "slug": "card-runic-reaving-blue-four-live-real-hand-instant-discard-and-one-runechant",
+      "source_spec": "card-regression-batch704-runic.json",
+      "input_sha256": "d09903a20c52958aebe74460d6186595ebe96a62e176f1ce6d6c656fba38c4ec",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_HAND_INSTANT_DISCARD_AND_ONE_OWNED_RUNECHANT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-runic-reaving-blue-four-live-real-hand-instant-discard-and-one-runechant",
+      "fixture_sha256": "7a7b39bf585136656bfc4c21854a74a334c4cfa5474180a00bd37eafaa768219",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "55bf4bffb50bfee3e8ab9e8c8cff215f00919270053451a9ea15fa9294acdedf",
+        "actions.json": "fd15da497b29b8a7e94f8eeb5055c47b72e20ffeda1a6b71472f18de8df9f225",
+        "assertions.json": "9eec217818066c1148733964d3d6357281f810161b8223e834d296d2ad9a3677",
+        "expected_final_gamestate.txt": "d7489803988280237021b74ea2eea04d04c10c6b8e687a40a5632fd61feac97f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "55bf4bffb50bfee3e8ab9e8c8cff215f00919270053451a9ea15fa9294acdedf",
+        "actions.json": "fd15da497b29b8a7e94f8eeb5055c47b72e20ffeda1a6b71472f18de8df9f225",
+        "assertions.json": "9eec217818066c1148733964d3d6357281f810161b8223e834d296d2ad9a3677",
+        "expected_final_gamestate.txt": "d7489803988280237021b74ea2eea04d04c10c6b8e687a40a5632fd61feac97f",
+        "meta.json": "5f952fd62f434f144f57ed4dd7ebc3c622a3b8d2263639f41625cdc679c46ace"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "55bf4bffb50bfee3e8ab9e8c8cff215f00919270053451a9ea15fa9294acdedf",
+        "actions.json": "fd15da497b29b8a7e94f8eeb5055c47b72e20ffeda1a6b71472f18de8df9f225",
+        "assertions.json": "9eec217818066c1148733964d3d6357281f810161b8223e834d296d2ad9a3677",
+        "expected_final_gamestate.txt": "d7489803988280237021b74ea2eea04d04c10c6b8e687a40a5632fd61feac97f",
+        "meta.json": "5f952fd62f434f144f57ed4dd7ebc3c622a3b8d2263639f41625cdc679c46ace"
+      },
+      "actions": 6,
+      "native_assertions": 586,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 136,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "viserai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "runic_reaving_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "viserai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "runic_reaving_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "virtual_ability_uid_ceased": 6,
+      "created_token_uids": [
+        7
+      ],
+      "created_token_owner_controller": 1,
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "4d861ae321164fc3973c16047178c0b66b81f141c7c8d59af67e508b3865d18e",
+      "native_assertion_mapping_sha256": "ce26226f70652f1a90ada50a9423fb07c5dec171a173689e362a3331e64c9c57"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 6,
+  "total_native_assertions": 586,
+  "total_manual_passes": 4,
+  "total_schema_property_assertions": 136,
+  "material_findings": [
+    "Rawfive/behavior/exact6 native controls586 ordered queries4manual1each/48 preferences at both endpoints/current70c53ab33 match approved Source. Full physical initial/final UID/card/ownership and terminal checks independently parsed.",
+    "Actual ownMain legalPLAY/ARC_0 context followed by answer1 activates the ownHandInstant. Physical5 actually discarded toGY1; capturedABI6/Controller1/SourceHandUID5 remains through firstthree responses. Fourth creates exactlyRunechant7 ownedcontrolled1 readyArena, clearsABI6 and returnsACTION1/AP1/R0 with allHP20/fullquiet.",
+    "No AAplay/Usurp/current cardplay or HeroWHEN event occurred; printed token creation is the complete positive effect. InitialphysicalUID1..5 conserved plusrealRune7/counter7/noRNG/no virtual6. No extra consumer or Runechant future-function credit is claimed."
+  ],
+  "limits": [
+    "One Blue representative ownHandInstant discard/oneRunechant creation. No AA play/stats/Usurp/target/effect branch, other pitch execution, futureRunechant attack/play trigger/damage/expiry or fullcard/Hero coverage.",
+    "Actual physical token plus payment/discard/captured-lifetime/four-seat resolution/fullquiet is sufficient for this selected printed creation ability. Root explicitly permits no extra consumer; no token future-function credit.",
+    "Gleam and Shimmer remain separate unattempted planning observations, not approved by this healthy input. Source approval grants no fixture/coverage; Root native/exactSaved/twofocusedreplays/registration separate. No reviewer PHP/native/replay/R/source/fullsuite/Git/remote/denied retry.",
+    "Only Blue representative executed; other pitch bodies/stat/Usurp branches remain unexecuted despite pitch-cycle grouping. Gleam/Shimmer source-only admissions stay separate.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/Git/remote or denied retry. Root focused replays/registration/promotion remain separate; rawVersions hash-bound/excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch704_runic_saved_readonly.py",
+    "sha256": "e267245f7446519a503e6e28da26b87d39395b05fff63d9a32db702b48f2c681"
+  }
+}

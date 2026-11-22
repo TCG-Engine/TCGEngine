@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T07:40:26.347327+00:00",
+  "runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+  "source_spec": "card-regression-repair-scale181-earned-hit-equipment-effect.json",
+  "source_spec_sha256": "de19601b2c5ae141b7b1ab62398621e619b6576ff8e1302ed1d9293aba9a3104",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 1662,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4170,
+    "duels": 3074,
+    "four_live": 1096,
+    "recorded_primary_ids": 1323,
+    "identity_denominator": 5196,
+    "recorded_groups": 1197,
+    "group_denominator": 3324,
+    "four_live_groups": 1089,
+    "phase_qualified_scenarios_at_actual_contexts": 807,
+    "phase_qualified_unique_groups": 802,
+    "creation_replay_passes": 1548,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "scale_peeler",
+      "group_id": "identity:scale_peeler",
+      "scenario_id": "card-scale-peeler-four-live-earned-equipment-debuff-piercing-close-repair",
+      "effect_branches": [
+        "existing181-original-prefix-earned-hit-resolution-close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-scale-peeler-four-live-earned-equipment-debuff-piercing-close-repair",
+      "source_spec": "card-regression-repair-scale181-earned-hit-equipment-effect.json",
+      "source_spec_sha256": "de19601b2c5ae141b7b1ab62398621e619b6576ff8e1302ed1d9293aba9a3104",
+      "review_evidence": "review-evidence/scale181-933d-qualified-saved.json",
+      "review_evidence_sha256": "be4245603241a9fad50bfa514236e91a53db9b08e7935c372619cfdf74f3d5fd",
+      "recorded_runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+      "qualification_runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-scale181-replay.json",
+          "sha256": "e96c1f72af0fca9d0fb368678218c6556bd0ac01d8c14e48136ec146055b2372",
+          "runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

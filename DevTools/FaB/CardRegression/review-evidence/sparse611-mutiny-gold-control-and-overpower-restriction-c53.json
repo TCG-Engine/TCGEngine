@@ -1,0 +1,361 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_MUTINY_GOLD_CONTROL_AND_OVERPOWER_CONSUMER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T13:53:08.295607+00:00",
+  "source_spec": "card-regression-batch611-mutiny.json",
+  "input_sha256": "529c7872078f82f8e1645727e6f70c0daf22ef098c36765707a73346f90f07c4",
+  "manifest_sha256": "1b32eea0a8b68cb67412876e59a5b9ffca4784e6ae64eeda03f4ce6aa605bd40",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch611-independent-source-review.json",
+    "sha256": "e835afe18743cd07048e6df2bb03c0267834963148fce793298b730dab2c347e",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch611-mutiny-20261106T134907Z-6aeddad379a6f.json",
+    "sha256": "1d46835fb893e30a52aa871242711ea90fcb9b4f77a4208061d44929756f3f74"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch611-mutiny.recording-results.json",
+    "sha256": "b8edde8a2d01235c20aa3cd59f22cb7bbc7e3e5e7005c3baf18b0c1653c38cfc"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch611-mutiny-native-c53\\receipt.json",
+    "sha256": "778ec212c4d5351fbbb85ee87e00e0f9c0ea033d51b65e241f37d97e0df5938a"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "mutiny_on_the_nimbus_sovereign_blue",
+      "group_id": "identity:mutiny_on_the_nimbus_sovereign_blue",
+      "slug": "card-mutiny-on-the-nimbus-sovereign-blue-four-live-real-gold-theft-earns-overpower-and-one-damage",
+      "source_spec": "card-regression-batch611-mutiny.json",
+      "input_sha256": "529c7872078f82f8e1645727e6f70c0daf22ef098c36765707a73346f90f07c4",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_GOLD_THEFT_AND_OVERPOWER_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mutiny-on-the-nimbus-sovereign-blue-four-live-real-gold-theft-earns-overpower-and-one-damage",
+      "fixture_sha256": "584c1237666eae6a26fcb2ee2d57bf9a512f4e2d063ab8b9caf8f276cb053dd7",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ae923278aedfd03092303790c7471ec9056786b24ebaf5d359dc9095d2317195",
+        "actions.json": "d2cf1fb931cfbe389111f41cb04148ab456ccf0d99087852e7bd4004c5458d38",
+        "assertions.json": "07f65000c8bb91399f0635abf9e697eb6e14b8da2e16ed851643668021c6c7aa",
+        "expected_final_gamestate.txt": "92cd595bbfa660f1cb945dee3ce2472cd855366972100f8b3abaa39cf65773f0"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae923278aedfd03092303790c7471ec9056786b24ebaf5d359dc9095d2317195",
+        "actions.json": "d2cf1fb931cfbe389111f41cb04148ab456ccf0d99087852e7bd4004c5458d38",
+        "assertions.json": "07f65000c8bb91399f0635abf9e697eb6e14b8da2e16ed851643668021c6c7aa",
+        "expected_final_gamestate.txt": "92cd595bbfa660f1cb945dee3ce2472cd855366972100f8b3abaa39cf65773f0",
+        "meta.json": "47cc0dcfc2015531fd17489db836c4bfd3f1a59057063c7a308fa804067560e2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ae923278aedfd03092303790c7471ec9056786b24ebaf5d359dc9095d2317195",
+        "actions.json": "d2cf1fb931cfbe389111f41cb04148ab456ccf0d99087852e7bd4004c5458d38",
+        "assertions.json": "07f65000c8bb91399f0635abf9e697eb6e14b8da2e16ed851643668021c6c7aa",
+        "expected_final_gamestate.txt": "92cd595bbfa660f1cb945dee3ce2472cd855366972100f8b3abaa39cf65773f0",
+        "meta.json": "47cc0dcfc2015531fd17489db836c4bfd3f1a59057063c7a308fa804067560e2"
+      },
+      "actions": 34,
+      "native_assertions": 3234,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1188,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mutiny_on_the_nimbus_sovereign_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "7": {
+          "card_id": "gold",
+          "zone": "p2Arena",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 2,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "mutiny_on_the_nimbus_sovereign_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "Gold_UID": 7,
+      "Gold_unchanged_owner": 2,
+      "Gold_final_controller": 1,
+      "Gold_control_persists_fullClose": true,
+      "primary_GA_refund_consumed_by_real_AA": true,
+      "first_Action_block_accepted_UID": 8,
+      "second_otherwise_legal_Action_block_rejected_UID": 9,
+      "rejection_pre_post_material_assertions": 90,
+      "actual_attack_power": 4,
+      "actual_defense": 3,
+      "actual_damage": 1,
+      "actual_AA_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        5,
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        8
+      ],
+      "final_Hand4_exact_UIDs": [
+        9
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "4d64d7a82df89e20152c12ba308d247a991b1b80d6873f4c6240504984ea6221",
+      "native_assertion_mapping_sha256": "75a9e91a357607b4704058e764d7aaa2327a4329690d44ae5942d47e8cae47ae"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 3234,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 1188,
+  "material_findings": [
+    "ActualcompletePASS/stderr0/new1/currentc53. Exactraw5/all34recordednativeenvelopes3234orderedchecks/29manual7,7,7,8/raw48preferences perendpoint/70guards/immutablearchive verifiedagainstcompleteapprovedindependentledger.",
+    "ActualMutiny0spendsAP1beforefreshfour; onlyfourthstealsoriginalGold7fromP2Arena toP1Arena whileOwner2unchanged/Controller1/UID7andpropertiespreserved. OwnGAAP1fundsrealzeroAA6afterformaldifferentHero4target. NoMutinyformaltargetorchoiceinvented.",
+    "RealAA4/noGA/earnedOverpower: firstGenericAction8DEF3accepted; secondotherwiselegalGenericAction9attemptatSAMEP4priority/declaredwindow leavesall90orderedmaterialchecksidentical. Real4minus3=1physical/P4HP19, noAA-GArefund.",
+    "FullClose originalUID1..9conserved, exactGY1{5,6}/GY4{8}/Hand4{9}/Gold7Owner2Ctl1persists, RAPChi0/counter9/RNG0/allphysicalemptyzones/payment/Stack/chains/DQ/awaitquiet. NextSEA_NEXTgrantconsumedbyrealattack, actualGoldgain/BlueGYhistoryretained.",
+    "Chivalryisnotinthisinput/fixtureandhaszeroexecutionorcoverage. Rootreplaypairseparate; reviewerperformednoPHP/native/replay/R/sourcewrites."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3911/",
+      "actually_retrieved": true,
+      "finding": "CurrentBluePirateAction0, nontargetforeachcontrolsteal, conditionalnextattackOverpower/ownGA."
+    },
+    {
+      "kind": "viewed_local_issuer_faces",
+      "faces": {
+        "mutiny_on_the_nimbus_sovereign_blue": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\mutiny_on_the_nimbus_sovereign_blue.webp",
+          "sha256": "68f9a7def31ac98e3146df24c3c3eb9d476e7511761ce7e918a01a22fcc9ffb0",
+          "independently_viewed": true
+        },
+        "gravy_bones": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\gravy_bones.webp",
+          "sha256": "2464cc84afc5456d13d6d8a3499851265ffc9b9218973727ca8c37cca0ceef3d",
+          "independently_viewed": true
+        }
+      }
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "actually_retrieved": true,
+      "rules": [
+        "8.3.22",
+        "8.3.22a"
+      ],
+      "finding": "OverpowerprohibitsaddingasecondActiondefender; doesnotretroactivelyremovecards."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Cost/APbeforepriority; resolvingnontargeteffect/ownGAthenactualrefundconsumer."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/glossary/",
+      "actually_retrieved": true,
+      "finding": "Stealchangescontrol; ownershiprelationshipremainscreator."
+    }
+  ],
+  "limits": [
+    "OnlyoneeligibleHero/soleGoldpositivebranch/nextattackOverpowerfirstActiondefenderlimit andfirst1damage/controlafterClose. Noothercounts/victimsets/globalranges/multipleGoldchoice/negativecondition/secondgrant/End/temporarycontrolreturn/fullkeywordmatrix certification.",
+    "No priorGoldproducer/wager/game reconstruction/Goldactivation/GravyInstant/Wateryplay/support/sibling/fullcardcredit. Internal synchronoussourceclearorderingnotcertified.",
+    "Persistedorderedchecks plusactualinitial/finalsnapshots; no inventedper-inputsnapshots. Opaqueundodatahash-bound/excludedfromcurrentphysicalinventory.",
+    "No Chivalryrunnable/nativebug/coverageapproval, fullsuite, sourcechange/deniedretry/other-runtime retagging ornewCore/globalrootallocation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch611_mutiny_saved_readonly.py",
+    "sha256": "c773604e7b1c7c5338b35f79b1cce0e9859bca94b6119d7a829c44f6f820e2ec"
+  }
+}

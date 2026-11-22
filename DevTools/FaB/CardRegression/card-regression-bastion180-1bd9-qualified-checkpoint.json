@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T07:25:57.288283+00:00",
+  "runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+  "source_spec": "card-regression-repair-bastion180-earned-prevention.json",
+  "source_spec_sha256": "034275bead0f0973e8d028bfbb0a8d4a0e9e39000d7ea09cc4ca50f1cb7d9eb1",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 907,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4169,
+    "duels": 3074,
+    "four_live": 1095,
+    "recorded_primary_ids": 1322,
+    "identity_denominator": 5196,
+    "recorded_groups": 1196,
+    "group_denominator": 3324,
+    "four_live_groups": 1088,
+    "phase_qualified_scenarios_at_actual_contexts": 806,
+    "phase_qualified_unique_groups": 801,
+    "creation_replay_passes": 1547,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "battlefront_bastion_blue",
+      "group_id": "pitch-cycle:battlefront_bastion",
+      "scenario_id": "fab-reg-180-battlefront-bastion-blue-four-live-earned-sole-defend-prevention-real-damage",
+      "effect_branches": [
+        "native-sole-block-formal-finish-before-responseable-prevention-trigger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/fab-reg-180-battlefront-bastion-blue-four-live-earned-sole-defend-prevention-real-damage",
+      "source_spec": "card-regression-repair-bastion180-earned-prevention.json",
+      "source_spec_sha256": "034275bead0f0973e8d028bfbb0a8d4a0e9e39000d7ea09cc4ca50f1cb7d9eb1",
+      "review_evidence": "review-evidence/bastion180-1bd9-qualified-saved.json",
+      "review_evidence_sha256": "22af9018b2ad3e039dd55042b2393b75fdaac80d50d99795149064823cbebb25",
+      "recorded_runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+      "qualification_runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-bastion180-replay.json",
+          "sha256": "190a4792409712c073fb66680407b0dd5e6b5117b6cf766c5a2e44447c2db384",
+          "runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

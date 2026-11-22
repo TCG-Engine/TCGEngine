@@ -1,0 +1,7 @@
+{
+    "name": "Single Minded Determination Blue / earned entry exactly one power counter",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T18:58:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "STRICToriginalcorrectnoSaveevenPASS. FouractualmanualYoungPrism1/Betsy2and3and4/all20/noHeroability. RealSingleBlue5Actionprinted2 usingactualBlue6pitch3/R1/AP1to0. FourSource responses putownedphysical5Arena withFAB_PLAY_ORDER1wire/NOPOWER andearnedABILITYcontroller1Source5 (noevent/virtualUIDguess). NootherIllusionistAura exists, primarydoesnotcountasother; conditiontrueacrossroute. FreshfourlegalActionresponses THENexactprintedBluePOWER1counteronSAMEphysical5; persistsstableACTION/Stackqueuesclear/Blue6Pitch1/R1/AP0/HPall20. CurrentnativeMST3constant is NOToracle; timing/quantityfreshSourceconcerns unconfirmeduntilNative. No seededcounter/AP/AuraWeapon/permission/helpers/cacheddamage. Ward2/damage/negativeotherAura/pitchsiblings/Auraweapon/priorplay/Hero/support/fullcarduncredited. Operational repair successor only: same correct gameplay setup/actions/queries/order; save only after all original correct assertions pass. Sources: https://rules.fabtcg.com/en/cr/06-effects/"
+}

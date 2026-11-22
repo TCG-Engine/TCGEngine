@@ -1,0 +1,167 @@
+{
+  "status": "NATIVE_CONFIRMED_HIGH_ROLLER_MISSING_ANNOUNCEMENT_TARGET_BEFORE_AP_PAYMENT_UNSAVED",
+  "reviewer": "/root/b106_semantic_review",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "card_id": "high_roller_red",
+  "slug": "card-high-roller-red-four-live-correct-probe-intimidate-target-declared-before-payment-and-real-sole-hand-banish",
+  "source_spec": "card-regression-batch403.json",
+  "input_sha256": "54a0dd4bebbf39ad170233ce17262008312bae68859c956cfb103cec5e296b2f",
+  "gameplay_discrepancy_confirmed": true,
+  "correct_expectation": true,
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "accepted_native_inputs": 1,
+  "actual_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failed_source_step": 2,
+  "first_failed_check_index_zero_based": 3,
+  "prior_sequential_native_checks_passed": 126,
+  "first_failed_check": {
+    "type": "scalar_zone_equals",
+    "zone": "p1ActionPoints",
+    "value": 1
+  },
+  "actual_failed_value": 0,
+  "observed_state": {
+    "window": "PRIORITY",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "high_roller_red"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "rosLastLightning": false
+      }
+    },
+    "arcActions": {
+      "1": 1
+    }
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "native_conclusion": "Normal first owned Hand play advanced past AP payment and play bookkeeping into PRIORITY without any announcement target chooser/answer. Required Intimidate target declaration was omitted before cost payment.",
+  "source_derived_cause": {
+    "PrepareCard_dispatch": {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "line": 990
+    },
+    "missing_PrepareCard_in_canonical_and_compiled": true,
+    "ResolveCard": {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "line": 3491,
+      "slice_sha256": "307f003c71314f3f8ef0175637585f21e3f77ef926f32269bd83618a11ffcfdd",
+      "body": "$resolveCardAbilities[\"high_roller_red:0\"] = function($player) { //high_roller_red\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  FaBRequestIntimidate($player);\n   if (FaBEVRCount($player, 'HIGH_ROLL')) {\n   FaBRequestIntimidate($player);\n   \n  }\n};"
+    },
+    "late_target_helper": {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "line": 190
+    },
+    "explanation": "No HighRoller PrepareCard declaration runs. Zero-resource Action falls through shared FaBTryCompletePayment, spending AP and publishing played history. Its existing ResolveCard body requests an Intimidate chooser only after responses/resolution; that later path was not executed in this run."
+  },
+  "rule_basis": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1281/",
+      "finding": "Current High Roller is a cost-zero Brute Action with unspecified-player Intimidate, a conditional extra Intimidate and own go again; selected no-roll baseline keeps only its ordinary first Intimidate."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.10b"
+      ],
+      "finding": "When no player is specified, Intimidate is targeted."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "rules": [
+        "1.8.5"
+      ],
+      "finding": "Target parameters belong to announcement of the layer rather than choice on later effect generation."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.4",
+        "5.1.4a",
+        "5.1.6b",
+        "5.1.7"
+      ],
+      "finding": "Declare legal targets before calculating/paying asset costs; Action AP is one of those assets. The original pending-target AP1 check is correct."
+    }
+  ],
+  "unexecuted_or_not_captured": [
+    "No target answer, source priority response, ResolveCard effect/late Intimidate chooser, random banish, delayed-return marker or final damage/cleanup suffix ran.",
+    "Postfailure physical Stack/GY/Arena/Banish card objects/owners/UIDs were not captured; later source lifetime defects are source-only hypotheses and are not a second native-confirmed bug.",
+    "After failed AP check, the later expected Stack/card/Hand object, p4 health/resource/AP, chooser Param p2Hero-0&p4Hero-0 and all remaining assertions did not run.",
+    "Only combatOpenfalse/P1HP20/P1R0 passed immediately before native AP0 failure. Broader observed state comes from the archived state object; observed hand refs have no captured card objects."
+  ],
+  "assertions_weakened": false,
+  "repair_applied": false,
+  "kind": "COMPACT_REPOSITORY_PROJECTION_OF_EXTERNAL_INDEPENDENT_NATIVE_CLASSIFICATION",
+  "projected_by": "/root",
+  "full_independent_proof": {
+    "external_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-high-roller403-independent-native-before-classification.json",
+    "sha256": "f1522fa3ba33a3b095983d7cbf15fc1cbcc187e79a038ed9fe2d81dc8d9f6dfd"
+  },
+  "initial_state_sha256": "fa6a97e85dbd4f1f82387ee5509ab35599ad714700eaec964f587c5dc1b50025",
+  "initial_checks_verified": 123,
+  "manual_preferences_verified": 48,
+  "original_recording_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch403-20261105T004507Z-6aebd1939d10c.json",
+    "sha256": "7b578ad24686b6af2af8c255144e0a1c1a5d3479adec1cfff16d60ed11c111a8"
+  },
+  "full_external_preserved_failure_folder": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-high-roller403-native-before-independent-preserved",
+  "scope_note": "Source guards, raw initial and full original provenance retained externally; this compact projection is not runnable input or a new independent approval."
+}

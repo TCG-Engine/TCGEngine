@@ -1,0 +1,47 @@
+{
+  "status": "BEATCHEST077_ORIGINAL_33_2618_NATIVE_SAVED_ONE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 source/checker author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "eea92fedc8d04dc4f5d3a20da77969084e2bcfe2aae64b2c85e5b5c0ed61423f",
+  "input_sha256": "10642948c39a3b223d525c4289090eff39f40b98d5e6fd68cd85037e550bf75b",
+  "source_spec": "card-regression-repair-beatchest077-declared-discard-earned-agility.json",
+  "fixtures": [
+    {
+      "slug": "card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger-probe",
+      "card_id": "assault_and_battery_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d5327fcbd9d1a889b5cc3360f9844c839f2068c1a47a2ebc6989bbc6cf2657f",
+        "actions.json": "5bc37d48af06fc58fa310205d29290ddc055ec4fd6bf9915467e7db3e971d7fc",
+        "assertions.json": "41d13030616b9732fc20aa0d16f7ee558c20f5b89ce11f457d54f05072137c58",
+        "expected_final_gamestate.txt": "5bda82c3e2ee61597b2c4e87285b3a46f8ed9d83c12c8d61db196f4404bdcc1b",
+        "meta.json": "17c1dd24ce2a7e0e38f4b471f6496e728e7fac7112d5e6a13869d31ba9621307"
+      },
+      "fixture_sha256": "f83b747a469fdba31df3d07af3a016b9739fc10b45cb7f707949570c6e7ec7d9",
+      "actions": 33,
+      "native_assertions": 2618,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "eea92fedc8d04dc4f5d3a20da77969084e2bcfe2aae64b2c85e5b5c0ed61423f",
+      "runtime_sha256": "eea92fedc8d04dc4f5d3a20da77969084e2bcfe2aae64b2c85e5b5c0ed61423f",
+      "source_spec": "card-regression-repair-beatchest077-declared-discard-earned-agility.json",
+      "input_sha256": "10642948c39a3b223d525c4289090eff39f40b98d5e6fd68cd85037e550bf75b"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-beatchest077-replay.json",
+    "sha256": "fed08e2c2705cd81e5813219346988f1cdf9263d180725eef01325d3644799e8",
+    "passed": true
+  },
+  "source_review_sha256": "d4c604b799a139143977f788572395f485d90afe42ffa018db8699a993099f6d",
+  "components": 42,
+  "component_receipt_sha256": "112e7c01c90ea381c6b646e63d920da816a1ab716dbe8c8ed44554ff53bf4776",
+  "basis": "Original33 controls/2618queries and setup exactly unchanged. Real compacted Hand7 is offered. Its answer declares/reserves without discard or BEAT; actual Blue6 pitch pays printed3/AP1 first, then actual7discard earnsBEAT. Assault attack5 earns separate ABI8; real four-seat responses precede ownedAgility9. Actual7damage leavesHero4HP13 withR0/AP0 and fullclose5+7GY/6Pitch. All initial/manualseat/ownership/finalStack/queues/await/paymentcleanup reviewed. No effect/asset/quantity expectations weakened. Native-before proved stale reference only; asset-order and inline trigger defects were source-confirmed downstream, not fabricated separate Native-before results.",
+  "limits": [
+    "Only original Redpositive path qualified, not all12helper callers/pitchsiblings or declined/invalid/funding/reentry alternatives.42 actual-function controls isolate those branches and older cost types.",
+    "No generic094, canonical/generated/Core/service changes. Earlier155 six-line caller cleanup preserved by exact mechanical rebase.",
+    "No full-suite or historical-corpus run. Direct legacy additional-cost compatibility is recorded separately at its exact runtime; unrelated component scopes not implied."
+  ]
+}

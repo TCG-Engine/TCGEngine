@@ -1,0 +1,97 @@
+{
+  "status": "APPLICATION_DENIED_BEFORE_CREATEPROCESS_NOT_EXECUTED",
+  "issue": "FAB-REG-144",
+  "issue_state": "NATIVE_CONFIRMED_UNFIXED",
+  "retained_by": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-06T13:22:46.512517+00:00",
+  "reported_denial": {
+    "source": "Parent /root NEW_TASK direct report; no platform rejection payload file supplied to this worker",
+    "action": "Root exec_command launch of the independently reviewed four-source Quantum144 local repair and official macro-only generation",
+    "target_application": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\apply_nov6_quantum144_guarded_ARMED.py",
+      "sha256": "836690941384286dc4ada984d5f213e4c0ca824a4e5873d1fe5284b9492f885a"
+    },
+    "outcome": "REJECTED before process creation",
+    "reason_as_reported": "Auto-review considered the user authorization limited to recording/documenting and required specific approval for a local repair mutating shared gameplay sources/generated outputs."
+  },
+  "approved_preparation_preserved": {
+    "source_proposal": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-explicit-class-contract-proposed-v2\\manifest.json",
+      "sha256": "7dc3e1b0028f73157b1fcea681c0b479f441b368dbc2d702202764295ec96232"
+    },
+    "source_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-v2-independent-source-review.json",
+      "sha256": "76de438eadc2668e6537e80be8ff1ad68ff3a4049b58f640bc61f83653265183"
+    },
+    "armed_preparation": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-armed-operation-preparation\\manifest.json",
+      "sha256": "fa355662c3283737d389155fb5a7ea8a69e05bb98507821df6a631232dac9bef"
+    },
+    "armed_operational_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-independent-armed-operational-review.json",
+      "sha256": "2b080a338226c5007f0e78f50127fd9a5203be036e2a98ebea6bb8c28b51b340"
+    },
+    "actual_prior_controls": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-root-actual-controls\\receipt.json",
+      "sha256": "4705d4fc884e2ad140f12001febb84c2fef77c1a3be6fcbbe63b21e7be3cfa91"
+    },
+    "prior_read_only_remote_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-root-read-preflight\\receipt.json",
+      "sha256": "37d09cbbc66f429941264a0a66b6b861cc3acf08967aae1ac2d1a77230708998"
+    },
+    "Root_idle_context_now_historical": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-root-operation-context.json",
+      "sha256": "9aa182bda4b9f3ec919d745d1dcda5db740a6fef4af7218f054a7d2a3537af8d"
+    }
+  },
+  "fresh_read_only_verification": {
+    "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+    "six_preimages": [
+      {
+        "path": "FaBSim/Custom/EVOCards.php",
+        "actual_sha256": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+        "equals_unmodified_before": true
+      },
+      {
+        "path": "DevTools/FaB/build_evo_abilities.py",
+        "actual_sha256": "b21c7468bc443f5ebc552e057085b4f652fefe5db19a73bbbff543124f24b534",
+        "equals_unmodified_before": true
+      },
+      {
+        "path": "DevTools/FaB/evo_abilities.json",
+        "actual_sha256": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+        "equals_unmodified_before": true
+      },
+      {
+        "path": "FaBSim/Custom/CodeGeneration.php",
+        "actual_sha256": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+        "equals_unmodified_before": true
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "actual_sha256": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+        "equals_unmodified_before": true
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+        "actual_sha256": "f1db3603aa11cba94afc1fec49609f217a1fcea27e57c66b010a54fd58fb0d4f",
+        "equals_unmodified_before": true
+      }
+    ],
+    "application_output_directory": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-quantum144-source-application-generation",
+    "application_output_directory_exists": false
+  },
+  "blocked_operation_process_created": false,
+  "blocked_operation_script_executed": false,
+  "emitter_executed": false,
+  "source_or_generated_writes": false,
+  "after_binding_created": false,
+  "native_after_executed": false,
+  "fixture_saved": false,
+  "fix_qualified": false,
+  "coverage_credit": false,
+  "retry_performed": false,
+  "workaround_performed": false,
+  "remaining_gate": "STOP. No retry, source application, generator, fixed clone or after-runtime binding absent materially new specific user authorization for this local repair. Any later authorized operation requires a fresh actual idle/source context and applicable review; historical approvals are preparation, not override of the denial.",
+  "limits": "W-only retention. Existing native-before issue evidence and all frozen proposed/reviewed artifacts remain unchanged; earlier Root read/component controls are distinct completed read-only/isolated operations, not evidence that the denied application ran."
+}

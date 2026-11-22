@@ -1,0 +1,67 @@
+{
+  "status": "FIGMENT158_ORIGINAL_PREFIX_PLUS_FRESH_FOUR_PONDER_COMPLETION_QUALIFIED_ONE_REPLAY",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of source/test author pox_snapshot_repair_review",
+  "runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+  "source_spec": "card-regression-repair-figment158-entry-ponder.json",
+  "input_sha256": "ad9740b7a0141814ca22d30cf4369445a07f73c56fa9c84e6329da5277b19311",
+  "fixtures": [
+    {
+      "slug": "card-figment-of-erudition-yellow-four-live-paid-instant-entry-when-then-ponder",
+      "card_id": "figment_of_erudition_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d9d74d9a1965590c1ba6d05284c96235e9febd38561e301080949d7c9f95ee3f",
+        "actions.json": "af1d75dd810ce45b784cfc5384894115d08c9966d6dd2c89a08d1ae71225f9de",
+        "assertions.json": "c42fd9b504e205a4be4e4e95e0dad8faf0c1f17e0988e5bf9953dedc74507b40",
+        "expected_final_gamestate.txt": "b740d5faf484eb703eb2f78fe06e7ca34703f10af4fab49d6eb0e19fd81800a6",
+        "meta.json": "b3191918c6cf7cc91776941a950c0a4d744268b0cd29f5cb146a51d202a83efe"
+      },
+      "fixture_sha256": "5bd4ad22cc7b582261a85122d54aac7441113fc3c93552fff0cd1b37021ad5b0",
+      "actions": 11,
+      "native_assertions": 1248,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+      "runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+      "source_spec": "card-regression-repair-figment158-entry-ponder.json",
+      "input_sha256": "ad9740b7a0141814ca22d30cf4369445a07f73c56fa9c84e6329da5277b19311"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov20-figment158-7514-replay.json",
+    "sha256": "ee3d80a09f25ee0a154a512a4230c8da10d754c5fdd30774e730f35c486680fd",
+    "passed": true
+  },
+  "direct_surface_compatibility": {
+    "path": "card-regression-replay-nov20-figment158-7514-surface-compat.json",
+    "sha256": "809c0289ff33ddb8de4d40c25e47cb79d4f3722adb4fff7c261944053a4f9035",
+    "passed": true
+  },
+  "source_review": {
+    "path": "nov20-figment158-independent-root-source-binding.json",
+    "sha256": "c497f177e50eadedcd9a969f1bfe39a4ad9df1a2f16993b3faadb0eb1a1f67ac"
+  },
+  "application": {
+    "path": "nov20-figment158-guarded-application-and-emission/receipt.json",
+    "sha256": "e7806e07a91a28c13663cb43c40ab31c256e7638abc0ee1547888f69bfb6f60d"
+  },
+  "components": 17,
+  "component_assertions": 36,
+  "component_receipt_sha256": "cd8ba7822754b8fd2ef5cb9f6eddda875366c99eaf51d9362df35e30922956ab",
+  "original_diagnostic": {
+    "path": "card-regression-batch707-figment-probe.json",
+    "sha256": "2cfe94f15fede71330668c2a766b0d2505c05b4e45b733553a57b3772d15307e",
+    "untouched": true,
+    "rerun": false
+  },
+  "basis": "Separate focusedcompletionpreserves original7/602exactprefix/setup plusfour manualfreshresponses, all11/1248Sourceassertions exact-reviewed. LegalYoungPrism20 castsInstantFigment5payingprinted4fromrealBlue6/7pitch6\u2192R2/AP1; sameownedFigment5entersArena withoneSource5capturedABI8/Ponder0. Freshfour manualresponsesretainnoPonderuntilresolutioncreatesoneownedreadyPonder9; AP1/R2/allHeroes20 andallStack/await/payment/decisioncleanupstaycorrect. Native usesexplicitInstantfalsefactoryprovenance; printed4/Instant/WHENcheckedindependently byRootissuerimage. Cleanreplay1/1 anddirectSurfaceentrycompatibility1/1passatfinal7514.",
+  "limits": [
+    "Only paid Hand-entry andimmediatePonder WHEN resolution; no activation/transform/material/otherentry/End/fullcard credit.",
+    "17isolatedcontractspincapturedcontroller/sourceLoss/Ripple semantics withoutNativecertificationofthosealternatives.",
+    "No generic094/async lifecyclechange, fullsuite/history replay, remoteSourcewrite, ororiginalnormativeexpectationweakening."
+  ],
+  "full_suite_run": false
+}

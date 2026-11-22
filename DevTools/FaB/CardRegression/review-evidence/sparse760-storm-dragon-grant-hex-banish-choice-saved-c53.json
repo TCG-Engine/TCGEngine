@@ -1,0 +1,529 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B760_STORM_GRANTED_DRAGON_ATTACK_AND_HEX_OLD_DEBT_FACE_DOWN",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "reviewer_independence": "Independent of author /root/b753_author and Root native executor; completed material Source review reused, actual Saved artifact comparison performed here.",
+  "created_utc": "2026-11-09T00:45:34.591617+00:00",
+  "source_spec": "card-regression-batch760.json",
+  "input_sha256": "448259a7129b764688124bd631893b2370bfadf1a8a4f717e7f9a33379efe6b4",
+  "manifest_sha256": "f9f71a02349bdbb8c13d86403ebe8296c0e42ed1fe7f9712a447ef82ea3aa8d6",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch760-v3-independent-source-review.json",
+    "sha256": "2ff4e63632e875a3705ccecdf110b8443fa933ab6230d9f0cea8eed5f2ddc399"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch760-20261109T004146Z-6af116ca720cd.json",
+    "sha256": "0dd9ee5e8bad4496f6360290ef48020e2e36b869893e08c54844c726fc4d9f98"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-b760-storm-hex-native-recording\\receipt.json",
+    "sha256": "e3b2200dfd6a71750f1bced8fb9cb9e1a8208ea3f24e3e8c130e1e8e7d8a20e0"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch760.recording-results.json",
+    "sha256": "0f6fed6de6f341782e2bfb93d4fb1b6b69db21598a4237836db84b8dabd96d1b"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "storm_of_sandikai",
+      "group_id": "identity:storm_of_sandikai",
+      "slug": "card-storm-of-sandikai-four-live-real-granted-zero-cost-dragon-attack-and-one-damage",
+      "source_spec": "card-regression-batch760.json",
+      "input_sha256": "448259a7129b764688124bd631893b2370bfadf1a8a4f717e7f9a33379efe6b4",
+      "reviewer": "/root/b750_saved_recovery",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_BOUNDED_PRIMARY_EFFECT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-storm-of-sandikai-four-live-real-granted-zero-cost-dragon-attack-and-one-damage",
+      "fixture_sha256": "5e3eea18577215141133ca2851bacc6331cba392c12192e5e58d2276a220f526",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "442f22edb7e27a53331fc20b83aca414a6cea5cc19ef13b50174cb18a3976bd2",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "891092c4a7cc94b68c0d8e6c1061c28c3eb5c9bac6b81d7667d0147bee2e056c",
+        "expected_final_gamestate.txt": "73615ccbd362238f66ffab50623771a934256a9cdc6671a55eab0f4040fbcc2c"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "442f22edb7e27a53331fc20b83aca414a6cea5cc19ef13b50174cb18a3976bd2",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "891092c4a7cc94b68c0d8e6c1061c28c3eb5c9bac6b81d7667d0147bee2e056c",
+        "expected_final_gamestate.txt": "73615ccbd362238f66ffab50623771a934256a9cdc6671a55eab0f4040fbcc2c",
+        "meta.json": "ba2c8f6c7949cf19b5fbb783d5f5c745852f1956b19395d8a97d73dcb054bf15"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "442f22edb7e27a53331fc20b83aca414a6cea5cc19ef13b50174cb18a3976bd2",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "891092c4a7cc94b68c0d8e6c1061c28c3eb5c9bac6b81d7667d0147bee2e056c",
+        "expected_final_gamestate.txt": "73615ccbd362238f66ffab50623771a934256a9cdc6671a55eab0f4040fbcc2c",
+        "meta.json": "ba2c8f6c7949cf19b5fbb783d5f5c745852f1956b19395d8a97d73dcb054bf15"
+      },
+      "actions": 27,
+      "native_assertions": 2402,
+      "manual_passes": 25,
+      "actual_manual_passes": 25,
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 702,
+      "checkpoint_count": 29,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertions_evaluated": {
+        "0": 124,
+        "27": 192
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "storm_of_sandikai",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "aether_ashwing",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "storm_of_sandikai",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "aether_ashwing",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "ceased_virtual_UID": 7,
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_primary_resource_cost": 0,
+      "actual_primary_AP_cost": 1,
+      "actual_physical_damage": 1,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "e69ee67f144c73e00d92930882caf07bcec475348e573ba3c74c4756bcb9b7a0",
+      "native_assertion_mapping_sha256": "ae37ad7dcb48dd7d89564d94d6ee6967e762305715bb9ccede39f7d63c1bfb7b",
+      "checkpoint_assertion_mapping_sha256": "fe3132d22a160fe2f018a1a2830c00192d4f315805e3ac02cb801d9056eac6bc",
+      "material_Phantasm_basis": "Public raw Ash counters + guarded Source/ordered attack controls; destruction unearned",
+      "pending_chooser_priority_basis": null
+    },
+    {
+      "index": 1,
+      "card_id": "hex_gauntlet",
+      "group_id": "identity:hex_gauntlet",
+      "slug": "card-hex-gauntlet-four-live-real-banish-cost-and-old-blood-debt-card-face-down",
+      "source_spec": "card-regression-batch760.json",
+      "input_sha256": "448259a7129b764688124bd631893b2370bfadf1a8a4f717e7f9a33379efe6b4",
+      "reviewer": "/root/b750_saved_recovery",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_BOUNDED_PRIMARY_EFFECT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-hex-gauntlet-four-live-real-banish-cost-and-old-blood-debt-card-face-down",
+      "fixture_sha256": "9be0e9d1770fcedc6d6ba471116e6303e99e0382d106bf9f80f1e3dd59821130",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "1644bc4abb47abb36e295dde5e3ce04dd11c0493903c68ba1687af65f6a41516",
+        "actions.json": "30651cb2430d4d3fcea1529431fb8c38a9f14cc5e850df7284af6c92dae41b4e",
+        "assertions.json": "bc53721bc9192565247d9c6c8d5cfaa49dd69a5a31691387b591897ad275836b",
+        "expected_final_gamestate.txt": "4a31d2badecec249e22f6c188c9c1c885adaee05f4bbcc22f78f27abcac85056"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1644bc4abb47abb36e295dde5e3ce04dd11c0493903c68ba1687af65f6a41516",
+        "actions.json": "30651cb2430d4d3fcea1529431fb8c38a9f14cc5e850df7284af6c92dae41b4e",
+        "assertions.json": "bc53721bc9192565247d9c6c8d5cfaa49dd69a5a31691387b591897ad275836b",
+        "expected_final_gamestate.txt": "4a31d2badecec249e22f6c188c9c1c885adaee05f4bbcc22f78f27abcac85056",
+        "meta.json": "2239807cdc88c6925e0364ccc714f993770827f4e5959379e8da9f652a7bf28b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1644bc4abb47abb36e295dde5e3ce04dd11c0493903c68ba1687af65f6a41516",
+        "actions.json": "30651cb2430d4d3fcea1529431fb8c38a9f14cc5e850df7284af6c92dae41b4e",
+        "assertions.json": "bc53721bc9192565247d9c6c8d5cfaa49dd69a5a31691387b591897ad275836b",
+        "expected_final_gamestate.txt": "4a31d2badecec249e22f6c188c9c1c885adaee05f4bbcc22f78f27abcac85056",
+        "meta.json": "2239807cdc88c6925e0364ccc714f993770827f4e5959379e8da9f652a7bf28b"
+      },
+      "actions": 6,
+      "native_assertions": 665,
+      "manual_passes": 4,
+      "actual_manual_passes": 4,
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 180,
+      "checkpoint_count": 8,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertions_evaluated": {
+        "0": 123,
+        "6": 188
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "hex_gauntlet",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "hungering_slaughterbeast_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "hungering_slaughterbeast_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "hex_gauntlet",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "ceased_virtual_UID": 7,
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_primary_resource_cost": 0,
+      "actual_primary_AP_cost": 0,
+      "actual_physical_damage": 0,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "9c290e6241aa54eda252ed768ae49edda3168f7fae5da1e9abd5f492f32862ff",
+      "native_assertion_mapping_sha256": "10af4a48bd365e39d707088ddc7012e7496aa479619b84e9ff4e19fded574b32",
+      "checkpoint_assertion_mapping_sha256": "ac00d06bfcc234e068617a882b5a01b740f2331e2e2a569988d4382c143e6c40",
+      "material_Phantasm_basis": null,
+      "pending_chooser_priority_basis": "Source plus last responder4 inference; no persisted PriorityPlayer assertion at chooser"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 3067,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 882,
+  "total_checkpoints": 37,
+  "total_endpoint_assertions_evaluated": 627,
+  "material_findings": [
+    "Both actual raw5/behavior hashes and all33 controls/3067 ordered persisted queries/29manual/882typed/37checkpoints exactly match approved4482 v3. Every initial/final query, complete originalUID1..6 map, natural living four-hero profile, all48 preference values at each endpoint, asset/health and quiet completion independently parsed. COMPLETE0/zero stderr/results/archive/current71/c53/ab33 bind exact artifacts.",
+    "Storm actual Dragon6 activation uses real enabler5, legal Hero4 target, resource0/AP1 and fresh four. Persisted Stack source6/counters, physical6 once-use and subsequent same7 chain power1/noGA/damage1/HP19 checks all match. Raw final retains sameStorm5 ready and sameAshwing6 Status1/Damage0/publicUPR_ASH1/DYN_ASH ash/oncecounters; virtual7ceased. No card was played, no red pitch occurred, no extraAshUID exists. Material Phantasm derives from public raw material and guarded Source with ordered controls; it is not an exported intermediate snapshot or a positive destruction test.",
+    "Hex actual original5 Equipment banish cost occurs before fresh1,2,3,4 responses; ABI7 SourceEquipment5 remains Stack through real MZCHOOSE old6/source5 and managed marker. Actual selected p1Banish-0 and final raw prove same oldBlue5powerBloodDebt6 FaceDown1/Playable0 while originalHex5 stays Banish face-up, exact order6,5/owner1. AP1/R0/HP20all unchanged and ABI7ceased. Chooser rawpriority4 is Source/last-responder inference, not a persisted scalar observation; finalpriority1 is directly checked.",
+    "Direct final named histories confirm actual Ally6 damage source and one damage; Hex actual cost banish earns one six-power banish from sourceHex5, not the initial Blue target. No End/Levia suppression or target-card cost/play/producer effect is executed. Generic earned banks are not mislabeled empty.",
+    "Original two-Hex setup error, historical Ash metadata assertion, v2 author-postamble exit1/integrity and the unexecuted until-predicate mistake remain provenance with no native/fixture/coverage or enginebug credit. Exact current Source/setup/inverse references remain unchanged. No unchanged source/catalog audit or extra execution was performed."
+  ],
+  "limits": [
+    "Only the two selected bounded actual primary effects are Saved-approved. No producer/support/Hero/End/Dromai red conditions/ArcaneBarrier/Phantasm destruction/repeat/sibling/full-card credit.",
+    "Raw5 exports only initial/final. Intermediate paid-cost/source-retention/choice facts come from approved Source plus completed exact native controls/assertions; no fictional intermediate raw snapshot or getter.",
+    "Root two focused clean replays and registration/index remain separate gates; reviewer ran no PHP/native/game/replay/suite/R/source/Git/remote action or repair."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch760_storm_hex_saved_readonly.py",
+    "sha256": "e2316a0a6a8a57ff0cb320bbaf40ac5ebeb27e5ecc5fb9abf49238a97fbd1af3"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

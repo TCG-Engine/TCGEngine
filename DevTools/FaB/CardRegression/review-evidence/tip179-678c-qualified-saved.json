@@ -1,0 +1,74 @@
+{
+  "status": "TIP179_ORIGINAL_2_292_PREFIX_PLUS_MARK_7_498_QUALIFIED_ONE_REPLAY_COMPATIBILITY_PASS",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Agent independent source/case review; Root exact saved semantic/source mapping after actual Native; corrected compatoracle independently checked againstissuer",
+  "runtime_sha256": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+  "source_spec": "card-regression-repair-tip179-declared-hero-mark.json",
+  "input_sha256": "c71e365a5f00930fb29849d80cde2e8e9fb5e4f6216835c5c1aa25d232b61917",
+  "fixtures": [
+    {
+      "slug": "repair-tip-off179-blue-four-live-target-before-discard-then-mark-captured-hero",
+      "card_id": "tip_off_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9bfd67d87a5ca1f8bb8bf7767c0cfffdd4ce262d93d39e0fbf15db84613c78f9",
+        "actions.json": "52a1d8ccc73618ae1b0eda91f9e5f841c9a2fbb0d0387d647a81856e31e934bd",
+        "assertions.json": "d1b60fb1bab0ea9531d684fadaf00276007eaa13e1b7acaee81120c86371f20d",
+        "expected_final_gamestate.txt": "29b20af66333787de4c5225b817ecfa33ad5b5d597207a9c71162b8b1a6ec670",
+        "meta.json": "7a4172cec810284bd07c9d6a968db1254c7578aaac26218aba4211cb9e73b121"
+      },
+      "fixture_sha256": "d6622db7c34bdbccba0a0f1a6e154400130000b30074ce4416042dfdc9a8f04c",
+      "actions": 7,
+      "native_assertions": 498,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+      "runtime_sha256": "678cb214f1d02db1f7c9f817a49bd66ebf471b146af6649466dc026493d88be1",
+      "source_spec": "card-regression-repair-tip179-declared-hero-mark.json",
+      "input_sha256": "c71e365a5f00930fb29849d80cde2e8e9fb5e4f6216835c5c1aa25d232b61917"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov20-tip179-678c-replay.json",
+    "sha256": "9339eec94c0a29154b934284c4886bfa582f4c209784d5c9e5ab209a38aae4af",
+    "passed": true
+  },
+  "source_review": {
+    "path": "nov20-tip179-v3-mechanical-rebase-review-approved.json",
+    "sha256": "9cf506382f7509f6d4086602158e463560f92e520a785e614d2e0520d988a8de"
+  },
+  "successor_review": {
+    "path": "nov20-tip179-focused-case-independent-source-review-approved.json",
+    "sha256": "b2d039ba7dee6d3e06020da0e518f16c89453838f9efbb5c9a1ca840917f8bd0"
+  },
+  "application": {
+    "path": "nov20-tip179-guarded-application-and-emission/receipt.json",
+    "sha256": "657a33e2be72a3d2b2dd350bb8b2b5729ca3d147fb5f55886f6b8bb6cded20ed"
+  },
+  "components": 27,
+  "ordinary_attack_native_compatibility": {
+    "path": "review-evidence/tip179-funded-attack-678c-native-compat.json",
+    "sha256": "a8ebdfb0d1e6b6f8e8ed4d9b54237cf7c7866473086ea09b4ad30f53d1ceebad",
+    "passed": true,
+    "saved": false
+  },
+  "direct_memorial_compatibility": {
+    "path": "card-regression-replay-nov20-tip179-678c-memorial-compat.json",
+    "sha256": "0b6660cb765bf132f54af7573bf55b10dd5d32e84c4037f4042424946f3c96e7",
+    "passed": true
+  },
+  "original_diagnostic": {
+    "path": "card-regression-batch789-tip-off-strict-probe.json",
+    "sha256": "c857a113c039be8bba756553ca8b9463d575947534007dd11b135c0b9654bd44",
+    "unchanged": true,
+    "separately_rerun": false
+  },
+  "basis": "Exactoriginal2controls292queries/setup preserved; targetP4HeroUID4 declaredbeforeactualTip5discardcost. UniqueARCabilityUID7 holdsboundHero4throughfreshfourmanualresponses, noMarkfirstthree; fourthmarksP4only, clearsABI7/Stack/queues/await/payment. Exact7actions498queries persisted, 48manualpreferences/fourliveinitial/end verified; source5ownGY, Blue6Hand, AP1/R0/allHeroes20. Onecleanreplay anddirectMemorialdeclarationcompat1/1passfinal678c. SeparatefundedordinaryPLAYcompat7/140passesmandatoryno-save andshowsrealprintedpower3 afternormalcost/APpayment, retainingoldattackpath. ItsnewPower1oracleerrorwasindependentlycorrectedfromissuer/dataandfailurepreserved; noenginepowerchange/originalexpectationweakening.",
+  "limits": [
+    "BlueabilitylegalcapturedHero/immediateMark only savedqualified. HeroUIDreplacement/transformation, invalid/stalecallback alternatives have components only.",
+    "FundedordinaryattackteststopsatATTACKwithnofixture/coveragecredit; noattackdamage, sibling/fullcardclaim. No094orfullsuite/remoteauthoring."
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,99 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_BUBBA_REAL_CAST_COUNTER_COST_TOKEN_RESOLUTION",
+  "phase": "SAVED",
+  "batch": 837,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_spec": "card-regression-batch837-bubba-positive-cdc.json",
+  "input_sha256": "cc4d9eeaaeeabff5ab93d4dd2bdd35704ce270d9ce0b5bc9b1a31aefffdcaa50",
+  "manifest_sha256": "c4b587b43f1b90c713f97eed4208ec84ca1f4ab2820c04bd8856b4872f58666e",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch837-bubba-cdc-independent-normal-positive-source-review.json",
+    "sha256": "9dc2793e3e7c882380f90bd4c0b5f951abaf19c204fa965c0ff87aeee739da0a"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b837-bubba-positive-native-save-cdc\\receipt.json",
+    "sha256": "076ff190605286c15e7533349c638c42381b33fc09e01f0257fe936f5bf74a82"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch837-bubba-positive-cdc.recording-results.json",
+    "sha256": "c666310c88d7e3ef9586270fffacb1b2454fa90d59f73d8a33aa1df4b91f4554"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch837-bubba-positive-cdc-20261116T015753Z-6afa632132b77.json",
+    "sha256": "f870f8283be18e31a58dde3caa9eec5ccd9023f73412e8241ea0f2762f9ce802"
+  },
+  "actual_frozen_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b837-bubba-positive-native-save-cdc\\actual-result.json",
+    "sha256": "c666310c88d7e3ef9586270fffacb1b2454fa90d59f73d8a33aa1df4b91f4554"
+  },
+  "fixtures": [
+    {
+      "card_id": "bubba_lubba_run_aground_yellow",
+      "slug": "card-bubba-lubba-yellow-four-live-real-cast-self-counter-cost-and-aura-token-destruction",
+      "actions": 13,
+      "native_assertions": 1750,
+      "manual_passes": 8,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f6836007f70e4e8d83484680f08fe8d8fcda5477d84d6b485c28393d02312cf1",
+        "actions.json": "6f2ca1002033f3dde27d4e031738b657ef3d5876ab4100e5cfecdc18ace41dee",
+        "assertions.json": "7577d9d6a470b11e02d0744054cc1a78dc2e66cd1d43e29144bcc860666fa27b",
+        "expected_final_gamestate.txt": "beac852598e90f63ef0af47822d01317b6bbf872476b2c360a1ad01f47a34589",
+        "meta.json": "d9eb541fe3a306f50280f963ea5a71a637ea3f227946d4ba8bcbba9163861997"
+      },
+      "fixture_sha256": "0823e6be93416e227db139b060c21b558127801d0c4180fb11444ff88803b5ee",
+      "input_sha256": "cc4d9eeaaeeabff5ab93d4dd2bdd35704ce270d9ce0b5bc9b1a31aefffdcaa50",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "actual_manual_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "initial_queries_independently_evaluated": 133,
+      "terminal_queries_independently_evaluated": 236,
+      "scope": "Actual cast3/Bluepitch/entryPOWER1/self-counterAction paid before responses/non-target resolving Shield destruction/lateGA. Internal cost order, attack/Watery/alternate/support/sibling/fullcard untested."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_1750_native_queries_reviewed_against_approved_Source": true,
+  "all_13_saved_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 15,
+  "typed_property_queries": 439,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "qualification": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "semantic_witnesses": [
+    "All13 saved native envelopes/1750 ordered queries match own positive Source;8 realmanual passes2perseat. Fresh initial and final raw48 preferences each are verified, and133initial/236terminal queries independently re-evaluated.",
+    "RealBlue7pitch pays3/Bubba6cast spendsAP before source4responses; entry grantsPOWER1. Real self-counter cost removesPOWER and AP0 before all activation response opportunities; AP is not pinned at declaration chooser.",
+    "Four actual responses precede non-target P4Shield8 resolution choice; managed source retained/AP0 until complete destruction, then earnedgo-againAP1. Rawfinal proves Shield8 absentallzones/noGYtoken, Ally6untapped/Damage0/FAB1noPOWER, Blue7Pitch/Potion5GY/allHP20/R0/allHeroUnused/Stackqueuesawaitchainsclear.",
+    "No internal asset/effect-cost ordering, alternate counter source, attack/Watery/support/fullcard or enginebug/fix credit is inferred."
+  ],
+  "limitations": [
+    "Savedreview is not replay qualification; two own clean focused replays and registration remain separate.",
+    "Actual fresh saved endpoints were read; no finalraw certificate borrowed from NoSave. Narrow schema array/JSON wire decoder reuses established helper, no fixture/query/runtime mutation.",
+    "No PHP/native/fullsuite/historical replay/R writes by reviewer; denied188/184/B787 untouched."
+  ],
+  "corpus_before": 4094,
+  "saved_corpus_after": 4095,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "created_utc": "2026-11-16T02:04:25.405307+00:00"
+}

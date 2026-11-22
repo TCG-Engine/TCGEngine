@@ -1,0 +1,150 @@
+{
+  "status": "INDEPENDENT_APPROVED_STONEWALL_REQUIRED_CONTRACT_AND_PLATING_AUTOMATIC_CLOSE_PLANNING_ERRATUM",
+  "phase": "PLANNING",
+  "batch": 872,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "planning_erratum_approved": true,
+  "existing_hold_reference_correction_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch872-stonewall-required-defended-note-manifest.json",
+    "sha256": "693b27ac75656cbac0cc786eddd5137a04178aa881b08c7980a402f63a4ff084"
+  },
+  "manifest_sha256": "693b27ac75656cbac0cc786eddd5137a04178aa881b08c7980a402f63a4ff084",
+  "Root_rule_correction_admission": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch872-firm-reservation-r3-start-close-ap-prose.json",
+    "sha256": "8eb82af409261fc781f61027449b3a8ef44982fd91a8f220173c5a988531f2a6"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 18,
+  "stonewall_source_guard_count": 12,
+  "plating_source_guard_count": 15,
+  "all_current_source_guards_matched": true,
+  "new_source_hold_count": 1,
+  "existing_Plating_hold_count_unchanged": true,
+  "holds": [
+    {
+      "card_id": "stonewall_impasse",
+      "group_id": "identity:stonewall_impasse",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_ORDINARY_DEFENDED201274_BEFORE_POSITIVE_CLASH",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch872-stonewall-required-defended-clash201274-unattempted-note.json",
+        "sha256": "f6118b2b7450c21ee599a7145b298b9b6f4e3b8d70f3ef647dfbac51bd41415b"
+      },
+      "known_required_contracts": [
+        {
+          "human_hold_row": 201,
+          "card_id": "clash_of_might_blue",
+          "historical_reviewed_runtime": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse716-clash-might-defended-when-unattempted-c53.json",
+            "sha256": "583cc98232ddf46f6648a2f417f995b784fe06ce13691c59c0a580fa86c697c2"
+          }
+        },
+        {
+          "human_hold_row": 274,
+          "card_id": "toby_jugs",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse826-act-r4-source-and-toby-unattempted-a11.json",
+            "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "planning_errata": [
+    {
+      "card_id": "plating_of_unity",
+      "group_id": "identity:plating_of_unity",
+      "status": "APPROVED_EXISTING_SOURCE_ONLY_PLANNING_REFERENCE_CORRECTION",
+      "manifest": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-plating-r2-automatic-close-planning-erratum-manifest.json",
+        "sha256": "194cd5dfb6f134483302cc3fefc1f7c0c978cc013588eecfe1e888222a2c485b"
+      },
+      "original_immutable_R1_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-plating-required-unity278319-unattempted-note.json",
+        "sha256": "ad7f1ff4b2d6010322c1dd556a267328cd84240848ed85f14181959e632ee652"
+      },
+      "successor_R2_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch871-plating-r2-automatic-close-planning-erratum-note.json",
+        "sha256": "52d07a5aa3da6dbd39a27e5c93f171cd9539932d4e81793e1c5aff8dbc56408b"
+      },
+      "original_retained_independent_planning_proof": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse871-two-required-unity-reload-planning-cdc.json",
+        "sha256": "5801297434aba458280c3845fec9f51608374edf6d9264087dba03b13889d318"
+      },
+      "exact_only_json_pointer": "/full_unrun_route/3",
+      "inverse_single_field_recovers_entire_original_note": true,
+      "first_required_Unity278319_unchanged": true,
+      "all_cost_damage_counter_physical_survival_expectations_unchanged": true,
+      "old_incorrect_unrun_manual_Temper_quorum_superseded": true,
+      "prior_independent_planning_proof_unrun_Temper_clause_superseded": true,
+      "native_oracle_correction": false,
+      "engine_bug": false,
+      "native_attempted": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Exact Stonewall manifest693b27ac/notef6118b2b, Plating erratum manifest194cd5df/note52d07a5a, original ad7f note/retained proof580129, Root R3admission8eb82 and all known prior proof hashes match. Current selected source guards match: Stonewall12/Plating15,18 unique entries. Historical ledger snapshot references inside the preserved Plating note remain historical and are not relabeled current; no N metadata is written during Root Steel Native.",
+    "Current official CR7.7.1 denies player priority during Close;7.7.3 creates close-trigger effects and7.7.4 resolves layers and state actions as if players pass. Temper under8.3.10 remains a triggered ability at close, but it does not create a manual four-player Close response round. The earlier unrun planning quorum was wrong. This proof supersedes that clause in the prior author note and independent B871 planning proof, preserving both immutable historical artifacts.",
+    "Plating R2 differs from original only at full_unrun_route[3]. Inverse replacement recovers the entire original JSON exactly; all first-required shared Unity278/319 classification, guards, costs, actual damage1HP19, one-counter and effectiveDEF1 survival/UID/cleanup expectations remain identical. This is a narrow planning rule erratum with no executable or Native oracle correction, engine defect, repair, Source-health pivot or new hold duplication.",
+    "Stonewall actual ordinary GL1243 directly invokes implemented HVY Defended body and positive real clash, then winning +1DEF, before a separate captured Defended-WHEN layer/quorum. Exact retained ClashOfMight201/Toby274 contract remains first. Body/reveal/clash/defense/Temper support exists; Betsy avoids Victor/Gold retry, so latent retry awaits are not a blanket blocker or new Native finding.",
+    "Full future Stonewall legal GuardianOffHand+HandDEF3 versus nativeBrutal6 paidBlue3R1 requires source/controller1/earnedfour BEFORE actual clashDeck6vs2, sameUID/order revealed cards, winning+1 for totalDEF5 and real1damageHP19. At Close, automatic Temper places one minus-defense counter while current-turn bonus remains, leaving base1+bonus1-counter1=1 and same physical shield survives in Equipment. All actual damage/clash/counter/ownership/Deck/Pitch/economy/StackDQ/close outcomes remain unrun; tie/loss/retry/Endexpiry/zero-defense destruction remain uncredited.",
+    "Neither this new Stonewall hold nor the Plating erratum executes a game, changes Source/code/fixtures/old Native assertions, or expands any historical audit. Steel normal recording is independent and has no Temper; its input17eb2e8f/sourcebea36b72 is unchanged and receives no borrowed outcome from these notes."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.7.1",
+        "7.7.3",
+        "7.7.4"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.10"
+      ]
+    }
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "stonewall_impasse",
+      "action": "Execute full earned defended clash and actual damage/automatic Temper survival",
+      "reason": "Known ordinary Defended201/274 before positive clash",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "plating_of_unity",
+      "action": "Execute full earned Unity actual damage/automatic Temper survival",
+      "reason": "Existing first shared Unity278/319 unchanged",
+      "state": "EXISTING_UNATTEMPTED_SOURCE_ONLY_HOLD_REFERENCE_ERRATUM_ONLY"
+    }
+  ],
+  "limits": [
+    "Planning-only new Stonewall hold and narrow existing Plating reference correction; no executable/Native/new bug/root/Core/Save/coverage/source-fix approval.",
+    "No Rmetadata/source/fixture writes, PHP, Native, replay, new agents, broad historical review or deniedReincarnate199/older source-operation retry by reviewer."
+  ]
+}

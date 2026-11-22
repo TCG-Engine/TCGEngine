@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch257.json",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T20:41:17.691515+00:00",
+  "fixtures": [
+    {
+      "slug": "card-guardian-of-the-shadowrealm-red-four-live-sparse-real-paid-banish-action-returns-same-card-to-hand",
+      "fixture_sha256": "4472b069007f5d35092e503c14fb7a968dced1572e5041d454abc56b8eb7eaf4",
+      "passed": true,
+      "result": "[PASS] guardian_of_the_shadowrealm_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-sheltered-cove-four-live-sparse-real-three-resource-instant-destroy-prevents-two-of-seven",
+      "fixture_sha256": "9120dc4b402ebb93a2bfda66dfea46cd1c61914409520bda249a337f10407e1f",
+      "passed": true,
+      "result": "[PASS] sheltered_cove / four live distinctive effect"
+    },
+    {
+      "slug": "card-increase-the-tension-red-four-live-sparse-real-paid-next-arrow-plus-three-and-seven-damage",
+      "fixture_sha256": "fda69fd8c30fdcbed41b4cf6f989393196264699b62d0a0579c10c682611b615",
+      "passed": true,
+      "result": "[PASS] increase_the_tension_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-guardian-of-the-shadowrealm-red-four-live-sparse-real-paid-banish-action-returns-same-card-to-hand",
+      "returncode": 0,
+      "stdout": "[PASS] guardian_of_the_shadowrealm_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sheltered-cove-four-live-sparse-real-three-resource-instant-destroy-prevents-two-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] sheltered_cove / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-increase-the-tension-red-four-live-sparse-real-paid-next-arrow-plus-three-and-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] increase_the_tension_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

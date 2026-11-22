@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch796-line_crossers.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T22:04:02.595706+00:00",
+  "fixtures": [
+    {
+      "slug": "card-crossers-opponent-tie-hulk-cost-three-physical-consumer",
+      "fixture_sha256": "fe26242e0d617df85e06b2bc95064316722cb3bffe803086219af08d1d8f0280",
+      "passed": true,
+      "result": "[PASS] Line Crossers / opposing tied hero pays reduced Hulk Up cost"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-crossers-opponent-tie-hulk-cost-three-physical-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Line Crossers / opposing tied hero pays reduced Hulk Up cost\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch265.json",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T23:18:47.577645+00:00",
+  "fixtures": [
+    {
+      "slug": "card-second-swing-red-four-live-sparse-real-first-sword-attack-then-paid-primary-and-six-power-other-sword",
+      "fixture_sha256": "85dc9b962ab2ba7a30448e2734a525a8900f9ff7cd2b3ab717b25c2c7f145527",
+      "passed": true,
+      "result": "[PASS] second_swing_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-wax-on-red-four-live-sparse-real-hand-defense-reaction-five-defense-stops-cost-zero-four-power-attack",
+      "fixture_sha256": "8de9a04588845410d755dac317c75873796096edf2853bab48ce4eaef8944027",
+      "passed": true,
+      "result": "[PASS] wax_on_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-second-swing-red-four-live-sparse-real-first-sword-attack-then-paid-primary-and-six-power-other-sword",
+      "returncode": 0,
+      "stdout": "[PASS] second_swing_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-wax-on-red-four-live-sparse-real-hand-defense-reaction-five-defense-stops-cost-zero-four-power-attack",
+      "returncode": 0,
+      "stdout": "[PASS] wax_on_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

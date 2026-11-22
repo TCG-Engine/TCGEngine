@@ -1,0 +1,33 @@
+{
+  "status": "APPLIED_SYNTAX_PASS_ORIGINAL_NATIVE_QUALIFICATION_PENDING",
+  "started_utc": "2026-11-04T18:53:40.325943+00:00",
+  "runtime_before": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "expected_runtime_after": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "manifest_sha256": "5e1c676aaf679edde81f37c7d47ee5224389bab7185a46b88208e8acc5e91a5d",
+  "source_review_sha256": "2ceb7068990649377df1d8173b1fb75707be9506f885f9c1787720a5637f64cc",
+  "component_receipt_sha256": "1d8e8c266b1bd52ee19017b29a370eb7d932c6e30ce2b3946792649373428614",
+  "files": [
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-anthem-next-aa-consumer-proposed\\candidates\\FaBSim\\Custom\\WTRCards.php",
+      "before_sha256": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+      "after_sha256": "10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386"
+    }
+  ],
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-anthem086-source-application\\before\\FaBSim\\Custom\\WTRCards.php",
+  "syntax": [
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php\n",
+      "stderr": ""
+    }
+  ],
+  "generated_files_changed": false,
+  "native_after_executed": false,
+  "fixture_count_before": 3681,
+  "full_suite_run": false,
+  "runtime_after": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "fixture_count_after": 3681,
+  "completed_utc": "2026-11-04T18:53:40.741375+00:00"
+}

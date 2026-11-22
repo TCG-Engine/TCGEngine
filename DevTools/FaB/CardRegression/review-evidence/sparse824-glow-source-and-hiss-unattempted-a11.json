@@ -1,0 +1,172 @@
+{
+  "status": "SOURCE_APPROVED_NORMAL_POSITIVE_GLOW_SEPARATE_ENTRY_WHEN_HEAL_THEN_WARD",
+  "phase": "SOURCE",
+  "batch": 824,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T18:52:57.402501+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "normal_save_approved": true,
+  "native_fixture_recording_approved": true,
+  "passing_fixture_approved": false,
+  "source_spec": "card-regression-batch824-glow-entry-when-heal-ward-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch824-glow-real-entry-when-heal-ward-positive-author\\glow-real-entry-when-heal-one-ward-one.json",
+    "sha256": "09852f90ddb5d7a011d35d7cf62eb4913079998eecc1f19e86eaa0943d9b4be8"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch824-glow-real-entry-when-heal-ward-positive-author\\manifest.json",
+    "sha256": "9215e91b7bbf55dfd8c94ae5e5200e41290ab04aa8517f26e3bf69a952ce1445"
+  },
+  "input_sha256": "09852f90ddb5d7a011d35d7cf62eb4913079998eecc1f19e86eaa0943d9b4be8",
+  "manifest_sha256": "9215e91b7bbf55dfd8c94ae5e5200e41290ab04aa8517f26e3bf69a952ce1445",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch824-firm-reservation.json",
+    "sha256": "11e260d429a813fa37ca74dfc9b2f32f61b9c521895ceb9abda7bc285fca509a"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch824-glow-entry-when-ward-and-hiss-known-hold-preflight.json",
+    "sha256": "9cc830e1fb6e9e6df3167c78a6aea70a0b7282dbcb2a603b0e1fa775c2aefad7"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 24,
+  "selected_support_guard_map_sha256": "17b56c4504d8589c3bdbdd5f6f33a2929a30fb8e79e6962b58d61337675fc272",
+  "all_current_guards_independently_matched": true,
+  "actions": 40,
+  "declarative_controls": 40,
+  "native_assertions": 4526,
+  "assertions": 4526,
+  "recorded_persisted_assertions": 4526,
+  "manual_passes": 36,
+  "expected_priority_response_passes": 35,
+  "expected_formal_defense_finish_inputs": 1,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 9,
+    "2": 9,
+    "3": 9,
+    "4": 9
+  },
+  "checkpoints": 42,
+  "schema_property_checks": 844,
+  "control_mapping_sha256": "c9c7cac26ff755b0c14f319404ddbb80b60df8c8eb00d7973beb5b17224073c4",
+  "native_expected_envelope_mapping_sha256": "590da1bb2debd02eb362fa6167ee5bccb9b708d6d96073cceb234f064e4a3d13",
+  "expected_native_query_mapping_sha256": "6e61e2e3321176ace9e70f5f8b28a5641885d3727baa62f132fe84952d3a454c",
+  "checkpoint_mapping_sha256": "057b418a5aa1979ab5fa8cbcdc09e61c91aa7c6fe7d9d9aedd920d134f6bcd12",
+  "independent_semantic_findings": [
+    {
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/4967/",
+        "https://rules.fabtcg.com/en/cr/06-effects/ CR6.6.1,6.6.5-6",
+        "https://rules.fabtcg.com/en/cr/08-keywords/ CR8.1.6a,8.2.4a,8.3.20"
+      ],
+      "finding": "Glow is LightningIllusionistInstantAura0 with printedentryWHENheal1 andintrinsicWard1. ActualYoungZyggysharesbothsupertypes; unusedheroabilityimportsnone. P4Instantpriority permits0costplay withoutAP. Auraentryand separateearnedhealingtrigger aredistinct; allfourresponses precedehealing. Health20mayrise21 withoutstartinghealthcap; realunblocked4minusWard1deals3, leaving18."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/OMNCards.php:15-38",
+        "FaBSim/Custom/ROSCards.php:24-59",
+        "FaBSim/Custom/GameLogic.php:1712-1714,1805,1823",
+        "DevTools/FaB/omn_abilities.json:nourishing_glow_blue",
+        "FaBSim/Custom/CRUCards.php:27-35"
+      ],
+      "finding": "ActualAura6entersnativeArena onlyafter4source responses. OMNAfterMovecapturesomnEnterinROSQueueABILITYsourceUID6; separateStacklayer7remainsthroughfirst3ofnew4responses whileHP20. ResolveTrigger59bindsrealArena6 andcanonicalResolveAbilitysynchronouslygains1 onfourthresponse. This specificcaptureexists, unlikeheldFigmentinlineentrypayload. No genericvirtual-layer deletion-order certification."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/MSTCards.php:36-46,156-165",
+        "FaBSim/Custom/DTDCards.php:141-168",
+        "FaBSim/Custom/MONCards.php:234-248"
+      ],
+      "finding": "IntrinsicWard1choosesactualownArenaAura6, reads1beforerealDestroy, moves6toownGY4 andstores/consumespacketprevention. No seededAura/counter/effect/healthhistory/resources orcomputedAurapower; realHerohealthandphysicalidentitycleanup aretheoracle."
+    },
+    {
+      "finding": "Exact40controls/4526queries/42points/844typed and36manualactors9each independentlynormalized. Fullsource/entrytrigger/underlyingattack/Attack/defendfinish/DefendPriority/Reaction/Damage/Resolution route involvesall4manualyoungseats; HP20 beforehealing,21aftertrigger,18onlyafteractualWardpayment/damage. Allsourcerecordedmetadataandphysicalownershipchecked byrequiredlaterSavedgate."
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "hiss_blue",
+      "group_id": "pitch-cycle:hiss",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_NONWEAPON_ADMISSION_AND_LATE_FORMAL_REACTION_TARGET",
+      "classification": "KNOWN_NONWEAPON_REACTION_ADMISSION_AND_FORMAL_TARGET",
+      "reason": "Actual CutThrough is Assassin/Ninja Action Attack, not Weapon. Hiss is absent from WTRCards464..487 named AttackReaction exceptions, so fallback487 requires Weapon and rejects the fixed route before later MSTCanPlay181 hybrid availability can help. Same known Sirens148/Tide818 admission seam. Actual Hiss ResolveCard then awaits a target only during resolution; CardChoices4..12 early registry is Nip/Shred only and no Hiss PrepareCard exists. Fixed singleton does not replace formal announcement declaration.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch824-hiss-known-admission-target-unattempted-note.json",
+        "sha256": "f74b0d4a392a648d91b76339723323e05a38d26035191cc2f5da2280a5d7978e"
+      },
+      "known_contract_proof": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse818-independent-diagnostic-source-and-tide-planning-review-6695.json",
+        "sha256": "e1f2d19783f56af37ab1ff51a3474fcf4f0a7a31416ac36a3095865eeed35f38"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "EarlierexistingSirens148/Tideadmissionseam precedeslateformaltarget; noHissnative/alternateweapon/late-target/singleton/prefloating/bluehistoryseed/fallback ornewbugclaim. Actual+1/hybrid/SlitherHandpayloadexists; managedreactionretentiondoesnotfixadmission/declaration."
+    }
+  ],
+  "diagnostic_only": false,
+  "qualification": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "passing_registry_approval": false,
+  "independent_actual_Saved_review_required": true,
+  "two_new_only_clean_replays_required": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "official_read_only_rules_web_used": true,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "OneexactnormalNativeSaveonly; recorderstopwithoutsaveonanycorrectassertionfailure. NoqualifyingfromSourcealone.",
+    "Freshactualraw5/initialANDfinal48manualpreferences/all40envelopes4526queries/physicalWounding5andGlow6cleanupneedindependentSavedreview,then2cleannew-onlyreplaysbeforequalification/registration.",
+    "OnlyBluequietentryWHENheal1plusWard1preventing1of4. Nootherlisteners/suppression/controlchange/heroactivation/generalvirtual-layerdeletionorder/generalWard/fullcard/untestedpitchsiblingcertificate. FAB_PLAY_ORDERinsidewholeCountersisincidentalprotocol,notcertifiedgameplay."
+  ]
+}

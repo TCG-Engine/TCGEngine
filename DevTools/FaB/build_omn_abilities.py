@@ -51,7 +51,8 @@ for c in catalog:
         if b == 'scattering_conflux': fragment += token('embodiment_of_lightning')
         if b == 'fraying_lifeforce': fragment += 'FaBCRUGainLife($player, 1);'
         if b == 'pulsing_cardia': fragment += 'AddResources($player, intval(GetResources($player)) + 1);'
-        if b == 'ebbing_arcstride': fragment += "FaBTagUID($uid, 'GO_AGAIN');"
+        if b == 'ebbing_arcstride':
+            fragment = SOURCE + "$attack = FaBFindUID($uid);\n$state = FaBGetState();\nif ($attack !== null && $attack['zone'] === 'CombatChain'\n    && ($attack['object']->Role ?? '') === 'ATTACK'\n    && intval($state['attackUID'] ?? 0) === $uid\n    && intval($attack['object']->ChainLink ?? 0) === intval($state['chainLink'] ?? 0)\n    && in_array($attack['object']->CardID, ['ebbing_arcstride_red','ebbing_arcstride_yellow','ebbing_arcstride_blue'], true)) {\n    FaBOMNFragment($player, $uid);\n    $attack = FaBFindUID($uid);\n    if ($attack !== null && $attack['zone'] === 'CombatChain'\n        && ($attack['object']->Role ?? '') === 'ATTACK'\n        && intval(FaBGetState()['attackUID'] ?? 0) === $uid\n        && !HasNoAbilities($attack['object'])) {\n        $controller = intval($attack['object']->Controller ?? 0);\n        if (FaBSeatIsLive($controller)) {\n            FaBROSQueue($controller, $attack['object']->CardID, $uid,\n                ['rosEvent'=>'omnEbbingFragmented', 'omnEbbingLink'=>intval($attack['object']->ChainLink),\n                 'omnEbbingTurn'=>intval(GetTurnNumber()),\n                 'omnEbbingPlayOrder'=>intval(FaBObjectCounters($attack['object'])['FAB_PLAY_ORDER'] ?? 0)]);\n        }\n    }\n}"
         if b == 'polarus_pulse_ray': fragment += '$victim = intval(DecisionQueueController::GetVariable("omnVictim")); $targetUID = FaBUPRHeroUID($victim); $dealt = FaBUPRDeal($player, $uid, $targetUID, 1, "ARCANE");'
         if b == 'blink_of_an_eye': fragment += choose('FaBOMNBlinkChoices($player)', 'Banish_aura_and_return_with_holo')+'FaBOMNBlink($player, $chosen);'
         if b == 'unwinding_finality': fragment += choose("FaBOMNFiltered($player, 'Graveyard', ['Instant','Lightning'])",'Put_Lightning_instant_on_top')+'FaBOMNBottom($player, $chosen, true);'
@@ -64,7 +65,7 @@ for c in catalog:
     if b == 'astral_strike': add('AttackDeclared',UID+'if (FaBOMNCount($player, "FLOW_DESTROYED")) { $mode = await $player.Modal(1, 1, "Draw&Power&Go_again", "Astral_Strike"); if ($mode === "0") { DoDrawCard($player, 1); } else { FaBTagUID($uid, $mode === "1" ? "WTR_POWER:2" : "GO_AGAIN"); } }')
     if b == 'flowshard_elemental': add('AttackDeclared',UID+choose(refs('Hand',filters="['type'=>'Instant']"),'Discard_instant')+'if ($chosen !== "-") { FaBDiscardChoice($player, $chosen); '+token('lightning_flow')+"FaBTagUID($uid, 'GO_AGAIN'); }")
     if b in ['flittering_spike','volatile_fluxor']:
-        add('AttackPowerModifier',f'return FaBOMNInstantLink($player) ? {2 if b=="flittering_spike" else 3} : 0;')
+        add('AttackPowerModifier',f'return FaBOMNInstantLink($player) ? {2 if b=="flittering_spike" else {"volatile_fluxor_red":3,"volatile_fluxor_yellow":2,"volatile_fluxor_blue":1}[id]} : 0;')
         add('Hit', token('lightning_flow'))
     if b == 'flittering_forcefield': add('DefenseModifier', 'return FaBOMNInstantLink($player) ? 1 : 0;')
     if b == 'browbeat': add('AttackPowerModifier',"return count(FaBChoiceRefs($player, 'Hand'));")
@@ -75,7 +76,11 @@ for c in catalog:
     if b in ['flash_bolt','comet_collision','meteoric_impact','lightning_overload','nebula_duality','aethersling','enion_surge','nucleus_aetherbolt','tap_lessons_past','turn_to_mindfire']:
         n = int(re.search(r'Deal (\d+) arcane', txt)[1]); damage = str(n)
         if b in ['comet_collision','meteoric_impact']: damage = '(FaBOMNCount($player, "STARFALL") ? '+re.search(r'instead deal (\d+)',txt)[1]+' : '+str(n)+')'
-        body = UID+arcane(damage,b=='flash_bolt')
+        if id == 'aethersling_red':
+            add('PrepareCard', '$uid = FaBPENUID($mzID); $refs = FaBOMNAetherslingPrepareRefs($player, $uid); $chosen = "-"; if ($refs !== "") { $chosen = await $player.MZChoose($refs, "Choose_arcane_target"); } if (FaBOMNAetherslingBind($player, $uid, $chosen)) { FaBFinishPreparedCard($uid); }')
+            body = UID+"$targetUID = FaBOMNAetherslingTargetUID($player, $uid); $dealt = FaBUPRDeal($player, $uid, $targetUID, 4, 'ARCANE');"
+        else:
+            body = UID+arcane(damage,b=='flash_bolt')
         if b == 'lightning_overload': body += 'if (FaBOMNCount($player, "STARFALL")) { '+token('lightning_flow')+' }'
         if b in ['aethersling','enion_surge','nucleus_aetherbolt','tap_lessons_past','turn_to_mindfire']:
             extra = {'aethersling':"FaBOMNResolvedGoAgain($player);",'enion_surge':token('lightning_flow'),'nucleus_aetherbolt':'$uid = FaBUPRHeroUID($player); '+arcane(1),'tap_lessons_past':bottom(),'turn_to_mindfire':token('ponder')}[b]

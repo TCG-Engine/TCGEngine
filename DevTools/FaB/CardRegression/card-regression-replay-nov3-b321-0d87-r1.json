@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch321.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T10:25:52.851012+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ball-breaker-four-live-sparse-real-six-power-discard-earns-weapon-plus-one-paid-six-damage",
+      "fixture_sha256": "1aedcc4d5fc97e288b765442b4ae6fb6094941164eec6a26fe2587c6b73432c2",
+      "passed": true,
+      "result": "[PASS] ball_breaker / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ball-breaker-four-live-sparse-real-six-power-discard-earns-weapon-plus-one-paid-six-damage",
+      "returncode": 0,
+      "stdout": "[PASS] ball_breaker / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

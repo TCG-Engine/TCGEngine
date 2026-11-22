@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETE",
+  "runtime_before": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "spec": "card-regression-batch371.json",
+  "spec_sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch371.json",
+    "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six"
+  ],
+  "started_utc": "2026-11-03T21:40:06.312981+00:00",
+  "expected_new_slugs": [
+    "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six"
+  ],
+  "existing_scenario_count": 3667,
+  "full_suite_run": false,
+  "pid": 36012,
+  "exit_code": 0,
+  "runtime_after": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "new_fixture_slugs": [
+    "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six"
+  ],
+  "new_fixture_count": 1,
+  "stderr_bytes": 0,
+  "completed_utc": "2026-11-03T21:40:21.685097+00:00"
+}

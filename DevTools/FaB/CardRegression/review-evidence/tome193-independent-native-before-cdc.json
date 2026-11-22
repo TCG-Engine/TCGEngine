@@ -1,0 +1,169 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_TOME_BEGIN_ACTION_DESTROY_DRAW_BEFORE_EARNED_RESPONSES",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 851,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal DYN Tome beginning-Action producer timing finding; no global/distinct-root allocation inferred. Root reserves issueID; no denied operation/shared repair retried.",
+  "source_spec": "card-regression-batch851-tome-first-actual-action-earned-destroy-draw-probe.json",
+  "input_sha256": "fcb6a1e2be0aedecafd0d8325da86cb79982d7c2d28bf35a8ec6bd8ade166a9c",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-aeo-real-next-action-earned-draw-strict-probe-author\\tome-real-next-action-earned-destroy-draw-full-probe.json",
+    "sha256": "fcb6a1e2be0aedecafd0d8325da86cb79982d7c2d28bf35a8ec6bd8ade166a9c"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-aeo-real-next-action-earned-draw-strict-probe-author\\manifest.json",
+    "sha256": "d0a8aca94cdf4bfee3a97e3a7c13f7cf32d59d74115079905ce76762eec9cf57"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-independent-first-action-diagnostic-source-review.json",
+    "sha256": "bf4ed605380e4b3774b22fcc9c519a874b884e598cbd5bcaf40ccb31437b762b"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b851-tome-first-action-strict-nosave-cdc\\receipt.json",
+    "sha256": "7504f10e25531a88503cc28a2f3bac5d14766d2662268749179ff721f29311a2"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b851-tome-first-action-strict-nosave-cdc\\actual-result.json",
+    "sha256": "8ddd69831fc27b411bf68bf260859857b0b522a83f953bac80b98dbc8c4c151f"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch851-tome-first-actual-action-earned-destroy-draw-probe-20261116T065354Z-6afaa882bfad6.json",
+    "sha256": "3c553b0054fbcf8e25cebacd1b907c64f8a86decef3d6e75a704c6ad5f4f7af1"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch851-tome-first-actual-action-earned-destroy-draw-probe.recording-results.json",
+    "sha256": "8ddd69831fc27b411bf68bf260859857b0b522a83f953bac80b98dbc8c4c151f"
+  },
+  "planned_controls": 12,
+  "planned_queries": 1464,
+  "actual_native_inputs": 8,
+  "actual_native_mode10001_inputs": 8,
+  "actual_native_mode10001_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "actual_manual_inputs": 8,
+  "actual_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "manual_input_count_semantics": "Total manually-driven native pass signals; includes four nonpriority END transport inputs. Not eight legal priority responses.",
+  "actual_legal_priority_pass_inputs": 4,
+  "actual_legal_priority_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "actual_nonpriority_END_transport_inputs": 4,
+  "actual_nonpriority_END_transport_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "actual_new_Tome_Action_response_inputs": 0,
+  "actual_End_Start_priority_response_inputs": 0,
+  "persisted_successful_queries": 852,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "64a75ced15fbefa0f33201cef0168aff73df31586974d4c017490b42ce2c350e",
+  "first_failed_query": {
+    "source_step_index": 16,
+    "source_check_index": 24,
+    "native_after_input": 8,
+    "checkpoint": "FIRST_newP2_ACTION_phase_Turn2_Number3_AP1_Tome5MUSTremainArena_Hand0_Deck6_earnedABI_beforeANYlegalResponses",
+    "global_query_ordinal": 853,
+    "query_ordinal_in_checkpoint": 25,
+    "query": {
+      "step": 8,
+      "type": "zone_count",
+      "zone": "p2Arena",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "expected": 1,
+    "actual": 0,
+    "error": "Expected p2Arena count 1, got 0."
+  },
+  "queries_unrun_after_failed_query": 611,
+  "not_passed_including_failed_query": 612,
+  "native_controls_unrun": 4,
+  "declarative_controls_unrun": 4,
+  "manual_inputs_unrun": 4,
+  "remaining_legal_Tome_Action_response_actors": [
+    2,
+    3,
+    4,
+    1
+  ],
+  "passed_current_cluster_queries": 24,
+  "initial_raw_sha256": "fe4d8b712f995e6ea7557c3f012b45ea8d8dcef4bac7b324049c4fcd362fe6e2",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All8actualenvelopes/852persistedqueries exactly equal originalcorrectorderedSourceprefix. Native1..4 arefourlegalP1Actionpasses1/2/3/4;5..8arefourexplicitexistingENDproceduretransports1/2/3/4. No End/Startpriority ornewTomeActionresponsewasclaimed/executed. Initialraw48manualcontrols/allfourYoungliveUPF/noPassive verified.",
+    "Allintermediateold-turnP1/Turn2guards passed, so no mereP1priority2 stop orswallowedearliernewturn. Beforefinaltransport, typedTome5Arena2/ownercontroller2/status2/damage0 andactualsoleDeck6/Hand0 passed; legitimatepriorstateAuraonly, notseededdestroy/draw.",
+    "AtfirstnewP2boundary, current24passedqueriesexplicitlyproveGLOBALTurnPlayer2/Turn3/MAIN/priority2/ConsecutivePasses0/AP2=1/allHeroHP20/allResourcesChi0/allotherAP0. Firstfailure853 directlyobserves p2Arena count0 againstcorrect1, beforeANYnewActionresponse.",
+    "CapturedrawState independentlycorroborates ACTION/dtdStartingfalse/uprRefillfalse/emptyDQ, omn[3][2].AURA_DESTROYED1 andP2SEA_BLUE_GRAVE1/SEA_DRAWN1/DTD_DRAWN1. OneactualP2Handrefexists. These are actualrawhistory/refwitnesses; no postfailurephysicalTomeGY5orDrawnHand6UIDquery isclaimed."
+  ],
+  "causal_source_findings": [
+    "ActualGL2464setsMAIN/AP1, then2486callsDYNStart. DYNRuntime220 directlyexecutesTomeStartTurn macro, whoseactualcanonical/emittedbodydestroysphysicalsourceandDoDrawCard1 synchronously, beforededicatedbegin-Actiondispatcher2490/firstordinarypriority. ActualemptyArena+destruction/bluegrave/drawmarkersmatchesfreshliteralproducerpath.",
+    "PrintedatbeginningACTIONtrigger isnotStartPhaseautomaticresolution: CR4.3.1 createsbegin-Actionlayer,4.3.2assignsAP1,4.3.3givesordinarypriority. CorrectfirstnewP2statehaspendingresponseableTomeabilitywhileAura/Deckunchanged,thenfourlegalresponsesbeforeDestroy/Draw. NoEndorStartresponseoracle,wrongMacroNameabsenceor094blankethold.",
+    "Tome5GY2 andDeck6-to-Hand6 exactidentity/owner/controllerafterfailurederivefromprevioussoletypedAura/Deckandactualdestroy/drawsourcepath, NOTpassedpostfailurephysicalqueries. RawAURA_DESTROYED/SEA_BLUE_GRAVE/drawmarkersandHandrefcorroborateeffectswithoutfabricatingUIDread.",
+    "ExpectedStack1/source5/controller2/ABILITYqueriesoccurafterfirstfailedArenacountandareUNRUN; actualStack0notcertifiedbyemptyDQorACTIONlabel. AllfourfutureTomeActionresponses/delayedprintedphysicalendpoints/cleanupqueriesalsoUNRUN. Noretryneededtoallocateonlythisboundedproducerfinding."
+  ],
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afaa87a2bf9c",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afaa87a2bf9c",
+    "existing_directory_present": false,
+    "reason": "Recorder finally clears memory/deletes unique game. Existing immutablearchive/result provide initialraw+capturedGameState/decisions/handrefs only, nofinalphysicalraw. No rerun/capturemutation."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.2.1",
+        "4.3.1",
+        "4.3.2",
+        "4.3.3",
+        "4.4.1"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_trigger_review": true
+    }
+  ],
+  "limits": [
+    "Nofixture/promotion/coverage.611queriesafterfirstfailure and4futurelegalActionresponsecontrols remainunrun;612notpassedincludesfailedquery.",
+    "OnlylistedpassedfactsandseparatelylabelledcapturedState/handref/historyareactualevidence. ExactphysicalGY/Deck/HandUIDs, Stackandfullcleanupdidnotexecuteafterfailure; nofinalraw5/final48certificate.",
+    "NoPHP/native/retrial/Rwrites/sourcefix/Radiant189/Head190/Oysten191/Read192or denied188184B787 action byreviewer."
+  ],
+  "created_utc": "2026-11-16T06:58:44.618463+00:00"
+}

@@ -1,0 +1,150 @@
+{
+  "status": "INDEPENDENT_APPROVED_PLANNING_LIMITS_B823_TWO_KNOWN_CONTRACTS_NO_RUNNABLE_SOURCE",
+  "phase": "SOURCE_ONLY_UNATTEMPTED_PLANNING_REVIEW",
+  "batch": 823,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T18:43:22.679499+00:00",
+  "approved": true,
+  "planning_classification_approved": true,
+  "source_review_purpose": "Only retain two known-contract UNATTEMPTED classifications; no executable/Native/Save approval.",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "author_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch823-two-known-contract-source-hold-manifest.json",
+    "sha256": "6efa78467ef0a15c53e7810dba59e4bfe07d15376585688064a26dd39d2855a4"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch823-firm-reservation.json",
+    "sha256": "50604d8419cde2b797f989fad989552793380172dbc2ddb3f2d429497513f80b"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 11,
+  "selected_support_guard_map_sha256": "b2166ddf28877f86e4ed97c04a8c79d18f282e285fc3eeff297518f49375f64c",
+  "all_whole_current_source_guards_independently_matched": true,
+  "canonical_selected_bodies_independently_matched": true,
+  "actual_compiled_callpaths_independently_read": true,
+  "source_only_held_cases": [
+    {
+      "card_id": "trench_of_watery_depths",
+      "group_id": "identity:trench_of_watery_depths",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_FORMAL_DEFENDED_WHEN_LAYER_CONTRACT",
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_BEFORE_GRAVEYARD_PITCH_CONTRACT",
+      "reason": "Actual PEN Defended body and emitted await reach the optional own-blue-Graveyard chooser directly through GameLogic1220..1227 OnDefended -> RunSourceMacro. Only SmokeOut has the named Defended capture exception at1316..1318; Trench has no separate captured responseable layer before its choice. Exact known formal Defended-WHEN contract of Stride/Horns/Clash; not missing pitch/body capability or a fresh native failure.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch823-trench-known-defended-when-unattempted-note.json",
+        "sha256": "1ddcd829895798bb19007ca45f0d23c5da28a46521efe95630bb124418fc864e"
+      },
+      "known_contracts": [
+        {
+          "card_id": "stride_of_reprisal",
+          "proof": {
+            "path": "review-evidence/sparse809-stride-independent-known-defended-planning-review-6695.json",
+            "sha256": "40e20eaa792ad2467f608aad3083965c0fdc332e1ed91f81f660eec3d4223ad8"
+          }
+        },
+        {
+          "card_id": "clash_of_might_blue",
+          "proof": {
+            "path": "review-evidence/sparse716-clash-might-defended-when-unattempted-c53.json",
+            "sha256": "583cc98232ddf46f6648a2f417f995b784fe06ce13691c59c0a580fa86c697c2",
+            "kind": "INDEPENDENT_PLANNING_LIMIT_NOT_RUNNABLE_APPROVAL"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false
+    },
+    {
+      "card_id": "even_bigger_than_that_blue",
+      "group_id": "pitch-cycle:even_bigger_than_that",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_UNMANAGED_AWAITED_PLAIN_INSTANT_SOURCE_LIFETIME",
+      "classification": "KNOWN_UNMANAGED_AWAITED_PHYSICAL_SPELL_LIFETIME_BEFORE_OPT",
+      "reason": "Actual Blue ResolveCard/emitted helper stages top, awaits MZREARRANGE, finishes order then reveals/compares actual EVR_PHYSICAL and creates Quicken/draws. Both current managed ordinary-spell predicates GameLogic1571/1637..1682 exclude EvenBiggerRGB; nonpersistent INSTANT falls1823 physical Stack->Graveyard BEFORE1824 required resolving Opt await. Exact known Index/Solace/Toll awaited-source lifetime contract, not missing Opt/reveal/draw or fresh native failure.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch823-even-bigger-known-awaited-source-lifetime-unattempted-note.json",
+        "sha256": "abe0331d4015a836ced6479d25105723a214a4b80e03f1515d06ab03bd990bdc"
+      },
+      "known_contracts": [
+        {
+          "card_id": "index_blue",
+          "proof": {
+            "path": "review-evidence/sparse790-index-known-lifetime-unattempted-6695.json",
+            "sha256": "4e57c9fc295df87da4eb9cc8ce29c19294e16dd15eafac0ad0de3f632ab578dd"
+          }
+        },
+        {
+          "card_id": "tentacular_toll_blue",
+          "proof": {
+            "path": "review-evidence/sparse801-toll-independent-planning-review-6695.json",
+            "sha256": "8a5371e097a81bb3f298e5cb7b37e7dacce92d59a75e0b319378f24c53b01db2"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false
+    }
+  ],
+  "independent_causal_findings": [
+    {
+      "card_id": "trench_of_watery_depths",
+      "rules": [
+        "https://rules.fabtcg.com/en/cr/06-effects/ CR6.6.1,6.6.5-6",
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ CR5.3.1"
+      ],
+      "finding": "Printed WHENdefends requires an earned triggered-layer before optional pitch effects. PirateChestDEF1 is legal on actualPirateNecromancerYoungGravyBones. Current OnDefended1220-1227 directly invokes its generated macro; full RunSourceMacro1269..1325 has only namedSmokeOut Defended capture, none forTrench. Compiled26296->231900..231934 directly reaches optionalMZMULTICHOOSE. ExactknownStride/Horns/Clash formalDefended-WHEN boundary precedes selectedpitch/resource/damage/BladeBreak outcomes.",
+      "existing_capability": "PEN210-218 actually validatesownblueGY, moves physicalcardtoPitch, grants3/dispatchedpitchhooks; build_pen140 andsavedcanonical/compiledbody exist. Not absent implementation/admission or a fresh native bug."
+    },
+    {
+      "card_id": "even_bigger_than_that_blue",
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/1447/",
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ CR5.3.4-7"
+      ],
+      "finding": "Actual firstWoundingBlue2damage would satisfy playgate; BlueOpt1 bottom thenRedpower4>totalactual2 would createQuicken/drawRed, with no retroactiveAP. Complete current managed predicates1571/1637..1682 exclude allEvenBiggerIDs. NonpersistentInstant goes GL1823Stack->GY before1824 actualawaitedResolveCard. Generated2549->59700..59753 genuinelystagesOpt/MZREARRANGE thenreveal/compare/token/draw. ExactknownIndex/Solace/Toll/Strength source-lifetime contract precedes selectedunfinishedOpt.",
+      "existing_capability": "EVR46 physical-damage playgate/history; ARC102-125 supportsTop/Bottom andsamephysicalUID ordering. Awaitlocals retained byactualgeneratedcallback, which is distinct from keeping resolving physicalsource onStack. No Opt/helper/body absence claim."
+    }
+  ],
+  "official_rules_read_only_web_used": true,
+  "official_release_note_fetch_limit": "Trench official Compendium release-notes page returned403 to web fetch. Classification uses independently read guarded printedcatalog text plus official CR6.6/5.3; no full release-page retrieval claim. EvenBiggerBlue official JudgeHub text was retrieved.",
+  "compiled_fragment_hash_caveat": {
+    "whole_GeneratedMacroCode_sha256_verified": "bea3d9a62c132bc7cf41a6df69457909c66bcfba53680eada5e8f762d6f94e73",
+    "two_helper_function_LF_fragment_hashes_independently_matched": true,
+    "four_macro_callback_fragment_hash_boundaries_independently_verified": false,
+    "ambiguous_fragment_hash_values_endorsed": false,
+    "scope": "Author stores four macro/callback digests whose extraction boundaries were not independently established. Actual closures/callpaths and wholefile/runtime guards were checked. These ambiguous digest values are not used as evidence or executable admission gates; planning-only retention remains sound. No expanded audit required."
+  },
+  "executable_cases": 0,
+  "native_case_approved": false,
+  "source_approved_for_native_execution": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "source_fix": false,
+  "new_distinct_gameplay_root_group": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Only fixedTrenchrealBlueGYpitch/trigger/BladeBreak andEvenBiggerBluepositiveOptBOTTOM routes are unattempted. No runtime outcome/sourcefix or new native defect is inferred from source-only reads.",
+    "No no-pitch/basicblock/inline-trigger/Optkeep/failedcondition/emptydeck/damagehistoryseed/alternatehero/primary fallback. No pitch-sibling or fullcardcoverage, token/BladeBreak/cleanup certificate.",
+    "Historicalknownholdproofs retain originalruntime labels; currenta11guard/causalread doesnot requalify legacyfixtures or retryheldrepairs."
+  ]
+}

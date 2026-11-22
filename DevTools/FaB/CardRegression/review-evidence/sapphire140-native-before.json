@@ -1,0 +1,189 @@
+{
+  "id": "FAB-REG-140",
+  "status": "CONFIRMED_NATIVE_GAMEPLAY_FAILURE",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-v2-independent-native-classification.json",
+  "independent_review_sha256": "d6ecf9e412ad7253ed1536416b19d8451ac0918197be2e2cead4141e4e32d348",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "source_spec": "card-regression-batch551-probe-v2.json",
+  "input_sha256": "b0daf49d6c647e363877117c98f0375733cac4bade9d202479cd5122105901ff",
+  "scenario_id": "card-sapphire-amulet-blue-four-live-original-correct-watery-trigger-then-intellect-with-no-go-again",
+  "first_failure": {
+    "error": "Expected p1ActionPoints to equal 0, got 1.",
+    "source_step_index": 18,
+    "check_index": 58,
+    "check_ordinal_in_checkpoint": 59,
+    "global_check_ordinal": 712,
+    "passed_checks_before_failure": 711,
+    "check": {
+      "type": "scalar_zone_equals",
+      "zone": "p1ActionPoints",
+      "value": 0
+    },
+    "expected_action_points": 0,
+    "actual_action_points": 1,
+    "remaining_checks_in_failed_checkpoint": 0
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 9,
+    "all_expected_action_envelopes_exact": true,
+    "actual_manual_passes": 8,
+    "response_actor_sequence": [
+      1,
+      2,
+      3,
+      4,
+      1,
+      2,
+      3,
+      4
+    ],
+    "manual_pass_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2
+    },
+    "raw_initial_gamestate_sha256": "660bfab3fe56488f72e52b49395231172a544130f95e0d3b6aba151d1adeba87",
+    "initial48manualsettings_validated": true,
+    "passed_physical_and_effect_facts": [
+      "ActualSapphire5 activation paysoneAP1->0/zeroresources anddestroysphysical5toownGYFaceDown0, withcapturedactivatedlayerbelowearnedseaWateryWHEN/controller1/sourceUID5. V2legitimateEVR_ACTIVATEDprefixandothercosthistoryquerypasses.",
+      "Freshrealresponders1/2/3/4 resolveWatery; onlythen samephysical5GYbecomesFaceDown1, mainactivationremainsStack/AP0 andnoSEA_INTELLECTyet. No triggerwasomitted or faked.",
+      "Secondfreshrealresponders1/2/3/4 resolvemainability despiteitsphysicalsourcebeingfacedown. Atstep18beforeAPcheck,58passedqueries establishStack0, source5owned/controller1/actualGYFaceDown1, all4decisionqueuesempty, payment/resolutioncleared, ACTIONpriority1, HP20/R0 and otherseatAP0, counter7/RNG0 andactualSEA_INTELLECTamount1uses1 effect appended.",
+      "TheIntellecteffect rowis observed, not a physicaldraw/refill or computedheroIntellect5 witness. NoEndPhase ordrawwasexecuted."
+    ],
+    "raw_corrobating_state": {
+      "window": "ACTION",
+      "arcActions": {
+        "1": 1
+      },
+      "cardsPlayedThisTurn": [],
+      "player1_effects": [
+        {
+          "type": "EVR_ACTIVATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_BLUE_GRAVE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVO_ITEM_DESTROYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_INTELLECT",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "pendingPayment": null,
+      "resolvingReaction_absent_or_null": true
+    },
+    "unexecuted_actions": 0,
+    "unexecuted_checks": 116,
+    "unrun_suffix": "Finalfullendpointcheckpoint19 only. Do notclaimitspassed/rawfullfinalsnapshot, futureturn/draw/expiry or unqueriedzone/statefacts."
+  },
+  "classification": {
+    "type": "UNPRINTED_ACTIVATED_ABILITY_GO_AGAIN_REFUND",
+    "confirmed": "PrintedSapphireActionactivation hasNOgoagain, but afteractualcost/earnedWatery andmainresolution, nativeAPgetterreports1wherecorrectAP0isrequired. Initialquietsetup hasnoexternalGA/APgrant andactualAP0wasmaintainedthroughbothpendingrounds.",
+    "cause": "RegisteredSapphireactivationrow carriesgoAgain=true; ARCspecmapsit, managedARC_ABILITYcapturesabilityGoAgaintrue, and completionfinalizeraddsoneAP. RealbodyonlyaddsINTELLECT. ObservedextraAPmatchesselectedmanagedactivationconfiguration path, not anabsence/fallback-only inference.",
+    "not_test_oracle_or_protocol": "CorrectedV2bookkeeping/sourcegate35336passedall711earlierqueries and bothactualresponsecycles. ThefirstV1runwasadifferentearlyfull-arrayoracleerror, not evidenceofthisengineAPfailure.",
+    "confirmed_gameplay_bug": true
+  },
+  "expected": "Sapphire Amulet Blue has an Action destroy activation granting +1 Intellect this turn and no go again. After paying one action point and resolving its earned Watery Grave trigger followed by the main activation, the controller must remain at AP0.",
+  "observed": "Nine accepted native inputs and eight manual responses (all four seats twice) ran. The first failure is check712 after711 passed checks: p1ActionPoints expected0, actual1. Prior checks establish actual destruction, the separate fresh-four Watery Grave resolution making owned Sapphire5 face down in Graveyard, then the second fresh-four main resolution producing SEA_INTELLECT1 with Stack/queues/payment clear. The final116-check snapshot suffix was unrun. No draw/refill or computed Intellect5 consumer was exercised; no fixture or coverage saved. V1 was a separate early oracle omission corrected without changing this strict AP0 expectation.",
+  "source_evidence": [
+    {
+      "path": "FaBSim/Custom/SEARuntime.php",
+      "lines": "15",
+      "finding": "Sapphire registeredwithACTION0/destroytrue/goAgaintrue. PrintedSEA197ActionhasnoGA."
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "lines": "47-49",
+      "finding": "Livefamilymerge/fourthfieldmapsdirectlytogoAgaininactualarcSpec."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1545-1551,1563-1592",
+      "finding": "ActualarcSpecABILITYusesmanagedARC_ABILITY; capturesabilityGoAgainfromarcSpec at1576 andresolvesrealabilitybody."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1489-1496,1595-1600",
+      "finding": "Completioncallsmanagedvirtualgoagainfinalizer, whichrefundsoneAPonlywhen capturedflagtrue andcontrollereligible. Itdoesnotparseprintedcardtext."
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "lines": "178-200",
+      "finding": "ActualactivatedresolverclearsrosEvent, runsrealINTELLECTbody, anddirectlegacyrefundissuppressedwhilemanagedownerexists; observedAP1isnotproofadouble-refund."
+    },
+    {
+      "path": "DevTools/FaB/sea_abilities.json",
+      "finding": "ActualINTELLECT+1bodyandseaWateryFaceDowncallbackexistandweremateriallyreached. Noimplementationabsence/triggeromissionclaim."
+    }
+  ],
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch551-probe-v2.recording-results.json",
+      "sha256": "cf51d7ed3dbc1318d3d8486b57032deba2f723ac25328709743369d96aff2882"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch551-probe-v2-20261106T012635Z-6aed2ccb1c496.json",
+      "sha256": "994f886add81ba7aeee38b984fd7c0ca698dc6c17a1402558eac7627b7b9b8bb"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-v2-independent-source-review.json",
+    "sha256": "35336dfc1097428af8b73a63bff13cbc13343e96725f39687af3d0fe0a9816e3"
+  },
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA197.webp",
+      "basis": "IssuerSEA197 locator and actually viewed localhash-boundface. No inventedJudgeHubID or liveimagefetchclaim. Faceprints Actiondestroy/+1intellect/noGA and exactLegendreminder."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "basis": "Current8.3.5 Goagain suppliesAPonlywhenactuallypresent;8.3.6Legendary/8.3.41WateryGrave supply decklimit and responseable Arena-to-GY WHEN. Trigger mustnotbe suppressed merely because activatedsource wasdestroyed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "basis": "Activation paysActionAP anddestroycost; earnedWHEN goesabove activation and gets responses. Main earnedability remainsresolvable after sourceleftArena/turnedfacedown."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/high-seas/",
+      "basis": "Publisher indexed Sapphire ruling independently corroborates increasedendphase draw from the intellectcontinuouseffect. No fullreleasepage reading claimed."
+    }
+  ],
+  "limits": [
+    "No savedfixture/passcoverage/control/repairverification or fullcard/sibling/otheramulet/otherHero certification.",
+    "All9inputsoccurred,butfinal116-checkfullendpointwasnotexecuted. Reportonly711passedchecksplusactualAPfailure/rawfailurestate, not afullfinalsnapshot.",
+    "NoEndPhase/physicaldraw/refill/Intellectexpiry/Legendrecursion/foreignownership/eliminationclaim.",
+    "No directvirtualUIDpropertyassertion inferredfromcounter7. Source5identity/controller/faceDownfactsareexplicitlyqueried.",
+    "No root/Core/dedupallocation, sourceapply/proposalreview, native/PHP/replay/fullsuite/Rwrite/deniedretry byreviewer. Proposedcandidatebeingreviewedelsewhereisnotappliedorqualifiedhere."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-06T01:32:20.500472+00:00"
+}

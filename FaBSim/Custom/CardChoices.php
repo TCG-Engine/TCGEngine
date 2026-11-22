@@ -1,15 +1,82 @@
 <?php
 
-/** Only the two native-reproduced declaration-timing cards enter this compatibility seam. */
+/** Audited declaration profiles; no text parsing or automatic card enrollment. */
+function FaBDeclaredReactionDefinition(string $id): ?array {
+    if ($id === 'lightning_press_red') return ['kind'=>'INSTANT','modal'=>false,'tip'=>'Choose_attack_action','modes'=>[
+        'attackAction'=>['selector'=>'ANY_CHEAP_ATTACK_ACTION','effects'=>['power'=>3]]]];
+    if ($id === 'nip_at_the_heels_blue') return ['modal'=>false,'tip'=>'Choose_attack','modes'=>[
+        'attack'=>['selector'=>'HNT_SMALL','effects'=>['power'=>1]]]];
+    if (in_array($id,['shred_red','shred_yellow','shred_blue'],true)) return ['modal'=>false,'tip'=>'Choose_defending_card','modes'=>[
+        'defender'=>['selector'=>'DYN_ASSASSIN_DEFENDER','effects'=>['defense'=>-(5-intval(CardPitch($id)))]]]];
+    if ($id === 'razor_reflex_red') return ['modal'=>true,'tip'=>'Choose_attack','modes'=>[
+        'weapon'=>['label'=>'Dagger_or_sword_weapon_attack','selector'=>'BLADE_WEAPON','effects'=>['power'=>3]],
+        'attackAction'=>['label'=>'Attack_action_cost_1_or_less','selector'=>'CHEAP_ATTACK_ACTION','effects'=>['power'=>3,'hitGoAgain'=>true]]]];
+    return null;
+}
+
+function FaBDeclaredReactionSelectorRefs(int $player, string $selector): string {
+    if ($selector === 'HNT_SMALL') return FaBHNTAffectsAttack($player,'SMALL');
+    if ($selector === 'DYN_ASSASSIN_DEFENDER') return FaBDYNDefenders($player,'ASSASSIN');
+    $state=FaBGetState(); $target=FaBFindUID(intval($state['attackUID']??0));
+    if ($target===null || $target['zone']!=='CombatChain'
+        || ($selector!=='ANY_CHEAP_ATTACK_ACTION' && intval($state['attacker']??0)!==$player)
+        || ($target['object']->Role??'')!=='ATTACK'
+        || intval($target['object']->ChainLink??-1)!==intval($state['chainLink']??-2)) return '';
+    $o=$target['object'];
+    $legal=$selector==='BLADE_WEAPON'
+        ? FaBWTRIsWeapon($o)&&(FaBHasType($o,'Dagger')||FaBHasType($o,'Sword'))
+        : (in_array($selector,['CHEAP_ATTACK_ACTION','ANY_CHEAP_ATTACK_ACTION'],true)&&FaBWTRIsAttackAction($o)&&intval(CardCost($o->CardID))<=1);
+    return $legal ? (string)$target['mzID'] : '';
+}
+
+function FaBDeclaredReactionModeKey(object $source, array $definition): string {
+    if (empty($definition['modal'])) return (string)array_key_first($definition['modes']);
+    $mode=$source->Params['declaredReactionMode']??null;
+    return is_string($mode)&&isset($definition['modes'][$mode]) ? $mode : '';
+}
+
+/** Snapshot offered identities after mode selection, still before payment. */
+function FaBQueueDeclaredReactionTarget(int $player, object $source): void {
+    $uid=intval($source->UniqueID??0); if(FaBDeclaredReactionSource($player,$uid)===null)return;
+    $definition=FaBDeclaredReactionDefinition((string)$source->CardID);
+    $mode=FaBDeclaredReactionModeKey($source,$definition);
+    if($mode===''){FaBReverseDeclaredReaction($player,$source);return;}
+    $refs=FaBDeclaredReactionTargetRefs($player,(string)$source->CardID,$mode);$options=[];
+    foreach(array_filter(explode('&',$refs))as$ref){
+        $found=FaBIdentityFromMZ($ref);
+        if($found!==null&&$found['zone']==='CombatChain')$options[(string)intval($found['object']->UniqueID)]=intval($found['object']->ChainLink??-1);
+    }
+    $source->Params['declaredReactionOptions']=$options;
+    if(!$options){FaBReverseDeclaredReaction($player,$source);return;}
+    DecisionQueueController::AddDecision($player,'MZCHOOSE',$refs,1,$definition['tip']);
+    DecisionQueueController::AddDecision($player,'CUSTOM','FAB_DECLARE_REACTION_TARGET|'.$uid,1);
+}
+
+function FaBContinueDeclaredReactionMode(int $player, array $parts, string $answer): void {
+    if(count($parts)!==1||DecisionQueueController::ExecutingSeat()!==$player)return;
+    $uid=intval($parts[0]);$found=FaBDeclaredReactionSource($player,$uid);if($uid<=0||$found===null)return;
+    $source=$found['object'];$definition=FaBDeclaredReactionDefinition((string)$source->CardID);
+    $options=(array)($source->Params['declaredReactionModeOptions']??[]);
+    if(empty($definition['modal'])||!$options)return;
+    $index=preg_match('/^(0|[1-9][0-9]*)$/D',$answer)?intval($answer):-1;$mode=$options[$index]??'';
+    if(!is_string($mode)||!isset($definition['modes'][$mode])||FaBDeclaredReactionTargetRefs($player,(string)$source->CardID,$mode)===''){
+        FaBReverseDeclaredReaction($player,$source);return;
+    }
+    $source->Params['declaredReactionMode']=$mode;unset($source->Params['declaredReactionModeOptions']);
+    FaBQueueDeclaredReactionTarget($player,$source);
+}
+
+/** Only audited declaration profiles enter this compatibility seam. */
 function FaBUsesDeclaredReactionTarget(string $cardID): bool {
-    return $cardID === 'nip_at_the_heels_blue' || in_array($cardID, ['shred_red','shred_yellow','shred_blue'], true);
+    return FaBDeclaredReactionDefinition($cardID) !== null;
 }
 
 /** Preserve the existing current-attack/current-defender target universe; bind its objects earlier. */
-function FaBDeclaredReactionTargetRefs(int $player, string $cardID): string {
-    if ($cardID === 'nip_at_the_heels_blue') return FaBHNTAffectsAttack($player, 'SMALL');
-    if (in_array($cardID, ['shred_red','shred_yellow','shred_blue'], true)) return FaBDYNDefenders($player, 'ASSASSIN');
-    return '';
+function FaBDeclaredReactionTargetRefs(int $player, string $cardID, string $mode = ''): string {
+    $definition=FaBDeclaredReactionDefinition($cardID);if($definition===null)return '';
+    $modes=$definition['modes'];if($mode!==''){if(!isset($modes[$mode]))return '';$modes=[$modes[$mode]];}
+    $refs=[];foreach($modes as$spec)foreach(array_filter(explode('&',FaBDeclaredReactionSelectorRefs($player,$spec['selector'])))as$ref)$refs[$ref]=true;
+    return implode('&',array_keys($refs));
 }
 
 function FaBDeclaredReactionSource(int $player, int $uid): ?array {
@@ -18,7 +85,9 @@ function FaBDeclaredReactionSource(int $player, int $uid): ?array {
         && intval($source['object']->Controller ?? 0) === $player
         && FaBUsesDeclaredReactionTarget((string)$source['object']->CardID)
         && is_array($pending) && intval($pending['player'] ?? 0) === $player
-        && intval($pending['uid'] ?? 0) === $uid && ($pending['kind'] ?? '') === 'ATTACK_REACTION'
+        && intval($pending['uid'] ?? 0) === $uid
+        && ($pending['kind'] ?? '') === (FaBDeclaredReactionDefinition((string)$source['object']->CardID)['kind'] ?? 'ATTACK_REACTION')
+        && (($pending['kind'] ?? '') !== 'INSTANT' || ($source['object']->Kind ?? '') === 'INSTANT')
         ? $source : null;
 }
 
@@ -36,24 +105,21 @@ function FaBReverseDeclaredReaction(int $player, object $source): void {
 
 /** Runs after announce and before asset payment/played listeners/opponent priority. */
 function FaBPrepareDeclaredReaction(int $player, object $source): void {
-    $uid = intval($source->UniqueID ?? 0);
-    if (FaBDeclaredReactionSource($player, $uid) === null) return;
-    if (HasNoAbilities($source)) { FaBFinishPreparedCard($uid); return; }
-    $versions = GetVersions($player); $version = $versions[0] ?? null;
-    $source->Params['declaredReactionUndoHash'] = is_object($version) ? hash('sha256', (string)$version->Version) : '';
-    $options = [];
-    foreach (array_filter(explode('&', FaBDeclaredReactionTargetRefs($player, (string)$source->CardID))) as $ref) {
-        $found = FaBIdentityFromMZ($ref);
-        if ($found !== null && $found['zone'] === 'CombatChain') {
-            $options[(string)intval($found['object']->UniqueID)] = intval($found['object']->ChainLink ?? -1);
-        }
+    $uid=intval($source->UniqueID??0);if(FaBDeclaredReactionSource($player,$uid)===null)return;
+    if(HasNoAbilities($source)){FaBFinishPreparedCard($uid);return;}
+    $versions=GetVersions($player);$version=$versions[0]??null;
+    $source->Params['declaredReactionUndoHash']=is_object($version)?hash('sha256',(string)$version->Version):'';
+    $definition=FaBDeclaredReactionDefinition((string)$source->CardID);
+    if(empty($definition['modal'])){FaBQueueDeclaredReactionTarget($player,$source);return;}
+    $modes=[];$labels=[];
+    foreach($definition['modes']as$key=>$spec){
+        if(FaBDeclaredReactionTargetRefs($player,(string)$source->CardID,$key)==='')continue;
+        $modes[]=$key;$labels[]=$spec['label'];
     }
-    $source->Params['declaredReactionOptions'] = $options;
-    if (!$options) { FaBReverseDeclaredReaction($player, $source); return; }
-    $refs = FaBDeclaredReactionTargetRefs($player, (string)$source->CardID);
-    $tip = $source->CardID === 'nip_at_the_heels_blue' ? 'Choose_attack' : 'Choose_defending_card';
-    DecisionQueueController::AddDecision($player, 'MZCHOOSE', $refs, 1, $tip);
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'FAB_DECLARE_REACTION_TARGET|' . $uid, 1);
+    if(!$modes){FaBReverseDeclaredReaction($player,$source);return;}
+    $source->Params['declaredReactionModeOptions']=$modes;
+    DecisionQueueController::AddDecision($player,'MZMODAL','1|1|'.implode('&',$labels),1,'Choose_reaction_mode');
+    DecisionQueueController::AddDecision($player,'CUSTOM','FAB_DECLARE_REACTION_MODE|'.$uid,1);
 }
 
 /** CUSTOM only binds the already offered legal object and completes normal payment. */
@@ -64,8 +130,10 @@ function FaBContinueDeclaredReaction(int $player, array $parts, string $answer):
     $object = $source['object']; $target = FaBIdentityFromMZ($answer);
     $options = (array)($object->Params['declaredReactionOptions'] ?? []);
     $targetUID = $target === null ? 0 : intval($target['object']->UniqueID ?? 0);
-    $refs = explode('&', FaBDeclaredReactionTargetRefs($player, (string)$object->CardID));
-    if ($target === null || $target['zone'] !== 'CombatChain' || !in_array($answer, $refs, true)
+    $definition = FaBDeclaredReactionDefinition((string)$object->CardID);
+    $mode = FaBDeclaredReactionModeKey($object, $definition);
+    $refs = explode('&', FaBDeclaredReactionTargetRefs($player, (string)$object->CardID, $mode));
+    if ($mode === '' || $target === null || $target['zone'] !== 'CombatChain' || !in_array($answer, $refs, true)
         || !array_key_exists((string)$targetUID, $options)
         || intval($target['object']->ChainLink ?? -1) !== intval($options[(string)$targetUID])) {
         FaBReverseDeclaredReaction($player, $object);
@@ -78,14 +146,17 @@ function FaBContinueDeclaredReaction(int $player, array $parts, string $answer):
 
 /** Resolution never asks for a new target; an invalid original target makes the effect fail. */
 function FaBResolveDeclaredReaction(int $player, object $source): void {
-    if (!FaBUsesDeclaredReactionTarget((string)$source->CardID) || HasNoAbilities($source)) return;
-    $bound = (array)($source->Params['declaredReactionTarget'] ?? []);
-    $target = FaBFindUID(intval($bound['uid'] ?? 0));
-    if ($target === null || $target['zone'] !== 'CombatChain'
-        || intval($target['object']->ChainLink ?? -1) !== intval($bound['chainLink'] ?? -2)
-        || !in_array($target['mzID'], explode('&', FaBDeclaredReactionTargetRefs($player, (string)$source->CardID)), true)) return;
-    if ($source->CardID === 'nip_at_the_heels_blue') FaBTagUID(intval($bound['uid']), 'WTR_POWER:1');
-    else FaBTagUID(intval($bound['uid']), 'DYN_DEFENSE:-' . (5 - intval(CardPitch($source->CardID))));
+    $definition=FaBDeclaredReactionDefinition((string)$source->CardID);
+    if($definition===null||HasNoAbilities($source))return;
+    $mode=FaBDeclaredReactionModeKey($source,$definition);if($mode==='')return;
+    $bound=(array)($source->Params['declaredReactionTarget']??[]);$target=FaBFindUID(intval($bound['uid']??0));
+    if($target===null||$target['zone']!=='CombatChain'
+        ||intval($target['object']->ChainLink??-1)!==intval($bound['chainLink']??-2)
+        ||!in_array($target['mzID'],explode('&',FaBDeclaredReactionTargetRefs($player,(string)$source->CardID,$mode)),true))return;
+    $effects=$definition['modes'][$mode]['effects'];$uid=intval($bound['uid']);
+    if(!empty($effects['power']))FaBTagUID($uid,'WTR_POWER:'.intval($effects['power']));
+    if(!empty($effects['defense']))FaBTagUID($uid,'DYN_DEFENSE:'.intval($effects['defense']));
+    if(!empty($effects['hitGoAgain']))FaBTagUID($uid,'WTR_HIT_GO_AGAIN');
 }
 
 /** Writer-only projection of the exact bound offered UIDs through tombstone compaction. */
@@ -238,7 +309,7 @@ function FaBTagUID(int $uid, string $tag): void {
     $source=FaBIdentityFromMZ((string)DecisionQueueController::GetVariable('mzID'));
     if($source!==null&&FaBHasType($source['object'],'Attack Reaction'))FaBCRUSelfTag($found['object'],$tag);
     else FaBWTRTag($found['object'],$tag);
-    if($tag==='WTR_POWER:1'&&FaBGetState()['window']==='REACTION'&&intval(FaBGetState()['attackUID'])===$uid)foreach(FaBMONArena($found['player'],'talisman_of_featherfoot') as $r){FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));FaBWTRTag($found['object'],'GO_AGAIN');}
+    if(in_array($tag,['WTR_POWER:1','CRU_REACTION_POWER:1'],true))FaBCRUNotifyFeatherfoot($uid);
 }
 
 function FaBPreviousAttackBase(): string {
@@ -282,9 +353,9 @@ function FaBApplyDiscardRequest(int $player, string $answer): void {
 function FaBDiscardChoice(int $player, string $chosen): bool {
     $found=FaBIdentityFromMZ($chosen);
     if($found===null || $found['player']!==$player || $found['zone']!=='Hand')return false;
-    $id=$found['object']->CardID;
+    $id=$found['object']->CardID;$discardSource=clone $found['object'];
     FaBMoveUID(intval($found['object']->UniqueID),'Graveyard',$player);
-    FaBWTRCardDiscarded($player,$id);
+    FaBWTRCardDiscarded($player,$id,intval($discardSource->UniqueID),$discardSource);
     return true;
 }
 
@@ -329,6 +400,57 @@ function FaBHandDefendingCount(array $state, ?int $defender=null): int {
     return $count;
 }
 
+/** Only the three synchronous Dread Prepare bodies use this additional-cost contract. */
+function FaBDreadPreparedCostCard(string $card): bool {
+    return in_array($card, ['dread_screamer_red','dread_screamer_yellow','dread_screamer_blue'], true);
+}
+
+/** Scoped around the actual generated callback; never inferred from pending alone. */
+function FaBDreadPrepareCostContext(string $macro, int $player, string $card, int $index, ?array $ref): ?array {
+    if ($macro !== 'PrepareCard' || $index !== 0 || !FaBDreadPreparedCostCard($card) || $ref === null) return null;
+    $state = FaBGetState(); $pending = $state['pendingPayment'] ?? null;
+    if (($state['window'] ?? '') !== 'PITCH' || !is_array($pending)
+        || intval($pending['player'] ?? 0) !== $player || ($pending['preparedEffectCardID'] ?? '') !== $card
+        || isset($pending['preparedEffectCost']) || !empty($pending['preparedEffectError'])
+        || !empty($pending['isAbility']) || !empty($pending['isWeaponAttack']) || !empty($pending['isArenaAttack'])) return null;
+    $source = FaBPreparedEffectCostSource($pending);
+    if ($source === null || $source['object'] !== $ref['object'] || $source['mzID'] !== $ref['mzID']) return null;
+    return ['player'=>$player, 'uid'=>intval($pending['uid']), 'cardID'=>$card,
+        'sourceMZ'=>$source['mzID'], 'pending'=>$pending];
+}
+
+/** Declare random quantity, not random identities. The unchanged Prepare body still finishes. */
+function FaBDreadDeferRandomCost(int $player, int $quantity): bool {
+    $context = $GLOBALS['fabDreadPrepareCostContext'] ?? null;
+    if (!is_array($context) || !FaBDreadPreparedCostCard((string)($context['cardID'] ?? ''))) return false;
+    $state = FaBGetState(); $pending = $state['pendingPayment'] ?? null;
+    $source = is_array($pending) ? FaBPreparedEffectCostSource($pending) : null;
+    $valid = $quantity === 3 && intval($context['player'] ?? 0) === $player
+        && is_array($pending) && intval($pending['player'] ?? 0) === $player
+        && intval($pending['uid'] ?? 0) === intval($context['uid'] ?? 0)
+        && ($pending['preparedEffectCardID'] ?? '') === $context['cardID']
+        && ($state['window'] ?? '') === 'PITCH' && $source !== null
+        && $source['mzID'] === ($context['sourceMZ'] ?? '')
+        && (string)DecisionQueueController::GetVariable('mzID') === $source['mzID']
+        && !isset($pending['preparedEffectCost']) && empty($pending['preparedEffectError'])
+        && count(FaBChoiceRefs($player, 'Graveyard')) >= 3;
+    if (!$valid) {
+        // Roll back only after the generated body returns, so its monSix write
+        // cannot touch the restored preannouncement card. Finish stays held.
+        $GLOBALS['fabDreadPrepareCostContext']['error'] = 'Dread random-cost declaration context changed';
+        if (is_array($pending) && intval($pending['uid'] ?? 0) === intval($context['uid'] ?? 0)) {
+            $state['pendingPayment']['preparedEffectError'] = $GLOBALS['fabDreadPrepareCostContext']['error'];
+            FaBSetState($state);
+        }
+        return true;
+    }
+    $state['pendingPayment']['preparedEffectCost'] = [
+        'type'=>'BANISH_RANDOM_GRAVEYARD_THREE', 'uids'=>[], 'quantity'=>3, 'cardID'=>$context['cardID'],
+        'stage'=>'DECLARED', 'assetsPaid'=>false, 'chargedCost'=>null];
+    FaBSetState($state);
+    return true;
+}
+
 // CR5.1.7 asset payment precedes declared additional effect-cost execution.
 function FaBPreparedEffectCostSource(array $pending): ?array {
     if (($pending['preparedEffectCardID'] ?? '') === 'bloodtorn_bodice') return FaBBodicePreparedEffectCostSource($pending);
@@ -340,16 +462,27 @@ function FaBPreparedEffectCostSource(array $pending): ?array {
     if ($player < 1 || !FaBSeatIsLive($player) || $found === null || $found['zone'] !== 'Stack') return null;
     $source = $found['object'];
     $card = (string)($source->CardID ?? '');
-    if (!in_array($card, ['tome_of_harvests_blue','rouse_the_ancients_blue'], true)
+    if ((!in_array($card, ['tome_of_harvests_blue','rouse_the_ancients_blue','nimble_strike_red','nimble_strike_yellow','nimble_strike_blue','celestial_cataclysm_yellow','dread_screamer_red','dread_screamer_yellow','dread_screamer_blue'], true) && !FaBHVYUsesBeatChestCost($card))
         || intval($source->Controller ?? 0) !== $player
         || intval($source->SourceUniqueID ?? 0) !== $uid
         || (string)($source->SourceZone ?? '') !== (string)($pending['fromZone'] ?? '')
         || (string)($source->Kind ?? '') !== (string)($pending['kind'] ?? '')) return null;
     if (array_key_exists('preparedEffectUndoHash', $pending)
         && (string)($pending['preparedEffectCardID'] ?? '') !== $card) return null;
+    $expectedType = $card === 'tome_of_harvests_blue' ? 'ARSENAL_BOTTOM'
+        : ($card === 'rouse_the_ancients_blue' ? 'REVEAL_THIRTEEN'
+        : ($card === 'celestial_cataclysm_yellow' ? 'BANISH_THREE_SOUL' : 'BANISH_NIMBLISM'));
+    if (FaBHVYUsesBeatChestCost($card)) $expectedType = 'DISCARD_SIX_BEAT';
+    if (FaBDreadPreparedCostCard($card)) {
+        if (($source->Kind ?? '') !== 'ATTACK' || !empty($pending['isAbility'])
+            || !empty($pending['isWeaponAttack']) || !empty($pending['isArenaAttack'])) return null;
+        $expectedType = 'BANISH_RANDOM_GRAVEYARD_THREE';
+    }
     $declared = $pending['preparedEffectCost'] ?? null;
     if (is_array($declared) && ((string)($declared['cardID'] ?? '') !== $card
-        || (string)($declared['type'] ?? '') !== ($card === 'tome_of_harvests_blue' ? 'ARSENAL_BOTTOM' : 'REVEAL_THIRTEEN'))) return null;
+        || (string)($declared['type'] ?? '') !== $expectedType)) return null;
+    if (is_array($declared) && $expectedType === 'BANISH_RANDOM_GRAVEYARD_THREE'
+        && (intval($declared['quantity'] ?? 0) !== 3 || ($declared['uids'] ?? null) !== [])) return null;
     return $found;
 }
 
@@ -394,7 +527,10 @@ function FaBDeclarePreparedEffectCost(int $player, int $uid, string $type, strin
         || intval($pending['uid'] ?? 0) !== $uid) return false;
     $source = FaBPreparedEffectCostSource($pending);
     if ($source === null || ($source['object']->Kind ?? '') === 'ABILITY') return FaBPreparedEffectCostRollback($pending, 'invalid card-layer additional-cost declaration');
-    $wanted = $source['object']->CardID === 'tome_of_harvests_blue' ? 'ARSENAL_BOTTOM' : 'REVEAL_THIRTEEN';
+    $wanted = $source['object']->CardID === 'tome_of_harvests_blue' ? 'ARSENAL_BOTTOM'
+        : ($source['object']->CardID === 'rouse_the_ancients_blue' ? 'REVEAL_THIRTEEN'
+        : ($source['object']->CardID === 'celestial_cataclysm_yellow' ? 'BANISH_THREE_SOUL' : 'BANISH_NIMBLISM'));
+    if (FaBHVYUsesBeatChestCost((string)$source['object']->CardID)) $wanted = 'DISCARD_SIX_BEAT';
     if ($type !== $wanted || isset($pending['preparedEffectCost']) || !empty($pending['preparedEffectError'])) {
         return FaBPreparedEffectCostRollback($pending, 'invalid or duplicate declaration');
     }
@@ -403,10 +539,12 @@ function FaBDeclarePreparedEffectCost(int $player, int $uid, string $type, strin
     $uids = [];
     foreach ($refs as $ref) {
         $found = FaBIdentityFromMZ($ref);
-        $zone = $type === 'ARSENAL_BOTTOM' ? 'Arsenal' : 'Hand';
+        $zone = $type === 'ARSENAL_BOTTOM' ? 'Arsenal' : ($type === 'BANISH_NIMBLISM' ? 'Graveyard' : ($type === 'BANISH_THREE_SOUL' ? 'Soul' : 'Hand'));
         if ($found === null || $found['player'] !== $player || $found['zone'] !== $zone
             || !empty($found['object']->removed)
-            || ($type === 'REVEAL_THIRTEEN' && !FaBWTRIsAttackAction($found['object']))) {
+            || ($type === 'REVEAL_THIRTEEN' && !FaBWTRIsAttackAction($found['object']))
+            || ($type === 'DISCARD_SIX_BEAT' && !in_array($ref, explode('&', FaBHVYSix($player)), true))
+            || ($type === 'BANISH_NIMBLISM' && FaBWTRBase((string)$found['object']->CardID) !== 'nimblism')) {
             return FaBPreparedEffectCostRollback($pending, 'declared cost card is unavailable');
         }
         $chosenUID = intval($found['object']->UniqueID);
@@ -416,8 +554,15 @@ function FaBDeclarePreparedEffectCost(int $player, int $uid, string $type, strin
         $uids[] = $chosenUID;
     }
     if (($type === 'ARSENAL_BOTTOM' && count($uids) !== 1)
+        || ($type === 'BANISH_NIMBLISM' && count($uids) > 1)
+        || ($type === 'DISCARD_SIX_BEAT' && count($uids) > 1)
+        || ($type === 'BANISH_THREE_SOUL' && count($uids) !== 3)
         || ($type === 'REVEAL_THIRTEEN' && $uids && (FaBUPRBleak() || FaBMONRevealPower($choices) < 13))) {
         return FaBPreparedEffectCostRollback($pending, 'declared additional cost cannot be paid');
+    }
+    if ($type === 'DISCARD_SIX_BEAT' && $uids
+        && FaBAvailablePitch($player, $uids[0]) < max(0, intval($pending['cost'] ?? 0))) {
+        return FaBPreparedEffectCostRollback($pending, 'reserved Beat Chest card leaves insufficient asset funding');
     }
     $state['pendingPayment']['preparedEffectCost'] = [
         'type'=>$type, 'uids'=>$uids, 'cardID'=>(string)$source['object']->CardID,
@@ -432,7 +577,7 @@ function FaBPreparedEffectCostCanPitch(array $pending, object $pitched): bool {
     $cost = $pending['preparedEffectCost'];
     if (!empty($pending['preparedEffectError']) || !empty($cost['assetsPaid'])
         || ($cost['stage'] ?? '') !== 'DECLARED' || FaBPreparedEffectCostSource($pending) === null) return false;
-    return ($cost['type'] ?? '') !== 'REVEAL_THIRTEEN'
+    return !in_array(($cost['type'] ?? ''), ['REVEAL_THIRTEEN','DISCARD_SIX_BEAT'], true)
         || !in_array(intval($pitched->UniqueID), array_map('intval', (array)($cost['uids'] ?? [])), true);
 }
 
@@ -445,6 +590,10 @@ function FaBPreparedEffectCostBeginAssets(array $pending): bool {
     if ($source === null || ($cost['stage'] ?? '') !== 'DECLARED' || !empty($cost['assetsPaid'])
         || ($paysAction && intval(GetActionPoints(intval($pending['player']))) < 1)) {
         return FaBPreparedEffectCostRollback($pending, 'invalid asset-payment stage');
+    }
+    if (($cost['type'] ?? '') === 'BANISH_RANDOM_GRAVEYARD_THREE'
+        && count(FaBChoiceRefs(intval($pending['player']), 'Graveyard')) < 3) {
+        return FaBPreparedEffectCostRollback($pending, 'Dread random cost is unavailable before assets');
     }
     $state = FaBGetState();
     $state['pendingPayment']['preparedEffectCost']['stage'] = 'PAYING_ASSETS';
@@ -491,12 +640,23 @@ function FaBPayDeclaredPreparedEffectCost(): bool {
     if (($cost['stage'] ?? '') === 'COMPLETE') return true;
     if (($cost['stage'] ?? '') !== 'ASSETS_PAID') return false; // In-progress re-entry stays held.
     $player = intval($pending['player']); $uid = intval($pending['uid']);
+    if (in_array($cost['type'], ['BANISH_NIMBLISM','BANISH_THREE_SOUL','DISCARD_SIX_BEAT'], true)) {
+        $identities = array_map('intval', (array)($cost['uids'] ?? []));
+        if (count(array_unique($identities)) !== count($identities)
+            || count(array_filter($identities, fn($id) => $id > 0)) !== count($identities)) {
+            return FaBPreparedEffectCostRollback($pending, 'declared cost identities are invalid or duplicated');
+        }
+    }
     $refs = [];
     foreach ((array)($cost['uids'] ?? []) as $chosenUID) {
         $found = FaBFindUID(intval($chosenUID));
-        $zone = $cost['type'] === 'ARSENAL_BOTTOM' ? 'Arsenal' : ($cost['type'] === 'DESTROY_CONTROLLED_AURA' ? 'Arena' : ($cost['type'] === 'BANISH_OWN_SOUL' ? 'Soul' : 'Hand'));
+        $zone = $cost['type'] === 'ARSENAL_BOTTOM' ? 'Arsenal' : ($cost['type'] === 'DESTROY_CONTROLLED_AURA' ? 'Arena' : (in_array($cost['type'], ['BANISH_OWN_SOUL','BANISH_THREE_SOUL'], true) ? 'Soul' : ($cost['type'] === 'BANISH_NIMBLISM' ? 'Graveyard' : 'Hand')));
         if ($found === null || $found['player'] !== $player || $found['zone'] !== $zone
             || ($cost['type'] === 'REVEAL_THIRTEEN' && !FaBWTRIsAttackAction($found['object']))
+            || ($cost['type'] === 'DISCARD_SIX_BEAT' && (!empty($found['object']->removed)
+                || !in_array($found['mzID'], explode('&', FaBHVYSix($player)), true)))
+            || ($cost['type'] === 'BANISH_NIMBLISM' && (!empty($found['object']->removed)
+                || FaBWTRBase((string)$found['object']->CardID) !== 'nimblism'))
             || ($cost['type'] === 'DESTROY_CONTROLLED_AURA' && !FaBBodiceControlledAura($found, $player))
             || ($cost['type'] === 'BANISH_OWN_SOUL' && (!empty($found['object']->removed)
                 || (string)($found['object']->CardID ?? '') !== (string)($cost['soulCardID'] ?? '')))) {
@@ -506,8 +666,16 @@ function FaBPayDeclaredPreparedEffectCost(): bool {
     }
     $reveal = implode('&', $refs);
     if ((in_array($cost['type'], ['ARSENAL_BOTTOM','DESTROY_CONTROLLED_AURA','BANISH_OWN_SOUL'], true) && count($refs) !== 1)
+        || ($cost['type'] === 'BANISH_NIMBLISM' && count($refs) > 1)
+        || ($cost['type'] === 'DISCARD_SIX_BEAT' && count($refs) > 1)
+        || ($cost['type'] === 'BANISH_THREE_SOUL' && count($refs) !== 3)
         || ($cost['type'] === 'REVEAL_THIRTEEN' && $refs && (FaBUPRBleak() || FaBMONRevealPower($reveal) < 13))) {
         return FaBPreparedEffectCostRollback($pending, 'effect cost became unavailable after assets');
+    }
+    if ($cost['type'] === 'BANISH_RANDOM_GRAVEYARD_THREE'
+        && (intval($cost['quantity'] ?? 0) !== 3 || ($cost['uids'] ?? null) !== []
+            || count(FaBChoiceRefs($player, 'Graveyard')) < 3)) {
+        return FaBPreparedEffectCostRollback($pending, 'Dread random cost is unavailable after assets');
     }
     $state['pendingPayment']['preparedEffectCost']['stage'] = 'PAYING_EFFECTS';
     FaBSetState($state);
@@ -521,6 +689,44 @@ function FaBPayDeclaredPreparedEffectCost(): bool {
     } elseif ($cost['type'] === 'BANISH_OWN_SOUL') {
         // The real Soul-to-Banish move and its listeners run only after assets.
         FaBMoveUID(intval($cost['uids'][0]), 'Banish', $player);
+    } elseif ($cost['type'] === 'BANISH_THREE_SOUL') {
+        // Celestial's exact three identities are checked together before any
+        // movement; keep Prism's separate one-Soul cost contract unchanged.
+        foreach ((array)$cost['uids'] as $soulUID) FaBMoveUID(intval($soulUID), 'Banish', $player);
+        FaBARCSetCard($uid, 'monX', count($cost['uids']));
+    } elseif ($cost['type'] === 'BANISH_RANDOM_GRAVEYARD_THREE') {
+        // Run the existing random selection/movement algorithm after the real debit.
+        // Bypass the declaration wrapper even if Finish is still inside Prepare.
+        $six = FaBMONBanishRandomImmediate($player, 3);
+        FaBARCSetCard($uid, 'monSix', $six);
+        if ($six) FaBTagUID($uid, 'GO_AGAIN');
+    } elseif ($cost['type'] === 'DISCARD_SIX_BEAT') {
+        if ($refs) {
+            $origin = FaBPreparedEffectCostSource($pending);
+            if ($origin === null) return FaBPreparedEffectCostRollback($pending, 'Beat Chest source context changed');
+            $variables = json_decode((string)GetDecisionQueueVariables(), true);
+            $hadMZ = is_array($variables) && array_key_exists('mzID', $variables);
+            $previousMZ = $variables['mzID'] ?? null;
+            $previousEffect = $GLOBALS['fabEffectController'] ?? 0;
+            $GLOBALS['fabEffectController'] = $player;
+            DecisionQueueController::StoreVariable('mzID', $origin['mzID']);
+            try {
+                if (!FaBDiscardChoice($player, $refs[0])) return FaBPreparedEffectCostRollback($pending, 'Beat Chest discard failed');
+                FaBHVYAdd($player, 'BEAT');
+            } finally {
+                if ($hadMZ) DecisionQueueController::StoreVariable('mzID', $previousMZ);
+                else DecisionQueueController::ClearVariable('mzID');
+                $GLOBALS['fabEffectController'] = $previousEffect;
+            }
+        }
+    } elseif ($cost['type'] === 'BANISH_NIMBLISM') {
+        if ($refs) {
+            // The selected identity is reserved during declaration; move and paid
+            // marker occur only after the existing resource/AP debit. A replaced
+            // effect-cost still counts as paid (CR1.14.4c), as for Arsenal bottom.
+            FaBMoveUID(intval($cost['uids'][0]), 'Banish', $player);
+            FaBTagUID($uid, 'WTR_NIMBLE_PAID');
+        }
     } elseif ($cost['type'] === 'CREATE_SOUL_SHACKLE') {
         if (FaBSEAHeroCreationBlocked($player) || FaBMPGTokenCount($player, 'soul_shackle', 1) < 1) {
             return FaBPreparedEffectCostRollback($pending, 'Soul Shackle creation cost is unavailable');
@@ -540,6 +746,53 @@ function FaBPayDeclaredPreparedEffectCost(): bool {
     $state['pendingPayment']['preparedEffectCost']['stage'] = 'COMPLETE';
     FaBSetState($state);
     return true;
+}
+
+/** Writer-only projection of the exact offered Hand identities; no cost/effect change. */
+function FaBPreparedDarkestChoicesForSave(array $zone, int $seat): array {
+    $pending = FaBGetState()['pendingPayment'] ?? null;
+    if (!is_array($pending) || !FaBSeatIsLive($seat) || intval($pending['player'] ?? 0) !== $seat
+        || ($pending['kind'] ?? '') !== 'ACTION' || !empty($pending['isAbility'])) return $zone;
+    $uid = intval($pending['uid'] ?? 0); $source = $uid > 0 ? FaBFindUID($uid) : null;
+    if ($source === null || $source['zone'] !== 'Stack' || $source['object']->CardID !== 'darkest_hour_blue'
+        || ($source['object']->Kind ?? '') !== 'ACTION' || intval($source['object']->UniqueID ?? 0) !== $uid
+        || intval($source['object']->Controller ?? 0) !== $seat
+        || (intval($source['object']->Owner ?? 0) > 0 && intval($source['object']->Owner) !== $seat)) return $zone;
+    $live = [];
+    foreach ($zone as $index=>$row) if (is_object($row) && !$row->Removed()) $live[] = $index;
+    if (count($live) < 2) return $zone;
+    $index = $live[0]; $choice = $zone[$index]; $resume = $zone[$live[1]];
+    if (($choice->Type ?? '') !== 'MZMULTICHOOSE' || ($choice->Tooltip ?? '') !== 'Pay_alternative_cost'
+        || ($resume->Type ?? '') !== 'CUSTOM'
+        || intval($choice->Block ?? 0) !== 1 || intval($resume->Block ?? 0) !== 1) return $zone;
+    $options = explode('|', (string)($choice->Param ?? ''), 3);
+    $parts = explode('|', (string)($resume->Param ?? ''));
+    $stem = 'darkest_hour_blue:0:PrepareCard';
+    if (count($options) !== 3 || $options[0] !== '0' || $options[1] !== '1' || $options[2] === ''
+        || count($parts) !== 4 || $parts[0] !== $stem.'-await' || $parts[3] !== 'chosen'
+        || $parts[2] !== '3'
+        || preg_match('/^'.preg_quote($stem,'/').'#[1-9][0-9]*$/D', $parts[1]) !== 1) return $zone;
+    $frame = DecisionQueueController::GetAwaitFrame($parts[1]);
+    if (!is_array($frame) || intval($frame['locals']['uid'] ?? 0) !== $uid
+        || (string)($frame['locals']['refs'] ?? '') !== $options[2]) return $zone;
+    $map = []; $uids = []; $next = 0;
+    foreach (GetHand($seat) as $old=>$card) {
+        // Match WriteGamestate's skip predicate, preserving the offered subset/order.
+        if ($card == null || $card->Removed()) continue;
+        $cardUID = intval($card->UniqueID ?? 0);
+        if ($cardUID < 1 || isset($uids[$cardUID])) return $zone;
+        $uids[$cardUID] = true;
+        $map['p'.$seat.'Hand-'.$old] = ['uid'=>$cardUID,'ref'=>'p'.$seat.'Hand-'.$next++];
+    }
+    $refs = []; $offered = [];
+    foreach (explode('&', $options[2]) as $old) {
+        if (!isset($map[$old]) || isset($offered[$map[$old]['uid']])) return $zone;
+        $offered[$map[$old]['uid']] = true; $refs[] = $map[$old]['ref'];
+    }
+    $param = '0|1|'.implode('&',$refs);
+    if ($param === $choice->Param) return $zone;
+    $copy = clone $choice; $copy->Param = $param; $zone[$index] = $copy;
+    return $zone;
 }
 
 /** Copied-save remap for this exact Rouse declaration frame; Rise036 is untouched. */

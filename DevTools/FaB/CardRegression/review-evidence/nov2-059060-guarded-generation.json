@@ -1,0 +1,174 @@
+{
+  "status": "APPLIED_GENERATED_SCOPE_AND_SYNTAX_PASS_NATIVE_QUALIFICATION_PENDING",
+  "utc_start": "2026-11-02T22:01:47.809474+00:00",
+  "base_runtime": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "files": [
+    {
+      "path": "DevTools/FaB/build_out_abilities.py",
+      "before_sha256": "a89f6efcb58451ad90b848e9b2006ad6751c6ed14b1db7a5bbfadeb8154edb0d",
+      "after_sha256": "349558013f43f2048002cdd4abb419b33ac7d662c3944b562ad631e5fa087ccd",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-combined059060-ready\\candidate\\DevTools\\FaB\\build_out_abilities.py"
+    },
+    {
+      "path": "DevTools/FaB/out_abilities.json",
+      "before_sha256": "6633cd940905d729c7baebe929685919106586a2c0a2433c3fc275b8421701f5",
+      "after_sha256": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-combined059060-ready\\candidate\\DevTools\\FaB\\out_abilities.json"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "c050a3025df22a1dc46356f3f0e73bef1e555e785aff0f42c076762f19bdbc89",
+      "after_sha256": "5d3c25a7ada34f323555cf0eba20e4a2660b7ed909c977790314fc0876fea4de",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-combined059060-ready\\candidate\\FaBSim\\Custom\\CodeGeneration.php"
+    },
+    {
+      "path": "DevTools/FaB/build_mon_abilities.py",
+      "before_sha256": "0332ee5ef4af243552313ff2be945d6b4272257ee45939f07ecc7d34adeb2937",
+      "after_sha256": "c1ecfbf8de4a075cd526996958e384071854beb919caffc0a4e4f7c04e31f987",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-combined059060-ready\\candidate\\DevTools\\FaB\\build_mon_abilities.py"
+    },
+    {
+      "path": "DevTools/FaB/mon_abilities.json",
+      "before_sha256": "f4297b7367ccabaca8a72e08439e916653ea4fc93c54fc223bbcd6f0d7d7d7a0",
+      "after_sha256": "77c6d33e588f86ceec5bcd0aaa087c9cd6991a041b63372a94269558c579d483",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-combined059060-ready\\candidate\\DevTools\\FaB\\mon_abilities.json"
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "before_sha256": "a2a3f79b1a2f100f27e9f768a23f55a32e41c73acd34b840bb252679aae63f1b",
+      "after_sha256": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-combined059060-ready\\candidate\\FaBSim\\Custom\\ARCAbilities.php"
+    },
+    {
+      "path": "FaBSim/Custom/MONAbilities.php",
+      "before_sha256": "7bdf576dc2c58372b2600ec5a81a04cb3f01bd0a9c299a4100d923cf8047e8b7",
+      "after_sha256": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-combined059060-ready\\candidate\\FaBSim\\Custom\\MONAbilities.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "before_sha256": "dcd02e442313777e6c18ebce9528df5d42b38885f9e5ccd12cda1dca02753fa6"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "before_sha256": "1c8634880fcbb14d9c9ef007f27c1a4651d3c62cc9ef598194e52baaa7c38c31"
+    }
+  ],
+  "fixture_files_watched": 17660,
+  "remote_authoring_writes": false,
+  "generator_runs": 1,
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "zzGameCodeGenerator.php",
+    "rootName=FaBSim",
+    "only=MacroCode",
+    "expectedSHA=dcd02e442313777e6c18ebce9528df5d42b38885f9e5ccd12cda1dca02753fa6",
+    "expectedCountSHA=1c8634880fcbb14d9c9ef007f27c1a4651d3c62cc9ef598194e52baaa7c38c31"
+  ],
+  "exit_code": 0,
+  "stdout_bytes": 164,
+  "stderr_bytes": 0,
+  "after_sha256": {
+    "DevTools/FaB/build_out_abilities.py": "349558013f43f2048002cdd4abb419b33ac7d662c3944b562ad631e5fa087ccd",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/CodeGeneration.php": "5d3c25a7ada34f323555cf0eba20e4a2660b7ed909c977790314fc0876fea4de",
+    "DevTools/FaB/build_mon_abilities.py": "c1ecfbf8de4a075cd526996958e384071854beb919caffc0a4e4f7c04e31f987",
+    "DevTools/FaB/mon_abilities.json": "77c6d33e588f86ceec5bcd0aaa087c9cd6991a041b63372a94269558c579d483",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "637a789710b861a5562ee7e4838604e499806ff1e6d265757d69f56cf7d3d6d5",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "b6328958196d666be448f8c047879e20bbabd31b36094ff80ca1018a7ce5fe47"
+  },
+  "changed_watched_paths": [
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js"
+  ],
+  "scope": {
+    "unrelated_php_bytes_preserved": true,
+    "count_substance_preserved": true,
+    "selected_before": [
+      {
+        "kind": "resolveCardAbilities",
+        "key": "spreading_plague_yellow:0",
+        "sha256": "7d2cc5931960db5b60a04b867afae108cf19867faf035dedb7812a32085cfed6"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "3e88ba31737ca2ae4359b5d8e2406c242be548871fe65cfe738c5c23f915beb8"
+      },
+      {
+        "kind": "resolveAbilityAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "44b0882f9991ff5187e1d5babfc24ad018f8087fa967c644687af12a2c3eafba"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "halo_of_illumination:0:PrepareCard-await",
+        "sha256": "460205c10c3f06634a36370cbfcafc86d54b1cf1db06f95ec71fd6a57f9174b3"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_10274d37d83c521821dc",
+        "sha256": "df78fe1927acaa3fb286e5013e3c68f8396d13235511e591de00422446c6d70c"
+      }
+    ],
+    "selected_after": [
+      {
+        "kind": "resolveCardAbilities",
+        "key": "spreading_plague_yellow:0",
+        "sha256": "ff34be22619136c01eeefaa51571d44d7f00edf3a3995f9802a7ec7fb550a387"
+      },
+      {
+        "kind": "prepareCardAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "befcb15502c828272e16fb2abf71c966006a1f05ab4f34e46e5a392547bd5848"
+      },
+      {
+        "kind": "resolveAbilityAbilities",
+        "key": "halo_of_illumination:0",
+        "sha256": "0749c22dc1d6d2b4ba1e26ba724a2982a59480d5fdfe7159aaeef0923ffdaf4f"
+      },
+      {
+        "kind": "customDQHandlers",
+        "key": "halo_of_illumination:0:ResolveAbility-await",
+        "sha256": "f6975568ecd7e350b7272a7aacf6dc553dd2aa898507c9cc02ab8aede29e6bd8"
+      },
+      {
+        "kind": "await_function",
+        "key": "__RunAwait_dfb285c3b26021e727f6",
+        "sha256": "4f37d10439d4664e81af4706b2a219de60b766cdae56badf81adfb6338765851"
+      }
+    ],
+    "unrelated_php_sha256": "18ffc184556bc84c9356e2c4e5758dc5b26438a61b146692273ecda604306760"
+  },
+  "lint": [
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CodeGeneration.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCAbilities.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/MONAbilities.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MONAbilities.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php\n",
+      "stderr": ""
+    }
+  ],
+  "final_runtime": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "fixture_inventory_unchanged": true,
+  "utc_end": "2026-11-02T22:01:58.452099+00:00"
+}

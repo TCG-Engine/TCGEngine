@@ -1,0 +1,103 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_HAVEN_EARNED_ENTRY_ONE_ARCANE_REAL_TWO_TARGET_CONSUMPTION_REVIEW",
+  "phase": "SAVED",
+  "batch": 848,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "source_spec": "card-regression-batch848-haven-entry-one-arcane-two-target-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch848-haven-entry-next-arcane-real-two-target-positive-author\\haven-entry-when-next-one-arcane-real-two-target-consumer.json",
+    "sha256": "c2e33e1c16a4ed5a49f657ae2b19191f408525ae04797dfd895d1cbe6047bab6"
+  },
+  "input_sha256": "c2e33e1c16a4ed5a49f657ae2b19191f408525ae04797dfd895d1cbe6047bab6",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch848-haven-entry-next-arcane-real-two-target-positive-author\\manifest.json",
+    "sha256": "4745d520ecbd25541427b724d63e399d5e5fd6cda70efc17d39b03787a2b292f"
+  },
+  "manifest_sha256": "4745d520ecbd25541427b724d63e399d5e5fd6cda70efc17d39b03787a2b292f",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch848-haven-independent-normal-positive-source-review.json",
+    "sha256": "a9721a7445adc479530edc812efaa764a10282c7ccc1bb6f444e042cb80e0c52"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b848-haven-positive-native-save-cdc\\receipt.json",
+    "sha256": "41b53c3f2b6c94d443eec8f91cb81fae2bb6bb51b4f8ef8713ff73c9f6e48e84"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b848-haven-positive-native-save-cdc\\actual-result.json",
+    "sha256": "e40eb2bfc303acc13ef9b69ebc3ac53b06711ed34b5a7b6156c42690161eafe7"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch848-haven-entry-one-arcane-two-target-positive-20261116T053257Z-6afa95893384d.json",
+    "sha256": "bfe65fc532aacd1dbd0bce81186f40017b6c7016749d0f9d451392fe09d1380d"
+  },
+  "fixtures": [
+    {
+      "card_id": "haven_veil_blue",
+      "slug": "card-haven-veil-blue-four-live-entry-when-next-one-arcane-two-target-real-consumer",
+      "actions": 20,
+      "native_assertions": 2447,
+      "manual_passes": 15,
+      "actual_manual_actor_counts": {
+        "1": 4,
+        "2": 4,
+        "3": 4,
+        "4": 3
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "846a0861e34a05cd63ab9173a0b256838a5876a0dcad9b25ff6378698488861c",
+        "actions.json": "4a97f837a2b078c9be7cb9c50e76a114cdae8e90d6228a96c72b3d9eac7b41b5",
+        "assertions.json": "a576550ff52dacf8746a1b2104ea65d1b22788a11500db9127e42a9179047e7d",
+        "expected_final_gamestate.txt": "c2c5e218714870b4b5226c742ce400b74d2a8108e2465172cec8927c67d053c5",
+        "meta.json": "8fd0e34867e2ccd22db72eaa5cd12ecf9288250ba5ad9343c3e2fb418775fe4c"
+      },
+      "fixture_sha256": "998c64af9ccb256ed7e67c09c6d1c357ea16a2186b4ec9021423d6a515e35d2e",
+      "behaviorfixture_sha256": "998c64af9ccb256ed7e67c09c6d1c357ea16a2186b4ec9021423d6a515e35d2e",
+      "input_sha256": "c2e33e1c16a4ed5a49f657ae2b19191f408525ae04797dfd895d1cbe6047bab6",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 128,
+      "terminal_endpoint_queries_independently_evaluated": 236
+    }
+  ],
+  "actions": 20,
+  "native_assertions": 2447,
+  "manual_passes": 15,
+  "actual_manual_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 3
+  },
+  "actual_expected_envelope_mapping_sha256": "8f8bfa77cfdc5ac786524b95e5749b8cd6bc58e3f9180a32d174216000ce0042",
+  "actual_ordered_query_mapping_sha256": "e211d403879f611fa65d896db7de374d907da06646be4ab59c747056730ca79e",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_semantics": [
+    "All20actualNative envelopes/2447persisted successful queries match exactapprovedSource/model,15actualmanualinputs4/4/4/3. Bothfreshraw48manualcontrols/fourYoungliveUPF/noBotPassive independentlyverified; actualKano4starts15not20.",
+    "RealForked5 twoformalchoices2then4 precedeBlue6pitch3/cost3/APdebit. Actual3parentresponses are resetbyP4Haven7Instant0, thenfourSource4/1/2/3 beforeAura7entry/earnedABI; fourearnedresponses1/2/3/4 BEFOREactualoneOMN_PREVENTrow. No borrowedB236runtimecredit.",
+    "Actualfreshfourparentresponses1/2/3/4 beforeForkedresolution: unprotectedDorinthea2HP20to18, protectedKano4HP15to14. Realarcane2minus1 andabsence/one/consumedprojectionstates are allpersistedruntimechecks; finalrawconfirmsnoOMN_PREVENTrow. No physicaldamage-negative/generalshieldcertificate.",
+    "FreshrawfinalArcCards5target2/target2=4retained, physicalForked5GY1/Blue6Pitch1/Haven7Arena4OwnerController4Status2/FAB_PLAY_ORDER1/noDamage; actualHP20/18/20/14/allresourcesChiAP0 andfullStack/DQ/await/payment/chaincleanup. Allinitial128+terminal236queries directlyevaluatedagainstrespectiveraws, exactraw5hashesunchanged."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": [
+    "Rootindependentlybindstwoownnew-onlycleanreplaysandperforms guardedregistration/indexupdate."
+  ],
+  "limits": [
+    "OnlyBlueearnedentry/next1arcane/two-targetconsumer. Ownnextactionphaseexpiration/extraevents/siblings/ABQuell/suppression/controlchanges/supportHero/fullcard/generalvirtualdeletion orotherpreventioninteractions untested.",
+    "Savedreviewdoesnotitself certifyreplays/fullsuite; no PHP/native/Rwrites/sourcechanges/deniedrepair/Radiant189/Head190action byreviewer."
+  ],
+  "created_utc": "2026-11-16T05:36:03.668914+00:00"
+}

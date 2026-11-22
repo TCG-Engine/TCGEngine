@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch587-chin.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T07:44:33.014991+00:00",
+  "fixtures": [
+    {
+      "slug": "card-take-it-on-the-chin-red-four-live-real-seven-prevents-two-and-creates-owned-agility",
+      "fixture_sha256": "95f64db15d4ff1e4ae1d79c97f4c8d083fbd8a0d080974beee3e3bdd4b5639fb",
+      "passed": true,
+      "result": "[PASS] take_it_on_the_chin_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-take-it-on-the-chin-red-four-live-real-seven-prevents-two-and-creates-owned-agility",
+      "returncode": 0,
+      "stdout": "[PASS] take_it_on_the_chin_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

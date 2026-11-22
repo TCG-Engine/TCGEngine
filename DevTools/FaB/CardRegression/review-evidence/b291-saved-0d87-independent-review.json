@@ -1,0 +1,115 @@
+{
+  "status": "APPROVED_EXACT_SAVED_COMPLETE_POSITIVE_YOUNG_AZALEA_PRIMARY_EFFECT_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T05:25:37.352988+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch291.json",
+  "input_sha256": "50fdeb7c772f3d1f8672fbb220c41063c12c43ee996581cd1cfd09c2083026c8",
+  "fixtures": [
+    {
+      "slug": "card-azalea-young-four-live-sparse-real-hero-action-bottoms-arsenal-loads-top-arrow-face-up-dominate-go-again",
+      "card_id": "azalea",
+      "group_id": "identity:azalea",
+      "fixture_sha256": "6d0c7d3304c358edb8b6c4500eef5a7883c9011b9cdc26ce0542a3ec2c396fd2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f1e89475d0319fdf1582feff242ce88b1df143613d9a78483cb8850685082ac3",
+        "actions.json": "8e4d08990476c39634254a697e7499f32369cab98f1c0d872b4116f157064624",
+        "assertions.json": "7d725e02505d374bfa63130983cfd7f188cb7cd113408fdb8754b39d958ff253",
+        "expected_final_gamestate.txt": "47163751bb7a89c5b754f8d93946469859846de65fe0712e8e805d5c5cad4abb",
+        "meta.json": "8ce35051ed264a1faff4167e06ac73d36f7c1d7df936487025bb3920aafbc4c2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f1e89475d0319fdf1582feff242ce88b1df143613d9a78483cb8850685082ac3",
+        "actions.json": "8e4d08990476c39634254a697e7499f32369cab98f1c0d872b4116f157064624",
+        "assertions.json": "7d725e02505d374bfa63130983cfd7f188cb7cd113408fdb8754b39d958ff253",
+        "expected_final_gamestate.txt": "47163751bb7a89c5b754f8d93946469859846de65fe0712e8e805d5c5cad4abb",
+        "meta.json": "8ce35051ed264a1faff4167e06ac73d36f7c1d7df936487025bb3920aafbc4c2"
+      },
+      "actions": 6,
+      "native_assertions": 626,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_hero_uid": 1,
+      "final_hero_counters": {
+        "ARC_USED_0": 2
+      },
+      "final_arsenal_uid": 6,
+      "final_arsenal_turn_effects": [
+        "DOMINATE"
+      ],
+      "final_deck_uid_order": {
+        "1": [
+          7,
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualyoungAzalea20Hero1primaryAction0clickspendsoriginalAP1\u21920/R0 andsetsactualHeroARC_USED_0turn2 BEFOREfourfreshmanual1,2,3,4responses. SameownedphysicalHero1status2remainsHero; distinctvirtual8ABILITYCardIDAzalea/Controller1/SourceHero1retainedthroughresponsesandactualownArsenal5MZCHOOSEafterfourth. Arsenal5facedown/Deck6,7/AP0unchangeduntilrealchoice, noadditionalcost/earlyGA. ActualanswerSAME5bottomthenactualtopSleepDartArrow6faceupArsenal/DOMINATE, exactDeck7,5. Onlyaftereffectmanagedcompletionclears8/queues/marker/restoresACTIONP1 andprintedGAAP1. FinalsameHero1CardID/UID/OwnerController1/Status2/CountersARC_USED_0:2; sameArrow6FaceDown0/TurnEffectsDOMINATE/Deck7,5/allHP20/R0/AP1/allphysicalUIDownershipconserved/noHandcardplay/noGY/Pitch/attack/hit/Stack/Chains/otherzones. Sourceheroabilityactuallyactivated, notsupport-only. Virtual8ceased.",
+      "qualification": "One completepositiveyoungAzaleaprimaryheroOncePerTurnactivation/APpayment/Arsenalbottom/topArrowfaceup/DOMINATEgrant/GA branch. No secondactivationenforcement/emptyArsenal/nonArrow/emptyDeck/foreignowner/Arrowattack/dominateblockrestriction/SleepDarthit/herootherbranch/adult/supportprimary/fullcard/control credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch291-independent-source-review.json",
+    "sha256": "3216ac9c47b93dd6ce53d5e3b282c148a7756058cc4cd071f459809a850d87b1",
+    "manifest_sha256": "3b97223500c708fe7dc2f16ff0059ab82a6107cc784879021a49ca2e91ff033d"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch291-20261103T052234Z-6ae96f9a27e06.json",
+    "sha256": "9e122c256012050ca375b5e6141278429f6e6bf50b3ef17eb1be33654e635e84"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch291.recording-results.json",
+    "sha256": "79e5b5f81b07ed8dc965ed6b3a5a8f3cad9a2eb65b19dcb9ac237cf43a84460c"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch291-native-r1\\receipt.json",
+    "sha256": "112b1171fff62ae973015815c8bf776f4a8c261e5571c444faeb92b007dd25d6",
+    "stdout_sha256": "c46edfd532a5999be992aa939886c632aac1ee7d0982a48db3e2d92228c97aa9",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own generic raw5/archive/schema/action/assertion parsing prefix only, exactB291bindings before unrelatedsemanticsection; noauthorbuilder."
+  },
+  "method": "Independent read-only exact saved raw5 review. All6actualactors/modes/payloads and626orderedassertions match approvedfrozenfinalinput; fullschema initial/final UID/ownership/HeroCounters/ArsenalTurnEffects/economy/HP/orderedDeck parsed. Fourmanualactors and actualAP0+oncebeforepriority/retainedHeroSourceawait/actualArsenalbottom+Arrowload/deferredGAAP1 checked. NoPHP/native/replay/R/backend execution.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplays remain separate evidence and were not executed by reviewer.",
+    "One completepositiveyoungAzaleaprimaryheroOncePerTurnactivation/APpayment/Arsenalbottom/topArrowfaceup/DOMINATEgrant/GA branch. No secondactivationenforcement/emptyArsenal/nonArrow/emptyDeck/foreignowner/Arrowattack/dominateblockrestriction/SleepDarthit/herootherbranch/adult/supportprimary/fullcard/control credit.",
+    "Actual0d context retained, no sourcefix/applicationretry or historicalcorpus audit."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch423-tremor-protocol-v2.json",
+  "runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T09:09:42.918205+00:00",
+  "fixtures": [
+    {
+      "slug": "card-tremor-of-iarathael-red-four-live-original-correct-real-boost-banish-earns-two-power-once",
+      "fixture_sha256": "ca66331d550bf8cc1b4257ad7d47314671a68230fb11ed9f6b0cdb87d3e60727",
+      "passed": true,
+      "result": "[PASS] tremor_of_iarathael_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tremor-of-iarathael-red-four-live-original-correct-real-boost-banish-earns-two-power-once",
+      "returncode": 0,
+      "stdout": "[PASS] tremor_of_iarathael_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

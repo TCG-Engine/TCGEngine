@@ -1,0 +1,156 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_SINGLE_MINDED_BLUE_PREMATURE_PHYSICAL_THREE_COUNTER_ENTRY",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 856,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "new_issue": false,
+  "confirmed_physical_counter_outcome": true,
+  "confirmed_pretrigger_counter_quantity": 3,
+  "posttrigger_resolved_counter_quantity_observed": false,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal MSTEnter Single-Minded Blue producer now has an actual premature physical POWER3 entry witness. Root may allocate finding; no distinct shared-root/Core count, repair, sibling credit or later resolved quantity is inferred.",
+  "source_spec": "card-regression-batch856-single-minded-entry-query-order-r2-probe.json",
+  "input_sha256": "9734327fc349e131fe55adbdd70d4c8de5ae16c486da9982b33a787e6fb8b079",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\single-minded-query-order-r2-full-probe.json",
+    "sha256": "9734327fc349e131fe55adbdd70d4c8de5ae16c486da9982b33a787e6fb8b079"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\manifest.json",
+    "sha256": "4a1bd5b3a9457b88a16591cd15ef8f51555222fef495afb0f1e50df5b731d5c9"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-r2-independent-query-order-diagnostic-source-review.json",
+    "sha256": "5cf9061034feb9e0d95ca51e05a30865188f6d72fcc4284909337cadc4797cce"
+  },
+  "original_R1_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-independent-earned-entry-diagnostic-source-review.json",
+    "sha256": "e0cd4fe60fe79db0d47738cc536f2d965738b73b1157704c5caa2adc712ea19b"
+  },
+  "original_R1_limited_actual_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-independent-actual-r1-window-frontier-review.json",
+    "sha256": "96535cfc9d8ad5027635beb9e982dda331889f523b968728a22a99f809cff6b8"
+  },
+  "query_order_delta": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-single-minded-entry-query-order-r2\\query-order-only-delta.json",
+    "sha256": "4e815282ccfb0115bfd8041d5fc24be10b5d181d06cf99a7d84258b442cba475"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b856-single-minded-query-order-r2-strict-nosave-cdc\\receipt.json",
+    "sha256": "5e642407f1cad90e6363d7b5b62e1012c865d9eef94452d7cf6a4821c4cafc37"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b856-single-minded-query-order-r2-strict-nosave-cdc\\actual-result.json",
+    "sha256": "25b4f0a2f15bd01a3bf84fe5ce6e49cab76e08c17717e02e8e75ae9b54541d87"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch856-single-minded-entry-query-order-r2-probe-20261116T084035Z-6afac183bf386.json",
+    "sha256": "ea1bb2bd96e629235fb73a20b7393f2f49464c252b393c148f7b17388407aeb4"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch856-single-minded-entry-query-order-r2-probe.recording-results.json",
+    "sha256": "25b4f0a2f15bd01a3bf84fe5ce6e49cab76e08c17717e02e8e75ae9b54541d87"
+  },
+  "planned_controls": 10,
+  "planned_queries": 1285,
+  "actual_native_inputs": 6,
+  "actual_manual_inputs": 4,
+  "actual_manual_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "actual_earned_Single_Minded_response_inputs": 0,
+  "persisted_successful_queries": 674,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "93ed60a0bb7d07f1e2dfffa7a376cf732d5936b6c7366ec3a7f3a36d6dc2d6fd",
+  "first_failed_query": {
+    "source_step_index": 12,
+    "source_check_index": 37,
+    "native_after_input": 6,
+    "checkpoint": "actualSingle_Source_four_entersArena_NO_POWER_beforeEarnedEntryWHEN_freshQuorum_fourth_realActionResponse",
+    "global_query_ordinal": 675,
+    "query_ordinal_in_checkpoint": 38,
+    "query": {
+      "step": 6,
+      "type": "card_property_equals",
+      "mzId": "p1Arena-0",
+      "property": "Counters",
+      "value": "{\"FAB_PLAY_ORDER\":1}",
+      "viewerPlayerID": 1
+    },
+    "expected": "{\"FAB_PLAY_ORDER\":1}",
+    "actual": "{\"FAB_PLAY_ORDER\":1,\"POWER\":3}",
+    "expected_counter_map": {
+      "FAB_PLAY_ORDER": 1
+    },
+    "actual_counter_map": {
+      "FAB_PLAY_ORDER": 1,
+      "POWER": 3
+    },
+    "error": "Expected p1Arena-0.Counters to equal '{\"FAB_PLAY_ORDER\":1}', got '{\"FAB_PLAY_ORDER\":1,\"POWER\":3}'."
+  },
+  "queries_unrun_after_failed_query": 610,
+  "not_passed_including_failed_query": 611,
+  "native_controls_unrun": 4,
+  "declarative_controls_unrun": 4,
+  "manual_inputs_unrun": 4,
+  "passed_current_cluster_queries": 37,
+  "initial_raw_sha256": "9e7318f91e44df1eb7f07bcebae140ce9462ada6eb4e0a2b069256dbecfdea95",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All six native envelopes and674 persisted queries exactly match fresh approved R2. R2 changes only query order at the entry boundary and preserves all1285 literal original-correct expectations/10 controls/setup. R1 input/Source/result/archive and its limited window-only failure remain immutable; no physical bug credit is retroactively assigned to R1.",
+    "Initial raw48 manual controls and four legal Young/live UPF seats/allHP20/no passive seats were independently verified. Primary Single5/Blue6 start real Hand; Arena empty. Inputs1..2 are actual primary Hand play and real Blue pitch paying2; inputs3..6 are Source responses1/2/3/4. No earned entry-trigger response occurred.",
+    "At boundary6 first37 queries directly establish GlobalTurnPlayer1/Turn2/MAIN/UPF/no passive/no combat/Priority1/passes0, no payment, P1HP20/R1/Chi0/AP0/readyHero, DQ1empty, Hand/Deck/Arsenal/GY/Banish/Soul empty, Blue6 real Pitch/CardID/UID/ownercontroller1, Arena1 containing exact SingleBlue5 UID5/ownercontroller1/readyStatus2/damage0. Arena contains only the primary, so there is no other controlled Illusionist Aura.",
+    "The next actual raw card-property query returns exact physical p1Arena-0 Counters {FAB_PLAY_ORDER:1,POWER:3} instead of only FAB_PLAY_ORDER1 before any earned response. Physical CardID/UID/owner/controller all immediately preceded the failure. This is observed premature three counters on the real Aura, not inferred from empty DQ/window or a cached flag.",
+    "Other heroes current HP/assets, later physical/Stack/ABI metadata, original window guard and terminal quantities remain after the first failure and unrun. Prior completed boundary5 had allHP20 and actual ACTION source5 on Stack; that prior Stack witness is not a current post-entry Stack observation. Captured ACTION/no payment/no combat/two ROS_AURA rows only corroborate the entry path, without final physical zones."
+  ],
+  "causal_source_findings": [
+    "Actual MSTAfterMove72 dispatches MSTEnter58..64 on entry. It excludes the primary UID when counting other Illusionist Auras, sets local power=3 for Single-Minded under the positive condition, and invokes EVOCards105 FaBEVOCounter to assign POWER3 immediately. The captured physical counter map matches this exact writer; native body exists despite canonical abilities[].",
+    "Printed Blue Single-Minded WHEN should create a layer and put only1 counter when that layer resolves. CR6.6.1d/6.6.5/6.6.6 preserve an earned response opportunity. Correct noPOWER before earned four and exactPOWER1 afterward were neither weakened nor changed to runtime3. Actual POWER3 before responses confirms premature effect/quantity at entry; the later resolved-counter endpoint itself was not executed.",
+    "This is a named MST entry counter producer finding. Similar premature triggers elsewhere do not establish a new or distinct common/Core root, and no repair is authorized or applied in this review. Ward2, siblings, negative other-Aura condition, Aura-weapon/damage consumer and full-card behavior remain untested.",
+    "Expected current Stack1/ABILITY/controller1/source5 checks occur later and are UNRUN, as does retained PRIORITY window. Captured ACTION/DQempty does not prove actual Stack0 or absence of every layer. Four earned response inputs and610 queries after the failed query remain unrun; no fixture/promotion/qualification recommendation."
+  ],
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afac17dd6307",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afac17dd6307",
+    "existing_directory_present": false,
+    "reason": "Recorder isolated game already deleted. Frozen result/archive retain initial raw and captured game fields/decisions/hand refs only. Exact Counter actual is available through the failed property query error, not a final raw snapshot. No rerun or recapture."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1d",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independently_rechecked_trigger_rules": true
+    }
+  ],
+  "limits": [
+    "Confirmed actual premature POWER3 on physical SingleBlue5 only. No posttrigger resolved counter, current earned Stack/ABI, Ward or terminal cleanup certification.",
+    "610 queries after the failed query/4 earned controls unrun;611 not-passed includes the failed query.",
+    "No fixture, coverage, qualification, source fix, Native rerun, PHP/R writes/fullsuite/Git/remote or deferred/denied repair action."
+  ],
+  "created_utc": "2026-11-16T08:48:52.700402+00:00"
+}

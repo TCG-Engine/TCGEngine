@@ -1,0 +1,257 @@
+{
+  "status": "GO_SEVEN_SAVED_POSITIVE_SEMANTICS_PENDING_ROOT_FINAL_REPLAYS",
+  "reviewed_utc": "2026-11-20T18:58:35.076882+00:00",
+  "inputs": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-qualified-inputs.json",
+    "sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711"
+  },
+  "root_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-saved-root-review.json",
+    "sha256": "d977290e529cfbc785245fd1db97a0044dfe5726e0e0c843ce806da8a41faf40"
+  },
+  "reused_independent_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-remaining195125097109-independent-focused-review.json",
+    "sha256": "ff1e2021af53b19b1bfe3fc020aee503a2b5f946793aaf14c8cd2380ed9ce0ca"
+  },
+  "fixtures": [
+    {
+      "slug": "repair-powder195-four-live-earned-gun-hit-retained-choice-destroys-only-defending-equipment",
+      "card_id": "powder_keg_blue",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b6b5ef73d11c62da9830f02d1e7fc69cda0b28434b729285c140fda206888a98",
+        "actions.json": "78606ab5e1f490623372a769e1cc50cda427f6b36a4f4bb6c9bd88144bf030b0",
+        "assertions.json": "19ac942f321123478102468972dfc99310c7ba0630a9f89bafa8434326173994",
+        "expected_final_gamestate.txt": "c130736524c4d9d987f6c180e4e0b7362116965be3b023098a9225c7463dad57",
+        "meta.json": "eecc2c71cb4455d73c44f2b5a3f7ef0516e431f946e585e24ef3fb58aa9273f1"
+      },
+      "fixture_sha256": "0e61fd1e3f27d19bdb7f0fb570712b8b57c3f8920be3d264d4f40cad0a5e02c0",
+      "actions": 34,
+      "native_assertions": 4622,
+      "recorded_runtime_sha256": "8062a12f7594e1b95dafb811691e6487703cdba4ce9f3eae24a93e52538bb8a9",
+      "actual_manual_pass_inputs": 29,
+      "inspection": "REUSED_PRIOR_INDEPENDENT_EXACT_ACTION_QUERY_AND_ENDPOINT_PROOF",
+      "prior_proof": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-remaining195125097109-independent-focused-review.json",
+        "sha256": "ff1e2021af53b19b1bfe3fc020aee503a2b5f946793aaf14c8cd2380ed9ce0ca"
+      },
+      "qualification_target_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "pass_counts_by_control": {}
+    },
+    {
+      "slug": "card-drowning-dire-red-four-live-original-correct-aura-dominate-hit-layer-and-optional-naa-bottom",
+      "card_id": "drowning_dire_red",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2fb3f68f3102005be219369aad53becb5d9d7b316c7ee22c90f14a7b8911f669",
+        "actions.json": "475446982305e198bf964d32ac19d043b82fb7ba6d1e6f1761305f0209ff9db4",
+        "assertions.json": "6c21597c755bc991dcb30768a10adb68455da877c843cedc90c49e18d962829e",
+        "expected_final_gamestate.txt": "4be012e68516152172fb67d94da13f90670b9dca45a551a2449400d137c708dc",
+        "meta.json": "37db0c63ee3ad800841bc262e826a04513f832c039a12b2f739ee466822e60a3"
+      },
+      "fixture_sha256": "1839ba68ed6fec767fc7e76b903d673ad8b1f8ac1ebf0ccd34b6114f40fe0957",
+      "actions": 43,
+      "native_assertions": 3852,
+      "recorded_runtime_sha256": "ad1c704236d97cb28a23fa923000d7e151aa73fb48696fc1b6ded1c233bf1b59",
+      "actual_manual_pass_inputs": 37,
+      "inspection": "REUSED_PRIOR_INDEPENDENT_EXACT_ACTION_QUERY_AND_ENDPOINT_PROOF",
+      "prior_proof": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-remaining195125097109-independent-focused-review.json",
+        "sha256": "ff1e2021af53b19b1bfe3fc020aee503a2b5f946793aaf14c8cd2380ed9ce0ca"
+      },
+      "qualification_target_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "pass_counts_by_control": {}
+    },
+    {
+      "slug": "card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+      "card_id": "head_leads_the_tail_red",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bfaf72df0eccf4016aeef79419bb9b481cce242c6b8f9cbd142119fb9783bba6",
+        "actions.json": "03a227138c9be875f00b03cfce8e63242ea69e103bd848ced2aa6fab933e97e6",
+        "assertions.json": "a5020e6e437b6a630692d221196a360d2b2c129a2a839991fb001d6a7038832f",
+        "expected_final_gamestate.txt": "181b85ed9b9ce23f8938d48575dbce45a990cff593d394279cb47431c3b3601e",
+        "meta.json": "dccf81a0260ee5ab7e07fe6be2ea4bab4bf122020088fae063f4e292406743e8"
+      },
+      "fixture_sha256": "ee00e748671e7431ae2ea5e59156dd29c9d3946a8846e515c0c7fe92bd410fed",
+      "actions": 55,
+      "native_assertions": 4402,
+      "recorded_runtime_sha256": "ad1c704236d97cb28a23fa923000d7e151aa73fb48696fc1b6ded1c233bf1b59",
+      "actual_manual_pass_inputs": 50,
+      "inspection": "REUSED_PRIOR_INDEPENDENT_EXACT_ACTION_QUERY_AND_ENDPOINT_PROOF",
+      "prior_proof": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-remaining195125097109-independent-focused-review.json",
+        "sha256": "ff1e2021af53b19b1bfe3fc020aee503a2b5f946793aaf14c8cd2380ed9ce0ca"
+      },
+      "qualification_target_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "pass_counts_by_control": {}
+    },
+    {
+      "slug": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "card_id": "burn_them_all_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41af50cf9e1f188a9881fb81514ff72d03d61c4231b4a448e7311cfc85c11b4c",
+        "actions.json": "aed7c4aa8d7ec9c9ea9bae905c0fb9020e8aa6f32cad766081ed9809fdb5f074",
+        "assertions.json": "8f8512df73d84400df3b567d1790d27fa57c891923cd63a99dc58a75268e1af2",
+        "expected_final_gamestate.txt": "1263056ce3983033145a5f205fbe58baafa9574e675bdd13ffddc3cbc08f60a8",
+        "meta.json": "c7f5f641a7e990f84e8cda49010e4b0a267ecce7be9c0c476de67d6aa0a23f74"
+      },
+      "fixture_sha256": "84e4da6d9f6fa8def198012d6252f7e66b8b4c08b4e1397d5e36586ab52fd180",
+      "actions": 36,
+      "native_assertions": 3354,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "source_spec": "remaining17-qualified-inputs.json",
+      "input_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "inspection": "FRESH_INDEPENDENT_ALL_ACTIONS_QUERIES_AND_ENDPOINTS",
+      "endpoint_queries_checked": 330,
+      "qualification_target_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "pass_counts_by_control": {}
+    },
+    {
+      "slug": "repair-burn125-four-live-captured-dragon-source-specific-prevention",
+      "card_id": "burn_them_all_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b05455ca21cd130dd44c09adc70715bcd4364045f923a34f8ad4cca7890c287",
+        "actions.json": "aed7c4aa8d7ec9c9ea9bae905c0fb9020e8aa6f32cad766081ed9809fdb5f074",
+        "assertions.json": "f65dd61328c97ffc76b7cca15c6ff53b2488dc826b8e935167e50405f73ac1d2",
+        "expected_final_gamestate.txt": "13480ee516dfdb5c6ee67319772758e2301da14b6ad15ba6f7e03528d874a9fd",
+        "meta.json": "6f4b913d2f9e38dfb1838f73fc22b7511697a68fb70f2cf2af79a6d4a9e10316"
+      },
+      "fixture_sha256": "1a5acc96dfa49fde9e83e9464d074500e7937271d8fbc2fba17c03241c4cd0f0",
+      "actions": 36,
+      "native_assertions": 3354,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "source_spec": "remaining17-qualified-inputs.json",
+      "input_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "inspection": "FRESH_INDEPENDENT_ALL_ACTIONS_QUERIES_AND_ENDPOINTS",
+      "endpoint_queries_checked": 330,
+      "qualification_target_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "pass_counts_by_control": {}
+    },
+    {
+      "slug": "repair-refraction101-four-live-owned-hit-listener-destroy-go-again-real-ap-consumer",
+      "card_id": "refraction_bolters",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e9fb2929f1864934d36dc70c1bd97a9c4d7fab2b1335ad1554bdbdcff97a6a29",
+        "actions.json": "1c2efe6666109237dbdf48c91617095ca16f292f98ce0e9cc4f7af9beeaf0b78",
+        "assertions.json": "5d2b46b3e88e94d4049f981f8b4661b35ed675d407f8ecaae33b9ab852f0f6c0",
+        "expected_final_gamestate.txt": "4ed103a0cdfaa84f37347a45922ffdcf97e7afc10c6ff4c08b0567ad805656d3",
+        "meta.json": "6359b09d4a5e9f10f68e6af5025d659d3dbe4fdaceebf1554fd169b4298df9e5"
+      },
+      "fixture_sha256": "4e94314c0d32d46958dd17bb686f0f1647a30c2a5b55e2a9ad256adf4986f9c7",
+      "actions": 60,
+      "native_assertions": 5213,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 54,
+      "recorded_runtime_sha256": "6b229f608c6db3c0a1fadbad20ba417a4e4f9984fdef5bdc28ed6704c4df6369",
+      "runtime_sha256": "6b229f608c6db3c0a1fadbad20ba417a4e4f9984fdef5bdc28ed6704c4df6369",
+      "source_spec": "remaining17-qualified-inputs.json",
+      "input_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "inspection": "FRESH_INDEPENDENT_ALL_ACTIONS_QUERIES_AND_ENDPOINTS",
+      "endpoint_queries_checked": 331,
+      "qualification_target_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "pass_counts_by_control": {}
+    },
+    {
+      "slug": "repair-mark200-four-live-bound-zombie-death-malice-and-owned-mark-two-corpses",
+      "card_id": "mark_of_neverest_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "67f51019514893dbeb86cab900ab97e2d9ea580cc18704659559ba98889e1be4",
+        "actions.json": "e870b770816f0eff709897c111bcaacf74fe8832492afa7935a5fa365a5d9b9f",
+        "assertions.json": "12c1272b32a4c61b698bebe23b3cdd746bbdc124b64d96e5650030fd7a3aafd4",
+        "expected_final_gamestate.txt": "c6f7e19cf2a2a9a894410327f989a08c5c68ba5c938ed7e703f4b245f2f27b3a",
+        "meta.json": "64ce65e832d573dee91d073d4cf60dada3b7899be266300c222b2e4705131cfb"
+      },
+      "fixture_sha256": "2a80ff09d650088fa2d3d6723349e380ab06e4d95fa6db7394aef9288a812fd6",
+      "actions": 37,
+      "native_assertions": 2737,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "source_spec": "remaining17-qualified-inputs.json",
+      "input_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "inspection": "FRESH_INDEPENDENT_ALL_ACTIONS_QUERIES_AND_ENDPOINTS",
+      "endpoint_queries_checked": 277,
+      "qualification_target_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "pass_counts_by_control": {
+        "20": 8,
+        "22": 8
+      }
+    }
+  ],
+  "totals": {
+    "cases": 7,
+    "actual_inputs": 301,
+    "native_assertions": 27534
+  },
+  "fresh_semantic_findings": [
+    {
+      "slug": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "HP": [
+        20,
+        19,
+        19,
+        18
+      ],
+      "verified": "Live physical Dragon6 deals arcane; Aura5 owns trigger. Protected P2 is sourceUID6-only and final20; other opponents retain expected damage.",
+      "limit": "125 remains open for departed-source/LKI and later Dragon suppression."
+    },
+    {
+      "slug": "repair-burn125-four-live-captured-dragon-source-specific-prevention",
+      "HP": [
+        20,
+        20,
+        19,
+        18
+      ],
+      "verified": "Live physical Dragon6 deals arcane; Aura5 owns trigger. Protected P2 is sourceUID6-only and final20; other opponents retain expected damage.",
+      "limit": "125 remains open for departed-source/LKI and later Dragon suppression."
+    },
+    {
+      "slug": "repair-refraction101-four-live-owned-hit-listener-destroy-go-again-real-ap-consumer",
+      "verified": "Held real Modal through step24; actual Bolters5 ownGY and weapon9 GA only on choice step25/AP0. AP1 arrives at DAMAGE completion step29, then real Wounding8 consumes it. FinalHP4=13/R2/AP0, weapon6 preserved.",
+      "limit": "Owned/live/unreplaced source only; no control/owner/epoch/failed-destruction qualification."
+    },
+    {
+      "slug": "repair-mark200-four-live-bound-zombie-death-malice-and-owned-mark-two-corpses",
+      "verified": "Original steps unchanged. Control20 has8 real passes (two death-trigger rounds); control22 has8 real passes (ordinary cleanup). Actual Red7 and host5 FD; exactly two owned Corpses12/13; Mark6GY1/Brutal8GY4/Blue9Pitch4, R4=1/AP0/allHP20, quiet ACTION.",
+      "limit": "This executed order only; no alternate order or original cast/bind/other Mark claim."
+    }
+  ],
+  "native_receipts": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining-refraction101\\receipt.json",
+      "sha256": "8c229517030cf5a87fa4d683d3b34a235552c09cae2fa57e6b39eac0258d1f94"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining-mark200-save\\receipt.json",
+      "sha256": "ea06006d0dcc189dd179a25e2008f3d180ebc9d8f2a178647db2d6e28c470865"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining-burn125-correct\\receipt.json",
+      "sha256": "74f864a748b9d989951c34bc88226d23931285db6cf66a3cd91628cbb3b405be"
+    }
+  ],
+  "provenance_notes": [
+    "Each recorded runtime is preserved. Final5cae is the requested replay/qualification target, not falsely substituted for earlier native creation.",
+    "First three independent proofs reused only after all raw-five hashes matched;195 new source metadata differs only in oracle/proposal_status/coverage_kind, with native selected snapshot retained and normative steps unchanged.",
+    "101 successor changes only MODAL\u2192MZMODAL and explicit1|1| protocol; all original action/effect semantics retained.",
+    "200 successor gameplay steps equal originalB865r2 exactly; metadata explicitly enables the separate authorized SAVE successor, while original diagnostic remains no-save."
+  ],
+  "remaining_limits": [
+    "125 stays open partial: live/unblanked physical Dragon source only; departure/LKI and later suppression unresolved.",
+    "101 remains original owner/controller/live/unreplaced-source branch; no alternative ownership/failed destruction certification.",
+    "Source095 remains rolled back after guard failure; specifically denied snapshot read not retried.",
+    "No replay/game/PHP/generation/network/R write or denied operation performed by independent reviewer.",
+    "Intermediate semantic points are verified against exact original saved queries and successful native receipts; raw-five endpoints are independently inspected, not claimed to contain intermediate snapshots."
+  ],
+  "blocking_findings_for_these_saved_paths": []
+}

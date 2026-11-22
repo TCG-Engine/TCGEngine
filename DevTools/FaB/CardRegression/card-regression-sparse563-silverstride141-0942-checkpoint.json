@@ -1,0 +1,118 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-06T04:29:22.094011+00:00",
+  "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "source_spec": "card-regression-batch563.json",
+  "source_spec_sha256": "42bf938e60b26782df9013663c34b4b6a6209da1409d3c9b25c341881e3b639d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 28,
+  "native_assertions": 2613,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 3860,
+    "duels": 3074,
+    "four_live": 786,
+    "recorded_primary_ids": 1014,
+    "identity_denominator": 5196,
+    "recorded_groups": 888,
+    "group_denominator": 3324,
+    "four_live_groups": 779,
+    "phase_qualified_scenarios_at_actual_contexts": 497,
+    "phase_qualified_unique_groups": 492,
+    "creation_replay_passes": 994,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "silverstride_dodgers",
+      "group_id": "identity:silverstride_dodgers",
+      "scenario_id": "card-silverstride-dodgers-four-live-correct-controlled-flurry-defense-and-temper-probe",
+      "effect_branches": [
+        "silverstride-dodgers-four-live-correct-controlled-flurry-defense-and-temper-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-silverstride-dodgers-four-live-correct-controlled-flurry-defense-and-temper-probe",
+      "source_spec": "card-regression-batch563.json",
+      "source_spec_sha256": "42bf938e60b26782df9013663c34b4b6a6209da1409d3c9b25c341881e3b639d",
+      "review_evidence": "review-evidence/sparse563-silverstride-after141-0942.json",
+      "review_evidence_sha256": "e9f8fde182f090fd9c3f8389bd8647426ca0c8ffca3fdfe495bf3fbcf27f3c41",
+      "recorded_runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+      "qualification_runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse563-after141-r1-0942e.json",
+          "sha256": "393197244b712a12426c9b2e6b52189bb727c310c8a6470b6c2d3c2b1473f46a",
+          "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse563-after141-r2-0942e.json",
+          "sha256": "f50d03ae95c55c58ed036c0359827f3469fedc01084c623ce82c5b8c1f9e33f0",
+          "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "qualified_named_repair": {
+    "issue": "FAB-REG-141",
+    "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+    "independent_source_review": {
+      "path": "review-evidence/silverstride141-0942-independent-source-review.json",
+      "sha256": "8702b6f144f6634e8556390a26d6c3da35621933bc8995e4f06a6bc5e92d4ad2"
+    },
+    "source_application": {
+      "path": "review-evidence/silverstride141-0942-source-application.json",
+      "sha256": "e24d6e40130c9930d382d037cda20d5417a2ce7022862ce0ab060274ff5ed071"
+    },
+    "independent_saved_review": {
+      "path": "review-evidence/sparse563-silverstride-after141-0942.json",
+      "sha256": "e9f8fde182f090fd9c3f8389bd8647426ca0c8ffca3fdfe495bf3fbcf27f3c41"
+    },
+    "native_before_immutable_archive": {
+      "path": "recording-runs/card-regression-batch563-20261106T035403Z-6aed4f5b61f38.json",
+      "sha256": "ef79024dad174f714b44aadcca6ae31cc2a11d48d27170ebb9ad3067fbaee52b"
+    },
+    "isolated_components": {
+      "path": "review-evidence/silverstride141-focused-components.json",
+      "sha256": "e6676df535c041ad07e1d9a0aafb9840c61e77a2288e9174d3b0e28a8a03c939"
+    },
+    "replay_evidence": [
+      {
+        "path": "card-regression-replay-sparse563-after141-r1-0942e.json",
+        "sha256": "393197244b712a12426c9b2e6b52189bb727c310c8a6470b6c2d3c2b1473f46a"
+      },
+      {
+        "path": "card-regression-replay-sparse563-after141-r2-0942e.json",
+        "sha256": "f50d03ae95c55c58ed036c0359827f3469fedc01084c623ce82c5b8c1f9e33f0"
+      }
+    ],
+    "focused_compatibility": [
+      {
+        "path": "card-regression-replay-sparse141-bastion-compat-0942e.json",
+        "sha256": "c40cdba9a6a38767727a41cd4ea1a2b583e4e0007b92326d6b5cbf310c60d7d7"
+      }
+    ],
+    "exact_before_after_input_sha256": "42bf938e60b26782df9013663c34b4b6a6209da1409d3c9b25c341881e3b639d",
+    "scope": "Static controlled-Flurry DEF2 and actual2damage/HP18; first Temper wear1 with same ready gear and Flurry retained. No pre-damage cache2 observation, independent postwear computed-stat query, earlier Flurry producer, alternative branch or full-card credit.",
+    "new_global_core_or_root_count_credit": false,
+    "full_suite_run": false,
+    "mutable_before_result_note": "The per-spec recording-results path was superseded by the successful after-run. Use the verified immutable before archive; original independently reviewed before context remains historical."
+  }
+}

@@ -1,0 +1,421 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B379_BOUNDED_COST_CONVERSION_AND_CHI_CREATION_PENDING_ROOT_REPLAY_REGISTRATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-11-04T18:46:12.274652+00:00",
+  "source_spec": "card-regression-batch379.json",
+  "input_sha256": "248bac4865ff27107de3e333b8355b41a1563ee114f99f04ba02993a594f3579",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch379-cost-conversion-and-chi-creation-author\\manifest.json",
+  "manifest_sha256": "4b592bc4936a671153b0dbcba31dfa0c0a314f40ec729d16fc23f81c8971bcce",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch379-independent-source-review.json",
+    "sha256": "8f37f72ae1a07ad7ec8ec63aec98a6acb10eac2fc9856ef19d87fd29b8753de8",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch379-20261104T184015Z-6aeb7c0f65614.json",
+    "sha256": "53fb00100428b00a876943758644c33d3e1f60a9ed56aec7e90736599b6dbf90"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b379-native-f751-r1\\receipt.json",
+    "sha256": "17b5ad190d892ff8a01e1cbde57d48a6de63a9d39b443480a08a92277f8489e0"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch379_saved_readonly.py",
+    "sha256": "725f4ed633c3afe59770642c0c181b3484e5fda3c4d6affa35b3adfaa68f43d1"
+  },
+  "read_only_data_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "cash_out_blue",
+      "group_id": "identity:cash_out_blue",
+      "slug": "card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+      "source_spec": "card-regression-batch379.json",
+      "input_sha256": "248bac4865ff27107de3e333b8355b41a1563ee114f99f04ba02993a594f3579",
+      "reviewer": "/root/b105_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_BOUNDED_FOUR_LIVE_ENDPOINT",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+      "fixture_sha256": "91e4bf7aa9e1402af89681755daf6c9544c5f377099a2f457e5871fd1c14fe35",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "1e025b5dcbed3a3efe126e5bfa78449e71cfd47c9b48805c1010770a3327d1d2",
+        "actions.json": "fb8b2f7e991949bb3c2103f2e126113718b38cc54b0a26b9d92af70ed844d5fa",
+        "assertions.json": "a01947bea8af38358fda6b2829a0af6349f6a449adc36e3cc040ac13f5e77a2e",
+        "expected_final_gamestate.txt": "ff6fa2d5802989a38291f6370ba4bf112801f5c38c9f03c91c8ef8250ef28bfc"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e025b5dcbed3a3efe126e5bfa78449e71cfd47c9b48805c1010770a3327d1d2",
+        "actions.json": "fb8b2f7e991949bb3c2103f2e126113718b38cc54b0a26b9d92af70ed844d5fa",
+        "assertions.json": "a01947bea8af38358fda6b2829a0af6349f6a449adc36e3cc040ac13f5e77a2e",
+        "expected_final_gamestate.txt": "ff6fa2d5802989a38291f6370ba4bf112801f5c38c9f03c91c8ef8250ef28bfc",
+        "meta.json": "67ceacd1a0c587f4303477fbbacfc8bc206ffe1d1f313fef08ad53e56156a411"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1e025b5dcbed3a3efe126e5bfa78449e71cfd47c9b48805c1010770a3327d1d2",
+        "actions.json": "fb8b2f7e991949bb3c2103f2e126113718b38cc54b0a26b9d92af70ed844d5fa",
+        "assertions.json": "a01947bea8af38358fda6b2829a0af6349f6a449adc36e3cc040ac13f5e77a2e",
+        "expected_final_gamestate.txt": "ff6fa2d5802989a38291f6370ba4bf112801f5c38c9f03c91c8ef8250ef28bfc",
+        "meta.json": "67ceacd1a0c587f4303477fbbacfc8bc206ffe1d1f313fef08ad53e56156a411"
+      },
+      "actions": 6,
+      "native_assertions": 675,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "initial_and_terminal_assertions_evaluated_against_serialized_snapshots": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "cash_out_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "ironrot_helm",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "Damage": "0",
+          "FaceDown": "0"
+        },
+        "7": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "Damage": "0"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "silver",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "Damage": "0"
+        },
+        "9": {
+          "card_id": "silver",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "Damage": "0"
+        },
+        "6": {
+          "card_id": "ironrot_helm",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "7": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "5": {
+          "card_id": "cash_out_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "checkpoint_assertion_mapping_sha256": "0b9fa59ff33cf4a99be74f66eeb4af9d5d98d14e19740c6e9e813c077c8bd044",
+      "native_action_mapping_sha256": "11b612cb2ada1560a5569cf570a4e6080054390ee0c468665a752791a4847d9f",
+      "native_assertion_mapping_sha256": "49c80d9926064547b71dfd253952accb824f7880eb1839a5fd92f77de0407e26",
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi_subset": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "pending_queues_frames_payment_drained": true
+    },
+    {
+      "index": 1,
+      "card_id": "shifting_winds_of_the_mystic_beast_blue",
+      "group_id": "identity:shifting_winds_of_the_mystic_beast_blue",
+      "slug": "card-shifting-winds-of-the-mystic-beast-blue-four-live-sparse-real-chi-payment-creates-two-owned-crouching-tigers",
+      "source_spec": "card-regression-batch379.json",
+      "input_sha256": "248bac4865ff27107de3e333b8355b41a1563ee114f99f04ba02993a594f3579",
+      "reviewer": "/root/b105_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_BOUNDED_FOUR_LIVE_ENDPOINT",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-shifting-winds-of-the-mystic-beast-blue-four-live-sparse-real-chi-payment-creates-two-owned-crouching-tigers",
+      "fixture_sha256": "dbca210499f9fe95deedd8c07d89cdd875eee870284bc8fd189d67b337e69e3a",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "fd2929d449e94802369f93814f9fec76dc8d17d807497289147c6671cc9eb7ab",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1bbf709ee3be84817292ccf8f74397f9c647144c76a2a3a8e359c14e40136614",
+        "expected_final_gamestate.txt": "a5635cbbf91ee9745d0805f8d1fb661ba36e16cf689067ae1ad004d18a278eba"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd2929d449e94802369f93814f9fec76dc8d17d807497289147c6671cc9eb7ab",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1bbf709ee3be84817292ccf8f74397f9c647144c76a2a3a8e359c14e40136614",
+        "expected_final_gamestate.txt": "a5635cbbf91ee9745d0805f8d1fb661ba36e16cf689067ae1ad004d18a278eba",
+        "meta.json": "cf95372ae0a8decb60aee377dfff4af40898bf82db3248322829202cabc58308"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fd2929d449e94802369f93814f9fec76dc8d17d807497289147c6671cc9eb7ab",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1bbf709ee3be84817292ccf8f74397f9c647144c76a2a3a8e359c14e40136614",
+        "expected_final_gamestate.txt": "a5635cbbf91ee9745d0805f8d1fb661ba36e16cf689067ae1ad004d18a278eba",
+        "meta.json": "cf95372ae0a8decb60aee377dfff4af40898bf82db3248322829202cabc58308"
+      },
+      "actions": 6,
+      "native_assertions": 641,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "initial_and_terminal_assertions_evaluated_against_serialized_snapshots": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "shifting_winds_of_the_mystic_beast_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "inner_chi_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "crouching_tiger",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "crouching_tiger",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "shifting_winds_of_the_mystic_beast_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "6": {
+          "card_id": "inner_chi_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "checkpoint_assertion_mapping_sha256": "0b5b46728d24e9a66868758f8af398072b1a27b66f91420b57be35927442bac4",
+      "native_action_mapping_sha256": "b2490aec25cba8e564ad7e38bd669fd7d50735f1ef493f9036c15ddece01d92e",
+      "native_assertion_mapping_sha256": "68494647a304652d11040d4534a7fdb0bf308f6d6fdb28ce0229785322399ee2",
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_Chi_subset": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "pending_queues_frames_payment_drained": true
+    }
+  ],
+  "total_actions": 12,
+  "total_native_assertions": 1316,
+  "total_actual_manual_passes": 8,
+  "source_guards_verified": 26,
+  "findings": [
+    "No selected-branch discrepancy. Exact ordered actions/1316 persisted assertions and endpoint raw10/UIDs/economy/48 preferences per endpoint verified.",
+    "Cash real additional-cost cards6/7 are replaced by newly created owned Silver8/9; final public GY exact unordered UID/card set5Cash/6Helm/7Potion. Source metadata actual evrDestroyed2 retained.",
+    "Winds actual InnerChi6 in Pitch and source5 mstChiPitched1; resources2 includes Chi2, two owned Hand Tigers7/8 and source5 public GY/AP1. Only primary was played; naming effect is present but no Tiger event earned."
+  ],
+  "limits": [
+    "Cash internal AP-versus-destruction order remains source-only/unattempted and is not certified by atomic before/after cost snapshots.",
+    "Unplayed Tiger naming/trigger timing/name changes, false Chi branch, other costs/counts/recipients, token activation, expiry, hero/support-primary, siblings/full cards and controls uncredited.",
+    "Ordered intermediate assertions are exact saved definitions with successful specific recording receipt; no fabricated intermediate snapshots or full private-await-local coverage. Raw Versions bytes hash-bound; no historical Versions semantic audit.",
+    "Root targeted replay and registry gates separate; no PHP/native/replay/R/service/generation/full-suite/stage/commit/push/deploy by reviewer."
+  ]
+}

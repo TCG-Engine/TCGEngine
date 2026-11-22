@@ -61,11 +61,11 @@ function FaBUPRPlainSpellActor(int $sourceUID, int $fallback, string $type): int
  return $actor;
 }
 
-function FaBUPRDeal(int $p,int $sourceUID,int $targetUID,int $n,string $type='ARCANE',int $payment=0): int {
+function FaBUPRDeal(int $p,int $sourceUID,int $targetUID,int $n,string $type='ARCANE',int $payment=0,string $sourceRef=''): int {
  $p=FaBUPRPlainSpellActor($sourceUID,$p,$type);
- $f=FaBFindUID($targetUID);$source=FaBFindUID($sourceUID);if(!FaBDTDUnpreventable($p,$sourceUID,$type))$n=FaBIARConsecrateDamage($sourceUID,$n);if(!$f||!FaBSeatIsLive($f['player']))return 0;
- if($f['zone']==='Hero')return $type==='ARCANE'?FaBELEDealArcane($p,$f['player'],$n,$payment,$sourceUID):DoDamage($p,$source['mzID']??'',$f['player'],$n,$type);
- $o=$f['object'];if(!in_array($f['zone'],['Arena','Equipment'],true)||!FaBHasType($o,'Ally'))return 0;if(!FaBUPRUnpreventable($sourceUID)){$n=FaBSEAPrevent($f['player'],$n,$o);if($type==='ARCANE')$n=FaBSUPArcanePrevent($f['player'],$n,$sourceUID,false);}
+ $f=FaBFindUID($targetUID);$source=FaBDamageSourceView($sourceRef,$sourceUID);if(!FaBDTDUnpreventable($p,$sourceUID,$type,$sourceRef))$n=FaBIARConsecrateDamage($sourceUID,$n,$sourceRef);if(!$f||!FaBSeatIsLive($f['player']))return 0;
+ if($f['zone']==='Hero')return $type==='ARCANE'?FaBELEDealArcane($p,$f['player'],$n,$payment,$sourceUID,$sourceRef):DoDamage($p,$sourceRef!==''?$sourceRef:($source['mzID']??''),$f['player'],$n,$type);
+ $o=$f['object'];if(!in_array($f['zone'],['Arena','Equipment'],true)||!FaBHasType($o,'Ally'))return 0;if(!FaBUPRUnpreventable($sourceUID,$sourceRef)){$n=FaBSEAPrevent($f['player'],$n,$o);if($type==='ARCANE')$n=FaBSUPArcanePrevent($f['player'],$n,$sourceUID,false);}
  if($o->CardID==='yendurai'&&intval(FaBObjectCounters($o)['ENDURANCE']??0)>0){FaBSetObjectCounter($o,'ENDURANCE',0);$n=max(0,$n-3);}
  if($n>0){FaBMPGDamaged($p,$n);FaBROSDamaged($p,$f['player'],$n,$type,false);FaBHNTOwnDamage($p,$n,$type);}$o->Damage=intval($o->Damage)+$n;if($n>0&&$o->CardID==='nekria'){FaBSetObjectCounter($o,'UPR_LOST_HP',intval(FaBObjectCounters($o)['UPR_LOST_HP']??0)+1);FaBWTRCreateArena($f['player'],'ash');}
  if(function_exists('QueueDamageAnimation'))QueueDamageAnimation($f['mzID'],$n,500,true,$targetUID);
@@ -108,12 +108,13 @@ function FaBUPRAttack(int $p,object $o): void {
   if(!FaBUPRCount($p,'DRAGON_ATTACK')&&FaBMONArena($p,'miragai'))FaBWTRTag($o,'MON_NO_PHANTASM');FaBUPRAdd($p,'DRAGON_ATTACK');
   if(FaBMONHero($p,'dromai')&&FaBUPRRed($p))FaBWTRTag($o,'GO_AGAIN');
   if($b==='cromai'&&$source)FaBUPRCromai($p,$source['object']);
-  foreach(FaBMONArena($p,'burn_them_all') as $r){$a=FaBIdentityFromMZ($r)['object'];if(intval(FaBObjectCounters($a)['UPR_TURN']??-1)!==intval(GetTurnNumber())){FaBSetObjectCounter($a,'UPR_TURN',intval(GetTurnNumber()));FaBRunSourceMacro('ResolveAbility',$p,'burn_them_all_red',['mzID'=>$ref]);}}
+  foreach(FaBMONArena($p,'burn_them_all') as $r){$a=FaBIdentityFromMZ($r)['object'];if(intval(FaBObjectCounters($a)['UPR_TURN']??-1)!==intval(GetTurnNumber())){$burnRecord=intval($a->Controller??0)===$p?FaBCaptureDamageSourceRecord(intval($source['object']->UniqueID??$uid),'burn',$p):[];if($burnRecord){$burnRecord['auraUID']=intval($a->UniqueID);FaBSetObjectCounter($a,'UPR_TURN',intval(GetTurnNumber()));FaBROSQueue($p,'burn_them_all_red',intval($a->UniqueID),['rosEvent'=>'ownedCardMacro','eventMacro'=>'ResolveAbility','eventParams'=>[],'burnDamageSource'=>$burnRecord]);}}}
  }
 }
 function FaBUPRPower(int $p,object $o): int {return (FaBHasType($o,'Draconic')&&intval(CardPower($o->CardID))<FaBFaiChainCount($p)?FaBUPRCount($p,'SPREAD'):0)+($o->CardID==='phoenix_flame_red'?FaBUPRCount($p,'HEAT'):0);}
 function FaBUPRCromai(int $p,object $o): void {if(intval(FaBObjectCounters($o)['UPR_TURN']??-1)!==intval(GetTurnNumber())){FaBSetObjectCounter($o,'UPR_TURN',intval(GetTurnNumber()));AddActionPoints($p,intval(GetActionPoints($p))+1);}}
 function FaBUPRLeaving(int $p,object $o,string $to): void {
+ FaBAdvanceCapturedSourceEpochs($o,'Arena',$to,['uprReadArenaEpoch']);
  if($o->CardID==='cromai')FaBUPRCromai($p,$o);
  if(FaBHasType($o,'Ally')&&$to==='Graveyard'){foreach(FaBCRUEquipment($p,'silent_stilettos') as $r)if(intval(FaBObjectCounters(FaBFindUID(intval(FaBGetState()['attackUID']))['object']??$o)['MON_SOURCE_UID']??0)===intval($o->UniqueID))FaBRunSourceMacro('ResolveAbility',$p,'silent_stilettos',['mzID'=>$r]);}
  if(!empty(FaBObjectCounters($o)['UPR_FRONT']))$o->CardID=FaBObjectCounters($o)['UPR_FRONT'];
@@ -124,8 +125,68 @@ function FaBUPRStart(int $p): void {
  foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array(FaBWTRBase($o->CardID),['fog_down','sigil_of_protection'],true))FaBMONDestroy(intval($o->UniqueID));elseif($o->CardID==='ouvia')FaBRunSourceMacro('StartTurn',$p,'ouvia',['mzID'=>$r]);}
  foreach(FaBChoiceRefs($p,'Graveyard',['base'=>'thaw']) as $r)FaBRunSourceMacro('StartTurn',$p,'thaw_red',['mzID'=>$r]);
 }
+/** Currently only Read's identified beginning-End cohort opts into this driver. */
+function FaBUPRBeginReadEnd(int $p): bool {
+ $refs=FaBChoiceRefs($p,'Arena',['base'=>'read_the_ripples']);
+ if(!$refs)return false;
+ $s=FaBGetState();$turn=intval(GetTurnNumber());
+ $s['uprReadBeginningTurn']=$turn;
+ $s['automaticBeginningEnd']=['controller'=>$p,'turn'=>$turn,'stage'=>'RESOLVING'];
+ FaBSetState($s);SetCurrentPhase('END');
+ // Existing earned return layers share automatic End-Phase processing here.
+ FaBQueueIntimidateReturns();
+ foreach($refs as $ref){
+  $f=FaBIdentityFromMZ($ref);if(!$f)continue;$o=$f['object'];
+  if(!FaBUPRReadCard((string)$o->CardID)||HasNoAbilities($o)||FaBMPGSuppressed($o)||FaBSUPSuppressed($o))continue;
+  $epoch=FaBArmCapturedSourceEpoch(intval($o->UniqueID),'uprReadArenaEpoch');
+  FaBQueueOwnedEventMacro($p,$o,'StartTurn',['uprReadEpoch'=>$epoch]);
+ }
+ FaBDrainAutomaticBeginningEnd();return true;
+}
+
+function FaBUPRReadCard(string $id): bool {
+ return in_array($id,['read_the_ripples_red','read_the_ripples_yellow','read_the_ripples_blue'],true);
+}
+
+function FaBUPRReadEndLayer(int $p): ?object {
+ $s=FaBGetState();$pending=$s['resolvingReaction']??null;
+ if(!is_array($pending)||($pending['resolutionClass']??'')!=='ROS_EVENT'
+  ||intval($pending['controller']??0)!==$p||!FaBSeatIsLive($p))return null;
+ $f=FaBFindUID(intval($pending['uid']??0));$o=$f['object']??null;
+ if(!$f||$f['zone']!=='Stack'||!is_object($o)||!FaBUPRReadCard((string)$o->CardID)
+  ||intval($o->Controller??0)!==$p||FaBOwnedEventMacro($o)!=='StartTurn'
+  ||intval($pending['owner']??0)!==$p||(string)($pending['cardID']??'')!==(string)$o->CardID
+  ||($pending['frameMacro']??'')!=='StartTurn'
+  ||intval($pending['sourceUniqueID']??0)!==intval($o->SourceUniqueID??0)
+  ||!array_key_exists('sourceMZ',$pending)||!is_string($pending['sourceMZ'])
+  ||intval($o->SourceUniqueID??0)<1||intval($o->Params['eventParams']['uprReadEpoch']??0)<1)return null;
+ return $o;
+}
+
+function FaBUPRReadEndSourceUID(int $p,string $mzID): int {
+ $layer=FaBUPRReadEndLayer($p);
+ if($layer)return (string)FaBGetState()['resolvingReaction']['sourceMZ']===$mzID?intval($layer->SourceUniqueID):0;
+ // Preserve the historical mid-End save route, never a fallback for a new earned layer.
+ $s=FaBGetState();
+ if(intval($s['uprReadBeginningTurn']??-1)===intval(GetTurnNumber())||!empty($s['resolvingReaction']))return 0;
+ $f=FaBIdentityFromMZ($mzID);
+ return $f&&$f['zone']==='Arena'&&$f['player']===$p&&FaBUPRReadCard((string)$f['object']->CardID)?intval($f['object']->UniqueID):0;
+}
+
+function FaBUPRDestroyReadEndSource(int $p,int $uid): void {
+ $f=FaBFindUID($uid);if(!$f||$f['zone']!=='Arena')return;
+ $layer=FaBUPRReadEndLayer($p);
+ if($layer){
+  if(intval($layer->SourceUniqueID)!==$uid
+   ||intval($layer->Params['eventParams']['uprReadEpoch'])!==intval(FaBARCCard($uid,'uprReadArenaEpoch',0)))return;
+ }elseif(intval(FaBGetState()['uprReadBeginningTurn']??-1)===intval(GetTurnNumber())
+  ||!empty(FaBGetState()['resolvingReaction'])||$f['player']!==$p||!FaBUPRReadCard((string)$f['object']->CardID))return;
+ // A departed/re-entered source is not destroyed again; the earned Opt/draw still resolves.
+ FaBMONDestroy($uid);
+}
+
 function FaBUPREnd(int $p): void {
- foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];$b=FaBWTRBase($o->CardID);if(in_array($b,['burn_them_all','read_the_ripples'],true))FaBRunSourceMacro('StartTurn',$p,$o->CardID,['mzID'=>$r]);
+ foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];$b=FaBWTRBase($o->CardID);if($b==='burn_them_all'||($b==='read_the_ripples'&&intval(FaBGetState()['uprReadBeginningTurn']??-1)!==intval(GetTurnNumber())))FaBRunSourceMacro('StartTurn',$p,$o->CardID,['mzID'=>$r]);
   if($b==='hypothermia')FaBMONDestroy(intval($o->UniqueID));
   if($b==='frostbite')foreach(FaBMONArena($p,'frost_hex') as $hex)FaBRunSourceMacro('ResolveAbility',$p,'frost_hex_blue',['mzID'=>$r]);
  }
@@ -135,7 +196,7 @@ function FaBUPREnd(int $p): void {
 function FaBUPRUIDs(string $refs): array {$out=[];foreach(explode('&',$refs) as $r){$f=FaBIdentityFromMZ($r);if($f)$out[]=intval($f['object']->UniqueID);}return $out;}
 function FaBUPRHeroUID(int $p): int {$r=FaBChoiceRefs($p,'Hero');return $r?intval(FaBIdentityFromMZ($r[0])['object']->UniqueID):0;}
 function FaBUPRControlledTargets(int $p): string {return implode('&',array_merge(FaBChoiceRefs($p,'Hero'),FaBChoiceRefs($p,'Arena',['type'=>'Ally'])));}
-function FaBUPRDamageBonus(int $p,int $uid,int $n,string $type): int {$f=FaBFindUID($uid);if($f)$n=FaBOMNDamageBonus($f['object'],$n);if($type==='ARCANE'&&FaBSEAArcaneCapped($uid))return $n;return $type==='ARCANE'?FaBELEDamageBonus($p,$f['mzID']??'',$n+FaBMSTAmp($p,$uid)+FaBROSChorus($p,$uid)+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus')),$type):$n;}
+function FaBUPRDamageBonus(int $p,int $uid,int $n,string $type,string $sourceRef=''): int {$f=FaBDamageSourceView($sourceRef,$uid);if($f)$n=FaBCapturedDamageBonus($f['object'],$n);if($type==='ARCANE'&&($sourceRef!==''?FaBDamageSourceCard($sourceRef,$uid,'seaComplianceTurn',-1)===intval(GetTurnNumber()):FaBSEAArcaneCapped($uid)))return $n;return $type==='ARCANE'?FaBELEDamageBonus($p,$sourceRef!==''?$sourceRef:($f['mzID']??''),$n+FaBMSTAmp($p,$uid,$sourceRef)+FaBROSChorus($p,$uid,$sourceRef)+FaBDYNArcaneBonus($uid,$sourceRef)+intval(($sourceRef!==''?FaBDamageSourceCard($sourceRef,$uid,'arcaneBonus'):FaBARCCard($uid,'arcaneBonus'))),$type):$n;}
 function FaBUPRSmallHand(int $p): string {return implode('&',FaBChoiceRefs($p,'Hand',['attackAction'=>true,'maxCost'=>FaBFaiChainCount($p)-1]));}
 function FaBUPRBanishPlayable(int $p,string $r,string $tag=''): void {$f=FaBIdentityFromMZ($r);if(!$f)return;$o=FaBMoveUID(intval($f['object']->UniqueID),'Banish',$p);if($o){$o->PlayableFromBanish=1;if($tag)FaBWTRTag($o,$tag);}}
 function FaBUPRBottom(string $r): void {$f=FaBIdentityFromMZ($r);if($f)FaBMoveUID(intval($f['object']->UniqueID),'Deck',intval($f['object']->Owner??$f['player']));}
@@ -157,7 +218,7 @@ function FaBUPRDestroyAtEnd(int $p,string $id): void {foreach(FaBCRUEquipment($p
 function FaBUPRQuellChoices(int $p,array $used=[]): string {if(FaBAvailablePitch($p)<1)return '';$out=[];foreach(['Equipment','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBHasKeyword($o,'Quell 1')&&!in_array(intval($o->UniqueID),$used,true))$out[]=$r;}return implode('&',$out);}
 function FaBUPRQuell(int $p,string $r): int {$f=FaBIdentityFromMZ($r);if(!$f||$f['player']!==$p||GetResources($p)<1||!FaBHasKeyword($f['object'],'Quell 1'))return 0;AddResources($p,intval(GetResources($p))-1);FaBSetObjectCounter($f['object'],'UPR_DESTROY_END',1);return 1;}
 function FaBUPRPrevent(int $p,int $n,string $source): int {
- $f=FaBIdentityFromMZ($source);$uid=intval($f['object']->UniqueID??0);$left=[];
+ $f=FaBDamageSourceView($source);$uid=intval($f['object']->UniqueID??0);$left=[];
  foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='UPR_PROTECT'&&intval($e['sourceUID']??0)===$uid){$used=min($n,intval($e['amount']));$e['amount']-=$used;$n-=$used;if($e['amount']<=0)continue;}$left[]=$e;}FaBWTRSetEffects($p,$left);
  foreach(FaBChoiceRefs($p,'Arena') as $r){if($n<=0)break;$o=FaBIdentityFromMZ($r)['object'];$ward=FaBWTRBase($o->CardID)==='sigil_of_protection'?5-intval(CardPitch($o->CardID)):0;foreach((array)$o->TurnEffects as $tag)if(str_starts_with($tag,'UPR_WARD:'))$ward=max($ward,intval(substr($tag,9)));if($ward){$n=max(0,$n-$ward);FaBMONDestroy(intval($o->UniqueID));}}
  return $n;
@@ -192,9 +253,9 @@ function FaBUPRPhantasm(int $p,object $o): void {
  if(FaBWTRIsAttackAction($o))foreach(FaBCRUEquipment($p,'silent_stilettos') as $r)FaBRunSourceMacro('ResolveAbility',$p,'silent_stilettos',['mzID'=>$r]);
  $source=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);if($source)FaBMONDestroy($source);
 }
-function FaBUPRUnpreventable(int $uid): bool {$f=FaBFindUID($uid);return $f&&(FaBMSTUnpreventable($f['object'])||in_array('UPR_UNPREVENTABLE',(array)($f['object']->TurnEffects??[]),true)||in_array(FaBWTRBase($f['object']->CardID),['malign','murkmire_grapnel'],true));}
+function FaBUPRUnpreventable(int $uid,string $sourceRef=''): bool {$f=FaBDamageSourceView($sourceRef,$uid);return $f&&(FaBMSTUnpreventable($f['object'])||in_array('UPR_UNPREVENTABLE',(array)($f['object']->TurnEffects??[]),true)||in_array(FaBWTRBase($f['object']->CardID),['malign','murkmire_grapnel'],true));}
 function FaBUPRBarrierValue(string $r): int {$f=FaBIdentityFromMZ($r);if(!$f||HasNoAbilities($f['object']))return 0;$o=$f['object'];if($o->CardID==='spellbane_sigil_blue')return 1;$n=0;foreach(FaBKeywords($o) as $k)if(preg_match('/Arcane Barrier (\d+)/i',$k,$m))$n=max($n,intval($m[1]));if($o->CardID==='arcanite_skullcap')$n=FaBARCLowerLife($f['player'])?3:0;if($o->CardID==='aether_sink_yellow')$n=in_array('ARC_BARRIER_2',(array)$o->TurnEffects,true)?2:0;return $n;}
-function FaBUPRBarrierChoices(int $p,array $used,int $source): string {if(FaBUPRUnpreventable($source))return '';$f=FaBFindUID($source);if($f&&FaBEVRUnpreventable($f['player'],$p))return '';$out=[];foreach(['Equipment','Weapons','Arena','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if($z==='CombatChain'&&($o->FromZone??'')!=='Equipment')continue;$n=FaBUPRBarrierValue($r);if($n>0&&$n<=FaBAvailablePitch($p)&&!in_array(intval($o->UniqueID),$used,true))$out[]=$r;}return implode('&',$out);}
+function FaBUPRBarrierChoices(int $p,array $used,int $source,string $sourceRef=''): string {if(FaBUPRUnpreventable($source,$sourceRef))return '';$f=FaBDamageSourceView($sourceRef,$source);if($f&&FaBEVRUnpreventable(FaBDamageSourceActor($sourceRef,$source,intval($f['player'])),$p))return '';$out=[];foreach(['Equipment','Weapons','Arena','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if($z==='CombatChain'&&($o->FromZone??'')!=='Equipment')continue;$n=FaBUPRBarrierValue($r);if($n>0&&$n<=FaBAvailablePitch($p)&&!in_array(intval($o->UniqueID),$used,true))$out[]=$r;}return implode('&',$out);}
 function FaBUPRAlluvionReady(int $uid,int $n): bool {$f=FaBFindUID($uid);if(!$f||$f['object']->CardID!=='alluvion_constellas'||$n<=0)return false;$o=$f['object'];$c=FaBObjectCounters($o);if(intval($c['UPR_BARRIER_TURN']??-1)===intval(GetTurnNumber()))return false;FaBSetObjectCounter($o,'UPR_BARRIER_TURN',intval(GetTurnNumber()));return intval($c['ENERGY']??0)<4;}
 function FaBUPRAlluvion(int $uid,bool $gain): void {$f=FaBFindUID($uid);if($f&&$gain)FaBSetObjectCounter($f['object'],'ENERGY',min(4,intval(FaBObjectCounters($f['object'])['ENERGY']??0)+1));}
 // Older set macros use a combined barrier modal. Preserve its numeric contract while
@@ -221,3 +282,76 @@ function FaBUPRDisplayHealth($o): int {return FaBHasType($o,'Ally')?max(0,FaBUPR
 function FaBUPRInstances(int $p,string $key): int {return count(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')==='UPR_'.$key&&intval($e['amount']??0)>0));}
 function FaBUPRLast(int $p,string $key): int {$n=0;foreach(FaBWTREffects($p) as $e)if(($e['type']??'')==='UPR_'.$key)$n=intval($e['amount']??0);return $n;}
 function FaBUPRConsume(int $p,string $key): int {$n=0;$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='UPR_'.$key){++$n;$e['amount']=intval($e['amount'])-1;if($e['amount']<=0)continue;}$left[]=$e;}FaBWTRSetEffects($p,$left);return $n;}
+
+/** Exact new Sand Cover declaration cohort; existing reaction cohorts stay unchanged. */
+function FaBUPRUsesDeclaredSandTarget(string $id): bool {
+    return in_array($id,['sand_cover_red','sand_cover_yellow','sand_cover_blue'],true);
+}
+
+function FaBUPRSandPending(int $p,int $uid): ?array {
+    $f=FaBFindUID($uid);$pending=FaBGetState()['pendingPayment']??null;
+    return $f&&$f['zone']==='Stack'&&FaBUPRUsesDeclaredSandTarget((string)$f['object']->CardID)
+        &&($f['object']->Kind??'')==='INSTANT'&&intval($f['object']->Controller??0)===$p
+        &&is_array($pending)&&intval($pending['player']??0)===$p&&intval($pending['uid']??0)===$uid
+        &&($pending['kind']??'')==='INSTANT'?$f:null;
+}
+
+/** Use the existing hash-guarded preannouncement rollback; stale undo fails closed. */
+function FaBUPRRejectSandTarget(int $p,object $source): void {
+    $s=FaBGetState();$uid=intval($source->UniqueID??0);
+    if(intval($s['pendingPayment']['uid']??0)===$uid){
+        $s['pendingPayment']['preparedEffectError']='Sand Cover target declaration is invalid.';FaBSetState($s);
+    }
+    FaBReverseDeclaredReaction($p,$source);
+    $s=FaBGetState();
+    if(intval($s['pendingPayment']['uid']??0)===$uid&&function_exists('SetFlashMessage'))
+        SetFlashMessage('Sand Cover declaration stopped: preannouncement snapshot unavailable.');
+}
+
+/** Native Prepare compatibility before payment/listeners/priority; remote has Resolve only. */
+function FaBUPRPrepareSandTarget(int $p,object $source): void {
+    $uid=intval($source->UniqueID??0);if(FaBUPRSandPending($p,$uid)===null)return;
+    FaBARCSetCard($uid,'uprSandDeclared',false);FaBARCSetCard($uid,'uprTargetUID',0);
+    if(HasNoAbilities($source)){FaBFinishPreparedCard($uid);return;}
+    $versions=GetVersions($p);$version=$versions[0]??null;
+    $source->Params['declaredReactionUndoHash']=is_object($version)?hash('sha256',(string)$version->Version):'';
+    $refs=[];$options=[];
+    foreach(array_filter(explode('&',FaBUPRAsh($p)))as$ref){
+        $t=FaBIdentityFromMZ($ref);
+        if($t&&$t['zone']==='Arena'&&intval($t['object']->Controller??0)===$p){
+            $options[(string)intval($t['object']->UniqueID)]=intval($t['player']);
+            $refs[]=$ref;
+        }
+    }
+    $source->Params['uprSandOptions']=$options;
+    if(!$options){FaBUPRRejectSandTarget($p,$source);return;}
+    DecisionQueueController::AddDecision($p,'MZCHOOSE',implode('&',$refs),1,'Choose_Sand_Cover_ash_target');
+    // PASS must reach validation/rollback, never skip into cost completion.
+    DecisionQueueController::AddDecision($p,'CUSTOM','FAB_UPR_SAND_TARGET|'.$uid,1,'',1);
+}
+
+function FaBUPRContinueSandTarget(int $p,array $parts,string $answer): void {
+    if(count($parts)!==1||DecisionQueueController::ExecutingSeat()!==$p)return;
+    $uid=intval($parts[0]);$f=FaBUPRSandPending($p,$uid);if(!$f)return;$source=$f['object'];
+    $t=FaBIdentityFromMZ($answer);$targetUID=intval($t['object']->UniqueID??0);
+    $options=(array)($source->Params['uprSandOptions']??[]);
+    if(!$t||$t['zone']!=='Arena'||intval($t['object']->Controller??0)!==$p
+        ||!array_key_exists((string)$targetUID,$options)||intval($options[(string)$targetUID])!==intval($t['player'])
+        ||!in_array($answer,explode('&',FaBUPRAsh($p)),true)){
+        FaBUPRRejectSandTarget($p,$source);return;
+    }
+    FaBUPRStoreTarget($uid,$answer);FaBARCSetCard($uid,'uprSandDeclared',true);FaBARCSetCard($uid,'uprSandActor',$p);
+    unset($source->Params['uprSandOptions'],$source->Params['declaredReactionUndoHash']);
+    FaBFinishPreparedCard($uid);
+}
+
+/** Same printed Ward effect, using only the still-legal declared identity; never retarget. */
+function FaBUPRResolveSandTarget(int $p,object $source): void {
+    $uid=intval($source->UniqueID??0);
+    if(!FaBUPRUsesDeclaredSandTarget((string)$source->CardID)||HasNoAbilities($source)
+        ||!FaBARCCard($uid,'uprSandDeclared',false)||intval(FaBARCCard($uid,'uprSandActor'))!==$p)return;
+    $t=FaBUPRTarget($uid);
+    if(!$t||$t['zone']!=='Arena'||intval($t['object']->Controller??0)!==$p
+        ||!in_array($t['mzID'],explode('&',FaBUPRAsh($p)),true))return;
+    FaBTagUID(intval($t['object']->UniqueID),'UPR_WARD:'.(5-intval(CardPitch($source->CardID))));
+}

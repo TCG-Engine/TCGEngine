@@ -1,0 +1,491 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B349_MUTINY_GOLD_CONTROL_AND_SCURV_GOLD_DRAW_REPLACEMENT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T17:00:03.849131+00:00",
+  "source_spec": "card-regression-batch349.json",
+  "input_sha256": "57030c7aa176cce62525a842490997ef66e65c334644414d3080a8098496d60e",
+  "manifest_sha256": "01b711f5bd4e2080163001b022c7703e1ecf934d6adfc5c38d41a9653e916fe9",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_guards_verified": 21,
+  "prior_independent_source_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch349-independent-source-review.json",
+    "sha256": "703be8e6017a2484e873e940730033efa86b69637def71987f57e36e0c6e2f9a",
+    "reused_not_new_source_approval": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch349-20261103T165433Z-6aea11c9e18a9.json",
+    "sha256": "41b5c5bfe3f51066082f53fc7951c3ec8452203a0eeefefe6f87ea167b2af85c"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch349-native-r1\\receipt.json",
+    "sha256": "097780fe360d9c8c293e8513fa15be67ddad6b3f13f0f5058c7f2f039d383a85"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch349_saved_readonly.py",
+    "sha256": "e97fb0f7dadcd130a1b97b24cb728d460c6c29c7b8da921557060e1c515fe1f9"
+  },
+  "reviewer_independence": "Sparse authored both scenarios; reviewer authored neither and reuses own independent source model.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "mutiny_on_the_battalion_barque_blue",
+      "slug": "card-mutiny-on-the-battalion-barque-blue-four-live-sparse-real-gold-theft-earns-next-attack-two",
+      "source_spec": "card-regression-batch349.json",
+      "input_sha256": "57030c7aa176cce62525a842490997ef66e65c334644414d3080a8098496d60e",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mutiny-on-the-battalion-barque-blue-four-live-sparse-real-gold-theft-earns-next-attack-two",
+      "fixture_sha256": "2faf9ec07713844254681a2de1d44f587f3c5bf7eb690242915142c59336d423",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "28df7bef372814dda82ed97f70d0580623f116e03f638eb782dacacc21dd73a6",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "04ca8c8fe80af11b20590db14ecabf608a7c3796410d98653e48d8f5efc45e31",
+        "expected_final_gamestate.txt": "c9581b7b93baea075000e80c36ded7c3e603142b1f044c86ba57819a0ce96b27"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "28df7bef372814dda82ed97f70d0580623f116e03f638eb782dacacc21dd73a6",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "04ca8c8fe80af11b20590db14ecabf608a7c3796410d98653e48d8f5efc45e31",
+        "expected_final_gamestate.txt": "c9581b7b93baea075000e80c36ded7c3e603142b1f044c86ba57819a0ce96b27",
+        "meta.json": "d9cd3c4ab0df7b91de347c0699fb2bcf68579f25a99d436136032ff1ec192ab6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "28df7bef372814dda82ed97f70d0580623f116e03f638eb782dacacc21dd73a6",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "04ca8c8fe80af11b20590db14ecabf608a7c3796410d98653e48d8f5efc45e31",
+        "expected_final_gamestate.txt": "c9581b7b93baea075000e80c36ded7c3e603142b1f044c86ba57819a0ce96b27",
+        "meta.json": "d9cd3c4ab0df7b91de347c0699fb2bcf68579f25a99d436136032ff1ec192ab6"
+      },
+      "actions": 32,
+      "native_assertions": 2646,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mutiny_on_the_battalion_barque_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "gold",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "damage": 0
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 4,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "5": {
+          "card_id": "mutiny_on_the_battalion_barque_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_assertion_mapping_sha256": "8df814e895e2a204f0ed3f6d02013bb052ebad6e49700d60b55d757f00ab211d",
+      "native_action_mapping_sha256": "e6685eddf79221d7a574817f4134bcd5f6b417eece1c4633d5c86d340cdc2569",
+      "native_assertion_mapping_sha256": "cce51da1ae424a4705c58294402222d5722ceb9354a8a84e3993d9f823e25c48"
+    },
+    {
+      "index": 1,
+      "card_id": "not_so_fast_yellow",
+      "slug": "card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+      "source_spec": "card-regression-batch349.json",
+      "input_sha256": "57030c7aa176cce62525a842490997ef66e65c334644414d3080a8098496d60e",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+      "fixture_sha256": "fe95b2ac45920d8fd74bc149e9645d418e29663f4ee365e55ca10f46f60c5ab5",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e6dc16e79893ace5e5ddcdfefb1600ae5c76ff9d8d089572bb0e3869a29bff82",
+        "actions.json": "5efe146829e0f5f25191d7f6372bc79538501ba723cefb16b4e4ebf14b359e1f",
+        "assertions.json": "f529b76d9ee1198f80d04dce6d580b87485140d8f3bf68968441439940d021bf",
+        "expected_final_gamestate.txt": "4c43537eb1c7382595320db244853edd69f76ffdb1d7ac3543ac5c66ba9ec745"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e6dc16e79893ace5e5ddcdfefb1600ae5c76ff9d8d089572bb0e3869a29bff82",
+        "actions.json": "5efe146829e0f5f25191d7f6372bc79538501ba723cefb16b4e4ebf14b359e1f",
+        "assertions.json": "f529b76d9ee1198f80d04dce6d580b87485140d8f3bf68968441439940d021bf",
+        "expected_final_gamestate.txt": "4c43537eb1c7382595320db244853edd69f76ffdb1d7ac3543ac5c66ba9ec745",
+        "meta.json": "9966344a008f7e16939f3c4396d353c8c1697c6f2769f4f2cfdb20512319b4c5"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e6dc16e79893ace5e5ddcdfefb1600ae5c76ff9d8d089572bb0e3869a29bff82",
+        "actions.json": "5efe146829e0f5f25191d7f6372bc79538501ba723cefb16b4e4ebf14b359e1f",
+        "assertions.json": "f529b76d9ee1198f80d04dce6d580b87485140d8f3bf68968441439940d021bf",
+        "expected_final_gamestate.txt": "4c43537eb1c7382595320db244853edd69f76ffdb1d7ac3543ac5c66ba9ec745",
+        "meta.json": "9966344a008f7e16939f3c4396d353c8c1697c6f2769f4f2cfdb20512319b4c5"
+      },
+      "actions": 14,
+      "native_assertions": 1363,
+      "actual_manual_passes": 11,
+      "actual_priority_response_passes": 11,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 2
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "scurv_stowaway",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "not_so_fast_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "scurv_stowaway",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "not_so_fast_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_assertion_mapping_sha256": "1c07c898d19d929191536bdc2abcc169cc2eab0c12898d858a61a0f49b15b895",
+      "native_action_mapping_sha256": "fdcaef319cb3fc0110650a67f38bfb7174515ba4ba23e377f0ba43a0c24dfaef",
+      "native_assertion_mapping_sha256": "da8dfec12231baabb23788909a06156bd74265a6210a6599a87be0d39f5a72ca"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 46,
+  "total_native_assertions": 4009,
+  "total_manual_passes": 40,
+  "total_priority_response_passes": 39,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Mutiny actual32actions2646asserts: physicalGold6 remainsP4Owner4Controller4 until fourthsource response, then SAME6P1ArenaOwner4Controller1. No newGold/UID allocated. RealnextWounding7 consumes earned+2, actualpower6/noGA and6damageHP14; fullcloseGY5,7/R0AP0/Gold6readyundamaged/Counter7/RNG0/all1..7 conserved/noSEA_NEXT residue.",
+    "NSF actual14actions1363asserts: realGoldAction2/Blue7pitch3/AP1spent/destroyToken6beforepriority leavesR1AP0. PhysicalP4Instant5above managedGold12; fresh4,1,2,3 responses complete onlyInstant, then fourNEW1,2,3,4 responses complete Gold. Prior threeGoldpasses are not reused, no earlyP4draw.",
+    "Actualreplacement draws P4OWNoriginal10 OwnerController4 toHand4 and retains11Deck4. P1Deck8,9 staysexact and P1Handempty, no stealingP1card. Original5ownGY4/Pitch7own1/Gold6ceased/virtual12ceased/Counter12/RNG0/R1AP1. RawpositiveSEA_NOT_SO_FAST availability absent; ScurvGoldkiss activation unused.",
+    "All46nativeinputenvelopes/4009orderedassertions independently mapped, all10savedfiles and4completeendpoint snapshots parsed, everyphysicalUID/owner/controller/manualpreference verified. Four ready/live heroes,48manualvaluesateachendpoint/case, allStack/chains/DQs/payment/manager/framesclear."
+  ],
+  "limits": [
+    "Only oneeligibleGold theft+actualnextattack2 and oneScurv opponentGoldDraw1 replacement from ownDeck. No otherGoldcounts/multipleopponents/replacementordering/multipleDraws/emptyDeck/normalDraw/heroGoldkiss/otherfunding/expiry/supportprimary/sibling/fullcard/control/fullsuite credit.",
+    "NSFP4Deck identities pinned initial/final with no-earlyHand witness; no invented intermediate rawDeck snapshot claim. Completed native ledgers plus unchanged source model, no extra per-input snapshot or fault-control credit.",
+    "No PHP/native/R/source/generator/service/replays by reviewer. Root two focused replays and registration remain separate gates."
+  ]
+}

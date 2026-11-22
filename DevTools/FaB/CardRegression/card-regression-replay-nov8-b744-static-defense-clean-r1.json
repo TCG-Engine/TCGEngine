@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch744.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T20:53:44.861706+00:00",
+  "fixtures": [
+    {
+      "slug": "card-strong-stomach-for-adversity-four-live-real-confidence-might-three-defense-four-damage-bladebreak",
+      "fixture_sha256": "a79ca80efb026412db0255a85e65745a8ddb8e539e79a895462b3bfacf6f2d05",
+      "passed": true,
+      "result": "[PASS] strong_stomach_for_adversity / four live distinctive effect"
+    },
+    {
+      "slug": "card-helm-of-lignum-vitae-four-live-real-four-earth-banish-two-defense-five-damage-bladebreak",
+      "fixture_sha256": "778b1e1eb0960225b2e88792b43f9bd6770561829c7b48a39962e65eec725b63",
+      "passed": true,
+      "result": "[PASS] helm_of_lignum_vitae / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-strong-stomach-for-adversity-four-live-real-confidence-might-three-defense-four-damage-bladebreak",
+      "returncode": 0,
+      "stdout": "[PASS] strong_stomach_for_adversity / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-helm-of-lignum-vitae-four-live-real-four-earth-banish-two-defense-five-damage-bladebreak",
+      "returncode": 0,
+      "stdout": "[PASS] helm_of_lignum_vitae / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Dimenxxional Gateway blue / four live opt, opposing heroes and Shadow banish",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-13T23:41:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four live manual young heroes. Pay the printed resource1 using an actual blue pitch. Keep the same physical source on Stack through Opt1 and the optional Shadow choice; grant printed go again only after all effects finish. Keep and reveal the actual Rift Bind blue: it is Runeblade, so deal1 arcane to EACH of three opposing heroes, leaving each at19; it is Shadow, so choose to banish that same owned card face-up. Finish with source5 in own Graveyard, funder6 in Pitch, RiftBind7 in Banish, resources2/actionPoints1 and all decisions/temporary cards/source layer cleared. Only this true Blue branch is claimed; decline, pitch siblings, future banished-card play, Hero, End and full-card behavior are untested. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON164.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

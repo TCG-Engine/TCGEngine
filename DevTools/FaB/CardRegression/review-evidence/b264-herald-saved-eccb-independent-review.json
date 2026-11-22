@@ -1,0 +1,395 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_HERALD_SUBSET_KNEE_HELD_NATIVE_MISMATCH_UNCLASSIFIED",
+  "reviewer": "/root/nov2_sparse_author",
+  "created_utc": "2026-11-02T22:52:16.088689+00:00",
+  "review_method": "Independent exact saved Herald raw-five audit with established saved_fixture_review_tools schema/normalizer; all approved actors/checkpoints/assertions plus full physical endpoints. Failed Knee archive bound and target absence verified only; no failed-case game re-execution/model/source change.",
+  "source_spec": "card-regression-batch264.json",
+  "input_sha256": "559997dff7cee8ac24053292637307e734f74fe09588c95322f3a4d5c3d18617",
+  "manifest_sha256": "5083c35b4ad817cd7dd097ffc7c22459ce6d2682240aff35e5ff22bb0c3ecf2e",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch264-independent-source-review.json",
+    "sha256": "612e05912f6bcb5bc7aa75e473b98b6f137b03d27010a9adabc5b5cd402bf111"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch264-20261102T224654Z-6ae912de12f84.json",
+    "sha256": "13dfd1b1c839776ec97dbd7264faba59820d1bd483e27bd3dec2c72b7e33e784"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch264-native-r1\\receipt.json",
+    "sha256": "bb3e885a9856d3950b338be8b0b23c94a042cb9d62b98c5c6e4db0377ce06102"
+  },
+  "fixtures": [
+    {
+      "index": 1,
+      "slug": "card-herald-of-triumph-red-four-live-sparse-real-six-power-blocker-lowered-below-phantasm-then-fully-blocked",
+      "card_id": "herald_of_triumph_red",
+      "primary_group_id": "pitch-cycle:herald_of_triumph",
+      "source_spec": "card-regression-batch264.json",
+      "input_sha256": "559997dff7cee8ac24053292637307e734f74fe09588c95322f3a4d5c3d18617",
+      "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "reviewer": "/root/nov2_sparse_author",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_sha256": "335abb1230f6f76dc2c276e0df004bbbec43837e57e2f7e03300d65140896b82",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a3060c9b59f344c10c87b8b5dca0cce91a90ddefcf12fa7a06d70042d6d8165",
+        "actions.json": "325e75ce0895aaebc7f94f0b664ca461f653407606157852d7eca0856ec430ca",
+        "assertions.json": "f9b3625a78f63353c1c602dc8f8b2f09e15562bc77d4b70bcdf13c4f38b34875",
+        "expected_final_gamestate.txt": "56ea2f7aecbb47b8504d60dfd650baefcf168e56f04e4069f037d8ed7dc35ef8",
+        "meta.json": "50e4ee0a06a1cd62aada93cfa0bccc2bde43384ab107a4edc1ecd31b63f7a595"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4a3060c9b59f344c10c87b8b5dca0cce91a90ddefcf12fa7a06d70042d6d8165",
+        "actions.json": "325e75ce0895aaebc7f94f0b664ca461f653407606157852d7eca0856ec430ca",
+        "assertions.json": "f9b3625a78f63353c1c602dc8f8b2f09e15562bc77d4b70bcdf13c4f38b34875",
+        "expected_final_gamestate.txt": "56ea2f7aecbb47b8504d60dfd650baefcf168e56f04e4069f037d8ed7dc35ef8",
+        "meta.json": "50e4ee0a06a1cd62aada93cfa0bccc2bde43384ab107a4edc1ecd31b63f7a595"
+      },
+      "actions": 37,
+      "native_assertions": 2856,
+      "actual_manual_pass_inputs": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "defender_declaration_finish_action_steps": [
+        13
+      ],
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_persisted_assertions_exact": true,
+      "author_only_assertions": 0,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Light_Illusionist_Herald5_real_Blue6_P4_printed_six_Raging7_and_Hand_DR8",
+          "native_assertions": 121
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "real_adjacent_target_declared_before_assets",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "real_attack_awaits_resource_and_Action_assets",
+          "native_assertions": 66
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "real_blue_pays_printed_attack_cost_and_Action",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Herald_source_layer_actual_response_1_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Herald_source_layer_actual_response_2_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_Herald_source_layer_actual_response_3_of_four",
+          "native_assertions": 62
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_Herald_source_layer_fourth_actual_response",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "actual_Herald_attack_step_actual_response_1_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_Herald_attack_step_actual_response_2_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_Herald_attack_step_actual_response_3_of_four",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_Herald_attack_step_fourth_actual_response",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_P4_printed_six_Raging7_declared_defending_Herald_remains_physical_chain_no_Phantasm_layer",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "actual_P4_completes_defense_reduced_Raging_power_five_below_Phantasm_six_threshold",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "actual_Herald_defending_priority_survives_real_six_power_block_actual_response_1_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "actual_Herald_defending_priority_survives_real_six_power_block_actual_response_2_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_Herald_defending_priority_survives_real_six_power_block_actual_response_3_of_four",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "actual_Herald_defending_priority_survives_real_six_power_block_fourth_actual_response",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "actual_Herald_main_reaction_pass_1_gives_P4_priority",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "actual_Herald_main_reaction_pass_2_gives_P4_priority",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "actual_Herald_main_reaction_pass_3_gives_P4_priority",
+          "native_assertions": 71
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "actual_legal_Hand_SinkBelow8_printed_ZERO_no_resource_or_Action_cost_empty_remaining_Hand",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "actual_P4_SinkBelow_four_live_response_actors_P4_P1_P2_P3_actual_response_1_of_four",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "actual_P4_SinkBelow_four_live_response_actors_P4_P1_P2_P3_actual_response_2_of_four",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "actual_P4_SinkBelow_four_live_response_actors_P4_P1_P2_P3_actual_response_3_of_four",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "actual_P4_SinkBelow_four_live_response_actors_P4_P1_P2_P3_fourth_actual_response_resolves",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "actual_Herald_seven_minus_Raging_three_and_Hand_DR_four_is_zero_damage_actual_response_1_of_four",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "actual_Herald_seven_minus_Raging_three_and_Hand_DR_four_is_zero_damage_actual_response_2_of_four",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "actual_Herald_seven_minus_Raging_three_and_Hand_DR_four_is_zero_damage_actual_response_3_of_four",
+          "native_assertions": 74
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "actual_Herald_seven_minus_Raging_three_and_Hand_DR_four_is_zero_damage_fourth_actual_response",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 60,
+          "action_step": 30,
+          "checkpoint": "actual_zero_damage_no_hit_no_Soul_trigger_no_Go_again_actual_response_1_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 62,
+          "action_step": 31,
+          "checkpoint": "actual_zero_damage_no_hit_no_Soul_trigger_no_Go_again_actual_response_2_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 64,
+          "action_step": 32,
+          "checkpoint": "actual_zero_damage_no_hit_no_Soul_trigger_no_Go_again_actual_response_3_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 66,
+          "action_step": 33,
+          "checkpoint": "actual_zero_damage_no_hit_no_Soul_trigger_no_Go_again_fourth_actual_response",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 68,
+          "action_step": 34,
+          "checkpoint": "actual_Herald_full_chain_close_all_three_physical_cards_public_Graveyards_actual_response_1_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 70,
+          "action_step": 35,
+          "checkpoint": "actual_Herald_full_chain_close_all_three_physical_cards_public_Graveyards_actual_response_2_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 72,
+          "action_step": 36,
+          "checkpoint": "actual_Herald_full_chain_close_all_three_physical_cards_public_Graveyards_actual_response_3_of_four",
+          "native_assertions": 76
+        },
+        {
+          "source_step": 74,
+          "action_step": 37,
+          "checkpoint": "actual_Herald_full_chain_close_all_three_physical_cards_public_Graveyards_fourth_actual_response",
+          "native_assertions": 60
+        },
+        {
+          "source_step": 75,
+          "action_step": 37,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 122
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "isolated_fault_control_credit": false
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 0,
+      "slug": "card-rising-knee-thrust-red-four-live-sparse-real-leg-tap-same-chain-combo-five-damage-and-go-again",
+      "card_id": "rising_knee_thrust_red",
+      "primary_group_id": "pitch-cycle:rising_knee_thrust",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_absence_verified": true,
+      "status": "HELD_NATIVE_MISMATCH_UNCLASSIFIED",
+      "native_status": "blocked_or_incorrect",
+      "attempted_actions": 25,
+      "error": "state window expected \"RESOLUTION\" got \"PRIORITY\"",
+      "observed_window": "PRIORITY",
+      "observed_combat_step": "LAYER",
+      "observed_damage_dealt": 4,
+      "recording_archive_sha256": "13dfd1b1c839776ec97dbd7264faba59820d1bd483e27bd3dec2c72b7e33e784",
+      "qualification": "No fixture, group credit, implementation-bug classification or oracle adjustment; prefix inspection remains separate root work."
+    }
+  ],
+  "total_actions": 37,
+  "total_native_assertions": 2856,
+  "total_manual_pass_inputs": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "pure_actual_checks": 3384,
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "semantic_findings": [
+    "Actual Herald5 target precedes Blue6pitch3 paying printed2/AP1, R1/AP0; same physical5 attacks at7/noGA.",
+    "Real non-Illusionist RagingYellow7 declares defense from Hand. Printed power6 is reduced by Herald static effect to5 for Phantasm threshold; defense remains printed3. This is source/rule derivation plus actual native survival/noPhantasm-layer witness, not a new direct computed-defending-power assertion.",
+    "Actual P4 HandSink8 printed0 costs no AP/resource; empty remaining Hand means no private choice/draw. Four real response actors4/1/2/3 resolve same8 to defending chain with RoleDEFENSE_REACTION/FromHand, then complete its managed lifetime without lingering source/frame.",
+    "Actual attack7 versus defense3+4 yields damage0, allHP20 and attackHitfalse; no Soul-hit effect earned. Final ownpublicGY Herald5/P4unordered{7,8}, Pitch6, R1/AP0, allSoul/Chains/Stack/Hand/queues empty.",
+    "Recorded32Passinputs comprise31priority passes plus one P4defender-declaration finish at action13; each seat actually supplied8Passinputs."
+  ],
+  "limits": [
+    "Herald red only. No sibling pitch, other power threshold, Phantasm destruction, Soul-hit effect/timing, Prism/support primary, Sink exchange/decline or full-card credit.",
+    "Knee remains HELD_NATIVE_MISMATCH_UNCLASSIFIED with no fixture/coverage; expected oracles remain unchanged. Private prefix diagnostics and any classification are separate.",
+    "Controls NOT_RUN_NOT_CLAIMED. Herald targeted replay receipts and qualification/registration remain separate root work.",
+    "No PHP/backend/game/native/replay execution or R writes by reviewer."
+  ]
+}

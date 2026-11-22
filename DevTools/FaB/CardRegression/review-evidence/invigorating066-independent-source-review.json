@@ -1,0 +1,120 @@
+{
+  "status": "APPROVED_BOUNDED_SOURCE_FIX_PROPOSAL_NOT_APPLIED_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewed_utc": "2026-11-03T03:25:38.994972+00:00",
+  "issue": "FAB-REG-066",
+  "related_existing_family": "FAB-REG-055",
+  "new_distinct_gameplay_root": false,
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-onplay-trigger-proposed\\manifest.json",
+  "manifest_sha256": "8dcff05f976379bd96e5b4e6db080a77f5cb8aeb627f2fad7dd85b29a087c4f4",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "files": [
+    {
+      "target": "FaBSim/Custom/MONCards.php",
+      "before_sha256": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-onplay-trigger-proposed\\MONCards.php",
+      "after_sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-onplay-trigger-proposed\\MONCards.before.php"
+    },
+    {
+      "target": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-onplay-trigger-proposed\\ROSCards.php",
+      "after_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-onplay-trigger-proposed\\ROSCards.before.php"
+    }
+  ],
+  "source_guards_verified": 10,
+  "source_guard_bytes_current": true,
+  "byte_scope": {
+    "exact_changed_files": 2,
+    "MON_change": "Insert exactly two typed Invigorating queue/resolve helpers and replace one existing inline tag producer line.",
+    "ROS_change": "One event-specific dispatcher branch; existing queue and other dispatch bytes unchanged.",
+    "all_other_body_bytes_exact": true,
+    "original_CRLF_preserved": true,
+    "close_move_exactly_unchanged": true,
+    "canonical_generated_GameLogic_schema_unchanged": true
+  },
+  "component_evidence": {
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-root-component-validation\\receipt.json",
+    "sha256": "74692bc0f36072afb039640de4575f2bfbcd0c4f364a5cf3c4909d8ccfde9a8b",
+    "executed_by": "parent/root only",
+    "independently_read_verified_not_rerun": true,
+    "full_candidate_lints": 2,
+    "lint_exit_codes": [
+      0,
+      0
+    ],
+    "before_contracts": 4,
+    "before_failed": 3,
+    "after_contracts": 30,
+    "after_failed": 0,
+    "stderr_bytes": 0,
+    "actual_extracted_bodies_verified": 14,
+    "extraction_comparison": "Exact function contents with explicit CRLF-to-LF extraction normalization, both complete source candidate bytes hash-pinned and exact raw delta reconstructed.",
+    "adapter_limits": "Explicit small component-only state/Stack/AddStack/FindUID/Seat/Soul/type/suppression boundaries. Actual extracted MON producer/new helpers/ROS queue+dispatcher/StackTop/Base/Tag execute. Unrelated power tag adapters are identity only for MON_CLOSE_SOUL; reentry hook tests consume-before-callback. No fake native history, no game runner and no claim of native controls."
+  },
+  "native_before": {
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating278-failed-prefix\\receipt.json",
+    "receipt_sha256": "5fa0147767de3afaf75df5c326cf62049acdcfb087fc1492f615bf4ea86b0da6",
+    "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch278-trigger-probes-20261103T025547Z-6ae94d33616cf.json",
+    "archive_sha256": "3ddeb50f2ca4e8c1b5c589b3b415723d210e06ef2bec1bbdaefe2f24c7eb72aa",
+    "snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-invigorating278-failed-prefix\\initial_gamestate.txt",
+    "snapshot_sha256": "36daaf1e7052f96cb36215e298a4a5433a648e62271711f0b7a1245c424bf1ad",
+    "complete_schema_snapshot_verified": true,
+    "actual_inputs": 3,
+    "actual_stack": 1,
+    "correct_expected_stack": 2,
+    "physical_source_uid": 5,
+    "early_tag": "MON_CLOSE_SOUL",
+    "Soul": 0,
+    "R1": 0,
+    "AP1": 0,
+    "actual_Blue_pitch_uid": 6,
+    "passing_fixture_saved": false
+  },
+  "printed_face_actually_viewed": {
+    "path": "FaBSim/WebpImages/invigorating_light_red.webp",
+    "sha256": "672b58275c1b126b6642928f00ef67dbe0c9c0e56c5521e501b503de2dc77292"
+  },
+  "rule_basis": [
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/monarch/",
+      "retrieval": "Official current URL search index independently returned explicit Invigorating ruling; direct full-page fetch403, no claim of full-page access.",
+      "basis": "Soul count is checked when the card is played. Later Soul changes before combat close do not change that captured eligibility."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.1c",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "basis": "Played event earns a response layer; post-event conditional effect is distinct from triggering and is not an immediate producer tag."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "basis": "Earned on-play layer resolves separately before the underlying attack source; no inline effect before live responses."
+    }
+  ],
+  "findings": [
+    "Actual paid OnCardPlayed calls FaBWTRCardPlayed with the same physical Stack object (WTR451/482). New producer validates live controller, positive sourceUID, exact Invigorating base, ATTACK kind, unsuppressed abilities and actual Stack object identity. Existing ROSQueue creates ordinary source-bound response layer using existing UID allocation. Physical attack Params retain target and receive only actual earned layerUID marker; no fabricated play-order counter or new global identity.",
+    "Soul emptiness is captured at actual play as strict boolean payload, supported by specific official Monarch ruling. The on-play event queues its layer even when effect condition is false; false condition cannot later become true from emptying Soul. Later Soul filling does not cancel original true condition. Trigger existence is separated from conditional effect eligibility.",
+    "Resolver dispatch is exact monInvigoratingLightPlay only. Positive source/layerUID, live original controller, ABILITY kind, exact event/base/CardID, boolean payload and physical Stack ATTACK/controller/actual bound layerUID are revalidated. Source moved from Stack is not recovered/resurrected. Cross-card/controller/source/layer or stale sameUID callbacks fail closed.",
+    "Pending actual layerUID is removed from source Params BEFORE any tagging callback. Repeat callback/reentry cannot reapply. Original target Params survive; existing tag duplicates are not added. Pending duplicate producer invocation is ignored. At-play suppression prevents earning layer; ability loss after earning does not cancel it. No reliance on known-unproven FAB_PLAY_ORDER freshness.",
+    "Actual component bodies, producer, queue, dispatcher, StackTop/Base/Tag verified against candidate/current exact sources. Root before reproduces missing layer/early tag (3failed of4); after30contracts and two full-source lints pass. Explicit host adapters are not native game coverage and sibling helper checks earn no sibling fixtures.",
+    "Existing FaBMONCloseMove and all unrelated MON/ROS body bytes are unchanged. This proposal repairs timing of earning the existing close-Soul effect; it does not authorize expanding delayed-close rules or certify unrelated cards. Original correct B278 probe and full6damage/HP14/physicalSoul5 suffix remain unchanged."
+  ],
+  "holds": [],
+  "limits": [
+    "Source proposal approval only at exact frozen manifest8dcf and base0d guards. Not applied or natively qualified by reviewer. Root must preserve all old-context native evidence and complete preceding healthy qualification before runtime boundary.",
+    "Root must apply only reviewed MON+ROS fragments at exact preconditions; do not overwrite a later shared ROS candidate wholesale. No codegen/canonical/GameLogic/schema change is required or permitted by this review.",
+    "Rerun unchanged original correct trigger probe natively with four real response rounds, then independent exact saved review and two focused replays; failure saves no incorrect fixture. No prediction of passing output or weakened Stack/AP/physical cost/oracle approved.",
+    "Only ordinary selected source/controller path is proposed; negative identity/reentry/component defenses and yellow/blue helper contracts are not native coverage or proof of all foreign-owner/control-transfer/suppression/close branches.",
+    "Existing055 on-play trigger caller-family extension, not a newly counted distinct shared root. No broad MON audit, historical corpus replay, fullsuite, backend/PHP/native/generator or R/source write by reviewer."
+  ]
+}

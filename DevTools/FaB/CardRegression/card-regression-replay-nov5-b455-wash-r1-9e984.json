@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch455.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T11:29:13.124164+00:00",
+  "fixtures": [
+    {
+      "slug": "card-wash-away-blue-four-live-real-other-blue-sigil-heals-above-base-earns-five-defense-and-two-damage",
+      "fixture_sha256": "8136fd582c077231ad277c011e61e6f28f8ce2b5fdfa1773150de2ce892a1ffd",
+      "passed": true,
+      "result": "[PASS] wash_away_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-wash-away-blue-four-live-real-other-blue-sigil-heals-above-base-earns-five-defense-and-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] wash_away_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

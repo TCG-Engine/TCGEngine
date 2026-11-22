@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T22:45:41.055616+00:00",
+  "runtime_sha256": "0cbde58179b0b42cbd948c3193d8627af123fed2fd7be602493b1b8b80feb4fd",
+  "source_spec": "card-regression-repair-cup139-durable-added-red-history.json",
+  "source_spec_sha256": "10db708c37c1bdc9d3245c4e22a86dcee0913ce3b3e6c82cd5747182641e7d3d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 72,
+  "native_assertions": 5930,
+  "manual_passes": 67,
+  "totals": {
+    "saved_registered_scenarios": 4141,
+    "duels": 3074,
+    "four_live": 1067,
+    "recorded_primary_ids": 1294,
+    "identity_denominator": 5196,
+    "recorded_groups": 1168,
+    "group_denominator": 3324,
+    "four_live_groups": 1060,
+    "phase_qualified_scenarios_at_actual_contexts": 778,
+    "phase_qualified_unique_groups": 773,
+    "creation_replay_passes": 1519,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "become_the_cup_blue",
+      "group_id": "pitch-cycle:become_the_cup",
+      "scenario_id": "card-become-the-cup-blue-four-live-correct-additional-red-play-earns-blaze-go-again-and-real-refund-consumer",
+      "effect_branches": [
+        "become-the-cup-blue-four-live-correct-additional-red-play-earns-blaze-go-again-and-real-refund-consumer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-become-the-cup-blue-four-live-correct-additional-red-play-earns-blaze-go-again-and-real-refund-consumer",
+      "source_spec": "card-regression-repair-cup139-durable-added-red-history.json",
+      "source_spec_sha256": "10db708c37c1bdc9d3245c4e22a86dcee0913ce3b3e6c82cd5747182641e7d3d",
+      "review_evidence": "review-evidence/cup139-0cbd-qualified-saved.json",
+      "review_evidence_sha256": "22d36ce56515ce8479db62017adb0dfd94004cdbf5940769b6dba3e36cf02ecd",
+      "recorded_runtime_sha256": "0cbde58179b0b42cbd948c3193d8627af123fed2fd7be602493b1b8b80feb4fd",
+      "qualification_runtime_sha256": "0cbde58179b0b42cbd948c3193d8627af123fed2fd7be602493b1b8b80feb4fd",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-cup139-replay.json",
+          "sha256": "0a6a853fe74af9c471924fb73b4ae4faa0bd0cd9e31b22ebed5eee62bbb0a43b",
+          "runtime_sha256": "0cbde58179b0b42cbd948c3193d8627af123fed2fd7be602493b1b8b80feb4fd",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

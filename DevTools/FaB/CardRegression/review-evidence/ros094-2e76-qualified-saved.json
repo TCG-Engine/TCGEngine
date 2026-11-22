@@ -1,0 +1,78 @@
+{
+  "status": "ROS094_VEST_ORIGINAL33_2935_QUALIFIED_ONE_REPLAY_FIVE_COMPAT_PASS",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Independent peer reviewed rebased four-function source and exact saved Vest semantics; Root independently checked original/current raw5 and actual results",
+  "runtime_sha256": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+  "source_spec": "card-regression-batch413-blood-vest-correct-probe.json",
+  "input_sha256": "e765d880320ff60a097874e4bab8c62aa6340781a7f43064d7a904f4b0cdf699",
+  "fixtures": [
+    {
+      "slug": "card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+      "card_id": "blood_splattered_vest",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11cda9b50238e64d0bbec2c61202c35cbedbeeb3d902ec63939fe82d0306c7ab",
+        "actions.json": "12aa50f0330460b24cd68f65afd04a8af9d3bad444299e4c48e9de48bc34fcf5",
+        "assertions.json": "ce1eca58bcfcb38bbe1578ec3cc9114350136c380786678d19c120084689ab86",
+        "expected_final_gamestate.txt": "a39f8236b62f02187f6204bafc4434ee7d37ed89b42b103916961b8ba417a7b4",
+        "meta.json": "321490e8c5228b1604fc8deffde0abec4395beed10e92453164119490c339b83"
+      },
+      "fixture_sha256": "c4e157a692455a603dba60a54a6de678638b1faf327eda3ca24c78129b4464af",
+      "actions": 33,
+      "native_assertions": 2935,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+      "runtime_sha256": "2e76c67ae69518a394936d3dcdb2c25ba36d4e26a4791518491625585aac7c0c",
+      "source_spec": "card-regression-batch413-blood-vest-correct-probe.json",
+      "input_sha256": "e765d880320ff60a097874e4bab8c62aa6340781a7f43064d7a904f4b0cdf699"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov20-ros094-2e76-replay.json",
+    "sha256": "2328fb9120804e6f72c3a7bca0ec1114dd34a12d44de393df3b03541aa186263",
+    "passed": true
+  },
+  "specific_source_authorization_received": true,
+  "previous_denied_operation_known_unexecuted_before_new_authorization": true,
+  "successful_source_applications": 1,
+  "source_review": {
+    "workspace_path": "nov20-ros094-rebased-independent-source-review-approved.json",
+    "sha256": "925892ba24109824c0ea85ba1efc239f98251a90e342d126014a54f19a6d2052"
+  },
+  "saved_review": {
+    "workspace_path": "nov20-ros094-saved-independent-semantic-review-approved.json",
+    "sha256": "eb3a9b20840a3d3a46198f283ad8f28fe239025fcfd4ad613c4eac6c91ae20d2"
+  },
+  "application": {
+    "workspace_path": "nov20-ros094-authorized-one-file-application/receipt.json",
+    "sha256": "5c4d250a1de4b1935e24e9b6d5718be4088784061cb41138fccf817e53682e25"
+  },
+  "components": {
+    "receipt_workspace_path": "nov20-ros094-current-component-execution/receipt.json",
+    "sha256": "6e9f69644a84fabd0a5d695633e0a7a3bbbf9dc4224c1ad8283c5445b784bde5",
+    "before_contracts": 6,
+    "before_checks": 67,
+    "after_contracts": 14,
+    "after_checks": 189,
+    "native": false
+  },
+  "compatibility": {
+    "path": "review-evidence/ros094-2e76-focused-compatibility.json",
+    "sha256": "b7999ea911b218dc2fedc41002e65ec1d62071a646fd9077b87e3988252c6dc4",
+    "passed": true,
+    "existing_cases": 5,
+    "wtr_passed": true
+  },
+  "basis": "Original33 supported native actions and2935normative assertions unchanged andpersisted,29manualpasses/fourliveprofiles verified. RealownedKodachi6attacksP4; Blue7pitch3 paysprinted1/AP1 leavingR2/AP0. Actualdaggerhit1givesP4HP19andearnsVestsource5/controller1ABI9. Freshfourresponses leaveABI9onStack throughoutactualResolveAbilitygainmodal atcontrol24, whilephysicalVest5ready/STAIN0/R2/AP0. Answer1 grantsone resource/stain only: R3/STAIN1/Stack0/AP0. Kodachi ownGAonlynormalDAMAGEcompletioncontrol29\u2192AP1; fullclosequietACTION, originalphysicalUIDs1..7retained, attack/triggerproxies8/9absent, noStack/queues/ownedawait/payment/resolvingmarker. Onecleanreplay,fivedirectexistingcompatibilityreplaysandWTRsmallcheckpass at2e76. OnlyapprovedfourGameLogicfunctions changed; genericROSResolveAbilityownership/frame/finisher reused withoutextraGA ornew synchronousautopass. Physical/named andearlieriarBounddispatchbytespreserved.",
+  "limits": [
+    "Only original first dagger Hero hit / gain mode / one stain native branch qualified. Decline, controllerchange, sourcegone/blanked, threshold3destruction, wrong-frame and duplicate callbacks have controlledcomponent evidence only.",
+    "Generic empty/literalability ROS path only; namedROS/nativephysicalroutes preserved andselected compatibility checked. iarBound/Mark/Malice excluded, otherheldrecords not retested orcountedfixed.",
+    "BeforeNativefailure remains historical9e984; fresh before6/67 is controlledcomponent characterization at678c, not another nativebefore game. No broad root-count allocation, pitch/othercard credit, fullsuite/generation/remote/config/DB change."
+  ],
+  "full_suite_run": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false
+}

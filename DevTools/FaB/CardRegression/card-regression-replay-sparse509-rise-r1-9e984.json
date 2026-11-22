@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch509.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T19:34:58.483153+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rise-up-red-four-live-real-fourth-draconic-link-and-phoenix-flame-earns-five-dominate-two-damage",
+      "fixture_sha256": "9cf3f590f4626cd24a28f12797191e634dad596b93c60f012d28d8b5306ece2f",
+      "passed": true,
+      "result": "[PASS] rise_up_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rise-up-red-four-live-real-fourth-draconic-link-and-phoenix-flame-earns-five-dominate-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] rise_up_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

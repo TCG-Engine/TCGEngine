@@ -1,0 +1,550 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B416_TWO_NEW_FOUR_LIVE_REPRESENTATIVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-05T04:21:41.967512+00:00",
+  "source_spec": "card-regression-batch416.json",
+  "input_sha256": "b92d5498643b2c4bdaa2ae8fabbf0265b4c04dfbd24a714e55fa17273c1b0941",
+  "manifest_sha256": "0b2630f43e37b9f9fbf9bb0eb59d9673d144cf61d4e4d8285eff3e76fc2b8c0c",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 65,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch416-independent-source-review.json",
+    "sha256": "9a357c083e16285ee49ce64034b1a1d55b181354b5fd6d1734e972ed7c468fde",
+    "reviewer": "/root/b106_semantic_review",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch416-20261105T041751Z-6aec036f5fcc7.json",
+    "sha256": "ed11553234c5c87444d8ae736108e9bbe473bd77bb59da7bf32f8f235d52854f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b416-native-9e984-r1\\receipt.json",
+    "sha256": "c83d8c969a63c92b6951b0c0428554a1757e6147f4e6c53c886581bfe939544d"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch416_saved_readonly.py",
+    "sha256": "a400a06bcffc47d47bb913b7ecd8368f81d490ea074acb65bf0084b9885b2ef0"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Reviewer authored neither recipe nor sourceimplementation/native recording; approvedindependentcard/rulesmodel reused, no gameplay simulation.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "crowd_goes_wild_yellow",
+      "group_id": "identity:crowd_goes_wild_yellow",
+      "slug": "card-crowd-goes-wild-yellow-four-live-sparse-real-cheer-earns-three-resource-discount-and-nine-damage",
+      "source_spec": "card-regression-batch416.json",
+      "input_sha256": "b92d5498643b2c4bdaa2ae8fabbf0265b4c04dfbd24a714e55fa17273c1b0941",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-crowd-goes-wild-yellow-four-live-sparse-real-cheer-earns-three-resource-discount-and-nine-damage",
+      "fixture_sha256": "e515562f34682bd8080b810eee5c2b70914926d5ebb642a04501cc9f1ab1b3a2",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "918fadcb93133c50fc4b2cedd6f71640aa932264b3e2a2277b35f4cf7cb39547",
+        "actions.json": "e6b59e625c153850179cfa7ad999483e8984dc95066ef7a1380cd30ae9566c9f",
+        "assertions.json": "3788813ac6168183c8dff5fe75b09aa75ae9f0ddfa3c9e448eafec9dd686cb21",
+        "expected_final_gamestate.txt": "1d7492fba80e37663ae7d66c753994bbe9fe57e9bcad3801f47d714c45602570"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "918fadcb93133c50fc4b2cedd6f71640aa932264b3e2a2277b35f4cf7cb39547",
+        "actions.json": "e6b59e625c153850179cfa7ad999483e8984dc95066ef7a1380cd30ae9566c9f",
+        "assertions.json": "3788813ac6168183c8dff5fe75b09aa75ae9f0ddfa3c9e448eafec9dd686cb21",
+        "expected_final_gamestate.txt": "1d7492fba80e37663ae7d66c753994bbe9fe57e9bcad3801f47d714c45602570",
+        "meta.json": "f2397b8746acd9880d9d0956b4647c1cccc46daa146f09c7972d17a341c18be7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "918fadcb93133c50fc4b2cedd6f71640aa932264b3e2a2277b35f4cf7cb39547",
+        "actions.json": "e6b59e625c153850179cfa7ad999483e8984dc95066ef7a1380cd30ae9566c9f",
+        "assertions.json": "3788813ac6168183c8dff5fe75b09aa75ae9f0ddfa3c9e448eafec9dd686cb21",
+        "expected_final_gamestate.txt": "1d7492fba80e37663ae7d66c753994bbe9fe57e9bcad3801f47d714c45602570",
+        "meta.json": "f2397b8746acd9880d9d0956b4647c1cccc46daa146f09c7972d17a341c18be7"
+      },
+      "actions": 37,
+      "native_assertions": 3154,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "schema_property_assertions": 1019,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "heroic_pose_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "crowd_goes_wild_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "9": {
+          "card_id": "confidence",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "heroic_pose_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "crowd_goes_wild_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "a1d2d2bcc6f10ec9a40aab42b4ac65a6d4809d4699f84f1c74b69d056eb6b16d",
+      "native_action_mapping_sha256": "f994a5615b0fba06c5b2a1aec8b79b7e5b79ab578cf9e5eb05f24d1e5897ce5f",
+      "native_assertion_mapping_sha256": "23084df67ec14e70f725f6625e09a1d9115347c823e9f279a846713f7348f4a4"
+    },
+    {
+      "index": 1,
+      "card_id": "tempest_palm_gustwave_yellow",
+      "group_id": "identity:tempest_palm_gustwave_yellow",
+      "slug": "card-tempest-palm-gustwave-yellow-four-live-sparse-real-surging-prior-attack-and-third-link-combo-go-again",
+      "source_spec": "card-regression-batch416.json",
+      "input_sha256": "b92d5498643b2c4bdaa2ae8fabbf0265b4c04dfbd24a714e55fa17273c1b0941",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-tempest-palm-gustwave-yellow-four-live-sparse-real-surging-prior-attack-and-third-link-combo-go-again",
+      "fixture_sha256": "8732abb9ebc56f98e8a0071d25f7a1d149a852dfc82c564e0a3181ca572838c7",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "025498d98101234bd9110d21ac0dd07b21917770d1dae0874a0d002a98c30570",
+        "actions.json": "82235fc970df3c24cf3bd67b56f47f164f9ac76a615bc2cca9ded3072ffc916a",
+        "assertions.json": "143af4909f5463f2dc0847fa3e7e2a7b640d48d95e1a793d7b98ff3ad94b144c",
+        "expected_final_gamestate.txt": "4376b9ba1029abec6ba166962ed2c751e3773d2b4770e7cafd1cb1074c897b6e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "025498d98101234bd9110d21ac0dd07b21917770d1dae0874a0d002a98c30570",
+        "actions.json": "82235fc970df3c24cf3bd67b56f47f164f9ac76a615bc2cca9ded3072ffc916a",
+        "assertions.json": "143af4909f5463f2dc0847fa3e7e2a7b640d48d95e1a793d7b98ff3ad94b144c",
+        "expected_final_gamestate.txt": "4376b9ba1029abec6ba166962ed2c751e3773d2b4770e7cafd1cb1074c897b6e",
+        "meta.json": "a1fe4bb566a1f0c1ecdcbef751cdacdd9a1dcaf18cbdcc25fdfdec6eb13be232"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "025498d98101234bd9110d21ac0dd07b21917770d1dae0874a0d002a98c30570",
+        "actions.json": "82235fc970df3c24cf3bd67b56f47f164f9ac76a615bc2cca9ded3072ffc916a",
+        "assertions.json": "143af4909f5463f2dc0847fa3e7e2a7b640d48d95e1a793d7b98ff3ad94b144c",
+        "expected_final_gamestate.txt": "4376b9ba1029abec6ba166962ed2c751e3773d2b4770e7cafd1cb1074c897b6e",
+        "meta.json": "a1fe4bb566a1f0c1ecdcbef751cdacdd9a1dcaf18cbdcc25fdfdec6eb13be232"
+      },
+      "actions": 72,
+      "native_assertions": 6250,
+      "actual_manual_passes": 67,
+      "actual_priority_response_passes": 64,
+      "actual_defender_declaration_finish_inputs": 3,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 16,
+        "2": 16,
+        "3": 16,
+        "4": 19
+      },
+      "schema_property_assertions": 2080,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "ronin_renegade_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "tempest_palm_gustwave_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "ronin_renegade_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "tempest_palm_gustwave_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        7
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "cc948e58db2597067d37ba94ab126115a39de927c9c76cad969826ba475007fb",
+      "native_action_mapping_sha256": "d07641c97cb806b575b4ea381667b7f81a193f6b5f12d8eab8a13749caecb73f",
+      "native_assertion_mapping_sha256": "b6bd76810f54408c96f521669a35f560bed0f96b9425a6b599fdbad80b06067c"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 109,
+  "total_native_assertions": 9404,
+  "total_manual_passes": 100,
+  "total_priority_response_passes": 96,
+  "total_defender_declaration_finish_inputs": 4,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 3099,
+  "material_findings": [
+    "Crowd: actualHeroic5pending1/AP1 thenrealBlue7pitch3pays1/R2AP0; fourPose responses produce nextattack+3/realCheer andownGAAP1. MandatorynamedHeroABI source1 remainsaboveboardthroughfreshthree, fourthcreatesreadyownedConfidence9 withnoextraAP. Sameprimary6declaresadjacentP4then3\u2212realcheer3=0, R2unchanged/AP0/noextraPitch; nativecomputedpower9=6+Heroic3/noGA. Actual9damageHP11/AP0throughResolution; fullcloseGY5/6/PitchsameBlue7/Confidence9ready, virtual8ceased/alloriginal1..7conserved/counter9. FreshConfidencehasnoimmediatepower/restrictioneffect.",
+    "Tempest: realRonin5link1/power3/ownGA deals3HP17/ResolutionAP1; sameopenchainrealSurging6link2paid2byBlue7/R1/AP0/power5/GA deals5HP12/ResolutionAP1. Primary8actual0spendsAP, onlyafterfreshfourbecomeslink3 while5/6physicallyremainlinks1/2. PreviousSurgingisnativepinned; computedpower5/GA bindp1CombatChain-2, notRoninindex0. Actual5physicalHP7 andAP1onlyfourthDamage/Resolution. Fullcloseoriginal5/6/8ownedpublicGY/sameBlue7Pitch/R1AP1/counter8/nolivechainorvirtual.",
+    "Allraw10/109actualorderedinputenvelopes/9404persistedchecks/3099propertyassertions exactoriginalb92d549+source9a357c.100manualcommands comprise96priorityresponses+4emptydefenderdeclarationfinishes; raw48manualsettings atbothendpoints/case, fullfourlivingquietHeroes/allphysicalUIDownership/defaults/realRAPHP/noearlysupportorphantomtokens/fullqueue-frame-target-combatcleanup verified atactual9/all65guards."
+  ],
+  "limits": [
+    "OnlyCrowdrealCheerdiscountpositive andTempestrealSurgingCombo+2/thirdlinkGApositive. No falseconditions/alternatecolors/pitchsiblings/adult/fullcard/suppression/expiry/extraattack/controllernegativecontrols. Heroic/Pleiades/Confidence/Ronin/Surging/supportBlue receive no new primarycredit. Confidencefuturestart/heroInstant unactivated/uncredited.",
+    "Physicalinitial/finalrawsnapshots complete; intermediatefacts deriveonlyactualpassedassertions/actions, notinventedfullsnapshots/privatePC/awaitlocals. OpaqueVersions hashboundasundo data andexcludedfromcurrentphysicalinventory.",
+    "Sourceunexecutedrecipeprose preservedimmutablemeta; this proofsuppliesactualsavedqualificationstageevidence. Roottargetedreplay/registrationresults separate/unclaimed; no retagginghistoricalruntime.094deniedbeforeexecutionandremainsunexecuted, actual9unchanged.",
+    "NoPHP/native/replay/R/source/service/gen/fullsuite/optional simulation/held089090094retry/reroute byreviewer."
+  ]
+}

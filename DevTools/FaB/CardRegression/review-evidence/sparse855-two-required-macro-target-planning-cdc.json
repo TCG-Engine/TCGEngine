@@ -1,0 +1,130 @@
+{
+  "status": "INDEPENDENT_APPROVED_TWO_SOURCE_ONLY_UNATTEMPTED_SHARED_MACRO_AND_FORMAL_TARGET_PLANNING_NOTES",
+  "phase": "PLANNING",
+  "batch": 855,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch855-two-required-planning-notes-manifest.json",
+    "sha256": "9fbfbd804e9ae72d5abce49fc6c2631759007796c3473b2efd7f9c0e34604ee2"
+  },
+  "manifest_sha256": "9fbfbd804e9ae72d5abce49fc6c2631759007796c3473b2efd7f9c0e34604ee2",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch855-firm-reservation.json",
+    "sha256": "ee235aa2edfe367e0dbd843f6c21e05c31b37d2d977d3888b33ea34acea48880"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 18,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "expedition_to_azuro_keys_red",
+      "group_id": "identity:expedition_to_azuro_keys_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_PLANNING_LIMIT",
+      "classification": "PROPER_TREASURE_ISLAND_SHARED_MACRO_SETUP_NOT_SUPPORTED_BY_INSPECTED_FRAMEWORK",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch855-expedition-shared-macro-setup-unattempted-note.json",
+        "sha256": "92b6490d5cce0769ad76250fedc39c6790e1824dbb8c2c68a5daaf9f9cedb09d"
+      },
+      "known_contracts": [],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "scalding_iron_red",
+      "group_id": "identity:scalding_iron_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_PLANNING_LIMIT",
+      "classification": "KNOWN_REQUIRED_FORMAL_TARGET_DECLARATION_BEFORE_RESPONSE_PRIORITY",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch855-scalding-known-formal-target-unattempted-note.json",
+        "sha256": "56110d857d5fcbcc5f074eb18739d224cc52d901dc33d3259485e031aeab142c"
+      },
+      "known_contracts": [
+        {
+          "card_id": "tarantula_toxin_red",
+          "row": 267,
+          "evidence": {
+            "path": "review-evidence/sparse820-independent-diagnostic-source-and-tarantula-planning-review-429a.json",
+            "sha256": "68d361e8a46fd5eea83bebf0528dbb6491f15e7150675f92be9892cb6bf14122"
+          }
+        },
+        {
+          "card_id": "cut_to_the_chase_blue",
+          "row": 290,
+          "evidence": {
+            "path": "review-evidence/sparse839-two-known-required-contract-planning-cdc.json",
+            "sha256": "99ab6a486de14b2679907b31522f2206a172a0627ab596ded03c1776c8b5787b"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Expedition positive Treasure Island route is blocked at proper fixture admission, not classified as absent card body or a newly reproduced gameplay failure. GameSchema has per-seat Arena buckets and no shared Macro/Landmark declaration; exact AddMacro()/AddLandmark() accessors do not exist. AddMacroTurnIndex/AddMacroGameIndex are unrelated scalar indices. Recorder176..179 requires a seat1..4 for every zone entry, and254..257 invokes AddZone with that seat as owner/controller. SEAIsland66 searching player Arena does not establish a supported proper shared, unowned macro setup.",
+    "CR1.5 states macros are non-card objects and have no owner; Treasure Island publisher guidance describes a shared object neither player controls. No fake owned player-Arena placement, raw global state, helper, card/token substitution, schema change or framework adapter is approved. The note precisely says no correct existing admission was established within the inspected framework, not that a hypothetical representation is proven impossible.",
+    "The unapproved persistent-one-counter endpoint was withdrawn before any executable or game. Island first-hero-attacked trigger and later damage-removal/Gold creation are mandatory future route obligations alongside Expedition optional attack WHEN. Their exact layers/control/order/payout and final numerics remain unrun and uncertified behind admission; no further macro ordering audit was needed.",
+    "Scalding has actual implemented HNT ResolveCard code, actual Dagger refs and FaBFaiChainCount formula. Its only target MZChoose is deferred until resolution and no early declaration is installed in CardChoices (Nip/Shred only). This is the exact required formal-target timing267/Tarantula and290/Cut contract, whose retained proof bytes were independently matched. Real Dagger is Weapon, so the earlier nonweapon admission148 is not the applicable blocker.",
+    "Young Fang20 and actual Obsidian Fire Vein Draconic Warrior Dagger are legal. A real current Draconic ATTACK link counts1 via FaiCards3..10; Scalding reaction on that link does not create a second ATTACK link. Its play satisfies the printed Obsidian condition, and HNTRuntime53/65/69 supplies continuous +1/go again. This is not another WHEN layer and no extra response window is invented.",
+    "Future full single-link Scalding route must declare target before costs/responses, pay real Dagger1 from Blue3/R2/AP0, then resolve reaction X1 with Obsidian continuous1 to power3, actual HP4=17 and GA/AP1/physical source-cleanup. These are planning expectations only, not observed or Native-certified numbers. Unmarked target and Fealty0 must be real state to keep Fang marked-hit/discount unearned; no seed/history/quietX0 waiver.",
+    "All18 current source guards, both exact frozen notes/canonical rows, selected primary/support printed metadata and printing aliases, named known-proof hashes, firm/ledger/newness references independently matched. Both groups remain wholly UNATTEMPTED; no executable Source/native/fixture/coverage/new issue or repair claim."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "sections": [
+        "1.5.1",
+        "1.5.1a",
+        "1.5.1b"
+      ]
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/high-seas/",
+      "scope": "Shared Treasure Island and its own triggers; publisher search excerpt available, direct page fetch403"
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/the-hunted/",
+      "scope": "Obsidian current-chain-link continuous conditional; no triggered extra layer"
+    }
+  ],
+  "remaining_blockers": [
+    {
+      "action": "Author/install/run the full Expedition positive actual Treasure Island counter route",
+      "target": "Proper shared Treasure Island Macro/Landmark with no fabricated owned player-Arena substitute",
+      "reason": "GameSchema defines per-seatArena but no sharedMacro/Landmark zone. ZoneAccessors has no AddLandmark/AddMacro class/accessor; recorder176..179 requires player1..4 for everyzone entry and255..256 calls AddZone withOwner/Controller equalto thatseat. ActualSEAIsland66 searches playerArena, which doesnotestablish a rules-correct shared/unowned Macrofixture. No supportednativeproper setup was established; firm explicitlyforbidsfakeplayerArena/rawgamestate/newframework.",
+      "state": "UNATTEMPTED_PLANNING_BLOCKER_NOT_DENIED_NOT_PENDING_APPROVAL_NOT_UNCERTAIN",
+      "required_next_capability": "Existing supported correct shared-Macro fixture representation/admission is needed before this route can be executable; no adapter/sourcechange is proposed or authorized here."
+    },
+    {
+      "action": "Execute full positive Scalding Dagger reaction route",
+      "target": "Formal target declaration timing",
+      "reason": "Exact retained267/290 target choice occurs only at resolution; no execution approved",
+      "state": "UNATTEMPTED_SOURCE_ONLY_KNOWN_CONTRACT_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Only compact planning-note accuracy/retention approved, not executable Source/native/save admission.",
+    "No actual cost/counter/damage/bonus/GA/macro layers/payout/cleanup outcomes, historical/support/sibling/fullcard certification.",
+    "No PHP/native/R writes/sourcefix/rerun/fullsuite/Git/remote/deferred Radiant189 or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T08:19:48.714516+00:00"
+}

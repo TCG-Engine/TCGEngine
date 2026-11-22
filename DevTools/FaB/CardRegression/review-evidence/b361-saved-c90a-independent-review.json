@@ -1,0 +1,152 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B361_REAL_PAID_SIX_DISCARD_CONDITIONAL_ONE_DRAW_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T18:14:05.580771+00:00",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch361.json",
+  "input_sha256": "ee0454fb11b6139772735dcc45b43ebe521c628a5c483b0b9b8b499bd8938659",
+  "fixtures": [
+    {
+      "slug": "card-savage-feast-red-four-live-sparse-real-paid-six-discard-earns-one-physical-draw-before-six-damage",
+      "card_id": "savage_feast_red",
+      "group_id": "pitch-cycle:savage_feast",
+      "fixture_sha256": "f8a712cf924c6fb08e323771504527c823dd70f7f25431386621a0c79871ee53",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a32a3023b5dad82f2cc8495abcba7cf2c7e7cdbda9d0b205b80e327de24adeaa",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "eb345808b6013d9d9ce70888546408498b5b6425730aae1f165054b28232f1ff",
+        "expected_final_gamestate.txt": "e5125fcd6ed288f345635c727ddf54cad39bd3733ad739fd3fb2e0a0dc68a7a4",
+        "meta.json": "4d841468440bd04471106495ca09c1bd0191b2dd83d3ac7bf1b7d3c01692ea38"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a32a3023b5dad82f2cc8495abcba7cf2c7e7cdbda9d0b205b80e327de24adeaa",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "eb345808b6013d9d9ce70888546408498b5b6425730aae1f165054b28232f1ff",
+        "expected_final_gamestate.txt": "e5125fcd6ed288f345635c727ddf54cad39bd3733ad739fd3fb2e0a0dc68a7a4",
+        "meta.json": "4d841468440bd04471106495ca09c1bd0191b2dd83d3ac7bf1b7d3c01692ea38"
+      },
+      "actions": 28,
+      "native_assertions": 2432,
+      "extra_recorder_only_hooks": 0,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "priority_response_passes": 24,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_hand_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_deck_uid_order": {
+        "1": [
+          9
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "raw_actual_UID5_discardedPower": 6,
+      "physical_findings": "ActualquietLevia20/ownedprimary5Blue6Six7Hand/originalDeck8,9/noinitialhistory/effects/resource/RNGseeds. FreshnormalP4targetwhile5Hand, answer5Stackprintedcost1pending/R0AP1/Blue6Six7stillHand/GY0. ActualBlue6mode10002pitch3inputendswithpaidcost1/AP1/R2AP0/Pitch6andsoleSix7publicownGY/capturedUID5discardedPower6, matchingapprovedassets-beforeeffectcostsource. First3sourcepassesretain5StackandDeck8,9/Hand0. FourthrealP4responseonlythen5Chain/base6/noGA and original8Hand/9tailDeck. Allactualfourlivecombat6damageHP14; AP0neverrefunded. FullcloseGYexact5,7/Pitch6/Hand8/Deck9/R2AP0/UID1-9conserved/counter9RNG0/noextraobjects/StackChainsDQpaymentawaitclear.",
+      "qualification": "OnlyRedactualmandatorySixdiscardcost/conditionalONEresolutiondraw/real6damage/fullcleanup. Nofalsecondition/otherdiscardpower/otherdrawcounts/hero/BloodDebtEndPhase/secondattack/sibling/supportprimary/fullcard/controlcredit. Capturednativebefore/aftercostcheckpointsplusapprovedsourceorder; nointermediatewithin-inputrecordingclaimed."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch361-independent-source-review.json",
+    "sha256": "de521e9f376ac0b4d85fda9a3b9523c7e330c381035095744428fe758a8817aa",
+    "manifest_sha256": "6af2d00b4bdf6368dd5904ae13267f9e051a025b31d63153b0ff13640104c766",
+    "current_source_guards_verified": 16
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch361-20261103T181219Z-6aea24038c014.json",
+    "sha256": "51dec77d17a2845ded80c77c89970fc41058f14ad5a008385bb24b6cda7c38e7"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch361.recording-results.json",
+    "sha256": "a64b4955808eff4f3c414dd22af277f8345efe44d66428aae46673f67d366e6e"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch361-native-r1\\receipt.json",
+    "sha256": "b02f7623b633d367f8aa85fac0e6ecf5e07c25194c9b1ca2ff4f10a6c8786f9d",
+    "stdout_sha256": "b7f8d9194a8c80149c72d350e5ec49568ada7f13e14ea6c1767ee14ec6b59fdc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+    "runtime_after": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3"
+  },
+  "method": "Independentactualrawfive/fullschemaendpoints/every28nativeactor-mode-payload and2432orderedpersistedassertions equalexactee0454approvedinput. Inspectedactualpayment/discardcapture6/first3StackDeckretention/fourth-onlyUID8drawand9headroom/6damage/noGA/fullUIDmanualeconomycleanup; originalsource/rulesalreadyindependentlyapproved. PurePythonreadparsers/normalizer/actionhelpers only; noauthorbuilder/PHP/native/R/replay/source mutation.",
+  "limits": [
+    "Savedcreationreviewonly; Root twofreshnewcase-onlyreplaysareseparate/notreviewerexecution.",
+    "All2432checks persisted/no recorder-onlyhooks; onlypositiveSixdiscard/drawONE/native6damage branch. Nohero/endphase/falsecondition/otherdrawcounts/secondplay/sibling/supportprimary/fullcard/controlcredit.",
+    "Currentc90aexactsourcecontextpreserved;070079/SmashItemandotherholdsuntouched."
+  ]
+}

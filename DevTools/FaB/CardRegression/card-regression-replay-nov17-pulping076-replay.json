@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-pulping076-attack-trigger.json",
+  "runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T05:03:51.836607+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pulping-red-four-live-original-correct-on-attack-trigger-retains-deck-until-real-draw-six-power-discard",
+      "fixture_sha256": "26f8f340959139fea5b91e5c1177c4e5f0c670fcce684a845d279f3f78f3c607",
+      "passed": true,
+      "result": "[PASS] pulping_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pulping-red-four-live-original-correct-on-attack-trigger-retains-deck-until-real-draw-six-power-discard",
+      "returncode": 0,
+      "stdout": "[PASS] pulping_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

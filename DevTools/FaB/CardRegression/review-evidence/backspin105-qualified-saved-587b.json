@@ -1,0 +1,57 @@
+{
+  "status": "BACKSPIN105_ORIGINAL40_3304_AND_SINGLE_REPLAY_PASS_CLOUD_SEPARATE_HOLD",
+  "reviewer": "root exact original Source/Saved/physical-endpoint review with independent source-scope review retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+  "input_sha256": "22a599c7e84ab50cb375a491d7aaa28803dbfca2d789f0429997adfe0026f652",
+  "source_spec": "card-regression-repair-cog105137-after587b.json",
+  "fixtures": [
+    {
+      "slug": "card-backspin-thrust-red-four-live-sparse-real-gun-tap-earns-cog-untap-cost-and-resolving-power-choice",
+      "card_id": "backspin_thrust_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f17bfa5a6674223aeea3abbdc152f3099ca6581ce6123afd219c93711f3bc8bb",
+        "actions.json": "01fca550d332d99bbdcd880fb8753d03229563eaac01b97b89c4721bb8128cc6",
+        "assertions.json": "d76b6d61c985eafd9b5139361a9c3792603ee98fe927ab86a5a613bebcee45d7",
+        "expected_final_gamestate.txt": "d80fe926b8ab457183f8bf708a7545dfeda2ab49bf8b8f4115c217acdf050247",
+        "meta.json": "12431a778565f5ac5876ff1625f5945c4c8c636e939daf0b0b22349ae5acff69"
+      },
+      "fixture_sha256": "797c1c3c7e2967c87f6cbde765db4436d92e47e0e44c92b83e4c0ae9dc5c18cd",
+      "actions": 40,
+      "native_assertions": 3304,
+      "actual_manual_pass_inputs": 33,
+      "true_priority_pass_inputs": 32,
+      "defender_declaration_finalizers": 1,
+      "recorded_runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+      "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+      "source_spec": "card-regression-repair-cog105137-after587b.json",
+      "input_sha256": "22a599c7e84ab50cb375a491d7aaa28803dbfca2d789f0429997adfe0026f652"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "reason": "After9actualinputs, originalCloud ABI response-window expectation PRIORITY observedATTACK; normal cast and its four responseinputs alreadypassed. Source/rules protocol-review pending, no correct-quantity expectations weakened."
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-backspin105-after587b-replay.json",
+    "sha256": "78c2324a598d2ab8ce880fcda3aad82861aa42ed9bebff4e8e099cb156c43295",
+    "passed": true
+  },
+  "independent_source_review_sha256": "b6c623e22ef29252d7376fe78ec51d537597743c24d223fa78debb43f6bd0ab9",
+  "basis": "Original40nativeinputs/3304queries exact. ActualGun tapsCog first. Ordinary0cost primary spends AP without extraUntap cost; later actualInstant untapsCog as cost before fourresponses and realPower-mode choice. Primarydeals5toHero4HP15; sameCog6ready retained, primary5GY and full economy/queue cleanup. Native33PASS envelopes are32truepriority plus1defender-declaration-finalizer.",
+  "components": 85,
+  "before_expected_component_failures": 2,
+  "limits": [
+    "NamedBackspinPower route only; GoAgain alternative and otherAirships not native-qualified.",
+    "Cloud unsaved/unqualified pending protocol review; no duplicate primary-round removal.",
+    "072107 firstgeneration was timestamp-only and supplies no gameplay qualification; this witness runtime587b preserves that exact historical context.",
+    "No full suite, denied repair, Core or new breadth."
+  ]
+}

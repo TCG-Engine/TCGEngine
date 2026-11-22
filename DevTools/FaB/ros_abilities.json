@@ -500,7 +500,7 @@
       },
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBMSTAdd($player, 'AMP', 3);\n",
+        "abilityCode": "/* Entry amp is queued by FaBROSAfterMove. */\n",
         "isImplemented": true
       }
     ]

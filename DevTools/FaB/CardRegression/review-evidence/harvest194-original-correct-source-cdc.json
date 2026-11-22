@@ -1,0 +1,160 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_HARVEST_FIRST_ACTUAL_NEXT_ACTION_EARNED_ONE_LIFE",
+  "phase": "SOURCE",
+  "batch": 852,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch852-harvest-first-actual-action-earned-destroy-life-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-real-next-action-earned-life-strict-probe-author\\harvest-real-next-action-earned-destroy-life-full-probe.json",
+    "sha256": "30d2958bb74e1f6de7a3b9e3f4662c52929f06416dbfaad3a6839dfe7fd5e9bc"
+  },
+  "input_sha256": "30d2958bb74e1f6de7a3b9e3f4662c52929f06416dbfaad3a6839dfe7fd5e9bc",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-real-next-action-earned-life-strict-probe-author\\manifest.json",
+    "sha256": "6b281b54d9d892442cfde84715e02733da7f222a9b4857aa62f2ce6495709a39"
+  },
+  "manifest_sha256": "6b281b54d9d892442cfde84715e02733da7f222a9b4857aa62f2ce6495709a39",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-firm-reservation.json",
+    "sha256": "965e18efcaef1f5d3c7133c6e89361606b12006e17cf53ca43ff1d6d08254059"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-real-next-action-earned-life-strict-probe-author\\preflight.json",
+    "sha256": "fe50c6f212f81cfb9932681e403dc8238d9905842fd429f201f2b84a1c4c39e3"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-real-next-action-earned-life-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "f3f2cf5de058807e3952e326093d1ddab5928dba3450b6c251891dfacb148ce9"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch852-harvest-real-next-action-earned-life-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "c9f44c75dd879e4f0338193dc445d10daf0f21e4061363002a4d7ee56d11a0b2"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 15,
+  "all_current_guards_independently_matched": true,
+  "actions": 12,
+  "declarative_controls": 12,
+  "planned_native_inputs": 12,
+  "assertions": 1408,
+  "native_assertions": 1408,
+  "planned_native_assertions": 1408,
+  "manual_passes": 8,
+  "planned_native_mode10001_inputs": 12,
+  "nonpriority_end_transport_inputs": 4,
+  "EndStart_priority_response_inputs": 0,
+  "expected_native_input_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    2,
+    3,
+    4,
+    1
+  ],
+  "expected_legal_manual_response_actors": [
+    1,
+    2,
+    3,
+    4,
+    2,
+    3,
+    4,
+    1
+  ],
+  "expected_legal_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "expected_nonpriority_transport_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "checkpoints": 14,
+  "schema_property_checks": 190,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "a52e5b19f1cfe67970142f853e264d009c957cdefaa298e77c8443f5462047f8",
+  "expected_native_query_mapping_sha256": "4d7b2aec6dada94c1b8b50e597c799f3b4e6ed47b3ec6260ff88cad23a2faa9b",
+  "checkpoint_mapping_sha256": "ea8a5423979f6ada9a0ec74fbd9355786afd3f2e069cb82685323ade33eb6063",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "ActualYoungFlorianElementalRuneblade20 withprintedEssenceEarth admitsEarthHarvest(CR8.3.16). InitialcurrentHP19islegitimatepredamage, notanoutcomeseed. NoVerdancegain-damagepassive; FlorianfourEarthBanish/tokenreplacementunentered, Banish0/otherobjectsabsent. ValidunmodifiedpreexistingHarvest5ownedArena2, priorcast/cost1/printedcardGoAgainuncredited.",
+    "OnlyTomeapprovedcontrolprotocolreused, notNativeevidence orcardoracle. Exactly4P1legalActionpasses+4currentnonpriorityENDtransport withglobaloldP1/Turn2guards. Finalfrom4untilpriority2hasNOWINDOWfilter;firstnewP2GLOBALTurn3/MAIN/AP1/card/life/earnedlayerassertionsimmediatelyfollow, so no swallowednewActionresponses orfakeEnd/Startresponsewindow.",
+    "AtfirstP2priority/nextthreegenuineActionresponses, actualHarvest5mustremainArena andHP2still19, capturedsource5/controller2/ABILITYpending. CorrectBlueprintedlife1\u2014notHero/alliedphaserefresh\u2014occursafterfourlegalresponses2/3/4/1; actualphysicalHarvest5GY2 andHP19to20/AP1/Stackqueuescleanupmandatory. No guessesforvirtualUID/CardID/eventparams. TriggeredabilitydoesnotinheritplayedcardGoAgain.",
+    "WholecurrentROSStartfunction32 directlydestroysHarvestandcallsCRUGainLife4-minusPitch3=1 viaGL2487 beforededicatedbegin-Action2490. ThisisadifferentliteralproducerfromTomeDYNStart220. ros_abilitiesemptydoesnotmeanunimplemented;nativebodyexists. NoexactHarvest/ROSStartproducerledgerrecordfound;freshSourceconcernrequiresfullstrictprobe, no blanket193/094hold/nativeconfirmation.",
+    "All12expectednativecontrols/1408orderedqueries/190actualschemafieldsandcurrentguardmapsmatched.8plannedlegalActionpasses2eachdistinctfrom4nonprioritytransport1each;12recordedPASSexpectednot12legalresponses. CurrenttransportfieldsdescribenativeUIonly, nofullphaselegalitycertificate."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.2.1",
+        "4.3.1",
+        "4.3.2",
+        "4.3.3",
+        "4.4.1"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.16"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_trigger_review": true
+    }
+  ],
+  "required_remaining_gates": [
+    "OneRootexactfull--probe-onlyrun/noSaveevenPASS.",
+    "Independentactualorderedprefix/fulltrace,firstnewTurnfrontier,legal-vs-transportactors review.",
+    "AnyfuturepromotionrequiresexplicitRootdecision/freshnormalSource/Savedraw5/bothfresh48/twoownfocusedreplays."
+  ],
+  "limits": [
+    "NoNative/fixture/bugconfirmation/fix/qualification/coverage. ReusedcontrolsgrantnoTomeorHarvestNativecredit.",
+    "OnlyBluebegin-Actionlife1representative; priorcast/printedGoAgain/otherpitchsiblings/multipleAuras/Hero/tokenreplacement/support/fullcarduntested. NoEnd/Startpriorityclaim.",
+    "Frozen diagnostic identifier only; freshaccuratenormalSource wouldberequiredafteractualreview/explicitpromotion beforeanySave.",
+    "NoPHP/native/Rwrites/sourcefix/fullsuite/Git/remote/newagents/deferred189..193or denied188184B787 action."
+  ],
+  "created_utc": "2026-11-16T07:15:53.667266+00:00",
+  "control_protocol_basis_only": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch851-tome-independent-first-action-diagnostic-source-review.json",
+    "sha256": "bf4ed605380e4b3774b22fcc9c519a874b884e598cbd5bcaf40ccb31437b762b"
+  },
+  "diagnostic_identifier_note": "Frozen probe slug contains stale ancillary of-aeo wording; exact primary cardIDs/name/oracle are Harvest Season. Diagnostic-only binding grants no fixture/coverage or normal-save identifier approval."
+}

@@ -1,0 +1,124 @@
+{
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-09T01:44:20.081197+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\manifest.json",
+    "sha256": "380dee491d39a8f2ce999cac692c475c9d21826f9844dd92bccc1a79d5c8453b"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\frozen-author-QA.json",
+    "sha256": "6941b6102b25e786310e84eb478ab1328a20f03a6c610ae4934b3dd042911fc0"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\SOURCE_RULES_NOTES.json",
+    "sha256": "9e48fb04c31b32307c1c8283e98ab8083b337e3215ef73c903d382f935574453"
+  },
+  "combined_planning_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\batch764-two-source-only-planning-input.json",
+    "sha256": "73f836c20e5e1c69980dd1bc298e370770c4830c8f506a285567254d31a27471"
+  },
+  "source_is_recorder_input": false,
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-firm-reservation.json",
+    "sha256": "99a4a1fcd780f79f46186e54eb36a90a485cadd1b86b01f29441680736d4ac5b"
+  },
+  "pool": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-printed-keyword-nonpermanent-metadata-pool.json",
+    "sha256": "439a41889d1b020b38669864499292f6a8882ac21ac619f7c5f744e0fc8ae60d"
+  },
+  "source_guard_count": 71,
+  "source_guards_verified": true,
+  "source_guards_sha256": "95d9d00652bcb6b2d2297f9619253994b318239f86f8c8515ce325e4486f44e0",
+  "source_guards_binding": "Every current path of the exact71 map in pinned manifest independently matches; includes actual DTD canonical.",
+  "executable_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0,
+  "passing_fixtures": 0,
+  "source_body_present": true,
+  "engine_implementation_concern": true,
+  "actual_review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch764_planning_readonly.py",
+    "sha256": "25b1faf7322b9772e8a1e47cb0b26fb7a86d150995e24c9e99cc624b8ed1147a"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "native_bug": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification_permitted": false,
+  "executable_admission": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false,
+  "status": "SOURCE_ONLY_UNATTEMPTED_FRIGHTMARE_FIXED_TIMESNAP_VIRTUAL_LAYER_PLANNING_LIMIT",
+  "card_id": "frightmare_red",
+  "group_id": "identity:frightmare_red",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\batch764-frightmare-fixed-timesnap-layer-source-only-plan.json",
+    "sha256": "559dafc78256addc7f402f3cf42e546d745d7042f0c19db1ac7936ae6d50d1e5"
+  },
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\batch764-frightmare-fixed-timesnap-layer-source-only-plan.json",
+  "input_sha256": "559dafc78256addc7f402f3cf42e546d745d7042f0c19db1ac7936ae6d50d1e5",
+  "independent_findings": [
+    "Frightmare and fixed Timesnap publisher faces actually viewed. Primary cost3/power13/Phantasm and real prior-Phantasm legality predicate exist. The fixed public Generic Timesnap Action0 producer is necessary to the reserved ordinary AP economy; no AP or phantasm history was seeded.",
+    "Actual ActionMap dispatch for ready owned Arena Potion is sole ACTIVATE, then DoActivatedAbility/WTRActivate fallback/AnnounceAbility. Captured legacy ABI has no arcSpec. The physical Potion may legitimately be destroyed as activation effect-cost after AP payment; that destruction is not the concern.",
+    "Managed virtual class accepts ARC abilities and the bounded Runechant trigger, not this legacy ABI. Generic DoResolveCard marks the virtual ability removed before calling WTRResolveAbility and generating actual gain2AP. CR5.3.4-7 orders effects before clearing the resolving layer. This is distinct from the already destroyed physical Potion source.",
+    "Frightmare PHANTASM_AA predicate and Phantasm queue are present. No missing trigger/body claim or full later Phantasm lifecycle certification. Only the selected fixed Timesnap route limits this unattempted Frightmare witness; no native gameplay bug is confirmed."
+  ],
+  "source_evidence": {
+    "paths": [
+      "FaBSim/Custom/GameLogic.php:2266-2294,2360-2362,1545-1551,1669-1677",
+      "FaBSim/Custom/WTRCards.php:821-844",
+      "FaBSim/Custom/WTRAbilities.php:4-16,66-90,339-349",
+      "FaBSim/Custom/ARCAbilities.php:3-49",
+      "FaBSim/Custom/UPRCards.php:82-85,190-194",
+      "FaBSim/Custom/MONCards.php:250-257"
+    ]
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "actually_retrieved": true,
+      "sections": [
+        "5.2.2",
+        "5.3.4",
+        "5.3.6",
+        "5.3.7"
+      ]
+    }
+  ],
+  "primary_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\frightmare_red.webp",
+    "sha256": "62d7182bdf409a104ade8661a7c7bd8939fc4eae597f304182fcad9f47d8acf5",
+    "actually_viewed": true
+  },
+  "limits": [
+    "Only selected Frightmare red fixed necessary Timesnap virtual-layer route is held. Later actual phantasm history, paid3,13power/damage, UID/economy/cleanup and all-seat qualification remain unearned.",
+    "Two original positive recipes remain unattempted; no executable recorder input, game/native/replay/fixture/coverage/confirmed-bug or full-card qualification. Four living natural20/manual48 endpoint preferences were proposed only, not observed.",
+    "No replacement primary/support/producer hunt, private history/AP/GA/RNG flag seed, pre-floating, PASS/false-condition/blank-play workaround, source fix or denied-repair retry."
+  ],
+  "necessary_support_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\timesnap_potion_blue.webp",
+    "sha256": "95e9cd2ed0563e442b41043ce62096bc5f79f4c1c42172a664db804e2f146f81",
+    "actually_viewed": true
+  }
+}

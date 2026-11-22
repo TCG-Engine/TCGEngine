@@ -1,0 +1,28 @@
+{
+  "status": "AUTO_REVIEW_DENIED_BEFORE_CREATEPROCESS_KNOWN_UNEXECUTED",
+  "action": "Guarded exact V3 Reincarnate199 three-native-source application",
+  "targets": [
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/DYNRuntime.php",
+    "FaBSim/Custom/ROSCards.php"
+  ],
+  "reason": "The command mutates three gameplay source files with a repair that the user did not explicitly authorize; the testing request required recording defects and avoiding rule changes to force green, so source application needs user approval first. Do not bypass this rejection through a workaround or indirect execution.",
+  "reviewed_proposal_sha256": "21efffd09f07fc9dd09415cf3a6def83a72cf70f255d8064998b4d89c437427e",
+  "independent_source_review_sha256": "30ea08a031f17868770e39e39823cc3db60d77776c7e3b30b98d087ed8d40006",
+  "root_component_receipt_sha256": "614aa29023bf22f7b414468b96c623ac8ac78616dd0b17d75401ce3c900033ee",
+  "actual_runtime_unchanged": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "actual_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "a99617c248e64b547a81aa3e03d886f5cf2e675943eb224be8376438c945950e",
+    "FaBSim/Custom/DYNRuntime.php": "f993d3a22cd13193b236022f61736553c2b58f4844fafd832131775af99dfdff",
+    "FaBSim/Custom/ROSCards.php": "4be78c75261af036691f3ee940321fdc0a184cd676228e47fc50c670ab013e8b"
+  },
+  "application_folder_exists": false,
+  "source_applied": false,
+  "application_attempted": true,
+  "process_started": false,
+  "uncertain_mutation": false,
+  "new_specific_user_authorization_required": true,
+  "retry_permitted_without_new_authorization": false,
+  "next": "Preserve V3 reviewable diff/components and failure evidence; no normal promotion builder, source write retry or reroute. Continue independently authorized B865 diagnostics.",
+  "created_utc": "2026-11-16T12:01:40.229303+00:00"
+}

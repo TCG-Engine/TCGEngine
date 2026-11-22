@@ -1,0 +1,586 @@
+{
+  "status": "APPROVED_EXACT_SAVED_TWO_CASES_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-04T23:09:29.956568+00:00",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch399.json",
+  "input_sha256": "b7f06fe58a7e29083fcdc43b047a10caf6081c950bf8369e7e33da3e5e7183b2",
+  "fixtures": [
+    {
+      "slug": "card-up-sticks-and-run-red-four-live-sparse-real-next-dagger-bonus-and-paid-kodachi-five-damage",
+      "card_id": "up_sticks_and_run_red",
+      "group_id": "pitch-cycle:up_sticks_and_run",
+      "fixture_sha256": "cccb0ad70fe799b63b891cae032cda1e9bada54e32e6ce2c917aa7fb5de9c7b4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "99873ff815d2899408de1b63f7f8ee9d5ca088ba6d695a28e399545d967913b5",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "fb8081f746a981e409d3ee4ce59fd80ee7b7a01ebf5c0a43c2869d8a44b24d3a",
+        "expected_final_gamestate.txt": "d65bc201fc06c06f54b4b187e3657546b6d3670077bf5ceb7a2337d04e8bc456",
+        "meta.json": "5277b355b9d4880bd5520846eaa444db61bc99d6c6945ccfcc0df06e5d1a1759"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "99873ff815d2899408de1b63f7f8ee9d5ca088ba6d695a28e399545d967913b5",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "fb8081f746a981e409d3ee4ce59fd80ee7b7a01ebf5c0a43c2869d8a44b24d3a",
+        "expected_final_gamestate.txt": "d65bc201fc06c06f54b4b187e3657546b6d3670077bf5ceb7a2337d04e8bc456",
+        "meta.json": "5277b355b9d4880bd5520846eaa444db61bc99d6c6945ccfcc0df06e5d1a1759"
+      },
+      "actions": 33,
+      "native_assertions": 2920,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "all_physical_UID_owners_and_created_or_virtual_routes_verified": true,
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "physical_findings": "ActualPrimary5Action0/four earnsnextDAGGER4/ownGA; realKodachi6normalP4target/proxy8, Blue7cost0pitch3pays1/AP\u2192R2AP0. Nativecomputedbase1+4=5/HP15, truePitch0conditionalGA/AP1onlyResolution. Samephysical6ownedusedStatus1/turn2attackcount1retained, GY5/Pitch7, proxy8ceased/counter8. NoRetrieve or extraattack executed.",
+      "qualification": "UpSticksnextDagger4/real5damage only; Retrieveunavailable/noasyncbranch orinternalNAAdeparturecredit."
+    },
+    {
+      "slug": "card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+      "card_id": "tectonic_rift_blue",
+      "group_id": "identity:tectonic_rift_blue",
+      "fixture_sha256": "e93089c83d62500fbaad44041261bd2da4324060e252b0a0b2e591e6c6cdff78",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a65d4a2f3557e2057401323582961c959a8e244ebfadc38b01f8574464cb357",
+        "actions.json": "c56a7b6bed22244ffab48c28055fa9790f148aab5aa5881a337ebf59292b5d88",
+        "assertions.json": "2468047e52072e75b999c2dfe3806adabc529ff13f3bca33dfc16bc9e3e61b0e",
+        "expected_final_gamestate.txt": "558c3fe5e9dd1271bee6d9f045ecade05974ca3338dcc5da6aa5408c86169718",
+        "meta.json": "c31be944a70ea7dd27390aec9044bc4524f060b27b6451e5970c1eb64ffe41ec"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3a65d4a2f3557e2057401323582961c959a8e244ebfadc38b01f8574464cb357",
+        "actions.json": "c56a7b6bed22244ffab48c28055fa9790f148aab5aa5881a337ebf59292b5d88",
+        "assertions.json": "2468047e52072e75b999c2dfe3806adabc529ff13f3bca33dfc16bc9e3e61b0e",
+        "expected_final_gamestate.txt": "558c3fe5e9dd1271bee6d9f045ecade05974ca3338dcc5da6aa5408c86169718",
+        "meta.json": "c31be944a70ea7dd27390aec9044bc4524f060b27b6451e5970c1eb64ffe41ec"
+      },
+      "actions": 7,
+      "native_assertions": 780,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "all_physical_UID_owners_and_created_or_virtual_routes_verified": true,
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "physical_findings": "ActualPrepareNUMBERCHOOSE0|3\u2192answer2/evoX5=2/pendingcost2, thenactualBlue6pitch3pays2andAP\u2192R1AP0. Fourreal1/2/3/4responses aloneproduceexact2ownedreadySeismic7/8 andownGAAP1; actualrawtokensDamage0/emptyCounters[] verified. GY5/Pitch6/counter8/allHP20. NofutureActionstart/destruction/discount orinternalNAAdepartureorder claim.",
+      "qualification": "TectonicrealX2/paid2/twoownedSeismiccreation only; nointernaldeparturetotokencreationorder/upkeep/otherX/othercreatorcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch399-independent-source-review.json",
+    "sha256": "b52785ca9c6655caa460da155f52dc96f6272116581d96efe449cf693360b533",
+    "manifest_sha256": "db0aa1c85ea97895dc004f38493ab2153286e70d93813126373e09724dc05178"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch399-20261104T230310Z-6aebb9ae90276.json",
+    "sha256": "29db57943579a7b192096de4cdadedfc70a20bfbcc41525b647f81b7c4fcee6e"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch399.recording-results.json",
+    "sha256": "e84096086157a077d7eebb7b4a6026eb92a798845f8935efe945a1db2a5e7d26"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b399-native-527c-r1\\receipt.json",
+    "sha256": "c22aad9c2e99a120fe377b9696bc9339ca7317b65fa03821bcd72f093fd41767",
+    "stdout_sha256": "5b5f51c057f90d5f5e1059ba6a31fb7f0e486d639c23a753f2ee691d719e8c9a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+    "runtime_after": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2"
+  },
+  "source_guards_verified": 32,
+  "total_actions": 40,
+  "total_native_assertions": 3700,
+  "total_manual_pass_inputs": 33,
+  "native_checkpoints": [
+    {
+      "slug": "card-up-sticks-and-run-red-four-live-sparse-real-next-dagger-bonus-and-paid-kodachi-five-damage",
+      "checkpoints": [
+        {
+          "step": 0,
+          "checkpoint": "initial_four_living_Fai20_PRIMARYUpSticks5_Kodachi6Ready_Blue7_emptyGY_no_Retrieve_or_NEXTdagger_assets_seed",
+          "assertions": 124
+        },
+        {
+          "step": 1,
+          "checkpoint": "actual_PRIMARY5_zeroNAA_pays_AP1_R0_before_fourresponses_ownGYempty_no_buff_yet",
+          "assertions": 69
+        },
+        {
+          "step": 2,
+          "checkpoint": "four_actual_PRIMARYsource_responses_emptyRetrieveSet_nochoice_onlyfourth_NEXTDAGGER4_and_ownGA_actual_response_1_of_four",
+          "assertions": 69
+        },
+        {
+          "step": 3,
+          "checkpoint": "four_actual_PRIMARYsource_responses_emptyRetrieveSet_nochoice_onlyfourth_NEXTDAGGER4_and_ownGA_actual_response_2_of_four",
+          "assertions": 69
+        },
+        {
+          "step": 4,
+          "checkpoint": "four_actual_PRIMARYsource_responses_emptyRetrieveSet_nochoice_onlyfourth_NEXTDAGGER4_and_ownGA_actual_response_3_of_four",
+          "assertions": 69
+        },
+        {
+          "step": 5,
+          "checkpoint": "four_actual_PRIMARYsource_responses_emptyRetrieveSet_nochoice_onlyfourth_NEXTDAGGER4_and_ownGA_fourth_actual_response",
+          "assertions": 67
+        },
+        {
+          "step": 6,
+          "checkpoint": "real_adjacent_target_declared_before_assets",
+          "assertions": 63
+        },
+        {
+          "step": 7,
+          "checkpoint": "real_attack_awaits_resource_and_Action_assets",
+          "assertions": 80
+        },
+        {
+          "step": 8,
+          "checkpoint": "real_blue_pays_printed_attack_cost_and_Action",
+          "assertions": 74
+        },
+        {
+          "step": 8,
+          "checkpoint": "actual_Kodachi_proxy8_SourceWeapon6_Blue7costZERO_pitch3_paysONE_R2AP0_earnedNEXTdagger4_realconditionalGA",
+          "assertions": 76
+        },
+        {
+          "step": 9,
+          "checkpoint": "four_actual_Kodachi_source_responses_proxy8Chain_base1_plus_earned4_equals5_ownPitchcost0GA_actual_response_1_of_four",
+          "assertions": 76
+        },
+        {
+          "step": 10,
+          "checkpoint": "four_actual_Kodachi_source_responses_proxy8Chain_base1_plus_earned4_equals5_ownPitchcost0GA_actual_response_2_of_four",
+          "assertions": 76
+        },
+        {
+          "step": 11,
+          "checkpoint": "four_actual_Kodachi_source_responses_proxy8Chain_base1_plus_earned4_equals5_ownPitchcost0GA_actual_response_3_of_four",
+          "assertions": 76
+        },
+        {
+          "step": 12,
+          "checkpoint": "four_actual_Kodachi_source_responses_proxy8Chain_base1_plus_earned4_equals5_ownPitchcost0GA_fourth_actual_response",
+          "assertions": 82
+        },
+        {
+          "step": 13,
+          "checkpoint": "four_actual_Kodachi_ATTACK_responses_to_P4_declaration_actual_response_1_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 14,
+          "checkpoint": "four_actual_Kodachi_ATTACK_responses_to_P4_declaration_actual_response_2_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 15,
+          "checkpoint": "four_actual_Kodachi_ATTACK_responses_to_P4_declaration_actual_response_3_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 16,
+          "checkpoint": "four_actual_Kodachi_ATTACK_responses_to_P4_declaration_fourth_actual_response",
+          "assertions": 82
+        },
+        {
+          "step": 17,
+          "checkpoint": "actual_P4_empty_defender_finish_actualDagger5power",
+          "assertions": 82
+        },
+        {
+          "step": 18,
+          "checkpoint": "four_actual_Kodachi_defending_priority_responses_actual_response_1_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 19,
+          "checkpoint": "four_actual_Kodachi_defending_priority_responses_actual_response_2_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 20,
+          "checkpoint": "four_actual_Kodachi_defending_priority_responses_actual_response_3_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 21,
+          "checkpoint": "four_actual_Kodachi_defending_priority_responses_fourth_actual_response",
+          "assertions": 82
+        },
+        {
+          "step": 22,
+          "checkpoint": "four_actual_Kodachi_REACTION_responses_actualFIVEdamage_P4HP15_not_unbuffedHP19_actual_response_1_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 23,
+          "checkpoint": "four_actual_Kodachi_REACTION_responses_actualFIVEdamage_P4HP15_not_unbuffedHP19_actual_response_2_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 24,
+          "checkpoint": "four_actual_Kodachi_REACTION_responses_actualFIVEdamage_P4HP15_not_unbuffedHP19_actual_response_3_of_four",
+          "assertions": 82
+        },
+        {
+          "step": 25,
+          "checkpoint": "four_actual_Kodachi_REACTION_responses_actualFIVEdamage_P4HP15_not_unbuffedHP19_fourth_actual_response",
+          "assertions": 84
+        },
+        {
+          "step": 26,
+          "checkpoint": "four_actual_Kodachi_DAMAGE_responses_earned_printedConditionalGA_AP1_at_Resolution_actual_response_1_of_four",
+          "assertions": 84
+        },
+        {
+          "step": 27,
+          "checkpoint": "four_actual_Kodachi_DAMAGE_responses_earned_printedConditionalGA_AP1_at_Resolution_actual_response_2_of_four",
+          "assertions": 84
+        },
+        {
+          "step": 28,
+          "checkpoint": "four_actual_Kodachi_DAMAGE_responses_earned_printedConditionalGA_AP1_at_Resolution_actual_response_3_of_four",
+          "assertions": 84
+        },
+        {
+          "step": 29,
+          "checkpoint": "four_actual_Kodachi_DAMAGE_responses_earned_printedConditionalGA_AP1_at_Resolution_fourth_actual_response",
+          "assertions": 84
+        },
+        {
+          "step": 30,
+          "checkpoint": "four_actual_Kodachi_RESOLUTION_fullclose_proxy8ceases_physical6used_retained_source5GY_Blue7Pitch_R2AP1_actual_response_1_of_four",
+          "assertions": 84
+        },
+        {
+          "step": 31,
+          "checkpoint": "four_actual_Kodachi_RESOLUTION_fullclose_proxy8ceases_physical6used_retained_source5GY_Blue7Pitch_R2AP1_actual_response_2_of_four",
+          "assertions": 84
+        },
+        {
+          "step": 32,
+          "checkpoint": "four_actual_Kodachi_RESOLUTION_fullclose_proxy8ceases_physical6used_retained_source5GY_Blue7Pitch_R2AP1_actual_response_3_of_four",
+          "assertions": 84
+        },
+        {
+          "step": 33,
+          "checkpoint": "four_actual_Kodachi_RESOLUTION_fullclose_proxy8ceases_physical6used_retained_source5GY_Blue7Pitch_R2AP1_fourth_actual_response",
+          "assertions": 68
+        },
+        {
+          "step": 33,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "assertions": 126
+        }
+      ]
+    },
+    {
+      "slug": "card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+      "checkpoints": [
+        {
+          "step": 0,
+          "checkpoint": "initial_four_living_Bravo20_PRIMARYTectonic5_Blue6_noTokens_no_X_or_assets_history_seed",
+          "assertions": 119
+        },
+        {
+          "step": 1,
+          "checkpoint": "actual_PRIMARY5Stack_Prepare_chooseX_ZEROtoTHREE_before_resource_AP_payment_Blue6stillHand_noSeismic",
+          "assertions": 60
+        },
+        {
+          "step": 2,
+          "checkpoint": "actual_chooseX_TWO_sets_evoX2_pendingcost2_afterPrepare_before_realBlue6_AP1R0_noSeismic",
+          "assertions": 69
+        },
+        {
+          "step": 3,
+          "checkpoint": "actual_Blue6pitch3_pays_declaredX2_AP1_R1AP0_same5Stack_noTokens_before_fourresponses",
+          "assertions": 65
+        },
+        {
+          "step": 4,
+          "checkpoint": "four_actual_PRIMARYsource_responses_only_fourth_reads_realX2_creates_ownedSeismic7and8_and_ownGA_actual_response_1_of_four",
+          "assertions": 64
+        },
+        {
+          "step": 5,
+          "checkpoint": "four_actual_PRIMARYsource_responses_only_fourth_reads_realX2_creates_ownedSeismic7and8_and_ownGA_actual_response_2_of_four",
+          "assertions": 64
+        },
+        {
+          "step": 6,
+          "checkpoint": "four_actual_PRIMARYsource_responses_only_fourth_reads_realX2_creates_ownedSeismic7and8_and_ownGA_actual_response_3_of_four",
+          "assertions": 64
+        },
+        {
+          "step": 7,
+          "checkpoint": "four_actual_PRIMARYsource_responses_only_fourth_reads_realX2_creates_ownedSeismic7and8_and_ownGA_fourth_actual_response",
+          "assertions": 72
+        },
+        {
+          "step": 7,
+          "checkpoint": "actual_final_evoX2_twoRealOwnedReadySeismicUID7and8_R1AP1_source5publicGY_Blue6Pitch",
+          "assertions": 73
+        },
+        {
+          "step": 7,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "assertions": 130
+        }
+      ]
+    }
+  ],
+  "method": "Independent read-only exactraw10/allactualactions+assertions/everycheckpointcompleteequality andschema-backedfullinitial/final parsing. Actualpercaseassertioncounts read2920/780 then reconciledapprovedsource; no guessedtotals. All4rawmanualprofiles ateachendpoint andphysical/economy/createdUID/ceasedproxy routes checked.",
+  "limits": [
+    "Saved creation review only; two focused Root replay rounds are separate evidence, not reviewer execution.",
+    "UpSticksRetrieve/async/equip/falseDagger/nonzeroPitch/extraattack/Faihero, tokenfutureupkeep/discount/otherX/othercreator/entryreplacement/Bow/Crank andfullcard/sibling/support/control branches unexecuted/uncredited.",
+    "No PHP/native/R/source/service/generation/fullsuite/corpus review or denied089 retry by reviewer."
+  ]
+}

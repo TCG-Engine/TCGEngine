@@ -1,0 +1,128 @@
+{
+  "status": "BOUNDED_TREE083_DIRECT_IMPACT_NO_DIRECT_SAVED_LEGACY_CANDIDATES",
+  "reviewer": "/root/nov2_sparse_author",
+  "completed_utc": "2026-11-03T21:09:49.335584+00:00",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "runtime_unchanged": true,
+  "native_before_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-independent-native-before-classification.json",
+    "sha256": "cbfe550cde649bcd0cb4b8c71181cef5de87e296659f3e6944329b4855f5dd80",
+    "actual_inputs": 6,
+    "fixture_saved": false,
+    "scope": "Known original entry-WHEN AMP3 inline failure only; no extra native/physical suffix assertions inferred."
+  },
+  "source": {
+    "canonical_path": "DevTools/FaB/ros_abilities.json",
+    "canonical_file_sha256": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+    "named_card_macro_names": [
+      "StartTurn",
+      "ResolveCard"
+    ],
+    "entry_ResolveCard_body": "FaBMSTAdd($player, 'AMP', 3);\n",
+    "entry_body_sha256": "1c9a364850c0f8add48bf25f36d117e3fb1a4dd50170a10bdea3cd4a72000c94",
+    "generated_file_sha256": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+    "generated_entry_closure_sha256": "82617e85bcd7778e7282e7d3e3356f6319d93311275ceda5a73d34822b22578c",
+    "generated_entry_closure": "$resolveCardAbilities[\"channel_the_millennium_tree_red:0\"] = function($player) { //channel_the_millennium_tree_red\r\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  FaBMSTAdd($player, 'AMP', 3);\r\n};\r",
+    "named_existing_beginning_action_hook": {
+      "path": "FaBSim/Custom/ROSRuntime.php",
+      "sha256": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+      "line": 32,
+      "text": "function FaBROSStart(int $p): void {foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];$b=FaBWTRBase($o->CardID);if($b==='channel_the_millennium_tree')FaBMSTAdd($p,'AMP',3);if(in_array($b,['harvest_season','strong_yield','sigil_of_aether','sigil_of_brilliance','sigil_of_cycles','sigil_of_deadwood','sigil_of_earth','sigil_of_forethought','sigil_of_fyendal','sigil_of_lightning','sigil_of_temporal_manipulation','sigil_of_the_arknight'],true)){FaBMONDestroy(intval($o->UniqueID));if($b==='harvest_season')FaBCRUGainLife($p,4-intval(CardPitch($o->CardID)));if($b==='strong_yield')FaBMSTNext($p,4-intval(CardPitch($o->CardID)),'');}}}",
+      "scope": "Named Tree branch only; this lookup does not qualify or newly classify the unreached future start-turn path."
+    },
+    "shared_AMP_storage": {
+      "path": "FaBSim/Custom/MSTCards.php",
+      "sha256": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+      "producer": "FaBMSTAdd(p,AMP,3) \u2192 FaBWTRAddEffect(p,MST_AMP,3)",
+      "consumer_line": 155,
+      "consumer": "function FaBMSTAmp(int $p,int $uid): int {$f=FaBFindUID($uid);if(!$f||(!FaBHasType($f['object'],'Action')&&!FaBHasType($f['object'],'Instant'))||FaBHasType($f['object'],'Token'))return 0;$n=FaBMSTCount($p,'AMP');if($n)FaBMSTClear($p,'AMP');return $n;}",
+      "consumer_callers": [
+        {
+          "path": "FaBSim/Custom/ARCCards.php",
+          "sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+          "line": 94,
+          "text": "    return max(0,$base+FaBMSTAmp($player,$uid)+FaBROSChorus($player,$uid)+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus'))+($f&&FaBHasType($f['object'],'Action')?FaBEVRCount($player,'WILDFIRE'):0));"
+        },
+        {
+          "path": "FaBSim/Custom/UPRCards.php",
+          "sha256": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+          "line": 138,
+          "text": "function FaBUPRDamageBonus(int $p,int $uid,int $n,string $type): int {$f=FaBFindUID($uid);if($f)$n=FaBOMNDamageBonus($f['object'],$n);if($type==='ARCANE'&&FaBSEAArcaneCapped($uid))return $n;return $type==='ARCANE'?FaBELEDamageBonus($p,$f['mzID']??'',$n+FaBMSTAmp($p,$uid)+FaBROSChorus($p,$uid)+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus')),$type):$n;}"
+        }
+      ],
+      "scope": "Exact named producer and existing FaBMSTAmp call chain only, no generic AMP producer or fixture audit."
+    }
+  },
+  "metadata_first_lookup": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\cycle-coverage-current.json",
+      "sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+      "exact_card_id_reference_paths": []
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\coverage-additions-after218.json",
+      "sha256": "2ca4cb28678c12595666375657d0c07798a8830635fb80e5b5e5263b13044f8f",
+      "exact_card_id_reference_paths": []
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-review.json",
+      "sha256": "a2f976e3da9958b3398908b3dcea0d41f8049d7d854f4078114f7ee9db23281b",
+      "exact_card_id_reference_paths": []
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-coverage.json",
+      "sha256": "b24ca2c9c4b3dfcbc86fd87dc8345817fb1a57e02101d8adefba60bb27209b94",
+      "exact_card_id_reference_paths": [
+        "/cards/781/card_id"
+      ]
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\cycle-group-map.compact.json",
+      "sha256": "2cbc2b4f5309639a6dfc0175e51270d8033da2225db9c7587b8b386ee49a6d33",
+      "exact_card_id_reference_paths": [
+        "/groups/375/0",
+        "/groups/375/1/0"
+      ]
+    }
+  ],
+  "base_matching_group_rows": [],
+  "incremental_matching_group_rows": [],
+  "review_primary_or_secondary_reference_candidates": [],
+  "fixture_lookup": {
+    "reason": "Bug-impact lookup: metadata can omit historical secondary IDs; one targeted exact card ID scan allowed by Root.",
+    "exact_needle": "channel_the_millennium_tree_red",
+    "fixture_inventory_count_at_read": 3665,
+    "legacy_fixtures_scanned": 3664,
+    "files_scanned": 7328,
+    "files_per_fixture": [
+      "initial_gamestate.txt",
+      "meta.json"
+    ],
+    "initial_or_meta_literal_hits": [],
+    "excluded_new_Seeds_cases": [
+      {
+        "slug": "card-seeds-of-tomorrow-blue-four-live-sparse-real-arsenal-bottom-cost-and-five-prevention",
+        "cardIDs": [
+          "seeds_of_tomorrow_blue"
+        ],
+        "fixture_exists": true,
+        "reason": "New independently saved non-Tree B371 case explicitly excluded from legacy impact lookup."
+      }
+    ],
+    "excluded_unsaved_Tree": {
+      "slug": "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+      "fixture_absence_verified": true
+    },
+    "actions_assertions_expected_final_scanned": false,
+    "AMP_generic_scan": false
+  },
+  "direct_focused_legacy_candidate_slugs": [],
+  "recommendation": "No direct affected legacy case identified within this exact Tree-card scope; use original strict Tree probe after fix. No broad legacy replay indicated by this lookup.",
+  "limits": [
+    "This is a targeted direct-card-reference impact lookup, not a correctness/qualification or new shared-root/Core count claim.",
+    "No all-five fixture crawl, no historical assertions/actions/final snapshots scanned, no generic AMP/seeded effect corpus audit.",
+    "Literal CardID in initial/meta plus currentmetadata; aliases, opaque encoded undo-only references, dynamic postinitial creation without literal meta reference are outside this bounded lookup.",
+    "Named ROSStart Tree branch is recorded separately from native-confirmed entry failure; no future phase or ChannelEarth suffix executed here.",
+    "No PHP/native/replay/R/source/service/generator/fullsuite/metadata updates by reviewer."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch550.json",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T01:05:15.956588+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gustwave-second-wind-red-four-live-real-combo-go-again-and-attack-consumer",
+      "fixture_sha256": "3d520f5825caf99316288c238ba1012f4d2e941b11cc94403a1f7ede5ba743e0",
+      "passed": true,
+      "result": "[PASS] gustwave_of_the_second_wind_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gustwave-second-wind-red-four-live-real-combo-go-again-and-attack-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] gustwave_of_the_second_wind_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

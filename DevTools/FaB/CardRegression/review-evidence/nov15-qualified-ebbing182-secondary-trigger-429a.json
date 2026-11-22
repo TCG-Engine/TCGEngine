@@ -1,0 +1,89 @@
+{
+  "status": "QUALIFIED_FOCUSED_EBBING_BLUE_FRAGMENT_SECONDARY_TRIGGER",
+  "issue": "FAB-REG-182",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "source_files": [
+    "DevTools/FaB/build_omn_abilities.py",
+    "DevTools/FaB/omn_abilities.json",
+    "FaBSim/Custom/CodeGeneration.php",
+    "FaBSim/Custom/ROSCards.php"
+  ],
+  "generated_files": [
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js"
+  ],
+  "repository_Core_changes": false,
+  "change": "Fragment still applies -2 in its first layer; Ebbing queues an earned go-again trigger separately. The child validates the current physical attack identity and survives later source blanking/control change. Ordinary Fragment and other ROS dispatch remain unchanged.",
+  "native_before": {
+    "path": "review-evidence/sparse818-ebbing-independent-native-trigger-failure-6695.json",
+    "sha256": "70042ef5c95087a2da692e91d5c94b95a8a3845b4c3033c8ac06aeff2d47b541"
+  },
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b818-root-guarded-application-emission-r2\\receipt.json",
+    "sha256": "81ab5d6aaf2725ca2e6fc273c642da2f25449d8b096d1861cca8e5da744f15be",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "independent_emission_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-r2-independent-actual-emission-review.json",
+    "sha256": "6c9b2bb624314f37a7fa15446033370d372556f2f8f0746913e42139587f556e",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "mandatory_no_save_success": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b818-ebbing-r3-native-unsaved-after-429a\\receipt.json",
+    "sha256": "26e68396850b035ce632c8b1c9551ce97f0ca850e56f4e8ca55998d977bd3538",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "independent_no_save_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-ebbing-r3-independent-actual-unsaved-success-review.json",
+    "sha256": "7fac5b1d332bd870048ad99bd855d9d8c0bcf208ba3d375f3434d51cef821ea3",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "positive_source": {
+    "path": "card-regression-batch818-ebbing-full-positive-429a.json",
+    "sha256": "fc1701c344903f8a5f728a3b8edbb82f7778c16e9984a4ef70e95b7fa6ec6975"
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse818-ebbing-independent-saved-429a.json",
+    "sha256": "37edc232290a71f9a4bfef2c7fc6f12f093c86de59c22f8315754efe01ac7737"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov15-b818-ebbing-429a-clean1.json",
+      "sha256": "7fc1255155edafc6540cc104baf8e1c8f46ebec5929dfa8cbe404ae3f0be5f47"
+    },
+    {
+      "path": "card-regression-replay-nov15-b818-ebbing-429a-clean2.json",
+      "sha256": "7a3317a195e18bb41accd70c77f3d52b2ca73bbdde1215691b17b5f185c76142"
+    }
+  ],
+  "two_directly_affected_compatibility_passes": [
+    {
+      "path": "card-regression-replay-nov15-b818-erode-429a-compat.json",
+      "sha256": "ab8d2723bb0e0fa1e5d5d9eccc42321efad929c96e55f0fe32fa1a44d48adf54"
+    },
+    {
+      "path": "card-regression-replay-nov15-b818-smoke-429a-compat.json",
+      "sha256": "643ba0b327d4b5a0dae039bc925f89d958d302e8e812fd6661320fc8adad9919"
+    }
+  ],
+  "isolated_candidate_component_checks": 82,
+  "generated_scope_fault_controls": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b818-root-pure-generated-scope-controls.json",
+    "sha256": "a1603f5752ddc5d709e5acadfffb990a387c2407bc13283ba6473626e305e444",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "isolated_native_fault_credit": 0,
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "limits": [
+    "Only Blue named branch is individually native-tested; sibling implementations have source/component/emission parity, not individual coverage.",
+    "No general Fragment/WHEN/suppression/incarnation or alternate branch certificate. Existing historical evidence retains its actual runtime labels.",
+    "No repository Core change, remote authoring, staging, commit, push or deployment. Broader suite remains user-owned."
+  ]
+}

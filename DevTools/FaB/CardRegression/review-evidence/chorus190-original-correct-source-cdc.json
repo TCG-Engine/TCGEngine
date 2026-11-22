@@ -1,0 +1,156 @@
+{
+  "status": "SOURCE_APPROVED_STRICT_ORIGINAL_CORRECT_CHORUS_FIRST_ELIGIBLE_EMPTY_HAND_GRANTED_HIT_DRAW",
+  "phase": "SOURCE",
+  "batch": 846,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch846-chorus-first-empty-hand-earned-hit-draw-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-first-eligible-empty-hand-hit-draw-probe-author\\chorus-first-guardian-empty-hand-earned-hit-draw-full-probe.json",
+    "sha256": "bb65fd3f48a61f04845bf65d59d7a5fd24ad655c6a4f1f003e998ccbfba889eb"
+  },
+  "input_sha256": "bb65fd3f48a61f04845bf65d59d7a5fd24ad655c6a4f1f003e998ccbfba889eb",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-first-eligible-empty-hand-hit-draw-probe-author\\manifest.json",
+    "sha256": "db4c2497f2d063466cfb7ad11c9e8ce1cbc95c569358d890893e8e76f28622cb"
+  },
+  "manifest_sha256": "db4c2497f2d063466cfb7ad11c9e8ce1cbc95c569358d890893e8e76f28622cb",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-firm-reservation.json",
+    "sha256": "147dcf17069428017ebd28d1c4c0b1f904410438ab1793be128866dc13532fc6"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-first-eligible-empty-hand-hit-draw-probe-author\\preflight.json",
+    "sha256": "59572aa75e71c393bc0e09f2d6f57bac2b6d12a85c024e0f4de0a92172eb81d6"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-first-eligible-empty-hand-hit-draw-probe-author\\frozen-author-QA.json",
+    "sha256": "d1b5fbe7961c0f3bd8a68266f595b6585e7aa01afda7677cf7d5e8c5e419b1eb"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-chorus-first-eligible-empty-hand-hit-draw-probe-author\\ordered-control-query-model.json",
+    "sha256": "19d6c63bd000d3127e9b5629d21f87ee56bf808e964374e891ffcb382d121931"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 18,
+  "all_current_guards_independently_matched": true,
+  "actions": 37,
+  "declarative_controls": 37,
+  "assertions": 4509,
+  "native_assertions": 4509,
+  "planned_native_assertions": 4509,
+  "recorded_persisted_assertions": 4509,
+  "manual_passes": 33,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 9
+  },
+  "expected_priority_response_passes": 32,
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 39,
+  "schema_property_checks": 1068,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "64409782fbaab21315c3b466c44c6f37a0ec055eb9ba4636f34504eeb1a95c40",
+  "expected_native_query_mapping_sha256": "ec274ef2338bd5092e2bf45368763fe7d69c68ab21ef83254f8456431d4b3c1b",
+  "checkpoint_mapping_sha256": "716547c79986638b843b70df0c7a6522299da694fadb2809ef2f8095413e31ef",
+  "independent_semantic_findings": [
+    "Every37control/4509normalized ordered query/1068typed schema property matches frozen full model; no author-only/drop/skip assertion. All72+10+18current guards match, fourstrictflags/probeslug present.33manual inputs8/8/8/9 include formaldefensefinish, allYoung/live/UPF/noPassive; freshraw48profiles remainactualevidence gate, no currentSaved claim.",
+    "Legal PleiadesReveredGuardian20/threeBetsy20. ActualChorus5Instant1 is paidBlue6pitch3/R2/APunchanged1; fourSource responses before physicalAura entry FAB_PLAY_ORDER1/SUSPENSE2. Suspenseentry replacement is mandatory2; no extra entrytrigger is claimed, no countdown/startphase/Heroability earned.",
+    "FIRSTGuardian-or-ReveredAARisingEnergyBlue7printedcost2/power4/dualGuardianWarrior legal. No priorDraw means HVYRuntime34 costdiscount notactive; realfloating2 payscost2/AP1to0 and soleHandcard7naturallyemptiesHand. FormalHero4declaredbeforeassets. Laterdraw cannot refund already-paid cost; static supportcondition is not an extraAttackWHEN.",
+    "IARPlayed99..101 actualfirsteligible AA grant IAR_CHORUS exists despite emptyChoruscanonical. Hostactual4power/noGA/unblocked4damageHP4=16. Required firstpostdamageHand0/Deck8unchanged/earnedABILITYcontroller1/source7 followedfourmanualresponses before actualphysicalDeck8drawtoHand1. No guessed virtualUID/internalCardID/eventlabel.",
+    "EmptyHand if-condition is tested on grantedhitlayer resolution underCR6.1.3/6.6.1c, not extra triggercreationcondition/intervening-if. Positive route keeps emptyHand until draw; no nonemptyHand branchcertificate.",
+    "Fresh concern IARHit142 directly DoDrawCard forIAR_CHORUS atHit instead of responseable earnedlayer. No exact priornativeIAR_CHORUS producer found; broad relation toordinaryHit timing doesnotallocate distinctroot or justify weakening. FullsuffixphysicalAura5SUSPENSE2Arena1/Host7GY1/Blue6Pitch1/Deck8Hand1/allresourcesAP0/Stackqueuespaymentchaincleanup remainsmandatory."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.1.3",
+        "6.6.1c",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "official_read_only_web_read": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.42"
+      ],
+      "official_read_only_web_read": true
+    }
+  ],
+  "additional_normative_evidence": {
+    "url": "https://legacy.fabtcg.com/en/articles/rules-reprise-19-part-the-mistveil-limited/",
+    "official_indexed_search_excerpt_read": true,
+    "direct_open_returned_502": true,
+    "meaning": "When-trigger versus following-if condition distinguished; if-condition checked only on layerresolution. No excessive quotation or nonprimary rule inference used."
+  },
+  "required_remaining_gates": [
+    "Rootcomplete originalcorrect --probe-only route, noSaveevenPASS.",
+    "Independent actual fulltrace or exactfailedprefix/suffix review; preserve originalexpectations and recordedruntime.",
+    "OnlycompleteactualPASS could permit separateRootexplicitpromotion/freshnormalSource; Saved/raw5/both48/twoownreplays remainseparate."
+  ],
+  "limits": [
+    "Only firsteligiblepositive empty-Hand-hitdraw. Otherattack/Handnonempty/multiplehits/laterattack/countdown/expiry/Hero/support/siblings/fullcard untested.",
+    "No nativebug/root/fixture/coverage/sourcefix yet; no quietcast-only/nativeoutputblessing, PHP/native/R/source/Git/remote/fullsuite or deniedrepair/Radiant189 application byreviewer."
+  ],
+  "created_utc": "2026-11-16T05:03:25.469680+00:00"
+}

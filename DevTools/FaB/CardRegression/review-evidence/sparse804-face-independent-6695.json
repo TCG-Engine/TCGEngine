@@ -1,0 +1,269 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B804_FACE",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T00:24:12.059540+00:00",
+  "source_spec": "card-regression-batch804-face_adversity.json",
+  "input_sha256": "1a9dc87ee0af5056a1e9bc854985cb7c993e59a328e19764c506615fcb03aeb1",
+  "manifest_sha256": "d7d360a8ef0380a092a3b4be6927745d133e646815641aea21fb4f86916a0a87",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch804-face-attacker-only-real-gold-draw-head-two-physical-block-author\\manifest.json",
+    "sha256": "d7d360a8ef0380a092a3b4be6927745d133e646815641aea21fb4f86916a0a87"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch804-face-independent-correct-positive-source-review.json",
+    "sha256": "157dfca61b556515863c25eb6cee5bf9f7ed2c2bda6f6a082a565bc3e78b2a3e"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b804-face-native-attacker-only-gold-draw\\receipt.json",
+    "sha256": "5dc2b2079de1eeea7941ae7643bce324daba5f6994ca698be72ce3f1f987d006"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch804-face_adversity-20261115T002151Z-6af8fb1f39d37.json",
+    "sha256": "5a60e3a4a4aed205b7e015329d7fc633c2e6174c64290865268ecb74ddfd1c33"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch804-face_adversity.recording-results.json",
+    "sha256": "36c0ac874629366bc265ca4073d7b798cd995e47c0c9ff7edda18b8945e56db2"
+  },
+  "fixtures": [
+    {
+      "slug": "card-face-attacker-only-real-gold-draw-head-two-physical-block",
+      "card_id": "face_adversity",
+      "group_id": "identity:face_adversity",
+      "source_spec": "card-regression-batch804-face_adversity.json",
+      "input_sha256": "1a9dc87ee0af5056a1e9bc854985cb7c993e59a328e19764c506615fcb03aeb1",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-face-attacker-only-real-gold-draw-head-two-physical-block",
+      "fixture_sha256": "1b8e1fe1f63474ae30f8fdf0774a937fb11791699069d5bc1b86aab4a23d7262",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "251abbd1cce222bb5594aa044981d889020fdd5d8512612adcbb7359cb8b28f5",
+        "actions.json": "ff4a9d48eaf0e51de0acf9c90b5ceb0a384ad9be1024d31b8839409c566446ad",
+        "assertions.json": "c4349fcb2a8d51d49a14a2d2a7c839cef184c5981159f623a8476acbb35cd5c0",
+        "expected_final_gamestate.txt": "7503adc7138b9722b2ac05acbbbb5fc487a64864f0907a37d5116fa2080673d6",
+        "meta.json": "dbb224f694605286b16d50bd66b28724e4365681fe425e41a7714bc2178b5da5"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "251abbd1cce222bb5594aa044981d889020fdd5d8512612adcbb7359cb8b28f5",
+        "actions.json": "ff4a9d48eaf0e51de0acf9c90b5ceb0a384ad9be1024d31b8839409c566446ad",
+        "assertions.json": "c4349fcb2a8d51d49a14a2d2a7c839cef184c5981159f623a8476acbb35cd5c0",
+        "expected_final_gamestate.txt": "7503adc7138b9722b2ac05acbbbb5fc487a64864f0907a37d5116fa2080673d6",
+        "meta.json": "dbb224f694605286b16d50bd66b28724e4365681fe425e41a7714bc2178b5da5"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "251abbd1cce222bb5594aa044981d889020fdd5d8512612adcbb7359cb8b28f5",
+        "actions.json": "ff4a9d48eaf0e51de0acf9c90b5ceb0a384ad9be1024d31b8839409c566446ad",
+        "assertions.json": "c4349fcb2a8d51d49a14a2d2a7c839cef184c5981159f623a8476acbb35cd5c0",
+        "expected_final_gamestate.txt": "7503adc7138b9722b2ac05acbbbb5fc487a64864f0907a37d5116fa2080673d6"
+      },
+      "actions": 34,
+      "native_assertions": 2253,
+      "manual_passes": 29,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 512,
+      "checkpoint_count": 36,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 141,
+        "34": 190
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "face_adversity",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "face_adversity",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "1da611293f39de316e45e5ce434b1ff803f9030112e95515f5784b46cb464202",
+      "native_assertion_mapping_sha256": "2eda29d47d1833e6fcba265dc9dcaad65174d0017944b435a412bc5d04548fbd",
+      "checkpoint_assertion_mapping_sha256": "aaac4990b98c180c33d157a5b2c0886b9766b3510ed23debcd917370ce427531",
+      "direct_intermediate_equipment_UID_Owner_Role_verified": true,
+      "virtual_ability_owner_rules_asserted": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 17,
+  "all_current_guards_matched": true,
+  "total_actions": 34,
+  "total_native_assertions": 2253,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 512,
+  "total_checkpoints": 36,
+  "total_endpoint_assertions_evaluated": 331,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    18
+  ],
+  "material_findings": [
+    "Exactactual34nativeenvelopes/2253successfulqueries/29manualactorsmatchoriginalSource. All331rawendpointassertionsand48manualpreferenceseachindependentlyevaluated.",
+    "Actual GoldCARDcost2 pending beforeBlue6pitch3; originalownedGold5destroyed/R1/AP0 beforedraw. Red7Deckretainedthroughthreefreshsourcepasses; fourthdrawssameownRed7onlyP1/AP1. ActualfinalDTD_DRAWN amounts[1,0,0,0], defenderHandDeck0throughout.",
+    "ActualearnedGoldGAAP1consumedbydrawnRed7 afterearlyadjacentHero4target. RealRed4noGA vslegalownFaceHead8DEF2 givesphysical2damageHP18. DirectactualMIDChainHeadUID8/Owner4/Controller4/DEFENSERole/Equipmentorigin/link1queriespassedafterblock/formalfinish/Reaction/Damage/Resolution.",
+    "TrueCloseSAMEownedHead8GY4/Red7GY1/Blue6Pitch1; Gold5tokenandvirtualability9physicallyceased. R1/AP0/all4naturalquietlive/StackChainsDQsTargetPaymentManagerAwaitfullyclear; originalHeroabilitiesunearned."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_action_source_effect_ordering_certified": false,
+  "general_activated_ability_lifecycle_certified": false,
+  "limits": [
+    "ExactHeadpositiveonly. No drawlessnegative/generalGold/Goldcreation/Heroability/targetuniverse/fullcard/siblingcertificate.",
+    "Withinatomicvirtualability/source/effectorderingunobserveduncertified. VirtualOwnerunsetnotasserted1; physicalGold/Head/Red/Blueownershipverified.",
+    "Roottwonew-onlyfocusedreplaysandregistrationremain. ReviewernoPHP/native/replay/R/source/Git/repair/B787action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch804_face_saved.py",
+    "sha256": "787aee398508b845d42e82b17c0f1dc4d2ab00f0ff517b228bc916e0e967ec43"
+  }
+}

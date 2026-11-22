@@ -1,0 +1,136 @@
+{
+  "status": "APPROVED_EXACT_SAVED_HEALTHY_SLEEVES_SUBSET_FAILED_LIGHTNING_EXCLUDED",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T03:56:13.684647+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch281.json",
+  "input_sha256": "3996b87a91485c02998172e8725b027b2f512e54df9fb2251692f3e7a3c4da51",
+  "fixtures": [
+    {
+      "slug": "card-quelling-sleeves-four-live-sparse-real-effect-pitch-paid-quell-prevents-one-of-seven",
+      "card_id": "quelling_sleeves",
+      "group_id": "identity:quelling_sleeves",
+      "fixture_sha256": "155f275d51e41fd95ddb3757a1960be926191a10a2c8abf4ec5f31ee8077558d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "62aeeeba93a8f7f92eae860c325331feee865255daee9d29387822eb5f1e3e2e",
+        "actions.json": "9353eaa0323651be15ffc46142dd1f193467a43084df60e2133276d750553071",
+        "assertions.json": "3f62efb510664f2b9df3ef43f282f55361d37ec8ec2b2e2aa30a915ead8113f8",
+        "expected_final_gamestate.txt": "bae164d07b21e465b3d8ee25c5af608a6e03592726b622eb33a8e4314908f2cc",
+        "meta.json": "c1f46885422139ebde98ec9db36f085a6c414e1d6652212c4253fc3972eaffe4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "62aeeeba93a8f7f92eae860c325331feee865255daee9d29387822eb5f1e3e2e",
+        "actions.json": "9353eaa0323651be15ffc46142dd1f193467a43084df60e2133276d750553071",
+        "assertions.json": "3f62efb510664f2b9df3ef43f282f55361d37ec8ec2b2e2aa30a915ead8113f8",
+        "expected_final_gamestate.txt": "bae164d07b21e465b3d8ee25c5af608a6e03592726b622eb33a8e4314908f2cc",
+        "meta.json": "c1f46885422139ebde98ec9db36f085a6c414e1d6652212c4253fc3972eaffe4"
+      },
+      "actions": 30,
+      "native_assertions": 2431,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          6
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "RealRaging7cost3 paidbyBlue8pitch3/AP1, actualadjacentP4target/fullfourlivingresponses. ActualfourthP4reactionresponse reachesstaticQuellwould-be7damage: sameSleeves5retainedownedEquipment/HP20. RealP4selectionof5andactualBlue6effect-pitch3/pay1leavesR2/AP0; Quellprevents1of7\u2192actual6damage/P4HP14. Source5staysreadyEquipment Owner4/Controller4 andUPR_DESTROY_END1, nofakeabilitylayer. FullcloseGY1{7}, Pitch1{8}/Pitch4{6}, allotherR0/AP0/HP20/emptyHandsStackChainsqueues, allphysicalUIDsconserved.",
+      "qualification": "OneacceptedstaticQuell1actualpayment/physicalpacket only. No laterendphase destruction/trigger, decline/otherpackets/arcane/preventionordering/normalblock/hero/support/fullcard/control credit."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-lightning-press-red-four-live-correct-probe-target-declared-before-response-actual-plus-three-seven-damage",
+      "card_id": "lightning_press_red",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "status": "blocked_or_incorrect",
+      "error": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+      "actual_attempted_actions": 7,
+      "actual_accepted_actions": 7,
+      "actual_accepted_action_count": 7,
+      "accepted_count_evidence": "Archiveexact7inputprefixplusactualplayedhistorycontainsbothWoundingandLightning; lastactualclickcompletedplaywithoutrequiredtargetdecision.",
+      "source_expectation_retained": true,
+      "coverage_credit": false,
+      "failed_initial_snapshot_sha256": "e01f7b1218403d7888febdc5fafeb8171215f5e2de49bafd60f8caf19d3ea592",
+      "physical_mismatch": "AfterrealAA5/fouractualsource responses thenLP6click, expectedimmediateprintedtargetMZCHOOSE; actualallfourDQsempty. Thisconfirmsonlytarget-declarationtiming. No subsequentLightningresponse, +3/damage/fullsuffix, sourceawaitlifetimeorotherfailureisreachedorcredited.",
+      "evidence_paths_sha256": {
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch281-20261103T035357Z-6ae95ad5cd87f.json": "2c3772ff0c6606f0282d811b81b615341710d56fd402965736856f143a94c329",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch281.recording-results.json": "9283abd80887659737f5fda3324474c967f5177cbbf7e73100258f3cbe02f37f",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch281-native-r1\\receipt.json": "d023f16e77b8b05d950cd28b2945b174ac1b43105d2e51c50808e4ad7aefc5c5",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch281-native-r1\\stdout.log": "82e4288ff315d2d68c59130814a8d0b88ace5e571da3dd43dead6fc51fd903c7",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch281-native-r1\\stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch281-independent-source-review.json",
+    "sha256": "0a3858e0b3630ea0c8e79ff54ef77de588f643398474ea2aaa13701bbb055722",
+    "manifest_sha256": "3ffe8a316eb244c1a166d550631d21a92811c66ae10b9dbfa9886049feacb08a"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch281-20261103T035357Z-6ae95ad5cd87f.json",
+    "sha256": "2c3772ff0c6606f0282d811b81b615341710d56fd402965736856f143a94c329"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch281.recording-results.json",
+    "sha256": "9283abd80887659737f5fda3324474c967f5177cbbf7e73100258f3cbe02f37f"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch281-native-r1\\receipt.json",
+    "sha256": "d023f16e77b8b05d950cd28b2945b174ac1b43105d2e51c50808e4ad7aefc5c5",
+    "stdout_sha256": "82e4288ff315d2d68c59130814a8d0b88ace5e571da3dd43dead6fc51fd903c7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independentread-only exactsavedfive-file review: all30actors/modes/payloads and2431orderedassertionsmatch approvedsource; fullschema-backedinitial/finalsnapshotUID/economy/HP/Counters/GY/Pitchverified. FailedLP7actualinputs independentlymatched andarchivebound, nofixture/passcredit. Purepriorparser/action/normalizer definitions reusedviaAST; noauthorbuilder/PHP/native/replay/R/backend.",
+  "limits": [
+    "Savedcreationreviewonly; root twofocusedSleevesreplays remainseparateevidence.",
+    "OnlySleeves includedinapprovedfixtures. Lightningfirsttargetgatefailed/noFixture; sourceexpectationstayscorrect, downstreamlifetimeunreached/unconfirmed.",
+    "No oldfixtures/sourceaudit/fullsuite/authorizationworkaround/Rsourcewrite or sibling/fullcard credit. Actual0d context retained."
+  ]
+}

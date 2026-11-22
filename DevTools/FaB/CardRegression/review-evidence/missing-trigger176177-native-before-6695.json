@@ -1,0 +1,88 @@
+{
+  "status": "TWO_NATIVE_CONFIRMED_MISSING_EARNED_TRIGGER_LAYERS_NO_FIXTURES",
+  "utc": "2026-11-14T18:38:36.484444+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "cases": [
+    {
+      "issue": "FAB-REG-176",
+      "card_id": "hellbound_assault_blue",
+      "group_id": "pitch-cycle:hellbound_assault",
+      "source": {
+        "path": "card-regression-batch787-hellbound-strict-probe.json",
+        "sha256": "f2401b52f3a728ea130b07fcbc5067ba09ded71829c1692b1227588a5bf7911d"
+      },
+      "recording_results": {
+        "path": "card-regression-batch787-hellbound-strict-probe.recording-results.json",
+        "sha256": "9b0e921cc618afa47842504af8b5e5bbf76ba4e80fb1e2bc4194489153c7d845"
+      },
+      "native_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b787-hellbound-original-correct-native-before\\receipt.json",
+        "sha256": "8ccaeaf3438288a4773416e24863f8b704f1942398e60f0da48f1b23b89eba43",
+        "role": "External focused receipt/source proof, not a runner dependency"
+      },
+      "correct_source_review": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch787-hellbound-independent-strict-diagnostic-source-review.json",
+        "sha256": "e358724244a8ba5f87e8a9e51633e5294edd28f2fbfae11b7fafea68eb345c5c",
+        "role": "External focused receipt/source proof, not a runner dependency"
+      },
+      "native_inputs": 20,
+      "successful_persisted_queries": 1175,
+      "first_failed_query_ordinal": 1176,
+      "total_planned_queries": 1311,
+      "unrun_suffix_queries": 135,
+      "expected": "After a real5 hit, its earned WHEN-hit self-banish layer must exist before any responses/effect resolution.",
+      "observed_error": "Expected Stack count 1, got 0.",
+      "observed_stack_count": 0,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "fix_applied": false,
+      "limits": "Only first Stack assertion directlyfailed. Later sourceChain/Banish/DQ/target-universe checks were unrun; no postrawzone, Vexarcane, HellBloodDebt or futurecleanup claim."
+    },
+    {
+      "issue": "FAB-REG-177",
+      "card_id": "vexing_malice_blue",
+      "group_id": "pitch-cycle:vexing_malice",
+      "source": {
+        "path": "card-regression-batch787-vexing-strict-probe.json",
+        "sha256": "92ba100a7ae0738dc009b0c49c9c004f2508f7bede5fb04255e186b7f3a251ea"
+      },
+      "recording_results": {
+        "path": "card-regression-batch787-vexing-strict-probe.recording-results.json",
+        "sha256": "1d8a15be265558af098017bd0b38963ff6d9e33c868bfc32771ebdc30311cd37"
+      },
+      "native_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b787-vexing-original-correct-native-before\\receipt.json",
+        "sha256": "0259b0c240cddfdfcb077957ad47349080ac4a784c570d32a80d6136b8ecaf4d",
+        "role": "External focused receipt/source proof, not a runner dependency"
+      },
+      "correct_source_review": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch787-vexing-independent-strict-diagnostic-source-review.json",
+        "sha256": "9ead12147f364583d7fb0c2463f0d5783e1b700e7c77b1c8dd40485248ed0890",
+        "role": "External focused receipt/source proof, not a runner dependency"
+      },
+      "native_inputs": 7,
+      "successful_persisted_queries": 421,
+      "first_failed_query_ordinal": 422,
+      "total_planned_queries": 551,
+      "unrun_suffix_queries": 129,
+      "expected": "After actualattack entry, currenterrata WHEN-attacks arcane effect must have an earned layer during its earlytarget declaration, before targetanswer/responses.",
+      "observed_error": "Expected Stack count 1, got 0.",
+      "observed_stack_count": 0,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "fix_applied": false,
+      "limits": "Only first Stack assertion directlyfailed. Later sourceChain/Banish/DQ/target-universe checks were unrun; no postrawzone, Vexarcane, HellBloodDebt or futurecleanup claim."
+    }
+  ],
+  "independent_actual_before": {
+    "path": "review-evidence/sparse787-independent-native-before-6695.json",
+    "sha256": "e51b76afe0ecb6e93c227d2e847dc16e1e28b6ccfac74feb7e5eb9815604fbbc"
+  },
+  "passing_corpus_scenarios": 4053,
+  "fixture_inventory_unchanged": true,
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "root_count_allocation": "Unallocated named records, no distinct global root inference",
+  "BloodDebt_scope": "Source-only concern is not a confirmed bug: official CR4.4.1/2 forbids EndPhase priority and processes layers automatically; futurecorrectHellcase will follow that exception, no globalMONEnd rewrite authorized by these witnesses."
+}

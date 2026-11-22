@@ -1,0 +1,235 @@
+{
+  "status": "11_LEGACY_NATIVE_RECORDED_AND21RED_PLUS2NIP_SHRED_REPLAY_PASS",
+  "reviewer": "root independent of recipe/candidate author; exact preserved-oracle and actual-file inspection",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184",
+  "source_spec": "card-regression-batch13.json",
+  "input_sha256": "2cfb6363590aa38f16497f1f5b6a3d4ebc902bbab9f37b1767c260a7d9251d40",
+  "native_subset_spec": "card-regression-repair-razor-red-existing11-after4b6c.json",
+  "native_subset_sha256": "870901f484f4fd6cd1a5ba56b49e6c57604b71f592ba7367684f4d9fb835b278",
+  "fixtures": [
+    {
+      "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95f2631fcd38609f803e3c86a9dbb2c47aff8a6840c1ebd106de30957ef5e3eb",
+        "actions.json": "ef7aa8b7496971af42b790f42e84024fc1247e51e4c69c8e681f0ca21948aa33",
+        "assertions.json": "d6730f73311876180a2086daffe0976fa534aa89c3105526ea8d75bc04589a70",
+        "expected_final_gamestate.txt": "9b2dee3d01d8e042ac29a3c839e89d96f60b377f331b9f14271d0fa1cba6084b",
+        "meta.json": "7da5f116c9df5c695cae63bd733a6a4d3ffe85fed7226faa8f6ad30155f96233"
+      },
+      "fixture_sha256": "cf1c8532edec2c8f8cc60c2ea23d91faa201164d71ef7cdc82a220ef83215f0e",
+      "actions": 22,
+      "native_assertions": 39,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 34,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f0bbc2c1faab4177ec65d8200e30950c6d0839afb6f0538d65059f4e1f5e6347",
+        "actions.json": "a652d1d60da2a7db64e1e1d02c3737ed6c05b3fa234e4cc11d9707b8faad35b1",
+        "assertions.json": "9ae0c6f7a5596f6ad433e9319eb4c51c09370d880f7f5882c54187ad2df2dfd9",
+        "expected_final_gamestate.txt": "b619402a5265d48e366947d6d40f600b1534b1b663819b735ff29a18bfd4b5e5",
+        "meta.json": "1732a1d165faab19aa69081086264d070364261a19345c4a92dbeef49be02cf3"
+      },
+      "fixture_sha256": "5a013c66a4b1944bf6d6c2e97fb51172f85f7a8365106c01d5f4344d194bfb87",
+      "actions": 21,
+      "native_assertions": 42,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 37,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ce5c06fe6121042970adfeb4973d809579216ab2fefa7e8861194b6854f8dac",
+        "actions.json": "2789ebd6e3f53b5368e331b010a5986bef28900c406f2ceccd5e9c93d4672fac",
+        "assertions.json": "da3e139ced271a9a5dac08043e0b66e3e55d8a7578b0ec175a267f6b3fbae5c5",
+        "expected_final_gamestate.txt": "e30edf2d14c121045fafd6b0b6e2a08cc06a07968dd6585f06940685e4583fef",
+        "meta.json": "4bc0065926fb4879a589ad10d78ce2828afb2ce41c17a5c3cc292d22e0374988"
+      },
+      "fixture_sha256": "d629f7141daf277a853e585aaee82e088b05bb7a95c1dd84e09582039428e2ce",
+      "actions": 19,
+      "native_assertions": 38,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 33,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-ally-hit-still-grants-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba0e7bb54f3763ee52b123da7286cf631753cb5ac8bde49e59b26dac96a0575a",
+        "actions.json": "110a9a26ca94e986a7e59608b3b9350c889a55a87d3e3bbea336319401857e22",
+        "assertions.json": "0d6acd6134fc85e7fbd9b0fc1efd0e9714b1ba24066baaddf79a6608924ea345",
+        "expected_final_gamestate.txt": "ad6990c8a58adb8da58526562e205e112822d5051b2867e1cf95d742bf0d6142",
+        "meta.json": "d1bd3e2271e05e982036677e4a4a24165b8aff72ee28c3715667a7b06a3a096e"
+      },
+      "fixture_sha256": "3e458191348b653630cac9e17078906992a9b89bdd8c2416581d7bf77a3b5f71",
+      "actions": 22,
+      "native_assertions": 41,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 36,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-cost-one-boundary-hit-trigger-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f971ec809c3f07c692912b8ec410d0c8c9b6c0c8441ab31924c087c75b62cd33",
+        "actions.json": "8e152942068fd3196dc199ff154fbf04feca7bf2b8e505be8c8d5cb9959337a4",
+        "assertions.json": "af4205d1f5eb7efc839abdd5216b5a6c7e0a9e503cecc71489ba590f75c4a797",
+        "expected_final_gamestate.txt": "e82b3ee769257d9339c2c7c4fd10e32438173971b0c9c9a1071b500d52dae73c",
+        "meta.json": "100ed58cd7e6b47d56998b23fc470a4028316b6d8f6e675eb364e0f3f1383335"
+      },
+      "fixture_sha256": "363c103856b88ab6392ebc8402b41be4849034573f3482bf67b720cab19b17f8",
+      "actions": 21,
+      "native_assertions": 42,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 37,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-cost-zero-hit-trigger-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "137b141fa7ddfcee0784eeee6cfcbdf62d20839ea7544c4a760ae418b97e2421",
+        "actions.json": "405c81c207951613ad2f92982a5196c670dafb968ffe20856a8b1fc918765817",
+        "assertions.json": "9ae0c6f7a5596f6ad433e9319eb4c51c09370d880f7f5882c54187ad2df2dfd9",
+        "expected_final_gamestate.txt": "ca34c1652fec17d4a800c2125d1007c883c60044d91828f0d1322c17f27cb418",
+        "meta.json": "c40947241c60a5d55a69cd9f549d17d7cdb864f762659801bb6c67db967fc358"
+      },
+      "fixture_sha256": "3c8c67ff3e0b0c349ca827f7da044b6253034f32f34b4f84a27b60f2a3ffaa4e",
+      "actions": 21,
+      "native_assertions": 42,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 37,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-dagger-weapon-no-granted-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f22ff41e4b28a98ddd627ab4e32d9574f2dbd87ea534cb31be0f2ac5026ba691",
+        "actions.json": "58091a1ded6235bff8bc4a2f320bff94bf37dd7d95e1dc2ca382e9270e96f465",
+        "assertions.json": "7624826f9d4794c60d7ca26ef81a26b5e33431dfa8088411e4b02d025112ec0a",
+        "expected_final_gamestate.txt": "1b77b754f551b887b9f32fd1744a4cbb3d465721e4e277f839e24e185362b642",
+        "meta.json": "8a4c83a06f7a605573e4b81c70fe91a55b23f7d1f99277c7e436cdcc0278c3aa"
+      },
+      "fixture_sha256": "ae16be33748d062f8e0615fb6ba49f4ccbb8d566b2861b4af4d199228356f882",
+      "actions": 19,
+      "native_assertions": 38,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 33,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-sword-weapon-no-granted-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0fa5e1d6e9adcf9b8b27195f1a26116e2485a35d27456a1cbb0140f2fba5bea0",
+        "actions.json": "58091a1ded6235bff8bc4a2f320bff94bf37dd7d95e1dc2ca382e9270e96f465",
+        "assertions.json": "da3e139ced271a9a5dac08043e0b66e3e55d8a7578b0ec175a267f6b3fbae5c5",
+        "expected_final_gamestate.txt": "d3254a561ce7abaa7f6fe6a96f4f189ce852fe58da5163a4a8ae76dc9e42bf92",
+        "meta.json": "f0bf93e2410ab4e0c650a9f7c1089a21cc46ef770819e59bcc8860caf0651732"
+      },
+      "fixture_sha256": "880339fb94943ba04630e2c7167b75b4d56cfd7d5a94a261152717308fc06118",
+      "actions": 19,
+      "native_assertions": 38,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 33,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-cost-one-boundary-hit-trigger-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9de83e765aedaaf88c3b563b99151ab26b884f33213844e8723da6dc02539177",
+        "actions.json": "7bf0473feefe428220bc6b6cf82658fea3d4a4d493c5fd7e6423c2e729788772",
+        "assertions.json": "af4205d1f5eb7efc839abdd5216b5a6c7e0a9e503cecc71489ba590f75c4a797",
+        "expected_final_gamestate.txt": "1704aca263e33cf8e6af69fb93ad9bcc7398bd4e63c4b8829b75ed820f77b442",
+        "meta.json": "1d0d2b7bea0222e3091c8f172a0fbf0e2653cfd85b439d26f1f18bb9de1f6d30"
+      },
+      "fixture_sha256": "ec08cd34cbd2a2e99f99009a68ccb4b353d4f036be0b1b96e1fbc3ac88138d6a",
+      "actions": 21,
+      "native_assertions": 42,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 37,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-dagger-weapon-no-granted-go-again",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "aa5f1dafb0d09fb2815780269085ff830a03ebba71beaa605b10f79a9c0da7b7",
+        "actions.json": "2789ebd6e3f53b5368e331b010a5986bef28900c406f2ceccd5e9c93d4672fac",
+        "assertions.json": "7624826f9d4794c60d7ca26ef81a26b5e33431dfa8088411e4b02d025112ec0a",
+        "expected_final_gamestate.txt": "0b82c1fbe8108c6eaef1707aa90832718f00827eaebe82ed3bc0d73dcc43be4e",
+        "meta.json": "334fba39695a73a3ffa3e98f09043108de1254ed5533cfae61861753cab443c1"
+      },
+      "fixture_sha256": "84a9c07ee20c05e76bdf2605c2ebd7d1935267fca756e0a4d64d49c7b7c41342",
+      "actions": 19,
+      "native_assertions": 38,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 33,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    },
+    {
+      "slug": "card-razor-reflex-red-two-reactions-two-triggers-one-go-again-ap",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d398124eab64a8765c57a561f82ab27d8d25a8e7ff04a2846f229c68180e91f6",
+        "actions.json": "b53c31cbae2b0d171378c4d4ab3991289981ade166de1d14ac1981311bc5d39e",
+        "assertions.json": "0c945366d9e21df0564668bcee41d36fe6416cf2b053e4fa4414858eb915e5ca",
+        "expected_final_gamestate.txt": "2c99f14f852039cf56c8f12a617a41031b0d539bac9d303fd7da392c1136abb0",
+        "meta.json": "1cc642c8fe618fc6bc1990785b4f8178dc1f2cf14ba12610f9ac3d905bbb3764"
+      },
+      "fixture_sha256": "94e74b3cdbb1e577a606a1b1b63274b27ce67e916d766a0c2b1ee87aea7a3826",
+      "actions": 28,
+      "native_assertions": 55,
+      "initial_parsed_unchanged": true,
+      "original_source_checks_preserved": 45,
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    }
+  ],
+  "original_source_checks_preserved": 395,
+  "added_pre_payment_prompt_checks": 72,
+  "actual_persisted_assertions": 455,
+  "nonpersisted_authoring_can_play_checks": 12,
+  "replays": [
+    {
+      "path": "card-regression-replay-nov16-razor-red21-affected-4b6c.json",
+      "sha256": "99abfe54d7680e1afeeb92654a8d209d88ad6fe944f68ffba66cc31d7b46e1a8",
+      "passed": true
+    },
+    {
+      "path": "card-regression-replay-nov16-existing-nip-shred-declaration-4b6c.json",
+      "sha256": "5aad6bc940e114c8cf656f24b16c32d9d538508e652b0799fa946d02836fdf6b",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Legacy two-seat setups retained, not promoted to four-player coverage.",
+    "AA granted-Hit timing remains outside this declaration fix; original outcomes remain pinned without claiming untested earned-layer correctness.",
+    "All124 unrelated canonical batch13 cases are unchanged; frozen base-index hashes remain historical, current registry/proof provides these11overrides.",
+    "No full-suite run or new distinct root/group/identity credit."
+  ],
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-razor-legacy11-native-rerecord\\before"
+}

@@ -1,0 +1,41 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch258.json",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T21:03:27.993764+00:00",
+  "fixtures": [
+    {
+      "slug": "card-grasp-of-the-darknight-four-live-sparse-paid-destroy-opt-bottom-then-runechant-and-earned-go-again",
+      "fixture_sha256": "f055639d0a1a555cba041e4df8124222609967648ccba2fb9d75f1ef59f46a6a",
+      "passed": true,
+      "result": "[PASS] grasp_of_the_darknight / four live distinctive effect"
+    },
+    {
+      "slug": "card-bulls-eye-bracers-four-live-sparse-real-optional-load-earned-plus-one-and-five-damage",
+      "fixture_sha256": "a26e4d46fe3c3a6b022c8d700d27c87632eb6ee81d60b5ff9cc2378c4854e516",
+      "passed": true,
+      "result": "[PASS] bulls_eye_bracers / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-grasp-of-the-darknight-four-live-sparse-paid-destroy-opt-bottom-then-runechant-and-earned-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] grasp_of_the_darknight / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bulls-eye-bracers-four-live-sparse-real-optional-load-earned-plus-one-and-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] bulls_eye_bracers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-spreading-plague-yellow-four-live-sparse-real-paid-reaction-two-defenders-create-two-owned-bloodrots"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

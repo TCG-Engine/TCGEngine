@@ -1,0 +1,7 @@
+{
+    "name": "Tiger Stripe Shuko / real second attack and Ward cannot prevent",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-14T21:23:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four youngnatural20 live/manual Zen1/Betsy2..4; ownedShuko5 equippedArms, two real HeadBlue6/7 Hand1, ordinarypreexistingowned4SpectralShield8 Arena4 (setup only/no creator claim). RealHead6 cost0 paysAP1, attacksadjacentHero2 printed1, fullnormalfour-response combat deals1 HP2_19, its printedGA earnsAP1, trueClose physical6GY1. SAMEturn realHead7 cost0 paysAP1 attacksadjacentHero4; actual secondqualifying base1AA givescomputed2 and cannotprevent. Fullfour source/Attack/DefendPriority/Reaction flow reaches mandatorysharedWard MZCHOOSE; HP4still20/source7Chain/Shield8Arena beforeactualanswer. Answer exactownedShield8: realWarddestroy removes token logically withoutGraveyard, preventionfails against unpreventable source, actualfull2damage HP4_18. Damage/Resolutionfour retainprintedHeadGA/AP1, truecleanup6then7GY1, sameownedShuko5stillEquipment, Shieldabsentlogicalzones, allqueues/Stack/Chainempty. No Zenability, privateSMALL/power/unpreventable/prevention/outcome/history seed or marker oracle, extra triggerresponse, virtualUID/Owner0, tokencreation or BladeBreak credit. No native/fixture/coverage byauthor. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/03-zones/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

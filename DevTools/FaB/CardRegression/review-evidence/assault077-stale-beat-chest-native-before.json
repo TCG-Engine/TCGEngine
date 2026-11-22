@@ -1,0 +1,145 @@
+{
+  "status": "CONFIRMED_PERSISTED_STALE_OPTIONAL_BEAT_CHEST_CHOOSER_EXISTING_025_CALLER_EXTENSION",
+  "issue_candidate_for_root": "FAB-REG-077",
+  "new_shared_root_claimed": false,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T09:07:35.107089+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_sha256": "c85812bb150fb343f7219e4b659d9f314b00a026171f0e748ad1415d69843a1a",
+  "slug": "card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger-probe",
+  "native_inputs": 2,
+  "fixture_saved": false,
+  "fixture_absence_verified": true,
+  "semantically_approved": false,
+  "coverage_credit": false,
+  "native_failure": "Expected p1DecisionQueue-0.Param to equal '0|1|p1Hand-1', got '0|1|p1Hand-2'.",
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch310-native-r1\\receipt.json",
+    "sha256": "497ae22a1899cdf5cf60a6f4241be912479975d8f9ea9f29fd685074b9118446",
+    "stdout_sha256": "9de23d79f9fd79624b93ca58efb3ab618bd8ad09f24a59db66010a903b731d6c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch310-correct-cost-trigger-probe-20261103T085730Z-6ae9a1faa8a70.json",
+    "sha256": "76874eecbd3c4f3747903f2b970f46103aa0609a1f42f0cc163650663306110f"
+  },
+  "prefix_capture": {
+    "receipt_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-assault310-failed-prefix\\receipt.json",
+    "receipt_sha256": "7c732e55fa620b770576fbb935a91cd63df8b134860384417d711cddd583961c",
+    "config_sha256": "0c6e5d9035cf6566076a067a2c3921aedf12b459d931090828fcbd34fa70e269",
+    "snapshot_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-assault310-failed-prefix\\initial_gamestate.txt",
+    "snapshot_sha256": "50be63e38d8f8accdcc1f031b692af81dd336990e6c3f8939a9f750f4b8a0357",
+    "actions_sha256": "4fd1a35d6c9b4eae5a4af3d78b8646e95cc1fd4e098ffd0f60bd255ffd229884",
+    "prefix_inputs": 2,
+    "mutation_keys": [],
+    "source_helper_sha256": "72739371849c7f7df742e28489003cd12238cfae3425a21d8fee0bd1f48f233c",
+    "original_seed_sha256": "4d5327fcbd9d1a889b5cc3360f9844c839f2068c1a47a2ebc6989bbc6cf2657f",
+    "active_R_written": false,
+    "private_and_active_runtime_hashes_verified_equal": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "actual_boundary": {
+    "physical_source_card": "assault_and_battery_red",
+    "source_uid": 5,
+    "source_zone": "Stack",
+    "hand_rows": [
+      {
+        "index": 0,
+        "card_id": "wounding_blow_blue",
+        "uid": 6,
+        "owner": 1,
+        "controller": 1
+      },
+      {
+        "index": 1,
+        "card_id": "raging_onslaught_yellow",
+        "uid": 7,
+        "owner": 1,
+        "controller": 1
+      }
+    ],
+    "intended_six_power_uid": 7,
+    "intended_current_reference": "p1Hand-1",
+    "observed_offered_reference": "p1Hand-2",
+    "persisted_choice_param": "0|1|p1Hand-2",
+    "persisted_await_frame": {
+      "mzID": "Stack-0",
+      "uid": 5,
+      "chosen": "-",
+      "refs": "p1Hand-2"
+    },
+    "pending_resource_cost": 3,
+    "resources": 0,
+    "action_points": 1,
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "graveyard": [],
+    "pitch": [],
+    "beat_chest_answer_executed": false,
+    "asset_payment_executed": false,
+    "discard_executed": false,
+    "attack_declaration_trigger_reached": false
+  },
+  "source_findings": [
+    {
+      "anchor": "GameLogic931-950; CardChoices123-141; HVYCards45",
+      "finding": "Announcedphysical5 leaves liveHand0 tombstone; liveenumerationkeepsoriginalindices while skippingremovedsource, so eligibleRaging7 is offeredpre-saveHand2. Blue6 printedpower2 is ineligible and remainsfundingHand1 beforecompaction."
+    },
+    {
+      "anchor": "GamestateParser220-238",
+      "finding": "Savedwriteromitsremovedrows and compactsactualHandsurvivors: Blue6becomes0/Raging7becomes1. Savehookreturnsacopy; actualpersistedqueueandPrepareawaitlocalsstillretainoldHand2."
+    },
+    {
+      "anchor": "EngineActionRunner1215-1220; ZoneAccessors1002,1108-1110; GameLogic626-630",
+      "finding": "Every nextnativeinputreparses persistedstate. GetZoneObject literalp1Hand2looksupmissingindex2 andreturnsnull; FaBIdentityFromMZhasnoold-coordinate-to-UIDalias. Hand2doesnotidentifyphysicalUID7."
+    },
+    {
+      "anchor": "GeneratedMacroCode116947-116974; HVYCards46",
+      "finding": "ActualcapturedPrepareawait resumeschosenfromlastDecisionunchanged; HVYBeat validatesagainstcurrent6powerrefs. No caller-specificremap/alias canmakeofferedHand2identifythecurrentHand1card. Thisisstaticlookupanalysis, notanexecutedanswer."
+    },
+    {
+      "anchor": "WTRCards209-363; CardChoices92-119,578-583; existing025/075proof",
+      "finding": "ExistingguardedsaveremapscoverLunging/declaredreactions/managedPLAIN_SPELLBarrier/RiseAbove/Rouse/Flock, notthisMZMULTICHOOSEoptionalBeatChestPrepareframe. ActualpendingATTACKcost3/nomarker/noRouseundo/noFlockstage failsrelevantgates. Existing025managedplain-spellBarrierhelperneedsresolvingReactionPLAIN_SPELL andnopendingpayment, so doesnotapply."
+    }
+  ],
+  "classification": {
+    "existing_family": "FAB-REG-025",
+    "related_caller": "FAB-REG-075",
+    "mechanism": "Persistedchoice/awaitnumericHandreference survives source-row compaction unchanged; newoptionalBeatChestPrepare caller, no newsharedroot.",
+    "distinct_from": "FAB-REG-026",
+    "why_not_026": "BothindependentlycapturedpersistedDQandawaitframethemselvescontainstaleHand2, whilepersistedHandhasrows0,1only. ThisisnotmerelyaCLIpre-saveobservation mismatch."
+  },
+  "related_boundary_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-entwine075-independent-boundary-classification.json",
+    "sha256": "8725bb40924bc0be11186c45610ca8b36f48a9fd2e6fb26990e74bcb44936f2d",
+    "unchanged_source_hashes_rechecked": true
+  },
+  "source_sha256": {
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/WTRCards.php": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a"
+  },
+  "correct_oracles_preserved": [
+    "PhysicalsixpowerUID7remainstheintendedoptionalcostcard/currentHand1; do notfitParamoranswertoHand2.",
+    "Resource3/APassetpaymentbeforeactualdiscard andearnedAgilityresponseabletrigger/full7damage+cleanup suffix remainunchanged/unexecuted."
+  ],
+  "unexecuted_source_only_concerns": [
+    "Asset-before-discard ordering not native-tested: noBeatChestchoiceanswered, Blue6notpitched.",
+    "WHENattacksAgility ordering not native-tested: attack5stillStack, noresponseorattackdeclaration."
+  ],
+  "limits": [
+    "Onlyfirsttwooriginalnativeinputs reached; noadditionalanswer, funding, discard, priorityround, damage, token, fullsuffix, passingfixture or replayclaim.",
+    "Boundaryclassificationonly; Rootownsissueallocation/ledger/sourcechanges. No sourcefixproposal or sourceapplicationapproval.",
+    "Reviewerperformedpurefile/hash/schema/coordinate/sourceinspectiononly; noR/native/PHP/backend/service/generation/fullsuite or deniedrepairretry."
+  ]
+}

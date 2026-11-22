@@ -1,0 +1,7 @@
+{
+    "name": "Reincarnate Blue / real random discard cost earns same-UID bottom Deck",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T16:41:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "One normal postrepair candidate; original correct 32 controls/3965 queries/setup/order are unchanged. Real Blue Reincarnate singleton additional random discard enters public owner GY, earns a captured responseable layer above the paid Wrecker parent, then moves the same physical card to absolute Deck bottom only after four responses; parent proceeds to actual 8 damage and full cleanup. No repeated strict recording is claimed. Fresh normal Source, actual Save, independent Saved/raw-five-file review and two own clean replays remain required. Blue without Berserk only; red/yellow, Berserk integration, suppression/reentry variants and full-card coverage remain untested. 118 isolated source checks are not native branch coverage. Original failure/evidence and historical CDC labels remain retained. Sources: https://rules.fabtcg.com/en/cr/06-effects/ https://fabtcg.com/rules-and-policy-center/release-notes/dynasty/"
+}

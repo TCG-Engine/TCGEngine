@@ -1,0 +1,168 @@
+{
+  "status": "CONFIRMED_STRICT_NATIVE_BEFORE_ONGOING_GRANT_LOST_AT_CLOSE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T09:52:15.065783+00:00",
+  "issue": "FAB-REG-143",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "input_sha256": "36ffd0f5930b1ef65cbb059442d84a84f71b9a302f4a6de18e18caac4e3e7bf5",
+  "source_spec": "card-regression-batch589-command-duration-r2.json",
+  "source_guards_verified": 70,
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-correct-duration-independent-source-review.json",
+    "sha256": "26be216be42a4fc242cd1170140e62a3ccb9d0838d208552b912693d70b0cbc7"
+  },
+  "prior_final_snapshot_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch589-command-independent-duration-hold-review.json",
+    "sha256": "d55ca1e2d38d3aa80fecf37121da8437753bab13959ed70b25183d29dbaea133"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-native-before-r2-9fbaa\\receipt.json",
+    "sha256": "ef37fbbe822bfc70412547db507705bbec6becfce77b8c43327408c92228989a"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch589-command-duration-r2.recording-results.json",
+    "sha256": "0791af23315999aa706aa2c9999310c0bc3e8e753c37a7e7b37d9d23d050215a"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch589-command-duration-r2-20261106T085335Z-6aed958f44b74.json",
+    "sha256": "9b2cfcd8ff56957040ea55a1787cb13bf28cdf7e03b23bebe33a8e46e4a851d3"
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+      "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+      "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae"
+    },
+    "cause": "Existingcurrentturniar grant is1afterprimary andpreclose; sameglobalturnCloseReset dropsbank. No representationalias because identicalpathqueries succeeded beforeClose."
+  },
+  "first_failure": {
+    "source_step": 67,
+    "check_index": 170,
+    "after_input": 33,
+    "ordinal": 4439,
+    "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+    "native_assertion_ordinal_1_based": 4439,
+    "prior_assertions_passed": 4438,
+    "total_expected_assertions": 4439,
+    "expected": 1,
+    "actual": "MISSING",
+    "actual_numeric0_directly_queried": false,
+    "last_input": {
+      "ordinal": 33,
+      "source_step": 65,
+      "player": 4,
+      "mode": 10001,
+      "cardID": "!CustomInput!Pass"
+    },
+    "error": "Expected FaBSim state [\"iar\",\"2\",\"1\",\"BLASMOPHET_ATTACK\"] to exist for JSON equality, got missing."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 33,
+    "manual_inputs": 29,
+    "manual_actor_counts": {
+      "1": 7,
+      "2": 7,
+      "3": 7,
+      "4": 8
+    },
+    "initial_manual_preferences_verified": 48,
+    "all_original33_actions_and4435_assertions_ran": true,
+    "earlier_added_duration_queries_passed": [
+      {
+        "ordinal": 172,
+        "finding": "initialiarabsent"
+      },
+      {
+        "ordinal": 854,
+        "after_input": 6,
+        "finding": "postprimarygrantinteger1"
+      },
+      {
+        "ordinal": 3762,
+        "after_input": 29,
+        "finding": "precloseResolutiongrantinteger1"
+      }
+    ],
+    "direct_observed_state": {
+      "window": "ACTION",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attackUID": 0,
+      "pendingPayment": null,
+      "iar_present": false,
+      "all_four_decision_queues_empty": true
+    },
+    "passed_native_query_facts": [
+      "AlloriginalfullUID/physicaltoken6retainedTappedDamage0/proxy16ceased/primary5GY/Blue7Pitch/Banish8..13/priorGY14,15 and R2/AP1/P4HP14/Turn2/sameTurnPlayer1/quietcleanup checks passed before LASTnewdurationquery.",
+      "Actual real primarypayment/grant and token attack/damage/refund sequence all ran; identical currentturnpath returned1 atpostprimary andpreclose."
+    ],
+    "unrun": [
+      "No further authoredquery after failing LAST4439; no fixture was saved.",
+      "Futuresecondactivation/untap/postclosefunctionalreuse/Endexpiry/permission/producer/cardbranches unrun. V3candidate unapplied; no after claim."
+    ]
+  },
+  "classification": "Correct strict probe confirms premature loss of ongoing until-EOT grant at same-turn fullclose. Source/runtime/APIpath match; not protocol, impossiblekey, readytap, or once-use oracle issue.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_global_root_or_Core_count": false,
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR036.webp",
+      "local_path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\consuming_command_blue.webp",
+      "sha256": "2d4cb823e932c3302de3c3e684f555e8684b0a38556f9e71737c1ba26993b2f5",
+      "actually_viewed": true,
+      "finding": "Until end of turn grant, no next-use or once-use clause."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "actually_retrieved": true,
+      "rules": [
+        "4.4.4"
+      ],
+      "finding": "Until-end-of-turn effects end when turn ends; current final snapshot remains same Action Phase."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "finding": "Granted ability remains an ongoing object property for the printed duration; being tapped does not end the granting effect."
+    }
+  ],
+  "preserved_evidence": [
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch589-command-duration-r2.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-r2-independent-before-evidence\\correct-original-input.json",
+      "sha256": "36ffd0f5930b1ef65cbb059442d84a84f71b9a302f4a6de18e18caac4e3e7bf5"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-native-before-r2-9fbaa\\receipt.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-r2-independent-before-evidence\\root-receipt.json",
+      "sha256": "ef37fbbe822bfc70412547db507705bbec6becfce77b8c43327408c92228989a"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch589-command-duration-r2.recording-results.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-r2-independent-before-evidence\\recording-results.json",
+      "sha256": "0791af23315999aa706aa2c9999310c0bc3e8e753c37a7e7b37d9d23d050215a"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch589-command-duration-r2-20261106T085335Z-6aed958f44b74.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-r2-independent-before-evidence\\recording-archive.json",
+      "sha256": "9b2cfcd8ff56957040ea55a1787cb13bf28cdf7e03b23bebe33a8e46e4a851d3"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-r2-independent-before-evidence\\initial_gamestate.txt",
+      "sha256": "4855d0e13442750e0b90e113cefd787581830857e4468a6c8133565f4c21098d"
+    }
+  ],
+  "limits": [
+    "Actual33inputcontext disambiguates LAST4439 from samepathqueries854/3762; no failingordinal guessed from key alone.",
+    "Observed rawGameState/DQ are separate from earlierpassedphysical/scalarqueries; no invented fullpostfailurephysicalsnapshot or futuregameplay outcome.",
+    "Currentbefore9fbaa only; oldfirst-useSaved3cf7remainsheld/historical, V2suspended, V3projectednotactive. No reviewer R/PHP/native/source/fullsuite/remote/deniedoperation."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_command143_v3_and_before_readonly.py",
+    "sha256": "6f0e43b371232686e8fd9c67dd02448f8ae4dca1fc0f96b6c28d60fad7838b42"
+  }
+}

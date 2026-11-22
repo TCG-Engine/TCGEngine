@@ -1,0 +1,137 @@
+{
+  "phase": "SOURCE_CODE_APPLICATION_REVIEW_UNAPPLIED",
+  "status": "APPROVED_EXACT_V3_BOUNDED_THREE_FILE_APPLICATION_UNQUALIFIED",
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "source_approved": true,
+  "application_approved": true,
+  "proposal_sha256": "21efffd09f07fc9dd09415cf3a6def83a72cf70f255d8064998b4d89c437427e",
+  "proposal": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\manifest.json",
+    "sha256": "21efffd09f07fc9dd09415cf3a6def83a72cf70f255d8064998b4d89c437427e"
+  },
+  "patch": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\source.patch.diff",
+    "sha256": "6fc321a443c366aab260d29bb05a916a8d77fe84d9f2215ff87f09ad6087f292"
+  },
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "expected_runtime_after": "161af1af3a3563ff013d1c821b22ec8fb2d73016129a145ffb9921c789188423",
+  "source_applied": false,
+  "files": [
+    {
+      "repository_path": "FaBSim/Custom/GameLogic.php",
+      "before": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\before\\GameLogic.php",
+        "sha256": "a99617c248e64b547a81aa3e03d886f5cf2e675943eb224be8376438c945950e"
+      },
+      "proposed": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\GameLogic.php",
+        "sha256": "76cb39717c9c54cf643aa282e234b31db5767196c27d7f9eaf4959237f7fb5d8"
+      },
+      "actual_matches_before": true,
+      "inverse_other_bytes_exact": true
+    },
+    {
+      "repository_path": "FaBSim/Custom/DYNRuntime.php",
+      "before": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\before\\DYNRuntime.php",
+        "sha256": "f993d3a22cd13193b236022f61736553c2b58f4844fafd832131775af99dfdff"
+      },
+      "proposed": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\DYNRuntime.php",
+        "sha256": "d193699775df1ff70ee89ecebfb611fdf4489007fbfe569596caa90d6943919e"
+      },
+      "actual_matches_before": true,
+      "inverse_other_bytes_exact": true
+    },
+    {
+      "repository_path": "FaBSim/Custom/ROSCards.php",
+      "before": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\before\\ROSCards.php",
+        "sha256": "4be78c75261af036691f3ee940321fdc0a184cd676228e47fc50c670ab013e8b"
+      },
+      "proposed": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\ROSCards.php",
+        "sha256": "6f4e668b423bd2a86a9060ff1059fa35a3c269aa026f2d01cfeec8fe34a22bf0"
+      },
+      "actual_matches_before": true,
+      "inverse_other_bytes_exact": true
+    }
+  ],
+  "protected_current_guards_verified": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/WTRCards.php": "4e06e4b83bd5acd634a14c6dd00eaae52f92dbceb1adbbaba3f67e921450d5d2",
+    "FaBSim/Custom/OMNCards.php": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510",
+    "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+    "FaBSim/Custom/SEACards.php": "f64c646a5aafeaa9918bf165f34472ad21b1be429aa2134985d9e605740486c6",
+    "FaBSim/Custom/MONCards.php": "3e855be139501d1b2f78524ab700bdcdedb503257c4f089bc1d1d7b16d82bfcc",
+    "DevTools/FaB/build_dyn_abilities.py": "af31d1a7a5d1d0810da433d46a37005389cef0108fc1e65c0d12716d4617b734",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "bea3d9a62c132bc7cf41a6df69457909c66bcfba53680eada5e8f762d6f94e73",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "runtime_source_file_count": 124,
+  "v2_conditional_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-v2-independent-conditional-source-review.json",
+    "sha256": "51831c878b2b9f5b25ee561a67fc105d6c142dd9e00124125b2fd7c0cfd1840f"
+  },
+  "v3_only_delta_from_v2": "Exactly queue graveEntry<1 -> <2 and resolver entry<1 -> <2; GL/ROS and every other V2 proposed byte identical.",
+  "root_component_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-v3-root-syntax-components\\receipt.json",
+    "sha256": "614aa29023bf22f7b414468b96c623ac8ac78616dd0b17d75401ce3c900033ee"
+  },
+  "component_harness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\isolated-actual-function-components.php",
+    "sha256": "e89b63d6376e485eae6eea86843c8e8b155ec55e376b56021971b9a0649bf2d7"
+  },
+  "component_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\component-manifest.json",
+    "sha256": "8518da3e1387327bb8259638eb5c8f412e4d6d722f6d84a12e2d02f86d2f80e8"
+  },
+  "component_results": {
+    "candidate_checks": 118,
+    "candidate_passed": 118,
+    "candidate_failed": 0,
+    "before_checks": 5,
+    "before_passed": 2,
+    "before_expected_failed": 3,
+    "stderr_bytes_both": 0,
+    "PHP_syntax_checks_passed": 4,
+    "actual_function_extract_hashes_independently_verified": {
+      "candidate": 14,
+      "before": 10
+    }
+  },
+  "source_findings": [
+    "Lazy pre-move eligibility captures original Hand LKI/no-Berserk before other discard callbacks; untouched ordinary/defense/Berserk Reincarnate entries acquire no new markers. Tracked later entries advance even after a name change.",
+    "Seed1 is inert: both queue and resolver require committed entry>=2. The successful discard entry is captured before FaBWTRCardDiscarded; source departure/re-entry during that callback cannot redirect the old earned layer.",
+    "Actual existing FaBMoveUID invokes MONAfterMove and its ROS hook. Original Hand LKI and captured public-GY entry bind controller/owner/UID; later source name/control/blanking does not cancel the earned synchronous native effect.",
+    "Resources/AP are paid before the random additional cost while the physical ATTACK parent remains. FaBROSQueue places a separate earned child above it; named synchronous resolution uses existing absolute-bottom helper and preserves the parent. No awaited canonical continuation or SourceKind exception is added.",
+    "Gone/private/wrong-owner/stale-entry destinations are rejected; the current same public owner-GY incarnation alone can move. Later arbitrary private/public history and destination-replacement routes remain outside this bounded certificate.",
+    "All other candidate bytes, protected gameplay bodies, canonical/generated code, schema/Core, old held Berserk route, and denied 184/188/B787 bodies are unchanged. Native resolver selection needs no code generation for this bounded branch."
+  ],
+  "component_meaning": "The harness extracts the actual candidate and before functions with PHP token parsing and explicit world/movement/eligibility stubs. It exercises queue/resolver and existing bottom helper behavior; it does not load production movement, payment, whole gameplay, or Native engine. Independent source inspection supplies those call-order bindings. Red/yellow and Berserk observations are component-only, not coverage.",
+  "application_conditions": [
+    "Root alone may use the guarded writer for these exact three proposed hashes after rechecking current preimages, idle Native processes, protected sources, unchanged task metadata and Git index, and verified backups. This is code-review approval, not a substitute for any separately required execution authorization.",
+    "Any successor byte or intervening source/runtime change requires a fresh bound gate. V1 and V2 remain unapproved/unapplied history."
+  ],
+  "independent_actual_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-independent-actual-no-save-before-failure-review.json",
+    "sha256": "d5065a435161b3ff4b817bb83ace9e709de3760540c0cb8d4bc1ddc658c73d4e"
+  },
+  "original_correct_input_sha256": "b57df95fc4465163fbc25061b98381dce99bc1bcb8b351cc11aa312180e77d32",
+  "original_controls": 32,
+  "original_queries": 3965,
+  "native_qualification_approved": false,
+  "qualification_permitted": false,
+  "normal_save_approved": false,
+  "coverage_claimed": false,
+  "remaining_gates": [
+    "Actual installed three-file scope/runtime confirmation, fresh unchanged original-correct diagnostic Source, and full 32/3965 no-save Native run.",
+    "Independent actual-route review, explicit Root promotion, fresh normal-positive Source, actual Saved raw5/both48 review, and two own targeted replays. No Native or sibling/Berserk/Core certificate is granted here."
+  ],
+  "reviewer_PHP_executed": false,
+  "reviewer_native_executed": false,
+  "repository_writes": false
+}

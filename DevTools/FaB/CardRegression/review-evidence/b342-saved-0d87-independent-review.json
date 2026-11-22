@@ -1,0 +1,145 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B342_SOUP_UP_REAL_ITEM_DESTROYED_CONDITIONAL_GO_AGAIN_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T13:54:27.152453+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch342.json",
+  "input_sha256": "ca0f5399496f5fa1cfc78701a4d7e263f3f65a6feb4eaa56da8aa2a613872d5b",
+  "manifest_sha256": "8d6792478deb9250b0d3108883db2dbdb7d22689220ffa85185c45648e4ea2eb",
+  "fixtures": [
+    {
+      "slug": "card-soup-up-red-four-live-sparse-real-owned-item-destroy-cost-earns-conditional-go-again-and-action-point",
+      "card_id": "soup_up_red",
+      "group_id": "pitch-cycle:soup_up",
+      "fixture_sha256": "5a4a65d5a7ddbf67ce4cd60804dbfbb64fc445802dce6271892785f6742db15d",
+      "behavior_sha256": "5a4a65d5a7ddbf67ce4cd60804dbfbb64fc445802dce6271892785f6742db15d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03867fdaafd9b09020ae799aa4cc78d9527b36855e647bfaf2b099916099cb20",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "d1fe48795211c889177b66d81bfb1ed625678562489c53d81f0d233ed7aa4894",
+        "expected_final_gamestate.txt": "8802262672bb6236e47c57db8f3426e7468b07637898831a3f073de67d344956",
+        "meta.json": "78e795424b43f972191f5382239d8c8d9684ff6257aefed83ae9be938ede0ac3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "03867fdaafd9b09020ae799aa4cc78d9527b36855e647bfaf2b099916099cb20",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "d1fe48795211c889177b66d81bfb1ed625678562489c53d81f0d233ed7aa4894",
+        "expected_final_gamestate.txt": "8802262672bb6236e47c57db8f3426e7468b07637898831a3f073de67d344956",
+        "meta.json": "78e795424b43f972191f5382239d8c8d9684ff6257aefed83ae9be938ede0ac3"
+      },
+      "actions": 32,
+      "native_assertions": 2317,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "virtual7_absent": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "actual_raw_earned_ItemDestroyed": {
+        "type": "EVO_ITEM_DESTROYED",
+        "amount": 1,
+        "uses": 1
+      },
+      "actual_raw_unused_self_prevention": {
+        "type": "ARC_PREVENT_ONCE",
+        "amount": 3,
+        "uses": 1
+      },
+      "effect_indices_unpinned": true,
+      "initial_ItemDestroyed_and_prevention_seed_absent": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual ownedShield6Steam3 Instant0 destroycost sends6publicGY before four source responders1,2,3,4; virtual7 capturesSourceArena6/steam3, no APresourcecost. Onlyfourth clears7/establishesunusedselfARC_PREVENT_ONCE3. RawEVO_ITEM_DESTROYED amount1uses1 actualearned history present, noinitialflagseed. ActualSoup5cost0/AP1spends\u2192fourfreshsource put same5Chain printed4/computedGAtrue. FourdamageP4HP16, AP0firstthreeDAMAGE thenonlyfourthRESOLUTION AP1. Fullclose originalUID1-6/GY{5,6}/counter7/no virtual7/allR0/P1AP1/othersHP20/heroesready/live/Stackqueuesownedframesclear; unusedprevention3retained, notfalselycleared.",
+      "qualification": "Only actualARCShielddestroyed-ownItem positive/primary4/conditionalGA branch. No Galvanize WHENdefends/Shieldpreventionpacket/entry/upkeep/otherTimesnapdestructioncaller/hero/supportprimary/sibling/fullcard/controlcredit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch342-independent-source-review.json",
+    "sha256": "1d131c81ad9f5a64eed1d6e40edf742cc2d2bdce4f4a4b090429273749f8980a",
+    "manifest_sha256": "8d6792478deb9250b0d3108883db2dbdb7d22689220ffa85185c45648e4ea2eb"
+  },
+  "source_guards_verified": 18,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch342-20261103T135154Z-6ae9e6fa46c1f.json",
+    "sha256": "4bc8de7a1c508e3c65bf080149ede399017ccc7d38b3e97fd7a1fd894c26354b"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch342.recording-results.json",
+    "sha256": "8d8c6fc76272e78401e1f5ba33d6903ca9ce05def7fdc0c7a5a056c0bb73a88e"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch342-native-r1\\receipt.json",
+    "sha256": "a96baec7da91046d593ebf2348f4c3d1a2234e3fe84635a8778d1ad3fd07b37e"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Hash-bound source/wrapper/archive/raw-five/meta/action/assertion-equality prefix; B342 physical/economy and actualraweffects checks explicit."
+  },
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; raw-five individual hashes also bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Actual Root native COMPLETE0/stderr0 and exactfivefile match; reviewer onlypure read-onlyPython/noPHP/native.",
+    "Original approved oracles unchanged. ActualrawItemDestroyed1/uses1 and unusedprevention3/uses1 verified withoutarbitraryeffectindex.",
+    "No Galvanize/otherTimesnapcaller/supportprimary/control or Rootreplaycredit.",
+    "No R/source edits/repairproposal/generation/backend/service/fullsuite/denialretry."
+  ]
+}

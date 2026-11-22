@@ -1,0 +1,121 @@
+{
+  "status": "APPROVED_EXACT_SAVED_CRATERHOOF_PAID_ARSENAL_DOMINATE_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T09:33:39.442807+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch313.json",
+  "input_sha256": "cfbf2d17b4328a5da9788b109d7b37b672bf6ba84f752113fb8bdde9897b4701",
+  "fixtures": [
+    {
+      "slug": "card-craterhoof-four-live-sparse-real-three-resource-destroy-earns-arsenal-guardian-dominate-and-two-damage",
+      "card_id": "craterhoof",
+      "group_id": "identity:craterhoof",
+      "fixture_sha256": "c65c890ca0600426b1e213ee933517377443e804bfcda26269b5f16b29dc6574",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "620fbf4a92724d279811cc359c9f6a085f2f1ec97c6f2f538f98848696a99420",
+        "actions.json": "a49f41cd92294adb07823aeceaf67fc730f01a9bf9a261d40ecaa6fc694e09f8",
+        "assertions.json": "6d4d157819f28628cb1574fe9e349895d12491378008678190bb0f060e028b2e",
+        "expected_final_gamestate.txt": "a3d6afa0c118eac837af15af07d1cba350bbee67932ccc3fbc6bdeed94109fd7",
+        "meta.json": "2b45e5256e554f40e84f661374d508acf687081b699fee6e0cb4611621b6f0f6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "620fbf4a92724d279811cc359c9f6a085f2f1ec97c6f2f538f98848696a99420",
+        "actions.json": "a49f41cd92294adb07823aeceaf67fc730f01a9bf9a261d40ecaa6fc694e09f8",
+        "assertions.json": "6d4d157819f28628cb1574fe9e349895d12491378008678190bb0f060e028b2e",
+        "expected_final_gamestate.txt": "a3d6afa0c118eac837af15af07d1cba350bbee67932ccc3fbc6bdeed94109fd7",
+        "meta.json": "2b45e5256e554f40e84f661374d508acf687081b699fee6e0cb4611621b6f0f6"
+      },
+      "actions": 35,
+      "native_assertions": 2979,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_response_passes": 28,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          9
+        ]
+      },
+      "final_pitch_uid_sets": {
+        "1": [
+          6,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualOldhim20ownsCraterhoof5readyEquipment/Blues6and7Hand/GuardianCrushConfidence8facedownArsenal; P4realHand9def3. ActualBlue6pitch3fundsAction3andAP1, same5destroycosttoownpublicGYbeforefour1,2,3,4responses withcapturedSourceEquipmentUID5; onlyfourthownGAreturnsAP1/virtual10clears. ActualfreshArsenal8targetretainsFaceDown1/Stack0/AP1; answerthenrealBlue7pitch3fundsAA3+AP1, leavesR0AP0, same8StackSourceArsenalUID8physicallyDOMINATEbeforefourfreshresponses. Actual8Chainpower5/noGA/DOMINATE andoneownedP4Hand9DEFENSE3; fullfour-seatcombat/oneP4finishactual2damageHP18. Damage2doesnotearnCrush4; noextraCrushlayer/suppressionclaim. FullcloseGY1exactUIDset5,8/GY4UID9/Pitch6,7/allRAP0/HPothers20/HeroUID1-4ready/live, originalphysicalUID1-9ownershipconserved/virtual10ceased/RandomCounter0/StackChainsqueuespaymentawaitframesclear. Every35actionand2979orderedassertionexactlymatchesapprovedsource; all29manualPassactors andall11shortcutwindowsfalse onfourprofilesverified.",
+      "qualification": "OnlypositiveAction3/destroy/ownGA/nextGuardianAAfromArsenalDominate/onelegalHandblock/2damage. NoCrush4suppression/battleworn/illegal-secondblockenforcement/falseorigin/nonGuardian/secondactivation/hero/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch313-independent-source-review.json",
+    "sha256": "f2472ef01757bc920d155b8bbea277e9ef1810923a590ef8fb334b47c91bc028",
+    "manifest_sha256": "d5eb664f64ea1aad5e17b0842b40ff1c333ac155cb0547531217eb9fa4872a85"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch313-20261103T093126Z-6ae9a9ee5b9a3.json",
+    "sha256": "d279c1e7a73bf552a7b8459c9f35b8a41491070029ad18c562b5a55cc5dd0ec4"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch313.recording-results.json",
+    "sha256": "7a79294c9e7427b5b1ba8a87ec7dbf8ea628f81e5de2498091aa521ad7ce7403"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch313-native-r1\\receipt.json",
+    "sha256": "4e6a92b1a2089000d4e816f445d541e7baf41357ba01cf6bcdfc053ce222dd94",
+    "stdout_sha256": "46c4b200dfd3277e70bde6b15c5d4453627a1bdb51b06cf3096a1b8aa2589661",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own genericraw5/archive/schema/action/assertionparserprefix with exactB313bindings before unrelatedsemanticsection; noauthorbuilder."
+  },
+  "method": "Independentreadonly exactsavedraw5 review: all35actualactor/mode/payloadsand2979orderednativeassertions equalapprovedfrozeninput; fullinitial/finalschema/UIDownership/heroprofiles/tworealBluepayments/source5destroy/actualphysical8ArsenalDominate/onelegalblock/2damage/fullphysicalcleanup verified. NoPHP/native/replay/R/backend byreviewer.",
+  "limits": [
+    "Savedcreationreviewonly; Root two focusedreplays areseparateevidence, not executed by reviewer.",
+    "OnlypositiveAction3/destroy/ownGA/nextGuardianAAfromArsenalDominate/onelegalHandblock/2damage. NoCrush4suppression/battleworn/illegal-secondblockenforcement/falseorigin/nonGuardian/secondactivation/hero/supportprimary/fullcard/controlcredit.",
+    "Current0dcontextretained; no sourceapplication/runtime migration/oldcorpus audit or deniedrepairretry."
+  ]
+}

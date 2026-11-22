@@ -1,0 +1,174 @@
+{
+  "status": "NATIVE_CONFIRMED_PALANTIR_ORDINARY_ATTACK_QUEUES_ACTIVATED_COG_COST_CHOICE",
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth775_author_crossreview",
+  "created_utc": "2026-11-14T02:07:42.464588+00:00",
+  "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+  "input_sha256": "a1ba8b161f880508cc6302b3fd33887d7f920094077b737f6b93042b0f5677c6",
+  "source_spec": "card-regression-batch778-palantir-cost-probe.json",
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b778-palantir-ordinary-cost-native-before\\receipt.json",
+    "sha256": "e49540c9543e3f05868fc6e3f3c8ca2bd0656b1ecd253cdad59d9abc506c8c01"
+  },
+  "native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch778-palantir-cost-probe.recording-results.json",
+    "sha256": "189404a48200c39b3d0fe6658c8666468db5d422459d3ab6234fb8d2bac48a97"
+  },
+  "retained_exact_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch778-palantir-independent-actual-cost-before\\native-result.json",
+    "sha256": "189404a48200c39b3d0fe6658c8666468db5d422459d3ab6234fb8d2bac48a97"
+  },
+  "actual_native_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "passed_native_queries": 459,
+  "passing_query_ledger_persisted": true,
+  "failed_native_query_ordinal": 460,
+  "failed_query": {
+    "type": "decision_queue_empty",
+    "player": "1",
+    "step": 2,
+    "viewerPlayerID": 1
+  },
+  "actual_pending_payment": {
+    "player": 1,
+    "uid": 5,
+    "cost": 2,
+    "fromZone": "Hand",
+    "kind": "ATTACK",
+    "returnWindow": "ACTION",
+    "returnCombatStep": "NONE"
+  },
+  "actual_first_decisions": [
+    {
+      "Type": "MZCHOOSE",
+      "Param": "p1Arena-0&p1Arena-1&p1Arena-2",
+      "Block": 1,
+      "Tooltip": "Tap_a_cog",
+      "DontSkipOnPass": 0,
+      "removed": null,
+      "Location": "DecisionQueue",
+      "PlayerID": 1,
+      "mzIndex": 0,
+      "_sourceZone": null
+    },
+    {
+      "Type": "CUSTOM",
+      "Param": "palantir_aeronought_red:0:PrepareCard-await|palantir_aeronought_red:0:PrepareCard#1|1|chosen",
+      "Block": 1,
+      "Tooltip": "",
+      "DontSkipOnPass": 0,
+      "removed": null,
+      "Location": "DecisionQueue",
+      "PlayerID": 1,
+      "mzIndex": 1,
+      "_sourceZone": null
+    }
+  ],
+  "all_three_cogs_ready_and_steam1_directly_verified": true,
+  "actual_initial_snapshot": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch778-palantir-independent-actual-cost-before\\actual-initial-gamestate.txt",
+    "sha256": "6174ba9ae9c74e04a4c233620d341fa157f3443f79ce2c700e2cde3548804706"
+  },
+  "actual_manual_preferences": {
+    "values_checked": 48,
+    "preferences_by_seat": {
+      "1": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "2": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "3": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "4": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      }
+    }
+  },
+  "finding": "Actual normal ATTACK source5 with printedresource2 pending incorrectly queues Tap_a_cog from its separate activated ability Prepare. All Cog7/8/9 Status2 and STEAM1, native R0/AP1/noPitch were directly persisted passing assertions immediately before queue failure. No Cog answer, tap, asset payment, ability activation, pump, destruction or damage was executed.",
+  "causal_source": "GameLogic990 dispatches every card Prepare for ordinary play. Palantir emitted Prepare is its Cog activated-ability cost, with no Kind guard. Correct narrow repair should bypass that selected Prepare only for ordinary ATTACK while preserving ARC ability preparation.",
+  "no_spent_Cog_claim": true,
+  "no_damage_or_full_qualification": true,
+  "fixture_saved": false,
+  "coverage_credit": 0,
+  "corpus_before_after": 4037,
+  "php_native_R_writes_by_reviewer": false,
+  "independent_checks": 40,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_palantir_actual_cost_before.py",
+    "sha256": "14787692648e329ac07dd9416414a124f6ff752c4396f14b41006dac381733a1"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "status": "CAPTAIN103_ORIGINAL_CORRECT_33_2502_QUALIFIED_ONE_REPLAY",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root exact saved review; agent independently reviewed source and original normative expectations against issuer/card text",
+  "runtime_sha256": "31a60f4a25d69b6ae80e964d7fc5018e7771e99eb9adc347283c3494dc74b394",
+  "source_spec": "card-regression-batch427.json",
+  "input_sha256": "69e07a53f8eabaa1fd2deed30785798287a486f5c7571edff791444027a44f04",
+  "fixtures": [
+    {
+      "slug": "card-captains-call-red-four-live-original-correct-mode-before-assets-and-real-next-attack-two-power",
+      "card_id": "captains_call_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "aa39d29bc4b670542a096a911ae6fe3e75494287859be236be62c8d835415edc",
+        "actions.json": "e9de86286669789acb2878474032badee9eb836bf4297ea0f214214661f88f71",
+        "assertions.json": "a6a8a3096f9652e08320fd09b6ef2efad022d2011ee4c36c8c36fec9ae57b413",
+        "expected_final_gamestate.txt": "e4acf6f906761ae153b5b5c367009e8801454476c38ac201f444f4d90cb272b1",
+        "meta.json": "7774eb99aa9e38723a12cb4c0d29160499809044c87e1a4169e1882053efd5db"
+      },
+      "fixture_sha256": "3ffe7d54d6f9bdba3c3cbd55ab3ca906bc38fe3bf494107c2111c42509b42ec7",
+      "actions": 33,
+      "native_assertions": 2502,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "31a60f4a25d69b6ae80e964d7fc5018e7771e99eb9adc347283c3494dc74b394",
+      "runtime_sha256": "31a60f4a25d69b6ae80e964d7fc5018e7771e99eb9adc347283c3494dc74b394",
+      "source_spec": "card-regression-batch427.json",
+      "input_sha256": "69e07a53f8eabaa1fd2deed30785798287a486f5c7571edff791444027a44f04"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov20-captain103-31a6-replay.json",
+    "sha256": "ee6517cc69d71bae9d882b4b3450f09b791a8991463ea2c21e4a700f1da4f6e1",
+    "passed": true
+  },
+  "source_review": {
+    "path": "nov20-captain103-v3-independent-source-review-approved.json",
+    "sha256": "4d06f4936496c5f67e0a7ee0a2503e705756179c6464c9ff91f2a63956342a15"
+  },
+  "application": {
+    "path": "nov20-captain103-guarded-application-and-emission/receipt.json",
+    "sha256": "4d26b896aab64a4efe4429b1643c822de118901194248a98d95d27d968ea4b28"
+  },
+  "components": 26,
+  "basis": "Original33 actual inputs and2502 normative queries exactly preserved and persisted, genuine four-live/manual preferences verified. Captain Red5 offers Power/Go_again before paying ActionPoint, selectedPower0 then normalcost completes; fresh four responses grantnextcost2-or-less+2 and Captain intrinsicgoagain once. Actual WoundingBlowRed6 targetsP4, hitsfor6 toHP14 and fullycloses; bothsameUIDs5/6ownGY, AP0, allStack/queues/await/payment cleanup. Captured per-announcementtoken crosses bothnativecallback andcanonicalawait; stale/wrongseat callbacks inert and effectsconsumeonce in26actualcomponents. Only originalPower route nativelyqualified; no assertionweakening, no094/sharedlifecycle/counterchange. One cleanreplay passes.",
+  "limits": [
+    "Red Power mode/next qualifying attack only natively tested; modeGo_again, stalecallback, wrongseat and invalidanswer alternatives have components only. No untested sibling/branch coverage.",
+    "Existing Remembrance case in same source alreadyqualified and neither rerun norre-reviewed. No fullsuite,094orremoteauthoring."
+  ],
+  "full_suite_run": false
+}

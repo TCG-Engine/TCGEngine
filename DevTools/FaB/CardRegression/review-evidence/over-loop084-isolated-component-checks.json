@@ -1,0 +1,101 @@
+{
+  "status": "PASS_ISOLATED_EXTRACTED_CHECKS_NOT_NATIVE",
+  "native_credit": false,
+  "runtime_before": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "candidate_manifest_sha256": "f2a596290781c77deeb8c1de133d632d319a9d8cfc03c4c793d17aec7e99a2bb",
+  "validation_plan_sha256": "9020399b8728c0464cc8db606900356343eae9739c8af1db2d7c195bbf3a7787",
+  "json_only_changed_paths": [
+    "/109/abilities/0/abilityCode",
+    "/110/abilities/0/abilityCode",
+    "/111/abilities/0/abilityCode"
+  ],
+  "builder_AST": true,
+  "checks": [
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\ARCCards.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\ARCCards.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-hit-queue-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\before-actual-bodies.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\before-actual-bodies.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\after-actual-bodies.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\after-actual-bodies.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\contracts.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\contracts.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\contracts.php",
+        "before"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_OLD_BASELINE_NOT_RULE_APPROVAL\",\"phase\":\"before\",\"contracts\":2,\"assertions\":11,\"contract_names\":[\"actual old three canonical Hit bodies move source immediately without a layer\",\"actual old move preserves attack go-again last-known information\"],\"native_credit\":false,\"limits\":\"Actual canonical Hit/helpers/ROS dispatch/bridge extracted; lookup, suppression predicates, primitive movement, Stack allocation/pop are explicit stubs. Native OnHit/cost/hit-listener order, generated closures, save/reload and four-seat response timing require Root native gates.\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-over-loop084-validation-preparation\\contracts.php",
+        "after"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_EXTRACTED_AFTER_CONTRACTS_NOT_NATIVE\",\"phase\":\"after\",\"contracts\":17,\"assertions\":96,\"contract_names\":[\"actual three canonical Hits queue exact captured origin without moving source\",\"only isolated earned-layer resolution bottoms same source and retains attack LKI\",\"controller earns layer while physical captured owner receives bottom card\",\"ability and hit suppressions apply at earn time\",\"postearn suppression or source-controller change does not counter earned layer\",\"zero and negative damage never queue\",\"wrong family and source role cannot earn Over Loop event\",\"missing reference nonchain zone invalidUID owner and link cannot earn event\",\"combat active attack attacker controller and live-seat earn guards\",\"existing queue preserves pending payment and PITCH window\",\"no hero-only or victim-seat restriction is introduced\",\"departed missing or wrong physical source cannot move unrelated card\",\"later turn or later chain link with same physical UID is not moved\",\"tampered trigger identity and distinct resolving seat are rejected\",\"wrong ROS event or family retains old fallback dispatch\",\"queue appends above existing unrelated layer without changing it\",\"all three bridge families accept legacy fixed and unchanged Prepare exactly\"],\"native_credit\":false,\"limits\":\"Actual canonical Hit/helpers/ROS dispatch/bridge extracted; lookup, suppression predicates, primitive movement, Stack allocation/pop are explicit stubs. Native OnHit/cost/hit-listener order, generated closures, save/reload and four-seat response timing require Root native gates.\"}\n",
+      "stderr": ""
+    }
+  ],
+  "full_suite_run": false,
+  "repository_write": false,
+  "limits": [],
+  "runtime_after": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "repository_runtime_unchanged": true,
+  "completed_utc": "2026-11-03T22:45:30.700839+00:00"
+}

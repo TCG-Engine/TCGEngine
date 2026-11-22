@@ -1,0 +1,233 @@
+{
+  "status": "CONFIRMED_NATIVE_BEFORE_FRESH_SHARPEN_DAGGER_EFFECT_MISSING_UNSAVED",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T17:27:14.721022+00:00",
+  "card_id": "fresh_from_the_forge_red",
+  "group_id": "identity:fresh_from_the_forge_red",
+  "scenario_id": "card-fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic",
+  "parent_reserved_issue": "FAB-REG-149",
+  "issue_allocated_by_reviewer": false,
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "input_sha256": "4e0d86fc4ef57b3a19f0ed9af9b022136f5fe0d8cf535b743151f1ab5e78c944",
+  "source_spec": "card-regression-batch622-fresh-sharpen-probe-v2.json",
+  "source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-independent-diagnostic-source-review.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\v2-source-review.json",
+    "sha256": "047568056f169b07c4468e6bbe90d7f16e79a76f2e2db95d47388ad37c7d7232"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-sharpen-probe-v2-native-c53\\receipt.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\receipt.json",
+    "sha256": "218491d1d4f47c3b86435e69f5b67eee214099e5842a53b5b6cefb83081868fa"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-fresh-sharpen-probe-v2.recording-results.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\specific-results.json",
+    "sha256": "7ed573d5372696411d81fe52d6f25fbd41553202bae474451a82e630f91e3fb5"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch622-fresh-sharpen-probe-v2-20261106T172419Z-6aee0d43b0101.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\immutable-native-archive.json",
+    "sha256": "329729a37d282fde53763dbd6b6a375fbfc2d9fef8e78f1fbff5d7cedbf47fc3"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-reaction-window-diagnostic\\manifest.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\v2-manifest.json",
+    "sha256": "ba5462ccb5e405daf9abebc13bb9e5b1d4437e7944cb8989301e27cde4743287"
+  },
+  "evidence_preservation": {
+    "receipt.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-sharpen-probe-v2-native-c53\\receipt.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\receipt.json",
+      "sha256": "218491d1d4f47c3b86435e69f5b67eee214099e5842a53b5b6cefb83081868fa"
+    },
+    "specific-results.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-fresh-sharpen-probe-v2.recording-results.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\specific-results.json",
+      "sha256": "7ed573d5372696411d81fe52d6f25fbd41553202bae474451a82e630f91e3fb5"
+    },
+    "immutable-native-archive.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch622-fresh-sharpen-probe-v2-20261106T172419Z-6aee0d43b0101.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\immutable-native-archive.json",
+      "sha256": "329729a37d282fde53763dbd6b6a375fbfc2d9fef8e78f1fbff5d7cedbf47fc3"
+    },
+    "corrected-v2-input.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-fresh-sharpen-probe-v2.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\corrected-v2-input.json",
+      "sha256": "4e0d86fc4ef57b3a19f0ed9af9b022136f5fe0d8cf535b743151f1ab5e78c944"
+    },
+    "v2-manifest.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-reaction-window-diagnostic\\manifest.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\v2-manifest.json",
+      "sha256": "ba5462ccb5e405daf9abebc13bb9e5b1d4437e7944cb8989301e27cde4743287"
+    },
+    "v2-source-review.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-independent-diagnostic-source-review.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\v2-source-review.json",
+      "sha256": "047568056f169b07c4468e6bbe90d7f16e79a76f2e2db95d47388ad37c7d7232"
+    },
+    "initial_gamestate.txt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-v2-native-before-evidence\\initial_gamestate.txt",
+      "sha256": "bcead9d186e98fcb65b09f888a8c6728b16e6c712597efc2b618946f736885e1"
+    }
+  },
+  "first_failure": {
+    "native_assertion_ordinal": 1759,
+    "native_assertion_ordinal_1based": 1759,
+    "successful_prior_assertions": 1758,
+    "source_pointer": "/0/steps/50/checks/0",
+    "native_input_count": 25,
+    "query": "p4Arena-0.Damage",
+    "expected": "2",
+    "actual": "1",
+    "unrun_suffix_assertions": 250,
+    "error": "Expected p4Arena-0.Damage to equal '2', got '1'."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 25,
+    "all25_envelopes_exactly_match_corrected_source": true,
+    "all1758_successful_assertions_exactly_match_ordered_source": true,
+    "planned_assertions": 2009,
+    "manual_controls": 21,
+    "manual_actor_counts": {
+      "1": 5,
+      "2": 5,
+      "3": 5,
+      "4": 6
+    },
+    "four_living_manual_seats": true,
+    "legal_prior_physical_ledger_and_original_Ursur_owner_controller_identity_passed": true,
+    "initial_and_preDamage_UrsurDamage0_passed": true,
+    "last_prior_Damage0_native_ordinal": 1753,
+    "actual_weapon_cost1_funded_by_Blue7pitch3_before_response_R2_AP0": true,
+    "actual_Dagger6_sourceproxy16_Weapons_capture_and_Ally8_target_passed": true,
+    "real_Fresh_AR0_source5_admitted_and_held_Stack_through_first3_responses": true,
+    "corrected_REACTION_label_and_fresh1_2_3_4_response_round_passed": true,
+    "fourth_AR_response_completed_source5_to_ownGY_before_damage": true,
+    "fresh_four_Reaction_responses_then_damage": true,
+    "nativeobserved_state": {
+      "window": "DAMAGE",
+      "combatStep": "DAMAGE",
+      "attackUID": 16,
+      "attackTarget": {
+        "type": "PERMANENT",
+        "player": 4,
+        "uid": 8,
+        "zone": "Arena"
+      },
+      "attackPower": 1,
+      "defenseValue": 0,
+      "damageDealt": 1,
+      "attackHit": true
+    },
+    "native_Ally_Damage_query_directly_observed_actual1": true,
+    "postdamage_physical_Dagger_computed_query1760_unrun": true,
+    "literal_COUNTER_POWER_member_unobserved": true,
+    "subsequent250_queries_unrun": true,
+    "no_full_final_snapshot_or_cleanup_claim": true
+  },
+  "classification": {
+    "kind": "GAMEPLAY_SHARPEN_POSITIVE_DAGGER_EFFECT_MISSING_NOT_WINDOW_PROTOCOL_ERROR",
+    "native_confirmed": true,
+    "correct_printed_damage": 2,
+    "actual_damage": 1,
+    "correct_effect": "Sharpen each controlled Dagger adds1power; actualQuicksilver base1 must deal2 to unblocked Ursur after resolution.",
+    "bounded_source_cause": "FaBIARSharpenDaggers enumerates controlledDagger Weapons and passes each ref to FaBBoltynSharpen, which rejects a nonSword before the POWER addition. SelectedQuicksilver is aDagger, notSword.",
+    "raw_state_attackPower1_is_observed_but_literal_physical_COUNTER_POWER_is_not": true,
+    "no_damage_prevention_or_defense_explains_the_missing_point_in_this_setup": true,
+    "not_a_blank_or_omitted_selected_body": true,
+    "no_new_global_Core_or_legacy_family_allocation": true
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+      "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+      "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+      "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+      "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b"
+    },
+    "selected_anchors": [
+      {
+        "path": "DevTools/FaB/iar_abilities.json",
+        "route": "fresh_from_the_forge_red ResolveCard",
+        "finding": "Actual selected primary calls FaBIARSharpenDaggers then separately registersFORGE."
+      },
+      {
+        "path": "FaBSim/Custom/IARRuntime.php",
+        "lines": "240",
+        "finding": "Enumerates controlledWeapons with Dagger effective type and calls FaBBoltynSharpen."
+      },
+      {
+        "path": "FaBSim/Custom/BoltynCards.php",
+        "lines": "18-22",
+        "finding": "Guard requires Sword and returns before POWER addition for this selectedDagger."
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "lines": "968-969,1137-1138,2148-2149",
+        "finding": "The earlier REACTION window mismatch was an oracle label error; corrected held-source/four-pass flow now passed unchanged engine."
+      }
+    ],
+    "all_relevant_hashes_match_current_source_context": true
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/5222/",
+      "finding": "Current official Fresh AR0 sharpens eachDagger; nextDaggerHeroHit effect is separate."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.58"
+      ],
+      "finding": "Sharpen puts +1power counter and removes it at beginningEnd; current Dagger hit receives its power increase."
+    },
+    {
+      "publisher_face": "FaBSim/WebpImages/fresh_from_the_forge_red.webp",
+      "sha256": "0c2ba01fd351ea5eca02462f13570e3e80bf560eed7fa81c25fc9128bdc8dc47",
+      "printing": "IAR255",
+      "independently_viewed_in_source_review": true
+    }
+  ],
+  "earlier_window_oracle_error": {
+    "classification": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-native-window-classification.json",
+      "sha256": "93fa06926561077a9de599a3caaffa49d42ded9db7568cfe7d7cd0b85948b8d6"
+    },
+    "original_input_sha256": "d6ac236a291a6cfc85e25a2c39463564815133437fd26b7d3106b7858005b893",
+    "original_first_failure": 1240,
+    "corrected_only_seven_PRIORIY_to_REACTION_labels": true,
+    "first_native_did_not_reach_Sharpen": true,
+    "old_evidence_immutable_and_not_counted_as_gameplay_reproduction": true
+  },
+  "safe_probe_execution": {
+    "root_executed_with_probe_only": true,
+    "actual_recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+    "native_exit_code": 1,
+    "fixture_inventory_before": 3913,
+    "fixture_inventory_after": 3913,
+    "fixture_inventory_unchanged": true,
+    "runtime_unchanged": true,
+    "reviewer_executed_native": false
+  },
+  "limits": [
+    "The next physicalDagger computed2 assertion1760 and all250 following assertions are unrun. No direct native literalPOWER map/member or expiry-bookkeeping verdict is made.",
+    "FORGE row may be incidentally present in the diagnostic rawstate; HeroHit/optional removal/mark and FORGE persistence/consumption/Close/End carrier are not tested or qualified.",
+    "No Resolution/Close/End, completedcombat/finalUIDcleanup or futureSharpen removal result. No Fang markedHeroHit/Fealty or Ursur ownattack/Soul branch was earned by attacking thisAlly.",
+    "Prior Eclipse/Fasting producer is approved rules-only legal state, not new executed producer/support/sibling/full-card coverage.",
+    "Native finding is bounded to this selected correct positiveSharpen effect; no source repair, denied-operation retry, issue allocation or global/Core/legacy-family root count by reviewer."
+  ],
+  "fixture_saved": false,
+  "passing_fixture": false,
+  "coverage_credit": false,
+  "qualification": false,
+  "native_executed_by_reviewer": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "repository_writes": false
+}

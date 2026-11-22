@@ -1,0 +1,147 @@
+{
+  "status": "APPROVED_EXACT_SAVED_REVEL_FOUR_OWNED_RUNECHANTS_AND_ACTUAL_RAW_EVR_REVEL_FUTURE_OBLIGATION_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T13:16:07.815646+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch338.json",
+  "input_sha256": "f48f222af3e5fea68d7a4e4ed85bcbc3d403c9866e6d7411e290f767830eb641",
+  "fixtures": [
+    {
+      "slug": "card-revel-in-runeblood-red-four-live-sparse-real-other-nonattack-and-attack-earns-four-owned-runechants",
+      "card_id": "revel_in_runeblood_red",
+      "group_id": "identity:revel_in_runeblood_red",
+      "fixture_sha256": "be5dd8dcc8abbc5d2b6d4bca4cb7ad35820195f31e68985fcfc508f957221718",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a5af6712babe7244855775cda8ad84e6d2878c13048710fdbcf7c8207f8ed37",
+        "actions.json": "5eb53f0b5c7a8a58e0c71f4f020586cc4e76eb043cad7d574f4c220b0fbaee2c",
+        "assertions.json": "0e5d4a23b14e9f7459c75d3d548e177e22211e0fb75068b09ac1bdba35fe1652",
+        "expected_final_gamestate.txt": "eba205cad5e1ef19366e8d24ab032895129838cfa30a31c2ac6d1c2e593b1a59",
+        "meta.json": "ff7368529c07c0379cd0bc58aad5d3bc60e84c7238bb6538ffa04549bfea7070"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9a5af6712babe7244855775cda8ad84e6d2878c13048710fdbcf7c8207f8ed37",
+        "actions.json": "5eb53f0b5c7a8a58e0c71f4f020586cc4e76eb043cad7d574f4c220b0fbaee2c",
+        "assertions.json": "0e5d4a23b14e9f7459c75d3d548e177e22211e0fb75068b09ac1bdba35fe1652",
+        "expected_final_gamestate.txt": "eba205cad5e1ef19366e8d24ab032895129838cfa30a31c2ac6d1c2e593b1a59",
+        "meta.json": "ff7368529c07c0379cd0bc58aad5d3bc60e84c7238bb6538ffa04549bfea7070"
+      },
+      "actions": 42,
+      "native_assertions": 3466,
+      "actual_manual_passes": 37,
+      "manual_passes": 37,
+      "priority_response_passes": 36,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_ownership_conserved": true,
+      "original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "created_owned_Runechant_uids": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "ceased_virtual_uid": 9,
+      "final_graveyard_uidset": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "actual_future_cleanup_registration": {
+        "bucket": "GameState.turnEffects",
+        "player": "1",
+        "actual_row": {
+          "type": "EVR_REVEL",
+          "amount": 1,
+          "uses": 1
+        },
+        "actual_final_snapshot_sha256": "eba205cad5e1ef19366e8d24ab032895129838cfa30a31c2ac6d1c2e593b1a59",
+        "initial_turn_effects_empty": true,
+        "private_row_index_not_prescribed": true,
+        "end_phase_not_entered": true,
+        "end_phase_execution_tested": false
+      },
+      "physical_findings": "Actual quietlegalChane20/threeDori20/manual4 with ownedprimary5/Timesnap6/Nimblism7/Wounding8; no AP/history/effect/token seed. ActualTimesnap Action0destroy6/AP1 beforefourresponders thenrealAP2/virtual9ceased. ActualNimblismNAA0/four/ownGAAP2 and earned+3; actualWoundingAA8/7power/noGA/7damageP4HP13/fullcloseAP1. Nativehistory beforeprimary exactlyNimblism+Wounding, thenRevel addsrealotherNAA ratherthanusingability/selfonly. Actualprimary5cost0/AP0/fourfresh1,2,3,4 retains5Stack/noRunes beforefourth; fourthcreatesexact4ownedreadyRunechantUIDs10-13/ownGAAP1/same5ownGY. ACTUALRAWfinalGameState independentlycontains exactlyoneEVR_REVEL amount1/uses1 row, absentinitialturnEffects, sofutureendphaseobligationwasregistered. FullfinalsnapshotSHA bindsflagwithoutguessingrowindex. FinalMAIN/ACTION (noEndPhase), GYexact5,6,7,8/4tokensretained/originalUID1-8ownershipconserved/virtual9absent/counter13/Random0/R0AP1/queuesclear/37manualactors9,9,9,10/all11windowsfalse. Every42nativeinput/3466orderedassertion exactlyequalsapprovedexpectedsource.",
+      "qualification": "OnlyrealAA+anotherNAA/4ownedRunes/ownGA/immediatefutureobligationregistration/fullcleanup. No Runechantattack/damage/endphaseexecution/destructiontiming/falsecondition/modifiers/hero/supportprimary/sibling/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch338-independent-source-review.json",
+    "sha256": "48a71c43d63d6c40e35da928cc315fadfcc56efb4bb0072d1a077078e4a6d117",
+    "manifest_sha256": "266d9400053bd78e9710160c5e15999bceda8a30238b0512821edc8cbf14c57a"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch338-20261103T131222Z-6ae9ddb6d6f2c.json",
+    "sha256": "cddc7408bd5d080cafcb3e7af646ccb4d59f9ff13da08e3e19f6a8f606ce4924"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch338.recording-results.json",
+    "sha256": "037116f54c973f8c40dca34e7ce869c9a1f48f1079cbcde112e5158297eae829"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch338-native-r1\\receipt.json",
+    "sha256": "22f5c0b6abf88d3b3150b943befabb661dace89cd80fbaf848dd239ad256b4cb",
+    "stdout_sha256": "f3b3309c67b5e65685fe1282e8aa654470c2e3a7aa84a9479834227646c16896",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "actual_future_cleanup_registration": {
+    "bucket": "GameState.turnEffects",
+    "player": "1",
+    "actual_row": {
+      "type": "EVR_REVEL",
+      "amount": 1,
+      "uses": 1
+    },
+    "actual_final_snapshot_sha256": "eba205cad5e1ef19366e8d24ab032895129838cfa30a31c2ac6d1c2e593b1a59",
+    "initial_turn_effects_empty": true,
+    "private_row_index_not_prescribed": true,
+    "end_phase_not_entered": true,
+    "end_phase_execution_tested": false
+  },
+  "method": "Independentactualsavedraw5review: all42nativeinputs/3466orderedassertions vsapprovedexpectations, fullparsedendpoints/UIDownership/actualhistory/economy/4tokencreation/manualprofiles and REQUIREDactualrawEVR_REVEL amount1/uses1 verified. No authorbuilder/PHP/native/replay/R/sourcewrites.",
+  "limits": [
+    "Savedcreationreviewonly; Root twofocusedreplays are separateevidence, notexecutedbyreviewer.",
+    "OnlyrealAA+anotherNAA/4ownedRunes/ownGA/immediatefutureobligationregistration/fullcleanup. No Runechantattack/damage/endphaseexecution/destructiontiming/falsecondition/modifiers/hero/supportprimary/sibling/fullcard/controlcredit.",
+    "Futureobligationregistration is verifiednow, futureEndPhaseexecution/timing explicitlyunrun. Fullrawsnapshotcapturesrowforreplay; noprivateindexpin orstatealteration.",
+    "Current0d retained; no sourcefix/application/proposal/runtime migration/deniedauthorizationretry."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch519-after135.json",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T00:09:57.057063+00:00",
+  "fixtures": [
+    {
+      "slug": "card-restless-coalescence-yellow-four-live-real-power-counter-cost-creates-one-owned-spectral-shield",
+      "fixture_sha256": "71b08eae76d26de092d5b3e6bc0ba6585d445cf430fcb2280421d59309181f8a",
+      "passed": true,
+      "result": "[PASS] restless_coalescence_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-restless-coalescence-yellow-four-live-real-power-counter-cost-creates-one-owned-spectral-shield",
+      "returncode": 0,
+      "stdout": "[PASS] restless_coalescence_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

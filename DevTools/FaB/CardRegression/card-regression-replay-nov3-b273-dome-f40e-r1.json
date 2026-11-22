@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch273.json",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T00:51:01.785546+00:00",
+  "fixtures": [
+    {
+      "slug": "card-absorption-dome-yellow-four-live-sparse-real-one-damage-prevention-retains-one-steam",
+      "fixture_sha256": "309138495e2cd3fd643d9bc745d4b760553a36b0cc97f517af7b883a08bf433d",
+      "passed": true,
+      "result": "[PASS] absorption_dome_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-absorption-dome-yellow-four-live-sparse-real-one-damage-prevention-retains-one-steam",
+      "returncode": 0,
+      "stdout": "[PASS] absorption_dome_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

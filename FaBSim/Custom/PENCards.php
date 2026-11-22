@@ -402,6 +402,13 @@ function FaBPENBond(int $uid, string $element): bool {
     return in_array($element,(array)FaBARCCard($uid,'penPitchTypes',[]),true);
 }
 
+function FaBPENConditionalOverpower(int $player, object $o): bool {
+    $uid = intval($o->UniqueID ?? 0);
+    if ($uid < 1 || HasNoAbilities($o)) return false;
+    if ($o->CardID === 'log_fall_red') return FaBPENBond($uid,'Earth');
+    return FaBWTRBase($o->CardID) === 'vantage_point' && FaBROSCount($player,'AURA') > 0;
+}
+
 function FaBPENElementalStrike(int $player, int $uid, string $ref): void {
     $f=FaBIdentityFromMZ($ref);
     if(!$f || $f['player']!==$player || $f['zone']!=='Hand') return;
@@ -813,8 +820,8 @@ function FaBPENAbilityPaid(object $o): void {
 }
 
 function FaBPENArcDamage(string $sourceMZ, int $amount): int {
-    $f=FaBIdentityFromMZ($sourceMZ);
-    if(!$f||$f['zone']!=='CombatChain'||($f['object']->Role??'')!=='ATTACK'||(!FaBHasType($f['object'],'Lightning')&&!FaBHasType($f['object'],'Elemental')))return $amount;
+    $f=FaBDamageSourceView($sourceMZ);
+    if(!$f||($f['lastKnownZone']??$f['zone'])!=='CombatChain'||($f['object']->Role??'')!=='ATTACK'||(!FaBDamageSourceHasType($f['object'],'Lightning')&&!FaBDamageSourceHasType($f['object'],'Elemental')))return $amount;
     foreach(FaBLiveSeats() as $seat)$amount+=FaBARCEffect($seat,'PEN_ARC_BENDING');return $amount;
 }
 

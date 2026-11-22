@@ -1,0 +1,114 @@
+{
+  "status": "APPROVED_PLANNING_LIMIT_ONLY_EXISTING_SHARED_USURP_DEPENDENCY",
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth774_author_crossreview",
+  "created_utc": "2026-11-14T03:13:16.695812+00:00",
+  "planning_approved": true,
+  "source_only": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch780-bloodfrenzy-fixed-usurp-dependency-planning\\manifest.json",
+    "sha256": "70d294f77a1f0a8a2f207d7a9874f3f2da46cafb2ae6ced3b1eb9aca87f1e9c0"
+  },
+  "manifest_sha256": "70d294f77a1f0a8a2f207d7a9874f3f2da46cafb2ae6ced3b1eb9aca87f1e9c0",
+  "planning": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch780-bloodfrenzy-fixed-usurp-dependency-planning\\planning-only.json",
+    "sha256": "e3540b9f8eaf498466f942fff3860bf8ce1d9617ad40af9f4bdf7f2955b3cd78"
+  },
+  "planning_sha256": "e3540b9f8eaf498466f942fff3860bf8ce1d9617ad40af9f4bdf7f2955b3cd78",
+  "card_id": "bloodfrenzy_gloomblade_blue",
+  "group_id": "pitch-cycle:bloodfrenzy_gloomblade",
+  "runtime_context": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch780-firm-reservation.json",
+    "sha256": "6257f4879b12e8691dbbb4b026654c195c6b90bf922f9fb565d5445d787a427b"
+  },
+  "canonical_selected_sha256": "9226f7d716966d10d02c0672141384397724f691a1ee0bd42835e80f41a693a8",
+  "source_guards": {
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/GameLogic.php": "5b5a4d80b22ec2add1d94f6544322bc1cde18a142489ff6cca05218dcd91e229"
+  },
+  "held_ledger": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+    "sha256": "426ddfe76d2d3db601e86f354620af740a3e33601372fee2cebf5860219221b3"
+  },
+  "existing_held_row": {
+    "card_id": "demonbound_gloomblade_blue",
+    "group_id": "pitch-cycle:demonbound_gloomblade",
+    "status": "source_only_unattempted_selected_route",
+    "classification": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+    "reason": "The selected zero-resource Action preparation physically destroys the chosen Runechant through Usurp before FinishPrepared and later Action Point asset payment. The body, chooser and +2 payload exist. No native attempt, damage or prior Runechant-producer certification, fixture, coverage, confirmed gameplay defect or repair is claimed. No alternative primary, AP0 workaround or denied repair retry.",
+    "scope": [
+      "One fixed positive Hand-play Usurp route is unattempted on source-derived action-point/effect-cost ordering. Zero executable recipe, native attempts, gameplay bug, fixture, coverage or fix approval.",
+      "Resource cost0 still owes the ActionAP1 asset. Earlier Runechant selection may declare the cost parameter; the concern is real destruction and +2tag before actual AP payment, not early selection itself.",
+      "Canonical Prepare, actual emitted owned chooser/continuation, actual Runechant destruction and +2 body EXIST. No body absence, Runechant-trigger absence, global cost-manager failure or missing native admission claim.",
+      "Legal Chane ShadowRuneblade compatibility verified. Ordinary prior physical Runechant from ReadRunesBlue is a possible unexecuted support premise only; no complete prior producer/Hand/GY/End ledger, native token creation or primary damage/cleanup was authored or certified after this earlier limit.",
+      "Correct main branch requires real Runechant destruction and earned+2/actual3damage; no zeroRunechant/conditionfalse/AP0/emptyHand workaround or current private history/permission/Usurp seed.",
+      "Banish-play permission, BloodDebt, opponent Runechant/multipleRunechants, ChaneHero, named Runechant Usurp triggers, support/sibling/fullcard branches remain untested and uncredited.",
+      "All8 printed metadata rows read before one firm group; other7 primary bodies remain unread/no replacement or alternate producer hunt. Existing held/denied repairs untouched.",
+      "W-only currentc53/ab33/fresh70 actualguards; independent planning-only peer required. No PHP/native/R/gameplay/source/framework/Git/remote/fullsuite action.",
+      "This independent approval is solely of the bounded planning limit. No runnable/source-spec/gameplay approval, existing-root/dedup allocation, repair authorization or new native evidence is supplied."
+    ],
+    "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+    "native_attempted_for_this_hold": false,
+    "native_attempted": false,
+    "confirmed_gameplay_bug": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "source_fix_applied": false,
+    "evidence": {
+      "path": "review-evidence/sparse745-demonbound-usurp-effect-cost-before-action-point-unattempted-c53.json",
+      "sha256": "425f221c2bfe4697801e9a1a4c8e0a9116c7fa4869e5bad67f892d2f434ad705",
+      "kind": "INDEPENDENT_PLANNING_LIMIT_NOT_RUNNABLE_APPROVAL"
+    },
+    "external_W_preparation_reference": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch745-demonbound-selected-usurp-cost-order-limit\\planning-holds.json",
+      "sha256": "f93c5b6f3f577c75fbb41d3eefa8c5ec2a241d3d547f0506cba842e6504406cd"
+    }
+  },
+  "existing_independent_hold_evidence": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse745-demonbound-usurp-effect-cost-before-action-point-unattempted-c53.json",
+    "sha256": "425f221c2bfe4697801e9a1a4c8e0a9116c7fa4869e5bad67f892d2f434ad705"
+  },
+  "material_findings": [
+    "Selected Bloodfrenzy Blue Prepare calls FaBIARUsurp before FinishPreparedCard. Actual shared helper destroys the chosen Runechant and tags+2 immediately; FinishPreparedCard subsequently invokes actual resource/AP payment.",
+    "This is the same existing Demonbound held additional-effect-cost ordering contract. A zero resource predecessor still owes AP1; Bloodfrenzy resource1 does not avoid that shared seam. Early identity selection alone is not classified as the defect.",
+    "The fixed earned-Runechant/real+2 positive plan remains unchanged and unattempted. No zero-Runechant, AP0, floated-resource, condition-false, alternative producer, sibling or Banish-permission workaround is approved."
+  ],
+  "rule_basis": {
+    "urls": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "rules": [
+      "8.3.49",
+      "5.1.6b",
+      "5.1.7",
+      "5.1.9"
+    ],
+    "assessment": "Usurp is an additional effect cost. Resource and AP asset costs precede physical destruction; an earlier chooser can declare identity without paying destruction yet."
+  },
+  "actions": 0,
+  "queries": 0,
+  "runnable_cases": 0,
+  "recipes": [],
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_new_gameplay_bug": false,
+  "new_issue_or_root_allocation": false,
+  "source_patch_review_approved": false,
+  "repair_approved": false,
+  "source_fix_applied": false,
+  "PHP_executed": false,
+  "R_writes": false,
+  "limits": [
+    "Planning retention only. No runnable Source/Saved/gameplay approval, proof of producers, damage, GA, Banish permissions, third-party effects or cleanup.",
+    "No held or denied repair was attempted or authorized by this proof. Root keeps the existing dependency disposition; no new native bug claimed.",
+    "Only the selected canonical/helper/payment seam and exact existing held evidence were inspected. No alternative producer/body hunt, native/PHP/replay/full suite, Git or remote action."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch780_bloodfrenzy_usurp_planning.py",
+    "sha256": "1db02a679bddc556a959e3edc20b418eece778d631b035652fee796e2c42a97f"
+  }
+}

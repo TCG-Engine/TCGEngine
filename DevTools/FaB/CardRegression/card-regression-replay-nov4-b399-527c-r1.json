@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch399.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T23:12:51.260169+00:00",
+  "fixtures": [
+    {
+      "slug": "card-up-sticks-and-run-red-four-live-sparse-real-next-dagger-bonus-and-paid-kodachi-five-damage",
+      "fixture_sha256": "cccb0ad70fe799b63b891cae032cda1e9bada54e32e6ce2c917aa7fb5de9c7b4",
+      "passed": true,
+      "result": "[PASS] up_sticks_and_run_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+      "fixture_sha256": "e93089c83d62500fbaad44041261bd2da4324060e252b0a0b2e591e6c6cdff78",
+      "passed": true,
+      "result": "[PASS] tectonic_rift_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-up-sticks-and-run-red-four-live-sparse-real-next-dagger-bonus-and-paid-kodachi-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] up_sticks_and_run_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+      "returncode": 0,
+      "stdout": "[PASS] tectonic_rift_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch681-conditional-equipment.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T02:17:50.254774+00:00",
+  "fixtures": [
+    {
+      "slug": "card-mbrio-base-cortex-four-live-real-driver-conditional-defense-and-two-guardwell-counters",
+      "fixture_sha256": "db7902f00f6a62aed88ed88ca70d59bfc2d4e2c54584c76fbed3110f4ab05260",
+      "passed": true,
+      "result": "[PASS] mbrio_base_cortex / four live distinctive effect"
+    },
+    {
+      "slug": "card-tremor-of-resistance-four-live-real-seismic-conditional-defense-and-blade-break-destruction",
+      "fixture_sha256": "a0066b5404ed6c52cd63aeae6c33d936b63036fe1aac3866cf37faed63cd2ddf",
+      "passed": true,
+      "result": "[PASS] tremor_of_resistance / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mbrio-base-cortex-four-live-real-driver-conditional-defense-and-two-guardwell-counters",
+      "returncode": 0,
+      "stdout": "[PASS] mbrio_base_cortex / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tremor-of-resistance-four-live-real-seismic-conditional-defense-and-blade-break-destruction",
+      "returncode": 0,
+      "stdout": "[PASS] tremor_of_resistance / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,293 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B347_TWO_DISTINCT_MST_EFFECTS_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T16:54:52.819348+00:00",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch347.json",
+  "input_sha256": "3e789e97dfaef853188bcefb4fdcb1efd9fda5da57a7229dbcc47a8f813772d8",
+  "fixtures": [
+    {
+      "slug": "card-wind-chakra-red-four-live-sparse-real-created-tiger-consumes-next-three-power-and-deals-four",
+      "card_id": "wind_chakra_red",
+      "group_id": "pitch-cycle:wind_chakra",
+      "fixture_sha256": "781c7bbe86de22882840a6b2aee9f558e567242a52149435349b3c77c4e050a6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cdfc2413058ad7a4bf03f34dc15d364ed9c3b8220595fa998c0c61fdf4604193",
+        "actions.json": "6544c850168c3697a9fc4cd567c36a2a596185c00449b6bdebd9d78e3ea35abc",
+        "assertions.json": "c5121734628fb75ba4e10e18209e17704263400559d5b84fdf334d058fba5024",
+        "expected_final_gamestate.txt": "188c32ea731144853b532ff0c4ffff63a8f61d67ffa8a05a218db58e0d99f836",
+        "meta.json": "6ddd70633c208601b84dd9f848b9cc3f3f84eb0904637bb7221010a2f9734785"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cdfc2413058ad7a4bf03f34dc15d364ed9c3b8220595fa998c0c61fdf4604193",
+        "actions.json": "6544c850168c3697a9fc4cd567c36a2a596185c00449b6bdebd9d78e3ea35abc",
+        "assertions.json": "c5121734628fb75ba4e10e18209e17704263400559d5b84fdf334d058fba5024",
+        "expected_final_gamestate.txt": "188c32ea731144853b532ff0c4ffff63a8f61d67ffa8a05a218db58e0d99f836",
+        "meta.json": "6ddd70633c208601b84dd9f848b9cc3f3f84eb0904637bb7221010a2f9734785"
+      },
+      "actions": 38,
+      "native_assertions": 3156,
+      "extra_recorder_only_defense_checks": 0,
+      "recorder_only_defense_hooks": [],
+      "actual_manual_passes": 33,
+      "manual_passes": 33,
+      "priority_response_passes": 32,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "physical_findings": "RealBlue7 pays Form6 cost1/AP1, R2; after four actual1/2/3/4 responses explicit ownedHand Tiger8 created and next+1/ownGA. RealWind5cost0/four adds next+3/ownGA. Realcreated8 playedwithnormaldeclaredP4target, two legitimateMST_NEXTtags +1/+3, actualpower4/intrinsicGA/damage4HP16; AP1onlyfourthDAMAGE response. FullcloseEphemeral8ceases; alloriginalUID1-7 conserved/ownGY5,6/Pitch7/R2AP1/Counter8RNG0.",
+      "qualification": "Only actualnonTranscendWind+3 positive branch. No +5/Zenactivation/extraTiger/otherpitch/supportprimary/sibling/fullcard/legacyPredatoryownership credit."
+    },
+    {
+      "slug": "card-unravel-aggression-blue-four-live-sparse-real-chi-three-cost-draw-one-and-five-defense",
+      "card_id": "unravel_aggression_blue",
+      "group_id": "identity:unravel_aggression_blue",
+      "fixture_sha256": "bc418838e991b66b0028c73e6e6551eaa7dacc36c44d3ad83dd8398f55515200",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "add320792c9e2ccf43f6c528bde212494ec3ab633819d160e4a6884b289d7ff0",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "67f419564a1a96cb78778af51abeabf9687205159dc93f8e8acfd2631e00af6a",
+        "expected_final_gamestate.txt": "c74804b08df17416b2e5ab1ec61ade0cfd10d312307455fba21d3d249d2cc910",
+        "meta.json": "6d074f1c62f319fe61505c6e053edfc815bf987ac45ef18da9929f4b00a95667"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "add320792c9e2ccf43f6c528bde212494ec3ab633819d160e4a6884b289d7ff0",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "67f419564a1a96cb78778af51abeabf9687205159dc93f8e8acfd2631e00af6a",
+        "expected_final_gamestate.txt": "c74804b08df17416b2e5ab1ec61ade0cfd10d312307455fba21d3d249d2cc910",
+        "meta.json": "6d074f1c62f319fe61505c6e053edfc815bf987ac45ef18da9929f4b00a95667"
+      },
+      "actions": 37,
+      "native_assertions": 3516,
+      "extra_recorder_only_defense_checks": 12,
+      "recorder_only_defense_hooks": [
+        {
+          "step": 25,
+          "checkpoint": "four_actual_Unravel_responses_only_fourth_Chi_pitched_to_THIS5_draws_EXACTLY_originalDeck9_retains10_same5defendsFIVE_fourth_actual_response_resolves",
+          "value": 5
+        },
+        {
+          "step": 26,
+          "checkpoint": "actual_fresh_reaction_round_after_DR_completion_Raging7_minus_realDR5_dealsTWO_HP18_actual_response_1_of_four",
+          "value": 5
+        },
+        {
+          "step": 27,
+          "checkpoint": "actual_fresh_reaction_round_after_DR_completion_Raging7_minus_realDR5_dealsTWO_HP18_actual_response_2_of_four",
+          "value": 5
+        },
+        {
+          "step": 28,
+          "checkpoint": "actual_fresh_reaction_round_after_DR_completion_Raging7_minus_realDR5_dealsTWO_HP18_actual_response_3_of_four",
+          "value": 5
+        },
+        {
+          "step": 29,
+          "checkpoint": "actual_fresh_reaction_round_after_DR_completion_Raging7_minus_realDR5_dealsTWO_HP18_fourth_actual_response",
+          "value": 5
+        },
+        {
+          "step": 30,
+          "checkpoint": "actual_two_damage_step_noGA_APrefund_actual_response_1_of_four",
+          "value": 5
+        },
+        {
+          "step": 31,
+          "checkpoint": "actual_two_damage_step_noGA_APrefund_actual_response_2_of_four",
+          "value": 5
+        },
+        {
+          "step": 32,
+          "checkpoint": "actual_two_damage_step_noGA_APrefund_actual_response_3_of_four",
+          "value": 5
+        },
+        {
+          "step": 33,
+          "checkpoint": "actual_two_damage_step_noGA_APrefund_fourth_actual_response",
+          "value": 5
+        },
+        {
+          "step": 34,
+          "checkpoint": "actual_full_close_originalAttack7_ownGY1_DR5_ownGY4_Chi6Pitch4_drawn9Hand4_retainedDeck10_actual_response_1_of_four",
+          "value": 5
+        },
+        {
+          "step": 35,
+          "checkpoint": "actual_full_close_originalAttack7_ownGY1_DR5_ownGY4_Chi6Pitch4_drawn9Hand4_retainedDeck10_actual_response_2_of_four",
+          "value": 5
+        },
+        {
+          "step": 36,
+          "checkpoint": "actual_full_close_originalAttack7_ownGY1_DR5_ownGY4_Chi6Pitch4_drawn9Hand4_retainedDeck10_actual_response_3_of_four",
+          "value": 5
+        }
+      ],
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_response_passes": 31,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          6
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "physical_findings": "RealRaging7cost3/Blue8/fullmanualcombat; P4actualDR5retainspriorownedChi6 untilrealpitch6paysordinary3(total3Chi3subset, not6), noAP. Fourfresh4,1,2,3 hold5StackandDeck9,10 throughfirst3; onlyfourthsame5defends/onlyoriginal9drawHandand10retainedDeck. Twelve live defense5 hooks executed by recorder but unpersisted; saved sourceidentity+actual7minus5=2damageHP18 retained. FullcloseownGY1attack7/GY4DR5/Pitch1Blue8/Pitch4Chi6/Hand4draw9/Deck4tail10/RChiAP0/UID1-10conserved/counter10RNG0.",
+      "qualification": "Only realChi-pitchedDR3/draw1/DEF5 branch. No nonChi/defaultnoDraw/extraChi/currentTranscend/Nuuactivation/Stealth/supportprimary/siblings/fullcard credit. Twelve defense hooks not represented as replay assertions."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch347-independent-source-review.json",
+    "sha256": "ce3b52cab5cd0e2a202f1a7bb828f248d3ecada7dfdeebaca39098f68f26de2f",
+    "manifest_sha256": "dd6fd3f03af64e37db1ef43b121a638f34e260b36d5a7263b5382e2ab8bf0b58",
+    "current_source_guards_verified": 19
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch347-20261103T165030Z-6aea10d6063d2.json",
+    "sha256": "e741a6550e1e3b6306807707ed75c5f7b5f352215f35255beb1f0f16233407fc"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch347.recording-results.json",
+    "sha256": "97454235fe0461f2d517417f43dabfd9a8bf4b840ab2b6f189907965049c6751"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch347-native-r1\\receipt.json",
+    "sha256": "331b869e2b0686d66d0c6c34cc68890498c0e39d0921e1f22faf2a1dce60c026",
+    "stdout_sha256": "9c620bad15eab9b3235da34d2cfea384328b4619baf7f1172c27e06e0bd8f56c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+    "runtime_after": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80"
+  },
+  "method": "Independent actual raw-five saved review with full schema parsing, exact every native actor/mode/payload and ordered persisted assertion equality to independently approved frozen source; source-retention, realfunding, UIDownership, HP/APtiming, manualprofiles and queue/awaitcleanup inspected. Pure reused AST parser/normalizer/action functions only; no authorbuilder/native/PHP/replay/R/source execution.",
+  "limits": [
+    "Creation savedreview only; Root two fresh batchreplays separate and not executed/claimed by reviewer.",
+    "75actions/6672persistedchecks/65manualpasses; 12 additional recorder-only defense5 hooks NOT replayassertions.",
+    "SelectedpositiveWind+3andrealChi-fundedUnraveldraw1 only; no alternatepitches/Transcend/heros/supportprimary/sibling/fullcard/controlcredit."
+  ]
+}

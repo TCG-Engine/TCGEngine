@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch483.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T16:08:22.201772+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rockyard-rodeo-blue-four-live-real-owned-six-base-hammer-sets-paid-attack-power-and-six-damage",
+      "fixture_sha256": "ccbf19be199d05ebcceea079930b0eb81ba917fee6b08fe777b8541aed04dd51",
+      "passed": true,
+      "result": "[PASS] rockyard_rodeo_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-comet-storm-shock-red-four-live-declared-left-action-half-real-two-cost-blue-funding-and-five-arcane",
+      "fixture_sha256": "849fe3952825cdb779d4c3940dbbd84953b68119d00dcb8d89d35a8efd2bca09",
+      "passed": true,
+      "result": "[PASS] comet_storm_shock_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rockyard-rodeo-blue-four-live-real-owned-six-base-hammer-sets-paid-attack-power-and-six-damage",
+      "returncode": 0,
+      "stdout": "[PASS] rockyard_rodeo_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-comet-storm-shock-red-four-live-declared-left-action-half-real-two-cost-blue-funding-and-five-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] comet_storm_shock_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

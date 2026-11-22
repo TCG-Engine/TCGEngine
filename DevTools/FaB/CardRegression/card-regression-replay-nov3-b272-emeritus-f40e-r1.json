@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch272.json",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T00:59:29.085692+00:00",
+  "fixtures": [
+    {
+      "slug": "card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+      "fixture_sha256": "deb4442e4daa2337c0d271a19fe4041bd30b0ca94bbe4e2491791d7cfc4d7320",
+      "passed": true,
+      "result": "[PASS] emeritus_scolding_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+      "returncode": 0,
+      "stdout": "[PASS] emeritus_scolding_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-flic-flak-red-four-live-correct-rule-probe-real-reaction-then-next-combo-defends-with-plus-two"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

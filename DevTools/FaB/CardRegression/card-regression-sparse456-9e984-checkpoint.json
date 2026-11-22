@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-05T12:00:53.524014+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch456.json",
+  "source_spec_sha256": "0c631b9e6b77941f7967dca41e83053fb3c35cc17b2cb3012bffc87da9e612d1",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 48,
+  "native_assertions": 4282,
+  "manual_passes": 43,
+  "totals": {
+    "saved_registered_scenarios": 3778,
+    "duels": 3074,
+    "four_live": 704,
+    "recorded_primary_ids": 932,
+    "identity_denominator": 5196,
+    "recorded_groups": 806,
+    "group_denominator": 3324,
+    "four_live_groups": 697,
+    "phase_qualified_scenarios_at_actual_contexts": 415,
+    "phase_qualified_unique_groups": 410,
+    "creation_replay_passes": 830,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 58,
+  "scenarios": [
+    {
+      "card_id": "wax_off_blue",
+      "group_id": "identity:wax_off_blue",
+      "scenario_id": "card-wax-off-blue-four-live-real-wax-on-earns-owned-zen-state-prevents-one-and-retains-balance",
+      "effect_branches": [
+        "wax-off-blue-four-live-real-wax-on-earns-owned-zen-state-prevents-one-and-retains-balance"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-wax-off-blue-four-live-real-wax-on-earns-owned-zen-state-prevents-one-and-retains-balance",
+      "source_spec": "card-regression-batch456.json",
+      "source_spec_sha256": "0c631b9e6b77941f7967dca41e83053fb3c35cc17b2cb3012bffc87da9e612d1",
+      "review_evidence": "review-evidence/sparse456-wax-off-exact-saved-9e984.json",
+      "review_evidence_sha256": "3c2b01954463f77dd34eb35a2549c60541085378525694edb113d4c5840ec5a1",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "qualification_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov5-b456-wax-off-r1-9e984.json",
+          "sha256": "c667d3cfdb0601f00acad3a2f6528f6d58aa31df88335f9ae6508a6f55f0e68f",
+          "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov5-b456-wax-off-r2-9e984.json",
+          "sha256": "1fdd32e80315375bab6234a2af878b40550ea63e36cb45de28dc0caee8dcaef4",
+          "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

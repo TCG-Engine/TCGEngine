@@ -1,0 +1,346 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B507_DUMPSTER_ITEM_BOOST_AND_AP_CONSUMER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T19:28:36.211789+00:00",
+  "source_spec": "card-regression-batch507.json",
+  "input_sha256": "f90cf917cc000d4791b0e3d2e4dfb2b832f5efc4ab2948e45ef4b7e3793ea646",
+  "manifest_sha256": "1ffc9071f3ab34ac1b82c19eab49ba8942bf30781276af004c584e9115ed0e1f",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch507-independent-source-review.json",
+    "sha256": "e1c8e1f8729f238562e36dd785b2d1d2018f4c150da5507bf4f1537991e8d684",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch507-20261105T192553Z-6aecd8411fe78.json",
+    "sha256": "702d6a33397680500d899a7814183250d7197aa065639a5628d7567a7d903634"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch507.recording-results.json",
+    "sha256": "7027350ede81fd0225d4709e90126ae57d9e5c25e7d92f03325669f2e9a67cb0"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch507-native-r1-9e984\\receipt.json",
+    "sha256": "729a4ee7e1f7e272f82f404b32bdab6c3a53dd080c386913fb81d3d339e94951"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "dumpster_dive_red",
+      "group_id": "pitch-cycle:dumpster_dive",
+      "slug": "card-dumpster-dive-red-four-live-real-item-boost-earns-one-power-and-go-again-with-paid-action-point-consumer",
+      "source_spec": "card-regression-batch507.json",
+      "input_sha256": "f90cf917cc000d4791b0e3d2e4dfb2b832f5efc4ab2948e45ef4b7e3793ea646",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_ITEM_BOOST_POWER_AND_REAL_AP_CONSUMER",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-dumpster-dive-red-four-live-real-item-boost-earns-one-power-and-go-again-with-paid-action-point-consumer",
+      "fixture_sha256": "34131a0ff05f635b02b74afb5149c1db2e86c76a4e1ca6f0c734a2b84d7d4a86",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "94a14c646bf320ae9a4aa84b47e622489c5b54088a69e27cc4ee1f656b7fb40c",
+        "actions.json": "f344ffd03b00e2677a9a05fc8a228a70240ebab0b402f424f17a92a800232004",
+        "assertions.json": "67a3b48cc09095ce48e9b1dcfc305ca469b25f0bb955333a80c6b3140314a66b",
+        "expected_final_gamestate.txt": "8448cdc9d9d8f44832b2a3ea2ab0a8dd3cb7742822d4ac85c1d6121604a31e65"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94a14c646bf320ae9a4aa84b47e622489c5b54088a69e27cc4ee1f656b7fb40c",
+        "actions.json": "f344ffd03b00e2677a9a05fc8a228a70240ebab0b402f424f17a92a800232004",
+        "assertions.json": "67a3b48cc09095ce48e9b1dcfc305ca469b25f0bb955333a80c6b3140314a66b",
+        "expected_final_gamestate.txt": "8448cdc9d9d8f44832b2a3ea2ab0a8dd3cb7742822d4ac85c1d6121604a31e65",
+        "meta.json": "47d913f0b07b0891f25654ceac99d3a62a61b0a2a4ead672182d0883f4616306"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "94a14c646bf320ae9a4aa84b47e622489c5b54088a69e27cc4ee1f656b7fb40c",
+        "actions.json": "f344ffd03b00e2677a9a05fc8a228a70240ebab0b402f424f17a92a800232004",
+        "assertions.json": "67a3b48cc09095ce48e9b1dcfc305ca469b25f0bb955333a80c6b3140314a66b",
+        "expected_final_gamestate.txt": "8448cdc9d9d8f44832b2a3ea2ab0a8dd3cb7742822d4ac85c1d6121604a31e65",
+        "meta.json": "47d913f0b07b0891f25654ceac99d3a62a61b0a2a4ead672182d0883f4616306"
+      },
+      "actions": 56,
+      "native_assertions": 4753,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "schema_property_assertions": 1439,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "dumpster_dive_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "dissipation_shield_yellow",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "dumpster_dive_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "dissipation_shield_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "5ab613e9a118c8eba5f806fae6596eeb0a5b4b77d356af373bbc9af9d3d0ffd4",
+      "native_action_mapping_sha256": "aebcb3b52acf79d1e8a2760b8ebbaa0902758cdde8ac7102b3bfe27c245f02fd",
+      "native_assertion_mapping_sha256": "639ddd7dfb368fa0165d0a04235086f2f9e404ab46c1564481cf4d3b9ba7a0b9"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 56,
+  "total_native_assertions": 4753,
+  "total_manual_passes": 50,
+  "total_priority_response_passes": 48,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 1439,
+  "material_findings": [
+    "Allraw5/56nativeenvelopes/4753orderedpersistedchecks/1439properties/50manual(48responses+2finish), fourlive/manual and48rawpreferencesateachendpoint/current69guards9 independentlyequalapprovedf90cinput. No additional sourceaudit/helper/game/replayexecution.",
+    "ActualtargetP4 thennativeMZMODAL1|1|Boost&Do_not_boost/index0, physicalItem8Deckretained/assetsunpaid before Blue6pitch. Actualpaidfixed1/AP1 leavesR2AP0 withsameItem8publicownBanish andsource5heldStackfreshfour. Intra-actiondebit-before-banish ordering comes fromunchangedsourcepipeline; nativeobservations independentlypin bothpre/postboundaries andrealpayment/move, notan instrumented callbacktrace.",
+    "Same5Chain/currentfresh5power andGAtrue; actual5physicaldamageP4HP15 corroborates +1 beyondbase4. OnlybeginningResolution grantsoneAP; firstchainfullycloses5ownGY. ActualWounding7thenusesearnedAP/cost0/R2AP0, freshsourcefour/newlink1/current4/noGA/actual4physicalHP11. No boostbonus/refundinheritedbyGenericconsumer.",
+    "ExactoriginalphysicalUID1..8conserved/noallocation: GY1ordered5,7/Pitch6wholeunchanged/Banish8OwnerCtl1FaceDown0/flag0/noSteam/entrymutation, allfourHeroeswholeunchanged. Counter8/noRNG/HP11/P1R2/allAPChi0/StackChainsDQsawaitpaymentcombatquiet. OpaqueundoVersionshashboundbutexcludedfromcurrentphysicalinventory."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2451/",
+      "finding": "Current primarycost1/base4/Boost/conditionalownItem-or-Equipmentboost+1."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.9",
+        "8.3.9a",
+        "8.3.5b"
+      ],
+      "finding": "Boost is optionaladditionalcost; MechbanishgrantsGA; attackGArefundatbeginningResolution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.3b",
+        "5.1.7",
+        "5.1.9"
+      ],
+      "finding": "Declare optionalcost thenpayfixedassetsbeforeeffectcostbanish."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVO195.webp",
+      "finding": "Issuerprimaryfaceindependentlyviewed locally."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARC035.webp",
+      "finding": "DissipationShieldItemfacelocallyviewed; onlyAuraentry/upkeep/Instantabilityeffects, noneearnedbyBanish."
+    }
+  ],
+  "adjacent_unattempted_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch507-dumpster-first-ready-author\\photon-rush-unattempted-lightning-flow-dispatch-hold.json",
+    "sha256": "648bc9fa3794d69e3833d41a71f0ec0129f6b61a8b0550f6eabd1df3e28ac105",
+    "card_id": "photon_rush_red",
+    "scope": "OnlyselectedLightningFlowGAdispatchunestablished; no globalabsence/nativebug/fusedWeaveworkaround/executablecase.",
+    "native_attempted": false,
+    "fixture_saved": false,
+    "confirmed_bug": false,
+    "coverage_credit": false
+  },
+  "limits": [
+    "ONE DumpsterDiveRed representative: actualItemBoostcost/+1POWER/5damage/oneGA+real4damageAPconsumer/fullphysicalcleanup.",
+    "NoEquipment/nonMech/noBoost/negativecondition/ItemArenaentry/prevention/upkeep/supportprimary/hero/sibling/fullcardcredit.",
+    "PhotonRushcompactsource-onlyunattempteddispatchhold only, no recipe/native/fixture/coverage/confirmedbug/sourcefix/replacementhunt.",
+    "Actualsource9/69guards; no PHP/native/R/source/gen/service/fullsuite/deniedretry/git/remote writes; holds preserved.",
+    "NoEquipmentalternative/nonMech/decline/noDeck/repeatedBoost/foreigncontrol/statbonusexpiry/suppression/ItemArenaentry/upkeep/prevention/Hero/supportprimary/sibling/fullcard/nativecontrolcredit.",
+    "CurrentEVOPowerselectedrouteisimplemented; no claim onlynamedmacroabsence. Any actualwrongpower/nativeoutcome remainsstrictfailure, notapprovedoutput.",
+    "NoPHP/native/replay/R/source/service/gen/fullsuite/git/remote/deniedretry byreviewer. Rootactualnative/Saved/replaysseparate.",
+    "OnlyownItemBoostpositivecondition/base4+1/realGAfundedconsumer. NoEquipmentalternative/nonMech/noBoost/otherDeck/repeatedprimary/foreigncontrol/suppression/fullcard/siblings/supportprimary/Dashability/ItemArenaentry/upkeep/prevention/nativecontrolcredit. Photon remainsunattempted/nobug/coveragecredit.",
+    "Intermediatefacts actualcompletednativechecks; exactrawendpointsindependentlyinspected. No callbackinstrumentation or exhaustive framework/branchcertification. Rootreplays/registration separate, notclaimed."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch507_saved_readonly.py",
+    "sha256": "2163acc37ed5c6ff79e53139c34f0287b327db0804b14bfbef3da3013f2e7ff5"
+  }
+}

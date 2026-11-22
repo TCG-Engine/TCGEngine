@@ -1,0 +1,368 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B679_OAK_SUBSET",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T01:48:19.718736+00:00",
+  "source_spec": "card-regression-batch679-earth-bond-rune-cost-dominate.json",
+  "input_sha256": "ee9659fb9567f6ed5805f7dbb939134f9d5b6ccb9bbfd0398b0569632850286d",
+  "manifest_sha256": "bbb9334853ee1e124d87a7dca61d3ed620bcd356f0587dc07c65aa874996d73a",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch679-independent-source-review.json",
+    "sha256": "3f8be46d5dbcba62b319b86057f45c28c2bff25fa24096124707a2ae98ded4f9",
+    "unchanged_Oak_semantics_reused": true,
+    "Arknight_cache_model_error_separately_classified": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch679-earth-bond-rune-cost-dominate-20261107T014259Z-6aee82231ec42.json",
+    "sha256": "5e662af5803ecd46a432d1a5d331eff249a55ebccbfc688dfe02d2a3749028ec"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch679-earth-bond-rune-cost-dominate.recording-results.json",
+    "sha256": "0ad3de2055f6705ea71bc56a39d1cbd6231cf48ca0572bb9185b8641ffe2d589"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b679-modifiers-native-recording\\receipt.json",
+    "sha256": "61e26fb47730a89577ba295b91fde57afdab34c1967fb51e7c625551beec2f8d"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "ancient_earth_oak_red",
+      "group_id": "identity:ancient_earth_oak_red",
+      "slug": "card-ancient-earth-oak-red-four-live-real-earth-pitch-bond-and-eight-ally-damage",
+      "source_spec": "card-regression-batch679-earth-bond-rune-cost-dominate.json",
+      "input_sha256": "ee9659fb9567f6ed5805f7dbb939134f9d5b6ccb9bbfd0398b0569632850286d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_EARTH_PAYMENT_BOND_AND_EIGHT_ALLY_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-ancient-earth-oak-red-four-live-real-earth-pitch-bond-and-eight-ally-damage",
+      "fixture_sha256": "e847b9cdeed8fdcb2039894c842f0e4fd374d399841076628e2131183e36b5d2",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e05cd90fa00d93332349d061023e89b3776cc49b5276536005a9fccbbcb34690",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "24019a3aef2bd601218a3cbb3b186b835ce2fb3504b1bf9ebdc747cb03be1ab2",
+        "expected_final_gamestate.txt": "f2be68e9498d97a46653640612f3bbe73ece822429fdc6de67017fb0f9019e64"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e05cd90fa00d93332349d061023e89b3776cc49b5276536005a9fccbbcb34690",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "24019a3aef2bd601218a3cbb3b186b835ce2fb3504b1bf9ebdc747cb03be1ab2",
+        "expected_final_gamestate.txt": "f2be68e9498d97a46653640612f3bbe73ece822429fdc6de67017fb0f9019e64",
+        "meta.json": "f79a9ab0f00cc2c0dd27d174e28b943e478e4dbb447b47d64e53e9d3441bb3a4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e05cd90fa00d93332349d061023e89b3776cc49b5276536005a9fccbbcb34690",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "24019a3aef2bd601218a3cbb3b186b835ce2fb3504b1bf9ebdc747cb03be1ab2",
+        "expected_final_gamestate.txt": "f2be68e9498d97a46653640612f3bbe73ece822429fdc6de67017fb0f9019e64",
+        "meta.json": "f79a9ab0f00cc2c0dd27d174e28b943e478e4dbb447b47d64e53e9d3441bb3a4"
+      },
+      "actions": 28,
+      "native_assertions": 2136,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 518,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "oldhim",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "ancient_earth_oak_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "oldhim",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "ancient_earth_oak_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "final_UniqueIDCounter": 14,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "858f9604c87bdd269c7e86acf13d5bc46c834c4dd655281fd4146a34ff7742ef",
+      "native_assertion_mapping_sha256": "3374e4b5503c4e66af9e8a7f5948f172c6feaecc26f5d159fa1cac064a30a4fb"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "arknight_ascendancy_red",
+      "group_id": "identity:arknight_ascendancy_red",
+      "slug": "card-arknight-ascendancy-red-four-live-real-rune-cost-payment-and-dominate-full-block",
+      "approved": false,
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch679-arknight-first-native-cache-oracle-classification.json",
+        "sha256": "7cbd2a7b2c8519a53d20423c1589e24fb1515364ba85318b284871c34ba08bfe"
+      },
+      "first_failure": "state handBlockUIDs expected [11] got []",
+      "original_expectations_preserved": true,
+      "gameplay_bug_claim": false
+    }
+  ],
+  "total_actions": 28,
+  "total_native_assertions": 2136,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 518,
+  "material_findings": [
+    "Exactrawfive/28envelopes2136orderednativechecks/25manualactors/48preferences perendpoint/current71c53ab33 matched approved Oak source and independently parsedphysicalendpoints.",
+    "ActualAlly7 target beforeassets; EarthAutumn6pitch3 paysOak3/AP1 toR0AP0 and recorded samependingUID5 EarthBond. Freshfoursource→base6+2/live8noGA. First postdelivery assertion is actualdamageDealt8, supported by actualfullUPRdeliveryreturn/GLpostwrite; plus targettoken7ceases/allHeroHP20. Deathalone does not certify+2.",
+    "FullClose5ownGY/6Pitch/priorGY4UID8..14unchanged/noFrostbite/noDeckreturn/no newUID/counter14/RNG0/quiet. Both printed Hero-only riders unearned for actualPERMANENTtarget. PriorChane/Eclipse/sixShadowplays remain rules-only publicstate premise/unexecuted/uncredited."
+  ],
+  "limits": [
+    "Only Oak bounded paid EarthBond/full8Allydelivery branch. Hero-hit riders/OldhimDR/priorproducer/futureturn/siblings/support/fullcard untested. No nativeproxy/privatehistoryseed.",
+    "Arknightunsaved: originalpacket/history immutable. Its sole failure is four stale privatecacheResolutionassertions; see independentclassification. No Arknightcleanup/Saved/coverage or enginebug claim.",
+    "No reviewerPHP/native/replay/R/source/fullsuite/Git/remote. Roottargetedreplays/registration/qualification separate. RawVersions hashbound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch679_oak_saved_readonly.py",
+    "sha256": "86a398bc4e76491369d7b37b77b602edaf42c98acfb1d4d3e925e16b9398e868"
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B801_THROW",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T23:30:08.033645+00:00",
+  "source_spec": "card-regression-batch801-throw_caution_blue.json",
+  "source_suggested_native_name": "card-regression-batch801-throw_caution_to_the_wind_blue.json",
+  "source_filename_alias": "Root selected shorter native filename, exact originalfc78 bytes verified unchanged.",
+  "input_sha256": "fc78d82ef9b1d8c85232be3c2ea9a557cc1d4b8eae6f9f6effdd520c6841f9df",
+  "manifest_sha256": "1e60b5ef9d1321378bec04a40aa5e2a3eb0f5813431ea991ef7df4bc342cfd20",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-throw-actual-owned-blue-reveal-prevention-three-physical-consumer-author\\manifest.json",
+    "sha256": "1e60b5ef9d1321378bec04a40aa5e2a3eb0f5813431ea991ef7df4bc342cfd20"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-throw-independent-correct-positive-source-review.json",
+    "sha256": "e6b2140640f624101cdf64cb64512af1a331347b030072cd2fe32a43e4616c0d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b801-throw-native-correct-reveal-prevention\\receipt.json",
+    "sha256": "9de3cebed395175013c2cef0467cd960d5d8f5f17e60069a091dd9f639a8b0dd"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch801-throw_caution_blue-20261114T232727Z-6af8ee5f86c20.json",
+    "sha256": "8be07c7b6b4420c1913651072d1b7010d16d0043e54760d67f9049aa23c46935"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch801-throw_caution_blue.recording-results.json",
+    "sha256": "9ddf196bab3ec5ab6e6ac519ea42a2684639875be2dacf6314c88689749fc198"
+  },
+  "fixtures": [
+    {
+      "slug": "card-throw-actual-owned-blue-reveal-prevention-three-physical-consumer",
+      "card_id": "throw_caution_to_the_wind_blue",
+      "group_id": "identity:throw_caution_to_the_wind_blue",
+      "source_spec": "card-regression-batch801-throw_caution_blue.json",
+      "input_sha256": "fc78d82ef9b1d8c85232be3c2ea9a557cc1d4b8eae6f9f6effdd520c6841f9df",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-throw-actual-owned-blue-reveal-prevention-three-physical-consumer",
+      "fixture_sha256": "12988909d3b6c829450c280e82d049bd6a93c2ad41b302a687a2b25d0598d0e9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e667d248a968167fff08d5d3256687d3e7233f30c87c25c2360655a795b5f052",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "a12417a7f09e9cee4b8a2f8f27447e99047520e2a0725fba324ded47868a2305",
+        "expected_final_gamestate.txt": "693dbe570a2e7774e90abe5c7c53f3114b23685863cdc1fafec935d039acff72",
+        "meta.json": "47b83a318abcc97ecd0963e9bd8f7eac6e0371ac916308aa8d395a30a470f228"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e667d248a968167fff08d5d3256687d3e7233f30c87c25c2360655a795b5f052",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "a12417a7f09e9cee4b8a2f8f27447e99047520e2a0725fba324ded47868a2305",
+        "expected_final_gamestate.txt": "693dbe570a2e7774e90abe5c7c53f3114b23685863cdc1fafec935d039acff72",
+        "meta.json": "47b83a318abcc97ecd0963e9bd8f7eac6e0371ac916308aa8d395a30a470f228"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e667d248a968167fff08d5d3256687d3e7233f30c87c25c2360655a795b5f052",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "a12417a7f09e9cee4b8a2f8f27447e99047520e2a0725fba324ded47868a2305",
+        "expected_final_gamestate.txt": "693dbe570a2e7774e90abe5c7c53f3114b23685863cdc1fafec935d039acff72"
+      },
+      "actions": 35,
+      "native_assertions": 2185,
+      "manual_passes": 32,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 441,
+      "checkpoint_count": 37,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 129,
+        "35": 188
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "gravy_bones",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "throw_caution_to_the_wind_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "gravy_bones",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "throw_caution_to_the_wind_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "15e1e52ec239a82f6b93da53fdef68fb0a36636f94c37d270d6ab7cbe6c5c38b",
+      "native_assertion_mapping_sha256": "4e6921665569b2988b0b78c95b82563eb05326fe05c534bd7a2b0c18d0fe5d44",
+      "checkpoint_assertion_mapping_sha256": "36c1173b508c460bf2c364ae9367bc34c3611b99932546b7f787077c366b10ee",
+      "actual_backend_reveal_initial": 0,
+      "actual_backend_reveal_final": 1,
+      "actual_backend_reveal_actor": 4,
+      "actual_backend_reveal_card_id": "wounding_blow_blue",
+      "actual_reveal_wrongseat_entry": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 18,
+  "all_current_guards_matched": true,
+  "total_actions": 35,
+  "total_native_assertions": 2185,
+  "total_manual_passes": 32,
+  "total_schema_property_assertions": 441,
+  "total_checkpoints": 37,
+  "total_endpoint_assertions_evaluated": 317,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    19
+  ],
+  "actual_backend_reveal": {
+    "initial_raw_snapshot": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-throw-actual-owned-blue-reveal-prevention-three-physical-consumer\\initial_gamestate.txt",
+      "sha256": "e667d248a968167fff08d5d3256687d3e7233f30c87c25c2360655a795b5f052"
+    },
+    "final_raw_snapshot": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-throw-actual-owned-blue-reveal-prevention-three-physical-consumer\\expected_final_gamestate.txt",
+      "sha256": "693dbe570a2e7774e90abe5c7c53f3114b23685863cdc1fafec935d039acff72"
+    },
+    "field": "MacroGameIndex.RevealCard.4.wounding_blow_blue",
+    "initial_value": 0,
+    "final_value": 1,
+    "actual_final_entire_reveal_bucket": {
+      "4": {
+        "wounding_blow_blue": 1
+      }
+    },
+    "wrongseat_or_othercard_entry": false,
+    "proof_kind": "Direct actual retained native raw endpoint event evidence, not source-only inference",
+    "named_persisted_query": false,
+    "final_snapshot_replay_comparison_preserves_index": true,
+    "precise_within_atomic_action_event_order_certified": false
+  },
+  "material_findings": [
+    "Every actual35 native envelope/32 manual actor and2185 successful persisted query equals exact approved Source. All317 raw endpoint assertions and48 manual values EACH independently evaluated; no extra/automatic pass masked by pass_until.",
+    "Actual P4 ownInstant6cost0/noAP stays Stack before last real response; four actual responses4→1→2→3 then activeP1/Source6ownGY4, same physical ownBlue7Deck/pitch3. No formal target/WHEN/foreign source or Gravy ability was fabricated.",
+    "Mandatory actual raw backendRevealCard4Blue absent0→exact1 verified; no new wrong-seat or other-card reveal entry. Same physical Deck7/CardID/Owner4 is independently retained through all affected transitions and terminal raw snapshot.",
+    "Actual blankRed5power4 with zero defense, after realInstant/reveal and fresh fourReaction responses, produces physical1damage/HP4_19. Final next-damageCAUTION entry is consumed; Red5GY1/Throw6GY4/Blue7Deck4/AP0/all-four full cleanup confirmed."
+  ],
+  "observable_only_admission": true,
+  "within_atomic_action_source_effect_ordering_certified": false,
+  "general_plain_spell_lifecycle_certified": false,
+  "public_UI_or_privacy_certified": false,
+  "limits": [
+    "One exact original quiet synchronous observable PirateInstant positive. No within-action source/effect ordering, generic spell lifecycle/health, UI/browser/privacy, other reveal/prevention/arcane/turn/owner/elimination or full-card/RGB certificate.",
+    "Raw reveal event establishes original native server observation, not intermediate timing or browser display. FaBSim focused full-final replays retain index, but reviewer has executed none; Root must supply two exact new-only passes and registration.",
+    "No Gravy Hero activation/Gold/Watery Grave play/ally/other held repair or sibling credit; Toll awaited route remains independently held and unattempted.",
+    "No PHP/game/native/replay/fullsuite/R/source/Git/remote/new-agent/repair/B787 operation by reviewer."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch801_throw_saved.py",
+    "sha256": "ce39154fe2e140c1f7eca760d621e47ab3b23a041a2b7a3d0d3b831dfdfc16b5"
+  }
+}

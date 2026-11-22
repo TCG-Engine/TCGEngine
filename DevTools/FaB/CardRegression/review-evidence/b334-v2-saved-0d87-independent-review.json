@@ -1,0 +1,134 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B334_V2_SINGLE_RECYCLE_HEAL_SELF_BANISH_ACTUAL_RNG_BOUND_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T12:43:40.758802+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch334-v2-single-recycle.json",
+  "input_sha256": "fdaf19dc60b613c7f095b89802e0be8f8f0aeab2a534287a97af8d8cee5b9b89",
+  "fixtures": [
+    {
+      "slug": "card-dig-up-dinner-blue-four-live-sparse-real-three-graveyard-selection-recycles-one-heals-one-self-banish",
+      "card_id": "dig_up_dinner_blue",
+      "group_id": "identity:dig_up_dinner_blue",
+      "fixture_sha256": "2ef65635231a43484092d3451b704f5fa031fe91f260ff4f67750c386f2044af",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1dfe16f5f930c5e6287a88d77eef31b2d1e853ec0e3caff618266e7875b40376",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "3fe16b0291b9364bc1ef6a883947bbe73fe3c9011b6ef3ece907a3da553ef27e",
+        "expected_final_gamestate.txt": "4e34421047dd88bb0b6920e084cd4d99dce0342c124f265d3d00d3676086416f",
+        "meta.json": "f29c0a21b609c74950ea185e42cf163ca17ab6f1b99c7edb87b91b66fd51b43d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1dfe16f5f930c5e6287a88d77eef31b2d1e853ec0e3caff618266e7875b40376",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "3fe16b0291b9364bc1ef6a883947bbe73fe3c9011b6ef3ece907a3da553ef27e",
+        "expected_final_gamestate.txt": "4e34421047dd88bb0b6920e084cd4d99dce0342c124f265d3d00d3676086416f",
+        "meta.json": "f29c0a21b609c74950ea185e42cf163ca17ab6f1b99c7edb87b91b66fd51b43d"
+      },
+      "actions": 6,
+      "native_assertions": 775,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "priority_response_passes": 4,
+      "defender_declaration_finish_inputs": 0,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_deck_uidorder": [
+        7
+      ],
+      "final_graveyard_uidorder": [
+        8,
+        9
+      ],
+      "final_banish_uidorder": [
+        5
+      ],
+      "final_pitch_uidorder": [
+        6
+      ],
+      "final_health": [
+        19,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "actual_RNG": {
+        "initial_counter": 0,
+        "final_counter": 2,
+        "counter_delta": 2,
+        "initial_update_number": 0,
+        "final_update_number": 6,
+        "observed_only_not_prescribed_or_seeded": true,
+        "external_shuffle_calls_singleton": 0
+      },
+      "physical_findings": "Actual legal youngLevia20 at explicitpriorHP18, threeDori20/allfourmanual. InitialownedDinner5/Blue6Hand and exactlythreepriorpublicGY7RagingRed7power,8RagingBlue5power,9WoundingRed4power/DeckBanish0/no counters/effects/RNGseed. ActualBlue6pitch3pays1/AP1 toR2AP0, physical5Stack/threeGY/HP18 retained throughfirstthree manual1,2,3 source responses. Fourth same5body choosesentire3-cardeligiblepool (source5excluded), actualonly7 recyclesDecksingleton7, actual8/9remainGYinoriginalorder, heal1HP19 andsame5publicBanishflag0/ownGAAP1. FullUID1-9ownershipconserved/Counter9/no virtuals/tokens/StackChainsqueuespaymentawaitclear/allHPpositive/4manualactors1each/all11windowsfalse. Every6actor-mode-payload and775orderednativeassertion matches independentlyapprovedV2 expectedinput. Nativeinitial/finalRandomCounter values are read from actualrawsnapshots and recorded separately; not seeded or guessed. V2singleDeck invokesno externalshuffleentropy, fullrawfinal order/hash bound; V1entropyHOLD neverinstalled per retainedhold plus absent originalNsource/archive.",
+      "qualification": "V2only: exact3priorGY/oneeligibleAA7/recycle1/heal1/selfbanish/ownGA/fullcleanup. No largerpool/distribution/alternateDeckorder/healprevention/otherthreshold/secondplay/hero/supportprimary/fullcard/control credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch334-v2-independent-source-review.json",
+    "sha256": "734a44cfaae51cd2bee39e18df1977fd7932f84963b2d33355f8d558f805d775",
+    "manifest_sha256": "49808e384932aefb50fe282f5a714ea1829fed1de0cd4cf4eaa7eab8f1a774d1"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch334-v2-single-recycle-20261103T123150Z-6ae9d436c779e.json",
+    "sha256": "acc7fd56a8b59fdaec31b7101183b8f561f87e3c9d33c4b49f5e869e64038623"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch334-v2-single-recycle.recording-results.json",
+    "sha256": "5aae0943ccd1da4e7f77478ff673d7becbde77302f4967a9bee04ba5b63981aa"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch334-v2-native-r1\\receipt.json",
+    "sha256": "44b1b8aac87406cfd4b389accf3d7e3880a6b704eb810bbc90e8a580efaa1fae",
+    "stdout_sha256": "ad29c741924224b0ca9399ce1907ed2361493c0fd3c43e47d18cf05d6eead4d5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "actual_RNG": {
+    "initial_counter": 0,
+    "final_counter": 2,
+    "counter_delta": 2,
+    "initial_update_number": 0,
+    "final_update_number": 6,
+    "observed_only_not_prescribed_or_seeded": true,
+    "external_shuffle_calls_singleton": 0
+  },
+  "preserved_uninstalled_v1_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch334-v1-entropy-hold.json",
+    "sha256": "a421d1f1fbce9fc64aedd00377b0178848ae2726e84cf22592b144535ca24fb0",
+    "native_executed": false,
+    "fixture_installed": false
+  },
+  "method": "Independent actual saved five-file review; all6 inputs/775 ordered assertions exactly equal independentlyapprovedV2 expectations; complete parsed endpoints/UIDownership/life/economy/Decksingleton/GYrelativeorder/selfBanish/actualRNGcounter/manualprofiles verified. NoPHP/native/replay/R/source/frameworkwrites.",
+  "limits": [
+    "Savedcreationreview only; Root two focused replays are separate evidence, not executed by reviewer.",
+    "V2only: exact3priorGY/oneeligibleAA7/recycle1/heal1/selfbanish/ownGA/fullcleanup. No largerpool/distribution/alternateDeckorder/healprevention/otherthreshold/secondplay/hero/supportprimary/fullcard/control credit.",
+    "Actual final RandomCounter is observed only; no synthetic seed/count assertion or native RNG rerun. Fullraw expected-final snapshot remains replay requirement; noDeck-order relaxation.",
+    "Current0d retained; no sourcefix/application/proposal/runtime migration/deniedauthorizationretry."
+  ]
+}

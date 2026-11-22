@@ -1,0 +1,99 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_EXACT_FOUR_LIVE_MORLOCK_PUBLIC_MINERVA_COST",
+  "phase": "SAVED",
+  "batch": 821,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T18:24:47.138117+00:00",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "source_spec": "card-regression-batch821-morlock-full-positive-a11.json",
+  "input_sha256": "f3aac4d63fbe9678b06fc38cc05b03c595a1ac0fab30ca1d46454f867e398c77",
+  "manifest_sha256": "407f57dd1e7ae4fda3bd2d19b16eb75686751f33f8a50a2543d6b114c29a21d2",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-independent-normal-positive-source-review.json",
+    "sha256": "20530497260c7c9650a033942b6bf47f4cf3f90dd76d646785bb97eb991aa3c6"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-positive-native-save-a11\\receipt.json",
+    "sha256": "40786f9a9df1b129ce4edaf7844b92ede5da2795d3bd01f9bb8e28ad32c36357"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch821-morlock-full-positive-a11.recording-results.json",
+    "sha256": "fb711a5c8d2bfc1607d8c03f1cfb2014f383542367c9980455f9780c150760c8"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch821-morlock-full-positive-a11-20261115T182139Z-6af9f833cc726.json",
+    "sha256": "6915924e77b60a63f9e440a9808bfcc41f22208b56627aa67154075e8aaa4251"
+  },
+  "fixtures": [
+    {
+      "card_id": "morlock_hill_blue",
+      "slug": "card-morlock-hill-blue-four-live-real-lethal-minerva-arsenal-public-banish-prevention",
+      "actions": 36,
+      "native_assertions": 4192,
+      "manual_passes": 32,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f20a0bcb0df64ca597ba230392f40df6c13fa52202b119f082b6abd33de6918",
+        "actions.json": "33aa5db523589038042c088c925e7ee4404ab6bc71bd0a8f766592440fdfd35c",
+        "assertions.json": "9a6aaa5656143efa7fefb25bfc9234d51e2eab0ca1f138198270c3212efd68f7",
+        "expected_final_gamestate.txt": "f70f9722ed1b20eecef12bf02c450cb9f997d1e2eec84921a8c858fa68eb2025",
+        "meta.json": "cd9f7f501c3ecbc56687203216d24c1d7aa256b04769e028c74fb2ba923e4ca6"
+      },
+      "fixture_sha256": "fae0bf344e99c8da2ad94c0ce7916d14415d97215be48a3b0815159c376d01e2",
+      "input_sha256": "f3aac4d63fbe9678b06fc38cc05b03c595a1ac0fab30ca1d46454f867e398c77",
+      "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "recorded_runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "terminal_queries_independently_evaluated": 232,
+      "expected_original_36_controls_4192_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Only named Blue/lethal4/P4currentHP4/face-down Arsenal Minerva public-cost branch; no Hand-native/sibling/generalBanish credit."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4192_native_queries_semantically_reviewed_against_unchanged_source": true,
+  "all_36_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 38,
+  "typed_property_queries": 854,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 35,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "source_fix_applied": true,
+  "source_fix_qualified": false,
+  "new_distinct_gameplay_root_group": false,
+  "related_existing_visibility_family": "FAB-REG-037 extension",
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch821_actual_saved.py",
+    "sha256": "f87023ed3e49a98a5614df9676d15647abcf1349563062d9add327cdeddd406a"
+  },
+  "semantic_witnesses": [
+    "Actualinitialraw has YoungBetsy1/2/3HP20 and YoungDorinthea4CURRENT_HP4, MinervaUID7FaceDown1Arsenal4, Morlock6Hand4/Wounding5Hand1, no seeded prevention/counters/resources/history. Bothendpoints verify48manualsettings/allfourlivingUPF/noauto/passive.",
+    "All36actualsavednativeenvelopes and4192orderedqueries match approvedSource. Actualinput28p4Arsenal-0 paysnamedMinerva7; acceptedquery3180readsBanishFaceDown0, while sameUID/owner4/controller4 andArsenal0are preserved. Entire8passsuffixexecutes; original4physicalattack causesnoHP loss/nohit.",
+    "Actualfinalrawindependently pins Minerva7publicBanish4withnopermission/returnflags, Wounding5GY1/Morlock6GY4/allHP20/20/20/4/allRChiAP0, emptyHandsArsenalArenaStackqueuesawaitframeschains andACTION/fullcleanup. All232terminalqueries independently evaluated againstrawfinal. Intermediatestate evidence isacceptednativeassertions, notseparate rawsnapshots."
+  ],
+  "limitations": [
+    "This exactSavedapproval alone isnotqualification orreplaycertificate; two new-onlycleanreplayreceipts atunchangeda11 remain beforeRootregistration/fix-qualifiedstatus.",
+    "One Blue/ArsenalMinerva cost branch. No Hand-native/decline/secondlethal/unpreventable/otherdamage/Mentorstatic/lesson/sibling/generalBanishprivacy/globalmovement/fullcard certification. No extra distinctrootgroup claim.",
+    "No isolatednativefaultcredit or broad/fullsuite/historicalcorpus pass. R1protocolerror/R2genuinefailure andtheir429a provenance remain historical; actualfullR3success has separatea11 evidence."
+  ]
+}

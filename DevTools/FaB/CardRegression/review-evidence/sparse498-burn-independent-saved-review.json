@@ -1,0 +1,400 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B498_BURN_RUBBER_TWO_BOOST_POWER_AND_EQUIPMENT_RESTRICTION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T18:17:53.853843+00:00",
+  "source_spec": "card-regression-batch498.json",
+  "input_sha256": "2d3964e5584347f5ed5b4b8376d2d4530d07fbfcf29cded147b8a3317d40b0b0",
+  "manifest_sha256": "3abdd9e27cef90996c427756e27e56a72e04e4a37bde263775f98255ef36e8b8",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch498-independent-source-review.json",
+    "sha256": "86c3a1fe36bf5f911e668543c453cff34850b143b49344a69bd201204a23618a",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch498-20261105T181138Z-6aecc6da6511e.json",
+    "sha256": "2bb148cd551047ac5d44cdb22598bd574ba436fe97510be163e7c3fe8a4015b8"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch498-native-r1-9e984\\receipt.json",
+    "sha256": "2b03617d66212f0cc22724e0c970bca4c8e586b01395b73c8b1588d2fd2ad1a5"
+  },
+  "native_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch498.recording-results.json",
+    "sha256": "4fb56fa1354f72009656190d695dfe2e59ed753f29423bd932bb9ee7cd951194"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch498_saved_readonly.py",
+    "sha256": "2eb296d32400feb84f41691cd3edda7fe9fd3c3672a6b6559c3a2579d7694f27"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Source/spec reviewer reused approved independent model; neither author nor recorder. No B496 primary or legacy case/source/printing re-review.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "burn_rubber_red",
+      "group_id": "identity:burn_rubber_red",
+      "slug": "card-burn-rubber-red-four-live-real-two-boosts-give-seven-power-reject-equipment-allow-hand-four-damage",
+      "source_spec": "card-regression-batch498.json",
+      "input_sha256": "2d3964e5584347f5ed5b4b8376d2d4530d07fbfcf29cded147b8a3317d40b0b0",
+      "reviewer": "/root/nov2_next_author",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-burn-rubber-red-four-live-real-two-boosts-give-seven-power-reject-equipment-allow-hand-four-damage",
+      "fixture_sha256": "957c3c79da1e5e713e705796317325dfb7cd92137035f366537a93916d2c6baf",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "69528a2e1824bed7913ae3b23623451857d8baa5b2b7fcf621ca537f4342f6fc",
+        "actions.json": "89a3799257d538afa9a3754f6086d03adcea8cd9bfb615ba036ad0cc409ac677",
+        "assertions.json": "d3330a16fae592d0bf4bc51f09b3ce3839ded5824d98f7e23ea7cf024a59714f",
+        "expected_final_gamestate.txt": "9c96fea62c6f477e9ba1d212810657dec044a21d065ca342bc76505b733d44b3"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69528a2e1824bed7913ae3b23623451857d8baa5b2b7fcf621ca537f4342f6fc",
+        "actions.json": "89a3799257d538afa9a3754f6086d03adcea8cd9bfb615ba036ad0cc409ac677",
+        "assertions.json": "d3330a16fae592d0bf4bc51f09b3ce3839ded5824d98f7e23ea7cf024a59714f",
+        "expected_final_gamestate.txt": "9c96fea62c6f477e9ba1d212810657dec044a21d065ca342bc76505b733d44b3",
+        "meta.json": "5b0ee5845cf54673a29b32cfe4f936128ffe3652a88d29476b6abbe3cad1a135"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "69528a2e1824bed7913ae3b23623451857d8baa5b2b7fcf621ca537f4342f6fc",
+        "actions.json": "89a3799257d538afa9a3754f6086d03adcea8cd9bfb615ba036ad0cc409ac677",
+        "assertions.json": "d3330a16fae592d0bf4bc51f09b3ce3839ded5824d98f7e23ea7cf024a59714f",
+        "expected_final_gamestate.txt": "9c96fea62c6f477e9ba1d212810657dec044a21d065ca342bc76505b733d44b3",
+        "meta.json": "5b0ee5845cf54673a29b32cfe4f936128ffe3652a88d29476b6abbe3cad1a135"
+      },
+      "actions": 56,
+      "native_assertions": 6959,
+      "actual_manual_passes": 46,
+      "actual_priority_response_passes": 44,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "schema_property_assertions": 3524,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "burn_rubber_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "twin_drive_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "throttle_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "zipper_hit_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "11": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "come_to_fight_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "twin_drive_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "burn_rubber_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "throttle_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "zipper_hit_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "14": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "come_to_fight_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "final_UniqueIDCounter": 14,
+      "RandomCounter": 0,
+      "Equipment14_retained_ready_undamaged_noBladeBreak": true,
+      "checkpoint_assertion_mapping_sha256": "e705bde15791fa4a813465c3f6443cee84c7909844921bb1b001cbebd828d7f6",
+      "native_action_mapping_sha256": "96d729c394910c351606f790c6e025ea0564f574ac5675ed8498f9c008483760",
+      "native_assertion_mapping_sha256": "f830be81ab23a1a1b3487c7a39798536232eba7c3231327b29f5b3f901986e51"
+    }
+  ],
+  "blocked_attempts": [],
+  "held_source_only_candidate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch498-burn-rubber-first-ready-author\\bloodied-gauntlet-event-route-unattempted-hold.json",
+    "sha256": "4c053670d5f256e7acb65d792c92717aa5f31a26625f14e7e5c5f37a20528bf1",
+    "native_attempted": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "confirmed_bug": false
+  },
+  "total_actions": 56,
+  "total_native_assertions": 6959,
+  "total_manual_passes": 46,
+  "total_priority_response_passes": 44,
+  "total_schema_property_assertions": 3524,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_administrative_END_PHASE_passes": 0,
+  "material_findings": [
+    "ActualTwin6NUMBERCHOOSE2/Blue7fixed2AP1 THEN twoDeck9,10publicBoostBanish/R1AP0. First5powerfullblockby11,12DEF6/nohit/oneGAAP1; sameopenchain supports realBurn5cost3/Blue8R1AP0.",
+    "ActualcurrentBurn5Chainindex1/link2POWER7/noGA, otherwiselegalP4Ironrot14Equipmentdefenseattempt38 acceptedtransport/exact119-checkNOOP. ActualremainingHand13DEF3accepted/currentDEF3, old11,12link1notdoublecounted, real7-3=4damageHP16.",
+    "ActualfullcloseGY1{5,6}/GY4{11,12,13}/Pitch7,8/Banish9,10flag0/Equipment14readyDamage0/noBladeBreak/allUID1..14/counter14/RNG0/69guards/all48manualprefs/clearedStackDQawaitcombatpaymenttargets verified."
+  ],
+  "limits": [
+    "ONEpositive2Boost/+2POWER/Equipmentrefusal/legalHand/fourdamage; nozero/one/threeBoost/negative/otherdefenders/pitchsiblings/fullcard/supportprimarycredit.",
+    "Ironrot neverdefended, soBladeBreakunearned. Bloodied Event route unattempted/nonexecutable/no fixture/coverage/confirmedbug; noinventedEventpermission orordinaryGY outcome.",
+    "Only initial/final raw snapshots exist; intermediate physical/source facts are actual passed ordered native assertions, not invented raw snapshots.",
+    "Root targeted replays/registration remain separate. No PHP/native/replay/R/source/gen/service/fullsuite/git/remote/deniedretry/integration by reviewer."
+  ]
+}

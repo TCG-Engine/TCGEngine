@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch784-arcanic-full.json",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T05:39:52.203719+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arcanic-crackle-blue-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "fixture_sha256": "ef108516f7dec0e9dd9c3f2104dc5e8a9ff6ff876f509ddacf1d41fab679a8b1",
+      "passed": true,
+      "result": "[PASS] Arcanic Crackle / actual responseable trigger and complete combat"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcanic-crackle-blue-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "returncode": 0,
+      "stdout": "[PASS] Arcanic Crackle / actual responseable trigger and complete combat\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

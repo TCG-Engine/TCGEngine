@@ -1,0 +1,27 @@
+{
+  "runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+  "returncode": 0,
+  "fixtures": [
+    {
+      "slug": "card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-read192-focused-replays\\0.complete.log",
+      "complete_log_sha256": "0852c3c35ea143d642ace9749f858ca066be8f1796630c812b3ff7ff9d019252"
+    }
+  ],
+  "directly_affected_compatibility": [
+    {
+      "slug": "card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-read192-focused-replays\\1.complete.log",
+      "complete_log_sha256": "558de98b0bb6c0301a1cf6b913dd8885bee49be099b8976866a1c6f5761619b2"
+    }
+  ],
+  "raw5_unchanged": true,
+  "runs_per_fixture": 1,
+  "full_suite_run": false,
+  "complete_receipt_external": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-read192-focused-replays\\receipt.json",
+  "complete_receipt_external_sha256": "3c29ab0239e7eecdaa074fe38c79f6e92d81441779931e811f7ef3f60a790742"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch346-smashing-weapon-witness.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T15:53:39.168832+00:00",
+  "fixtures": [
+    {
+      "slug": "card-smashing-good-time-red-four-live-repair-real-weapon-retains-next-attack-action-bonus",
+      "fixture_sha256": "95fc072d97f5d1ff3ba71aee2d4b1b10026f6b9da403c14055177850fa7f7f38",
+      "passed": true,
+      "result": "[PASS] smashing_good_time_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-smashing-good-time-red-four-live-repair-real-weapon-retains-next-attack-action-bonus",
+      "returncode": 0,
+      "stdout": "[PASS] smashing_good_time_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch410.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T02:15:16.404168+00:00",
+  "fixtures": [
+    {
+      "slug": "card-tide-flippers-four-live-sparse-real-arcane-barrier-one-paid-by-blue-and-equipment-retained",
+      "fixture_sha256": "ea5812b7a2c80c6a678a16b9fdabab4366e7101b01763e4ea8ab40a6e3c0716a",
+      "passed": true,
+      "result": "[PASS] tide_flippers / four live distinctive effect"
+    },
+    {
+      "slug": "card-spell-fray-leggings-four-live-sparse-real-optional-spellvoid-one-destroys-owned-legs-and-prevents-one",
+      "fixture_sha256": "da143870897297c7c3581f7150d44c86ae6d942c18b4dc1bff21968f155f92d2",
+      "passed": true,
+      "result": "[PASS] spell_fray_leggings / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tide-flippers-four-live-sparse-real-arcane-barrier-one-paid-by-blue-and-equipment-retained",
+      "returncode": 0,
+      "stdout": "[PASS] tide_flippers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spell-fray-leggings-four-live-sparse-real-optional-spellvoid-one-destroys-owned-legs-and-prevents-one",
+      "returncode": 0,
+      "stdout": "[PASS] spell_fray_leggings / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-lightning070-instant-window-oracle-v2.json",
+  "runtime_sha256": "ef22d88159d0a722519cda9ff35df62584f21815696ec5027e6adcde8490f74c",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T23:24:43.745738+00:00",
+  "fixtures": [
+    {
+      "slug": "card-lightning-press-red-four-live-correct-probe-target-declared-before-response-actual-plus-three-seven-damage",
+      "fixture_sha256": "fc42aaee218c3604ce7d7dcc51ab15b13c45ea62837c996ad79898ae864c996e",
+      "passed": true,
+      "result": "[PASS] lightning_press_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lightning-press-red-four-live-correct-probe-target-declared-before-response-actual-plus-three-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] lightning_press_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

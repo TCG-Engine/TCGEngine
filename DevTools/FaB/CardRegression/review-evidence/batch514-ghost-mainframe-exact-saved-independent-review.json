@@ -1,0 +1,304 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B514_GHOST_MAINFRAME_EARNED_BOOST_BANISH_PERMISSION_CONSUMER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T19:59:25.768487+00:00",
+  "source_spec": "card-regression-batch514.json",
+  "input_sha256": "82ac78a71203ec04fac4d2f36b6f5be7c22984fdc563fce33599f8c726942ecb",
+  "manifest_sha256": "5516929d7926d64026aab002f877d3327298b5acad4023a529f15336485ce9b4",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch514-independent-source-review.json",
+    "sha256": "35183057811290d3da00fe2e5b4913382e4f649703752d0f372f0b02d803ea76",
+    "unchanged_rules_model_reused": true
+  },
+  "source_corroboration_scope_correction": {
+    "prior_source_proof": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch514-independent-source-review.json",
+    "prior_source_proof_sha256": "35183057811290d3da00fe2e5b4913382e4f649703752d0f372f0b02d803ea76",
+    "corrected_inference": "The sourceproof named the PENAfterMove257-259 reset helper but did NOT establish that this helper executes through directDoPlayCard Banish-to-Stack. Treat any implication that this selected play cleared penBoostTurn as withdrawn.",
+    "actual_observation": "Actual finalrawGameState.arcCards[5].penBoostTurn remains2, with iarPlayedFrom=Banish and monFromBanish=true. Recorded positiveplay/damage/UIDsemanticsandalloriginalinputassertionsareunchanged.",
+    "credit_boundary": "CurrentturnBoost-earnedpermission/actualsamecardBanishplayandAPconsumptionONLY. No bookkeeping-reset/re-entry/secondBanish/expiry/negativepermission credit. Retainingthisprivatefieldaloneisnotclassifiedasnewbug.",
+    "input_or_assertions_changed": false,
+    "source_fix_or_new_issue": false
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch514-20261105T195436Z-6aecdefc73a57.json",
+    "sha256": "ca2ab1d920527b8faeaac01cd10942946d072c7b7fd58ac8ea7f89c964708ed0"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch514-native-r1-9e984\\receipt.json",
+    "sha256": "67a8cceb1f114e9098a539bef8dba41d740c2e30ef1027c4a211974687e20c1d"
+  },
+  "native_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch514.recording-results.json",
+    "sha256": "fcbbc76141e82cc2a9c4b5b97d9754490ab7648537a1ff9c398783a544b6f7b0"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch514_saved_readonly.py",
+    "sha256": "8b0518239d2c36bef9659b5ed648a93b0b81a569f0066c2a2210ae446a892cf0"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Independentapprovedsource/modelreviewer, neitherauthornorrecorder; reused351830rules/ledger, nolegacycaseorunchangedsourceaudit/replay.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "ghost_protocol_mainframe_blue",
+      "group_id": "identity:ghost_protocol_mainframe_blue",
+      "slug": "card-ghost-protocol-mainframe-blue-four-live-real-boost-banish-earns-same-card-play-and-one-damage",
+      "source_spec": "card-regression-batch514.json",
+      "input_sha256": "82ac78a71203ec04fac4d2f36b6f5be7c22984fdc563fce33599f8c726942ecb",
+      "reviewer": "/root/nov2_next_author",
+      "reviewer_independent": true,
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-ghost-protocol-mainframe-blue-four-live-real-boost-banish-earns-same-card-play-and-one-damage",
+      "fixture_sha256": "1b8e97e8eb2d9b40d5850a3781bf0142d208ed7f5bc1b5f05c6fb97a733120c5",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "05c5c0391acb67ad4de1c90568c2924f0a800575284c0060c78b12420ca13017",
+        "actions.json": "a37d3d32e7d29b4a5f82c8d565d56122bf278daaacb8c6362648a50e37934fa0",
+        "assertions.json": "d4e6f0192eaa288fc8ab33d80f91884ece3d1ad692001a927d7639808614d5aa",
+        "expected_final_gamestate.txt": "b4cac2560d626762163708db7a8013d047535c0fbb50017ca8850beafb6bc769"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "05c5c0391acb67ad4de1c90568c2924f0a800575284c0060c78b12420ca13017",
+        "actions.json": "a37d3d32e7d29b4a5f82c8d565d56122bf278daaacb8c6362648a50e37934fa0",
+        "assertions.json": "d4e6f0192eaa288fc8ab33d80f91884ece3d1ad692001a927d7639808614d5aa",
+        "expected_final_gamestate.txt": "b4cac2560d626762163708db7a8013d047535c0fbb50017ca8850beafb6bc769",
+        "meta.json": "3d1bb9ef87478ab19ff5403027afa6e58a576b0fced75e514cce674cb46f328d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "05c5c0391acb67ad4de1c90568c2924f0a800575284c0060c78b12420ca13017",
+        "actions.json": "a37d3d32e7d29b4a5f82c8d565d56122bf278daaacb8c6362648a50e37934fa0",
+        "assertions.json": "d4e6f0192eaa288fc8ab33d80f91884ece3d1ad692001a927d7639808614d5aa",
+        "expected_final_gamestate.txt": "b4cac2560d626762163708db7a8013d047535c0fbb50017ca8850beafb6bc769",
+        "meta.json": "3d1bb9ef87478ab19ff5403027afa6e58a576b0fced75e514cce674cb46f328d"
+      },
+      "actions": 50,
+      "native_assertions": 3984,
+      "actual_manual_passes": 46,
+      "actual_priority_response_passes": 44,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "schema_property_assertions": 966,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zero_to_sixty_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "ghost_protocol_mainframe_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zero_to_sixty_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "ghost_protocol_mainframe_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "actual_final_penBoostTurn_UID5": 2,
+      "bookkeeping_reset_expiry_reentry_qualified": false,
+      "checkpoint_assertion_mapping_sha256": "f6c62348b11e555aa408740a4d904c947eec625473041eea7c2c988e63080629",
+      "native_action_mapping_sha256": "530c377e3f3f90b01b2a46a6f11d455186005c5cce5407e8960e96f16db8ee6d",
+      "native_assertion_mapping_sha256": "207290fb65b7bc72d592a5a441d3217cc1c0fa66e06303601eda1da74fa173d8"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 50,
+  "total_native_assertions": 3984,
+  "total_manual_passes": 46,
+  "total_priority_response_passes": 44,
+  "total_schema_property_assertions": 966,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_administrative_END_PHASE_passes": 0,
+  "material_findings": [
+    "ActualZero6targetP4/BoostModal0/resource0AP1paid/actualSAMEUID5Deck\u2192publicownBanish/Playableflag0, noinitialpermission/historyseed ornewallocation.",
+    "ActualZero4damageHP16/oneGAAP1\u2192realBanish5click/StackSourceBanish5/AP0 thenChainindex1/link2/FromBanish/current1noGA/actual1damageHP15. SamephysicalcardneverHandcopy; oldZeroGAdoesnotrepeat.",
+    "RawfinalactualBoosted6=true/UID5penBoostTurn2/iarPlayedFromBanish/monFromBanishtrue andorderedplayed/hits6,5/damage4,1 corroboratefunctionalpermission andrealconsumer. Earlierresetimplicationexplicitlycorrected; noreset/expiry/re-entrycredit.",
+    "ActualfullcloseGY1ordered6,5/allUID1..6conserved/counter6/RNG0/allRAP0/readyquietHeroes/emptyDeckBanishHandPitchStackChainsDQpaymentawait/all48manualprefs."
+  ],
+  "limits": [
+    "ONEpositivecurrentturnownMechBoost-earnedBanishpermission/actualsame5playand1damageconsumer; noEvoUpgradepositive/equippedEvos/Architect/supportprimary/siblings/fullcardcredit.",
+    "Nootherturn/expiry/falsepermission/secondBanish/re-entry/reset/foreignowner/nonMech/suppressionqualifications. ActualpenBoostTurn2preservedashonestevidenceandnotlabelednewbug.",
+    "ThisproofcoversactualnativeSAVEDartifacts; Roottwofocusedcleanreplays/registrationareseparategatesnotexecuted/certifiedhere.",
+    "NoPHP/native/replay/R/source/gen/service/fullsuite/git/remote/deniedretry; frozeninput/expectedassertions/sourceproofbytesunchanged."
+  ],
+  "native_executed_by_reviewer": false,
+  "replay_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

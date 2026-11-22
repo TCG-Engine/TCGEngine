@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch689-tag.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T03:26:00.652178+00:00",
+  "fixtures": [
+    {
+      "slug": "card-tag-the-target-blue-four-live-real-def-one-fullblock-and-go-again-four-damage-consumer",
+      "fixture_sha256": "27a44623371b5dd730c390924c6c326d9790bb473f770d9ce898dcf85396b2a1",
+      "passed": true,
+      "result": "[PASS] tag_the_target_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tag-the-target-blue-four-live-real-def-one-fullblock-and-go-again-four-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] tag_the_target_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

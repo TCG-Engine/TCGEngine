@@ -676,7 +676,7 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$chosen = \"-\";\n $refs = FaBStageSearch($player, ['base'=>'hyper_driver']);\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Find_Hyper_Driver\");\n \n}\nFaBMoveChoice($player, $chosen, 'Temp', 'Arena');\n FaBFinishSearch($player);\n",
+        "abilityCode": "$chosen = \"-\";\n $refs = FaBStageSearch($player, ['base'=>'hyper_driver']);\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Find_Hyper_Driver\");\n \n}\n$item = FaBMoveChoice($player, $chosen, 'Temp', 'Arena');\nif ($item !== null) {\n $entered = FaBFindUID(intval($item->UniqueID));\n if ($entered !== null && $entered['zone'] === 'Arena' && $entered['player'] === $player && FaBWTRBase($entered['object']->CardID) === 'hyper_driver' && FaBHasType($entered['object'], 'Item') && !FaBHasType($entered['object'], 'Token')) {\n  FaBARCEnterItem($player, $entered['object']);\n }\n}\n FaBFinishSearch($player);\n",
         "isImplemented": true
       }
     ]
@@ -2036,7 +2036,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nif (FaBPENBond($uid, 'Ice')) {\n $victim = intval(FaBGetState()['attacker']);\n FaBHVYToken($victim, 'frostbite', 1, $player);\n \n}\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nif (FaBPENBond($uid, 'Ice')) {\n $victim = intval(FaBGetState()['attacker']);\n FaBHVYToken($victim, 'frostbite', 1, $player, null, false, $player);\n \n}\n",
         "isImplemented": true
       }
     ]

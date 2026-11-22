@@ -1,0 +1,7 @@
+{
+    "name": "Powder Keg / real Gun hit earns positive equipment destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-20T19:21:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "STRICToriginalcorrectnoSaveevenPASS. FourmanualYoungDash1/Betsy2and3/Zen4/all20. LegitimatepriorKeg5Arena1, actualTekloBlasterGun6(2H/power2/Action3/noGA), Blue7Hand1; realMysticAquaSeeingShell8faceupDEF1+nondefendingNullruneGloves9Equipment4. Parentadmissioncorrectionpreserved: noPistolnotGun/IronrotBladeBreak witness, noprimaryswap. ActualnativeGun6declaresHero4 thenBlue3pays3/AP0/R0; noSteamseed/Evo/counter/hit/triggerflags. FourSource/Attackresponses; Zen4declaresrealShell8/finalizesDEF1; fourDefend/Reactionresponses yieldactual1damageHP4=19. Keg5andShell8stillpresent withcapturedABILITYcontroller1physicalKegsource5; freshfourBEFORErealoptionalMZMAYCHOOSEdefendingShell8, earnedlayerremainsuntilchoicecompletes. PositiveacceptdestroysactualKeg5ownerGY1andShell8ownerGY4, Gloves9remainsuntouched; parentGunproxy/source/target/powerunchanged. FullDamage/Resolutioncleanuponlyproxyremoved/realGun6Weapons/Blue7Pitch1/allRAP0/HP19/Stackqueuesclear. No virtualUID/ABIalias/printedtapcostguess/cache-defense/directdamage/seededsteam/buff/outcome. Shellpriorflip/startphase/decline/nonGun/otherEquipment/Kegplay/Hero/support/fullcard untested. Sources: https://rules.fabtcg.com/en/cr/06-effects/"
+}

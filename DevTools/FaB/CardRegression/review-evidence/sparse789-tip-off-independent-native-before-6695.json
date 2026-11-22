@@ -1,0 +1,146 @@
+{
+  "status": "NATIVE_CONFIRMED_TIP_OFF_INSTANT_FORMAL_TARGET_DECLARATION_MISSING_BEFORE_PRIORITY_UNSAVED",
+  "phase": "ACTUAL_BEFORE",
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T19:52:24.070983+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_spec": "card-regression-batch789-tip-off-strict-probe.json",
+  "input_sha256": "c857a113c039be8bba756553ca8b9463d575947534007dd11b135c0b9654bd44",
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch789-tip-off-independent-strict-diagnostic-source-review.json",
+    "sha256": "99bff7d04c6d3b059ed98054a22e4a66fe4cc8f29bb8a324108b7f79f5f40269"
+  },
+  "root_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b789-tip-off-original-correct-native-before\\receipt.json",
+    "sha256": "c6ae5085e46c51111fbe550c8987213b5f691a60a3b991d0609e46a1a3997e83"
+  },
+  "native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch789-tip-off-strict-probe.recording-results.json",
+    "sha256": "bef6bc1152b3dacde02c239ec502adb531df5118be8925ecdb6c4995a8ee44c4"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch789-tip-off-strict-probe-20261114T195019Z-6af8bb7b84f6e.json",
+    "sha256": "1e114a9448091230cb1d0668d252cd74c1be651a0cd7efc5333b3ddc6b972c77"
+  },
+  "actual_native_inputs": 2,
+  "actual_actions_exact": true,
+  "actual_manual_passes": 0,
+  "actual_menu_Type": "MZMODAL",
+  "actual_menu_Param": "1|1|PLAY:_Play&ARC_0:_Discard_to_use_instant_ability",
+  "actual_menu_answer": "1",
+  "source_verified_selected_action": "ARC_0",
+  "post_menu_targetanswer_or_response_inputs": 0,
+  "persisted_prior_successful_queries": 168,
+  "persisted_prefix_exact": true,
+  "successful_initial_queries": 125,
+  "successful_menu_queries": 43,
+  "failed_ordered_query_ordinal": 169,
+  "failed_query": {
+    "step": 2,
+    "type": "card_property_equals",
+    "mzId": "p1DecisionQueue-0",
+    "property": "Type",
+    "value": "MZCHOOSE",
+    "viewerPlayerID": 1
+  },
+  "first_failed_observation": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+  "direct_observed_decision_Type": "",
+  "all_final_checkpoint_queries_unexecuted_after_failure": true,
+  "unexecuted_queries_after_first_failure": 123,
+  "actual_initial_raw_sha256": "9bfd67d87a5ca1f8bb8bf7767c0cfffdd4ce262d93d39e0fbf15db84613c78f9",
+  "actual_initial_manual_booleans_checked": 48,
+  "actual_initial_queries_independently_evaluated": 125,
+  "actual_initial_physical_uid_locations": {
+    "1": {
+      "card_id": "betsy",
+      "zone": "p1Hero",
+      "owner": 1,
+      "controller": 1
+    },
+    "5": {
+      "card_id": "tip_off_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "6": {
+      "card_id": "wounding_blow_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "2": {
+      "card_id": "betsy",
+      "zone": "p2Hero",
+      "owner": 2,
+      "controller": 2
+    },
+    "3": {
+      "card_id": "betsy",
+      "zone": "p3Hero",
+      "owner": 3,
+      "controller": 3
+    },
+    "4": {
+      "card_id": "betsy",
+      "zone": "p4Hero",
+      "owner": 4,
+      "controller": 4
+    }
+  },
+  "direct_successful_prefix_facts": {
+    "before_activation_answer_same_physical_Tip5_and_Blue6_in_Hand": true,
+    "before_activation_answer_Stack0_GY0_Pitch0": true,
+    "before_activation_answer_AP1_RChi0": true,
+    "actual_native_two_option_menu_confirmed": true
+  },
+  "separate_direct_normalized_state_observations": {
+    "window": "PRIORITY",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "pendingPayment": null,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": [],
+    "damageDealt": 0
+  },
+  "separate_direct_queue_diagnostic": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "post_answer_physical_Stack_GY_Hand_HP_Mark_queries_passed": false,
+  "raw_post_answer_physical_snapshot_available": false,
+  "native_confirmed_correct_expectation_failure": true,
+  "diagnostic_only": true,
+  "fixture_count_before": 4053,
+  "fixture_count_after": 4053,
+  "fixture_inventory_unchanged": true,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "repair_proposal": false,
+  "source_application_approved": false,
+  "B787_denied_operation_untouched": true,
+  "source_cause_context": "Actual menu and normalindex1answer bind previously Source-reviewed ARC_0 activation path. HNTPaid source-discard hook and canonical/emitted ResolveAbility late chooser contextualize missing formalannouncement target; no instrumentedcalltrace or physicalpostcost/laterresolution certificate.",
+  "limits": [
+    "Exactly168persistedpassedqueries (125initial/43menu) and2nativeenvelopes verified. Query169 directlymeasuresmissingrequiredMZCHOOSE beforeanyfreshresponse;separateactualPRIORITY/allfourDQsemptycorroborate boundedtargetdeclarationfailure.",
+    "All123remainingfinalqueriesUNRUN: physicalpostanswerHand/GY/Stack/HP/Mark/capturedSourcefieldsarenotverified. observedHandrefs,turneffectmarkers,andarcCardsbookkeepingdonotprovephysicaldiscarddestination/ownership orabilityStackfields.",
+    "No nativeconfirmedphysicaldiscard/costorder/Mark/resolvingawait/lifetime/futuretargetanswer/cleanup/RGB/fullcard orpassingcoverageclaim. JunkyardfixedScraproute remainsunattempted knownhold.",
+    "All48actualinitialmanualvalues and125initialqueries independentlyevaluated. No finalrawpreferenceclaim.",
+    "Root aloneexecutedmandatoryno-saveprobe. Reviewer ran noPHP/native/game/replay/fullsuite and made noR/source/Git/remote/B787changes orrepairproposal."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch789_tip_actual_before.py",
+    "sha256": "81aeba33dca2ec8b75d601db71d852f0d44a1f4f14afe554e752176d62c0d42b"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "blockers": []
+}

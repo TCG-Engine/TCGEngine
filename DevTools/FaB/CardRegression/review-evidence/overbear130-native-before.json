@@ -1,0 +1,145 @@
+{
+  "id": "FAB-REG-130",
+  "status": "native_confirmed_unfixed_Overbear_next_weapon_Dominate_restriction_not_applied",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-overbear130-independent-native-before-classification.json",
+  "independent_review_sha256": "48ef2a71065c9836a0b4f554096744cdf4967f29f64201204a9fa501b809ca6b",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch489.json",
+  "input_sha256": "6a7069c191c04fc0b64e388e4f13d1abb97b25a3d0369eb20c3d82c400fa4065",
+  "scenario_id": "card-overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe",
+  "first_failure": {
+    "error": "Expected p4Hand count 1, got 0.",
+    "native_input_ordinal": 18,
+    "source_step_index": 36,
+    "checkpoint": "correct_SECOND_HandAA9_ordinaryClick_REJECTED_by_PRIMARYdominate_exactunchangedorderedstate_no_seconddefense",
+    "actor": 4,
+    "action": "ordinarysecondHanddefenderattemptp4Hand0afterfirstacceptedUID8",
+    "check_in_boundary_1_based": 55,
+    "global_assertion_ordinal_1_based": 1659,
+    "assertions_passed_before_failure": 1658,
+    "prior_complete_checkpoint_assertions": 1604,
+    "same_boundary_checks_passed_before_failure": 54,
+    "failed_check": {
+      "type": "zone_count",
+      "zone": "p4Hand",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "actual_p4Hand_count": 0,
+    "no_fixture": true
+  },
+  "actual_native_prefix": {
+    "attempted_and_recorded_inputs": 18,
+    "exact_match_to_authored_prefix": true,
+    "manual_passes": 12,
+    "manual_actor_counts": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3
+    },
+    "nonpass_inputs": 6,
+    "planned_selected_full_inputs": 35,
+    "planned_selected_full_assertions": 3460,
+    "planned_selected_full_manual": 29,
+    "last_complete_input": 17,
+    "last_complete_checkpoint": {
+      "native_input_count": 17,
+      "source_step_index": 34,
+      "checkpoint": "actual_FIRST_HandNAA8DEF3_ACCEPTED_original9Hand_primarynextWEAPONdominate_materialfirstlegaldefense",
+      "normalized_checks": 95,
+      "cumulative_passed": 1604
+    },
+    "current_direct_passed_facts": "54sameboundarychecksprovemanuallivepriority4/DEFEND_DECLARE/combatOpen/allHP20/allRAP0/queuesempty/Stack0/physicalTitan6used/Blue7Pitch/Overbear5GY/currentattackproxy10SourceWeapons/ownerctl1/link1. Directfailedp4Handcount0+observedP4handrefsEmpty. Lastcomplete17provesfirstUID8defendingandsecondUID9stillHand/freshpower4/noGA.",
+    "observed_state_selected": {
+      "window": "DEFEND_DECLARE",
+      "combatStep": "DEFEND",
+      "combatOpen": true,
+      "chainLink": 1,
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 10,
+      "attackTarget": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "pendingPayment": null,
+      "handBlockUIDs": [
+        8,
+        9
+      ],
+      "declaredBlockUIDs": [
+        8,
+        9
+      ],
+      "damageDealt": 0,
+      "attackHit": false
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "physical_observation_limits": "No postfailure fullrawgamestate dump. ActualrawstatehandBlockUIDs/declaredBlockUIDs[8,9]corroboratesecondadmission, but laterp4CombatChainproperty/count/freshdefensegetter/currentcomputedpowerchecksafterfailedHandcountwereUNREACHED. RawcacheddefenseValue6existsbutnotpromotedtoexecutednativegetterproof; rawattackPower0cacheisnotafreshpowerverdict."
+  },
+  "classification": {
+    "kind": "GAMEPLAY_PRINTED_NEXT_WEAPON_DOMINATE_RESTRICTION_NOT_APPLIED",
+    "oracle_or_protocol_error": false,
+    "reason": "CurrentofficialOverbearrequiresnextweaponDominate. Primarywasactuallyplayed0/resolvedownGA, firstactualTitanFistactivation3fundedbyrealBlue3/base3pluscost3pitch1=4. FirstnormalHanddefender8accepted, butsecondnormalHandattempt9wasacceptedtoo/directHand1expected0actual. NativebranchviolatesrequiredoneHandcardDominate restriction; currentkeyword/sourcepathnotfittedorexpectationweakened.",
+    "source_cause_scope": "ExistingsharedkeywordenforcementpresentinGL1823. Boundedproducerlookupunestablished/source-only; nativeconfirmsselectedprimaryresultfailure, not newCore/totalabsence or fullyproven internalrootcause.",
+    "issue_allocation": "Parent reserved130; reviewer allocatesnoissue/globalroot/Corecount",
+    "related_scope": "Not a missingWHEN/managedawait/lifetime failure; no denied089090094096 operation dependency or integration."
+  },
+  "expected": "After real Overbear resolves, its next actual weapon attack has Dominate. The first Hand defender is allowed; an otherwise legal second Hand defender is rejected unchanged.",
+  "observed": "Eighteen inputs/twelve manual passes ran;1658 checks passed then second-Hand attempt left Hand0 instead of1. Direct empty Hand refs and captured declared/handBlockUIDs[8,9] corroborate admission. Fresh defense, damage and cleanup queries are unrun; existing shared Dominate enforcement exists, and exact missing producer remains unestablished.",
+  "selected_source_file_sha256": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch489.recording-results.json",
+      "sha256": "56d0540ffb30a524c3a9f79e07540548861e8335c1fd178dedc5ae8ca53ed651"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch489-20261105T165119Z-6aecb4078224d.json",
+      "sha256": "cd04616045ac3e4b9d77d4fe71c40e7576373e2f735e1d0c3bf798c1122da174"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch489-independent-source-review.json",
+    "sha256": "4b41989d5ef693180ce6d1038be69537738e6f80c47af4fc1a20501f5aa652d9"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/5072/",
+      "role": "CurrentofficialOverbearGenericAction0/nextweaponDominate/ownGA independentlyreadatSourcegate."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "role": "CurrentDominatekeywordrestrictsdefendinghero morethanoneHandcard; no equipment/Arsenal/DRscopeexpanded."
+    }
+  ],
+  "limits": [
+    "Onlyfirst18oforiginal35actions/1658successfulchecks+failed1659; originalstrict35/3460/29manualmodelunchangedandunsaved.",
+    "No laterdefenderfreshDEFquery/Reaction/Damage/expected1HP19/APrefund/fullcleanupexecuted. No damage/cleanup/suffix/sibling/fullcard/supportqualificationclaim.",
+    "Point companionSaved39isindependenthealthycase/separateSavedreview; Overbearnevergetsfixture/coveragecreditfromcompanion.",
+    "No sourcefix/repairproposal/newglobalCorecount/PHP/native/replay/R/source/gen/service/fullsuite/deniedretrybyreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T16:56:38.104993+00:00"
+}

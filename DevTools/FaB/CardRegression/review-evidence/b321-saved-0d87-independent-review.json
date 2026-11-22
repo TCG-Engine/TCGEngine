@@ -1,0 +1,119 @@
+{
+  "status": "APPROVED_EXACT_SAVED_BALL_BREAKER_REAL_DISCARD_SELF_PLUS_ONE_SIX_DAMAGE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T10:27:02.850862+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch321.json",
+  "input_sha256": "a83b49258db98f14ac974f233d1fc5a39fe127d86e7da1665c3e603088581442",
+  "fixtures": [
+    {
+      "slug": "card-ball-breaker-four-live-sparse-real-six-power-discard-earns-weapon-plus-one-paid-six-damage",
+      "card_id": "ball_breaker",
+      "group_id": "identity:ball_breaker",
+      "fixture_sha256": "1aedcc4d5fc97e288b765442b4ae6fb6094941164eec6a26fe2587c6b73432c2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa27f88df611cc7068345b9bcbd0743c2834002f27b2e05480b9ac25f7d7741c",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "5a3d919188d034d3c8baf8037295895bf8b8ed46180c4dac5f90d20b70df5ab0",
+        "expected_final_gamestate.txt": "9366f7d2e4525fb10e5a270795f3e0402da028f97bca12a1411fa5f46de8954d",
+        "meta.json": "46b76628692e51a4e5154711496b25d09cfc6b1741bd5701c401d8399b7c96f8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fa27f88df611cc7068345b9bcbd0743c2834002f27b2e05480b9ac25f7d7741c",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "5a3d919188d034d3c8baf8037295895bf8b8ed46180c4dac5f90d20b70df5ab0",
+        "expected_final_gamestate.txt": "9366f7d2e4525fb10e5a270795f3e0402da028f97bca12a1411fa5f46de8954d",
+        "meta.json": "46b76628692e51a4e5154711496b25d09cfc6b1741bd5701c401d8399b7c96f8"
+      },
+      "actions": 33,
+      "native_assertions": 3104,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_response_passes": 28,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          8,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_final_random_counter": 0,
+      "physical_findings": "ActualquietyoungLevia20/threeDori20; physicalBall5ready1HWeapons/Bellow6Blue7soleSix8Hand/actualDeck9,10. RealBlue7pitch3paysBellow1/AP1thenactualsole6power8discardcost/ownedpublicGY beforefourmanualsource; source6Stackretainsthroughthree, onlyfourthactuallydraws9,10/earnsBellowBrute2+GA/AP1/R2. FreshP4weaponattacktargetbeforeuse/payment; answeractualprinted2fromR2/AP1\u2192R0AP0/same5usedoncecounters/realproxy11SourceWeapons5. Fourfreshsource1,2,3,4\u2192actualproxy11ATTACK/link1/base3+self1fromearneddiscard+Bellow2=computed6/noGA/nofakepowertags. Fullfourlivecombat/P4defenderfinishactual6damageHP14, noAPrefund. Fullclosephysical5retainedusedWeapons/countersTurn2Attacks1/proxy11ceased/exactownedpublicGYUIDset6,8/Pitch7/actualdrawnHand9,10/Deckempty/allRAP0. AlloriginalUID1-10ownershipconserved/UniqueIDCounter11/StackChainsqueuesawaitframesclear/heroesreadyalllive/all11manualwindowsfalse. Every33nativeaction/3104orderedassertionexactlyapprovedsource; actual29manualactors7,7,7,8 verified.",
+      "qualification": "Onlypositiveactualsixdiscard/printedcost2/onceweaponuse/earnedself1+qualifiedsupport2/computed6/sixdamage/fullcleanup. No no-discard/non6/secondactivationrejection/dualweapon/RNGdistribution/Leviaendphase/BloodDebt/hero/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch321-independent-source-review.json",
+    "sha256": "1798eea9fe6fe7cc9f3804d560a3fef6d79422ff3230ede0fab681ecfd7e692d",
+    "manifest_sha256": "dbd21ea297efdbf3f5f6e21a90362c68aa006b6cf63104ee45368674284738c8"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch321-20261103T102517Z-6ae9b68d535f9.json",
+    "sha256": "4890ab964ce358db4ceb03f6bb90f9269e4ac3505b878b8eb341f91687744375"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch321.recording-results.json",
+    "sha256": "94cec4a6c76edbb24c0869513974634a6643208e7e5bb001ade2e92d8872b367"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch321-native-r1\\receipt.json",
+    "sha256": "8666fcebe70680d78cc06a2fbbd09327cf02ab900efb16f1d651dea27a45873c",
+    "stdout_sha256": "d69ff1a4d3d8116724242b70143cc4ef92249d851dce930206316106d5b8fb90",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own genericraw5/archive/schema/action/assertionparserprefix exactB321bindings only; unrelatedoldsemanticsection neverexecuted."
+  },
+  "method": "Independentread-only actualsavedraw5review: all33actualactor/mode/payload+3104orderednativeassertions equalapprovedfrozeninput; fullschema initial/finalownership/profiles/economy/real6discardbeforepriority/paid2usedweapon+proxySource5/self1+support2power6/noGA/sixdamage/fullphysicalUIDcleanupverified. NoPHP/native/replay/Rwrites byreviewer.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplaysseparateevidence, not executed by reviewer.",
+    "Onlypositiveactualsixdiscard/printedcost2/onceweaponuse/earnedself1+qualifiedsupport2/computed6/sixdamage/fullcleanup. No no-discard/non6/secondactivationrejection/dualweapon/RNGdistribution/Leviaendphase/BloodDebt/hero/supportprimary/fullcard/controlcredit.",
+    "Current0dcontextretained; no sourceapplication/runtime migration/oldcorpus audit or deniedrepairretry."
+  ]
+}

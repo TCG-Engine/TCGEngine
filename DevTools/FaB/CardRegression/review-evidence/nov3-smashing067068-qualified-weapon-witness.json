@@ -1,0 +1,44 @@
+{
+  "status": "QUALIFIED_NAMED_EXISTING_GROUP_WEAPON_VERSUS_ATTACK_ACTION_WITNESS",
+  "utc": "2026-11-03T16:12:02.115103+00:00",
+  "related_issues": [
+    "FAB-REG-067",
+    "FAB-REG-068"
+  ],
+  "scenario": "card-smashing-good-time-red-four-live-repair-real-weapon-retains-next-attack-action-bonus",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_spec": "card-regression-batch346-smashing-weapon-witness.json",
+  "exact_saved_review": {
+    "path": "review-evidence/smashing-weapon346-saved-1f51-independent-review.json",
+    "sha256": "275599062f536d9aa8324422ce8c9bbce2b649f846749a54c474de57da5a1a25"
+  },
+  "fixture_behavior_sha256": "95fc072d97f5d1ff3ba71aee2d4b1b10026f6b9da403c14055177850fa7f7f38",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "c7fc34d2838ef68fa7e409b4f548cda52820642aef9a5b2ec8f61c53a87da2c3",
+    "actions.json": "cc33e7b66ec9e6eadbe43241708feea11aa69c2b1cf7003f7baa1935c84ef79d",
+    "assertions.json": "3d5921f2f5aa92382a75376d0ba8d7d995ef1616c76ace915a7a97e633fdd6af",
+    "expected_final_gamestate.txt": "9d5265e8a89f27cc2cada29872c4e5380449c20894ee9e4dc5456013a5ffd8a4",
+    "meta.json": "edb4f2106ba6cd7fcef9fd60947ff5a9e328e61b901450384388ad37ffed20ec"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov3-smashing-weapon346-1f51-r1.json",
+      "sha256": "0da6314218e061b203d0317efbee86e89c475e0ccc0935d3b65e476883f97cc8",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "passed": true
+    },
+    {
+      "path": "card-regression-replay-nov3-smashing-weapon346-1f51-r2.json",
+      "sha256": "d5896026437f14e768ff08ba42e8c571b120204b3ecdb3c8b2d2b87bd33c7979",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "passed": true
+    }
+  ],
+  "actions": 69,
+  "native_assertions": 5894,
+  "actual_manual_pass_inputs": 62,
+  "new_primary_id_credit": false,
+  "new_group_credit": false,
+  "verified": "Real Timesnap earns2AP; real Arsenal Smashing refunds its action. Weaponcost1/Blue3 leavesR2AP1; unbuffedweapon3damage/HP17 earnsnoSmashingtrigger. SubsequentAA deals7/HP10/AP0 and earnsitsfreshfour-responsehitlayer. OriginalUIDs/economy/fullcleanup verified.",
+  "limits": "Red named no-Item branch only. No Item chooser/destruction/await-lifetime, sibling, full-card or isolated injected-fault coverage. Existing positive main evidence remains unchanged."
+}

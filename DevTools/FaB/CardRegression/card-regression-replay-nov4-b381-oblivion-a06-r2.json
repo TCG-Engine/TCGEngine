@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch381.json",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T19:25:35.753039+00:00",
+  "fixtures": [
+    {
+      "slug": "card-oblivion-blue-four-live-sparse-real-exact-six-owned-runechants-instant-creates-nasreth",
+      "fixture_sha256": "fed1a8810d36a7f81d55f7b721c31f72f4e52f2633f574836a7af0141fdc839e",
+      "passed": true,
+      "result": "[PASS] oblivion_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-oblivion-blue-four-live-sparse-real-exact-six-owned-runechants-instant-creates-nasreth",
+      "returncode": 0,
+      "stdout": "[PASS] oblivion_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

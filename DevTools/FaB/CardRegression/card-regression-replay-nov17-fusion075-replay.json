@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-fusion075-stable-hand-choice.json",
+  "runtime_sha256": "72fea5defd4b0ac50546f6fc5383231b5f13c2360914a8265fe9a913c963afce",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T04:55:03.260657+00:00",
+  "fixtures": [
+    {
+      "slug": "card-entwine-earth-red-four-live-sparse-real-earth-fusion-reveal-paid-eight-power-attack",
+      "fixture_sha256": "d3c87cdfb10347d6f0ee01b4d35d8ad323d25ef509595aa9ac0a2d6712cf8ada",
+      "passed": true,
+      "result": "[PASS] entwine_earth_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-entwine-earth-red-four-live-sparse-real-earth-fusion-reveal-paid-eight-power-attack",
+      "returncode": 0,
+      "stdout": "[PASS] entwine_earth_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

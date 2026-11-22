@@ -1,0 +1,82 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_BROTHERS_REQUIRED_DEFENDED_PAY_NOTE",
+  "phase": "PLANNING",
+  "batch": 850,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix_applied": false,
+  "new_issue": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-brothers-required-known-contract-note-manifest.json",
+    "sha256": "57eb28c516ada9142de8b041fb0f3d650314eb1d7bd9451b2bcdae80ec3198c1"
+  },
+  "manifest_sha256": "57eb28c516ada9142de8b041fb0f3d650314eb1d7bd9451b2bcdae80ec3198c1",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-brothers-known-defended-pay-unattempted-note.json",
+    "sha256": "e350206266e941697bb69ad360e6437bbb1231fe6d07dfb087556cc5b423917d"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-firm-reservation.json",
+    "sha256": "4496a366ef7facd610028217b3736b4ea96b17263c013ff3a2e1772e83bf8708"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_guards_matched": true,
+  "source_guard_count": 15,
+  "holds": [
+    {
+      "card_id": "brothers_in_arms_blue",
+      "group_id": "pitch-cycle:brothers_in_arms",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_DEFENDED_PAY_CONTRACT",
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_BEFORE_OPTIONAL_PAY_CONTRACT",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-brothers-known-defended-pay-unattempted-note.json",
+        "sha256": "e350206266e941697bb69ad360e6437bbb1231fe6d07dfb087556cc5b423917d"
+      },
+      "known_contracts": [
+        {
+          "card_id": "toby_jugs",
+          "row": 274,
+          "evidence": {
+            "path": "review-evidence/sparse826-act-r4-source-and-toby-unattempted-a11.json",
+            "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "confirmed_gameplay_bug": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Actual Blue printedDEF2 and When-defends optionalpay1/+2DEF. CurrentSUP andUPR canonical bodies andemittedDefended24833 capturephysicalUID and implementpositivePay_resources Modal, realeffectpitchloop/spend1/TagUIDWTR_DEFENSE2. Bodiesexist; no unimplemented/paymentabsence claim.",
+    "GL1237..1243 OnDefended directly runs actual macro before separately captured earned Brotherslayer/responses. Same exact retainedToby274 optionalpay Defended-WHEN contract; no optionalbranchskipping, basicDEF2 fallback or whole-card blankethold.",
+    "FuturefullfixedlegalRhinarSmash7/Blue3pay2/R1/AP0 and actualBrothersfromHand4DEF2 mustearnfourbeforeYES realBlue3pitch/pay1/float2; realDEF4 meansactualdamage3/HP4=17. Blocking/effectpayment hasnoAPcost. PhysicalBrothersGY4/BluePitch4/SmashGY1/otherBluePitch1,actualeconomy/AP/Stackqueueschaincleanup allUNRUN.",
+    "Otherpitchsiblings/decline/unpayable/multipledefenders/ownplay/Hero/support/fullcard untested. Read is independent; originalwrongEndPhase-response requirement was corrected preNative byRoot584d31... anddoesnotchangeBrothersroute. ThisnoteonlybindsBrothers knowncontract."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_Defended_trigger_review": true
+    }
+  ],
+  "limits": [
+    "Only source-only planning-note accuracy approved. No executable/Native/Save/fixture/newissue/root/fix/coverage claim.",
+    "Allactualdefense/earnedresponses/payment/buff/real3damage/cleanup remainsunrun; no quieterbranch/substitutecard.",
+    "NoPHP/native/Rwrites/sourcepatch/fullsuite/Git/remote/newagents/Radiant189/Head190/Oysten191/denied188184B787 action."
+  ],
+  "created_utc": "2026-11-16T06:22:24.203729+00:00"
+}

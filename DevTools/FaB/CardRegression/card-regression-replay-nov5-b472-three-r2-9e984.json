@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch472.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T14:00:26.915593+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blood-line-red-four-live-real-draconic-link-cost-two-to-one-three-damage-and-go-again",
+      "fixture_sha256": "5f43fdf07490e197fa7de535f024871df61effe348ff466ce2d8718b43d56426",
+      "passed": true,
+      "result": "[PASS] blood_line_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-falcon-wing-red-four-live-prior-legal-aim-counter-real-arsenal-play-four-damage-and-go-again",
+      "fixture_sha256": "f46921064cde2abc31199bc2f8147e9fdcc0c446346e09f7201c6e2974947a00",
+      "passed": true,
+      "result": "[PASS] falcon_wing_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-pick-to-pieces-red-four-live-real-lunging-press-earns-power-and-five-unpreventable-damage-through-zen",
+      "fixture_sha256": "75ea597ff0ca071ec8b5ebdd558129f7497c867eb03d67aca3e13f9132a90fb9",
+      "passed": true,
+      "result": "[PASS] pick_to_pieces_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blood-line-red-four-live-real-draconic-link-cost-two-to-one-three-damage-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] blood_line_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-falcon-wing-red-four-live-prior-legal-aim-counter-real-arsenal-play-four-damage-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] falcon_wing_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pick-to-pieces-red-four-live-real-lunging-press-earns-power-and-five-unpreventable-damage-through-zen",
+      "returncode": 0,
+      "stdout": "[PASS] pick_to_pieces_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

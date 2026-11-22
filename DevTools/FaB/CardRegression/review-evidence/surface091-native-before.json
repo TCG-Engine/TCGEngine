@@ -1,0 +1,244 @@
+{
+  "status": "CONFIRMED_NATIVE_SURFACE_SHACKING_BLUE_MISSING_RESPONSEABLE_ENTRY_LAYER_UNSAVED",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewed_utc": "2026-11-04T22:55:44.329347+00:00",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_spec": "card-regression-batch398.json",
+  "input_sha256": "23687d1ee41fdb5f7b4965f874ed9b44e7d60f21761d8085f5ec8415979b4abd",
+  "manifest_sha256": "e3ad389ae037fae1c6123a9ab7960bab06e82b089b2b22587a9a8be06bb9c56b",
+  "card_id": "surface_shaking_blue",
+  "slug": "card-surface-shaking-blue-four-live-correct-probe-real-aura-entry-trigger-before-three-seismic-tokens",
+  "gameplay_discrepancy_confirmed": true,
+  "semantically_approved": false,
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "recording_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch398-20261104T225101Z-6aebb6d5e71b6.json",
+    "sha256": "98b5e0668adc2a7c409dce6066c1cb739ea62c427efde8ff40f054363661f466"
+  },
+  "root_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b398-native-527c-r1\\receipt.json",
+    "sha256": "e6101f1805c98482e2b21650d3c4924076b7e49e6651612d58ed26e260a96435"
+  },
+  "independent_correct_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch398-independent-source-review.json",
+    "sha256": "1ccf6c4c0a0af5c37c0f32d41d2a09301f658d2b7829ab46a0610a3fcde47953"
+  },
+  "accepted_native_inputs": 6,
+  "actual_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "initial_snapshot_sha256": "ec9728c8ea5f1f6175b953e465c2af94a357e9c345b816ad1a31deb5f70d4e71",
+  "first_failed_source_step": 12,
+  "first_failed_check_index": 23,
+  "prior_sequential_native_checks_passed_derived": 466,
+  "failed_check": {
+    "type": "zone_count",
+    "zone": "Stack",
+    "value": 1
+  },
+  "observed": {
+    "Stack_count_from_failure": 0,
+    "raw_window": "ACTION",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "pendingPayment": null,
+    "all_seat_decision_queues_empty": true,
+    "cardsPlayedThisTurn": {
+      "1": [
+        "surface_shaking_blue"
+      ]
+    }
+  },
+  "passed_prefix_not_full_raw": {
+    "PriorityPlayer": 1,
+    "ConsecutivePasses": 0,
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "AP": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "p1Deck_count": 0,
+    "p1Temp_count": 0,
+    "p1Equipment_count": 0,
+    "all_seat_queues_empty": true,
+    "pendingPayment": null,
+    "AP1_is_source_own_go_again": true
+  },
+  "unexecuted_suffix_claims": [
+    "Physical Aura5 location/owner/controller/status after resolution",
+    "Physical Seismic token count/identity/ownership after failure",
+    "Any fresh entry-trigger responses or resulting token production",
+    "Full postfailure raw zone snapshot, draw/start-phase branches"
+  ],
+  "source_derived_cause": {
+    "canonical_path": "DevTools/FaB/sea_abilities.json",
+    "canonical_ResolveCard": "$seaPlayer = $player;\nFaBHVYToken($seaPlayer, 'seismic_surge', 3, $seaPlayer);\n",
+    "compiled_path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+    "compiled_lines": [
+      7728,
+      7733
+    ],
+    "compiled_slice_sha256": "f6c2ac8d1f76ce491f7bc2feb74b9c8ec8272473b09b26a4c0f6c86ae089e4b3",
+    "flow": "GameLogic1781 moves resolving persistent Aura to Arena,1782 dispatches current body synchronously; body creates3Seismics inline. OwnGA then resolves at1783-1785; no separate queued entry layer exists.",
+    "physical_token_creation": "Premature three-token creation follows actual source, not independently captured full physical zones. Raw creation-related turn-effect markers are corroboration, not substitutes for physical objects."
+  },
+  "rule_basis": [
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/high-seas/",
+      "finding": "Current official indexed release note explicitly: Surface first ability triggers on resolution/entry; create3 only on triggered effect resolution. Direct page403, no full-page retrieval claimed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Entry WHEN creates a triggered-layer before next priority; distinct resolution creates tokens."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.4a",
+        "8.3.5a"
+      ],
+      "finding": "Aura enters on source resolution, and sourceownGA refunds oneAP after its own resolution abilities; does not await separate triggered effect."
+    }
+  ],
+  "classification": {
+    "candidate_issue_id": "FAB-REG-091",
+    "existing_issue": "FAB-REG-043",
+    "classification": "native_confirmed_existing043_missing_responseable_entry_trigger_named_producer_extension",
+    "root_cause_group": "missing_responseable_trigger_named_producer",
+    "new_distinct_gameplay_root_group": false,
+    "new_core_root": false,
+    "existing_issue_lookup_sha256": "3ed2077c7b22773372e11aae7d2cb3aa081bf5b4770360a91ef44e2045dfb18d",
+    "native_scope": "Only surface_shaking_blue own normal paidentry, sourceUID5/controller1; no extra source/card/branch credit."
+  },
+  "source_guards_verified": 49,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "24a0348f1ec45273784ed293ee57b5247596849797ada944d65f229bbd5c961c",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "a1ec1c7ca72ead8a8ec28ba1125e6a5a683b24df243d4a3a103c824b50bc14a3",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78"
+  },
+  "repair_recommendation": "Use existing captured ROS trigger queue/resolver for named canonical entry producer. Preserve ownGAAP1 before fresh trigger, normal token factory/modifiers on trigger resolution. Any canonical/builder/strict generation bridge changes need independent review and authorized application; no runtime/source changes are authorized by this classification.",
+  "assertions_weakened": false,
+  "source_repair_applied": false,
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_surface398_native_boundary_readonly.py",
+    "sha256": "b1d7f811ee6159dce82b9647da074d7835748cdf4d6acf586b6843cd4d20c884"
+  },
+  "limits": [
+    "Missing responseable layer is proven natively. AP1 is proven by preceding native check5, not raw scalar capture; exact three early tokens/Aura location are source-derived only.",
+    "Correct original23687 source and all suffix expected outcomes remain unchanged; failedSurface saves no fixture or passing coverage.",
+    "No PHP/native/R/service/generation/source application, optional paper model or denied089 retry/reroute by reviewer."
+  ]
+}

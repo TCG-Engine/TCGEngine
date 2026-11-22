@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch422.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T06:26:58.221960+00:00",
+  "fixtures": [
+    {
+      "slug": "card-old-knocker-four-live-sparse-real-hero-tap-destroy-resource-funds-cost-one-attack",
+      "fixture_sha256": "22e10dfac1d964f91992da30aa0668815c7a29082a0795a8b9ab68d901706e8d",
+      "passed": true,
+      "result": "[PASS] old_knocker / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-old-knocker-four-live-sparse-real-hero-tap-destroy-resource-funds-cost-one-attack",
+      "returncode": 0,
+      "stdout": "[PASS] old_knocker / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

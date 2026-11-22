@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch440.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T10:02:19.532387+00:00",
+  "fixtures": [
+    {
+      "slug": "card-seek-enlightenment-red-four-live-sparse-real-paid-light-action-buffs-next-attack-action-to-seven-fully-blocked",
+      "fixture_sha256": "f745f4d4f288a209036747e82dde43f89a48e1438d0902c12f91aaba3d631452",
+      "passed": true,
+      "result": "[PASS] seek_enlightenment_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-seek-enlightenment-red-four-live-sparse-real-paid-light-action-buffs-next-attack-action-to-seven-fully-blocked",
+      "returncode": 0,
+      "stdout": "[PASS] seek_enlightenment_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

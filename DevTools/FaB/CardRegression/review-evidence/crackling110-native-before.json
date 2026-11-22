@@ -1,0 +1,122 @@
+{
+  "id": "FAB-REG-110",
+  "status": "NATIVE_CONFIRMED_CRACKLING_EARNED_LIGHTNING_FLOW_POWER_MISSING_NO_DAMAGE_SUFFIX_EXECUTED",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_sha256": "81c145c577c974a6c42763766ddd068757e0f4624cc7c89c48306458cae73fb1",
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-crackling442-independent-native-before-classification.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch442.json",
+  "input_sha256": "50a912ff3380c17c05789c9708f38b14bac4505dc4696c1b9c8e6868270c1cfc",
+  "scenario_id": "card-crackling-red-four-live-correct-real-lightning-play-earns-flow-plus-one-and-five-damage",
+  "first_failure": {
+    "error": "power  expected 5 got 4",
+    "native_action_boundary": 11,
+    "source_step_index": 22,
+    "source_check_index": 51,
+    "ordered_authored_check_ordinal_1based": 811,
+    "preceding_ordered_authored_checks_passed": 810,
+    "completed_prior_boundary_checks": 759,
+    "same_boundary_checks_before_failure": 51,
+    "expected_power": 5,
+    "actual_power": 4,
+    "raw_source_check": {
+      "kind": "power",
+      "value": 5
+    },
+    "source_query": "Recorder FCRState power directly calls FaBAttackPower and throws before adding its computed_power_equals persisted assertion. This is a fresh getter failure, not cached attackPower0 or a snapshot mismatch."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 11,
+    "action_prefix_sha256": "b33bbaa762fa076ab9882463b09189d633f49657c1883d98940b0b73ee38f49f",
+    "last_input": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "manual_inputs": 8,
+    "priority_response_inputs": 8,
+    "defender_finish_inputs": 0,
+    "manual_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2
+    },
+    "initial_manual_settings_verified": 48,
+    "initial_gamestate_sha256": "c4263dd9960e17213502db5d14e5cefb7c49239b33fc6aa7a75b76d67bbea253",
+    "proved_support_route": "RealWeave6Handplaycost0/AP0/fouractual1,2,3,4\u2192same6publicownGY/ownGAAP1. RealLightningplay history and ROS_LIGHTNING1 observed; no initialcondition/grant seed.",
+    "proved_primary_route": "SameCrackling5Hand targetadjacentP4thenAP1->0/cost0/allR0, fresh1,2,3,4\u2192currentowned5Chain/fromHand/link1/WTR_POWER1. SameboundaryStack0/Hand0/queuesempty/allHP20/P1WeaveGY6 andnoP4defenders beforefailedpower."
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_EARNED_CONDITIONAL_STATIC_POWER_MISSING",
+    "protocol_or_oracle_error_at_first_failure": false,
+    "native_confirmed": "ActualplayedLightningWeavecondition is earned and support+1 is present, but freshcurrentattack getter returns4 instead of printedbase3+support1+Flow1=5. Strictexpected5 is independentofcurrentoutput.",
+    "bounded_source_explanation": "Canonical Weave producer createsWEAVE_Lightning1; actualELEPlayed consumer matches ElementalAA, consumes it andtagsWTR_POWER1. ActualWTRAttackPowerModifier sums thattag; sharedFaBAttackPower startswith printedCardPower3 andcalls boundedcurrentmodifiers. Native4 is consistentwith base3+support1 but missingintrinsicFlow1. CurrentROSPlayed has alreadyrecorded actualLightningplay/counter/lastLightning. This selectedfailure is confirmed without assuming missingnamedmacro proves everysharedpath absent. No catalogue-wide absenceorrootcauseauditclaimed.",
+    "computed_vs_cached": "Observedstate cachedattackPower is0 while ATTACKdamagehasnotbeenbegun. Failedquery directlycomputed4. ObjectCurrentPower persistedassertion and FaBBeginDamageStep use the sameFaBAttackPower sourcepath; thisdoesnotexecuteorprove laterphysicaldamage.",
+    "root_attribution": "OnlyRedactualWeave-positiveFlow branch confirmed. Root reserved110/issue-family/globaldistinctroot/Coreallocation remains Rootresponsibility."
+  },
+  "source_evidence": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+      "FaBSim\\Custom\\ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+      "FaBSim\\Custom\\ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+      "DevTools\\FaB\\CardRegression\\record_card_regressions.php": "1cae8e955665e2dde73f2eb92d34e191036dbaa87f379b5d5ce015303e0ecb15",
+      "Core\\RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "DevTools\\FaB\\ele_abilities.json": "9e0f27afa772225ec73488928f8e54ca2b2205fe9aafd59f2f97da4ba61cf4f3"
+    },
+    "anchors": [
+      "FCRState power immediateFaBAttackPower/throw-beforepersist",
+      "ObjectCurrentPower currentattack->FaBAttackPower",
+      "FaBBeginDamageStep freshFaBAttackPower->defense->DoDamage",
+      "canonicalWeaveLightningBlueResolveCard WEAVE_Lightning1",
+      "ELEPlayed eligibleElementalAA consumesWEAVE andWTR_POWER1",
+      "WTRAttackPowerModifier sumsWTR_POWERtag",
+      "ROSPlayed Lightningplay counter/lastLightning history"
+    ]
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch442.recording-results.json",
+      "sha256": "fee41ccc7fe7be8ea61349cff47b7f03a8ee97f16d0beed9f2740f3f91860406"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs\\card-regression-batch442-20261105T101026Z-6aec56124f2e6.json",
+      "sha256": "3febe33862b7dbf7152fe6b65bd8bd27669607e266c453f19dece722272ebd98"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3211/",
+      "finding": "Currentofficialbase3/LightningFlow+1 withplayedLightning; independentlyreadinc8c8gate."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1222/",
+      "finding": "Currentofficialcost0/+1nextElemental-or-LightningAA/fusedonlyAA-GA/ownGA."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.4.16"
+      ],
+      "finding": "Flowlabelconditionalstaticrule; actualWeaveLightningcardplayearnscondition."
+    }
+  ],
+  "limits": [
+    "NativegoAgainassertion immediately follows firstfailedpowercheck and is UNREACHED atboundary11. CachedattackGoAgainfalse is observedstateonly; prioractualWTR_POWER1whole-tagarray doesnot invent a new freshGAquery.",
+    "No Attack/defender-declaration/Reaction/Damage/Resolution suffix inputs executed afterfirstpowerfailure. Neitherphysical4damage/P4HP16 norcorrect5damage/P4HP15 norfinalGY5/fullcleanup is claimed. AllactualsameboundaryHP20 priorchecks passed; damageDealt0/attackHitfalse observed.",
+    "Onlyinitialrawsnapshotiscomplete. Selectedsameboundaryphysicalfacts are passedcardqueries, not a fullpostfailurezonecapture. Printedbase3 comesfromindependentcurrentprimarytext/guardedcatalog, not a separatelycapturednativebase scalar.",
+    "Completeoriginal32actions/2475checks/strict5power/5damage/HP15suffixpreservedunchanged. No companionrun/expectationweakening/sourcefix/repairauthorization/PHP/native/R/source/service/gen/deniedretry/reroute/fullsuite/sibling/control/fullcardcredit."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "root_attribution": "Card-specific native finding; no new global gameplay/Core root allocation.",
+  "created_utc": "2026-11-05T10:16:08.087361+00:00"
+}

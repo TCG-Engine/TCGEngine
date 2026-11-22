@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "utc": "2026-11-03T01:46:51.148753+00:00",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/wtr_test.php"
+  ],
+  "exit_code": 0,
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "runtime_unchanged": true,
+  "stdout_bytes": 131,
+  "stderr_bytes": 0,
+  "scope": "Existing WTR component entrypoint including its UPF/smoke prerequisites; no full integration suite. ARC/MON entries not invoked."
+}

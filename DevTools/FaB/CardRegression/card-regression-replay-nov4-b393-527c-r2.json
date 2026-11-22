@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch393.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T22:08:19.230405+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rev-up-red-four-live-sparse-real-controlled-hyper-driver-reduces-three-to-two-with-boost-declined",
+      "fixture_sha256": "43ff4dcc0b046bce53507e02efc85db0426ab8c17adc6d248d47722406df49b7",
+      "passed": true,
+      "result": "[PASS] rev_up_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-ratchet-up-red-four-live-sparse-real-own-item-destroyed-reduces-defending-action-defense",
+      "fixture_sha256": "2e4e189f9433e228afd414421cc7a25ee76e4e20c2732940b4852857aeebae7f",
+      "passed": true,
+      "result": "[PASS] ratchet_up_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rev-up-red-four-live-sparse-real-controlled-hyper-driver-reduces-three-to-two-with-boost-declined",
+      "returncode": 0,
+      "stdout": "[PASS] rev_up_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ratchet-up-red-four-live-sparse-real-own-item-destroyed-reduces-defending-action-defense",
+      "returncode": 0,
+      "stdout": "[PASS] ratchet_up_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

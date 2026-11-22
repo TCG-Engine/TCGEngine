@@ -1,0 +1,417 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B386_COMPLETED_EVO_COST_AND_RESPONSEABLE_ROBE_LEAVE_RESOURCE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-11-04T20:24:19.668633+00:00",
+  "source_spec": "card-regression-batch386.json",
+  "input_sha256": "9bc64473b55b9bd28bd2eb4272a555488319dc7ac6f1d854838f0cfc96725c60",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch386-cost-and-leave-trigger-author\\manifest.json",
+  "manifest_sha256": "13a154d9b747bc22eef0e3a1fd78bc5f8ef3256e2ce35b4b75ecb065d30f3fac",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 39,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch386-independent-source-review.json",
+    "sha256": "c478c8c3f157da643ccbc2b8be364d7655d517660b5b8dc5845c00dec2570eda",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch386-20261104T202101Z-6aeb93adc7d86.json",
+    "sha256": "af4551b542dd7ae8fa6a148d718c5c9907aa49d950f6401de74d257ec09addd1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b386-native-527c-r1\\receipt.json",
+    "sha256": "3c007459d786ed88d12d839939219edceb2465954026207ba745f71acab4e574"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch386_saved_readonly.py",
+    "sha256": "11c80d87886980829b4d9fdef3e385f4ec1657beb98326cb917b66062963dabe"
+  },
+  "read_only_data_helpers": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+      "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch379_saved_readonly.py",
+      "sha256": "725f4ed633c3afe59770642c0c181b3484e5fda3c4d6affa35b3adfaa68f43d1"
+    }
+  ],
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "synapse_sparkcap",
+      "group_id": "identity:synapse_sparkcap",
+      "slug": "card-synapse-sparkcap-four-live-sparse-real-evo-hand-banish-tap-action-cost-creates-ponder",
+      "source_spec": "card-regression-batch386.json",
+      "input_sha256": "9bc64473b55b9bd28bd2eb4272a555488319dc7ac6f1d854838f0cfc96725c60",
+      "reviewer": "/root/b105_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SELECTED_FOUR_LIVE_BRANCH",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-synapse-sparkcap-four-live-sparse-real-evo-hand-banish-tap-action-cost-creates-ponder",
+      "fixture_sha256": "02b564a30d4c515d5b69a4e42c478c610f8f336c1e03b4319fb55addc020efc4",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "892c012951f5ba59b27fe81247ed7c04e457685b095f124ef1a0c001f36f0157",
+        "actions.json": "54dfb02c7f8e71f93626a0727ba6ab496159b8502e1ff5a1617164e57aeeada5",
+        "assertions.json": "87ab4e59e8ae9b97c1fcefc5b4c380c60a13d17b6aff0d6db8f3cc1a6eda2599",
+        "expected_final_gamestate.txt": "421006722313e7e2be68a3eb36f6b7585036715acd34f5ba8ff3153fe249cfdb"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "892c012951f5ba59b27fe81247ed7c04e457685b095f124ef1a0c001f36f0157",
+        "actions.json": "54dfb02c7f8e71f93626a0727ba6ab496159b8502e1ff5a1617164e57aeeada5",
+        "assertions.json": "87ab4e59e8ae9b97c1fcefc5b4c380c60a13d17b6aff0d6db8f3cc1a6eda2599",
+        "expected_final_gamestate.txt": "421006722313e7e2be68a3eb36f6b7585036715acd34f5ba8ff3153fe249cfdb",
+        "meta.json": "32c11bcd3a6270a42c261ac2bc25ba946b6a92866d6b986abd3e7dd62bd323e6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "892c012951f5ba59b27fe81247ed7c04e457685b095f124ef1a0c001f36f0157",
+        "actions.json": "54dfb02c7f8e71f93626a0727ba6ab496159b8502e1ff5a1617164e57aeeada5",
+        "assertions.json": "87ab4e59e8ae9b97c1fcefc5b4c380c60a13d17b6aff0d6db8f3cc1a6eda2599",
+        "expected_final_gamestate.txt": "421006722313e7e2be68a3eb36f6b7585036715acd34f5ba8ff3153fe249cfdb",
+        "meta.json": "32c11bcd3a6270a42c261ac2bc25ba946b6a92866d6b986abd3e7dd62bd323e6"
+      },
+      "actions": 6,
+      "native_assertions": 673,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_initial_and_terminal_data_assertions_evaluated_against_serialized_endpoints": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "6": {
+          "card_id": "evo_steel_soul_controller_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "synapse_sparkcap",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "FaceDown": "0",
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "5": {
+          "card_id": "synapse_sparkcap",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1,
+          "Status": "1",
+          "FaceDown": "0",
+          "counters": {}
+        },
+        "8": {
+          "card_id": "ponder",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "6": {
+          "card_id": "evo_steel_soul_controller_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0",
+          "counters": {
+            "DTD_HAND_BANISH": 2
+          }
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        }
+      },
+      "checkpoint_mapping_sha256": "209c59bf65f4e893de93cce8ca70578777008312a48eddf33df7b7125e98e877",
+      "native_action_mapping_sha256": "3c9a8375206a12ef25177817bbb989b90b5d3a92bb1c5918696233708e3c0b74",
+      "native_assertion_mapping_sha256": "ade4e7feb066e174b7bafbdb89abd742cec0583c7cdeaaac14d4fde8de0e0f61"
+    },
+    {
+      "index": 1,
+      "card_id": "robe_of_resourcefulness",
+      "group_id": "identity:robe_of_resourcefulness",
+      "slug": "card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+      "source_spec": "card-regression-batch386.json",
+      "input_sha256": "9bc64473b55b9bd28bd2eb4272a555488319dc7ac6f1d854838f0cfc96725c60",
+      "reviewer": "/root/b105_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SELECTED_FOUR_LIVE_BRANCH",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+      "fixture_sha256": "f83c7c6e757fc5885e91e4c6be67a49a301aa39c9c2fb138e5fa80140a3e58af",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "baf554061dae3c6dad949b144e623cde37a48f745fc26d285beb6bd069a62c70",
+        "actions.json": "edef0b293be7ef27a5ca7313a17598370e4bd67d37ea286c05ed2aa80e741046",
+        "assertions.json": "2b11223f58204f5638c8fdbeb49add0cf49dbd8a6025ebffb3c1dd6e8a0b2cf0",
+        "expected_final_gamestate.txt": "7719baeb7896965da6f2f81d9b599e0c60b679c07dc16925ad1cdd28688d9ac4"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "baf554061dae3c6dad949b144e623cde37a48f745fc26d285beb6bd069a62c70",
+        "actions.json": "edef0b293be7ef27a5ca7313a17598370e4bd67d37ea286c05ed2aa80e741046",
+        "assertions.json": "2b11223f58204f5638c8fdbeb49add0cf49dbd8a6025ebffb3c1dd6e8a0b2cf0",
+        "expected_final_gamestate.txt": "7719baeb7896965da6f2f81d9b599e0c60b679c07dc16925ad1cdd28688d9ac4",
+        "meta.json": "531ef7488947d46b46aae112bb7f92f1df16beb87696b23224da9154e0420dc0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "baf554061dae3c6dad949b144e623cde37a48f745fc26d285beb6bd069a62c70",
+        "actions.json": "edef0b293be7ef27a5ca7313a17598370e4bd67d37ea286c05ed2aa80e741046",
+        "assertions.json": "2b11223f58204f5638c8fdbeb49add0cf49dbd8a6025ebffb3c1dd6e8a0b2cf0",
+        "expected_final_gamestate.txt": "7719baeb7896965da6f2f81d9b599e0c60b679c07dc16925ad1cdd28688d9ac4",
+        "meta.json": "531ef7488947d46b46aae112bb7f92f1df16beb87696b23224da9154e0420dc0"
+      },
+      "actions": 16,
+      "native_assertions": 1410,
+      "actual_manual_passes": 12,
+      "actual_priority_response_passes": 12,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_initial_and_terminal_data_assertions_evaluated_against_serialized_endpoints": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "6": {
+          "card_id": "cash_out_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "voltic_bolt_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "robe_of_resourcefulness",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "FaceDown": "0",
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "9": {
+          "card_id": "silver",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "5": {
+          "card_id": "robe_of_resourcefulness",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "6": {
+          "card_id": "cash_out_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "7": {
+          "card_id": "voltic_bolt_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        }
+      },
+      "checkpoint_mapping_sha256": "e451044916160be57a65c43c202b4de2f92232ea367503e8afde2ffc969a1c49",
+      "native_action_mapping_sha256": "29870980fcd915f29123052829181c233f14c4c262a307e0817d41fd0be0bdb1",
+      "native_assertion_mapping_sha256": "8201fc01167a192088c6d8024cedf89e44f4b6be4721e1efa8243e55a7788106"
+    }
+  ],
+  "total_actions": 22,
+  "total_native_assertions": 2083,
+  "total_actual_manual_passes": 16,
+  "total_actual_priority_response_passes": 16,
+  "findings": [
+    "Both exact raw5 fixtures match the approved original input, all22 action envelopes and all2083 ordered persisted checks. Every actual pass cycles all four manual seats.",
+    "Synapse original5 tapped and originalEvo6 publicBanish/AP0 before source responses; Ponder8 owned/controlled1 appears only after fourth. No go again/AP refund, virtual7 absent and quiet endpoint complete.",
+    "Robe physical5 destroyed as cost; captured Controller1/Source5 trigger above Cash6 retained through first three responses. Fourth gains exactly2 while Cash persists; next four create Silver9 and ownGA/AP1. Actual Voltic7 pays exactly2 and deals3 to P4HP17; final ownGY UIDset{5,6,7}, no ghost virtual8."
+  ],
+  "limits": [
+    "Completed visible Synapse cost endpoints only: no observation or certification of internal AP-versus-banish/tap ordering. Current legacy Prepare suborder remains a source-only concern, no native gameplay defect counted.",
+    "No Ponder end-phase draw/consumption, Evo transform/equip, Head Battleworn, Robe Blade Break, foreign ownership, repeat/suppression/elimination, support-primary, sibling/full-card/control claims.",
+    "Intermediate physical facts bind exact successfully recorded native ordered assertions; no invented intermediate raw snapshots/private frame locals. Full raw Versions bytes are hashed, not semantically re-reviewed.",
+    "Root targeted replays and registration are separate; reviewer performed no PHP/native/replay/repository/service/generation/full-suite actions."
+  ]
+}

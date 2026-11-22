@@ -1,0 +1,80 @@
+{
+  "status": "INDEPENDENT_DOUBLE_DOWN_REQUIRED_WAGER_HOST_KNOWN_CONTRACT_SOURCE_ONLY_NOTE_APPROVED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 844,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_evidence_approved": true,
+  "source_notes_approved": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch844-double-down-required-host-note-manifest.json",
+    "sha256": "8735324e5784b19425fbaa1c1bc1c3f533dc17d5a7e236685ca699f86501d57b"
+  },
+  "manifest_sha256": "8735324e5784b19425fbaa1c1bc1c3f533dc17d5a7e236685ca699f86501d57b",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch844-double-down-required-known-wager-host-when-unattempted-note.json",
+    "sha256": "21542152614b77f34a17b23470b8dd349b6430df04b975a1e7adcc2506d9e9cb"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch844-firm-reservation.json",
+    "sha256": "939b82acc7c1125421a3b3f611448c3854d3a04df54083cca1b9a29b06cf0523"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_preimage_guards_matched": true,
+  "guard_count": 13,
+  "card_id": "double_down_red",
+  "group_id": "identity:double_down_red",
+  "classification": "UNATTEMPTED_EXACT_REQUIRED_WAGE_GOLD_ATTACK_WHEN_MODAL_BEFORE_EARNED_RESPONSES",
+  "independent_findings": [
+    "Primary resource branch is not held: actual Gold0 makes Prepare max0 and emitted runner542f PC3 skips optional GoldMZMultiChoose. CostGold with no selected Gold leaves printedcost2. RealBlue3 pays2/R1/AP debit, straightline DOUBLE_DOWN/NEXT_WAGER3 body has no required resolving await; printedGA after fourSource responses can refundAP1. No blanket optional-await/manager-absence hold.",
+    "Young Dorinthea20 is a legal Warrior for hybrid Guardian/Warrior primary; GenericUniversal WageGoldRed is a legal AA host and not weapon, so Dori Hero trigger is unearned. Required positive wager host prints When this attacks a hero. Ordinary GL1233 directly enters emitted WageGold runnerfad2 PC3/218973 Wager&Decline modal, before a captured earned host layer. Exact retained Chest/LookTuff attack-trigger modal contract applies; it is not missing wager/buff/token functionality.",
+    "Actual HVYWager76..81 stores native wager and applies NEXT_WAGER3+OVERPOWER; ResolveWagers83..87 and token replacement25 implement positive-prize path. These source bodies are not Native outcome certification. The required positive wager cannot be omitted because both distinctive primary effects depend on it.",
+    "Full unrun route preserves firstBlue3\u2192cost2/R1/AP0 then primaryGA\u2192AP1, secondBlue3+floating1\u2192host3/R1/AP0; real formalHero4 target, Source/earnedAttackWHEN responses, ACCEPT actualWager, printed7+3=10 and overpower/realunblocked10damage, actualwinner1Gold1\u21922 with proper timing/owners/controllers/fullcleanup. Gold alternative, otherwinner/prize/overpower-negative-depth and supports/fullcard remain untested."
+  ],
+  "retained_contracts": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse822-chest-pay-one-attack-when-unattempted-429a.json",
+      "sha256": "e062e6f972ce57974eab8964aa721e303526832fb6950446270d7d12f8aaa8a7"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse832-phantom-source-and-look-tuff-unattempted-a11.json",
+      "sha256": "ff74a845f11dcb18ff224ff1e2dfd1271a54e8632ade9044e16e8d4748dfd5f7"
+    }
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reused_existing_independent_normative_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.3.5",
+        "8.5.46"
+      ],
+      "reused_existing_independent_normative_review": true
+    }
+  ],
+  "limits": [
+    "Selected complete primary+requiredhost route is UNATTEMPTED planning evidence, not an exhaustive alternate-host audit. No executable/Native/newissue/root/fix/fixture/coverage.",
+    "No cast-only/declined wager/no-consumer fallback, seeded wager/prize/result, skipped host earned layer or false Gold-alternative lifetime allegation.",
+    "Only compact existing bodies/current13guards/actual required emitted modal checked; no duplicate fullbody/corpus/fragment audit, no PHP/native/Rwrites/fullsuite/denied188184B787 action."
+  ],
+  "source_approved": false,
+  "native_probe_approved": false,
+  "native_execution_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "source_fix": false,
+  "R_writes_by_reviewer": false,
+  "PHP_native_executed_by_reviewer": false,
+  "created_utc": "2026-11-16T04:09:55.560551+00:00"
+}

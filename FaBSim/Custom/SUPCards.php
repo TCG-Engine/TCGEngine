@@ -7,8 +7,17 @@ function FaBSUPCrowd(int $p,bool $cheer): void {
     if(!FaBSeatIsLive($p))return;
     FaBSUPAdd($p,$cheer?'CHEER':'BOO');
     if($cheer && FaBSUPAllLife($p,true))foreach(FaBCRUEquipment($p,'comeback_kicks') as $r)FaBROSQueue($p,'comeback_kicks',FaBPENUID($r));
-    if(!FaBWTRHeroActive($p)||FaBSEAHeroCreationBlocked($p))return;
-    $id=GetHero($p)[0]->CardID??'';
+    if(!FaBWTRHeroActive($p))return;
+    $hero=GetHero($p)[0]??null;$id=$hero->CardID??'';
+    if($cheer&&in_array($id,['pleiades','pleiades_superstar'],true)){
+        $uid=intval($hero->UniqueID??0);
+        if($uid>0&&empty($hero->removed)){
+            $controller=intval($hero->Controller??$p)?:$p;
+            FaBROSQueue($controller,$id,$uid,['rosEvent'=>'supPleiadesCheered']);
+        }
+        return;
+    }
+    if(FaBSEAHeroCreationBlocked($p))return;
     $token=$cheer?(str_starts_with($id,'pleiades')?'confidence':(str_starts_with($id,'tuffnut')?'toughness':'')):(str_starts_with($id,'lyath_goldmane')?'might':(in_array($id,['kayo_strong_arm','kayo_underhanded_cheat'],true)?'vigor':''));
     if($token!=='')FaBHVYToken($p,$token,1,$p,false);
 }
@@ -162,7 +171,7 @@ function FaBSUPAbilityRows(): array {
     $r=[];foreach(['pleiades','pleiades_superstar','tuffnut','tuffnut_bumbling_hulkster','concealed_object_blue','wind_up_the_crowd_blue','outside_interference_blue','the_old_switcheroo_blue','light_up_the_leaves_red','gallow_end_of_the_line_yellow'] as $id)$r[$id]=[['INSTANT',0,false,false,false,0,'Use instant ability']];
     foreach(['kayo_strong_arm','kayo_underhanded_cheat'] as $id)$r[$id]=[['INSTANT',4,false,false,false,0,'Set attack base power to six']];
     foreach(['lyath_goldmane','lyath_goldmane_vile_savant'] as $id)$r[$id]=[['INSTANT',2,false,false,false,0,'Boo and defend']];
-    foreach(['hold_firm'=>2,'mightybone_knuckles'=>3,'overbearing_presence'=>3,'stand_strong'=>3,'punching_gloves'=>2] as $id=>$cost)$r[$id]=[['ACTION',$cost,true,true,false,0,'Use equipment']];
+    foreach(['hold_firm'=>3,'mightybone_knuckles'=>3,'overbearing_presence'=>3,'stand_strong'=>3,'punching_gloves'=>2] as $id=>$cost)$r[$id]=[['ACTION',$cost,true,true,false,0,'Use equipment']];
     $r['gauntlets_of_tyrannical_rex']=[['ACTION',1,false,true,false,0,'Empower next attack']];
     $r['helm_of_hindsight']=[['INSTANT',3,true,false,false,0,'Return attack to top']];
     $r['tiara_of_suspense']=[['INSTANT',0,true,false,false,0,'Add suspense counter']];

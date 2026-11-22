@@ -1,0 +1,242 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B668_WARHORN",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T00:42:47.933088+00:00",
+  "source_spec": "card-regression-batch668-warhorn.json",
+  "input_sha256": "2f821d07cb52e04119d1d1f5209248c1d2f75917891da8c3044e9c734c33c82e",
+  "manifest_sha256": "d905c22894a74fe1c59ce85a79709d6eadccea7026bf26e8127931fc3cdc37ce",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch668-warhorn-independent-source-review.json",
+    "sha256": "8f0c611110c7efed02173f336d09567b7057bddd1a246eb2499d5b0038520084",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch668-warhorn-20261107T003715Z-6aee72bbef6d4.json",
+    "sha256": "85a5e8ad62da06ebc3de31bf1185d64961e8ad27ee8bee436c83e89693664462"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch668-warhorn.recording-results.json",
+    "sha256": "de1bd4a12b54c95566457acd7749910731a79b3ccc9b244c63980c0aaa52067a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b668-warhorn-native-recording\\receipt.json",
+    "sha256": "e1faa126c17f0e1f66a8bbb5801ecb6785ba53edc3740cb763d1ea12621696b4"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "imperial_warhorn_red",
+      "group_id": "identity:imperial_warhorn_red",
+      "slug": "card-imperial-warhorn-red-four-live-real-paid-nonroyal-delegated-item-destruction",
+      "source_spec": "card-regression-batch668-warhorn.json",
+      "input_sha256": "2f821d07cb52e04119d1d1f5209248c1d2f75917891da8c3044e9c734c33c82e",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_NONROYAL_DELEGATED_ITEM_DESTRUCTION",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-imperial-warhorn-red-four-live-real-paid-nonroyal-delegated-item-destruction",
+      "fixture_sha256": "fc87b31b765dd80d7a75d98e5b9e0f907da4b2fc7ca67adc6d911630a21eed86",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "d4780a09b9324094f731e96e9749269d2eaf81545aa1e2f7ac2667caa9d67209",
+        "actions.json": "6b1cb6e3123f6d439b3427ad9dcf95a73df33f1df458f357d48709eb3df0baa2",
+        "assertions.json": "0e60e0412438abbbca6b745058379d72ee9f2c093c3aff9d6530675f9580bd62",
+        "expected_final_gamestate.txt": "9a41c24e649449972c0155a3c320c1ce831c56520c449673c7506cbfc7400750"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4780a09b9324094f731e96e9749269d2eaf81545aa1e2f7ac2667caa9d67209",
+        "actions.json": "6b1cb6e3123f6d439b3427ad9dcf95a73df33f1df458f357d48709eb3df0baa2",
+        "assertions.json": "0e60e0412438abbbca6b745058379d72ee9f2c093c3aff9d6530675f9580bd62",
+        "expected_final_gamestate.txt": "9a41c24e649449972c0155a3c320c1ce831c56520c449673c7506cbfc7400750",
+        "meta.json": "bfef1ad7c551a0afcde497736ead52daa7654b0cacf91c8f76f6f5b1b59a34fd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d4780a09b9324094f731e96e9749269d2eaf81545aa1e2f7ac2667caa9d67209",
+        "actions.json": "6b1cb6e3123f6d439b3427ad9dcf95a73df33f1df458f357d48709eb3df0baa2",
+        "assertions.json": "0e60e0412438abbbca6b745058379d72ee9f2c093c3aff9d6530675f9580bd62",
+        "expected_final_gamestate.txt": "9a41c24e649449972c0155a3c320c1ce831c56520c449673c7506cbfc7400750",
+        "meta.json": "bfef1ad7c551a0afcde497736ead52daa7654b0cacf91c8f76f6f5b1b59a34fd"
+      },
+      "actions": 8,
+      "native_assertions": 749,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 201,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "imperial_warhorn_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "imperial_warhorn_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "aafcd0257cea4b0b01350b8a5cbf340221cdf9146ea4fb0b5a3eecafac3b46cd",
+      "native_assertion_mapping_sha256": "75cccc0efe49983138effbd05b25de19ba5e7bd3761feb9041ed00e75a856a2d"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 8,
+  "total_native_assertions": 749,
+  "total_manual_passes": 4,
+  "total_schema_property_assertions": 201,
+  "material_findings": [
+    "Actual rawfive/eight envelopes/749 ordered normalized checks/four manual actors/48 preferences at each endpoint/current70c53ab33 match independent Source8f0c exactly. Full physical endpoints and all terminal assertions independently parsed.",
+    "RealBlue7pitch3 paysresource1 and AP1, only then destroys physicalWarhorn5; R2AP0 unchanged throughout four responses and both managed choices. P1 selectsHero4, then actualnonRoyalP4 chooses its own Potion6 while same ABI8/controller1/source5 remainsStack. Potion6 destruction is the selected effect, not its activation; no Potiongrant/APrefund earned.",
+    "Actualsame5GY1/6GY4/7Pitch1/allHP20/R2AP0/UID1..7/temporary8ceased/counter8/RNG0/fullquiet. Source/cost/decision timing assertions all passed; no general hero-menu/royal/multiselect claim."
+  ],
+  "limits": [
+    "Only selected non-Royal Hero4/owned Item destruction. No Royal/P3/fullHero menu/cardinality/decline/multiHero/other permanent categories/Potionactivation/producer/support/fullcard credit.",
+    "Prior Item plays/payment/redraw provenance unexecuted/uncredited. Lens is separate diagnostic-only and not included. No reviewer PHP/native/replay/R/source/fullsuite/Git/remote/denied retry; Root replays/registration/qualification separate. Raw Versions hash-bound, excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch668_warhorn_saved_readonly.py",
+    "sha256": "22d1ee4e19d75c4f7c5b2d160ec12eb9a8928be0ef5a2deef72f2704f44aadeb"
+  }
+}

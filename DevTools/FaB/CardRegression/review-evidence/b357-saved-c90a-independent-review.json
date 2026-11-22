@@ -1,0 +1,268 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B357_SLAP_HAPPY_PREVENT_TWO_AND_OWNED_VIGOR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T17:53:18.453564+00:00",
+  "source_spec": "card-regression-batch357.json",
+  "input_sha256": "5cc8cea3d8577142ee8abc13ee9d140d345a1ab759cb96cf68d95e204fc4db34",
+  "manifest_sha256": "3d96c83db29f0d6b7d56234814ae963048c55a3f0c097ce11703a99fac22f00e",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "source_guards_verified": 18,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch357-independent-source-review.json",
+    "sha256": "73316486b4d1415516fa5a681fabb338d5ffc84abad0a8c83135adea8f7a3293",
+    "reused_not_new_source_approval": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch357-20261103T175040Z-6aea1ef027eca.json",
+    "sha256": "755970d64de3be192cf77b8697e434cbbbcab6d7f90b4af8de93ec1466bd3c40"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch357-native-r1\\receipt.json",
+    "sha256": "ff0e6cae6ab6ba6c963f7dd45778c4db271848edf1b4b7390a2c56e78a2e3fe8"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch357_saved_readonly.py",
+    "sha256": "94a5b29f9890db84aa54f7bb9e9b4e80088229dc9dfc56e4a129a27b7507c03e"
+  },
+  "reviewer_independence": "Sparse authored original357; saved reviewer independently source-reviewed but authored neither scenario nor implementation/native recording.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "slap_happy_red",
+      "slug": "card-slap-happy-red-four-live-sparse-real-zero-cost-instant-prevents-two-and-creates-owned-vigor",
+      "source_spec": "card-regression-batch357.json",
+      "input_sha256": "5cc8cea3d8577142ee8abc13ee9d140d345a1ab759cb96cf68d95e204fc4db34",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-slap-happy-red-four-live-sparse-real-zero-cost-instant-prevents-two-and-creates-owned-vigor",
+      "fixture_sha256": "49ae407fa3cc454bfbb0cfeb1b4108276d608e85add722dc80e2783959e1c7bc",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e78dc694b0f17bb4b1d288040522049615d6fa8b29a830bd0cb1927068a64267",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "ec076d8125e9eae0a320894347816a3cdc49c062733f1040afab15fe7f6cee49",
+        "expected_final_gamestate.txt": "085d3266e9efbe8344a252c7f1b515244c966ee3474953ab5ea0bcd6901d8362"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e78dc694b0f17bb4b1d288040522049615d6fa8b29a830bd0cb1927068a64267",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "ec076d8125e9eae0a320894347816a3cdc49c062733f1040afab15fe7f6cee49",
+        "expected_final_gamestate.txt": "085d3266e9efbe8344a252c7f1b515244c966ee3474953ab5ea0bcd6901d8362",
+        "meta.json": "bd7fec6e9da3da71ce64a9c909b8228d895832694f3cfce42c755d4d65265c3f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e78dc694b0f17bb4b1d288040522049615d6fa8b29a830bd0cb1927068a64267",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "ec076d8125e9eae0a320894347816a3cdc49c062733f1040afab15fe7f6cee49",
+        "expected_final_gamestate.txt": "085d3266e9efbe8344a252c7f1b515244c966ee3474953ab5ea0bcd6901d8362",
+        "meta.json": "bd7fec6e9da3da71ce64a9c909b8228d895832694f3cfce42c755d4d65265c3f"
+      },
+      "actions": 36,
+      "native_assertions": 2804,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "slap_happy_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "vigor",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "slap_happy_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "Vigor8_raw_Damage": 0,
+      "Vigor8_raw_Counters": {},
+      "Vigor8_raw_TurnEffects": [],
+      "checkpoint_assertion_mapping_sha256": "9579ac01b7cb2b53eddc6be9d227b3a9cbaa15134765d60defb1dd81369f1b31",
+      "native_action_mapping_sha256": "7c3a622e0287c6896375eb5ac9f77f226cc94a9bcf2c418530264a50f89db44d",
+      "native_assertion_mapping_sha256": "565190f6a3c10d81afe7bc8be64fb5287f55a79eeb4363052ebcbac238feaaf4"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 36,
+  "total_native_assertions": 2804,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualP1Raging6targetP4/Blue7pays3+APbeforefour-source/noGA/base7. ActualthreeReactionhandoffs giveP4priority; actualSlap5Instant0atR0/AP0heldStackthroughfresh4,1,2,3, onlyfourth5publicownGY/preventionearned withArena0/HP20. Noassetpitch/APrefund or earlyVigor.",
+    "FreshReaction1,2,3,4 producesactual7\u22122=5damage/HP15 andownedreadyVigor8 atsameDAMAGEcheckpoint; noadditionalWHENlayer/choiceorpriorityround inserted. Nativeassertledger preservesnoearlycreation/Counter7untilactualprevention, thenCounter8. CurrentrawfinalconfirmsVigor8Damage0/emptyCounters/TurnEffects asadditionalendpointinspection, not extra recordedassertion/replay.",
+    "All36actualinputs/2804orderedchecks/32manualPassinputs(eightperseat;31priority+P4finish) matchapprovedpacket. Fullyparsedinitial/final/allphysicalowners and48manualpreferencevaluesperendpointverified. FinalGY1{6}/GY4{5}/Pitch7/ownedVigor8; original1..7retained+onlynew8/RAP0/HP20,20,20,15/RNG0/no positiveHVY_PREVENT_TOKEN. Allfourheroesready/live; Stack/chains/Hands/Decks/Banish/Temp/DQs/payment/manager/framesclear."
+  ],
+  "limits": [
+    "OneRedInstant0/fullsevenpacket/prevent2/ownedVigorcreation. NoVigorstart/resource/entry/otherpacket/partial/zero/unpreventable/expiry/preventionordering/hero/sibling/support-primary/fullcard/control/fullsuitecredit.",
+    "Actualnativecompletedledger+parsedendpoints only; noadditionalper-inputrawsnapshots/nativeexecution/replay/controlbyreviewer. Roottwofocusedreplays/registrationseparate.",
+    "NoPHP/native/R/source/generator/service/legacyauditbyreviewer."
+  ]
+}

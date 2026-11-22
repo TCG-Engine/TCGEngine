@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-sky163-hold162-bounded.json",
+  "runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T20:58:26.002963+00:00",
+  "fixtures": [
+    {
+      "slug": "diagnostic-sky-skimmer-blue-four-live-normal-play-no-illegal-cog-cost",
+      "fixture_sha256": "0aac8f2403415c8f9bf9951e2124b899e0e41aa5ed43aa17a9b6adaecb887189",
+      "passed": true,
+      "result": "[PASS] sky_skimmer_blue / four live distinctive effect"
+    },
+    {
+      "slug": "diagnostic-hold-firm-four-live-original-three-resource-cost-and-three-toughness",
+      "fixture_sha256": "088fad95af9090f0f8890fe46d9cb3fc52ac578bdc9dbd7e2af1d3c2f0dc7bfb",
+      "passed": true,
+      "result": "[PASS] hold_firm / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=diagnostic-sky-skimmer-blue-four-live-normal-play-no-illegal-cog-cost",
+      "returncode": 0,
+      "stdout": "[PASS] sky_skimmer_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=diagnostic-hold-firm-four-live-original-three-resource-cost-and-three-toughness",
+      "returncode": 0,
+      "stdout": "[PASS] hold_firm / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

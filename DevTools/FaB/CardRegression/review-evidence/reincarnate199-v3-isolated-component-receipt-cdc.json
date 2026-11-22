@@ -1,0 +1,73 @@
+{
+  "proposal_sha256": "21efffd09f07fc9dd09415cf3a6def83a72cf70f255d8064998b4d89c437427e",
+  "component_sha256": "e89b63d6376e485eae6eea86843c8e8b155ec55e376b56021971b9a0649bf2d7",
+  "lints": [
+    {
+      "file": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\GameLogic.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\GameLogic.php",
+      "stderr": ""
+    },
+    {
+      "file": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\DYNRuntime.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\DYNRuntime.php",
+      "stderr": ""
+    },
+    {
+      "file": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\ROSCards.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\proposed\\ROSCards.php",
+      "stderr": ""
+    },
+    {
+      "file": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\isolated-actual-function-components.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\isolated-actual-function-components.php",
+      "stderr": ""
+    }
+  ],
+  "created_utc": "2026-11-16T11:53:05.836971+00:00",
+  "candidate": {
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\isolated-actual-function-components.php",
+      "candidate"
+    ],
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "stdout_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-v3-root-syntax-components\\candidate.stdout.json",
+    "stdout_sha256": "db891a52968ae0ec838bcbc4892770f4a1e300bbd601e35371c2a043de7c1909",
+    "status": "PASS",
+    "checks": 118,
+    "passed": 118,
+    "failed": 0,
+    "failures": [],
+    "repository_writes": false,
+    "Native_games": false
+  },
+  "before": {
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate-no-berserk-three-native-source-unapplied-proposal-v3-committed-entry\\isolated-actual-function-components.php",
+      "before"
+    ],
+    "exit_code": 1,
+    "stderr_bytes": 0,
+    "stdout_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-reincarnate199-v3-root-syntax-components\\before.stdout.json",
+    "stdout_sha256": "1af76267560552fcc38899ed9198e22f9f1c1782433ba16e27062642127e42ec",
+    "status": "FAIL",
+    "checks": 5,
+    "passed": 2,
+    "failed": 3,
+    "failures": [
+      "random discard remains physical public GY before earned responses",
+      "existing Deck unchanged before trigger resolution",
+      "one earned child above original paid attack parent"
+    ],
+    "repository_writes": false,
+    "Native_games": false
+  },
+  "repository_source_unchanged": true,
+  "status": "PASS"
+}

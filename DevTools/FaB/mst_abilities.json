@@ -1204,7 +1204,7 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_NIMBLE_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = 'PASS';\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n}\nif (!FaBDeclarePreparedEffectCost($player, $uid, 'BANISH_NIMBLISM', $chosen)) {\n    return;\n}\nFaBFinishPreparedCard($uid);",
         "prereqCode": null,
         "abilityName": null,
         "abilityType": "macro",
@@ -1218,7 +1218,7 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_NIMBLE_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = 'PASS';\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n}\nif (!FaBDeclarePreparedEffectCost($player, $uid, 'BANISH_NIMBLISM', $chosen)) {\n    return;\n}\nFaBFinishPreparedCard($uid);",
         "prereqCode": null,
         "abilityName": null,
         "abilityType": "macro",
@@ -1232,7 +1232,7 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_NIMBLE_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = 'PASS';\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n}\nif (!FaBDeclarePreparedEffectCost($player, $uid, 'BANISH_NIMBLISM', $chosen)) {\n    return;\n}\nFaBFinishPreparedCard($uid);",
         "prereqCode": null,
         "abilityName": null,
         "abilityType": "macro",

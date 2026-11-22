@@ -30,9 +30,9 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$caster = $player;\n\n$chosen = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Choose_arcane_target\");\n \n}\n\n$target = FaBARCTargetSeat($caster, $chosen, false);\n\n$damage = 1;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
+        "abilityCode": "$caster = $player;\n\n$target = FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0));\n\n$damage = 1;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBMONArcanicDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
         "isImplemented": true,
-        "previousCodeHash": "8b5c99d3805a600710cf3fdeed2aefb663ae1cc595ca3e91358f8b5316b4284a"
+        "previousCodeHash": "139bbcdadb9e86d3cf46d8066a6ac637ef22e17ae58d020d251d72b8ee4c2d78"
       }
     ]
   },
@@ -41,9 +41,9 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$caster = $player;\n\n$chosen = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Choose_arcane_target\");\n \n}\n\n$target = FaBARCTargetSeat($caster, $chosen, false);\n\n$damage = 1;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
+        "abilityCode": "$caster = $player;\n\n$target = FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0));\n\n$damage = 1;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBMONArcanicDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
         "isImplemented": true,
-        "previousCodeHash": "8b5c99d3805a600710cf3fdeed2aefb663ae1cc595ca3e91358f8b5316b4284a"
+        "previousCodeHash": "139bbcdadb9e86d3cf46d8066a6ac637ef22e17ae58d020d251d72b8ee4c2d78"
       }
     ]
   },
@@ -52,9 +52,9 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$caster = $player;\n\n$chosen = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Choose_arcane_target\");\n \n}\n\n$target = FaBARCTargetSeat($caster, $chosen, false);\n\n$damage = 1;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
+        "abilityCode": "$caster = $player;\n\n$target = FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0));\n\n$damage = 1;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBMONArcanicDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
         "isImplemented": true,
-        "previousCodeHash": "8b5c99d3805a600710cf3fdeed2aefb663ae1cc595ca3e91358f8b5316b4284a"
+        "previousCodeHash": "139bbcdadb9e86d3cf46d8066a6ac637ef22e17ae58d020d251d72b8ee4c2d78"
       }
     ]
   },
@@ -367,8 +367,13 @@
     "cardId": "captains_call_red",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0);\n$captainToken = FaBMONBeginCaptainMode($player, $uid);\nif ($captainToken > 0) {\n $mode = await $player.Modal(1, 1, \"Power&Go_again\", \"Choose_Captains_Call_mode\");\n if (FaBMONBindCaptainMode($player, $uid, $captainToken, $mode)) { FaBFinishPreparedCard($uid); }\n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveCard",
-        "abilityCode": "$mode = await $player.Modal(1, 1, \"Power&Go_again\", \"Choose_Captains_Call_mode\");\n FaBMONAdd($player, \"NEXT_SMALL\", $mode === \"0\" ? 2 : 0, [\"maxCost\"=>2, \"goAgain\"=>$mode === \"1\"]);\n",
+        "abilityCode": "FaBMONResolveCaptainMode($player, $mzID);\n",
         "isImplemented": true
       }
     ]
@@ -402,7 +407,7 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$maximum = count(FaBChoiceRefs($player, 'Soul'));\n $targets = implode('&', FaBChoiceRefs($player, 'Soul'));\n\n$chosen = await $player.MZMultiChoose($targets, 3, 3, \"Banish_to_pay\");\n $count = FaBMoveChoices($player, $chosen, 'Soul', 'Banish');\n FaBARCSetCard($uid, 'monX', $count);\n\nFaBFinishPreparedCard($uid);\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = implode('&', FaBChoiceRefs($player, 'Soul'));\n\n$chosen = await $player.MZMultiChoose($targets, 3, 3, \"Banish_to_pay\");\n\nif (!FaBDeclarePreparedEffectCost($player, $uid, 'BANISH_THREE_SOUL', $chosen)) {\n\n    return;\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
         "isImplemented": true
       }
     ]
@@ -751,13 +756,13 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$chosen = 'PASS';\n $targets = FaBMONAffordableHand($player);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Pay_additional_cost\");\n \n}\n $f = FaBIdentityFromMZ($chosen ?? '');\n if ($f !== null) {\n $draw = FaBHasType($f['object'], 'Shadow');\n FaBARCSetCard($uid, 'monDraw', $draw);\n FaBMoveChoice($player, $chosen, 'Hand', 'Banish');\n \n}\n\nFaBFinishPreparedCard($uid);\n",
+        "abilityCode": "FaBMONEbonFinishPreparation($player, $mzID);\n",
         "isImplemented": true,
         "previousCodeHash": "a41952b1ad1adfbf6a407bc046bf87689169a5d95321a0cc3d96c7d16d2aa3f2"
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "if (FaBMONAbilityData($player, 'monDraw')) {\n DoDrawCard($player, 1);\n \n}\n",
+        "abilityCode": "$ebonPlayer = intval($player);\n $ebonAbilityUID = intval(DecisionQueueController::GetVariable(\"arcAbilityUID\"));\n $ebonChoices = FaBMONEbonResolutionChoices($ebonPlayer, $ebonAbilityUID);\n if ($ebonChoices !== \"\") {\n $ebonChosen = await $ebonPlayer.MZChoose($ebonChoices, \"Banish_a_card_from_hand\");\n FaBMONEbonResolveChoice($ebonPlayer, $ebonAbilityUID, $ebonChosen);\n \n}\n",
         "isImplemented": true
       }
     ]
@@ -1070,15 +1075,10 @@
     "cardId": "halo_of_illumination",
     "abilities": [
       {
-        "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$chosen = 'PASS';\n $targets = FaBMONAffordableHand($player);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Pay_additional_cost\");\n \n}\n $f = FaBIdentityFromMZ($chosen ?? '');\n if ($f !== null) {\n $draw = FaBHasType($f['object'], 'Light');\n FaBARCSetCard($uid, 'monDraw', $draw);\n FaBMoveChoice($player, $chosen, 'Hand', 'Soul');\n \n}\n\nFaBFinishPreparedCard($uid);\n",
-        "isImplemented": true,
-        "previousCodeHash": "e7ff14c1d5ee2cbacb97a4564511f69d19c7e67bc1099eebf40ac48fdd9ff2a6"
-      },
-      {
         "macroName": "ResolveAbility",
-        "abilityCode": "if (FaBMONAbilityData($player, 'monDraw')) {\n DoDrawCard($player, 1);\n \n}\n",
-        "isImplemented": true
+        "abilityCode": "$chosen = 'PASS';\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Put_card_into_soul\");\n \n}\n $f = FaBIdentityFromMZ($chosen ?? '');\n if ($f !== null && $f['player'] === $player && $f['zone'] === 'Hand') {\n $light = FaBHasType($f['object'], 'Light');\n $moved = FaBMoveChoice($player, $chosen, 'Hand', 'Soul');\n if ($moved !== null && $light) {\n DoDrawCard($player, 1);\n \n}\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "012a6580c18bcfcd61bc67fb394a3ac77384bd83254995253efb94ce573ecf5d"
       }
     ]
   },
@@ -1351,7 +1351,7 @@
     "abilities": [
       {
         "macroName": "Hit",
-        "abilityCode": "if (FaBFaiHeroHit()) {\n FaBMONToSoul($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID));\n \n}\n",
+        "abilityCode": "FaBMONQueueIlluminateHit($player, $mzID, intval($amount));",
         "isImplemented": true
       }
     ]
@@ -1361,7 +1361,7 @@
     "abilities": [
       {
         "macroName": "Hit",
-        "abilityCode": "if (FaBFaiHeroHit()) {\n FaBMONToSoul($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID));\n \n}\n",
+        "abilityCode": "FaBMONQueueIlluminateHit($player, $mzID, intval($amount));",
         "isImplemented": true
       }
     ]
@@ -1371,7 +1371,7 @@
     "abilities": [
       {
         "macroName": "Hit",
-        "abilityCode": "if (FaBFaiHeroHit()) {\n FaBMONToSoul($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID));\n \n}\n",
+        "abilityCode": "FaBMONQueueIlluminateHit($player, $mzID, intval($amount));",
         "isImplemented": true
       }
     ]
@@ -1556,8 +1556,13 @@
     "cardId": "memorial_ground_blue",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)[\"object\"]->UniqueID ?? 0);\n $memorialToken = FaBMONBeginMemorialTarget($player, $uid);\n if ($memorialToken > 0) {\n $memorialChoices = FaBMONMemorialTargetChoices($player, $uid, $memorialToken);\n if ($memorialChoices !== \"\") {\n $memorialChosen = await $player.MZChoose($memorialChoices, \"Choose_a_card\");\n if (FaBMONBindMemorialTarget($player, $uid, $memorialToken, $memorialChosen)) {\n FaBFinishPreparedCard($uid);\n \n}\n \n}\n \n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveCard",
-        "abilityCode": "$targets = FaBARCSelect($player, 'Graveyard', '', 'AA', 0);\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Choose_a_card\");\n\n FaBRevealChoices($player, $chosen);\n\n $topUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID ?? 0);\n\n\n}\n\nif (isset($topUID) && $topUID > 0) {\n FaBARCToDeck($player, $topUID, true);\n \n}\n",
+        "abilityCode": "FaBMONResolveMemorialTarget($player, $mzID);\n",
         "isImplemented": true
       }
     ]
@@ -2768,7 +2773,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$caster = $player;\n\n$chosen = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Choose_arcane_target\");\n \n}\n\n$target = FaBARCTargetSeat($caster, $chosen, false);\n\n$damage = 2;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
+        "abilityCode": "$caster = $player;\n\n$target = FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0));\n\n$damage = 2;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBMONArcanicDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
         "isImplemented": true,
         "previousCodeHash": "e5fdf2e62ca280717be7df3d30a99cb345500f6331f679d0ff92cc7a267a26a9"
       }
@@ -2779,7 +2784,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$caster = $player;\n\n$chosen = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Choose_arcane_target\");\n \n}\n\n$target = FaBARCTargetSeat($caster, $chosen, false);\n\n$damage = 2;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
+        "abilityCode": "$caster = $player;\n\n$target = FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0));\n\n$damage = 2;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBMONArcanicDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
         "isImplemented": true,
         "previousCodeHash": "e5fdf2e62ca280717be7df3d30a99cb345500f6331f679d0ff92cc7a267a26a9"
       }
@@ -2790,7 +2795,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$caster = $player;\n\n$chosen = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Choose_arcane_target\");\n \n}\n\n$target = FaBARCTargetSeat($caster, $chosen, false);\n\n$damage = 2;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
+        "abilityCode": "$caster = $player;\n\n$target = FaBMONArcanicTargetSeat($caster, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0));\n\n$damage = 2;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\nwhile ($damage > $payment && $voidRefs !== '') {\n\n $void = await $target.MZMayChoose($voidRefs, \"Destroy_Spellvoid_to_prevent_arcane_damage\");\n\n if ($void === 'PASS') {\n break;\n \n}\n\n $prevented = FaBMONSpellvoid($target, $void);\n\n if ($prevented <= 0) {\n break;\n \n}\n\n $damage = max(0, $damage - $prevented);\n\n $voidRefs = FaBMONSpellvoidRefs($target);\n\n\n}\n\n$dealt = FaBMONArcanicDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$player = $caster;\n",
         "isImplemented": true,
         "previousCodeHash": "e5fdf2e62ca280717be7df3d30a99cb345500f6331f679d0ff92cc7a267a26a9"
       }

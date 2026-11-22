@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-09T03:11:55.947200+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch771.json",
+  "source_spec_sha256": "9c286d8d5f2898a558a6e6d2bd0e2a0b4c9727041af23705e77336404c1a95e7",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 43,
+  "native_assertions": 3916,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 4027,
+    "duels": 3074,
+    "four_live": 953,
+    "recorded_primary_ids": 1181,
+    "identity_denominator": 5196,
+    "recorded_groups": 1055,
+    "group_denominator": 3324,
+    "four_live_groups": 946,
+    "phase_qualified_scenarios_at_actual_contexts": 664,
+    "phase_qualified_unique_groups": 659,
+    "creation_replay_passes": 1328,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 144,
+  "scenarios": [
+    {
+      "card_id": "skywalker_keikoi",
+      "group_id": "identity:skywalker_keikoi",
+      "scenario_id": "card-skywalker-keikoi-four-live-real-cloaked-destroy-cost-prevents-one-of-seven",
+      "effect_branches": [
+        "skywalker-keikoi-four-live-real-cloaked-destroy-cost-prevents-one-of-seven"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-skywalker-keikoi-four-live-real-cloaked-destroy-cost-prevents-one-of-seven",
+      "source_spec": "card-regression-batch771.json",
+      "source_spec_sha256": "9c286d8d5f2898a558a6e6d2bd0e2a0b4c9727041af23705e77336404c1a95e7",
+      "review_evidence": "review-evidence/sparse771-keikoi-mbrio-real-costs-native-saved-independent-c53.json",
+      "review_evidence_sha256": "7b42043753fbf173f8bebbbf1cc79170527d1035e00a095b2d05dff350adcab2",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "qualification_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov9-b771-equipment-clean1.json",
+          "sha256": "4d81a011bc123738664ce9b70a85efce4de2761fcb3bb7be1f86767a2ef9bf4e",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov9-b771-equipment-clean2.json",
+          "sha256": "03ab28d610122a68a91ddd568aac4472acbdcb04e30d5b44c6588394bd033445",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mbrio_base_vizier",
+      "group_id": "identity:mbrio_base_vizier",
+      "scenario_id": "card-mbrio-base-vizier-four-live-real-hyper-driver-steam-cost-prevents-one-arcane",
+      "effect_branches": [
+        "mbrio-base-vizier-four-live-real-hyper-driver-steam-cost-prevents-one-arcane"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mbrio-base-vizier-four-live-real-hyper-driver-steam-cost-prevents-one-arcane",
+      "source_spec": "card-regression-batch771.json",
+      "source_spec_sha256": "9c286d8d5f2898a558a6e6d2bd0e2a0b4c9727041af23705e77336404c1a95e7",
+      "review_evidence": "review-evidence/sparse771-keikoi-mbrio-real-costs-native-saved-independent-c53.json",
+      "review_evidence_sha256": "7b42043753fbf173f8bebbbf1cc79170527d1035e00a095b2d05dff350adcab2",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "qualification_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov9-b771-equipment-clean1.json",
+          "sha256": "4d81a011bc123738664ce9b70a85efce4de2761fcb3bb7be1f86767a2ef9bf4e",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov9-b771-equipment-clean2.json",
+          "sha256": "03ab28d610122a68a91ddd568aac4472acbdcb04e30d5b44c6588394bd033445",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

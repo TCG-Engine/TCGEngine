@@ -1,0 +1,280 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_BLAST_RIG_ONE_EQUIPPED_EVO_POWER_WITH_BOOST_DECLINED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T10:22:01.827151+00:00",
+  "source_spec": "card-regression-batch444.json",
+  "input_sha256": "4293e642125dc9ec1c4ed9bc1e14cd44e50cd942c3bfd1e25b96c0d779fc7e59",
+  "manifest_sha256": "7d725382014616418cd76f904f11b72d9b9dc7d07aba145deffe58e1e50c5699",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch444-independent-source-review.json",
+    "sha256": "ac4b0356e77c6102fea865a0762f5782c42355e8c75ce1ec3e4040462e1ff2af",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch444-20261105T101757Z-6aec57d559456.json",
+    "sha256": "12c06a9a483d1c553cf0d19c8b24f0480f13c7884155cf44b0c38649af09146a"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch444.recording-results.json",
+    "sha256": "a9966db314ba67ca00152de64dd1d83c30868101349409cfe8cb0770b90e3fde"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch444-native-r1-9e984\\receipt.json",
+    "sha256": "2cb4f9f668fcc091c01fb291c8989558737571d235058ac5426d5fd640b538c9"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch444_blast_saved_readonly.py",
+    "sha256": "bc15517fab89813ea936fc9396dddc66a762848a814edabff9688f13f4d1a9f8"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "blast_rig_red",
+      "slug": "card-blast-rig-red-four-live-correct-one-equipped-evo-adds-one-power-with-boost-declined",
+      "source_spec": "card-regression-batch444.json",
+      "input_sha256": "4293e642125dc9ec1c4ed9bc1e14cd44e50cd942c3bfd1e25b96c0d779fc7e59",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-blast-rig-red-four-live-correct-one-equipped-evo-adds-one-power-with-boost-declined",
+      "fixture_sha256": "4643b6b6d81914ae7016f9e6f78adf1c073011b5329cc630c683604d1453cf7d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c4a8d436d911ac455e08a690635101c33f5231a38f56597cb6e4728d5a359490",
+        "actions.json": "52de0e7b9c9bf743bd23db91a17df9c61ba5c47e8da7cf1555e36f30af2d7e4f",
+        "assertions.json": "5ef27de123d27220b734020ba1eff3f68ecafd9fb11f953493e192f48a7357ba",
+        "expected_final_gamestate.txt": "a4aaee5d119e9f6fef8e46039dd5758b51852d1478acc5ea53d97fef99fbe757"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c4a8d436d911ac455e08a690635101c33f5231a38f56597cb6e4728d5a359490",
+        "actions.json": "52de0e7b9c9bf743bd23db91a17df9c61ba5c47e8da7cf1555e36f30af2d7e4f",
+        "assertions.json": "5ef27de123d27220b734020ba1eff3f68ecafd9fb11f953493e192f48a7357ba",
+        "expected_final_gamestate.txt": "a4aaee5d119e9f6fef8e46039dd5758b51852d1478acc5ea53d97fef99fbe757",
+        "meta.json": "e6a97209ab8e8b528fec036544ca88abc0fe91c76b9b0cdf5ce0384fc8b18c4f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c4a8d436d911ac455e08a690635101c33f5231a38f56597cb6e4728d5a359490",
+        "actions.json": "52de0e7b9c9bf743bd23db91a17df9c61ba5c47e8da7cf1555e36f30af2d7e4f",
+        "assertions.json": "5ef27de123d27220b734020ba1eff3f68ecafd9fb11f953493e192f48a7357ba",
+        "expected_final_gamestate.txt": "a4aaee5d119e9f6fef8e46039dd5758b51852d1478acc5ea53d97fef99fbe757",
+        "meta.json": "e6a97209ab8e8b528fec036544ca88abc0fe91c76b9b0cdf5ce0384fc8b18c4f"
+      },
+      "actions": 28,
+      "native_assertions": 2348,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 125,
+        "28": 194
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "blast_rig_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "zero_to_sixty_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "evo_steel_soul_memory_blue",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "zero_to_sixty_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "evo_steel_soul_memory_blue",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "blast_rig_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "actual_Boost_declined_index": 1,
+      "positive_successful_Boost_history": false,
+      "Deck7_raw_unchanged": true,
+      "Evo6_raw_unchanged": true,
+      "Evo6_raw_Counters": {
+        "SUBCARDS": [
+          "cogwerx_base_head"
+        ]
+      },
+      "checkpoint_assertion_mapping_sha256": "dcac342b85c908064c8922dce384c5275ae30c4f983899f70635896357b90cf5",
+      "native_action_mapping_sha256": "a85369d8c9c7cf341f100acc41ffb6e6c372669708ad20647ac2a8c93fef9809",
+      "native_assertion_mapping_sha256": "a1503e779183cbe8fcc17e2703f6d7a6c83a830b4e2f528e8bd315f32413650f"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2348,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Every28 actual input/2348 ordered check/25 manual actor/all48 manual preferences per endpoint exact. Initial four legal living quietheroes/primary5/realMechDeck7/prioractualEvo6+SUBCARDS; no synthetic power/count/history/assets seed.",
+    "Actual adjacentP4 target then real MZMODAL Boost offer; actual mode100 answer1 declines. Real MechDeck7 stays unchanged; zeroresource/oneAction spent, no Pitch/Banish/noGA. Same5Stack through firstthree responses then actualChain/source5/base1+oneEvo=2; currentPENcompiledhook plusactualnative2/damage2HP18 now confirm this bounded route.",
+    "Full Damage/Resolution/AP0/fullclose same5ownpublicGY, exactunchangedEvo6readyDamage0/SUBCARDS andDeck7, alloriginalphysicalUID1..7conserved/noextraUID/counter7/RNG0/fullqueuesframespaymentcombatcleanup. Raw successfulBoostARC_BOOSTED absent and retained boostanswer1 verifiesdecline."
+  ],
+  "historical_lookup_reconciliation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch443-doubling-season-author\\blast-rig-unattempted-source-route-note.json",
+    "sha256": "53519b618b0b7934d793583e9ffad5f32db59ee303e648a4f1ce16cd2fb2a23a",
+    "historical_bytes_preserved": true,
+    "not_a_prior_bug_or_implementation_absence_verdict": true,
+    "source_route_found_in": "PEN registry/compiled BlastRig AttackPowerModifier -> case-insensitive FaBEVOCount/FaBEvoCount actual equipped-Evo count",
+    "now_supported_by_actual_selected_native_pass": true
+  },
+  "bookkeeping_precision": "Actual raw DYN_BOOST_PLAYED1 is printed-Boost-card-played bookkeeping (DYNRuntime73 checks keyword), not a successful Boost action. No HanabiBlaster present; no third printed-Boost play trigger earned. ARC_BOOSTED successful-Boost grant absent, actualBoostanswer1/Deckretention/noBanish/noGA remain strict.",
+  "limits": [
+    "One equipped Evo/nonBoost positive power branch only. No Boostpayment/MechbanishGA/zeroEvo/multipleEvo/suppression/controlchange/otherpitch/fullcard/supportprimary/hero credit.",
+    "PriorEvoMemory/SUBCARDS board state only; no Equipmentplay/transform/entry/materialidentity/retrieval/Intellect/Temper/held source-lifecycle branch qualification.",
+    "Original limited lookup note53519 was not a bug finding; actual newsourcepath discovery+current nativepass resolve its limitation. No historicalretag/retest/audit.",
+    "Actualcompletedledger and parsedendpoints only; no extra per-input raw snapshots/reviewer native or replay execution. Rootfocusedreplays/registrationseparate.",
+    "NoPHP/native/R/source/gen/service/remote/fullsuite/denied089090094096retry/integration."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_SAVE",
+  "issue": "FAB-REG-147",
+  "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+  "source_spec": "card-regression-pox147-source-prevention-no-save-20261120.json",
+  "source_sha256": "749f33a8fba2e5b38e6a068fce339204b302bf4b19e5293187fb2acc6423608a",
+  "accepted_inputs": 10,
+  "passed_assertions_before_failure": 894,
+  "expected": "Pox5-specific prior prevention absorbs1 of unpaid2generic after token destruction; HP19.",
+  "actual": "HP18; sourceUID5 UPR_PROTECT amount1 remains unconsumed.",
+  "actual_low_level_packet_UID": "Not directly observed; do not infer actual UID from the protection failure.",
+  "recording_workspace": "remaining-pox147-source/selected.recording-results.json",
+  "recording_sha256": "b0bf6c1d7de1ed49784a1668a0538af10cf0a1226cd7057d53213c525092a5ff",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "generic_type_fix_preserved": true,
+  "full_suite_run": false,
+  "reproducer": "& 'C:/xampp/php/php.exe' DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-pox147-source-prevention-no-save-20261120.json --probe-only"
+}

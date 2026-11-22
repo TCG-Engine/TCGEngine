@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T04:03:23.676982+00:00",
+  "runtime_sha256": "d12c964bdcf7227a78d347f7f3499c1461e52507863e7ade64a1cb3596772218",
+  "source_spec": "card-regression-repair-rift128-banish-play-earned-power.json",
+  "source_spec_sha256": "25bc147603eca57812ecf2145fa6bb0e3b565f5b945058bfcd2cb46a755fff58",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 37,
+  "native_assertions": 2990,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 4160,
+    "duels": 3074,
+    "four_live": 1086,
+    "recorded_primary_ids": 1313,
+    "identity_denominator": 5196,
+    "recorded_groups": 1187,
+    "group_denominator": 3324,
+    "four_live_groups": 1079,
+    "phase_qualified_scenarios_at_actual_contexts": 797,
+    "phase_qualified_unique_groups": 792,
+    "creation_replay_passes": 1538,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "rift_bind_red",
+      "group_id": "pitch-cycle:rift_bind",
+      "scenario_id": "card-rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage",
+      "effect_branches": [
+        "rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage",
+      "source_spec": "card-regression-repair-rift128-banish-play-earned-power.json",
+      "source_spec_sha256": "25bc147603eca57812ecf2145fa6bb0e3b565f5b945058bfcd2cb46a755fff58",
+      "review_evidence": "review-evidence/rift128-d12c-qualified-saved.json",
+      "review_evidence_sha256": "217bade651ae6442011333fef117cd5a2ea80b4ec5522f7e1ddc21a7239114df",
+      "recorded_runtime_sha256": "d12c964bdcf7227a78d347f7f3499c1461e52507863e7ade64a1cb3596772218",
+      "qualification_runtime_sha256": "d12c964bdcf7227a78d347f7f3499c1461e52507863e7ade64a1cb3596772218",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-rift128-replay.json",
+          "sha256": "8590bb240c7961742a7ca067f3ebf051b57691d113b64e2e4b756db33c0955ac",
+          "runtime_sha256": "d12c964bdcf7227a78d347f7f3499c1461e52507863e7ade64a1cb3596772218",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

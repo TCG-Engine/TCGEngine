@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch511.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T19:37:11.293241+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rake-over-the-coals-four-live-real-draconic-instant-raises-ronin-power-and-physical-damage",
+      "fixture_sha256": "7f47f2f860275ff2af72cecb90bbb09628437fb623046c3f1cc9cab1dd1a84e2",
+      "passed": true,
+      "result": "[PASS] rake_over_the_coals_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-cast-bones-four-live-real-six-power-singleton-deck-reveal-creates-one-owned-might-and-retains-physical-deck-card",
+      "fixture_sha256": "56ffbac2753ce208c5fbea625e099d5e737d6a47311920cc02a46dd951f50a70",
+      "passed": true,
+      "result": "[PASS] cast_bones_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rake-over-the-coals-four-live-real-draconic-instant-raises-ronin-power-and-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] rake_over_the_coals_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cast-bones-four-live-real-six-power-singleton-deck-reveal-creates-one-owned-might-and-retains-physical-deck-card",
+      "returncode": 0,
+      "stdout": "[PASS] cast_bones_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

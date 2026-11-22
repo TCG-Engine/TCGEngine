@@ -1,0 +1,144 @@
+{
+  "status": "APPROVED_SELECTED_FORMAL_TARGET_SOURCE_LIMIT_ONLY",
+  "approved": true,
+  "planning_review_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-06T02:41:37.888041+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch556-incision-selected-target-declaration-source-hold\\planning-hold.json",
+    "sha256": "18011f41e1cd71638a56d6a978d10c2295c23f4e730a461849cc5e27429723f0"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch556-incision-selected-target-declaration-source-hold\\manifest.json",
+    "sha256": "27d57b18501a213f4e47ac2c216f10b87d1605871449af6cf42a24027437b2da"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch556-incision-selected-target-declaration-source-hold\\frozen-author-QA.json",
+    "sha256": "0633f1019e0fde7092a42da11d372098ff42f449897f03a9da701f9d63aa96dd"
+  },
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "source_guard_count": 70,
+  "all_actual_source_guards_match": true,
+  "guard_context": {
+    "baseline_manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-after140\\manifest.json",
+    "baseline_manifest_sha256": "6eccd65bad5d11ee6e8410abafe31e9f115dbd20b79b8a87a477b083d1b7a754",
+    "baseline_guards_unchanged": 69,
+    "added_binding": "DevTools/FaB/arakni_abilities.json",
+    "full_runtime_fingerprint_recomputed_in_this_review": false,
+    "runtime_context": "Parent-confirmed current33333; all70 exact guarded files independently rehashed."
+  },
+  "selected_source_guards": {
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/arakni_abilities.json": "5c076c5bb0652101937649f268ce4f740070c1b91f0711310cd48aaf0bdfd1e4",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "card_id": "incision_blue",
+  "group_id": "pitch-cycle:incision",
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3579/",
+      "actually_opened": true,
+      "finding": "Current Blue is cost0/pitch3, Assassin/Warrior Attack Reaction, DEF3; formal target is a Dagger attack and effect is +1 power."
+    },
+    {
+      "path": "FaBSim/WebpImages/incision_blue.webp",
+      "sha256": "9685c6c16a6065c002927b1bc78226c6d1353b49aaafdfcc6b8c16f9e277b76d",
+      "issuer": "ARK023",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "actually_opened": true,
+      "rules": [
+        "5.1.1",
+        "5.1.4",
+        "5.1.4a",
+        "5.1.5",
+        "5.1.7",
+        "5.1.10"
+      ],
+      "finding": "Formal resolution targets are declared before legal-play check, asset/effect-cost payment and completed play/priority. A zero cost or singleton eligible attack does not postpone declaration until resolution."
+    }
+  ],
+  "source_evidence": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "311-314,923-991",
+      "finding": "Exact type comparison distinguishes Attack Reaction from Attack. Ordinary own-Hand Incision does not enter the Attack target or Lunging Press branch. It reaches Stack/pendingPayment, Boost helpers, PrepareCard and payment completion without capturing its printed target."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1264-1296",
+      "finding": "Actual source dispatcher uses generated Prepare counts/table. Only the exact FaBUsesDeclaredReactionTarget predicate substitutes the existing declared-target Prepare/Resolve handlers."
+    },
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "lines": "4-12,37-56",
+      "finding": "Earlier target infrastructure exists but admits Nip at the Heels Blue and the three Shreds only. Incision is not admitted. No extension was prepared."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1080-1164",
+      "finding": "Selected payment completion pays applicable assets, clears pending payment, runs played listeners and restores priority. No Incision-specific target declaration exists in this selected path."
+    },
+    {
+      "paths": [
+        "DevTools/FaB/hnt_abilities.json",
+        "DevTools/FaB/arakni_abilities.json"
+      ],
+      "selected_rows_equal": true,
+      "finding": "Both selected implemented rows contain only ResolveCard: reacquire current owned DAGGER attack refs, await Choose_dagger_attack, then apply WTR_POWER:1. Actual +1 body exists."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "entry_lines": "3760-3765",
+      "runner_lines": "69228-69271",
+      "count_lines": "254852,256311",
+      "runner": "__RunAwait_35a3c23964a98d39d9a4",
+      "finding": "Actual registered Resolve closure starts this await runner at PC4. PC4 computes Dagger refs; PC2 queues MZCHOOSE during resolution; PC1 applies +1. Complete selected Incision mentions contain Resolve count1/registration and no Prepare count/closure, not merely an inference from canonical text.",
+      "raw_slice_sha256": {
+        "3760-3765": "8dca49992be39acda4bbc84cd98fa382b2a2ab44be13fba78d8015fe6c64242f",
+        "69228-69271": "01de45b6a12124914ebe8c434f144af7df67c5d2ab9798a35a89a902d8b54806",
+        "254852": "81dd778aff2f9fc2fe4e6d4f4c5a63b3ec64f55333f759de72a5ddb0ee64e177"
+      }
+    },
+    {
+      "path": "FaBSim/Custom/DYNCards.php",
+      "lines": "8,15-16",
+      "finding": "Dagger matching and current owned attack lookup plus UID tagging exist. This establishes an effect/target infrastructure, not a certified legal Dagger support recipe or complete target universe."
+    },
+    {
+      "paths": [
+        "FaBSim/Custom/HNTCards.php",
+        "FaBSim/Custom/HNTRuntime.php",
+        "FaBSim/Custom/ArakniCards.php"
+      ],
+      "finding": "Bounded exact selected-ID check finds no Incision override in these three guarded callers; no wider implementation-absence claim."
+    }
+  ],
+  "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_FORMAL_TARGET_DECLARATION_LIMIT",
+  "finding": "The selected ordinary play path does not bind the formal Dagger attack target before completed play/responses; the actual compiled body requests it during resolution. Retain this nonrunnable planning hold. A passing recipe answering the late chooser would endorse incorrect timing.",
+  "limits": [
+    "No legal Dagger support body/setup, weapon payment, Hero branch, target-menu completeness, actual +1/damage outcome or source-lifetime behavior was certified.",
+    "No alternate producer, empty-target substitute, seeded permission/history/target, new transport/helper or source repair was authored or searched.",
+    "The implemented +1 body and target infrastructure exist. This is not whole-card/global implementation absence, a native reproduction, a new issue, or coverage.",
+    "No prior fixture/corpus audit; author metadata newness is contextual and is not requalified here. No R writes, PHP, native, replay, fullsuite, source/codegen/service, remote or denied-operation retry."
+  ],
+  "source_spec_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "installable": false,
+  "recipe_count": 0,
+  "native_attempted": false,
+  "native_executed_by_reviewer": false,
+  "fixture_saved": false,
+  "confirmed_engine_bug": false,
+  "issue_allocated": false,
+  "coverage_credit": false,
+  "repository_writes": false
+}

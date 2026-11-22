@@ -1,0 +1,171 @@
+{
+  "status": "SOURCE_APPROVED_NORMAL_POSITIVE_MIRAGAI_NO_CHI_TWO_COUNTER_WARD",
+  "phase": "SOURCE",
+  "batch": 822,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T17:57:11.011432+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "normal_save_approved": true,
+  "native_fixture_recording_approved": true,
+  "passing_fixture_approved": false,
+  "source_spec": "card-regression-batch822-miragai-no-chi-two-counter-ward.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch822-miragai-no-Chi-real-two-counter-Ward-positive-author\\miragai-no-chi-real-two-counter-ward-two-prevention.json",
+    "sha256": "69453bd7da7efc05671f953e5b5255d9b60ca04bb2d357cd235cf350758de60c"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch822-miragai-no-Chi-real-two-counter-Ward-positive-author\\manifest.json",
+    "sha256": "bf3321e9e2a13f70252ef57037a649335fe2908ded079b0b17cab2a8a42f7041"
+  },
+  "input_sha256": "69453bd7da7efc05671f953e5b5255d9b60ca04bb2d357cd235cf350758de60c",
+  "manifest_sha256": "bf3321e9e2a13f70252ef57037a649335fe2908ded079b0b17cab2a8a42f7041",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch822-firm-reservation.json",
+    "sha256": "a57e1746377ab4fadc4214cf63f9669d58678bf09c5c8c4212e3425a26ed57a8"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch822-selected-helper-no-chi-ward-preflight.json",
+    "sha256": "fc1f57fb7a722dbc4d5742671b9bf9607240cdb5649676105a11093d8ced43d2"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "73a8656e208fe15819503c4151c35cecd70a485abf9a753ece10b6c357bef7a3",
+  "selected_support_guard_count": 25,
+  "selected_support_guard_map_sha256": "b79d9b4e0bac68128ac42c21d320f441c998c39de1ae8852b0fbb26018888407",
+  "all_current_guards_independently_matched": true,
+  "actions": 37,
+  "declarative_controls": 37,
+  "native_assertions": 4341,
+  "recorded_persisted_assertions": 4341,
+  "manual_passes": 32,
+  "expected_priority_response_passes": 31,
+  "expected_formal_defense_finish_inputs": 1,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "manual_actor_counts": {
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 8
+  },
+  "checkpoints": 39,
+  "typed_property_queries": 913,
+  "control_mapping_sha256": "dea1f6e4a97dd7fcb3b8deac756849339fe718248f8215dacfe8b93a0a28341e",
+  "expected_native_query_mapping_sha256": "42876026e8cf96746f8878fd5da791f6a1c913e00d6b8b61b1104262d30fe846",
+  "checkpoint_mapping_sha256": "486b6ea30f5219e3257839e466a94f5fbf2fd480a9d966cc3419045c54f7c10a",
+  "independent_semantic_findings": [
+    {
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/3086/",
+        "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/part-the-mistveil/"
+      ],
+      "finding": "Official Instant Aura costs3. With no Chi pitched it enters with two POWER counters; Ward uses its current counter count when destroyed. Actual Generic Wounding Blue pitch3 is not Chi. POWER2 and Ward2 are independently derived, not accepted from current output."
+    },
+    {
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/3026/",
+        "https://rules.fabtcg.com/en/cr/08-keywords/"
+      ],
+      "finding": "P4 young Enigma is Mystic Illusionist and may include Miragai. Her actual Shield-only discount and Chi activation are unused. Instant can be cast at genuine P4 priority without AP, including above unresolved P1 Wounding. Source responses reset after play; every seat responds to Miragai before Arena entry and again to the underlying Wounding."
+    },
+    {
+      "rules": [
+        "https://rules.fabtcg.com/en/cr/08-keywords/"
+      ],
+      "finding": "CR8.2.4a Aura enters on resolution; enters-with is not an earned WHEN layer. CR8.3.20 Ward is static mandatory replacement, not another responseable trigger. The only chosen source is the actual own Arena Aura, not an optional decline."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/GameLogic.php:945,1805,1823",
+        "FaBSim/Custom/MSTCards.php:11-15,36-46,58-77,156-165",
+        "FaBSim/Custom/DTDCards.php:141-168",
+        "FaBSim/Custom/MONCards.php:234-248"
+      ],
+      "finding": "Announcement clears previous Chi marker; Generic Blue does not increment it. Persistent resolution enters actual same UID6 Arena; MSTAfterMove sets POWER2. Ward reads POWER before MONDestroy moves that same object to its owner Graveyard. DTD Store/ConsumePrevention reduces real unblocked Wounding4 to2. No prepared Aura/counter/prevention resource injection is used."
+    },
+    {
+      "finding": "Physical source5 attacks formal adjacentHero4; all four response actors are real and all seats start and end living/manual. Source6 is Hand4->Stack->Arena4(POWER2)->Graveyard4, Blue7 Hand4->Pitch4. HP20->18 is the damage oracle; cached damageDealt/defenseValue and computed Aura attack power are not used. Full Damage/Resolution/Close suffix is required, not presumed."
+    },
+    {
+      "finding": "Known151 dual-alias Aura attack counter double counting is not required: Aura never attacks and Cosmo/adult hero grants are absent. Existing Empyrean Rapture dynamic Ward gate is specific to that card; Miragai has intrinsic Ward. Current helper and full support scans establish no earlier held mandatory contract in this exact route."
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "chest_puff_red",
+      "group_id": "identity:chest_puff_red",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_ATTACK_WHEN_PAY_ONE_CONTRACT",
+      "classification": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+      "reason": "Current SUP builder69-70 shares Bluster Buff pay-one AttackDeclared body, invoked directly by GameLogic1216 without the required separate responseable own attack WHEN layer. Existing payload and modal are present. The frozen decline-pay route is held before Native, not a missing-body or new confirmed gameplay finding.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch822-chest-puff-known-pay-one-attack-when-unattempted-note.json",
+        "sha256": "6ed42be748c28d7cd78d105ac23e8511486242ca6c22f353292cedfc6cdf87fe"
+      },
+      "known_contract_proof": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse708-bluster-own-attack-when-unattempted-c53.json",
+        "sha256": "df8622e09a10b8eee7bab5307cabe0d78857bf5fbfaf3fd876a14129241279ba"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "limits": "No delayed-trigger/blank/default7/accept-pay/replacement-primary fallback; no new native issue or full-card impossibility claim."
+    }
+  ],
+  "diagnostic_only": false,
+  "qualification": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "passing_registry_approval": false,
+  "independent_actual_Saved_review_required": true,
+  "two_new_only_clean_replays_required": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "official_read_only_rules_web_used": true,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Approve one exact NORMAL Native Save only; recorder must stop without saving if any correct assertion fails. No passing/qualified fixture yet.",
+    "Fresh actual raw5 plus initial AND final raw48 manual preferences, every saved control/query, physical identity/owner/counter/damage cleanup require independent Saved review and two targeted clean replays before registration.",
+    "Only no-Chi Blue3 cost, two counters and Ward2 preventing2 of4. No Chi/four-counter branch, other amount/type, Aura attack, Enigma activation, internal prevention ordering, general Ward or sibling/full-card certification. FAB_PLAY_ORDER inside whole Counters is incidental protocol, not a separate gameplay certificate."
+  ]
+}

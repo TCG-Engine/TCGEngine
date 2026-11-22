@@ -1,0 +1,149 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B320_FEARLESS_CAPTURED_ATTACK_DISCARD_DOMINATE_LOSS_SECOND_HAND_DR_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T10:40:49.585464+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch320.json",
+  "input_sha256": "9a97ac4937b08bb8757cfb5723cd97a853d7820af6632b7dc2da966e3771df2e",
+  "manifest_sha256": "a2b6665b1cc274e8e030699d3a46fcb6b097daf10545ea68ad736e86397f2992",
+  "fixtures": [
+    {
+      "slug": "card-fearless-confrontation-blue-four-live-sparse-real-discard-captured-attack-weaken-and-dominate-loss-allows-hand-reaction",
+      "card_id": "fearless_confrontation_blue",
+      "group_id": "identity:fearless_confrontation_blue",
+      "fixture_sha256": "e44fcdaeed75e5051b1223db0154b4b0687263250f15898434ff8fde8f8e8c43",
+      "behavior_sha256": "e44fcdaeed75e5051b1223db0154b4b0687263250f15898434ff8fde8f8e8c43",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "43795096a84df314b36f61d6290c9e1168ed0732263cf367e3d556f24da76951",
+        "actions.json": "72c86b5df1e5e3d3ac1168af78d911207507faf59486138ce94e420916c3ad2b",
+        "assertions.json": "9400bbdc972ceddb3ff38e25f344f6d8947efaf3a9249750ac41f06d019ed23e",
+        "expected_final_gamestate.txt": "276a7e4a15f70ff9e11663a5a1ddb3ef8cce9ab4f5d5f403daa1ded48c9b1ecc",
+        "meta.json": "354d7537d5ebaa9b2b9b3c7e1f2eb491ba44c33ca37e82aa94986109c6d44c72"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "43795096a84df314b36f61d6290c9e1168ed0732263cf367e3d556f24da76951",
+        "actions.json": "72c86b5df1e5e3d3ac1168af78d911207507faf59486138ce94e420916c3ad2b",
+        "assertions.json": "9400bbdc972ceddb3ff38e25f344f6d8947efaf3a9249750ac41f06d019ed23e",
+        "expected_final_gamestate.txt": "276a7e4a15f70ff9e11663a5a1ddb3ef8cce9ab4f5d5f403daa1ded48c9b1ecc",
+        "meta.json": "354d7537d5ebaa9b2b9b3c7e1f2eb491ba44c33ca37e82aa94986109c6d44c72"
+      },
+      "actions": 51,
+      "native_assertions": 4809,
+      "actual_manual_pass_inputs": 43,
+      "actual_manual_passes": 43,
+      "manual_passes": 43,
+      "priority_pass_inputs": 42,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 10
+      },
+      "priority_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 9
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_proxy_uids_absent": [
+        12,
+        13
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          6,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5,
+          10,
+          11
+        ]
+      },
+      "final_pitch_uids": [
+        7,
+        9
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualCraterhoof6destroycost/Blue7realpayment/fourresponses/GAearnsDominate, thenactualArsenalCrushConfidenceBlue8target/Blue9payment/printed5DOMINATE. RealfirstHand10defends3. Nativeinput27offturnP4Fearless5abilitydiscardsSAME5toownedpublicGY beforefresh28-31actors4,1,2,3. Postcostactualassertionsbindvirtual13ParamsattackUID8/SourceHand5 andphysicaldiscard5; sourceapproval7130bindscapture-before-costorder, no claimedseparatenativeinternalmicrostep. Same8heldpower5/DOMINATEthroughfirstthree, onlyfourthsame8computed4/MPG_NO_DOMINATE/source13cleared. Actualinput35secondHandSink11isacceptedafterfirstHand10, sourceHand0(nooptionalexchange/draw), four36-39actors4,1,2,3\u2192same11DEFENSE_REACTION/Hand/def4. Actualpower4vsdef3+4=7\u21920/allHP20/noCrush/noGA; fullcloseGY4UIDset5,10,11/GY1set6,8/Pitch7,9/allRAP0/virtual12,13ceased/alloriginal1-11conserved/queuespaymentownedframesclear.",
+      "qualification": "Onlyuniqueattacktarget/discardTHIS/-1/losesDominate/acceptedsecondHandDR/zero-damagepositive. OriginalDOMINATEgranttagremainsbutkeywordblocked; acceptedHandDRisthematerialactive-keywordwitness. No regaindominateattempt/multitarget/illegalbeforeattempt/retarget/removal/Sinkexchange/hero/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch320-independent-source-review.json",
+    "sha256": "7130723b1ce22794e079c65369320baab3b80d9c7ec8e8293059975a8bec5918",
+    "manifest_sha256": "a2b6665b1cc274e8e030699d3a46fcb6b097daf10545ea68ad736e86397f2992"
+  },
+  "source_guards_verified": 18,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch320-20261103T103823Z-6ae9b99f7a44d.json",
+    "sha256": "13ff25017d47723009cff89b5e6bc60c1597d7c63a0f1787833dbb4c036c9ba6"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch320.recording-results.json",
+    "sha256": "430025e93f767381d9ca4682adec00e1294cf7c027a8a29fa1bb412554799de2"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch320-native-r1\\receipt.json",
+    "sha256": "c341f9ff96039c4637592fa0672d0f067300f25546d26d2c6ef8529e1b161fc1"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Onlyhash-boundread-onlysource/wrapper/archive/rawfive/meta/action/assertionequalityprefix; B320ownphysicalsemanticchecksfollow."
+  },
+  "behavior_digest_definition": "SHA256orderedfilenames+rawbytesinitial/actions/assertions/expected_final; rawfiveindividualhashesalsobound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Exactfrozen9a97B320only; actualRootnativeCOMPLETE0exit/stderr0/read-onlyexactfivefilematch, notindependentreviewernativeexecution.",
+    "Sourceapprovedtarget-before-costmodel7130reused; savedpostcostassertionsbindcaptureandphysicaldiscardwithoutinventedinternalcheckpoint. No currentoutputchangedcorrectoracles.",
+    "ReplayqualificationbelongsseparateactualRootreports; nofaultcontrolcredit.",
+    "No R writes, native/PHP execution, source changes, generator/enginebackend/service/fullsuite by reviewer."
+  ]
+}

@@ -1,14 +1,21 @@
 # FaBSim card regression coverage
+[Current remaining-repair checkpoint](REPAIR_REMAINING17_20261120.md):4,188 qualified scenarios;81/93 original records resolved in tested scope,12open. Paused for review.
+
+<!-- RESUME-20261102 -->
+> **2 November resume:** local review metadata for the 126 October repairs is reconciled. Their 3,521-scenario replay evidence remains historical at `77a0`; new sparse four-live cases use the current runtime. No restart suite run. [Resume context](card-regression-resume-20261102.json) and [historical repair evidence](review-evidence/capped-suite-expectation-repairs-20261026.json).
+
+<!-- REPAIR-20261102 -->
+> **2-3 November focused card repairs:** Plague token ownership, Halo cost/effect timing, and Aether Spindle source retention have qualified named regressions, independent review, and two clean replays each. [Plague/Halo evidence](review-evidence/nov2-059060-qualified-repairs.json) and [Aether evidence and limits](review-evidence/aether-spindle-061-qualified-repair.json). The [isolated baseline comparison](review-evidence/nov2-components-baseline-comparison.json) reproduces the same ARC Kano and three MON-prefix assertion failures before and after these repairs; original component entrypoint remains failed and later MON checks are unrun. No full-suite run.
 
 <!-- SPARSE-CURRENT-20261025 -->
-> **26 October, latest registration batch254-canonical-combat-windows:** 3,521 saved/registered scenarios (3,074 duels +447 four-live), 677 recorded primary IDs/5,196 and 551 groups/3,324. This phase qualified 158 scenarios across 155 groups at their stated runtimes. 8 new gameplay defect groups fixed, plus 8 existing-family extensions. No full-suite run. [Progress and current lookup](SPARSE_PROGRESS_20261025.md) preserves exact branches, untested siblings and historical contexts.
+> **22 November, latest registration repair093-20261122:** 4,202 saved/registered scenarios (3,075 duels +1127 four-live), 1350 recorded primary IDs/5,196 and 1224 groups/3,324. This phase qualified 839 scenarios across 829 groups at their stated runtimes. 9 new gameplay defect groups fixed, plus 20 existing-family extensions. Qualified named repairs 085, 086, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175 remain tracked separately while global defect-group attribution is unallocated. No full-suite run for these creation batches; historical capped-suite evidence remains separate. [Progress and current lookup](SPARSE_PROGRESS_20261025.md) preserves exact branches, untested siblings and historical contexts.
 
 <!-- CURRENT-REPAIR-20261025 -->
 > **25 October compatibility repair: final full suite3,363/3,363 passed,0 failed.** The15 reproduced failures were stale expected snapshots; all actions/assertions and the gameplay runtime were preserved. See [current assessment](FAILURE_REPAIR_20261025.md) and [validation](failure-repair-validation-20261025.json). Coverage remains522 exact IDs/396 groups; historical dated evidence below keeps its original scope.
 
 Current frozen handoff (20 October2026): **3,079 qualified scenarios**, two complete same-runtime replays; **3,074 duels + five genuine four-live-player cases**. Verified primary subjects: **239 /5,196 IDs**, with **75 complete finite baselines +164 partial**, spanning **114 /3,324 cycles or standalone groups**. No pitch-variant inheritance. Controls: **77 legacy +4 opt-in multiplayer faults detected**; all four native suites pass.
 
-Read [FINAL_ASSESSMENT.md](FINAL_ASSESSMENT.md) for results/limits and [COVERAGE_GUIDE.md](COVERAGE_GUIDE.md) for the full114-group readable index and cardâ†’branchâ†’scenario lookup. [card-regression-coverage.json](card-regression-coverage.json) is the current detailed registry; checkpoint/scopes/issues qualify it. The20October assessment and114-group guide are historical. Gorganian Tome now has its named repaired representative; Lunging Press retains its earlier bounded evidence.
+Read [FINAL_ASSESSMENT.md](FINAL_ASSESSMENT.md) for results/limits and [COVERAGE_GUIDE.md](COVERAGE_GUIDE.md) for the full114-group readable index and cardÃ¢â€ â€™branchÃ¢â€ â€™scenario lookup. [card-regression-coverage.json](card-regression-coverage.json) is the current detailed registry; checkpoint/scopes/issues qualify it. The20October assessment and114-group guide are historical. Gorganian Tome now has its named repaired representative; Lunging Press retains its earlier bounded evidence.
 
 Repository hygiene is documented in [REPOSITORY_HYGIENE.md](REPOSITORY_HYGIENE.md). Authorized recoverable cleanup removed1,597 review-only files /167,690,037bytes in two passes after verified external backup; all regression fixtures, source, tooling and referenced proof records remain. No ignore rules changed. `source-review-evidence/` is not an ordinary replay dependency, but retained provenance links reference it; `review-evidence/` contains directly verified proof records.
 
@@ -211,3 +218,24 @@ Focused prepared-payment component (44 actual extracted-helper groups with expli
 [Prism repair evidence](review-evidence/prism-052-before-after.json) distinguishes31component contracts, new native coverage and unchanged focused compatibility. Historical corpus has not been requalified at the new runtime.
 
 [Chane053 repair evidence](review-evidence/chane-053-before-after.json) records current44/486component proof, unchanged native probe and runtime limits. Previous31-group proof remains historical.
+
+
+### Unsaved diagnostic recording
+
+Use `--probe-only` with the existing recorder to execute a diagnostic without saving a fixture:
+
+```powershell
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-batch618-pox-probe-v3.json --probe-only
+```
+
+The optional slug-fragment filter may precede or follow the flag. A selected JSON case with `diagnostic_only: true` requires this flag; otherwise the CLI exits2 before game setup. Probe success exits0 with `diagnostic_assertions_passed_unsaved`; assertion failure exits1 with the actual recording and observed state retained. Neither outcome saves or qualifies a regression. Use a fresh diagnostic slug: existing fixture ownership/EXISTS checks still apply. Ordinary unmarked cases without the flag retain their normal saving behavior. The [focused control evidence](review-evidence/recorder-probe-only-source-and-focused-controls-20261106.json) records a real successful five-action/618-assertion no-save run and unchanged fixture inventory. This option does not run the integration suite.
+
+
+### Combat response windows
+
+Pending card responses do not imply `FaBState.window=PRIORITY`. On the ordinary payment path, an attack reaction played from `REACTION` returns there; a combat Instant may retain its initiating window through captured `returnWindow`. Verify the pending source on Stack, the actual priority seat and, for four live manual seats without an intervening action, four consecutive responses before top-layer resolution. A window label alone does not establish a rules-priority opportunity. Derive protocol labels from the selected [capture/payment/pass path](../../../FaBSim/Custom/GameLogic.php), while independently checking printed timing and effects.
+
+The [Fresh window classification](review-evidence/fresh622-first-native-window-oracle-classification-c53.json) and [Obsidian window classification](review-evidence/obsidian624-first-native-window-oracle-classification-c53.json) preserve the failed original inputs and identify the exact label corrections. Their successors retain all native actions, Stack/priority checks and strict material effects; they do not accept incorrect damage or grant early effects. Fresh's separate [real damage defect](review-evidence/fresh149-corrected-sharpen-real-damage-native-before-c53.json) is a gameplay failure, with no passing fixture. These protocol notes are not new full-suite or full-card validation.
+
+
+For Aura attacks enabled by a Weapon, bind the attack origin to the actual attacking Aura rather than the enabling Weapon. The selected Aura can originate in `Arena`; verify its `SourceUID`, `SourceZone` and reported `FromZone` against the selected proxy-construction path. The [Uphold origin classification](review-evidence/uphold627-first-native-aura-origin-oracle-classification-c53.json) preserves an incorrect Weapon-template oracle and its exact correction. No card effect, cost, priority, counter or damage expectation was removed.

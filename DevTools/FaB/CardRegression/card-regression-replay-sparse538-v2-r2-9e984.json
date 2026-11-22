@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch538-v2.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T23:28:15.854890+00:00",
+  "fixtures": [
+    {
+      "slug": "card-duty-bound-blitz-blue-four-live-real-yellow-soul-entry-permission-and-go-again-consumer",
+      "fixture_sha256": "cb4855aad3ea4b708643f20ebb52f39eeb62441255980045aa60b5a382fd9075",
+      "passed": true,
+      "result": "[PASS] duty_bound_blitz_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-duty-bound-blitz-blue-four-live-real-yellow-soul-entry-permission-and-go-again-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] duty_bound_blitz_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,208 @@
+{
+  "id": "FAB-REG-162",
+  "status": "NATIVE_CONFIRMED_UNFIXED_SELECTED_HOLD_FIRM_ACTIVATION_COST_FAILURE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch732-hold-firm-independent-native-before-review.json",
+  "independent_review_sha256": "4494a4294cd6cba761003ccd7f3912a3e1a56db3e6534488569aa1acbd87e583",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch732-hold-firm-cost-probe.json",
+  "input_sha256": "2ddcd1ebd908ccca88ffc27b96a0df20232aafa53810c546b87f68ab91e319a5",
+  "scenario_id": "diagnostic-hold-firm-four-live-original-three-resource-cost-and-three-toughness",
+  "first_failure": {
+    "source_pointer": "/0/steps/12/checks/23",
+    "source_step": 12,
+    "check_index": 23,
+    "after_native_actions": 6,
+    "native_assertion_ordinal": 484,
+    "query_ordinal": 484,
+    "passed_assertions_before": 483,
+    "type": "scalar_zone_equals",
+    "zone": "p1Resources",
+    "expected": 0,
+    "observed": 1,
+    "error": "Expected p1Resources to equal 0, got 1."
+  },
+  "actual_native_prefix": {
+    "native_actions": 6,
+    "actual_actions": 6,
+    "manual_inputs": 4,
+    "manual_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "actual_priority_response_inputs": 4,
+    "actual_defender_declaration_finish_inputs": 0,
+    "successful_native_assertions": 483,
+    "successful_checkpoint_counts": [
+      {
+        "source_step": 0,
+        "after_action": 0,
+        "native_assertions": 121,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 2,
+        "after_action": 1,
+        "native_assertions": 71,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 4,
+        "after_action": 2,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 6,
+        "after_action": 3,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 8,
+        "after_action": 4,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 10,
+        "after_action": 5,
+        "native_assertions": 67,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 12,
+        "after_action": 6,
+        "native_assertions": 23,
+        "checkpoint_complete": false
+      }
+    ],
+    "actual_action_envelopes_sha256": "659e399b513c135f0a06c7c7b005fb79218983d48c404c08948255ccbcc61e54",
+    "actual_passed_native_assertions_sha256": "dd43e6ddfa9e909ae9ef4ace30a458fcc3bb391cd08406c548eca9bcc819a011",
+    "recording_actions_exact": true,
+    "recording_assertions_exact": true,
+    "initial_manual_preference_values_verified": 48,
+    "actual_Blue6_in_Pitch": true,
+    "actual_primary5_destroyed_as_cost_GY": true,
+    "actual_AP0_after_payment": true,
+    "actual_ability7_held_first_three_responses": true,
+    "actual_owned_Toughness_UIDs": [
+      8,
+      9,
+      10
+    ],
+    "actual_ability7_cleared": true,
+    "actual_own_GA_AP_refund": 1,
+    "first_postpayment_resource_observed": 1,
+    "printed_cost_resources_required": 3,
+    "actual_cost_paid_inferred_from_unseeded_Blue3_and_R1": 2,
+    "early_cost_queries_executed": false,
+    "observed_window": "ACTION",
+    "observed_combatOpen": false,
+    "postfailure_full_final_UID_inventory_certificate": false
+  },
+  "classification": "Printed-three Hold Firm activation leaves one resource after real Blue3 funding, rather than the required zero. Native prefix independently confirms cost destruction, AP debit, captured source, three owned Toughness and go-again refund before that failure. Selected source row2/cost pipeline explains the bounded discrepancy; no globally deduplicated new Core/root attribution or repair claim.",
+  "expected": "Hold Firm's printed Action activation costs three resources and destruction. With natural Tuffnut20 below all three Yoji22 opponents, a real blue pitch supplies exactly three; activation must leave zero resources, create three Toughness tokens and refund its Action Point via go again.",
+  "observed": "All six native inputs, including four manual seat responses, and483 assertions passed. Physical Hold Firm5 was destroyed, Blue6 pitched, ABI7 held then cleared, three owned Toughness8..10 created, and AP1 refunded. Query484 expected resources0 but found1, consistent with the actual cost-two specification.194 later assertions remained unrun. Omitted earlier cost checks are not certified. Mandatory probe-only mode saved no fixture and preserved3990 fixtures.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+      "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+      "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+      "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+      "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+      "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+      "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+      "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    "normative_contract": "Viewed SUP018 and official release print THREE resources; legal natural20<22/22/22 satisfies each-other-hero activation prerequisite. One real Blue3 must therefore leaveR0.",
+    "selected_cost_route": "SUPCards174 row2 \u2192 ARC47-49/90/102/129 \u2192 WTRAbilities29-37 \u2192 GL1101. All selected quiet modifiers zero; no compensating+1. NativeBlue3/Pitch6 and observedR1 corroborate paid2 by resource accounting; no internal per-call native instrumentation claimed.",
+    "attribution_limit": "Selected Hold Firm resource amount only, not new Core/root/family dedup or issue allocation. Reused Source audit, no repair or source change.",
+    "source_executed_by_reviewer": false
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch732-hold-firm-cost-probe.recording-results.json",
+      "sha256": "8f616db5856a6b2269b05dcfcbb19beef91f69c9e73d69ee6f467064b7bf7354"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch732-hold-firm-cost-probe-20261108T184352Z-6af0c2e80451a.json",
+      "sha256": "229b92b19b34d8982a4f66185c143ca9ae215650ac067e5f695937810851813c"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch732-hold-firm-independent-diagnostic-source-review.json",
+    "sha256": "2fa4d047453d94c1719053de53987f3b9db2261af0f2d73c0a8a03eb1c9f26a8"
+  },
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\hold_firm.webp",
+      "sha256": "2c315cfc7e7fb98dedb6fb5d1e5400d9eda0ee15580c3a6efcf10943454e2f2b",
+      "printing": "SUP018",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\tuffnut.webp",
+      "sha256": "306043b98f740b46bcfa6968b6ec4f8309b74a29bd450283c868018c9900eb77",
+      "printing": "SUP002",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\yoji_royal_protector.webp",
+      "sha256": "23a6969c2b92b99b3c1dcc45edc25a40ef3d0f8a923e8ff2c5fac0d276c044e9",
+      "printing": "DYN025",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\wounding_blow_blue.webp",
+      "sha256": "0bac5819f4f68f52d7bec10c8acaab4dacc0feaffde26a1cf0a1346dec8fa086",
+      "printing": "MST217",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\toughness.webp",
+      "sha256": "362c6292e2883a8ea0c333f31064abca7aef5ce4e5743b91de67032c2e4bda8b",
+      "printing": "APS032",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/super-slam/",
+      "independently_retrieved": true,
+      "scope": "Matching printed THREE-resource Action and token text; printed each-other-hero condition is the basis"
+    }
+  ],
+  "limits": [
+    "Only this legal natural-life activation and printed resource cost are individually reproduced. BladeBreak/future Toughness defense/Start, otherlife profiles, Hero/support/sibling/fullcard branches remain untested.",
+    "No fixture/Saved/qualification/coverage/replay/fullsuite/fix/source application or reviewer PHP/R writes. Root alone handles any individual issue retention/globaldedup; none allocated by reviewer.",
+    "No early cost-query pass claim or unrun finalstate claim. Source-supported row/debit chronology is not separately instrumented native call tracing. Original input/Source/results/archive preserved without fitting or extra payment."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-08T18:48:10.332757+00:00"
+}

@@ -1,0 +1,228 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B795_PLATING",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T21:29:16.397291+00:00",
+  "source_spec": "card-regression-batch795-dark_arcanite_plating.json",
+  "input_sha256": "1d7089e0885b0b0c080f0889241400d62d53a1460cd7fa868ee1e3b5a2a40665",
+  "manifest_sha256": "dfcc69f4f91f1bc841ca9947e1a689a75a10c8b8f991d9776279376e74957caa",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch795-plating-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "dfcc69f4f91f1bc841ca9947e1a689a75a10c8b8f991d9776279376e74957caa"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch795-plating-independent-correct-positive-source-review.json",
+    "sha256": "aaf8eed118343082111afe12cc336582c15cc1eb7ce0e460a1d7298aad2c8497"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b795-plating-native-correct-shadow-controller-resist\\receipt.json",
+    "sha256": "dad360a1141eb9b6f483373395569d012df6023ddc207e138c8d1511a7da58c8"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch795-dark_arcanite_plating-20261114T212521Z-6af8d1c10e3b7.json",
+    "sha256": "c3fa9296d83d7bb94517df8077318ad0239fe71ef887931d2fb62870becffffa"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch795-dark_arcanite_plating.recording-results.json",
+    "sha256": "38b7a3915d1df66cd4d635af557958487350676cf542fa7c2378457f8ad67546"
+  },
+  "fixtures": [
+    {
+      "slug": "card-plating-generic-source-shadow-controller-resist",
+      "card_id": "dark_arcanite_plating",
+      "group_id": "identity:dark_arcanite_plating",
+      "source_spec": "card-regression-batch795-dark_arcanite_plating.json",
+      "input_sha256": "1d7089e0885b0b0c080f0889241400d62d53a1460cd7fa868ee1e3b5a2a40665",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-plating-generic-source-shadow-controller-resist",
+      "fixture_sha256": "46ae397466c16ee84dcee200b213c396e69b89dc6b144d3f420d5021a0f18210",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6ac32c50fe2bb8e2b9905d4d5ce21f7a5e5004c9d53b296a58ac49b0df01a4f4",
+        "actions.json": "988cee8466152b212dcc2de9cb7fbe065f47f4d9d8d40903c78f33a64172e6b7",
+        "assertions.json": "d34fcc5ac0f8e8db736e0f33cb5da4a5fc4228b9bc747a2d0345346386391be2",
+        "expected_final_gamestate.txt": "151a4392d54ac9eeb4b81ca0beb22e66afd23bd2ab6f5c883700f90dc4ab7b26",
+        "meta.json": "d6998a3389affb23577944b91161cb29ad6264299cd3445ee765a1dcaaf9dea0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6ac32c50fe2bb8e2b9905d4d5ce21f7a5e5004c9d53b296a58ac49b0df01a4f4",
+        "actions.json": "988cee8466152b212dcc2de9cb7fbe065f47f4d9d8d40903c78f33a64172e6b7",
+        "assertions.json": "d34fcc5ac0f8e8db736e0f33cb5da4a5fc4228b9bc747a2d0345346386391be2",
+        "expected_final_gamestate.txt": "151a4392d54ac9eeb4b81ca0beb22e66afd23bd2ab6f5c883700f90dc4ab7b26",
+        "meta.json": "d6998a3389affb23577944b91161cb29ad6264299cd3445ee765a1dcaaf9dea0"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6ac32c50fe2bb8e2b9905d4d5ce21f7a5e5004c9d53b296a58ac49b0df01a4f4",
+        "actions.json": "988cee8466152b212dcc2de9cb7fbe065f47f4d9d8d40903c78f33a64172e6b7",
+        "assertions.json": "d34fcc5ac0f8e8db736e0f33cb5da4a5fc4228b9bc747a2d0345346386391be2",
+        "expected_final_gamestate.txt": "151a4392d54ac9eeb4b81ca0beb22e66afd23bd2ab6f5c883700f90dc4ab7b26"
+      },
+      "actions": 28,
+      "native_assertions": 1926,
+      "manual_passes": 25,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 558,
+      "checkpoint_count": 30,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 126,
+        "28": 178
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "dark_arcanite_plating",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "dark_arcanite_plating",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "10add2170cdfad1142e0db17d4cc55651f1473f53ca841beed4e746884d135fb",
+      "native_assertion_mapping_sha256": "b9d8f779c2ce4edfae77640b228fd1d933ff1669a6afbafe7243630105c32b13",
+      "checkpoint_assertion_mapping_sha256": "53dbb5d0734d992e7d42265d27782a588f439680c78599c878952305a6ecdd0f",
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 13,
+  "all_current_guards_matched": true,
+  "total_actions": 28,
+  "total_native_assertions": 1926,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 558,
+  "total_checkpoints": 30,
+  "total_endpoint_assertions_evaluated": 304,
+  "material_findings": [
+    "Actual GenericBlue5 controlled by Shadow youngLevia remains real2/noGA. Optional native MZMULTICHOOSE0..1 selects the new own Chest Plating6; same6 is destroyed to GY4/prevents1, actual1 damage yieldsHP4_19. SameBlue5GY1/AP0 and full cleanup. No Helm native evidence is transferred to this exact new identity.",
+    "Every actual native envelope/manual actor and ordered successful query matches frozen Source. Actual raw endpoints independently verify48 manual booleans EACH, no initial outcome/effect/count/prevention seed, all original physical identities/ownership and terminal Stack/chain/queues/targets/payment/manager/await cleanup.",
+    "Shared prevention transport is an existing native damage choice, not a newly earned layer or seeded Forcefield producer. Intermediate facts are direct successful query evidence; raw5 contains initial/final snapshots only."
+  ],
+  "limits": [
+    "One exact bounded equipment positive only; no BladeBreak defense, token creator/producer, Hero ability, suppression/elimination/copy/stale/decline/nonShadow/other-damage/full-card certificate.",
+    "Root targeted replays/registration remain separate. Reviewer executed no PHP/native/game/replay/full-suite or R/source/Git/remote mutations/further agents. B787 denied operation remains frozen."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch795_plating_saved.py",
+    "sha256": "a0fd0662eafd9e98dd5402a4431b22e1677d211d34a7d42c5f5c105dca1e8e89"
+  }
+}

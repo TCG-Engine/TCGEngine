@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-lens156-owned-arc-banish-top.json",
+  "runtime_sha256": "9fdf6e852d640b623e640e5693f42e560b3934b3770762ad860619cbfa92ccd1",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T01:15:52.317203+00:00",
+  "fixtures": [
+    {
+      "slug": "card-prismatic-lens-yellow-four-live-owned-banish-item-to-deck-top",
+      "fixture_sha256": "f520ca0c5bdda96f204b5e5119d109cd8197cc2ce9315accc63e9f73842250a1",
+      "passed": true,
+      "result": "[PASS] prismatic_lens_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-prismatic-lens-yellow-four-live-owned-banish-item-to-deck-top",
+      "returncode": 0,
+      "stdout": "[PASS] prismatic_lens_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

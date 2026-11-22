@@ -55,18 +55,66 @@ function FaBMSTAttackRefs(int $p,string $kind='',bool $own=true): string {
  $ok=match($kind){'aa'=>FaBWTRIsAttackAction($o),'hybrid'=>FaBWTRIsAttackAction($o)&&(FaBHasType($o,'Assassin')||FaBHasType($o,'Mystic')),'small'=>FaBWTRIsAttackAction($o)&&FaBMONBasePower($p,$o)<=1,'stealth'=>FaBHasKeyword($o,'Stealth'),'tiger'=>$o->CardID==='crouching_tiger',default=>true};return $ok?$f['mzID']:'';
 }
 function FaBMSTIllusionAuras(int $p,int $exclude=0): array {return array_filter(FaBChoiceRefs($p,'Arena',['type'=>'Aura']),fn($r)=>($f=FaBIdentityFromMZ($r))&&FaBHasType($f['object'],'Illusionist')&&intval($f['object']->UniqueID)!==$exclude);}
+/** Printed family amounts; only Blue has a retained Native197 witness. */
+function FaBMSTSingleEntryAmount(string $id): int {
+ return match($id){
+  'single_minded_determination_red'=>3,
+  'single_minded_determination_yellow'=>2,
+  'single_minded_determination_blue'=>1,
+  default=>0,
+ };
+}
+/** Capture functional entry from its native event, not the later if condition. */
+function FaBMSTCaptureSingleEntry(int $container,object $entry): void {
+ $id=(string)($entry->CardID??'');$uid=intval($entry->UniqueID??0);
+ $amount=FaBMSTSingleEntryAmount($id);$controller=intval($entry->Controller??0);
+ if($controller===0)$controller=$container;
+ if($uid<1||$amount<1||!FaBSeatIsLive($controller)||HasNoAbilities($entry))return;
+ $epoch=FaBArmCapturedSourceEpoch($uid,'mstSingleEntryEpoch');
+ if($epoch<1||intval(FaBARCCard($uid,'mstSingleQueuedEpoch',0))===$epoch)return;
+ FaBARCSetCard($uid,'mstSingleQueuedEpoch',$epoch);
+ FaBROSQueue($controller,$id,$uid,['rosEvent'=>'mstSingleEntry',
+  'mstSingleEntryEpoch'=>$epoch,'mstSingleEntryAmount'=>$amount]);
+}
+/** Advance only previously tracked identities BEFORE capturing a new Arena entry. */
+function FaBMSTSingleAfterMove(int $p,object $o,string $from,string $to): void {
+ FaBAdvanceCapturedSourceEpochs($o,$from,$to,['mstSingleEntryEpoch']);
+ if($to!=='Arena'||$from==='Arena')return;
+ $entry=clone $o;
+ FaBMSTCaptureSingleEntry($p,$entry);
+}
+/** Earned effect survives blank/control/name changes, but not a new Arena object. */
+function FaBMSTResolveSingleEntry(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ $uid=intval($layer->SourceUniqueID??0);$epoch=intval($params['mstSingleEntryEpoch']??0);
+ $amount=intval($params['mstSingleEntryAmount']??0);$id=(string)($layer->CardID??'');
+ if(!FaBSeatIsLive($p)||($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p
+  ||($params['rosEvent']??'')!=='mstSingleEntry'||$uid<1||$epoch<1
+  ||$amount<1||$amount!==FaBMSTSingleEntryAmount($id))return;
+ $source=FaBFindUID($uid);
+ if($source===null||$source['zone']!=='Arena'
+  ||intval(FaBARCCard($uid,'mstSingleEntryEpoch',0))!==$epoch)return;
+ // CR6.6.1c/6.1.3: "if you control..." is an effect condition, tested now.
+ if(FaBMSTIllusionAuras($p,$uid))return;
+ $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+ try {
+  // This helper reads current POWER and adds the delta; FaBEVOCounter alone SETS.
+  FaBMSTCounters((string)$source['mzID'],$amount);
+ } finally {$GLOBALS['fabEffectController']=$previous;}
+}
+
 function FaBMSTEnter(int $p,object $o): void {
  $b=FaBWTRBase($o->CardID);$uid=intval($o->UniqueID);$other=FaBMSTIllusionAuras($p,$uid);$power=0;
  if($b==='restless_coalescence'&&!FaBARCCard($uid,'mstRestlessMoved'))FaBRunSourceMacro('ResolveCard',$p,$o->CardID,['mzID'=>FaBDTDSource($uid)]);
  if($b==='manifestation_of_miragai')$power=FaBARCCard($uid,'mstChiPitched')?4:2;
  if($b==='waxing_specter'&&FaBMSTBlue($p))$power=1;
- if($b==='single_minded_determination'&&!$other)$power=3;
  if($power)FaBEVOCounter($o,'POWER',$power);
  if($b==='rage_specter'&&!$other)AddActionPoints($p,intval(GetActionPoints($p))+1);
  if($b==='solitary_companion'&&!$other)FaBMSTShield($p,0,1,true);
  if(FaBHasType($o,'Aura')&&FaBARCCard($uid,'mstVengeful')){FaBARCSetCard($uid,'mstVengeful',false);FaBMSTCounters(FaBDTDSource($uid),1);}
 }
 function FaBMSTAfterMove(int $p,object $o,string $from,string $to): void {
+ FaBMSTSingleAfterMove($p,$o,$from,$to);
  if($from==='CombatChain'&&$to!=='CombatChain')FaBARCSetCard(intval($o->UniqueID),'mstZeroDefense',false);
  if($from==='Arena'&&$to!=='Arena'&&FaBWTRBase($o->CardID)==='restless_coalescence')FaBARCSetCard(intval($o->UniqueID),'mstRestlessMoved',false);
  if($to==='Arena'&&$from!=='Arena')FaBMSTEnter($p,$o);
@@ -97,7 +145,7 @@ function FaBMSTNuuPermission(int $p,int $v): void {FaBMSTAdd($p,'NUU',1,['victim
 function FaBMSTStolen(int $p,array $f): bool {if($f['zone']!=='Banish'||!empty($f['object']->FaceDown))return false;$uid=intval($f['object']->UniqueID);foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='MST_NUU'&&intval($e['victim'])===$f['player']&&FaBMSTColor($f['player'],$f['object']->CardID)===3)return true;if(($e['type']??'')==='MST_GORGON'&&in_array($uid,$e['uids']??[],true))return true;}return false;}
 function FaBMSTGorgon(int $p,int $uid): void {$uids=[];foreach(FaBLiveSeats() as $v)foreach(FaBChoiceRefs($v,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array($o->Role,['DEFENSE','DEFENSE_REACTION'],true)&&FaBWTRIsAttackAction($o)){$uids[]=intval($o->UniqueID);FaBDYNBanishChoice($r,$p);}}if(FaBARCCard($uid,'mstChiPitched'))FaBMSTAdd($p,'GORGON',1,['uids'=>$uids,'chain'=>true]);}
 function FaBMSTCost(int $p,object $o): int {$f=FaBFindUID(intval($o->UniqueID));return (FaBARCCard(intval($o->UniqueID),'mstFree')||($f&&FaBMSTStolen($p,$f)))?-intval(CardCost($o->CardID)):(FaBWTRIsAttackAction($o)?-FaBMSTCount($p,'NEXT_DISCOUNT'):0);}
-function FaBMSTPrevent(int $p,int $n,string $source): int {$f=FaBIdentityFromMZ($source);if(!$f||$n<=0)return $n;$color=FaBMSTObjectColor($f['player'],$f['object']);$left=[];$done=false;foreach(FaBWTREffects($p) as $e){if(!$done&&($e['type']??'')==='MST_PREVENT_COLOR'&&intval($e['amount'])===$color){$done=true;$n=0;}else $left[]=$e;}FaBWTRSetEffects($p,$left);return $n;}
+function FaBMSTPrevent(int $p,int $n,string $source): int {$f=FaBDamageSourceView($source);if(!$f||$n<=0)return $n;$color=isset($f['object']->__fabDamageColor)?intval($f['object']->__fabDamageColor):FaBMSTObjectColor($f['player'],$f['object']);$left=[];$done=false;foreach(FaBWTREffects($p) as $e){if(!$done&&($e['type']??'')==='MST_PREVENT_COLOR'&&intval($e['amount'])===$color){$done=true;$n=0;}else $left[]=$e;}FaBWTRSetEffects($p,$left);return $n;}
 function FaBMSTCloakedRefs(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Equipment'),fn($r)=>FaBMSTHidden(FaBIdentityFromMZ($r)['object'])));}
 function FaBMSTHasWard(int $uid): bool {$f=FaBFindUID($uid);return $f&&FaBMSTWardActive($f['object']);}
 function FaBMSTPeekBlue(int $p,array $uids): bool {$f=FaBFindUID(intval($uids[0]??0));return $f&&FaBMSTColor($p,$f['object']->CardID)===3;}
@@ -124,7 +172,7 @@ function FaBMSTEnd(int $p): void {
 }
 function FaBMSTHit(int $p,object $o): void {$uid=intval($o->UniqueID);if(!FaBFaiHeroHit())return;foreach((array)$o->TurnEffects as $t){if($t==='MST_BANISH_HIT')FaBMSTBanishTop($p,$uid,intval(FaBGetState()['defender']));if($t==='MST_TIGERS_HIT')FaBMSTTiger($p,false,2);}}
 function FaBMSTDeclared(int $p,object $o): void {
- $uid=intval($o->UniqueID);FaBARCSetCard($uid,'mstReactions',0);FaBARCSetCard($uid,'mstBanished',[]);foreach((array)$o->TurnEffects as $t)if($t==='MST_DRAW_ATTACK')DoDrawCard($p,1);
+ $uid=intval($o->UniqueID);FaBARCSetCard($uid,'mstReactions',0);FaBARCSetCard($uid,'mstBanished',[]);foreach((array)$o->TurnEffects as $t)if($t==='MST_DRAW_ATTACK'&&!HasNoAbilities($o))FaBROSQueue($p,$o->CardID,$uid,['rosEvent'=>'mstGrantedAttackDraw']);
  foreach(FaBMSTAttackVictims() as $v){if(FaBMONArena($v,'mistcloak_gully')&&!FaBMSTCount($v,'GULLY_USED')){FaBMSTAdd($v,'GULLY_USED');FaBTagUID($uid,'WTR_POWER:-1');}}
 }
 function FaBMSTAttune(int $p,int $uid,int $v): void {$r=FaBChoiceRefs($v,'Deck')[0]??'';if($r==='')return;FaBRevealChoices($v,$r);if(FaBMSTColor($v,FaBIdentityFromMZ($r)['object']->CardID)===3){FaBTagUID($uid,'WTR_POWER:3');FaBTagUID($uid,'WTR_DEFENSE:3');}}
@@ -149,10 +197,10 @@ function FaBMSTEquip(int $p,string $r): void {$f=FaBIdentityFromMZ($r);if(!$f||$
 
 function FaBMSTAnyLifeLost(): bool {foreach(FaBLiveSeats() as $p)if(FaBDTDCount($p,'LOST'))return true;return false;}
 function FaBMSTMechActions(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Banish',['type'=>'Action']),fn($r)=>FaBHasType(FaBIdentityFromMZ($r)['object'],'Mechanologist')));}
-function FaBMSTUnpreventable(object $o): bool {return FaBWTRBase($o->CardID)==='pick_to_pieces'&&intval(FaBARCCard(intval($o->UniqueID),'mstReactions'))>=1;}
-function FaBMSTFinishBlocks(): void {$s=FaBGetState();$refs=[];foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->ChainLink)===intval($s['chainLink'])&&($o->Role??'')==='DEFENSE')$refs[]=$r;}if(count($refs)===1){$f=FaBIdentityFromMZ($refs[0]);if(FaBWTRBase($f['object']->CardID)==='battlefront_bastion')FaBWTRAddEffect($f['player'],'PREVENT_DAMAGE',1);}}
+function FaBMSTUnpreventable(object $o): bool {return FaBWTRBase($o->CardID)==='pick_to_pieces'&&intval(FaBDamageSourceObjectCard($o,'mstReactions'))>=1;}
+function FaBMSTFinishBlocks(): void {$s=FaBGetState();$refs=[];foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->ChainLink)===intval($s['chainLink'])&&($o->Role??'')==='DEFENSE')$refs[]=$r;}if(count($refs)===1){$f=FaBIdentityFromMZ($refs[0]);if(FaBWTRBase($f['object']->CardID)==='battlefront_bastion')FaBMSTQueueBastionDefense($f['object']);}}
 function FaBMSTAttackCounters(object $o): int {$uid=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);$f=$uid?FaBFindUID($uid):null;return intval(FaBObjectCounters($f?$f['object']:$o)['POWER']??0);}
-function FaBMSTAmp(int $p,int $uid): int {$f=FaBFindUID($uid);if(!$f||(!FaBHasType($f['object'],'Action')&&!FaBHasType($f['object'],'Instant'))||FaBHasType($f['object'],'Token'))return 0;$n=FaBMSTCount($p,'AMP');if($n)FaBMSTClear($p,'AMP');return $n;}
+function FaBMSTAmp(int $p,int $uid,string $sourceRef=''): int {$f=FaBDamageSourceView($sourceRef,$uid);if(!$f||(!FaBDamageSourceHasType($f['object'],'Action')&&!FaBDamageSourceHasType($f['object'],'Instant'))||FaBDamageSourceHasType($f['object'],'Token'))return 0;$n=FaBMSTCount($p,'AMP');if($n)FaBMSTClear($p,'AMP');return $n;}
 function FaBMSTWardActive(object $o): bool {
  if(HasNoAbilities($o))return false;
  if($o->CardID==='touch_of_reality')return intval(FaBARCCard(intval($o->UniqueID),'penTouchTurn',-1))===intval(GetTurnNumber());
@@ -188,3 +236,33 @@ function FaBMSTAttackVictims(): array {$s=FaBGetState();$targets=$s['attackTarge
 function FaBMSTObjectColor(int $p,object $o): int {return intval(FaBARCCard(intval($o->UniqueID??0),'penColor',FaBMSTColor(intval($o->Owner??0)?:$p,$o->CardID)));}
 function FaBMSTEnigma(int $p): bool {foreach(FaBChoiceRefs($p,'Hero') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array($o->CardID,['enigma','enigma_ledger_of_ancestry'],true)&&!HasNoAbilities($o))return true;}return false;}
 function FaBMSTShieldDiscount(int $p,object $o): int {return $o->CardID==='spectral_shield'&&FaBMSTEnigma($p)&&!FaBMSTCount($p,'SHIELD_ATTACK')?1:0;}
+
+/** Sole formal defender earns a responseable effect, not inline prevention. */
+function FaBMSTQueueBastionDefense(object $o): void {
+ $s=FaBGetState();$uid=intval($o->UniqueID??0);$p=intval($o->Controller??0);
+ $link=intval($o->ChainLink??0);$attack=intval($s['attackUID']??0);$turn=intval(GetTurnNumber());
+ if(!FaBSeatIsLive($p)||$uid<1||$link<1||$attack<1||$turn<1||empty($s['combatOpen'])
+  ||($o->Role??'')!=='DEFENSE'||$link!==intval($s['chainLink']??0)||HasNoAbilities($o)
+  ||!in_array((string)($o->CardID??''),['battlefront_bastion_red','battlefront_bastion_yellow','battlefront_bastion_blue'],true))return;
+ $f=FaBFindUID($uid);if($f===null||$f['zone']!=='CombatChain'||$f['object']!==$o)return;
+ foreach(GetStack()as$layer){
+  if(!$layer||$layer->Removed()||($layer->Kind??'')!=='ABILITY'||intval($layer->SourceUniqueID??0)!==$uid
+   ||intval($layer->Controller??0)!==$p)continue;
+  $v=is_array($layer->Params??null)?$layer->Params:[];
+  if(($v['rosEvent']??'')==='mstBastionDefend'&&intval($v['mstBastionAttack']??0)===$attack
+   &&intval($v['mstBastionLink']??0)===$link&&intval($v['mstBastionTurn']??0)===$turn)return;
+ }
+ FaBROSQueue($p,(string)$o->CardID,$uid,['rosEvent'=>'mstBastionDefend','mstBastionRecipient'=>$p,
+  'mstBastionAttack'=>$attack,'mstBastionLink'=>$link,'mstBastionTurn'=>$turn]);
+}
+function FaBMSTResolveBastionDefense(int $p,object $layer): void {
+ $v=is_array($layer->Params??null)?$layer->Params:[];
+ if(!FaBSeatIsLive($p)||($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p
+  ||intval($layer->UniqueID??0)<1||intval($layer->SourceUniqueID??0)<1
+  ||!in_array((string)($layer->CardID??''),['battlefront_bastion_red','battlefront_bastion_yellow','battlefront_bastion_blue'],true)
+  ||($v['rosTrigger']??false)!==true||($v['rosEvent']??'')!=='mstBastionDefend'
+  ||($v['mstBastionRecipient']??null)!==$p||!empty($v['mstBastionResolved']))return;
+ $v['mstBastionResolved']=true;$layer->Params=$v;
+ $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+ try{FaBWTRAddEffect($p,'PREVENT_DAMAGE',1);}finally{$GLOBALS['fabEffectController']=$previous;}
+}

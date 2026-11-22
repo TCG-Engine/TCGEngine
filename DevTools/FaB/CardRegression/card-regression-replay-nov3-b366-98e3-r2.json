@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch366.json",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T19:56:34.335133+00:00",
+  "fixtures": [
+    {
+      "slug": "card-runic-reaping-red-four-live-sparse-real-attack-pitch-earns-next-runeblade-plus-one-full-block",
+      "fixture_sha256": "c749cc42c7a65624c02f2e738828e8ef5223bedee5759281adda44cb3a0fe839",
+      "passed": true,
+      "result": "[PASS] runic_reaping_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-runic-reaping-red-four-live-sparse-real-attack-pitch-earns-next-runeblade-plus-one-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] runic_reaping_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

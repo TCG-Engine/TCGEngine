@@ -1,0 +1,94 @@
+{
+  "status": "CONFIRMED_NATIVE_INCORRECT_SOURCE_LIFETIME_NO_FIXTURE",
+  "utc": "2026-11-02T23:32:34.825083+00:00",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "source_spec": "card-regression-batch266-aether-spindle-correct-probe.json",
+  "input_sha256": "c178ec1308581f2cfa87965eb4af2cc3c1450ffe849bc18cc89f8b28d6a706d5",
+  "scenario_slug": "card-aether-spindle-red-four-live-correct-probe-real-four-arcane-opt-four-retains-spell-until-final-choice",
+  "expected_rule": "CR5.3.4-7: finish the spell effects, including Opt choices, before moving/clearing the spell from Stack.",
+  "source_rules": [
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ],
+  "independent_correct_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch266-aether-spindle-v2-independent-probe-review.json",
+    "sha256": "8bcbed9f57fe13bfe60961d130fb4e3b6446c4ad7366b7e088b6bfd79bf6dc57"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch266-aether-spindle-correct-probe-20261102T232315Z-6ae91b63076ad.json",
+    "sha256": "3a8efd5b603df1d21fca30af79e405f2721aaf79e3a2910a54b7b6ac4b4d19e8"
+  },
+  "native_actual_inputs": 7,
+  "native_error": "Expected Stack count 1, got 0.",
+  "physical_prefix_observation": {
+    "method": "Existing negative_control_state.php prefix-only API in private copied ECCB runtime; no mutation keys; no active R fixture or source write",
+    "full_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether266-failed-prefix-observation\\receipt.json",
+    "sha256": "5cbd16850ce6bbef348730f65f39d762df0f47e108a84e6692fc76a4a74f2e8e",
+    "prefix_snapshot_sha256": "b28f55dd588e1eb618d03a74fbfe95a9e2888c281cc159117f3277a82496c62c",
+    "Stack": [],
+    "P1Graveyard": [
+      {
+        "CardID": "aether_spindle_red",
+        "UniqueID": "5",
+        "Owner": "1",
+        "Controller": "1",
+        "FaceDown": "0"
+      }
+    ],
+    "P1Temp": [
+      {
+        "CardID": "wounding_blow_red",
+        "UniqueID": "7",
+        "Owner": "1",
+        "Controller": "1"
+      },
+      {
+        "CardID": "wounding_blow_yellow",
+        "UniqueID": "8",
+        "Owner": "1",
+        "Controller": "1"
+      },
+      {
+        "CardID": "wounding_blow_blue",
+        "UniqueID": "9",
+        "Owner": "1",
+        "Controller": "1"
+      },
+      {
+        "CardID": "raging_onslaught_red",
+        "UniqueID": "10",
+        "Owner": "1",
+        "Controller": "1"
+      }
+    ],
+    "P1Resources": 1,
+    "P1ActionPoints": 0,
+    "P4Health": 16,
+    "P1DecisionQueue": [
+      {
+        "Type": "MZREARRANGE",
+        "Param": "Top=wounding_blow_red,wounding_blow_yellow,wounding_blow_blue,raging_onslaught_red;Bottom=",
+        "Block": "1",
+        "Tooltip": "",
+        "DontSkipOnPass": "0"
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "aether_spindle_red:0:ResolveCard-await|aether_spindle_red:0:ResolveCard#1|1|order",
+        "Block": "1",
+        "Tooltip": "",
+        "DontSkipOnPass": "0"
+      }
+    ]
+  },
+  "effect_suffix": "Opt reorder answer and successful terminal outcome NOT_RUN in failing probe. No passing coverage inferred.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "related_existing_family": "FAB-REG-021 plain-spell asynchronous physical source lifetime; new named missing-route caller, not a new manager root",
+  "new_shared_infrastructure_root_count": 0,
+  "source_guard": {
+    "FaBSim/Custom/GameLogic.php": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3"
+  },
+  "source_implementation_status": "W-only bounded existing-manager registration proposal pending; no rule or card-effect change applied."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Haven Veil Blue / earned entry protects one arcane of real Forked Lightning",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T06:32:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ExactBlue firstpass. AllfourYoungmanual; Verdance1printed20/Dorinthea2&3printed20/Kano4printed15, noHeroability. RealForkedRed5 declaresHero2 thenHero4 before actualBlue6pitch3pays3/R0/AP1to0. ThreeSource responses thenP4realHaven7Instant0 aboveparent. FourHavenSource responses putrealAura7Arena4/queuecapturedentryABI, preventionstillabsent; fourearnedentryresponses before actualnextONEarcaneprevention. Freshfourparentresponses resolveactual2arcaneHero2HP20to18 and2arcaneKano4minus1HP15to14; preventionconsumed, Aura7persists. ParentForked5ownGY1/Blue6Pitch1/APall0/Rall0/Stackqueuesclear. Readonlyrowcount projection pins presence/absence only; realHPdifferenceprovesamount1 andarcaneconsumer. No virtualUID/event alias guessed, no directhelper/seededprevention/history/damage/outcome/cache. Ownactionphaseexpiration/extraevents/otherpitchsiblings/ABQuell/suppression/controlchanges/supportidentities/fullcard/generalvirtualorder untested. Sources: https://rules.fabtcg.com/en/cr/06-effects/"
+}

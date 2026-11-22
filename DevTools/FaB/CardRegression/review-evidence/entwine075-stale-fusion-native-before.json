@@ -1,0 +1,120 @@
+{
+  "status": "CONFIRMED_PERSISTED_STALE_FUSION_REFERENCE_EXISTING_025_CALLER_EXTENSION",
+  "issue_reserved_by_root": "FAB-REG-075",
+  "reviewer": "independent sparse author; not B299 author",
+  "reviewed_at_utc": "2026-11-03T07:04:15.767540+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_sha256": "48be40cad60b803d76865f17a64ce476c0ca2bd9950ccd13c6db77bca248941d",
+  "manifest_sha256": "314db16f8ac1c89763274259bbd3e9bab7defa1cd0e74a60e31b5910aff2f03d",
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch299-v2-native-r1\\receipt.json",
+    "sha256": "dfa3850c5b3a3fb4a2e752f736da782fbee9d49918a6cf8fc67f21d1aa939c9b"
+  },
+  "native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch299-v2-banish-witness-20261103T064949Z-6ae9840de5b76.json",
+    "sha256": "0f2ba9e7285b6296ef9d3003b2b5507fbd41e4e50e57ae7739a26d88f06970e6"
+  },
+  "prefix_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-entwine299-failed-prefix\\receipt.json",
+    "sha256": "5018da580cf25b6c3acca0aa65ba10241771189fe26b5b1316a7c6f227db6853",
+    "snapshot_sha256": "c48f0cd20ce328cdad1292bd5ec3f9dda4179c4c95a7404f998351b240361ee4",
+    "prefix_config_sha256": "bb229c544333b01124c49d34e8b8038e86a5baf73bbf20758a19e1c67523d5f7"
+  },
+  "slug": "card-entwine-earth-red-four-live-sparse-real-earth-fusion-reveal-paid-eight-power-attack",
+  "actual_native_inputs": 7,
+  "fixture_saved": false,
+  "fixture_absence_verified": true,
+  "semantically_approved": false,
+  "coverage_credit": false,
+  "actual_boundary": {
+    "physical_attack_uid": 6,
+    "attack_zone": "Stack",
+    "sole_Hand_index": 0,
+    "sole_Hand_uid": 7,
+    "sole_Hand_card_id": "weave_earth_red",
+    "queued_fusion_ref": "p1Hand-1",
+    "await_frame_targets": "p1Hand-1",
+    "resources": 2,
+    "action_points": 1,
+    "pending_cost": 2,
+    "window": "PITCH",
+    "fusion_answer_executed": false
+  },
+  "source_findings": [
+    {
+      "anchor": "FaBSim/GamestateParser.php:220-238",
+      "finding": "Writer omits removed rows and compacts surviving Hand entries; app save hook transforms a copy, not the live source arrays."
+    },
+    {
+      "anchor": "FaBSim/Custom/CardChoices.php:123-141",
+      "finding": "Choice refs derive from current indexed Hand entries before save, skipping tombstones without compacting indices."
+    },
+    {
+      "anchor": "Core/EngineActionRunner.php:1215-1220",
+      "finding": "Every native action first reparses persisted gamestate; old live Hand1 cannot serve as a retained alias on the next answer request."
+    },
+    {
+      "anchor": "FaBSim/ZoneAccessors.php:1002,1108-1110; FaBSim/Custom/GameLogic.php:626-630",
+      "finding": "p1Hand-1 means literal GetHand(1)[1]. Missing index returns null; FaBIdentityFromMZ has no old-index-to-UID fallback."
+    },
+    {
+      "anchor": "Core/EngineActionRunner.php:495-513; FaBSim/Custom/MONCards.php:327-348",
+      "finding": "Answer is passed unchanged to continuation. No fusion-specific validator or coordinate rewrite maps Hand1 to Hand0."
+    },
+    {
+      "anchor": "FaBSim/Custom/ELECards.php:13-19",
+      "finding": "Fusion resolves its returned ref through FaBIdentityFromMZ and requires an owned Hand Earth card. Absent Hand1 cannot identify physical Earth UID7. This is a static handler conclusion, not a claimed executed fusion outcome."
+    },
+    {
+      "anchor": "FaBSim/Custom/WTRCards.php:208-279,285-363; FaBSim/Custom/CardChoices.php:92-119 and FaBPreparedRouseChoicesForSave; FaBSim/Custom/CRUCards.php:FaBCRULungingChoicesForSave",
+      "finding": "Existing writer-remap cohorts are narrow: Lunging target, declared reaction, managed plain-spell Barrier pitch, Rise Above, Rouse, Flock. Actual Entwine MZMAYCHOOSE/Prepare await has none of their source/state/tooltip gates. The prior025 helper requires resolvingReaction PLAIN_SPELL, no pendingPayment, MZCHOOSE Pitch_for_arcane_barrier, and owned ResolveCard frame; actual pendingPayment attack/fusion fails these gates."
+    }
+  ],
+  "classification": {
+    "existing_family": "FAB-REG-025",
+    "new_shared_root_claimed": false,
+    "reason": "Actual persisted queue still contains old Hand1 while persisted sole physical survivor is Hand0. This is the same save-compaction stale-reference mechanism as025 in another caller.",
+    "distinct_from": "FAB-REG-026",
+    "distinction": "026 was pre-save CLI observation versus correctly remapped persisted state. Here the independently captured persisted queue itself is stale, so changing recorder/private-coordinate expectations cannot make displayed Hand1 identify UID7."
+  },
+  "prior_ledger": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "cfc39dc702930dfc5ac932c6497f9cc1eae22cadb372fb9a2e1f02c33380a1fc",
+    "selected_entries": {
+      "FAB-REG-025": {
+        "status": "fixed_verified_partial_scope",
+        "title": "Managed Aether Dart AB2 second red pitch chooser retains a removed Hand slot after save compaction",
+        "source_explanation": "Existing writer removes tombstoned Hand rows, but generated Prepare/Resolve continuation queued its pre-save numeric Hand index. Bounded native EngineRemapZoneForSave helper clones only a guarded live managed-plain-spell Barrier pitch row, binds its owned canonical frame/source/victim/cost, intersects originally listed eligible Hand refs, translates surviving writer indices and preserves frame/custom return flow. Existing Flock writer body is retained."
+      },
+      "FAB-REG-026": {
+        "status": "fixed_verified_partial_scope",
+        "title": "FaBSim CLI regression runner asserts pre-save live coordinates instead of persisted request state",
+        "source_explanation": "EngineRunAction parses only before each action. FaBSim WriteGamestate intentionally saves a remapped clone of the decision queue and compacted zones without mutating loaded objects. FCRCheck first checks the live assertion then emits an unrecorded11002 request; that reparse makes later Param checks observe saved coordinates. CLI RunIntegrationTests omitted that persisted boundary and checked old arrays directly. The engine writer/remap and correct Hand0 oracle must remain unchanged."
+      }
+    }
+  },
+  "correct_oracles_preserved": [
+    "Earth UID7 remains in Hand and is the intended reveal",
+    "Cost2/AP payment before responseable attack",
+    "Fused printed6+2=8 attack and damage8 to P4",
+    "Physical cleanup and suffix remain unchanged and unexecuted"
+  ],
+  "limits": [
+    "Only seven original native inputs executed. Fusion choice has not been answered. Resource/AP costs remain pending.",
+    "No actual fusion-result, attack-power, damage, response rounds after payment, or suffix execution is claimed.",
+    "No Hand1 answer diagnostic, V3 expectation change, passing fixture, replay, source repair, PHP/native execution, R write, generation or backend call by reviewer.",
+    "Do not bless a V3 that merely changes Param or answer to Hand1; that coordinate does not resolve physical Earth7 in captured persisted state."
+  ],
+  "source_sha256": {
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+    "FaBSim/Custom/WTRCards.php": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/MONCards.php": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec"
+  },
+  "approval_scope": "Independent boundary classification only; not source-fix approval, saved-review approval or registration proof."
+}

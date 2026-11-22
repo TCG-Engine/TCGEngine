@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch679-arknight-r2.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T01:52:43.187776+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arknight-ascendancy-red-four-live-real-rune-cost-payment-and-dominate-full-block",
+      "fixture_sha256": "cb54102f7f2c9eea6b9eaf06a701e279f40e54ceae205b7efbd51f009aaa0c8d",
+      "passed": true,
+      "result": "[PASS] arknight_ascendancy_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arknight-ascendancy-red-four-live-real-rune-cost-payment-and-dominate-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] arknight_ascendancy_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

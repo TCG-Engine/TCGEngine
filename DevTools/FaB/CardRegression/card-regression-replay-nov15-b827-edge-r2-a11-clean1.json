@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch827-edge-real-zero-leave-consumer-positive-r2.json",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T20:11:55.689197+00:00",
+  "fixtures": [
+    {
+      "slug": "card-edge-of-their-seats-blue-four-live-real-zero-leave-and-seven-damage-consumer",
+      "fixture_sha256": "e03bb532e9aac9f584680e1e0d9cf2c80667b8ffdab34a9b6e5eef6f063a41a9",
+      "passed": true,
+      "result": "[PASS] Edge of Their Seats Blue / real zero, separate leave and seven-damage consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-edge-of-their-seats-blue-four-live-real-zero-leave-and-seven-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Edge of Their Seats Blue / real zero, separate leave and seven-damage consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

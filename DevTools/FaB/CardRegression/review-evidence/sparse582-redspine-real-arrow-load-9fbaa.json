@@ -1,0 +1,336 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B582_POSITIVE_ARROW_LOAD_AND_GA_CONSUMER_PARTIAL_BRANCH",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T06:54:32.817308+00:00",
+  "source_spec": "card-regression-batch582.json",
+  "input_sha256": "0af8cff24ce634c38b5475e3cb832e7e9123d92005c3e7ac36ff3abdc29a41bb",
+  "manifest_sha256": "5074f6324c5249a2b6ff25d430d9d86f08d20d33770356cc7bc00e3b2eaa7238",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 72,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch582-independent-source-review.json",
+    "sha256": "8fa8e06ff289bdafb5eeb875ab52bf5e9aa32bb05d13f021dbdf7850b9e8deea",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch582-20261106T065153Z-6aed790939489.json",
+    "sha256": "c92900b568fe2c131a92b33e97c3ca28442fa7c6de5b573edc381ad67316f010"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch582.recording-results.json",
+    "sha256": "033cd0dd34914292d36c04b9de85ecaaee80566d5a0667f6c789c1ef4d3ba726"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch582-native-r1-9fbaa\\receipt.json",
+    "sha256": "7cbf3781d8fdd7c605b92cb95e7e5bb3987351459ab9a6cea0092e50fe9c78cd"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "redspine_manta",
+      "group_id": "identity:redspine_manta",
+      "slug": "card-redspine-manta-four-live-real-tapped-bow-faceup-arrow-load-and-earned-action-damage",
+      "source_spec": "card-regression-batch582.json",
+      "input_sha256": "0af8cff24ce634c38b5475e3cb832e7e9123d92005c3e7ac36ff3abdc29a41bb",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_POSITIVE_MANDATORY_ARROW_LOAD_AND_GA_CONSUMER",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-redspine-manta-four-live-real-tapped-bow-faceup-arrow-load-and-earned-action-damage",
+      "fixture_sha256": "115c99a23c84199569e8b5b227147493d272d0f36230d10d83249d92eb386b81",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e215759ce81601f482b0b143fcf6b86521842d6dd8cdc72657a05dae3ff19870",
+        "actions.json": "ccbd90d96295abe82d4a8a9a3e9f4f6d863b7b1568f4bde3f3e6bfe414901f91",
+        "assertions.json": "156af16f69be9b0ab72194d9531f7281c918056a79042cf67671134506d7e484",
+        "expected_final_gamestate.txt": "86cb9c111dffbda81633553121d0c034a60236dce2df7c9e7b3df5f9d09f1347"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e215759ce81601f482b0b143fcf6b86521842d6dd8cdc72657a05dae3ff19870",
+        "actions.json": "ccbd90d96295abe82d4a8a9a3e9f4f6d863b7b1568f4bde3f3e6bfe414901f91",
+        "assertions.json": "156af16f69be9b0ab72194d9531f7281c918056a79042cf67671134506d7e484",
+        "expected_final_gamestate.txt": "86cb9c111dffbda81633553121d0c034a60236dce2df7c9e7b3df5f9d09f1347",
+        "meta.json": "9da561174a35476b220458207998b5818c9beb0a82515ee4d30a543a2741afdc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e215759ce81601f482b0b143fcf6b86521842d6dd8cdc72657a05dae3ff19870",
+        "actions.json": "ccbd90d96295abe82d4a8a9a3e9f4f6d863b7b1568f4bde3f3e6bfe414901f91",
+        "assertions.json": "156af16f69be9b0ab72194d9531f7281c918056a79042cf67671134506d7e484",
+        "expected_final_gamestate.txt": "86cb9c111dffbda81633553121d0c034a60236dce2df7c9e7b3df5f9d09f1347",
+        "meta.json": "9da561174a35476b220458207998b5818c9beb0a82515ee4d30a543a2741afdc"
+      },
+      "actions": 33,
+      "native_assertions": 2599,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 633,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "boltn_shot_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "redspine_manta",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "redspine_manta",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "boltn_shot_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_Weapons1_exact_UIDs": [
+        5
+      ],
+      "final_Bow5_Status": 1,
+      "final_Bow5_Counters": {
+        "ELE_USE_TURN": 2,
+        "ELE_USES_0": 1
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_tap_and_AP_cost_boundary": 1,
+      "actual_owned_choice_boundary": 5,
+      "actual_faceup_load_and_GA_boundary": 6,
+      "actual_Arrow_consumes_refund_boundary": 8,
+      "actual_Arrow_power": 2,
+      "actual_Arrow_go_again": false,
+      "actual_physical_damage": 2,
+      "actual_HP18_boundary": 25,
+      "actual_fullclose_boundary": 33,
+      "virtual7_ceased": true,
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "load_minimum_or_decline_menu_certified": false,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "669879dabdaad71445a81082d6d2cd6e048cac409f8bcdd10286e1437ecf6a89",
+      "native_action_mapping_sha256": "f63a095053024fda2faa4397c57501acacf3f7769205d2325a3dfab2d4888d69",
+      "native_assertion_mapping_sha256": "e5917e5a15ffdc9d2475beed01c48b7685d03c29661ca5da7c532d2f0aa2b2a3"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2599,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 633,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one newfixture at unchanged9fbaa. All33native envelopes/2599 ordered persistedassertions exactly match the independently source-approved model;29actual manualinputs7/7/7/8,72sourceguards and48rawmanualsettings perendpoint verified.",
+    "PhysicalBow5 pays actualActionAP1-to0 and tap2-to1 BEFOREfourresponses. SameABI7/SourceWeapons5 and Arrow6Hand/emptyArsenal remain through actualP1resolvingMZMULTICHOOSE. ActualoneArrow answer moves same6faceupArsenal, clearsABI7 and onlythen refundsAP1. No source/choice lifetime shortcut or history/permission seed.",
+    "Printed load is mandatory when possible. This saved branch performs the actualone-card effect and omits the knownincorrectzero-minimum menu Param as a normative assertion. Existing source-only optionality concern remains; no decline/emptyselection/minimum/menu certification or mandatory-effect waiver.",
+    "Actual same6Arsenalplay formal-targetsP4 before spendingearnedAP1at0resources. TappedBow5 remains controlled. FreshphysicalArrowpower2 equalsbase; no conditionalArrowGA or grantedhitReload earned. Actual2physicaldamageHP18, no secondrefund, same6publicGY1/fullclose and Bow5retainedtap/use counters verified.",
+    "Full raw initial/final physicalUID1..6/originalfourwholeHeroobjects/ownership/zones, temporaryABI7ceased/counter7/RNG0/RAPChi0 and DQ/Stack/Chain/await/payment/combat cleanup verified. Opaque undoVersions hash-bound, excluded from currentphysicalinventory. Root focusedreplays remain separate/unclaimed; wholecard/otherload/Arrowconditional/support/Hero/sibling credit excluded."
+  ],
+  "primary_sources": [
+    {
+      "kind": "issuer_faces",
+      "actually_viewed": true,
+      "faces": {
+        "redspine_manta": {
+          "path": "FaBSim/WebpImages/redspine_manta.webp",
+          "sha256": "f91188e4e3d964f82b3628d1c41fb0a597f3962a650bb9e6fbcdcfba7c856335",
+          "current_catalog_text": "Action - {t}: Put an arrow from your hand face-up into your arsenal. Go again"
+        },
+        "boltn_shot_blue": {
+          "path": "FaBSim/WebpImages/boltn_shot_blue.webp",
+          "sha256": "b19bd2cadad5f6f79aeee9226c0284bb9b7819143572208254273556d7d52c96",
+          "current_catalog_text": "If this card's {p} is greater than its base, it gets go again and \"When this hits, reload.\""
+        }
+      }
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1257/",
+      "finding": "Current Arrow0/base2 and strictly abovebase conditionalGA/reload."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.1.1c",
+        "8.2.2",
+        "8.2.6a",
+        "8.3.5"
+      ],
+      "finding": "ActionAP, two-handed weapon, ArrowArsenal+controlledBow legality, and GA timing."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.2.1c-d",
+        "5.2.2",
+        "5.3.4-7"
+      ],
+      "finding": "Tap is activation effect-cost; non-target effect choice occurs on resolution beforeGA/sourceclearing."
+    }
+  ],
+  "load_menu_scope": {
+    "printed_selection_mandatory_if_able": true,
+    "actual_one_card_selection_and_effect_required": true,
+    "whole_load_Param_asserted": false,
+    "current_minimum_zero_source_only_concern": true,
+    "decline_or_full_menu_certified": false
+  },
+  "limits": [
+    "Only positive actualoneArrow faceup load/tap/ownGA and realbaselineArrowconsumer. Knownmin0 optionality concern is source-only; no menu/decline/emptyselection/multipleArrow/fullArsenal/untap/repeatactivation/transform/alternativeBow/fullcard qualification.",
+    "Arrowpowerabovebase/conditionalGA/Reload/faceupArrowriders/Hero/support/sibling branches unearned or untested.",
+    "Actual persisted ledger plus rawinitial/final only; no invented per-input snapshots/privatecallback instrumentation. No reviewer R/PHP/native/replay/source/fullsuite/remote/denied action."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch582_saved_readonly.py",
+    "sha256": "99fb47f46c19a36f9c24f285cbadf3472a5976d92a38486638d45cc4cc328ab6"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch582_source_readonly.py",
+    "sha256": "602058e266682376edadc90e99af3fda9a5a88eb02f1f84b421f5c9449e16a20",
+    "portion": "Own declarative schema/action/checkpoint ledger only, no source/rule re-audit or authorbuilder/game execution"
+  }
+}

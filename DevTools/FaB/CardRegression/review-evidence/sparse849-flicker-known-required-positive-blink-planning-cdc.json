@@ -1,0 +1,97 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_FLICKER_REQUIRED_POSITIVE_ROS_AWAIT_LIFETIME_NOTE",
+  "phase": "PLANNING",
+  "batch": 849,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix_applied": false,
+  "new_issue": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-flicker-required-known-contract-note-manifest.json",
+    "sha256": "48861e7252d69878aa1ecebe2e94b3febc85493a903b3616a7f1cd4d36c27df4"
+  },
+  "manifest_sha256": "48861e7252d69878aa1ecebe2e94b3febc85493a903b3616a7f1cd4d36c27df4",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-flicker-known-positive-blink-ros-lifetime-unattempted-note.json",
+    "sha256": "11eaaca7f5f67e30b6e2115bd9e5bbb74fb361a0715e5c0b3fe17ae1dbab85bd"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-firm-reservation.json",
+    "sha256": "f515f1adc0276c0c0c54529d2db5e19677d31c1e334ca47b8f4c8ce3fb6b4b92"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_guards_matched": true,
+  "source_guard_count": 17,
+  "holds": [
+    {
+      "card_id": "flicker_reality_blue",
+      "group_id": "identity:flicker_reality_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_LIFETIME_CONTRACT",
+      "classification": "KNOWN094_GENERIC_ROS_VIRTUAL_PRECLEAR_BEFORE_POSITIVE_OPTIONAL_AWAIT",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-flicker-known-positive-blink-ros-lifetime-unattempted-note.json",
+        "sha256": "11eaaca7f5f67e30b6e2115bd9e5bbb74fb361a0715e5c0b3fe17ae1dbab85bd"
+      },
+      "known_contracts": [
+        {
+          "card_id": "who_blinks_first_blue",
+          "row": 283,
+          "evidence": {
+            "path": "review-evidence/sparse833-sea-legs-source-and-who-blinks-unattempted-a11.json",
+            "sha256": "2e53bc9ad841d21a9365419e522f93bd1eab36e82af0f3ffad9863726f4953f9"
+          }
+        },
+        {
+          "card_id": "up_on_a_pedestal_blue",
+          "row": 297,
+          "evidence": {
+            "path": "review-evidence/sparse843-two-known-required-contract-planning-cdc.json",
+            "sha256": "7a66acd83c7dfeaec7a112ad1499b2ad1df17c8bcc92a9e3addc37a021f923a8"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "confirmed_gameplay_bug": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "OMNAfterMove22..28 correctly captures unblanked old controller and queues actual Flicker source UID for omnLeave. This route has an existing earned producer; it is not denied184 inline token-map production or a missing leave hook.",
+    "Positive real other Lightning Aura makes canonical MZMultiChoose0..1 required. Actual emitted wrapper15300 and __RunAwait_b50ee420d78594414c8c165931..165964 contain the supported chooser/continuation. Generic ROS excluded from managed ARC class1594..1595; ordinary1730 removes ABILITY before1731 dispatch. Exact retained094/WhoBlinks283/Pedestal297 virtual-source-lifetime contract, not blanket optional-await classification or a Native failure.",
+    "Young Zyggy20 legally supports Lightning Illusionist primary and ChannelThunderSteppeYellow Lightning Aura. Channel has no Ward/Holo/entry trigger; returning is not playing, and Kodachi activation is not an action CARD, so action-card listener unearned. Legal YoungZen20/Ninja Kodachi1 and actual GenericBlue0cost pitch for conditional GA, unused Hero abilities; no second-Ward arena-order workaround.",
+    "Future full fixed route requires actual Flicker0/fourSource, real Kodachi1/Ward destroy/prevent1, separate earned four before positive real host choice with resolving ABI retained through await, same physical Channel UID banish-return HOLO1, physical Flicker ownerGY/costs/GA/AP/cleanup. All Native outcomes remain UNRUN; no quiet decline/empty-host/Ward-only fallback."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_trigger_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3"
+      ],
+      "reuses_retained_lifetime_contract": true
+    }
+  ],
+  "limits": [
+    "Only source-only planning-note accuracy approved; no executable Source/Native/Save/coverage/new issue/root claim.",
+    "No Ward-only/decline/empty host/second-Flicker fallback or early source-clear acceptance. Host own cast, Channel endphase, other leave causes/Hero/control changes/siblings/fullcard untested.",
+    "No PHP/native/R writes/sourcefix/Git/fullsuite/newagents/Radiant189/Head190/denied188184B787 action by reviewer."
+  ],
+  "created_utc": "2026-11-16T05:58:03.858149+00:00"
+}

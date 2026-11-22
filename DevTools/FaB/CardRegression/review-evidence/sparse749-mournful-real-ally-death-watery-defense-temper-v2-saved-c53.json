@@ -1,0 +1,384 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B749_V2_EARNED_ALLY_GRAVE_WATERY_AND_TEMPER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T21:39:08.679471+00:00",
+  "source_spec": "card-regression-batch749-v2-target-protocol.json",
+  "input_sha256": "84578fb6da699da254e9b9706e9fab4758d9065f74810730dbaf5edbb4a0537b",
+  "manifest_sha256": "27f1cbead05c1339742779f08a01a3a6db48ea9abd7f2cca64778bd8fe83959f",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch749-v2-mournful-independent-source-review.json",
+    "sha256": "d07d3d3402c43d2d2e4de7b13b6cb59de1282a9dfb2f3d90f3acdd6d6c501f49",
+    "unchanged_semantics_reused": true
+  },
+  "independent_protocol_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch749-mournful-target-enum-independent-classification-r2.json",
+    "sha256": "054585239028fb90621d377de50ad4d1f5444218b8b4c150feeedb96a4f4aa8f"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch749-v2-target-protocol-20261108T213633Z-6af0eb6108d1c.json",
+    "sha256": "f760887deae6bbbab7e714ef51ebc860e3f793f735e8a53f9cafd012758a64e3"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch749-v2-target-protocol.recording-results.json",
+    "sha256": "b178fc4b6bc21d4337542759117f0999c4eebd7b0459a629535882ea21fb7db9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b749-mournful-target-protocol-v2-native-recording\\receipt.json",
+    "sha256": "bd9036212a65fcf095586a7f7c02551d0c4ede7a31a1fa69cd986c233e4704fb"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "mournful_casket",
+      "group_id": "identity:mournful_casket",
+      "slug": "card-mournful-casket-four-live-real-ally-grave-watery-trigger-defense-bonus-and-temper-survival",
+      "source_spec": "card-regression-batch749-v2-target-protocol.json",
+      "input_sha256": "84578fb6da699da254e9b9706e9fab4758d9065f74810730dbaf5edbb4a0537b",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_EARNED_ALLY_GRAVE_WATERY_DEFENSE_AND_TEMPER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mournful-casket-four-live-real-ally-grave-watery-trigger-defense-bonus-and-temper-survival",
+      "fixture_sha256": "0176dd6e8bafda3b1534bfafdafe03608a227e1d12ca359dac29c6fbb4f3d9d6",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "107a338b85c42a6311c0c01a0c91b46a1a6859dd19ea381b263894ff74c643fb",
+        "actions.json": "183b7a10b2d93dd4cd7537f11b424069f70c8793cc12e45a3d0028296ec718dc",
+        "assertions.json": "2ba906d057cdb13e30124226662414f0bcc8370724c7bb7a985536fadc8ee1b8",
+        "expected_final_gamestate.txt": "eb02d87d57d6f975359c465f6a2ce70a0109080fada6fc43a66ee260d602997c"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "107a338b85c42a6311c0c01a0c91b46a1a6859dd19ea381b263894ff74c643fb",
+        "actions.json": "183b7a10b2d93dd4cd7537f11b424069f70c8793cc12e45a3d0028296ec718dc",
+        "assertions.json": "2ba906d057cdb13e30124226662414f0bcc8370724c7bb7a985536fadc8ee1b8",
+        "expected_final_gamestate.txt": "eb02d87d57d6f975359c465f6a2ce70a0109080fada6fc43a66ee260d602997c",
+        "meta.json": "8f685f33e17495017a1e3aeb1eb3a7eaae3373ecd22ab494b5a5f9a3a1312c66"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "107a338b85c42a6311c0c01a0c91b46a1a6859dd19ea381b263894ff74c643fb",
+        "actions.json": "183b7a10b2d93dd4cd7537f11b424069f70c8793cc12e45a3d0028296ec718dc",
+        "assertions.json": "2ba906d057cdb13e30124226662414f0bcc8370724c7bb7a985536fadc8ee1b8",
+        "expected_final_gamestate.txt": "eb02d87d57d6f975359c465f6a2ce70a0109080fada6fc43a66ee260d602997c",
+        "meta.json": "8f685f33e17495017a1e3aeb1eb3a7eaae3373ecd22ab494b5a5f9a3a1312c66"
+      },
+      "actions": 65,
+      "native_assertions": 6225,
+      "actual_manual_passes": 58,
+      "actual_priority_response_passes": 56,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 14,
+        "2": 14,
+        "3": 14,
+        "4": 16
+      },
+      "schema_property_assertions": 2520,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "gravy_bones",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mournful_casket",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "sawbones_dock_hand_yellow",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "gravy_bones",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mournful_casket",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "sawbones_dock_hand_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "actual_Timesnap_AP_spent": 1,
+      "actual_Timesnap_AP_gained": 2,
+      "actual_AA_AP_spent": 2,
+      "actual_second_attack_resources_paid": 3,
+      "actual_Ally6_damage": 4,
+      "actual_Ally6_destroyed": true,
+      "actual_Watery_controller": 4,
+      "actual_Watery_SourceUID": 6,
+      "actual_Watery_response_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_Watery_first_three_faceUp": true,
+      "actual_Watery_fourth_faceDown": true,
+      "actual_earned_Ally_grave_events": 1,
+      "actual_second_defense": 2,
+      "actual_second_physical_damage": 5,
+      "actual_Temper_counter": 1,
+      "primary_UID5_survives": true,
+      "final_current_defense_from_recorded_facts": 1,
+      "native_computed_defense_getter_executed": false,
+      "ceased_ability_UIDs": [
+        11,
+        12
+      ],
+      "final_UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "38757900f7d0550440009b15338adcb5f48533b787b940d96aaacd8a02814430",
+      "native_assertion_mapping_sha256": "9eb654d531ae8ca09f68895b81fc41fcd7ece5a41cd695ef9531867c8535e415"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 65,
+  "total_native_assertions": 6225,
+  "total_manual_passes": 58,
+  "total_schema_property_assertions": 2520,
+  "material_findings": [
+    "Exact savedrawfive/behavior/all65controls6225orderednativequeries58manual14/14/14/16/2520typed/48prefs bothendpoints/current70c53ab33 match V2Sourced07d and actual COMPLETE0/stderr0 receipt/results/archive. All initial/final queries/fullUID/card/ownership/zone maps independently parsed.",
+    "Actual Timesnap7ActioncostAP1/destroy, captured11freshfour producesAP2. RealWounding8cost0spendsAP1, correctactualPERMANENTtargetdescriptor chooses SAMEAlly6. Real4damage killslife2/noHeroHP; ownGYentry earnsPENevent. MandatoryROS12Controller4Source6rosTrigger/seaWatery remainsresponseablePRIORITY with6GYfaceUPthrough firstthree, fourth actual1/2/3/4 replies flipSAME6faceDOWN/clearROS/returnDAMAGE.",
+    "AfterfirstfullCloseAP1, actualRaging9paid3withBlue10pitch3/AP1→0 yields7minusprimaryearnedDEF2=5/HP15. AutomaticTemperaddsDEFENSE1, same5survivesEquipment; finalcurrent1 is independently recomputed from recordedcounter1+actualPENevent under approvedmodifier, not an invented native getter. FulloriginalUID1..10/virtual11,12ceased/counter12/RNG0/RAPChi0/quiet.",
+    "Only classified25targetenumleaves distinguishV2; gameplay expectations were never weakened. OriginalR1input/failedresults/receipt/archive/Source/classification/Rootbackup remainbyte-identical and uncredited; historical actualquery-passcount staysnull."
+  ],
+  "limits": [
+    "OnlyactualcurrentturnAllyGY/realcapturedWateryfour/primary+1DEF/5damage/Temper-survival, no seededhistory/quietdeath/DEF1baseline.",
+    "InitialAlly/Potionlegalpublicfixtures andallpriorproducersunexecuted/uncredited; noGravyBlueGYpermission/Sawbonesactivation/support/Hero/fullcardcredit.",
+    "WaterypendingPRIORITYpriority1 derivesfromSEAQueueanddamagecompletion; actualfourresponses/FaceDown0→1strict.",
+    "CounterDEFENSE1representsone−1DEFcounter, primarycurrentDEF1survivesbecauseearnedbonusremains; noextraClosepriority.",
+    "Rootnative/independentexactSaved/all48preferences/twoNEWfocusedcleanreplaysremainrequired.",
+    "Only selected earned Ally-grave/staticDEF/Watery/Temper route. Initial ownedAlly/Potion are ordinary public fixtures; priorplay/producer/initialUIDtrace unexecuted/uncredited. Sawbones activated prevention/attack and Gravy tap/Gold/Wateryplaypermission unused/uncredited; Generic supports/Hero/sibling/fullcard not qualified.",
+    "No broad death/trigger/target/Temper family contract is certified. Native recording, exactSaved raw5/all48preferences/two new focused replays and Root registration remain separate; Source approval gives no fixture or coverage credit. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "V2 protocol-only Source approval supersedes R1 executable oracle. It is not R1 passing credit, native/gameplay result or engine fix. Actual query-pass count for historical R1 stays null; later material suffix remained unrun.",
+    "Only original selected path, no changes to action/targetidentity/death/trigger/effect/defense/damage/Temper/setup. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "Only this actual selected Ally-grave/staticDEF/Watery/Temper route; no prior producers, initialUIDtrace, Sawbones activated prevention/attack, Gravyactivation/BlueGYWateryplaypermission, alternativedeath/otherHeroes/support/sibling/fullcard credit.",
+    "Root two new-only replays/registration/index/promotion remain separate; no qualification before registration. RawVersions hash-bound/excluded from physical inventory. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch749_v2_mournful_saved_readonly.py",
+    "sha256": "5e51abb35e965f619aaa43d2f4b6cf6a5df2ee5af94e76e0ea92be986c18eb8c"
+  }
+}

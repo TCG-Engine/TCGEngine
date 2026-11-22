@@ -1,0 +1,138 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B308_BOLTN_EARNED_POWER_CONDITIONAL_GA_FULL_BLOCK_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T08:19:27.435705+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch308.json",
+  "input_sha256": "c797a31fb68534dfb82ae8aef26807a3ad68a12327d9f8134770b4b42697e6dc",
+  "manifest_sha256": "573335087fcc0ce02feec7644ad9840fb220ec16c5af51c87bf80caa511fa5db",
+  "fixtures": [
+    {
+      "slug": "card-boltn-shot-red-four-live-sparse-real-nimblism-power-above-base-go-again-after-full-block",
+      "card_id": "boltn_shot_red",
+      "group_id": "pitch-cycle:boltn_shot",
+      "fixture_sha256": "c849c1c9b6332944559fddee0b884ff146b0227d6a59b275fbe5a225ab54a220",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dc1144d1f9ef37b377011a4ad45afe769eda155b6d2393235e70e992980a6887",
+        "actions.json": "14fc2e9d5c14543d5a9e557ee4e3f311ebd54d3b106352fe348dd7a54aa8a208",
+        "assertions.json": "31df914c589963c50b0e83658686a14900ab40da34dc7f6ad3e58ad6f8c14a1a",
+        "expected_final_gamestate.txt": "19daa2cf05498a837a030d2b96022a5b03a6639e10e949c9c41a78c26700a219",
+        "meta.json": "01f78eb453b5eab51368e93a66d283fb36f5897564ff93a4c7460862cee73498"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "dc1144d1f9ef37b377011a4ad45afe769eda155b6d2393235e70e992980a6887",
+        "actions.json": "14fc2e9d5c14543d5a9e557ee4e3f311ebd54d3b106352fe348dd7a54aa8a208",
+        "assertions.json": "31df914c589963c50b0e83658686a14900ab40da34dc7f6ad3e58ad6f8c14a1a",
+        "expected_final_gamestate.txt": "19daa2cf05498a837a030d2b96022a5b03a6639e10e949c9c41a78c26700a219",
+        "meta.json": "01f78eb453b5eab51368e93a66d283fb36f5897564ff93a4c7460862cee73498"
+      },
+      "actions": 34,
+      "native_assertions": 3263,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          7,
+          8
+        ]
+      },
+      "final_bow_uids": [
+        9
+      ],
+      "final_deck_uids": [
+        10,
+        11
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "no_virtual_uid_allocated": true,
+      "physical_findings": "RealNimblismYellow6cost0/AP1resolves after4source responses toactual+2/ownGAAP1. SamefacedownArsenalArrow5freshP4target then0resource/AP1pay whileactualBow9retained; physical5Chainprinted4+earned2=6>base4 givescomputedGA withonlyWTR_POWER2tag/noGO_AGAINseed. TwoactualownedP4Hand7,8def3eachbecomeDEFENSE/fromHand/link1;6minus6=0/allHP20/nohit. AP0throughthreeDAMAGEresponses, onlyfourth→RESAP1. FullrawGY1{5,6}/GY4{7,8}; sameBow9ready/unactivatedandDeck10,11 byteidentical, allphysicalUID1-11conserved/noextraproxy/queuesStackChainsclear/manualall4.",
+      "qualification": "One Red primarycycle actualpowerAboveBaseGA/fullblock representative. No successfulHitReload/falsecondition/bonuslost/secondattack/hero/Bow/support-primary/sibling/fullcard/rejection/control credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch308-independent-source-review.json",
+    "sha256": "6aed9d7173f4b0947ed009001bb499dc8f2a39924d0d3c70230df2b580d085ba",
+    "manifest_sha256": "573335087fcc0ce02feec7644ad9840fb220ec16c5af51c87bf80caa511fa5db"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch308-20261103T081751Z-6ae998afc739f.json",
+    "sha256": "c0df549637ca5c7a724e53ba57bd7c0610be58de97a48943db44503146630be4"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch308.recording-results.json",
+    "sha256": "64559ebc30d7413b5f71ca6c40976b9e5d39ef4666faf8d556cfd3d43a5d1c19"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch308-native-r1\\receipt.json",
+    "sha256": "976966659d7c70f168b06a3d8c908ca412c32a95cc0ea0215ac554fe21f9c541"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Exact saved positive representative only; successfulHitReload andotherbranches remain untested/uncredited.",
+    "Replayqualification belongs to separateactualRootreports.",
+    "No R writes, native/PHP execution, source changes, generator/backend/service/fullsuite by reviewer."
+  ]
+}

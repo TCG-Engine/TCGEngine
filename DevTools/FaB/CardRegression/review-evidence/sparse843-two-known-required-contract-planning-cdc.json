@@ -1,0 +1,99 @@
+{
+  "status": "INDEPENDENT_SOURCE_ONLY_UNATTEMPTED_TWO_EXACT_REQUIRED_KNOWN_CONTRACT_NOTES_APPROVED_WITH_EXPLICIT_WATERY_FOLLOWTHROUGH_LIMIT",
+  "phase": "SOURCE_PLANNING",
+  "batch": 843,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_evidence_approved": true,
+  "source_notes_approved": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch843-two-required-known-contract-notes-manifest.json",
+    "sha256": "d6e49fc39bcc0bd597c6e756f19d9ff78112e1783c9037dfab13d59c569bb032"
+  },
+  "manifest_sha256": "d6e49fc39bcc0bd597c6e756f19d9ff78112e1783c9037dfab13d59c569bb032",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch843-firm-reservation.json",
+    "sha256": "14df17a44660d2619ffdd5b73d7f56e67b4435074eafced92ba96c407896debc"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_preimage_guards_matched": true,
+  "guard_count": 18,
+  "notes": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch843-diabolic-required-known-multiseat-choice-source-unattempted-note.json",
+      "sha256": "4f8d384d7e11865701bd54e5f0fc0fab232338793d829ead08c73934294acc36"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch843-pedestal-required-known-positive-entry-choice-layer-unattempted-note.json",
+      "sha256": "f454904ecf8a28a49ae1f7630ae7ec0e452c36db78510cf8ea02d1dfe6228841"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "diabolic_ultimatum_red",
+      "group_id": "identity:diabolic_ultimatum_red",
+      "status": "UNATTEMPTED",
+      "classification": "EXACT_KNOWN_ORDINARY_PHYSICAL_SPELL_PRECLEAR_BEFORE_REQUIRED_ALL_SEAT_RESOLVING_CHOICES",
+      "independent_causality": "DYNRecordPitch25 records true AA and NAA flags separately against pending original sourceUID; pitching yellowAA2 and redNAA1 can pay3 while meeting both printed conditions without playing those supports. Canonical actual ResolveCard/compiled wrapper1989..1994 has both per-FaBLiveSeats Ally and Aura loops with appropriate victim MZChoose and DestroyChoice. In fixed positive board P1 noAlly genuinely skips, then first nonempty P2 Ally choice requires an await. The nonpersistent Action is outside both actual managed spell registries, so GL1840 moves physical source toGY before1841 enters that resolving body. Exact retained HitGas/Workshop source lifetime contract, not missing multiplayer/pitch/choice implementation.",
+      "legal_support_and_limits": "Young Florian20 admits Runeblade primary, EarthBanish0 leaves his four-Earth Aura-token replacement unearned. Young GravyBones2/3/4 legally own selected Pirate/Necromancer allies. Generic AA/NAA pitches, Generic Melody Auras and legitimate preexisting own Runechant provide positive choices; Runechant is not triggered by pitching an AA or playing this NAA. These are planning admissions, not certified support execution.",
+      "explicit_watery_correction": "The note word quiet is not a trigger-free claim. Moray and Anka both print Watery Grave; their actual Arena\u2192ownerGY destruction requires captured own Watery Grave response layers and eventual same-UID face-down GY endpoints. SEAgraveEntered38 queues these real sourceUID layers. Their responses/follow-through must be completed at proper priority after the parent effect finishes; no suppression, premature flip or omitted layer accepted. No such behavior was executed here.",
+      "full_unrun_route": "Actual3/APcost and both pitches, all4Source responses, physical source kept resolving through all real P2/P3/P4 Ally and all4 Aura choices, nonadjacent seats included. Each victim chooses own controlled object; chosen real objects ownerGY with applicable Watery responses/FaceDown, chosen Runechant ceases/noGY, unchosen survivors stay, ownership/economy/queues cleanup. Separate conditions/matrices/Hero/support identities remain untested.",
+      "retained_contract": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse838-two-known-required-contract-planning-cdc.json",
+        "sha256": "06f50ef577ba675a1d0f9c7c3acf7e8d5bad7d389b06f17495d9092523646dd6"
+      }
+    },
+    {
+      "card_id": "up_on_a_pedestal_blue",
+      "group_id": "identity:up_on_a_pedestal_blue",
+      "status": "UNATTEMPTED",
+      "classification": "EXACT_KNOWN094_EARNED_ENTRY_ROS_LAYER_PRECLEAR_BEFORE_POSITIVE_OPTIONAL_GY_CHOICE",
+      "independent_causality": "Actual SUPAfterMove38..41 initializes SUSPENSE2 and queues proper supEnter using physical Aura sourceUID; no missing entry producer is claimed. SUPQueue279..281 routes genuine play through ROSQueue (starting-fixture shortcut is not used). Positive eligibleGY makes canonical/emitted ResolveAbility yield MZMultiChoose0..1, then Top147..148 acts on same chosenUID. Generic rosTrigger is excluded by managed class1594..1595 and GL1730 removes the virtual layer before resolving await. Physical Aura remainsArena; the earned resolving layer lifetime is the exact094/WhoBlinks contract.",
+      "clarified_printed_setup": "Printed Suspense enters2; no optional resource/Prepare chooser exists to invent. Real cost0Instant keeps AP unchanged. Young Pleiades20 is Revered Guardian and legal; Lyath is Reviled Guardian and is not a talent-admission substitute. SUP147 filter is attackAction AND(Revered ORGuardian); real own Guardian AA grave cards and distinct Generic Deck give eligible positive movement/order setup.",
+      "full_unrun_route": "Native0/fourSource responses produce actualArenaSUSP2, then proper earned entry layer/fourresponses with grave card unmoved. Positive optional native choice returns same physicalUID to ownerDecktop, preserving following distinct Deck card/unselectedGY/source virtual lifetime/economy/queues. Aura persists. No leave/countdown/endphase/otheramount, Hero or support coverage.",
+      "retained_contract": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse833-sea-legs-source-and-who-blinks-unattempted-a11.json",
+        "sha256": "2e53bc9ad841d21a9365419e522f93bd1eab36e82af0f3ffad9863726f4953f9"
+      }
+    }
+  ],
+  "planning_note_interpretation": "Approval is limited to the precise earlier required contracts and the explicit corrections above. Frozen note route shorthand is not an assertion of observed absence of Watery triggers; no executable/source scenario is approved by this planning proof.",
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reused_existing_independent_normative_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.3.41",
+        "8.3.42"
+      ],
+      "reused_existing_independent_normative_review": true
+    }
+  ],
+  "limits": [
+    "Two exact selected full routes remain source-only/UNATTEMPTED; no executable, Native failure, new issue/root, repair, passing fixture, qualification or coverage.",
+    "Positive implementations and proper entry producer exist; neither blank registry exclusion alone, missing bodies, blanket optional-await, no-object baseline, decline/cast-only fallback nor invented Suspense cost is used.",
+    "No broad alternate-support/initiator audit or redundant whole-corpus/fragment-hash review; actual selected emitted entry/causal paths, prior evidence hashes and current18guards verified.",
+    "No PHP/native/Rwrites/fullsuite or denied188/184/B787 operation."
+  ],
+  "source_approved": false,
+  "native_probe_approved": false,
+  "native_execution_approved": false,
+  "normal_save_approved": false,
+  "passing_fixture_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "new_issue": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "PHP_native_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "created_utc": "2026-11-16T03:50:13.676552+00:00"
+}

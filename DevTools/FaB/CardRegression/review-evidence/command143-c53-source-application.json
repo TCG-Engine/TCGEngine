@@ -1,0 +1,57 @@
+{
+  "status": "APPLIED_NOT_YET_NATIVE_QUALIFIED",
+  "issue": "FAB-REG-143",
+  "started_utc": "2026-11-06T10:19:22.725521+00:00",
+  "base_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "projected_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_review_sha256": "7464947dcfa2f0a214f69318534615300998e5196a01f04bd82f3ad00917d26c",
+  "proposal_sha256": "dd0006ac765e394531953299331dd9a3ecc2488bcf3036d595b51175e68bea23",
+  "component_results_sha256": "0488699a1318958a21570b23ba618d7c35e32598d8840be60197d20545864b90",
+  "after_oracle_review_sha256": "546167b3c4eb73146ed6c3beaef5a237f9ce9cab62d74c895f8fceac09c49f76",
+  "evidence_bindings": {
+    "proposal": [
+      "nov6-command143-existing-turn-effect-proposed-v3/manifest.json",
+      "dd0006ac765e394531953299331dd9a3ecc2488bcf3036d595b51175e68bea23"
+    ],
+    "source": [
+      "nov6-command143-v3-independent-source-review.json",
+      "7464947dcfa2f0a214f69318534615300998e5196a01f04bd82f3ad00917d26c"
+    ],
+    "preparation": [
+      "nov6-command143-v3-r2-focused-component-preparation/manifest.json",
+      "25cf7dcb0dbe5ea90d39b70e88453b2a253e779c76e2a6203f4e69135f4fa647"
+    ],
+    "component_review": [
+      "nov6-command143-v3-independent-component-preparation-review.json",
+      "86f351c83c12efaa5570bc77cbf7ff161b712e13dd6f47ae472f0624126e95c9"
+    ],
+    "components": [
+      "nov6-command143-v3-component-results.json",
+      "0488699a1318958a21570b23ba618d7c35e32598d8840be60197d20545864b90"
+    ],
+    "before": [
+      "nov6-command143-r2-independent-native-before-review.json",
+      "eec816d51597adac62c922cf385962129488e023d024d9260e11cfba83d35ed2"
+    ],
+    "after": [
+      "nov6-command143-v3-after-projected-independent-source-review.json",
+      "546167b3c4eb73146ed6c3beaef5a237f9ce9cab62d74c895f8fceac09c49f76"
+    ]
+  },
+  "changes": [
+    {
+      "path": "FaBSim/Custom/IARCards.php",
+      "candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-existing-turn-effect-proposed-v3\\FaBSim\\Custom\\IARCards.php",
+      "before_sha256": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+      "candidate_sha256": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a"
+    }
+  ],
+  "written": [
+    "FaBSim/Custom/IARCards.php"
+  ],
+  "qualified": false,
+  "full_suite_run": false,
+  "scope": "Only selected BLASMOPHET_ATTACK Count/Add adapter in handwritten FaB IARCards. No Core/GameLogic/generated/canonical/other-key change; V2 whole-bank preservation is suspended.",
+  "actual_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "completed_utc": "2026-11-06T10:19:22.829788+00:00"
+}

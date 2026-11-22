@@ -1,0 +1,372 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B601_R2_QUICKFIRE_PARTIAL_COST_AND_UNSPENT_GRANT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T11:19:31.362070+00:00",
+  "source_spec": "card-regression-batch601-quickfire-r2.json",
+  "input_sha256": "bfbde63a0f368e2a58e08bb6513f6d4e4ef45513ed7777ca86565bde8f002bbf",
+  "manifest_sha256": "ff19a456b8740c2985ee1cb2bf644062d3a377ef75f649981208fa59dd904580",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch601-r2-independent-source-review.json",
+    "sha256": "d036e44a357ecbbc30402e57d84f322504bf377a1b14420b0d12082072e46cbb",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch601-quickfire-r2-20261106T111602Z-6aedb6f28a259.json",
+    "sha256": "b596cb64e20f7bb9d42ccf494fdc99105047e31d514d9068dfaea75996ce05fe"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch601-quickfire-r2.recording-results.json",
+    "sha256": "f4f0789d3e2a5e3fd69945c4486f912da2fb66599bc7e69406934c16454c614a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch601-quickfire-r2-native-c53\\receipt.json",
+    "sha256": "16a31ee84a05756d997d4de4cfb56530c29e8338f14effe2bd2970999fe5526a"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "quickfire_blue",
+      "group_id": "pitch-cycle:quickfire",
+      "slug": "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "source_spec": "card-regression-batch601-quickfire-r2.json",
+      "input_sha256": "bfbde63a0f368e2a58e08bb6513f6d4e4ef45513ed7777ca86565bde8f002bbf",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PARTIAL_REDUCED_COST_AND_UNSPENT_NEXT_BOOST_GRANT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "fixture_sha256": "0076b5c1d4bad8f9f12ff0df60fde3ff838589b63d162bcfd1d6d5fc55ceed2e",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e56b518babe0d3b5a9fec14e2878e7e0e5e2aeea90d1a01d5383ed56e4bd88ab",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "138c647dd9787c4de86bfc0af07300ba1f7ed57e3ec42d07295702584d5eb7d7",
+        "expected_final_gamestate.txt": "2660032ecf940f09376a5abec5fd3f918b0df6fb62cd54f6dd8ff50c8b9ee34d"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e56b518babe0d3b5a9fec14e2878e7e0e5e2aeea90d1a01d5383ed56e4bd88ab",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "138c647dd9787c4de86bfc0af07300ba1f7ed57e3ec42d07295702584d5eb7d7",
+        "expected_final_gamestate.txt": "2660032ecf940f09376a5abec5fd3f918b0df6fb62cd54f6dd8ff50c8b9ee34d",
+        "meta.json": "1d8c3f0648958f852f57c66ea6cf8a5bf7be96dde1c073c21045099207849e34"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e56b518babe0d3b5a9fec14e2878e7e0e5e2aeea90d1a01d5383ed56e4bd88ab",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "138c647dd9787c4de86bfc0af07300ba1f7ed57e3ec42d07295702584d5eb7d7",
+        "expected_final_gamestate.txt": "2660032ecf940f09376a5abec5fd3f918b0df6fb62cd54f6dd8ff50c8b9ee34d",
+        "meta.json": "1d8c3f0648958f852f57c66ea6cf8a5bf7be96dde1c073c21045099207849e34"
+      },
+      "actions": 33,
+      "native_assertions": 2887,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 917,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "quickfire_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "quickfire_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "actual_primary_reduced_cost": 1,
+      "actual_pitch": 3,
+      "actual_primary_go_again": true,
+      "physical_Driver_UID": 5,
+      "Driver_whole_raw_unchanged": true,
+      "Driver_STEAM_retained": 3,
+      "actual_Generic_power": 4,
+      "actual_Generic_damage": 4,
+      "actual_Generic_go_again": false,
+      "final_unspent_boost_grant": {
+        "index": 6,
+        "type": "EVO_NEXT_BOOST",
+        "amount": 2,
+        "uses": 1
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        6,
+        8
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "actual_Boost_consumption_earned": false,
+      "future_expiry_reached": false,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "4c0c41c2c0b9fc2247ce7407c3d8a9dd8d649100e72953fe26f8cfff248b712d",
+      "native_action_mapping_sha256": "35672e3cdfbb45480ddbeaccdafa8b3025d7791d8f846a67fd505aa7622495de",
+      "native_assertion_mapping_sha256": "8841e6a0e8c1f585a10ffeb35a70a3a85e7636844e00dd1e43bb3a9ea8e15674"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2887,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 917,
+  "source_locator_correction": {
+    "original_input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch601-quickfire-cost-and-unspent-grant-author\\batch601-quickfire-one-real-reduced-cost-earned-grant-and-nonboost-consumer-group.json",
+    "original_sha256": "6f7f2dc7c0917105f6637880353f302f45901b8dff5c1d217f5915a876dbb30c",
+    "changed_locator_leaves": 15,
+    "matching_oracle_leaves": 1,
+    "inverse_exact_JSON": true,
+    "inverse_exact_CRLF_bytes": true,
+    "old_packet_uninstalled_unrun": true,
+    "legitimate_predecessor_types": [
+      "MST_BLUE_PITCHED",
+      "SUP_COST_ONE",
+      "MST_BLUE_PLAYED",
+      "EVR_PLAYED",
+      "EVR_GRAVEYARD",
+      "SEA_BLUE_GRAVE"
+    ],
+    "correct_selected_carrier_index": 6
+  },
+  "material_findings": [
+    "Actual COMPLETE exit0/stderr0/one new fixture at unchangedc53; raw5/all33 native envelopes/2887 ordered persisted checks/29 manual inputs7,7,7,8/raw48 preferences per endpoint/all71 guards independently compared to exact corrected ledger.",
+    "Prior public Driver5 remains ready/STEAM3. Actual printed Quickfire2 minus one controlledDriver gives pending1; real Blue7pitch3 pays resource1+AP1, R2/AP0 before fresh source four. Only fourth resolves primary6GY and ownGA AP1. The earned +2 NEXT_BOOST grant is explicitly checked at that point; no omitted effect.",
+    "Real GenericWounding8zero consumes refund, actual adjacentHero4 declaration before assets/sourcefour, livepower4/noGA and actual4damageHP16. No Boost event means no +2 consumption and no Driver WHEN; exact Driver rawobject stays unchanged. GrantEVO_NEXT_BOOST2/uses1 survives nonBoost play/actualdamage/fullClose/final, with six legitimate source-bookkeeping predecessors then row6.",
+    "Full physicalUID1..8/owner/controller, exact unorderedGY1UIDset{6,8}/Blue7Pitch/Driver5Arena, no allocation/RNG, R2AP0 and empty Stack/chains/DQ/await/payment verified. Original6f7/e443 unrun packet unchanged; R2 corrects15 locator indices and one prose leaf, not byte-identical overall and no native original failure claimed.",
+    "No actual Boost consumer/bonus damage, Driver producer/Boost trigger, multipleDriver/floor, futureexpiry, internal synchronous preclear order, Hero/support/sibling/fullcard credit. Re-Charge separate source-only planning limit/no recipe/native/coverage. Root focused replays separate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2600/",
+      "finding": "Current Blue cost2/reduction/nextBoost+2/ownGA."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVO227.webp",
+      "finding": "Independently viewed exact issuer face; no change to current printed model."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.6",
+        "5.1.7",
+        "5.3.4",
+        "5.3.5"
+      ],
+      "finding": "Cost reduction before actual assetpayment; resolve earned effect and go again before later consumer."
+    },
+    {
+      "card_id": "quickfire_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\quickfire_blue.webp",
+      "sha256": "1bf38b21aef18c39e191dd6a5ed3c2784ee177590d4ca122b4cdf311ee5f5b42",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "hyper_driver_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\hyper_driver_red.webp",
+      "sha256": "87b4373f474c5408103eabb4eeb9a617d1e4836dab1d2c8ae2ef4558d2c7cab1",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "dash",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dash.webp",
+      "sha256": "f8b50f28cc23f7fab26d11b9c67e765e3c6980f4b8a88907d8ff2d694ac2602a",
+      "actually_viewed": true
+    }
+  ],
+  "limits": [
+    "Only Blue one-Driver reducedcost/earnedgrant/nonBoost nonconsumption/ownGA-funded Generic damage representative. No Red/Yellow sibling, actual Boost consumption, Driver creation/Boost WHEN, extraDriver/floor, futureEndexpiry, Hero/support/full-card certification.",
+    "Carrier row6 and uses1 are controlled source-bound representation; actual six predecessors and marker checked, not universal array schema. No internal synchronous source-preclear/lifetime certification.",
+    "Exact persisted checkpoints plus initial/final snapshots; no invented per-input snapshots. Opaque undo data raw-hash-bound and excluded from current physical inventory. No reviewer PHP/native/replay/R/source/fullsuite/remote/denied action."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch601_saved_readonly.py",
+    "sha256": "8f60b74ef7035a199a63eea32896ccf7eb9e8a34b2faab67eeb76d95d665a94e"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch601_source_readonly.py",
+    "sha256": "43db60c581d5ccaa5648348c56ec84293affafe32bc15f1539db54178d864e3d",
+    "portion": "Own complete schema/action/checkpoint ledger only; no repeated source/rules/legacy audit"
+  }
+}

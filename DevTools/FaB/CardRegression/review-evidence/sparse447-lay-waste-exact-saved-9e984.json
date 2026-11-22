@@ -1,0 +1,295 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_LAY_WASTE_UNBOOSTED_EQUIPMENT_RESTRICTION_AND_LEGAL_HAND_DEFENSE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T10:37:09.493538+00:00",
+  "source_spec": "card-regression-batch447.json",
+  "input_sha256": "8edf8de25be4bde030394dbe8e7ef63c7a46b64f5858637a06c29d789eeacd6b",
+  "manifest_sha256": "aefd9787696f9b35ae6b8bb8c80ea98d2128aabf1fcefd598a131ded9e0e1020",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch447-independent-source-review.json",
+    "sha256": "ba5c4b81adabdca3d6b94bbd8488e4fa720eeb6682816779613702584eddc998",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch447-20261105T103330Z-6aec5b7a19662.json",
+    "sha256": "67c1680066e571073c7e09f1e01705731a74c29e48a1639ad5ce723f10e900fd"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch447.recording-results.json",
+    "sha256": "e6c369486a2af3eb1c026a7c4d3ce3cab5630f80b340e40096f12f0d034bd611"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch447-native-r1-9e984\\receipt.json",
+    "sha256": "abc56559638d75698b02434ec3edbf9aaefdc7ac22d9df0c7af6ec06e9e9453d"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch447_lay_saved_readonly.py",
+    "sha256": "f8fbcaeaa9b86222e606a1083577414bb7c4cf65024b7b0e6d0514a1afec5783"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "lay_waste_red",
+      "slug": "card-lay-waste-red-four-live-sparse-real-declined-boost-rejects-equipment-allows-hand-defense",
+      "source_spec": "card-regression-batch447.json",
+      "input_sha256": "8edf8de25be4bde030394dbe8e7ef63c7a46b64f5858637a06c29d789eeacd6b",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-lay-waste-red-four-live-sparse-real-declined-boost-rejects-equipment-allows-hand-defense",
+      "fixture_sha256": "89f2476b4736734f2d4f8d69c50e07f617eda53eaa6ee102e4d3d964ae1276f4",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "06f2b0316ccfd6e94debf5521b458d8f421a19ad7d3f3aa4ad30fe86b9f9296c",
+        "actions.json": "031e6da96cc741187e6ef8bc13f278944a2d1f1907e04ce17d1233c859508d7a",
+        "assertions.json": "3ec435694f25be4735774a1835d781ba1e422121973475cc2adc0d910b731b48",
+        "expected_final_gamestate.txt": "ba11af5f6fef8f380448cecd5a76abda1392da156e75c5c6a6f09822b49006cd"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "06f2b0316ccfd6e94debf5521b458d8f421a19ad7d3f3aa4ad30fe86b9f9296c",
+        "actions.json": "031e6da96cc741187e6ef8bc13f278944a2d1f1907e04ce17d1233c859508d7a",
+        "assertions.json": "3ec435694f25be4735774a1835d781ba1e422121973475cc2adc0d910b731b48",
+        "expected_final_gamestate.txt": "ba11af5f6fef8f380448cecd5a76abda1392da156e75c5c6a6f09822b49006cd",
+        "meta.json": "389338e32175a2f70ea85e203e325a8707eb7fd8dd52c939f9a383ba977947bc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "06f2b0316ccfd6e94debf5521b458d8f421a19ad7d3f3aa4ad30fe86b9f9296c",
+        "actions.json": "031e6da96cc741187e6ef8bc13f278944a2d1f1907e04ce17d1233c859508d7a",
+        "assertions.json": "3ec435694f25be4735774a1835d781ba1e422121973475cc2adc0d910b731b48",
+        "expected_final_gamestate.txt": "ba11af5f6fef8f380448cecd5a76abda1392da156e75c5c6a6f09822b49006cd",
+        "meta.json": "389338e32175a2f70ea85e203e325a8707eb7fd8dd52c939f9a383ba977947bc"
+      },
+      "actions": 31,
+      "native_assertions": 2881,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 132,
+        "31": 211
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "lay_waste_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "throttle_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "throttle_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "lay_waste_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "actual_Boost_declined_index": 1,
+      "positive_successful_Boost_history": false,
+      "Deck7_raw_unchanged": true,
+      "Armor8_raw_unchanged": true,
+      "Armor8_never_defended": true,
+      "ordinary_armor_attempt_before_action": 12,
+      "ordinary_armor_attempt_after_action": 13,
+      "identical_noop_material_check_count": 84,
+      "identical_noop_material_checks_sha256": "fe64430419ee4d2d516467f9dd4ab101b1009259618278c752dd9e71a073d272",
+      "checkpoint_assertion_mapping_sha256": "250e5d4a92cd75a5a76dec2a02260976ed2b811cf9e295db0e1102f9a0418a35",
+      "native_action_mapping_sha256": "ee75f45e8ed01a70e2529769ca7ee72bb3da0a0b6ea1952092b12098c903666a",
+      "native_assertion_mapping_sha256": "745625b174b4c2b7f0c3a19ef60226939bd0dca68c90306bf68dfd54cbc7c49b"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 31,
+  "total_native_assertions": 2881,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "All31actualinputs/2881orderedchecks/25manualactors/raw48prefsperendpoint exact. ActualMechDeck7makesBoostoffer genuine; MZMODALindex1decline thenactualBlue6pitch3paysprinted2/AP1/R1AP0. Deck7retains/noBanish/noGA/base5/sourcefour correct.",
+    "ActualordinaryP4Equipment8click recorded atinput13; all persisted material checks before12/after13 identical. SamearmorEquipmentready/Hand9available/onlyprimary5Chain/priority4/pass0/HP/economy/payment/queues unchanged. ActualnextHand9clickaccepted/soleDEFENSEUID9/FromHand/link1/printedDEF3; equipment8neverdefends.",
+    "Actual5minus3=2damage/P4HP18, fullDamage/Resolution/AP0/GY1{5}/GY4{9}/Pitch6/R1/Deck7retained/Armor8rawunchanged/alloriginalUID1..9/Counter9/RNG0/fullframesandcombatcleanup. BladeBreakif-defendedconditionfalse, so no omittedwear layer or deniedrepair path earned."
+  ],
+  "bookkeeping_precision": "RawDYN_BOOST_PLAYED1 records playing a printedBoost card; it is not successfulBoost history. Actualretainedboostanswer1/Deck7unchanged/Banish0/noGA/noARC_BOOSTEDpositive grant corroborate decline. Armor no-op is all persisted materialchecks equality, not serialized whole-state/action-history byteidentity.",
+  "limits": [
+    "One unboosted staticEquipmentrestriction/ordinaryArmorattempt/legalHandNAAblock/2damage/fullcleanup branch. No successfulBoost/payment/MechbanishGA/nonMech/emptyDeck/otherEquipment/fromHand/suppression/foreigncontrol/Armoractivation/wear/fullcard/sibling/OutPace/supportprimary credit.",
+    "Declaring DrivingNAA as defender does not play it or execute its nextWeaponbuff/ownGA; actualonlyprimarycardsPlayed confirms this.",
+    "Actualcompletednativeledger plusparsedendpoints only; no additionalper-inputrawsnapshots/reviewer native/replay execution. Rootfocusedreplays/registrationseparate.",
+    "NoPHP/native/R/source/gen/service/remote/fullsuite/denied089090094096retry/integration."
+  ]
+}

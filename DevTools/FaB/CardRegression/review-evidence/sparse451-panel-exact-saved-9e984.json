@@ -1,0 +1,276 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B451_PANEL_BEATER_ZERO_DEFENSE_EQUIPMENT_GROUP",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T10:58:44.165548+00:00",
+  "source_spec": "card-regression-batch451.json",
+  "input_sha256": "6917c67dc7890e0a9dd96da82476dd2f35717d4625bda7b97cd5a0970540cfe9",
+  "manifest_sha256": "b46260d9d0f67e4aaaba633f64d41ddef0c92fc7cd38c70d9f08dbbc19fe9625",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch451-independent-source-review.json",
+    "sha256": "c7865442b76f6bd4a418e829e96c285141ca1b35cbf0a097e611a5f270877cfa",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch451-20261105T105545Z-6aec60b1b8a0d.json",
+    "sha256": "6cc538d40d530061e61bd459f2b3f722386c2c5933c076f6859eaef3c6912101"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch451.recording-results.json",
+    "sha256": "7b3b7ef7b1f69cc14103cfe9474048b9216d574fe3c0d1650b3545db1c212d56"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch451-native-r1-9e984\\receipt.json",
+    "sha256": "c28b6397ac29fee6326f9d3272c1b6991a646880eef4524b626c095a8b605465"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "panel_beater_red",
+      "group_id": "pitch-cycle:panel_beater",
+      "slug": "card-panel-beater-red-four-live-sparse-real-zero-defense-equipment-block-adds-one-power-and-damage",
+      "source_spec": "card-regression-batch451.json",
+      "input_sha256": "6917c67dc7890e0a9dd96da82476dd2f35717d4625bda7b97cd5a0970540cfe9",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_PARTIAL_BRANCH_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-panel-beater-red-four-live-sparse-real-zero-defense-equipment-block-adds-one-power-and-damage",
+      "fixture_sha256": "29adbb9ab0424f6db96fc4e5005ab407ca80c464632fe6b683abc47c1bcd699b",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8978f8f33b5526140dda761a3ccc3a737ad2c86e75ccb0a0a6d3744644d53c31",
+        "actions.json": "bea199abb9a056028c7c3a6c4fe16f68a1546ff50a72e9b3187d5831395197b9",
+        "assertions.json": "121a0090e69cbb8a6781476c6577192dd3b45627566d31437bf56920a5e28a67",
+        "expected_final_gamestate.txt": "bb55dbf892b617db2cd0a320340bb84f222cfa709079cff5aeff80520b30e823"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8978f8f33b5526140dda761a3ccc3a737ad2c86e75ccb0a0a6d3744644d53c31",
+        "actions.json": "bea199abb9a056028c7c3a6c4fe16f68a1546ff50a72e9b3187d5831395197b9",
+        "assertions.json": "121a0090e69cbb8a6781476c6577192dd3b45627566d31437bf56920a5e28a67",
+        "expected_final_gamestate.txt": "bb55dbf892b617db2cd0a320340bb84f222cfa709079cff5aeff80520b30e823",
+        "meta.json": "b108a1e66b998df41213d74e35e15542338e80bf3e9bdd89e0e0ccede8a89c9c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8978f8f33b5526140dda761a3ccc3a737ad2c86e75ccb0a0a6d3744644d53c31",
+        "actions.json": "bea199abb9a056028c7c3a6c4fe16f68a1546ff50a72e9b3187d5831395197b9",
+        "assertions.json": "121a0090e69cbb8a6781476c6577192dd3b45627566d31437bf56920a5e28a67",
+        "expected_final_gamestate.txt": "bb55dbf892b617db2cd0a320340bb84f222cfa709079cff5aeff80520b30e823",
+        "meta.json": "b108a1e66b998df41213d74e35e15542338e80bf3e9bdd89e0e0ccede8a89c9c"
+      },
+      "actions": 30,
+      "native_assertions": 2667,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 845,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "panel_beater_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "throttle_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "blood_drop_brocade",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "throttle_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "panel_beater_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "blood_drop_brocade",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "cbb17b1037a1a99283c2c1b39820dd3402b20a8a9d45001aec452244be1bad7f",
+      "native_action_mapping_sha256": "2c2722a1345316814721dd484e3df6d703ab1f34ecdc5f099b94b1c3ebd71fb8",
+      "native_assertion_mapping_sha256": "a3bd1a7bed20503c1b6dad4dd64c7acc9511530a80ed01f9522529a13b1c5ee6"
+    }
+  ],
+  "total_actions": 30,
+  "total_native_assertions": 2667,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 845,
+  "material_findings": [
+    "Allrawfivefiles/30actualenvelopes/2667orderedchecks/845properties matchunchangedapprovedinput.25manual=24priorityresponses+oneP4finish/actors6,6,6,7;48rawmanualsettingsbothendpoints/all69guards/actual9verified.",
+    "ActualMechDeck7enablesBoostMZMODAL1|1Boost&Do_not_boost; actualindex1declines, Blue6pitch3pays2/R1AP0/noGA. EntireDeck7rawobjectunchangedinitial/final/everycheckpointUID7retained, noBanish/boostedflag/ARC_BOOSTEDorMON_BANISHED. HistoricalDQboost1ischoiceindexDo_not_boost, not booleanacceptedBoost; incidentalDYN_BOOST_PLAYEDisnotpaidBoostproof.",
+    "ActualordinaryBrocade8EquipmentDEF0defends/currentlinkRoleDEFENSE/fromEquipment/ownerctl4, followedbyP4finish. Freshcommittedgroup/currentpower6andactualphysical6damageHP14materiallywitnessoneEquipmentcount+1, notcacheddefenseonly. Selectionpreview6isUItransportnotnewpriorityorDefendWHENcertificate; BrocadeoptionalInstantunactivated/norefund/resource/destroy/wear.",
+    "EntireBrocade8rawobjectEXACTunchangedinitial/final/readyStatus2/Damage0/FaceDown0/OwnerCtl4/emptyCounters/TurnEffects, returnedEquipment. Finalsame5publicGY1/samewholeBlue6Pitch1/wholeDeck7unchanged/originalUID1..8/allrawHeroesunchanged/R1AP0/otherRAPChi0/counter8/RNG0/noextraobjects/fullphysical+asynccleanup."
+  ],
+  "limits": [
+    "OneRedonezeroDEFEquipment/Boostdeclinebranchonly. NoacceptedBoost/multipleorotherEquipment/Wear/activation/Stealth/Hero/supportprimary/siblings/fullcardcredit; no hypotheticalzeroDEFbug claim.",
+    "Intermediatefacts are completednativeassertions/actionsequence; onlyinitial/finalrawsnapshotscomplete. HistoricalcachedDecisionQueueVariables aftercleanup isnotaliveobject; opaqueVersions omittedfromcurrentinventory.",
+    "Roottargetedreplays/registration separatereceipts, notclaimedhere. No PHP/native/replay/R/source/service/gen/fullsuite/remote or deniedrepairretry/integration byreviewer."
+  ],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch451_saved_readonly.py",
+    "sha256": "9bb6488353310062591e64c5a52b48e9a2345fe033e048f309a9e82d96736dbc"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

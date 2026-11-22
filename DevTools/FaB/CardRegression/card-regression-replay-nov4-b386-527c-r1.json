@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch386.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T20:21:50.887901+00:00",
+  "fixtures": [
+    {
+      "slug": "card-synapse-sparkcap-four-live-sparse-real-evo-hand-banish-tap-action-cost-creates-ponder",
+      "fixture_sha256": "02b564a30d4c515d5b69a4e42c478c610f8f336c1e03b4319fb55addc020efc4",
+      "passed": true,
+      "result": "[PASS] synapse_sparkcap / four live distinctive effect"
+    },
+    {
+      "slug": "card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+      "fixture_sha256": "f83c7c6e757fc5885e91e4c6be67a49a301aa39c9c2fb138e5fa80140a3e58af",
+      "passed": true,
+      "result": "[PASS] robe_of_resourcefulness / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-synapse-sparkcap-four-live-sparse-real-evo-hand-banish-tap-action-cost-creates-ponder",
+      "returncode": 0,
+      "stdout": "[PASS] synapse_sparkcap / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+      "returncode": 0,
+      "stdout": "[PASS] robe_of_resourcefulness / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

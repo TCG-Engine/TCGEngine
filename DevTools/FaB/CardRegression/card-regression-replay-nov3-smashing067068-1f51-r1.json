@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch278-trigger-probes.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T15:30:30.940666+00:00",
+  "fixtures": [
+    {
+      "slug": "card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+      "fixture_sha256": "2a68c4af89093eec471ce81acdd490b6dc967bb01a911363b97fe0e7dcf7e260",
+      "passed": true,
+      "result": "[PASS] smashing_good_time_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] smashing_good_time_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

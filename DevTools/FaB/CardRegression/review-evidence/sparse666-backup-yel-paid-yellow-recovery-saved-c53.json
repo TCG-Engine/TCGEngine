@@ -1,0 +1,243 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B666_BACKUP_YEL",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T00:12:20.454722+00:00",
+  "source_spec": "card-regression-batch666-backup.json",
+  "input_sha256": "6845793f3af200eeeb7fb80f48713e0476dc019d9f70fbdb5e8b03d2d7322be8",
+  "manifest_sha256": "cb973a7503bfbf521456201bfb7c3b72b9eabc051ae6dd361fa27413fcd7a2da",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch666-backup-independent-source-review.json",
+    "sha256": "96fc0a22a2e278fd0c96ef76f49b79e41ee7f63f9bd14a2e561eaa548db3b4d7",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch666-backup-20261107T000645Z-6aee6b9596574.json",
+    "sha256": "64000a3abab480b903a9cf00c8d1698e37abd5573702d42930f1ad969f052c55"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch666-backup.recording-results.json",
+    "sha256": "8fd2033a437145909ecc9d7f23b15e2868ce3d942f0fdc7a2bf69e2173ce2367"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b666-backup-native-recording\\receipt.json",
+    "sha256": "c05590c48881dff13612fede53a0d1fac0344e6d49b06e31b00ef9028acafadf"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "backup_protocol_yel_yellow",
+      "group_id": "identity:backup_protocol_yel_yellow",
+      "slug": "card-backup-protocol-yel-yellow-four-live-real-paid-destroy-and-yellow-mech-recovery",
+      "source_spec": "card-regression-batch666-backup.json",
+      "input_sha256": "6845793f3af200eeeb7fb80f48713e0476dc019d9f70fbdb5e8b03d2d7322be8",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_PAID_YELLOW_MECH_RECOVERY",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-backup-protocol-yel-yellow-four-live-real-paid-destroy-and-yellow-mech-recovery",
+      "fixture_sha256": "b266d86ef7c2c600133bf77de8d33dacbcbc8386962162c917e02483053dd4da",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "40a9d9226c62513519903527e1f497082ec998d0d48aa79f9ab9df0530c3bb97",
+        "actions.json": "dedb551573e49a6f1b7ed47a916f6356c86cc6e9fe7ac7233e81da7da510b61a",
+        "assertions.json": "7f2b6275e7831f8acbcf3213e4996ac890d09539e3cc5cf3cbd9122fd4572193",
+        "expected_final_gamestate.txt": "26958e94a63880fe73bba3c00bd0fc891edfef6dc6d8eda2148a759c29ad7359"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "40a9d9226c62513519903527e1f497082ec998d0d48aa79f9ab9df0530c3bb97",
+        "actions.json": "dedb551573e49a6f1b7ed47a916f6356c86cc6e9fe7ac7233e81da7da510b61a",
+        "assertions.json": "7f2b6275e7831f8acbcf3213e4996ac890d09539e3cc5cf3cbd9122fd4572193",
+        "expected_final_gamestate.txt": "26958e94a63880fe73bba3c00bd0fc891edfef6dc6d8eda2148a759c29ad7359",
+        "meta.json": "3567f91e71bfb04c015ca80ee3b6f4a0b54c4d500fe6e6598f5171998ae74bf8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "40a9d9226c62513519903527e1f497082ec998d0d48aa79f9ab9df0530c3bb97",
+        "actions.json": "dedb551573e49a6f1b7ed47a916f6356c86cc6e9fe7ac7233e81da7da510b61a",
+        "assertions.json": "7f2b6275e7831f8acbcf3213e4996ac890d09539e3cc5cf3cbd9122fd4572193",
+        "expected_final_gamestate.txt": "26958e94a63880fe73bba3c00bd0fc891edfef6dc6d8eda2148a759c29ad7359",
+        "meta.json": "3567f91e71bfb04c015ca80ee3b6f4a0b54c4d500fe6e6598f5171998ae74bf8"
+      },
+      "actions": 7,
+      "native_assertions": 656,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 144,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "backup_protocol_yel_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "data_link_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "data_link_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "backup_protocol_yel_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "17fdc3dfa1453e08b7ee74f42271fa2f85c7753d702cd32ddc08f6c58dde6334",
+      "native_assertion_mapping_sha256": "3be2e267d5b67d76b7c5b56337602dea69642473b88a843f328e896f2af2bd6b"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 7,
+  "total_native_assertions": 656,
+  "total_manual_passes": 4,
+  "total_schema_property_assertions": 144,
+  "material_findings": [
+    "Actualrawfive/all7envelopes656orderednativechecks/fourmanualactors/48preferences atbothendpoints/current70c53ab33 exactly match Source96fc. Samepre-nativeJSONcounter correction is recorded and passing; originalpair remains immutable/unapproved. Fullphysical UID/card/zone/ownership and terminalassertions parsed independently.",
+    "Real printedInstant2 createsABI8whilephysical5stillArena/R0; actualBlue7pitch3pays2leavesR1/AP1 and destroys5onlyafterassets. SameSourceArena5/controller1 virtual8remainsStackthroughallfourresponses and the managed non-targetpositiveMZMAYCHOOSE; answerreturns SAMEYellowMechDataLink6GYtoHand, then8ceases.",
+    "FinalallHP20/R1AP1/Chi0/5GY/6Hand/7Pitch/originalUID1..7/counter8/RNG0/fullquiet. No returned-card play/Boost/Opt/producer or currentupkeep execution claimed."
+  ],
+  "limits": [
+    "OnlypositiveeligibleYellowMech recovery; optionalmenu/decline despitemandatory-if-ablewording remains excluded/source-only/unqualified. No emptyGY/fullmenu/othercolor/recoveredcardplay/Boost/Opt/Hero/support/fullcard credit.",
+    "PriorItementry/Crank/maintenance andDataLinkpriorHandblock are lawfulboardpremises/unexecuted/uncredited. Nage selectedClosehold andBrewone-trial packet areseparate; no originalpair or otherprimary qualification.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/Git/remote/denied retry. Roottargetedreplays/registration/qualification separate. RawVersions hash-bound and excluded fromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch666_backup_saved_readonly.py",
+    "sha256": "05921e3a2f846baddb1228b9df4e5fac008b9e9bde51b0d694f69db1752f40e3"
+  }
+}

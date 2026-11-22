@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch750.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T22:05:12.911497+00:00",
+  "fixtures": [
+    {
+      "slug": "card-goldfin-harpoon-four-live-real-arsenal-shot-and-graveyard-removal-replacement",
+      "fixture_sha256": "2a9534b084f147829f74c7f1c6e930f570e163e0b10881fc8b8177e9465ec824",
+      "passed": true,
+      "result": "[PASS] goldfin_harpoon_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-murkmire-grapnel-blue-four-live-real-aim-and-unpreventable-three-through-prevention",
+      "fixture_sha256": "3be43c8c35b1b0e00e8bb1ef34f508a979c1dd66c7602b286dcff56976d6b393",
+      "passed": true,
+      "result": "[PASS] murkmire_grapnel_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-goldfin-harpoon-four-live-real-arsenal-shot-and-graveyard-removal-replacement",
+      "returncode": 0,
+      "stdout": "[PASS] goldfin_harpoon_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-murkmire-grapnel-blue-four-live-real-aim-and-unpreventable-three-through-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] murkmire_grapnel_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

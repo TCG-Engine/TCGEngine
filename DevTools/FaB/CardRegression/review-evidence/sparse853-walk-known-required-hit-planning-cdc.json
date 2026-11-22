@@ -1,0 +1,93 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_WALK_REQUIRED_ORDINARY_HIT_CHOICE_CONTRACT",
+  "phase": "PLANNING",
+  "batch": 853,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-walk-required-known-contract-note-manifest.json",
+    "sha256": "32cdf253ebf10e6ef18756b65746f0751ff03812437d9b875f469be8b6f4ceeb"
+  },
+  "manifest_sha256": "32cdf253ebf10e6ef18756b65746f0751ff03812437d9b875f469be8b6f4ceeb",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-walk-known-positive-pirate-hit-unattempted-note.json",
+    "sha256": "252e90eda64f75ff61a2a781e3ba42170236e579ed23d67775b43394a9449b69"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-firm-reservation.json",
+    "sha256": "f16b4d9bdc8f07c216e492deaf2d450e6bb2cd8b6b96ea945d17dd0a9493276f"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 13,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "walk_the_plank_blue",
+      "group_id": "pitch-cycle:walk_the_plank",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_HIT_WHEN_BEFORE_MANDATORY_RESOLUTION_CHOICE",
+      "classification": "KNOWN_REQUIRED_PIRATE_HERO_HIT_WHEN_BEFORE_MANDATORY_EFFECT_CHOICE",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-walk-known-positive-pirate-hit-unattempted-note.json",
+        "sha256": "252e90eda64f75ff61a2a781e3ba42170236e579ed23d67775b43394a9449b69"
+      },
+      "known_contracts": [
+        {
+          "card_id": "pursuit_of_knowledge_blue",
+          "row": 285,
+          "evidence": {
+            "path": "review-evidence/sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "card_id": "stun_star_blue",
+          "row": 295,
+          "evidence": {
+            "path": "review-evidence/sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Current own-Hit canonical/emitted body is reached through ordinary GameLogic1264 without a named Walk interception. On the required Pirate hero hit it immediately starts actual MZChoose then SEATap, before a separate captured earned Walk layer and four responses. This is the exact retained ordinary-Hit contract of Pursuit285 and Stun295; row300 is Helm Unity and supplies no Hit evidence.",
+    "Body, native Hero attack and tap helpers exist. Legal Young Rhinar1, Betsy2/3 and Gravy Bones4 all have printed20. Walk is Generic cost3/power5, paid by actual Blue3/R0/AP0; no discard so Rhinar Intimidate is unearned. Gravy is an actual Pirate; no Ally/Gold or used Hero ability is seeded. Full actual five-damage hit must leave HP4=15 before the earned layer.",
+    "The controller1 choice is a mandatory resolution choice of that hero or an Ally they control, not a formal targeted effect or optional decline. With no Ally, the actual Pirate hero is the sole positive candidate; that does not remove the earlier responseable WHEN requirement. Initial ready Status2 must become1 only after the earned four and actual choice.",
+    "Full cost/attack/damage/source lifetime through the chooser, actual owner1 Walk GY/Blue Pitch, HP15/exhausted Hero4 and immediate cleanup remain UNRUN. Next-turn untap, Ally alternative, no-Pirate/non-hit, other pitches, Hero/support/fullcard behavior are not credited. No quiet baseline or direct helper is admitted."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_Hit_trigger_review": true
+    }
+  ],
+  "limits": [
+    "Only source-only planning-note accuracy is approved. No executable/Native/Save/fixture/bug confirmation/root/fix/coverage claim.",
+    "No false lack-of-body, formal-target or optional-decline classification. All meaningful positive native requirements remain behind the exact earlier known contract.",
+    "No PHP/native/R writes/sourcefix/fullsuite/Git/remote/new agents/deferred189..194 or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T07:48:19.789933+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-fresh149-supported-attack-oracle-v2.json",
+  "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T22:25:58.242843+00:00",
+  "fixtures": [
+    {
+      "slug": "card-fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic",
+      "fixture_sha256": "0d7f06662a5f3da1369545e16843f3a36ab935139369fd340601375bc2948a87",
+      "passed": true,
+      "result": "[PASS] fresh_from_the_forge_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic",
+      "returncode": 0,
+      "stdout": "[PASS] fresh_from_the_forge_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

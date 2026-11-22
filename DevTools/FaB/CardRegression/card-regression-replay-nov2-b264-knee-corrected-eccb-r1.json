@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch264-knee-corrected.json",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T23:01:14.898861+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rising-knee-thrust-red-four-live-sparse-real-leg-tap-same-chain-combo-five-damage-and-go-again",
+      "fixture_sha256": "f21526b6fc7c176911ccba45954d8838104906859e4bdd3a9cfc2f51af1e7dc5",
+      "passed": true,
+      "result": "[PASS] rising_knee_thrust_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rising-knee-thrust-red-four-live-sparse-real-leg-tap-same-chain-combo-five-damage-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] rising_knee_thrust_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

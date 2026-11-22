@@ -3,7 +3,7 @@
 function FaBDTDCount(int $p,string $key): int {return FaBARCEffect($p,'DTD_'.$key);}
 function FaBDTDAdd(int $p,string $key,int $n=1,array $data=[]): void {FaBWTRAddEffect($p,'DTD_'.$key,$n,$data);}
 function FaBDTDClear(int $p,string $key): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='DTD_'.$key)));}
-function FaBDTDSource(int $uid): string {return FaBFindUID($uid)['mzID']??'';}
+function FaBDTDSource(int $uid,string $sourceRef=''): string {if($sourceRef!=='')return FaBDamageSourceView($sourceRef,$uid)?$sourceRef:'';return FaBFindUID($uid)['mzID']??'';}
 function FaBDTDLostSeats(): array {return array_values(array_filter(FaBLiveSeats(),fn($p)=>FaBDTDCount($p,'LOST')>0));}
 function FaBDTDHerald(object $o): bool {foreach(FaBOUTNames($o) as $name)if(str_contains($name,'Herald'))return true;return false;}
 function FaBDTDAngels(): array {return ['figment_of_erudition_yellow'=>'suraya_archangel_of_erudition','figment_of_judgment_yellow'=>'themis_archangel_of_judgment','figment_of_protection_yellow'=>'aegis_archangel_of_protection','figment_of_ravages_yellow'=>'sekem_archangel_of_ravages','figment_of_rebirth_yellow'=>'avalon_archangel_of_rebirth','figment_of_tenacity_yellow'=>'metis_archangel_of_tenacity','figment_of_triumph_yellow'=>'victoria_archangel_of_triumph','figment_of_war_yellow'=>'bellona_archangel_of_war'];}
@@ -28,8 +28,42 @@ function FaBDTDHandBanish(int $p,int $uid): void {
  $r=FaBRandomHandUID($p);if(!$r)return;$f=FaBFindUID($r);$six=FaBMONBasePower($p,$f['object'])>=6;FaBMoveUID($r,'Banish',$p);FaBARCSetCard($uid,'dtdSix',$six);FaBARCSetCard($uid,'dtdBanished',$r);
 }
 function FaBDTDFrenzy(int $p,int $uid): void {$n=0;$six=0;foreach(FaBChoiceRefs($p,'Hand') as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBHasKeyword($o,'Blood Debt'))++$n;if(FaBMONBasePower($p,$o)>=6)++$six;FaBMoveUID(intval($o->UniqueID),'Banish',$p);}FaBARCSetCard($uid,'dtdDraw',$n);FaBARCSetCard($uid,'dtdPower',$six);}
-function FaBDTDGrant(int $p,int $uid,bool $next=false): void {$f=FaBFindUID($uid);if(!$f||$f['zone']!=='Banish')return;$s=FaBGetState();$s['dtdPermissions'][$uid]=['player'=>$p,'created'=>intval(GetTurnNumber()),'next'=>$next];FaBSetState($s);}
-function FaBDTDPermission(int $p,object $o): bool {$e=FaBGetState()['dtdPermissions'][intval($o->UniqueID)]??null;if(!$e||intval($e['player'])!==$p)return false;return !$e['next']?intval($e['created'])===intval(GetTurnNumber()):$p===intval(GetTurnPlayer())&&intval(GetTurnNumber())>intval($e['created']);}
+function FaBDTDGrant(int $p,int $uid,bool $next=false): void {
+ $f=FaBFindUID($uid);if(!$f||$f['zone']!=='Banish')return;
+ $s=FaBGetState();$entry=['player'=>$p,'created'=>intval(GetTurnNumber()),'next'=>$next];
+ if($next)$entry['activeTurn']=0;
+ $s['dtdPermissions'][$uid]=$entry;FaBSetState($s);
+}
+function FaBDTDPermission(int $p,object $o): bool {
+ $uid=intval($o->UniqueID??0);$e=FaBGetState()['dtdPermissions'][$uid]??null;$f=FaBFindUID($uid);
+ if(!is_array($e)||intval($e['player']??0)!==$p||!$f||$f['zone']!=='Banish'||$f['object']!==$o)return false;
+ if(empty($e['next']))return intval($e['created']??0)===intval(GetTurnNumber());
+ $s=FaBGetState();
+ return $p===intval(GetTurnPlayer())&&intval($e['activeTurn']??0)===intval(GetTurnNumber())
+  &&intval($e['activeTurn']??0)>intval($e['created']??0)&&GetCurrentPhase()==='MAIN'
+  &&empty($s['dtdStarting'])&&empty($s['endingTurn'])&&($s['window']??'')!=='END_PHASE';
+}
+/** A next-action-phase grant activates once, at the actual beginning of its owner's Action phase. */
+function FaBDTDActivatePermissions(int $p): void {
+ if(!FaBSeatIsLive($p)||$p!==intval(GetTurnPlayer()))return;
+ $s=FaBGetState();$turn=intval(GetTurnNumber());
+ foreach($s['dtdPermissions']??[] as $uid=>$e){
+  if(!is_array($e)||empty($e['next'])||intval($e['player']??0)!==$p
+   ||intval($e['created']??0)>=$turn||!array_key_exists('activeTurn',$e)
+   ||!is_int($e['activeTurn'])||$e['activeTurn']!==0)continue;
+  $f=FaBFindUID(intval($uid));
+  if(!$f||$f['zone']!=='Banish'){unset($s['dtdPermissions'][$uid]);continue;}
+  $s['dtdPermissions'][$uid]['activeTurn']=$turn;
+ }
+ FaBSetState($s);
+}
+/** Called at the actual end-Action transition, before any end-phase queue can reopen PRIORITY. */
+function FaBDTDEndActionPermissions(int $p): void {
+ $s=FaBGetState();
+ foreach($s['dtdPermissions']??[] as $uid=>$e)if(!empty($e['next'])
+  &&intval($e['player']??0)===$p&&intval($e['activeTurn']??0)>0)unset($s['dtdPermissions'][$uid]);
+ FaBSetState($s);
+}
 function FaBDTDRuneGate(int $p,object $o): bool {$f=FaBFindUID(intval($o->UniqueID));$from=$f['zone']??'';if($from==='Stack')$from=$o->SourceZone??'';return $from==='Banish'&&empty($o->FaceDown)&&FaBHasKeyword($o,'Rune Gate')&&FaBARCRunechants($p)>=intval(CardCost($o->CardID));}
 function FaBDTDBanishPlayable(int $p,object $o,bool $heroPermission=true): bool {
  if(!empty($o->FaceDown))return false;$b=FaBWTRBase($o->CardID);
@@ -114,7 +148,43 @@ function FaBDTDDiplomacy(int $p,string $mode): void {FaBWTRAddEffect($p,$mode===
 function FaBDTDNameLock(int $p,string $name): void {FaBDTDAdd($p,'CENSOR',1,['name'=>$name,'expiresAfterTurnOf'=>$p]);}
 function FaBDTDHackTargets(int $victim,int $n): string {return implode('&',array_filter(FaBChoiceRefs($victim,'Arena',['type'=>'Aura','maxCost'=>$n]),fn($r)=>!FaBHasType(FaBIdentityFromMZ($r)['object'],'Token')));}
 function FaBDTDFindFigment(int $p,string $r): void {$f=FaBIdentityFromMZ($r);if(!$f||$f['player']!==$p||$f['zone']!=='Deck'||!FaBHasType($f['object'],'Figment'))return;$o=FaBMoveUID(intval($f['object']->UniqueID),'Arena',$p);if($o)FaBRunSourceMacro('ResolveCard',$p,$o->CardID,['mzID'=>FaBDTDSource(intval($o->UniqueID))]);}
-function FaBDTDTopChoice(int $p,string $r): void {$f=FaBIdentityFromMZ($r);if($f&&$f['player']===$p&&$f['zone']==='Graveyard')FaBARCToDeck($p,intval($f['object']->UniqueID),true);}
+/** The legacy graveyard mover may accept Banish only for Lens's owned resolving choice. */
+function FaBDTDLensBanishTopAllowed(int $p,string $r,array $f): bool {
+    $o=$f['object']??null;
+    if(!FaBSeatIsLive($p)||($f['player']??0)!==$p||($f['zone']??'')!=='Banish'||!is_object($o)
+        ||!empty($o->removed)||!empty($o->FaceDown)||intval($o->UniqueID??0)<1
+        ||(intval($o->Owner??0)>0&&intval($o->Owner)!==$p)
+        ||!FaBHasType($o,'Mechanologist')||!FaBHasType($o,'Item'))return false;
+    $pending=FaBGetState()['resolvingReaction']??null;
+    if(!is_array($pending)||($pending['resolutionClass']??'')!=='ARC_ABILITY'
+        ||($pending['cardID']??'')!=='prismatic_lens_yellow'||($pending['kind']??'')!=='ABILITY'
+        ||intval($pending['controller']??0)!==$p||intval($pending['owner']??0)!==$p
+        ||($pending['frameMacro']??'')!=='ResolveAbility'||intval($pending['uid']??0)<1
+        ||intval($pending['sourceUniqueID']??0)<1)return false;
+    $uid=intval($pending['uid']);$layer=FaBFindUID($uid);
+    if(!$layer||$layer['zone']!=='Stack'||!empty($layer['object']->removed)
+        ||$layer['object']->CardID!=='prismatic_lens_yellow'||($layer['object']->Kind??'')!=='ABILITY'
+        ||intval($layer['object']->Controller??0)!==$p||($layer['object']->SourceZone??'')!=='Arena'
+        ||intval($layer['object']->SourceUniqueID??0)!==intval($pending['sourceUniqueID'])
+        ||!FaBManagedAbilityResolutionOwns($layer['object'])
+        ||intval(DecisionQueueController::GetVariable('fabAbilityStackUID'))!==$uid
+        ||intval(DecisionQueueController::GetVariable('arcAbilityUID'))!==$uid
+        ||intval(DecisionQueueController::GetVariable('arcAbilityIndex'))!==0)return false;
+    $matches=0;
+    foreach((array)($pending['ownedFrameKeys']??[]) as $key){
+        if(!is_string($key)||preg_match('/^prismatic_lens_yellow:0:ResolveAbility#[1-9][0-9]*$/D',$key)!==1
+            ||in_array($key,(array)($pending['baselineFrameKeys']??[]),true))continue;
+        $frame=DecisionQueueController::GetAwaitFrame($key);$locals=$frame['locals']??null;
+        if(!is_array($locals)||($locals['mzID']??null)!==($pending['sourceMZ']??null)
+            ||($locals['chosen']??null)!==$r||!is_string($locals['refs']??null)
+            ||!in_array($r,explode('&',$locals['refs']),true))continue;
+        $pitch=$locals['pitch']??null;
+        if(!is_int($pitch)||!in_array($pitch,[1,2,3],true)||intval(CardPitch($o->CardID))!==$pitch)continue;
+        ++$matches;
+    }
+    return $matches===1;
+}
+function FaBDTDTopChoice(int $p,string $r): void {$f=FaBIdentityFromMZ($r);if($f&&$f['player']===$p&&$f['zone']==='Graveyard')FaBARCToDeck($p,intval($f['object']->UniqueID),true);elseif($f&&FaBDTDLensBanishTopAllowed($p,$r,$f))FaBARCToDeck($p,intval($f['object']->UniqueID),true);}
 function FaBDTDBellona(int $p): void {foreach(FaBChoiceRefs($p,'Arena',['type'=>'Angel']) as $r){$o=FaBIdentityFromMZ($r)['object'];FaBSetObjectCounter($o,'POWER',intval(FaBObjectCounters($o)['POWER']??0)+1);}}
 function FaBDTDPeekSoul(int $p,array $uids,string $chosen): void {$f=FaBIdentityFromMZ($chosen);if($f&&in_array(intval($f['object']->UniqueID),$uids,true)&&intval(CardPitch($f['object']->CardID))===2){FaBRevealChoices($p,$chosen);FaBMoveUID(intval($f['object']->UniqueID),'Soul',$p);}FaBDYNFinishPeek($p,$uids,false);}
 function FaBDTDPrayer(int $p): bool {$r=FaBChoiceRefs($p,'Deck')[0]??'';$f=FaBIdentityFromMZ($r);if(!$f)return false;FaBRevealChoices($p,$r);if(intval(CardPitch($f['object']->CardID))!==2)return false;FaBMoveUID(intval($f['object']->UniqueID),'Hand',$p);return true;}
@@ -138,25 +208,29 @@ function FaBDTDOpposingTargets(int $p): string {return implode('&',array_filter(
 function FaBDTDHideBanish(int $p): void {foreach(FaBChoiceRefs($p,'Banish') as $r)FaBDTDFaceDown($r);}
 function FaBDTDForcefield(int $p,array $used=[]): bool {return FaBDTDForcefieldUID($p,$used)>0;}
 function FaBDTDForcefieldUID(int $p,array $used=[]): int {if(FaBMONSoul($p)==='')return 0;foreach(FaBMONArena($p,'radiant_forcefield') as $r){$uid=intval(FaBIdentityFromMZ($r)['object']->UniqueID);if(!in_array($uid,$used,true))return $uid;}return 0;}
-function FaBDTDPreventionChoices(int $p,int $n,array $used=[],string $type='PHYSICAL',int $source=0): string {
+function FaBDTDPreventionChoices(int $p,int $n,array $used=[],string $type='PHYSICAL',int $source=0,string $sourceRef=''): string {
  if($p<1||$n<1||!FaBSeatIsLive($p))return '';$out=FaBMSTWardRefs($p);if($type==='ARCANE')$out=array_merge($out,FaBROSShelters($p));
  foreach(['shroud_of_darkness','cloak_of_darkness','grasp_of_darkness','dance_of_darkness'] as $id)$out=array_merge($out,FaBCRUEquipment($p,$id));
  if(FaBDTDForcefield($p,$used))$out=array_merge($out,FaBChoiceRefs($p,'Soul'));
  if($n>=intval(GetHealth($p))&&FaBDTDCount($p,'MORLOCK'))foreach(['Hand','Arsenal'] as $z)$out=array_merge($out,FaBChoiceRefs($p,$z,['base'=>'minerva_themis']));
- return implode('&',array_unique(array_merge($out,FaBPENPreventionChoices($p,$type,$used),FaBIARShadowResistRefs($p,$source))));
+ return implode('&',array_unique(array_merge($out,FaBPENPreventionChoices($p,$type,$used),FaBIARShadowResistRefs($p,$source,$sourceRef))));
 }
-function FaBDTDPreventionPay(int $p,string $r,int $n,array &$used=[],int $source=0): int {
- $iar=FaBIARShadowResistPay($p,$r,$source);if($iar)return $iar;
+function FaBDTDPreventionPay(int $p,string $r,int $n,array &$used=[],int $source=0,string $sourceRef=''): int {
+ $iar=FaBIARShadowResistPay($p,$r,$source,$sourceRef);if($iar)return $iar;
  $pen=FaBPENPreventionPay($p,$r,$used);if($pen)return $pen;
  if(in_array($r,FaBROSShelters($p),true)){$o=FaBIdentityFromMZ($r)['object'];FaBMONDestroy(intval($o->UniqueID));return 1;}if(!in_array($r,explode('&',FaBDTDPreventionChoices($p,$n,$used)),true))return 0;$f=FaBIdentityFromMZ($r);if(FaBMSTWardActive($f['object'])){$value=FaBMSTWard($p,$f['object']);FaBMONDestroy(intval($f['object']->UniqueID));return $value;}$value=$f['zone']==='Soul'?1:2;if($f['zone']==='Soul')$used[]=FaBDTDForcefieldUID($p,$used);
- if($f['object']->CardID==='minerva_themis'){$value=$n;FaBDTDClear($p,'MORLOCK');}
+ if($f['object']->CardID==='minerva_themis'){
+  $value=$n;FaBDTDClear($p,'MORLOCK');
+  // Morlock's ordinary banish is public; establish visibility before movement.
+  if(property_exists($f['object'],'FaceDown'))$f['object']->FaceDown=0;
+ }
  FaBMoveUID(intval($f['object']->UniqueID),'Banish',$p);return $value;
 }
 function FaBDTDStorePrevention(int $p,int $source,int $n): void {if($n>0)FaBDTDAdd($p,'PREVENT_PACKET',$n,['sourceUID'=>$source]);}
 function FaBDTDConsumePrevention(int $p,int $source,int $n): int {$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='DTD_PREVENT_PACKET'&&intval($e['sourceUID']??0)===$source)$n=max(0,$n-intval($e['amount']));else $left[]=$e;}FaBWTRSetEffects($p,$left);return $n;}
-function FaBDTDUnpreventable(int $p,int $source,string $type): bool {
+function FaBDTDUnpreventable(int $p,int $source,string $type,string $sourceRef=''): bool {
  $p=FaBUPRPlainSpellActor($source,$p,$type);
- return ($type==='PHYSICAL'&&FaBARCEffect($p,'OMN_UNPREVENTABLE'))||FaBUPRUnpreventable($source)||($type==='ARCANE'&&FaBEVRUnpreventable($p,0));
+ return ($type==='PHYSICAL'&&FaBARCEffect($p,'OMN_UNPREVENTABLE'))||FaBUPRUnpreventable($source,$sourceRef)||($type==='ARCANE'&&FaBEVRUnpreventable($p,0));
 }
 function FaBDTDCombatPrevention(): bool {
  $s=FaBGetState();$uid=intval($s['attackUID']);$targets=$s['attackTargets']??[];if(!$targets)$targets=[$s['attackTarget']??[]];
@@ -175,4 +249,4 @@ function FaBDTDCostPitchChoices(int $p,int $reserve=1): string {
   if($available>=$cost&&in_array($r,explode('&',FaBARCPitchChoices($p)),true))$out[]=$r;
  }return implode('&',$out);
 }
-function FaBDTDBeginActionPhase(): void {$s=FaBGetState();$s['dtdStarting']=false;FaBSetState($s);FaBPENActionPhase(intval(GetTurnPlayer()));FaBOMNActionPhase(intval(GetTurnPlayer()));FaBIARActionPhase(intval(GetTurnPlayer()));}
+function FaBDTDBeginActionPhase(): void {$s=FaBGetState();$s['dtdStarting']=false;FaBSetState($s);FaBDTDActivatePermissions(intval(GetTurnPlayer()));FaBPENActionPhase(intval(GetTurnPlayer()));FaBOMNActionPhase(intval(GetTurnPlayer()));FaBIARActionPhase(intval(GetTurnPlayer()));FaBROSHarvestBeginningAction(intval(GetTurnPlayer()));}

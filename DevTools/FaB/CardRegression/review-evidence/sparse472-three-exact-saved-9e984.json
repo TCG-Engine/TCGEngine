@@ -1,0 +1,1165 @@
+{
+  "status": "APPROVED_EXACT_SAVED_THREE_CASES_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-05T14:00:01.157724+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "runtime_fingerprint_verified": true,
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch472.json",
+  "input_sha256": "d960fe0865c6361f994bc60b76dd0d0bcc963f1512bc3577c47e9246bc01b3a8",
+  "fixtures": [
+    {
+      "slug": "card-blood-line-red-four-live-real-draconic-link-cost-two-to-one-three-damage-and-go-again",
+      "card_id": "blood_line_red",
+      "group_id": "identity:blood_line_red",
+      "fixture_sha256": "5f43fdf07490e197fa7de535f024871df61effe348ff466ce2d8718b43d56426",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4e9662c0cce7779dbbaaf7fe2085dccdbe65b0b134eea75ae4c2d5d6a9943ae4",
+        "actions.json": "9ff5bf4e224d0f7470c99a1e0e2ff0d1625bc1f40bb5c6e28c81ffd8981b7806",
+        "assertions.json": "79917d162db951b991d21bc265ef1c070bb3d99189e1279b6074dd79850f5c75",
+        "expected_final_gamestate.txt": "75313c6a2435dabecd493264938fc92197981876eea75c726c3be7f344a4e7b4",
+        "meta.json": "c695ab35f7ba97bec87d3c483bd578f474450024500de5c95e04dbe0a90bd4b6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4e9662c0cce7779dbbaaf7fe2085dccdbe65b0b134eea75ae4c2d5d6a9943ae4",
+        "actions.json": "9ff5bf4e224d0f7470c99a1e0e2ff0d1625bc1f40bb5c6e28c81ffd8981b7806",
+        "assertions.json": "79917d162db951b991d21bc265ef1c070bb3d99189e1279b6074dd79850f5c75",
+        "expected_final_gamestate.txt": "75313c6a2435dabecd493264938fc92197981876eea75c726c3be7f344a4e7b4",
+        "meta.json": "c695ab35f7ba97bec87d3c483bd578f474450024500de5c95e04dbe0a90bd4b6"
+      },
+      "actions": 50,
+      "native_assertions": 4070,
+      "actual_manual_passes": 46,
+      "manual_passes": 46,
+      "manual_pass_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "physical_uid_conservation_without_duplicates": true,
+      "initial_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "created_physical_UIDs": [],
+      "ceased_virtual_UIDs": [],
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual initial5Blood/6Ronin/7BlueHand1, no history seed. Real Ronin3 hitHP17/printedGA refundsAP1 at RESOLUTION without chain close; exact next nativeHand0Blood play uses same openchain/currenttarget4. PendingPaymentUID5cost1, then REALBlue7pitch3/pays1/R2AP0. Same6Chainlink1 remains, same5joinsChainindex1/link2/power3/ownGA. Actual next3HP14 and DamagefourAP1; fullclose GY1{5,6}/Pitch7/R2AP1/allUID1..7/counter7/noextraobject. Fresh current-attack oracles explicitly use index1 not oldRonin.",
+      "qualification": "One actual prior-Draconic-link cost2-to1/ownGA/damage positive branch. No multi-link/costfloor/othercolors/Fai/Phoenix/Ronin-primary/target-change/other-chain/fullcard/sibling/control credit."
+    },
+    {
+      "slug": "card-falcon-wing-red-four-live-prior-legal-aim-counter-real-arsenal-play-four-damage-and-go-again",
+      "card_id": "falcon_wing_red",
+      "group_id": "pitch-cycle:falcon_wing",
+      "fixture_sha256": "f46921064cde2abc31199bc2f8147e9fdcc0c446346e09f7201c6e2974947a00",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4be29900a451ee09368bf6b0e96966164e9150e7583777f288579554247fe78f",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "3cbbd7557ff0f808b22e3190ef7475548e9ad0482dbb332c6d931d36a167ae38",
+        "expected_final_gamestate.txt": "b164005aaddde30c95f97c691b3c8c4e60a78d9f602449a8b2985c7319b20454",
+        "meta.json": "cda7c275550194d3c7c3db722dad787ff5ed2118d97fc5c20b38a6c274231382"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4be29900a451ee09368bf6b0e96966164e9150e7583777f288579554247fe78f",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "3cbbd7557ff0f808b22e3190ef7475548e9ad0482dbb332c6d931d36a167ae38",
+        "expected_final_gamestate.txt": "b164005aaddde30c95f97c691b3c8c4e60a78d9f602449a8b2985c7319b20454",
+        "meta.json": "cda7c275550194d3c7c3db722dad787ff5ed2118d97fc5c20b38a6c274231382"
+      },
+      "actions": 27,
+      "native_assertions": 2332,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "physical_uid_conservation_without_duplicates": true,
+      "initial_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "created_physical_UIDs": [],
+      "ceased_virtual_UIDs": [],
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual initial SAMEFalcon5ArsenalFaceDown0/AIM1, owned ready Bow6only2Hweapon and quietDeck7; all currenthistory empty. Current realArsenal0 target4/pay0 spendsAP1, StacksourceArsenalUID5 retainsAim and nativeFAB_PLAY_ORDER1. Same5Chain actualfresh4/printedGA, 4physicalHP16; DamagefourAP1, fullclose5publicGY. RawfinalBow6/Deck7 unchanged/ready/noactivationuse, originalUID1..7 conserved/R0AP1. Prior secondBow flip+Aim physical setup not replayed/qualified here; no Aimcreation/firstload credit.",
+      "qualification": "One prior persistentAim-positive power/damage branch plus own printedGA. No Bow ability execution, Aimcreation, firstload, Azalea, prior setup lifecycle, alternateArsenal/othercolor/fullcard/control credit."
+    },
+    {
+      "slug": "card-pick-to-pieces-red-four-live-real-lunging-press-earns-power-and-five-unpreventable-damage-through-zen",
+      "card_id": "pick_to_pieces_red",
+      "group_id": "pitch-cycle:pick_to_pieces",
+      "fixture_sha256": "75ea597ff0ca071ec8b5ebdd558129f7497c867eb03d67aca3e13f9132a90fb9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9d95d6914688b4a09ca96fd54a29b6152d47428e225d87e819132110b2a71046",
+        "actions.json": "04ec7b0d1f667a55258d123e3e9302e3c2ae3142df18e909a451d2081749768d",
+        "assertions.json": "23c1bdac62a2f61e491d6bd473c25a53a4cf535b1ff1fa96b7641c1c2caee12e",
+        "expected_final_gamestate.txt": "d212302441df1bd03ae2c35bf54df6173d5812010c418a371d896ab5a2942d58",
+        "meta.json": "59aeb442f3bd3c3ec900609b284281fd15268f5a25e4ddf24eb5b4815f002fe4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9d95d6914688b4a09ca96fd54a29b6152d47428e225d87e819132110b2a71046",
+        "actions.json": "04ec7b0d1f667a55258d123e3e9302e3c2ae3142df18e909a451d2081749768d",
+        "assertions.json": "23c1bdac62a2f61e491d6bd473c25a53a4cf535b1ff1fa96b7641c1c2caee12e",
+        "expected_final_gamestate.txt": "d212302441df1bd03ae2c35bf54df6173d5812010c418a371d896ab5a2942d58",
+        "meta.json": "59aeb442f3bd3c3ec900609b284281fd15268f5a25e4ddf24eb5b4815f002fe4"
+      },
+      "actions": 32,
+      "native_assertions": 2744,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "physical_uid_conservation_without_duplicates": true,
+      "initial_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "created_physical_UIDs": [],
+      "ceased_virtual_UIDs": [],
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual oldArakni20/ownedHand5primary+6LungingBlue, prior P4KatsuZen7ready/BALANCE1/no currenthistory. Real5power3/noGA; actualLunging6Hand0 ARcost0 on same currentAA5/link1: played intrinsic condition immediately givespower4 WHILEsame6Stack/SourceHandUID6held throughfirstthree. Fourth ARresponse clears6ownGY and actual+1 makesfresh5. SeparateReactionfour deals FIVEphysical through actual Zen/HP15, not normalprevented4. RawfinalZen7exactunchanged/status2/BALANCE1/noWardconsumption, GY1{5,6}/RAPChi0/allUID1..7/counter7/quietqueues; rawactualmstReactions1 corroboratesrealinput, neverseeded.",
+      "qualification": "One actuallyPLAYED AR condition/power/unpreventable branch through prior Zen. No ARactivation/multipleAR/Stealthconsumer/Arakni/Katsu/Zencreation/upkeep/destruction/supportprimary/othercolor/fullcard/control credit."
+    }
+  ],
+  "total_actions": 109,
+  "total_native_assertions": 9146,
+  "total_manual_pass_inputs": 100,
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch472-independent-source-review.json",
+    "sha256": "6f995243146a1004b8970946b0ea8f0b2c49c18e6bf7f97774c1fe7f0d09a8ab",
+    "manifest_sha256": "28ddce2b0ae611325396a6078eb4a642f97c41ce489d3f5df48517eb144c7688"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch472-20261105T135617Z-6aec8b015ebb6.json",
+    "sha256": "2cd726aefae081a5f21655acb7f3c20fd4cf64defec84b71d0da8c56524d992a"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch472.recording-results.json",
+    "sha256": "44fbefa0372fe607626791b749217df2c87b13cf242811a1c6e1985ce3d24f79"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch472-native-r1-9e984\\receipt.json",
+    "sha256": "bb497792e0324a52a41aec11f026795c67e234ef37fd120eb5fc2907dd997b53",
+    "stdout_sha256": "9b0caecebd6e0e7d72b885e740ca66224cb2ba4c2c666989155b4f2cd41c30e7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+    "runtime_after": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04"
+  },
+  "source_guards_verified": 69,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "f1db3603aa11cba94afc1fec49609f217a1fcea27e57c66b010a54fd58fb0d4f",
+    "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+    "DevTools/FaB/ele_abilities.json": "9e0f27afa772225ec73488928f8e54ca2b2205fe9aafd59f2f97da4ba61cf4f3",
+    "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+    "DevTools/FaB/boltyn_abilities.json": "8e1c2a7f773770928618a8392bda7d597b311a44ecd96c0a44ef5ddc6ba5e3b7"
+  },
+  "native_checkpoints": {
+    "card-blood-line-red-four-live-real-draconic-link-cost-two-to-one-three-damage-and-go-again": [
+      {
+        "source_step": 0,
+        "native_step": 0,
+        "assertions": 123
+      },
+      {
+        "source_step": 2,
+        "native_step": 1,
+        "assertions": 61
+      },
+      {
+        "source_step": 4,
+        "native_step": 2,
+        "assertions": 68
+      },
+      {
+        "source_step": 6,
+        "native_step": 3,
+        "assertions": 68
+      },
+      {
+        "source_step": 8,
+        "native_step": 4,
+        "assertions": 68
+      },
+      {
+        "source_step": 10,
+        "native_step": 5,
+        "assertions": 68
+      },
+      {
+        "source_step": 12,
+        "native_step": 6,
+        "assertions": 75
+      },
+      {
+        "source_step": 14,
+        "native_step": 7,
+        "assertions": 75
+      },
+      {
+        "source_step": 16,
+        "native_step": 8,
+        "assertions": 75
+      },
+      {
+        "source_step": 18,
+        "native_step": 9,
+        "assertions": 75
+      },
+      {
+        "source_step": 20,
+        "native_step": 10,
+        "assertions": 75
+      },
+      {
+        "source_step": 22,
+        "native_step": 11,
+        "assertions": 75
+      },
+      {
+        "source_step": 24,
+        "native_step": 12,
+        "assertions": 75
+      },
+      {
+        "source_step": 26,
+        "native_step": 13,
+        "assertions": 75
+      },
+      {
+        "source_step": 28,
+        "native_step": 14,
+        "assertions": 75
+      },
+      {
+        "source_step": 30,
+        "native_step": 15,
+        "assertions": 75
+      },
+      {
+        "source_step": 32,
+        "native_step": 16,
+        "assertions": 75
+      },
+      {
+        "source_step": 34,
+        "native_step": 17,
+        "assertions": 75
+      },
+      {
+        "source_step": 36,
+        "native_step": 18,
+        "assertions": 75
+      },
+      {
+        "source_step": 38,
+        "native_step": 19,
+        "assertions": 78
+      },
+      {
+        "source_step": 40,
+        "native_step": 20,
+        "assertions": 78
+      },
+      {
+        "source_step": 42,
+        "native_step": 21,
+        "assertions": 78
+      },
+      {
+        "source_step": 44,
+        "native_step": 22,
+        "assertions": 78
+      },
+      {
+        "source_step": 46,
+        "native_step": 23,
+        "assertions": 78
+      },
+      {
+        "source_step": 48,
+        "native_step": 24,
+        "assertions": 83
+      },
+      {
+        "source_step": 50,
+        "native_step": 25,
+        "assertions": 79
+      },
+      {
+        "source_step": 52,
+        "native_step": 26,
+        "assertions": 79
+      },
+      {
+        "source_step": 54,
+        "native_step": 27,
+        "assertions": 79
+      },
+      {
+        "source_step": 56,
+        "native_step": 28,
+        "assertions": 79
+      },
+      {
+        "source_step": 58,
+        "native_step": 29,
+        "assertions": 78
+      },
+      {
+        "source_step": 60,
+        "native_step": 30,
+        "assertions": 78
+      },
+      {
+        "source_step": 62,
+        "native_step": 31,
+        "assertions": 78
+      },
+      {
+        "source_step": 64,
+        "native_step": 32,
+        "assertions": 78
+      },
+      {
+        "source_step": 66,
+        "native_step": 33,
+        "assertions": 78
+      },
+      {
+        "source_step": 68,
+        "native_step": 34,
+        "assertions": 78
+      },
+      {
+        "source_step": 70,
+        "native_step": 35,
+        "assertions": 78
+      },
+      {
+        "source_step": 72,
+        "native_step": 36,
+        "assertions": 78
+      },
+      {
+        "source_step": 74,
+        "native_step": 37,
+        "assertions": 78
+      },
+      {
+        "source_step": 76,
+        "native_step": 38,
+        "assertions": 78
+      },
+      {
+        "source_step": 78,
+        "native_step": 39,
+        "assertions": 78
+      },
+      {
+        "source_step": 80,
+        "native_step": 40,
+        "assertions": 78
+      },
+      {
+        "source_step": 82,
+        "native_step": 41,
+        "assertions": 78
+      },
+      {
+        "source_step": 84,
+        "native_step": 42,
+        "assertions": 81
+      },
+      {
+        "source_step": 86,
+        "native_step": 43,
+        "assertions": 81
+      },
+      {
+        "source_step": 88,
+        "native_step": 44,
+        "assertions": 81
+      },
+      {
+        "source_step": 90,
+        "native_step": 45,
+        "assertions": 81
+      },
+      {
+        "source_step": 92,
+        "native_step": 46,
+        "assertions": 81
+      },
+      {
+        "source_step": 94,
+        "native_step": 47,
+        "assertions": 81
+      },
+      {
+        "source_step": 96,
+        "native_step": 48,
+        "assertions": 81
+      },
+      {
+        "source_step": 98,
+        "native_step": 49,
+        "assertions": 81
+      },
+      {
+        "source_step": 100,
+        "native_step": 50,
+        "assertions": 65
+      },
+      {
+        "source_step": 101,
+        "native_step": 50,
+        "assertions": 123
+      }
+    ],
+    "card-falcon-wing-red-four-live-prior-legal-aim-counter-real-arsenal-play-four-damage-and-go-again": [
+      {
+        "source_step": 0,
+        "native_step": 0,
+        "assertions": 127
+      },
+      {
+        "source_step": 2,
+        "native_step": 1,
+        "assertions": 65
+      },
+      {
+        "source_step": 4,
+        "native_step": 2,
+        "assertions": 71
+      },
+      {
+        "source_step": 6,
+        "native_step": 3,
+        "assertions": 71
+      },
+      {
+        "source_step": 8,
+        "native_step": 4,
+        "assertions": 71
+      },
+      {
+        "source_step": 10,
+        "native_step": 5,
+        "assertions": 71
+      },
+      {
+        "source_step": 12,
+        "native_step": 6,
+        "assertions": 78
+      },
+      {
+        "source_step": 14,
+        "native_step": 7,
+        "assertions": 78
+      },
+      {
+        "source_step": 16,
+        "native_step": 8,
+        "assertions": 78
+      },
+      {
+        "source_step": 18,
+        "native_step": 9,
+        "assertions": 78
+      },
+      {
+        "source_step": 20,
+        "native_step": 10,
+        "assertions": 78
+      },
+      {
+        "source_step": 22,
+        "native_step": 11,
+        "assertions": 78
+      },
+      {
+        "source_step": 24,
+        "native_step": 12,
+        "assertions": 78
+      },
+      {
+        "source_step": 26,
+        "native_step": 13,
+        "assertions": 78
+      },
+      {
+        "source_step": 28,
+        "native_step": 14,
+        "assertions": 78
+      },
+      {
+        "source_step": 30,
+        "native_step": 15,
+        "assertions": 78
+      },
+      {
+        "source_step": 32,
+        "native_step": 16,
+        "assertions": 78
+      },
+      {
+        "source_step": 34,
+        "native_step": 17,
+        "assertions": 78
+      },
+      {
+        "source_step": 36,
+        "native_step": 18,
+        "assertions": 78
+      },
+      {
+        "source_step": 38,
+        "native_step": 19,
+        "assertions": 81
+      },
+      {
+        "source_step": 40,
+        "native_step": 20,
+        "assertions": 81
+      },
+      {
+        "source_step": 42,
+        "native_step": 21,
+        "assertions": 81
+      },
+      {
+        "source_step": 44,
+        "native_step": 22,
+        "assertions": 81
+      },
+      {
+        "source_step": 46,
+        "native_step": 23,
+        "assertions": 81
+      },
+      {
+        "source_step": 48,
+        "native_step": 24,
+        "assertions": 81
+      },
+      {
+        "source_step": 50,
+        "native_step": 25,
+        "assertions": 81
+      },
+      {
+        "source_step": 52,
+        "native_step": 26,
+        "assertions": 81
+      },
+      {
+        "source_step": 54,
+        "native_step": 27,
+        "assertions": 68
+      },
+      {
+        "source_step": 55,
+        "native_step": 27,
+        "assertions": 126
+      }
+    ],
+    "card-pick-to-pieces-red-four-live-real-lunging-press-earns-power-and-five-unpreventable-damage-through-zen": [
+      {
+        "source_step": 0,
+        "native_step": 0,
+        "assertions": 126
+      },
+      {
+        "source_step": 2,
+        "native_step": 1,
+        "assertions": 64
+      },
+      {
+        "source_step": 4,
+        "native_step": 2,
+        "assertions": 71
+      },
+      {
+        "source_step": 6,
+        "native_step": 3,
+        "assertions": 71
+      },
+      {
+        "source_step": 8,
+        "native_step": 4,
+        "assertions": 71
+      },
+      {
+        "source_step": 10,
+        "native_step": 5,
+        "assertions": 71
+      },
+      {
+        "source_step": 12,
+        "native_step": 6,
+        "assertions": 78
+      },
+      {
+        "source_step": 14,
+        "native_step": 7,
+        "assertions": 78
+      },
+      {
+        "source_step": 16,
+        "native_step": 8,
+        "assertions": 78
+      },
+      {
+        "source_step": 18,
+        "native_step": 9,
+        "assertions": 78
+      },
+      {
+        "source_step": 20,
+        "native_step": 10,
+        "assertions": 78
+      },
+      {
+        "source_step": 22,
+        "native_step": 11,
+        "assertions": 78
+      },
+      {
+        "source_step": 24,
+        "native_step": 12,
+        "assertions": 78
+      },
+      {
+        "source_step": 26,
+        "native_step": 13,
+        "assertions": 78
+      },
+      {
+        "source_step": 28,
+        "native_step": 14,
+        "assertions": 78
+      },
+      {
+        "source_step": 30,
+        "native_step": 15,
+        "assertions": 78
+      },
+      {
+        "source_step": 32,
+        "native_step": 16,
+        "assertions": 81
+      },
+      {
+        "source_step": 34,
+        "native_step": 17,
+        "assertions": 81
+      },
+      {
+        "source_step": 36,
+        "native_step": 18,
+        "assertions": 81
+      },
+      {
+        "source_step": 38,
+        "native_step": 19,
+        "assertions": 81
+      },
+      {
+        "source_step": 40,
+        "native_step": 20,
+        "assertions": 79
+      },
+      {
+        "source_step": 42,
+        "native_step": 21,
+        "assertions": 79
+      },
+      {
+        "source_step": 44,
+        "native_step": 22,
+        "assertions": 79
+      },
+      {
+        "source_step": 46,
+        "native_step": 23,
+        "assertions": 79
+      },
+      {
+        "source_step": 48,
+        "native_step": 24,
+        "assertions": 82
+      },
+      {
+        "source_step": 50,
+        "native_step": 25,
+        "assertions": 82
+      },
+      {
+        "source_step": 52,
+        "native_step": 26,
+        "assertions": 82
+      },
+      {
+        "source_step": 54,
+        "native_step": 27,
+        "assertions": 82
+      },
+      {
+        "source_step": 56,
+        "native_step": 28,
+        "assertions": 82
+      },
+      {
+        "source_step": 58,
+        "native_step": 29,
+        "assertions": 82
+      },
+      {
+        "source_step": 60,
+        "native_step": 30,
+        "assertions": 82
+      },
+      {
+        "source_step": 62,
+        "native_step": 31,
+        "assertions": 82
+      },
+      {
+        "source_step": 64,
+        "native_step": 32,
+        "assertions": 68
+      },
+      {
+        "source_step": 65,
+        "native_step": 32,
+        "assertions": 126
+      }
+    ]
+  },
+  "reused_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56",
+    "saved_fixture_review_tools.py": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "method": "All15rawfiles/three4filebehaviorhashes/fullschema initialfinalparse/exactordered109nativeactor-mode-payloadenvelopesand9146persistedassertions independently compared to unchangedapprovedsource. Intermediatecost/source/physicalsameUID/chainindex/actualARtiming/power/GA/damagefacts are passednativechecks+exactactions, notinventedrawintermediatesnapshots or reviewerengineexecution. Fresh computed native assertions distinguish current getterfromcache. FinalrawUID/counter/origin/hit histories corroboratephysicaloutcomes. Full48endpointpreferences verified foreachfixture plus100actualmanualactors; no unsupportedper-inputscalarprofilecheck/recomputation claim.",
+  "limits": [
+    "Root two targeted replay rounds and registration remain separately bound; reviewer executed no PHP/game/native/replay.",
+    "Only three approved positive branch representatives; no siblings/fullcard/falsecondition/multipleAR/othercostcount/otherzoneroutes/supportprimary/herocredit/control proof. Prior FalconAIM and Zencreation legalphysicalsetups were not executed or qualified here; no Bowfirstload addsAim claim; Zen static prevention is not Ward/no destruction or Balanceconsumption ondamage.",
+    "Currentprinted/rules source model6f995243 reused without recertifying unchangedlegacy/engine. Alloriginalinput/actions/materialoraclesunchanged; no newsourcefix/oraclefit/nativebug claimed.",
+    "Raw initial/final48preferences verified, no all-intermediate raw preference recomputation or private await-frame/local claim."
+  ],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "replay_or_control_credit_claimed_by_this_review": false
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch777-spinneret-zero-map.json",
+  "runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T00:42:21.764683+00:00",
+  "fixtures": [
+    {
+      "slug": "card-deadly-spinneret-red-four-live-real-hand-discard-two-graphene-tokens-paid-weapon-damage",
+      "fixture_sha256": "0f43de5c9903216f41e3fd7c87bdf3c857f1cd64dce6e081a8d2f9439d9914ff",
+      "passed": true,
+      "result": "[PASS] Deadly Spinneret / actual discard equips two weapons then paid token attack"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-deadly-spinneret-red-four-live-real-hand-discard-two-graphene-tokens-paid-weapon-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Deadly Spinneret / actual discard equips two weapons then paid token attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,139 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B307_PAYLOAD_SAME_CHAIN_BOOST_DOMINATE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T08:09:18.601884+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch307-payload.json",
+  "input_sha256": "d2923278dc8ed69c775a9eceb74e83f28f5715a0d764d6df3ef7956af2b65bd3",
+  "manifest_sha256": "7b9ca5cb2b4e502e42546f1738e6662a19ee7d91dd30a1f200f79e2781a66494",
+  "fixtures": [
+    {
+      "slug": "card-payload-red-four-live-sparse-real-same-chain-boost-earns-dominate-on-paid-second-link",
+      "card_id": "payload_red",
+      "group_id": "pitch-cycle:payload",
+      "fixture_sha256": "f2c16f9f2183b7322b6a4b81439c2f4fecf89f6ead0e287b7e1f46206eecc901",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c8107bebcf7087ec29386d7716dd9fc22e863af1e6ccc09837bea37c0d7be3d5",
+        "actions.json": "dafd45018436253007b0b9a683b3f56f9c9f158d1e548bb52cd086d2a5e6b954",
+        "assertions.json": "523ca20dfcc8e4fe75e26114e5c73c077818cfc3124e86459cbe7f43a1f31457",
+        "expected_final_gamestate.txt": "a66ff1e8f96ecc497ce7be787ec6df13cd23a67d2bcdbb5a69c0c426a1cfca49",
+        "meta.json": "de55220b1239fa7acad22408101eb3f9e7ec992a4e864b9065ab04c1ccf1fbb5"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c8107bebcf7087ec29386d7716dd9fc22e863af1e6ccc09837bea37c0d7be3d5",
+        "actions.json": "dafd45018436253007b0b9a683b3f56f9c9f158d1e548bb52cd086d2a5e6b954",
+        "assertions.json": "523ca20dfcc8e4fe75e26114e5c73c077818cfc3124e86459cbe7f43a1f31457",
+        "expected_final_gamestate.txt": "a66ff1e8f96ecc497ce7be787ec6df13cd23a67d2bcdbb5a69c0c426a1cfca49",
+        "meta.json": "de55220b1239fa7acad22408101eb3f9e7ec992a4e864b9065ab04c1ccf1fbb5"
+      },
+      "actions": 52,
+      "native_assertions": 4302,
+      "actual_manual_pass_inputs": 46,
+      "actual_manual_passes": 46,
+      "manual_passes": 46,
+      "priority_pass_inputs": 44,
+      "defending_declaration_finish_inputs": 2,
+      "manual_pass_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "priority_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 11
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          9
+        ]
+      },
+      "final_pitch_uids": [
+        7
+      ],
+      "final_banish_uids": [
+        8
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "no_virtual_uid_allocated": true,
+      "physical_findings": "RealZero5 Boostaccept0 afterdeclaredtarget banishesactualtopMech8/earnsGA, actual4damageHP16. FourDAMAGEresponses→RES/AP1 withphysical5link1stillopen; immediatePayload6cost2usesactualBlue7pitch3/AP1→R1AP0, nochainclose. Same6link2power6/DOMINATE/currentattackUID6 whileold5retained. ActualonelegalP4Hand9def3block→3damageHP13; PayloadnoGA/AP0. FullrawGYunordered{5,6}/P4GY9/Pitch7/publicBanish8/physicalUID1-9conserved/noextras/allqueuesStackChainscleared/manualall4.",
+      "qualification": "One primaryRedcycle same-open-chain actualBoost→DOMINATE positive withonelegalHandblock. No support-primary/fullcard/sibling/falsecondition/after-close/secondblockrejection/control credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch307-independent-source-review.json",
+    "sha256": "cccd5bbcbf52fa9df80f2f1cc0f7b7fb534a6bcb7942ce4760e7ec9a9ce876e4",
+    "manifest_sha256": "7b9ca5cb2b4e502e42546f1738e6662a19ee7d91dd30a1f200f79e2781a66494"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch307-payload-20261103T080520Z-6ae995c09a934.json",
+    "sha256": "0dbd0b669db7f75792696e1aa78b8dd63e86f06a7f47136af4ae73391087ed19"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch307-payload.recording-results.json",
+    "sha256": "286ba3ad12b800c80f952b90bb78b0ab6ee8cde4f27a767e0d4d032cb5b4f771"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch307-payload-native-r1\\receipt.json",
+    "sha256": "84380c56e546705e0ac8c16d12c5452e275cbb519841033134434cbb1f980ce1"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "printed_faces_independently_viewed": {
+    "payload_red": "6793173c81780ded70416b1d2a66f6118243e39cfb548b8a94ec4b09d5bbb1d0",
+    "zero_to_sixty_red": "d7c76e05428caf6b5a897d182bdff89ef122e24f52dad10e4d0d2943dd33f188"
+  },
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Exact saved positive representative only; Dominate second-Handblockrestriction/after-close/falsecondition/otherbranches remain untested/uncredited.",
+    "No newprimarycredit for supportingZero/Blue/boostcard/blocker/hero; Meta sourcepeer prior-support check reused withoutrepeatinglegacycorpus scans.",
+    "Replay qualification belongs to separateactualRootreports.",
+    "No R writes, native/PHP execution, source changes, generator/backend/service/fullsuite by reviewer."
+  ]
+}

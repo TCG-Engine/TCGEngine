@@ -1,0 +1,68 @@
+{
+  "status": "OVERPOWER111138_ORIGINAL75_6788_TWO_CLEAN_REPLAYS_PASS",
+  "reviewer": "Root independent of b820 source proposal and original correct scenarios",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "492a9d25d51ea893f4029c4a56d0dc292893dc21fcd1be17d522854951396dfb",
+  "input_sha256": "933702d5fd3e9f4ec80ccec20683dd3040c5c887ca501f10c13321a756da24f2",
+  "source_spec": "card-regression-repair-overpower111138-shared-predicate.json",
+  "fixtures": [
+    {
+      "slug": "card-log-fall-red-four-live-correct-real-earth-pitch-overpower-rejects-second-action-defender",
+      "card_id": "log_fall_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4fb19600f9daae70356883b61fcb7156f2acdc008b0166960674bcf453ef4bc9",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "aea6caf6141ac1b354ec2d717b7865b13629a2f086e2dd2d1630728286256fe5",
+        "expected_final_gamestate.txt": "ee382e74cab32a7277125a235f93199321e3f0f040558add58d414dd11c2b5b7",
+        "meta.json": "ad0016fff993327f4e740857202a558b68e11757fa08d655b3c4eec579333901"
+      },
+      "fixture_sha256": "9f869008014ace2f1d0bdb6e3326824a8436447b84b3c9fa00dc10bac563e5df",
+      "actions": 30,
+      "native_assertions": 2620,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "492a9d25d51ea893f4029c4a56d0dc292893dc21fcd1be17d522854951396dfb",
+      "runtime_sha256": "492a9d25d51ea893f4029c4a56d0dc292893dc21fcd1be17d522854951396dfb",
+      "source_spec": "card-regression-repair-overpower111138-shared-predicate.json",
+      "input_sha256": "933702d5fd3e9f4ec80ccec20683dd3040c5c887ca501f10c13321a756da24f2"
+    },
+    {
+      "slug": "card-vantage-point-blue-four-live-real-created-aura-overpower-rejects-second-action-defender-and-two-damage",
+      "card_id": "vantage_point_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4ab53977dbbc8846e3c0a9a9a3678abcdca72ff0d86f869876be7c0840d0ee0",
+        "actions.json": "f6c876672d9e88e4087785a0a747a351d5afddf6fa7efa0c0858ef6d39c1304a",
+        "assertions.json": "5e6a707ef43c8bded1995349866d61c23020d60a9b0933c83f631883e021cf64",
+        "expected_final_gamestate.txt": "6aa469e36a2494879692adef6d2b97acaa155aabd2db53b0fbeea3aeae87aa34",
+        "meta.json": "5ed563d31be072aaa6713431e2e8e0c0e35f987cf98fbb302d9b56a37407290e"
+      },
+      "fixture_sha256": "1fca446d26116babd132a0f561201b2400b1a39eea3ffe10e45fa713688428b4",
+      "actions": 45,
+      "native_assertions": 4168,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 37,
+      "recorded_runtime_sha256": "492a9d25d51ea893f4029c4a56d0dc292893dc21fcd1be17d522854951396dfb",
+      "runtime_sha256": "492a9d25d51ea893f4029c4a56d0dc292893dc21fcd1be17d522854951396dfb",
+      "source_spec": "card-regression-repair-overpower111138-shared-predicate.json",
+      "input_sha256": "933702d5fd3e9f4ec80ccec20683dd3040c5c887ca501f10c13321a756da24f2"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-overpower111138-replay.json",
+    "sha256": "0d73e2e86adba0629ead6766507bbb09d1f9532d683d600f2cd93d0f8a220ad3",
+    "passed": true
+  },
+  "source_review_sha256": "c3a79599823adefc4ab326fddc7c0c74e92b96d19555f5daea1189426aed34b4",
+  "components": 45,
+  "component_receipt_sha256": "39fa0512e85a9a4ed37208fad308d186a16dc59a7312dba382012f2e4939152b",
+  "basis": "111 actualEarthAutumnTouch6paysLogFall5, earnsOverpower, firstAction7defendsandotherwiselegal secondAction8remainsHand4, actual2damageHP18/RAP0/fullcleanup.138 actualRunechantcreationthenconsumptioncauses1arcaneHP19, retainedAura-createdhistoryearnsVantageOverpower; firstAction9defendsandsecondAction10remainsHand4, actual2physicalHP17/RAP0/fullcleanup. Sharedintrinsicpredicate alignsdisplayandblockenforcement; all75originalinputs6788queries unchanged andexactSaved/allseatfourliveflow independently matched.",
+  "limits": [
+    "ExactLogFallRed/VantageBlue native branches only. Vantageexistingfamilycondition retained without sibling credit.",
+    "Existing per-UID payment metadata replay/lifetime contract is reused, not new epoch/cache requalification. Aura creation/destruction is Native evidence; other conditional/history/blank cases isolated components only.",
+    "No broad keyword parser/enforcement change, virtual094/otherheldgoal, fullsuite or historicalcorpusreplay."
+  ]
+}

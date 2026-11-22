@@ -1,0 +1,27 @@
+{
+  "status": "APPLIED_NOT_YET_NATIVE_QUALIFIED",
+  "started_utc": "2026-11-06T04:34:09.342177+00:00",
+  "base_runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "projected_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_review_sha256": "77e61350d692675dfc4131322067a9105f1c020ca1860217daa45aabd244540d",
+  "proposal_sha256": "dd452d93d8e29a58167e356ceb6db0e36af51e628c3410514ff8affb875b27eb",
+  "component_results_sha256": "27eb2d011927ed961a231eb8193c5e728388c412931a740872294efbd62ed836",
+  "changes": [
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "before_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\before-WTRAbilities.php",
+      "before_sha256": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+      "candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\WTRAbilities.php",
+      "candidate_sha256": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+      "preserves_unrelated_preimage_bytes": true
+    }
+  ],
+  "written": [
+    "FaBSim/Custom/WTRAbilities.php"
+  ],
+  "qualified": false,
+  "full_suite_run": false,
+  "scope": "Only one handwritten FaB shared-hit helper file; no Core/generated/canonical/GameLogic/ROS/141/unrelated code or remote changes.",
+  "actual_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "completed_utc": "2026-11-06T04:34:09.445706+00:00"
+}

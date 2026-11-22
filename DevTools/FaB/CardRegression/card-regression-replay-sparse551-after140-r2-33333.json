@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch551-after140.json",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T01:44:24.873903+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sapphire-amulet-blue-four-live-original-correct-watery-trigger-then-intellect-with-no-go-again",
+      "fixture_sha256": "14e89b348b9b14f62fbf0cd9f460693fd4c5c4966f9c90ed1779a045f0f9d100",
+      "passed": true,
+      "result": "[PASS] sapphire_amulet_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sapphire-amulet-blue-four-live-original-correct-watery-trigger-then-intellect-with-no-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] sapphire_amulet_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

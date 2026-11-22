@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch791-dark_arcanite_helm.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T20:30:08.243962+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dark-arcanite-helm-generic-source-shadow-controller-resist",
+      "fixture_sha256": "ccbb2525b07e40f7b8bb234a3bd37f654cfb76ad1b013f6fa3d9e8a8a643f03b",
+      "passed": true,
+      "result": "[PASS] Dark Arcanite Helm / Generic source controlled by Shadow Levia"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dark-arcanite-helm-generic-source-shadow-controller-resist",
+      "returncode": 0,
+      "stdout": "[PASS] Dark Arcanite Helm / Generic source controlled by Shadow Levia\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

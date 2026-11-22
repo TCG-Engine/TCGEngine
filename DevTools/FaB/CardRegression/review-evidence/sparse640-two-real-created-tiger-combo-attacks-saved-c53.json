@@ -1,0 +1,557 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_CREATED_TIGER_COMBO_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T20:15:58.231492+00:00",
+  "source_spec": "card-regression-batch640.json",
+  "input_sha256": "45b8ed7930160089041febb5a01145e357938ff1098aee8963f1de2b0b791274",
+  "manifest_sha256": "fbf1ea27894ae94545020dcc6a0766360b87556a7f565719ecf98e704d1777db",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch640-independent-source-review.json",
+    "sha256": "eed612238875c897ce0ee2bd31b484937e05c8a0eac02a384e3b6f648156b582",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch640-20261106T201254Z-6aee34c68ee48.json",
+    "sha256": "be0384fa1a7e6865097520e44d0b93aa9a9da64440cee4645c7d787edfd55140"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch640.recording-results.json",
+    "sha256": "c94b6a6ebe2ff9382417d098016ddc81e385d7a9967dc2c34fc3420535c05668"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch640-native\\receipt.json",
+    "sha256": "0949a15f7f7cbb24eddfd8e3c815380be683093da89e05ae3f24043f6ef7c3e3"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "qi_unleashed_blue",
+      "group_id": "pitch-cycle:qi_unleashed",
+      "slug": "card-qi-unleashed-blue-four-live-real-created-banished-tiger-combo-and-five-damage",
+      "source_spec": "card-regression-batch640.json",
+      "input_sha256": "45b8ed7930160089041febb5a01145e357938ff1098aee8963f1de2b0b791274",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CREATED_TIGER_COMBO_FIVE_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-qi-unleashed-blue-four-live-real-created-banished-tiger-combo-and-five-damage",
+      "fixture_sha256": "9e2e4a447818404d5764e4918340799b8a1e85ea84bb8f58fa60200f5c0cbd81",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4ab31fbbd02f0c5f98eb8f1cc9fb6e1f3c486147c89a12de32f318b0b995d820",
+        "actions.json": "0f0efab6678ea976bb6ddafb1d5d5ad51777ddc0d845752b4709d230bd815dea",
+        "assertions.json": "c2ae5593ebede7a244674f191f049727af5dc561a5bb0f4641918dea5fa89d9c",
+        "expected_final_gamestate.txt": "419861bddf1bfd804e237a712911da71199a5f9e8c7b6c97fbc427b39ad05628"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4ab31fbbd02f0c5f98eb8f1cc9fb6e1f3c486147c89a12de32f318b0b995d820",
+        "actions.json": "0f0efab6678ea976bb6ddafb1d5d5ad51777ddc0d845752b4709d230bd815dea",
+        "assertions.json": "c2ae5593ebede7a244674f191f049727af5dc561a5bb0f4641918dea5fa89d9c",
+        "expected_final_gamestate.txt": "419861bddf1bfd804e237a712911da71199a5f9e8c7b6c97fbc427b39ad05628",
+        "meta.json": "acfe2366f4c677181c251620815f73419416c64aacceb4bd83050076f5718bad"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4ab31fbbd02f0c5f98eb8f1cc9fb6e1f3c486147c89a12de32f318b0b995d820",
+        "actions.json": "0f0efab6678ea976bb6ddafb1d5d5ad51777ddc0d845752b4709d230bd815dea",
+        "assertions.json": "c2ae5593ebede7a244674f191f049727af5dc561a5bb0f4641918dea5fa89d9c",
+        "expected_final_gamestate.txt": "419861bddf1bfd804e237a712911da71199a5f9e8c7b6c97fbc427b39ad05628",
+        "meta.json": "acfe2366f4c677181c251620815f73419416c64aacceb4bd83050076f5718bad"
+      },
+      "actions": 55,
+      "native_assertions": 4269,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "schema_property_assertions": 1027,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "qi_unleashed_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "predatory_streak_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "predatory_streak_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "qi_unleashed_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "created_non_token_card_UID": 8,
+      "created_card_initial_zone": "p1Banish",
+      "actual_play_permission_asserted": true,
+      "Banish_rawOwnerController_asserted": false,
+      "played_StackChain_OwnerController_1_asserted": true,
+      "created_card_Ephemeral_ceased_only_fullClose": true,
+      "final_GY1_exact_UIDs": [
+        5,
+        6
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "bd083c4ab2373e64bc4ed6da386cd1eb8fbab0e2bd7fc55bbc4f9e1b3cbc2a3d",
+      "native_assertion_mapping_sha256": "30fb873d8c7e3a8d05859a3f49bc255376f899bac9e586cff4ecb1f5d5c74e32"
+    },
+    {
+      "index": 1,
+      "card_id": "pouncing_qi_blue",
+      "group_id": "pitch-cycle:pouncing_qi",
+      "slug": "card-pouncing-qi-blue-four-live-real-created-banished-tiger-combo-and-go-again-consumer",
+      "source_spec": "card-regression-batch640.json",
+      "input_sha256": "45b8ed7930160089041febb5a01145e357938ff1098aee8963f1de2b0b791274",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CREATED_TIGER_COMBO_GA_REAL_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-pouncing-qi-blue-four-live-real-created-banished-tiger-combo-and-go-again-consumer",
+      "fixture_sha256": "5b5082860b7af03778f79f57fbbb72858af6223753acbb5100e364eae1527597",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "37b50bcc3aac7e692cc41d7cfd9a57384c2434153dd0e649adb1af9f2b60aaa8",
+        "actions.json": "70e46cb4a12ec20fa0d3319b4d3eb492462d7841019ce5a7f769a7b5d53251df",
+        "assertions.json": "041016ab26d112de2f9e00f625304da4349ee22b60fe273a459a25b3b98ec860",
+        "expected_final_gamestate.txt": "3dd3bd4e4eae2981cb0735e679749ded85e4cbf67ac039b4b589d3ca9f529384"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "37b50bcc3aac7e692cc41d7cfd9a57384c2434153dd0e649adb1af9f2b60aaa8",
+        "actions.json": "70e46cb4a12ec20fa0d3319b4d3eb492462d7841019ce5a7f769a7b5d53251df",
+        "assertions.json": "041016ab26d112de2f9e00f625304da4349ee22b60fe273a459a25b3b98ec860",
+        "expected_final_gamestate.txt": "3dd3bd4e4eae2981cb0735e679749ded85e4cbf67ac039b4b589d3ca9f529384",
+        "meta.json": "ba557fcf2d62418eae4bde37852969908c59a7e64c290816cade6501912283dd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "37b50bcc3aac7e692cc41d7cfd9a57384c2434153dd0e649adb1af9f2b60aaa8",
+        "actions.json": "70e46cb4a12ec20fa0d3319b4d3eb492462d7841019ce5a7f769a7b5d53251df",
+        "assertions.json": "041016ab26d112de2f9e00f625304da4349ee22b60fe273a459a25b3b98ec860",
+        "expected_final_gamestate.txt": "3dd3bd4e4eae2981cb0735e679749ded85e4cbf67ac039b4b589d3ca9f529384",
+        "meta.json": "ba557fcf2d62418eae4bde37852969908c59a7e64c290816cade6501912283dd"
+      },
+      "actions": 76,
+      "native_assertions": 6035,
+      "actual_manual_passes": 71,
+      "actual_priority_response_passes": 68,
+      "actual_defender_declaration_finish_inputs": 3,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 17,
+        "2": 17,
+        "3": 17,
+        "4": 20
+      },
+      "schema_property_assertions": 1601,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "pouncing_qi_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "predatory_streak_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "predatory_streak_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "pouncing_qi_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "created_non_token_card_UID": 8,
+      "created_card_initial_zone": "p1Banish",
+      "actual_play_permission_asserted": true,
+      "Banish_rawOwnerController_asserted": false,
+      "played_StackChain_OwnerController_1_asserted": true,
+      "created_card_Ephemeral_ceased_only_fullClose": true,
+      "final_GY1_exact_UIDs": [
+        5,
+        6,
+        7
+      ],
+      "final_Pitch1_exact_UIDs": [],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "e4941c0aac13fc16235508c3c3f5218f3b18213ed91c0879ce1b7b939d19084d",
+      "native_assertion_mapping_sha256": "f0d716987d8bc7aa2fd314199f830ff5a617385cd4d110c4a26b8c4ce10bbbe4"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 131,
+  "total_native_assertions": 10304,
+  "total_manual_passes": 121,
+  "total_schema_property_assertions": 2628,
+  "material_findings": [
+    "Raw10/all131actualnativeenvelopes10304orderedassertions121manual(12,12,12,14;17,17,17,20)/48manualpreferencesateachendpoint/71c53guardsinclIra+ab33 exactlymatchownsourceeed612andactualimmutablearchive. Fullinitial/finalUIDinventoryandterminalassertionsindependentlyparsed; no rules/scaffoldredo.",
+    "BothrealPredatory6Action0/freshfour createactualTiger8inP1BanishFaceDown0/PlayableFromBanish1andrefundAP1. Raw0ownershipsentinelnotnormativelyqueried; actualplayedTiger8Stack/ChainOwnerCtl1strict. RealTiger0/noHit/HP20stillgetsprintedGAonlyResolution; physical8remainsfirstlinkuntilwholeClose.",
+    "Qi5real2/Blue7pitch3/R1AP0usestheTigerrefund; physicalTiger8previousattack/currentsecondlinkearns+4/base1→5/noGA/actual5HP15. Pouncing5real0usestheTigerrefund/actualsamepriorTiger→power2/GA/2HP18; actualprimaryrefundfundsrealblankRed7fourdamage/noGA→HP14. CreatedTiger8ceasesonlyFullCloseinsteadGY; exactoriginalUID1..7/GY/Pitch/quietcleanupverified.",
+    "Tigerisacreatednon-tokenNinjaAAcard; nopreseededhistory/permission/AP/extraTiger/zerodamagehit. Selectedplayownershipnormalizationisboundtoactualnativepath, notglobalcreation/Banishownershipcorrectness. Producerandconsumerarematerialsupports, notseparateprimary/fullcardcredit."
+  ],
+  "limits": [
+    "OnepositiveComboentryeachpitchcycle. No alternatepriorname/failedCombo/multipleTiger/alternateproducer/unplayedTigerpermissionexpiry/otherpitch/Hero/support/sibling/fullcardcertification.",
+    "CreatedP1BanishrawOwner/Controllersentinel0isintentionallyunqualified; noactualrawownershipqueryorallreadercorrectnessclaimed. StrictplayedOwnerCtl1/actualzonepermission/physicalUIDandeffectsverified. No sourcebugfromsentinel.",
+    "OnlyactualSavedapproval; Roottwofocusedreplays/registration/qualificationremainseparate. No reviewerPHP/native/replay/R/source/fullsuite/Git/remote/deniedrepair. Opaqueundo hash-bound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch640_saved_readonly.py",
+    "sha256": "f9dd78b1ccdbc02c5a5bbab1a1e38315c1816c9b0f1be90216725246d594aea0"
+  }
+}

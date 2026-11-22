@@ -1,0 +1,59 @@
+{
+  "status": "HOLD_SOURCE_ONLY_UNRUN_NO_BUG_COUNT_NO_COVERAGE",
+  "card_id": "bandana_of_the_blue_beyond",
+  "group_id": "identity:bandana_of_the_blue_beyond",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "current_printed_text": "Action - Discard a card, destroy this: Put a blue card from your graveyard on the bottom of your deck. Go again",
+  "official_image": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA179.webp",
+  "actual_selected_prepare_body": "$seaPlayer = $player;\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = \"-\";\n $refs = FaBSEARefs($seaPlayer, 'any', 'Hand');\n if ($refs !== \"\") {\n $chosen = await $seaPlayer.MZChoose($refs, \"Discard_card\");\n \n}\n$discarded = FaBIdentityFromMZ($chosen)['object']->CardID ?? '';\n FaBDiscardChoice($seaPlayer, $chosen);\nFaBFinishPreparedCard($uid);\n",
+  "canonical": {
+    "path": "DevTools/FaB/sea_abilities.json",
+    "sha256": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78"
+  },
+  "anchors": [
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "sha256": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "lines": [
+        154
+      ],
+      "needle": "if(FaBSEANeedsPrepare"
+    },
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "sha256": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "lines": [
+        282
+      ],
+      "needle": "function FaBDiscardChoice"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "lines": [
+        1080
+      ],
+      "needle": "function FaBTryCompletePayment"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "lines": [
+        1102
+      ],
+      "needle": "if ($paysAction) AddActionPoints"
+    }
+  ],
+  "normative_source": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+  "normative_cost_order": "CR5.2.2b uses playingsequence; 5.1.3 allowsdeclaringcostparameters, but5.1.7 paysAPassetbefore5.1.9 discard/destroyeffectcosts. Earlychoicealonecanbeparameterdeclaration; actualearlyHand-to-GYmoveisdistinct.",
+  "selected_source_concern": "PrepareawaitsHandchoice, thenactuallycallsFaBDiscardChoice beforeFaBFinishPreparedCard invokescommonAPpayment. ThatdiscardmovementisbeforeAPassetpayment; endpointmatchingdoesnotqualifyknownbadorder. Rootdirectedhold, so no executableBandanacase is emitted.",
+  "unexecuted_draft_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prepare_nov5_batch422_bandana_and_knocker.py",
+    "sha256": "ae235fd4bf994c159eb1e9fd9e24873ee1b77e8889d6b6afee8abd887474958d"
+  },
+  "draft_two_case_folder_created": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "coverage_credit": false,
+  "repair_proposed_or_applied": false
+}

@@ -1,0 +1,334 @@
+{
+  "status": "NATIVE_CONFIRMED_B787_HELLBOUND_AND_VEXING_MISSING_EARNED_TRIGGER_LAYER_UNSAVED",
+  "phase": "ACTUAL_BEFORE",
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T18:36:54.461000+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "cases": [
+    {
+      "card_id": "hellbound_assault_blue",
+      "issue_id": "FAB-REG-176",
+      "source_spec": "card-regression-batch787-hellbound-strict-probe.json",
+      "input_sha256": "f2401b52f3a728ea130b07fcbc5067ba09ded71829c1692b1227588a5bf7911d",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch787-hellbound-independent-strict-diagnostic-source-review.json",
+        "sha256": "e358724244a8ba5f87e8a9e51633e5294edd28f2fbfae11b7fafea68eb345c5c"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b787-hellbound-original-correct-native-before\\receipt.json",
+        "sha256": "8ccaeaf3438288a4773416e24863f8b704f1942398e60f0da48f1b23b89eba43"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch787-hellbound-strict-probe.recording-results.json",
+        "sha256": "9b0e921cc618afa47842504af8b5e5bbf76ba4e80fb1e2bc4194489153c7d845"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch787-hellbound-strict-probe-20261114T183201Z-6af8a921c68ea.json",
+        "sha256": "f743f53245f54000c5eb18acebd66885dc632f39160507bd76bd83273f7f9d62"
+      },
+      "actual_native_inputs": 20,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "post_boundary_response_or_targetanswer_inputs_consumed": 0,
+      "persisted_prior_successful_queries": 1175,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 1176,
+      "failed_query": {
+        "step": 20,
+        "type": "zone_count",
+        "zone": "Stack",
+        "value": 1,
+        "viewerPlayerID": 1
+      },
+      "first_failed_observation": "Expected Stack count 1, got 0.",
+      "direct_observed_Stack_count": 0,
+      "direct_Stack_count_from_failed_query": true,
+      "all_final_suffix_queries_unexecuted": true,
+      "unexecuted_queries_after_first_failure": 135,
+      "unrun_final_suffix_types": [
+        "card_property_equals",
+        "computed_go_again_equals",
+        "computed_power_equals",
+        "decision_queue_empty",
+        "game_state_field",
+        "scalar_zone_equals",
+        "zone_count"
+      ],
+      "direct_observed_physical_attack_UID_bookkeeping": 5,
+      "direct_observed_attack_target": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "separate_direct_normalized_state_observations": {
+        "window": "DAMAGE",
+        "combatStep": "DAMAGE",
+        "attackHit": true,
+        "damageDealt": 5,
+        "defenseValue": 0,
+        "hitsThisTurn": {
+          "1": [
+            5
+          ]
+        }
+      },
+      "separate_direct_queue_diagnostic": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "post_zone_Stack_target_Params_raw_snapshot_available": false,
+      "physical_post_Chain_Banish_Pitch_ownership_and_HP_claim": null,
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 124,
+      "initial_raw_sha256": "b88f5fc4a97f2923ffa931df3fe1a2d517e6cd6091c7409995b82c622bd1e237",
+      "actual_initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "hellbound_assault_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_confirmed_correct_expectation_failure": true,
+      "diagnostic_only": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false,
+      "future_effect_resolution_damage_BloodDebt_cleanup_unrun": true,
+      "source_derived_causal_explanation": "Hellbound canonicalHit directly moves source toBanish; Vexing canonicalResolve enters awaitedarcanechooser without scopedcapturedlayer handling. These unchanged source paths contextualize the observedStack0 failures; no instrumented calltrace, rawpostzone or futureoutcome claim."
+    },
+    {
+      "card_id": "vexing_malice_blue",
+      "issue_id": "FAB-REG-177",
+      "source_spec": "card-regression-batch787-vexing-strict-probe.json",
+      "input_sha256": "92ba100a7ae0738dc009b0c49c9c004f2508f7bede5fb04255e186b7f3a251ea",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch787-vexing-independent-strict-diagnostic-source-review.json",
+        "sha256": "9ead12147f364583d7fb0c2463f0d5783e1b700e7c77b1c8dd40485248ed0890"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b787-vexing-original-correct-native-before\\receipt.json",
+        "sha256": "0259b0c240cddfdfcb077957ad47349080ac4a784c570d32a80d6136b8ecaf4d"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch787-vexing-strict-probe.recording-results.json",
+        "sha256": "1d8a15be265558af098017bd0b38963ff6d9e33c868bfc32771ebdc30311cd37"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch787-vexing-strict-probe-20261114T183249Z-6af8a951804d3.json",
+        "sha256": "8140ee5c1280930fad4995f83e872de498ef7a75e26509028545d5825cd8ce85"
+      },
+      "actual_native_inputs": 7,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "post_boundary_response_or_targetanswer_inputs_consumed": 0,
+      "persisted_prior_successful_queries": 421,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 422,
+      "failed_query": {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "Stack",
+        "value": 1,
+        "viewerPlayerID": 1
+      },
+      "first_failed_observation": "Expected Stack count 1, got 0.",
+      "direct_observed_Stack_count": 0,
+      "direct_Stack_count_from_failed_query": true,
+      "all_final_suffix_queries_unexecuted": true,
+      "unexecuted_queries_after_first_failure": 129,
+      "unrun_final_suffix_types": [
+        "card_property_equals",
+        "computed_go_again_equals",
+        "computed_power_equals",
+        "decision_queue_empty",
+        "game_state_field",
+        "scalar_zone_equals",
+        "zone_count"
+      ],
+      "direct_observed_physical_attack_UID_bookkeeping": 5,
+      "direct_observed_attack_target": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "separate_direct_normalized_state_observations": {
+        "window": "ATTACK",
+        "combatStep": "ATTACK",
+        "attackHit": false,
+        "damageDealt": 0,
+        "actual_unanswered_own_choice_type": "MZCHOOSE",
+        "actual_unanswered_own_choice_tooltip": "Choose_arcane_target"
+      },
+      "separate_direct_queue_diagnostic": {
+        "1": [
+          {
+            "Type": "MZCHOOSE",
+            "Param": "p2Hero-0&p4Hero-0",
+            "Block": 1,
+            "Tooltip": "Choose_arcane_target",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "",
+            "PlayerID": 0,
+            "mzIndex": -1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "vexing_malice_blue:0:ResolveCard-await|vexing_malice_blue:0:ResolveCard#1|31|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "",
+            "PlayerID": 0,
+            "mzIndex": -1,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "post_zone_Stack_target_Params_raw_snapshot_available": false,
+      "physical_post_Chain_Banish_Pitch_ownership_and_HP_claim": null,
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 124,
+      "initial_raw_sha256": "7a5e076c3304831270ad70ad8b61b484a494d542807fb6cc4693c120853bc418",
+      "actual_initial_physical_uid_locations": {
+        "1": {
+          "card_id": "viserai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "vexing_malice_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_confirmed_correct_expectation_failure": true,
+      "diagnostic_only": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false,
+      "future_effect_resolution_damage_BloodDebt_cleanup_unrun": true,
+      "source_derived_causal_explanation": "Hellbound canonicalHit directly moves source toBanish; Vexing canonicalResolve enters awaitedarcanechooser without scopedcapturedlayer handling. These unchanged source paths contextualize the observedStack0 failures; no instrumented calltrace, rawpostzone or futureoutcome claim."
+    }
+  ],
+  "total_native_inputs": 27,
+  "total_direct_persisted_successful_queries": 1596,
+  "total_raw_initial_manual_booleans_checked": 96,
+  "total_initial_queries_independently_evaluated": 248,
+  "fixture_count_before": 4053,
+  "fixture_count_after": 4053,
+  "fixture_saved": false,
+  "passing_coverage": false,
+  "source_application_approved": false,
+  "confirmed_bounded_failures_only": true,
+  "limits": [
+    "Each FIRST final observer directly returnedStack0 when expectedearnedlayer1. All later finalChain/Banish/HP/DQ queries are unrun. No physicalpostzones/rawStack/HP/targetParams export exists.",
+    "Separate exported normalizedstate/queue diagnostics are explicitly labeled: Hellbound hit5/defense0 and emptyqueues; Vexing unresolvedownarcanechooser/resume and damageDealt0 bookkeeping. No postphysicalChain/Banish/HP inference from them.",
+    "Actual1175/421 successfulprefixqueries exact;124initialqueries independentlyevaluated percase and48manualbooleans parsed percase. No finalrawpreference claim.",
+    "No futureHellbound selfbanish-resolution/BloodDebt/Leviaendphase or Vexingtargetanswer/arcane/physicaldamage/fullcleanup, siblings/fullcard/globalroot/repairapproval/coverage.",
+    "Root alone executed mandatory no-save probes; reviewer ran no PHP/native/game/replay/fullsuite and changed no R/source/Git/remote state."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch787_actual_before_failures.py",
+    "sha256": "371d15a9154572b5bc350f36f097b98b4066a138936df2a2fc4b1c03536c8af1"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "blockers": []
+}

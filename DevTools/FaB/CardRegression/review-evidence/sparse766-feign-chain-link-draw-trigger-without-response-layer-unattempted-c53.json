@@ -1,0 +1,125 @@
+{
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-09T01:52:11.879797+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-two-trigger-source-only-planning\\manifest.json",
+    "sha256": "0e1e3725a14ab866c38341e5330d39bb989b4e5c4c470639e454cee4c831c9c9"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-two-trigger-source-only-planning\\frozen-author-QA.json",
+    "sha256": "5e67654a72c08ee731981c92d4bc04d254bd84cbc99763238ea268a78a808a24"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-two-trigger-source-only-planning\\SOURCE_RULES_NOTES.json",
+    "sha256": "48d2be49e9dd7cc298d3a4216bb7d70272f42a9d1f9a0f60514197889197c0c9"
+  },
+  "combined_planning_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-two-trigger-source-only-planning\\batch766-two-source-only-planning-input.json",
+    "sha256": "1f5f4e1d56bfcb1047e1a9dd7bf4909a507757b54ef8ed4786e9faad15ad4845"
+  },
+  "source_is_recorder_input": false,
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-firm-reservation.json",
+    "sha256": "6435b23a5f2c1a42a618f82ed9b9dbacd0f9db03c303a6bed72825c108b3062d"
+  },
+  "pool": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-public-condition-attack-metadata-pool.json",
+    "sha256": "4063956a12c469e1cc08ae276c16d93641b83d4bb71bb77bcf094d9e46eb3dba"
+  },
+  "source_guard_count": 70,
+  "source_guards_verified": true,
+  "source_guards_sha256": "aa27ca19be94d5313c8838e3821bf3e7fbe78ff99220a446b44c046cd03d99af",
+  "source_guards_binding": "Every current path of exact70-map in pinned manifest independently matched.",
+  "executable_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0,
+  "passing_fixtures": 0,
+  "source_body_present": true,
+  "engine_implementation_concern": true,
+  "actual_review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch766_planning_readonly.py",
+    "sha256": "bba59534e6029a9ea937bd7be7b3b1314bc9860095e108aa059ba445524d5f2e"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "native_bug": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification_permitted": false,
+  "executable_admission": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false,
+  "status": "SOURCE_ONLY_UNATTEMPTED_FEIGN_DEFENDED_LINK_DRAW_TRIGGER_TIMING_PLANNING_LIMIT",
+  "card_id": "feign_vengeance_blue",
+  "group_id": "identity:feign_vengeance_blue",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-two-trigger-source-only-planning\\batch766-feign-chain-link-draw-trigger-source-only-plan.json",
+    "sha256": "5a781230f18af4c60dbc9ca56d3343494c702f5ad481938103487b69373c941f"
+  },
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch766-two-trigger-source-only-planning\\batch766-feign-chain-link-draw-trigger-source-only-plan.json",
+  "input_sha256": "5a781230f18af4c60dbc9ca56d3343494c702f5ad481938103487b69373c941f",
+  "independent_findings": [
+    "Viewed actual Feign Vengeance publisher face: its When-chain-link-resolves clause is a draw trigger; printed Go again is a separate ability. The fixed proposed real owned CriticalBlue DEF3 blocking Feign0 makes the physical-defender condition true without a history flag.",
+    "Selected canonical/live ChainLinkResolved immediately calls DoDrawCard(controller,1) if current-link defenders exist. BeginResolution2038 invokes OnChainLinkResolved1255 and that body synchronously before later turn-player priority. DoDrawCard performs the physical topDeck-to-Hand move; there is no selected queued draw layer.",
+    "FaBSUPDefenders reads actual current-link physical DEFENSE/DEFENSE_REACTION cards. The controller/event callback exists and checks the required positive condition; the defect in this static route is when its effect happens, not missing body, wrong controller or invented defender state.",
+    "CR6.6.1/5/6 requires a responseable triggered layer for the draw. CR7.6.2 separately grants printed go-again AP at resolution-step entry; that refund is distinct and is not the complaint. No requirement that draw precede the refund is asserted. Actual draw UID8, later pitch/followup/economy/damage are unattempted/unqualified."
+  ],
+  "source_evidence": {
+    "paths": [
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php:31658-31665",
+      "DevTools/FaB/pen_abilities.json:feign_vengeance_blue ChainLinkResolved",
+      "FaBSim/Custom/GameLogic.php:1252-1256,1264-1296,2035-2045,2364-2379",
+      "FaBSim/Custom/SUPCards.php:65-67"
+    ],
+    "canonical_selected_row_sha256": "44d95a4314140735d6af5ed75756d38d56b721c539eefe292c31687d5551d6da"
+  },
+  "primary_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\feign_vengeance_blue.webp",
+    "sha256": "52e5ac0e8c5dbb7a28cb71fde1439158c7eef1bfa2d0f7e165c10e293f512e5e",
+    "actually_viewed": true
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "actually_retrieved": true,
+      "sections": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "actually_retrieved": true,
+      "sections": [
+        "7.6.2",
+        "7.6.3"
+      ]
+    }
+  ],
+  "limits": [
+    "Only selected singleton defended-link draw-trigger timing; no attack/followup draw/pitch/AP/damage/consumer/support/full-card or native bug qualification.",
+    "Both original meaningful positive recipes remain unattempted. Four living manual seats/natural printed HP/all48 preferences proposed only; no recorder-compatible executable input, game/native/replay/fixture/coverage/confirmed-bug credit.",
+    "No alternative primary/support/producer hunt, private history/AP/GA/RNG seed, false-condition/blank baseline, output fitting, Source repair or denied-repair retry."
+  ]
+}

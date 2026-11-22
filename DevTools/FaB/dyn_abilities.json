@@ -176,7 +176,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBDYNAdd($player, 'BIOS_POWER');\n FaBDYNAdd($player, 'BIOS_ITEM');\n",
+        "abilityCode": "FaBDYNAdd($player, 'BIOS_POWER');\n FaBDYNArmBIOSItem($player, $mzID);\n",
         "isImplemented": true
       }
     ]

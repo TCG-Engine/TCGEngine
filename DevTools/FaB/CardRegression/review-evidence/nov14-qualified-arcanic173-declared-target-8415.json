@@ -1,0 +1,93 @@
+{
+  "status": "QUALIFIED_FOCUSED_ARCANIC_DECLARED_ATTACK_TRIGGER",
+  "issue": "FAB-REG-173",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "gameplay_files": [
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/MONCards.php",
+    "FaBSim/Custom/CodeGeneration.php",
+    "DevTools/FaB/build_mon_abilities.py",
+    "DevTools/FaB/mon_abilities.json"
+  ],
+  "generated_files": [
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js"
+  ],
+  "change": "Three current-errata Arcanic IDs declare the arcane Hero target before responses, queue an earned attack trigger, and retain the managed virtual layer through existing prevention waits; damage attribution uses the physical attack UID.",
+  "before_native": {
+    "path": "review-evidence/trigger-timing172173-kiss-arcanic-native-before-0a5d.json",
+    "sha256": "c6d3ddbfb1e110c27559b98611c0027e0711ae669793c71743256728c92b9bef"
+  },
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-arcanic-r2-application-emission-root\\receipt.json",
+    "sha256": "f432d13fa2cbe2ff3beda9dd29d39b4a51acbfdaaafee9da7169f8f877ec654d",
+    "role": "External focused proof or receipt, not a replay dependency"
+  },
+  "independent_source_application_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-arcanic-r2-independent-source-application-emitter-review-compatible.json",
+    "sha256": "a297184c180a5ae97432b2dd4501db2a67465de265ba251b6eb49472ba426f02",
+    "role": "External focused proof or receipt, not a replay dependency"
+  },
+  "independent_actual_emission_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-arcanic-r2-independent-actual-emitted-body-review.json",
+    "sha256": "0e103f9960de63ac4dd21e273799c50e7a8c3b99de73ce63177619692c3fae3a",
+    "role": "External focused proof or receipt, not a replay dependency"
+  },
+  "runtime_bound_full_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-arcanic-bound-8415-independent-runtime-source-review.json",
+    "sha256": "a79c81f701e1c00cfa824decaa5ff6c407e942bf9918994c4229f22c099735ca",
+    "role": "External focused proof or receipt, not a replay dependency"
+  },
+  "component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-arcanic-r2-root-component-results.json",
+    "sha256": "bb4899c05f88f7391603bcc1a21ab08decf039edb06f3e1e12a090cd6efc0858",
+    "role": "External focused proof or receipt, not a replay dependency"
+  },
+  "pure_trigger_checks": 41,
+  "classifier_scalar_comparisons": 31176,
+  "transform_checks": 21,
+  "component_reuse": "Trigger results reused only for byte-identical candidate dependencies; transform successor actually rerun and passed. Original first-case transform failure preserved.",
+  "actual_emission_scope": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-arcanic-r2-application-emission-root\\generated-scope.json",
+    "sha256": "31151458dfe9f3f4ecc1a522409594cfb4bea46c92ed2d65c06a4a16064ea54b",
+    "role": "External focused proof or receipt, not a replay dependency"
+  },
+  "native_after": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b784-arcanic-full-native-after-8415\\receipt.json",
+    "sha256": "0a8b5ec63544a737e3d1423a62eb222bbd00031b2162980f69081c7d0dbc4de5",
+    "role": "External focused proof or receipt, not a replay dependency"
+  },
+  "source_spec": {
+    "path": "card-regression-batch784-arcanic-full.json",
+    "sha256": "66790e17484f236528d89bd68ff27e9d68ad07d79ae4a310b7ae1923ac89e513"
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse784-arcanic-independent-8415.json",
+    "sha256": "545220a378865a8714a5d53dbf23ec6da017a6cb74d8d960c9caef714fe5e42b"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov14-b784-arcanic-clean1.json",
+      "sha256": "f696ca445cd395154bd8c598e237d2358eae09aaf8df6189baec810e617b5c16"
+    },
+    {
+      "path": "card-regression-replay-nov14-b784-arcanic-clean2.json",
+      "sha256": "704dde1f28a8355e30eb34dc7e5e7cc1a79bdc1005822ad5c265b96f89c91f21"
+    }
+  ],
+  "native_inputs": 32,
+  "native_assertions": 1758,
+  "isolated_native_fault_credit": 0,
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "historical_rows_retagged": false,
+  "global_root_attribution": "UNALLOCATED_NAMED_LOCAL_REPAIR",
+  "limits": [
+    "Blue only: distinct arcane target2 stays20 before/through first3triggerresponses and19onlyfourth; physical target4 receives1 independently, AP0/cleanup.",
+    "No native sibling, alternative target universe, prevention-payment/Spellvoid branch, missing-source LKI, simultaneous trigger or elimination certification. Existing generated prevention tail is source/component scoped only.",
+    "Original failed HP20 query observed19 after7inputs; laterStack query never ran. No invented pre-fix final snapshot.",
+    "Guarded generator ran once using read-only remote snapshot; no remote authoring or hand-generated edits.",
+    "All prior cases retain their actual runtime evidence; no full-suite or historical-corpus replay."
+  ]
+}

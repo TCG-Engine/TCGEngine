@@ -1,0 +1,303 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_REDBACK_DISCOUNT_RETAINS_RESOURCE_THROUGH_SEVEN_SWORD_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T17:38:26.735824+00:00",
+  "source_spec": "card-regression-batch494.json",
+  "input_sha256": "c6dabee96a53f391161369288cacb2a7bb5316324aabaeb5509a2034b943e06b",
+  "manifest_sha256": "2b06a71007b21c9353d04de49c69bc1cb0bb4d96aa015dcf589a17c2745e6bda",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch494-independent-source-review.json",
+    "sha256": "8060c65e81e3d389eade2d86b8763ef8fca3925f86b5993e5772026e035803c8",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch494-20261105T173528Z-6aecbe606c255.json",
+    "sha256": "c4aafa4112e256cc133af55013c2afa49254bf1f946f5e1e311524b6fce61e5c"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch494.recording-results.json",
+    "sha256": "d4eb0a25d74eb16bbc44c8a08b5c2308973cb6f4767590dd58b3cee4409bcbc1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch494-native-r1-9e984\\receipt.json",
+    "sha256": "11fdff9825db44b8d25fc9a62572ddcf53245cdb1fa27f14b7b7439bbb2f6f37"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "redback_shroud",
+      "group_id": "identity:redback_shroud",
+      "slug": "card-redback-shroud-four-live-real-destroy-reaction-discounts-next-card-and-retains-resource-through-seven-sword-damage",
+      "source_spec": "card-regression-batch494.json",
+      "input_sha256": "c6dabee96a53f391161369288cacb2a7bb5316324aabaeb5509a2034b943e06b",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_DESTROY_REACTION_COST_REAL_ZERO_COST_CARD_CONSUMER",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-redback-shroud-four-live-real-destroy-reaction-discounts-next-card-and-retains-resource-through-seven-sword-damage",
+      "fixture_sha256": "24c8d57ed5de71d7c74085d04bcd9e182265bfafb3588eee604d01122808d1d3",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3a9b8652c06e5865aba7ddf6b18ce9f84930fc5bad5328d7eebe4bf3de8a5b88",
+        "actions.json": "7837d2fd7d197ab11d609e2422a0ba6b1e369e2ccb8f31b6c725534ea67e1922",
+        "assertions.json": "094ef0727b6d8a5c9966ab5661bdaa730e42b00dd19c6d14d5c4f24da35bd4bb",
+        "expected_final_gamestate.txt": "c2ee50bf3170e51b6dd5ff64a05e2053f2619eac7fe01d720172b104ebb0dfb9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a9b8652c06e5865aba7ddf6b18ce9f84930fc5bad5328d7eebe4bf3de8a5b88",
+        "actions.json": "7837d2fd7d197ab11d609e2422a0ba6b1e369e2ccb8f31b6c725534ea67e1922",
+        "assertions.json": "094ef0727b6d8a5c9966ab5661bdaa730e42b00dd19c6d14d5c4f24da35bd4bb",
+        "expected_final_gamestate.txt": "c2ee50bf3170e51b6dd5ff64a05e2053f2619eac7fe01d720172b104ebb0dfb9",
+        "meta.json": "be1c4dfbe2cc9732881b7e3c3a776ab0ea17d09a019df024acd41cfff0bd8e0d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3a9b8652c06e5865aba7ddf6b18ce9f84930fc5bad5328d7eebe4bf3de8a5b88",
+        "actions.json": "7837d2fd7d197ab11d609e2422a0ba6b1e369e2ccb8f31b6c725534ea67e1922",
+        "assertions.json": "094ef0727b6d8a5c9966ab5661bdaa730e42b00dd19c6d14d5c4f24da35bd4bb",
+        "expected_final_gamestate.txt": "c2ee50bf3170e51b6dd5ff64a05e2053f2619eac7fe01d720172b104ebb0dfb9",
+        "meta.json": "be1c4dfbe2cc9732881b7e3c3a776ab0ea17d09a019df024acd41cfff0bd8e0d"
+      },
+      "actions": 38,
+      "native_assertions": 3605,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "schema_property_assertions": 1292,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "razor_reflex_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "redback_shroud",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "talishar_the_lost_prince",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "talishar_the_lost_prince",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "redback_shroud",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "razor_reflex_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "019b5c405338ba803150ec3f0c6bfffa7c22277b0a786dc8209a7fd4e62cdf8f",
+      "native_action_mapping_sha256": "bc1e3ddc78a3bf621c8f4a3f35147c2292b78cd59fd562d3964ab7c6d27e2986",
+      "native_assertion_mapping_sha256": "5cf8e8bd35473be338ec6282e8f9c696bc46d4ec1ea810f02b8f51ce9e5eb35d"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 38,
+  "total_native_assertions": 3605,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 1292,
+  "material_findings": [
+    "Exactraw5/38nativeactions/3605orderedpersistedchecks/1292properties/33manual32responses+onefinish/all48settingsateachendpoint/69currentguards verified. No snapshot-onlypassapproval or reviewerhelperexecution.",
+    "ActualBlue7pitch3paysTalishar2/AP1,R1AP0, samephysical6usedRust1/proxy9base4/noGA. ActualP1ReactionShroud5destroysascost/publicownGYbeforefreshfour/capturedABI10SourceEquipment5. SourcefourcompletesbeforeactualRazor8play.",
+    "ActualRazor8printed1discountedto0/noadditionalpitch/R1retained/AP0; allfirstthreeRazorresponseskeepSword4, fourthgives7/noGA. TrueDAMAGEDEF0/damage7/HP13, no AA-hitGA/Contract/Hero/defender/preventionbranch.",
+    "FullphysicaloriginalUID1..8 conserved:5Shroud+8RazorpublicownGY, Blue7Pitchrawunchanged, same6WeaponsusedDamage0/CountersWEAPON_ATTACK_TURN2,WEAPON_ATTACKS1,RUST1. Virtual9/10ceased/counter10; all4Heroeswholeunchanged/allotherHP20/RAPChi0/completeStackChainDQawaitpaymentcombatcleanup."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1968/",
+      "finding": "FreshdestroyasARcost/nextARcardresource\u22121/Battleworn andunearnedfutureSilverrecursion."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/322/",
+      "finding": "FreshChoose1Sword-orDagger+3 versuslowcostAA+3/hitGA; onlyfirstmodeeligiblehere."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.4a",
+        "5.1.6a",
+        "5.1.7",
+        "5.1.9",
+        "5.2.2b"
+      ],
+      "finding": "Modes/targets beforecost; reductions applyduringassetcalculation; assetsbeforeeffectcosts; activationcostbeforepriority."
+    }
+  ],
+  "limits": [
+    "ActualinitialrawweaponCountersisempty/noRustverified andactualpostpaidRust1queried; leanintermediateprepaymentcheckpointsdidnotdirectlyquerywholecountermap. No independentRust-before-assetscallbacktimingtrace, rollback or reentry certification. LatentdiscountnotqueriedbeforeShroudresolution; no prematuregrantnegativecredit.",
+    "Onecorrectpositive destroyAR0\u2192nextAR1to0/retainedR1/realSword7damagebranch. No Silverrecursion/Battleworn/otherRazor modes/AAhitGA/secondARcost/oneuse-negative/expiry/thirdRust/endphase/Hero/supportprimary/siblings/fullcard/nativefaultcontrolcredit. AdjacentHurricaneholdremainsunattempted/noinput/coverage/bug.",
+    "Rawhashes bindundo bytes butopaqueVersions excludedfromcurrentphysicalinventory. Fullinitial/finalphysicalsnapshots; intermediatefactsactualcompletednativeassertions. Reviewerdoesnotreexecutecomputedquerycallbacks orsubstitutecachedpower. Rootfocusedreplays/registrationremainseparate.",
+    "No PHP/native/replay/R/source/service/gen/fullsuite/remote/git/deniedretry byreviewer; no sourcefix/newbugclaim."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch494_saved_readonly.py",
+    "sha256": "5b9d2a0ee34c65c345e696e73402a1ca887024f29969bf90f5b36d7da72bade2"
+  }
+}

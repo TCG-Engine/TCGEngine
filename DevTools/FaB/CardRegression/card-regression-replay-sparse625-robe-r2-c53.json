@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch625-robe.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T17:56:36.112353+00:00",
+  "fixtures": [
+    {
+      "slug": "card-robe-of-astral-sanctuary-four-live-real-hero-tap-destroy-and-two-arcane-damage",
+      "fixture_sha256": "a9836c6ff525ff32e0a3c32da28e437ee81f6925dc2943ce97f97e9c0d6e0935",
+      "passed": true,
+      "result": "[PASS] robe_of_astral_sanctuary / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-robe-of-astral-sanctuary-four-live-real-hero-tap-destroy-and-two-arcane-damage",
+      "returncode": 0,
+      "stdout": "[PASS] robe_of_astral_sanctuary / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

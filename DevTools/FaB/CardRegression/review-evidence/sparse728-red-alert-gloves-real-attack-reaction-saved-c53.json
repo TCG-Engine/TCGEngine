@@ -1,0 +1,282 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B728_RED_ALERT_GLOVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T18:16:14.543826+00:00",
+  "source_spec": "card-regression-batch728.json",
+  "input_sha256": "a16d8a2e9bd4a24d25a4181ed6a8546f5732ff296fe1739c33c4c4af09742b0d",
+  "manifest_sha256": "156b31b0ba4a664db0183058ae4ea2ee0023866e7fce184c358a80858ce52122",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch728-red-alert-gloves-independent-source-review.json",
+    "sha256": "58f5622fe2cc7d40b385a401e070ac694094e332f029c88fc80ec825b901aacc",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch728-20261108T181340Z-6af0bbd4324f8.json",
+    "sha256": "272878354e0262d82fc5d283154a20d26b0d9a150a15f9f592314f06300b515f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch728.recording-results.json",
+    "sha256": "fd078ed28be0a7a7c580a5376a0835acf755fb0e17c7420d8b6f0c1786117d6d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b728-red-alert-gloves-native-recording\\receipt.json",
+    "sha256": "c0e1da78dd3fa852ba678dfe0700d39648d33861bd11a690258d021b1cda5c96"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "red_alert_gloves",
+      "group_id": "identity:red_alert_gloves",
+      "slug": "card-red-alert-gloves-four-live-real-attack-reaction-defense-bonus-two-damage-and-bladebreak",
+      "source_spec": "card-regression-batch728.json",
+      "input_sha256": "a16d8a2e9bd4a24d25a4181ed6a8546f5732ff296fe1739c33c4c4af09742b0d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PLAYED_AR_DEFENSE_BONUS_TWO_DAMAGE_AND_BLADEBREAK",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-red-alert-gloves-four-live-real-attack-reaction-defense-bonus-two-damage-and-bladebreak",
+      "fixture_sha256": "45d824c10da8f57ba580dc0c8f6837fd4720f09ce7ef846209aa3361856e0ca9",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4b8e1b88a33283a4e0d87958c7bc38bf046b406a92eb3f8cfde32f24756a9642",
+        "actions.json": "d1bb63dce478e3a65bba43b4307102b8594e11a53b5d3e095abafd081034e522",
+        "assertions.json": "f60084f43a0bd383589c0c7d1f31ed9f6f346f872bfdbe34b031f2c527c3be53",
+        "expected_final_gamestate.txt": "ce2be96e3df708f7b3e25ee47863134bbde2e1d07ed8d1d94e914dc46cbc6039"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b8e1b88a33283a4e0d87958c7bc38bf046b406a92eb3f8cfde32f24756a9642",
+        "actions.json": "d1bb63dce478e3a65bba43b4307102b8594e11a53b5d3e095abafd081034e522",
+        "assertions.json": "f60084f43a0bd383589c0c7d1f31ed9f6f346f872bfdbe34b031f2c527c3be53",
+        "expected_final_gamestate.txt": "ce2be96e3df708f7b3e25ee47863134bbde2e1d07ed8d1d94e914dc46cbc6039",
+        "meta.json": "56ca31fd116c78550f0c1d681aebd1bb855f0c110faf9baf2327b695008513d4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4b8e1b88a33283a4e0d87958c7bc38bf046b406a92eb3f8cfde32f24756a9642",
+        "actions.json": "d1bb63dce478e3a65bba43b4307102b8594e11a53b5d3e095abafd081034e522",
+        "assertions.json": "f60084f43a0bd383589c0c7d1f31ed9f6f346f872bfdbe34b031f2c527c3be53",
+        "expected_final_gamestate.txt": "ce2be96e3df708f7b3e25ee47863134bbde2e1d07ed8d1d94e914dc46cbc6039",
+        "meta.json": "56ca31fd116c78550f0c1d681aebd1bb855f0c110faf9baf2327b695008513d4"
+      },
+      "actions": 33,
+      "native_assertions": 2684,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 700,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "lunging_press_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "red_alert_gloves",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "lunging_press_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "red_alert_gloves",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "actual_resources_paid": 0,
+      "actual_AP_paid": 1,
+      "actual_attack_power": 4,
+      "actual_defense": 2,
+      "actual_damage": 2,
+      "actual_played_reaction_source": 7,
+      "bound_target_UID": 6,
+      "bound_target_chain_link": 1,
+      "actual_BladeBreak_destroyed_primary_UID": 5,
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "78bef2e1be34339a036acdbbd87219e049f64e9a241781156e06104713c3e0e8",
+      "native_assertion_mapping_sha256": "0d191d47b9a99e306c46013d86f9eaa3e29218aa1ede3300e8e872e0110ae10f"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2684,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 700,
+  "material_findings": [
+    "Exact rawfive/behavior, all33 nativecontrols2684 persisted queries29manual7/7/7/8 and48preferences at both endpoints match approvedSource58f562. COMPLETE0/stderr0 receipt/results/archive and actual70 c53/ab33 guards bound; full physical endpoints/all initial-finalqueries independently parsed.",
+    "ActualAA6targetHero4 before cost0/AP1debit, actualsameGloves5 equipmentdefender, and actualAR7 automaticallyboundtoAA6/link1 with wholeParams onStack through threeREACTIONreplies. Fourthresolves+1/clearsordinaryAR7GY; playedARcurrentlink bonus materially producesDEF2 and strictphysical4minus2=2/HP18 aftera freshReactionquorum.",
+    "NormalClose automaticBladeBreak destroys sameprimary5GY4; AR7thenAA6GY1, originalUID1..7conserved/no newproxy/token/RNG, allR/AP/Chi0 and Stack/Chains/Hand/Deck/Pitch/Arena/Equipment/DQ/payment/awaits quiet. No newClosepriorityround, seededARhistory, or cached-defense-only certificate."
+  ],
+  "limits": [
+    "One real playedAR/staticDEFbonus/physical2damage/BladeBreak branch; no ability-activation or otherlink/seat variations.",
+    "No support/Hero/pitchsiblings/fullcard credit or optional-bank/current-history/FAB chronology certificate.",
+    "PendingAR uses capturedREACTION and soleAA target automatic nativebinding, no invented chooser.",
+    "Strict physical damage and sameprimaryUIDGY outcome; native/Saved/all48preferences/twofocusedreplays separate.",
+    "Primary current issuer face is the printed basis; exact JudgeID not established. No inventedID or broad implementation-absence claim.",
+    "Only one playedAR/currentlink positive static bonus and BladeBreak branch. ActivatedAR/otherseats/previouslinkreset/multipleAR/blanking/alternativeArmor/slots/sibling/Hero/support/fullcard are unqualified. Exact Saved raw5/48preferences/native/replays/registration remain Root gates. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite or denied retry.",
+    "Exact Saved approval covers only this one playedAR/static+1DEF/damage/BladeBreak positive branch. No activatedAR/otherseats/priorlinkreset/multipleAR/blanking/alternativeEquipment/sibling/Hero/support/fullcard credit.",
+    "Root focusedreplays/registration/index/promotion remain separate; no qualification credit before registration. RawVersions hash-bound but excluded from physical inventory. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch728_red_alert_saved_readonly.py",
+    "sha256": "bb1c52f0f863380121ad2089f90f4aa2e6bb55e3b538236b45def4620f494a88"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "status": "INDEPENDENT_SOURCE_ONLY_UNATTEMPTED_TWO_EXACT_REQUIRED_KNOWN_CONTRACT_NOTES_APPROVED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 838,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_evidence_approved": true,
+  "source_notes_approved": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch838-two-required-known-contract-notes-manifest.json",
+    "sha256": "c2404ddb0d6fe3c22033167cb719849cd2175e12b29de2bdb338518c4cbc5597"
+  },
+  "manifest_sha256": "c2404ddb0d6fe3c22033167cb719849cd2175e12b29de2bdb338518c4cbc5597",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch838-firm-reservation.json",
+    "sha256": "d7868b565b32e77cb5b6d31522cba96caeb0c8bad21c29924299b482036845ce"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_preimage_guards_matched": true,
+  "guard_count": 16,
+  "notes": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch838-gauntlets-known-unity-when-unattempted-note.json",
+      "sha256": "029d749413d4c88058f02459f8fdf12d4c9c1c56832d2f1117518150b28a0d64"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch838-hitgas-required-resolving-choice-lifetime-unattempted-note.json",
+      "sha256": "871cc78ae59df9911373949d14a5d55ebece6c6b7bbda8725bd9cd21e17b770b"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "gauntlets_of_unity",
+      "classification": "EXACT_KNOWN_UNITY_DEFENDED_WHEN_INLINE_CONTRACT",
+      "status": "UNATTEMPTED",
+      "independent_causality": "Both canonical Defended definitions and emitted gauntlets:0 call BoltynUnity45..50 directly via OnDefended; it tags bonus immediately when co-defending hand card is present, with no earned layer before response priority. This matches retained Bastion Unity row278 contract, not a blanket all-trigger hold.",
+      "unrun_normative_requirements": "Actual power5 versus base1+hand3 has defense4 until earned Unity resolves; +1 then yields5 and zero final damage. At chainclose Temper penalty1 and still-active untilEOT Unity+1 yield current1, so same physical equipment survives. Engine raw DEFENSE counter is positive1 penalty; WTR_DEFENSE+1 must remain while only BOLTYN_UNITY dedupe marker clears. EOT expiry/next defense untested."
+    },
+    {
+      "card_id": "hit_the_gas_blue",
+      "classification": "EXACT_KNOWN_ORDINARY_PHYSICAL_SOURCE_PRECLEAR_BEFORE_REQUIRED_RESOLVING_CHOICE",
+      "status": "UNATTEMPTED",
+      "independent_causality": "Owned face-up three-Driver setup supplies positive candidate set. Canonical/emitted case4\u21923\u21922 necessarily yields MZMultiChoose(0,3,refs); this is not a latent skipped await. Nonpersistent primary is absent both managed plain-spell registries, so actual GL1840 moves it toGY before1841 starts its resolving macro. Matches retained Re-Charge/Workshop lifetime contract.",
+      "unrun_normative_requirements": "Keep physical source resolving/onStack through actual positive3 choice, flip same owned cards only on choice, AP3/one realdraw at3 threshold/no extraGA/ownershipandcleanup. Native effects/helper exist; no unimplemented claim, zero-choice or seeded outcome fallback."
+    }
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.4.10",
+        "8.3.10"
+      ],
+      "official_read_only_web_read": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "paragraphs": [
+        "5.3.4",
+        "5.3.5"
+      ],
+      "reused_existing_independent_normative_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reused_existing_independent_normative_review": true
+    }
+  ],
+  "limits": [
+    "Two notes are planning evidence only. No executable, game, failed Native card observation, new issue/root, fix, passing recording, coverage or qualification. Both complete fixed routes remain uncovered.",
+    "Whole generated-source hash and actual selected emitted snippets/causal helpers were checked; no redundant closure-fragment audit or historical corpus replay.",
+    "Printed/source evidence is not a Native Temper, damage, face-down, AP/draw or ownership certificate. Additional support alias/printing matches do not award support coverage.",
+    "No alternative primary/quietfallback; no PHP/native/Rwrites/fullsuite or denied188/184/B787 operation by reviewer."
+  ],
+  "source_approved": false,
+  "native_probe_approved": false,
+  "native_execution_approved": false,
+  "normal_save_approved": false,
+  "passing_fixture_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "new_issue": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "created_utc": "2026-11-16T02:19:20.933248+00:00"
+}

@@ -1,0 +1,255 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_PREMATURE_MALICE_SUPPORT_ZOMBIE_DEATH_EFFECT_IN_MARK_CONTEXT",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 865,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "new_issue": false,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "scenario_primary_context_card_id": "mark_of_neverest_blue",
+  "confirmed_defective_producer_card_id": "malice",
+  "confirmed_defective_producer_function": "FaBIARZombieDied",
+  "individually_reproduced_defective_card_ids": [
+    "malice"
+  ],
+  "primary_Mark_effect_individually_confirmed": false,
+  "primary_Mark_positive_choice_effect_executed": false,
+  "primary_Mark_effect_qualification": false,
+  "later_primary_contract": "Generic ROS094 positive Mark ResolveAbility await remains unrun and unqualified.",
+  "confirmed_required_post_death_public_host_GY_retention_failure": true,
+  "confirmed_typed_Malice_earned_layer_absence": false,
+  "confirmed_typed_final_host_face_down_or_Corpse_quantity": false,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Retain the original-correct Native public-GY retention failure against the EARLIER Malice Hero support producer. Mark of Neverest is scenario context; its own positive choice/lifetime effect was not reached. Root may allocate prospective200 for Malice; this reviewer allocates no issue/root/Core count and proposes no repair.",
+  "source_spec": "card-regression-batch865-mark-neverest-malice-two-layer-full-probe-r2.json",
+  "input_sha256": "49edceb62959005b2a1406bab1d9c520d9579469998596c160cb0d7225d48595",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-r2-supported-life-order-neutral-strict-probe-author\\mark-neverest-malice-order-neutral-full-probe-r2.json",
+    "sha256": "49edceb62959005b2a1406bab1d9c520d9579469998596c160cb0d7225d48595"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-r2-supported-life-order-neutral-strict-probe-author\\manifest.json",
+    "sha256": "2d033f721eec3c8e43bbbd66056c787671968342e047ac51d3d4ad67d0270e8a"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "runtime_before_after_unchanged": true,
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-r2-independent-supported-life-diagnostic-source-review.json",
+    "sha256": "f87d5638478540994582ad28d0bd7abce633ff9977856c04769374a5ce58e365"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b865-mark-malice-r2-strict-native-cdc\\receipt.json",
+    "sha256": "bc57deef559c5c34bd1c4e8a487f551b2abf70abf4ad05d0a065b2ded5d3b08c"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b865-mark-malice-r2-strict-native-cdc\\actual-result.json",
+    "sha256": "5c51390bca00419239493b3f18c6f718b752a248777cbe186a2f7ddeb8db5b5f"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch865-mark-neverest-malice-two-layer-full-probe-r2-20261116T123726Z-6afaf906d9986.json",
+    "sha256": "9243e0d2a996220245d0dba35caf449ceb032109d025dd80ba7955561a131079"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch865-mark-neverest-malice-two-layer-full-probe-r2.recording-results.json",
+    "sha256": "5c51390bca00419239493b3f18c6f718b752a248777cbe186a2f7ddeb8db5b5f"
+  },
+  "planned_controls": 23,
+  "planned_declarative_controls": 23,
+  "planned_queries": 2737,
+  "planned_native_controls_if_full_normative_completion": 37,
+  "actual_native_inputs": 20,
+  "actual_native_actor_counts": {
+    "1": 5,
+    "2": 4,
+    "3": 4,
+    "4": 7
+  },
+  "actual_manual_inputs": 17,
+  "actual_manual_actor_counts": {
+    "1": 5,
+    "2": 4,
+    "3": 4,
+    "4": 4
+  },
+  "actual_legal_priority_response_controls": 16,
+  "actual_defense_finalizer_controls": 1,
+  "actual_nonpriority_END_transports": 0,
+  "actual_earned_Malice_response_inputs": 0,
+  "actual_earned_Mark_response_inputs": 0,
+  "actual_completed_four_seat_manual_response_cycles": 4,
+  "actual_control_classification": "3 P4 nonpass inputs, four Source responses4/1/2/3, four ATTACK responses4/1/2/3, P1 zero-card Ally-target defense finalizer, four DEFEND_PRIORITY responses4/1/2/3, four REACTION responses4/1/2/3. Last response enters lethal damage; no death-child response has occurred.",
+  "all20_native_envelopes_independently_match_original_Source_prefix": true,
+  "persisted_successful_queries": 2464,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "d77c2458b9b91ba862f2f04addcc6dab5866910656b025a7454cff8cd508b100",
+  "first_failed_query": {
+    "source_step_index": 40,
+    "source_check_index": 0,
+    "native_after_input": 20,
+    "declarative_control": 20,
+    "checkpoint": "actualREACTION_four_realLethal6_toAllyLife2_publicGY_host_BEFORE_MaliceAndMarkEffects_fourthResponse",
+    "query_ordinal_in_checkpoint": 1,
+    "global_query_ordinal": 2465,
+    "query": {
+      "step": 20,
+      "type": "card_exists",
+      "zone": "p1Graveyard",
+      "cardID": "restless_magister_red",
+      "viewerPlayerID": 1
+    },
+    "expected": true,
+    "actual": false,
+    "error": "Expected card restless_magister_red to exist in p1Graveyard."
+  },
+  "queries_unrun_after_failed_query": 272,
+  "not_passed_including_failed_query": 273,
+  "declarative_controls_unrun": 3,
+  "native_controls_unrun": {
+    "minimum": 17,
+    "maximum": 17
+  },
+  "native_suffix_bound_condition": "Source-normative full completion of either legal trigger order only:4or8 passes to Mark decision, one positive answer,12or8 passes through remaining trigger plus DAMAGE/RESOLUTION. Correlated totals17; no suffix action executed.",
+  "manual_inputs_unrun": 16,
+  "unrun_control_breakdown": [
+    "Control21 existing pass_until actual owner1 MZMULTICHOOSE readiness:4or8 future responses.",
+    "Control22 actual positive Red7 selection:1 future answer.",
+    "Control23 existing stackEmpty/windowACTION/priority4 endpoint:remaining4or0 death responses plus8 combat-cleanup passes."
+  ],
+  "passed_current_cluster_queries": 0,
+  "initial_raw_sha256": "67f51019514893dbeb86cab900ab97e2d9ea580cc18704659559ba98889e1be4",
+  "initial_raw_48_manual_controls": true,
+  "initial_raw_queries_independently_evaluated": 142,
+  "genuine_four_live_manual_seats_initial": true,
+  "genuine_four_seat_manual_interactions_completed": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "Fresh actual initial raw verifies four Young Malice/Betsy20 live/manual UPF seats, SeatOrder/LiveSeats1234, no passive seats, holdPriority and11 auto windows disabled for all four (48 manual-window controls). Initial142 supported queries independently evaluate against that raw.",
+    "The20 actual input envelopes and2464 persisted queries exactly match R2 Source through control19. Real P4 Brutal8 announcement and legal adjacent physical Ally5 target, actual Blue9 pitch/cost2/R1/AP0, physical attack/target descriptors and manual Source/attack/defense/reaction flow are queried before lethal input20.",
+    "Through the last prelethal checkpoint, HostUID5/CardIDRestlessMagister/ownercontroller1/status2/Damage0/exactCounters{UPR_LOST_HP:1}, MarkUID6 bound5, public RedUID7 Banish1, physical attacker8/Pitch9, power6/noGoAgain and all Hero health20 are supported by passed queries. Remaining life2 is derived from guarded printed3 and native UPRHealth, not the removed unsupported getter.",
+    "The first postlethal Native query directly observes that no Restless Magister card exists in p1Graveyard. No other postlethal physical/health/Stack/layer query passed before the stop."
+  ],
+  "causal_source_findings": [
+    "Correct printed Malice WHEN a controlled Zombie dies requires a separate earned Hero layer before banishing that Zombie face-down/creating Corpse. The granted Mark WHENdies also exists, but common-controller order cannot justify either effect before any death-layer response. The public host-GY-first oracle is original-correct regardless of permitted trigger order.",
+    "Guarded actual MONDestroy238 captures the Ally,242 queues the Mark-granted Ally source and destroys its bound Aura,243 moves the host to GY,244 invokes FaBIARZombieDied. IARRuntime169..174 directly turns/moves that GY Zombie into owner Banish and calls FaBIARCorpse, with no separate earned Malice layer. This is the earlier defective support producer, not individually confirmed Mark choice behavior.",
+    "Captured DAMAGE/targetUID5/attack8/damageDealt6 and exact ordered grave/Ally-grave/BANISHED history corroborate the death path. The two MON_BANISHED rows support banishment activity, but are not a Native physical host FaceDown or exact two-Corpse identity/quantity certificate. Final physical evidence is unavailable.",
+    "No extra rerun, source fix200, denied source write retry, quiet support substitution or Core/root-group allocation follows from this review. R1 zero-input NULL getter error is preserved as a separate oracle mistake, not evidence for this finding."
+  ],
+  "captured_corroboration": {
+    "observed_state_fields": {
+      "window": "PRIORITY",
+      "combatOpen": true,
+      "combatStep": "DAMAGE",
+      "chainLink": 1,
+      "attacker": 4,
+      "defender": 1,
+      "attackUID": 8,
+      "attackTarget": {
+        "type": "PERMANENT",
+        "player": 1,
+        "uid": 5,
+        "zone": "Arena"
+      },
+      "attackPower": 6,
+      "defenseValue": 0,
+      "damageDealt": 6,
+      "pendingPayment": null,
+      "passiveSeats": [],
+      "gameMode": "UPF"
+    },
+    "ordered_path": "observed_state.turnEffects[\"1\"]",
+    "ordered_value": [
+      {
+        "type": "EVR_GRAVEYARD",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SEA_BLUE_GRAVE",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_GRAVEYARD",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SEA_ALLY_GRAVE",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "PEN_ALLY_GRAVE",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "MON_BANISHED",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "MON_BANISHED",
+        "amount": 1,
+        "uses": 1
+      }
+    ],
+    "interpretation_limit": "History rows and source causality corroborate premature Malice activity but do not provide final physical Banish identities/FaceDown/Corpse count or a queried Stack roster.",
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    }
+  },
+  "postfailure_raw_limit": "Result captures game-state fields/decisions/hand refs and initial physical raw only; no terminal physical zones or final48. Later Banish/Red public/count, MarkGY/two capturedABI source IDs/Stack, optional positive choice, final hostFaceDown/exact2Corpse and cleanup queries were unrun.",
+  "R1_oracle_error_kept_separate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-r1-independent-zero-input-life-getter-oracle-assessment.json",
+    "sha256": "0ebcf82cdcb9344f561943e7701e680b14ad58c9df7b11431a7dbc817517b1fb"
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6",
+        "6.6.6b"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.2.8d",
+        "8.2.8e"
+      ]
+    }
+  ],
+  "limits": [
+    "272 queries after failed2465 and3 bulk declarative controls remain unrun. No trigger-order UI, per-layer effect completion, final physical roster/FaceDown, exact2Corpse, primary Mark choice/lifetime, Save, promotion, coverage, or complete-card certificate.",
+    "Both four-live setup and four ordinary attack-flow response cycles are actual; neither Malice nor Mark earned response cycles occurred. No finalraw/both-endpoint certificate is fabricated.",
+    "No PHP/Native/Rwrites/newagents/replay/sourcefix200/deniedReincarnate199 or older repair retry by reviewer."
+  ],
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false,
+  "context_primary_effect_qualified": false
+}

@@ -1,0 +1,148 @@
+{
+  "status": "APPROVED_EXACT_SAVED_FINAL_B325_OUTLAND_NEXT_ONE_HAND_BUFF_OWN_GA_REAL_NAA_FULLBLOCK_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T11:00:13.114773+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch325.json",
+  "input_sha256": "7c06ece13790d770254ccce4901442da48bf201fda79787282bdb2297f4ea349",
+  "manifest_sha256": "879928ba639bdaa6afc03756b1f13c0f1852d6f324fee06569f4d64d90f8a5f5",
+  "fixtures": [
+    {
+      "slug": "card-outland-skirmish-red-four-live-sparse-real-next-one-hand-plus-three-fully-blocked-without-hit",
+      "card_id": "outland_skirmish_red",
+      "group_id": "pitch-cycle:outland_skirmish",
+      "fixture_sha256": "b9d5b8e2d1ce56af52ae08352fcf258224b2148b7dfbe88460f40efd96622960",
+      "behavior_sha256": "b9d5b8e2d1ce56af52ae08352fcf258224b2148b7dfbe88460f40efd96622960",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "96a283747f58ab91f05ddffde634f18e5074a72ac1d30f3a1a21d10ba5f3b972",
+        "actions.json": "dd790a33bd5a3648af3b6d7becaa3a22f1d19a78a1dd1aaba0d430cf08cfddce",
+        "assertions.json": "06b4d911a96d9f6d5ec177ef8c2de4934b5f09aad94b37004e3ea6500a661c2f",
+        "expected_final_gamestate.txt": "17dce09b7317d201db7e5663121de2283d12059b1962b95afca8901a6c256885",
+        "meta.json": "05a5b8ccbd4659e90701e57e53e89bcdb6982e31c94c60a62f8b48158d402833"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "96a283747f58ab91f05ddffde634f18e5074a72ac1d30f3a1a21d10ba5f3b972",
+        "actions.json": "dd790a33bd5a3648af3b6d7becaa3a22f1d19a78a1dd1aaba0d430cf08cfddce",
+        "assertions.json": "06b4d911a96d9f6d5ec177ef8c2de4934b5f09aad94b37004e3ea6500a661c2f",
+        "expected_final_gamestate.txt": "17dce09b7317d201db7e5663121de2283d12059b1962b95afca8901a6c256885",
+        "meta.json": "05a5b8ccbd4659e90701e57e53e89bcdb6982e31c94c60a62f8b48158d402833"
+      },
+      "actions": 35,
+      "native_assertions": 3210,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_FINAL_source": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_proxy_uids_absent": [
+        10
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          8,
+          9
+        ]
+      },
+      "final_pitch_uids": [
+        7
+      ],
+      "final_retained_used_weapon_uids": [
+        6
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "FINAL7c06 only. Actual Outland5 NAA0 spends AP1, held through four source responses; only fourth same5 public P1GY and ownGA/AP1/next1H+3. Actual first Saber6 target/PITCH1 while ready; realBlue7pitch3 pays1/AP1 givesR2/AP0/used6, proxy10 earnedPOWER3. Four source responses actualOwner1ATTACK proxy10 fromWeapons/printed2+3=computed5/noGA. Actual native inputs17/18 declare P4DrivingBlue8/9 fromHand, each printed3 Warrior NAA, two physical DEFENSE objects; neither resolves Driving text nor earns SaberAA-defended condition. Stack0 and attackpower5 retained through declaring/defending, actual damage0/attackHitfalse/allHP20, no Copper or earned hit layer. FullDamage/Resolution keepsAP0, finalGY1{5}/GY4{8,9}/Pitch7/R2AP0/ownedusedSaber6/oncecounters/proxy10ceased; originalUID1-9 allconserved and queues/payment/ownedframes clear.",
+      "qualification": "Only Red positive realnext1H+3/ownGA/firstpaidweapon/computed5/noGA/two actual printed3 NAA fullblock/cleanup. No hit/Coppertrigger or ownership/2Hfalse condition/Saber-AA trigger/secondattack/KassaiEndPhase/hero/supportprimary/sibling/fullcard/control credit. Old uninstalled prose draft and original unfrozen Nimblism idea are not used for approval."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch325-independent-source-review.json",
+    "sha256": "262a988951241f29c88af2f6297968873fb2045f312ee2ebcee7be24ae4f83b8",
+    "manifest_sha256": "879928ba639bdaa6afc03756b1f13c0f1852d6f324fee06569f4d64d90f8a5f5"
+  },
+  "source_guards_verified": 19,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch325-20261103T105742Z-6ae9be26b9a43.json",
+    "sha256": "3e57daf3f6816041797537f333f76715d3a7d5c64b9cd0dc6b239056f6ebf8bb"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch325.recording-results.json",
+    "sha256": "9deb515d0d6944411f24e986b6a71dc7a1fe4fa4996b49a0b87868e55cd41b29"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch325-native-r1\\receipt.json",
+    "sha256": "d693dc575650d2468246449bf5ec3c1e6c2e583054268caa2a679d9a54b97f90"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Only hash-bound read-only source/wrapper/archive/rawfive/meta/action/assertion-equality prefix; B325 own physical checks follow."
+  },
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; raw-five individual hashes also bound.",
+  "only_final_corrected_folder_approved": true,
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Actual Root native COMPLETE0/stderr0/exact-five-file match; no reviewer PHP/native execution.",
+    "Reuse printed defense3 Warrior NAA correction/current-rule model from source proof262a; no output-fitted oracles. Expected defense6 follows the two printed3 physical cards; no invented separate persisted total-defense assertion.",
+    "Replay qualification belongs to separate actual Root reports; no fault-control credit.",
+    "No R/source edits, gameplay proposals, generation/engine backend/service/full suite or authorization retry."
+  ]
+}

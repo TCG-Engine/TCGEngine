@@ -1,0 +1,51 @@
+{
+  "status": "DREAD164_NATIVE28_1194_SAVED_ONE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b104 author/source/checker",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "226b6bb82ab6fd9cf9d70254bf59762f846464765b221b06d53c3b662bc0db66",
+  "input_sha256": "ea88056bcb21da6dbbe28c21173c221d1ea024efc66091488cf4845863e37c0f",
+  "source_spec": "card-regression-repair-dread164-assets-before-random-graveyard-cost.json",
+  "fixtures": [
+    {
+      "slug": "card-dread-screamer-blue-four-live-repair164-assets-before-random-three-cost-earned-go-again-full-close",
+      "card_id": "dread_screamer_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ad7a20a7fefe64fd5540e30568075d82ce4e74a4531272a96754213358e5ad6d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "5249880c33d45079f5ea32f73c468c19a5526909ba7a5378415eed97c950a796",
+        "expected_final_gamestate.txt": "d4ba548e28b7d854df88a133fddb45c767c911cd1ae4b1a7f19a752b68d90760",
+        "meta.json": "624adc74a2619abe19dbd36bea0430609ec01e944ec768a7ff6b3cb4a92e34d0"
+      },
+      "fixture_sha256": "42ccd4f1a7d2dd99d41d381f55b2981e44b016d86df190e419a8d68f38066dd4",
+      "actions": 28,
+      "native_assertions": 1194,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "226b6bb82ab6fd9cf9d70254bf59762f846464765b221b06d53c3b662bc0db66",
+      "runtime_sha256": "226b6bb82ab6fd9cf9d70254bf59762f846464765b221b06d53c3b662bc0db66",
+      "source_spec": "card-regression-repair-dread164-assets-before-random-graveyard-cost.json",
+      "input_sha256": "ea88056bcb21da6dbbe28c21173c221d1ea024efc66091488cf4845863e37c0f"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-dread164-replay.json",
+    "sha256": "fd0aa74a500053a38dc8191507f6c78a35fa6486003cfae8cfa39f1ad420d323",
+    "passed": true
+  },
+  "source_review_sha256": "b37cfae31520eaca7a50b6ba91102fa66b7c1484cc9128efe80567f09e173732",
+  "component_receipt_sha256": "1c2fbce60f55e80083d500f72a71f32656e3dd2a8a2f6089fa6919e42d0cbe2c",
+  "component_contracts": 18,
+  "isolated_counterfactual_controls": 3,
+  "basis": "Original legal2-input/275-query diagnostic prefix/setup exactly preserved, old file remains noSave. Additional-cost random3 leaves actualGY7/8/9 untouched and RNG unused before asset payment. RealBlue6pitch pays printed2/AP1 first; only then actual unchanged random loop banishes three owned physical cards and earns monSix/GO_AGAIN. All four live players respond through source, attack/defense/reaction and damage/close:25manualpasses/28totalactions. Actualprinted4damage leavesP4HP16; computedGA yieldsAP1/R1 and truefullcloseDread5GY/Blue6Pitch/BanishUIDset7,8,9 with original ownership. No newphysicalUID, no End or BloodDebt scenario. Three generated Prepare callbacks execute normally; no replacement/skipping/generation workaround. All1194typedexpectations and48manualprefs/Stack/await/queue/paymentcleanup verified.",
+  "draft_erratum": "Unexecuted draft-v1 had an unsupported cached attackGoAgain=true assumption. V2 removed only that cache query before Native; actual computed-go-again and earnedAP1 remain asserted, consistent with actual code initializing unused cachefalse. No observed-output fitting or passing credit from v1.",
+  "limits": [
+    "Native only original Blue positive asset-before-random-cost/three-six-pool/computedGA/damage/close. RGB uses sharedverifiedSourcecontract but siblings receive no Native credit.",
+    "18 actual-source contracts isolate insufficientfunding/liveGYloss/rollback/context/duplication/nestedcalls. Three deliberate counterfactual modes fail expected first contracts; they are component controls, not extra Native games.",
+    "No RNG distribution, random-order matrix, hook-driven mid-loop removal/replacements, fullobserver/rollback implementation, End/BloodDebt/Levia Hero or fullcard certification.",
+    "No oldDread primary found in bounded current coverage/review index lookup. Secondary/dynamic family use not comprehensively audited; no historical corpus or full-suite run.",
+    "No generic094, deniedgoal/Core/canonical/generated/service changes."
+  ]
+}

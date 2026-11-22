@@ -1,0 +1,51 @@
+{
+  "status": "CODEX161_ORIGINAL5_570_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 patch/checker and original726 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "9288d75e4546ad2770671297cbfe5076ba5155e0b44a7aff46f16d9bf3f0c8e4",
+  "input_sha256": "87963de1624db57a5c7c84310ad0447bcbd2bab362691b924dadf01e46eabd89",
+  "source_spec": "card-regression-repair-codex161-creator-owner.json",
+  "fixtures": [
+    {
+      "slug": "card-codex-of-inertia-yellow-four-live-diagnostic-creator-owner-and-opponent-controller",
+      "card_id": "codex_of_inertia_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e606996f1536a5f1011e9d9e9ae5897262d8b608f20e1d2fba93d3f03f1ecec7",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "3c21469dbd6c1affde315233ee93f2ccd506d784c63e2536962b1dbc5e6a8404",
+        "expected_final_gamestate.txt": "7bbf26e4b8538c83b94c33ad6fac7eb4b7351efa024976202768abd090333521",
+        "meta.json": "7dcad2fc2e00ac4a93bc9899113805d1b51ba0dcae71210f917e49556b389ae6"
+      },
+      "fixture_sha256": "ffeb78d8a3abb83a102153fee361dcafa3cbb672ee2d8bae48f827962195d208",
+      "actions": 5,
+      "native_assertions": 570,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "9288d75e4546ad2770671297cbfe5076ba5155e0b44a7aff46f16d9bf3f0c8e4",
+      "runtime_sha256": "9288d75e4546ad2770671297cbfe5076ba5155e0b44a7aff46f16d9bf3f0c8e4",
+      "source_spec": "card-regression-repair-codex161-creator-owner.json",
+      "input_sha256": "87963de1624db57a5c7c84310ad0447bcbd2bab362691b924dadf01e46eabd89"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-codex161-replay.json",
+    "sha256": "80719ef81b8b29ba78a12cef5e7a41ffe12687779d79d2e76dfa1b10f4a74412",
+    "passed": true
+  },
+  "source_review_sha256": "d470693b4dc4eba26b18082692b86a8370ff0e02b9c6737da836f86d9ee73d09",
+  "components": 8,
+  "component_receipt_sha256": "c0bb7047467a8e8705f9e4d1ced9c83ae168102d0f54deed685d8f550ad7fd17",
+  "basis": "All original5actions/570queries/setup unchanged. Real0-cost Codex5 gets four genuine live-seat responses, then creates actual Ponder under1 and Inertia under2/3/4. All four tokens have instructed creator Owner1 while Controllers remain1/2/3/4, with exact original identities/allocation and physical source5ownGY/AP1/R0/full Stack/DQ/await/combat cleanup. This follows Codex explicit create-under-opponents-control instruction and CR1.3.1a/8.5.2c, not an assumption that every opponent token belongs to the effect actor. One OUTCodexTokens helper change uses existing owner API; all unrelated OUTToken callers and factory bodies unchanged. Original observed Owner2 failure preserved.",
+  "official_sources": [
+    "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ],
+  "limits": [
+    "Original Inertia emptyDeck token-creation/ownership branch only. Arsenal loading/discarding/end effects/token consumption and Bloodrot/Frailty Codices remain individually unqualified; shared source correction is not sibling coverage.",
+    "Eight actual helper/factory components isolate AddArena and inactive replacements/count/after-move primitives. Bounded metadata/index/fixture-name inventory found no existing Codex fixtures requiring old-owner oracle repair; unlabeled secondary use outside metadata was not audited or certified.",
+    "No source-lifetime change, generic094 route, Core/generated/canonical/schema/service/remote authoring change, full suite, historical corpus replay or new breadth."
+  ]
+}

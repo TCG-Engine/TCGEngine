@@ -1,0 +1,23 @@
+{
+  "status": "APPLIED_LINT_PASS_NATIVE_QUALIFICATION_PENDING",
+  "runtime_before": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "expected_runtime_after": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "proposal_sha256": "43dada2ba58320a4a1e7a8a1a30e6bc8b5579c08e0ea4e0ad3392523d827921a",
+  "source_approval": "nov4-cull088-independent-source-review.json",
+  "source_approval_sha256": "876181b317d71bc8ea29e41030ef55af75ccccaca5d1643d9e0ab4060a21af07",
+  "predicate_checks_sha256": "c659d99435fe06e3f1665e8d8501103fa57168332fecb2d501ee3bde0e34a4db",
+  "target": "FaBSim/Custom/GameLogic.php",
+  "before_sha256": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+  "after_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-source-application\\before\\FaBSim\\Custom\\GameLogic.php",
+  "fixture_count_before": 3686,
+  "generated_changes": false,
+  "full_suite_run": false,
+  "lint": {
+    "returncode": 0,
+    "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php\n",
+    "stderr": ""
+  },
+  "runtime_after": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "completed_utc": "2026-11-04T19:36:32.387935+00:00"
+}

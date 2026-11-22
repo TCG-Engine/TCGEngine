@@ -1,0 +1,112 @@
+{
+  "status": "QUALIFIED_GORGON080_ORIGINAL_EXPECTATIONS_UNCHANGED",
+  "utc": "2026-11-03T17:30:50.483312+00:00",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "issue": "FAB-REG-080",
+  "scenario": "card-gorgons-gaze-yellow-four-live-sparse-real-paid-reaction-slither-and-banish-defender-before-damage",
+  "input_unchanged_sha256": "ee14fa689e808febb7cc581fa778fbb1e0238c6e5d1dee0065b604f7d20ce407",
+  "independent_saved_review": {
+    "path": "review-evidence/gorgon080-saved-c90a-independent-review.json",
+    "sha256": "90b00ab32a0db052ceb0d07fa9b9eb969ca166bc6a13fc71d9fbdc35acf85507"
+  },
+  "clean_replays": [
+    {
+      "path": "card-regression-replay-nov3-b350-c90a-r1.json",
+      "sha256": "6f9e0060ad29d2196e360db340da6b93800c571944f5b60998bf6e84fdc9a6d0"
+    },
+    {
+      "path": "card-regression-replay-nov3-b350-c90a-r2.json",
+      "sha256": "6f9e0060ad29d2196e360db340da6b93800c571944f5b60998bf6e84fdc9a6d0"
+    }
+  ],
+  "component_checker": {
+    "path": "components/gorgon-attack-reaction-legality.php",
+    "sha256": "9b3ee30eaf8d2a6209fb9d30bf7956cb5f810e1b8e41535c2d7c787c46baae17"
+  },
+  "baseline_characterization": {
+    "status": "PASS",
+    "scope": "Extracted actual FaBWTRCanPlay; dependencies isolated, not full engine/native proof",
+    "source_sha256": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "checks": 6,
+    "results": [
+      {
+        "label": "Gorgon permits generic AA without Chi",
+        "expected": false,
+        "actual": false
+      },
+      {
+        "label": "Gorgon retains weapon permission",
+        "expected": true,
+        "actual": true
+      },
+      {
+        "label": "Gorgon cannot react as nonattacker",
+        "expected": false,
+        "actual": false
+      },
+      {
+        "label": "Gorgon requires an actual attack",
+        "expected": false,
+        "actual": false
+      },
+      {
+        "label": "Out for Blood retains printed weapon restriction",
+        "expected": false,
+        "actual": false
+      },
+      {
+        "label": "Out for Blood retains weapon permission",
+        "expected": true,
+        "actual": true
+      }
+    ]
+  },
+  "actual_source_component": {
+    "status": "PASS",
+    "scope": "Extracted actual FaBWTRCanPlay; dependencies isolated, not full engine/native proof",
+    "source_sha256": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "checks": 6,
+    "results": [
+      {
+        "label": "Gorgon permits generic AA without Chi",
+        "expected": true,
+        "actual": true
+      },
+      {
+        "label": "Gorgon retains weapon permission",
+        "expected": true,
+        "actual": true
+      },
+      {
+        "label": "Gorgon cannot react as nonattacker",
+        "expected": false,
+        "actual": false
+      },
+      {
+        "label": "Gorgon requires an actual attack",
+        "expected": false,
+        "actual": false
+      },
+      {
+        "label": "Out for Blood retains printed weapon restriction",
+        "expected": false,
+        "actual": false
+      },
+      {
+        "label": "Out for Blood retains weapon permission",
+        "expected": true,
+        "actual": true
+      }
+    ]
+  },
+  "scope": "Named non-Chi Gorgon play/effect/physical cleanup only. Six extracted-function checks are not native helper controls; before=false characterizes the confirmed bug, not a weakened passing oracle.",
+  "uncredited": [
+    "Chi foreign-play permission",
+    "Slither activation",
+    "sibling or full-card coverage",
+    "additional global root count",
+    "full suite"
+  ],
+  "older_held070079_unchanged": true,
+  "Smashing_Item_choice": "SOURCE_ONLY_UNATTEMPTED_UNCREDITED"
+}

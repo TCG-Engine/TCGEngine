@@ -1,0 +1,92 @@
+{
+  "status": "INDEPENDENT_APPROVED_PLUNGE_SOURCE_ONLY_REQUIRED_ORDINARY_HIT285295_NOTE",
+  "phase": "PLANNING",
+  "batch": 867,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-plunge-required-hit-note-manifest.json",
+    "sha256": "1edd95fd9ea484e5ad7b68985acd86669a075ff888a09c58254286e2943d4c43"
+  },
+  "manifest_sha256": "1edd95fd9ea484e5ad7b68985acd86669a075ff888a09c58254286e2943d4c43",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-firm-reservation.json",
+    "sha256": "ce5979da9fac7e0147ecdab8715e6e67fc0530c65d25d41e1ed10ea39591ba84"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-firm-reservation-support-admission.json",
+    "sha256": "cc8298284da4c1d2f3a202d53a14114112af0f6ce92d5ba5e3bc138e54f8d26d"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 12,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "plunge_blue",
+      "group_id": "pitch-cycle:plunge",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_ORDINARY_HIT_WHEN285295_BEFORE_NEXT_DAGGER_GRANT",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-plunge-required-hit285295-unattempted-note.json",
+        "sha256": "b100eb60ab571586e4f89b810e9f7fc4d829931a61a32a1f568d1e607e2468e3"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 285,
+          "card_id": "pursuit_of_knowledge_blue",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "human_row": 295,
+          "card_id": "stun_star_blue",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Exact frozen note/manifest, Root firm/supportcc829,12currentguards, selected OUT canonical implemented Hit, printed family/support/printing closure and both historical285/295 proof hashes independently matched. Historical evidence remains at its own runtime and is not replayed or retagged currentCDC.",
+    "Actual current ordinary GL1264 invokes the implemented OUT Hit body FaBOUTNext(player,dagger,1) directly before any separately captured Plunge WHEN/four responses. This is the same formal ordinary-Hit-before-effect contract as Pursuit285 and Stun295, including synchronous effects; it is not a missing-body, unsupported weapon, optional-await or blanket family hold.",
+    "Fai actualYoung20 is Draconic/Ninja and admits hybrid Assassin/Ninja Plunge plus Draconic-only Claw Vynserakai Dagger1H/base1/Action1. Fai optional Phoenix start and activation are unentered; no Katsu automatic hit Hero is substituted. Claw has Spellvoid1, which is unentered, and no printed tap cost is invented.",
+    "Complete future route remains actual Blue3 pays Plunge cost1/R2/AP0, real1damageHero4HP19, earned source/controller/freshfour before next-Dagger+1, printedGA AP1, then actualClawcost1/R1/AP0/base1+buff1=2 and real2damageHP17 with same-chain/physicalUID/consumption/close/Pitch/parentGY/economy/StackDQ cleanup. No marker-only/cachedpower-only or quiet baseline certifies that full route; all Native outcomes are unrun.",
+    "Only Blue selected representation is retained. Red/yellow metadata-family examination, other daggers/targets, prior plays, support and whole-card remain unqualified. Escalate is an independent strict diagnostic and no hold/certificate is borrowed from its Native result."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "plunge_blue",
+      "action": "Execute full hit-earned-next-Dagger and real weapon-damage consumer route",
+      "reason": "Exact ordinary Hit-WHEN285/295 before FaBOUTNext immediate grant",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "No executable/Native/new issue/root/Core/Save/coverage/source-fix approval.",
+    "No PHP/Native/Rwrites/replay/newagents/fullsuite or deniedReincarnate199/188/184/B787 retry by reviewer."
+  ]
+}

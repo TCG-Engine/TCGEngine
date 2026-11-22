@@ -1,0 +1,58 @@
+{
+  "status": "APPLIED_PURE_REGRESSION_VIEW_COMPONENT_AND_ONE_EXISTING_COMPATIBILITY_PASS",
+  "runtime_before": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "runtime_after": "9d6f6c4592a45778ac4deb2c5fa292747472a59a64f6a1d68b839caca788de55",
+  "source_files": [
+    "FaBSim/Custom/GameLogic.php::GameRegressionState"
+  ],
+  "change": "Append snapshot-only _regression.turnEffectRows per-seat exact type row counts so existing state-field assertions can isolate permission presence independently of unrelated history. Original state members and raw persisted state are unchanged.",
+  "proofs": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-fab-readonly-turneffect-row-projection-independent-source-application-review.json",
+      "sha256": "c0e76866192afe0690f1565c124bb3f8e033913b50c1af58e1efb2200a501081",
+      "retained_outside_repository": true,
+      "required_for_replay": false
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-readonly-regression-effect-view-source-application\\receipt.json",
+      "sha256": "2a776cca77905c2d3fe9405f453694b8ce2f4e683a176cf27c12cb5c80b37b0b",
+      "retained_outside_repository": true,
+      "required_for_replay": false
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-fab-readonly-turneffect-row-projection-independent-actual-scope-review.json",
+      "sha256": "32fd631439e64f5af417f8fc784762f58dfdaa45719cbb916a98c4cb9ba83da7",
+      "retained_outside_repository": true,
+      "required_for_replay": false
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-fab-readonly-turneffect-row-projection-root-component-results\\receipt.json",
+      "sha256": "cda7a4d8bcee1dedef5e65ee915fe2dba6e0f4d7dad208a349318368599fa001",
+      "retained_outside_repository": true,
+      "required_for_replay": false
+    }
+  ],
+  "component_checks_passed": 185,
+  "syntax_checks_passed": 3,
+  "installed_syntax_passed": true,
+  "existing_targeted_compatibility": {
+    "path": "card-regression-replay-nov15-readonly-view9d6-mark-existing-compat.json",
+    "sha256": "26c2be14b12d75ad09a5c57acbbbf1bd7d357ba67691af0377062f84af36296f"
+  },
+  "gameplay_rule_changes": false,
+  "Core_changes": false,
+  "recorder_changes": false,
+  "generated_changes": false,
+  "card_coverage_credit": false,
+  "new_scenarios": 0,
+  "new_groups": 0,
+  "native_fault_credit": 0,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "held184_B787_untouched": true,
+  "limits": [
+    "Counts are raw rows, not active-effect semantics/amount sums; the real card consumer remains mandatory.",
+    "Reserved _regression is output-only, absent from current valid-state producers; it is never persisted.",
+    "Existing scenarios retain actual historical runtime labels. One directly affected legacy Mark replay passed; no full suite or historical requalification claimed."
+  ]
+}

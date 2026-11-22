@@ -1,0 +1,97 @@
+{
+  "status": "INDEPENDENT_SOURCE_ONLY_EMBOLDENED_KNOWN_LIFETIME_HOLD_APPROVED_AS_UNATTEMPTED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 836,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T23:34:26.347537+00:00",
+  "approved": true,
+  "approved_as_planning_limits": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch836-emboldened-known-lifetime-hold-manifest.json",
+    "sha256": "95c5dc9284bdc9c8c98986f7872ddbf8725275f281cb7990b73fc003256e64bc"
+  },
+  "manifest_sha256": "95c5dc9284bdc9c8c98986f7872ddbf8725275f281cb7990b73fc003256e64bc",
+  "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch836-firm-reservation.json",
+    "sha256": "e0db64d43c08c9c2a56df078a65523887ac30b5bb4961d18009c93c488ce201e"
+  },
+  "source_preimage_guard_count": 17,
+  "all_current_source_preimages_matched": true,
+  "source_only_held_cases": [
+    {
+      "card_id": "emboldened_blade_blue",
+      "group_id": "identity:emboldened_blade_blue",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_ORDINARY_PHYSICAL_SPELL_RESOLUTION_LIFETIME",
+      "classification": "KNOWN_UNMANAGED_ORDINARY_SPELL_AWAIT_CHOICE_CONTRACT",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch836-emboldened-known-plain-source-lifetime-unattempted-note.json",
+        "sha256": "096b551e09a9c688ee00115924f314e0fcfe01e049d187d2e40d55415c076765"
+      },
+      "known_contract_proof": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse831-independent-known-source-lifetime-planning-review-a11.json",
+        "sha256": "bdf61ada6868d6f1774ed1b2a75a26a249fc72349cd7a67bfbb53c36a656b14e"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "independently_checked_canonical": {
+    "cardId": "emboldened_blade_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$refs = FaBEVOFaceDownArsenals();\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Turn_arsenal_face_up\");\n \n}\nFaBEVOEmbolden($player, $chosen);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  "actual_compiled_entry_sha256": "b3b8238e2ffb75e3e2abee88410daf89d679ae4d0ede5cae229570037e42b22d",
+  "actual_compiled_await_callback": "__RunAwait_4ea39018ecdd4765de47",
+  "actual_compiled_await_callback_sha256": "419325a54e9bef5d6e74c5390acf062544b8718c904e35341985090df30547c4",
+  "independent_findings": [
+    "Actual Blue Warrior Action0/Go-again body is implemented in canonical and emitted code: resolving non-target Arsenal choice then face-up/defense-reaction destroy/+1 next-weapon helper. It is not an absent implementation or late formal-target problem.",
+    "The ordinary nonpersistent Action is absent from both known/managed physical plain-spell registries. GameLogic fallback moves source Stack\u2192GY before ResolveCard instructions/awaited chooser, then handles go-again/window without waiting. This matches the retained Workshop/Rolling/021/171 physical-source lifetime contract; no redundant native probe or new issue allocation is warranted.",
+    "Young Boltyn admits Blue Warrior spell and Dawnblade; unused no-charge/no-Soul precondition avoids extra Hero triggers. Real opponent facedown Generic Sink Below is legal Arsenal precondition. Complete future route still requires turn face-up then public-ownerGY destruction, earned NEXT_WEAPON1, printed go-again only on completion, real Dawnblade resource1/first4damage and full cleanup. None of these later behaviors is natively certified here.",
+    "Emboldened Blade is separate from Embolden Aura/FAB-REG-129. Exact named identity/alias/support scan does not convert loose support-name matches into shared-card coverage or a new root."
+  ],
+  "current_primary_newness": {
+    "index": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\coverage-additions-after218.json",
+      "sha256": "89cd3e63d084fc980bd289fa584ac8cc6ffa79dd04fd10d130c6168366472eb1"
+    },
+    "cycles": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\cycle-coverage-current.json",
+      "sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09"
+    },
+    "primary_unrepresented": true,
+    "historical_runtime_labels_preserved": true
+  },
+  "source_approved": false,
+  "native_case_approved": false,
+  "normal_save_approved": false,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_new_issue": false,
+  "source_fix": false,
+  "limits": [
+    "Source-only UNATTEMPTED known required contract; no executable/full packet/quiet non-Defense-Reaction fallback or substitute primary.",
+    "Later Arsenal visibility/destruction/modifier/go-again/payment/weapon damage/full cleanup, second hit/otherbranches/support/siblings remain unrun. No full future wire/order admission is issued."
+  ],
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch836_emboldened_hold.py",
+    "sha256": "36138e8d7d1f5ad4ada780dbbe28a4935c0c2cec9784597ab9f428ac5d0ecd51"
+  }
+}

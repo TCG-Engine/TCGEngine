@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch420.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T06:10:05.074192+00:00",
+  "fixtures": [
+    {
+      "slug": "card-malice-four-live-sparse-real-paid-tapped-hero-grants-zombie-graveyard-play-permission-consumed",
+      "fixture_sha256": "bb7b2faad65e825ce476dbc2f48b50a2e7943651d63a819b36f2ec1e4926ac60",
+      "passed": true,
+      "result": "[PASS] malice / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-malice-four-live-sparse-real-paid-tapped-hero-grants-zombie-graveyard-play-permission-consumed",
+      "returncode": 0,
+      "stdout": "[PASS] malice / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-talisman-of-featherfoot-yellow-four-live-correct-probe-real-plus-one-reaction-earns-destroy-and-go-again-layer"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

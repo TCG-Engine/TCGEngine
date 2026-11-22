@@ -1,0 +1,178 @@
+{
+  "status": "INDEPENDENT_APPROVED_B869_TWO_REQUIRED_CONTRACT_SOURCE_ONLY_PLANNING_NOTES_R2",
+  "phase": "PLANNING",
+  "batch": 869,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch869-two-required-contract-notes-manifest-r2.json",
+    "sha256": "c1e11ffb62a573bfd73d9ae48f83b74fa114382d3f0eb4c395ae3035349001db"
+  },
+  "manifest_sha256": "c1e11ffb62a573bfd73d9ae48f83b74fa114382d3f0eb4c395ae3035349001db",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch869-firm-reservation.json",
+    "sha256": "2fdff46c5875a883eb4a7f921e77ee93957406f5f1ab2084a0f9ed8284e772c9"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch869-firm-reservation-support-admission.json",
+    "sha256": "a2e09280e9f0261ff27f1ff4ad158de95d9320b6a83e425bd5b8b6baf649ebca"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 17,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "pick_up_the_point_blue",
+      "group_id": "pitch-cycle:pick_up_the_point",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_ORDINARY_ATTACK_DECLARED_WHEN269282_BEFORE_POSITIVE_RETRIEVE",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch869-pick-up-point-required-attacks269282-unattempted-note.json",
+        "sha256": "8fc1ef4dda1e024976ebba43e6cd26a7b469f335eb974accf212d3c3e5c5a8a6"
+      },
+      "known_required_contracts": [
+        {
+          "human_hold_row": 269,
+          "card_id": "chest_puff_red",
+          "historical_reviewed_runtime": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse822-chest-pay-one-attack-when-unattempted-429a.json",
+            "sha256": "e062e6f972ce57974eab8964aa721e303526832fb6950446270d7d12f8aaa8a7"
+          }
+        },
+        {
+          "human_hold_row": 282,
+          "card_id": "look_tuff_red",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse832-phantom-source-and-look-tuff-unattempted-a11.json",
+            "sha256": "ff74a845f11dcb18ff224ff1e2dfd1271a54e8632ade9044e16e8d4748dfd5f7"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "combustion_point_red",
+      "group_id": "identity:combustion_point_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_FIXED_ATTACK_ACTION_REACTION_ADMISSION148153_BEFORE_LATER_FORMAL_TARGET267290",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch869-combustion-r2-required-aa-admission148153-unattempted-note.json",
+        "sha256": "ccc71ab74d9ee1b701199c14cc0403163bb9692c1d46af4b5fcdc602e03f4029"
+      },
+      "known_required_contracts": [
+        {
+          "issue_id": "FAB-REG-148",
+          "card_ids": [
+            "sirens_call_red"
+          ],
+          "historical_native_runtime": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sirens148-legal-generic-attack-reaction-native-before-c53.json",
+            "sha256": "a7ca7b0471a09210d21579874085bd86aa85c217aa8b536e717db959db4a2808"
+          }
+        },
+        {
+          "issue_id": "FAB-REG-153",
+          "card_ids": [
+            "nights_embrace_blue"
+          ],
+          "historical_native_runtime": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\night153-stealth-aa-admission-c53-native-before.json",
+            "sha256": "9dc7043dd45e58b8d29d78c48e98791557ba065058c283f575d423464677cf44"
+          }
+        },
+        {
+          "human_hold_row": 272,
+          "card_id": "hiss_blue",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse824-glow-source-and-hiss-unattempted-a11.json",
+            "sha256": "8fd7768f6d94afffee1ee7a8a0a72f60f8afe40ed89a8e7f14490c4f07747b80"
+          }
+        },
+        {
+          "human_hold_row": 301,
+          "card_id": "throw_dagger_blue",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse847-two-known-required-contract-planning-cdc.json",
+            "sha256": "1d280366916047c9de16ac1db0a371b10f4254e235afa6b3fba803f4b54133f0"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Final manifest-r2 c1e11ffb and exact PickUp8fc1ef4d/Combustion-r2ccc71ab7 bytes, Root firm2fdff46c and supporta2e09280, all17 current CDC guards, both selected canonical rows, prior contract proof hashes and full printed identity/support closure match. Historical proofs remain at their own runtimes, with no replay/retag/current Native qualification.",
+    "PickUp actual GL1233 reaches implemented HNT AttackDeclared positive MZMultiChoose(0..1), then native pitch/pay1/equip. HNTRuntime75..85 and WTR643..655 provide no captured PickUp attacks-WHEN interception. This required earned-attack-trigger-before-positive-choice contract matches Chest269/LookTuff282; it is not a missing retrieve implementation, formal target, empty choice or optional-path waiver.",
+    "Official CR8.5.51/51a permits paying1 only for a card that can equip; free weapon slot/real own SpiderBite1H and Blue3 admission meet that condition. Official Hunted indexed note confirms PickUp triggers when it becomes attacking, not on play (direct release-notes fetch403; no claim to full direct page text). Full future correct PickUp0/AP0/earnedfour/retrieve sameUID/pay1R2/equip/unblocked1HP19/GAAP1 then real Spider2R/AP0/power1 fully hand-blocked DEF3/GAAP1 and all physical/economy/close cleanup remain unrun. No Equipment means Piercing is unentered; zero weapon damage leaves own Hit effect unentered. Arakni Contract is not printed on PickUp, so no unrelated Hero trigger is waived.",
+    "Combustion fixed current RoninBlue is a Draconic/Ninja ATTACK ACTION. GL931 requires WTRCanPlay; the WTR464..487 Attack Reaction cohort admits its explicit exceptions then defaults to a weapon, and Combustion is neither an exception nor in the CardChoices4..5 early Nip/Shred registry. Thus exact148/153 weapon-only admission is FIRST, before its own reaction/target/cost. No fixed host substitution or duplicate Native is authorized. Later actual UPR ResolveCard chooses formal qualifying AA at resolution, matching267/290 only downstream; its +1 and non-Equipment DEF<Draconic-links helpers exist.",
+    "Combustion full future legal Fai20/two resolved RoninRed3+Yellow2 Draconic GA prior links/current Hero4 HP15, then real RoninBlue0/base1 third link and physical ScarBlueDEF2 remain mandatory. Three Draconic links make2<3; Scar is defending, not played. Reaction real Blue3 pays1/R2, declared target/source retained, positive sameUID owner4 public Banish removes the defender; exact +1 makes real2damageHP13, RoninGAAP1/all three AA and reaction GY/Pitch/StackDQ/economy cleanup. All effects/history are unrun, not a numerical Native certificate.",
+    "Final Combustion R2 changes only the first future-route wording plus explicit provenance metadata: own Action PHASE is distinguished from the actual legal open-chain RESOLUTION continuation for the next AA. Inverse replacement and removal of the clarification object recover the original note exactly. This is a setup wording clarification before any executable/Native, not a Native oracle correction, a changed positive branch/support, a source-health pivot or code change.",
+    "Both selected full routes are source-only unattempted. No executable/full query model/shortened baseline, Native, new bug/root/Core, passing fixture, sibling/support/full-card coverage or source repair is approved."
+  ],
+  "setup_wording_clarification": {
+    "original_note": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch869-combustion-required-aa-admission148153-unattempted-note.json",
+      "sha256": "7b8a9400cfeed18ba6f1332fff6f2349aaac8fcfb5e1d0c7a965718719bf2ada"
+    },
+    "inverse_note_equality_verified": true,
+    "scope": "Own Action phase versus native RESOLUTION window for open-chain next AA; planning wording only, no Native oracle correction."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.5.51",
+        "8.5.51a",
+        "8.1.1b"
+      ]
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/the-hunted/",
+      "access": "Official indexed excerpt only; direct403"
+    }
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "pick_up_the_point_blue",
+      "action": "Execute full earned retrieve and real retrieved-weapon consumer",
+      "reason": "Known ordinary AttackDeclared-WHEN269/282 before positive retrieve chooser",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "combustion_point_red",
+      "action": "Execute full fixed AA-host reaction +1 and positive defender banish",
+      "reason": "Earlier known fixed-AA admission148/153; formal target267/290 remains downstream unrun",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "No executable/Native/Save/coverage/new issue/root/Core/source-fix approval.",
+    "No PHP/Rwrites/Native/replays/new agents/fullsuite or deniedReincarnate199/older source-operation retry by reviewer."
+  ]
+}

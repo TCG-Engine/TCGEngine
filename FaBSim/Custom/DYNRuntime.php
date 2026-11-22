@@ -63,7 +63,7 @@ function FaBDYNBlockLegal(int $p,array $f): bool {
  if(FaBHasType($f['object'],'Action')&&FaBDYNOverpower($a['object'],$s))foreach(FaBChoiceRefs($p,'CombatChain') as $r){$b=FaBIdentityFromMZ($r)['object'];if(intval($b->ChainLink)===intval($s['chainLink'])&&in_array($b->Role,['DEFENSE','DEFENSE_REACTION'],true)&&FaBHasType($b,'Action'))return false;}
  return true;
 }
-function FaBDYNOverpower(object $o,array $s): bool {return (FaBWTRBase($o->CardID)==='rumbling_of_iarathael'&&!HasNoAbilities($o)&&FaBMONCount(intval($s['attacker']),'BANISHED'))||FaBSEAOverpower(intval($s['attacker']),$o)||FaBHVYOverpower(intval($s['attacker']),$o,$s)||FaBEVOOverpower(intval($s['attacker']),$o,$s)||FaBPrintedKeywordIsActive($o->CardID,'Overpower')||in_array('OVERPOWER',(array)$o->TurnEffects,true)||(FaBWTRBase($o->CardID)==='wall_breaker'&&FaBMONCount(intval($s['attacker']),'BANISHED_SIX'))||in_array('DYN_OVERPOWER',(array)$o->TurnEffects,true)||($o->CardID==='merciless_battleaxe'&&FaBAttackPower($s)>2*intval(CardPower($o->CardID)));}
+function FaBDYNOverpower(object $o,array $s): bool {return FaBPENConditionalOverpower(intval($s['attacker']),$o)||(FaBWTRBase($o->CardID)==='rumbling_of_iarathael'&&!HasNoAbilities($o)&&FaBMONCount(intval($s['attacker']),'BANISHED'))||FaBSEAOverpower(intval($s['attacker']),$o)||FaBHVYOverpower(intval($s['attacker']),$o,$s)||FaBEVOOverpower(intval($s['attacker']),$o,$s)||FaBPrintedKeywordIsActive($o->CardID,'Overpower')||in_array('OVERPOWER',(array)$o->TurnEffects,true)||(FaBWTRBase($o->CardID)==='wall_breaker'&&FaBMONCount(intval($s['attacker']),'BANISHED_SIX'))||in_array('DYN_OVERPOWER',(array)$o->TurnEffects,true)||($o->CardID==='merciless_battleaxe'&&FaBAttackPower($s)>2*intval(CardPower($o->CardID)));}
 function FaBDYNPlayed(int $p,object $o,string $from): void {
  $b=FaBWTRBase($o->CardID);$uid=intval($o->UniqueID);$attack=FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o);
  if($attack){$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='DYN_NEXT'&&FaBDYNMatch($o,$e['kind'])){if(intval($e['amount']))FaBTagUID($uid,'WTR_POWER:'.intval($e['amount']));foreach($e['tags'] as $tag)if($tag!=='DYN_DEAD_EYE'||FaBDYNAimed($uid))FaBTagUID($uid,$tag);}else $left[]=$e;}FaBWTRSetEffects($p,$left);}
@@ -109,7 +109,7 @@ function FaBDYNAttack(int $p,object $o): void {
 }
 function FaBDYNHit(int $p,object $o,int $n): void {
  if($n<=0)return;$uid=intval($o->UniqueID);$r=FaBFindUID($uid)['mzID']??'';
- if(FaBHasType($o,'Gun'))foreach(FaBMONArena($p,'powder_keg') as $k)FaBRunSourceMacro('ResolveAbility',$p,'powder_keg_blue',['mzID'=>$k]);
+ if(FaBHasType($o,'Gun')&&FaBHasType($o,'Mechanologist'))foreach(FaBMONArena($p,'powder_keg') as $k){$source=FaBIdentityFromMZ($k);if($source)FaBROSQueue($p,'powder_keg_blue',intval($source['object']->UniqueID));}
  if(!FaBFaiHeroHit()){foreach((array)$o->TurnEffects as $tag)if($tag==='DYN_CLEAVE')FaBRunSourceMacro('ResolveAbility',$p,'buckle_blue',['mzID'=>$r,'dynHitMode'=>$tag,'dynHitAmount'=>$n,'dynVictim'=>intval(FaBGetState()['defender'])]);return;}$victim=intval(FaBGetState()['defender']);
  if($o->CardID==='jubeel_spellbane'&&!FaBMONArena($p,'spellbane_aegis'))FaBWTRCreateArena($p,'spellbane_aegis');
  if($o->CardID==='spiders_bite')FaBDYNAdd($victim,'SPIDER');
@@ -120,20 +120,99 @@ function FaBDYNHit(int $p,object $o,int $n): void {
   if(in_array($tag,['DYN_BUCKLE','DYN_CLEAVE','DYN_DEAD_EYE'],true))FaBRunSourceMacro('ResolveAbility',$p,'buckle_blue',['mzID'=>$r,'dynHitMode'=>$tag,'dynHitAmount'=>$n,'dynVictim'=>$victim]);
  }
 }
+/** Arm only this resolved BIOS source; the turn-effect bucket owns printed expiry. */
+function FaBDYNArmBIOSItem(int $p,string $sourceRef): void {
+ $f=FaBIdentityFromMZ($sourceRef);
+ if(!$f||$f['object']->CardID!=='bios_update_red'||intval($f['object']->Controller)!==$p||intval($f['object']->UniqueID)<=0)return;
+ FaBWTRAddEffect($p,'DYN_BIOS_ITEM',1,['sourceUID'=>intval($f['object']->UniqueID),'sourceCardID'=>'bios_update_red','sourceController'=>$p]);
+}
+/** Consume each earned next-time record before callbacks, then queue its own layer. */
+function FaBDYNQueueBIOSItem(int $p,int $itemUID): void {
+ $f=FaBFindUID($itemUID);
+ if(!$f||$f['zone']!=='Banish'||intval($f['player'])!==$p)return;
+ $item=$f['object'];$cost=CardCost($item->CardID);
+ if(!FaBHasType($item,'Mechanologist')||!FaBHasType($item,'Item')||!is_numeric($cost)||intval($cost)>2)return;
+ $effects=(array)(FaBGetState()['turnEffects'][(string)$p]??[]);$keep=[];$earned=[];
+ foreach($effects as $e){
+  if(($e['type']??'')==='DYN_BIOS_ITEM'&&intval($e['amount']??0)>0&&intval($e['uses']??0)>0
+   &&intval($e['sourceUID']??0)>0&&($e['sourceCardID']??'')==='bios_update_red'&&intval($e['sourceController']??0)===$p){$earned[]=$e;continue;}
+  $keep[]=$e;
+ }
+ if(!$earned)return;
+ FaBWTRSetEffects($p,$keep);
+ foreach($earned as $e)FaBROSQueue($p,'bios_update_red',intval($e['sourceUID']),['rosEvent'=>'dynBIOSItem','dynItemUID'=>$itemUID,'dynItemCardID'=>(string)$item->CardID,'dynItemOwner'=>intval($item->Owner),'dynItemHolder'=>$p]);
+}
+/** An earned layer is independent of BIOS's later location or ability status. */
+function FaBDYNResolveBIOSItem(int $p,object $trigger): void {
+ if($trigger->CardID!=='bios_update_red'||intval($trigger->Controller)!==$p||intval($trigger->SourceUniqueID)<=0||!empty($trigger->Params['dynBIOSResolved']))return;
+ $trigger->Params['dynBIOSResolved']=true;
+ $uid=intval($trigger->Params['dynItemUID']??0);$f=FaBFindUID($uid);
+ if(!$f||$f['zone']!=='Banish'||intval($f['player'])!==intval($trigger->Params['dynItemHolder']??0)
+  ||(string)$f['object']->CardID!==(string)($trigger->Params['dynItemCardID']??'')||intval($f['object']->Owner)!==intval($trigger->Params['dynItemOwner']??0))return;
+ $o=FaBMoveUID($uid,'Arena',$p);if($o)FaBARCEnterItem($p,$o);
+}
 function FaBDYNBoost(int $p,int $uid,int $banishedUID): void {
  if(FaBDYNCount($p,'BIOS_POWER')){FaBTagUID($uid,'WTR_POWER:'.(3*FaBDYNCount($p,'BIOS_POWER')));FaBDYNClear($p,'BIOS_POWER');}
  $f=FaBFindUID($banishedUID);if(!$f)return;$o=$f['object'];
  if(FaBWTRBase($o->CardID)==='crankshaft')FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>$f['mzID']]);
- if(FaBDYNCount($p,'BIOS_ITEM')&&FaBHasType($o,'Mechanologist')&&FaBHasType($o,'Item')&&intval(CardCost($o->CardID))<=2){FaBDYNClear($p,'BIOS_ITEM');$o=FaBMoveUID($banishedUID,'Arena',$p);if($o)FaBARCEnterItem($p,$o);}
+ FaBDYNQueueBIOSItem($p,$banishedUID);
 }
 function FaBDYNEnterItem(int $p,object $o): void {
  $b=FaBWTRBase($o->CardID);if($b==='hyper_driver')FaBSetObjectCounter($o,'STEAM',intval(FaBObjectCounters($o)['STEAM']??0)+max(1,4-intval(CardPitch($o->CardID))));
  if($b==='plasma_mainline')FaBSetObjectCounter($o,'STEAM',5);
  if(FaBHasType($o,'Mechanologist')&&intval(CardCost($o->CardID))<=2)foreach(FaBMONArena($p,'plasma_mainline') as $r)FaBRunSourceMacro('ResolveAbility',$p,'plasma_mainline_red',['mzID'=>$r,'dynItemUID'=>intval($o->UniqueID)]);
 }
-function FaBDYNRandomDiscard(int $p,int $uid,string $id): void {
+/** Track the public graveyard object created by a real zone entry, not its persistent UID alone. */
+function FaBDYNReincarnateAfterMove(object $o,string $from,string $to): void {
+ if($to!=='Graveyard'||$from==='Graveyard')return;
+ $uid=intval($o->UniqueID??0);if($uid<1)return;
+ $entry=intval(FaBARCCard($uid,'dynReincarnateGraveEntry',0));
+ if($entry>0)
+  FaBARCSetCard($uid,'dynReincarnateGraveEntry',max(0,$entry)+1);
+}
+/** Arm only the genuine eligible non-Berserk random-discard route; ordinary entries stay untouched. */
+function FaBDYNPrepareReincarnateRandom(int $p,int $uid,string $id,?object $lastKnown): bool {
+ if(!FaBSeatIsLive($p)||$uid<1||$lastKnown===null||FaBDYNCount($p,'BERSERK')
+  ||!in_array($id,['reincarnate_red','reincarnate_yellow','reincarnate_blue'],true)
+  ||($lastKnown->CardID??'')!==$id||intval($lastKnown->UniqueID??0)!==$uid
+  ||($lastKnown->Location??'')!=='Hand'||intval($lastKnown->Owner??0)!==$p
+  ||!in_array(intval($lastKnown->Controller??0),[0,$p],true)||HasNoAbilities($lastKnown))return false;
+ if(intval(FaBARCCard($uid,'dynReincarnateGraveEntry',0))<1)
+  FaBARCSetCard($uid,'dynReincarnateGraveEntry',1);
+ return true;
+}
+/** Eligibility and the destination instance are snapshots of the successful random discard. */
+function FaBDYNQueueReincarnateRandom(int $p,int $uid,string $id,?object $lastKnown,int $graveEntry,bool $capturedEligible=false): void {
+ if(!$capturedEligible||!FaBSeatIsLive($p)||$uid<1||$graveEntry<2||$lastKnown===null
+  ||!in_array($id,['reincarnate_red','reincarnate_yellow','reincarnate_blue'],true)
+  ||($lastKnown->CardID??'')!==$id||intval($lastKnown->UniqueID??0)!==$uid
+  ||($lastKnown->Location??'')!=='Hand'||intval($lastKnown->Owner??0)!==$p
+  ||!in_array(intval($lastKnown->Controller??0),[0,$p],true))return;
+ if(intval(FaBARCCard($uid,'dynReincarnateGraveEntry',0))<$graveEntry)return;
+ if(intval(FaBARCCard($uid,'dynReincarnateQueuedEntry',0))===$graveEntry)return;
+ FaBARCSetCard($uid,'dynReincarnateQueuedEntry',$graveEntry);
+ FaBROSQueue($p,$id,$uid,['rosEvent'=>'dynReincarnateRandom',
+  'dynReincarnateEntry'=>$graveEntry,'dynReincarnateOwner'=>$p]);
+}
+function FaBDYNResolveReincarnateRandom(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ $uid=intval($layer->SourceUniqueID??0);$entry=intval($params['dynReincarnateEntry']??0);
+ $owner=intval($params['dynReincarnateOwner']??0);
+ if(!FaBSeatIsLive($p)||($layer->Kind??'')!=='ABILITY'
+  ||intval($layer->Controller??0)!==$p||$owner!==$p||$uid<1||$entry<2
+  ||!in_array((string)($layer->CardID??''),['reincarnate_red','reincarnate_yellow','reincarnate_blue'],true)
+  ||($params['rosEvent']??'')!=='dynReincarnateRandom')return;
+ $found=FaBFindUID($uid);
+ if(!$found||$found['zone']!=='Graveyard'||intval($found['player'])!==$owner
+  ||intval($found['object']->Owner??0)!==$owner||!empty($found['object']->FaceDown)
+  ||intval(FaBARCCard($uid,'dynReincarnateGraveEntry',0))!==$entry)return;
+ // Later name, blanking and control changes do not cancel an earned ability.
+ // A departure/re-entry produces a different graveyard object and cannot be followed.
+ FaBARCToDeck($owner,$uid,false);
+}
+function FaBDYNRandomDiscard(int $p,int $uid,string $id,?object $lastKnown=null,int $graveEntry=0,bool $capturedEligible=false): void {
  if($id==='skull_crack_red')AddResources($p,intval(GetResources($p))+1);
- if(FaBWTRBase($id)==='reincarnate'&&!FaBDYNCount($p,'BERSERK'))FaBARCToDeck($p,$uid,false);
+ if(FaBWTRBase($id)==='reincarnate'&&!FaBDYNCount($p,'BERSERK'))FaBDYNQueueReincarnateRandom($p,$uid,$id,$lastKnown,$graveEntry,$capturedEligible);
  if(intval(CardPower($id))>=6){
   foreach(FaBCRUEquipment($p,'beaten_trackers') as $r)FaBRunSourceMacro('ResolveAbility',$p,'beaten_trackers',['mzID'=>$r]);
   if(FaBDYNCount($p,'BERSERK'))FaBRunSourceMacro('ResolveAbility',$p,'berserk_yellow',['mzID'=>FaBFindUID($uid)['mzID']??'','dynDiscardUID'=>$uid,'dynReincarnate'=>FaBWTRBase($id)==='reincarnate'?1:0]);
@@ -146,10 +225,35 @@ function FaBDYNWard(int $p,int $amount,bool $unpreventable=false): int {
 }
 function FaBDYNDestroyed(int $p,object $o): void {
  if($o->CardID==='wave_of_reality')FaBWTRCreateArena($p,'spectral_shield');
- if($o->CardID==='celestial_kimono'||(!FaBHasType($o,'Token')&&preg_match('/\bWard \d+/i',(string)CardFunctional_text_plain($o->CardID)))){
-  $kimono=FaBCRUEquipment($p,'celestial_kimono');if(($o->CardID==='celestial_kimono'||$kimono)&&!FaBDYNCount($p,'KIMONO')){FaBDYNAdd($p,'KIMONO');AddResources($p,intval(GetResources($p))+1);}
+ // Reserve the existing once-per-turn use when the trigger is earned. The
+ // resource gain belongs to its responseable layer, including self-destruction.
+ if(!FaBSeatIsLive($p)||FaBDYNCount($p,'KIMONO'))return;
+ // MONDestroy supplies a pre-move clone with the generated Location/FromZone.
+ $origin=(string)($o->Location??'');
+ if($origin==='CombatChain'){
+  $origin=in_array((string)($o->FromZone??''),['Equipment','Weapons'],true)&&in_array((string)($o->Role??''),['DEFENSE','DEFENSE_REACTION'],true)?'Equipment':'';
  }
+ if(!in_array($origin,['Arena','Equipment','Weapons','Hero'],true))return;
+ $sourceUID=0;
+ if($o->CardID==='celestial_kimono'){
+  if(!HasNoAbilities($o))$sourceUID=intval($o->UniqueID??0);
+ }elseif(!FaBHasType($o,'Token')&&FaBHasKeyword($o,'Ward')){
+  foreach(FaBCRUEquipment($p,'celestial_kimono') as $ref){
+   $source=FaBIdentityFromMZ($ref);if($source){$sourceUID=intval($source['object']->UniqueID??0);if($sourceUID>0)break;}
+  }
+ }
+ if($sourceUID<1)return;
+ FaBDYNAdd($p,'KIMONO');
+ FaBROSQueue($p,'celestial_kimono',$sourceUID,['rosEvent'=>'dynKimonoDestroyed']);
 }
+function FaBDYNResolveKimonoDestroyed(int $p,object $o): void {
+ if(!FaBSeatIsLive($p)||$o->CardID!=='celestial_kimono'||($o->Kind??'')!=='ABILITY'
+  ||intval($o->Controller??0)!==$p||intval($o->SourceUniqueID??0)<1
+  ||!is_array($o->Params??null)||($o->Params['rosEvent']??'')!=='dynKimonoDestroyed')return;
+ // An earned trigger keeps its controller and survives its source leaving.
+ AddResources($p,intval(GetResources($p))+1);
+}
+
 function FaBDYNLeaving(int $p,object $o,string $zone): void {
  if(FaBWTRBase($o->CardID)==='ironsong_pride')foreach(FaBChoiceRefs($p,'Weapons',['type'=>'Sword']) as $r)FaBSetObjectCounter(FaBIdentityFromMZ($r)['object'],'POWER',0);
  $e=FaBARCCard(intval($o->UniqueID),'dynExiled');if(is_array($e)){$f=FaBFindUID(intval($e['uid']));if($f&&$f['zone']==='Banish'){FaBARCSetCard(intval($o->UniqueID),'dynExiled',null);FaBMoveUID(intval($e['uid']),'Arena',intval($e['player']));}}
@@ -158,10 +262,10 @@ function FaBDYNLeaving(int $p,object $o,string $zone): void {
 }
 function FaBDYNDamaged(int $p,int $n,string $ref): void {$f=FaBIdentityFromMZ($ref);if(!$f||$n<=0)return;$id=$f['object']->CardID;if($id==='surgent_aethertide')FaBDYNAdd($p,'SURGENT_DAMAGE',$n);if($id==='suraya_archangel_of_knowledge')FaBCRUGainLife($p,$n);}
 function FaBDYNDrawn(int $p,int $n): void {if(GetCurrentPhase()!=='MAIN')return;for($i=0;$i<$n*FaBDYNCount($p,'BRAINSTORM');++$i)FaBRunSourceMacro('ResolveAbility',$p,'brainstorm_blue',['mzID'=>FaBFindUID(FaBUPRHeroUID($p))['mzID']??'']);}
-function FaBDYNArcaneBonus(int $uid): int {$f=FaBFindUID($uid);$n=0;if($f)foreach((array)($f['object']->TurnEffects??[]) as $t)if(str_starts_with($t,'DYN_ARCANE:'))$n+=intval(substr($t,11));return $n;}
+function FaBDYNArcaneBonus(int $uid,string $sourceRef=''): int {$f=FaBDamageSourceView($sourceRef,$uid);$n=0;if($f)foreach((array)($f['object']->TurnEffects??[]) as $t)if(str_starts_with($t,'DYN_ARCANE:'))$n+=intval(substr($t,11));return $n;}
 function FaBDYNStart(int $p): void {
  $s=FaBGetState();$s['dynEdicts']=array_values(array_filter($s['dynEdicts']??[],fn($e)=>intval($e['player'])!==$p));FaBSetState($s);
- foreach(FaBUPRUIDs(implode('&',FaBChoiceRefs($p,'Arena'))) as $uid){$f=FaBFindUID($uid);if(!$f)continue;$b=FaBWTRBase($f['object']->CardID);if((str_starts_with($b,'blessing_of_')&&$b!=='blessing_of_qi')||in_array($b,['mindstate_of_tiger','never_yield','tome_of_aeo'],true))FaBRunSourceMacro('StartTurn',$p,$f['object']->CardID,['mzID'=>$f['mzID']]);}
+ foreach(FaBUPRUIDs(implode('&',FaBChoiceRefs($p,'Arena'))) as $uid){$f=FaBFindUID($uid);if(!$f)continue;$b=FaBWTRBase($f['object']->CardID);if((str_starts_with($b,'blessing_of_')&&$b!=='blessing_of_qi')||in_array($b,['mindstate_of_tiger','never_yield'],true))FaBRunSourceMacro('StartTurn',$p,$f['object']->CardID,['mzID'=>$f['mzID']]);}
  foreach(FaBChoiceRefs($p,'Graveyard') as $r){$f=FaBIdentityFromMZ($r);if(in_array($f['object']->CardID,['blacktek_whisperers','mask_of_perdition'],true)&&count(FaBMONArena($p,'silver'))>=2)FaBRunSourceMacro('StartTurn',$p,$f['object']->CardID,['mzID'=>$r]);}
 }
 function FaBDYNEnd(int $p): void {

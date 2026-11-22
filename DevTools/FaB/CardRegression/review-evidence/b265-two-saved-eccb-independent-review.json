@@ -1,0 +1,420 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-02T23:19:07.555552+00:00",
+  "source_spec": "card-regression-batch265.json",
+  "input_sha256": "d88486a27006d58aa33b38e6e6fff0d882b167570fb35f9fbf40cb6b69cf332d",
+  "manifest_sha256": "9ed55c640d8ae6272d7e30b3eafdc564fc2430d0c8f1619941effc9ef61b6ec2",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch265-independent-source-review.json",
+    "sha256": "147b0608619588c35cafca1f065e8d011b16f0a826eb99b3e800d66af85069ca"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch265-20261102T231346Z-6ae9192a3e7fe.json",
+    "sha256": "3c92de0bd61a87dcb2618b11835ea4c279a12fc4f39a531261d5104b8e0485c9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch265-native-r1\\receipt.json",
+    "sha256": "d4391bf8b9169a34c8019d41b689270a89d7d97a209e3883cc643a4b2aff85c7"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch265-independent-saved-review\\audit_saved.py",
+    "sha256": "5a94662d6670aca177d656a8958c604bc558371a208528429868c90ee2fa7cc0"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "review_method": "Exact raw4/raw5, every native input and persisted assertion mapped against independently approved input; manually derived four-seat pass actors; strict schema/full-field snapshot parsing and complete physical/ownership/economy/manual endpoint profiles. Reuses printed/source approval; static read-only audit, no game/model/PHP/replay/backend execution.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "second_swing_red",
+      "slug": "card-second-swing-red-four-live-sparse-real-first-sword-attack-then-paid-primary-and-six-power-other-sword",
+      "source_spec": "card-regression-batch265.json",
+      "input_sha256": "d88486a27006d58aa33b38e6e6fff0d882b167570fb35f9fbf40cb6b69cf332d",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-second-swing-red-four-live-sparse-real-first-sword-attack-then-paid-primary-and-six-power-other-sword",
+      "fixture_sha256": "85dc9b962ab2ba7a30448e2734a525a8900f9ff7cd2b3ab717b25c2c7f145527",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "0fbe5fcd4642fb562e99e39a14defceffd72d187d20461e6c236e2adc36720aa",
+        "actions.json": "51fd362d8d21dd54e50b3b90b8396bbb53afc9d2905a9cd160d75c421cac59e3",
+        "assertions.json": "7b9ccfb708fb8098c0dc159017c943dae25a4df03dc3dfce47fe6c0c7988e73e",
+        "expected_final_gamestate.txt": "d4b65645fefaf145d3a396ff562314584dd631dbf7a01709369ebaaee1acb20f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0fbe5fcd4642fb562e99e39a14defceffd72d187d20461e6c236e2adc36720aa",
+        "actions.json": "51fd362d8d21dd54e50b3b90b8396bbb53afc9d2905a9cd160d75c421cac59e3",
+        "assertions.json": "7b9ccfb708fb8098c0dc159017c943dae25a4df03dc3dfce47fe6c0c7988e73e",
+        "expected_final_gamestate.txt": "d4b65645fefaf145d3a396ff562314584dd631dbf7a01709369ebaaee1acb20f",
+        "meta.json": "0bfc51d3e3261ed458282807033c34fcc03d704badd67444d751cb1079628c47"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0fbe5fcd4642fb562e99e39a14defceffd72d187d20461e6c236e2adc36720aa",
+        "actions.json": "51fd362d8d21dd54e50b3b90b8396bbb53afc9d2905a9cd160d75c421cac59e3",
+        "assertions.json": "7b9ccfb708fb8098c0dc159017c943dae25a4df03dc3dfce47fe6c0c7988e73e",
+        "expected_final_gamestate.txt": "d4b65645fefaf145d3a396ff562314584dd631dbf7a01709369ebaaee1acb20f",
+        "meta.json": "0bfc51d3e3261ed458282807033c34fcc03d704badd67444d751cb1079628c47"
+      },
+      "actions": 65,
+      "native_assertions": 5271,
+      "actual_manual_passes": 58,
+      "actual_priority_response_passes": 56,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero"
+        },
+        "7": {
+          "card_id": "hit_and_run_blue",
+          "zone": "p1Hand"
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "9": {
+          "card_id": "second_swing_red",
+          "zone": "p1Hand"
+        },
+        "5": {
+          "card_id": "cintari_saber",
+          "zone": "p1Weapons"
+        },
+        "6": {
+          "card_id": "cintari_saber",
+          "zone": "p1Weapons"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "cintari_saber",
+          "zone": "p1Weapons"
+        },
+        "6": {
+          "card_id": "cintari_saber",
+          "zone": "p1Weapons"
+        },
+        "7": {
+          "card_id": "hit_and_run_blue",
+          "zone": "p1Graveyard"
+        },
+        "9": {
+          "card_id": "second_swing_red",
+          "zone": "p1Graveyard"
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 67,
+      "checkpoint_assertion_mapping_sha256": "99d22612309954c3f9272e1d80bbb57079d810dfe9c02365a731a84ee1496f36",
+      "native_action_mapping_sha256": "66874f91295da933fccd69c4575d46d89e2f198a01c45ecb2d2ed6273306061a",
+      "native_assertion_mapping_sha256": "8c6650546315a6ee6a9d3d359b1e940514aa9b8639134f839e15d855c29c15db"
+    },
+    {
+      "index": 1,
+      "card_id": "wax_on_red",
+      "slug": "card-wax-on-red-four-live-sparse-real-hand-defense-reaction-five-defense-stops-cost-zero-four-power-attack",
+      "source_spec": "card-regression-batch265.json",
+      "input_sha256": "d88486a27006d58aa33b38e6e6fff0d882b167570fb35f9fbf40cb6b69cf332d",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-wax-on-red-four-live-sparse-real-hand-defense-reaction-five-defense-stops-cost-zero-four-power-attack",
+      "fixture_sha256": "8de9a04588845410d755dac317c75873796096edf2853bab48ce4eaef8944027",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "9d047a7a182d8c35867d380f0ca4ae0061e85a5f5f6ace8f26e3d7430e6ddd59",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "026e39011e2a8ca030ffd177c75f435c1df362abc7fe896aca3a26b5c752c049",
+        "expected_final_gamestate.txt": "61e29ca5d519be64bbe1501a37963228fe57c946497bb2aa0881c796a92e2abc"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9d047a7a182d8c35867d380f0ca4ae0061e85a5f5f6ace8f26e3d7430e6ddd59",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "026e39011e2a8ca030ffd177c75f435c1df362abc7fe896aca3a26b5c752c049",
+        "expected_final_gamestate.txt": "61e29ca5d519be64bbe1501a37963228fe57c946497bb2aa0881c796a92e2abc",
+        "meta.json": "c13631ac16b1708d1b8be34f5c86b99d65f6a3a3b4196a5e575be2558188a60a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9d047a7a182d8c35867d380f0ca4ae0061e85a5f5f6ace8f26e3d7430e6ddd59",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "026e39011e2a8ca030ffd177c75f435c1df362abc7fe896aca3a26b5c752c049",
+        "expected_final_gamestate.txt": "61e29ca5d519be64bbe1501a37963228fe57c946497bb2aa0881c796a92e2abc",
+        "meta.json": "c13631ac16b1708d1b8be34f5c86b99d65f6a3a3b4196a5e575be2558188a60a"
+      },
+      "actions": 35,
+      "native_assertions": 2353,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "katsu",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "wax_on_red",
+          "zone": "p4Hand"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "katsu",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "wax_on_red",
+          "zone": "p4Graveyard"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 37,
+      "checkpoint_assertion_mapping_sha256": "2f4015558ef02567d301c04501088a384c31812302f91237dac977b04deae3e8",
+      "native_action_mapping_sha256": "15e1e52ec239a82f6b93da53fdef68fb0a36636f94c37d270d6ab7cbe6c5c38b",
+      "native_assertion_mapping_sha256": "cd146efe88af66a37d35324b81e0cdd34853aedbf4c77e5a6007379f1caf2116"
+    }
+  ],
+  "total_actions": 100,
+  "total_native_assertions": 7624,
+  "total_manual_passes": 90,
+  "total_priority_response_passes": 87,
+  "total_defender_declaration_finish_inputs": 3,
+  "material_findings": [
+    "SecondSwing actual first sword proxy10 hits2 and earns supportGA, chain closes before NAA9. Actual prior weapon history persists, real floatingR2 pays primary1 then distinctreadySaber6 cost1. Actual secondproxy11 hits6, P4HP12/R0/AP0. PhysicalSabers5/6 retained usedonce with exactturn2/attacks1 counters, no Saber power trigger; actual weaponHits{5:1,6:1}, damage ledger[2,6], GY exactUIDset{7,9}/Pitch8 and proxies10/11 absent.",
+    "Wax actual P4Ninja HandDR5 responds after realactors1/2/3, resolves after4/1/2/3 to defending Chain. Actualcost0AA6 power4 versus defense3+2 produces zero damage/allHP20/nohit. Exact public ownP4GY5/P1GY6, allR/AP0/Chains/Stack/queues/framesempty.",
+    "All100 actual actions and7624 assertions match exactly, with90 real manual passes:87 priority-response inputs and3 P4defender-declaration finish inputs. Every initial/final schema line and field is consumed; all four manual preferences and physical card/hero ownership/UIDs checked."
+  ],
+  "limits": [
+    "Positive first native recording evidence only; root focused replay receipts/registration remain separate gates and are not executed or claimed here.",
+    "One red representative per original group. No siblings, condition-false/othercosts, rejection, hero/Cintari bonus/HitRun conditionalbonus/support-primary/full-card credit.",
+    "Intermediate boundaries are witnessed by completed recording and exact persisted assertions; endpoint files do not independently capture every intermediate private frame local.",
+    "AetherSpindle remains outside this healthy packet and uncredited; no isolated fault control, new native run, R/source/generated/backend/service/fullsuite/historical replay performed by reviewer."
+  ]
+}

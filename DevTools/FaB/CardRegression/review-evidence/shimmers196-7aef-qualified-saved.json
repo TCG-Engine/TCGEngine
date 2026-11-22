@@ -1,0 +1,50 @@
+{
+  "status": "SHIMMERS196_ORIGINAL32_4128_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 patch/checker and original854 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "7aef2654e593bb19712054ab29ddd58d4dac345ddd1d7084b2b37b49f22cf4ef",
+  "input_sha256": "7db00deec02709044e76376cb0453e24323a570792d7baa5ad90c37a47721e67",
+  "source_spec": "card-regression-repair-shimmers196-earned-aura-counter.json",
+  "fixtures": [
+    {
+      "slug": "probe-shimmers-of-silver-blue-four-live-real-iris-aura-weapon-earned-permanent-power",
+      "card_id": "shimmers_of_silver_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51dfa02b6dccedbb9a17846481b22374b8443648171c6cac0dda1a58e2d3b64d",
+        "actions.json": "cb58c615680df0ae854a75e21506561a54cb17fcc3df2343127ce10eee6f155a",
+        "assertions.json": "4f23d084fb799c6f9064bf88495ba3d55fc400b271af0b1825195bbb627e33e5",
+        "expected_final_gamestate.txt": "7aa4cb4be434505da1e0ac215c3f662e5bfcb7e47925325d3940a565ac5bcfe1",
+        "meta.json": "2a8e41082a9fa5298da57789931e920ea96e45f24b4f356c7a6cc5c79c2c7bd4"
+      },
+      "fixture_sha256": "f0cfd97fe3bafa7713116caa2fd74078d042d6bb5aaa93b679d79be615e83055",
+      "actions": 32,
+      "native_assertions": 4128,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "7aef2654e593bb19712054ab29ddd58d4dac345ddd1d7084b2b37b49f22cf4ef",
+      "runtime_sha256": "7aef2654e593bb19712054ab29ddd58d4dac345ddd1d7084b2b37b49f22cf4ef",
+      "source_spec": "card-regression-repair-shimmers196-earned-aura-counter.json",
+      "input_sha256": "7db00deec02709044e76376cb0453e24323a570792d7baa5ad90c37a47721e67"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-shimmers196-replay.json",
+    "sha256": "b7f89b0d94dc9351f264dfb7a5ea12436925cc07d82b98449c21cc842f9f4044",
+    "passed": true
+  },
+  "source_review_sha256": "9fd4595f2407311e80edc33897e695aba6bdb717f354987bbfb30c301c187224",
+  "components": 15,
+  "component_receipt_sha256": "7d11273ea52ffc6bc3c179de3728caf4312f73cc7269ba4c4d32cb22a9bdce54",
+  "basis": "All original32actions/4128queries/setup unchanged. Real existing Iris7 grants physicalShield6 its actual attack; Blue8pays3, earning one Shimmers5layer while physicalPOWER remains0. Four fresh live-seat responses precede actual permanentPOWER1, then actual attack5damage/HP4=15 and fullclose. SameShimmers5/Shield6ownedArena, Iris7Weapons, Blue8Pitch, AP1/R0/full Stack/DQ/await/combat cleanup pinned. Installed target epoch protects sameentry; source departure does not cancel earned layer. Existing once-per-turn reservation retained. Original prematurecounter before evidence remains.",
+  "official_sources": [
+    "https://rules.fabtcg.com/en/cr/06-effects/"
+  ],
+  "limits": [
+    "One original preexisting Aura/first actual attack branch only. Prior Aura cast, second attack, turn reset, Spectra/Ward, source reentry/reset, other weapons and full-card behavior unqualified.",
+    "15 actual-function controls separately cover earned source departure/blanking, additive counter, target same-entry name/control/ability changes and departed-returned UID rejection through installed epoch helpers. These modeled primitives are not extra native branches or legal token-return certification.",
+    "All unrelated EVR/ROS bytes including Oysten191 preserved. No generic094, generated/Core/schema/service/remote write, full suite, historical corpus replay, or new breadth."
+  ]
+}

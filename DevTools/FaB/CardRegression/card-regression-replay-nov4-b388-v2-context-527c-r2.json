@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch388-v2.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T21:19:05.966708+00:00",
+  "fixtures": [
+    {
+      "slug": "card-put-in-context-blue-four-live-sparse-real-base-three-current-six-attack-legally-defended-by-three-reaction",
+      "fixture_sha256": "0b7a7a4b9549716098d4eff91f2daa0a1aa8fd29518e546d836570cc1cefc596",
+      "passed": true,
+      "result": "[PASS] put_in_context_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-put-in-context-blue-four-live-sparse-real-base-three-current-six-attack-legally-defended-by-three-reaction",
+      "returncode": 0,
+      "stdout": "[PASS] put_in_context_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

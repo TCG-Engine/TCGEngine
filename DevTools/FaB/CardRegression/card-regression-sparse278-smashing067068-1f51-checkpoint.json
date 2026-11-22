@@ -1,0 +1,75 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T15:42:19.457009+00:00",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_spec": "card-regression-batch278-trigger-probes.json",
+  "source_spec_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 36,
+  "native_assertions": 2421,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 3628,
+    "duels": 3074,
+    "four_live": 554,
+    "recorded_primary_ids": 783,
+    "identity_denominator": 5196,
+    "recorded_groups": 657,
+    "group_denominator": 3324,
+    "four_live_groups": 548,
+    "phase_qualified_scenarios_at_actual_contexts": 265,
+    "phase_qualified_unique_groups": 261,
+    "creation_replay_passes": 530,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "smashing_good_time_red",
+      "group_id": "pitch-cycle:smashing_good_time",
+      "scenario_id": "card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+      "effect_branches": [
+        "smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+      "source_spec": "card-regression-batch278-trigger-probes.json",
+      "source_spec_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+      "review_evidence": "review-evidence/smashing067068-saved-1f51-independent-review.json",
+      "review_evidence_sha256": "c021f3b6437b6cf4c31b0fbfb2bbd551a80ba897e15e83d32c5d0c99ffb9748f",
+      "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "qualification_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-smashing067068-1f51-r1.json",
+          "sha256": "2d89d632a7ba67a2e14afb75f2ce4ebdf107ded7c2edddd4d2195908ca5a30e8",
+          "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-smashing067068-1f51-r2.json",
+          "sha256": "d2b7db67367de60e08e77a086295488d5aeb071f913df2b245a9b2cd633072df",
+          "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul"
+  ]
+}

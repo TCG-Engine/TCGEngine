@@ -1,0 +1,276 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B340_FOUR_EARTH_FLORIAN_SINGLE_AURA_BATCH_PLUS_ONE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T13:46:31.203198+00:00",
+  "source_spec": "card-regression-batch340.json",
+  "input_sha256": "326982537c03db0e0b735ffdf1ba263ceb1fa3715b4875dbf015b63ca85903b4",
+  "manifest_sha256": "f159ba9d553cffbe7015db216d2e227fdd22a645e8aa876cd53c0b3185e39846",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_guards_verified": 17,
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch340-independent-source-review.json",
+    "sha256": "fcd18aeca845239757ee84b5a737f2e56db23a3e82e7e4d1b19ba8b85c5f5502"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch340-20261103T134413Z-6ae9e52da88df.json",
+    "sha256": "e7ec173ed732c52b0c1dbf1318fd13a15f55e6d6fd2c27ba7aafbed3cb2a8d8a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch340-native-r1\\receipt.json",
+    "sha256": "9fa3acab9103b16686f79fbbf2598af85f6bd17cbd971c58dc48c1bf5a6861ae"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch340-independent-saved-review\\audit_saved.py",
+    "sha256": "921ea8d517e294df2ac151b6c9771e7c42078dde813daf5c04017d4b51873d50"
+  },
+  "stable_reader_template": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch317-independent-saved-review\\audit_saved.py",
+    "sha256": "bfc86eec29f579839f77d56a0c0c7d62bd3229ce3db1047fc544d2f6b312a333"
+  },
+  "review_method": "Reuse approved independent printed/source model. Exact native five actions and707assertions mapped in order, four real1/2/3/4 priority responders; strict complete schema endpoints/UID/owner/controller/manual settings, all final assertions evaluated. No renewed source audit or native execution.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "florian",
+      "slug": "card-florian-four-live-sparse-four-physical-public-earth-banish-replaces-real-three-aura-token-batch-with-four",
+      "source_spec": "card-regression-batch340.json",
+      "input_sha256": "326982537c03db0e0b735ffdf1ba263ceb1fa3715b4875dbf015b63ca85903b4",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-florian-four-live-sparse-four-physical-public-earth-banish-replaces-real-three-aura-token-batch-with-four",
+      "fixture_sha256": "cce2f77a13456ffe98f6970bda2467f47c89d5fb3e4caedda3953f685ec96f06",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "79505df3ca76f59c38a41daff78b5ae95f825614b2ead920e718a91231ec822d",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "5f96eb354bbc358053dab2e91b8b01294502952d7395e83784b8057346e0957a",
+        "expected_final_gamestate.txt": "f3a9a14c2608beef4a7849ef0c2a56e3357b4c74ac212eda92953b9a261a741f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "79505df3ca76f59c38a41daff78b5ae95f825614b2ead920e718a91231ec822d",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "5f96eb354bbc358053dab2e91b8b01294502952d7395e83784b8057346e0957a",
+        "expected_final_gamestate.txt": "f3a9a14c2608beef4a7849ef0c2a56e3357b4c74ac212eda92953b9a261a741f",
+        "meta.json": "7f5684d3350dc64a4893c37a94f99d97abe3f103e06d950e2a51a1272f04536c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "79505df3ca76f59c38a41daff78b5ae95f825614b2ead920e718a91231ec822d",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "5f96eb354bbc358053dab2e91b8b01294502952d7395e83784b8057346e0957a",
+        "expected_final_gamestate.txt": "f3a9a14c2608beef4a7849ef0c2a56e3357b4c74ac212eda92953b9a261a741f",
+        "meta.json": "7f5684d3350dc64a4893c37a94f99d97abe3f103e06d950e2a51a1272f04536c"
+      },
+      "actions": 5,
+      "native_assertions": 707,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "florian",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "read_the_runes_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "autumns_touch_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "autumns_touch_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "earthlore_surge_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "florian",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "13": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "read_the_runes_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "autumns_touch_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "autumns_touch_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "autumns_touch_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "earthlore_surge_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 7,
+      "checkpoint_assertion_mapping_sha256": "5285ef24c56e8919fa9c9c8fe4804685437c9b50060b450f1cb84c53deb33c86",
+      "native_action_mapping_sha256": "52fbc583581b32eaac17dbb9fc6c1bd74d94678ce8830a245cf0cfad3ff726ec",
+      "native_assertion_mapping_sha256": "53c87a2d828ee69d1c7532755bb1687ccbd818d379300f58b038acf50b6bdee3"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 5,
+  "total_native_assertions": 707,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "material_findings": [
+    "Actual four live ready youngheroes and all48 manual preferences at both endpoints. PrimaryFlorian1/Read5Hand/fourdistinctownedpublicEarth6-9Banish, no threshold/history/effect/resource seeds. Initial legal persistentBanish condition unchanged through final; no present-turn banish or Decompose claimed.",
+    "Actual Read0/AP1 play and four fresh1/2/3/4 responses are exactly recorded. Same5Stack/Arena0/AP0 through firstthree; only fourth produces one printed3 batch replaced once to4 ready ownedRunechants10-13, not5/6 or per-token recursion. Four physicalArenaobjects and nativeRUNES_CREATED4/PEN_CREATED4/ROS_AURA4 independently corroborate count.",
+    "Actual final GY5/unchangedEarth6-9Banish/onlynewRunechants10-13, original1-9 conserved and Counter13/Random0. AllHP20/RAPChi0, noGA, allheroesready/live, fullStack/chains/queues/payment/awaitcleanup. Runechants remain correctly inArena; their later attack-triggered arcane/destruction is unearned."
+  ],
+  "limits": [
+    "One positive four public ownedEarth condition/single printed3\u21924Aura batch/actualAction0 AP/fullcleanup. No thresholdnegative, otherage, mixedtoken batch/combinedreplacement, Decompose, Essence-negative, Runechantattack/arcane, endphase, supportprimary/fullcard/control credit.",
+    "Intermediate witness is actual completed input/assertion ledger plus unchanged approved source, not additional per-input snapshots. Root targeted replays and registration are separate gates.",
+    "No PHP/native/R/source fix/proposal/generation/service/fullsuite/oldreplay/authorization retry."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Elliptical Conflux Yellow / Ward 2 then responseable leave token",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-20T20:45:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Focused repair successor. Same native setup, all41 actions and all4821 assertions as the original strict no-save diagnostic, which remains unchanged. Correct Ward2 replacement happens atomically before a separately earned responseable leave trigger creates exactly one Embodiment. No sibling or full-card credit. Original diagnostic provenance: card-regression-batch828-elliptical-original-correct-ward-leave-probe.json Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

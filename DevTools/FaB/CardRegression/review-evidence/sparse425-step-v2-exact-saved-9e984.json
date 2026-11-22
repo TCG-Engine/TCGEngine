@@ -1,0 +1,279 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_STEP_ONLY_V2_PENDING_ROOT_REPLAYS_REGISTRATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T06:46:05.469931+00:00",
+  "source_spec": "card-regression-batch425-step-window-v2.json",
+  "input_sha256": "d475ab0df370c87635611b9199139b2ac730121c16465d1dd038bcef53d6d4f1",
+  "manifest_sha256": "a11732ad3183013af18daeecd286c803d274da89fa1ba68936f9d3f56f650b49",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 66,
+  "prior_normative_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch425-independent-source-review.json",
+    "sha256": "8aa6aa4a6e69c39c5d6a615cc1c1128e5a8c0df0307948c343314b50bfddbe2a"
+  },
+  "independent_sevenlabel_delta_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch425-step-v2-independent-source-delta-review.json",
+    "sha256": "3639ff4b5bf344001eff58ef74d46636cf656c55170f0906ab536a6f816981ff"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch425-step-window-v2-20261105T064242Z-6aec25620d522.json",
+    "sha256": "a92d75b62ad1a6bfc71027eb79fb29108c0163b9ce970a737be1d80d2da9b19f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch425-step-v2-native-r1-9e984\\receipt.json",
+    "sha256": "9812f7c0f046b98f120361ab7c10cf3a15b0116cba60dfd78d4bd2ec544e1114"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch425_step_v2_saved_readonly.py",
+    "sha256": "f8b5d2a90fd7aaa10dd82f0e3d2d094c53691dab7e89561b6307ed984a3bc735"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "step_between_red",
+      "slug": "card-step-between-red-four-live-sparse-real-paid-hero-tap-instant-lock-and-unpreventable-five-damage",
+      "source_spec": "card-regression-batch425-step-window-v2.json",
+      "input_sha256": "d475ab0df370c87635611b9199139b2ac730121c16465d1dd038bcef53d6d4f1",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-step-between-red-four-live-sparse-real-paid-hero-tap-instant-lock-and-unpreventable-five-damage",
+      "fixture_sha256": "e40bea65b5338c6fd4cb8a836e8853a6ad030af56f0378f4da184ed6f247f1ca",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ada54904104e1695f109990c6ceaa47e1bcde05a8424b12fcb05fccfa6bb80c7",
+        "actions.json": "c151a1970290edae718afe4daf6019e4010c8ceae40ba5aa4c556a5b32ee84d2",
+        "assertions.json": "b2f2b619cf2ca2b89038e6950422a5f475c22c1c677f2948328076c9e237c76b",
+        "expected_final_gamestate.txt": "0db94300923551c3e96ce0415c4876e9af2161f7038a19045bd8eeb5d199d219"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ada54904104e1695f109990c6ceaa47e1bcde05a8424b12fcb05fccfa6bb80c7",
+        "actions.json": "c151a1970290edae718afe4daf6019e4010c8ceae40ba5aa4c556a5b32ee84d2",
+        "assertions.json": "b2f2b619cf2ca2b89038e6950422a5f475c22c1c677f2948328076c9e237c76b",
+        "expected_final_gamestate.txt": "0db94300923551c3e96ce0415c4876e9af2161f7038a19045bd8eeb5d199d219",
+        "meta.json": "343ad18468d54b514151d4c439120ba5662edd6c47d5cdc12f17486a73620c7e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ada54904104e1695f109990c6ceaa47e1bcde05a8424b12fcb05fccfa6bb80c7",
+        "actions.json": "c151a1970290edae718afe4daf6019e4010c8ceae40ba5aa4c556a5b32ee84d2",
+        "assertions.json": "b2f2b619cf2ca2b89038e6950422a5f475c22c1c677f2948328076c9e237c76b",
+        "expected_final_gamestate.txt": "0db94300923551c3e96ce0415c4876e9af2161f7038a19045bd8eeb5d199d219",
+        "meta.json": "343ad18468d54b514151d4c439120ba5662edd6c47d5cdc12f17486a73620c7e"
+      },
+      "actions": 34,
+      "native_assertions": 2986,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 129,
+        "34": 202
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "step_between_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "fai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "sigil_of_solace_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "zen_state",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 1
+        },
+        "5": {
+          "card_id": "step_between_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "fai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "sigil_of_solace_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "zen_state",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "Zen6_raw_BALANCE": 1,
+      "Sigil7_raw_unchanged": true,
+      "OMN_UNPREVENTABLE_positive_residue": false,
+      "checkpoint_assertion_mapping_sha256": "70318ce6fd8a1e6fa70097deccb2ff364b1b729e42db80cac222e084b615203e",
+      "native_action_mapping_sha256": "084e8fefa8fe95d6a242ad1ed35457e81c7d0c4bdea1a675e74e6c21ca5048bb",
+      "native_assertion_mapping_sha256": "7fc30df3e70680d423be791452a4fefba2bca37a3ab237e277f536239323143f"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 2986,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualAA5resource0spendsAP; ownChainInstant9cost1/Blue8pitch3plusHero1tap2to1beforefour/R2AP0. Same5base4throughfirstthree; onlyfourth9ceases/same5power5/unpreventable. CorrectATTACKwindowrepresentation retainsfreshfourresponses, no enginefix.",
+    "ActualP4Sigil7otherwiselegalInstant0clickafterthreeAttackpasses isacceptednativeFSMno-op: all80BEFORE/AFTERpersistedchecksidentical, noHand/Stack/AP/R/HP/DQ/passcountchange. Actualprimaryopponents-onlylockdidnotbarownpaidInstant.",
+    "Actual5powerhitpacketthroughphysicalownedZen6static1deals5/HP15, noGA/APrefund. All34actualinputs/2986checks/29manualactors and48rawmanualprefspersideendpointverified. Finalsource5GY1/Pitch8/R2AP0/Hero1tapped/Zen6readyBALANCE1/Sigil7unchanged/allUID1..8conserved/virtual9gone/positiveunpreventabilitycleared/fullqueuesframescombatpaymentcleanup."
+  ],
+  "limits": [
+    "SelectedonChainownInstant+HeroTap/+1/opponentInstantPLAYlock/unpreventable5packet/fullclose only. NoStacklock/opponentactivatedInstant/secondactivation/otherpacket/Zenproducer/upkeep/foreigncontrol/suppression/generalprevention/fullcardcredit.",
+    "Sevenwindowlabel-onlyV2correction isrepresentationoracle fix; original8inputfailurepreserved/no gameplaybugcount. NoHelmrereview/rerecord/retag orblockedothercase becauseinstalledStep-onlysource.",
+    "Intermediateoutcomes fromactualcompletednative+exactpersistedchecks; endpointfilesarenotperinputprivate-statecaptures. Roottargetedreplays/registrationseparate.",
+    "No PHP/native/R/source/gen/service/remote/fullsuite/deniedoperationretry/reroute byreviewer."
+  ]
+}

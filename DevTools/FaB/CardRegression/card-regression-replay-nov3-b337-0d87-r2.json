@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch337.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T13:01:43.240287+00:00",
+  "fixtures": [
+    {
+      "slug": "card-kassai-cintari-sellsword-four-live-sparse-real-first-sword-earns-second-sword-one-to-zero-cost-discount",
+      "fixture_sha256": "9f65a28a4075f5a7de57ca882c0226311ead813bfc2751be57255c5c8dbbdd21",
+      "passed": true,
+      "result": "[PASS] kassai_cintari_sellsword / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-kassai-cintari-sellsword-four-live-sparse-real-first-sword-earns-second-sword-one-to-zero-cost-discount",
+      "returncode": 0,
+      "stdout": "[PASS] kassai_cintari_sellsword / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

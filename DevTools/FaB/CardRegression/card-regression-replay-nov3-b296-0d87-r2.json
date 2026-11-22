@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch296.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T06:17:57.142362+00:00",
+  "fixtures": [
+    {
+      "slug": "card-lexi-young-four-live-sparse-real-lightning-arsenal-flip-cost-grants-next-attack-go-again",
+      "fixture_sha256": "326683291f6e438aba73d97452e5c7aaf6fc70b52b77905a7e160cccccc46420",
+      "passed": true,
+      "result": "[PASS] lexi / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lexi-young-four-live-sparse-real-lightning-arsenal-flip-cost-grants-next-attack-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] lexi / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

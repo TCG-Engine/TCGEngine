@@ -1,0 +1,26 @@
+{
+  "status": "COMPLETE",
+  "runtime_before": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "spec": "card-regression-batch373-over-loop-v2.json",
+  "spec_sha256": "53c5f2a803763b41694e7acd0c0526d7608ffbac6e2a655b4eaed1cb446ee855",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch373-over-loop-v2.json"
+  ],
+  "started_utc": "2026-11-03T23:12:57.116824+00:00",
+  "expected_new_slugs": [
+    "card-over-loop-red-four-live-current-when-hit-correct-probe-responseable-source-before-bottom"
+  ],
+  "existing_scenario_count": 3671,
+  "full_suite_run": false,
+  "pid": 8944,
+  "exit_code": 0,
+  "runtime_after": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "new_fixture_slugs": [
+    "card-over-loop-red-four-live-current-when-hit-correct-probe-responseable-source-before-bottom"
+  ],
+  "new_fixture_count": 1,
+  "stderr_bytes": 0,
+  "completed_utc": "2026-11-03T23:13:27.970103+00:00"
+}

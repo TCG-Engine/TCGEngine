@@ -1,0 +1,7 @@
+{
+    "name": "Dark Arcanite Plating / Generic source controlled by Shadow Levia",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-14T22:25:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fouryoungnatural20live/manual Levia1/Betsy2..4. ActualGenericWoundingBlue5 cost0attackadjacentHero4 spendsAP1to0. OwnPlating6equippedCHEST4; existingShadowResist controller-attribution rule applies, GenericcarddoesnotgainShadow. Normalfour source/Attack/DefendPriority/Reactionresponses reachactualoptionalshared MZMULTICHOOSE0..1 ownPlating. Beforeanswer samePlating6retained/attack5Chainpower2/HP4_20. Actualanswer p4Equipment-0 destroysSAMEownedChest6toGY4 andprevents1 ofphysical2; actualHP4_19. FourDamage/fourResolutionresponses trueclose sameBlue5GY1/Plating6GY4, allRChiAP0/allotherHP20/allfourlive/StackChainqueuesempty. NoLeviaability/BloodDebt/Endphase, effect/prevention/history/outcome seed orhelperinjection. NewPlatingidentityonly: noHelmet/set/sibling/otherResist/defenseblockbranchcredit. NoNative/fixture/coveragebyAuthor; independentSource/Rootnative/twonewtargetedreplaysrequired. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/03-zones/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

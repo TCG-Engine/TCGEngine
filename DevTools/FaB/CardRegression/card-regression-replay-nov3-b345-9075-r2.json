@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch345.json",
+  "runtime_sha256": "90758aeb35536e3364b326789fc88b8eb9abc0f51b2de5f00426f0149fd9d51e",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T14:21:41.787789+00:00",
+  "fixtures": [
+    {
+      "slug": "card-moon-chakra-red-four-live-sparse-real-zero-cost-instant-prevents-three-of-paid-seven-damage",
+      "fixture_sha256": "d942cb2ef21bea38597c71e6f99db5d006d33ef37b4e7847e336e81fab2e223e",
+      "passed": true,
+      "result": "[PASS] moon_chakra_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-moon-chakra-red-four-live-sparse-real-zero-cost-instant-prevents-three-of-paid-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] moon_chakra_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

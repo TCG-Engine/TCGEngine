@@ -1,0 +1,214 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_ELLIPTICAL_ORIGINAL_CORRECT_ATOMIC_WARD_THEN_LEAVE_TRIGGER",
+  "phase": "SOURCE",
+  "batch": 828,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T20:33:33.577455+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch828-elliptical-original-correct-ward-leave-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-elliptical-r2-required-diagnostic-flags-slug-author\\elliptical-original-correct-ward-then-earned-leave-token-probe-r2.json",
+    "sha256": "f07500106cc70f1b737814b24423d19e2e61e4533d12c79a770f9dcfde1654eb"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-elliptical-r2-required-diagnostic-flags-slug-author\\manifest.json",
+    "sha256": "fdf42f8b95a7a793a2c312f55bcac56d0075e84683abeafbf3a7a4b58aac3b19"
+  },
+  "input_sha256": "f07500106cc70f1b737814b24423d19e2e61e4533d12c79a770f9dcfde1654eb",
+  "manifest_sha256": "fdf42f8b95a7a793a2c312f55bcac56d0075e84683abeafbf3a7a4b58aac3b19",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-firm-reservation.json",
+    "sha256": "6ae000d22fa582144fe2085508b4ce25d2a242796b5fd3bf8980cd3a203cf328"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-selected-helper-vest-known-elliptical-fresh-preflight.json",
+    "sha256": "d36da656ccc6ba2195e444213d497642e0ebbab9ed61f2d89b30766d1a7cf2fd"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 30,
+  "selected_support_guard_map_sha256": "c190005cd2e0f3ae602e190f5798066896735a396b0db496e338f7bc044871ec",
+  "all_current_guards_independently_matched": true,
+  "actions": 41,
+  "declarative_controls": 41,
+  "native_assertions": 4821,
+  "assertions": 4821,
+  "recorded_persisted_assertions": 4821,
+  "manual_passes": 36,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "actual_expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 9,
+    "2": 9,
+    "3": 9,
+    "4": 9
+  },
+  "expected_priority_response_passes": 35,
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 43,
+  "schema_property_checks": 1041,
+  "control_mapping_sha256": "b63961bc0f6109e4e74a6b848b7d8bce5d20d2ff38407d7094bee22074485351",
+  "native_expected_envelope_mapping_sha256": "b8c032a9525db1532eb25db2bb7c2af98b070bd1bacd9f9c5957a33510ce73bd",
+  "expected_native_query_mapping_sha256": "0bd14cdb782a952f6aa2ec7af7b0fd8974a96a71e279fea80e208104b3b16ae0",
+  "checkpoint_mapping_sha256": "c2cd2bce9056f85ecb513ce125d575379e5e597f17739ddf72d0a005d0e8c43f",
+  "original_packaging_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-elliptical-original-correct-ward-leave-token-probe-author\\elliptical-original-correct-ward-then-earned-leave-token-probe.json",
+    "sha256": "67e31b1ac286c41487bcc8b4a9f9df4e9aef5329e630524547437617d94c7a39"
+  },
+  "exact_packaging_only_delta": "Four True case diagnostic flags plus probe- slug; every setup/control/query unchanged",
+  "fixture_saved": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "independent_actual_no_save_review_required": true,
+  "explicit_Root_promotion_and_fresh_positive_Source_required_even_if_pass": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "independent_semantic_findings": [
+    {
+      "rules": [
+        "https://rules.fabtcg.com/en/cr/06-effects/ CR6.1.2,6.4.1a,6.6.5-6",
+        "https://rules.fabtcg.com/en/cr/01-game-concepts/ CR1.10.2,1.11.5",
+        "https://rules.fabtcg.com/en/cr/07-combat/ CR7.5.2-3",
+        "https://rules.fabtcg.com/en/cr/08-keywords/ CR8.3.20"
+      ],
+      "finding": "Ward destruction/prevention belongs inside the atomic damage event; its resulting ordinary leave trigger earns a later responseable layer. No priority is invented inside Ward. At first post-damage priority HP18/sourceGY/no token plus leave layer must precede its four responses and owned token."
+    },
+    {
+      "finding": "Legal four Young live/manual fixture, unused Rhinar/Zyggy abilities, nativeRed4 attack and actualYellowAura cost1 funded by realBlue3 yieldingR4two. ActualSource4responses beforeArenaentry; no entryWHEN. No aura/counter/token/prevention/outcome is seeded."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/CodeGeneration.php:123-142",
+        "FaBSim/Custom/DTDCards.php:141-151",
+        "FaBSim/Custom/MONCards.php:234-244",
+        "FaBSim/Custom/GameLogic.php:791-799",
+        "FaBSim/Custom/OMNCards.php:22-26"
+      ],
+      "finding": "Fresh selected concern only: mandatory Ward chooser destroys same physicalAura during payment; current OMNAfterMove immediately creates EoL rather than capturing ordinary leaveWHEN. Known held/issue fields contain no exact selected OMN-leave/Ward producer record. Full correct no-save route tests the concern; source prediction is not a Native finding or repair approval."
+    },
+    {
+      "finding": "PostWard native cluster intentionally checks physical HP18/sourceUID6GY4/Arenaempty and separate ABI source6/controller4 without inventing virtualUID, futureeventparam or exact internal window. Actual4manual responses precede one token owner4/controller4; final physical cleanup, allHP/resources/AP, all4live/queues/Stack/chain remain required. No tokenconsumerGA/Holo/Heroactivation/sibling/general-layer-order claims."
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "vest_of_the_first_fist",
+      "group_id": "identity:vest_of_the_first_fist",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_DIRECT_HIT_WHEN_AWAIT_CONTRACT",
+      "classification": "KNOWN_DIRECT_HIT_WHEN_AWAIT_CONTRACT",
+      "reason": "GameLogic1249 invokes ARCAfterHit; ARCCards425 directly runs Vest Hit and its actual canonical/emitted await Modal, without first capturing the separate responseable earned Vest layer. Same required causal direct-Hit-WHEN contract as retained Miller/Cryptic; not a new native defect, absent implementation or new root-cause.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch828-vest-known-hit-when-unattempted-note.json",
+        "sha256": "ce06bf5fe6c4ad0253994e3956688736562ec22aa53e879407847499b118f36d"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "Vest exact known ARCAfterHit425 directHit awaitModal trigger seam matches Miller/Cryptic; no new probe/fallback/effect absence or passingcoverage. Official Vest release text and timing rules were read independently."
+    }
+  ],
+  "limits": [
+    "Only diagnostic admission: Root must use existing reviewed no-save wrapper with --probe-only. No passing fixture or registry credit even on complete PASS.",
+    "A failed first assertion limits every later conclusion; independently classify actual result against exact frozen expectations before any proposed repair. Do not bless current output.",
+    "A complete PASS still requires independent actual review, explicit Root promotion, fresh positive Source, a new Save, independent Saved/raw snapshots and two focused replays before qualification.",
+    "No own tokenconsumer/nextattackGA, Holo, otherleaves/control/suppression/multiturn/fullcard/pitchsibling/generalvirtual-layer-order certificate. No fullsuite or historical replay."
+  ]
+}

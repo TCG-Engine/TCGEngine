@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch285.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T04:27:06.128295+00:00",
+  "fixtures": [
+    {
+      "slug": "card-salt-the-wound-yellow-four-live-sparse-real-kodachi-hit-earns-one-power-and-three-damage",
+      "fixture_sha256": "852f9fe23289428ebf69298f10ad5c0c693be79a5c422a1db16e65e50e014909",
+      "passed": true,
+      "result": "[PASS] salt_the_wound_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-salt-the-wound-yellow-four-live-sparse-real-kodachi-hit-earns-one-power-and-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] salt_the_wound_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

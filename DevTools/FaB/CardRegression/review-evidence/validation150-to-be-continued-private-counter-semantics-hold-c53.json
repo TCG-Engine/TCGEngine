@@ -1,0 +1,532 @@
+{
+  "status": "HOLD_UNQUALIFIED_INCIDENTAL_PLAY_ORDER_ORACLE_AND_SOURCE_ONLY_LOCAL_SEQUENCE_CONCERN",
+  "reviewer_independent": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-06T18:29:13.606436+00:00",
+  "card_id": "to_be_continued_blue",
+  "group_id": "identity:to_be_continued_blue",
+  "slug": "card-to-be-continued-blue-four-live-real-offturn-aura-response-and-first-arcane-prevention",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "input_sha256": "3ce9e7e34641dbdc32c492f61513aac982f31b24ca852e4ebceb9c88972617da",
+  "manifest_sha256": "481fc75f101311bf2af114547531b19b0e6d988bbfa7598aabb3dfc45e433e60",
+  "fixture_saved": false,
+  "fixture_exists": false,
+  "semantically_approved": false,
+  "coverage_credit": false,
+  "native_failure_observed": true,
+  "native_confirmed": false,
+  "gameplay_bug_confirmed": false,
+  "issue_id": null,
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-independent-source-review.json",
+    "sha256": "1e4e8b885a4819ec0f6ddab0831442ae213909dea81905fabeef255e23164010",
+    "printed_effect_model_reused": true,
+    "incidental_global_order_assumption_not_reapproved": true
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-suspense-auras-native-c53\\receipt.json",
+    "sha256": "14d5854c37e7c04e2e0534c6db837135003226a64c4a44e094a5c0a54f7ba5e1"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch630-suspense-auras.recording-results.json",
+    "sha256": "9740e1e3e3eab11e97263912d22728fa57b8094276bc16100b6031f06bcd58f1"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch630-suspense-auras-20261106T181958Z-6aee1a4ed8daf.json",
+    "sha256": "4897d6cce87426e353be8a470c83571fc9f81bed3b8de49b1a385243916f9aed"
+  },
+  "first_failure": {
+    "source_step": 20,
+    "check_index": 51,
+    "native_assertion_ordinal_1_based": 747,
+    "prior_assertions_passed": 746,
+    "after_input": 10,
+    "total_expected_assertions": 1217,
+    "remaining_unrun_assertions": 470,
+    "last_source_step": 19,
+    "last_input": {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "error": "Expected p4Arena-0.Counters to equal '{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}', got '{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}'.",
+    "expected_map": {
+      "FAB_PLAY_ORDER": 2,
+      "SUSPENSE": 2
+    },
+    "actual_map": {
+      "FAB_PLAY_ORDER": 1,
+      "SUSPENSE": 2
+    },
+    "only_different_member": "FAB_PLAY_ORDER",
+    "key_order_not_cause": true
+  },
+  "actual_native_prefix": {
+    "submitted_native_input_count": 10,
+    "submitted_native_inputs": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p4Hero-0",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 4,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p4Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "manual_input_count": 7,
+    "manual_actors": [
+      1,
+      2,
+      3,
+      4,
+      1,
+      2,
+      3
+    ],
+    "manual_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 1
+    },
+    "passed_prefix_sha256": "265a5d03f4f9ebb764635a022276a13a43a8538608e354055afcdc469884b052",
+    "observed_state": {
+      "window": "PRIORITY",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attacker": 0,
+      "defender": 0,
+      "attackUID": 0,
+      "attackTarget": null,
+      "pendingAttackTarget": null,
+      "previousAttackCardID": "",
+      "handBlockUIDs": [],
+      "intimidated": [],
+      "pendingPayment": null,
+      "lastAttackName": "",
+      "attackHit": false,
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "declaredBlockUIDs": [],
+      "passiveSeats": [],
+      "gameMode": "UPF",
+      "turnEffects": {
+        "1": [
+          {
+            "type": "DYN_SURGENT_USED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_PLAYED",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "4": [
+          {
+            "type": "PEN_AURAS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "PEN_INSTANT_CHAIN",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "MST_BLUE_PLAYED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_AURA",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_INSTANT",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_PLAYED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_AURAS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_AURA",
+            "amount": 1,
+            "uses": 1
+          }
+        ]
+      },
+      "nextTurnEffects": [],
+      "hitsThisTurn": [],
+      "cardsPlayedThisTurn": {
+        "1": [
+          "zap_red"
+        ],
+        "4": [
+          "to_be_continued_blue"
+        ]
+      },
+      "arcCards": {
+        "6": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false,
+          "target": 4,
+          "omnFirstDamage": false,
+          "iarPlayedFrom": "Hand",
+          "mstFree": false,
+          "rosLastLightning": false
+        },
+        "5": {
+          "iarOrigin": 4,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false,
+          "omnFirstDamage": false,
+          "iarPlayedFrom": "Hand",
+          "mstFree": false,
+          "mstBluePlayedTurn": 2,
+          "mstBluePlayedPlayer": 4,
+          "iarPermission": []
+        }
+      },
+      "arcActions": {
+        "1": 1
+      },
+      "omn": {
+        "2": {
+          "4": {
+            "INSTANT:0": 1,
+            "DISCOUNT:0": 0
+          }
+        }
+      }
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "initial_raw_sha256": "c07f8a60e6c8d29b6ca551d8c6ea181ee0c5819d3dc2fae6b2ccd2e2ef4beb24",
+    "queried_passed_facts": [
+      "Zap6actuallyplayed/target4/AP0; threeZapresponses giveactualP4priority, then actualP4Aura5play resets passes.",
+      "FouractualAura responses4,1,2,3 completed; same5AuraArena4/OwnerCtl4/ready2/Damage0 directlyqueried, actualfailedwholemap provesSUSPENSE2+FAB1.",
+      "At failurelowerZap6STILLStack/solependingcard, actualP1priority1/pass0/allHP20/queuesempty. Rawstate hasno5supPreventTurn/nohits, so actualpreventionhasnotrun."
+    ],
+    "unrun": [
+      "Step20checks52..66 and four remainingZap response inputs/sourceSteps21 onward:470assertions total.",
+      "NoactualZapdamage2/HP18/prevent1/useTurn2/GY6/finalcleanup certification. SixlaterFABmapqueries areunexecuted; onlyfirstmapnativeobserved."
+    ]
+  },
+  "classification": {
+    "kind": "UNJUSTIFIED_TOTAL_PLAY_COUNT_ORACLE_ON_INCIDENTAL_COUNTER",
+    "replacement_2_to_1_semantically_approved": false,
+    "replacement_current_protocol_value": 1,
+    "chronology_contract_certified": false,
+    "printed_rule_expectations_unchanged": {
+      "SUSPENSE": 2,
+      "prevent": 1,
+      "printed_Zap_arcane": 3,
+      "expected_actual_arcane": 2,
+      "expected_HP4": 18,
+      "supPreventTurn": 2
+    },
+    "reason": "The printed card has no global/per-player/Arena play-order rule. Its selected prevention consumer uses ownedAura identity and a current-turn first-use marker, not FAB_PLAY_ORDER. Actual1is currentserialization, not proofthat1is correctchronology. Original2 assumedtotalannouncedcasts; no productionreader establishes thatcontract.",
+    "source_only_concern": "GL963locallyincrementscombatPlaySequence/stampscounter965, then967reloadsFaBGetState withoutpersistingthatincrement. GetStatearraysreturnbyvalue. This supports a source-only lost-update/intended-sequence concern; no separate gameplay/chronologybug is confirmed by this privatefield mismatch.",
+    "allocation_boundary": "No Arena-count or per-player counter allocation occurs in this path; opponentZap notArena is not itself the cause. Stack-to-Arena copies existingCounter1; SUPAfterMove addsSUSPENSE2."
+  },
+  "affected_counter_value_leaves": [
+    {
+      "original_path": "/1/steps/20/checks/51/value",
+      "single_case_successor_path": "/0/steps/20/checks/51/value",
+      "source_step": 20,
+      "check_index": 51,
+      "original_value": "{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}",
+      "current_observed_representation": "{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}",
+      "unqualified_member": "FAB_PLAY_ORDER",
+      "strict_rule_member": {
+        "SUSPENSE": 2
+      }
+    },
+    {
+      "original_path": "/1/steps/22/checks/51/value",
+      "single_case_successor_path": "/0/steps/22/checks/51/value",
+      "source_step": 22,
+      "check_index": 51,
+      "original_value": "{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}",
+      "current_observed_representation": "{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}",
+      "unqualified_member": "FAB_PLAY_ORDER",
+      "strict_rule_member": {
+        "SUSPENSE": 2
+      }
+    },
+    {
+      "original_path": "/1/steps/24/checks/51/value",
+      "single_case_successor_path": "/0/steps/24/checks/51/value",
+      "source_step": 24,
+      "check_index": 51,
+      "original_value": "{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}",
+      "current_observed_representation": "{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}",
+      "unqualified_member": "FAB_PLAY_ORDER",
+      "strict_rule_member": {
+        "SUSPENSE": 2
+      }
+    },
+    {
+      "original_path": "/1/steps/26/checks/51/value",
+      "single_case_successor_path": "/0/steps/26/checks/51/value",
+      "source_step": 26,
+      "check_index": 51,
+      "original_value": "{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}",
+      "current_observed_representation": "{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}",
+      "unqualified_member": "FAB_PLAY_ORDER",
+      "strict_rule_member": {
+        "SUSPENSE": 2
+      }
+    },
+    {
+      "original_path": "/1/steps/28/checks/49/value",
+      "single_case_successor_path": "/0/steps/28/checks/49/value",
+      "source_step": 28,
+      "check_index": 49,
+      "original_value": "{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}",
+      "current_observed_representation": "{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}",
+      "unqualified_member": "FAB_PLAY_ORDER",
+      "strict_rule_member": {
+        "SUSPENSE": 2
+      }
+    },
+    {
+      "original_path": "/1/steps/29/checks/49/value",
+      "single_case_successor_path": "/0/steps/29/checks/49/value",
+      "source_step": 29,
+      "check_index": 49,
+      "original_value": "{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}",
+      "current_observed_representation": "{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}",
+      "unqualified_member": "FAB_PLAY_ORDER",
+      "strict_rule_member": {
+        "SUSPENSE": 2
+      }
+    },
+    {
+      "original_path": "/1/steps/30/checks/106/value",
+      "single_case_successor_path": "/0/steps/30/checks/106/value",
+      "source_step": 30,
+      "check_index": 106,
+      "original_value": "{\"FAB_PLAY_ORDER\":2,\"SUSPENSE\":2}",
+      "current_observed_representation": "{\"FAB_PLAY_ORDER\":1,\"SUSPENSE\":2}",
+      "unqualified_member": "FAB_PLAY_ORDER",
+      "strict_rule_member": {
+        "SUSPENSE": 2
+      }
+    }
+  ],
+  "total_affected_counter_values": 7,
+  "selected_consumer_review": {
+    "exact_symbol_scope": "Current Core/**/*.php and FaBSim/**/*.php, exact FAB_PLAY_ORDER/combatPlaySequence only; no catalogue/fixture/history audit",
+    "matches": [
+      {
+        "path": "FaBSim\\Custom\\GameLogic.php",
+        "line": 963,
+        "text": "$state['combatPlaySequence'] = intval($state['combatPlaySequence'] ?? 0) + 1;"
+      },
+      {
+        "path": "FaBSim\\Custom\\GameLogic.php",
+        "line": 965,
+        "text": "$stackObj->Counters['FAB_PLAY_ORDER'] = $state['combatPlaySequence'];"
+      }
+    ],
+    "selected_prevention_reads": [
+      "controlled to_be_continued Aura",
+      "arcCards(physicalUID).supPreventTurn",
+      "GetTurnNumber"
+    ],
+    "selected_prevention_does_not_read_FAB": true
+  },
+  "assertion_transport_limit": {
+    "native_assertion_types": [
+      "game_state_field",
+      "current_player_is",
+      "phase_is",
+      "turn_player_is",
+      "zone_count",
+      "card_exists",
+      "card_property_equals",
+      "computed_go_again_equals",
+      "computed_power_equals",
+      "computed_life_equals",
+      "computed_level_equals",
+      "global_effect_present",
+      "decision_queue_empty",
+      "flash_message_contains",
+      "scalar_zone_equals"
+    ],
+    "counter_member_assertion_available": false,
+    "whole_property_only": true,
+    "game_state_hook": "FaBSim state only; no ArenaCounters member hook",
+    "consequence": "Cannot claim thatchangingwholemap2to1preservesanindependentqualifiedchronologycontract. No member-onlySUSPENSE2testhasbeenestablishedintheexistingAPI."
+  },
+  "disposition": {
+    "status": "HOLD_SUCCESSOR_COUNTER_CHANGE_PENDING_PARENT_DECISION",
+    "successor_authored": false,
+    "successor_source_approved": false,
+    "source_fix_proposed": false,
+    "recommendation": "Do not automatically authorize sevenwholemap2→1 edits as semantic correction. Prefer an explicitly reviewed supported counter-member assertion preservingSUSPENSE2 while omittingunqualifiedFAB chronology; none exists in current nativeAPI. Otherwise retain this caseheld unless parent explicitly chooses a limited protocol-only serialization contract with lost-update concern disclosed. Do not weakenprintedprevention/HP18/turnmarker2 orrerunqualifiedKillingMe."
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+    },
+    "no_production_code_executed_by_reviewer": true
+  },
+  "durable_evidence": {
+    "original-two-case-input.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\original-two-case-input.json",
+      "sha256": "3ce9e7e34641dbdc32c492f61513aac982f31b24ca852e4ebceb9c88972617da",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch630-suspense-auras.json"
+    },
+    "original-source-review.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\original-source-review.json",
+      "sha256": "1e4e8b885a4819ec0f6ddab0831442ae213909dea81905fabeef255e23164010",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-independent-source-review.json"
+    },
+    "manifest.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\manifest.json",
+      "sha256": "481fc75f101311bf2af114547531b19b0e6d988bbfa7598aabb3dfc45e433e60",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-two-real-suspense-aura-effects-author\\manifest.json"
+    },
+    "root-receipt.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\root-receipt.json",
+      "sha256": "14d5854c37e7c04e2e0534c6db837135003226a64c4a44e094a5c0a54f7ba5e1",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-suspense-auras-native-c53\\receipt.json"
+    },
+    "recording-results.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\recording-results.json",
+      "sha256": "9740e1e3e3eab11e97263912d22728fa57b8094276bc16100b6031f06bcd58f1",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch630-suspense-auras.recording-results.json"
+    },
+    "immutable-archive.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\immutable-archive.json",
+      "sha256": "4897d6cce87426e353be8a470c83571fc9f81bed3b8de49b1a385243916f9aed",
+      "original_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch630-suspense-auras-20261106T181958Z-6aee1a4ed8daf.json"
+    },
+    "stdout.log": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\stdout.log",
+      "sha256": "37af9b46ade312c8edadcde32e27f366a180e77bea6b0f8251f396e6d2d2d8aa",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-suspense-auras-native-c53\\stdout.log"
+    },
+    "stderr.log": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-to-be-continued-counter-failure-evidence\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch630-suspense-auras-native-c53\\stderr.log"
+    }
+  },
+  "limits": [
+    "Only actual first counter mismatch and enteredAura/pendinglowerZap prefix established; no prevention/pass/coverage/newissue/fix/globalroot/Coreclaim.",
+    "Original source/all14actions1217checks and strictprintedexpectations preserved;7memberlocationsidentifiedwithoutanysuccessoredit.",
+    "CurrentKillingMeSaved32/2500 reviewedseparately; no replay/requalificationofitbyreviewer.",
+    "No PHP/native/replay/R/source/fullsuite/remote/deniedretry or broad catalogueaudit; current71guards/c53/ab33 unchanged."
+  ]
+}

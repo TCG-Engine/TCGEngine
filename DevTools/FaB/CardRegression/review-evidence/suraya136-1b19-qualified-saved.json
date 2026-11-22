@@ -1,0 +1,52 @@
+{
+  "status": "SURAYA136_ORIGINAL7_732_NATIVE_SAVED_ONE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root saved review plus independent b104 source/oracle review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+  "input_sha256": "b7c9e8b13675cabda1afe5dd966d6b5858cce87ffedf3721d8978224f64981bb",
+  "source_spec": "card-regression-repair-suraya136-required-shield-material.json",
+  "fixtures": [
+    {
+      "slug": "card-invoke-suraya-yellow-four-live-original-correct-owned-shield-transform-retains-one-encoded-material",
+      "card_id": "invoke_suraya_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6989794a888226a04744e35c99821481e519885d822e59bc69a5dcbd8c840052",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "a7ed675727cbe48deec8afb627218c78cc608a5799412c8fa4a66d9df4ee9eff",
+        "expected_final_gamestate.txt": "4c1c4d5758541b3dff91e7de46ff49b2cf9af4886dde1c0dbf23358ff4b80ffd",
+        "meta.json": "f1118fc711d49e5511bf4a28fb0877b35bb03ceba96e314efb554e48660ecde8"
+      },
+      "fixture_sha256": "cdafbb788480e53db9a0dda44358bab8c11d05ad31b4b87fcf785aa8ae0acc44",
+      "actions": 7,
+      "native_assertions": 732,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+      "runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+      "source_spec": "card-regression-repair-suraya136-required-shield-material.json",
+      "input_sha256": "b7c9e8b13675cabda1afe5dd966d6b5858cce87ffedf3721d8978224f64981bb"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-suraya136-replay.json",
+    "sha256": "b65594f73dbcb3f540983fdc4e6c3856d8d306c454f601643ca9b31aa2c2fd5b",
+    "passed": true
+  },
+  "independent_source_review_sha256": "e99c7d8fcf71cc09e8c7c4e5e721a92a74d2ee33301901b1963e4059eba59e7f",
+  "component_receipt_sha256": "9c8a8bc2246223900980c17c3d4149abedcb4be67910ea61ad3e16dfda875757",
+  "components": 9,
+  "basis": "Original7 supported actions/732queries/setup unchanged. Actual selected owned Shield6 declared before real Blue7 pays2/AP1; fresh source response actors1,2,3,4 precede transform. Same Invocation topUID5 becomes ready ownedSuraya with exactly one spectral_shield CardID encoded via existing SUBCARDS and preserved FAB_PLAY_ORDER1/DYN_SURAYA1. Printed ownGoAgain refundsAP1/R1; allHP20, no extraphysicalUID/Graveyard, Blue7Pitch and final Stack/frames/queues/payment drained. Source now transforms already-Arena top in place; selected standalone Shield ceases without invented subcardUID. No assertion weakened.",
+  "rejected_candidate_and_harness_limits": [
+    "R1 was never applied: source review found generic Arena movement would detach parent material, then R1 re-encoded it. Actual-movement components reproduce R1 duplication and prove R2 retains top/child material once with no extra move/hook/allocation.",
+    "First R2 component harness stopped after positive checks at an undefined unrelated leaving-hook stub in a negative case. Immutable failure retained; V2 supplies those modeled hooks and all9checks pass with unchanged candidate source.",
+    "Initial R2 application preflight used ResolveRules instead of actual FaBResolveRules; it stopped before any source/spec/fixture write. Function name corrected; byte-equal relevant caller/mover functions verified against reviewed155 context despite disjoint077 runtime change."
+  ],
+  "limits": [
+    "Only original positive owned-target transform/material/payment/source responses/ownGoAgain qualified. No Suraya attack/heal/arcane/Ward/targetloss/Legendarysecondcopy/materialretrieval/topdeparture/fullcard credit.",
+    "Nested material and rejected-input alternatives have isolated actual-function evidence only; lookup/factory/unrelated observers modeled. Fallback movement retains existing semantics, not a global material framework repair.",
+    "No Core/canonical/generated/094/service edits, full suite or historical corpus replay."
+  ]
+}

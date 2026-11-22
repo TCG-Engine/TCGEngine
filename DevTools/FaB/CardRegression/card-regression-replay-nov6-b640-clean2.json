@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch640.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T20:16:13.047142+00:00",
+  "fixtures": [
+    {
+      "slug": "card-qi-unleashed-blue-four-live-real-created-banished-tiger-combo-and-five-damage",
+      "fixture_sha256": "9e2e4a447818404d5764e4918340799b8a1e85ea84bb8f58fa60200f5c0cbd81",
+      "passed": true,
+      "result": "[PASS] qi_unleashed_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-pouncing-qi-blue-four-live-real-created-banished-tiger-combo-and-go-again-consumer",
+      "fixture_sha256": "5b5082860b7af03778f79f57fbbb72858af6223753acbb5100e364eae1527597",
+      "passed": true,
+      "result": "[PASS] pouncing_qi_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-qi-unleashed-blue-four-live-real-created-banished-tiger-combo-and-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] qi_unleashed_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pouncing-qi-blue-four-live-real-created-banished-tiger-combo-and-go-again-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] pouncing_qi_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

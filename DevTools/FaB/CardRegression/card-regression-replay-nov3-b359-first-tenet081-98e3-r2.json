@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch359-correct-trigger-probe.json",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T18:34:52.717676+00:00",
+  "fixtures": [
+    {
+      "slug": "card-first-tenet-of-chi-moon-blue-four-live-original-correct-granted-when-attacks-draw-layer-paid-blue-attack",
+      "fixture_sha256": "fc0cda0ad718bdfe92cf9f477e3a822647553f9c851304c7dab456c392ddba9c",
+      "passed": true,
+      "result": "[PASS] first_tenet_of_chi_moon_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-first-tenet-of-chi-moon-blue-four-live-original-correct-granted-when-attacks-draw-layer-paid-blue-attack",
+      "returncode": 0,
+      "stdout": "[PASS] first_tenet_of_chi_moon_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

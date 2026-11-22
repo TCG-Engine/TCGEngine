@@ -1,0 +1,75 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T14:44:24.537513+00:00",
+  "runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "source_spec": "card-regression-batch278-trigger-probes.json",
+  "source_spec_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 2140,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 3625,
+    "duels": 3074,
+    "four_live": 551,
+    "recorded_primary_ids": 780,
+    "identity_denominator": 5196,
+    "recorded_groups": 654,
+    "group_denominator": 3324,
+    "four_live_groups": 545,
+    "phase_qualified_scenarios_at_actual_contexts": 262,
+    "phase_qualified_unique_groups": 258,
+    "creation_replay_passes": 524,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "invigorating_light_red",
+      "group_id": "pitch-cycle:invigorating_light",
+      "scenario_id": "card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul",
+      "effect_branches": [
+        "invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul",
+      "source_spec": "card-regression-batch278-trigger-probes.json",
+      "source_spec_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+      "review_evidence": "review-evidence/invigorating066-saved-c08c-independent-review.json",
+      "review_evidence_sha256": "030de483ac7c0ab17460079c00afa00ce9af4e43baef1962d36a3d6392876087",
+      "recorded_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+      "qualification_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-invigorating066-c08c-r1.json",
+          "sha256": "7c56eb07474a1448604583807283daebd3f87a630e5ede2583b12562fc39e0d2",
+          "runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-invigorating066-c08c-r2.json",
+          "sha256": "cef2783ed085c91d512fc2d9c3fc5cf9b41d720ba2b3768e9fd815ef112ade5d",
+          "runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three"
+  ]
+}

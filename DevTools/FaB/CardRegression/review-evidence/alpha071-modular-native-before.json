@@ -1,0 +1,146 @@
+{
+  "status": "NATIVE_CONFIRMED_WRONG_ANOTHER_ZONE_OPTIONS_MODULAR_CURRENT_SUBTYPE_OMISSION_UNFIXED_NO_FIXTURE",
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T05:11:01.480660+00:00",
+  "classification_approved": true,
+  "native_confirmed": true,
+  "fix_applied": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "proposed_issue_id": "FAB-REG-071",
+  "classification": "native_confirmed_modular_equipment_current_zone_subtype_omission",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "card_id": "adaptive_alpha_mold",
+  "group_id": "identity:adaptive_alpha_mold",
+  "source_spec": "card-regression-batch290-v2-priority-protocol.json",
+  "input_sha256": "41a8f55ad2cc8f02fdb344b319abc93e53994585df0361a091968f32650b2e89",
+  "manifest_sha256": "03730798a1abc7954580b899b9f168c225a42c33fc31ac3fb02f6ad7627fc85b",
+  "independent_source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch290-independent-source-review\\review-v2.json",
+    "sha256": "66c317a1582c9ff420d5cc414feea3ccb78be76d6f60f89d5b123442909dc66a"
+  },
+  "native_before_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch290-v2-priority-protocol-20261103T050553Z-6ae96bb19ac57.json",
+    "sha256": "89bfc862eea48892043c88f3957e675c0af713c30c6e513c9a8e3738a36fe77d"
+  },
+  "native_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch290-v2-native-r1\\receipt.json",
+    "sha256": "f7085302a087140ca74addc0d46fa7fe208a6189c14c18e52e797f2d56dc048a"
+  },
+  "actual_prefix_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-alpha290-failed-prefix\\receipt.json",
+    "sha256": "bcf2c07ef2cc4805e23d1c3f46d0d6623e3b42e54608d925681ca983556042f0"
+  },
+  "actual_prefix_snapshot": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-alpha290-failed-prefix\\initial_gamestate.txt",
+    "sha256": "27baf8f80b32d479382e51c290b7a239b0fc048588ea80bf5aa534f2af8230e5"
+  },
+  "original_initial_snapshot_sha256": "8a4c6dbb8274760ff5fd4616425a1a93cebbaf5b484ec59252c14095972cd44f",
+  "accepted_native_inputs": 5,
+  "actual_manual_response_actors": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "error": "Expected p1DecisionQueue-0.Param to equal '1|1|Head&Arms&Legs', got '1|1|Head&Chest&Arms&Legs'.",
+  "correct_param": "1|1|Head&Arms&Legs",
+  "actual_param": "1|1|Head&Chest&Arms&Legs",
+  "actual_physical_source": {
+    "uid": 5,
+    "card_id": "adaptive_alpha_mold",
+    "owner": 1,
+    "controller": 1,
+    "zone": "p1Equipment",
+    "status": 2,
+    "persistent_counters": {
+      "EVO_SLOT": "Chest"
+    }
+  },
+  "actual_virtual_source": {
+    "uid": 6,
+    "kind": "ABILITY",
+    "card_id": "adaptive_alpha_mold",
+    "controller": 1,
+    "source_uid": 5,
+    "source_zone": "Equipment",
+    "retained_during_modal": true
+  },
+  "actual_economy": {
+    "initial_AP": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_AP": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ]
+  },
+  "four_living_manual_preferences_verified": 48,
+  "root_cause_trace": [
+    {
+      "source": "FaBSim/Custom/GameLogic.php:271-288",
+      "sha256": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+      "finding": "Object-aware FaBTypes delegates to EffectiveCardType. Imported Mold has Mechanologist/Equipment/Base and no fixed Chest type. EVO_SLOT subtype projection is restricted to adaptive_plating/adaptive_dissolver, so AlphaMold currentChest counter is not exposed as subtype.",
+      "exact_current_projection": "if(in_array($obj->CardID,['adaptive_plating','adaptive_dissolver'],true)&&!empty(FaBObjectCounters($obj)['EVO_SLOT']))$types[]=FaBObjectCounters($obj)['EVO_SLOT'];"
+    },
+    {
+      "source": "FaBSim/Custom/GameLogic.php:311-313 -> FaBSim/Custom/SUPCards.php:251",
+      "sha256": "a1ec1c7ca72ead8a8ec28ba1125e6a5a683b24df243d4a3a103c824b50bc14a3",
+      "finding": "MoldOptions enumerates Head/Chest/Arms/Legs and removes current FaBHasType slot. Missing projectedChest means none removed; source-predicted four options are independently observed in actualModal and its retainedawaitframe.",
+      "exact_current_consumer": "function FaBSUPMoldOptions(int $p,int $uid): string {$f=FaBFindUID($uid);$out=[];foreach(['Head','Chest','Arms','Legs'] as $slot)if(!$f||!FaBHasType($f['object'],$slot))$out[]=$slot;return implode('&',$out);}"
+    }
+  ],
+  "oracle_basis": {
+    "reused_printed_rules_review": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch290-independent-source-review\\review-v2.json",
+    "printed_card": "https://cards.fabtcg.com/card/adaptive-alpha-mold/SUP253/",
+    "modular_rule": "https://rules.fabtcg.com/en/cr/08-keywords/",
+    "sections": [
+      "8.3.30",
+      "8.3.30a-c",
+      "8.1.1c"
+    ],
+    "conclusion": "Prior ownedChest placement is legal under Modular and grants its currentChest subtype. Printed ANOTHER excludes that zone. Action0 still costs oneAP and has no goagain. Real savedinitial/prefix preserve sameChest physical5; no invalidseed or aliasing. Original 3-option oracle is correct."
+  },
+  "family_dedup": {
+    "ledger_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "ledger_sha256": "545f87853bf3e40cd39925ae7e202ebf18d6c08d2b6b2cccf7203f6152ceb82f",
+    "issues_at_review": 70,
+    "specific_terms_checked": [
+      "modular",
+      "evo_slot",
+      "adaptive_alpha_mold",
+      "adaptive_plating",
+      "adaptive_dissolver",
+      "effectivecardtype"
+    ],
+    "specific_matches": [],
+    "existing_distinctions": [
+      "021/046/047/057/061/069 asyncsource/GA families are not the observed root: actual managedARC layer correctly remainsStackduringModal.",
+      "040/065 Crucible arcane classifier and038/056 printedgoagain parser are different consumer/rule roots, despite each using a bounded classifier/cohort.",
+      "058 obsoleteTrap-origin restriction is distinct from persistentModular equipment subtype projection."
+    ],
+    "recommendation": "Retain 071 as confirmed named Modular-currentzone subtype omission, no existing registered Modular family match. Count scope limited to this one observed branch/card; no new infrastructure-wide root or wholefamily correctness claim."
+  },
+  "limits": [
+    "Native before only. SixthinputArmsselection/fullcorrectsuffix not executed; no assertion about actualfinalmove/destination or completecard behavior. Do not acceptfouroptions, adjustanswerindex, orsaveincorrectfixture.",
+    "No sourcefixproposal/candidate/application/generation/native/PHP/backend/Rwrites, corpusreplay or oldfixtureaudit byreviewer. Only exactspecificsourceconsumer and issue-ledger metadata dedup.",
+    "V1 publicwindow authoringerror was corrected and held before native; this failure is V2 materialchooser mismatch afterfive real inputs. Allpending065-070 authorizations unchanged."
+  ]
+}

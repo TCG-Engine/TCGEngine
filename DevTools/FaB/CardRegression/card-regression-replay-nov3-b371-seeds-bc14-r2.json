@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch371.json",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T21:03:20.710819+00:00",
+  "fixtures": [
+    {
+      "slug": "card-seeds-of-tomorrow-blue-four-live-sparse-real-arsenal-bottom-cost-and-five-prevention",
+      "fixture_sha256": "c7be9bcdda7a718ae082c277e4c69a55bc1cdce16c55e918c0a0e3ccee2b9a4a",
+      "passed": true,
+      "result": "[PASS] seeds_of_tomorrow_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-seeds-of-tomorrow-blue-four-live-sparse-real-arsenal-bottom-cost-and-five-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] seeds_of_tomorrow_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,334 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B378_BUCKLE_ONLY_ANTHEM_CORRECT_PROBE_BLOCKED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-04T18:42:02.219523+00:00",
+  "source_spec": "card-regression-batch378.json",
+  "input_sha256": "ae6174dead625cd05cbdf855fc2238e3ad486b0b52ec7ec9e7f5e91346612a7a",
+  "manifest_sha256": "3a23dc60f949419ef6c851089582c6d31fac419d344eac7cc57ad04f7245eb29",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "source_guards_verified": 24,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch378-independent-source-review.json",
+    "sha256": "02cfb9ce5d076a249a8bbd2d7496d532fe313835dfa08948cbbe0017edb12a53",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch378-20261104T183422Z-6aeb7aae949c8.json",
+    "sha256": "e589ae128dfcc89eaac34b410a3c3e0f235e363a009c2461801f508e0ad3f045"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b378-native-f751-r1\\receipt.json",
+    "sha256": "5993730d0bdcebdb5486f1f58aac509fe1081ca9a8d58950cdfe1c86e3768d11"
+  },
+  "failed_probe_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-anthem378-independent-native-before-classification.json",
+    "sha256": "fabc8ba17623badab44d70fff67b945e33c803e9a621e07e56535ef018206d2f"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch378_buckle_saved_readonly.py",
+    "sha256": "a9ff6f5770a147d55e98e604e459240d95b7dd1e1f588f08f360d250c39499cd"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "buckle_blue",
+      "group_id": "identity:buckle_blue",
+      "slug": "card-buckle-blue-four-live-sparse-real-paid-next-guardian-power-dominate-single-hand-equipment-fullblock",
+      "source_spec": "card-regression-batch378.json",
+      "input_sha256": "ae6174dead625cd05cbdf855fc2238e3ad486b0b52ec7ec9e7f5e91346612a7a",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_HEALTHY_BUCKLE_SUBSET_ONLY",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-buckle-blue-four-live-sparse-real-paid-next-guardian-power-dominate-single-hand-equipment-fullblock",
+      "fixture_sha256": "7748ce9f11a3b9d62f4fec793bdca14c1db013cee7d1f0003b6041e5f3a97a8b",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c8ade7f2f5349d9dbb44a76653c3f220dd26291a0b371e73547c533c0799d870",
+        "actions.json": "175d0534c31c9ea4f938f9a9817f27cefbbccd300fb71a632c73e1003d30f06f",
+        "assertions.json": "900e7943576a50c070964d4a06a2ff3153748e9c16e9c066f609033c709a07f2",
+        "expected_final_gamestate.txt": "ede31dad526e1bf542fd27423b3a3438aa81ffff810371aade107931ab5ac7d3"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c8ade7f2f5349d9dbb44a76653c3f220dd26291a0b371e73547c533c0799d870",
+        "actions.json": "175d0534c31c9ea4f938f9a9817f27cefbbccd300fb71a632c73e1003d30f06f",
+        "assertions.json": "900e7943576a50c070964d4a06a2ff3153748e9c16e9c066f609033c709a07f2",
+        "expected_final_gamestate.txt": "ede31dad526e1bf542fd27423b3a3438aa81ffff810371aade107931ab5ac7d3",
+        "meta.json": "327bf66b8de513b2bdd0549a79f3333a06739eda714aa3224a5b381f014be534"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c8ade7f2f5349d9dbb44a76653c3f220dd26291a0b371e73547c533c0799d870",
+        "actions.json": "175d0534c31c9ea4f938f9a9817f27cefbbccd300fb71a632c73e1003d30f06f",
+        "assertions.json": "900e7943576a50c070964d4a06a2ff3153748e9c16e9c066f609033c709a07f2",
+        "expected_final_gamestate.txt": "ede31dad526e1bf542fd27423b3a3438aa81ffff810371aade107931ab5ac7d3",
+        "meta.json": "327bf66b8de513b2bdd0549a79f3333a06739eda714aa3224a5b381f014be534"
+      },
+      "actions": 36,
+      "native_assertions": 3526,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "buckle_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "clash_of_might_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "bravo",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "tectonic_plating",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "buckle_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "clash_of_might_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "bravo",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "tectonic_plating",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "damage": 0,
+          "counters": {
+            "DEFENSE": 1
+          }
+        },
+        "9": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "actual_TectonicCounters": {
+        "DEFENSE": 1
+      },
+      "checkpoint_assertion_mapping_sha256": "828f6b91f672bbd951eb30c5d2c61c0bcc63b3adeb56b261acf64887992246ae",
+      "native_action_mapping_sha256": "42285338bb57e6076a20dca5c1c906a18bbf73ac9cfce5d4d05aa6326746a8ad",
+      "native_assertion_mapping_sha256": "bc26d761f5e6a897873ec4f1c50035786167dc83725939eca21f4d349d18d256"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "anthem_of_spring_blue",
+      "slug": "card-anthem-of-spring-blue-four-live-original-correct-probe-real-next-attack-action-plus-one-fullblock",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "correct_expectation_spec_approved": true,
+      "reason": "Engine fails original correct +1 expectation: firstfreshcomputedpower expected5 got4; actualNEXT_AA1 remains unconsumed. Not a wrongspec; no +0 adaptation, noAnthemfixture/suffix/coverage.",
+      "attempted_actions": 11,
+      "coverage_credit": false
+    }
+  ],
+  "total_actions": 36,
+  "total_native_assertions": 3526,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualBuckle3/Blue7 funds3/AP beforefour; fourth ownGAAP1; actualClash2/Blue8pays2 leavesR1AP0. Same6POWER1/DOMINATE/DYN_BUCKLE/base4+1=5/noGA persisted, actualoneHand9 DEF3 plusownedTectonic10DEF2 fullblock5/nohit/allHP20.",
+    "Actualequipment10remainsoriginalownedphysicalthroughdefense and returnsreadyEquipmentDamage0 withrawCountersDEFENSE1 atfullclose; allUIDs1..10conserved/GY1set5,6/GY4UID9/Pitch7,8/R1AP0/queues/combat/deferredcountercleanup.",
+    "Allraw5/36orderedactions3526persistedasserts29manual/48endpointsettings andwholeinitial/final UID/CardID/ownership/economy independentlychecked. No Aura/itemdestroy orheroactivation branch earned."
+  ],
+  "limits": [
+    "HealthyBuckle subset only, intended installer --reviewed-subset; failedAnthem is explicitlyunapproved/no fixture despite correctspec.",
+    "One selectedBuckle standalone; no otherprimary/siblings/fullcard/Clashdefends/BuckleheroHitdestroy/negativeDominate/Bravo/Tectonicactivation/control credit.",
+    "Only actualinitial/finalsnapshots arefullrawstates; intermediate outcomes aresequentialpassedassertions. Rootfocusedreplays/registrationseparate.",
+    "No PHP/native/replay/R/source/service/generation/full-suite byreviewer; tenoldholds/SmashItem preserved."
+  ]
+}

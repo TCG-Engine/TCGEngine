@@ -1,0 +1,246 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_MADCAP_MUSCLE_REAL_ADDITIONAL_COST_CONDITIONAL_SELF_POWER_NINE_DAMAGE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T10:13:08.561457+00:00",
+  "source_spec": "card-regression-batch317.json",
+  "input_sha256": "badaeade3965d2628d869e36c35cc0beb8a3b228d9e9c4dc5a2cf94f4a49207d",
+  "manifest_sha256": "3f912198af5b42ef7fef44def3921924155269ca1b470ccd8b163a49473bd981",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_guards_verified": 17,
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch317-independent-source-review\\review.json",
+    "sha256": "1b78ebd912a2cde22bff24212c6cdf937d476d75834f1b8ab909bf5b36f09a30"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch317-20261103T101049Z-6ae9b32910444.json",
+    "sha256": "018f758a732b11c7239228b208a9c9d5b84ece854ae357eeb4b7470f08f5c134"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch317-native-r1\\receipt.json",
+    "sha256": "736a2e7533935bcdc3ec5f44b06e87c3ec011b30a2bd93000e8abff06d7fab1b"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch317-independent-saved-review\\audit_saved.py",
+    "sha256": "bfc86eec29f579839f77d56a0c0c7d62bd3229ce3db1047fc544d2f6b312a333"
+  },
+  "review_method": "Reuse independent printed/source model. All28actualactions2266assertions exact, all25manualactors independently mapped; strictcomplete schema endpoint physicalUID/ownership/economy/manual profiles, terminal assertions evaluated, exactmetadata/rawfive/behavior/runtime stable. No renewed specmodel or oldfixture audit/native/PHP/Rwork.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "madcap_muscle_red",
+      "slug": "card-madcap-muscle-red-four-live-sparse-real-paid-three-then-six-power-random-discard-earns-self-plus-three",
+      "source_spec": "card-regression-batch317.json",
+      "input_sha256": "badaeade3965d2628d869e36c35cc0beb8a3b228d9e9c4dc5a2cf94f4a49207d",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-madcap-muscle-red-four-live-sparse-real-paid-three-then-six-power-random-discard-earns-self-plus-three",
+      "fixture_sha256": "cfeaab6383906a95100dd6dc576998a111cac7b80bb79d5fa74afb50b0882430",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2686065045b012a19061ca68c41704af36d1ea4c734a244da8a7225665402725",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "932e223548b30006b648e34bdd5da126d1d27e13a4f649c14c121f6ef89171fe",
+        "expected_final_gamestate.txt": "438bedb5e9b48f2ada770f2af950b79ce8545596c992e08e392870f83344ba89"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2686065045b012a19061ca68c41704af36d1ea4c734a244da8a7225665402725",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "932e223548b30006b648e34bdd5da126d1d27e13a4f649c14c121f6ef89171fe",
+        "expected_final_gamestate.txt": "438bedb5e9b48f2ada770f2af950b79ce8545596c992e08e392870f83344ba89",
+        "meta.json": "9fd1832439734d2d51f201d2dcf665cb2dca916e5fd325b23b5c47102834a0b9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2686065045b012a19061ca68c41704af36d1ea4c734a244da8a7225665402725",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "932e223548b30006b648e34bdd5da126d1d27e13a4f649c14c121f6ef89171fe",
+        "expected_final_gamestate.txt": "438bedb5e9b48f2ada770f2af950b79ce8545596c992e08e392870f83344ba89",
+        "meta.json": "9fd1832439734d2d51f201d2dcf665cb2dca916e5fd325b23b5c47102834a0b9"
+      },
+      "actions": 28,
+      "native_assertions": 2266,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "madcap_muscle_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "madcap_muscle_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 30,
+      "checkpoint_assertion_mapping_sha256": "2ffebc0831cb9d88c31e2535a33e75cafad889c7ec0780669fe28b3f80da2e2c",
+      "native_action_mapping_sha256": "10106b3cff7bf54b5859648be80acf1921358723f8fd8a3df37986bef665b913",
+      "native_assertion_mapping_sha256": "44e43aa946f50a8cef5d309c77526e8498a330ce90a018cff306313ab7630689"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2266,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual four legal living youngLevia20/threeDorinthea20/manualUPF; ownedHandexact5Madcap/6Blue/7sixpower, allinitialR0/APonlyP1=1/nohistories or conditionalpower seeds. Fresh actualP4target keeps5Hand before assets; source5Stack/PITCH3 leaves6/7Hand/GYempty before payment.",
+    "ActualBlue6pitch3 paysresource3/AP1, then sole remainingHand7sixpower discards toownedpublicGY. Internalasset-before-effect-cost order is established by unchanged guarded source path, with strict native pre/post checkpoints; one nativeinput performs both. Same5 remainsStack through firstthree responses; actualfinal sourceUID5discardedPower6 corroborates its own connected cost.",
+    "Fourth source response puts samephysical5Chain/WTR_POWER3, printed6+3=computed9/noGA throughout every combat checkpoint. ActualP4defenderfinish and allfourmanualwindows lead to actual9damage/HP11; allfour remainalive for remainingresponses, noAPrefund. NativeROS_DAMAGE9/CRU_DAMAGED9 and actualprimaryhitUID5 corroborate damage.",
+    "Fullparsedrawendpoint ownpublicGY exactunorderedUIDset5,7/Pitch6, alloriginalphysical1-7conserved/no newobjects, allRAP0/heroesready/live/StackChainsqueuespaymentawaitframesclear. RandomCounter0 is the observed singleton case; no probabilisticRNG/controlcredit."
+  ],
+  "limits": [
+    "Only Red paid3/soleactual6powerdiscard/conditionalself3/ninedamage/cleanup. No non6/emptyHand/alternatepitch/multiplecandidateRNG/secondattack/hero/supportprimary/sibling/fullcard/controlcredit.",
+    "Intermediate evidence is completed nativeaction/assertion ledger plus unchanged source order; endpoint files are not additional per-input snapshots. Root targetedreplays/registration remain separate.",
+    "No R/native/PHP/sourcefix/gen/service/fullsuite/oldreplay or authorization retry."
+  ]
+}

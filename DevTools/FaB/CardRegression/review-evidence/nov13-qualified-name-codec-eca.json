@@ -1,0 +1,543 @@
+{
+  "status": "MASK_NAME_CODEC_FOCUSED_QUALIFIED_AT_ACTUAL_ECA_CONTEXT",
+  "runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+  "source_application": {
+    "status": "APPLIED_UNQUALIFIED_PENDING_NATIVE_AFTER",
+    "target": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\OUTRuntime.php",
+    "before_sha256": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "proposed_sha256": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-out-name64-safe-tag-proposal\\OUTRuntime.before.php",
+    "proposal_sha256": "f83ab53316a79aebbf3f67054a14d5d046768c1b176621761fffa77b2cdae89e",
+    "independent_review_sha256": "966e0a52824fb5b50e4b3b00528bb8a90ef39c88af991c075e61fa04fb4f5bbf",
+    "component_sha256": "3df9baa537c9baa1f678469a095eab79bf834abb101378c71e316672f34f5de6",
+    "runtime_before": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+    "qualification": false,
+    "utc": "2026-11-13T23:27:07.322663+00:00",
+    "runtime_after": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+    "applied_utc": "2026-11-13T23:27:07.763122+00:00"
+  },
+  "independent_code_representation_review": {
+    "status": "PATCH_AND_REPRESENTATION_APPROVED_PENDING_ROOT_COMPONENT_SYNTAX_APPLY_AND_RUNTIME_REBIND",
+    "reviewer": "/root/breadth774_author_crossreview",
+    "reviewer_independent": true,
+    "author": "/root/breadth775_author_crossreview",
+    "created_utc": "2026-11-13T23:21:44.514763+00:00",
+    "proposal": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-out-name64-safe-tag-proposal\\proposal.json",
+      "sha256": "f83ab53316a79aebbf3f67054a14d5d046768c1b176621761fffa77b2cdae89e"
+    },
+    "proposal_sha256": "f83ab53316a79aebbf3f67054a14d5d046768c1b176621761fffa77b2cdae89e",
+    "source_target": "FaBSim/Custom/OUTRuntime.php",
+    "source_before_sha256": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "source_proposed_sha256": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "runtime_before": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+    "runtime_after": null,
+    "source_guards_before": {
+      "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+      ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+      "FaBSim/Custom/GameLogic.php": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+      "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+      "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+      "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+      "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+      "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+      "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+      "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+      "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+      "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+      "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+      "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+      "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+      "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+      "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+      "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+      "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+      "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+      "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+      "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+      "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+      "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+      "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+      "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+      "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+      "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+      "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+      "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+      "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+      "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+      "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+      "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+      "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+      "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+      "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+      "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+      "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+      "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+      "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+      "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+      "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+      "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+      "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+      "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+      "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+      "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+      "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+      "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+      "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+      "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+    },
+    "source_guard_count": 72,
+    "exact_forward_and_byte_inverse_verified": true,
+    "source_file_edits": 1,
+    "writer_sites": 2,
+    "raw_reader_sites": 1,
+    "new_helpers": 2,
+    "codec_assessment": "Canonical unpadded base64url stores exact UTF8 bytes in versionedOUT_NAME64. Alphabet excludes space and tilde delimiters; strict URLalphabet/length/base64/UTF8/canonicalreencode checks reject malformed or noncanonical tags. LegacyOUT_NAME suffix and old getter behavior stay literal. No emptynewname or corruptolddata recovery claim. Both actualwriters use sameencoder; directwriter retains its preexisting underscore normalization. Printedname/penNames/ownerAMNESIA/array_unique/previousnames/Combo unchanged.",
+    "pure_reference_vectors": 139,
+    "pure_reference_malformed_cases": 10,
+    "pure_reference_legacy_cases": 4,
+    "reference_execution": "Python static representation model only; not PHP or native evidence.",
+    "actual_failure_and_ui_assessment": {
+      "native_inputs": 13,
+      "native_name_answer": "Surging Strike",
+      "native_symptom": "Gainedtag observed as OUT_NAME:Surging after fullrawNAMECARDanswer, zero savedfixture.",
+      "wire_audit": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-batch775-independent-namecard-wire-normalizer-audit.json",
+        "sha256": "62c86a3adf0cde123075d9c0e642bd84f8a97db126939c892d14740c1d2dcc9c"
+      },
+      "first_loss": "Source-derived firstloss is Stack space-delimited serialize/reparse between playaction9 andnextpassaction10; native directlyobserved symptomat13. No capturedintermediate snapshot or laterGustdamage is invented."
+    },
+    "direct_producer_ids": [
+      "be_like_water_blue",
+      "be_like_water_red",
+      "be_like_water_yellow",
+      "mask_of_many_faces",
+      "retrace_the_past_blue",
+      "shifting_winds_of_the_mystic_beast_blue"
+    ],
+    "canonical_matching_entries": [
+      {
+        "card_id": "retrace_the_past_blue",
+        "macro": "AttackDeclared",
+        "file": "DevTools/FaB/hnt_abilities.json",
+        "ability_code_sha256": "bfdaa1357913da4e4b07b1daa99bbbd720badd2bb2807f0b7bc1497947404f3a"
+      },
+      {
+        "card_id": "shifting_winds_of_the_mystic_beast_blue",
+        "macro": "ResolveAbility",
+        "file": "DevTools/FaB/mst_abilities.json",
+        "ability_code_sha256": "1ad4273bfcca0f43954a6193c0ac3ea4a1b207beef0260cf67d0822d2ddc7cc8"
+      },
+      {
+        "card_id": "be_like_water_red",
+        "macro": "Hit",
+        "file": "DevTools/FaB/out_abilities.json",
+        "ability_code_sha256": "8131c4a60f1200a992f384bfe4d0b03278950c5776d6e97c6169920403be10f3"
+      },
+      {
+        "card_id": "be_like_water_yellow",
+        "macro": "Hit",
+        "file": "DevTools/FaB/out_abilities.json",
+        "ability_code_sha256": "8131c4a60f1200a992f384bfe4d0b03278950c5776d6e97c6169920403be10f3"
+      },
+      {
+        "card_id": "be_like_water_blue",
+        "macro": "Hit",
+        "file": "DevTools/FaB/out_abilities.json",
+        "ability_code_sha256": "8131c4a60f1200a992f384bfe4d0b03278950c5776d6e97c6169920403be10f3"
+      },
+      {
+        "card_id": "mask_of_many_faces",
+        "macro": "ResolveAbility",
+        "file": "DevTools/FaB/out_abilities.json",
+        "ability_code_sha256": "8da77edb501fbcaddcdc77be024ce03e804660c615e602a408deb66ae45126e9"
+      }
+    ],
+    "raw_occurrence_source_inventory": [
+      {
+        "path": "FaBSim/Custom/OUTRuntime.php",
+        "line": 10
+      },
+      {
+        "path": "FaBSim/Custom/OUTRuntime.php",
+        "line": 35
+      },
+      {
+        "path": "FaBSim/Custom/OUTRuntime.php",
+        "line": 119
+      }
+    ],
+    "retained_metadata_scan": [
+      {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+        "sha256": "ad2ebcf6bcb5a5e1b929a03399d06f2226f86608a6fcc9b746115e498999b3e3",
+        "scalar_leaves": 5043,
+        "matches": []
+      },
+      {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\continuation-planning-holds-20261105.json",
+        "sha256": "21edaeb7b4d117fbaf769e422c24d3a800ea2858603ee268d8fca8d906a68ba3",
+        "scalar_leaves": 805,
+        "matches": []
+      },
+      {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+        "sha256": "7a1a421f74728548f2b4dc95dace0eae9a179d41ae84032d8bcc48e551d8d346",
+        "scalar_leaves": 9419,
+        "matches": []
+      }
+    ],
+    "existing_379": {
+      "source": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch379.json",
+      "sha256": "248bac4865ff27107de3e333b8355b41a1563ee114f99f04ba02993a594f3579",
+      "slug": "card-shifting-winds-of-the-mystic-beast-blue-four-live-sparse-real-chi-payment-creates-two-owned-crouching-tigers",
+      "scope": "Existing Chi-payment/twoTiger creation branch stops before eitherTigerplay, so its grantednamingeffect is unearned; no NAMECARDanswer or namingroute. Old f751 qualification/replayrows remain historical, no rereplay/retagging/requalification implied."
+    },
+    "representation_successor": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-out-name64-safe-tag-proposal\\batch775-mask-name64-representation-PROSPECTIVE-NOT-INSTALLABLE.json",
+      "sha256": "f3549e43d46d9b97646d684ea887dbf6a41eefd45b8fa4ee9a6ebafb7bddf00e"
+    },
+    "input_sha256": "f3549e43d46d9b97646d684ea887dbf6a41eefd45b8fa4ee9a6ebafb7bddf00e",
+    "source_spec": "card-regression-batch775.json",
+    "representation_delta": {
+      "changed_TurnEffects_values": 65,
+      "changed_oracle_phrase": 1,
+      "all_other_JSON_values_equal": true,
+      "raw_NAMECARD_answer": "Surging Strike",
+      "controls": 78,
+      "native_queries": 6771,
+      "manual_passes": 71,
+      "unchanged": "Setup/allactions/source/payment/resource/AP/namebank/effectconsumption/realGustCombo0cost5power/3+5+4damage/fullcleanup; no expectations relaxed to observedSurging."
+    },
+    "component_script": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-out-name64-safe-tag-proposal\\name64-component-ROOT-EXECUTION-ONLY.php",
+      "sha256": "33c0546eae5b09e851fa1b5ac46b71eefccf19f397c29e12be6c42ed0c98fc9a",
+      "bytes": 7720
+    },
+    "component_execution_approved_for_root_only": true,
+    "component_review": "Source reviewed, NOT executed. Exactbefore/proposal/fullguard checks precede loader; tokenextract evals only exactguarded3prospectivefunctions (getterrenamed). Uses actualexisting generatedStack/CombatChain Serialize+constructors with adjacentnonemptyParams/Counters, retainedUID/Owner/Controller/Source/Role/FromZone, effecttags onbothsides, punctuation/tilde/Unicode, malformed/legacy/penNames/Amnesia cases. Onlyprocesslocalobjects/scalarGameState aremutated; no explicit action/game/fixture/persistence API called. No generatedcode edit. Doesnotexecuteallproducerbranches; nativeMask remainsboundedonly.",
+    "approval_scope": "Exact onefile codec proposal and representation-only scenario delta approved prospectively. Root may run exactsyntax/component againstbeforeguards, then apply exactbytes if checks pass and freeze observedruntime/currentguards. This is not SOURCE_APPROVED for an invented postapply runtime and grants no native/Saved/replay/coverage credit.",
+    "prior_source_review_labels_preserved": [
+      "c53 fullMask semantic audit",
+      "84a7 guarddelta gate and actualfailednative"
+    ],
+    "native_or_PHP_executed_by_reviewer": false,
+    "source_applied_by_reviewer": false,
+    "R_write": false,
+    "new_cohort": false,
+    "held_or_denied_repair_retry": false,
+    "full_semantic_audit_repeated": false,
+    "remaining": [
+      "Root-only PHP syntax and guarded component must pass before exactonefileapplication.",
+      "Afterapplication observeactualruntime and independentlybind finalMaskmanifest/sourceguards to representationinputf3549e43...; do not reuse old Sourceproof asnewruntime approval.",
+      "Fresh nativeMask/exactSaved/twocleanreplays before coverage. Preserveoriginalinput/nativefailure/oldfixtureprovenance."
+    ]
+  },
+  "root_component": {
+    "status": "PASS_COMPONENT_ONLY",
+    "checks": 169,
+    "runtime_before": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+    "source_before_sha256": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "source_proposed_sha256": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "actual_generated_serializers": [
+      "Stack",
+      "CombatChain"
+    ],
+    "prospective_namegetter": true,
+    "native_games_run": 0,
+    "fixtures_written": 0,
+    "file_persistence_called": false,
+    "observed_exit_code": 0,
+    "component_script_sha256": "33c0546eae5b09e851fa1b5ac46b71eefccf19f397c29e12be6c42ed0c98fc9a",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-out-name64-safe-tag-proposal\\name64-component-ROOT-EXECUTION-ONLY.php",
+      "C:/xampp/htdocs/TCGEngine"
+    ],
+    "scope": "Root receipt of the completed tool-observed PHP output; component itself wrote no files",
+    "utc": "2026-11-13T23:26:54.262149+00:00"
+  },
+  "source_diff": "--- FaBSim/Custom/OUTRuntime.php (before)\n+++ FaBSim/Custom/OUTRuntime.php (proposed)\n@@ -5,9 +5,19 @@\n function FaBOUTClear(int $p,string $key): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='OUT_'.$key)));}\n function FaBOUTSource(int $uid): string {return FaBFindUID($uid)['mzID']??'';}\n function FaBOUTHero(int $p,string $id): bool {return FaBMONHero($p,$id);}\n+// Versioned name tags must be safe in space-delimited rows and ~-delimited TurnEffects.\n+function FaBOUTNameTag(string $name): string {return 'OUT_NAME64:'.rtrim(strtr(base64_encode($name),'+/','-_'),'=');}\n+function FaBOUTNameFromTag(string $tag): ?string {\n+ if(str_starts_with($tag,'OUT_NAME:'))return substr($tag,9);\n+ if(!str_starts_with($tag,'OUT_NAME64:'))return null;\n+ $encoded=substr($tag,11);if($encoded===''||!preg_match('/^[A-Za-z0-9_-]+$/D',$encoded)||strlen($encoded)%4===1)return null;\n+ $name=base64_decode(strtr($encoded,'-_','+/').str_repeat('=',(4-strlen($encoded)%4)%4),true);\n+ if($name===false||preg_match('//u',$name)!==1||FaBOUTNameTag($name)!==$tag)return null;\n+ return $name;\n+}\n function FaBOUTNames(object $o): array {\n  $owner=intval($o->Owner??0)?:intval(FaBFindUID(intval($o->UniqueID??0))['player']??$o->Controller??0);if($owner&&FaBOUTCount($owner,'AMNESIA'))return [];\n- $names=(array)FaBARCCard(intval($o->UniqueID??0),'penNames',[(string)CardName($o->CardID)]);foreach((array)($o->TurnEffects??[]) as $t)if(str_starts_with($t,'OUT_NAME:'))$names[]=substr($t,9);return array_unique($names);\n+ $names=(array)FaBARCCard(intval($o->UniqueID??0),'penNames',[(string)CardName($o->CardID)]);foreach((array)($o->TurnEffects??[]) as $t){$name=FaBOUTNameFromTag($t);if($name!==null)$names[]=$name;}return array_unique($names);\n }\n function FaBOUTNamed(object $o,string $name): bool {return in_array($name,FaBOUTNames($o),true);}\n function FaBOUTCombo(int $p,string $kind,?object $o=null): bool {\n@@ -32,7 +42,7 @@\n  if(FaBHasType($o,'Attack Reaction')||FaBHasType($o,'Defense Reaction'))FaBOUTReactionPlayed($p,FaBHasType($o,'Attack Reaction'));\n  if(FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o)){\n   $a=FaBFindUID(intval($s['attackUID']));$names=$a&&intval($s['attacker'])===$p?FaBOUTNames($a['object']):($s['outPreviousNames'][$p]??[]);FaBARCSetCard($uid,'outPreviousNames',$names);\n-  $left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='OUT_NEXT'&&FaBOUTNextMatches($o,$from,$e['kind'])){if($e['amount'])FaBWTRTag($o,'WTR_POWER:'.$e['amount']);if($e['tag']!=='')FaBWTRTag($o,$e['tag']);}elseif(($e['type']??'')==='OUT_NEXT_NAME'&&FaBWTRIsAttackAction($o))FaBWTRTag($o,'OUT_NAME:'.$e['name']);else $left[]=$e;}FaBWTRSetEffects($p,$left);\n+  $left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='OUT_NEXT'&&FaBOUTNextMatches($o,$from,$e['kind'])){if($e['amount'])FaBWTRTag($o,'WTR_POWER:'.$e['amount']);if($e['tag']!=='')FaBWTRTag($o,$e['tag']);}elseif(($e['type']??'')==='OUT_NEXT_NAME'&&FaBWTRIsAttackAction($o))FaBWTRTag($o,FaBOUTNameTag((string)$e['name']));else $left[]=$e;}FaBWTRSetEffects($p,$left);\n   if(FaBHasKeyword($o,'Stealth')){FaBOUTAdd($p,'STEALTH');if(FaBOUTCount($p,'STEALTH')===1&&FaBOUTHero($p,'arakni_solitary_confinement'))FaBWTRTag($o,'GO_AGAIN');}\n   if($b==='bonds_of_ancestry'&&FaBOUTCombo($p,$b,$o))FaBWTRTag($o,'GO_AGAIN');\n   if($b==='prowl')FaBOUTNext($p,'stealth',1,'',true);\n@@ -116,7 +126,7 @@\n function FaBOUTCollapse(int $p): void {$victim=intval(FaBGetState()['attacker']);$refs=FaBChoiceRefs($victim,'Hand');foreach($refs as $r)FaBDiscardChoice($victim,$r);DoDrawCard($victim,max(0,count($refs)-1));}\n function FaBOUTPitch(int $p,string $id): void {if($id==='plague_hive_yellow')foreach(FaBOpponents($p) as $victim)FaBOUTDisease($victim,(string)EngineRandomInt(0,2));}\n function FaBOUTLongEffect(int $source,int $victim,string $key,int $n=1,bool $end=false): void {FaBOUTAdd($victim,$key,$n,[$end?'expiresAfterTurnOf':'expiresAtStartOf'=>$end?$victim:$source]);}\n-function FaBOUTNameCard(int $uid,string $name): void {$f=FaBFindUID($uid);if($f&&FaBOUTNames($f['object']))FaBWTRTag($f['object'],'OUT_NAME:'.str_replace('_',' ',$name));}\n+function FaBOUTNameCard(int $uid,string $name): void {$f=FaBFindUID($uid);if($f&&FaBOUTNames($f['object']))FaBWTRTag($f['object'],FaBOUTNameTag(str_replace('_',' ',$name)));}\n function FaBOUTStart(int $p): void {foreach(FaBChoiceRefs($p,'Graveyard',['base'=>'redback_shroud']) as $r)FaBRunSourceMacro('StartTurn',$p,'redback_shroud',['mzID'=>$r]);}\n function FaBOUTClose(): void {\n  $s=FaBGetState();$s['outDaggerDamage']=[];$s['outDaggerHits']=[];$s['outPreviousNames']=[];$s['outReactions']=[];$s['outAnyReactions']=[];FaBSetState($s);\n",
+  "actual_name_loss_diagnosis": {
+    "status": "NATIVE_TAG_CORRUPTION_CLASSIFIED_CORRECT_CLIENT_TRANSPORT_FIRST_LOSS_AT_FAB_OBJECT_ROUNDTRIP",
+    "reviewer": "/root/breadth775_author_crossreview",
+    "created_utc": "2026-11-13T22:49:17.225374+00:00",
+    "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+    "actual_native_evidence": {
+      "receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-b775-mask-real-name-combo-native-recording\\receipt.json",
+        "sha256": "2fcf831685571bbd5204cf22f99128d6a0cd26beccd4f0fa64162503418b86d9"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch775-20261113T223446Z-6af79086c6939.json",
+        "sha256": "5c4fa46090a4700f3c370a64930438d6fe52ed58ca52a6b63f0b2452e503fd0b"
+      },
+      "result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch775.recording-results.json",
+        "sha256": "4e94b327b7197d11303243896460c6f7d5d65b47bb3630e4b1e2422af3c6ee25"
+      },
+      "input_sha256": "30980c9aba25d60c33297d9dcad4b70359e9201f6a6141ebf845a3787e8e796d",
+      "attempted_native_inputs": 13,
+      "actual_NAMECARD_action7": {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "Surging Strike",
+        "chkInput": [],
+        "inputText": ""
+      },
+      "actual_error": "Expected p1CombatChain-0.TurnEffects to equal '[\"OUT_NAME:Surging Strike\"]', got '[\"OUT_NAME:Surging\"]'.",
+      "fixture_saved": false
+    },
+    "independent_wire_audit": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-batch775-independent-namecard-wire-normalizer-audit.json",
+      "sha256": "62c86a3adf0cde123075d9c0e642bd84f8a97db126939c892d14740c1d2dcc9c"
+    },
+    "source_guards": {
+      "Core/NameCardUI.js": "045da56577080eb888c3d8bd7255c7a342a58f929d9fd69d7033ee71cc43b590",
+      "Core/UILibraries20261031.js": "44e254a7f1131ad48f2f32449b85b1e4dc34d7f8e0303664734a90f3b76323c8",
+      "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+      "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/GameLogic.php": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    "source_guard_count": 12,
+    "authored_transport_correct": true,
+    "author_transport_correction_required": false,
+    "valid_internal_encoding": false,
+    "supported_payload": {
+      "browser_query": "cardID=Surging%20Strike with DECISION/decisionIndex",
+      "server_decoded": {
+        "mode": 100,
+        "cardID": "Surging Strike",
+        "inputText": ""
+      },
+      "inputText_substitution_supported": false,
+      "clientCardID_alias_supported": false,
+      "underscore_answer_substitution_supported": false
+    },
+    "source_trace": [
+      {
+        "stage": "UI",
+        "anchors": "Core/NameCardUI.js317-321;Core/UILibraries20261031.js6431-6433",
+        "effect": "Full trimmed chosen name returned; encodeURIComponent only HTTPtransport, decoded servercardID still contains the space."
+      },
+      {
+        "stage": "Coreinput",
+        "anchors": "Core/RegressionTestFramework.php229-247;Core/EngineActionRunner.php405-409,495-513",
+        "effect": "strval preservescardID; mode100 passesrawlastDecision toawaitcustomhandler. InputText isseparateunusedhere."
+      },
+      {
+        "stage": "Awaitandnamebank",
+        "anchors": "GeneratedMacroCode.php171057-171092;DecisionQueueController411-419;WTRCards19-24;GameLogic267-268",
+        "effect": "JSONawaitlocal and GameState OUT_NEXT_NAME data hold the actual full string safely; no firsttruncationhere."
+      },
+      {
+        "stage": "Objecttagcreation",
+        "anchors": "OUTRuntime.php35;WTRCards54-58",
+        "effect": "HeadJabactualplay reads fullbankname andappends raw OUT_NAME:Surging Strike toStackTurnEffects; allfullnameremains inmemory."
+      },
+      {
+        "stage": "Firstlossyboundary",
+        "anchors": "ZoneClasses.php1091-1112/1075-1086;GamestateParser.php223-237/1110;EngineActionRunner1215-1220",
+        "effect": "Afterplayaction9 serializes rawtagwithspace intoStackline. Nextaction10EngineRunAction reparsesit: explode space yields cell8 OUT_NAME:Surging andcell9 Strike, losing secondwordandmisaligningCounters. This earliest boundary is source-derived; no rawintermediatesnapshotwasrecordedthere."
+      },
+      {
+        "stage": "Lateractualsymptom",
+        "anchors": "Actualfailednativeaction13;CombatChain ZoneClasses297/304/327",
+        "effect": "Afterfreshsourcefour sameattack6 enterschainwithalreadytruncatedtag; nativeexactquery observesSurging. CombatChain serializer shares rawspacehazard."
+      },
+      {
+        "stage": "Semanticconsequence",
+        "anchors": "OUTRuntime.php8-17",
+        "effect": "FaBOUTNames returns suffixliterally; Surging doesnotmatch exactSurging Strike neededforGustCombo. LaterGustcost/power/damageunexecuted, so notclaimednative-measured."
+      }
+    ],
+    "static_serializer_example": {
+      "original_full_name": "Surging Strike",
+      "raw_stack_line": "head_jab_red 1 1 ATTACK Hand 6 - 6 OUT_NAME:Surging Strike -",
+      "parsed_turn_effects": [
+        "OUT_NAME:Surging"
+      ],
+      "parsed_counters_cell": "Strike",
+      "kind": "Pure source-derived text mapping, not gameplay execution"
+    },
+    "proper_client_reproduction": {
+      "same_supported_wire_as_native": true,
+      "source_path_reproducible": true,
+      "actual_browser_trial_run": false,
+      "explanation": "NormalNAMECARDUI emits the same fullname; normalnextrequest uses the same Stackserialization/parser. Properclientcannotavoidlossbyalternateexpectedwire, and full-name/Comboexpectations mustremain."
+    },
+    "prospective_narrow_design": {
+      "status": "DESIGN_ONLY_NOT_PATCH_APPROVAL_OR_CODE_EDIT",
+      "files": [
+        "FaBSim/Custom/OUTRuntime.php"
+      ],
+      "sites": [
+        "FaBOUTPlayed OUT_NEXT_NAME writer",
+        "FaBOUTNameCard writer",
+        "FaBOUTNames sole OUT_NAME reader"
+      ],
+      "proposal": "Store new addednames in explicit OUT_NAME64:<base64 UTF8name> tags from both writers; reader strictlydecodes newprefixandcontinues acceptinglegacy OUT_NAME rawsuffixes. OtherTurnEffects/penNames/JSONbanks/timing/ownership unchanged. No Core/generator/generatedfile edit.",
+      "example_tag": "OUT_NAME64:U3VyZ2luZyBTdHJpa2U=",
+      "semantic_constraints": "Keep fulldecodedname Surging Strike/printedHeadJabname, one-shotgrant, actualCombo0cost/+2power/3+5+4damage/APrefunds andfullcleanup assertions. Only encodedrepresentationqueries need intentionalreviewed update; no newprovider or outcome-fitting.",
+      "why_not_urlencode_alone": "PHPrawurlencode retains ~, which is the array-string itemdelimiter; explicitbase64 has neither whitespace nor ~.",
+      "required_before_apply": "Rootcoordinates exactproposal/peerreview/syntax/focusedcomponent. Preserve originalinput/nativefailure; no alternatetrial or current-source edit bythis reviewer."
+    },
+    "ledger_guards": {
+      "sparse-source-only-holds.json": "ad2ebcf6bcb5a5e1b929a03399d06f2226f86608a6fcc9b746115e498999b3e3",
+      "continuation-planning-holds-20261105.json": "21edaeb7b4d117fbaf769e422c24d3a800ea2858603ee268d8fca8d906a68ba3",
+      "card-regression-issues.json": "6476e887f07acb5fd1851d8192cdcb97b74187a3b9aa6d5a5659d774dcc5e0c6"
+    },
+    "related_ledger_matches": {
+      "sparse-source-only-holds.json": [],
+      "continuation-planning-holds-20261105.json": [],
+      "card-regression-issues.json": []
+    },
+    "source_patch_authored": false,
+    "source_patch_applied": false,
+    "source_patch_review_approved": false,
+    "php_or_native_executed_by_reviewer": false,
+    "coverage_credit": false,
+    "limits": [
+      "Actualnativefact is13input fullname-tag corruption/zerofixtures. EarliestStackparseordinal10 and laterComboimpact are current-source deductions, not intermediatecapturednative snapshots or nativeGustdamage.",
+      "No alternateNAMECARDtrial, fullnameweakening, replacementprimary/producer, schema/Core/framework/generated/DB/remote edit oroldheld/deniedrepair retry.",
+      "NativeMaskfailed beforeGust/blankconsumer/fullcleanup; latercaseexpectations and existingSourceapprovals confer no passinggameplay/Saved/replay/coverage claim.",
+      "B776unattemptednotes remainpending/unfiled."
+    ]
+  },
+  "independent_wire_audit": {
+    "status": "CLIENT_EQUIVALENT_RAW_NAMECARD_PAYLOAD_CONFIRMED_NO_AUTHOR_TRANSPORT_CHANGE_SUPPORTED",
+    "reviewer": "/root/breadth774_author_crossreview",
+    "created_utc": "2026-11-13T22:44:56.875460+00:00",
+    "scope": "Only NAMECARD client/wire, request parsing, action normalization, mode100 dispatch and matching existing failed action; no FaB namebank/TurnEffects serializer audit duplicated.",
+    "runtime_context": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+    "failure_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-b775-mask-real-name-combo-native-recording\\receipt.json",
+      "sha256": "2fcf831685571bbd5204cf22f99128d6a0cd26beccd4f0fa64162503418b86d9"
+    },
+    "failure_results": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch775.recording-results.json",
+      "sha256": "4e94b327b7197d11303243896460c6f7d5d65b47bb3630e4b1e2422af3c6ee25"
+    },
+    "actual_failed_name_action": {
+      "native_action_number": 7,
+      "action": {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "Surging Strike",
+        "chkInput": [],
+        "inputText": ""
+      }
+    },
+    "client_ui": {
+      "Core/NameCardUI.js:317-321": "submitName obtains String(inputEl.value).trim(), then submitCallback(chosenName,decisionIndex). No cardID lookup, underscore replacement, encoding or splitting of interior spaces.",
+      "Core/UILibraries20261031.js:6431-6433": "NAMECARD callback calls SubmitInput('DECISION','&decisionIndex='+decisionIndex+'&cardID='+encodeURIComponent(selectedName)).",
+      "Core/jsInclude.js:1183-1200,1202-1255,1286-1295": "String params are appended to ProcessInput query; SubmitEngineInput builds HTTP GET; SubmitInput delegates. The already-percent-encoded name field is not transformed again."
+    },
+    "wire_example": "mode=DECISION&decisionIndex=0&cardID=Surging%20Strike",
+    "supported_engine_payload": {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "Surging Strike",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "request_parsing": {
+      "ProcessInput.php:86-100": "DECISION maps to numeric100; PHP query string decoding yields cardID Surging Strike. inputText is an independent GET field with empty default.",
+      "ProcessInput.php:184-190": "EngineExecuteLoadedAction receives rawcardID and separateinputText as fields."
+    },
+    "normalization": {
+      "Core/EngineActionRunner.php:352-353,405-411": "EngineNormalizeActionPayload delegates to RegressionNormalizeAction, then reads normalizedcardID/inputText separately.",
+      "Core/RegressionTestFramework.php:229-247": "Normalizes playerID/mode asints, buttonInput/cardID/inputText asstrings, chkInput array; optional resolvedCardID/resolvedCardIDs/expectFailure only. No space truncation or NAMECARD encoding. clientCardID is not an accepted alias and would be dropped.",
+      "Core/EngineActionRunner.php:495-513": "Mode100 validates rawcardID, invokes optional GameOnDecisionAnswered, pops choice, calls ExecuteStaticMethods(playerID,cardID); doesnotconsumeinputText.",
+      "Core/DecisionQueueController.php:137-150": "CUSTOM handler Param split uses vertical bars, while lastDecision is separately passed unchanged as thirdhandlerargument.",
+      "record_card_regressions.php:268-276": "Supported answerstep checksactualqueue/type and calls FCRAction(player,100,step.value), matchingclientpayload."
+    },
+    "conclusion": "Original Surging Strike answer is the correct supported NAMECARD payload. Do not replace it with Surging_Strike, Surging%20Strike, a card identity, inputText, or clientCardID as a passing workaround. This transport audit does not localize or certify a downstream FaB serialization fix.",
+    "source_sha256": {
+      "Core/NameCardUI.js": "045da56577080eb888c3d8bd7255c7a342a58f929d9fd69d7033ee71cc43b590",
+      "Core/UILibraries20261031.js": "44e254a7f1131ad48f2f32449b85b1e4dc34d7f8e0303664734a90f3b76323c8",
+      "Core/jsInclude.js": "4cbd644ca03682987b6cc04dc404063fe7cf78a93522e0f65ed6c4ddf83f4b27",
+      "ProcessInput.php": "62e0fe8f0375fc54f2a961f8e62dbaf1242117204da84232b33bd2436c45c234",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+    },
+    "observed_failure_unchanged": true,
+    "fixture_saved": false,
+    "native_trials_or_actions_by_reviewer": 0,
+    "PHP_executed": false,
+    "R_write": false,
+    "source_edit": false,
+    "author_expectations_relaxed": false,
+    "new_bug_classification": false,
+    "parallel_lane": "Otherworker owns OUT_NEXT_NAME/OUT_NAME serialization first-loss evidence; this receipt provides independent transport exclusion only."
+  },
+  "original_failed_source": {
+    "path": "card-regression-batch775.json",
+    "sha256": "30980c9aba25d60c33297d9dcad4b70359e9201f6a6141ebf845a3787e8e796d"
+  },
+  "original_failed_results": {
+    "path": "card-regression-batch775.recording-results.json",
+    "sha256": "4e94b327b7197d11303243896460c6f7d5d65b47bb3630e4b1e2422af3c6ee25"
+  },
+  "qualified_source": {
+    "path": "card-regression-batch775-name64.json",
+    "sha256": "f3549e43d46d9b97646d684ea887dbf6a41eefd45b8fa4ee9a6ebafb7bddf00e"
+  },
+  "native_after": {
+    "workspace_receipt": "nov13-b775-mask-name64-full-native-after/receipt.json",
+    "sha256": "f8bc93f18eeff805c6ce1264387471ec5ebc167f7d0a81abac1e7a8bd0080512"
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse775-mask-lossless-name-real-combo-independent-eca.json",
+    "sha256": "d1b3cc3fe2b372efc0e80275965385a3f2107dcb2ff9307e58773ddcef58cf14"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov13-b775-name64-clean1.json",
+      "sha256": "5d16970283575ff51011fd598ae828347b05c2cb1c2513f0cf49ec2753632b3f"
+    },
+    {
+      "path": "card-regression-replay-nov13-b775-name64-clean2.json",
+      "sha256": "0180c272ba0ec89ce67f822fa027176c59b0a8c7a41bcf249d18b1f30dfe2652"
+    }
+  ],
+  "limits": [
+    "Correct raw full-name client payload is unchanged. Only65 internal tag-representation values and one explanatory phrase changed; real Combo/cost/power/damage/consumption remain unchanged.",
+    "Native coverage is only the named Mask scenario. Other shared-codec producer branches and the old379 token branch receive no rerun, retagging or new coverage claim.",
+    "Prior scenarios retain actual qualification runtimes; no broad replay, historical requalification, Core/generated/schema/framework change or denied repair retry."
+  ],
+  "full_suite_run": false,
+  "historical_rows_retagged": false
+}

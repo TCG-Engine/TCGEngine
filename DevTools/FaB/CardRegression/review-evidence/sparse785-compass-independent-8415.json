@@ -1,0 +1,377 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B785_COMPASS_OWNER_LOOK_ACK_RESTORED_ORDER_REAL_PAID_DRAW",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth774_author_crossreview",
+  "created_utc": "2026-11-14T06:02:08.255795+00:00",
+  "source_spec": "card-regression-batch785-compass.json",
+  "input_sha256": "516ea7691fadeb624076773f88f6b471e09208541e21eeff3615de0ef212a117",
+  "manifest_sha256": "0f746d02e035fb6b7c5dd772e1c5d1072cb1a34be8098d166fe65d18673e6808",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "recorded_runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch785-compass-owner-look-paid-tome-r2-preview-oracle-author\\manifest.json",
+    "sha256": "0f746d02e035fb6b7c5dd772e1c5d1072cb1a34be8098d166fe65d18673e6808"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch785-compass-independent-source-review-r2.json",
+    "sha256": "4dfd001c818073275695191158143a68ac7eda236e5a79aa917ea90cf7de7323"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b785-compass-full-native-8415\\receipt.json",
+    "sha256": "08579445bcaa9ed4d97db68281eb3546b24bfe939a48e463515f5d7bcb8d4f2e"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch785-compass-20261114T055947Z-6af7f8d37b0fb.json",
+    "sha256": "4a801a06d40a177f91fb3d6b83719019ec7b6e3b6d6a2052f5b2dde5ea7e62b4"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch785-compass.recording-results.json",
+    "sha256": "8554393b3f5ca977f8a6b2af65941af9697a95734f7b879979aa05f08f596d49"
+  },
+  "fixtures": [
+    {
+      "slug": "card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+      "card_id": "compass_of_sunken_depths",
+      "group_id": "identity:compass_of_sunken_depths",
+      "source_spec": "card-regression-batch785-compass.json",
+      "input_sha256": "516ea7691fadeb624076773f88f6b471e09208541e21eeff3615de0ef212a117",
+      "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+      "recorded_runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+      "fixture_sha256": "16eea2e3c358675bf470a408ade0b17cc6ef764d47d5bbdaf3675ca567c22dcb",
+      "file_sha256": {
+        "initial_gamestate.txt": "f36c2a9bee03fb8070a2046a57ccd9531cbe966fdb0e1ec7d12ec7f55b1e519a",
+        "actions.json": "e4df32f4a3558c068755dfefd691a18d51fa2724ea32298c788cc7e970701db0",
+        "assertions.json": "59a14bda6d68e04ccc8ded81f40f921020c5c56ef892e3de2d431f46c2148d28",
+        "expected_final_gamestate.txt": "260a5db4d18c32396bebaef51cb2b34dfdba55f0765c96e8cd47443bebb71d87",
+        "meta.json": "379cf41829da70e5f42b5be498a36883d302cdff36ee84bbea82e8d47202196d"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f36c2a9bee03fb8070a2046a57ccd9531cbe966fdb0e1ec7d12ec7f55b1e519a",
+        "actions.json": "e4df32f4a3558c068755dfefd691a18d51fa2724ea32298c788cc7e970701db0",
+        "assertions.json": "59a14bda6d68e04ccc8ded81f40f921020c5c56ef892e3de2d431f46c2148d28",
+        "expected_final_gamestate.txt": "260a5db4d18c32396bebaef51cb2b34dfdba55f0765c96e8cd47443bebb71d87",
+        "meta.json": "379cf41829da70e5f42b5be498a36883d302cdff36ee84bbea82e8d47202196d"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f36c2a9bee03fb8070a2046a57ccd9531cbe966fdb0e1ec7d12ec7f55b1e519a",
+        "actions.json": "e4df32f4a3558c068755dfefd691a18d51fa2724ea32298c788cc7e970701db0",
+        "assertions.json": "59a14bda6d68e04ccc8ded81f40f921020c5c56ef892e3de2d431f46c2148d28",
+        "expected_final_gamestate.txt": "260a5db4d18c32396bebaef51cb2b34dfdba55f0765c96e8cd47443bebb71d87"
+      },
+      "actions": 12,
+      "native_assertions": 1107,
+      "manual_passes": 8,
+      "actual_manual_passes": 8,
+      "actual_manual_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "schema_property_assertions": 478,
+      "checkpoint_count": 13,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "endpoint_assertions_evaluated": {
+        "0": 140,
+        "12": 141
+      },
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "tome_of_fyendal_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "compass_of_sunken_depths",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "compass_of_sunken_depths",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "tome_of_fyendal_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "retained_primary_UID": 5,
+      "retained_virtual_ability_UID": 10,
+      "actual_offered_original_top_UID": 8,
+      "actual_restored_Deck_order": [
+        8,
+        9
+      ],
+      "actual_ordered_draws": [
+        8,
+        9
+      ],
+      "actual_Tome_source_UID": 6,
+      "actual_Blue_pitch_UID": 7,
+      "actual_Tome_cost": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "privacy_browser_or_access_control_certified": false
+    }
+  ],
+  "total_actions": 12,
+  "total_native_assertions": 1107,
+  "total_manual_passes": 8,
+  "total_schema_property_assertions": 478,
+  "total_checkpoints": 13,
+  "total_endpoint_assertions_evaluated": 281,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1fe96bea6495edebfec8624ae25cded0e61376fe4b6ec45d4e03f743c4948f7a",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "3e855be139501d1b2f78524ab700bdcdedb503257c4f089bc1d1d7b16d82bfcc",
+    "FaBSim/Custom/ROSCards.php": "7d3de0238c603b68df8ed9249b724c403a352afd46f5d47f8122aee72c51bf76",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "a61f600b3933a59f4eaa735115564d4030b78f42b194bf1127326cd6322d6d47",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "41ff76fda49bb17ddcce19fe71ace6302ccd8199ab155c88a5fff7285f4a4386",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "b4e55525fdb5dfdd939b5363249ef905a764299c9422697bffd940f1c848a146",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510",
+    "DevTools/FaB/omn_abilities.json": "eaaceedb02d99ba22d911d5c00ce63eea7dd491909e3278761c5278c8063209b",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+  },
+  "additional_guards": {
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "DevTools/FaB/CardRegression/initial_snapshot_guard.php": "5839a952b70c8c20f12c17aa044061cb492f4bf830789dc1c113e6d927fea36f",
+    "DevTools/FaB/build_omn_abilities.py": "cfd519c3e4039e618e52e1e5e3e743b7b21498ba22c88d6f811ce470b38efd8a",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "22ed7baff33c41efbcfb274d7cc534650cfb28de7efd329f0c133d62480d85d3",
+    "FaBSim/Custom/ELEAbilities.php": "2290c420234518940b00af7e7a79c872c72dcdaf2eb440819f0813296d1bd28b",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+    "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+    "DevTools/FaB/mpg_abilities.json": "ffab225740b0957cfe245c1994fdf3be11fb8b5e03c420fbb411eb39df4a4f1a",
+    "DevTools/FaB/build_mon_abilities.py": "cc36bf32903433e80d92efb515269b94a04fc9d45705e6b421170babf510eb82",
+    "DevTools/FaB/build_arc_abilities.py": "71ad2344e986bf38977007cd2703ba74467c065354dce469beef60f0231f6052"
+  },
+  "preview_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch785-compass-independent-preview-oracle-classification.json",
+    "sha256": "5274979f005e187dcacb8611004b0bb5bfab547f104eb05a9a753281efc946bb"
+  },
+  "preserved_previous_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch785-compass-private-owner-look-restored-order-real-paid-tome-author\\manifest.json",
+    "sha256": "44f53420e157f701d5729c2d62d148f3d4e7e8090d8b2b297893fe0aec76547c"
+  },
+  "preserved_previous_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch785-compass-private-owner-look-restored-order-real-paid-tome-author\\compass-owner-look-restored-order-real-paid-tome.json",
+    "sha256": "0ee52c38725bd4948d72d0725918ebf0c444129cc3542db051cc4ae17540152e"
+  },
+  "pre_execution_preview_oracle_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch785-compass-owner-look-paid-tome-r2-preview-oracle-author\\exact-ten-preview-query-omissions.json",
+    "sha256": "06609b6264afb2e18855feed9b9fcdc26467b0551482e852e6cd179b109aaec8"
+  },
+  "material_findings": [
+    "Exact12 actualenvelopes/1107 ordered persistedqueries/8truepasses/478typed match Source4dfd; raw5/current82guards/runtime8415 exact,48actualmanualbooleans EACH endpoint independently parsed.",
+    "ActualCompass5tap/noAP/noR cost, sourcefour responses then owner actualMZChoose original8Red; actualABI10/source5 retained until acknowledgement. No raw midpreviewDeck count/order or Tempempty requirement asserted.",
+    "ActualACK restores exact8Red then9Yellow before realTomeplay; source5 remains tapped/Tempempty/ABIceased/AP1. ActualTome6 Hand printed1 paid byBlue7pitch3 spendsAP1\u2192R2AP0, freshfour responses actuallydraw SAME8then9.",
+    "Initial/final raw original1..9 physicalUIDs conserved, source5Weapons tapped,6publicownGY/7Pitch/8+9Hand, DeckTempStackDQs/payment/manager/awaitquiet, allHP20/R2Chi0AP0/RNG0."
+  ],
+  "limits": [
+    "One fixed owned functional look/restore/ordered actual paid draw representative only. No enginebug/fix, globalLook/Opt/Topsy/effectfulDeck/history/LKI/Watery/HeroGold/producer/support/full-card credit.",
+    "PrivateTemp configuration/actiongate analysis is source evidence; native browser/opponentvisibility/accesscontrol is NOT tested.",
+    "Strict99fe/99e5 and initial44f5/0ee5 packets remain unadmitted/unexecuted; ten accidental preview assertions were removed before any nativeattempt, with exactimmutable correction proof.",
+    "Raw5 exports onlyinitial/final; intermediate identities/payment/orderedmovement rely on fullactual persistedqueryledger, not invented rawexports. Rootreplays/registrationseparate; noPHP/native/Rwrites byreviewer."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch785_compass_saved.py",
+    "sha256": "9be94fac04b57ed6f965139f4978895fa2fd89bda7d36e8cdff668d8c8f3dd7c"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

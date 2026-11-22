@@ -1,0 +1,226 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_TAPPED_HERO_STILL_FOUR_LIVE_NATIVE_NEW_STANDALONE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T05:44:40.115838+00:00",
+  "source_spec": "card-regression-batch293.json",
+  "input_sha256": "6ac6a4e796c27e8b15471a81414390341e61a2ada0fc303482c43c7f582bc53a",
+  "manifest_sha256": "ba95ae389dd9fb3ee7f897c9d5613771b3309cad018e27e8823d8761d2cb388d",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch293-independent-source-review\\review.json",
+    "sha256": "981ef9eb75b288a2665a8073ad8bdb82f224152c08e118409c8cf135ef5e592f"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch293-20261103T054009Z-6ae973b90a8cf.json",
+    "sha256": "380c02de67d90f89b6de54e5f718376d7de84cb7825377b0858d1e9b3c46d853"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch293-native-r1\\receipt.json",
+    "sha256": "9d12642cdae62aa0468444961ea2c858c677c1aa1b73071a27e76772d6afbc13"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch293-independent-saved-review\\audit_saved.py",
+    "sha256": "ebc549a206ac814a40a424e346e84522ea526a2f2857d38e6a468b594e33c075"
+  },
+  "review_method": "Reuseindependentprinted/current-sourceapproval; exact11actualinputs/873assertions/derivedtwofour-seatrounds; strictwhole-schema parsedinitial/finalwithallphysicalUIDs/ownership/herostatus/economy/manual48each, actualfinalassertions evaluated/raw4raw5stability. NoPHP/native/replay/backend/Rwrites/oldcorpusreview.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "constella_waves",
+      "slug": "card-constella-waves-four-live-sparse-real-tap-hero-destroy-arms-amp-one-makes-next-zap-four-arcane",
+      "source_spec": "card-regression-batch293.json",
+      "input_sha256": "6ac6a4e796c27e8b15471a81414390341e61a2ada0fc303482c43c7f582bc53a",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-constella-waves-four-live-sparse-real-tap-hero-destroy-arms-amp-one-makes-next-zap-four-arcane",
+      "fixture_sha256": "65f4fb48004c6c5d9d9ea525b01177a18216d56d073f71adbf39aa900cb66f58",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "bd3be4208ed6d856f3bf92f2abce342e1e809ed41317ec36183813044b3629a7",
+        "actions.json": "a4b951c2baec0e45d4b184eab38161fbbf00fa0c09a4f2dcee6c50237e48c209",
+        "assertions.json": "2cea013b5300c9b7e8d76d448b709c49bc5eb8e207acdda126bed6f606416a06",
+        "expected_final_gamestate.txt": "4755ad18764ab11043c9d5a0e310bad5ac6c41d84ac40679b8157e23c80d969a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bd3be4208ed6d856f3bf92f2abce342e1e809ed41317ec36183813044b3629a7",
+        "actions.json": "a4b951c2baec0e45d4b184eab38161fbbf00fa0c09a4f2dcee6c50237e48c209",
+        "assertions.json": "2cea013b5300c9b7e8d76d448b709c49bc5eb8e207acdda126bed6f606416a06",
+        "expected_final_gamestate.txt": "4755ad18764ab11043c9d5a0e310bad5ac6c41d84ac40679b8157e23c80d969a",
+        "meta.json": "989091b33c2f72dc557a8455c0047137d8dbbdb92382c06e80a7958d7e33887a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "bd3be4208ed6d856f3bf92f2abce342e1e809ed41317ec36183813044b3629a7",
+        "actions.json": "a4b951c2baec0e45d4b184eab38161fbbf00fa0c09a4f2dcee6c50237e48c209",
+        "assertions.json": "2cea013b5300c9b7e8d76d448b709c49bc5eb8e207acdda126bed6f606416a06",
+        "expected_final_gamestate.txt": "4755ad18764ab11043c9d5a0e310bad5ac6c41d84ac40679b8157e23c80d969a",
+        "meta.json": "989091b33c2f72dc557a8455c0047137d8dbbdb92382c06e80a7958d7e33887a"
+      },
+      "actions": 11,
+      "native_assertions": 873,
+      "actual_manual_passes": 8,
+      "actual_priority_response_passes": 8,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "oscilio",
+          "zone": "p1Hero",
+          "status": 2,
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "constella_waves",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "status": 2,
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "status": 2,
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "status": 2,
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "oscilio",
+          "zone": "p1Hero",
+          "status": 1,
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "constella_waves",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "status": 2,
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "status": 2,
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "status": 2,
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        18,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "initial_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_Hero_Status": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "tapped_Hero1_still_living_HP18_and_LiveSeats1234": true,
+      "final_public_owned_GY_UID_set": [
+        5,
+        6
+      ],
+      "checkpoint_count": 13,
+      "checkpoint_assertion_mapping_sha256": "848267874d3c2faf270c211e4a5e5303f7fc5b1750e403286985753691670dc2",
+      "native_action_mapping_sha256": "6ebbda8711f8aa57274a3887e807d4997562817b09489f7c77eae89ff91732cb",
+      "native_assertion_mapping_sha256": "d11eb39574df6035162a7b7c402a09a94111d5c28acba8298b18ef8e5b485a2b"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 11,
+  "total_native_assertions": 873,
+  "total_manual_passes": 8,
+  "total_priority_response_passes": 8,
+  "total_defender_declaration_finish_inputs": 0,
+  "material_findings": [
+    "ActualinitialOscilioHero1ready2/HP18/Arms5ready/ownZap6Hand/fourlive/manual48 and noAMP/resources/history seeds. ActualfirstclickInstant0spendsnoAP/resources but tapsSAMEhero1toStatus1 and destroysSAMEowned5to publicP1GY BEFOREfresh1/2/3/4sourcepasses. CapturedABILITY7/SourceEquipment5 maintainedthroughfirstthree, HPunchanged/AP1R0.",
+    "ActualfourthprimaryresponsefinishesAMP1 sourceandreturnsACTION. SameHero1remainsinHero/tapped1/positiveHP18/LiveSeats1234, otherheroStatus2. ActualZap6privateP4targetdeclarationoccursbeforeoriginalAP1spent, targetanswerAction0paysonlyAP1/noresource; fourfreshmanualresponses1/2/3/4retainphysical6Stack untilactualfourdamage/P4HP16.",
+    "ActualfinalphysicalUID1-6allretainedunique, Hero1tappedStatus1stilllive/HP18, othersready2/P4HP16, publicownGYexactunorderedUIDset5,6 andnootherphysicalzones/cards. Capturedvirtual7absentStack/allzones, actualMST_AMPconsumed/arcaneDealtcaster1->P4=4, allRAP0/queues/payment/await/managedmarkersclean."
+  ],
+  "limits": [
+    "OnlypositiveactualtapHero+destroyArms/earnedAMP1/nextZap4 branch. No readinessnegative/repeatedtap/untap/expiry/multiplepacket/replacement/matrix/Oscilioactivation/supportprimary/fullcard/control/siblingcredit.",
+    "Completednativeenforcedintermediateassertions plusexactledgerssupportboundaries; endpointfilesalone donotsnapshoteveryprivateintermediate. No syntheticnativeapproval oralteredHeroStatusoracle.",
+    "Roottwofocusednewcasecleanreplays/registrationremainseparategates andwerenotrunhere. NoR/sourcefix/native/PHP/backend/generator/remote/fullsuite/legacycorpuswork; Genis292classificationnotduplicated."
+  ]
+}

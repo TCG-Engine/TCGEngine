@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch845-rocktop-full-positive.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T04:34:41.953466+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rocktop-bellow-blue-four-live-real-high-reveal-overpower-second-action-refusal-and-damage",
+      "fixture_sha256": "b59ad624eaddb5b82a53d7e89da854e28ce2394435d9593194f1a4a81d74af07",
+      "passed": true,
+      "result": "[PASS] Rocktop Bellow Blue / high reveal Overpower and actual damage"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rocktop-bellow-blue-four-live-real-high-reveal-overpower-second-action-refusal-and-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Rocktop Bellow Blue / high reveal Overpower and actual damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

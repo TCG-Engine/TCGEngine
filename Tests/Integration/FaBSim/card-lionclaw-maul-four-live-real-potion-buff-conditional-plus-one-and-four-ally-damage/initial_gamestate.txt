@@ -1,0 +1,117 @@
+1
+0
+1
+lyath_goldmane 2 1 1 0 1 - -
+1
+dorinthea 2 2 2 0 2 - -
+1
+dorinthea 2 3 3 0 3 - -
+1
+chane 2 4 4 0 4 - -
+1
+lionclaw_maul 2 1 1 0 5 - -
+0
+0
+0
+0
+0
+0
+0
+1
+potion_of_strength_blue 2 1 1 0 6 - -
+0
+0
+1
+ursur_the_soul_reaper 2 4 4 0 8 - -
+0
+0
+0
+0
+0
+0
+0
+0
+1
+wounding_blow_blue 7 1 1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+7
+eclipse_blue 9 4 4 0
+fasting_carcass_red 10 4 4 0
+fasting_carcass_red 11 4 4 0
+fasting_carcass_yellow 12 4 4 0
+fasting_carcass_yellow 13 4 4 0
+fasting_carcass_blue 14 4 4 0
+fasting_carcass_blue 15 4 4 0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+20
+20
+20
+20
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+{"version":1,"holdPriority":true,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+{"version":1,"holdPriority":true,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+{"version":1,"holdPriority":true,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+{"version":1,"holdPriority":true,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+0
+1
+0
+{"window":"ACTION","combatOpen":false,"combatStep":"NONE","chainLink":0,"attacker":0,"defender":0,"attackUID":0,"attackTarget":null,"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"","attackHit":false,"attackPower":0,"defenseValue":0,"damageDealt":0,"declaredBlockUIDs":[],"passiveSeats":[],"gameMode":"UPF","turnEffects":[],"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":[]}
+0
+1234
+1234
+0
+0
+0
+0
+0
+0
+0
+0
+2
+1
+MAIN
+
+
+
+
+15
+0

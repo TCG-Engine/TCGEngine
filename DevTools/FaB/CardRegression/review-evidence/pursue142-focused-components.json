@@ -1,0 +1,54 @@
+{
+  "status": "PASS_COMPONENTS_AND_CAUSAL_FAULT",
+  "utc": "2026-11-06T04:30:52.813401+00:00",
+  "candidate_sha256": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+  "harness_sha256": "3c9a1ab271b181f727a2401770a17c2b2d833ecbe25d467c7365cf90b8bba9b1",
+  "harness_review_sha256": "860ac4d74c7679b45107262774f4199b1ff81eb57fffce81ce8cb7d63c7a13af",
+  "checks": 169,
+  "legacy_ids_compared": 15,
+  "fault_controls": 1,
+  "results": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\WTRAbilities.php"
+      ],
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-captured-mark-proposed\\WTRAbilities.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "pursue142_components.php"
+      ],
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in pursue142_components.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "pursue142_components.php"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\":\"PASS\",\"checks\":169,\"legacy_ids_compared\":15,\"scope\":\"Actual candidate functions with state\\/identity\\/metadata\\/factory boundary doubles. No engine\\/gameplay, priority-pass simulation, sibling-card or full-suite coverage.\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "pursue142_components.php",
+        "--fault-no-mark"
+      ],
+      "exit_code": 255,
+      "stdout": "\nFatal error: Uncaught RuntimeException: resolved mark expected [4] got [] in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php:28\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php(51): eq(Array, Array, 'resolved mark')\n#1 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php on line 28\n",
+      "stderr": "PHP Fatal error:  Uncaught RuntimeException: resolved mark expected [4] got [] in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php:28\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php(51): eq(Array, Array, 'resolved mark')\n#1 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pursue142_components.php on line 28\n"
+    }
+  ],
+  "scope": "Actual candidate helper extraction and explicit boundary doubles. No engine/game/priority-pass/sibling coverage; fault changes isolated evaluated function only.",
+  "source_applied": false,
+  "native_or_fullsuite": false
+}

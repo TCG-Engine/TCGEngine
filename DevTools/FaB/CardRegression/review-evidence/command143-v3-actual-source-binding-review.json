@@ -1,0 +1,133 @@
+{
+  "status": "APPROVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "correct_expectations_approved": true,
+  "installation_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T10:21:32.724359+00:00",
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-typed-carrier-after-projected\\command143-v3-after-seven-typed-carrier-assertions-projected.json",
+  "source_spec": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-typed-carrier-after-projected\\command143-v3-after-seven-typed-carrier-assertions-projected.json",
+  "input_sha256": "762f680f2bd18322984a3b8d30515bebd044f2515e74c9130fc7a82a219a4aed",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-typed-carrier-after-projected\\manifest.json",
+  "manifest_sha256": "06afd568c928d81e4d4a25b940e76c4d4bee09a88924a3a54dc4dfd7e1af7ada",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "actual_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "runtime_is_projected_not_active": false,
+  "source_guards_verified": 70,
+  "source_guard_map_sha256": "aa27ca19be94d5313c8838e3821bf3e7fbe78ff99220a446b44c046cd03d99af",
+  "all_manifest_source_guards_match_current_R": true,
+  "source_guards_reference": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-typed-carrier-after-projected\\manifest.json",
+    "sha256": "06afd568c928d81e4d4a25b940e76c4d4bee09a88924a3a54dc4dfd7e1af7ada",
+    "field": "source_guards"
+  },
+  "projected_oracle_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-after-projected-independent-source-review.json",
+    "sha256": "546167b3c4eb73146ed6c3beaef5a237f9ce9cab62d74c895f8fceac09c49f76",
+    "preserved_unchanged": true,
+    "projection_conditions_now_independently_satisfied": true
+  },
+  "V3_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-independent-source-review.json",
+    "sha256": "7464947dcfa2f0a214f69318534615300998e5196a01f04bd82f3ad00917d26c",
+    "unchanged_semantics_reused": true
+  },
+  "actual_application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-source-application\\receipt.json",
+    "sha256": "2d06ca51f579e017f3e845c718c861ad42e3847b04e562c9b111611923eef433",
+    "status": "APPLIED_NOT_YET_NATIVE_QUALIFIED"
+  },
+  "actual_source": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\IARCards.php",
+    "sha256": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "byte_identical_reviewed_candidate": true
+  },
+  "before_backup": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-source-application\\IARCards.php",
+    "sha256": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "full_raw_inverse_verified": true,
+    "reconstructed_preimage_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709"
+  },
+  "actual_component_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-command143-v3-component-results.json",
+    "sha256": "0488699a1318958a21570b23ba618d7c35e32598d8840be60197d20545864b90",
+    "executed_runtime_context": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+    "isolated_NOT_native": true,
+    "reviewed_actual_results": [
+      {
+        "mode": "candidate",
+        "exit_code": 0,
+        "status": "PASS",
+        "checks": 64,
+        "first_failure_label": null
+      },
+      {
+        "mode": "baseline",
+        "exit_code": 1,
+        "status": "FAIL",
+        "checks": 2,
+        "first_failure_label": "typed_selected_grant_survives_actual_window_reset"
+      },
+      {
+        "mode": "fault-legacy-write",
+        "exit_code": 1,
+        "status": "FAIL",
+        "checks": 2,
+        "first_failure_label": "typed_selected_grant_survives_actual_window_reset"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "index": 0,
+      "card_id": "consuming_command_blue",
+      "group_id": "identity:consuming_command_blue",
+      "slug": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "actions": 33,
+      "native_assertions": 4442,
+      "manual_pass_inputs": 29,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_response_inputs": 28,
+      "defender_declaration_finish_inputs": 1,
+      "schema_property_checks": 2331,
+      "source_approved": true,
+      "correct_expectations_approved": true,
+      "recorder_only_checks": 0,
+      "expected_native_action_envelopes_sha256": "43163961be53a9fcd6f18d4013ab556caca2a383b415e1a9252a3cdcbf8b7494",
+      "ordered_normalized_assertions_sha256": "fafb767f385afa1d7343c383a970c9e62e68f6effe18445455e5f373435d03d4",
+      "native_or_coverage_credit": false
+    }
+  ],
+  "total_actions": 33,
+  "total_native_assertions": 4442,
+  "total_manual_pass_inputs": 29,
+  "total_schema_property_checks": 2331,
+  "recorder_only_checks": 0,
+  "findings": [
+    "ActualR IARd746 equalsreviewedWcandidate; exactfbadbackup and2blockrawinverse independentlyverified. Currentfullruntimec53 andall70 manifestguards matchR. Reconstructedpreimagewithbackup equals9fbaa, confirming onlyreviewedIARfile changed inruntime.",
+    "Root actualcomponentreceipt048869 binds exactR2harness/prep86f/source746 andshows candidate64PASS, baseline+legacywritefault bothfailcheck2 asdesigned/stderr0. These were isolatedbefore9runs usingcandidateW, notnativeafter or wholeEndTurn evidence.",
+    "Original projected input762f/manifest06afd/proof5461 unchanged. This smallcurrentbinding satisfies its installconditions; no rule/model/unchangedcode re-audit, no after-native/fixture/replay or repairqualification claim."
+  ],
+  "installation_scope": "May install the reviewed typed-carrier AFTER probe at actualc53 now. Root alone records; actual gameplay qualification remainspending.",
+  "qualification_approved": false,
+  "native_after_executed_by_reviewer": false,
+  "fixture_or_coverage_credit": false,
+  "limits": [
+    "Currentactualsourcebinding/installation gate only. No nativeafter/Saved/replay/fullsuite/allIAR/wholecard/globalCore/rootcountclaim.",
+    "OriginalBEFORE9/eec/oldSnapshotHOLDd55c andsuspendedV2/91 remainhistorical. Actual64componentruntime9 ispreserved asrecorded, notretaggedc53.",
+    "No reviewer R/PHP/native/sourceapplication/fullsuite/remote/deniedoperation."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_command143_v3_actual_binding_readonly.py",
+    "sha256": "2bc646348b008e7fafd31272325fe84d8acc59bc5cbc27fa52f272cecf9fb3cb"
+  }
+}

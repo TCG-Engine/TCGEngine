@@ -1,0 +1,317 @@
+{
+  "status": "B811_BOTH_INDEPENDENT_KNOWN_REQUIRED_CONTRACT_PLANNING_REVIEW",
+  "phase": "PLANNING",
+  "batch": 811,
+  "reviewer": "/root/b809_review_recover",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T02:28:48.595882+00:00",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch811-firm-reservation.json",
+    "sha256": "dfd545ff93b880b9ef9a3b51f0b37b528ca8226c34e6af76d921a2472efcd222"
+  },
+  "full_family_printing_alias_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch811-selected-helper-preflight.json",
+    "sha256": "f90b7482d71987265f7f68e37a3652f8ac4cfa96e36d089d1c036ffaa393dc73"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "all82_base_and28_selected_actual_preimages_current": true,
+  "source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-that-all-real-two-versus-three-automatic-close-draw-author\\manifest.json",
+    "sha256": "fe5a37c4b7491e08b2cc250a70070d9f3d1c8a8d1b35591776f545155e226edf"
+  },
+  "selected_guard_map_sha256": "5309e1282c95317a6e2ae57c701e369ea9811b51847578c9979c4fff133d16e0",
+  "required_source_preimages": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6"
+  },
+  "actually_viewed_faces": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\cryptic_crossing_yellow.webp",
+      "sha256": "d306a87afc3cf561e16ca0515f5d5dbc30144cf472e36641ecde09d138799945"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\pour_the_mold_blue.webp",
+      "sha256": "4a052909f6f8b4e15b6d9750077588713d2327905c4136fb5eed14dca30e4765"
+    }
+  ],
+  "full14_selected_support_family_metadata_sha256": "a13c6d763a8d29ec64850e6987eb5dd1ac3e6843fe7f58b03168b2e0b4f94769",
+  "full14_selected_support_family_ids": [
+    "betsy",
+    "come_to_fight_blue",
+    "come_to_fight_red",
+    "come_to_fight_yellow",
+    "cryptic_crossing_yellow",
+    "dash",
+    "medkit_blue",
+    "pour_the_mold_blue",
+    "pour_the_mold_red",
+    "pour_the_mold_yellow",
+    "viserai",
+    "wounding_blow_blue",
+    "wounding_blow_red",
+    "wounding_blow_yellow"
+  ],
+  "actual_canonical_selected_family_bodies": {
+    "cryptic_crossing_yellow": {
+      "cardId": "cryptic_crossing_yellow",
+      "abilities": [
+        {
+          "macroName": "Hit",
+          "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nif (FaBFaiHeroHit() && FaBDYNPitched($uid, 'AA') && FaBDYNPitched($uid, 'NAA') && !FaBARCCard($uid, 'dynCrossed')) {\n FaBARCSetCard($uid, 'dynCrossed', true);\n $victim = intval(FaBGetState()['defender']);\n $refs = implode('&', FaBChoiceRefs($victim, 'Hand'));\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $victim.MZChoose($refs, \"Discard_card\");\n \n}\nFaBMoveChoice($victim, $chosen, 'Hand', 'Graveyard');\n DoDrawCard($player, 1);\n \n}\n",
+          "isImplemented": true
+        }
+      ]
+    },
+    "pour_the_mold_red": {
+      "cardId": "pour_the_mold_red",
+      "abilities": [
+        {
+          "macroName": "ResolveCard",
+          "abilityCode": "$targets = FaBARCSelect($player, 'Hand', 'Mechanologist', 'Item', 2);\nif ($targets !== '') {\n $chosen = await $player.MZChoose($targets, \"Put_a_Mechanologist_item_into_the_arena\");\n FaBARCPutItem($player, $chosen, 'Hand', true);\n}",
+          "isImplemented": true
+        }
+      ]
+    },
+    "pour_the_mold_yellow": {
+      "cardId": "pour_the_mold_yellow",
+      "abilities": [
+        {
+          "macroName": "ResolveCard",
+          "abilityCode": "$targets = FaBARCSelect($player, 'Hand', 'Mechanologist', 'Item', 1);\nif ($targets !== '') {\n $chosen = await $player.MZChoose($targets, \"Put_a_Mechanologist_item_into_the_arena\");\n FaBARCPutItem($player, $chosen, 'Hand', true);\n}",
+          "isImplemented": true
+        }
+      ]
+    },
+    "pour_the_mold_blue": {
+      "cardId": "pour_the_mold_blue",
+      "abilities": [
+        {
+          "macroName": "ResolveCard",
+          "abilityCode": "$targets = FaBARCSelect($player, 'Hand', 'Mechanologist', 'Item', 0);\nif ($targets !== '') {\n $chosen = await $player.MZChoose($targets, \"Put_a_Mechanologist_item_into_the_arena\");\n FaBARCPutItem($player, $chosen, 'Hand', true);\n}",
+          "isImplemented": true
+        }
+      ]
+    }
+  },
+  "current_holds": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+    "sha256": "143be044cdc3c6c43763435b7283f1d20f9022bcdb78b5ecd0257e7103e430c2"
+  },
+  "current_issues": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "8695b14f11f64b5c22b2cfe7a18ce9521e63b278f5c6097ceb6fc635e2a2939f"
+  },
+  "known_required_context": {
+    "holds": [
+      {
+        "index": 177,
+        "card_id": "amnesia_red",
+        "row_sha256": "4d7a141d17b978434f188e28dbe092985fbe17625e803aba3fd62d065196a9d8",
+        "reason": "Amnesia normal Hero-hit WHEN currently writes its long effect inline through the generated hit callback; the full earlier hit/PureToken dispatch does not establish the selected captured layer. Body exists. Unattempted source concern only; no full-block/empty-effect substitute, native defect, global absence or coverage claim."
+      },
+      {
+        "index": 237,
+        "card_id": "index_blue",
+        "row_sha256": "3e3b120616aee957327cb51039a261ce96a4cf6f321ce97ffddab9e6f33ad1b3",
+        "reason": "Current exact ordinary-spell predicates exclude Index while its real emitted StageTop/chooser/Rearrange awaits remain. The fixed positive route inherits known physical source clearance before resolving await; no substitute or missing-body claim."
+      },
+      {
+        "index": 238,
+        "card_id": "shadowrealm_solace_blue",
+        "row_sha256": "e059954432f260b50983871d6566a483dc2ea606044b91aee46a522e3e7c074c",
+        "reason": "Real emitted optional Banish-to-Graveyard chooser exists, but both current managed ordinary-spell predicates exclude Solace. Same known Index/unmanaged resolving-source lifetime dependency."
+      },
+      {
+        "index": 245,
+        "card_id": "tentacular_toll_blue",
+        "row_sha256": "3fd5e879f2ce2980486bd39f51e899c665ee6dc591bb06bb2367c044f0ba5dd1",
+        "reason": "Fixed positive Blue ally-graveyard resolution choice awaits MZMultiChoose. Actual managed plain-spell predicates exclude Toll; physical source clears to graveyard and go-again refunds before the required choice completes. Same known Index/Solace238 awaited-source lifetime dependency. No alternate route or Gold consumer attempt."
+      },
+      {
+        "index": 247,
+        "card_id": "roiling_fissure_blue",
+        "row_sha256": "c88985dfa7c91ea559396b98d9b60fbfc53ab3e9fe2e5199882829cc9cf243cf",
+        "reason": "Prepare X and actual resolving Aura/repeat choices are implemented. Both managed plain-spell predicates exclude Roiling, so the physical source clears and go-again refunds before the required awaited effect choices complete. This is the known awaited lifetime seam, not a missing body, unsupported X or printed formal-target failure. No destruction, repeat, cost, AP or damage native evidence."
+      }
+    ],
+    "issues": [
+      {
+        "id": "FAB-REG-095",
+        "row_sha256": "264589f3221ea049eb4aff773cdf1a75d2f20aca48ae5a8fa6ae64d7e87f4532",
+        "status": "native_confirmed_unfixed_granted_Tear_hit_discards_before_trigger_response",
+        "classification": "missing_responseable_granted_hit_trigger_boundary"
+      },
+      {
+        "id": "FAB-REG-097",
+        "row_sha256": "a7c4347e4c17fb2c06b918843bb1d018a811b9710ad8abf9ced8ca019f8ae0f7",
+        "status": "native_confirmed_unfixed_DrowningDire_Hit_choice_before_responseable_when_layer",
+        "classification": "missing_responseable_generated_Hit_macro_boundary"
+      }
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1891/",
+      "finding": "Exact Cryptic current official printed ability grants firstdamage triggered effect after AA+NAA pitched."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/arcane-rising/",
+      "finding": "Official indexed Pour text/costcaps/boostconditionalSteam checked."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Firsttime event trigger creates own layer before nextpriority; effects occur on layerresolution. Ordinary Damage flow does not use automaticEnd/Close exception."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.4–7"
+      ],
+      "finding": "Actual resolution choices/effects finish before GoAgain and source leave/clear; stable current appropriate lifetime rule reused."
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "cryptic_crossing_yellow",
+      "group_id": "identity:cryptic_crossing_yellow",
+      "members": [
+        "cryptic_crossing_yellow"
+      ],
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch811-cryptic-known-required-contract-unattempted-planning-hold.json",
+        "sha256": "5c0a9873a39617cd3fee9b6407a8ed2aef9a83498b042ff7de44d06f1ecfe318"
+      },
+      "disposition": "UNATTEMPTED_KNOWN_REQUIRED_GENERATED_HIT_TRIGGER_BOUNDARY",
+      "printed": "Actual AA and NAA pitched to play cost3 card earn first-damage-to-defending-hero discard then draw. Fixed RedAA1/YellowNAA2 are pitched, not played; no Viserai nonattack/Runechant earned.",
+      "actual_required_trace": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1067–1079",
+          "finding": "DoPitchCard calls actual pending-source DYN tracker then physically moves pitched card; no played-support history seed."
+        },
+        {
+          "path": "FaBSim/Custom/DYNCards.php",
+          "lines": "24–25",
+          "finding": "Actual pendingPayment UID records separate AA and NAA flags; real fixed two pitches can satisfy condition."
+        },
+        {
+          "path": "DevTools/FaB/dyn_abilities.json",
+          "card_id": "cryptic_crossing_yellow",
+          "finding": "Canonical Hit hero/AA/NAA/firstdynCrossed predicates then actual victimHand chooser/discard and own draw exist."
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "lines": "27479–27485;238311–238368",
+          "finding": "Compiled real positive discard/draw await exists and is called directly from source Hit."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1230–1249;1290–1326",
+          "finding": "Full earlier OnHit generic source dispatch directly invokes selected generatedHit before a separate earned responseable firstdamage layer."
+        },
+        {
+          "path": "FaBSim/Custom/WTRAbilities.php",
+          "lines": "94–109",
+          "finding": "Exact current puretoken/condition-hit captured cohort excludes Cryptic; Command exception also excludes it."
+        },
+        {
+          "path": "FaBSim/Custom/DYNRuntime.php",
+          "lines": "110–122",
+          "finding": "Named hit helper supplies no alternate captured Cryptic layer. Exact known generatedHit097/grantedHit095 boundary applies."
+        }
+      ],
+      "limits": "No executable/nativecosts/6damageHP14/discard/draw/cleanup/firstdamage/alltargets/Viserai/sibling/fullcard proof. No basic6attack-only/inlinechoice/emptyHand/blanktrigger/alternateproducer fallback.",
+      "executable_cases": 0,
+      "native_attempted": false,
+      "diagnostic_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue_claimed": false,
+      "new_root_cause_group": false,
+      "source_fix": false,
+      "repair_proposal": false,
+      "planning_hold_approved": true
+    },
+    {
+      "card_id": "pour_the_mold_blue",
+      "group_id": "pitch-cycle:pour_the_mold",
+      "members": [
+        "pour_the_mold_red",
+        "pour_the_mold_yellow",
+        "pour_the_mold_blue"
+      ],
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch811-pour-known-required-contract-unattempted-planning-hold.json",
+        "sha256": "63679941b4f58066256e1f8da518f36db2e931d3a44a8fef6ce394951c763606"
+      },
+      "disposition": "UNATTEMPTED_KNOWN_REQUIRED_AWAITED_PHYSICAL_SOURCE_LIFETIME",
+      "printed": "Actual Blue Action0 puts eligible own cost0MechanologistItem fromHand intoArena, boosted-this-turn only extra steam, GoAgain. Fixed physicalMedkit qualifies without initialItem/Boost/counterseed; Dash may decline startingItem.",
+      "actual_required_trace": [
+        {
+          "path": "DevTools/FaB/arc_abilities.json",
+          "card_ids": [
+            "pour_the_mold_red",
+            "pour_the_mold_yellow",
+            "pour_the_mold_blue"
+          ],
+          "finding": "Whole RGB actual canonical selecting Item costcaps2/1/0 then awaited positive MZChoose/PutItem body exists."
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "lines": "5411–5416;84874–84916",
+          "finding": "Blue emitted source await picks real HandItem and calls PutItem; implementation present."
+        },
+        {
+          "path": "FaBSim/Custom/ARCCards.php",
+          "lines": "215–218",
+          "finding": "Same physical chosen Hand card movesArena and normal entersItem; extraSteam requires actual ARC_BOOSTED>0 and is unearned in fixed scene."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1571–1573;1637–1682;1822–1827",
+          "finding": "Both entire exact current plainspell cohorts exclude all PourRGB. Nonpersistent Action source therefore clears toGY before positivechoice/move and GoAgain before choice completes. Same Index237/Solace238/Toll245/StrengthB810 required lifetime contract."
+        }
+      ],
+      "limits": "No executable/positiveMedkitmove/GA/Redconsumer4damageHP16/cleanup/boost/steam/Crank/Medkitability/Dashstart/sibling/fullcard outcomes. No emptyHand/noeligible/declinedchoice/blankGoAgain/partialPut/alternateItem fallback.",
+      "executable_cases": 0,
+      "native_attempted": false,
+      "diagnostic_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue_claimed": false,
+      "new_root_cause_group": false,
+      "source_fix": false,
+      "repair_proposal": false,
+      "planning_hold_approved": true
+    }
+  ],
+  "independent_planning_review_complete": true,
+  "source_executable_approved": false,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_issue_claimed": false,
+  "new_root_cause_group": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "One combinedcompact planning proof, two exact knowncontract limits. No Source/Saved executable gate or actualNativeoutcome for these cards.",
+    "Actual bodies/helpers/trackers exist; no global absence or allroute/generalframework verdict. No selection substitution, source repair, redundant probe or partialpassing fallback.",
+    "Reviewer W-only/read-onlyR/no PHP/native/replay/R/source/Git/heldrepair/newagents."
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T03:47:10.978727+00:00",
+  "source_spec": "card-regression-batch280.json",
+  "input_sha256": "3051f3914a6ddc554890e9c012763e4c32f0ab42220d01a64d17858304e1c7f3",
+  "manifest_sha256": "6668618afa86ae0584db78b66c0f5e3369e6516da68dfc6bae95df43911f2901",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch280-independent-source-review\\review-v2.json",
+    "sha256": "3ed71f7b087a8dce5283e95b11c4a0d3f3d26a547f796d2d996853b902e38e63"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch280-20261103T034428Z-6ae9589c2ec43.json",
+    "sha256": "d469b34324c073cc14c6adb4ea6c266ab7218541f6bf9eb9985b2429b3f2d90d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch280-native-r1\\receipt.json",
+    "sha256": "09c7b4999166ca8b6e4896b1acaa912d40c45e5ebdb131d957bffce5711cae41"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch280-independent-saved-review\\audit_saved.py",
+    "sha256": "1987ed47f30c629626012a36a18d4d3706190b3777ba1ffd80f728f97f9064df"
+  },
+  "review_method": "Existing V2 printed/source approval reused. Every actual native action/persisted assertion mapped exactly with independent four-seat actor schedule; full strict schema snapshots and everyphysicalUID/card/owner/controller/zone/economy/manual profile, terminal assertions evaluated and raw4/raw5 stable. No PHP/native/replay/backend or R writes.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "predatory_assault_red",
+      "slug": "card-predatory-assault-red-four-live-sparse-real-single-six-discard-earns-dominate-one-legal-block",
+      "source_spec": "card-regression-batch280.json",
+      "input_sha256": "3051f3914a6ddc554890e9c012763e4c32f0ab42220d01a64d17858304e1c7f3",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-predatory-assault-red-four-live-sparse-real-single-six-discard-earns-dominate-one-legal-block",
+      "fixture_sha256": "a2a3ba08cb4f75c8480f253b248bdd2cb40d46ad3ac57e7d733693b506d3ad93",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "996baebbb59673e3331ced6eb518043e279bc945083f0620bfd80c45733e5d19",
+        "actions.json": "07bd0e85f5515d5bdb4ab22178612d72b38c5efe6471d81d62a9e5e5ded5de6f",
+        "assertions.json": "6bbab7424372893ab8ab8ddc6b0b459ad7b4bae3153fe129aa78320a33f5aa08",
+        "expected_final_gamestate.txt": "0e38cd36539e473a861568353cc8380815756d3a7727e7fe2a72ee23b9afd0ca"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "996baebbb59673e3331ced6eb518043e279bc945083f0620bfd80c45733e5d19",
+        "actions.json": "07bd0e85f5515d5bdb4ab22178612d72b38c5efe6471d81d62a9e5e5ded5de6f",
+        "assertions.json": "6bbab7424372893ab8ab8ddc6b0b459ad7b4bae3153fe129aa78320a33f5aa08",
+        "expected_final_gamestate.txt": "0e38cd36539e473a861568353cc8380815756d3a7727e7fe2a72ee23b9afd0ca",
+        "meta.json": "06e9264906da0045720c3fec229910432dfbefef2dfb67aeaf0f39c634d11cca"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "996baebbb59673e3331ced6eb518043e279bc945083f0620bfd80c45733e5d19",
+        "actions.json": "07bd0e85f5515d5bdb4ab22178612d72b38c5efe6471d81d62a9e5e5ded5de6f",
+        "assertions.json": "6bbab7424372893ab8ab8ddc6b0b459ad7b4bae3153fe129aa78320a33f5aa08",
+        "expected_final_gamestate.txt": "0e38cd36539e473a861568353cc8380815756d3a7727e7fe2a72ee23b9afd0ca",
+        "meta.json": "06e9264906da0045720c3fec229910432dfbefef2dfb67aeaf0f39c634d11cca"
+      },
+      "actions": 34,
+      "native_assertions": 2981,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "bloodrush_bellow_yellow",
+          "zone": "p1Hand"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Hand"
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck"
+        },
+        "10": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck"
+        },
+        "8": {
+          "card_id": "predatory_assault_red",
+          "zone": "p1Arsenal"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero"
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand"
+        },
+        "10": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Hand"
+        },
+        "7": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Graveyard"
+        },
+        "5": {
+          "card_id": "bloodrush_bellow_yellow",
+          "zone": "p1Graveyard"
+        },
+        "8": {
+          "card_id": "predatory_assault_red",
+          "zone": "p1Graveyard"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 36,
+      "checkpoint_assertion_mapping_sha256": "4d6518afd2e73d8f8e661dfa98d9ef87e13d31bae8af33c3057ae3d3748cfda9",
+      "native_action_mapping_sha256": "d7d35b196a3bfdd5e8758123e4539534023fb74a774c91b8328f7217a946ac76",
+      "native_assertion_mapping_sha256": "bfbdf4a2ddb6e12d5d0dc0d056b739185a1b3439da11bb8e238b3e9e31cd921b"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 2981,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual Bellow5 Action1/realBlue6 pitch3 pays resource1/AP1 before mandatory discard. OriginalRagingYellow7 is sole remaining Hand candidate, actually discarded topublicownGY and actual6power/discard-six history retained. FloatingR2/AP0, actual4Bellowresponders1/2/3/4, then actualDrawDeck9,10/BruteTurn2/conditionalGA AP1 andBellow5ownGY. No seeded history or fabricatedrandomresult.",
+    "Corrected seventh-input primaryArsenal declaration retains8 facedownArsenal untilfreshadjacentP4target answer. Actual2cost usesfloatingR2 andBellow-earnedAP1, noextraPitch; exact4primaryresponses yield original8 ChainFromArsenal/physicalDOMINATE, actualpower8 fromprinted6+resolvedBellow2. ActualP4oneHandBlue11 defends3, real8minus3=5/P4HP15. No enforcement/rejection credit.",
+    "Full cleanup toACTION/Turn2 with exactoriginalUIDs1-11: ownP1GYunordered{5Bellow,7discard,8primary}, P4GY11public, P1Pitch6, originaldrawnHand9,10ordered, Deck/Arsenal/Stack/Chains/queues/frames/payment/managedmarkers empty. AllRAP0/otherHP20, all4manualinitial/final profiles and actual29Passinputs28priority+1defenderfinish verified."
+  ],
+  "limits": [
+    "Only red previouslyuncovered Predatory cycle actualsixdiscard positiveDominate grant/onelegalHandblock branch. No falsecondition/lowdiscard/otherRNGchoices/distribution/secondblockrejection/enforcement/sibling/hero/support-primary/fullcard/control credit.",
+    "V1 pre-native declaration oracle hold was corrected only in V2 step14; original artifacts preserved. This native proof validates exact3051input/6668manifest at0d, no gameplay/source fix or denied source application retried.",
+    "Intermediate events rely on native assertion enforcement with exact persisted checks and full endpoints, not invented intermediate screenshots. Root two focused clean replays and registration remain separate gates, not run by reviewer."
+  ]
+}

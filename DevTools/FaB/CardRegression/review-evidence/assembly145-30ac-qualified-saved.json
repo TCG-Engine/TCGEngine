@@ -1,0 +1,54 @@
+{
+  "status": "ASSEMBLY145_ORIGINAL6_664_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent from Ebbing Source author; b820 independently reviewed R2 predicate scope",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "30ac6a05608d2440250eee144e81df9d523beae7ff7f509f927836854dd0a683",
+  "input_sha256": "a219f21aa4f729169533a649714290f6a3df00a9a36cf068874604e81bbd132d",
+  "source_spec": "card-regression-repair-assembly145-r2-after-item-entry.json",
+  "fixtures": [
+    {
+      "slug": "card-assembly-module-blue-four-live-real-tap-search-driver-enters-with-three-steam",
+      "card_id": "assembly_module_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f1f3a727a140ceff1f3f8a65c5f825c932c837a2c3fe9aa48e855be764243e1d",
+        "actions.json": "dde97ae31b65d5fdcea2f26dba543d7ab82f5b0a7cf691938dd0a4795943d2db",
+        "assertions.json": "6f5eedafc646ff392a9a62acd9a9c4d0e01b972057cfd12ac8700e0f50ddddfa",
+        "expected_final_gamestate.txt": "98336cedada953a8003d870b6039711179977fa21b658ca4ec4e4ce6572455dc",
+        "meta.json": "75d1d446bf9f9e7d6d4b1cbc1cfe3a112d9e9e7f880e08d87ea505b1b10e005b"
+      },
+      "fixture_sha256": "5b6128c83482c6b933cdd2488becaad4ef666ae1b5713f222077e8b79b173ac1",
+      "actions": 6,
+      "native_assertions": 664,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "30ac6a05608d2440250eee144e81df9d523beae7ff7f509f927836854dd0a683",
+      "runtime_sha256": "30ac6a05608d2440250eee144e81df9d523beae7ff7f509f927836854dd0a683",
+      "source_spec": "card-regression-repair-assembly145-r2-after-item-entry.json",
+      "input_sha256": "a219f21aa4f729169533a649714290f6a3df00a9a36cf068874604e81bbd132d"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-assembly145-r2-replay.json",
+    "sha256": "95f408abf2ead841eade9bee9194523152dc029259144a53d41e05cb39619291",
+    "passed": true
+  },
+  "source_review_sha256": "32ecb8bcdbff5ab1fb98a99b8aa330072a6b593c598b22000a2f10729c9ca31c",
+  "components": {
+    "transform_and_callback": 40,
+    "actual_generated_resumed_callback": 33
+  },
+  "basis": "Original6inputs664queries unchanged: actualAssembly5tap/APcost, fourrealopponentresponseactors then actualcontrollerMZCHOOSE picksoriginalDriver6Temp\u2192Arena6OwnerController1readySTEAM3. SameAssembly5exhausted, exactphysicalroster/counter/economy/cleanup. Existing entry pipeline initializes once; no hardcoded3 or token substitute.",
+  "emission": {
+    "receipt_sha256": "dd8cbfae5678f6b32536ab50db358a6b545b36dfebcd21ae5f43f352ade7ec7d",
+    "scope": "OnlyselectedAssemblywrappers/ownawaithelperchanged; unrelatedgeneratedPHP/countspreservedexcepttimestamp; syntaxpass",
+    "first_attempt": "Multilinepredicate compilerfailure retained; exactfivefile rollback verified before syntax-only R2 emission; no wrongfixture saved."
+  },
+  "limits": [
+    "NativeRedDriver positiveAssemblyactivation branch only; otherDriverpitch/invalidchoices/postmove-veto cases have isolated callback evidence only.",
+    "Actualgenerated33checks resume continuation with explicit frame/import boundaries; normal native proves real choice flow.",
+    "No fullsuite, otherItemproducer, normalcast/Crank/StartTurn or denied094096 credit. Originalmixed609Galvanic fixture not rerun or rewritten."
+  ]
+}

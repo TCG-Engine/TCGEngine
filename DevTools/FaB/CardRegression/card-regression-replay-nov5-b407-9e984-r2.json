@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch407.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T01:45:45.260799+00:00",
+  "fixtures": [
+    {
+      "slug": "card-overcharge-red-four-live-sparse-real-instant-played-this-link-gives-three-power-and-four-damage",
+      "fixture_sha256": "f80cb18acad8bb113dbfc21ca37fb0a5ae8ef0a09eac55e48f6747d83f078ffb",
+      "passed": true,
+      "result": "[PASS] overcharge_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-cut-through-red-four-live-sparse-real-dagger-hit-this-chain-earns-plus-one-and-go-again",
+      "fixture_sha256": "387355dc351ee17634b207a28e0d16baefce400c0f11fc1e5ea5b700a26513a5",
+      "passed": true,
+      "result": "[PASS] cut_through_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-overcharge-red-four-live-sparse-real-instant-played-this-link-gives-three-power-and-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] overcharge_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cut-through-red-four-live-sparse-real-dagger-hit-this-chain-earns-plus-one-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] cut_through_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,305 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B702_WIND",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T04:46:59.711265+00:00",
+  "source_spec": "card-regression-batch702-wind.json",
+  "input_sha256": "96b8d4033c6595cb172cc2c5a5ccaaa5d8041c6d990dae3eee3a89edbaf52c3f",
+  "manifest_sha256": "bedc244d03f247efb28b4dcbd0148b2cf849a53a398dc11a57b88931fc364e46",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch702-wind-independent-source-review.json",
+    "sha256": "d89d18a52868fab0ac78cb078d97bdb52633f7977315aac104dda00bc170ffcc",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch702-wind-20261107T044427Z-6aeeacabb21d3.json",
+    "sha256": "a581d9ab5edee3f810ae203f9f830e59239c6f020a9eca8763388aedd119645a"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch702-wind.recording-results.json",
+    "sha256": "cee5f8920972e7c6b7972f99ad750a26a8c04429b9fdbd1fc5dc9827ca4a5598"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b702-wind-native-recording\\receipt.json",
+    "sha256": "e2c5147965a7007f8371c09e54d5acbdeddd62941b272b70324f323086195ec7"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "wind_up_the_crowd_blue",
+      "group_id": "identity:wind_up_the_crowd_blue",
+      "slug": "card-wind-up-the-crowd-blue-four-live-real-hand-instant-discard-two-tokens-and-defense-three",
+      "source_spec": "card-regression-batch702-wind.json",
+      "input_sha256": "96b8d4033c6595cb172cc2c5a5ccaaa5d8041c6d990dae3eee3a89edbaf52c3f",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_HAND_INSTANT_DISCARD_TWO_TOKENS_AND_DEFENSE_THREE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-wind-up-the-crowd-blue-four-live-real-hand-instant-discard-two-tokens-and-defense-three",
+      "fixture_sha256": "9d0b04967a4befadeef2e13ebf9497010be7110e8c2638054ccbf7d8c70964fd",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ca2488a3df0bd403adb203e1ed7300ae8a2fef2e7f7779625bba869314baef35",
+        "actions.json": "2f31a0c673d3bb00a449f5258f1d3f28404307b3c35c8bfa083a7c6b124c8ef7",
+        "assertions.json": "8e80e2ab7e6ba0cb2c01e73bab2e4adb447c0a5d982a310163de83a94c9a026e",
+        "expected_final_gamestate.txt": "449ed620095347cceeb052fbb1aefb548198338020fc8a4e01ed0502951f226a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ca2488a3df0bd403adb203e1ed7300ae8a2fef2e7f7779625bba869314baef35",
+        "actions.json": "2f31a0c673d3bb00a449f5258f1d3f28404307b3c35c8bfa083a7c6b124c8ef7",
+        "assertions.json": "8e80e2ab7e6ba0cb2c01e73bab2e4adb447c0a5d982a310163de83a94c9a026e",
+        "expected_final_gamestate.txt": "449ed620095347cceeb052fbb1aefb548198338020fc8a4e01ed0502951f226a",
+        "meta.json": "f64fe9caa0338d3bb5dfb9c10edfa0ddb15acb701320c624e2f189938221388e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ca2488a3df0bd403adb203e1ed7300ae8a2fef2e7f7779625bba869314baef35",
+        "actions.json": "2f31a0c673d3bb00a449f5258f1d3f28404307b3c35c8bfa083a7c6b124c8ef7",
+        "assertions.json": "8e80e2ab7e6ba0cb2c01e73bab2e4adb447c0a5d982a310163de83a94c9a026e",
+        "expected_final_gamestate.txt": "449ed620095347cceeb052fbb1aefb548198338020fc8a4e01ed0502951f226a",
+        "meta.json": "f64fe9caa0338d3bb5dfb9c10edfa0ddb15acb701320c624e2f189938221388e"
+      },
+      "actions": 37,
+      "native_assertions": 3223,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 1192,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "tuffnut",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "wind_up_the_crowd_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "tough_leather_boots",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "tuffnut",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "toughness",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "vigor",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "wind_up_the_crowd_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "tough_leather_boots",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11
+      ],
+      "virtual_ability_uid_ceased": 9,
+      "created_token_uids": [
+        10,
+        11
+      ],
+      "created_token_owner_controller": 4,
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "5bf6d7ae72d5026bc55e4987d3e4e485076bbc150d674e81e2084acfdbecfd71",
+      "native_assertion_mapping_sha256": "f5d3c028a33f4547d6dcb8d397870da5548b2e458f70e814178568edceddd3af"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 37,
+  "total_native_assertions": 3223,
+  "total_manual_passes": 32,
+  "total_schema_property_assertions": 1192,
+  "material_findings": [
+    "Rawfive/behavior/exact37 controls3223 ordered queries32manual8each/all48preferences per endpoint/current70c53ab33 match approved Source. All endpoint physicalUID/card/owner/controller and terminal assertions independently parsed.",
+    "Actual offturnP4 Wind5 Handdiscardcost puts5GY4 and capturedABI9/Controller4/Source5 above pendingCritical7. Source responders4,1,2,3 retain both layers through firstthree; only fourth creates realToughness10/Vigor11 ownedcontrolled4 and clearsABI9. Fresh Critical sourcefour then normal combat, without a seeded token/history/Cheer/permission grant.",
+    "Real both-token static BootsDEF1+2 givesDEF3 against actualCritical5; two physicaldamage/HP18 is the material creation consumer. FullClose automaticBladeBreak6GY4 beside primary5, source7GY1/Blue8Pitch1/R2/AP0, tokens10/11readyArena4, allphysicalUID1..8,10,11/counter11/virtual9ceased/fullquiet.",
+    "Primary was activated/discarded rather than played as AA; no primary AAstats or attack branch, future tokenStart/expiry, Cheer/TuffnutHeroWHEN, support or fullcard credit."
+  ],
+  "limits": [
+    "One legal positive ownHandInstant discard/createToughness+Vigor/materialBootsdefense branch. No primaryAAplay/printed attackstats/otherpitch/multipleuses, HeroCheer/WHEN, futureToughness nextopponentStart or Vigor nextownStart destruction/effect/expiry, sibling/support/equipment fullcard credit.",
+    "Actual source-PRIORITY interruption plus fresh Critical sourcequorum is certified only for this sequence. No generic phase-priority, omitted source responses or initial token/history/effect seed.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/Git/remote or denied retry. Root focused replays/registration/promotion remain separate; rawVersions hash-bound/excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch702_saved_readonly.py",
+    "sha256": "b632b66fbcd6de8ca1384df834ddf3cc50d1fe0e1855707056d23d610aa2c856"
+  }
+}

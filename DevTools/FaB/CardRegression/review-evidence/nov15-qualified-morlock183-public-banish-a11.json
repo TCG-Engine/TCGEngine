@@ -1,0 +1,105 @@
+{
+  "status": "QUALIFIED_FOCUSED_MORLOCK_BLUE_PUBLIC_MINERVA_BANISH_COST",
+  "issue": "FAB-REG-183",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "source_files": [
+    "FaBSim/Custom/DTDCards.php"
+  ],
+  "generated_files": [],
+  "repository_Core_changes": false,
+  "change": "Only the eligible named Minerva cost establishes FaceDown0, if the source has that property, before the unchanged owner-preserving Banish move. Hand source shape and other prevention/private-banish paths remain unchanged.",
+  "native_before": {
+    "path": "review-evidence/morlock183-public-banish-native-before-429a.json",
+    "sha256": "2c6ae0db686f08533950a3d0c8a9b1e198beb07b7b5c9e165ce1e47bbe75b5ee"
+  },
+  "R1_protocol_oracle_separate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-independent-actual-protocol-oracle-stop-review.json",
+    "sha256": "5e8cf2a78283c0646c446e5beaa70675d3ce581a65c4d57a5f3ca381b85392eb",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-root-source-application\\receipt.json",
+    "sha256": "61a9be4322a5d52cb2e863076a0d94769e3f9d9a7d30c5cdc6bcde060ad9e9f5",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "independent_actual_installed_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-independent-actual-installed-source-review.json",
+    "sha256": "26e411bffd5e4ae2cebca9bcae18ff9390366ec308a590d3f86290e5a34e8d85",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "mandatory_no_save_success": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-r3-native-unsaved-after-a11\\receipt.json",
+    "sha256": "b5dcd27ad98ee4dcf0250060ece8e4808d3e6fada293ccb3406c844fa3e03c56",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "independent_no_save_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-r3-independent-actual-unsaved-success-review.json",
+    "sha256": "5241e94d8611a76c35fa15433e71d9a4b7197ee922162ada62e5a0ae010b9d9c",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "explicit_positive_promotion": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-root-explicit-positive-promotion-decision.json",
+    "sha256": "101f9ee9c587d2218415f2aec79748bab0bb3e8a8da60c36b31022e0f7c959e4",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-independent-normal-positive-source-review.json",
+    "sha256": "20530497260c7c9650a033942b6bf47f4cf3f90dd76d646785bb97eb991aa3c6",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "positive_source": {
+    "path": "card-regression-batch821-morlock-full-positive-a11.json",
+    "sha256": "f3aac4d63fbe9678b06fc38cc05b03c595a1ac0fab30ca1d46454f867e398c77"
+  },
+  "actual_normal_save_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-positive-native-save-a11\\receipt.json",
+    "sha256": "40786f9a9df1b129ce4edaf7844b92ede5da2795d3bd01f9bb8e28ad32c36357",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse821-morlock-independent-saved-a11.json",
+    "sha256": "4af4486493f93f862e27b99854d2fb3978b8ff7337d8bab2f35fcb6f7f528af7"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov15-b821-morlock-a11-clean1.json",
+      "sha256": "e825a96eda3f39571ebd8276c63c594689cb0672f0428eac688e5a556bacf934"
+    },
+    {
+      "path": "card-regression-replay-nov15-b821-morlock-a11-clean2.json",
+      "sha256": "e1d0f74b4e5116d17109b740cd4de389e126ca1343c7171cfb7ca450aed75499"
+    }
+  ],
+  "one_directly_affected_Ward_compatibility_pass": {
+    "path": "card-regression-replay-nov15-b821-miragai-ward-a11-compat.json",
+    "sha256": "0208814161ea730a2bea0121cca36c97ddd32b52f5cfbf12be5f2bf3c468413c"
+  },
+  "isolated_candidate_component_checks": 136,
+  "isolated_component_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-root-isolated-component-results.json",
+    "sha256": "11c1f291aa70b6c0cc6f1f2f19a5c1bcc9995c36f6952fe7b89390aa4230e55c",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "isolated_bad_baseline_control": true,
+  "isolated_native_fault_credit": 0,
+  "related_existing_family": "FAB-REG-037",
+  "new_distinct_gameplay_root_group": false,
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "limits": [
+    "One Blue Morlock branch: actual lethal4 packet, P4currentHP4 and named face-down Arsenal Minerva UID7 public Banish; no untested sibling/support identity credit.",
+    "Hand absence/default0 has isolated component evidence only; no native Hand/decline/second lethal/unpreventable/other-damage/Minerva Mentor/static certificate.",
+    "No general move-visibility or private-Banish correction; no Core/generated/schema/codegen change or new distinct-root/fault-control credit.",
+    "Existing scenario evidence keeps actual historical runtime labels. The directly affected Miragai replay is compatibility evidence only. Broader suite remains user-owned."
+  ]
+}

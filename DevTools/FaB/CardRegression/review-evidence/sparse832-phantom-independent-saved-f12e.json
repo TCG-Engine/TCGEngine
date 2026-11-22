@@ -1,0 +1,99 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_PHANTOM_REAL_SHIELD_WARD_EARNED_COUNTER",
+  "phase": "SAVED",
+  "batch": 832,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T23:04:02.529345+00:00",
+  "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "source_spec": "card-regression-batch832-phantom-positive-f12e.json",
+  "input_sha256": "d93d11e71fe765be099a716d83040b9554320c9d47bc7dc28615d4c815407ee7",
+  "manifest_sha256": "5eda50d0a65ddf9fe640250b445e1e0729e5c9d44765276c1eb0960ec2534c17",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-f12e-independent-normal-positive-source-review.json",
+    "sha256": "4752270c3f206cd438bcac105fce5b26156ea094c025b25bea2b70413183eeeb"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b832-phantom-positive-native-save-f12e\\receipt.json",
+    "sha256": "169c035de280bb47c9bb6e63fd91001cea9d4ab065f8af813d968d3081c3081a"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch832-phantom-positive-f12e.recording-results.json",
+    "sha256": "4d63093de72e148718aecaaa423bf7781f8d88a2c0ba93f84c746a51b68a4014"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch832-phantom-positive-f12e-20261115T225340Z-6afa37f495988.json",
+    "sha256": "2d68c0ca2cb3cee1bd4639e0c1d3c5fc9cb7d0f9e0641084e9d6115a0d68b79c"
+  },
+  "fixtures": [
+    {
+      "card_id": "phantom_tidemaw_blue",
+      "slug": "card-phantom-tidemaw-blue-four-live-shield-ward-earned-destroyed-counter",
+      "actions": 40,
+      "native_assertions": 4730,
+      "manual_passes": 36,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04a16005e2b3eab64c78bd50050020e9e40bdadf63fecaef0620f3ebacb5c622",
+        "actions.json": "29befc277732e01ae33b830da64bde7ea163b941eb495faebc0b4e028009477f",
+        "assertions.json": "08fc3752cdb7d667aa4e3abfd02879098431caeffbca3b12d5642bef73733f70",
+        "expected_final_gamestate.txt": "6ce1b978fbc6482dc727d91f4f1584246a7ad8123edaa0c921d8b53fb8e6113d",
+        "meta.json": "86967b3b27d235d45c1d98b0c603c34c73607104893598686f21f8146af76215"
+      },
+      "fixture_sha256": "af5b2fc30015badae9e3e9ac12fc9b9ee4b22d09a69294fd39b537aec720b834",
+      "input_sha256": "d93d11e71fe765be099a716d83040b9554320c9d47bc7dc28615d4c815407ee7",
+      "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+      "recorded_runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "initial_queries_independently_evaluated": 129,
+      "terminal_queries_independently_evaluated": 230,
+      "scope": "Exact surviving Phantom counter earned from real Shield Ward destruction; no alternate Ward/self/re-entry/suppression/control/identity/Phantasm/support/sibling coverage."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4730_native_queries_reviewed_against_approved_Source": true,
+  "all_40_saved_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 42,
+  "typed_property_queries": 1040,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "qualification": false,
+  "coverage_credit": false,
+  "sibling_native_coverage": false,
+  "semantic_witnesses": [
+    "Saved40 envelopes and4730 ordered successful native assertions exactly match own normal-positive Source; all36 manual inputs persist9perseat.",
+    "Actual sourceUID7/controller4 and FAB-only counter remain through three earned responses; POWER1 appears only after fourth response. Both original expected values and complete gameplay route remain unchanged.",
+    "Fresh raw initial and final schema parsed completely; both48manual-seat profiles independently verified. Final actualShield6 is absent from every raw zone, HeadJab5 publicGY1, samePhantom7owned/controlled4ArenaPOWER1, allHP20/AP1onlyP1, unusedHeroes/live4, noStack/decision/await/combat. All129initial and230terminal queries independently re-evaluated against raw snapshots."
+  ],
+  "limitations": [
+    "One exact branch only. No native credit for isolated component edge cases or unrelated/support/pitch siblings.",
+    "Saved proof is not a replay certificate; two own targeted clean replays and explicit registration remain required.",
+    "Read-only codec decodes only schema array TurnEffects dash and Counters base64; no assertion/raw-fixture/runtime edit or global dash/null normalization."
+  ],
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch832_actual_saved.py",
+    "sha256": "41670aab36d8ec3558d60556eea7aa719a54b380671561831ccc25c1b27c3cbd"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  }
+}

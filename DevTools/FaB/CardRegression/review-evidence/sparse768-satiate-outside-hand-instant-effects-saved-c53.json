@@ -1,0 +1,623 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B768_SATIATE_LIFE_AND_OUTSIDE_OWNED_INVENTORY_TRANSFER",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "reviewer_independence": "Independent of author /root/b752_author and Root native executor; completed independent Source model reused, actual Saved artifact comparison performed here.",
+  "created_utc": "2026-11-09T02:39:23.106204+00:00",
+  "source_spec": "card-regression-batch768.json",
+  "input_sha256": "2525b88768d654b1fa8d175681c397153597e6c2dfc02af70f8d7632101c0534",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch768-two-real-hand-instant-effects-author\\manifest.json",
+    "sha256": "1fdcc9df38f18df41a824f5853ca939ae45eddd912060aff6ef7719a91bd3852"
+  },
+  "manifest_sha256": "1fdcc9df38f18df41a824f5853ca939ae45eddd912060aff6ef7719a91bd3852",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+  },
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch768-hand-instants-independent-source-review.json",
+    "sha256": "e18845f0fc010ea3a5844192d4db215e4ce64aac7ac684e6e58a52d8faaa51ff"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch768-20261109T023536Z-6af131780cede.json",
+    "sha256": "c113de6ddf7014f7dddda1c8db9703d9531d396f4363ad6843e88d7f65acc26d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-b768-hand-instant-native-recording\\receipt.json",
+    "sha256": "e43baa81c1495a3215d530f6465153f8e0db6f8878462c8eb4b6a399bfe5436d"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch768.recording-results.json",
+    "sha256": "9ae5d048e1e9813c79422ea0cc9af78f54bdb67f211f2ae5ef8a5c06045568f3"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "satiate_bloodthirst_blue",
+      "group_id": "pitch-cycle:satiate_bloodthirst",
+      "slug": "card-satiate-bloodthirst-blue-four-live-real-hand-banish-instant-gains-one-life-before-damage",
+      "source_spec": "card-regression-batch768.json",
+      "input_sha256": "2525b88768d654b1fa8d175681c397153597e6c2dfc02af70f8d7632101c0534",
+      "reviewer": "/root/b750_saved_recovery",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_BOUNDED_HAND_INSTANT_EFFECT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-satiate-bloodthirst-blue-four-live-real-hand-banish-instant-gains-one-life-before-damage",
+      "fixture_sha256": "e19b05fb47e89ca874256c368498d9ca41a70436a6d573b3ff9698da728e53ee",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f1fb3e77fc53f996c01784fb359d0f1dc52326a2ab1ae798fb9ed410cbeba94e",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "c36110f08459a0614e2ac6aadc05e452d0725602985f096b3b463ff5867717fe",
+        "expected_final_gamestate.txt": "d73e878d0c3f57962fd0db1e8c2713b2ea27a57fba6d94f2cac5fa7081bb1d45"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f1fb3e77fc53f996c01784fb359d0f1dc52326a2ab1ae798fb9ed410cbeba94e",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "c36110f08459a0614e2ac6aadc05e452d0725602985f096b3b463ff5867717fe",
+        "expected_final_gamestate.txt": "d73e878d0c3f57962fd0db1e8c2713b2ea27a57fba6d94f2cac5fa7081bb1d45",
+        "meta.json": "767f365ea5fba7c7bd7a62ec404159824f7b446fb0700032cf4a17df1854faf8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f1fb3e77fc53f996c01784fb359d0f1dc52326a2ab1ae798fb9ed410cbeba94e",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "c36110f08459a0614e2ac6aadc05e452d0725602985f096b3b463ff5867717fe",
+        "expected_final_gamestate.txt": "d73e878d0c3f57962fd0db1e8c2713b2ea27a57fba6d94f2cac5fa7081bb1d45",
+        "meta.json": "767f365ea5fba7c7bd7a62ec404159824f7b446fb0700032cf4a17df1854faf8"
+      },
+      "actions": 36,
+      "native_assertions": 2852,
+      "manual_passes": 32,
+      "actual_manual_passes": 32,
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 787,
+      "checkpoint_count": 38,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertions_evaluated": {
+        "0": 123,
+        "36": 190
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "critical_strike_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "levia",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "satiate_bloodthirst_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "critical_strike_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "levia",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "satiate_bloodthirst_blue",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "ceased_virtual_UID": 8,
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "initial_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_primary_resource_cost": 0,
+      "actual_primary_AP_cost": 0,
+      "actual_physical_damage": 5,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "7c3a622e0287c6896375eb5ac9f77f226cc94a9bcf2c418530264a50f89db44d",
+      "native_assertion_mapping_sha256": "86551f7e024dd7b860c11c0b03ca27d90be0b788f859e77b8672fc1f6e98db16",
+      "checkpoint_assertion_mapping_sha256": "157e23066e45c0bda961db82b597109d7b9e5bd6254ecfb27e122e09befeaaf9",
+      "reveal_timing_basis": null
+    },
+    {
+      "index": 1,
+      "card_id": "outside_interference_blue",
+      "group_id": "identity:outside_interference_blue",
+      "slug": "card-outside-interference-blue-four-live-real-hand-discard-reveals-and-returns-owned-inventory-attack",
+      "source_spec": "card-regression-batch768.json",
+      "input_sha256": "2525b88768d654b1fa8d175681c397153597e6c2dfc02af70f8d7632101c0534",
+      "reviewer": "/root/b750_saved_recovery",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_BOUNDED_HAND_INSTANT_EFFECT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-outside-interference-blue-four-live-real-hand-discard-reveals-and-returns-owned-inventory-attack",
+      "fixture_sha256": "30e8946521b20e5cddd8e310064c759e59ac65eb63e7665bead1b57d89832c07",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "dbeab3f48b1ed513f7cbfe4b05c2a63668d5df66b1d80201f48e96a35973c175",
+        "actions.json": "3bfdf0c0a958ce29d1f09c6e56f73a6540603a2adf36846224a53d1ea73766a0",
+        "assertions.json": "979e9fb0807bec33cbb2442e352d459a2e60bd2dd74ad91a0a4851d5f387b07f",
+        "expected_final_gamestate.txt": "b59477273dd1e6599dad2bb2966389f7839e22b0bc9888dd2966b223e7c136a4"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbeab3f48b1ed513f7cbfe4b05c2a63668d5df66b1d80201f48e96a35973c175",
+        "actions.json": "3bfdf0c0a958ce29d1f09c6e56f73a6540603a2adf36846224a53d1ea73766a0",
+        "assertions.json": "979e9fb0807bec33cbb2442e352d459a2e60bd2dd74ad91a0a4851d5f387b07f",
+        "expected_final_gamestate.txt": "b59477273dd1e6599dad2bb2966389f7839e22b0bc9888dd2966b223e7c136a4",
+        "meta.json": "ea72e40d3c192ac710980be447d73a8a7ab2f829c5c7a66b50b1f06767e2748d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "dbeab3f48b1ed513f7cbfe4b05c2a63668d5df66b1d80201f48e96a35973c175",
+        "actions.json": "3bfdf0c0a958ce29d1f09c6e56f73a6540603a2adf36846224a53d1ea73766a0",
+        "assertions.json": "979e9fb0807bec33cbb2442e352d459a2e60bd2dd74ad91a0a4851d5f387b07f",
+        "expected_final_gamestate.txt": "b59477273dd1e6599dad2bb2966389f7839e22b0bc9888dd2966b223e7c136a4",
+        "meta.json": "ea72e40d3c192ac710980be447d73a8a7ab2f829c5c7a66b50b1f06767e2748d"
+      },
+      "actions": 37,
+      "native_assertions": 3086,
+      "manual_passes": 32,
+      "actual_manual_passes": 32,
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 971,
+      "checkpoint_count": 39,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertions_evaluated": {
+        "0": 127,
+        "37": 198
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "critical_strike_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "kayo_strong_arm",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "outside_interference_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "low_blow_red",
+          "zone": "p4Inventory",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "critical_strike_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "kayo_strong_arm",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "low_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "outside_interference_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "ceased_virtual_UID": 9,
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "initial_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_primary_resource_cost": 0,
+      "actual_primary_AP_cost": 0,
+      "actual_physical_damage": 5,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "d22e5985e634c9db630cf028e3a2360fd68cd6a36f5140bd7b4506c4f4a94555",
+      "native_assertion_mapping_sha256": "41b8ca7af8e36cacbdf2094a33749b44fdc52a7d89192944116a2f1155331afd",
+      "checkpoint_assertion_mapping_sha256": "2604d4b0890250d8ff053d48dedc9d53bca0b049b90df527820e3ee00292a341",
+      "reveal_timing_basis": "Guarded Source RevealChoices before sameUID move plus actual completed chooser/answer and endpoint transfer; no fictional intermediate raw export/getter."
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 73,
+  "total_native_assertions": 5938,
+  "total_manual_passes": 64,
+  "total_schema_property_assertions": 1758,
+  "total_checkpoints": 77,
+  "total_endpoint_assertions_evaluated": 638,
+  "material_findings": [
+    "Both actual raw5/behavior hashes and73 controls5938 ordered persisted queries64manual1758typed77checkpoints match exact Source2525/e188. COMPLETE0/zero stderr/archive/current70/c53ab33 bind the same cases. All48 manual preference values per endpoint and complete original owned living natural20 hero/physicalUID/economy/cleanup profiles independently parsed.",
+    "Satiate actual same5 moves Hand4 to publicBanish as cost before fresh4,1,2,3; capturedABI8 remainsStack through firstthree, onlyfourth grantsHP21 then newReactionfour deals5→HP16. Raw final named ROS_LIFE1 and damage/loss5 agree, same5Banish/6GY1/7Pitch, virtual8ceased/counter8/RNG0/R2/AP0/fullClose. Actual5power Blue banish has no MON_BANISHED_SIX row. Its DTD_HAND_BANISH2 physical counter is legitimate turn2 Hand-banish bookkeeping; not an initial seed.",
+    "Outside actual same5Hand discard goesGY4 before freshfour, ABI9 held through owner4 MZMULTICHOOSE0|1|p4Inventory-0 and original8Inventory. Actual answer selects that same registered ReviledAA, then sameLowBlow8 is Hand4 with Inventoryempty, virtual9ceased/counter9/RNG0; newReactionfour deals5→HP15. Exact raw Inventory has only four native fields; owner/controller wire metadata is not a claim of a rules controller in that private collection.",
+    "Outside reveal-before-transfer and pendingrawpriority3 are guarded Source plus actual completed ordered controls/assertions inferences. Same8 transfer/finalchoice, finalpriority1 and all endpoint state are direct artifact observations. No fictional intermediate snapshot, reveal getter or whole-bank emptiness oracle is claimed.",
+    "Neither primary nor LowBlow is played asAA; no Hero/Boo/Vigor/End/BloodDebt/Levia exemption/six-power/SatiateAAstats/optionaldecline/sibling/full-card credit. Only bounded selected Hand Instant effects approved."
+  ],
+  "limits": [
+    "Raw exports only INITIAL and FINAL. Intermediate paid-cost/source-retention/reveal/effect timing is Source plus exact actual completed ordered controls/assertions, not direct raw intermediate snapshots.",
+    "Root focused clean replays and registration/index remain separate gates. Reviewer executed no PHP/game/native/replay/suite/R/source/Git/remote action or repair."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch768_hand_instants_saved_readonly.py",
+    "sha256": "a1bb321a998212c32314d0aae2b8053118e9639c354e9e491453a773b3743017"
+  },
+  "physical_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch768_static_model.py",
+    "sha256": "e7b1e5de229b9a370d9254346a1091d979c232fe69579cef9ba8733223ec87dc"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "bounded_observed_hand_banish_counter_source": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\DTDRuntime.php",
+    "sha256": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+    "anchor": "FaBDTDAfterMove:8-10 actual Hand-to-Banish records current turn2; no new gameplay audit."
+  }
+}

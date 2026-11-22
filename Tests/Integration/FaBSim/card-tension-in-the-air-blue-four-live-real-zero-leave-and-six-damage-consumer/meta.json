@@ -1,0 +1,7 @@
+{
+    "name": "Tension in the Air Blue / real zero, separate leave and six-damage consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T21:58:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "One new Tension Blue pitch-cycle representative. Reuses unchanged independently Source-reviewed ActR4/Edge control flow/model at a11 with own independent new Source/native/Saved/replay gates; no old Native evidence borrowed. Actual new canonical/emitted Tension supLeave grants+2, so nativeRed4+2power6/actualdamage6 leavesHero4HP14. FourliveYoung Pleiades1/Betsy2/Betsy3/Betsy4 all20 initially. LegitimatepreexistingphysicalAura6Arena SUSPENSE1/no buff, readyPleiades1/R0/AP1, Red5Hand. Nativehero TAP/remove1 paid beforepriority; zero8 allfourresponses thenrecheck0/destroy6; separateearnedleave9 allfourresponses BEFORE SUP_NEXT2; originalhero7 allfourresponses resolves noeligibleAura/no counter/APrefund. NativeRed5 formalHero4target/cost0 consumes+2 into WTR_POWER:2 onlyaftertargetanswer/payment, allfourlive source/combat actual6damage/HP14, noGA and full6+5ownGY1/emptyArenaStackqueueschains/RAP0/Hero1Tapped. Exacthistorysource-derived EVR_ACTIVATED, DTD_HERO_USED, EVR_GRAVEYARD, SEA_BLUE_GRAVE; SUP_NEXT2 exists onlyafterleave resolves, OMNseparatestate unclaimed. Owncastcost2/entry2/naturalstartphase, siblings/fullcard/control/suppression/otherlisteners/genericvirtualdeletionorder are untested. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

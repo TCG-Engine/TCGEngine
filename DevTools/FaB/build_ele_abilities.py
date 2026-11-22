@@ -105,7 +105,7 @@ for c in cards:
  if base=='seek_and_destroy':add('ResolveCard',nxt('ARROW',3,['ELE_SEEK_DESTROY']))
  if base=='tear_asunder':
   add('ResolveCard',nxt('GUARDIAN',1,['DOMINATE','ELE_TEAR']))
-  add('ResolveAbility',"$target = intval(FaBGetState()['defender']);"+discard(2))
+  add('ResolveAbility',"$target = FaBELECapturedTearVictim($player);"+discard(2).replace("$maximum = min(2, FaBHandCount($target));", "$maximum = $target > 0 ? min(2, FaBHandCount($target)) : 0;"))
  if base=='over_flex':add('ResolveCard',nxt('ARROW',v+1)+reload())
  if base=='pulse_of_volthaven':add('ResolveCard',nxt('ELEMENT',4))
  if base=='pulse_of_isenloft':add('ResolveCard',eff('PULSE_DEFENSE'))

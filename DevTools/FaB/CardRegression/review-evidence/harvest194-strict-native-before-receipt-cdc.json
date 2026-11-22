@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T07:20:03.571576+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "30d2958bb74e1f6de7a3b9e3f4662c52929f06416dbfaad3a6839dfe7fd5e9bc",
+  "source_review_sha256": "8777138c17b1879247bf459c5dd3c02876ac3f20d9a573691535a12e50caedc2",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch852-harvest-first-actual-action-earned-destroy-life-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4099,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 26512,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p2Health to equal 19, got 20.",
+  "result_sha256": "0acda91e61a74c5f0de6e28f597c0b51ce631419d8193f889aa58095491ba140",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4099,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 8,
+  "completed_utc": "2026-11-16T07:20:12.867932+00:00"
+}

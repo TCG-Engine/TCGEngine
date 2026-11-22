@@ -1,0 +1,288 @@
+{
+  "status": "SOURCE_APPROVED_R2_STRICT_DIAGNOSTIC_ONLY_SUPPORTED_TYPED_LIFE2_EXACT20_QUERY_REMOVAL",
+  "phase": "SOURCE",
+  "batch": 865,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch865-mark-neverest-malice-two-layer-full-probe-r2.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-r2-supported-life-order-neutral-strict-probe-author\\mark-neverest-malice-order-neutral-full-probe-r2.json",
+    "sha256": "49edceb62959005b2a1406bab1d9c520d9579469998596c160cb0d7225d48595"
+  },
+  "input_sha256": "49edceb62959005b2a1406bab1d9c520d9579469998596c160cb0d7225d48595",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-r2-supported-life-order-neutral-strict-probe-author\\manifest.json",
+    "sha256": "2d033f721eec3c8e43bbbd66056c787671968342e047ac51d3d4ad67d0270e8a"
+  },
+  "manifest_sha256": "2d033f721eec3c8e43bbbd66056c787671968342e047ac51d3d4ad67d0270e8a",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-firm-reservation.json",
+    "sha256": "4b206e83076e2106bb7726ba3438d8fa0a3f5d9d393966dbacf6612cd510984b"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-firm-reservation-support-admission.json",
+    "sha256": "4d6a0999f0b9f50f94847381bc720c5b2b26c060e1a69408db2175127eb3a6e1"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-malice-positive-death-order-neutral-strict-probe-author\\preflight.json",
+    "sha256": "fe33b7a69dbb629d5cef0de5a099be97bec8ca5c874943312a379f8d75d9d879"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-r2-supported-life-order-neutral-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "d2b938666572ccd7daf2aa09f299c3ee07c9aab242ddca11804371893aee32f9"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-r2-supported-life-order-neutral-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "925ac847fb3f7d00cb81cf3ba67eca6fa28049e0c23eb1074f4c90b9e226b69c"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 19,
+  "all_current_guards_independently_matched": true,
+  "actions": 23,
+  "declarative_controls": 23,
+  "native_inputs_are_declarative_controls": false,
+  "assertions": 2737,
+  "native_assertions": 2737,
+  "planned_static_queries": 2737,
+  "schema_property_checks": 755,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "expected_native_query_mapping_sha256": "02ce2bbb67a50d91f297f58760f2692339f7377e52cf489ca5a7fc5f2509796f",
+  "checkpoint_mapping_sha256": "7bdf9a658631f1015913232dd6bb3cddd907f78b98a3d722390d13468e9d18e8",
+  "concrete_first_death_frontier": {
+    "global_ordinal": 2465,
+    "step_index": 40,
+    "check_index": 0,
+    "after_declarative_control": 20,
+    "normalized_query": {
+      "type": "card_exists",
+      "zone": "p1Graveyard",
+      "cardID": "restless_magister_red",
+      "viewerPlayerID": 1
+    }
+  },
+  "queries_before_first_death_frontier": 2464,
+  "prefix_before_order_neutral_bulk": {
+    "declarative_controls": 20,
+    "expected_native_inputs": 20,
+    "nonpass_actions": 3,
+    "true_priority_responses": 16,
+    "formal_defense_finalizers": 1,
+    "END_transport": 0,
+    "expected_pass_actor_counts": {
+      "1": 5,
+      "2": 4,
+      "3": 4,
+      "4": 4
+    }
+  },
+  "variable_full_success_path": {
+    "until_Mark_decision_passes": [
+      4,
+      8
+    ],
+    "after_answer_remaining_death_response_passes": [
+      0,
+      4
+    ],
+    "post_answer_also_includes_DAMAGE_and_RESOLUTION_passes": 8,
+    "post_answer_total_passes": [
+      8,
+      12
+    ],
+    "two_bulk_pass_counts_are_correlated_sum": 16,
+    "total_death_trigger_priority_responses": 8,
+    "planned_total_native_inputs_if_both_legal_orders_complete_normatively": 37,
+    "planned_total_pass_inputs": 33,
+    "planned_true_priority_responses": 32,
+    "planned_defense_finalizers": 1,
+    "planned_END_transport": 0,
+    "planned_pass_actor_counts": {
+      "1": 9,
+      "2": 8,
+      "3": 8,
+      "4": 8
+    },
+    "not_an_actual_execution_count": true
+  },
+  "first_frontier_machine_oracle_approved": true,
+  "whole_supported_action_suffix_approved_for_diagnostic": true,
+  "complete_final_semantics_machine_verified": false,
+  "nonpromotable_even_if_all_static_queries_pass": true,
+  "positive_promotion_recommended": false,
+  "terminal_evidence_capability_gap": {
+    "facts_not_certified_by_static_queries": [
+      "Same host UID5 is face-down in Banish1 at endpoint, independently of legal trigger order.",
+      "Exactly two distinct Corrupted Corpse objects, each owner/controller1, rather than merely one Corpse membership plus total Banish size4.",
+      "Actual captured granted-Mark source UID5 and Malice source Hero UID1 attribution; the static two ABIs check pins controller/kind/dispatch identities but not both source UIDs."
+    ],
+    "available_checks": "Final same RedUID7 FaceDown1, Banish total4 and host/Corpse membership, MarkUID6 GY, parent8 GY4/Blue9Pitch4/economy/HP/cleanup; these do not substitute for missing facts.",
+    "current_probe_output_has_no_final_physical_raw": true,
+    "required_before_any_promotion_or_Save": "Establish a separately reviewed fresh terminal physical snapshot/capture capability and independently verify identities, FaceDown, exact two-Corpse roster, source attribution, and both endpoint manual profiles; do not imply that capture already exists or promote this diagnostic PASS."
+  },
+  "manual_profile_limits": "Expected four Young/live/manual UPF seats with no passive/bots. Actual initial raw48 remains an actual-result gate; this no-save format supplies no final physical raw/final48 certificate.",
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6",
+        "6.6.6b"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.2.8d",
+        "8.2.8e",
+        "8.3.44"
+      ]
+    }
+  ],
+  "limits": [
+    "Strict diagnostic only, no Save even on PASS and no automatic promotion; missing terminal capability blocks qualification.",
+    "No ordering UI/per-effect intermediate-order certificate; any unexpected unrelated decision is a capability blocker, not permission for a framework workaround.",
+    "No PHP/Native/Rwrites/newagents/fullsuite/source repair or denied199/188/184/B787 retry by reviewer."
+  ],
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false,
+  "previous_Source_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-independent-order-neutral-diagnostic-source-review.json",
+    "sha256": "8ce1c0354aca39cd30803992934cb1b86d453ec3deeec7d906972694fcc43dee"
+  },
+  "R1_actual_oracle_assessment": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-r1-independent-zero-input-life-getter-oracle-assessment.json",
+    "sha256": "0ebcf82cdcb9344f561943e7701e680b14ad58c9df7b11431a7dbc817517b1fb"
+  },
+  "oracle_API_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch865-mark-neverest-r2-supported-life-order-neutral-strict-probe-author\\exact-life-query-removal-and-equivalence.json",
+    "sha256": "51d4ccee8c8e154bb3c240f57dffed91f6ecb13e3fd25a2ce62687afae131878"
+  },
+  "exact_delta_review": {
+    "removed_query_count": 20,
+    "removed_type": "computed_life_equals",
+    "removed_paths": [
+      [
+        0,
+        142
+      ],
+      [
+        2,
+        116
+      ],
+      [
+        4,
+        123
+      ],
+      [
+        6,
+        121
+      ],
+      [
+        8,
+        121
+      ],
+      [
+        10,
+        121
+      ],
+      [
+        12,
+        121
+      ],
+      [
+        14,
+        123
+      ],
+      [
+        16,
+        123
+      ],
+      [
+        18,
+        123
+      ],
+      [
+        20,
+        123
+      ],
+      [
+        22,
+        123
+      ],
+      [
+        24,
+        123
+      ],
+      [
+        26,
+        123
+      ],
+      [
+        28,
+        123
+      ],
+      [
+        30,
+        123
+      ],
+      [
+        32,
+        123
+      ],
+      [
+        34,
+        123
+      ],
+      [
+        36,
+        123
+      ],
+      [
+        38,
+        123
+      ]
+    ],
+    "whole_JSON_inverse_exact": true,
+    "all_other_query_order_setup_controls_metadata_values_identical": true,
+    "all20_existing_typed_life2_witnesses_preserved": true,
+    "printed_health": 3,
+    "exact_UPR_LOST_HP": 1,
+    "UPR_GHOST_HP_absent_in_exact_Counters_map": true,
+    "Damage": 0,
+    "derived_remaining_life": 2,
+    "no_padding_queries_added": true,
+    "no_gameplay_oracle_relaxation": true
+  },
+  "inherited_route_findings_from_previous_Source": {
+    "reference_field": "previous_Source_preserved",
+    "scope": "Unchanged full original-correct route, source causality, order-neutral suffix, and explicit nonpromotable terminal capability limits.",
+    "ordinal_remap": "R1 first death query2485 becomes R2 query2465 solely because20 unsupported initial/predeath computed-life checks were removed."
+  },
+  "independent_delta_findings": [
+    "Core RegressionTestFramework1121..1126 computed_life_equals depends on optional ObjectCurrentHP, absent for this FaBSim path. The actual R1 returned NULL before any Native input, with142 initial queries passed. This does not contradict remaining life2 and provides no Malice Native bug evidence.",
+    "Only20 unsupported redundant computed-life queries are removed. At every affected checkpoint exact typed HostUID5/CardID/Owner1/Controller1/Status and Counters{UPR_LOST_HP:1}/Damage0 remain. Guarded printed life3 and native UPRHealth27 derive2, without a ghost override or other permitted health modifier; UPRDeal74 compares real accumulated damage against that value. Full original-correct lethal6 and death-trigger semantics remain.",
+    "Inverse restoration recovers the entire original input JSON exactly. All23 declarative controls, positive-choice order-neutral variable pass stops, whole suffix, private terminal limitations and four strict flags are unchanged. No query replacement padding, Source change, or observed-output gameplay expectation is introduced.",
+    "All72+10+19 unchanged code guards/currentCDC and new manifest/input/equivalence/model/QA hashes independently verified. Fresh R2 admission is one --probe-only/noSaveevenPASS diagnostic; current missing terminal physical capture still blocks promotion and qualification even if all2737 static checks pass."
+  ]
+}

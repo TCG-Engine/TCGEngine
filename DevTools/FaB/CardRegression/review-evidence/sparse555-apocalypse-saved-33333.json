@@ -1,0 +1,354 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B555_TWO_EVO_TWO_HERO_ATTACK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T02:37:18.665780+00:00",
+  "source_spec": "card-regression-batch555.json",
+  "input_sha256": "78ea920aad283414aecd44c76950e19526a01c3be784a8e0c24dfb53a49d8381",
+  "manifest_sha256": "2f97a19bd353a094b93a85bb082c1eb1b32c3d87a44b3efa2e00b27ca47e04a1",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "recorded_runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch555-independent-source-review.json",
+    "sha256": "d6241db7211a75fd3fed7b4e0f49b26f4efb5b78ee34c094388d9e9a4be5584e",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch555-20261106T023145Z-6aed3c111d40b.json",
+    "sha256": "606cac680f422962aabc18ec6680e3bbea7ef0db56c89341a47b434ba61c62ad"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch555.recording-results.json",
+    "sha256": "a6a7c66b3978f2d3fe12cb3908c9957505070caf70393eca29099184a563f4b5"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch555-native-r1-33333\\receipt.json",
+    "sha256": "b090c66105fc457ab17d7901539fbb1a5df107155c84dd181d251452fc7d4a79"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "apocalypse_automaton_red",
+      "group_id": "identity:apocalypse_automaton_red",
+      "slug": "card-apocalypse-automaton-red-four-live-real-two-evos-two-hero-targets-and-six-damage-each",
+      "source_spec": "card-regression-batch555.json",
+      "input_sha256": "78ea920aad283414aecd44c76950e19526a01c3be784a8e0c24dfb53a49d8381",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TWO_EVO_TWO_HERO_ATTACK",
+      "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+      "recorded_runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-apocalypse-automaton-red-four-live-real-two-evos-two-hero-targets-and-six-damage-each",
+      "fixture_sha256": "4d15c385adbd9217b67b3114a7ce40e6dd4d961e0311121360277bd5408b45b9",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "934c942e4079507ca2a596342c0bc42ef6a9f05ed05b8120cb18a5db46307647",
+        "actions.json": "3d45d440f1298f8e82c85639973ea87694dd1c7f5d4b6d5dea617d8f97785717",
+        "assertions.json": "5e0619398af03ec9bd237bf21924f212be3730810d43020548dbdee5e58fb432",
+        "expected_final_gamestate.txt": "c2524f67b2ddf52577a747df7db34daf61ea1c2f11e73254f6fcbf991afc5871"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "934c942e4079507ca2a596342c0bc42ef6a9f05ed05b8120cb18a5db46307647",
+        "actions.json": "3d45d440f1298f8e82c85639973ea87694dd1c7f5d4b6d5dea617d8f97785717",
+        "assertions.json": "5e0619398af03ec9bd237bf21924f212be3730810d43020548dbdee5e58fb432",
+        "expected_final_gamestate.txt": "c2524f67b2ddf52577a747df7db34daf61ea1c2f11e73254f6fcbf991afc5871",
+        "meta.json": "66f244412d909460bfe95fdce91d6bba86face82a8df2f383fea7e4f4e92d391"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "934c942e4079507ca2a596342c0bc42ef6a9f05ed05b8120cb18a5db46307647",
+        "actions.json": "3d45d440f1298f8e82c85639973ea87694dd1c7f5d4b6d5dea617d8f97785717",
+        "assertions.json": "5e0619398af03ec9bd237bf21924f212be3730810d43020548dbdee5e58fb432",
+        "expected_final_gamestate.txt": "c2524f67b2ddf52577a747df7db34daf61ea1c2f11e73254f6fcbf991afc5871",
+        "meta.json": "66f244412d909460bfe95fdce91d6bba86face82a8df2f383fea7e4f4e92d391"
+      },
+      "actions": 29,
+      "native_assertions": 3145,
+      "actual_manual_passes": 26,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 7,
+        "3": 7,
+        "4": 6
+      },
+      "schema_property_assertions": 926,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "apocalypse_automaton_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "evo_sentry_base_head_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "evo_sentry_base_arms_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "evo_sentry_base_head_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "evo_sentry_base_arms_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "apocalypse_automaton_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        14,
+        14,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "formal_target_heroes": [
+        2,
+        3
+      ],
+      "actual_declaration_finish_actors": [
+        2,
+        3
+      ],
+      "actual_declaration_finish_action_ordinals": [
+        12,
+        13
+      ],
+      "actual_resource_cost": 3,
+      "actual_pitch_UID": 6,
+      "actual_damage_by_target": {
+        "2": 6,
+        "3": 6
+      },
+      "aggregate_damage": 12,
+      "final_GY1_exact_UIDs": [
+        5
+      ],
+      "final_Pitch1_exact_UIDs": [
+        6
+      ],
+      "final_Equipment1_exact_UIDs": [
+        7,
+        8
+      ],
+      "whole_Evo_objects_and_subcards_unchanged": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "acec0fa064fc2bbd633fce84f5a2cb2e0505d154165f66352f84e69b5cd745b2",
+      "native_action_mapping_sha256": "5567411524942c5b6684175f934c8bd79e6fe14fb3f36992cb73ddc772fb1dce",
+      "native_assertion_mapping_sha256": "af4fdfbfe3070fcc15501d3ffa078cdf45b406441748ac21716f0000bdeea6aa"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 29,
+  "total_native_assertions": 3145,
+  "total_manual_passes": 26,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 926,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one newfixture at unchanged33333. All29envelopes/3145orderedpersistedchecks/926properties equal the independent correct source model. Raw5/all71guards/48manualpreference values perendpoint verified; 26actualmanual inputs comprise24four-seat priority responses plus separate P2 and P3 declaration finishes.",
+    "Own physical5 announces, then real formal two-Hero answer P2/P3 precedes resource/AP payment. Both targets include across-table P3 under independently verified TRP9.3 exception. Actual Blue6pitch3 pays printed3, leavesR0AP0; same prior equippedEvos7/8 provide actualcount2 without private count/history/permission seed.",
+    "Sourcefour makes physical5 link1/current6/noGA. Attackfour reaches P2declare, actualP2 input finishes its empty declaration, then actualP3 gets and finishes its own declaration before all-player DefendPriority. This is two genuine defender paths, not only serialized four-slot setup. Per-target state keeps P2/P3 distinct through damage.",
+    "Actual unblocked full6 physical damage independently reaches eachP2/P3, bothHP14 and per-targetdamage6/6/aggregate12; P1/P4HP20. No printedGA/refund. Full damage+resolution rounds close, own5publicGY/Blue6Pitch and same7/8wholeEquipment objects/materialSUBCARDS unchanged; originalUID1..8/counter8/RNG0/RAPChi0 and complete quiet cleanup verified.",
+    "Only this positive prior-two-Evo/two-Hero/no-block branch qualifies. No other target/count/order/rejectedtarget/defender/Protect/prevention/Evo transformation or ability/material UIDconservation/wear/Hero/support-primary/other-card/full-card credit. RawundoVersions remain hash-bound and excluded from current physical inventory; Root replays are separate and unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2394/",
+      "finding": "Current primary3/base6/equippedEvo prerequisite and multi-opponent target limit."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "rule": "9.3",
+      "finding": "Explicit Apocalypse multi-hero targeting exception permits selected across-table P3."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2f",
+        "7.5.2c",
+        "7.6.2",
+        "7.7"
+      ],
+      "finding": "Separate clockwise defender declarations, full-power damage per target, no unprinted GA refund and normal close."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rule": "5.1.4",
+      "finding": "Formal targets declared before asset payment."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rule": "8.4.11",
+      "finding": "Evo Upgrade is an ability label; this selected wording supplies no WHEN."
+    }
+  ],
+  "limits": [
+    "ONE prior-two-equipped-Evos/two-opposing-Hero/no-block/6physical-each branch; acrossP3 independently legal underTRP9.3 exception.",
+    "No otherEvo thresholds/targetcounts/order/rejection/defenders/Protect/Boost/GA/equipment transformation/wear/support/hero/siblings/fullcard credit.",
+    "Current71selectedguards =common69+twoexplicitdependencies; fingerprintunchanged333 alreadyglobseveryCustomPHP.",
+    "OTHERsourcepeer/native/Saved/replays required; no gameplay/source/native execution byauthor.",
+    "No declaration of defenders/Protect, unequal target defenses, other target counts/order permutations, Evo loss during announcement, other recipients, support transformation/activation/underlying UID conservation/retrieval or full-card coverage.",
+    "Root native/exact Saved/raw48manual preferences/two replay gates remain separate. No reviewer PHP/native/R/source/fullsuite/remote/denied operation.",
+    "Native ledger plus raw initial/final endpoints only; no invented per-input raw snapshots or private callback instrumentation.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/remote/denied operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch555_saved_readonly.py",
+    "sha256": "82e3310faebee40c0c638a005a0fd713425810d4c05e13fde4518e60ee5ef879"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch555_source_readonly.py",
+    "sha256": "f6d2d658db30b202e9734368ec1f19ce4a93fc464bd16788615ac5a867e95027",
+    "portion": "Own static input/schema/action/assertion model only; no source or author model execution"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-scale181-earned-hit-equipment-effect.json",
+  "runtime_sha256": "933d9175564c4392f769e629245ee855be550bc47e9a7b2e2dd2829b47c60dc9",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T07:36:26.021675+00:00",
+  "fixtures": [
+    {
+      "slug": "card-scale-peeler-four-live-earned-equipment-debuff-piercing-close-repair",
+      "fixture_sha256": "b68071b239b018f79550dfb411e444ce4f86961501b19987304713a04c5bfa22",
+      "passed": true,
+      "result": "[PASS] Scale Peeler / existing181 earned hit and resolution completion"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-scale-peeler-four-live-earned-equipment-debuff-piercing-close-repair",
+      "returncode": 0,
+      "stdout": "[PASS] Scale Peeler / existing181 earned hit and resolution completion\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

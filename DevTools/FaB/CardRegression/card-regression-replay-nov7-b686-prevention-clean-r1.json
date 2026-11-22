@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch686-prevention.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T03:02:29.627776+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dark-arcanite-boots-four-live-real-shadow-hero-generic-attack-resist-one-and-three-damage",
+      "fixture_sha256": "26aeb6573c3a7a0ec2bbb7b0bd8fa269e14d44874d27a6e643b39745f1d1c879",
+      "passed": true,
+      "result": "[PASS] dark_arcanite_boots / four live distinctive effect"
+    },
+    {
+      "slug": "card-crown-of-everbloom-four-live-real-arcane-barrier-two-blue-payment-and-one-damage",
+      "fixture_sha256": "b9191c0069c6d337fd510796e10126e0001cd25090054ab14fee8edc14ba7eef",
+      "passed": true,
+      "result": "[PASS] crown_of_everbloom / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dark-arcanite-boots-four-live-real-shadow-hero-generic-attack-resist-one-and-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] dark_arcanite_boots / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-crown-of-everbloom-four-live-real-arcane-barrier-two-blue-payment-and-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] crown_of_everbloom / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

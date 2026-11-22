@@ -1,0 +1,88 @@
+{
+  "status": "QUALIFIED_FOCUSED_SMOKE_DEFENDED_CAPTURED_MARK_TRIGGER",
+  "issue": "FAB-REG-174",
+  "runtime_sha256": "da6a28d4f37f0df8c980b161bc1341e3bd7a79cacdecfd0329303bdf55fbb295",
+  "source_files": [
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/ROSCards.php",
+    "FaBSim/Custom/HNTCards.php"
+  ],
+  "change": "Exact normal Smoke Defended/index0 captures effective red condition and actual attackingHero before queuing its earned mark using existing ROS infrastructure; all other macro/listener/copy/pseudo paths are preserved.",
+  "before_native": {
+    "path": "review-evidence/smoke174-defended-mark-native-before-8415.json",
+    "sha256": "dec4d1c14f0e48c1587ed7215b3a826fce3974c86b939a4409cd053024e0586b"
+  },
+  "independent_actual_before": {
+    "path": "review-evidence/sparse786-independent-native-before-8415.json",
+    "sha256": "5fd74d635ad59c05a596d9c26c1f492cdbd3ee7374255b2b0692dddf7a5a749d"
+  },
+  "source_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-smoke174-guarded-application\\receipt.json",
+    "sha256": "9eb27f1aed895b481e45574da0b099babe77d9db4b071b0305225b3e46024ce9",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "independent_patch_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-smoke-captured-mark-independent-source-review.json",
+    "sha256": "aff4ab2df8249a843a8ce2a9be8e85975fb3fb8ade96b9720eb9dc2a57d213ee",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "full_correct_draft_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-smoke-full-independent-correct-draft-source-review.json",
+    "sha256": "df596385f518cebb8d3517a4bcf3df9d044a04bb6ec02577c2f3de1a014b2d5c",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "runtime_bound_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-smoke-bound-da6a-independent-runtime-source-review.json",
+    "sha256": "fef4d43dabc9945e481c62ccfd88c194d7438f9ae6d1c337b69a8cee9f58da5e",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "actual_component_and_syntax": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-smoke-root-component-and-syntax\\receipt.json",
+    "sha256": "4954c6493953015b33e5e3f8e6585aa9928314c4a5c383e375316806737c476f",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "pure_stub_checks": 37,
+  "syntax_passes": 3,
+  "native_after": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b786-smoke-full-native-after-da6a\\receipt.json",
+    "sha256": "34e41dabe528661f33a3f086fa566d8f6de02b29aadb84009cafba609fdd9772",
+    "role": "External focused proof or receipt, not a regression-runner dependency"
+  },
+  "native_inputs": 39,
+  "native_assertions": 2328,
+  "manual_passes": 36,
+  "source_spec": {
+    "path": "card-regression-batch786-smoke-full.json",
+    "sha256": "93ecb90cf26c7d11c84179c9f321c5c2e01a14c4ce487d5b319ed667c33edc2f"
+  },
+  "independent_saved_review": {
+    "path": "review-evidence/sparse786-smoke-independent-da6a.json",
+    "sha256": "6e8092a31e67481b7529c8ed06db375a919e9460e6600823cb677da273796915"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov14-b786-smoke-clean1.json",
+      "sha256": "02038a9dca2621d0c78ee3ca7b845c7cdcb303240c7a69dda164473d89c830ce"
+    },
+    {
+      "path": "card-regression-replay-nov14-b786-smoke-clean2.json",
+      "sha256": "735ecf09f30df49f85307b7e09adea782adbb8438123f4c5b466868796d11508"
+    }
+  ],
+  "isolated_native_fault_credit": 0,
+  "assertions_weakened": false,
+  "repository_Core_changed": false,
+  "generated_code_changed": false,
+  "remote_authoring": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "historical_rows_retagged": false,
+  "root_attribution": "UNALLOCATED_NAMED_LOCAL_REPAIR",
+  "limits": [
+    "Only actual DR0/3 defends realRed4, freshallfourMarkresponses, realremaining1damageHP19 andcompletecleanup qualified.",
+    "No native ordinaryHandblock/nonRed/effectivecolorchange/sourcegone/elimination/copy/pseudo/full-card certificate; captured-state alternatives are stubs only.",
+    "Before firstHeroCounters failed marked after23inputs; laterStack query and59suffixchecks never ran. No pre-fix Stack0 claim.",
+    "At this qualification Sand175 is confirmed/unapplied with nofixture; all older tests keep their own contexts.",
+    "Three rawhashreference corrections repaired metadata only; unchanged original proof files retained."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch803-skeletal_puppetry_blue.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T00:07:23.324077+00:00",
+  "fixtures": [
+    {
+      "slug": "card-skeletal-regular-two-real-barnacle-five-go-again-red-four-consumer",
+      "fixture_sha256": "e5b4896068075f81f888bcc88ea4814b9b784b184ec712ec85b7106d0d1c6963",
+      "passed": true,
+      "result": "[PASS] Skeletal Puppetry Blue / regular two, real ally five with go again, Red four consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-skeletal-regular-two-real-barnacle-five-go-again-red-four-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Skeletal Puppetry Blue / regular two, real ally five with go again, Red four consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

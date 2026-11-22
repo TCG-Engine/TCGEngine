@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T16:00:21.556770+00:00",
+  "runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+  "source_spec": "card-regression-repair-figment158-entry-ponder.json",
+  "source_spec_sha256": "ad9740b7a0141814ca22d30cf4369445a07f73c56fa9c84e6329da5277b19311",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 11,
+  "native_assertions": 1248,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4176,
+    "duels": 3074,
+    "four_live": 1102,
+    "recorded_primary_ids": 1328,
+    "identity_denominator": 5196,
+    "recorded_groups": 1202,
+    "group_denominator": 3324,
+    "four_live_groups": 1094,
+    "phase_qualified_scenarios_at_actual_contexts": 813,
+    "phase_qualified_unique_groups": 807,
+    "creation_replay_passes": 1554,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "figment_of_erudition_yellow",
+      "group_id": "identity:figment_of_erudition_yellow",
+      "scenario_id": "card-figment-of-erudition-yellow-four-live-paid-instant-entry-when-then-ponder",
+      "effect_branches": [
+        "figment-erudition-paid-instant-entry-when-delayed-ponder"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-figment-of-erudition-yellow-four-live-paid-instant-entry-when-then-ponder",
+      "source_spec": "card-regression-repair-figment158-entry-ponder.json",
+      "source_spec_sha256": "ad9740b7a0141814ca22d30cf4369445a07f73c56fa9c84e6329da5277b19311",
+      "review_evidence": "review-evidence/figment158-7514-qualified-saved.json",
+      "review_evidence_sha256": "7fb8d035e22bfd2463ab458a947fccd8a1dff3fadfc1a30728d6b9b5bb789ec7",
+      "recorded_runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+      "qualification_runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov20-figment158-7514-replay.json",
+          "sha256": "ee3d80a09f25ee0a154a512a4230c8da10d754c5fdd30774e730f35c486680fd",
+          "runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

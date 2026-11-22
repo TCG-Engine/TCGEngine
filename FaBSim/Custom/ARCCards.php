@@ -106,7 +106,7 @@ function FaBARCStageTop(int $player,int $amount): array {
     return $uids;
 }
 function FaBARCOrderParam(array $uids,string $piles='Top,Bottom'): string {
-    $ids=[];foreach($uids as $uid){$f=FaBFindUID(intval($uid));if($f!==null)$ids[]=$f['object']->CardID;}
+    $ids=[];foreach($uids as $uid){$f=FaBFindUID(intval($uid));if($f!==null&&($piles!=='Bottom'||$f['zone']==='Temp'))$ids[]=$f['object']->CardID;}
     $names=explode(',',$piles);$out=[];foreach($names as $i=>$name)$out[]=$name.'='.($i===0?implode(',',$ids):'');return implode(';',$out);
 }
 function FaBARCFinishOrder(int $player,array $uids,string $result): void {
@@ -135,6 +135,45 @@ function FaBARCReturnAttack(int $player,string $mzID): void {
     $uid=intval($found['object']->UniqueID);FaBARCPreserveAttack($uid);
     FaBMoveUID($uid,'Hand',intval($found['object']->Owner??$player));
 }
+/** Current Over Loop WHEN-hit: retain the physical attack until its earned layer resolves. */
+function FaBARCQueueOverLoopHit(int $player,string $mzID,int $amount): void {
+    $f=FaBIdentityFromMZ($mzID);$state=FaBGetState();
+    if($amount<=0||!$f||$f['zone']!=='CombatChain')return;
+    $source=$f['object'];$id=(string)$source->CardID;$uid=intval($source->UniqueID);
+    if(!in_array($id,['over_loop_red','over_loop_yellow','over_loop_blue'],true)
+        ||($source->Role??'')!=='ATTACK'||empty($state['combatOpen'])
+        ||intval($state['attackUID']??0)!==$uid||intval($state['attacker']??0)!==$player
+        ||intval($source->Controller??0)!==$player||!FaBSeatIsLive($player)
+        ||HasNoAbilities($source)||FaBMPGSuppressed($source)||FaBSUPSuppressed($source)
+        ||FaBCRUHitSuppressed($source))return;
+    $owner=intval($source->Owner??0);$turn=intval(GetTurnNumber());$link=intval($source->ChainLink??0);
+    if($uid<=0||!in_array($owner,FaBSeatOrder(),true)||$turn<=0||$link<=0
+        ||intval($state['chainLink']??0)!==$link)return;
+    // Controller owns the earned layer; the physical card's owner owns its destination.
+    FaBROSQueue($player,$id,$uid,['rosEvent'=>'arcOverLoopHit','arcOverLoopOwner'=>$owner,
+        'arcOverLoopCardID'=>$id,'arcOverLoopTurn'=>$turn,'arcOverLoopChainLink'=>$link]);
+}
+function FaBARCResolveOverLoopHit(int $player,object $trigger): void {
+    $data=(array)($trigger->Params??[]);$id=(string)$trigger->CardID;
+    $uid=intval($trigger->SourceUniqueID);$owner=intval($data['arcOverLoopOwner']??0);
+    if(($data['rosEvent']??'')!=='arcOverLoopHit'
+        ||!in_array($id,['over_loop_red','over_loop_yellow','over_loop_blue'],true)
+        ||($data['arcOverLoopCardID']??'')!==$id||$uid<=0
+        ||intval($trigger->Controller??0)!==$player||!FaBSeatIsLive($player)
+        ||!in_array($owner,FaBSeatOrder(),true))return;
+    $f=FaBFindUID($uid);$state=FaBGetState();
+    // Do not move a departed/copied source or a later attack with the same physical UID.
+    if(!$f||$f['zone']!=='CombatChain'||(string)$f['object']->CardID!==$id
+        ||intval($f['object']->Owner??0)!==$owner||($f['object']->Role??'')!=='ATTACK'
+        ||empty($state['combatOpen'])||intval($state['attackUID']??0)!==$uid
+        ||intval($data['arcOverLoopTurn']??0)<=0||intval($data['arcOverLoopTurn'])!==intval(GetTurnNumber())
+        ||intval($data['arcOverLoopChainLink']??0)<=0
+        ||intval($data['arcOverLoopChainLink'])!==intval($state['chainLink']??0)
+        ||intval($data['arcOverLoopChainLink'])!==intval($f['object']->ChainLink??0))return;
+    // Suppression or controller changes after earning do not counter this independent layer.
+    FaBARCToDeck($owner,$uid,false);
+}
+
 function FaBARCRevealPitch(int $player): int {
     $refs=array_slice(FaBChoiceRefs($player,'Deck'),0,1);FaBRevealChoices($player,implode('&',$refs));
     return $refs?intval(CardPitch(FaBIdentityFromMZ($refs[0])['object']->CardID)):0;
@@ -397,7 +436,7 @@ function FaBARCEndTurn(int $player): void {
     if(!FaBARCPlayed($player,true))foreach(FaBChoiceRefs($player,'Arena',['base'=>'enchanting_melody']) as $ref)FaBMoveChoice($player,$ref,'Arena','Graveyard');
 }
 function FaBARCIsArcaneCard(string $id): bool {
-    return in_array(FaBWTRBase($id),['aether_wildfire','aether_quickening','emeritus_scolding','timekeepers_whim','scour','foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
+    return in_array(FaBWTRBase($id),['aether_wildfire','aether_quickening','prognosticate','emeritus_scolding','timekeepers_whim','scour','foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
 }
 
 function FaBARCPreventDamage(int $player,int $amount,string $type): int {

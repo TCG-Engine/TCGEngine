@@ -1,0 +1,291 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B816_EXPLICITLY_PROMOTED_HOODWINK",
+  "phase": "SAVED",
+  "batch": 816,
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b809_review_recover",
+  "created_utc": "2026-11-15T03:41:49.418199+00:00",
+  "source_spec": "card-regression-batch816-hoodwink-self-discard-three-arcane-prevention.json",
+  "input_sha256": "22cd0f033739b110a5db4c40033dab9df522b736fe5de26066aba16cb0b25261",
+  "manifest_sha256": "59989677954596fa90f4ab9d58c311b6ed8400367b814aaefc063504ecf9a162",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hoodwink-blue-real-hand-self-discard-zero-extras-three-arcane-prevention-positive-author\\manifest.json",
+    "sha256": "59989677954596fa90f4ab9d58c311b6ed8400367b814aaefc063504ecf9a162"
+  },
+  "prior_independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hood-promoted-independent-correct-positive-source-review.json",
+    "sha256": "a2511c5bf748eaa10d36f68465dcbd15d64f0641a0185c61138d2585e94ec055"
+  },
+  "prior_independent_actual_unsaved_diagnostic": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hood-r3-independent-actual-unsaved-positive-review.json",
+    "sha256": "37645554932b1acd1abdb5e96bcec7f243a3f8c9e41ae01d9bbd0a9c174141cf"
+  },
+  "explicit_Root_promotion_decision": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hoodwink-blue-real-hand-self-discard-zero-extras-three-arcane-prevention-positive-author\\EXPLICIT_ROOT_PROMOTION_DECISION.json",
+    "sha256": "61b5522dfaaf1aa1924e0744e26828570b1d9ca23ea880025a489f31d43af56f"
+  },
+  "root_wrapper_receipt": {
+    "path": "nov15-b816-hood-positive-native-validated-self-cost-prevention\\receipt.json",
+    "sha256": "039a3fb6e1899d759263336684a529924a10b7288f576541981ae91bfc6d41a8"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch816-hoodwink-self-discard-three-arcane-prevention-20261115T034006Z-6af92996c181e.json",
+    "sha256": "3c9510700db2b517729e9465d046af613939017f96e798f6740b444a6ae22f16"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch816-hoodwink-self-discard-three-arcane-prevention.recording-results.json",
+    "sha256": "dbfbc41bf9b24db6a65bf1adb3fa0a93297b73b9c5ddd3030babcf6b8b3b8849"
+  },
+  "fixtures": [
+    {
+      "slug": "card-hoodwink-blue-real-hand-self-discard-zero-extras-three-arcane-prevention",
+      "card_id": "hoodwink_blue",
+      "group_id": "identity:hoodwink_blue",
+      "source_spec": "card-regression-batch816-hoodwink-self-discard-three-arcane-prevention.json",
+      "input_sha256": "22cd0f033739b110a5db4c40033dab9df522b736fe5de26066aba16cb0b25261",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-hoodwink-blue-real-hand-self-discard-zero-extras-three-arcane-prevention",
+      "fixture_sha256": "800f2c5c02658b13d9ad1a284f1892865bded9f57ae9160f0c969b44ce3089f5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03a9a945ecb700f12770d1729a2201fd423508a1f040c23b57ced02f8bc49b00",
+        "actions.json": "aad7c1b1167f156d02094273e8964124d77485121b6450f3f1e3bec40f482247",
+        "assertions.json": "47bde9c8806462b6e5f5fb2d9d466e89284917aa175ea4a5e8cc1c986d13f03c",
+        "expected_final_gamestate.txt": "6046cb8457ebef99bcae44642d0728d056972ed267cd8237d64753ed1d861d65",
+        "meta.json": "29c32b7963d4512fca6a5cbbf487a009921fe06cd292413d0120e91763d81cac"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "03a9a945ecb700f12770d1729a2201fd423508a1f040c23b57ced02f8bc49b00",
+        "actions.json": "aad7c1b1167f156d02094273e8964124d77485121b6450f3f1e3bec40f482247",
+        "assertions.json": "47bde9c8806462b6e5f5fb2d9d466e89284917aa175ea4a5e8cc1c986d13f03c",
+        "expected_final_gamestate.txt": "6046cb8457ebef99bcae44642d0728d056972ed267cd8237d64753ed1d861d65",
+        "meta.json": "29c32b7963d4512fca6a5cbbf487a009921fe06cd292413d0120e91763d81cac"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "03a9a945ecb700f12770d1729a2201fd423508a1f040c23b57ced02f8bc49b00",
+        "actions.json": "aad7c1b1167f156d02094273e8964124d77485121b6450f3f1e3bec40f482247",
+        "assertions.json": "47bde9c8806462b6e5f5fb2d9d466e89284917aa175ea4a5e8cc1c986d13f03c",
+        "expected_final_gamestate.txt": "6046cb8457ebef99bcae44642d0728d056972ed267cd8237d64753ed1d861d65"
+      },
+      "actions": 15,
+      "native_assertions": 1097,
+      "manual_passes": 11,
+      "actual_manual_passes": 11,
+      "actual_priority_response_passes": 11,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 2
+      },
+      "schema_property_assertions": 279,
+      "checkpoint_count": 17,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 128,
+        "15": 183
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "kano",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "killjoy_the_crooked_blade",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "hoodwink_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "kano",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "killjoy_the_crooked_blade",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "hoodwink_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "1ddc8234632b26764857ede2d8bc9b6ecce923a27ce81e58ae808ac9f79ffa2d",
+      "native_assertion_mapping_sha256": "7604e89a767a6d88587a457f40f06397a2e768b262caf09c561e6623671978da",
+      "checkpoint_assertion_mapping_sha256": "50e60ee8052911b159273b83a3fa13ce48c2d5d80bb917cbc0795307e0a43c18",
+      "actual_same_Hood_discarded_as_cost_UID": 6,
+      "actual_total_base_defense_counted_once": 3,
+      "actual_prevented_arcane_damage": 3,
+      "actual_final_health": [
+        15,
+        20,
+        20,
+        20
+      ],
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 31,
+  "full_selected_hook_guard_count": 35,
+  "all_current_guards_matched": true,
+  "total_actions": 15,
+  "total_native_assertions": 1097,
+  "total_manual_passes": 11,
+  "total_schema_property_assertions": 279,
+  "total_checkpoints": 17,
+  "total_endpoint_assertions_evaluated": 311,
+  "actual_initial_health": [
+    15,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    15,
+    20,
+    20,
+    20
+  ],
+  "fresh_positive_raw5_independently_reviewed": true,
+  "all48manual_values_at_both_raw_endpoints_independently_verified": true,
+  "diagnostic_raw_final_limitation_now_resolved_by_fresh_saved_rawfinal": true,
+  "observable_only_admission": true,
+  "material_findings": [
+    "FreshnormalNative15/1097/11/279/17 actualactions/querymappingexactpositiveSource; allfivefreshfilesparsed/hashed,311rawendpointqueriesandall48manualsettingsEACHinitial+finalindependentlyverified. PriorunsaveddiagnosticdoesnotstandinforSavedreview.",
+    "ActualnaturalKano15/Betsy20/Betsy20/Killjoy20/noassets/history/shield/HP/economyseed. ActualZap5earlyHero4target/AP1spent0/3responsesgiveP4legalpriority. Hood6actualHandInstantactivation/acceptedminus; same6publicGY4strictownerascostBEFOREabilityresponses.",
+    "ActualbaseDEF3countedonce/notearlyARCshieldthrough7-10; exactly3earnedafterfourabilityresponses4,1,2,3. FreshZapresponses1,2,3,4 resolveactual3arcane/consumeallshield/HP4stays20/arcaneDealt0; allotherHPnatural.",
+    "ActualsameZap5ownGY1/Hood6ownGY4/allphysical1..6conserved/nootherphysicalcardgenerated/allRChiAP0/readyquietheroes/StackChainDQTargetPaymentAwaitfullcleanup. LegitimateEVR/SEA/DTDbookkeepingmatchescurrentfullhookmodel; packetattemptmarkerdoesnotmeanHPdamage.",
+    "Rootexplicitpromotion+freshpositiveSourcea251 followedpassedfullunsaved3764; originaldiagnostic/R2erratumremainimmutable. ThisfreshSavedreviews actualnormalNativecase; noautomaticpromotion or transferredqualification."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Onepositivezeroextra/soleHand/baseDEF3/oneZap3packet only; noother-cardaggregate/chooseruniverse/otherdamage/futurepacket/Heroability/sibling/fullcardqualification.",
+    "Rawcounter6to7 reflectsonelegitimatevirtualabilityallocation/source-derivedAddStack; physicalinventory1..6conserved. No virtualUID/Owner/kind/window expectation added toNativequeries.",
+    "RoottwoNEWonlyfocusedreplays andregistrationremainseparate. Reviewer W-only/read-onlyR/no PHP/native/replay/R/source/Git/heldrepair/newagents."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch816_hood_positive_saved.py",
+    "sha256": "77451cc89fec30a3fc9aa00a9766bb77ad8c7c32646c6a3083d15d560ba1758f"
+  },
+  "compact_diagnostic_provenance": {
+    "prior_R2_actual_stop_and_Source_erratum": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hood-r2-independent-actual-unsaved-oracle-stop-review.json",
+      "sha256": "b40096ced665e622ab0b5d0936ac7a4bb7a315407443cb7bf509e7991a507539"
+    },
+    "prior_R3_diagnostic_Source": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hood-r3-independent-correct-diagnostic-source-review.json",
+      "sha256": "8865efa1bb9045f463880c86e11c98904e91bdf9b0db937b6c479dc49463a0bb"
+    },
+    "prior_R3_actual_full_unsaved_PASS": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hood-r3-independent-actual-unsaved-positive-review.json",
+      "sha256": "37645554932b1acd1abdb5e96bcec7f243a3f8c9e41ae01d9bbd0a9c174141cf"
+    },
+    "prior_R3_actual_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b816-hood-r3-native-unsaved-cost-prevention\\receipt.json",
+      "sha256": "9dc1ed52f1949f1ed853793b43d3bf70a38291484f8dda27e001de2fb403fb85"
+    },
+    "prior_R3_actual_results": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch816-hoodwink-original-correct-probe-r3.recording-results.json",
+      "sha256": "8350e715a7a47be015fa2cc258285909618907971c64da2165aa5f997b6b5363"
+    },
+    "explicit_Root_promotion_decision": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hoodwink-blue-real-hand-self-discard-zero-extras-three-arcane-prevention-positive-author\\EXPLICIT_ROOT_PROMOTION_DECISION.json",
+      "sha256": "61b5522dfaaf1aa1924e0744e26828570b1d9ca23ea880025a489f31d43af56f"
+    },
+    "fresh_positive_Source": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch816-hood-promoted-independent-correct-positive-source-review.json",
+      "sha256": "a2511c5bf748eaa10d36f68465dcbd15d64f0641a0185c61138d2585e94ec055"
+    },
+    "original_other_card_cost_menu_concern_resolved_by_mandatory_self_set_normalization": true,
+    "Root_required_correct_no_save_probe_executed": true,
+    "R2_review_missed_legitimate_SEA_blue_grave_marker": true,
+    "R2_stopped_at7inputs_527queries_only_no_shield_success_claim": true,
+    "complete_applicable_hook_derivation_and_R3_correction_preceded_successful_fullprobe": true,
+    "no_source_fix_or_gameplay_bug_claim": true,
+    "diagnostic_remains_unsaved_and_immutable": true,
+    "fresh_normal_Saved_is_separate": true
+  }
+}

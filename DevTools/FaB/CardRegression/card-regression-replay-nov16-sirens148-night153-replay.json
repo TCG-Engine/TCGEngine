@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-sirens148-night153-after-targetless-ar.json",
+  "runtime_sha256": "909ac241f6812f72ef0d7db16e48f1a64d945f56cdd3add969b9f52686dc4376",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T20:17:16.661269+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sirens-call-red-four-live-real-blue-hand-defender-draw-and-one-damage",
+      "fixture_sha256": "a185d54891acec63dbdf3cd6fc4eb30a554cd5479ddb78aee92a090c5db03dad",
+      "passed": true,
+      "result": "[PASS] sirens_call_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-nights-embrace-blue-four-live-original-correct-stealth-plus-one-physical-damage-diagnostic",
+      "fixture_sha256": "b98049ef0d99c669cff00490baf7edc998a4c0dca74613fe5a9c319b8b0d01fe",
+      "passed": true,
+      "result": "[PASS] nights_embrace_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sirens-call-red-four-live-real-blue-hand-defender-draw-and-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] sirens_call_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nights-embrace-blue-four-live-original-correct-stealth-plus-one-physical-damage-diagnostic",
+      "returncode": 0,
+      "stdout": "[PASS] nights_embrace_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

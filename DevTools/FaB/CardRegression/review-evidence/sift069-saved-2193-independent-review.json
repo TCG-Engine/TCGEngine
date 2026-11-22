@@ -1,0 +1,347 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_SIFT069_ONLY_EXISTING_REVIEWED_REST_RETAINS_HISTORICAL_CLOAK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T14:58:30.371166+00:00",
+  "source_spec": "card-regression-batch279.json",
+  "input_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+  "manifest_sha256": "9bb1d6dbd3810ae72185d820b65ca6dd994774094bca125bebea1a1fd684490a",
+  "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "recorded_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "source_guards_verified": 16,
+  "source_guard_rebinds": [
+    {
+      "target": "FaBSim/Custom/GameLogic.php",
+      "historical_sha256": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+      "current_sha256": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23"
+    },
+    {
+      "target": "FaBSim/Custom/MONCards.php",
+      "historical_sha256": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+      "current_sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f"
+    },
+    {
+      "target": "FaBSim/Custom/ARCCards.php",
+      "historical_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+      "current_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f"
+    }
+  ],
+  "prior_independent_spec_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch279-independent-source-review\\review.json",
+    "sha256": "e4b6e4d40af2ea0b53661baaf8f3068a090e2e616484f17773336c43b5b73279",
+    "historical_runtime": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "prior_independent_union_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-065069-six-id-union-independent-source-review.json",
+    "sha256": "603e308bae27e380c4b49fb175fc0eb4727e50ac7480f79328bfb3d4e3855152",
+    "new_source_review_claimed": false
+  },
+  "source_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-065069-lifecycle-source-application\\receipt.json",
+    "sha256": "a520563c205dfd263b1616e39448560030f1f3db35d14b53f33ad6c501d96c5d"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch279-20261103T144954Z-6ae9f492c480f.json",
+    "sha256": "aef2c8772b638c1f979fcea110da7454f19a731997491f4d79d4bc6519f03fec"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-sift069-native-after-lifecycle-r1\\receipt.json",
+    "sha256": "ad03e4512e07deea80504dabdb0807d02a9c6920b1b4e4dc9f2f5cf2928d53b3"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-sift069-independent-saved-review\\audit_saved.py",
+    "sha256": "d9b23d029f4bc7ef82db090a1243dbb16054b795dda3a57e97376362d9bc0671"
+  },
+  "reviewer_independence": "OriginalSiftprobe authoredbySparse; selectedSift3sourceextension originalRootproposal withindependentMeta/Sparseapprovals. Reviewer only originalindependentprobepeer/mechanicalunionpreparation, notauthoroforiginalSiftprobeorSift-onlyrepair.",
+  "registration_mode": "--existing-reviewed-rest",
+  "fixtures": [
+    {
+      "index": 1,
+      "card_id": "sift_red",
+      "slug": "card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+      "source_spec": "card-regression-batch279.json",
+      "input_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "recorded_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+      "fixture_sha256": "a2a712ec6108484c8dd1d706afc5287cbe6488f12fc21570bb3a4f43910809aa",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "1c23275d41115644fbf59f34c57e832a00c78bea7d56cd868411ce2380558903",
+        "actions.json": "4d57fcc6f91f2d93d0b31169eea2df078d4f10f21ce2931e80b7209f9295e22c",
+        "assertions.json": "7d68d3f231864d658b7bbacd24dc09d5c08b139fa031fa0862380daabbee943b",
+        "expected_final_gamestate.txt": "1d22c67f1fcc5e9e7d60332a34f2bcfc774435df2037cc33f73491f8a567e1a2"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1c23275d41115644fbf59f34c57e832a00c78bea7d56cd868411ce2380558903",
+        "actions.json": "4d57fcc6f91f2d93d0b31169eea2df078d4f10f21ce2931e80b7209f9295e22c",
+        "assertions.json": "7d68d3f231864d658b7bbacd24dc09d5c08b139fa031fa0862380daabbee943b",
+        "expected_final_gamestate.txt": "1d22c67f1fcc5e9e7d60332a34f2bcfc774435df2037cc33f73491f8a567e1a2",
+        "meta.json": "84207c875dc1d86135f8580524aa613c121f7807e4df383f53a58260bd402df1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1c23275d41115644fbf59f34c57e832a00c78bea7d56cd868411ce2380558903",
+        "actions.json": "4d57fcc6f91f2d93d0b31169eea2df078d4f10f21ce2931e80b7209f9295e22c",
+        "assertions.json": "7d68d3f231864d658b7bbacd24dc09d5c08b139fa031fa0862380daabbee943b",
+        "expected_final_gamestate.txt": "1d22c67f1fcc5e9e7d60332a34f2bcfc774435df2037cc33f73491f8a567e1a2",
+        "meta.json": "84207c875dc1d86135f8580524aa613c121f7807e4df383f53a58260bd402df1"
+      },
+      "actions": 34,
+      "native_assertions": 3079,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "sift_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "scar_for_a_scar_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "scar_for_a_scar_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sift_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 36,
+      "checkpoint_assertion_mapping_sha256": "2561f69dbd3267feea749b4b81d8b3c0b7b2b1068f0b6ef26c8ba81a5eb5a160",
+      "native_action_mapping_sha256": "05de26765befbf40b2f9cb5efcc3925c93c8f16870c8ace88f8db23fd6dc9f1d",
+      "native_assertion_mapping_sha256": "899965e31b88099f086988ed5dd663d4e6301f3ee3c2b15b94a18eedb7b67b16"
+    }
+  ],
+  "blocked_attempts": [],
+  "existing_reviewed_rest": [
+    {
+      "slug": "card-spell-fray-cloak-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "existing_source_spec": "card-regression-batch279.json",
+      "existing_review_evidence": "review-evidence/b279-cloak-saved-0d87-independent-review.json",
+      "existing_review_evidence_sha256": "b371311515dfb65d75cf90e25cb9de460370471467fb549ba28efe5dec7ae117",
+      "existing_fixture_sha256": "55743024d5747b80f19a150fff31a7760d740367fe3aed2719ddcce961a7a5fb",
+      "re_reviewed": false,
+      "replayed": false,
+      "retagged": false,
+      "new_coverage_credit": false
+    }
+  ],
+  "total_actions": 34,
+  "total_native_assertions": 3079,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "review_method": "Reuse exactindependentprinted/source model. Mapall34actualactions/3079assertions, parsefullrawfive/endpoints/allUIDownercontroller/manualhealthassets andevaluateeveryterminalassertion. ExistingCloakreviewrow metadata referencedonly; nooldfixture rereview/replay/currentruntimecredit.",
+  "material_findings": [
+    "Actual Sift5Action0 spendsinitialAP1; fourfresh1/2/3/4 source responses. Same5Stack/ownGY0/AP0 throughactualMZMULTICHOOSE; originalHand6/7/8 andDeck9/10/11unchanged, no prematureGA/sourceclear.",
+    "Actualchoice selects originalHand6/7, bottomsinorderbelowremainingDeck11, then drawsoriginalDeck9/10. ActualresultHand8/9/10 andDeck11/6/7; onlythen5ownGY andprintedGA/AP1. Neither deckproxy/copy/nor RNG normalization. Nativechooser0|3 selects2of3, noothercount branch.",
+    "NewlydrawnactualRaging9 isthen reallyplayed: normalP4targetdeclaration beforemovement/AP, realoriginalBlue8pitch3 paysprinted3 andearnedAP1, R0AP0. Actual9Chainpower7/noGA, fullfour-livecombat/emptyP4finish andallmanualroundsdeal7/P4HP13. DeckBlue11staysunplayed, distinguishesidenticalBluecardUIDs.",
+    "Fullyparsedfinal sameoriginal1-11 conserved: ownedpublicGYset5,9/Pitch8/Hand10/exactDeck11,6,7, Counter11/Random0/noNewObjects. Allfourheroesready/live/manual48preferencesateachendpoint; allStack/chains/DQs/payment/manager/awaitframesclear, nofollowthroughGA/APrefund.",
+    "HistoricSpellFrayCloak remainsitsalreadyregistered0d-era proof; not re-reviewed/replayed/retagged, and notlistedasanewfixture. Noothercase/Prognosticate/sibling/controlcredit."
+  ],
+  "limits": [
+    "OnlyRed/ownedAction/actual2chosenof3/2physicaldraw/sourcehelduntilchoice/GAonlycompletion/paidrealAAfollowthrough/fullcleanup. Nozero/maxcount/otherpitches/Instantform/foreignowner/suppression/elimination/source-removal/fullcard/supportprimary/controlcredit.",
+    "Intermediate evidence is completednativeledger and unchangedsource path, notextra per-inputsnapshots. Roottwofocusedreplays/registrationremainseparate.",
+    "NoPHP/native/R/source/generator/service/fullsuite/oldfixturereplay byreviewer."
+  ]
+}

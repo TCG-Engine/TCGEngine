@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch783-kimono.json",
+  "runtime_sha256": "0a5d4bf40e91dfeeafc2589480fa480630b3b5b32887dfb438e10964a5fc00eb",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T04:30:46.306949+00:00",
+  "fixtures": [
+    {
+      "slug": "card-kimono-of-layered-lessons-four-live-real-three-chi-face-up-plus-one-counter-actual-two-defense",
+      "fixture_sha256": "df4f8190e36f021049e88b8981a9f95342b74796fb72872f58f8e5275bf411da",
+      "passed": true,
+      "result": "[PASS] Kimono of Layered Lessons / real Chi and counter used for two defense"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-kimono-of-layered-lessons-four-live-real-three-chi-face-up-plus-one-counter-actual-two-defense",
+      "returncode": 0,
+      "stdout": "[PASS] Kimono of Layered Lessons / real Chi and counter used for two defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

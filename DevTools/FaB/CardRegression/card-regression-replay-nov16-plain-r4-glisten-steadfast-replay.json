@@ -1,0 +1,41 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-plain-lifecycle-r4-glisten-remembrance-steadfast.json",
+  "runtime_sha256": "f38a58153b69f41e5ee2a04b7375705d8736abac8c12d3e68117ed58cfbdf4b5",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T21:29:34.299403+00:00",
+  "fixtures": [
+    {
+      "slug": "card-glisten-yellow-four-live-original-correct-resolving-source-retained-through-two-weapon-counter-choices",
+      "fixture_sha256": "4a717e7312a5b090b765c12d4dc71597664611ad704e423a19736dea2ce2d811",
+      "passed": true,
+      "result": "[PASS] glisten_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-steadfast-red-four-live-correct-paid-source-choice-prevents-six-of-real-seven",
+      "fixture_sha256": "7b14e96a407cd05a81185b8178965eb1a8f1e48114cc2997e0995907ed3cdf58",
+      "passed": true,
+      "result": "[PASS] steadfast_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-glisten-yellow-four-live-original-correct-resolving-source-retained-through-two-weapon-counter-choices",
+      "returncode": 0,
+      "stdout": "[PASS] glisten_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-steadfast-red-four-live-correct-paid-source-choice-prevents-six-of-real-seven",
+      "returncode": 0,
+      "stdout": "[PASS] steadfast_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

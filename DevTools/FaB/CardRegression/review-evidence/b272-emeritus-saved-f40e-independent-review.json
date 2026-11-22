@@ -1,0 +1,215 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_HEALTHY_SUBSET_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T01:00:32.500419+00:00",
+  "source_spec": "card-regression-batch272.json",
+  "input_sha256": "b1158a049556d4e66ce4f22ec21719d502d201ca11be7b7d21dcc26c4fe29e8d",
+  "manifest_sha256": "5a6bb0cc9989ddd83114e024a6d06251d49b735fbe165bb2c6036b4b4f13a301",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "recorded_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch272-independent-source-review.json",
+    "sha256": "b7975044fd2fcddd5edf300724003e77b6978f0de751f0f240ce84c3c583c07d"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch272-20261103T005417Z-6ae930b93c296.json",
+    "sha256": "0afeac0e35ea25df9e10d8ed392a9cc22292aa3e2df1613446236fa58b41ead6"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch272-native-r1\\receipt.json",
+    "sha256": "92ca83ca016ed6df2c2341900dbefe5df9c5501af47337f7e2042a1909e79f41"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch272-emeritus-independent-saved-review\\audit_saved.py",
+    "sha256": "6a955a6fffe2cc7a48a2033b886500135befe96b6ced1385faa0fc64dc6677b2"
+  },
+  "review_method": "Source approval reused. Exact every actual native action and all persisted assertions against approved healthy subset; strict complete schema snapshot parse, every physical endpoint card/UID/owner/controller/economy/manual preference, terminal assertion evaluation, raw4/raw5 stability. No game/model/PHP/native/backend/R writes or replay.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "emeritus_scolding_blue",
+      "slug": "card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+      "source_spec": "card-regression-batch272.json",
+      "input_sha256": "b1158a049556d4e66ce4f22ec21719d502d201ca11be7b7d21dcc26c4fe29e8d",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+      "recorded_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+      "fixture_sha256": "deb4442e4daa2337c0d271a19fe4041bd30b0ca94bbe4e2491791d7cfc4d7320",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "cdf5b2f5973e4ded8ffea1b52ac892d2d3ae8d96f4effa043bf3c8e2b22dbae8",
+        "actions.json": "8914694307a58f5070278607386651377cad3c1c5bb0c8207f5babfd26c76def",
+        "assertions.json": "08f3a438ad2f2b0d8684c356f16d7b68cf8e6c61b6aa7bb912f686765a10dd6b",
+        "expected_final_gamestate.txt": "f702f772d3f58602fd747138573762cd4ab2fdd0e35b6675d67caf76821e3aad"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cdf5b2f5973e4ded8ffea1b52ac892d2d3ae8d96f4effa043bf3c8e2b22dbae8",
+        "actions.json": "8914694307a58f5070278607386651377cad3c1c5bb0c8207f5babfd26c76def",
+        "assertions.json": "08f3a438ad2f2b0d8684c356f16d7b68cf8e6c61b6aa7bb912f686765a10dd6b",
+        "expected_final_gamestate.txt": "f702f772d3f58602fd747138573762cd4ab2fdd0e35b6675d67caf76821e3aad",
+        "meta.json": "7361b2bdb66abdac966c041a665bb35b9fd5cbeae61d9b3771515c0c7987d8e0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cdf5b2f5973e4ded8ffea1b52ac892d2d3ae8d96f4effa043bf3c8e2b22dbae8",
+        "actions.json": "8914694307a58f5070278607386651377cad3c1c5bb0c8207f5babfd26c76def",
+        "assertions.json": "08f3a438ad2f2b0d8684c356f16d7b68cf8e6c61b6aa7bb912f686765a10dd6b",
+        "expected_final_gamestate.txt": "f702f772d3f58602fd747138573762cd4ab2fdd0e35b6675d67caf76821e3aad",
+        "meta.json": "7361b2bdb66abdac966c041a665bb35b9fd5cbeae61d9b3771515c0c7987d8e0"
+      },
+      "actions": 10,
+      "native_assertions": 780,
+      "actual_manual_passes": 7,
+      "actual_priority_response_passes": 7,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "actual_source_response_actors": [
+        4,
+        1,
+        2,
+        3
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "iyslander",
+          "zone": "p4Hero"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand"
+        },
+        "5": {
+          "card_id": "emeritus_scolding_blue",
+          "zone": "p4Arsenal"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "iyslander",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "emeritus_scolding_blue",
+          "zone": "p4Graveyard"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch"
+        }
+      },
+      "final_health": [
+        16,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 12,
+      "checkpoint_assertion_mapping_sha256": "a4ec88372fdec4fb8cc89e3e75a59d39caf2672fa872dd7619e23e25ac91ffb2",
+      "native_action_mapping_sha256": "80d939e769e5d7cb3f8fb5d39bc776e71ea172263d3513422f472dd2de44c770",
+      "native_assertion_mapping_sha256": "f632d4c28a662dd204ccd48390179c18d6be95bcaca984e1559cf12508fd9e1c"
+    }
+  ],
+  "total_actions": 10,
+  "total_native_assertions": 780,
+  "total_manual_passes": 7,
+  "total_priority_response_passes": 7,
+  "total_defender_declaration_finish_inputs": 0,
+  "excluded_probe": {
+    "card_id": "flic_flak_red",
+    "status": "BLOCKED_OR_INCORRECT_NO_FIXTURE",
+    "actual_attempted_actions": 48,
+    "error": "Expected p4CombatChain-0.TurnEffects to equal '[\"WTR_DEFENSE:2\"]', got '[]'.",
+    "coverage_credit": false
+  },
+  "material_findings": [
+    "Actual three ACTION priority passes1/2/3 give P4 legal out-of-turn priority; real Iyslander18 BlueArsenal5 plays as Instant, declares adjacentP1 before resource funding.",
+    "Actual Blue6 pitch3 pays2 leavingP4R1/AP0, P1AP1 unspent. Physical5 remainsStack for actual responders4/1/2; fourth3 resolves4arcane toP1HP16 rather than own-turn2. Non-Ice Wizard spell creates no Frostbite.",
+    "Actual same5 publicP4GY/Blue6Pitch, all remaining physical zones empty, no combat/Stack/queues/awaitframes/payment. Four actual ready heroes remain16/20/20/18 with all manual preferences."
+  ],
+  "limits": [
+    "One healthy Emeritus Blue out-of-turn Arsenal/Iyslander branch only. No own-turn/base2/Kano/barrier/Spellvoid/Ice/Frostbite/awaited-spell/sibling/support/full-card/control credit.",
+    "Mixed root process exited1 solely because Flic strict probe subsequently failed; Flic48-input failed result has no fixture/coverage. This approval certifies only saved Emeritus10/780.",
+    "Two focused clean creation replays and registration remain root responsibility before coverage qualification."
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-flic-flak-red-four-live-correct-rule-probe-real-reaction-then-next-combo-defends-with-plus-two",
+      "card_id": "flic_flak_red",
+      "semantically_approved": false,
+      "approved": false,
+      "fixture_saved": false,
+      "actual_attempted_actions": 48,
+      "error": "Expected p4CombatChain-0.TurnEffects to equal '[\"WTR_DEFENSE:2\"]', got '[]'.",
+      "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch272-20261103T005417Z-6ae930b93c296.json",
+      "archive_sha256": "0afeac0e35ea25df9e10d8ed392a9cc22292aa3e2df1613446236fa58b41ead6",
+      "input_sha256": "b1158a049556d4e66ce4f22ec21719d502d201ca11be7b7d21dcc26c4fe29e8d",
+      "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+      "coverage_credit": false
+    }
+  ],
+  "schema_only_revision": {
+    "original_proof": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch272-emeritus-independent-saved-review\\review.json",
+    "original_sha256": "4554714d99c2add70e49553c13dffd10b6a5122438c852faf11c1a0397b1acaf",
+    "change": "Added required installer-compatible blocked_attempts list; every existing approval, raw4/raw5, evidence binding and scope unchanged. No re-review or native execution."
+  }
+}

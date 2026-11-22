@@ -1,0 +1,251 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B448_MALIGN_UNPREVENTABLE_VERSUS_STATIC_ZEN_GROUP",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T10:40:51.144394+00:00",
+  "source_spec": "card-regression-batch448.json",
+  "input_sha256": "daea808fef978e12cc7fb667e279005975d94483c0c46adb12a12e398cd891ce",
+  "manifest_sha256": "36a1b139b11aef9633970d765be95724f69f1823dd7edfffedfa7a13d8c9bd06",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch448-independent-source-review.json",
+    "sha256": "adef6b74a6bf1768ade1977a491432a8c3f7c6404b77943a699fcab0d52b8c64",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch448-20261105T103745Z-6aec5c79945a8.json",
+    "sha256": "d863c0858752dc2764b2acb47c2577f313f1adc87974b2af011b60367a72816b"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch448.recording-results.json",
+    "sha256": "a06adbc53304bcf5655e59c8ec0711d78f7b17f406945f214ef7d1c4b41bbdad"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch448-native-r1-9e984\\receipt.json",
+    "sha256": "0fa07090dd5bdd33ab143802c8ab1b0a939a5655c6554202638a6197960e5103"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "malign_red",
+      "group_id": "pitch-cycle:malign",
+      "slug": "card-malign-red-four-live-real-unpreventable-three-damage-despite-owned-zen-state-prevention",
+      "source_spec": "card-regression-batch448.json",
+      "input_sha256": "daea808fef978e12cc7fb667e279005975d94483c0c46adb12a12e398cd891ce",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_PARTIAL_BRANCH_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-malign-red-four-live-real-unpreventable-three-damage-despite-owned-zen-state-prevention",
+      "fixture_sha256": "91999434fc7466a03ecb599d09f58368c02097eb10d3aebd17254ab7b80a2ae1",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8ff39c6d3bc00122b8241034eb61a4b8dcdbdb2d9195fd5ec9f21c3ef0dfe03f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "8cf2a88e5d5af9677566f82bb06900e0d8bd98fbef3bab1f395d370c1c8e992c",
+        "expected_final_gamestate.txt": "f9c1c2d993b823e777c3004d0d5109d7c0fee0054e973c963a4bb047a769af7e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ff39c6d3bc00122b8241034eb61a4b8dcdbdb2d9195fd5ec9f21c3ef0dfe03f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "8cf2a88e5d5af9677566f82bb06900e0d8bd98fbef3bab1f395d370c1c8e992c",
+        "expected_final_gamestate.txt": "f9c1c2d993b823e777c3004d0d5109d7c0fee0054e973c963a4bb047a769af7e",
+        "meta.json": "5618e1a28c206a71616ae926e03d9347e17d336d72d16b7752aa95903ce01493"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8ff39c6d3bc00122b8241034eb61a4b8dcdbdb2d9195fd5ec9f21c3ef0dfe03f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "8cf2a88e5d5af9677566f82bb06900e0d8bd98fbef3bab1f395d370c1c8e992c",
+        "expected_final_gamestate.txt": "f9c1c2d993b823e777c3004d0d5109d7c0fee0054e973c963a4bb047a769af7e",
+        "meta.json": "5618e1a28c206a71616ae926e03d9347e17d336d72d16b7752aa95903ce01493"
+      },
+      "actions": 27,
+      "native_assertions": 2195,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 546,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "malign_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "katsu",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "zen_state",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "malign_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "katsu",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "zen_state",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "d7ff56c9dbef83ffe3f79358e8250545372f891670c68cd274016bda1c22e79e",
+      "native_action_mapping_sha256": "c19781ac27eb8b2b4c244f3102ab635b9cdacabde02d52e1992f1dd7be31b9db",
+      "native_assertion_mapping_sha256": "66d919c5d6855370c1784d0afb319b11a2a5daeb0ab8ab245916f34189e70453"
+    }
+  ],
+  "total_actions": 27,
+  "total_native_assertions": 2195,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 546,
+  "material_findings": [
+    "Allrawfivefiles/27actualenvelopes/2195orderedchecks/546properties matchunchangedapprovedinput.25manual=24priorityresponses+oneP4finish/actors6,6,6,7;48rawmanualsettingsbothendpoints/all69guards/actual9verified.",
+    "ActualMalign5HandadjacentP4targetbeforecost0/AP1->0, fresh1/2/3/4 thennativecurrent3/noGA; realunblockedphysical3damage/P4HP17 despitephysicalZen6continuouslypresentwithOwnerCtl4/BALANCE1. Damage3distinguishesordinaryZen1preventionoutcome2/HP18; no preventionchoice/newABI/activation occurred.",
+    "SameentirerawZen6Arena4object isbytevalue-equivalentinitial/final: readyStatus2/Damage0/Owner4/Controller4/encodedBALANCE1/emptyTurnEffects. Initialpriorlawfultokenbaselineonly, nocreationorupkeepcrossing; noWard/destruction/additionalpreventionmodificationcredit. OldArakniContractandKatsuownAAhitconditionsunearned.",
+    "Fullfinalraworiginal1..6conserved: same5publicownGY1/same6Arena4/allheroesrawunchanged/allHandsDeckPitchotherzonesStackChainsDQpaymentawaitclear, allRAPChi0/otherHP20/counter6/RNG0/noextraobjects. ActualonlyMalignP1cardplay/hit5; no residualNEXTgrant orHeroactivation."
+  ],
+  "setup_provenance_limit": "IndependentlyassessedlawfulpriorNinjatoken/BALANCE1stateonly. No claimthatB425creationactions/currentfixturewereexecutedhere or thatthepriorFindCenterrouteisnewlyqualified.",
+  "limits": [
+    "OneRedintrinsicunpreventable-vs-Zenstaticprevention/actual3damagebranchonly. NoWard/destroy/Spellvoid/arcane/otherpreventionadditionalmodifications/Stealthconsumer/Hero/Zencreation/upkeep/supportprimary/otherpitches/fullcardcredit.",
+    "Intermediatefacts are completednativeassertions/actionsequence; onlyinitial/finalrawsnapshotscomplete. HistoricalcachedDecisionQueueVariables aftercleanup isnotaliveobject; opaqueVersions omittedfromcurrentinventory.",
+    "Roottargetedreplays/registration separatereceipts, notclaimedhere. No PHP/native/replay/R/source/service/gen/fullsuite/remote or deniedrepairretry/integration byreviewer."
+  ],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch448_saved_readonly.py",
+    "sha256": "aa6a8d4911becb0fe77943708b64e598a65e00de7de503aaa640d60f1319bd9b"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

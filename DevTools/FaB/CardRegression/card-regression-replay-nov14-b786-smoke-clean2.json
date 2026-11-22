@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch786-smoke-full.json",
+  "runtime_sha256": "da6a28d4f37f0df8c980b161bc1341e3bd7a79cacdecfd0329303bdf55fbb295",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T06:34:23.607870+00:00",
+  "fixtures": [
+    {
+      "slug": "card-smoke-out-red-four-live-responseable-red-defend-mark-three-defense-one-damage",
+      "fixture_sha256": "62651d1360a7a1401de664fde5d8a9f5b4c2db937c9dcb1bfd6161768f86b46e",
+      "passed": true,
+      "result": "[PASS] Smoke Out / responseable mark and real three defense"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-smoke-out-red-four-live-responseable-red-defend-mark-three-defense-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Smoke Out / responseable mark and real three defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

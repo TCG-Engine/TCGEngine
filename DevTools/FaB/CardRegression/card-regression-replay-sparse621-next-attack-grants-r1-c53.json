@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch621-next-attack-grants.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T16:38:25.546735+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sworn-vengeance-blue-four-live-real-next-attack-grant-and-opposing-ally-damage",
+      "fixture_sha256": "a68a4532b1be75095a827318a0c3da7aab137b6598e45a8d5e4ea7394ce58c28",
+      "passed": true,
+      "result": "[PASS] sworn_vengeance_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-yo-ho-ho-blue-four-live-real-next-attack-grant-and-opposing-ally-damage",
+      "fixture_sha256": "0c9486d8b9d308edd46ea2310b4e9bec669fc2458f13133ea72aa7b60193597f",
+      "passed": true,
+      "result": "[PASS] yo_ho_ho_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sworn-vengeance-blue-four-live-real-next-attack-grant-and-opposing-ally-damage",
+      "returncode": 0,
+      "stdout": "[PASS] sworn_vengeance_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-yo-ho-ho-blue-four-live-real-next-attack-grant-and-opposing-ally-damage",
+      "returncode": 0,
+      "stdout": "[PASS] yo_ho_ho_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

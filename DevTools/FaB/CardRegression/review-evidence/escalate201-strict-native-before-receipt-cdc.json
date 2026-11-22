@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T13:15:49.011809+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "4ad51e5c692d858ff67097afb96f96a1931de4a4ba565f4ea81c60a4b28e729f",
+  "source_review_sha256": "08919d09204ed242dc906ee5b380d7b3b0dd8bbf8d8971c5fce50470fd0bdf79",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch867-escalate-opponent-draw-life-loss-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4102,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 17924,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p4Health to equal 20, got 19.",
+  "result_sha256": "99a1df1b6c79c062cb837d531da4708368c30cb55d1d26b31f8b4bd5e877db80",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4102,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 5,
+  "completed_utc": "2026-11-16T13:15:55.629176+00:00"
+}

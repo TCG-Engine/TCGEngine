@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch569.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T04:45:47.666491+00:00",
+  "fixtures": [
+    {
+      "slug": "card-big-bertha-blue-four-live-real-paid-mechanologist-boost-go-again-and-damage-consumer",
+      "fixture_sha256": "2071488aba087d153fa1bc639a711849c10ebddde0d22e79d1c02df8bb7cc4b4",
+      "passed": true,
+      "result": "[PASS] Big Bertha Blue / real paid Boost / go-again attack consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-big-bertha-blue-four-live-real-paid-mechanologist-boost-go-again-and-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Big Bertha Blue / real paid Boost / go-again attack consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

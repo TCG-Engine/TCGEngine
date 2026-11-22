@@ -1,0 +1,288 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B541_REAL_DEFENSE_AND_FIRST_TEMPER_COUNTER_SURVIVAL",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T23:41:18.687595+00:00",
+  "source_spec": "card-regression-batch541.json",
+  "input_sha256": "eb564181bd2c4fe8af716c5b524f96afce0fe0b60594d6ba93a8739f2a5c9921",
+  "manifest_sha256": "bdc94cdd24174067016bbc4e99a4496ea8705507b87005d922a502efc9d0b52c",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch541-independent-source-review.json",
+    "sha256": "810f74d9a6d3e7b02310a36e45985f8ddce30ab21ecc8d6a2f3ff91ff9004058",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch541-20261105T233821Z-6aed136df0d57.json",
+    "sha256": "67871222d7f5b014b5a13cc5319ec9539c7dab72c0d9cdb5920b81e10a4b218c"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch541.recording-results.json",
+    "sha256": "672d6d70b50c8e18874f3fd22bb8b4da8d0c739111630450a334eb19ecb666dd"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch541-native-r1-9e984\\receipt.json",
+    "sha256": "9253183e7f7f60f6a28fa78ec852dc2a366c6ad152e19cbdfb6d84a6adee9eab"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "helm_of_the_arknight",
+      "group_id": "identity:helm_of_the_arknight",
+      "slug": "card-helm-of-the-arknight-four-live-real-equipment-defense-and-first-temper-wear",
+      "source_spec": "card-regression-batch541.json",
+      "input_sha256": "eb564181bd2c4fe8af716c5b524f96afce0fe0b60594d6ba93a8739f2a5c9921",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_DEFENSE2_DAMAGE2_FIRST_TEMPER_COUNTER_AND_SURVIVAL",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-helm-of-the-arknight-four-live-real-equipment-defense-and-first-temper-wear",
+      "fixture_sha256": "6a3b3c4f2819aca2c51643be5fc207680d776363bee1f58360c6ed5f4d6d758e",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ccacb0739774b929629a3846695b845bfa32bd82ef2e7661b3ba2ef71e92f5d6",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "511cfd68bc0fcdc05cfe126081edb3ff1d0b66095813653942e9c9fff85ce64c",
+        "expected_final_gamestate.txt": "fd170725298a9a5887ae3b1fa00120a94cf9d26c03ba013f48e1fb975a15811c"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ccacb0739774b929629a3846695b845bfa32bd82ef2e7661b3ba2ef71e92f5d6",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "511cfd68bc0fcdc05cfe126081edb3ff1d0b66095813653942e9c9fff85ce64c",
+        "expected_final_gamestate.txt": "fd170725298a9a5887ae3b1fa00120a94cf9d26c03ba013f48e1fb975a15811c",
+        "meta.json": "dbbfa2ba1f3241c9e2d23565c305018d51bb49a405c4b3218fe4e60c0d326ee8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ccacb0739774b929629a3846695b845bfa32bd82ef2e7661b3ba2ef71e92f5d6",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "511cfd68bc0fcdc05cfe126081edb3ff1d0b66095813653942e9c9fff85ce64c",
+        "expected_final_gamestate.txt": "fd170725298a9a5887ae3b1fa00120a94cf9d26c03ba013f48e1fb975a15811c",
+        "meta.json": "dbbfa2ba1f3241c9e2d23565c305018d51bb49a405c4b3218fe4e60c0d326ee8"
+      },
+      "actions": 28,
+      "native_assertions": 2283,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 553,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "viserai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "helm_of_the_arknight",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "viserai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "helm_of_the_arknight",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_defense": 2,
+      "actual_damage": 2,
+      "Helm5_final_Status": 2,
+      "Helm5_final_Damage": 0,
+      "Helm5_final_Counters": {
+        "DEFENSE": 1
+      },
+      "remaining_defense_derived_not_queried": 1,
+      "post_close_computed_defense_getter_claim": false,
+      "pre_close_counter_mutation_timing_certificate": false,
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "6e293335178655322727b0cca563a66b4ff7a0f063df2bd618177a665f63057a",
+      "native_action_mapping_sha256": "e5482a60d858e876286c1cdff4d188b6209ea09e21880ada18bde9f9969d6be9",
+      "native_assertion_mapping_sha256": "bb70a3bbae731b5f1cb8ce55389347226c6d6617ef99c64243d5f7c9bfe80549"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2283,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 553,
+  "material_findings": [
+    "Actual COMPLETE0/stderr0/one Saved fixture and specific immutable archive bind unchangedeb564 input/810f74 independent source review at9/all70guards. Exact raw5/all28 native envelopes/2283ordered checks/25manual(24responses+P4finish)/553properties and both endpoint48manualsettings/full physical UID inventory reconciled.",
+    "Real normalWounding6 Hand play targetsHero4, cost0 consumesAP1 beforefreshfour; actualphysical6Chain freshpower4/noGA. P4 real ownedHelm5 normalEquipmentblock becomes DEFENSE/FromEquipment/link1, remains same5 while defending. Actual damage boundary DEF2/damage2 and physicalP4HP18 require4minus2=2; no invented computed-defense API or cached-only damage claim.",
+    "FourResolution responses cross fullClose; no additional manual Close priority/response layer is claimed. Final raw sameHelm5 is ownedEquipment4 readyStatus2/FaceDown0/Damage0/TurnEffectsnone with exact decodedDEFENSE1; all other rawHelm fields match initial. This directly witnesses firstminusDEF counter and physicalsurvival, with remainingDEF1 derived fromprinted2minus1, not queried by an unsupported getter.",
+    "Final realattack6publicownGY1 and sameHelm5Equipment4 account for exact originalUID1..6/counter6/RNG0/RAP0/quietStackChainDQsawaitpaymentcombat. Quiet Hero objects unchanged, only actualP1AAplay/hit; defender declaration is notcardplay and earns no ViseraiRunechant, Doriweapon or Helmactivatedability.",
+    "Counter map is not separately pinned during every preclose checkpoint; this proof does not certify isolated earliest counter mutation timing. Prior static Close call order is reused, not re-audited. No secondblock/re-entry/zeroDEF destruction/thresholdmatrix/abilitysuppression/otherwear/support-primary/sibling/fullcard/nativecontrol or Root replay/registration credit. Opaque undo Versions hash-bound but excluded from current physical inventory."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AVS003-CF.webp",
+      "finding": "Publisher face independently viewed locally: Runeblade Head DEF2/Temper."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.1.4b",
+        "8.3.10"
+      ],
+      "finding": "Equipment can defend and Temper gives one minusDEF counter then zero-defense destruction."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2",
+        "7.3.2a",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4",
+        "7.7.5"
+      ],
+      "finding": "Defense declaration is not cardplay; automatic Close triggers precede return, with no player priority."
+    }
+  ],
+  "limits": [
+    "One realEquipmentDEF2/2damage/firstTemperONEcounter-survivalbranch only; nosecondblock/zeroDEFdestruction/matrix/fullcardcredit.",
+    "Closeautomaticresolution perCR7.7, nofreshmanualresponseinterposed; actualnegativeDEFcounter representationpin+physicalreturn native, remainingDEF1 independentlyderived.",
+    "NoMacroabsenceinference, genericTemperhelper/selectedBoltynCardsactualextra70thguard bound; OTHERpeer/native/Saved/replayspending.",
+    "No second block/re-entry/zeroDEF destruction/ability suppression/multiplechains/otherwear/arcane/prevention/Viserai activation/Runechant/support-primary/sibling/fullcard/nativecontrol credit.",
+    "Root native/exact Saved/two focused replays remain separate gates. No reviewer PHP/native/replay/R/source/candidate/fullsuite/denied operation.",
+    "Native meaningful outcome: actualDEF2/damage2 plus finalonecounter/physicalsurvival; remainingDEF1 arithmetic only, no earliest-preclose-counter or unsupported computedDEF certificate.",
+    "Root two focused replays/registration are separate and not claimed. No reviewer PHP/native/replay/R/source/candidate/fullsuite/denied operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch541_saved_readonly.py",
+    "sha256": "5dae9e5ee1b85006ac77a7b7195507bc8c51328622a8cee328dd4141565b1808"
+  }
+}
