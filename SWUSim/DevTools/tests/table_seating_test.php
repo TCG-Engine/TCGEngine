@@ -46,7 +46,7 @@ $check(SWUTableLayoutKind() === 'table4', 'a 4P Always Two game gets the table')
 $game('1234', ['SWU_MODE_TEAMS', 'SWU_MODE_ALWAYSTWO', 'SWU_ALWAYSTWO_SHARED_SEAT']);
 $check(SWUTableLayoutKind() === '', '1v1 Always Two keeps its own table until Phase 3');
 $game('123');
-$check(SWUTableLayoutKind() === '', 'a 3-seat game keeps the Home panels until Phase 2');
+$check(SWUTableLayoutKind() === 'table3', 'a 3-seat Twin Suns game gets the 3P table (Phase 2): ' . var_export(SWUTableLayoutKind(), true));
 $game('');
 $check(SWUTableLayoutKind() === '', 'a two-player game never gets the table');
 
@@ -65,6 +65,42 @@ $_GET['swuLayout'] = 'mobile';
 $check(SWUTableLayoutKind() === '', 'the forced phone layout (swuLayout=mobile) is a phone too');
 unset($_GET['swuLayout']);
 if ($ua === null) unset($_SERVER['HTTP_USER_AGENT']); else $_SERVER['HTTP_USER_AGENT'] = $ua;
+
+echo "ThreeSeatsOpponentsAcrossTheTop:\n";   // owner 2026-11-22: "[them1][them2] / [Me]", clockwise
+$three = [1 => $seat(1, 2, 0, 3), 2 => $seat(2, 3, 0, 1), 3 => $seat(3, 1, 0, 2)];
+foreach ($three as $v => $want) {
+    $got = SWUTableSeating($v, [1, 2, 3], false);
+    $check($got === $want, "3P P$v: " . json_encode($got));
+}
+$game('123');
+$GLOBALS['SWU_TABLE_SWITCH_OVERRIDE'] = ['table3' => false];
+$check(SWUTableLayoutKind() === '', 'switching table3 off restores the Home panels for 3-seat games');
+unset($GLOBALS['SWU_TABLE_SWITCH_OVERRIDE']);
+
+echo "PlayerChoosesHomePanels:\n";   // owner 2026-11-22: the "Home Panels Layout" toggle
+require_once __DIR__ . '/../../PlayerSettings.php';
+$game('1234');
+$_COOKIE['swuHomePanels'] = '1';
+$check(SWUTableLayoutKind() === '', 'cookie swuHomePanels=1: Home panels');
+$_COOKIE['swuHomePanels'] = '0';
+$check(SWUTableLayoutKind() === 'table4', 'cookie swuHomePanels=0: the table');
+$GLOBALS['SWU_TABLE_SWITCH_OVERRIDE'] = ['table4' => false];
+$check(SWUTableLayoutKind() === '', 'the toggle cannot turn the table ON where the owner switched it off');
+unset($GLOBALS['SWU_TABLE_SWITCH_OVERRIDE']);
+unset($_COOKIE['swuHomePanels']);
+$HP_UID = 987654323;
+$hpWipe = function () use ($HP_UID) { $c = GetLocalMySQLConnection(); $s = $c->prepare('DELETE FROM savedsettings WHERE playerId = ?'); $s->bind_param('i', $HP_UID); $s->execute(); $s->close(); $c->close(); };
+$hpWipe();
+$sess = $_SESSION['userid'] ?? null;
+$_SESSION['userid'] = $HP_UID;
+SWUSimSetSetting($HP_UID, SWUSIM_SET_HOME_PANELS, 1);
+$check(SWUTableLayoutKind() === '', 'account setting on, no browser choice: Home panels');
+$_COOKIE['swuHomePanels'] = '0';
+$check(SWUTableLayoutKind() === 'table4', 'account on but this browser chose the table: the browser wins');
+unset($_COOKIE['swuHomePanels']);
+$hpWipe();
+$check(SWUTableLayoutKind() === 'table4', 'account never set, no cookie: the table (default off)');
+if ($sess === null) unset($_SESSION['userid']); else $_SESSION['userid'] = $sess;
 
 echo "OwnerSwitch:\n";
 $check(SWUTableLayoutSwitch()['table4'] === true, 'the table is on for 4-seat games');

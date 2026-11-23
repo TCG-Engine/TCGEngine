@@ -6,10 +6,11 @@
 // through the table's targeting glue (GameLayoutShared.php).
 // Arenas: ground INSIDE (toward the left column), space OUTSIDE (owner, 2026-11-21) — so ground comes first in DOM here.
 // Included by GameLayoutMobile.php with $swuTbl = SWUTableClientConfig(viewer) in scope.
+// 3P (Phase 2): bottom seat 0 — the column holds the top board (them 2) ALONE: its bar, arenas and its two centre cells, nothing more.
 $rt = intval($swuTbl['seating']['right']['top']);
 $rb = intval($swuTbl['seating']['right']['bottom']);
 $viewerSeat = intval($swuTbl['seating']['left']['bottom']);
-$mate = SWUIsTeamGame() && SWUTeamOf($rb) === SWUTeamOf($viewerSeat);   // your teammate sits bottom-right in team games
+$mate = $rb > 0 && SWUIsTeamGame() && SWUTeamOf($rb) === SWUTeamOf($viewerSeat);   // your teammate sits bottom-right in team games
 $side = function (int $seat) use ($viewerSeat) { return (SWUIsTeamGame() && SWUTeamOf($seat) === SWUTeamOf($viewerSeat)) ? 'is-mine' : 'is-theirs'; };
 $bar = function (int $seat, string $row) {
     return '<div class="swu-m-band swu-tbar" data-seat="' . $seat . '"' . ($row !== '' ? ' data-trow="' . $row . '"' : '') . '>'
@@ -39,15 +40,19 @@ $arenas = function (int $seat, string $row, string $cls) {
     <!-- Leader/base cells in the left column's order — bottom leader, bottom base, top base, top leader — so the same ordering
          rules place them; the right column puts its bases on its LEFT (inside) edge. -->
     <div class="swu-m-centers swu-m-centers-row" data-trow="centers">
+<?php if ($rb > 0) { ?>
         <div class="swu-m-center <?php echo $side($rb); ?>" data-seat="<?php echo $rb; ?>"><div id="p<?php echo $rb; ?>LeaderSlot"></div></div>
         <div class="swu-m-center <?php echo $side($rb); ?>" data-seat="<?php echo $rb; ?>"><div id="p<?php echo $rb; ?>BaseHealth" class="swu-base-health"></div><div id="p<?php echo $rb; ?>BaseSlot"></div><div id="p<?php echo $rb; ?>BaseTabs" class="swu-base-tabs"></div></div>
+<?php } ?>
         <div class="swu-m-center <?php echo $side($rt); ?>" data-seat="<?php echo $rt; ?>"><div id="p<?php echo $rt; ?>BaseHealth" class="swu-base-health"></div><div id="p<?php echo $rt; ?>BaseSlot"></div><div id="p<?php echo $rt; ?>BaseTabs" class="swu-base-tabs"></div></div>
         <div class="swu-m-center <?php echo $side($rt); ?>" data-seat="<?php echo $rt; ?>"><div id="p<?php echo $rt; ?>LeaderSlot"></div></div>
     </div>
+<?php if ($rb > 0) { ?>
     <?php echo $arenas($rb, 'arena-bot', $side($rb)); ?>
     <!-- The bottom seat's hand: face-up for your 4P Always Two partner (the server sends it so), backs for everyone else. Read-only. -->
     <div class="swu-m-section <?php echo $side($rb); ?> swu-tbl-hand<?php echo $mate ? ' is-mate' : ''; ?>" data-seat="<?php echo $rb; ?>" data-trow="hand"><div id="p<?php echo $rb; ?>HandSlot" class="swu-m-scroll"></div></div>
     <div class="swu-m-footer-stack" data-trow="footer"><?php echo $bar($rb, ''); ?></div>
-    <div id="p<?php echo $rt; ?>ResourcesSlot" class="swu-tbl-res"></div>
     <div id="p<?php echo $rb; ?>ResourcesSlot" class="swu-tbl-res"></div>
+<?php } ?>
+    <div id="p<?php echo $rt; ?>ResourcesSlot" class="swu-tbl-res"></div>
 </div><!-- /swuTableRight -->

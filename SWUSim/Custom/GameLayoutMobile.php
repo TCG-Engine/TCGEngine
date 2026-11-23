@@ -824,7 +824,7 @@ $swuTbl = (function_exists('SWUTableLayoutKind') && SWUTableLayoutKind() !== '')
 $swuTblOn = $swuTbl['kind'] !== '';
 $tr = function (string $row) use ($swuTblOn) { return $swuTblOn ? ' data-trow="' . $row . '"' : ''; };
 ?>
-<div id="swuMobileRoot"<?php echo $swuTblOn ? ' class="swu-table"' : ''; ?>>
+<div id="swuMobileRoot"<?php echo $swuTblOn ? ' class="swu-table' . ($swuTbl['kind'] === 'table3' ? ' swu-table3' : '') . '"' : ''; ?>>
 <?php if ($swuTblOn) { ?><div class="swu-tcol" id="swuTableLeft" data-top="<?php echo intval($swuTbl['seating']['left']['top']); ?>" data-bottom="<?php echo intval($swuTbl['seating']['left']['bottom']); ?>"><?php } ?>
 
     <!-- ════════ THEIR control band: init (when they hold it) · resources · collapsed hand · piles ═══

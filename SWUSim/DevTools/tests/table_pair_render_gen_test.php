@@ -29,6 +29,8 @@ $check(strpos($gen, "SWURenderSeatPair(responseArr, window.SWUTableLayout.seatin
 $body = '';
 if (preg_match('/function SWURenderSeatPair\(.*?\/\* end SWURenderSeatPair \*\//s', $gen, $m)) $body = $m[0];
 $check($body !== '', 'the function body is marked (/* end SWURenderSeatPair */) so it can be inspected');
+// 3P (Phase 2): the right column holds them 2 ALONE — the call passes bottomSeat 0 and the renderer must skip it, not draw a seat 0.
+$check(str_contains($body, '[bottomSeat, topSeat].forEach(function (_s) { if (!_s) return;'), 'a falsy seat (3P: no bottom board) is skipped, not rendered');
 foreach ($zones as $zone => $slot) {
     $check(strpos($body, "PopulateZone('p' + _s + '$zone'") !== false, "$zone renders with a seat-named zone (p{n}$zone)");
     $check(strpos($body, "'p' + _s + '$slot'") !== false, "$zone renders into the seat-named slot p{n}$slot");

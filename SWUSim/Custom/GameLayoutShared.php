@@ -1823,6 +1823,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 }, 120);
             });
             var W = 'html.swu-table-wide ';
+            var N = 'html:not(.swu-table-wide) ', T3 = '#swuMobileRoot.swu-table.swu-table3';   // the 3-player table (Phase 2)
             var SB = (window.SWUTableLayout.sidebarW || 280) + 'px';   // the log/chat column's width (TableLayout.php SWUTableSidebarWidth)
             // Inside corners: left column bases on its RIGHT edge, right column bases on its LEFT edge. Centre cells in DOM order (both
             // columns): bottom leader, bottom base, top base, top leader — the top pair is the first line.
@@ -1890,6 +1891,48 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     + W + '.swu-tcol > .swu-m-centers-row > .swu-m-center{flex:0 0 calc(50% - 2px)!important;height:97px;box-sizing:border-box;align-items:center}'
                     + W + '.swu-tcol > .swu-m-centers-row > .swu-m-center:nth-child(n+3){background:rgba(var(--turn-theirs-rgb),0.05);box-shadow:inset 0 -2px 0 rgba(226,177,60,.55)}'
                     + ord('swuTableLeft', [3, 4, 2, 1]) + ord('swuTableRight', [4, 3, 1, 2])
+                    // ── 3 players (plan Phase 2; owner 2026-11-22: "[them1][them2] / [Me]") ─────────────────────────────────────────────
+                    // Same rows, re-flowed into ONE 4-column grid: the two columns and the centre rows become display:contents, so every row
+                    // (and each centre cell) is placed by itself. Them 1 = the left column's top board, them 2 = the right column's (it holds
+                    // nothing else). Your leader cards are lifted out of their slot too, so the two Twin Suns leaders sit either side of your
+                    // base, which is centred under the seam. Selectors stay on the original DOM (the generated render targets those ids).
+                    + T3 + ' > .swu-tcol,' + T3 + ' .swu-tcol > .swu-m-centers-row,' + T3 + ' #swuTableLeft .swu-m-centers-row > .swu-m-center:nth-child(1),'
+                    + T3 + ' #myLeaderSlot,' + T3 + ' #myLeaderWrapper,' + T3 + ' #myLeader{display:contents!important}'
+                    + T3 + '{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:0;row-gap:0}'
+                    + T3 + ' #swuTableLeft .swu-m-center:nth-child(4){grid-column:1/2}'        // them 1's leaders, outward
+                    + T3 + ' #swuTableLeft .swu-m-center:nth-child(3){grid-column:2/3}'        // them 1's base, inside
+                    + T3 + ' #swuTableRight .swu-m-center:nth-child(1){grid-column:3/4}'       // them 2's base, inside
+                    + T3 + ' #swuTableRight .swu-m-center:nth-child(2){grid-column:4/5}'       // them 2's leaders, outward
+                    + T3 + ' #swuTableLeft .swu-m-center:nth-child(3),' + T3 + ' #swuTableLeft .swu-m-center:nth-child(4),' + T3 + ' #swuTableRight .swu-m-center'
+                    + '{height:97px;box-sizing:border-box;align-items:center;background:rgba(var(--turn-theirs-rgb),0.05);box-shadow:inset 0 -2px 0 rgba(226,177,60,.55)}'
+                    + T3 + ' #myLeader-0{grid-column:1/2;justify-self:end;align-self:center}'
+                    + T3 + ' #myLeader-1{grid-column:4/5;justify-self:start;align-self:center}'
+                    + T3 + ' #swuTableLeft .swu-m-center:nth-child(2){grid-column:2/4;justify-self:center;width:calc(50% - 2px)!important;height:97px;box-sizing:border-box;align-items:center}'
+                    + T3 + ' #swuTableLeft > [data-trow="arena-bot"],' + T3 + ' #swuTableLeft > [data-trow="hand"],' + T3 + ' #swuTableLeft > [data-trow="footer"]{grid-column:1/5}'
+                    // Wide: one screen, fixed rows — bands · their arenas · their leader/base line · yours · your arenas · hand · footer.
+                    // ⚠ The 4-place wide rule sets display:flex at html.swu-table-wide weight — the grid must carry the same prefix to win.
+                    + W + T3 + '{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:56px minmax(0,1fr) 97px 97px minmax(0,1fr) calc(var(--swu-cardsize, 80px) + 24px) 62px}'
+                    + W + T3 + ' #swuTheirControlBand{grid-area:1/1/2/3}' + W + T3 + ' #swuTableRight > [data-trow="band"]{grid-area:1/3/2/5}'
+                    + W + T3 + ' #swuTableLeft > [data-trow="arena-top"]{grid-area:2/1/3/3}' + W + T3 + ' #swuTableRight > [data-trow="arena-top"]{grid-area:2/3/3/5}'
+                    + W + T3 + ' .swu-m-center[data-seat],' + W + T3 + ' #swuTableLeft .swu-m-center:nth-child(3),' + W + T3 + ' #swuTableLeft .swu-m-center:nth-child(4){grid-row:3/4}'
+                    + W + T3 + ' #myLeader-0,' + W + T3 + ' #myLeader-1,' + W + T3 + ' #swuTableLeft .swu-m-center:nth-child(2){grid-row:4/5}'
+                    + W + T3 + ' #swuTableLeft > [data-trow="arena-bot"]{grid-row:5/6}' + W + T3 + ' #swuTableLeft > [data-trow="hand"]{grid-row:6/7}'
+                    + W + T3 + ' #swuTableLeft > [data-trow="footer"]{grid-row:7/8}'
+                    // Narrow desktop window: them 1, them 2, then you, stacked — the page scrolls (as the 4-place table stacks).
+                    + N + T3 + '{display:grid!important;overflow-x:hidden!important;overflow-y:auto!important;'
+                    + 'grid-template-rows:56px 40vh 97px 56px 40vh 97px 97px 45vh auto 62px}'
+                    + N + T3 + ' #swuTheirControlBand{grid-area:1/1/2/5}' + N + T3 + ' #swuTableLeft > [data-trow="arena-top"]{grid-area:2/1/3/5}'
+                    + N + T3 + ' #swuTableLeft .swu-m-center:nth-child(4){grid-area:3/1/4/3}' + N + T3 + ' #swuTableLeft .swu-m-center:nth-child(3){grid-area:3/3/4/5}'
+                    + N + T3 + ' #swuTableRight > [data-trow="band"]{grid-area:4/1/5/5}' + N + T3 + ' #swuTableRight > [data-trow="arena-top"]{grid-area:5/1/6/5}'
+                    + N + T3 + ' #swuTableRight .swu-m-center:nth-child(1){grid-area:6/1/7/3}' + N + T3 + ' #swuTableRight .swu-m-center:nth-child(2){grid-area:6/3/7/5}'
+                    + N + T3 + ' #myLeader-0,' + N + T3 + ' #myLeader-1,' + N + T3 + ' #swuTableLeft .swu-m-center:nth-child(2){grid-row:7/8}'
+                    + N + T3 + ' #swuTableLeft > [data-trow="arena-bot"]{grid-row:8/9}' + N + T3 + ' #swuTableLeft > [data-trow="hand"]{grid-row:9/10}'
+                    + N + T3 + ' #swuTableLeft > [data-trow="footer"]{grid-row:10/11}'
+                    // The log/chat sidebar ends the narrow page at full width (it is in the root's flow here; auto-placed it took ONE column).
+                    + N + T3 + ' #swuSidebar{grid-column:1/-1}'
+                    // Your leaders are lifted out of #myLeaderSlot (display:contents draws no box), so the slot's eliminated-player grey
+                    // (body.swu-self-defeated #myLeaderSlot, above) never reaches them — the cards carry it here (final review).
+                    + 'body.swu-self-defeated ' + T3 + ' [data-mzid^="myLeader-"]{filter:grayscale(1) brightness(0.5)}'
                     + W + '#swuSidebar{position:fixed!important;top:0!important;right:0!important;bottom:0!important;'
                     + 'width:' + SB + '!important;height:auto!important;overflow:hidden!important;z-index:20;box-sizing:border-box;padding:10px 6px 10px 12px!important;'
                     + 'display:flex!important;flex-direction:column!important;background:rgb(8,12,18)!important}'
@@ -1907,6 +1950,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             window.swuTableRefreshBars = function () {
                 var s = window.SWUTableLayout.seating; if (!s) return;
                 [s.right.top, s.right.bottom].forEach(function (n) {
+                    if (!n) return;   // 3P: no bottom board in the right column
                     var raw = String(window['p' + n + 'ResourcesData'] || '');
                     if (tblResRaw[n] !== raw && typeof updateResCounterFromData === 'function') {
                         tblResRaw[n] = raw; updateResCounterFromData('p' + n + 'ResourcesData', 'swuTblRes' + n);
@@ -1955,6 +1999,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // What the left column shows for its bases, per right-column seat: tabs, health bar, the Extra Base HP pip.
                 var s = window.SWUTableLayout.seating;
                 [s.right.top, s.right.bottom].forEach(function (n) {
+                    if (!n) return;   // 3P: no bottom board in the right column
                     if (window.swuRenderBaseTabs) window.swuRenderBaseTabs('p' + n);
                     if (window.swuRenderBaseHealth) window.swuRenderBaseHealth('p' + n);
                     if (window.swuRenderBaseMaxHpPip) window.swuRenderBaseMaxHpPip('p' + n);
@@ -5712,6 +5757,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     window.swuSetHealthBarsHidden = swuSetHealthBarsHidden;
 
+    // "Home Panels Layout" (owner 2026-11-22). The server picks the layout BEFORE the page loads (SWUTableLayoutKind →
+    // SWUTableHomePanelsPreferred), so the browser layer is a COOKIE, not TCGSettings' localStorage; the account layer follows when
+    // signed in. Then the board reloads in the other layout. A choice still open on the board survives (it lives on the server).
+    window.swuSetHomePanels = function (on) {
+        try { document.cookie = 'swuHomePanels=' + (on ? '1' : '0') + '; path=/; max-age=31536000; SameSite=Lax'; } catch (e) {}
+        var go = function () { location.reload(); };
+        if (!window.SWU_LOGGED_IN) { go(); return; }
+        try {
+            var x = new XMLHttpRequest();
+            x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
+            x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            x.onloadend = go;   // the cookie alone decides this browser; wait only so the account is saved before leaving
+            x.send('action=setHomePanels&on=' + (on ? '1' : '0'));
+        } catch (e) { go(); }
+    };
+
     // "Reduce board animations" (owner 2026-10-09). Per-BROWSER only, like Card motion: what it fixes is
     // the device's cost (fans / laggy animation on a weak or GPU-less machine), so a player can turn it on
     // for that laptop without changing their desktop. Default follows the OS reduced-motion preference.
@@ -7789,6 +7850,12 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   $swuGearCardLang = SWUSimAccountCardLanguage($swuGearUid);
   // Turn off health bars: the ACCOUNT value, or null (guest / never set) — same null contract as mute.
   $swuGearHideHB = SWUSimAccountHideHealthBars($swuGearUid);
+  // "Home Panels Layout" (owner 2026-11-22): offered where there is something to switch — a 3/4-player game that is not 1v1 Always
+  // Two, on a desktop/tablet (phones always get the Home panels). Pre-checked from the server's own reading of the choice
+  // (SWUTableHomePanelsPreferred: this browser's cookie, else the account), since that is what picked this page's layout.
+  $swuGearHomePanelsRow = function_exists('SWUTableHomePanelsPreferred') && in_array(count(GetSeatOrderArray()), [3, 4], true)
+      && !(function_exists('SWUAlwaysTwoSharedSeat') && SWUAlwaysTwoSharedSeat()) && !(function_exists('SWUSimIsMobileRequest') && SWUSimIsMobileRequest());
+  $swuGearHomePanelsOn = $swuGearHomePanelsRow && SWUTableHomePanelsPreferred();
   $swuGearLogged = ($swuGearUid !== '' && $swuGearUid !== null && intval($swuGearUid) > 0);
 
   // Seat -> public username, for every seat whose player is LOGGED IN.
@@ -8071,6 +8138,10 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         <input type="checkbox" id="swuSetReduceBoardAnim"></label>
       <label class="swu-settings-row"><span>Turn off health bars</span>
         <input type="checkbox" id="swuSetHideHealthBars"></label>
+      <?php if ($swuGearHomePanelsRow): ?>
+      <label class="swu-settings-row" title="3–4 player games: show the Home panels instead of the table. Reloads the board."><span>Home Panels Layout</span>
+        <input type="checkbox" id="swuSetHomePanels"<?= $swuGearHomePanelsOn ? ' checked' : '' ?>></label>
+      <?php endif; ?>
       <?php if ($swuGearCos !== null): ?>
         <label class="swu-settings-row swu-settings-row--stack"><span>Background</span>
           <?= SWUCosmeticSelectHtml('background', $swuGearCos['background']['id'], 'swu-gear-cos') ?></label>
@@ -8332,6 +8403,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();
+      return;
+    }
+    if (e.target && e.target.id === 'swuSetHomePanels') {
+      // The layout is chosen server-side, so this saves the choice and reloads the board in the other layout.
+      if (typeof window.swuSetHomePanels === 'function') window.swuSetHomePanels(e.target.checked);
       return;
     }
     if (e.target && e.target.id === 'swuSetHideHealthBars') {
