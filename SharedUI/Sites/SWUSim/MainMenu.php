@@ -97,7 +97,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-pvp" style="--tint: var(--tint-pvp);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-pvp.webp" alt="" width="1200" height="1600" decoding="async">              
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-pvp.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Live play</span>
@@ -118,7 +118,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-twin-suns" style="--tint: var(--tint-duo);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">              
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Multiplayer</span>
@@ -143,7 +143,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-alternate" style="--tint: var(--tint-hg);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-highground.webp" alt="" width="1200" height="1600" decoding="async">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-highground.webp" alt="" width="1200" height="1600" decoding="async">
             </span>
             <span class="mode__body">
               <span class="mode__kind">Private rooms</span>
@@ -164,7 +164,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-arenabot" style="--tint: var(--tint-bot);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-arenabot.webp" alt="" width="1200" height="1600" decoding="async">              
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-arenabot.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Solo practice</span>
@@ -185,7 +185,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-limited" style="--tint: var(--tint-lim);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-limited.webp" alt="" width="1200" height="1600" decoding="async">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-limited.webp" alt="" width="1200" height="1600" decoding="async">
             </span>
             <span class="mode__body">
               <span class="mode__kind">Private room</span>
@@ -206,7 +206,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-solo" style="--tint: var(--tint-solo);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-1p.webp" alt="" width="1200" height="1600" decoding="async">              
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-1p.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Local play</span>
@@ -370,7 +370,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <div class="setup__scroll" tabindex="-1">
       <div class="setup__head">
         <span class="setup__tile ch" aria-hidden="true">
-          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-pvp.webp" alt="" width="1200" height="1600" decoding="async">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-pvp.webp" alt="" width="1200" height="1600" decoding="async">
         </span>
         <div class="setup__id">
           <p class="setup__kind">Live play</p>
@@ -469,7 +469,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <div class="setup__scroll" tabindex="-1">
       <div class="setup__head">
         <span class="setup__tile ch" aria-hidden="true">
-          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">
         </span>
         <div class="setup__id">
           <p class="setup__kind">Multiplayer</p>
@@ -584,7 +584,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <div class="setup__scroll" tabindex="-1">
       <div class="setup__head">
         <span class="setup__tile ch" aria-hidden="true">
-          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-arenabot.webp" alt="" width="1200" height="1600" decoding="async">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-arenabot.webp" alt="" width="1200" height="1600" decoding="async">
         </span>
         <div class="setup__id">
           <p class="setup__kind">Solo practice</p>
@@ -714,7 +714,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <div class="setup__scroll" tabindex="-1">
       <div class="setup__head">
         <span class="setup__tile ch" aria-hidden="true">
-          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-1p.webp" alt="" width="1200" height="1600" decoding="async">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-1p.webp" alt="" width="1200" height="1600" decoding="async">
         </span>
         <div class="setup__id">
           <p class="setup__kind">Local play</p>
@@ -782,7 +782,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <div class="setup__scroll" tabindex="-1">
       <div class="setup__head">
         <span class="setup__tile ch" aria-hidden="true">
-          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-highground.webp" alt="" width="1200" height="1600" decoding="async">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-highground.webp" alt="" width="1200" height="1600" decoding="async">
         </span>
         <div class="setup__id">
           <p class="setup__kind">Private rooms</p>
@@ -830,7 +830,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <div class="setup__scroll" tabindex="-1">
       <div class="setup__head">
         <span class="setup__tile ch" aria-hidden="true">
-          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-limited.webp" alt="" width="1200" height="1600" decoding="async">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/ic27-limited.webp" alt="" width="1200" height="1600" decoding="async">
         </span>
         <div class="setup__id">
           <p class="setup__kind">Private room</p>
@@ -2305,10 +2305,10 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
   var SETUP_ALIAS = { 'setup-highground': ['setup-pvp', 'highground'], 'setup-dualingsuns': ['setup-twin-suns', 'dualingsuns'],
                       'setup-alwaystwo': ['setup-pvp', 'alwaystwo'], 'setup-alwaystwo4p': ['setup-pvp', 'alwaystwo4p'] };
   var PVP_HEADS = {
-    pvp:        { kind: 'Live play', title: 'PvP', desc: 'Queue against a live opponent, or open a private room.', art: 'hmw-pvp.webp', tint: 'var(--tint-pvp)' },
-    highground: { kind: 'Private room', title: 'High Ground', desc: 'King of the hill: winner stays on, everyone else waits in line. Pick the card pool and your deck.', art: 'hmw-highground.webp', tint: 'var(--tint-hg)' },
-    alwaystwo:  { kind: 'Private room', title: '1v1 Always Two', desc: 'Play two decks as a team against a friend. Your team takes one action per turn; lose both bases and you lose. Premier or Eternal.', art: 'hmw-pvp.webp', tint: 'var(--tint-hg)' },
-    alwaystwo4p: { kind: 'Private room', title: '4P Always Two', desc: 'Four people, two teams, one deck each. Your partner accepts every action your team takes. Premier or Eternal.', art: 'hmw-pvp.webp', tint: 'var(--tint-hg)' }
+    pvp:        { kind: 'Live play', title: 'PvP', desc: 'Queue against a live opponent, or open a private room.', art: 'ic27-pvp.webp', tint: 'var(--tint-pvp)' },
+    highground: { kind: 'Private room', title: 'High Ground', desc: 'King of the hill: winner stays on, everyone else waits in line. Pick the card pool and your deck.', art: 'ic27-highground.webp', tint: 'var(--tint-hg)' },
+    alwaystwo:  { kind: 'Private room', title: '1v1 Always Two', desc: 'Play two decks as a team against a friend. Your team takes one action per turn; lose both bases and you lose. Premier or Eternal.', art: 'ic27-pvp.webp', tint: 'var(--tint-hg)' },
+    alwaystwo4p: { kind: 'Private room', title: '4P Always Two', desc: 'Four people, two teams, one deck each. Your partner accepts every action your team takes. Premier or Eternal.', art: 'ic27-pvp.webp', tint: 'var(--tint-hg)' }
   };
   // 1v1 Always Two's pools: its format is at1v1-<pool> (AppCore/SWU/Formats.php); every other pool is hidden in that mode.
   var A2_POOLS = ['premier', 'eternal'];
