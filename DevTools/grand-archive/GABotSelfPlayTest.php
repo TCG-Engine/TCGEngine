@@ -15,7 +15,7 @@
 //
 // Usage (run inside the GA web-server container, where the live card dictionary + DB are set up):
 //   docker exec -w /var/www/html/TCGEngine <container> \
-//     php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/GABotSelfPlayTest.php \
+//     php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/grand-archive/GABotSelfPlayTest.php \
 //     [--deck=<path>] [--deck2=<path>] [--max-steps=2000] [--verbose]
 // Evaluation: --seed=N --baseline=<snapshot-dir> --candidate-seat=1|2 --report-out=<json>
 // See GrandArchiveSim/docs/bot-evaluation.md for the paired tournament runner.
@@ -64,8 +64,8 @@ if (!function_exists('apcu_store')) {
   }
 }
 
-require_once __DIR__ . '/../Core/EngineActionRunner.php';
-require_once __DIR__ . '/../APIs/Lobbies/Classes/Player.php';
+require_once __DIR__ . '/../../Core/EngineActionRunner.php';
+require_once __DIR__ . '/../../APIs/Lobbies/Classes/Player.php';
 // Loads the same runtime a real request has for GA actions (Core/NetworkingLibraries.php in
 // particular — WriteCache() etc. — which EngineExecuteLoadedAction's cache bookkeeping needs but
 // CreateGame.php's own include list doesn't pull in on its own).
@@ -73,7 +73,7 @@ EngineLoadRootRuntime('GrandArchiveSim');
 if (!empty($GLOBALS['GABotTestUsingApcuFallback'])) $GLOBALS['APCuEnabled'] = true;
 // No ambient $lobby here, so CreateGame.php's auto-run guard stays quiet; this just defines
 // GASetupGame() (and pulls in GameLogic.php, which in turn pulls in Telemetry/BotController/etc).
-require_once __DIR__ . '/../GrandArchiveSim/CreateGame.php';
+require_once __DIR__ . '/../../GrandArchiveSim/CreateGame.php';
 
 function BotTestParseArgs($argv) {
   $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 2000, 'verbose' => false, 'deterministic' => true, 'payloadOut' => null];
@@ -101,7 +101,7 @@ if ($args['maxSteps'] < 1) { fwrite(STDERR, "--max-steps must be positive\n"); e
 require_once __DIR__ . '/GABotEvaluation.php';
 $evaluation = new GABotEvaluation($args);
 $evaluation->install();
-$fixtureDir = __DIR__ . '/../GrandArchiveSim/Tests/BotFixtures';
+$fixtureDir = __DIR__ . '/../../GrandArchiveSim/Tests/BotFixtures';
 $deckPath1 = $args['deck'] ?? ($fixtureDir . '/worlds2026_deck_a.txt');
 $deckPath2 = $args['deck2'] ?? ($fixtureDir . '/worlds2026_deck_b.txt');
 
@@ -177,7 +177,7 @@ $stalled = false;
 $gameOver = false;
 $winner = 0;
 
-$gaDir = __DIR__ . '/../GrandArchiveSim/';
+$gaDir = __DIR__ . '/../../GrandArchiveSim/';
 
 for (; $steps < $args['maxSteps']; $steps++) {
   // Re-parse before every step, mirroring what a real HTTP request does on every poll (mode 10017):

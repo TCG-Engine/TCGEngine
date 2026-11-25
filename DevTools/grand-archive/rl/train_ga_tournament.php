@@ -1,7 +1,7 @@
 <?php
 // Local experiment runner: ten-game review batches, never publishes a live model.
 define('RL_TRAINER_LIBRARY_ONLY', true);
-require_once __DIR__ . '/train_selfplay_php.php';
+require_once __DIR__ . '/../../rl/train_selfplay_php.php';
 $options = getopt('', ['config:', 'baseline:', 'output:', 'checkpoint:', 'start:', 'games:', 'seed:', 'evaluate', 'max-steps:', 'representation:', 'imitate', 'archetype-adapters', 'learner-archetype:', 'learner-heuristic:']);
 foreach (['config', 'baseline', 'output'] as $required) if (empty($options[$required])) RlFail('Required: --config --baseline --output');
 $learnerHeuristic = $options['learner-heuristic'] ?? '';
@@ -83,9 +83,9 @@ $report = ['mode' => isset($options['evaluate']) ? 'evaluation' : (isset($option
   'config' => $config, 'deckHashes' => $deckHashes, 'baseline' => $manifest,
   'checkpointSource' => $options['checkpoint'] ?? null, 'games' => []];
 // Detect edits during a batch; a checkpoint must correspond to one runtime.
-$sourceFiles = array_merge(glob(__DIR__ . '/../../GrandArchiveSim/Bot*.php'), glob(__DIR__ . '/../../GrandArchiveSim/Custom/*.php'),
-  [__FILE__, __DIR__ . '/train_selfplay_php.php', __DIR__ . '/ga_policy.php', __DIR__ . '/../TestAutomationBridge.php',
-   __DIR__ . '/../../GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php']);
+$sourceFiles = array_merge(glob(__DIR__ . '/../../../GrandArchiveSim/Bot*.php'), glob(__DIR__ . '/../../../GrandArchiveSim/Custom/*.php'),
+  [__FILE__, __DIR__ . '/../../rl/train_selfplay_php.php', __DIR__ . '/ga_policy.php', __DIR__ . '/../../TestAutomationBridge.php',
+   __DIR__ . '/../../../GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php']);
 $sourceHashes = [];
 foreach ($sourceFiles as $file) $sourceHashes[realpath($file)] = hash_file('sha256', $file);
 $report['sourceHashes'] = $sourceHashes;

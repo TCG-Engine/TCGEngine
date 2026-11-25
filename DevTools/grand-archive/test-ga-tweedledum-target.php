@@ -1,6 +1,6 @@
 <?php
 // Opponent-selected targets must resolve in the attacker's coordinate system.
-chdir(dirname(__DIR__));
+chdir(dirname(__DIR__, 2));
 require 'Core/EngineActionRunner.php';
 EngineLoadRootRuntime('GrandArchiveSim');
 $gameName = 'ga_tweedledum_target_' . getmypid();

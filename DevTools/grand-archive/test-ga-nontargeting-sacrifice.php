@@ -1,6 +1,6 @@
 <?php
 if(PHP_SAPI !== 'cli') { http_response_code(404); exit; }
-chdir(dirname(__DIR__));
+chdir(dirname(__DIR__, 2));
 require 'Core/EngineActionRunner.php';
 EngineLoadRootRuntime('GrandArchiveSim');
 $gameName = 'ga_targets_' . getmypid();

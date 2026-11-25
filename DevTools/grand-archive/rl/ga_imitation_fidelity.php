@@ -1,7 +1,7 @@
 <?php
 // Evaluate a frozen model against recorded, public teacher observations; no engine or RNG.
 define('RL_TRAINER_LIBRARY_ONLY', true);
-require_once __DIR__ . '/train_selfplay_php.php';
+require_once __DIR__ . '/../../rl/train_selfplay_php.php';
 $options = getopt('', ['checkpoint:', 'replays:']);
 if (empty($options['checkpoint']) || empty($options['replays'])) RlFail('Required: --checkpoint --replays (directory of teacher games)');
 $policy = RlTabularPolicy::load($options['checkpoint'], 4096, 1, .05);

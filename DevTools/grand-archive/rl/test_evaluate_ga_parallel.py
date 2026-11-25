@@ -12,7 +12,7 @@ from evaluate_ga_parallel import evaluate, identity, cache_valid
 from run_ga_learning_cycle import screen_passes
 from compare_ga_evaluations import compare
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 
 
 class EvaluationTest(unittest.TestCase):
@@ -61,13 +61,13 @@ class EvaluationTest(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='ga-parallel-test-') as temp:
             folder = Path(temp)
             baseline = folder/'baseline'
-            subprocess.run(['python3', str(ROOT/'DevTools/ga-bot-evaluate.py'), 'freeze', str(baseline)], check=True, capture_output=True)
+            subprocess.run(['python3', str(ROOT/'DevTools/grand-archive/ga-bot-evaluate.py'), 'freeze', str(baseline)], check=True, capture_output=True)
             deck = folder/'deck.txt'
-            deck.write_text((ROOT/'DevTools/rl/benchmark_control_ga.txt').read_text().replace(
+            deck.write_text((ROOT/'DevTools/grand-archive/rl/benchmark_control_ga.txt').read_text().replace(
                 '60 Esteemed Knight', '30 Esteemed Knight\n30 Weaving Manastream'))
             config = folder/'config.json'
             config.write_text(json.dumps({'decks':[{'name':'A','path':'deck.txt'},{'name':'B','path':'deck.txt'}]}))
-            subprocess.run(['php', str(ROOT/'DevTools/rl/train_ga_tournament.php'), '--config',str(config),
+            subprocess.run(['php', str(ROOT/'DevTools/grand-archive/rl/train_ga_tournament.php'), '--config',str(config),
                             '--baseline',str(baseline),'--output',str(folder/'train'),'--games','2','--max-steps','1'],
                            check=True,capture_output=True)
             checkpoint = folder/'train/latest.json'
@@ -101,7 +101,7 @@ class EvaluationTest(unittest.TestCase):
                 path.write_bytes(original)
             self.assertNotEqual(expected,identity(config,baseline,checkpoint,4,9900002,4))
             self.assertNotEqual(expected,identity(config,baseline,checkpoint,4,9900001,5))
-            subprocess.run(['python3',str(ROOT/'DevTools/rl/run_ga_learning_cycle.py'),
+            subprocess.run(['python3',str(ROOT/'DevTools/grand-archive/rl/run_ga_learning_cycle.py'),
                             '--config',str(config),'--baseline',str(baseline),'--output',str(folder/'cycle'),
                             '--teacher-checkpoint',str(checkpoint),'--candidate-checkpoint',str(checkpoint),
                             '--screen-games','2','--evaluation-games','2','--max-steps','1',

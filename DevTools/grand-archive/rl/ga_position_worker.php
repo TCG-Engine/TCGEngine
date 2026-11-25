@@ -1,10 +1,10 @@
 <?php
 // Offline only: restore a replay prefix, verify public evidence, then branch.
 define('RL_TRAINER_LIBRARY_ONLY', true);
-require_once __DIR__ . '/train_selfplay_php.php';
+require_once __DIR__ . '/../../rl/train_selfplay_php.php';
 $options = getopt('', ['replay:', 'step:', 'choice:', 'horizon:', 'seed:']);
 $game = 'ga_position_' . bin2hex(random_bytes(8));
-$dir = dirname(__DIR__, 2) . '/GrandArchiveSim/Games/' . $game;
+$dir = dirname(__DIR__, 3) . '/GrandArchiveSim/Games/' . $game;
 try {
     $replay = json_decode(file_get_contents($options['replay'] ?? ''), true, 512, JSON_THROW_ON_ERROR);
     $step = intval($options['step'] ?? 0);

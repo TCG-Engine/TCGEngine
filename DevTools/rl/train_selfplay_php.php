@@ -2,7 +2,7 @@
 
 define('TCGENGINE_BRIDGE_LIBRARY_ONLY', true);
 require_once __DIR__ . '/../TestAutomationBridge.php';
-require_once __DIR__ . '/ga_policy.php';
+require_once __DIR__ . '/../grand-archive/rl/ga_policy.php';
 
 function RlParseArgs($argv) {
   $args = [

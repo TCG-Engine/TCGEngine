@@ -1,7 +1,7 @@
 <?php
 // Focused tests against the actual GA runtime and card data; no generated files are changed.
-// Run: php -d xdebug.mode=off DevTools/GABotDecisionTest.php
-require_once __DIR__ . '/../Core/EngineActionRunner.php';
+// Run: php -d xdebug.mode=off DevTools/grand-archive/GABotDecisionTest.php
+require_once __DIR__ . '/../../Core/EngineActionRunner.php';
 EngineLoadRootRuntime('GrandArchiveSim');
 $failures = 0; $checks = 0;
 function check($condition, $message) {

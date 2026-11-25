@@ -19,8 +19,8 @@ Glimpse information is used within the active prompt. Persistent knowledge of ch
 Tests:
 
 ```sh
-php -d xdebug.mode=off DevTools/GABotKnowledgeTest.php
-php -d xdebug.mode=off DevTools/GABotDecisionTest.php
+php -d xdebug.mode=off DevTools/grand-archive/GABotKnowledgeTest.php
+php -d xdebug.mode=off DevTools/grand-archive/GABotDecisionTest.php
 ```
 
 The knowledge tests use objects that throw if a hidden identity is read, exercise both seats, reverse actual deck order, check probability math after an opening hand, cover opaque removals and known returns, test name-card guesses, and resolve real glimpse decisions through the engine.

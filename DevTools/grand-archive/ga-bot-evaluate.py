@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Freeze GA chooser policies or evaluate paired, seeded matches. Python standard library only."""
 import argparse, hashlib, json, pathlib, re, subprocess, sys
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 FILES = ['BotKnowledge.php', 'BotDecisions.php', 'BotLegalActions.php', 'BotHeuristic.php']
 
 def digest(path):
@@ -117,7 +117,7 @@ def run(args):
                 raise RuntimeError('Deck changed during evaluation: ' + name)
         p1, p2 = (a, b) if seat == 1 else (b, a)
         report = args.output.resolve() / f'{number:04d}.json'
-        cmd = [args.php, '-d', 'apc.enable_cli=1', '-d', 'xdebug.mode=off', str(ROOT / 'DevTools/GABotSelfPlayTest.php'), f'--deck={p1[1]}', f'--deck2={p2[1]}', f'--seed={seed}', f'--candidate-seat={seat}', f'--baseline={baseline}', f'--report-out={report}', f'--max-steps={args.max_steps}']
+        cmd = [args.php, '-d', 'apc.enable_cli=1', '-d', 'xdebug.mode=off', str(ROOT / 'DevTools/grand-archive/GABotSelfPlayTest.php'), f'--deck={p1[1]}', f'--deck2={p2[1]}', f'--seed={seed}', f'--candidate-seat={seat}', f'--baseline={baseline}', f'--report-out={report}', f'--max-steps={args.max_steps}']
         with (args.output / f'{number:04d}.log').open('w') as log:
             try:
                 proc = subprocess.run(cmd, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=args.timeout)

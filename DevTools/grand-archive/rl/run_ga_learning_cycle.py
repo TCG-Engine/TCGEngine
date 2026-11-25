@@ -8,7 +8,7 @@ import time
 from compare_ga_evaluations import compare
 from evaluate_ga_parallel import evaluate
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 
 
 def screen_passes(comparison):
@@ -62,7 +62,7 @@ def main():
         summary['elapsedSeconds'] = round(time.monotonic() - started, 3)
         (a.output/'summary.json').write_text(json.dumps(summary, indent=2)+'\n')
 
-    common = ['php', str(ROOT/'DevTools/rl/train_ga_tournament.php'), '--config', str(Path(a.config).resolve()),
+    common = ['php', str(ROOT/'DevTools/grand-archive/rl/train_ga_tournament.php'), '--config', str(Path(a.config).resolve()),
               '--baseline', str(Path(a.baseline).resolve()), '--max-steps', str(a.max_steps)]
 
     def train(name, games, seed, *extra):
@@ -93,10 +93,10 @@ def main():
     try:
         preflight_start = time.monotonic()
         with (a.output/'preflight.log').open('w') as log:
-            for test in ('DevTools/rl/test_ga_start_reproducibility.php',
-                         'DevTools/rl/test_ga_policy.php',
-                         'DevTools/test-ga-unique-immortality.php',
-                         'DevTools/test-ga-tweedledum-target.php'):
+            for test in ('DevTools/grand-archive/rl/test_ga_start_reproducibility.php',
+                         'DevTools/grand-archive/rl/test_ga_policy.php',
+                         'DevTools/grand-archive/test-ga-unique-immortality.php',
+                         'DevTools/grand-archive/test-ga-tweedledum-target.php'):
                 subprocess.run(['php', str(ROOT/test)], cwd=ROOT, stdout=log,
                                stderr=subprocess.STDOUT, check=True)
         summary['stages'].append({'name': 'preflight', 'passed': True,

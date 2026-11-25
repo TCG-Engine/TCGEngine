@@ -238,4 +238,4 @@ Implemented the first pass of the four Classic priorities in authored custom lay
 
 Validation: crowded 18-card fields/hands in Chromium, Firefox, and WebKit at 320px, 390px, and 740px landscape. At 390px the original field cells were 54px and neither field nor hand scrolled; updated cells were 112px and both scrolled. Over a 1.25-second idle sample, field attribute mutations dropped from 6 to 0. This measures layout overhead, not end-to-end game speed. PHP syntax checks pass. Full live-game and physical-device evaluation remains useful.
 
-Repeat layout checks with `PLAYWRIGHT_MODULE=<path-to-playwright/index.mjs> node DevTools/ga-classic-layout-check.mjs` from the repository root.
+Repeat layout checks with `PLAYWRIGHT_MODULE=<path-to-playwright/index.mjs> node DevTools/grand-archive/ga-classic-layout-check.mjs` from the repository root.

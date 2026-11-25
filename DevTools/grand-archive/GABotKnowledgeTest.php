@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../Core/EngineActionRunner.php';
+require_once __DIR__ . '/../../Core/EngineActionRunner.php';
 EngineLoadRootRuntime('GrandArchiveSim');
 $checks = 0; $failures = 0;
 function knowledgeCheck($condition, $label) {

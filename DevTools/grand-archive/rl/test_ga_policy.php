@@ -1,7 +1,7 @@
 <?php
 // Unit tests use deliberately hostile hidden-zone sentinels: reads would throw.
 define('RL_TRAINER_LIBRARY_ONLY', true);
-require_once __DIR__ . '/train_selfplay_php.php';
+require_once __DIR__ . '/../../rl/train_selfplay_php.php';
 function GetCurrentPhase() { return 'MAIN'; }
 function GetTurnPlayer() { return 1; }
 function GetField($p) { return $GLOBALS['fields'][$p]; }

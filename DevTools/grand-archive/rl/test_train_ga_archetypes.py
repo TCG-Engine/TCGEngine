@@ -57,11 +57,11 @@ class ArchetypeTrainingTest(unittest.TestCase):
     def test_real_workers_route_resume_and_reject_incomplete_round(self):
         with tempfile.TemporaryDirectory(prefix='ga-archetypes-test-') as temp:
             folder = Path(temp)
-            subprocess.run(['python3', str(ROOT/'DevTools/ga-bot-evaluate.py'), 'freeze', str(folder/'baseline')],
+            subprocess.run(['python3', str(ROOT/'DevTools/grand-archive/ga-bot-evaluate.py'), 'freeze', str(folder/'baseline')],
                            check=True, capture_output=True)
             config = folder/'config.json'
             config.write_text(json.dumps({'decks': [dict(name='Same champion '+key, archetypeId=key,
-                path=str(ROOT/'DevTools/rl/benchmark_control_ga.txt')) for key in ('A','B','C')]}))
+                path=str(ROOT/'DevTools/grand-archive/rl/benchmark_control_ga.txt')) for key in ('A','B','C')]}))
             checkpoint = folder/'base.json'
             checkpoint.write_text(json.dumps({'state_key_version':'GrandArchiveSim:linear-v1',
                 'action_key_version':'ga-semantic-v1','max_actions':4096,'temperature':1,

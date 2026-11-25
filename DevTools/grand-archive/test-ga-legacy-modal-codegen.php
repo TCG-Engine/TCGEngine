@@ -1,6 +1,6 @@
 <?php
 if (PHP_SAPI !== 'cli') exit;
-chdir(dirname(__DIR__));
+chdir(dirname(__DIR__, 2));
 $generator=file_get_contents('zzGameCodeGenerator.php');
 // Load the argument parser without executing the generator or contacting the DB.
 $start=strpos($generator,'function ParseAwaitArgs(');

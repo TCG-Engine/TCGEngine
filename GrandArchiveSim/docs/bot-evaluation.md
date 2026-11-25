@@ -9,7 +9,7 @@ The committed `Tests/BotBaselines/2026-10-28` snapshot freezes the current choos
 Start with two seeded mirror games, swapping the candidate seat:
 
 ```sh
-python3 DevTools/ga-bot-evaluate.py run \
+python3 DevTools/grand-archive/ga-bot-evaluate.py run \
   --config GrandArchiveSim/Tests/BotFixtures/evaluation.json \
   --baseline GrandArchiveSim/Tests/BotBaselines/2026-10-28 \
   --output /tmp/ga-bot-smoke --smoke
@@ -50,14 +50,14 @@ Decision timings exclude coverage re-scoring and report generation. Total game t
 ## Improve the bot
 
 1. Run the frozen comparison and find frequent unsupported choices.
-2. Add a policy with both beneficial-use and deliberate-decline cases in `DevTools/GABotDecisionTest.php`.
+2. Add a policy with both beneficial-use and deliberate-decline cases in `DevTools/grand-archive/GABotDecisionTest.php`.
 3. Rerun those checks and the suite against the same baseline, decks, and seeds.
 4. Review failures, matchup-specific results, and latency before keeping the change.
 
 To deliberately establish a new benchmark after review:
 
 ```sh
-python3 DevTools/ga-bot-evaluate.py freeze /path/to/new-baseline
+python3 DevTools/grand-archive/ga-bot-evaluate.py freeze /path/to/new-baseline
 ```
 
 Freezing copies the three policy source files, isolates their function/callback/global names, and records hashes. Never edit a frozen baseline in place; loading rejects changed hashes. Baselines are local executable PHP and should be snapshots you created or reviewed. Keep older snapshots to retain comparable results.
@@ -65,8 +65,8 @@ Freezing copies the three policy source files, isolates their function/callback/
 Harness checks:
 
 ```sh
-python3 DevTools/test-ga-bot-evaluate.py
-php -d xdebug.mode=off DevTools/GABotDecisionTest.php
+python3 DevTools/grand-archive/test-ga-bot-evaluate.py
+php -d xdebug.mode=off DevTools/grand-archive/GABotDecisionTest.php
 ```
 
 ## Initial validation, 2026-10-28
@@ -127,8 +127,8 @@ reinforcement-learning weight updates. Snapshot all selected menu archetypes and
 current chooser before starting:
 
 ```sh
-python3 DevTools/ga-bot-tournament-setup.py /tmp/ga-tournament
-python3 DevTools/ga-bot-evaluate.py run \
+python3 DevTools/grand-archive/ga-bot-tournament-setup.py /tmp/ga-tournament
+python3 DevTools/grand-archive/ga-bot-evaluate.py run \
   --config /tmp/ga-tournament/config.json \
   --baseline /tmp/ga-tournament/baseline \
   --output /tmp/ga-tournament/batch-001 --round-robin --start 0 --games 10

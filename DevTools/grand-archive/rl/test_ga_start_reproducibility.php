@@ -1,8 +1,8 @@
 <?php
 // A previous game's last acting seat must not influence the next game's shuffle.
 define('TCGENGINE_BRIDGE_LIBRARY_ONLY', true);
-require_once __DIR__ . '/../TestAutomationBridge.php';
-chdir(dirname(__DIR__, 2));
+require_once __DIR__ . '/../../TestAutomationBridge.php';
+chdir(dirname(__DIR__, 3));
 $deck = str_replace('60 Esteemed Knight', '30 Esteemed Knight' . PHP_EOL . '30 Weaving Manastream', file_get_contents(__DIR__ . '/benchmark_control_ga.txt'));
 $dirs = [];
 try {

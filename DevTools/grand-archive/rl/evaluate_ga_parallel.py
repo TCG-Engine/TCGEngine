@@ -10,7 +10,7 @@ import subprocess
 import tempfile
 import time
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 
 
 def digest(path):
@@ -25,7 +25,7 @@ def identity(config, baseline, checkpoint, games, seed, max_steps):
         files.add((config.parent / deck['path']).resolve())
     # Conservative invalidation includes shared engine, generated card code,
     # per-game helpers, and the evaluation implementation itself.
-    for folder in ('Core', 'GrandArchiveSim', 'DevTools/rl', 'Schemas/GrandArchiveSim'):
+    for folder in ('Core', 'GrandArchiveSim', 'DevTools/rl', 'DevTools/grand-archive', 'Schemas/GrandArchiveSim'):
         for directory, children, names in os.walk(ROOT / folder):
             children[:] = [name for name in children if name not in ('Games', 'artifacts', '__pycache__')]
             files.update((Path(directory) / name).resolve() for name in names
@@ -72,7 +72,7 @@ def evaluate(config, baseline, checkpoint, output, games=42, seed=9000001,
 
         def run(chunk):
             start, size, folder = chunk
-            command = ['php', str(ROOT / 'DevTools/rl/train_ga_tournament.php'),
+            command = ['php', str(ROOT / 'DevTools/grand-archive/rl/train_ga_tournament.php'),
                        '--config', str(Path(config).resolve()), '--baseline', str(Path(baseline).resolve()),
                        '--checkpoint', str(Path(checkpoint).resolve()), '--output', str(folder),
                        '--start', str(start), '--games', str(size), '--seed', str(seed),

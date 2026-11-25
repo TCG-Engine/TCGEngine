@@ -12,8 +12,8 @@ import shutil
 import subprocess
 from evaluate_ga_parallel import identity, digest
 
-ROOT = Path(__file__).resolve().parents[2]
-SPEC = importlib.util.spec_from_file_location('ga_freezer', ROOT/'DevTools/ga-bot-evaluate.py')
+ROOT = Path(__file__).resolve().parents[3]
+SPEC = importlib.util.spec_from_file_location('ga_freezer', ROOT/'DevTools/grand-archive/ga-bot-evaluate.py')
 FREEZER = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(FREEZER)
 
@@ -64,7 +64,7 @@ def evaluate_pool(pool, config, checkpoint, output, archetypes, games=40, seed=2
     def run(job):
         index,archetype,entry=job
         dest=output/f'archetype-{index:02d}'/entry['id'];dest.parent.mkdir(exist_ok=True)
-        cmd=['php',str(ROOT/'DevTools/rl/train_ga_tournament.php'),'--config',str(config),
+        cmd=['php',str(ROOT/'DevTools/grand-archive/rl/train_ga_tournament.php'),'--config',str(config),
              '--baseline',str(output/'opponents'/entry['id']),'--checkpoint',str(checkpoint),
              '--output',str(dest),'--games',str(games),'--seed',str(seed),'--max-steps',str(max_steps),
              '--learner-archetype',archetype,'--evaluate','--learner-heuristic','current']

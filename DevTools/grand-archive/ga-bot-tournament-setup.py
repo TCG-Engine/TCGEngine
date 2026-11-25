@@ -6,7 +6,7 @@ import json
 import pathlib
 import re
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 def setup(destination):
     source = (ROOT / 'SharedUI/Sites/GrandArchiveSim/MainMenu.php').read_text()
@@ -21,7 +21,7 @@ def setup(destination):
         (destination / name).write_text(deck['text'].strip() + '\n')
         config['decks'].append({'name': deck['label'], 'path': name, 'source': deck.get('source')})
     (destination / 'config.json').write_text(json.dumps(config, indent=2) + '\n')
-    spec = importlib.util.spec_from_file_location('evaluation', ROOT / 'DevTools/ga-bot-evaluate.py')
+    spec = importlib.util.spec_from_file_location('evaluation', ROOT / 'DevTools/grand-archive/ga-bot-evaluate.py')
     evaluation = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(evaluation)
     evaluation.freeze(destination / 'baseline')

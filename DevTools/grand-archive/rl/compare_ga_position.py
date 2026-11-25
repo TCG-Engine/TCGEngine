@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 def compare_position(replay, step, horizon=100, seed=1):
-    root = Path(__file__).resolve().parents[2]
+    root = Path(__file__).resolve().parents[3]
     cmd = ['php', str(Path(__file__).with_name('ga_position_worker.php')),
            '--replay=' + str(Path(replay).resolve()), '--step=' + str(step)]
     def run(extra):

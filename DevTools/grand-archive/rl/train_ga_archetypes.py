@@ -147,7 +147,7 @@ def run_round(config, baseline, checkpoint, output, workers=2, training_games=10
             index, archetype = item
             folder = output/f'archetype-{index:02d}'
             folder.mkdir(exist_ok=True)
-            common = ['php', str(ROOT/'DevTools/rl/train_ga_tournament.php'), '--config', str(config),
+            common = ['php', str(ROOT/'DevTools/grand-archive/rl/train_ga_tournament.php'), '--config', str(config),
                       '--baseline', str(baseline), '--start', str(start), '--max-steps', str(max_steps),
                       '--learner-archetype', archetype]
             reused = []
@@ -178,8 +178,8 @@ def run_round(config, baseline, checkpoint, output, workers=2, training_games=10
         try:
             # Regression preflight before spending a round on games.
             with (output/'preflight.log').open('w') as log:
-                for test in ('DevTools/rl/test_ga_policy.php', 'DevTools/rl/test_ga_start_reproducibility.php',
-                             'DevTools/test-ga-unique-immortality.php', 'DevTools/test-ga-tweedledum-target.php'):
+                for test in ('DevTools/grand-archive/rl/test_ga_policy.php', 'DevTools/grand-archive/rl/test_ga_start_reproducibility.php',
+                             'DevTools/grand-archive/test-ga-unique-immortality.php', 'DevTools/grand-archive/test-ga-tweedledum-target.php'):
                     subprocess.run(['php', str(ROOT/test)], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
             with ThreadPoolExecutor(max_workers=workers) as pool:
                 futures = {pool.submit(worker, item): item[1] for item in enumerate(archetypes)}

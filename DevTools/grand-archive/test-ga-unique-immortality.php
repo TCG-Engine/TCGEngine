@@ -1,6 +1,6 @@
 <?php
 // The Unique rule overrides immortality without changing ordinary sacrifice.
-chdir(dirname(__DIR__));
+chdir(dirname(__DIR__, 2));
 require 'Core/EngineActionRunner.php';
 EngineLoadRootRuntime('GrandArchiveSim');
 $gameName = 'ga_unique_immortality_' . getmypid();

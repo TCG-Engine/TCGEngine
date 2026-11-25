@@ -33,13 +33,13 @@ existing heuristics. No shared engine, generated code, or player rules are chang
 Run focused real-runtime checks:
 
 ```sh
-php -d xdebug.mode=off DevTools/GABotDecisionTest.php
+php -d xdebug.mode=off DevTools/grand-archive/GABotDecisionTest.php
 ```
 
 Run starter self-play (APCu enabled, or the harness's CLI fallback):
 
 ```sh
-php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/GABotSelfPlayTest.php --deck=GrandArchiveSim/Tests/BotFixtures/diana-starter.txt --deck2=GrandArchiveSim/Tests/BotFixtures/diana-starter.txt
+php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/grand-archive/GABotSelfPlayTest.php --deck=GrandArchiveSim/Tests/BotFixtures/diana-starter.txt --deck2=GrandArchiveSim/Tests/BotFixtures/diana-starter.txt
 ```
 
 ## Genbu validation (2026-10-28)
