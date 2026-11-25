@@ -1826,6 +1826,15 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           var gaPollStarted = false;
           window.GAShowEndGameMenu = function(prebuiltStats){
                statsHtml = prebuiltStats || ((typeof BuildMacroGameStatsHtml === 'function') ? BuildMacroGameStatsHtml(pid) : '');
+               // The gamestate already declares the winner. Match metadata may lag or fail;
+               // show the result now, then enrich it with series/rematch controls when available.
+               try {
+                    var result = JSON.parse(window.DecisionQueueVariablesData || '{}');
+                    var winner = parseInt(result.GAMEOVER_WINNER, 10);
+                    if (winner === 1 || winner === 2) {
+                         gaRenderOverlay({didWin: winner === parseInt(pid, 10)});
+                    }
+               } catch (e) {}
                gaCheckMatchEnd(true);
                if (!gaPollStarted) { gaPollStarted = true; setInterval(gaCheckMatchEnd, 3000); }
           };
