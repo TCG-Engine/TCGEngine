@@ -3,6 +3,7 @@ require_once __DIR__.'/LopunnyBot.php';
 require_once __DIR__.'/FanRotomBot.php';
 require_once __DIR__.'/CeruledgeBot.php';
 require_once __DIR__.'/CeruledgeFightingBot.php';
+require_once __DIR__.'/CeruledgeLanternBot.php';
 require_once __DIR__.'/MeowthBot.php';
 require_once __DIR__.'/PrizeLogic.php';
 require_once __DIR__.'/RelicanthBot.php';
@@ -257,6 +258,7 @@ function PokeBotSearchScore(array $ctx,string $id): float {
     return PokeBotTrainerScore($ctx,$id);
 }
 function PokeBotDecision(array $ctx,array $d): string {
+    if ($d['type'] === 'YESNO' && str_starts_with($d['prompt'], 'Festival Lead')) return 'YES';
     if($d['type']==='NUMBERCHOOSE')return (string)$d['max'];
     $choices=$d['choices'];$prompt=$d['prompt'];
     if($d['type']==='MZMULTICHOOSE'&&str_contains($prompt,'Brilliant Blender'))return PokeBotBlenderDecision($ctx,$d);
@@ -279,6 +281,7 @@ function PokeBotDecision(array $ctx,array $d): string {
     return $choices[0]['value']??'-';
 }
 function PokeBotChoose(array $view): ?array {
+    if (($view['players'][$view['viewer']]['deckKey']??'')==='ceruledge-lantern') return PokeCeruledgeLanternChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='ceruledge-fighting') return PokeCeruledgeFightingChoose($view);
     if (in_array($view['players'][$view['viewer']]['deckKey']??'',['ceruledge-ex','ceruledge-budew'],true)) return PokeCeruledgeChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='galarian-meowth') return PokeMeowthChoose($view);

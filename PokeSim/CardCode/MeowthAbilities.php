@@ -33,7 +33,7 @@ PokeDiscardSelection($player, $selected);
 PokeDraw($player, 3 * $count, false);
 CODE);
 $cards['sv08.5-004'][] = $ability('Attack', 'Itchy Pollen', 'PokeDealAttackDamage($player, $mzID, 10); PokeSetVar("itemLock:" . (3 - $player), GetTurnNumber() + 1);');
-$cards['me01-130'][] = $ability('TrainerPlayed', 'Switch', <<<'CODE'
+foreach (['me01-130', '30th-127'] as $id) $cards[$id][] = $ability('TrainerPlayed', 'Switch', <<<'CODE'
 $targets = PokeCandidates($player, 'Bench');
 $selected = await $player.MZChoose($targets, 'Switch:_choose_a_Benched_Pokémon');
 PokeSwitch($player, $selected);

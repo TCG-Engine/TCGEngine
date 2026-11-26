@@ -18,6 +18,7 @@ function PokeOnTrainerPlayed($player, $mzID): string {
 }
 /** Copied attacks evaluate their own authored prerequisites on the actual attacker. */
 function PokeCanUseAttack(int $player, string $ref, string $cardID, int $index): bool {
+    if ((GetZoneObject($ref)->TurnEffects['noAttackThrough'] ?? -1) >= GetTurnNumber()) return false;
     $prereq=$GLOBALS['attackPrereqs'][$cardID.':'.$index] ?? null;
     return !$prereq || $prereq($player, $ref, $index);
 }
@@ -25,6 +26,10 @@ function PokeOnAttack($player, $mzID, $attackIndex): string {
     $obj = GetZoneObject($mzID);
     $copy = PokeVar('copiedAttack'); PokeSetVar('copiedAttack', null);
     $attackID = $copy ?? $obj->CardID;
+    if ($copy === null && !PokeVar('repeatingAttack') && !HasNoAbilities($obj)
+        && EvaluateRepeatAttackAllowed($attackID, $player, $obj, $obj) > 0) {
+        PokeSetVar('repeatAttack', ['source'=>$mzID, 'card'=>$attackID, 'index'=>$attackIndex]);
+    }
     if (!PokeMacro('Attack', $player, $attackID, $attackIndex, ['mzID' => $mzID, 'attackIndex' => $attackIndex])) {
         $attack = CardAttacks($attackID)[$attackIndex];
         PokeDealAttackDamage($player, $mzID, (int)($attack['damage'] ?? 0));
@@ -45,6 +50,7 @@ function PokeOnPokemonEvolved($player, $mzID): string {
     return 'EVOLVED';
 }
 function PokeOnEnergyAttached($player, $mzID, $energyID): string {
+    PokeClearProtectedConditions(GetZoneObject($mzID));
     PokeMacro('EnergyAttached', $player, $energyID, 0, ['mzID' => $mzID, 'energyID' => $energyID]);
     return 'ATTACHED';
 }
@@ -58,7 +64,7 @@ function PokeCardImplemented(string $id): bool {
     }
     foreach (CardAbilities($id) ?? [] as $i => $ability) {
         if (($ability['name'] ?? '') === "Hide 'n' Sneak" && isset($GLOBALS['attackEffectProtectionAbilities'][$id . ':0'])) continue;
-        foreach (['activateAbility','pokemonBenched','pokemonEvolved','benchDamageProtection','selfKnockoutAbilityLock','dragonPsychicWeakness','attackCopyAllowed'] as $macro) {
+        foreach (['activateAbility','pokemonBenched','pokemonEvolved','benchDamageProtection','selfKnockoutAbilityLock','dragonPsychicWeakness','attackCopyAllowed','repeatAttackAllowed'] as $macro) {
             if (isset($GLOBALS[$macro.'Abilities'][$id.':'.$i])) continue 2;
         }
         return false;
@@ -76,6 +82,11 @@ function PokeCardIsTera(string $id): bool {
 }
 function EffectiveCardSubtypes($obj): array { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? ['Basic'] : array_filter([CardStage(is_string($obj) ? $obj : $obj->CardID), CardTrainerType(is_string($obj) ? $obj : $obj->CardID), PokeCardIsTera(is_string($obj) ? $obj : $obj->CardID) ? 'Tera' : null]); }
 function EffectiveCardClasses($obj): array { return []; }
+function PokeIsEvolution($obj): bool {
+    if (EffectiveCardType($obj) !== 'Pokemon') return false;
+    $id = is_string($obj) ? $obj : $obj->CardID;
+    return in_array(CardStage($id), ['Stage1', 'Stage2'], true) || !empty(CardEvolveFrom($id));
+}
 function EffectiveCardElement($obj): string { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? 'Colorless' : (CardTypes(is_string($obj) ? $obj : $obj->CardID) ?? ''); }
 function HasNoAbilities($obj): bool { return !empty($obj->Counters['noAbilities']); }
 function ParseModifierResult($result): array { return ['delta' => is_array($result) ? (int)($result['delta'] ?? 0) : (int)$result, 'consume' => false, 'applied' => true]; }
@@ -88,21 +99,29 @@ function PokeCandidates(int $player, string $zone, string $filter = 'any'): stri
         $id = $obj->CardID; $match = match ($filter) {
             'pokemon' => EffectiveCardType($obj) === 'Pokemon',
             'basicPokemon' => EffectiveCardType($obj) === 'Pokemon' && in_array('Basic', EffectiveCardSubtypes($obj), true),
+            'stage1' => EffectiveCardType($obj) === 'Pokemon' && in_array('Stage1', EffectiveCardSubtypes($obj), true),
+            'stage2' => EffectiveCardType($obj) === 'Pokemon' && in_array('Stage2', EffectiveCardSubtypes($obj), true),
+            'metalEvolution' => PokeIsEvolution($obj) && in_array('Metal', explode(',', EffectiveCardElement($obj)), true),
+            'swords' => EffectiveCardType($obj) === 'Pokemon' && in_array(CardName($id), ['Honedge', 'Doublade', 'Aegislash'], true),
             'nonRuleBox' => EffectiveCardType($obj) === 'Pokemon' && !PokeHasRuleBox($id),
             'nonRuleBoxOrBasicEnergy' => (EffectiveCardType($obj) === 'Pokemon' && !PokeHasRuleBox($id))
                 || (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal'),
             'trainer' => EffectiveCardType($obj) === 'Trainer',
             'supporter' => CardTrainerType($id) === 'Supporter',
+            'supporterOrStadium' => in_array(CardTrainerType($id), ['Supporter', 'Stadium'], true),
             'rocketSupporter' => CardTrainerType($id) === 'Supporter' && str_contains(CardName($id), 'Team Rocket'),
             'basicEnergy' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal',
             'basicDarkness' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Darkness', PokeEnergyTypes($id), true),
             'basicMetal' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Metal', PokeEnergyTypes($id), true),
             'basicFire' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Fire', PokeEnergyTypes($id), true),
+            'basicLightning' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Lightning', PokeEnergyTypes($id), true),
             'basicFighting' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Fighting', PokeEnergyTypes($id), true),
+            'basicPsychicEnergy' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Psychic', PokeEnergyTypes($id), true),
             'fightingGong' => (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Fighting', PokeEnergyTypes($id), true))
                 || (EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && in_array('Fighting', explode(',', EffectiveCardElement($obj)), true)),
             'pokemonOrEnergy' => EffectiveCardType($obj) === 'Pokemon' || (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal'),
             'basicPsychic' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && in_array('Psychic', explode(',', EffectiveCardElement($obj)), true),
+            'psychicPokemon' => EffectiveCardType($obj) === 'Pokemon' && in_array('Psychic', explode(',', EffectiveCardElement($obj)), true),
             'fanCall' => EffectiveCardType($obj) === 'Pokemon' && str_contains(EffectiveCardElement($obj), 'Colorless') && (int)CardHp($id) <= 100,
             'poffin' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && (int)CardHp($id) <= 70,
             'evolution' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) !== 'Basic',
@@ -133,6 +152,17 @@ function PokeResolveRecovery(int $player, string $selected): void {
         if (str_contains($ref, 'TempZone')) PokeLog('reveal-search', ['player'=>$player, 'card'=>GetZoneObject($ref)->CardID]);
         PokeMoveSimple($ref, $player, 'Hand');
     }
+}
+function PokeRevealHandSelection(int $player, string $selected): int {
+    $revealed = 0;
+    foreach (explode('&', $selected) as $ref) {
+        if (!str_starts_with($ref, "p{$player}Hand-")) continue;
+        $obj = GetZoneObject($ref);
+        if (!$obj || $obj->Removed()) continue;
+        PokeLog('reveal-hand', ['player'=>$player, 'card'=>$obj->CardID]);
+        ++$revealed;
+    }
+    return $revealed;
 }
 function PokeDiscardSelection(int $player, string $selected): void {
     foreach (explode('&', $selected) as $ref) if ($ref !== '-' && $ref !== '' && $ref !== 'PASS') PokeMoveSimple($ref, $player, 'Discard');

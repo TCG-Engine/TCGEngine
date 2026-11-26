@@ -10,6 +10,9 @@
 .damage-table table { width:100%; border-collapse:collapse; font-size:13px; }
 .damage-table th,.damage-table td { padding:8px; text-align:left; border-bottom:1px solid #d6dfd7; }
 .damage-stats select { max-width:260px; }
+.damage-controls { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; }
+.damage-controls label { display:flex; align-items:center; gap:12px; margin:0; }
+.damage-controls select { min-width:0; max-width:min(260px,60vw); }
 .damage-plot { position:relative; }
 .damage-dot { cursor:pointer; stroke:transparent; stroke-width:10; pointer-events:all; }
 .damage-dot:hover,.damage-dot:focus { stroke:currentColor; stroke-width:2; outline:none; }
