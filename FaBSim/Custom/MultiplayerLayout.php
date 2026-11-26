@@ -1,8 +1,10 @@
 <style>
 #fab-upf-board{display:none}.fab-upf-active #fab-duel-layout{display:none}
-.fab-upf-active #fab-upf-board{display:flex;flex-direction:column;position:fixed;z-index:40;overflow:auto;color:#eee9de;box-sizing:border-box}
+.fab-upf-active #fab-upf-board{display:flex;flex:1;min-height:0;flex-direction:column;position:relative;z-index:40;overflow:auto;color:#eee9de;box-sizing:border-box}
 .fab-upf-status{margin:0;color:#dcc997;font:600 12px/1.5 system-ui}
-#fab-upf-board :is(button,.fab-upf-lobby-link){font:600 12px system-ui;border:1px solid #b28c4555;border-radius:6px;background:#292d30;color:#eee4cf;padding:7px 11px;cursor:pointer}#fab-upf-board :is(button,.fab-upf-lobby-link):hover,#fab-upf-board button[aria-expanded=true]{background:#b89552;color:#10191e}#fab-upf-board :is(button,.fab-upf-lobby-link):focus-visible{outline:2px solid #f6d68b;outline-offset:3px}
+#fab-upf-board .fab-upf-inspect{font:600 12px system-ui;border:1px solid #b28c4555;border-radius:6px;background:#292d30;color:#eee4cf;padding:7px 11px;cursor:pointer}
+#fab-upf-board .fab-upf-inspect:hover{background:#b89552;color:#10191e}
+#fab-upf-board .fab-upf-inspect:focus-visible{outline:2px solid #f6d68b;outline-offset:3px}
 .fab-upf-seat{min-width:0;padding:12px;box-sizing:border-box}
 .fab-upf-seat-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.fab-upf-seat h2{margin:0;font:700 14px system-ui;letter-spacing:.03em}.fab-upf-badges{font:600 11px system-ui;color:#eac778;margin-top:3px}.fab-upf-summary{font:500 11px system-ui;color:#a6b9b8;margin:0 0 12px;line-height:1.7}
 .fab-upf-zones{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}.fab-upf-zone{min-width:50px;max-width:100%;padding:6px;border:1px solid #9eb6ae18;border-radius:7px;background:#00000012;box-sizing:border-box}.fab-upf-zone h3{font:600 10px system-ui;letter-spacing:.06em;text-transform:uppercase;color:#91a9a7;margin:0 0 6px}.fab-upf-zone [id$=Wrapper]{position:relative!important;overflow:visible!important;max-width:100%}.fab-upf-zone [data-mzid]{position:relative!important}.fab-upf-zone>div{overflow:auto;max-width:100%}.fab-upf-zone [id$=Hand]{flex-wrap:wrap!important}
@@ -10,7 +12,7 @@
 .fab-upf-seat.is-mine{min-height:46vh;padding:16px 20px}.fab-upf-seat.is-mine h2{font-size:17px}.fab-upf-seat.is-mine .fab-upf-zones{gap:12px}.fab-upf-seat.is-mine [data-zone=Hand]{flex-basis:100%;order:20;background:#0a181b55;border-color:#9eb6ae20;padding:12px}
 .fab-upf-zone[data-zone=Health],.fab-upf-zone[data-zone=Resources],.fab-upf-zone[data-zone=Chi],.fab-upf-zone[data-zone=ActionPoints]{font:700 20px system-ui;min-width:70px;background:#0b171c70}.fab-upf-seat[hidden],.fab-upf-zone[hidden]{display:none!important}
 .fab-upf-panel{position:fixed;z-index:150;left:15vw;top:24vh;width:min(850px,75vw);max-width:calc(100vw - 20px);max-height:65vh;border:1px solid #ad9056;border-radius:12px;background:#112128fa;box-shadow:0 22px 70px #000a;overflow:hidden;color:#eee9de}.fab-upf-panel[hidden]{display:none}.fab-upf-panel header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#23343a;cursor:grab;touch-action:none;user-select:none}.fab-upf-panel header:active{cursor:grabbing}.fab-upf-panel h2{font:700 14px system-ui;margin:0}.fab-upf-panel header small{font:11px system-ui;color:#a7bab8}.fab-upf-panel button{background:#142329;color:#eee;border:1px solid #9eb6ae55;border-radius:5px;padding:5px 9px;cursor:pointer}
-.fab-upf-panel-body{padding:16px;overflow:auto;max-height:calc(65vh - 65px);box-sizing:border-box}.fab-upf-chain-row{padding:10px 0;border-bottom:1px solid #ffffff16}.fab-upf-chain-row h3{font:600 11px system-ui;color:#d5bd88;margin:0 0 8px}.fab-upf-panel [id$=Wrapper]{overflow:visible!important}.fab-upf-panel [data-mzid]{position:relative!important}.fab-upf-empty{color:#94aaa8;font:13px system-ui}
+.fab-upf-panel-body{padding:16px;overflow:auto;max-height:calc(65vh - 65px);box-sizing:border-box}.fab-upf-panel [id$=Wrapper]{overflow:visible!important}.fab-upf-panel [data-mzid]{position:relative!important}.fab-upf-empty{color:#94aaa8;font:13px system-ui}
 @media(min-width:1100px){
   .fab-upf-opponents{min-height:22vh}.fab-upf-seat.is-mine{min-height:49vh}.fab-upf-seat.is-mine .fab-upf-summary{display:none}
   .fab-upf-seat.is-mine .fab-upf-zones{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-items:stretch}
@@ -25,16 +27,6 @@
 </style>
 <style><?php readfile(__DIR__ . '/MultiplayerTable.css'); ?></style>
 <main id="fab-upf-board" aria-label="Ultimate Pit Fight">
-  <nav class="fab-upf-tools" aria-label="Table controls">
-    <a class="fab-upf-lobby-link" href="<?= $fabHomeHref ?>">Home</a>
-    <div id="fab-upf-events-mount"></div>
-    <button type="button" id="fab-upf-home" hidden>All opponents</button>
-    <button type="button" data-fab-panel="stack" aria-controls="fab-upf-stack-panel" aria-expanded="false">Stack <span id="fab-upf-stack-count">0</span></button>
-    <button type="button" data-fab-panel="chain" aria-controls="fab-upf-chain-panel" aria-expanded="false">Combat chain <span id="fab-upf-chain-count">0</span></button>
-    <button type="button" data-fab-playmat-open aria-haspopup="dialog">Playmats</button>
-    <button type="button" id="fab-upf-report-bug" onclick="openBugReportModal()">Report Bug</button>
-  </nav>
-  <p id="fab-upf-announcement" role="status"></p>
   <div class="fab-upf-opponents" id="fab-upf-opponents"></div><div id="fab-upf-own"></div>
 </main>
 <section class="fab-upf-panel" id="fab-upf-stack-panel" aria-label="Stack" hidden>
@@ -47,42 +39,99 @@
     <?php include __DIR__ . '/CombatProgress.php'; ?>
     <button type="button" data-fab-close="chain" aria-label="Hide combat chain">×</button>
   </header>
-  <div class="fab-upf-panel-body"><p id="fab-upf-chain-status" class="fab-upf-status"></p><div id="fab-upf-chain"></div></div>
+  <div class="fab-upf-panel-body"><p id="fab-upf-chain-status" class="fab-upf-status is-empty">No active combat chain.</p><div id="fab-upf-chain-view"></div></div>
 </section>
 <script>
 (function() {
   let lastRender=null, focusedSeat=null;
   const counts={stack:0,chain:0};
-  function mountEvents(active){
-    const mount=document.getElementById('fab-upf-events-mount');
-    if(active && typeof GetMacroCardToastHost==='function'){
-      const host=GetMacroCardToastHost();
-      if(host.parentElement===mount)return;
+  const panelButtons = Object.fromEntries([...document.querySelectorAll('#fab-table-tools [data-fab-panel]')]
+    .map(button => [button.dataset.fabPanel, button]));
+  const panelFor = kind => document.getElementById(panelButtons[kind].getAttribute('aria-controls'));
+  function refreshTableControls(active, viewer, seats) {
+    const mount = document.getElementById('fab-events-mount');
+    if (!mount.firstElementChild && typeof GetMacroCardToastHost === 'function') {
+      const host = GetMacroCardToastHost();
       mount.appendChild(host);
-      const toggle=host.querySelector('#macro-card-toast-toggle');
-      if(!toggle.hasAttribute('aria-controls')){
-        const updateExpanded=()=>toggle.setAttribute('aria-expanded',String(host.classList.contains('is-expanded')));
-        toggle.setAttribute('aria-controls','macro-card-toast-log');
-        toggle.addEventListener('click',updateExpanded);
-        updateExpanded();
-      }
-    }else if(mount.firstElementChild){
-      document.body.appendChild(mount.firstElementChild);
+      const toggle = host.querySelector('#macro-card-toast-toggle');
+      const updateExpanded = () => toggle.setAttribute('aria-expanded', String(host.classList.contains('is-expanded')));
+      toggle.setAttribute('aria-controls', 'macro-card-toast-log');
+      toggle.addEventListener('click', updateExpanded);
+      updateExpanded();
     }
+    panelButtons.stack.setAttribute('aria-controls', active ? 'fab-upf-stack-panel' : 'fabLayersWindow');
+    const winner = Number(window.WinnerData);
+    const priority = winner ? 0 : Number(window.PriorityPlayerData);
+    if (!active) {
+      const opponent = Number(seats.find(seat => Number(seat) !== viewer));
+      document.querySelector('.fab-board-local').classList.toggle('has-priority', priority === viewer);
+      document.querySelector('.fab-board-opponent').classList.toggle('has-priority', priority === opponent);
+    }
+    const announcement = document.getElementById('fab-priority-announcement');
+    const message = winner > 0 ? 'Player ' + winner + ' wins' :
+      priority === viewer ? 'You have priority' : priority > 0 ? 'Player ' + priority + ' has priority' : '';
+    if (announcement.textContent !== message) announcement.textContent = message;
   }
   const label=name=>({CombatChain:'Combat chain',ActionPoints:'Action points',Temp:'Search results',Health:'Life'})[name] || name;
   function raisePanel(panel){document.querySelectorAll('.fab-upf-panel').forEach(p=>p.style.zIndex=p===panel?'151':'150');}
   function panelToggle(kind,open,focus) {
-    const panel=document.getElementById('fab-upf-'+kind+'-panel'); panel.hidden=open===undefined?!panel.hidden:!open;
-    document.querySelector('[data-fab-panel="'+kind+'"]').setAttribute('aria-expanded',String(!panel.hidden));
-    if(!panel.hidden){raisePanel(panel);clampPanel(panel);if(focus)panel.querySelector('header').focus();}
+    const panel = panelFor(kind);
+    const shouldOpen = open ?? panel.hidden;
+    if (shouldOpen && !document.body.classList.contains('fab-upf-active')) {
+      panelToggle(kind === 'chain' ? 'stack' : 'chain', false);
+    }
+    panel.hidden = !shouldOpen;
+    panelButtons[kind].setAttribute('aria-expanded', String(shouldOpen));
+    if (shouldOpen) {
+      raisePanel(panel);
+      window.FaBClampPanel(panel);
+      if (focus) panel.querySelector('header').focus();
+    }
   }
-  function clampPanel(panel,left,top) {
-    window.FaBClampPanel(panel,left,top);
+
+  function updatePanelCount(kind, count, autoOpen = true) {
+    panelButtons[kind].querySelector('span').textContent = count;
+    if (count > 0 && counts[kind] === 0 && autoOpen) panelToggle(kind, true);
+    if (count === 0 && counts[kind] > 0) panelToggle(kind, false);
+    counts[kind] = count;
+  }
+
+  function readCombatState() {
+    const data = window.GameStateData;
+    const raw = data && typeof data === 'object' ? (data.Value ?? data.value) : data;
+    if (typeof raw !== 'string' || !raw.trim()) return {};
+    try { return JSON.parse(raw); } catch (_) {}
+    try { return JSON.parse(decodeURIComponent(raw)); } catch (_) { return {}; }
+  }
+
+  function renderCombatChain(seats, multiplayer) {
+    const zoneNames = multiplayer ? seats.map(seat => 'p' + seat + 'CombatChain') : ['myCombatChain', 'theirCombatChain'];
+    const zones = Object.fromEntries(zoneNames.map(name => [name, window[name + 'Data'] || '']));
+    const state = readCombatState();
+    const panel = panelFor('chain');
+    const view = document.getElementById('fab-upf-chain-view');
+    window.FaBUpdateCombatProgress(panel, state);
+    window.FaBRenderChain(view, zones, state);
+    const status = document.getElementById('fab-upf-chain-status');
+    status.classList.toggle('is-empty', !state.combatOpen);
+    status.textContent = state.combatOpen ? 'Player ' + state.attacker + ' → Player ' + state.defender + ' · ' + String(state.combatStep || '') +
+      (['DAMAGE','RESOLUTION'].includes(state.combatStep) ? ' · Attack ' + (state.attackPower || 0) + ' / Defense ' + (state.defenseValue || 0) : '') : 'No active combat chain.';
+    updatePanelCount('chain', Number(view.dataset.cardCount));
+  }
+
+  function renderStack(multiplayer, cardSize) {
+    const data = String(window.StackData || '');
+    const count = data.trim() ? data.split('<|>').length : 0;
+    const view = document.getElementById(multiplayer ? 'fab-upf-stack' : 'fabLayers');
+    view.innerHTML = count ? PopulateZone('Stack', data, cardSize, './FaBSim/concat', '0', 'All') : multiplayer
+      ? '<p class="fab-upf-empty">No cards or abilities on the stack.</p>'
+      : '<div><strong>No active layers</strong>Instants, triggers, and resolving abilities appear here.</div>';
+    updatePanelCount('stack', count, multiplayer || panelFor('chain').hidden);
   }
   function focusSeat(seat){focusedSeat=seat;if(lastRender)window.RenderFaBMultiplayer(...lastRender);}
   function makeZone(seat,zone,row){
     const box=document.createElement('section');box.className='fab-upf-zone';box.dataset.zone=zone.name;
+    if(zone.name==='ActionPoints')box.classList.add('fab-action-points');
     const heading=document.createElement('h3');heading.textContent=label(zone.name);box.appendChild(heading);
     const slot=document.createElement('div');slot.id='p'+seat+zone.name+'Slot';box.appendChild(slot);row.appendChild(box);
   }
@@ -91,17 +140,18 @@
     lastRender=[response,stride,zones,size,viewerSeat];
     const seats=String(window.SeatOrderData||'12').match(/[1-4]/g)||[];
     const active=seats.length>2;document.body.classList.toggle('fab-upf-active',active);
-    mountEvents(active);
+    refreshTableControls(active, Number(viewerSeat), seats);
     if(!active){
       if(typeof FaBRefreshOptionalCounters==='function')FaBRefreshOptionalCounters();
-      ['stack','chain'].forEach(kind=>panelToggle(kind,false));
-      if(typeof window.RenderFaBLayers==='function'){const data=String(window.StackData||'');window.RenderFaBLayers(PopulateZone('Stack',data,size,'./FaBSim/concat','0','All'),data.trim()?data.split('<|>').length:0);}return;
+      renderCombatChain(seats, false);
+      renderStack(false, size);
+      return;
     }
     const viewer=String(viewerSeat),opponents=document.getElementById('fab-upf-opponents'),own=document.getElementById('fab-upf-own');
     const signature=seats.join('')+':'+viewer+':'+zones.map(z=>z.name).join(',');
     if(opponents.dataset.signature!==signature){
       focusedSeat=null;
-      opponents.replaceChildren();own.replaceChildren();document.getElementById('fab-upf-chain').replaceChildren();
+      opponents.replaceChildren();own.replaceChildren();
       const viewerIndex=seats.indexOf(viewer),ordered=viewerIndex<0?seats:seats.slice(viewerIndex+1).concat(seats.slice(0,viewerIndex+1));
       ordered.forEach(seat=>{
         const section=document.createElement('section');section.id='fab-seat-'+seat;section.className='fab-upf-seat';
@@ -116,9 +166,6 @@
         // Inventory remains in the response data for rules and selection prompts,
         // but has no permanent board slot. CombatChain has its own shared panel.
         zones.filter(z=>!['CombatChain','Inventory'].includes(z.name)).forEach(zone=>makeZone(seat,zone,row));(seat===viewer?own:opponents).appendChild(section);
-        const chain=document.createElement('section');chain.className='fab-upf-chain-row';chain.dataset.seat=seat;
-        const name=document.createElement('h3');name.textContent='Player '+seat;chain.appendChild(name);
-        const slot=document.createElement('div');slot.id='p'+seat+'CombatChainSlot';chain.appendChild(slot);document.getElementById('fab-upf-chain').appendChild(chain);
       });opponents.dataset.signature=signature;
     }
     const live=String(window.LiveSeatsData||seats.join(''));opponents.classList.toggle('is-focused',focusedSeat!==null);document.getElementById('fab-upf-home').hidden=focusedSeat===null;
@@ -133,11 +180,10 @@
       section.classList.toggle('is-summary',summary);
       section.classList.toggle('is-mine',mine);
       section.classList.toggle('is-memorial',summary&&eliminated);
-      section.classList.toggle('has-priority',!eliminated&&Number(seat)===Number(window.PriorityPlayerData));
+      section.classList.toggle('has-priority',!eliminated&&!Number(window.WinnerData)&&Number(seat)===Number(window.PriorityPlayerData));
       section.querySelector('.fab-upf-badges').textContent=eliminated?'Eliminated':'';
     }
     const compactCardScale=.5;
-    let chainCount=0;
     seats.forEach(seat=>{
       const section=document.getElementById('fab-seat-'+seat),mine=seat===viewer,summary=!mine&&focusedSeat!==seat;
       const dataByName={};
@@ -159,17 +205,15 @@
       zones.forEach(zone=>{
         const name='p'+seat+zone.name,data=String(response[zone.index+(Number(seat)-1)*stride]||'');dataByName[zone.name]=data;
         window[name+'Data']=data;const slot=document.getElementById(name+'Slot');if(!slot)return;slot.onclick=()=>ZoneClickHandler(name);
-        const cardSize=zone.name==='CombatChain'?90
-          :zone.name==='Hero'||zone.name==='Weapons'?combatCardSize
+        const cardSize=zone.name==='Hero'||zone.name==='Weapons'?combatCardSize
           :zone.name==='Arsenal'||zone.name==='Arena'?compactCardSize:seatCardSize;
         slot.innerHTML=data.trim()?PopulateZone(name,data,cardSize,'./FaBSim/concat','0',zone.mode):'';
         if(zone.name==='Equipment'&&typeof FaBArrangeEquipment==='function')FaBArrangeEquipment(name);
         if(!mine)slot.querySelectorAll('button').forEach(button=>button.remove());
-        slot.parentElement.dataset.empty=String(!data.trim());if(zone.name==='Temp'||zone.name==='CombatChain')slot.parentElement.hidden=!data.trim();
+        slot.parentElement.dataset.empty=String(!data.trim());if(zone.name==='Temp')slot.parentElement.hidden=!data.trim();
         if(zone.name==='Chi')slot.parentElement.hidden=!(Number(data)>0);
         if(zone.name==='Soul')slot.parentElement.hidden=!data.split('<|>').some(record=>{const card=record.trim().split(' ')[0];return card&&card!=='-';});
-        if(zone.name==='ActionPoints')slot.parentElement.classList.toggle('fab-upf-ap-inactive',Number(seat)!==Number(window.TurnPlayerData));
-        if(zone.name==='CombatChain'&&data.trim())chainCount+=data.split('<|>').length;
+        if(zone.name==='ActionPoints')slot.parentElement.classList.toggle('fab-ap-inactive',Number(seat)!==Number(window.TurnPlayerData));
       });
       // A private pile is one CardBack record whose counter carries its size.
       const count=name=>{
@@ -191,34 +235,8 @@
         badge.hidden=stat==='chi'&&!(Number(value)>0);
       }
     });
-    let state={};try{state=JSON.parse(window.GameStateData||'{}');}catch(_){}
-    window.FaBUpdateCombatProgress(document.getElementById('fab-upf-chain-panel'), state);
-    if (typeof window.FaBRenderChain === 'function') {
-      const chainHost = document.getElementById('fab-upf-chain');
-      let view = document.getElementById('fab-upf-chain-view');
-      if (!view) { view = document.createElement('div'); view.id = 'fab-upf-chain-view'; chainHost.appendChild(view); }
-      const chainZones = {};
-      seats.forEach(seat => {
-        const zone = 'p' + seat + 'CombatChain'; chainZones[zone] = window[zone + 'Data'] || '';
-        const slot = document.getElementById(zone + 'Slot');
-        if (slot) { slot.replaceChildren(); slot.parentElement.hidden = true; }
-      });
-      window.FaBRenderChain(view, chainZones, state);
-    }
-    const announcement=document.getElementById('fab-upf-announcement');
-    const turnText=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins':"Player "+window.TurnPlayerData+"'s turn";
-    const activityText=Number(window.WinnerData)>0?turnText:turnText+'. Priority: Player '+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');
-    if(announcement.textContent!==activityText)announcement.textContent=activityText;
-    const chainStatus=document.getElementById('fab-upf-chain-status');
-    chainStatus.classList.toggle('is-empty',!state.combatOpen);
-    chainStatus.textContent=state.combatOpen?'Player '+state.attacker+' → Player '+state.defender+' · '+String(state.combatStep||'')+
-      (['DAMAGE','RESOLUTION'].includes(state.combatStep)?' · Attack '+(state.attackPower||0)+' / Defense '+(state.defenseValue||0):''):'No active combat chain.';
-    const stack=String(window.StackData||''),stackCount=stack.trim()?stack.split('<|>').length:0;
-    document.getElementById('fab-upf-stack').innerHTML=stackCount?PopulateZone('Stack',stack,90,'./FaBSim/concat','0','All'):'<p class="fab-upf-empty">No cards or abilities on the stack.</p>';
-    for(const [kind,count] of [['stack',stackCount],['chain',chainCount]]){
-      document.getElementById('fab-upf-'+kind+'-count').textContent=count;
-      if(count>0&&counts[kind]===0)panelToggle(kind,true);if(count===0&&counts[kind]>0)panelToggle(kind,false);counts[kind]=count;
-    }
+    renderStack(true, 90);
+    renderCombatChain(seats, true);
   };
   document.getElementById('fab-upf-home').onclick=()=>focusSeat(null);
   let resizeFrame=0;
@@ -230,8 +248,16 @@
   document.getElementById('fab-upf-opponents').addEventListener('transitionend',event=>{
     if(event.target.parentElement===event.currentTarget&&event.propertyName==='flex-basis')redrawAfterLayout();
   });
-  document.querySelectorAll('[data-fab-panel]').forEach(button=>button.onclick=()=>panelToggle(button.dataset.fabPanel,undefined,true));
-  document.querySelectorAll('[data-fab-close]').forEach(button=>button.onclick=()=>{panelToggle(button.dataset.fabClose,false);document.querySelector('[data-fab-panel="'+button.dataset.fabClose+'"]').focus();});
+  Object.entries(panelButtons).forEach(([kind, button]) => {
+    button.onclick = () => panelToggle(kind, undefined, true);
+  });
+  document.getElementById('fab-table').addEventListener('click', event => {
+    const button = event.target.closest('[data-fab-close]');
+    if (!button) return;
+    const kind = button.dataset.fabClose;
+    panelToggle(kind, false);
+    panelButtons[kind].focus();
+  });
   document.querySelectorAll('.fab-upf-panel').forEach(panel=>{
     window.FaBMakeDraggablePanel(panel, panel.querySelector('header'));
     if (panel.querySelector('[data-fab-drag-handle]')) window.FaBMakeDraggablePanel(panel, panel.querySelector('[data-fab-drag-handle]'));

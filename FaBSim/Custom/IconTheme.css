@@ -11,10 +11,6 @@
   -webkit-text-stroke:3px #071014;paint-order:stroke fill;
 }
 #fab-duel-layout .fab-zone[hidden]{display:none!important}
-#fab-duel-layout .fab-stat-inactive{visibility:hidden}
-#fab-duel-layout .fab-stat-inactive .widget-button-pass{visibility:visible}
-.fab-upf-ap-inactive{visibility:hidden}
-.fab-upf-ap-inactive .widget-button-pass{visibility:visible}
 #fab-duel-layout .fab-stat{
   width:40px;height:40px;box-sizing:border-box;border:0;border-radius:0;
   background:none;box-shadow:none;color:#fff;font:900 21px/1 "Segoe UI",sans-serif;
@@ -23,7 +19,6 @@
 #fab-duel-layout .fab-stat[data-label="Life"]{--stat-icon:url('../Assets/Icons/health.png')}
 #fab-duel-layout .fab-stat[data-label="Pitch"]{--stat-icon:url('../Assets/Icons/resource.png')}
 #fab-duel-layout .fab-stat[data-label="Chi"]{--stat-icon:url('../Assets/Icons/chi.svg')}
-#fab-duel-layout .fab-stat[data-label="AP"]{--stat-icon:url('../Assets/Icons/action.svg')}
 #fab-duel-layout .fab-stat:before{
   content:"";display:block;position:absolute;inset:0;width:100%;height:100%;
   transform:none;margin:0;padding:0;opacity:.85;z-index:0;
@@ -91,12 +86,3 @@ button.fab-chain-link>span{position:absolute;inset:0;display:grid;place-items:ce
 #fab-upf-board [data-stat="resource"]{--upf-stat-icon:url('../Assets/Icons/resource.png');left:50%;right:auto;top:50%;bottom:auto;transform:translate(-50%,-50%)}
 #fab-upf-board [data-stat="chi"]{--upf-stat-icon:url('../Assets/Icons/chi.svg');left:0;right:auto;top:auto;bottom:-10px;transform:translateX(-50%)}
 #fab-upf-board .fab-upf-zone[data-zone="Chi"]{display:none}
-#fab-upf-board .fab-upf-seat .fab-upf-zone[data-zone="ActionPoints"]{border:0;border-radius:0;background:none;box-shadow:none;padding:0}
-#fab-upf-board .fab-upf-seat [id$="ActionPoints"]>span{
-  position:relative;display:grid;place-items:center;flex:0 0 40px;min-width:40px;height:40px;
-  color:#fff;font:900 21px/1 "Segoe UI",sans-serif;
-  background:url('../Assets/Icons/action.svg') center/contain no-repeat;
-  text-shadow:-1px -1px #071014,1px -1px #071014,-1px 1px #071014,1px 1px #071014,0 2px 3px #000;
-  -webkit-text-stroke:3px #071014;paint-order:stroke fill;
-}
-#fab-upf-board .fab-upf-seat [id$="ActionPoints"]>span:after{display:none}

@@ -2,24 +2,25 @@
 $fabHomeHref = '/TCGEngine/SharedUI/Sites/FaBSim/MainMenu.php';
 include __DIR__ . '/GameOver.php';
 include __DIR__ . '/CombatPanel.php';
-include __DIR__ . '/MultiplayerLayout.php';
 include __DIR__ . '/Playmats.php';
 ?>
 <link rel="stylesheet" href="./FaBSim/Custom/IconTheme.css?v=<?= filemtime(__DIR__ . '/IconTheme.css') ?>">
 <link rel="stylesheet" href="./FaBSim/Custom/Interaction.css?v=<?= filemtime(__DIR__ . '/Interaction.css') ?>">
 <link rel="stylesheet" href="./FaBSim/Custom/Shortcuts.css?v=<?= filemtime(__DIR__ . '/Shortcuts.css') ?>">
-<style>
-.fab-duel-utilities{position:fixed;top:8px;right:8px;z-index:2600;display:flex;gap:6px}
-.fab-duel-header{position:fixed;inset:0 0 auto;height:48px;z-index:30;background:#2a2a2a}
-.fab-duel-header a{display:inline-block;margin:5px;padding:3px;border-radius:5px;background:#333;color:#fff;font-size:14px;text-decoration:none}
-.fab-duel-header a:hover{background:#444}
-</style>
+<link rel="stylesheet" href="./FaBSim/Custom/TableControls.css?v=<?= filemtime(__DIR__ . '/TableControls.css') ?>">
+<div id="fab-table">
+<nav id="fab-table-tools" aria-label="Table controls">
+  <a href="<?= $fabHomeHref ?>">Home</a>
+  <div id="fab-events-mount"></div>
+  <button type="button" id="fab-upf-home" hidden>All opponents</button>
+  <button type="button" id="fabLayersToggle" data-fab-panel="stack" aria-controls="fabLayersWindow" aria-expanded="false">Stack <span id="fabLayersCount">0</span></button>
+  <button type="button" id="fabCombatToggle" data-fab-panel="chain" aria-controls="fab-upf-chain-panel" aria-expanded="false">Combat chain <span id="fabCombatCount">0</span></button>
+  <button type="button" data-fab-playmat-open aria-haspopup="dialog">Playmats</button>
+  <button type="button" id="bug-report-button" onclick="openBugReportModal()">Report Bug</button>
+</nav>
+<p id="fab-priority-announcement" role="status"></p>
+<?php include __DIR__ . '/MultiplayerLayout.php'; ?>
 <div id="fab-duel-layout">
-<header class="fab-duel-header"><a href="<?= $fabHomeHref ?>">Home</a></header>
-<div class="fab-duel-utilities">
-  <button class="fab-overlay-button" type="button" data-fab-playmat-open aria-haspopup="dialog">Playmats</button>
-  <button id="bug-report-button" class="fab-overlay-button" type="button" onclick="openBugReportModal()">Report Bug</button>
-</div>
 <style>
 :root{
   --fab-gold:#d6aa4d;
@@ -30,12 +31,12 @@ include __DIR__ . '/Playmats.php';
   --fab-card-size:clamp(68px,4.8vw,92px);
 }
 html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;font-family:Inter,Segoe UI,sans-serif}
-.fab-board{position:fixed;inset:48px 0 0;border-top:1px solid var(--fab-field-line)}
+.fab-board{position:absolute;inset:0}
 .fab-board-field{position:absolute;left:0;right:0;height:50%;pointer-events:none;box-sizing:border-box;background-size:cover;background-position:center;background-repeat:no-repeat}
 .fab-board-opponent{top:0;border-bottom:1px solid var(--fab-field-line);background-color:var(--fab-field-cool);background-image:var(--fab-opponent-playmat,radial-gradient(ellipse at 50% 90%,var(--fab-light-cool),transparent 75%))}
 .fab-board-local{bottom:0;background-color:var(--fab-field-warm);background-image:var(--fab-local-playmat,radial-gradient(ellipse at 50% 10%,var(--fab-light-warm),transparent 75%))}
 
-.fab-zone{position:fixed;z-index:20;box-sizing:border-box;width:calc(var(--fab-card-size) + 10px);height:calc(var(--fab-card-size) + 10px);border:1px solid var(--fab-line);border-radius:9px;background:var(--fab-slot);padding:16px 4px 4px;overflow:visible;box-shadow:inset 0 0 22px rgba(0,0,0,.16)}
+.fab-zone{position:absolute;z-index:20;box-sizing:border-box;width:calc(var(--fab-card-size) + 10px);height:calc(var(--fab-card-size) + 10px);border:1px solid var(--fab-line);border-radius:9px;background:var(--fab-slot);padding:16px 4px 4px;overflow:visible;box-shadow:inset 0 0 22px rgba(0,0,0,.16)}
 .fab-zone:has([data-mzid]){border-color:transparent;background:transparent;box-shadow:none}
 .fab-zone:has([data-mzid]):before{display:none}
 .fab-zone:before{content:attr(data-label);position:absolute;z-index:2;top:4px;left:7px;color:rgba(241,231,211,.66);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;pointer-events:none}
@@ -45,7 +46,6 @@ html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;f
 .fab-zone [id^="my"],.fab-zone [id^="their"]{align-items:flex-end}
 /* The slot already supplies its small uppercase title. Hide the renderer's plain label. */
 .fab-zone:not(.fab-stat)>div>span>span:not([data-mzid]):not([id]){display:none}
-#chatWidget{top:5px!important;bottom:auto!important;left:70px!important;z-index:90!important}
 
 /* Hands anchor the composition; cards fan across the center without large zone boxes. */
 #myHandSlot,#theirHandSlot{left:31%;right:31%;width:auto;height:126px;padding-top:8px;border-color:transparent;background:transparent;box-shadow:none}
@@ -95,9 +95,9 @@ html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;f
 /* Equal-sized utility slots: graveyard / deck / banish, pitch beside deck. */
 #myDeckSlot,#theirDeckSlot,#myGraveyardSlot,#theirGraveyardSlot,#myBanishSlot,#theirBanishSlot,#myPitchSlot,#theirPitchSlot,#myHeroSlot,#theirHeroSlot{padding:4px}
 #myDeckSlot,#theirDeckSlot,#myGraveyardSlot,#theirGraveyardSlot,#myBanishSlot,#theirBanishSlot{right:12px}
-#theirGraveyardSlot{top:max(52px,4vh)}
-#theirDeckSlot,#theirPitchSlot{top:calc(max(52px,4vh) + var(--fab-card-size) + 18px)}
-#theirBanishSlot{top:calc(max(52px,4vh) + var(--fab-card-size)*2 + 36px)}
+#theirGraveyardSlot{top:4%}
+#theirDeckSlot,#theirPitchSlot{top:calc(4% + var(--fab-card-size) + 18px)}
+#theirBanishSlot{top:calc(4% + var(--fab-card-size)*2 + 36px)}
 #myGraveyardSlot{bottom:calc(4% + var(--fab-card-size)*2 + 36px)}
 #myDeckSlot,#myPitchSlot{bottom:calc(4% + var(--fab-card-size) + 18px)}
 #myPitchSlot,#theirPitchSlot{right:calc(var(--fab-card-size) + 30px)}
@@ -115,19 +115,13 @@ html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;f
 #myChiSlot{right:calc(var(--fab-card-size)*2 + 28px);bottom:calc(4% + var(--fab-card-size) + 2px);z-index:27}
 #theirChiSlot{right:calc(var(--fab-card-size)*2 + 28px);top:calc(4% + var(--fab-card-size)*2 - 28px);z-index:27}
 #myResourcesSlot{right:calc(var(--fab-card-size)*1.5 + 15px);bottom:calc(4% + var(--fab-card-size)*1.5 + 3px);z-index:27}
-#theirResourcesSlot{right:calc(var(--fab-card-size)*1.5 + 15px);top:calc(max(52px,4vh) + var(--fab-card-size)*1.5 + 3px);z-index:27}
-#myActionPointsSlot,#theirActionPointsSlot{width:44px;height:44px;border-radius:10px;font-size:18px;z-index:27}
-#myActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);bottom:calc(4% + var(--fab-card-size)/2 - 14px)}
-#theirActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);top:calc(4% + var(--fab-card-size)/2 - 14px)}
-#theirActionPointsSlot .widget-button-pass{display:none!important}
-.fab-stat .widget-button-pass{position:fixed;right:18px;top:calc(50% + 10px);width:104px;padding:9px 12px;border:1px solid #e5c980;border-radius:8px;background:#c9a755;color:#192127;font-size:13px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.45)}
-.fab-stat .widget-button-pass:hover{background:#e5c980}
+#theirResourcesSlot{right:calc(var(--fab-card-size)*1.5 + 15px);top:calc(4% + var(--fab-card-size)*1.5 + 3px);z-index:27}
+#myActionPointsSlot,#theirActionPointsSlot{position:absolute;right:calc(var(--fab-card-size) + 26px);z-index:27}
+#myActionPointsSlot{bottom:calc(4% + (var(--fab-card-size) - 40px)/2)}
+#theirActionPointsSlot{top:calc(4% + (var(--fab-card-size) - 40px)/2)}
+#theirActionPointsSlot .widget-button-pass{display:none}
 
-/* One shared combat-chain window, fed by both controller-specific serialized arrays. */
-.fab-overlay-toolbar{position:fixed;z-index:72;top:55px;left:50%;transform:translateX(-50%);display:flex;gap:7px}
-.fab-overlay-button{border:1px solid var(--fab-gold-soft);border-radius:7px;background:rgba(11,14,16,.9);color:#eee5d4;padding:7px 12px;font:700 12px/1 Inter,Segoe UI,sans-serif;letter-spacing:.04em;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.3)}
-.fab-overlay-button:hover,.fab-overlay-button[aria-expanded="true"]{color:#17130c;background:var(--fab-gold);border-color:#f0cb7b}
-.fab-overlay-button .fab-count{display:inline-grid;place-items:center;min-width:17px;height:17px;margin-left:5px;border-radius:9px;background:rgba(255,255,255,.14);font-size:10px}
+/* The duel stack window. Both layouts use the same combat-chain panel. */
 .fab-floating-window{position:fixed;z-index:75;left:50%;top:31.5vh;transform:translateX(-50%);width:min(1480px,78vw);height:clamp(230px,34vh,310px);min-height:0;border:1px solid rgba(214,170,77,.48);border-radius:13px;background:linear-gradient(145deg,rgba(25,27,27,.98),rgba(9,12,14,.98));box-shadow:0 22px 70px rgba(0,0,0,.72);overflow:hidden;opacity:1;transition:opacity 120ms ease-out,visibility 0s linear 0s}
 .fab-floating-window[hidden]{display:none}
 body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hidden;pointer-events:none;transition:opacity 90ms ease-in,visibility 0s linear 90ms}
@@ -135,21 +129,6 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
 .fab-window-title{font-size:19px;font-weight:800;letter-spacing:.01em}
 .fab-window-subtitle{margin-left:8px;color:#a9a49a;font-size:11px;font-weight:500}
 .fab-window-close{width:27px;height:27px;border:1px solid rgba(255,255,255,.13);border-radius:50%;background:#292b2b;color:#eee;cursor:pointer}
-.fab-chain-close{position:absolute;z-index:4;top:7px;right:8px;width:24px;height:24px;font-size:14px}
-.fab-combat-status{min-height:15px;padding:4px 38px 2px;color:#c9c3b7;font-size:10px;text-align:center}
-.fab-combat-status strong{color:#f1d17c}
-.fab-chain-flow{position:relative;display:flex;align-items:center;justify-content:center;gap:0;height:calc(100% - 64px);min-height:148px;padding:6px 38px 12px;box-sizing:border-box}
-.fab-chain-side{display:flex;align-items:center;min-width:0;color:transparent;font-size:0}
-.fab-chain-side:empty{display:none}
-.fab-chain-side [data-mzid]{position:relative!important;margin:0 17px!important;color:#f3eee5;font-size:initial}
-.fab-chain-side [data-mzid]:before,.fab-chain-side [data-mzid].fab-chain-last:after{content:"";position:absolute;z-index:-1;top:50%;width:29px;height:15px;transform:translateY(-50%);background:radial-gradient(ellipse at 31% 50%,transparent 0 4px,rgba(205,166,91,.78) 4.5px 6px,transparent 6.5px),radial-gradient(ellipse at 69% 50%,transparent 0 4px,rgba(205,166,91,.78) 4.5px 6px,transparent 6.5px);filter:drop-shadow(0 1px 2px rgba(0,0,0,.9));pointer-events:none}
-.fab-chain-side [data-mzid]:before{left:-32px}
-.fab-chain-side [data-mzid].fab-chain-last:after{right:-32px}
-#myCombatChainSlot,#theirCombatChainSlot{position:relative;inset:auto;width:auto;height:auto;min-height:112px;min-width:0;padding:0;border:0;background:transparent;box-shadow:none;overflow:visible}
-#myCombatChainSlot:before,#theirCombatChainSlot:before{display:none}
-#myCombatChainWrapper,#theirCombatChainWrapper,#myCombatChain,#theirCombatChain{width:auto!important;height:auto!important;overflow:visible!important}
-#myCombatChainSlot img,#theirCombatChainSlot img{width:92px!important;height:92px!important;aspect-ratio:1/1!important;object-fit:cover!important}
-#myCombatChainSlot [data-mzid],#theirCombatChainSlot [data-mzid],#myCombatChainSlot a,#theirCombatChainSlot a{width:92px!important;height:92px!important;vertical-align:top}
 .fab-empty-layer{display:grid;place-items:center;min-height:142px;padding:20px;color:#9d9b96;text-align:center}
 .fab-empty-layer strong{display:block;color:#ddd4c4;margin-bottom:7px}
 
@@ -160,8 +139,10 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
   #theirEquipmentSlot{left:4px;transform:scale(.78);transform-origin:left top}
   #myWeaponsSlot,#theirWeaponsSlot{left:calc(50% - 145px);width:290px}
   .fab-floating-window{top:29vh;width:88vw;height:38vh}
-  .fab-combat-progress{grid-template-columns:repeat(7,34px);gap:3px;padding-left:34px;padding-right:34px}
-  .fab-combat-step{padding:0}.fab-step-label{display:none}
+}
+
+@media (max-width:599px){
+  #myActionPointsSlot{top:calc(50% + 8px);right:12px;bottom:auto}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -190,35 +171,21 @@ foreach ($zones as $zone => $label) {
 <div id="myHealthSlot" class="fab-zone fab-stat" data-label="Life"><div id="myHealth"></div></div>
 <div id="myChiSlot" title="Chi included in your total resources" class="fab-zone fab-stat" data-label="Chi"><div id="myChi"></div></div>
 <div id="myResourcesSlot" class="fab-zone fab-stat" data-label="Pitch"><div id="myResources"></div></div>
-<div id="myActionPointsSlot" class="fab-zone fab-stat" data-label="AP"><div id="myActionPoints"></div></div>
+<div id="myActionPointsSlot" class="fab-action-points"></div>
 <div id="theirHealthSlot" class="fab-zone fab-stat" data-label="Life"><div id="theirHealth"></div></div>
 <div id="theirChiSlot" title="Chi included in their total resources" class="fab-zone fab-stat" data-label="Chi"><div id="theirChi"></div></div>
 <div id="theirResourcesSlot" class="fab-zone fab-stat" data-label="Pitch"><div id="theirResources"></div></div>
-<div id="theirActionPointsSlot" class="fab-zone fab-stat" data-label="AP"><div id="theirActionPoints"></div></div>
-
-<div class="fab-overlay-toolbar" aria-label="Shared game windows">
-  <button id="fabCombatToggle" class="fab-overlay-button" type="button" aria-expanded="false" onclick="FaBToggleWindow('fabCombatWindow')">Combat Chain <span id="fabCombatCount" class="fab-count">0</span></button>
-  <button id="fabLayersToggle" class="fab-overlay-button" type="button" aria-expanded="false" onclick="FaBToggleWindow('fabLayersWindow')">Layers <span id="fabLayersCount" class="fab-count">0</span></button>
-</div>
-
-<section id="fabCombatWindow" class="fab-floating-window" aria-label="Combat chain" hidden>
-  <button class="fab-window-close fab-chain-close" type="button" aria-label="Close combat chain" onclick="FaBToggleWindow('fabCombatWindow', false)">×</button>
-  <?php include __DIR__ . '/CombatProgress.php'; ?>
-  <div class="fab-chain-flow">
-    <div id="fabChainView"></div>
-    <div id="myCombatChainSlot" class="fab-chain-side"><div id="myCombatChain"></div></div>
-    <div id="theirCombatChainSlot" class="fab-chain-side"><div id="theirCombatChain"></div></div>
-  </div>
-</section>
+<div id="theirActionPointsSlot" class="fab-action-points"></div>
 
 <section id="fabLayersWindow" class="fab-floating-window" aria-label="Active layers" hidden>
   <header class="fab-window-header">
     <div><span class="fab-window-title">Active Layers</span><span class="fab-window-subtitle">latest resolves first</span></div>
-    <button class="fab-window-close" type="button" aria-label="Close active layers" onclick="FaBToggleWindow('fabLayersWindow', false)">×</button>
+    <button class="fab-window-close" type="button" aria-label="Close active layers" data-fab-close="stack">×</button>
   </header>
   <div id="fabLayers" class="fab-empty-layer"><div><strong>No active layers</strong>Instants, triggers, and resolving abilities appear here.</div></div>
 </section>
-
+</div>
+</div>
 <?php
 // NextTurn renders this layout before any game-state endpoint loads card data.
 // Slot placement must use card types, not the equipment array order, which changes
@@ -308,7 +275,7 @@ function FaBRefreshOptionalCounters() {
     var actions = document.getElementById(prefix + 'ActionPointsSlot');
     // The generated Pass control lives inside this slot and must remain usable
     // in the opponent's reaction windows, even while the AP badge is invisible.
-    if (actions) actions.classList.toggle('fab-stat-inactive', Number(window.TurnPlayerData) !== entry[1]);
+    if (actions) actions.classList.toggle('fab-ap-inactive', Number(window.TurnPlayerData) !== entry[1]);
   });
 }
 
@@ -339,90 +306,7 @@ window.swuTwRemapCardId = function(cardId) {
   });
 };
 
-function FaBToggleWindow(id, forceOpen) {
-  var panel = document.getElementById(id);
-  if (!panel) return;
-  var shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : panel.hidden;
-  if (shouldOpen) {
-    var otherID = id === 'fabCombatWindow' ? 'fabLayersWindow' : 'fabCombatWindow';
-    var otherPanel = document.getElementById(otherID);
-    if (otherPanel) otherPanel.hidden = true;
-    var otherToggle = document.getElementById(otherID === 'fabCombatWindow' ? 'fabCombatToggle' : 'fabLayersToggle');
-    if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
-  }
-  panel.hidden = !shouldOpen;
-  if (shouldOpen && typeof window.FaBClampPanel === 'function') window.FaBClampPanel(panel);
-  var toggle = document.getElementById(id === 'fabCombatWindow' ? 'fabCombatToggle' : 'fabLayersToggle');
-  if (toggle) toggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
-}
-
-function FaBRefreshSharedWindows() {
-  var combatWindow = document.getElementById('fabCombatWindow');
-  if (!combatWindow) return;
-  if (typeof window.FaBRenderChain === 'function') {
-    var zones = {};
-    ['myCombatChain', 'theirCombatChain'].forEach(function(zone) {
-      zones[zone] = window[zone + 'Data'] || '';
-      var slot = document.getElementById(zone + 'Slot');
-      // The generated slots signal updates; the combined view owns card IDs.
-      if (slot && slot.childNodes.length) slot.replaceChildren();
-    });
-    window.FaBRenderChain(document.getElementById('fabChainView'), zones, FaBReadCombatState());
-  }
-  var chainCards = Array.prototype.slice.call(combatWindow.querySelectorAll('[data-mzid]'));
-  chainCards.forEach(function(card) { card.classList.remove('fab-chain-last'); });
-  if (chainCards.length) chainCards[chainCards.length - 1].classList.add('fab-chain-last');
-  var count = Number(document.getElementById('fabChainView')?.dataset.cardCount || chainCards.length);
-  var badge = document.getElementById('fabCombatCount');
-  if (badge) badge.textContent = String(count);
-  var oldCount = Number(combatWindow.dataset.cardCount || 0);
-  combatWindow.dataset.cardCount = String(count);
-  if (count > 0 && oldCount === 0) FaBToggleWindow('fabCombatWindow', true);
-  if (count === 0 && oldCount > 0) FaBToggleWindow('fabCombatWindow', false);
-  FaBRefreshCombatProgress();
-}
-
-function FaBReadCombatState() {
-  var raw = window.GameStateData;
-  if (raw && typeof raw === 'object') raw = raw.Value !== undefined ? raw.Value : raw.value;
-  if (typeof raw !== 'string' || raw.trim() === '') return {};
-  try { return JSON.parse(raw); } catch (_) {}
-  try { return JSON.parse(decodeURIComponent(raw)); } catch (_) { return {}; }
-}
-
-function FaBRefreshCombatProgress() {
-  var state = FaBReadCombatState();
-  window.FaBUpdateCombatProgress(document.getElementById('fabCombatWindow'), state);
-}
-
-window.RenderFaBLayers = function(html, count) {
-  var layers = document.getElementById('fabLayers');
-  var badge = document.getElementById('fabLayersCount');
-  var panel = document.getElementById('fabLayersWindow');
-  var combatWindow = document.getElementById('fabCombatWindow');
-  var layerCount = Math.max(0, Number(count) || 0);
-  if (layers) layers.innerHTML = html || '<div><strong>No active layers</strong>Instants, triggers, and resolving abilities appear here.</div>';
-  if (badge) badge.textContent = String(layerCount);
-  if (!panel) return;
-  var oldCount = Number(panel.dataset.cardCount || 0);
-  panel.dataset.cardCount = String(layerCount);
-  // Auto-open only for a new stack, without taking over an open combat chain.
-  // Subsequent renders must also respect a player's choice to close the popup.
-  if (layerCount > 0 && oldCount === 0 && (!combatWindow || combatWindow.hidden)) {
-    FaBToggleWindow('fabLayersWindow', true);
-  }
-  if (layerCount === 0) FaBToggleWindow('fabLayersWindow', false);
-};
-
 document.addEventListener('DOMContentLoaded', function() {
-  var combatWindow = document.getElementById('fabCombatWindow');
-  if (!combatWindow) return;
-  window.FaBMakeDraggablePanel(combatWindow, combatWindow.querySelector('[data-fab-drag-handle]'));
-  combatWindow.addEventListener('keydown', function(event) { if (event.key === 'Escape') FaBToggleWindow('fabCombatWindow', false); });
-  ['myCombatChainSlot', 'theirCombatChainSlot'].forEach(function(slotID) {
-    var chainSlot = document.getElementById(slotID);
-    if (chainSlot) new MutationObserver(FaBRefreshSharedWindows).observe(chainSlot, {childList:true, subtree:true});
-  });
   ['myEquipmentSlot', 'theirEquipmentSlot'].forEach(function(slotID) {
     var slot = document.getElementById(slotID);
     if (slot) new MutationObserver(function() { FaBArrangeEquipment(slotID.replace('Slot', '')); }).observe(slot, {childList:true, subtree:true});
@@ -434,7 +318,6 @@ document.addEventListener('DOMContentLoaded', function() {
   new MutationObserver(FaBRefreshLungeVisibility).observe(document.body, {childList:true});
   FaBArrangeEquipment('myEquipment');
   FaBArrangeEquipment('theirEquipment');
-  FaBRefreshSharedWindows();
   FaBRefreshLifeTotals();
   FaBRefreshLungeVisibility();
 });

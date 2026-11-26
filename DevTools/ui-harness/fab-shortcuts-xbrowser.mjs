@@ -14,18 +14,18 @@ const registry = JSON.parse(schema.match(/^Module: ShortcutWindows=(.+)$/m)[1]);
 const script = await read('FaBSim/Custom/GameUI.js');
 const css = (await Promise.all([
   'SharedUI/css/button.css', 'FaBSim/Custom/Interaction.css',
-  'FaBSim/Custom/Shortcuts.css', 'FaBSim/Custom/MultiplayerTable.css',
+  'FaBSim/Custom/Shortcuts.css', 'FaBSim/Custom/TableControls.css', 'FaBSim/Custom/MultiplayerTable.css',
 ].map(read))).join('\n');
 const layout = await read('FaBSim/Custom/GameLayout.php');
 const multiplayer = await read('FaBSim/Custom/MultiplayerLayout.php');
 const multiplayerCss = [...multiplayer.matchAll(/<style>([\s\S]*?)<\/style>/g)].map(match => match[1].includes('<?php') ? '' : match[1]).join('\n');
 const layoutCss = [...layout.matchAll(/<style>([\s\S]*?)<\/style>/g)].map(match => match[1]).join('\n');
+const toolbar = layout.match(/<nav id="fab-table-tools"[\s\S]*?<\/nav>/)[0].replace('<?= $fabHomeHref ?>', '#');
 const out = process.argv[2] || path.join(os.tmpdir(), 'fab-shortcuts');
 await fs.mkdir(out, { recursive: true });
 const fixture = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <style>${multiplayerCss}\n${css}\n${layoutCss}</style></head><body>
-<div id="fab-duel-layout"><div class="fab-overlay-toolbar"><button class="fab-overlay-button">Combat Chain</button><button class="fab-overlay-button" id="fixture-layers">Layers</button></div></div>
-<main id="fab-upf-board"><div class="fab-upf-bar"><p class="fab-upf-status">Your priority</p><nav class="fab-upf-tools"><button>Stack</button><button>Combat chain</button></nav></div></main>
+<div id="fab-table">${toolbar}<div id="fab-duel-layout"></div><main id="fab-upf-board"></main></div>
 <script>
 window.GetModuleConfig = () => JSON.stringify(${JSON.stringify(registry)});
 window.TCGSettings = {
@@ -52,7 +52,7 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit }).filte
     const hold = page.locator('#fab-shortcut-hold');
     assert.equal(await panel.isVisible(), false);
     assert.equal(await hold.isVisible(), true);
-    assert.equal(await hold.evaluate(el => el.closest('.fab-overlay-toolbar') !== null && !el.closest('#fab-shortcut-panel')), true);
+    assert.equal(await hold.evaluate(el => el.closest('#fab-table-tools') !== null && !el.closest('#fab-shortcut-panel')), true);
     await hold.check(); assert.equal(await panel.isVisible(), false); await hold.uncheck();
     await toggle.click();
     assert.equal(await toggle.getAttribute('aria-expanded'), 'true');
@@ -87,7 +87,11 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit }).filte
       await page.setViewportSize({ width, height });
       await page.evaluate(() => document.body.classList.toggle('fab-upf-active', innerWidth < 900));
       if (!(await panel.isVisible())) await toggle.click();
-      assert.equal(await toggle.evaluate(el => el.closest(document.body.classList.contains('fab-upf-active') ? '.fab-upf-tools' : '.fab-overlay-toolbar') !== null), true);
+      assert.equal(await toggle.evaluate(el => el.closest('#fab-table-tools') !== null), true);
+      await page.waitForFunction(() => {
+        const rect = document.getElementById('fab-shortcut-panel').getBoundingClientRect();
+        return rect.left >= 0 && rect.top >= 0 && rect.right <= innerWidth && rect.bottom <= innerHeight;
+      }, null, { timeout: 3000 });
       const bounds = await panel.boundingBox();
       assert.ok(bounds.x >= 0 && bounds.y >= 0 && bounds.x + bounds.width <= width && bounds.y + bounds.height <= height, `${name}/${view}: panel overflow`);
       await auto.scrollIntoViewIfNeeded();

@@ -1,0 +1,121 @@
+/* Both board layouts share the toolbar, chat, and action-point controls. */
+#fab-table {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--fab-surface);
+}
+
+#fab-duel-layout { position: relative; flex: 1; min-height: 0; }
+
+#fab-table-tools {
+  position: relative;
+  z-index: 72;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px 0;
+}
+#fab-table-tools > :is(a, button) {
+  box-sizing: border-box;
+  min-height: 32px;
+  padding: 7px 11px;
+  border: 1px solid #b28c4555;
+  border-radius: 6px;
+  background: #292d30;
+  color: #eee4cf;
+  font: 600 12px system-ui;
+  text-decoration: none;
+  cursor: pointer;
+}
+#fab-table-tools > :is(a, button):hover,
+#fab-table-tools > button[aria-expanded="true"] { background: #b89552; color: #10191e; }
+#fab-table-tools > :is(a, button):focus-visible { outline: 2px solid #f6d68b; outline-offset: 3px; }
+
+#fab-events-mount { flex: 0 0 88px; height: 32px; margin-inline-end: auto; }
+#fab-events-mount #macro-card-toast-host { position: relative; inset: auto; align-items: flex-start; width: 100%; }
+#fab-events-mount #macro-card-toast-toggle { box-sizing: border-box; justify-content: center; width: 100%; height: 32px; padding: 0 5px; }
+#fab-events-mount #macro-card-toast-log { box-sizing: border-box; width: min(312px, calc(100vw - 88px)); }
+#fab-events-mount .is-expanded > .macro-card-toast { display: none; }
+
+#turn-miasma-overlay,
+#PriorityPlayerWrapper,
+#TurnPlayerWrapper,
+#ConsecutivePassesWrapper { display: none !important; }
+#fab-priority-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+#fab-table .fab-upf-seat.has-priority { border-color: #bb9a64; }
+#fab-table .fab-board-field.has-priority { outline: 1px solid #bb9a64; outline-offset: -1px; }
+
+#chatWidget { top: auto !important; bottom: 12px !important; left: auto !important; right: 12px; max-width: calc(100vw - 24px) !important; }
+#chatWidgetControls { flex-wrap: wrap; justify-content: flex-end; }
+#chatToggleBtn { display: grid; place-items: center; width: 30px; padding: 0 !important; }
+#chatToggleLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+#chatToggleBtn::before { content: '💬'; content: '💬' / ''; }
+#chatToggleBtn[aria-expanded="true"]::before { content: '×'; content: '×' / ''; }
+#chatToastHost { left: auto !important; right: 12px; }
+#chatComposer { flex: 0 0 100%; }
+#chatWidget:not(:has(#chatToggleBtn[aria-expanded="true"])) #chatComposer,
+#cardMotionToggleBtn { display: none; }
+#chatLog { max-height: 40vh; }
+
+#fab-table .fab-action-points {
+  box-sizing: border-box;
+  width: 154px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.fab-action-points [id$="ActionPoints"] { display: flex !important; align-items: center; flex-wrap: nowrap !important; gap: 8px; }
+.fab-action-points [id$="ActionPoints"] > span {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  height: 40px;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #fff;
+  background: url('../Assets/Icons/action.svg') center/contain no-repeat;
+  font: 900 21px/1 "Segoe UI", sans-serif;
+  text-shadow: -1px -1px #071014, 1px -1px #071014, -1px 1px #071014, 1px 1px #071014, 0 2px 3px #000;
+  -webkit-text-stroke: 3px #071014;
+  paint-order: stroke fill;
+}
+.fab-action-points [id$="ActionPoints"] > div { padding: 0 !important; font-size: 0; flex: 1; }
+#fab-table .fab-action-points .widget-button-pass {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid #e5c980;
+  border-radius: 22px;
+  background: #c9a755;
+  color: #192127;
+  font: 700 12px system-ui;
+  text-transform: none;
+  letter-spacing: .02em;
+  box-shadow: none;
+}
+#fab-table .fab-action-points .widget-button-pass:hover { background: #e5c980; }
+#fab-table .fab-action-points .widget-button-pass:disabled { opacity: .45; cursor: default; }
+.fab-ap-inactive { visibility: hidden; }
+.fab-ap-inactive .widget-button-pass { visibility: visible; }
+
+@media (min-width: 900px) {
+  #chatWidget { bottom: 4px !important; }
+  #chatToggleBtn { height: 28px !important; }
+}
+@media (max-width: 599px) {
+  #fab-table .fab-action-points { width: 110px; }
+}
+@media (max-width: 430px) {
+  #fab-table-tools > :is(a, button) { padding-inline: 5px; }
+}

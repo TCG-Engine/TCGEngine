@@ -79,9 +79,6 @@
         .fab-chain-art{position:relative;width:92px;height:92px}
         .fab-go-again{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;z-index:5;color:#b0f5be;pointer-events:none}
         .fab-go-again svg{display:block;width:100%;height:100%}
-        #fabCombatWindow .fab-chain-flow{display:block;overflow:auto;padding:5px 10px 7px;height:auto;min-height:0}
-        #fabCombatWindow{height:auto;max-height:65vh}
-        #myCombatChainSlot,#theirCombatChainSlot{display:none!important}
       `;
       document.head.appendChild(style);
       document.addEventListener('pointerdown', event => {
@@ -102,8 +99,8 @@
     previews.replaceChildren();
     target.classList.add('fab-chain-view');
     target.replaceChildren();
-    const headerTotals = target.closest('#fab-upf-chain-panel')?.querySelector('[data-fab-chain-totals]');
-    headerTotals?.replaceChildren();
+    const headerTotals = target.closest('#fab-upf-chain-panel').querySelector('[data-fab-chain-totals]');
+    headerTotals.replaceChildren();
     const history = document.createElement('div'); history.className = 'fab-chain-history';
     target.appendChild(history);
     const labels = { ATTACK: 'Attack', DEFENSE: 'Block', ATTACK_REACTION: 'Attack reaction', DEFENSE_REACTION: 'Defense reaction' };
@@ -146,8 +143,7 @@
           addTotal(Number(totals.attack), 'Total attack', false);
           const blocks = Object.entries(totals.blocks || {});
           blocks.forEach(([seat, value]) => addTotal(Number(value), 'Total block for player ' + seat, true, blocks.length > 1 ? seat : ''));
-          if (headerTotals) headerTotals.appendChild(summary);
-          else row.prepend(summary);
+          headerTotals.appendChild(summary);
         }
         row.setAttribute('aria-label', 'Current link ' + link.number);
         target.appendChild(row);
