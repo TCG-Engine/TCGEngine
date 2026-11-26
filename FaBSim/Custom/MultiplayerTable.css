@@ -30,15 +30,14 @@
 .fab-upf-seat:not(.is-summary) [data-zone=Hero] { left:calc(50% - var(--fab-table-card)/2); top:34%; z-index:2; }
 .fab-upf-seat:not(.is-summary) [data-zone=Weapons] { left:calc(50% - var(--fab-table-card)*1.6); top:34%; width:calc(var(--fab-table-card)*3.2); }
 .fab-upf-seat:not(.is-summary) [id$=Weapons] { justify-content:space-between!important; }
-.fab-upf-seat:not(.is-summary) [data-zone=Arsenal] { left:calc(50% - var(--fab-table-card)/2); top:calc(34% + var(--fab-table-card) + 10px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Arsenal] { left:calc(50% - var(--fab-arsenal-size)/2); top:calc(34% + var(--fab-table-card) + var(--fab-arsenal-gap)); }
 .fab-upf-seat:not(.is-summary) [data-zone=Arena] { left:24%; top:9%; width:45%; max-height:22%; }
-.fab-upf-seat:not(.is-summary) [data-zone=Arena][data-empty=true] { display:none; }
 .fab-upf-seat:not(.is-summary) [data-zone=Weapons][data-empty=true],.fab-upf-seat:not(.is-summary) [data-zone=Equipment][data-empty=true],.fab-upf-seat:not(.is-summary) [data-zone=Hand][data-empty=true] { display:none; }
 .fab-upf-seat:not(.is-summary):not(.is-mine) [data-zone=Arsenal] { top:12px; }
 /* Grow inside the seat's borders instead of nesting percentage heights. */
 .fab-upf-seat.is-mine .fab-upf-zones { flex:1; height:auto; min-height:calc(var(--fab-table-card)*4 + 70px); }
 .fab-upf-seat.is-mine [data-zone=Hero],.fab-upf-seat.is-mine [data-zone=Weapons] { top:calc(var(--fab-table-card) + 26px); }
-.fab-upf-seat.is-mine [data-zone=Arsenal] { top:calc(var(--fab-table-card)*2 + 36px); }
+.fab-upf-seat.is-mine [data-zone=Arsenal] { top:calc(var(--fab-table-card)*2 + 26px + var(--fab-arsenal-gap)); }
 .fab-upf-seat:not(.is-summary) [data-zone=Deck] { right:12px; top:calc(var(--fab-table-card) + 20px); }
 .fab-upf-seat:not(.is-summary) [data-zone=Graveyard] { right:12px; top:12px; }
 .fab-upf-seat:not(.is-summary) [data-zone=Banish] { right:12px; top:calc(var(--fab-table-card)*2 + 30px); }
@@ -96,11 +95,9 @@
   .fab-upf-seat.is-summary [data-zone=Pitch] { right:calc(var(--fab-table-card) + 4px); top:calc(var(--fab-table-card) + 4px); }
   .fab-upf-seat.is-summary [data-zone=Banish] { right:0; top:calc(var(--fab-table-card)*2 + 8px); max-height:var(--fab-table-card); overflow:auto; }
   .fab-upf-seat.is-summary [data-zone=Arena] { left:calc(50% - var(--fab-table-card)*1.6); top:calc(var(--fab-table-card)*2 + 8px); width:calc(var(--fab-table-card)*3.2); max-height:var(--fab-table-card); overflow:auto; }
-  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Arena][data-empty=true],
   .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Weapons][data-empty=true],
   .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Equipment][data-empty=true] { display:none!important; }
 }
-.fab-upf-seat.is-summary [data-zone=Arsenal] .counter-bubble { display:none; }
 .fab-upf-seat:not(.is-summary) .fab-upf-zone[data-zone=Health],
 .fab-upf-seat:not(.is-summary) .fab-upf-zone[data-zone=Resources] { display:none; }
 .fab-upf-seat:not(.is-summary) [data-zone=Hero] .fab-upf-summary-counter { width:36px; height:36px; font-size:22px; bottom:-5px; }
@@ -137,11 +134,8 @@
   }
   .fab-upf-seat.is-mine :is([data-zone=Hero],[data-zone=Weapons]) { top:var(--fab-hero-top); }
   .fab-upf-seat.is-mine [data-zone=Arsenal] {
-    top:calc(var(--fab-hero-top) + var(--fab-table-card) + 6px);
-    left:calc(50% - var(--fab-compact-card)/2);
-    width:var(--fab-compact-card);
+    top:calc(var(--fab-hero-top) + var(--fab-table-card) + var(--fab-arsenal-gap));
   }
-  .fab-upf-seat.is-mine [data-zone=Arsenal][data-empty=true] { height:var(--fab-compact-card); }
   .fab-upf-seat.is-mine [data-zone=Equipment] { top:var(--fab-field-inset); bottom:var(--fab-field-inset); left:var(--fab-field-inset); height:auto; }
   .fab-upf-seat.is-mine :is([id$=EquipmentSlot],[id$=Equipment]) { height:100%; }
   .fab-upf-seat.is-mine :is([data-equipment-slot=chest],[data-equipment-slot=arms],[data-zone=Deck],[data-zone=Pitch]) { top:calc(50% - var(--fab-table-card)/2); }
@@ -175,7 +169,7 @@
   .fab-upf-seat:not(.is-summary) .fab-upf-zones { min-height:420px; }
   .fab-upf-seat:not(.is-summary) [data-zone=Equipment] { left:5px; }
   .fab-upf-seat:not(.is-summary) [data-zone=Hero],.fab-upf-seat:not(.is-summary) [data-zone=Weapons] { top:38%; }
-  .fab-upf-seat:not(.is-summary) [data-zone=Arsenal] { top:calc(38% + var(--fab-table-card) + 8px); }
+  .fab-upf-seat:not(.is-summary) [data-zone=Arsenal] { top:calc(38% + var(--fab-table-card) + var(--fab-arsenal-gap)); }
   .fab-upf-seat:not(.is-summary) [data-zone=Hand] { left:15%; right:15%; bottom:30px; }
 }
 @media(max-width:599px) {

@@ -1,5 +1,6 @@
-/* Both board layouts share the toolbar, chat, and action-point controls. */
+/* Styles shared by the duel and multiplayer boards. */
 #fab-table {
+  --fab-arsenal-gap: 6px;
   position: fixed;
   inset: 0;
   display: flex;
@@ -8,6 +9,41 @@
 }
 
 #fab-duel-layout { position: relative; flex: 1; min-height: 0; }
+
+#fab-table .fab-arena:not(:has([data-mzid])) { display: none !important; }
+
+#fab-table .fab-arsenal {
+  box-sizing: border-box;
+  width: var(--fab-arsenal-size);
+  height: var(--fab-arsenal-size);
+  padding: 0;
+  border-radius: 5px;
+  pointer-events: none;
+}
+#fab-table .fab-arsenal:not(:has([data-mzid])) { background: #14151830; }
+.fab-arsenal:not(:has([data-mzid]))::before {
+  content: 'Arsenal';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #e0e0df;
+  font: 500 10px system-ui;
+}
+.fab-upf-seat.is-summary .fab-arsenal::before { color: #bac8ce; font-size: 8px; }
+.fab-arsenal [data-mzid] { pointer-events: auto; }
+.fab-arsenal .counter-bubble {
+  --zone-count-size: 16px;
+  --zone-count-font-size: 10px;
+  --zone-count-line-height: 14px;
+  --zone-count-border-width: 1px;
+  --zone-count-top: auto;
+  --zone-count-right: 0;
+  --zone-count-bottom: 0;
+  --zone-count-left: auto;
+  --zone-count-transform: none;
+  --zone-count-margin-right: 0;
+}
 
 #fab-table-tools {
   position: relative;
@@ -34,6 +70,18 @@
 #fab-table-tools > button[aria-expanded="true"] { background: #b89552; color: #10191e; }
 #fab-table-tools > :is(a, button):focus-visible { outline: 2px solid #f6d68b; outline-offset: 3px; }
 
+#fab-selection-prompt:not(:empty) { padding: 6px 12px 0; }
+#fab-selection-prompt #selection-message {
+  position: static !important;
+  transform: none !important;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto !important;
+  padding: 6px 10px !important;
+  font: 600 13px system-ui !important;
+}
+
 #fab-events-mount { flex: 0 0 88px; height: 32px; margin-inline-end: auto; }
 #fab-events-mount #macro-card-toast-host { position: relative; inset: auto; align-items: flex-start; width: 100%; }
 #fab-events-mount #macro-card-toast-toggle { box-sizing: border-box; justify-content: center; width: 100%; height: 32px; padding: 0 5px; }
@@ -56,8 +104,9 @@
 #fab-table .fab-board-field.has-priority { outline: 1px solid #bb9a64; outline-offset: -1px; }
 
 #chatWidget { top: auto !important; bottom: 12px !important; left: auto !important; right: 12px; max-width: calc(100vw - 24px) !important; }
+#chatWidget:has(#chatToggleBtn[aria-expanded="false"]) { pointer-events: none; }
 #chatWidgetControls { flex-wrap: wrap; justify-content: flex-end; }
-#chatToggleBtn { display: grid; place-items: center; width: 30px; padding: 0 !important; }
+#chatToggleBtn { display: grid; place-items: center; width: 30px; padding: 0 !important; pointer-events: auto; }
 #chatToggleLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 #chatToggleBtn::before { content: '💬'; content: '💬' / ''; }
 #chatToggleBtn[aria-expanded="true"]::before { content: '×'; content: '×' / ''; }

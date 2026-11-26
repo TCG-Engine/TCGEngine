@@ -18,6 +18,7 @@ include __DIR__ . '/Playmats.php';
   <button type="button" data-fab-playmat-open aria-haspopup="dialog">Playmats</button>
   <button type="button" id="bug-report-button" onclick="openBugReportModal()">Report Bug</button>
 </nav>
+<div id="fab-selection-prompt"></div>
 <p id="fab-priority-announcement" role="status"></p>
 <?php include __DIR__ . '/MultiplayerLayout.php'; ?>
 <div id="fab-duel-layout">
@@ -35,6 +36,12 @@ html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;f
 .fab-board-field{position:absolute;left:0;right:0;height:50%;pointer-events:none;box-sizing:border-box;background-size:cover;background-position:center;background-repeat:no-repeat}
 .fab-board-opponent{top:0;border-bottom:1px solid var(--fab-field-line);background-color:var(--fab-field-cool);background-image:var(--fab-opponent-playmat,radial-gradient(ellipse at 50% 90%,var(--fab-light-cool),transparent 75%))}
 .fab-board-local{bottom:0;background-color:var(--fab-field-warm);background-image:var(--fab-local-playmat,radial-gradient(ellipse at 50% 10%,var(--fab-light-warm),transparent 75%))}
+#fab-duel-layout{
+  --fab-hand-card:clamp(68px,5.2vw,98px);
+  --fab-hand-inset:calc(var(--fab-hand-card) + 19px);
+  --fab-arsenal-size:max(32px,calc(var(--fab-card-size)/2));
+  --fab-hero-inset:max(20%,calc(var(--fab-hand-inset) + var(--fab-arsenal-size) + var(--fab-arsenal-gap)));
+}
 
 .fab-zone{position:absolute;z-index:20;box-sizing:border-box;width:calc(var(--fab-card-size) + 10px);height:calc(var(--fab-card-size) + 10px);border:1px solid var(--fab-line);border-radius:9px;background:var(--fab-slot);padding:16px 4px 4px;overflow:visible;box-shadow:inset 0 0 22px rgba(0,0,0,.16)}
 .fab-zone:has([data-mzid]){border-color:transparent;background:transparent;box-shadow:none}
@@ -48,14 +55,15 @@ html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;f
 .fab-zone:not(.fab-stat)>div>span>span:not([data-mzid]):not([id]){display:none}
 
 /* Hands anchor the composition; cards fan across the center without large zone boxes. */
-#myHandSlot,#theirHandSlot{left:31%;right:31%;width:auto;height:126px;padding-top:8px;border-color:transparent;background:transparent;box-shadow:none}
+#myHandSlot,#theirHandSlot{left:31%;right:31%;width:auto;height:126px;padding-top:8px;border-color:transparent;background:transparent;box-shadow:none;z-index:24;pointer-events:none}
+#myHandSlot [data-mzid],#theirHandSlot [data-mzid]{pointer-events:auto}
 #myHandSlot{bottom:-50px}#theirHandSlot{top:8px}
 #myHandSlot:before,#theirHandSlot:before{display:none}
 #myHandWrapper,#theirHandWrapper{width:100%;height:100%;overflow:visible!important}
 #myHand,#theirHand{color:transparent;font-size:0}
 #myHand,#theirHand{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:flex-start!important;justify-content:center!important;gap:clamp(3px,.45vw,8px);width:100%;height:100%;overflow:visible!important}
 #myHand>[data-mzid],#theirHand>[data-mzid]{color:#f3eee5;font-size:initial}
-#myHandSlot img,#theirHandSlot img{width:clamp(68px,5.2vw,98px)!important;height:clamp(68px,5.2vw,98px)!important}
+#myHandSlot img,#theirHandSlot img{width:var(--fab-hand-card)!important;height:var(--fab-hand-card)!important}
 #theirHandSlot img{filter:brightness(.72)}
 
 /* Equipment uses one three-card column plus arms beside chest. P2 mirrors vertically. */
@@ -77,20 +85,30 @@ html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;f
 
 /* Hero in the middle, weapons flanking it, arsenal immediately beneath/above. */
 #myHeroSlot,#theirHeroSlot{left:calc(50% - (var(--fab-card-size) + 10px)/2);z-index:23}
-#theirHeroSlot{top:20%}#myHeroSlot{bottom:20%}
+#theirHeroSlot{top:var(--fab-hero-inset)}#myHeroSlot{bottom:var(--fab-hero-inset)}
 #myWeaponsSlot,#theirWeaponsSlot{left:calc(50% - 180px);width:360px;height:calc(var(--fab-card-size) + 10px);padding:8px 0 0;border:0;background:transparent;box-shadow:none}
-#theirWeaponsSlot{top:20%}#myWeaponsSlot{bottom:20%}
+#theirWeaponsSlot{top:var(--fab-hero-inset)}#myWeaponsSlot{bottom:var(--fab-hero-inset)}
 #myWeaponsSlot:before,#theirWeaponsSlot:before{display:none}
 #myWeapons,#theirWeapons{justify-content:space-between!important;align-items:center!important;width:100%;color:transparent;font-size:0}
 #myWeapons>[data-mzid],#theirWeapons>[data-mzid]{color:#f3eee5;font-size:initial}
 #myWeapons>[data-mzid]:only-child,#theirWeapons>[data-mzid]:only-child{margin-right:auto!important}
-#myArsenalSlot,#theirArsenalSlot{left:calc(50% - (var(--fab-card-size) + 10px)/2)}
-#theirArsenalSlot{top:5%}#myArsenalSlot{bottom:5%}
+.fab-duel-arsenal{
+  --fab-arsenal-inset:calc(var(--fab-hero-inset) - var(--fab-arsenal-size) - var(--fab-arsenal-gap));
+  position:absolute;z-index:21;left:calc(50% - var(--fab-arsenal-size)/2)
+}
+#fab-their-arsenal{top:var(--fab-arsenal-inset)}
+#fab-my-arsenal{bottom:var(--fab-arsenal-inset)}
 
-/* Allies and arena permanents sit just off the central character column. */
-#myArenaSlot,#theirArenaSlot{width:22%;height:calc(var(--fab-card-size) + 10px);border-color:rgba(255,255,255,.055);background:rgba(1,8,10,.17)}
-#myArenaSlot:not(:has([data-mzid])),#theirArenaSlot:not(:has([data-mzid])){width:calc(var(--fab-card-size) + 10px)}
-#theirArenaSlot{right:52%;top:34%}#myArenaSlot{left:52%;bottom:34%}
+/* Compact Arena rows sit beside the equipment, toward the center line. */
+.fab-duel-arena{
+  position:absolute;z-index:22;left:calc(var(--fab-card-size)*2 + 36px);right:max(55%,calc(50% + 187px));
+  overflow:auto;scrollbar-width:thin
+}
+#fab-my-arena{top:calc(50% + 8px)}
+#fab-their-arena{bottom:calc(50% + 8px)}
+.fab-duel-arena [id$="Arena"]{
+  width:max-content;min-width:100%;box-sizing:border-box;padding:3px;flex-wrap:nowrap!important;justify-content:flex-start!important
+}
 
 /* Equal-sized utility slots: graveyard / deck / banish, pitch beside deck. */
 #myDeckSlot,#theirDeckSlot,#myGraveyardSlot,#theirGraveyardSlot,#myBanishSlot,#theirBanishSlot,#myPitchSlot,#theirPitchSlot,#myHeroSlot,#theirHeroSlot{padding:4px}
@@ -110,8 +128,8 @@ html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;f
 .fab-stat:before{display:none}
 .fab-stat>div{display:grid;place-items:center;width:100%;height:100%}
 .fab-stat[data-life]:after{content:attr(data-life);display:grid;place-items:center;position:absolute;inset:0;color:#f4eee1;font-size:18px;font-weight:900;line-height:1}
-#myHealthSlot{left:calc(50% - 20px);bottom:calc(20% - 15px);z-index:27}
-#theirHealthSlot{left:calc(50% - 20px);top:calc(20% + var(--fab-card-size) - 15px);z-index:27}
+#myHealthSlot{left:calc(50% - 20px);bottom:var(--fab-hero-inset);z-index:27}
+#theirHealthSlot{left:calc(50% - 20px);top:calc(var(--fab-hero-inset) + var(--fab-card-size) - 15px);z-index:27}
 #myChiSlot{right:calc(var(--fab-card-size)*2 + 28px);bottom:calc(4% + var(--fab-card-size) + 2px);z-index:27}
 #theirChiSlot{right:calc(var(--fab-card-size)*2 + 28px);top:calc(4% + var(--fab-card-size)*2 - 28px);z-index:27}
 #myResourcesSlot{right:calc(var(--fab-card-size)*1.5 + 15px);bottom:calc(4% + var(--fab-card-size)*1.5 + 3px);z-index:27}
@@ -138,11 +156,21 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
   #myEquipmentSlot{left:4px;transform:scale(.78);transform-origin:left bottom}
   #theirEquipmentSlot{left:4px;transform:scale(.78);transform-origin:left top}
   #myWeaponsSlot,#theirWeaponsSlot{left:calc(50% - 145px);width:290px}
+  .fab-duel-arena{left:calc(var(--fab-card-size) + 4px);right:max(55%,calc(50% + 150px))}
   .fab-floating-window{top:29vh;width:88vw;height:38vh}
 }
 
 @media (max-width:599px){
   #myActionPointsSlot{top:calc(50% + 8px);right:12px;bottom:auto}
+  .fab-duel-arena{right:55%}
+}
+
+@media (max-height:650px){
+  #fab-duel-layout{
+    --fab-card-size:clamp(34px,11vh,68px);
+    --fab-hand-card:clamp(36px,12vh,76px);
+  }
+  #myHandSlot{height:calc(var(--fab-hand-card) + 12px);bottom:0}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -156,17 +184,21 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
 </div>
 <?php
 $zones = [
-  'theirHand' => 'Hand', 'theirArena' => 'Arena', 'theirHero' => 'Hero',
+  'theirHand' => 'Hand', 'theirHero' => 'Hero',
   'theirWeapons' => 'Weapons', 'theirEquipment' => 'Equipment', 'theirDeck' => 'Deck',
-  'theirGraveyard' => 'Graveyard', 'theirArsenal' => 'Arsenal', 'theirPitch' => 'Pitch',
-  'theirSoul' => 'Soul', 'theirBanish' => 'Banish', 'myHand' => 'Hand', 'myArena' => 'Arena', 'myHero' => 'Hero',
+  'theirGraveyard' => 'Graveyard', 'theirPitch' => 'Pitch',
+  'theirSoul' => 'Soul', 'theirBanish' => 'Banish', 'myHand' => 'Hand', 'myHero' => 'Hero',
   'myWeapons' => 'Weapons', 'myEquipment' => 'Equipment', 'myDeck' => 'Deck',
-  'myGraveyard' => 'Graveyard', 'myArsenal' => 'Arsenal', 'myPitch' => 'Pitch', 'mySoul' => 'Soul', 'myBanish' => 'Banish',
+  'myGraveyard' => 'Graveyard', 'myPitch' => 'Pitch', 'mySoul' => 'Soul', 'myBanish' => 'Banish',
 ];
 foreach ($zones as $zone => $label) {
   echo '<div id="' . $zone . 'Slot" class="fab-zone" data-label="' . $label . '"><div id="' . $zone . '"></div></div>';
 }
 ?>
+<div id="fab-their-arsenal" class="fab-arsenal fab-duel-arsenal"></div>
+<div id="fab-my-arsenal" class="fab-arsenal fab-duel-arsenal"></div>
+<div id="fab-their-arena" class="fab-arena fab-duel-arena"></div>
+<div id="fab-my-arena" class="fab-arena fab-duel-arena"></div>
 
 <div id="myHealthSlot" class="fab-zone fab-stat" data-label="Life"><div id="myHealth"></div></div>
 <div id="myChiSlot" title="Chi included in your total resources" class="fab-zone fab-stat" data-label="Chi"><div id="myChi"></div></div>
@@ -283,6 +315,12 @@ function FaBRefreshLungeVisibility() {
   document.body.classList.toggle('fab-lunge-active', !!document.querySelector('.tcg-card-lunge-clone'));
 }
 
+window.SelectionMessageSettings = {
+  embedTargetId: 'fab-selection-prompt',
+  shouldEmbed: function() {
+    return window.SelectionMode?.inlineSpecs?.some(spec => /(?:Hand|Arsenal)$/.test(spec.zone));
+  }
+};
 // Reuse the engine's selection-view hooks for the duel's my/their zone aliases.
 // UPF renders absolute seat zones directly and needs no translation.
 window.swuTwNormalizeSelection = function(specs) {

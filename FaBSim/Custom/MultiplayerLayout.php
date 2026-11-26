@@ -132,8 +132,31 @@
   function makeZone(seat,zone,row){
     const box=document.createElement('section');box.className='fab-upf-zone';box.dataset.zone=zone.name;
     if(zone.name==='ActionPoints')box.classList.add('fab-action-points');
-    const heading=document.createElement('h3');heading.textContent=label(zone.name);box.appendChild(heading);
+    if(zone.name==='Arena')box.classList.add('fab-arena');
+    if(zone.name==='Arsenal')box.classList.add('fab-arsenal');
+    else {const heading=document.createElement('h3');heading.textContent=label(zone.name);box.appendChild(heading);}
     const slot=document.createElement('div');slot.id='p'+seat+zone.name+'Slot';box.appendChild(slot);row.appendChild(box);
+  }
+
+  function renderArsenal(slot, zone, data, size) {
+    slot.innerHTML = data.trim() ? PopulateZone(zone, data, size, './FaBSim/concat', '0', 'Single') : '';
+    const counter = slot.querySelector('.counter-bubble');
+    if (counter?.textContent === '1') counter.remove();
+  }
+
+  function renderDuelCompactZones() {
+    for (const side of ['my', 'their']) {
+      const arsenal = document.getElementById('fab-' + side + '-arsenal');
+      const arena = document.getElementById('fab-' + side + '-arena');
+      const arsenalZone = side + 'Arsenal';
+      const arenaZone = side + 'Arena';
+      const arenaData = String(window[arenaZone + 'Data'] || '');
+      arsenal.onclick = () => ZoneClickHandler(arsenalZone);
+      arena.onclick = () => ZoneClickHandler(arenaZone);
+      const cardSize = arsenal.clientWidth;
+      renderArsenal(arsenal, arsenalZone, String(window[arsenalZone + 'Data'] || ''), cardSize);
+      arena.innerHTML = arenaData.trim() ? PopulateZone(arenaZone, arenaData, cardSize, './FaBSim/concat', '0', 'All') : '';
+    }
   }
   window.RenderFaBMultiplayer=function(response,stride,zones,size,viewerSeat){
     if(typeof window.FaBRefreshGameOver==='function')window.FaBRefreshGameOver();
@@ -143,6 +166,7 @@
     refreshTableControls(active, Number(viewerSeat), seats);
     if(!active){
       if(typeof FaBRefreshOptionalCounters==='function')FaBRefreshOptionalCounters();
+      renderDuelCompactZones();
       renderCombatChain(seats, false);
       renderStack(false, size);
       return;
@@ -183,13 +207,11 @@
       section.classList.toggle('has-priority',!eliminated&&!Number(window.WinnerData)&&Number(seat)===Number(window.PriorityPlayerData));
       section.querySelector('.fab-upf-badges').textContent=eliminated?'Eliminated':'';
     }
-    const compactCardScale=.5;
     seats.forEach(seat=>{
       const section=document.getElementById('fab-seat-'+seat),mine=seat===viewer,summary=!mine&&focusedSeat!==seat;
       const dataByName={};
       // Size against this field's allocated space, not the entire viewport.
       const fieldHeight=(mine?own:opponents).clientHeight;
-      const useCompactCards=mine&&innerWidth>=900;
       // Three side cards, two 9px gaps, two 12px insets and the seat border.
       const fieldCardSize=innerWidth<900?72:Math.max(40,mine
         ? Math.min(160,(fieldHeight-44)/3,section.clientWidth/9)
@@ -197,8 +219,8 @@
       const seatCardSize=summary?(innerWidth<700?40:Math.max(20,Math.min(52,
         (fieldHeight-52)/3.4,(section.clientWidth-24)/9))):fieldCardSize;
       section.style.setProperty('--fab-table-card',seatCardSize+'px');
-      const compactCardSize=useCompactCards?seatCardSize*compactCardScale:seatCardSize;
-      section.style.setProperty('--fab-compact-card',compactCardSize+'px');
+      const compactCardSize=summary?seatCardSize:Math.max(32,Math.round(seatCardSize/2));
+      section.style.setProperty('--fab-arsenal-size',compactCardSize+'px');
       const combatCardSize=section.classList.contains('is-memorial')?(oneSurvivor&&innerWidth<700?32:48)
         :summary&&innerWidth>=700?seatCardSize*1.35:seatCardSize;
       section.style.setProperty('--fab-summary-combat-card',combatCardSize+'px');
@@ -207,7 +229,8 @@
         window[name+'Data']=data;const slot=document.getElementById(name+'Slot');if(!slot)return;slot.onclick=()=>ZoneClickHandler(name);
         const cardSize=zone.name==='Hero'||zone.name==='Weapons'?combatCardSize
           :zone.name==='Arsenal'||zone.name==='Arena'?compactCardSize:seatCardSize;
-        slot.innerHTML=data.trim()?PopulateZone(name,data,cardSize,'./FaBSim/concat','0',zone.mode):'';
+        if(zone.name==='Arsenal')renderArsenal(slot,name,data,cardSize);
+        else slot.innerHTML=data.trim()?PopulateZone(name,data,cardSize,'./FaBSim/concat','0',zone.mode):'';
         if(zone.name==='Equipment'&&typeof FaBArrangeEquipment==='function')FaBArrangeEquipment(name);
         if(!mine)slot.querySelectorAll('button').forEach(button=>button.remove());
         slot.parentElement.dataset.empty=String(!data.trim());if(zone.name==='Temp')slot.parentElement.hidden=!data.trim();
