@@ -1,13 +1,21 @@
-<?php include __DIR__ . '/GameOver.php'; include __DIR__ . '/CombatPanel.php'; include __DIR__ . '/MultiplayerLayout.php'; ?>
+<?php
+$fabHomeHref = '/TCGEngine/SharedUI/Sites/FaBSim/MainMenu.php';
+include __DIR__ . '/GameOver.php';
+include __DIR__ . '/CombatPanel.php';
+include __DIR__ . '/MultiplayerLayout.php';
+?>
 <link rel="stylesheet" href="./FaBSim/Custom/IconTheme.css?v=<?= filemtime(__DIR__ . '/IconTheme.css') ?>">
 <link rel="stylesheet" href="./FaBSim/Custom/Interaction.css?v=<?= filemtime(__DIR__ . '/Interaction.css') ?>">
 <link rel="stylesheet" href="./FaBSim/Custom/Shortcuts.css?v=<?= filemtime(__DIR__ . '/Shortcuts.css') ?>">
 <style>
 #bug-report-button{position:fixed;top:8px;right:8px;z-index:2600}
-@media(min-width:900px){.fab-upf-active #bug-report-button{right:230px}}
+.fab-duel-header{position:fixed;inset:0 0 auto;height:48px;z-index:30;background:#2a2a2a}
+.fab-duel-header a{display:inline-block;margin:5px;padding:3px;border-radius:5px;background:#333;color:#fff;font-size:14px;text-decoration:none}
+.fab-duel-header a:hover{background:#444}
 </style>
-<button id="bug-report-button" class="fab-overlay-button" type="button" onclick="openBugReportModal()">Report Bug</button>
 <div id="fab-duel-layout">
+<header class="fab-duel-header"><a href="<?= $fabHomeHref ?>">Home</a></header>
+<button id="bug-report-button" class="fab-overlay-button" type="button" onclick="openBugReportModal()">Report Bug</button>
 <style>
 :root{
   --fab-gold:#d6aa4d;

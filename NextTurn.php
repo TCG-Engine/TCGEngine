@@ -394,7 +394,7 @@ if (($_GET['folderPath'] ?? '') === 'SWUSim' && !isset($_GET['swuEmbed'])) {
         // it had an icon. Flipping the default to "use the SiteDef whenever it declares one" would
         // brand every board at once — but most SiteDefs still point at the shared gudnakIcon
         // placeholder, so that is a product call, not a refactor. Add roots here as they get real art.
-        $__siteDefFaviconRoots = ['HellbreakDeck', 'SWUSim'];
+        $__siteDefFaviconRoots = ['HellbreakDeck', 'SWUSim', 'FaBSim'];
         $__boardFavicon = in_array($folderPath, $__siteDefFaviconRoots, true)
                           && is_string($__siteDef['branding']['favicon'] ?? null)
           ? $__siteDef['branding']['favicon']

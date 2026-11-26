@@ -60,7 +60,10 @@
     const mountControls = () => {
       const selector = document.body.classList.contains('fab-upf-active') ? '.fab-upf-tools' : '.fab-overlay-toolbar';
       const toolbar = document.querySelector(selector);
-      if (toolbar && dock.parentElement !== toolbar) { toolbar.appendChild(dock); positionPanel(); }
+      if (toolbar && dock.parentElement !== toolbar) {
+        toolbar.insertBefore(dock, toolbar.querySelector('#fab-upf-report-bug'));
+        positionPanel();
+      }
     };
     mountControls();
     new MutationObserver(mountControls).observe(document.body, { attributes: true, attributeFilter: ['class'] });

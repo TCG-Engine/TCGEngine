@@ -1,8 +1,8 @@
 <style>
 #fab-upf-board{display:none}.fab-upf-active #fab-duel-layout{display:none}
-.fab-upf-active #fab-upf-board{display:flex;flex-direction:column;position:fixed;inset:48px 0 0;z-index:40;overflow:auto;padding:12px 20px 60px;gap:12px;color:#eee9de;background:radial-gradient(ellipse at 50% 70%,#243b3b,#101b20 70%);box-sizing:border-box}
-.fab-upf-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.fab-upf-status{margin:0;color:#dcc997;font:600 12px/1.5 system-ui}.fab-upf-tools{display:flex;gap:6px;flex-wrap:wrap}
-#fab-upf-board button{font:600 12px system-ui;border:1px solid #b28c4555;border-radius:6px;background:#17252b;color:#eee4cf;padding:7px 11px;cursor:pointer}#fab-upf-board button:hover,#fab-upf-board button[aria-expanded=true]{background:#b89552;color:#10191e}#fab-upf-board button:focus-visible{outline:2px solid #f6d68b;outline-offset:3px}
+.fab-upf-active #fab-upf-board{display:flex;flex-direction:column;position:fixed;z-index:40;overflow:auto;color:#eee9de;box-sizing:border-box}
+.fab-upf-status{margin:0;color:#dcc997;font:600 12px/1.5 system-ui}
+#fab-upf-board :is(button,.fab-upf-lobby-link){font:600 12px system-ui;border:1px solid #b28c4555;border-radius:6px;background:#17252b;color:#eee4cf;padding:7px 11px;cursor:pointer}#fab-upf-board :is(button,.fab-upf-lobby-link):hover,#fab-upf-board button[aria-expanded=true]{background:#b89552;color:#10191e}#fab-upf-board :is(button,.fab-upf-lobby-link):focus-visible{outline:2px solid #f6d68b;outline-offset:3px}
 .fab-upf-opponents{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-height:210px;flex:0 0 auto}.fab-upf-seat{min-width:0;padding:12px;border:1px solid #78908c40;border-radius:12px;background:linear-gradient(135deg,#1a2b30d9,#111e23e8);box-shadow:0 6px 20px #0003;box-sizing:border-box}.fab-upf-seat.has-priority{border-color:#dfbc6d;box-shadow:0 0 0 1px #dfbc6d55,inset 0 2px #dfbc6d}.fab-upf-seat.is-out{opacity:.55}
 .fab-upf-seat-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.fab-upf-seat h2{margin:0;font:700 14px system-ui;letter-spacing:.03em}.fab-upf-badges{font:600 11px system-ui;color:#eac778;margin-top:3px}.fab-upf-summary{font:500 11px system-ui;color:#a6b9b8;margin:0 0 12px;line-height:1.7}
 .fab-upf-zones{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}.fab-upf-zone{min-width:50px;max-width:100%;padding:6px;border:1px solid #9eb6ae18;border-radius:7px;background:#00000012;box-sizing:border-box}.fab-upf-zone h3{font:600 10px system-ui;letter-spacing:.06em;text-transform:uppercase;color:#91a9a7;margin:0 0 6px}.fab-upf-zone [id$=Wrapper]{position:relative!important;overflow:visible!important;max-width:100%}.fab-upf-zone [data-mzid]{position:relative!important}.fab-upf-zone>div{overflow:auto;max-width:100%}.fab-upf-zone [id$=Hand]{flex-wrap:wrap!important}
@@ -11,7 +11,6 @@
 .fab-upf-zone[data-zone=Health],.fab-upf-zone[data-zone=Resources],.fab-upf-zone[data-zone=Chi],.fab-upf-zone[data-zone=ActionPoints]{font:700 20px system-ui;min-width:70px;background:#0b171c70}.fab-upf-opponents.is-focused{grid-template-columns:minmax(0,1fr)}.fab-upf-seat[hidden],.fab-upf-zone[hidden]{display:none!important}
 .fab-upf-panel{position:fixed;z-index:150;left:15vw;top:24vh;width:min(850px,75vw);max-width:calc(100vw - 20px);max-height:65vh;border:1px solid #ad9056;border-radius:12px;background:#112128fa;box-shadow:0 22px 70px #000a;overflow:hidden;color:#eee9de}.fab-upf-panel[hidden]{display:none}.fab-upf-panel header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#23343a;cursor:grab;touch-action:none;user-select:none}.fab-upf-panel header:active{cursor:grabbing}.fab-upf-panel h2{font:700 14px system-ui;margin:0}.fab-upf-panel header small{font:11px system-ui;color:#a7bab8}.fab-upf-panel button{background:#142329;color:#eee;border:1px solid #9eb6ae55;border-radius:5px;padding:5px 9px;cursor:pointer}
 .fab-upf-panel-body{padding:16px;overflow:auto;max-height:calc(65vh - 65px);box-sizing:border-box}.fab-upf-chain-row{padding:10px 0;border-bottom:1px solid #ffffff16}.fab-upf-chain-row h3{font:600 11px system-ui;color:#d5bd88;margin:0 0 8px}.fab-upf-panel [id$=Wrapper]{overflow:visible!important}.fab-upf-panel [data-mzid]{position:relative!important}.fab-upf-empty{color:#94aaa8;font:13px system-ui}
-.fab-upf-active #macro-card-toast-host{top:8px!important;left:76px!important;z-index:160!important}body.fab-upf-active #chatWidget{top:5px!important;bottom:auto!important;left:auto!important;right:12px!important;width:480px!important;max-width:calc(100vw - 200px)!important;z-index:170!important}
 @media(min-width:1100px){
   .fab-upf-opponents{min-height:22vh}.fab-upf-seat.is-mine{min-height:49vh}.fab-upf-seat.is-mine .fab-upf-summary{display:none}
   .fab-upf-seat.is-mine .fab-upf-zones{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-items:stretch}
@@ -22,24 +21,21 @@
   .is-mine [data-zone=Hand],.is-mine [data-zone=Temp]{grid-column:1/-1}.is-mine [data-zone=Hand]{grid-row:4}
   .is-mine [data-zone=Equipment]>div{max-width:240px;margin:auto}
 }
-@media(max-width:700px){.fab-upf-active #fab-upf-board{inset:92px 0 0;padding:10px 10px 60px}.fab-upf-opponents{gap:6px;min-height:0}.fab-upf-seat{padding:8px}.fab-upf-seat-header{flex-wrap:wrap}.fab-upf-seat h2{font-size:12px}.fab-upf-summary{font-size:10px}.fab-upf-seat.is-summary .fab-upf-zone:not([data-zone=Hero]){display:none}.fab-upf-seat.is-mine{padding:12px}.fab-upf-panel{left:10px;top:20vh;width:calc(100vw - 20px)}body.fab-upf-active #chatWidget{top:44px!important;left:10px!important;right:10px!important;width:calc(100vw - 20px)!important;max-width:none!important}.fab-upf-bar{gap:6px}.fab-upf-panel header small{display:none}.fab-upf-active #macro-card-toast-host{top:94px!important;left:10px!important}.fab-upf-active #macro-card-toast-toggle{position:fixed;top:8px;left:76px}}
+@media(max-width:700px){.fab-upf-opponents{gap:6px;min-height:0}.fab-upf-seat{padding:8px}.fab-upf-seat-header{flex-wrap:wrap}.fab-upf-seat h2{font-size:12px}.fab-upf-summary{font-size:10px}.fab-upf-seat.is-summary .fab-upf-zone:not([data-zone=Hero]){display:none}.fab-upf-seat.is-mine{padding:12px}.fab-upf-panel{left:10px;top:20vh;width:calc(100vw - 20px)}.fab-upf-panel header small{display:none}}
 </style>
 <style><?php readfile(__DIR__ . '/MultiplayerTable.css'); ?></style>
 <main id="fab-upf-board" aria-label="Ultimate Pit Fight">
-  <div class="fab-upf-bar"><p class="fab-upf-status" id="fab-upf-status" aria-live="polite"></p>
-    <nav class="fab-upf-tools" aria-label="Game views">
-      <button type="button" id="fab-upf-home" hidden>All opponents</button>
-      <button type="button" data-fab-panel="stack" aria-controls="fab-upf-stack-panel" aria-expanded="false">Stack <span id="fab-upf-stack-count">0</span></button>
-      <button type="button" data-fab-panel="chain" aria-controls="fab-upf-chain-panel" aria-expanded="false">Combat chain <span id="fab-upf-chain-count">0</span></button>
-    </nav>
-  </div>
+  <nav class="fab-upf-tools" aria-label="Table controls">
+    <a class="fab-upf-lobby-link" href="<?= $fabHomeHref ?>">Home</a>
+    <div id="fab-upf-events-mount"></div>
+    <button type="button" id="fab-upf-home" hidden>All opponents</button>
+    <button type="button" data-fab-panel="stack" aria-controls="fab-upf-stack-panel" aria-expanded="false">Stack <span id="fab-upf-stack-count">0</span></button>
+    <button type="button" data-fab-panel="chain" aria-controls="fab-upf-chain-panel" aria-expanded="false">Combat chain <span id="fab-upf-chain-count">0</span></button>
+    <button type="button" id="fab-upf-report-bug" onclick="openBugReportModal()">Report Bug</button>
+  </nav>
+  <p id="fab-upf-announcement" role="status"></p>
   <div class="fab-upf-opponents" id="fab-upf-opponents"></div><div id="fab-upf-own"></div>
 </main>
-<aside id="fab-upf-sidebar" aria-label="Game activity">
-  <header><small>ULTIMATE PIT FIGHT</small><h2 id="fab-upf-turn-label"></h2><p id="fab-upf-priority-label"></p></header>
-  <section id="fab-upf-events-mount" aria-label="Game events"></section>
-  <section id="fab-upf-chat-mount" aria-label="Table chat"><h3>Table chat</h3></section>
-</aside>
 <section class="fab-upf-panel" id="fab-upf-stack-panel" aria-label="Stack" hidden>
   <header tabindex="0" aria-label="Move stack panel with arrow keys"><h2>Stack <small>Last in, first out · drag to move</small></h2><button type="button" data-fab-close="stack" aria-label="Hide stack">×</button></header>
   <div class="fab-upf-panel-body" id="fab-upf-stack"></div>
@@ -56,23 +52,23 @@
 (function() {
   let lastRender=null, focusedSeat=null;
   const counts={stack:0,chain:0};
-  function mountActivity(){
-    if(!document.body.classList.contains('fab-upf-active'))return;
-    const sidebar=document.getElementById('fab-upf-sidebar');
-    const sidebarParent=innerWidth<900?document.getElementById('fab-upf-board'):document.body;
-    if(sidebar&&sidebarParent&&sidebar.parentElement!==sidebarParent)sidebarParent.appendChild(sidebar);
-    for(const [id,mount] of [['chatWidget','fab-upf-chat-mount'],['macro-card-toast-host','fab-upf-events-mount']]){
-      const widget=document.getElementById(id),target=document.getElementById(mount);
-      if(widget&&target&&widget.parentElement!==target){
-        target.appendChild(widget);
-        if(id==='chatWidget'){
-          const expanded=document.getElementById('chatExpanded');if(expanded)expanded.style.display='flex';
-          const toggle=document.getElementById('chatToggleBtn');if(toggle)toggle.setAttribute('aria-expanded','true');
-        }
+  function mountEvents(active){
+    const mount=document.getElementById('fab-upf-events-mount');
+    if(active && typeof GetMacroCardToastHost==='function'){
+      const host=GetMacroCardToastHost();
+      if(host.parentElement===mount)return;
+      mount.appendChild(host);
+      const toggle=host.querySelector('#macro-card-toast-toggle');
+      if(!toggle.hasAttribute('aria-controls')){
+        const updateExpanded=()=>toggle.setAttribute('aria-expanded',String(host.classList.contains('is-expanded')));
+        toggle.setAttribute('aria-controls','macro-card-toast-log');
+        toggle.addEventListener('click',updateExpanded);
+        updateExpanded();
       }
+    }else if(mount.firstElementChild){
+      document.body.appendChild(mount.firstElementChild);
     }
   }
-  document.addEventListener('DOMContentLoaded',()=>{mountActivity();new MutationObserver(mountActivity).observe(document.body,{childList:true});});
   const label=name=>({CombatChain:'Combat chain',ActionPoints:'Action points',Temp:'Search results',Health:'Life'})[name] || name;
   function raisePanel(panel){document.querySelectorAll('.fab-upf-panel').forEach(p=>p.style.zIndex=p===panel?'151':'150');}
   function panelToggle(kind,open,focus) {
@@ -94,7 +90,7 @@
     lastRender=[response,stride,zones,size,viewerSeat];
     const seats=String(window.SeatOrderData||'12').match(/[1-4]/g)||[];
     const active=seats.length>2;document.body.classList.toggle('fab-upf-active',active);
-    mountActivity();
+    mountEvents(active);
     if(!active){
       if(typeof FaBRefreshOptionalCounters==='function')FaBRefreshOptionalCounters();
       ['stack','chain'].forEach(kind=>panelToggle(kind,false));
@@ -108,6 +104,7 @@
       const viewerIndex=seats.indexOf(viewer),ordered=viewerIndex<0?seats:seats.slice(viewerIndex+1).concat(seats.slice(0,viewerIndex+1));
       ordered.forEach(seat=>{
         const section=document.createElement('section');section.id='fab-seat-'+seat;section.className='fab-upf-seat';
+        if(seat===viewer)section.setAttribute('aria-label','Your field · Player '+seat);
         const header=document.createElement('header');header.className='fab-upf-seat-header';
         const identity=document.createElement('div'),heading=document.createElement('h2');identity.className='fab-upf-identity';heading.textContent='Player '+seat;identity.appendChild(heading);
         const hand=document.createElement('span');hand.className='fab-upf-hand-count';identity.appendChild(hand);
@@ -129,7 +126,6 @@
       const section=document.getElementById('fab-seat-'+seat),mine=seat===viewer,summary=!mine&&focusedSeat!==seat;
       section.hidden=!mine&&focusedSeat!==null&&focusedSeat!==seat;section.classList.toggle('is-summary',summary);section.classList.toggle('is-mine',mine);
       section.classList.toggle('has-priority',Number(seat)===Number(window.PriorityPlayerData));section.classList.toggle('is-out',!live.includes(seat));
-      section.querySelector('h2').textContent=mine?'Your field · Player '+seat:'Player '+seat;
       section.querySelector('.fab-upf-badges').textContent=!live.includes(seat)?'Eliminated':(Number(seat)===Number(window.PriorityPlayerData)?'Priority · ':'')+(Number(seat)===Number(window.TurnPlayerData)?'Active turn':'');
       const dataByName={};
       // Size against this field's allocated space, not the entire viewport.
@@ -188,9 +184,10 @@
       });
       window.FaBRenderChain(view, chainZones, state);
     }
-    document.getElementById('fab-upf-turn-label').textContent=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins':"Player "+window.TurnPlayerData+"'s turn";
-    document.getElementById('fab-upf-priority-label').textContent='Priority: Player '+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');
-    document.getElementById('fab-upf-status').textContent=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins!':'UPF · Turn P'+window.TurnPlayerData+' · Priority P'+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');
+    const announcement=document.getElementById('fab-upf-announcement');
+    const turnText=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins':"Player "+window.TurnPlayerData+"'s turn";
+    const activityText=Number(window.WinnerData)>0?turnText:turnText+'. Priority: Player '+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');
+    if(announcement.textContent!==activityText)announcement.textContent=activityText;
     document.getElementById('fab-upf-chain-status').textContent=state.combatOpen?'Player '+state.attacker+' → Player '+state.defender+' · '+String(state.combatStep||'')+
       (['DAMAGE','RESOLUTION'].includes(state.combatStep)?' · Attack '+(state.attackPower||0)+' / Defense '+(state.defenseValue||0):''):'No active combat chain.';
     const stack=String(window.StackData||''),stackCount=stack.trim()?stack.split('<|>').length:0;

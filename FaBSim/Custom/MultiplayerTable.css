@@ -1,12 +1,27 @@
 /* The legacy FaB table silhouette: equipment left, hero/weapon center, piles right.
    Absolute positioning is local to a seat, so the same surface works when inspecting an opponent. */
-#fab-upf-sidebar { display:none; }
+/* The shared renderer sets the turn overlay's display inline. UPF uses the seat border. */
+.fab-upf-active #turn-miasma-overlay { display:none!important; }
 /* Card art has an inline transparent border; retain the engine's action/choice colors. */
 .fab-upf-active .selectable-card img:not(.counter-image-icon) {
   border-color:var(--highlight-color)!important;
 }
-.fab-upf-active #fab-upf-board { inset:38px 234px 0 0; padding:8px 12px 12px; gap:8px; background:#202224; }
-.fab-upf-bar { min-height:30px; flex:0 0 auto; }
+.fab-upf-active #fab-upf-board { inset:0; padding:8px 12px 12px; gap:8px; background:#202224; }
+.fab-upf-tools { display:flex; flex:0 0 auto; flex-wrap:wrap; align-items:center; gap:6px; }
+.fab-upf-lobby-link { text-decoration:none; }
+#fab-upf-announcement { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+#fab-upf-events-mount { flex:0 0 88px; min-width:0; height:32px; margin-inline-end:auto; }
+#fab-upf-events-mount #macro-card-toast-host { position:relative; inset:auto; align-items:flex-start; width:100%; }
+#fab-upf-events-mount #macro-card-toast-toggle { box-sizing:border-box; justify-content:center; width:100%; height:32px; padding:0 5px; }
+#fab-upf-events-mount #macro-card-toast-log { box-sizing:border-box; width:min(312px,calc(100vw - 88px)); }
+#fab-upf-events-mount .is-expanded > .macro-card-toast { display:none; }
+.fab-upf-active #chatWidget { top:auto!important; bottom:12px!important; left:auto!important; right:12px; max-width:calc(100vw - 24px)!important; }
+.fab-upf-active #chatWidgetControls { flex-wrap:wrap; justify-content:flex-end; }
+.fab-upf-active #chatToastHost { left:auto!important; right:12px; }
+.fab-upf-active #chatComposer { flex:0 0 100%; }
+.fab-upf-active #chatWidget:not(:has(#chatToggleBtn[aria-expanded=true])) #chatComposer,
+.fab-upf-active #cardMotionToggleBtn { display:none; }
+.fab-upf-active #chatLog { max-height:40vh; }
 .fab-upf-status { color:#ddd5c6; }
 .fab-upf-opponents { min-height:0!important; flex:0 0 32%; gap:8px; }
 #fab-upf-own { display:flex; flex:1 0 auto; min-height:52%; }
@@ -15,6 +30,7 @@
 .fab-upf-seat.has-priority { box-shadow:inset 0 0 0 1px #d4b16b88; border-color:#d4b16b77; }
 .fab-upf-seat:not(.is-summary) { min-height:390px; }
 .fab-upf-seat:not(.is-summary) .fab-upf-seat-header { position:absolute; bottom:4px; left:8px; right:8px; z-index:4; margin:0; pointer-events:none; }
+.fab-upf-seat.is-mine .fab-upf-seat-header { display:none; }
 .fab-upf-seat:not(.is-summary) .fab-upf-seat-header button { pointer-events:auto; }
 .fab-upf-seat:not(.is-summary) h2 { font:600 12px system-ui; background:#242527cc; padding:7px 12px; border:1px solid #ffffff20; border-radius:3px; }
 .fab-upf-seat:not(.is-summary) .fab-upf-badges,.fab-upf-seat:not(.is-summary) .fab-upf-summary { display:none; }
@@ -105,8 +121,6 @@
   .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Weapons][data-empty=true],
   .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Equipment][data-empty=true] { display:none!important; }
 }
-.fab-upf-active #fab-upf-sidebar { display:flex; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:222px; z-index:100; background:#292929; color:#ddd; padding:12px 8px; box-sizing:border-box; gap:12px; border-left:1px solid #ffffff16; font:12px system-ui; }
-#fab-upf-sidebar header small { color:#9b9b9b; font-size:9px; letter-spacing:.08em; }
 .fab-upf-seat.is-summary [data-zone=Arsenal] .counter-bubble { display:none; }
 .fab-upf-seat:not(.is-summary) .fab-upf-zone[data-zone=Health],
 .fab-upf-seat:not(.is-summary) .fab-upf-zone[data-zone=Resources] { display:none; }
@@ -134,22 +148,6 @@
   .fab-upf-seat.is-summary [data-zone=Weapons] { width:calc(var(--fab-summary-combat-card)*3.2); left:calc(50% - var(--fab-summary-combat-card)*1.6); }
   .fab-upf-seat.is-summary [data-zone=Arena] { top:calc(var(--fab-table-card) + var(--fab-summary-combat-card) + 8px); }
 }
-#fab-upf-sidebar h2 { font-size:16px; margin:8px 0; } #fab-upf-sidebar p { font-size:11px; color:#bbb; margin:0; } #fab-upf-sidebar h3 { font-size:12px; margin:0 0 6px; }
-#fab-upf-events-mount { min-height:0; flex:1; overflow:auto; }
-#fab-upf-chat-mount { flex:0 0 auto; min-height:0; }
-body.fab-upf-active #fab-upf-sidebar #macro-card-toast-host { position:static!important; display:flex; width:100%; gap:8px; pointer-events:auto; }
-body.fab-upf-active #fab-upf-sidebar #macro-card-toast-toggle { position:static; box-shadow:none; width:100%; }
-body.fab-upf-active #fab-upf-sidebar #macro-card-toast-log { display:flex!important; flex-direction:column; width:auto; max-height:none; padding:4px; box-shadow:none; border:0; background:#333; }
-#fab-upf-sidebar .macro-card-toast { display:none; }
-#fab-upf-sidebar .macro-card-toast-log-entry:first-child { flex-direction:column; align-items:flex-start; padding:8px; }
-#fab-upf-sidebar .macro-card-toast-log-entry:first-child img { width:92px; height:128px; align-self:center; }
-body.fab-upf-active #fab-upf-sidebar #chatWidget { position:static!important; width:100%!important; max-width:none!important; }
-#fab-upf-sidebar #chatExpanded { display:flex!important; }
-#fab-upf-sidebar #chatLog { height:130px!important; }
-#fab-upf-sidebar #chatWidgetControls { flex-wrap:wrap; }
-#fab-upf-sidebar #chatComposer { flex:1 0 100%; }
-#fab-upf-sidebar #chatToggleBtn { display:none; }
-#fab-upf-sidebar #cardMotionToggleBtn { margin-top:6px!important; }
 @media(min-width:900px) {
   /* Both fields share the available board height, including in inspection mode. */
   .fab-upf-opponents { flex:.48 1 0; min-height:0!important; }
@@ -159,9 +157,7 @@ body.fab-upf-active #fab-upf-sidebar #chatWidget { position:static!important; wi
   .fab-upf-seat:not(.is-summary) .fab-upf-zones { flex:1; height:auto; min-height:0; }
 }
 @media(max-width:899px) {
-  .fab-upf-active #fab-upf-board { right:0; padding:8px; inset-block-start:38px; }
-  .fab-upf-active #fab-upf-sidebar { position:relative; width:auto; margin-top:0; min-height:420px; flex:0 0 auto; }
-  .fab-upf-active #fab-upf-board { position:fixed; inset:38px 0 0; margin-top:0; overflow:auto; }
+  .fab-upf-active #fab-upf-board { padding:8px; }
   .fab-upf-opponents { min-height:180px!important; }
   .fab-upf-seat:not(.is-summary) { min-height:420px; }
   .fab-upf-seat:not(.is-summary) .fab-upf-zones { min-height:420px; }
