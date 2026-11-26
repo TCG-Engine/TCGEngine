@@ -13,7 +13,7 @@
       'PrivacyPolicy'=>__DIR__.'/legal/PrivacyPolicy.html',
     ],
   ],
-  'waitingRoom'=>['adapter'=>'FaBSim/LobbyAdapter.php'],
+  'waitingRoom'=>['adapter'=>'FaBSim/LobbyAdapter.php','headerTemplate'=>__DIR__.'/LobbyHeader.php','compact'=>true],
   'deckLibrary'=>['storage'=>'local','localStorageKey'=>'tcgengine:savedDecks:FaBSim','emptyText'=>'No saved decks yet.'],
   'profile'=>['sections'=>['welcome'],'oauthAppLabel'=>'FaBSim','discordOAuth'=>true],
 ];

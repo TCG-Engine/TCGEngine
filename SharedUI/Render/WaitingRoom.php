@@ -303,6 +303,19 @@ function _WaitingRoomMarkup(array $cfg): string {
     $libBlock = $lib === '' ? '' :
         '<div id="wr-deck-library" style="margin-bottom:8px;">' . $lib . '</div>';
     $css = _WaitingRoomStyles();
+    $compact = !empty($cfg['compact']);
+    $headerInvite = $compact ? '<div id="wr-invite"></div>' : '';
+    $belowHeaderInvite = $compact ? '' : '<div id="wr-invite" style="margin-bottom:16px;"></div>';
+    $playerCount = <<<'HTML'
+<span class="wr-count" title="Players in this lobby">
+          <img class="wr-count-icon" src="/TCGEngine/Assets/Icons/people-icon.png" alt="Players" width="18" height="18">
+          <span id="wr-count-n">-</span>
+        </span>
+HTML;
+    $actionsRight = '<div id="wr-actions-right"></div>';
+    if ($compact) $actionsRight = '<div class="wr-actions-end">' . $playerCount . $actionsRight . '</div>';
+    $statusCount = $compact ? '' : $playerCount;
+    $hintRole = $compact ? ' role="status"' : '';
     // Pinned LEFT, with the room itself in the remaining space. align-items:flex-start so the panel's
     // sticky positioning has something to stick within rather than being stretched to row height.
     $chat = RenderChatPanel(['mode' => 'chat', 'title' => 'CHAT', 'folderPath' => $cfg['rootName']]);
@@ -322,10 +335,11 @@ function _WaitingRoomMarkup(array $cfg): string {
     <div id="wr-root" data-root-name="{$root}" data-state="loading">
       <div class="wr-head">
         <h2 id="wr-title" style="margin:0;">Lobby</h2>
+        {$headerInvite}
         <div id="wr-head-actions"></div>
       </div>
       <div id="wr-state" style="margin-bottom:12px;"></div>
-      <div id="wr-invite" style="margin-bottom:16px;"></div>
+      {$belowHeaderInvite}
       <div id="hg-root"></div>
       <div id="lt-root"></div>
       <div id="wr-roster" style="margin-bottom:16px;"></div>
@@ -362,14 +376,11 @@ function _WaitingRoomMarkup(array $cfg): string {
       </div>
           <div id="wr-actions-left"></div>
         </div>
-        <div id="wr-actions-right"></div>
+        {$actionsRight}
       </div>
       <div id="wr-status" class="wr-status">
-        <span class="wr-count" title="Players in this lobby">
-          <img class="wr-count-icon" src="/TCGEngine/Assets/Icons/people-icon.png" alt="Players" width="18" height="18">
-          <span id="wr-count-n">-</span>
-        </span>
-        <span id="wr-hint"></span>
+        {$statusCount}
+        <span id="wr-hint"{$hintRole}></span>
       </div>
     </div>
   </div>
@@ -384,6 +395,7 @@ HTML;
 // the only server-injected values are prepended as JSON above it.
 function _WaitingRoomScript(array $cfg): string {
     $boot = 'window.WR_ROOT_NAME = ' . json_encode((string)$cfg['rootName']) . ';';
+    if (!empty($cfg['compact'])) $boot .= 'window.WR_COMPACT = true;';
     $body = <<<'JS'
 (function () {
   'use strict';
@@ -403,6 +415,7 @@ function _WaitingRoomScript(array $cfg): string {
   var POLL_MS = 1500;
 
   var ROOT = window.WR_ROOT_NAME;
+  var compact = window.WR_COMPACT === true;
   var lobbyID = '', inviteCode = '', myPlayerID = 0, pollTimer = null, navigating = false;
   // Whether WE hold the host seat. Only the host is offered the Remove control, and removal is the
   // only way a seat leaves a private room now.
@@ -511,8 +524,15 @@ function _WaitingRoomScript(array $cfg): string {
       ? '<button type="button" class="btn wr-kick" data-kick="' + entry.playerID + '"' +
         (kickWait > 0 ? ' disabled title="A player can be removed one minute after they join"' : '') + '>' +
         kickLabel(kickWait) + '</button>' : '';
-    if (entry.botProfile) deck = '<span style="font-size:12px;">' + esc((botProfiles[entry.botProfile] || {}).description || '') + '</span>';
-    return '<div class="wr-seat-label">Seat ' + seatNo + '</div>' +
+    var label = '<div class="wr-seat-label">Seat ' + seatNo + '</div>';
+    var description = bp.description ? '<span class="wr-seat-description" style="font-size:12px;">' + esc(bp.description) + '</span>' : '';
+    if (compact) {
+      return '<div class="wr-seat-heading">' + label +
+             '<div class="wr-seat-who">' + esc(who) + '</div>' + pill + away + kick +
+             '</div>' + strip(entry) + (decksPerSeat > 1 ? strip({ identity: entry.identity2 }) : '') + description;
+    }
+    if (entry.botProfile) deck = '<span style="font-size:12px;">' + esc(bp.description || '') + '</span>';
+    return label +
            '<div class="wr-seat-who">' + esc(who) + kick + '</div>' + strip(entry) +
            (decksPerSeat > 1 ? strip({ identity: entry.identity2 }) : '') +
            '<div class="wr-seat-foot">' + pill + away + deck + '</div>';
@@ -673,9 +693,12 @@ function _WaitingRoomScript(array $cfg): string {
     var profiles = Object.keys(botProfiles);
     if (!iAmHost || d.state !== 'open' || !profiles.length) return 'Waiting…';
     if (botsTakeDecks()) return fillButton(seat, '');
-    return '<label>Bot <select aria-label="Bot type">' + profiles.map(function (id) {
+    var select = '<select aria-label="Bot type">' + profiles.map(function (id) {
       return '<option value="' + esc(id) + '">' + esc(botProfiles[id].name) + '</option>';
-    }).join('') + '</select></label> <button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
+    }).join('') + '</select>';
+    var add = '<button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
+    if (compact) return '<div class="wr-bot-picker">' + select + add + '</div>';
+    return '<label>Bot ' + select + '</label> ' + add;
   }
 
   // The "Fill Seat with Bot" popup (owner Decision 3, SWUSim/docs/todo-twinsuns-fill-bot.md). Top to bottom: paste a
@@ -826,9 +849,11 @@ function _WaitingRoomScript(array $cfg): string {
     // private presentation, which is the shape this page has always had.
     var isPublicRoom = d.isPrivate === false;
     var label = isPublicRoom ? 'Copy Link' : 'Copy Invite Link';
-    host.innerHTML = (isPublicRoom ? '' : 'Invite: <strong>' + esc(d.inviteCode) + '</strong> ') +
+    var code = 'Invite: <strong>' + esc(d.inviteCode) + '</strong>';
+    if (compact) code = '<span class="wr-invite-code">' + code + '</span>';
+    host.innerHTML = (isPublicRoom ? '' : code + ' ') +
                      '<button id="wr-copy" type="button" class="btn"' +
-                     (isPublicRoom ? '' : ' style="margin-left:8px;"') + '>' + esc(label) + '</button>';
+                     (isPublicRoom || compact ? '' : ' style="margin-left:8px;"') + '>' + esc(label) + '</button>';
     el('wr-copy').onclick = function () {
       var b = el('wr-copy');
       // Never a native dialog — StyledDialog.js loads on every SiteDef site (Head.php) and provides
@@ -955,7 +980,7 @@ function _WaitingRoomScript(array $cfg): string {
       // "4/4  This room is full (4/4)" reads as noise. The COUNT belongs to the icon; this line's job
       // is what it MEANS and what happens next. (The server's refusal message does name the numbers —
       // it is shown with no icon beside it.)
-      el('wr-hint').textContent = full
+      el('wr-hint').textContent = compact ? '' : full
         ? 'This room is full. Waiting for a seat to open — you will be able to join as soon as one does.'
         : 'Pick a deck to take a seat.';
       // The spectator promise, and it is a PROMISE the server keeps: if the host starts before a seat
@@ -1011,7 +1036,7 @@ function _WaitingRoomScript(array $cfg): string {
     // the voice of a growth prompt. The seat-count icon and the empty tiles carry "you are early"
     // without anyone being told to do anything.
     // Each blocker is its own sentence; a bare one gets its full stop, so two never read as "ready.; Player 2".
-    el('wr-hint').textContent = blockers.length
+    el('wr-hint').textContent = compact ? '' : blockers.length
       ? blockers.map(function (b) { return /[.!?]$/.test(b) ? b : b + '.'; }).join(' ')
       : (isHost ? 'Everyone is ready — press Start.' : 'Everyone is ready — waiting for the host.');
     el('wr-ready').onclick = function () { doSetReady(!amReady); };

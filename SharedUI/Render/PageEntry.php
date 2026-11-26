@@ -145,9 +145,14 @@ function RenderSitePage(string $site, string $page): void {
                 header('Location: ./MainMenu.php');
                 exit();
             }
-            echo RenderMenuBar($def, BuildAuthContext());
-            echo "\n";
-            echo RenderHeader($def);
+            $headerTemplate = $def['waitingRoom']['headerTemplate'] ?? null;
+            if ($headerTemplate !== null) {
+                require $headerTemplate;
+            } else {
+                echo RenderMenuBar($def, BuildAuthContext());
+                echo "\n";
+                echo RenderHeader($def);
+            }
             echo "\n";
             RenderWaitingRoom($def);
             echo "\n";
