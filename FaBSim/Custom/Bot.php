@@ -89,7 +89,8 @@ function FaBBotAct(int $p): bool {
             if(FaBIsArakniBot($p))$candidates[]=[FaBArakniBlockScore($p,$o,$z),'BLOCK',$ref];
             if(!FaBIsMaxxBot($p)&&!FaBIsUzuriBot($p)&&!FaBIsArakniBot($p)&&!FaBIsDromaiBot($p)&&!$preserveEquipment&&$remaining>0&&$defense>0&&(intval(GetHealth($p))<9||$remaining>=4||$z==='Equipment'))$candidates[]=[min($remaining,$defense)*3-$keep-($z==='Equipment'?2:0),'BLOCK',$ref];
         }
-        if(CanPlayCard($p,$ref)){
+        // A chain can remain open through resolution after its defender is eliminated.
+        if(CanPlayCard($p,$ref)&&(!FaBHasType($o,'Attack')||FaBProfessorAttackTargets($p,intval($o->UniqueID)))){
             $v=$keep+2;
             if(FaBWTRIsAttackAction($o)){
                 $go=FaBAttackHasGoAgain(array_replace($s,['attacker'=>$p]),$o);
@@ -153,5 +154,5 @@ function ProcessBotControllerStep($requestingPlayer=0,$folderPath='',$gameNameOv
     $p=BotControllerPendingPlayerForClient();if(!$p)return ['success'=>true,'applied'=>false,'retryable'=>false];
     global $playerID;$previous=$playerID;$playerID=$p;
     try{$applied=FaBBotAct($p);if($applied)GameAfterEngineAction([],[]);}finally{$playerID=$previous;}
-    return ['success'=>$applied,'applied'=>$applied,'writeGamestate'=>$applied,'updateCache'=>$applied,'retryable'=>false,'message'=>$applied?'':'No supported legal bot action.'];
+    return ['success'=>$applied,'applied'=>$applied,'persistInWrapper'=>$applied,'retryable'=>false,'message'=>$applied?'':'No supported legal bot action.'];
 }

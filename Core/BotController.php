@@ -7,6 +7,8 @@ const BOT_CONTROLLER_PAYLOAD_PREFIX = 'BOTCONTROLLER:';
 // Games opt in by defining GameBotControllerMode(), GetBotControllerPlayers(),
 // BotControllerPendingPlayerForClient(), and ProcessBotControllerStep(). The
 // shared client never needs the controlled seats' authentication credentials.
+// A controller that applies a move outside EngineExecuteLoadedAction() runs
+// its own GameAfterEngineAction hook and returns persistInWrapper to publish it.
 
 function NormalizeBotControllerPlayers($players) {
   if (!is_array($players)) return [];
